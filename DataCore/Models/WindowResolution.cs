@@ -18,7 +18,7 @@ public class WindowResolution
 
 	public ObservableCollection<string> GetItems()
 	{
-		return new ObservableCollection<string>()
+		return new()
 		{
 			"Максимальное",
 			"800x600",

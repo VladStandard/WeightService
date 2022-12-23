@@ -16,13 +16,17 @@ using System.Xml.Linq;
 using DataCore.Sql.Tables;
 using WebApiCore.Models;
 using WebApiCore.Models.WebResponses;
-using System.Drawing.Drawing2D;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Brands;
+using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
+using System;
 
 namespace WebApiCore.Utils;
 
+/// <summary>
+/// Web API Controller helper.
+/// </summary>
 public class ControllerHelper
 {
     #region Design pattern "Lazy Singleton"
@@ -36,9 +40,7 @@ public class ControllerHelper
 
     #region Public and private fields, properties, constructor
 
-    public DataContextModel DataContext { get; } = new();
-
-    public ControllerHelper() { }
+    private DataContextModel DataContext { get; } = new();
 
     #endregion
 
@@ -85,14 +87,11 @@ public class ControllerHelper
         }
     }
 
-    //private ContentResult NewResponse1CCore(ISessionFactory sessionFactory, Action<Response1CModel> action,
-    //        string formatString, bool isTransaction)
     private ContentResult NewResponse1CCore<T>(ISessionFactory sessionFactory, Action<T> action,
-            string formatString, bool isTransaction) where T : SerializeBase, new()
+		string formatString, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
         using ISession session = sessionFactory.OpenSession();
         using ITransaction transaction = session.BeginTransaction();
-        HttpStatusCode httpStatusCode = HttpStatusCode.OK;
         T response = new();
 
         try
@@ -116,7 +115,7 @@ public class ControllerHelper
     public ContentResult NewResponse1CFromQuery(ISessionFactory sessionFactory, string query,
         SqlParameter? sqlParameter, string formatString, bool isTransaction)
     {
-        return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
+        return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
         {
             if (!string.IsNullOrEmpty(query))
             {
@@ -156,7 +155,7 @@ public class ControllerHelper
 
     public ContentResult NewResponse1CBrandsFromAction(ISessionFactory sessionFactory, XElement request, string formatString)
     {
-        return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
+        return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
@@ -178,32 +177,33 @@ public class ControllerHelper
         }, formatString, false);
     }
 
-    //public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end,  string formatString, bool isTransaction)
-    //{
-    //    return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
-    //    {
-            
-    //        List<SqlFieldFilterModel> sqlFilters = new()
-    //        {
-    //            new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, start),
-    //            new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, end),
-    //        };
+    [Obsolete(@"Deprecated method")]
+    public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end, string formatString, bool isTransaction)
+    {
+        return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+        {
 
-    //        SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
-    //        List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
+            List<SqlFieldFilterModel> sqlFilters = new()
+            {
+                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, start),
+                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, end),
+            };
 
-    //       // ResponseBarCodeModels barCodes = new(barcodesDb);
-    //        // response.SerializeAsXmlString<BarCodeModel>(false);
+            SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
+            List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
 
-    //    }, formatString, isTransaction);
-    //}
+            // ResponseBarCodeModels barCodes = new(barcodesDb);
+            // response.SerializeAsXmlString<BarCodeModel>(false);
+
+        }, formatString, isTransaction);
+    }
 
     private void AddResponse1CBrand(Response1CModel response, List<BrandModel> listDb, BrandModel itemInput)
     {
         try
         {
             (bool isOk, Exception? exception) resultDbStore;
-            BrandModel? itemDb = listDb.Where(x => x.IdentityValueUid.Equals(itemInput.IdentityValueUid)).FirstOrDefault();
+            BrandModel? itemDb = listDb.FirstOrDefault(x => x.IdentityValueUid.Equals(itemInput.IdentityValueUid));
             // Find duplicate field "GUID".
             if (itemDb is not null && itemDb.IdentityIsNotNew)
             {
@@ -217,7 +217,7 @@ public class ControllerHelper
             else
             {
                 // Find the duplicate field "Code".
-                itemDb = listDb.Where(x => x.Code.Equals(itemInput.Code)).FirstOrDefault();
+                itemDb = listDb.FirstOrDefault(x => x.Code.Equals(itemInput.Code));
                 if (itemDb is not null && itemDb.IdentityIsNotNew)
                 {
                     resultDbStore = DataContext.DataAccess.Delete(itemDb);
@@ -241,12 +241,12 @@ public class ControllerHelper
         }
     }
 
-    private void AddResponse1CItem<T>(Response1CModel response, List<T> listDb, T itemInput) where T : SqlTableBase, new()
+    private void AddResponse1CItem<T>(Response1CModel response, IReadOnlyCollection<T> listDb, T itemInput) where T : SqlTableBase, new()
     {
         try
         {
             (bool isOk, Exception? exception) resultDbStore;
-            T? itemDb = listDb.Where(x => x.IdentityValueUid.Equals(itemInput.IdentityValueUid)).FirstOrDefault();
+            T? itemDb = listDb.FirstOrDefault(x => x.IdentityValueUid.Equals(itemInput.IdentityValueUid));
             // Find duplicate field "GUID".
             if (itemDb is not null && itemDb.IdentityIsNotNew)
             {
@@ -268,8 +268,8 @@ public class ControllerHelper
                         if (itemInput is BrandModel brandInput)
                         {
                             itemInputCode = brandInput.Code;
-                            BrandModel? itemCast = listDb.Cast<BrandModel>()
-                                .Where(x => x.Code.Equals(itemInputCode)).FirstOrDefault();
+                            BrandModel? itemCast = listDb
+	                            .Cast<BrandModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
                             if (itemCast is T itemT)
                                 itemDb = itemT;
                         }
@@ -278,8 +278,8 @@ public class ControllerHelper
                         if (itemInput is NomenclatureGroupModel nomenclatureGroupInput)
                         {
                             itemInputCode = nomenclatureGroupInput.Code;
-                            NomenclatureGroupModel? itemCast = listDb.Cast<NomenclatureGroupModel>()
-                                .Where(x => x.Code.Equals(itemInputCode)).FirstOrDefault();
+                            NomenclatureGroupModel? itemCast = listDb
+	                            .Cast<NomenclatureGroupModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
                             if (itemCast is T itemT)
                                 itemDb = itemT;
                         }
@@ -345,46 +345,46 @@ public class ControllerHelper
             {
                 brand.ParseResult.Status = ParseStatus.Success;
                 // Guid.
-                if (Guid.TryParse(GetAttributeValue(node, "Guid"), out Guid uid))
+                if (Guid.TryParse(GetXmlAttributeValue(node, "Guid"), out Guid uid))
                 {
                     brand.IdentityValueUid = uid;
                 }
                 else
                 {
                     brand.ParseResult.Status = ParseStatus.Error;
-                    brand.ParseResult.Exception = $"Guid is Empty!";
+                    brand.ParseResult.Exception = "Guid is Empty!";
                     //continue;
                 }
                 if (brand.IdentityValueUid.Equals(Guid.Empty))
                 {
                     brand.ParseResult.Status = ParseStatus.Error;
-                    brand.ParseResult.Exception = $"Guid is Empty!";
+                    brand.ParseResult.Exception = "Guid is Empty!";
                     //continue;
                 }
 
                 // IsMarked.
-                SetItemPropertyFromAttribute(node, brand, nameof(brand.IsMarked));
+                SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.IsMarked));
 
                 // Name.
-                brand.Name = GetAttributeValue(node, nameof(brand.Name));
+                brand.Name = GetXmlAttributeValue(node, nameof(brand.Name));
                 if (string.IsNullOrEmpty(brand.Name))
                 {
                     brand.ParseResult.Status = ParseStatus.Error;
-                    brand.ParseResult.Exception = $"Name is Empty!";
+                    brand.ParseResult.Exception = "Name is Empty!";
                     //continue;
                 }
 
                 // Code.
-                brand.Code = GetAttributeValue(node, nameof(brand.Code));
+                brand.Code = GetXmlAttributeValue(node, nameof(brand.Code));
                 if (string.IsNullOrEmpty(brand.Code))
                 {
                     brand.ParseResult.Status = ParseStatus.Error;
-                    brand.ParseResult.Exception = $"Code is Empty!";
+                    brand.ParseResult.Exception = "Code is Empty!";
                     //continue;
                 }
 
                 if (string.IsNullOrEmpty(brand.ParseResult.Exception))
-                    brand.ParseResult.Message = $"Is success";
+                    brand.ParseResult.Message = "Is success";
             }
             catch (Exception ex)
             {
@@ -414,30 +414,30 @@ public class ControllerHelper
             {
                 nomenclatureGroup.ParseResult.Status = ParseStatus.Success;
                 // Guid.
-                if (Guid.TryParse(GetAttributeValue(node, "Guid"), out Guid uid))
+                if (Guid.TryParse(GetXmlAttributeValue(node, "Guid"), out Guid uid))
                 {
                     nomenclatureGroup.IdentityValueUid = uid;
                 }
                 else
                 {
                     nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
-                    nomenclatureGroup.ParseResult.Exception = $"Guid is Empty!";
+                    nomenclatureGroup.ParseResult.Exception = "Guid is Empty!";
                     //continue;
                 }
                 if (nomenclatureGroup.IdentityValueUid.Equals(Guid.Empty))
                 {
                     nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
-                    nomenclatureGroup.ParseResult.Exception = $"Guid is Empty!";
+                    nomenclatureGroup.ParseResult.Exception = "Guid is Empty!";
                     //continue;
                 }
 
                 // Set properties.
-                SetItemPropertyFromAttribute(node, nomenclatureGroup, nameof(nomenclatureGroup.IsMarked));
-                SetItemPropertyFromAttribute(node, nomenclatureGroup, nameof(nomenclatureGroup.Name));
-                SetItemPropertyFromAttribute(node, nomenclatureGroup, "Code");
+                SetItemPropertyFromXmlAttribute(node, nomenclatureGroup, nameof(nomenclatureGroup.IsMarked));
+                SetItemPropertyFromXmlAttribute(node, nomenclatureGroup, nameof(nomenclatureGroup.Name));
+                SetItemPropertyFromXmlAttribute(node, nomenclatureGroup, "Code");
 
                 if (string.IsNullOrEmpty(nomenclatureGroup.ParseResult.Exception))
-                    nomenclatureGroup.ParseResult.Message = $"Is success";
+                    nomenclatureGroup.ParseResult.Message = "Is success";
             }
             catch (Exception ex)
             {
@@ -452,12 +452,66 @@ public class ControllerHelper
         return nomenclatureGroups;
     }
 
-    private void SetItemPropertyFromAttribute<T>(XmlNode node, T item, string property) where T : SqlTableBase, new()
+    [Obsolete(@"Deprecated method")]
+    private List<NomenclatureModel> GetNomenclatureList(XElement xml)
+    {
+        List<NomenclatureModel> nomenclatures = new();
+        XmlDocument xmlDocument = new();
+        xmlDocument.LoadXml(xml.ToString());
+        if (xmlDocument.DocumentElement is null) return nomenclatures;
+
+        XmlNodeList list = xmlDocument.DocumentElement.GetElementsByTagName("Nomenclature");
+        foreach (XmlNode node in list)
+        {
+	        NomenclatureModel nomenclature = new();
+            try
+            {
+                nomenclature.ParseResult.Status = ParseStatus.Success;
+                // Guid.
+                if (Guid.TryParse(GetXmlAttributeValue(node, "Guid"), out Guid uid))
+                {
+                    nomenclature.IdentityValueUid = uid;
+                }
+                else
+                {
+                    nomenclature.ParseResult.Status = ParseStatus.Error;
+                    nomenclature.ParseResult.Exception = "Guid is Empty!";
+                    //continue;
+                }
+                if (nomenclature.IdentityValueUid.Equals(Guid.Empty))
+                {
+                    nomenclature.ParseResult.Status = ParseStatus.Error;
+                    nomenclature.ParseResult.Exception = "Guid is Empty!";
+                    //continue;
+                }
+
+                // Set properties.
+                SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.IsMarked));
+                SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.Name));
+                SetItemPropertyFromXmlAttribute(node, nomenclature, "Code");
+
+                if (string.IsNullOrEmpty(nomenclature.ParseResult.Exception))
+                    nomenclature.ParseResult.Message = "Is success";
+            }
+            catch (Exception ex)
+            {
+                nomenclature.ParseResult.Status = ParseStatus.Error;
+                nomenclature.ParseResult.Exception = ex.Message;
+                if (ex.InnerException is not null)
+                    nomenclature.ParseResult.InnerException = ex.InnerException.Message;
+            }
+            nomenclatures.Add(nomenclature);
+        }
+
+        return nomenclatures;
+    }
+
+    private void SetItemPropertyFromXmlAttribute<T>(XmlNode node, T item, string property) where T : SqlTableBase, new()
     {
         switch (property)
         {
             case nameof(item.IsMarked):
-                string isMarkedStr = GetAttributeValue(node, property);
+                string isMarkedStr = GetXmlAttributeValue(node, property);
                 switch (isMarkedStr)
                 {
                     case "0":
@@ -475,7 +529,7 @@ public class ControllerHelper
                 }
                 break;
             case nameof(item.Name):
-                item.Name = GetAttributeValue(node, property);
+                item.Name = GetXmlAttributeValue(node, property);
                 if (string.IsNullOrEmpty(item.Name))
                 {
                     item.ParseResult.Status = ParseStatus.Error;
@@ -486,7 +540,7 @@ public class ControllerHelper
                 switch (item)
                 {
                     case BrandModel brand:
-                        brand.Code = GetAttributeValue(node, property);
+                        brand.Code = GetXmlAttributeValue(node, property);
                         if (string.IsNullOrEmpty(brand.Code))
                         {
                             brand.ParseResult.Status = ParseStatus.Error;
@@ -494,7 +548,7 @@ public class ControllerHelper
                         }
                         break;
                     case NomenclatureGroupModel nomenclatureGroup:
-                        nomenclatureGroup.Code = GetAttributeValue(node, property);
+                        nomenclatureGroup.Code = GetXmlAttributeValue(node, property);
                         if (string.IsNullOrEmpty(nomenclatureGroup.Code))
                         {
                             nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
@@ -506,11 +560,10 @@ public class ControllerHelper
         }
     }
 
-    private string GetAttributeValue(XmlElement? xmlElement, string nameAttribute)
+    private string GetXmlAttributeValue(XmlElement? xmlElement, string nameAttribute)
     {
         string result = string.Empty;
         if (xmlElement is null) return result;
-        if (xmlElement.Attributes is null) return result;
 
         foreach (XmlAttribute? attribute in xmlElement.Attributes)
         {
@@ -525,7 +578,7 @@ public class ControllerHelper
         return result;
     }
 
-    private string GetAttributeValue(XmlNode? xmlNode, string nameAttribute)
+    private string GetXmlAttributeValue(XmlNode? xmlNode, string nameAttribute)
     {
         string result = string.Empty;
         if (xmlNode is null) return result;
@@ -546,7 +599,7 @@ public class ControllerHelper
     
     public ContentResult NewResponseBarCodes(ISessionFactory sessionFactory, DateTime dtStart, DateTime dtEnd, string formatString)
     {
-        return NewResponse1CCore<ResponseBarCodeListModel>(sessionFactory, (response) =>
+        return NewResponse1CCore<ResponseBarCodeListModel>(sessionFactory, response =>
         {
             List<SqlFieldFilterModel> sqlFilters = new()
             {
@@ -562,9 +615,9 @@ public class ControllerHelper
         }, formatString, false);
     }
 
-    public ContentResult NewResponse1CNomenclaturesGroupsFromAction(ISessionFactory sessionFactory, XElement request, string formatString)
+    public ContentResult NewResponse1CNomenclaturesGroups(ISessionFactory sessionFactory, XElement request, string formatString)
     {
-        return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
+        return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<NomenclatureGroupModel> nomenclaturesGroupsDb = DataContext.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);
@@ -579,7 +632,8 @@ public class ControllerHelper
                         AddResponse1CItem(response, nomenclaturesGroupsDb, nomenclatureGroupInput);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1CException(nomenclatureGroupInput.IdentityValueUid, response, nomenclatureGroupInput.ParseResult.Exception, nomenclatureGroupInput.ParseResult.InnerException);
+                        AddResponse1CException(nomenclatureGroupInput.IdentityValueUid, response, 
+	                        nomenclatureGroupInput.ParseResult.Exception, nomenclatureGroupInput.ParseResult.InnerException);
                         break;
                 }
             }
@@ -587,5 +641,50 @@ public class ControllerHelper
         }, formatString, false);
     }
 
-    #endregion
+    [Obsolete(@"Deprecated method")]
+    public ContentResult NewResponse1CNomenclaturesDeprecated(ISessionFactory sessionFactory, XElement request, string formatString)
+    {
+	    return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+	    {
+		    SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
+		    List<NomenclatureModel> nomenclaturesDb = DataContext.GetListNotNullable<NomenclatureModel>(sqlCrudConfig);
+
+		    List<NomenclatureModel> nomenclaturesInput = GetNomenclatureList(request);
+		    foreach (NomenclatureModel nomenclatureInput in nomenclaturesInput)
+		    {
+			    // string xml = brandInput.SerializeAsXmlString<BrandModel>(false);
+			    switch (nomenclatureInput.ParseResult.Status)
+			    {
+				    case ParseStatus.Success:
+					    AddResponse1CItem(response, nomenclaturesDb, nomenclatureInput);
+					    break;
+				    case ParseStatus.Error:
+					    AddResponse1CException(nomenclatureInput.IdentityValueUid, response, 
+						    nomenclatureInput.ParseResult.Exception, nomenclatureInput.ParseResult.InnerException);
+					    break;
+			    }
+		    }
+		    response.Infos.Add(new($"Proced input {nomenclaturesInput.Count} items of {nameof(nomenclaturesInput)}"));
+	    }, formatString, false);
+    }
+
+    /// <summary>
+    /// New response 1C.
+    /// </summary>
+    /// <param name="sessionFactory"></param>
+    /// <param name="request"></param>
+    /// <param name="formatString"></param>
+    /// <returns></returns>
+	public ContentResult NewResponse1C(ISessionFactory sessionFactory, string formatString)
+	{
+		return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+		{
+			//AddResponse1CItem(response, nomenclaturesDb, nomenclatureInput);
+			//AddResponse1CException(nomenclatureInput.IdentityValueUid, response,
+			//nomenclatureInput.ParseResult.Exception, nomenclatureInput.ParseResult.InnerException);
+			response.Infos.Add(new("Default reponse."));
+		}, formatString, false, HttpStatusCode.NotFound);
+	}
+    
+	#endregion
 }

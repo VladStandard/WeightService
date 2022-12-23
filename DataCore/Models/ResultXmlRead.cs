@@ -5,12 +5,12 @@ namespace DataCore.Models;
 
 public class ResultXmlRead
 {
-	public ResultXmlRead() : this(false, string.Empty, new Collection<string>())
+	public ResultXmlRead() : this(false, string.Empty, new())
 	{
 		//
 	}
 
-	public ResultXmlRead(bool noError, string value) : this(noError, value, new Collection<string>())
+	public ResultXmlRead(bool noError, string value) : this(noError, value, new())
 	{
 		//
 	}

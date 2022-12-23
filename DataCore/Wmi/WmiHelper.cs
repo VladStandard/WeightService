@@ -45,7 +45,7 @@ public class WmiHelper
                     totalVirtual = Convert.ToUInt64(item["TotalVirtualMemorySize"]) * 1024;
                     totalPhysical = Convert.ToUInt64(item["TotalVisibleMemorySize"]) * 1024;
                 }
-            return new WmiWin32MemoryModel(freeVirtual, freePhysical, totalVirtual, totalPhysical);
+            return new(freeVirtual, freePhysical, totalVirtual, totalPhysical);
         }
     }
 
@@ -107,7 +107,7 @@ public class WmiHelper
                     }
                 }
             }
-            return new WmiSoftwareModel(name, vendor, version, guid, language);
+            return new(name, vendor, version, guid, language);
         }
     }
 

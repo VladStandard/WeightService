@@ -64,7 +64,7 @@ public class XmlHelper
 
 			ReadInside(xmlReader, elements, getValueFromName, ref value, str);
 		}
-		return new ResultXmlRead(!string.IsNullOrEmpty(value), string.IsNullOrEmpty(value) ? string.Empty : value, str);
+		return new(!string.IsNullOrEmpty(value), string.IsNullOrEmpty(value) ? string.Empty : value, str);
 	}
 
 	/// <summary>
@@ -190,13 +190,13 @@ public class XmlHelper
 
 		try
 		{
-			return new ResultXmlRead(true, string.Empty);
+			return new(true, string.Empty);
 		}
 		catch (Exception)
 		{
 			//
 		}
-		return new ResultXmlRead();
+		return new();
 	}
 
 	#endregion

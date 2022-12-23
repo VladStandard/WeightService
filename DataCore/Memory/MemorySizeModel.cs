@@ -30,12 +30,12 @@ public class MemorySizeModel : DisposableBase, IDisposableBase
 	{
 		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 
-		PhysicalCurrent = new MemorySizeConvertModel();
-		VirtualCurrent = new MemorySizeConvertModel();
-		VirtualFree = new MemorySizeConvertModel();
-		VirtualTotal = new MemorySizeConvertModel();
-		PhysicalFree = new MemorySizeConvertModel();
-		PhysicalTotal = new MemorySizeConvertModel();
+		PhysicalCurrent = new();
+		VirtualCurrent = new();
+		VirtualFree = new();
+		VirtualTotal = new();
+		PhysicalFree = new();
+		PhysicalTotal = new();
 	}
 
 	#endregion
@@ -55,10 +55,10 @@ public class MemorySizeModel : DisposableBase, IDisposableBase
 		if (Wmi is not null)
 		{
 			WmiWin32MemoryModel getWmi = Wmi.GetWin32OperatingSystemMemory();
-			VirtualFree = new MemorySizeConvertModel { Bytes = getWmi.FreeVirtual };
-			PhysicalFree = new MemorySizeConvertModel { Bytes = getWmi.FreePhysical };
-			VirtualTotal = new MemorySizeConvertModel { Bytes = getWmi.TotalVirtual };
-			PhysicalTotal = new MemorySizeConvertModel { Bytes = getWmi.TotalPhysical };
+			VirtualFree = new() { Bytes = getWmi.FreeVirtual };
+			PhysicalFree = new() { Bytes = getWmi.FreePhysical };
+			VirtualTotal = new() { Bytes = getWmi.TotalVirtual };
+			PhysicalTotal = new() { Bytes = getWmi.TotalPhysical };
 		}
 	}
 

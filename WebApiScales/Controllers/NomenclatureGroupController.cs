@@ -31,7 +31,7 @@ public class NomenclatureGroupController : WebControllerBase //ApiController
 
     [AllowAnonymous]
     [Produces("application/xml")]
-    [HttpPost()]
+    [HttpPost]
     [Route("api/send_nomenclatures_groups/")]
     [Route("api/v1/send_nomenclatures_groups/")]
     [Route("api/v2/send_nomenclatures_groups/")]
@@ -39,7 +39,7 @@ public class NomenclatureGroupController : WebControllerBase //ApiController
     public ContentResult SendNomenclaturesGroupsList([FromBody] XElement request, 
         [FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() => ControllerHelp
-            .NewResponse1CNomenclaturesGroupsFromAction(SessionFactory, request, formatString), formatString);
+            .NewResponse1CNomenclaturesGroups(SessionFactory, request, formatString), formatString);
 
     #endregion
 }

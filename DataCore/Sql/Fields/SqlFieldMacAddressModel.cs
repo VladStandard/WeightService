@@ -87,7 +87,7 @@ public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISe
 
 	public override int GetHashCode() => Value.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new SqlFieldMacAddressModel());
+    public override bool EqualsNew() => Equals(new());
 
     public override bool EqualsDefault() => Equals(Value, string.Empty);
 

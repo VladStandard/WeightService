@@ -31,7 +31,7 @@ public class BrandController : WebControllerBase //ApiController
 
     [AllowAnonymous]
     [Produces("application/xml")]
-    [HttpPost()]
+    [HttpPost]
     [Route("api/send_brands/")]
     [Route("api/v1/send_brands/")]
     [Route("api/v2/send_brands/")]

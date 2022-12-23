@@ -31,7 +31,7 @@ public static class WebResponseUtils
 
     public static async Task GetInfoAsync(string url, RestRequest request)
     {
-        await GetResponseAsync(url, request, (response) =>
+        await GetResponseAsync(url, request, response =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.IsNotEmpty(response.Content);
@@ -72,7 +72,7 @@ public static class WebResponseUtils
     
     public static async Task GetExceptionAsync(string url, RestRequest request)
     {
-        await GetResponseAsync(url, request, (response) =>
+        await GetResponseAsync(url, request, response =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.IsNotEmpty(response.Content);

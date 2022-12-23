@@ -36,10 +36,10 @@ public static class SerialPortsUtils
             switch (lang)
             {
                 case Lang.Russian:
-                    result.Add(new TypeModel<string>($"КОМ{i}", $"COM{i}"));
+                    result.Add(new($"КОМ{i}", $"COM{i}"));
                     break;
                 default:
-                    result.Add(new TypeModel<string>($"COM{i}", $"COM{i}"));
+                    result.Add(new($"COM{i}", $"COM{i}"));
                     break;
             }
         }

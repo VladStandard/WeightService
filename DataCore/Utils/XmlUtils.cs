@@ -52,7 +52,7 @@ public static class XmlUtils
 
 	public static XmlDocument XmlCompatibleReplace(XmlDocument xmlDocument)
 	{
-		XmlDocument result = new XmlDocument();
+		XmlDocument result = new();
 		result.LoadXml(XmlCompatibleReplace(xmlDocument.OuterXml));
 		return result;
 	}

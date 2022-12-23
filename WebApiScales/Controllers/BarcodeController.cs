@@ -92,7 +92,7 @@ public class BarCodeController : WebControllerBase //ApiController
             ControllerHelp.NewResponseBarCodes(SessionFactory, dtStart, dtEnd, formatString), formatString);
 
     [AllowAnonymous]
-    [HttpPost()]
+    [HttpPost]
     [Route("api/send_test/")]
     [Route("api/v3/send_test/")]
     public ContentResult SendTest([FromQuery(Name = "format")] string formatString = "") =>
@@ -100,7 +100,7 @@ public class BarCodeController : WebControllerBase //ApiController
             ControllerHelp.NewResponse1CFromQuery(SessionFactory, string.Empty, null, formatString, false), formatString);
 
     [AllowAnonymous]
-    [HttpPost()]
+    [HttpPost]
     [Route("api/send_query")]
     [Route("api/v3/send_query")]
     public ContentResult SendSqlquery([FromBody] string query, [FromQuery(Name = "format")] string formatString = "") =>
@@ -109,7 +109,7 @@ public class BarCodeController : WebControllerBase //ApiController
 
     [AllowAnonymous]
     [Produces("application/xml")]
-    [HttpPost()]
+    [HttpPost]
     [Route("api/send_barcode/bottom/")]
     [Route("api/v3/send_barcode/bottom/")]
     public ContentResult SendBarcodeBottom([FromBody] BarcodeBottomModel barcodeBottom,
@@ -120,7 +120,7 @@ public class BarCodeController : WebControllerBase //ApiController
 
     [AllowAnonymous]
     [Produces("application/xml")]
-    [HttpPost()]
+    [HttpPost]
     [Route("api/send_barcode/right/")]
     [Route("api/v3/send_barcode/right/")]
     public ContentResult SendBarcodeRight([FromBody] BarcodeRightModel barcodeRight,
@@ -130,7 +130,7 @@ public class BarCodeController : WebControllerBase //ApiController
             new("VALUE_RIGHT", barcodeRight.GetValue()), formatString, false), formatString);
 
     [AllowAnonymous]
-    [HttpPost()]
+    [HttpPost]
     [Route("api/send_barcode/top/")]
     [Route("api/v3/send_barcode/top/")]
     public ContentResult SendBarcodeTop([FromBody] BarcodeTopModel barcodeTop,
@@ -140,7 +140,7 @@ public class BarCodeController : WebControllerBase //ApiController
             new("VALUE_TOP", barcodeTop.GetValue()), formatString, false), formatString);
 
     [AllowAnonymous]
-    [HttpPost()]
+    [HttpPost]
     [Route("api/send_barcode/top_v2/")]
     [Route("api/v3/send_barcode/top_v2/")]
     public ContentResult SendBarcodeTopV2([FromBody] string barcodeTop,

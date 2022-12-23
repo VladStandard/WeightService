@@ -3,9 +3,9 @@
 
 namespace WebApiCore.Enums;
 
-public enum ServerType
+public enum AcceptVersion
 {
-    Develop,
-    Product,
-    All
+    V1,
+    V2,
+    V3
 }
