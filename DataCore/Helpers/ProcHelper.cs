@@ -25,7 +25,7 @@ public class ProcHelper
 	{
 		Process process = new()
 		{
-			StartInfo = new ProcessStartInfo(procName, args)
+			StartInfo = new(procName, args)
 			{
 				Verb = runAs ? "runas" : "",
 				WindowStyle = windowStyle,

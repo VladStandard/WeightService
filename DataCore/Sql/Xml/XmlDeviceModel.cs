@@ -52,7 +52,7 @@ public class XmlDeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializabl
 
     public override int GetHashCode() => Scale.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new XmlDeviceModel());
+    public override bool EqualsNew() => Equals(new());
 
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&

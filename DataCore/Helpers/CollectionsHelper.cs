@@ -21,17 +21,17 @@ public class CollectionsHelper
 	/// <summary>
 	/// Документация.
 	/// </summary>
-	public Collection<string> Docs { get; } = new Collection<string>() { "CHANGELOG.md", "README.md", "TO-DO LIST.md", "License.rtf" };
+	public Collection<string> Docs { get; } = new() { "CHANGELOG.md", "README.md", "TO-DO LIST.md", "License.rtf" };
 
 	/// <summary>
 	/// Руководства.
 	/// </summary>
-	public Collection<string> Manuals { get; } = new Collection<string>() { "Руководство пользователя.docx" };
+	public Collection<string> Manuals { get; } = new() { "Руководство пользователя.docx" };
 
 	/// <summary>
 	/// Архивы драйверов.
 	/// </summary>
-	public Collection<string> DriversArchives { get; } = new Collection<string>() { "en.stsw-stm32102.zip" };
+	public Collection<string> DriversArchives { get; } = new() { "en.stsw-stm32102.zip" };
 
 	#endregion
 

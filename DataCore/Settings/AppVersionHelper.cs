@@ -44,7 +44,7 @@ public class AppVersionHelper
     public string GetCurrentVersion(Assembly assembly, AppVerCountDigitsEnum countDigits, List<AppVerStringFormatEnum>? stringFormats = null)
     {
         if (stringFormats == null || stringFormats.Count == 0)
-            stringFormats = new List<AppVerStringFormatEnum>() {
+            stringFormats = new() {
                 AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2 };
 
         AppVerStringFormatEnum formatMajor = stringFormats[0];
