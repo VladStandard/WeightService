@@ -256,7 +256,7 @@ public class SerializeBase : ISerializable
 
 	#region Public and private methods - Properties
 
-	public object? GetPropertyDefaultValue(string name)
+	public virtual object? GetPropertyDefaultValue(string name)
 	{
 		AttributeCollection? attributes = TypeDescriptor.GetProperties(this)[name]?.Attributes;
 		Attribute? attribute = attributes?[typeof(DefaultValueAttribute)];
@@ -265,16 +265,16 @@ public class SerializeBase : ISerializable
 		return null;
 	}
 
-	public string GetPropertyDefaultValueAsString(string name) =>
+	public virtual string GetPropertyDefaultValueAsString(string name) =>
 		GetPropertyDefaultValue(name)?.ToString() ?? string.Empty;
 
-	public int GetPropertyDefaultValueAsInt(string name) =>
+	public virtual int GetPropertyDefaultValueAsInt(string name) =>
 		GetPropertyDefaultValue(name) is int value ? value : default;
 
-	public bool GetPropertyDefaultValueAsBool(string name) =>
+	public virtual bool GetPropertyDefaultValueAsBool(string name) =>
 		GetPropertyDefaultValue(name) is bool value ? value : default;
 
-	public IEnumerable<string> GetPropertiesNames() => 
+	public virtual IEnumerable<string> GetPropertiesNames() => 
 		(from PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(this) select propertyDescriptor.Name).ToList();
 
 	#endregion
