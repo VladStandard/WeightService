@@ -12,6 +12,7 @@ using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Brands;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
@@ -183,6 +184,7 @@ public partial class DataAccessHelper
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BoxMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BrandMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BundleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());

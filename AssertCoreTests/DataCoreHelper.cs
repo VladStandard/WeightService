@@ -10,6 +10,7 @@ using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Brands;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
@@ -262,7 +263,11 @@ public class DataCoreHelper
 				barCode.TypeBottom = BarcodeTypeEnum.Default.ToString();
 				barCode.ValueBottom = LocaleCore.Sql.SqlItemFieldValue;
 				break;
-			case BrandModel brand:
+            case BoxModel box:
+                box.Name = LocaleCore.Sql.SqlItemFieldName;
+                box.Weight = 3;
+                break;
+            case BrandModel brand:
                 brand.Name = LocaleCore.Sql.SqlItemFieldName;
                 brand.Code = LocaleCore.Sql.SqlItemFieldCode;
 				break;

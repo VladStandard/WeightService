@@ -11,6 +11,7 @@ using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Brands;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
@@ -68,6 +69,7 @@ public class ValidationUtils
             var cls when cls == typeof(AccessModel) => new AccessValidator(),
             var cls when cls == typeof(AppModel) => new AppValidator(),
             var cls when cls == typeof(BarCodeModel) => new BarCodeValidator(),
+            var cls when cls == typeof(BoxModel) => new BoxValidator(),
             var cls when cls == typeof(BrandModel) => new BrandValidator(),
             var cls when cls == typeof(BundleModel) => new BundleValidator(),
             var cls when cls == typeof(ContragentModel) => new ContragentValidator(),
@@ -116,6 +118,7 @@ public class ValidationUtils
             AccessModel access => new AccessValidator().Validate(access),
             AppModel app => new AppValidator().Validate(app),
             BarCodeModel barCode => new BarCodeValidator().Validate(barCode),
+            BoxModel box => new BoxValidator().Validate(box),
             BrandModel brand => new BrandValidator().Validate(brand),
             BundleModel bundle => new BundleValidator().Validate(bundle),
             ContragentModel contragent => new ContragentValidator().Validate(contragent),
