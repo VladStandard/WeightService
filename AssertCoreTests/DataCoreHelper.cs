@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
@@ -122,13 +123,10 @@ public class DataCoreHelper
             foreach (bool isShowMarked in DataCoreEnums.GetBool())
             {
                 SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
-                // Arrange.
                 List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
-                // Act.
+                
                 if (!items.Any())
-                {
                     TestContext.WriteLine($"{nameof(items)} is null or empty!");
-                }
                 else
                 {
                     TestContext.WriteLine($"Found {items.Count} items. Print top 10.");
@@ -274,6 +272,12 @@ public class DataCoreHelper
 			case BundleModel bundle:
                 bundle.Name = LocaleCore.Sql.SqlItemFieldName;
                 bundle.Weight = 3;
+                break;
+            case BundleFkModel bundleFk:
+                bundleFk.Name = LocaleCore.Sql.SqlItemFieldName;
+                bundleFk.Bundle = CreateNewSubstitute<BundleModel>(isNotDefault);
+                bundleFk.Box = CreateNewSubstitute<BoxModel>(isNotDefault);
+                bundleFk.BundleCount = 1;
                 break;
             case ContragentModel contragent:
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;

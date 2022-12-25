@@ -15,14 +15,6 @@ public class BundleValidator : SqlTableValidator<BundleModel>
     /// </summary>
     public BundleValidator()
     {
-        RuleFor(item => item.CreateDt)
-            .NotEmpty()
-            .NotNull()
-            .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-        RuleFor(item => item.ChangeDt)
-            .NotEmpty()
-            .NotNull()
-            .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
         RuleFor(item => item.Name)
             .NotNull();
         RuleFor(item => item.Weight)

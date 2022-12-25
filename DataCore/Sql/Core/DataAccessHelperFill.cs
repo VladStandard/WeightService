@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
@@ -8,6 +9,8 @@ using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Boxes;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
@@ -59,7 +62,11 @@ public partial class DataAccessHelper
 			case BarCodeModel barcode:
 				barcode.PluLabel = GetItemNotNullable<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
 				break;
-			case DeviceTypeFkModel deviceTypeFk:
+            case BundleFkModel bundleFk:
+                bundleFk.Bundle = GetItemNotNullable<BundleModel>(bundleFk.Bundle.IdentityValueUid);
+                bundleFk.Box = GetItemNotNullable<BoxModel>(bundleFk.Box.IdentityValueUid);
+                break;
+            case DeviceTypeFkModel deviceTypeFk:
 				deviceTypeFk.Device = GetItemNotNullable<DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
 				deviceTypeFk.Type = GetItemNotNullable<DeviceTypeModel>(deviceTypeFk.Type.IdentityValueUid);
 				break;

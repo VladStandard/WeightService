@@ -5,6 +5,7 @@ using DataCore.Sql.TableScaleModels.Boxes;
 
 namespace DataCoreTests.Sql.TableScaleModels.Boxes;
 
+[TestFixture]
 internal class BoxValidatorTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;

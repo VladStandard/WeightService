@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
@@ -57,7 +58,8 @@ public partial class DataContextModel
     public List<BoxModel> Boxes { get; set; }
     public List<BrandModel> Brands { get; set; }
 	public List<BundleModel> Bundles { get; set; }
-	public List<ContragentModel> Contragents { get; set; }
+    public List<BundleFkModel> BundleFks { get; set; }
+    public List<ContragentModel> Contragents { get; set; }
 	public List<DeviceModel> Devices { get; set; }
 	public List<DeviceTypeModel> DeviceTypes { get; set; }
 	public List<DeviceTypeFkModel> DeviceTypeFks { get; set; }
@@ -104,7 +106,8 @@ public partial class DataContextModel
         Boxes = new();
 		Brands = new();
 		Bundles = new();
-		Contragents = new();
+        BundleFks = new ();
+        Contragents = new();
 		Devices = new();
 		DeviceTypes = new();
 		DeviceTypeFks = new();
@@ -179,7 +182,12 @@ public partial class DataContextModel
 	            if (sqlCrudConfig.IsResultOrder)
 		            Bundles = Bundles.OrderBy(item => item.Name).ToList();
 	            return Bundles.Cast<T>().ToList();
-			case var cls when cls == typeof(ContragentModel):
+            case var cls when cls == typeof(BundleFkModel):
+                BundleFks = DataAccess.GetListNotNullable<BundleFkModel>(sqlCrudConfig);
+                if (sqlCrudConfig.IsResultOrder)
+                    BundleFks = BundleFks.OrderBy(item => item.Name).ToList();
+                return BundleFks.Cast<T>().ToList();
+            case var cls when cls == typeof(ContragentModel):
 				Contragents = DataAccess.GetListNotNullable<ContragentModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Contragents = Contragents.OrderBy(item => item.Name).ToList();
@@ -399,6 +407,7 @@ public partial class DataContextModel
 		new BoxModel(),
         new BrandModel(),
         new BundleModel(),
+		new BundleFkModel(),
         new ContragentModel(),
 		new DeviceModel(),
 		new DeviceTypeModel(),
@@ -449,7 +458,8 @@ public partial class DataContextModel
         typeof(BoxModel),
         typeof(BrandModel),
 		typeof(BundleModel),
-		typeof(ContragentModel),
+        typeof(BundleFkModel),
+        typeof(ContragentModel),
 		typeof(DeviceModel),
 		typeof(DeviceTypeModel),
 		typeof(DeviceTypeFkModel),
@@ -497,7 +507,8 @@ public partial class DataContextModel
             var cls when cls == typeof(BoxModel) => nameof(BoxModel),
             var cls when cls == typeof(BrandModel) => nameof(BrandModel),
 			var cls when cls == typeof(BundleModel) => nameof(BundleModel),
-			var cls when cls == typeof(ContragentModel) => nameof(ContragentModel),
+            var cls when cls == typeof(BundleFkModel) => nameof(BundleFkModel),
+            var cls when cls == typeof(ContragentModel) => nameof(ContragentModel),
 			var cls when cls == typeof(DeviceModel) => nameof(DeviceModel),
 			var cls when cls == typeof(DeviceTypeModel) => nameof(DeviceTypeModel),
 			var cls when cls == typeof(DeviceTypeFkModel) => nameof(DeviceTypeFkModel),

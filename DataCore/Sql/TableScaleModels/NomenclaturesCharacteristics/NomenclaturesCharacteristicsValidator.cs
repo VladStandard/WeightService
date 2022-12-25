@@ -9,14 +9,6 @@ public class NomenclaturesCharacteristicsValidator : SqlTableValidator<Nomenclat
 {
     public NomenclaturesCharacteristicsValidator()
     {
-        RuleFor(item => item.CreateDt)
-            .NotEmpty()
-            .NotNull()
-            .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-        RuleFor(item => item.ChangeDt)
-            .NotEmpty()
-            .NotNull()
-            .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
         RuleFor(item => item.AttachmentsCount)
             .NotNull()
             .GreaterThan(0);
