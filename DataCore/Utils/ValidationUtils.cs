@@ -12,6 +12,7 @@ using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Brands;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -68,6 +69,7 @@ public class ValidationUtils
             var cls when cls == typeof(AppModel) => new AppValidator(),
             var cls when cls == typeof(BarCodeModel) => new BarCodeValidator(),
             var cls when cls == typeof(BrandModel) => new BrandValidator(),
+            var cls when cls == typeof(BundleModel) => new BundleValidator(),
             var cls when cls == typeof(ContragentModel) => new ContragentValidator(),
             var cls when cls == typeof(DeviceModel) => new DeviceValidator(),
             var cls when cls == typeof(DeviceScaleFkModel) => new DeviceScaleFkValidator(),
@@ -115,6 +117,7 @@ public class ValidationUtils
             AppModel app => new AppValidator().Validate(app),
             BarCodeModel barCode => new BarCodeValidator().Validate(barCode),
             BrandModel brand => new BrandValidator().Validate(brand),
+            BundleModel bundle => new BundleValidator().Validate(bundle),
             ContragentModel contragent => new ContragentValidator().Validate(contragent),
             LogModel log => new LogValidator().Validate(log),
             LogTypeModel logType => new LogTypeValidator().Validate(logType),

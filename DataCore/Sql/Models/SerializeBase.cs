@@ -54,30 +54,35 @@ public class SerializeBase : ISerializable
     public virtual XmlReaderSettings GetXmlReaderSettings() => new()
     {
         ConformanceLevel = ConformanceLevel.Document,
-        //OmitXmlDeclaration = false, // не подавлять xml заголовок
-        //Encoding = Encoding.UTF32,   // кодировка // настройка не работает и UTF16 записывается в шапку XML, типа Visual Studio работает только с UTF16
-        //Encoding = Encoding.Unicode,
-        //Indent = true,              // добавлять отступы
-        //IndentChars = "\t"          // сиволы отступа
     };
 
     public virtual XmlWriterSettings GetXmlWriterSettings() => new()
     {
         ConformanceLevel = ConformanceLevel.Document,
-        OmitXmlDeclaration = false, // не подавлять xml заголовок
-        Indent = true,              // добавлять отступы
-        IndentChars = "\t"          // сиволы отступа
+        OmitXmlDeclaration = false,
+        Indent = true,
+        IndentChars = "\t",
     };
 
+    # region Serialize
     public virtual string SerializeAsJson() => JsonConvert.SerializeObject(this);
+
+    public virtual string SerializeByMemoryStream<T>() where T : new()
+    {
+        MemoryStream memoryStream = new();
+        IFormatter binaryFormatter = new BinaryFormatter();
+        binaryFormatter.Serialize(memoryStream, this);
+        string result;
+        using StreamReader streamReader = new(memoryStream);
+        memoryStream.Position = 0;
+        result = streamReader.ReadToEnd();
+        memoryStream.Close();
+        return result;
+    }
 
     public virtual string SerializeAsXmlString<T>(bool isAddEmptyNamespace, bool isUtf16 = false) where T : new()
     {
-        // Don't use it.
-        // XmlSerializer xmlSerializer = new(typeof(T));
-        // Use it.
         XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-        // The T object must have properties with { get; set; }.
 
         using var stringWriter =  isUtf16? new StringWriter() : new Utf8StringWriter();
 
@@ -100,30 +105,46 @@ public class SerializeBase : ISerializable
         return stringWriter.ToString();
     }
 
+    public virtual string SerializeAsHtml() => @$"
+<html>
+<body>
+    {this}
+</body>
+</html>
+        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+    public virtual string SerializeAsText() => ToString();
+
     public virtual XmlDocument SerializeAsXmlDocument<T>(bool isAddEmptyNamespace) where T : new()
     {
         XmlDocument xmlDocument = new();
-	    string xmlString = SerializeAsXmlString<T>(isAddEmptyNamespace);
+        string xmlString = SerializeAsXmlString<T>(isAddEmptyNamespace);
         byte[] bytes = Encoding.Unicode.GetBytes(xmlString);
-	    using MemoryStream memoryStream = new(bytes);
-		memoryStream.Flush();
+        using MemoryStream memoryStream = new(bytes);
+        memoryStream.Flush();
         memoryStream.Seek(0, SeekOrigin.Begin);
         xmlDocument.Load(memoryStream);
-	    return xmlDocument;
+        return xmlDocument;
     }
 
-    public virtual string SerializeByMemoryStream<T>() where T : new()
+    #endregion
+
+    #region Deserialize
+
+    public virtual T DeserializeFromXml<T>(string xml) where T : new()
     {
-        MemoryStream memoryStream = new();
-        IFormatter binaryFormatter = new BinaryFormatter();
-        binaryFormatter.Serialize(memoryStream, this);
-        //string result = memoryStream.ToString();
-        string result;
-        using StreamReader streamReader = new(memoryStream);
-        memoryStream.Position = 0;
-        result = streamReader.ReadToEnd();
-        memoryStream.Close();
-        return result;
+        XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+        return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(xml)));
+    }
+
+    public virtual T DeserializeFromXmlVersion2<T>(string xml) where T : new()
+    {
+        // Don't use it.
+        // XmlSerializer xmlSerializer = new(typeof(T));
+        // Use it.
+        XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+        using TextReader reader = new StringReader(xml);
+        return (T)xmlSerializer.Deserialize(reader);
     }
 
     public virtual T DeserializeFromMemoryStream<T>(MemoryStream memoryStream) where T : new()
@@ -135,37 +156,9 @@ public class SerializeBase : ISerializable
         return obj is null ? new() : (T)obj;
     }
 
-    public virtual T DeserializeFromXml<T>(string xml) where T : new()
-    {
-        // Don't use it.
-        // XmlSerializer xmlSerializer = new(typeof(T));
-        // Use it.
-        XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-        //return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(xml)));
-        return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(xml)));
-    }
+    #endregion
 
-    public virtual T DeserializeFromXmlVersion2<T>(string xml) where T : new()
-    {
-        // Don't use it.
-        // XmlSerializer xmlSerializer = new(typeof(T));
-        // Use it.
-        XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-        //T result = new();
-        using TextReader reader = new StringReader(xml);
-        return (T)xmlSerializer.Deserialize(reader);
-    }
-
-    public virtual string SerializeAsHtml() => @$"
-<html>
-<body>
-    {this}
-</body>
-</html>
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-
-    public virtual string SerializeAsText() => ToString();
-
+    #region ContentResult
     public virtual ContentResult GetContentResultCore(FormatType formatType, object content, HttpStatusCode statusCode) => new()
     {
         ContentType = DataUtils.GetContentType(formatType),
@@ -173,13 +166,13 @@ public class SerializeBase : ISerializable
         Content = content as string ?? content.ToString()
     };
 
-    public virtual ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) => 
+    public virtual ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) =>
         GetContentResultCore(DataUtils.GetFormatType(formatString), content, statusCode);
 
-    public virtual ContentResult GetContentResult(FormatType formatType, object content, HttpStatusCode statusCode) => 
+    public virtual ContentResult GetContentResult(FormatType formatType, object content, HttpStatusCode statusCode) =>
         GetContentResultCore(formatType, content, statusCode);
 
-    public virtual ContentResult GetContentResult(string formatString, object content, HttpStatusCode statusCode) => 
+    public virtual ContentResult GetContentResult(string formatString, object content, HttpStatusCode statusCode) =>
         GetContentResultCore(formatString, content, statusCode);
 
     public virtual ContentResult GetContentResult<T>(FormatType formatType, HttpStatusCode statusCode) where T : new() => formatType switch
@@ -193,8 +186,10 @@ public class SerializeBase : ISerializable
         _ => throw DataUtils.GetArgumentException(nameof(formatType)),
     };
 
-    public virtual ContentResult GetContentResult<T>(string formatString, HttpStatusCode statusCode) where T : new() => 
+    public virtual ContentResult GetContentResult<T>(string formatString, HttpStatusCode statusCode) where T : new() =>
         GetContentResult<T>(GetFormatType(formatString), statusCode);
+
+    #endregion
 
     public virtual FormatType GetFormatType(string formatType) => formatType.ToUpper() switch
     {
@@ -202,7 +197,7 @@ public class SerializeBase : ISerializable
         "JAVASCRIPT" => FormatType.JavaScript,
         "JSON" => FormatType.Json,
         "HTML" => FormatType.Html,
-        "XML" or "" or "XMLUTF8"=> FormatType.Xml,
+        "XML" or "" or "XMLUTF8" => FormatType.Xml,
         "XMLUTF16" => FormatType.XmlUtf16,
         _ => throw DataUtils.GetArgumentException(nameof(formatType)),
     };
@@ -261,11 +256,11 @@ public class SerializeBase : ISerializable
         };
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods - Properties
+    #region Public and private methods - Properties
 
-	public virtual object? GetPropertyDefaultValue(string name)
+    public virtual object? GetPropertyDefaultValue(string name)
 	{
 		AttributeCollection? attributes = TypeDescriptor.GetProperties(this)[name]?.Attributes;
 		Attribute? attribute = attributes?[typeof(DefaultValueAttribute)];

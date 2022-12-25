@@ -35,7 +35,6 @@ public class LocaleSql
     public string StatusExceptionConnect(Exception ex) => Lang == Lang.English ? $@"Error connecting to SQL server! Message: {ex.Message}" : $"Ошибка подключения к SQL-серверу! Сообщение: {ex.Message}";
     public string StatusExceptionFieldValue(Exception ex) => Lang == Lang.English ? $@"Error! Field value is incorrect! Message: {ex.Message}" : $"Ошибка! Значение поля некорректно! Сообщение: {ex.Message}";
     public string StatusExceptionFieldValue(Exception ex, string waitType, string ordinalType) => Lang == Lang.English ? $@"Error! Field value is incorrect! Expected data type: {waitType}. Received data type: {ordinalType}. Message: {ex.Message}" : $"Ошибка! Значение поля некорректно! Ожидаемый тип данных: {waitType}. Полученный тип данных: {ordinalType}. Сообщение: {ex.Message}";
-
     public string SqlItemFieldCode => Lang == Lang.English ? "00012345" : "ЦБД00012345";
     public string SqlItemFieldMeasurementTypeKg => Lang == Lang.English ? "kg" : "кг";
     public string SqlItemFieldMeasurementTypePirce => Lang == Lang.English ? "pc" : "шт";

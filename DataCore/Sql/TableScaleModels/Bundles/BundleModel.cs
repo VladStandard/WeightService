@@ -3,22 +3,22 @@
 
 using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
+namespace DataCore.Sql.TableScaleModels.Bundles;
 
 /// <summary>
-/// Table "NOMENCLATURES_CHARACTERISTICS".
+/// Table "BUNDLES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(NomenclaturesCharacteristicsModel)}")]
-public class NomenclaturesCharacteristicsModel : SqlTableBase
+[DebuggerDisplay("Type = {nameof(BundleModel)}")]
+public class BundleModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual decimal AttachmentsCount { get; set; }
+    [XmlElement] public virtual decimal Weight { get; set; }
 
-    public NomenclaturesCharacteristicsModel() : base(SqlFieldIdentityEnum.Uid)
+    public BundleModel() : base(SqlFieldIdentityEnum.Uid)
     {
-        AttachmentsCount = 0;
+       Weight = 0;
     }
 
     /// <summary>
@@ -26,9 +26,9 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected NomenclaturesCharacteristicsModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected BundleModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        AttachmentsCount = info.GetDecimal(nameof(AttachmentsCount));
+        Weight = info.GetDecimal(nameof(Weight));
     }
 
     #endregion
@@ -38,14 +38,14 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
-        $"{nameof(AttachmentsCount)}: {AttachmentsCount}. ";
+        $"{nameof(Weight)}: {Weight}. ";
 
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((NomenclaturesCharacteristicsModel)obj);
+        return Equals((BundleModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -54,12 +54,12 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
 
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() &&
-        Equals(AttachmentsCount, (decimal)0);
+        Equals(Weight, (decimal)0);
 
     public override object Clone()
     {
-        NomenclaturesCharacteristicsModel item = new();
-        item.AttachmentsCount = AttachmentsCount;
+        BundleModel item = new();
+        item.Weight = Weight;
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -72,17 +72,18 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(AttachmentsCount), AttachmentsCount);
+        info.AddValue(nameof(Weight), Weight);
     }
 
     #endregion
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(NomenclaturesCharacteristicsModel item) =>
+    public virtual bool Equals(BundleModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(AttachmentsCount, item.AttachmentsCount);
-    public new virtual NomenclaturesCharacteristicsModel CloneCast() => (NomenclaturesCharacteristicsModel)Clone();
+        Equals(Weight, item.Weight);
+    public new virtual BundleModel CloneCast() => (BundleModel)Clone();
 
     #endregion
 }
+

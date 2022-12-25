@@ -1,26 +1,27 @@
-﻿//This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-//PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
+
+namespace DataCore.Sql.TableScaleModels.Bundles;
 
 /// <summary>
-/// Table map "NOMENCLATURES_CHARACTERISTICS".
+/// Table map "BUNDLES".
 /// </summary>
-public class NomenclaturesCharacteristicsMap : ClassMap<NomenclaturesCharacteristicsModel>
+public class BundleMap : ClassMap<BundleModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclaturesCharacteristicsMap()
+    public BundleMap()
     {
         Schema("db_scales");
-        Table("NOMENCLATURES_CHARACTERISTICS");
+        Table("BUNDLES");
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(128).Not.Nullable().Default("");
-        Map(x => x.AttachmentsCount).CustomSqlType("DECIMAL").Column("ATTACHMENTS_COUNT").Scale(10).Precision(3).Not.Nullable();
+        Map(x => x.Weight).CustomSqlType("DECIMAL").Column("WEIGHT").Unique().Scale(10).Precision(3).Not.Nullable();
     }
 }

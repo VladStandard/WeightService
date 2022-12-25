@@ -11,6 +11,7 @@ using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Brands;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -53,6 +54,7 @@ public partial class DataContextModel
 	public List<AppModel> Apps { get; set; }
 	public List<BarCodeModel> BarCodes { get; set; }
 	public List<BrandModel> Brands { get; set; }
+	public List<BundleModel> Bundles { get; set; }
 	public List<ContragentModel> Contragents { get; set; }
 	public List<DeviceModel> Devices { get; set; }
 	public List<DeviceTypeModel> DeviceTypes { get; set; }
@@ -89,7 +91,8 @@ public partial class DataContextModel
 	public List<TemplateResourceModel> TemplateResources { get; set; }
 	public List<VersionModel> Versions { get; set; }
 	public List<WorkShopModel> WorkShops { get; set; }
-    public NHibernate.ISession Session => DataAccess.SessionFactory.GetCurrentSession();
+
+	public NHibernate.ISession Session => DataAccess.SessionFactory.GetCurrentSession();
 
     public DataContextModel()
 	{
@@ -97,6 +100,7 @@ public partial class DataContextModel
 		Apps = new();
 		BarCodes = new();
 		Brands = new();
+		Bundles = new();
 		Contragents = new();
 		Devices = new();
 		DeviceTypes = new();
@@ -162,6 +166,11 @@ public partial class DataContextModel
 				if (sqlCrudConfig.IsResultOrder)
                     Brands = Brands.OrderBy(item => item.Name).ToList();
 				return Brands.Cast<T>().ToList();
+            case var cls when cls == typeof(BundleModel):
+	            Bundles = DataAccess.GetListNotNullable<BundleModel>(sqlCrudConfig);
+	            if (sqlCrudConfig.IsResultOrder)
+		            Bundles = Bundles.OrderBy(item => item.Name).ToList();
+	            return Bundles.Cast<T>().ToList();
 			case var cls when cls == typeof(ContragentModel):
 				Contragents = DataAccess.GetListNotNullable<ContragentModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
@@ -380,6 +389,7 @@ public partial class DataContextModel
 		new AppModel(),
 		new BarCodeModel(),
         new BrandModel(),
+        new BundleModel(),
         new ContragentModel(),
 		new DeviceModel(),
 		new DeviceTypeModel(),
@@ -428,6 +438,7 @@ public partial class DataContextModel
 		typeof(AppModel),
 		typeof(BarCodeModel),
 		typeof(BrandModel),
+		typeof(BundleModel),
 		typeof(ContragentModel),
 		typeof(DeviceModel),
 		typeof(DeviceTypeModel),
@@ -474,6 +485,7 @@ public partial class DataContextModel
 			var cls when cls == typeof(AppModel) => nameof(AppModel),
 			var cls when cls == typeof(BarCodeModel) => nameof(BarCodeModel),
 			var cls when cls == typeof(BrandModel) => nameof(BrandModel),
+			var cls when cls == typeof(BundleModel) => nameof(BundleModel),
 			var cls when cls == typeof(ContragentModel) => nameof(ContragentModel),
 			var cls when cls == typeof(DeviceModel) => nameof(DeviceModel),
 			var cls when cls == typeof(DeviceTypeModel) => nameof(DeviceTypeModel),

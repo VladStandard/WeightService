@@ -11,6 +11,7 @@ using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Brands;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -265,7 +266,11 @@ public class DataCoreHelper
                 brand.Name = LocaleCore.Sql.SqlItemFieldName;
                 brand.Code = LocaleCore.Sql.SqlItemFieldCode;
 				break;
-			case ContragentModel contragent:
+			case BundleModel bundle:
+                bundle.Name = LocaleCore.Sql.SqlItemFieldName;
+                bundle.Weight = 3;
+                break;
+            case ContragentModel contragent:
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
 			case DeviceModel device:
@@ -482,8 +487,8 @@ public class DataCoreHelper
 			T item1 = new();
 			SqlTableBase base1 = new();
 			// Act.
-			string xml1 = item1.SerializeAsXmlString<T>(true);
-			string xml2 = base1.SerializeAsXmlString<SqlTableBase>(true);
+			string xml1 = item1.SerializeAsXmlString<T>(true, true);
+			string xml2 = base1.SerializeAsXmlString<SqlTableBase>(true, true);
 			// Assert.
 			Assert.AreNotEqual(xml1, xml2);
 			// Act.
