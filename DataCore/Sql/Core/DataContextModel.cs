@@ -7,6 +7,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -78,7 +79,8 @@ public partial class DataContextModel
 	public List<PackageModel> Packages { get; set; }
 	public List<PluLabelModel> PluLabels { get; set; }
 	public List<PluModel> Plus { get; set; }
-	public List<PluPackageModel> PluPackages { get; set; }
+    public List<PluBundleFkModel> PluBundleFks { get; set; }
+    public List<PluPackageModel> PluPackages { get; set; }
 	public List<PluScaleModel> PluScales { get; set; }
 	public List<PluTemplateFkModel> PluTemplateFks { get; set; }
 	public List<PluWeighingModel> PluWeighings { get; set; }
@@ -125,7 +127,8 @@ public partial class DataContextModel
 		Packages = new();
 		PluLabels = new();
 		Plus = new();
-		PluPackages = new();
+        PluBundleFks = new();
+        PluPackages = new();
 		PluScales = new();
         PluTemplateFks = new();
         PluWeighings = new();
@@ -289,7 +292,12 @@ public partial class DataContextModel
 				if (sqlCrudConfig.IsResultOrder)
 					Plus = Plus.OrderBy(item => item.Name).ToList();
 				return Plus.Cast<T>().ToList();
-			case var cls when cls == typeof(PluPackageModel):
+            case var cls when cls == typeof(PluBundleFkModel):
+                PluBundleFks = DataAccess.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
+                if (sqlCrudConfig.IsResultOrder)
+                    PluBundleFks = PluBundleFks.OrderBy(item => item.Name).ToList();
+                return PluBundleFks.Cast<T>().ToList();
+            case var cls when cls == typeof(PluPackageModel):
 				PluPackages = DataAccess.GetListNotNullable<PluPackageModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 				{
@@ -427,6 +435,7 @@ public partial class DataContextModel
 		new PackageModel(),
 		new PluLabelModel(),
 		new PluModel(),
+		new PluBundleFkModel(),
 		new PluPackageModel(),
 		new PluScaleModel(),
 		new PluTemplateFkModel(),
@@ -478,7 +487,8 @@ public partial class DataContextModel
 		typeof(PackageModel),
 		typeof(PluLabelModel),
 		typeof(PluModel),
-		typeof(PluPackageModel),
+        typeof(PluBundleFkModel),
+        typeof(PluPackageModel),
 		typeof(PluScaleModel),
 		typeof(PluTemplateFkModel),
 		typeof(PluWeighingModel),
@@ -527,7 +537,8 @@ public partial class DataContextModel
 			var cls when cls == typeof(PackageModel) => nameof(PackageModel),
 			var cls when cls == typeof(PluLabelModel) => nameof(PluLabelModel),
 			var cls when cls == typeof(PluModel) => nameof(PluModel),
-			var cls when cls == typeof(PluPackageModel) => nameof(PluPackageModel),
+            var cls when cls == typeof(PluBundleFkModel) => nameof(PluBundleFkModel),
+            var cls when cls == typeof(PluPackageModel) => nameof(PluPackageModel),
 			var cls when cls == typeof(PluScaleModel) => nameof(PluScaleModel),
 			var cls when cls == typeof(PluTemplateFkModel) => nameof(PluTemplateFkModel),
 			var cls when cls == typeof(PluWeighingModel) => nameof(PluWeighingModel),

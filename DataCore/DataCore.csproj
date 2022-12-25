@@ -62,7 +62,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Sql\TableScaleFkModels\PlusBundlesFks\" />
     <Folder Include="ZplTemplates\" />
   </ItemGroup>
   <PropertyGroup>

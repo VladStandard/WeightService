@@ -7,6 +7,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -368,7 +369,7 @@ public class DataCoreHelper
 				package.Name = LocaleCore.Sql.SqlItemFieldName;
 				package.Weight = 0.560M;
 				break;
-			case PluModel plu:
+            case PluModel plu:
 				plu.Name = LocaleCore.Sql.SqlItemFieldName;
 				plu.Number = 100;
 				plu.FullName = LocaleCore.Sql.SqlItemFieldFullName;
@@ -377,7 +378,11 @@ public class DataCoreHelper
 				plu.Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
 				plu.Nomenclature = CreateNewSubstitute<NomenclatureModel>(isNotDefault);
 				break;
-			case PluLabelModel pluLabel:
+			case PluBundleFkModel pluBundle:
+                pluBundle.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluBundle.BundleFk = CreateNewSubstitute<BundleFkModel>(isNotDefault);
+				break;
+            case PluLabelModel pluLabel:
 				pluLabel.Zpl = LocaleCore.Sql.SqlItemFieldZpl;
 				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
 				pluLabel.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);

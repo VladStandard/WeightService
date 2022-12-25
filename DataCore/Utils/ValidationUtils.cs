@@ -8,6 +8,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -92,6 +93,7 @@ public class ValidationUtils
             var cls when cls == typeof(PackageModel) => new PackageValidator(),
             var cls when cls == typeof(PluLabelModel) => new PluLabelValidator(),
             var cls when cls == typeof(PluModel) => new PluValidator(),
+            var cls when cls == typeof(PluBundleFkModel) => new PluBundleFkValidator(),
             var cls when cls == typeof(PluScaleModel) => new PluScaleValidator(),
             var cls when cls == typeof(PluWeighingModel) => new PluWeighingValidator(),
             var cls when cls == typeof(PrinterModel) => new PrinterValidator(),
@@ -138,6 +140,7 @@ public class ValidationUtils
             OrganizationModel organization => new OrganizationValidator().Validate(organization),
             PackageModel package => new PackageValidator().Validate(package),
             PluLabelModel pluLabel => new PluLabelValidator().Validate(pluLabel),
+            PluBundleFkModel pluBundle => new PluBundleFkValidator().Validate(pluBundle),
             PluModel plu => new PluValidator().Validate(plu),
             PluPackageModel package => new PluPackageValidator().Validate(package),
             PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),

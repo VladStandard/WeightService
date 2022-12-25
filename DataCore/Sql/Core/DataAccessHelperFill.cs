@@ -6,6 +6,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
@@ -89,7 +90,11 @@ public partial class DataAccessHelper
 			case PluModel plu:
                 plu.Nomenclature = GetItemNotNullable<NomenclatureModel>(plu.Nomenclature.IdentityValueId);
 				break;
-			case PluLabelModel pluLabel:
+            case PluBundleFkModel pluBundle:
+                pluBundle.BundleFk = GetItemNotNullable<BundleFkModel>(pluBundle.BundleFk.IdentityValueId);
+                pluBundle.Plu = GetItemNotNullable<PluModel>(pluBundle.Plu.IdentityValueId);
+                break;
+            case PluLabelModel pluLabel:
 				pluLabel.PluWeighing = GetItemNullable<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
                 pluLabel.PluScale = GetItemNotNullable<PluScaleModel>(pluLabel.PluScale.IdentityValueUid);
                 break;
