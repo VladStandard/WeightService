@@ -21,4 +21,10 @@ internal class NomenclatureGroupFkModelTests
     {
         DataCore.TableBaseModelAssertEqualsNew<NomenclaturesGroupFkModel>();
     }
+    
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<NomenclaturesGroupFkModel>();
+    }
 }

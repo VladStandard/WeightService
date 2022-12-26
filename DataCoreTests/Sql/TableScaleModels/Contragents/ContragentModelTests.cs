@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleModels.Contragents;
 internal class ContragentModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+    
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<ContragentModel>(nameof(ContragentModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<ContragentModel>(nameof(ContragentModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<ContragentModel>(nameof(SqlTableBase.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -22,4 +30,9 @@ internal class ContragentModelTests
         DataCore.TableBaseModelAssertEqualsNew<ContragentModel>();
     }
 
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<ContragentModel>();
+    }
 }

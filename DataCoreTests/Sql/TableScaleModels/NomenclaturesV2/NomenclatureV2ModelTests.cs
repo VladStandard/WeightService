@@ -21,4 +21,10 @@ internal class NomenclatureV2ModelTests
     {
         DataCore.TableBaseModelAssertEqualsNew<NomenclatureV2Model>();
     }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<NomenclatureV2Model>();
+    }
 }

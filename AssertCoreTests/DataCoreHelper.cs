@@ -137,6 +137,7 @@ public class DataCoreHelper
                         if (i < 10)
                             TestContext.WriteLine(item);
                         i++;
+                        AssertSqlValidate(item, true);
                         ValidationResult validationResult = ValidationUtils.GetValidationResult(item);
                         FailureWriteLine(validationResult);
                         // Assert.
@@ -284,8 +285,7 @@ public class DataCoreHelper
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
 			case DeviceModel device:
-				//device.FillProperties();
-				device.LoginDt = DateTime.Now;
+                device.LoginDt = DateTime.Now;
 				device.LogoutDt = DateTime.Now;
 				device.Name = LocaleCore.Sql.SqlItemFieldName;
 				device.PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
@@ -293,18 +293,15 @@ public class DataCoreHelper
 				device.MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
 				break;
 			case DeviceTypeModel deviceType:
-				//deviceType.FillProperties();
-				deviceType.Name = LocaleCore.Sql.SqlItemFieldName;
+                deviceType.Name = LocaleCore.Sql.SqlItemFieldName;
 				deviceType.PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
 				break;
 			case DeviceTypeFkModel deviceTypeFk:
-				//deviceTypeFk.FillProperties();
-				deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
+			    deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				deviceTypeFk.Type = CreateNewSubstitute<DeviceTypeModel>(isNotDefault);
 				break;
 			case DeviceScaleFkModel deviceScaleFk:
-				//deviceScaleFk.FillProperties();
-				deviceScaleFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
+                deviceScaleFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				deviceScaleFk.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case LogModel log:
@@ -343,7 +340,6 @@ public class DataCoreHelper
                 nomenclatureCharacteristicFk.NomenclaturesCharacteristics = CreateNewSubstitute<NomenclaturesCharacteristicsModel>(isNotDefault);
                 break;
             case NomenclaturesGroupFkModel nomenclatureGroupFk:
-                //nomenclatureGroupFk.FillProperties();
                 nomenclatureGroupFk.NomenclatureGroup = CreateNewSubstitute<NomenclatureGroupModel>(isNotDefault);
                 nomenclatureGroupFk.NomenclatureGroupParent = CreateNewSubstitute<NomenclatureGroupModel>(isNotDefault);
                 break;

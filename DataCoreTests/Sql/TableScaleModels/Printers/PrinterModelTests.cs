@@ -11,6 +11,14 @@ internal class PrinterModelTests
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<PrinterModel>(nameof(SqlTableBase.IsMarked));
+    }
+
+    [Test]
     public void Model_ToString()
     {
         DataCore.TableBaseModelAssertToString<PrinterModel>();
@@ -20,5 +28,11 @@ internal class PrinterModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<PrinterModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<PrinterModel>();
     }
 }

@@ -13,18 +13,14 @@ internal class ScaleValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         ScaleModel item = DataCore.CreateNewSubstitute<ScaleModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         ScaleModel item = DataCore.CreateNewSubstitute<ScaleModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -13,18 +13,14 @@ internal class TemplateResourceValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         TemplateResourceModel item = DataCore.CreateNewSubstitute<TemplateResourceModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         TemplateResourceModel item = DataCore.CreateNewSubstitute<TemplateResourceModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

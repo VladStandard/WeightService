@@ -11,6 +11,14 @@ internal class OrdersWeighingModelTests
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(OrderWeighingModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(OrderWeighingModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<OrderWeighingModel>(nameof(SqlTableBase.IsMarked));
+    }
+
+    [Test]
     public void Model_ToString()
     {
         DataCore.TableBaseModelAssertToString<OrderWeighingModel>();
@@ -20,5 +28,11 @@ internal class OrdersWeighingModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<OrderWeighingModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<OrderWeighingModel>();
     }
 }

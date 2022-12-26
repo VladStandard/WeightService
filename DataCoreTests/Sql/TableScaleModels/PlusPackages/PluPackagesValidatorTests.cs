@@ -13,18 +13,14 @@ internal class PluPackagesValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         PluPackageModel item = DataCore.CreateNewSubstitute<PluPackageModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         PluPackageModel item = DataCore.CreateNewSubstitute<PluPackageModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

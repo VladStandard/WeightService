@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleModels.PluScales;
 internal class PluScaleModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+   
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<PluScaleModel>(nameof(PluScaleModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<PluScaleModel>(nameof(PluScaleModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<PluScaleModel>(nameof(SqlTableBase.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -20,5 +28,11 @@ internal class PluScaleModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<PluScaleModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<PluScaleModel>();
     }
 }

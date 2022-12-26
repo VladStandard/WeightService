@@ -13,18 +13,14 @@ internal class OrganizationValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         OrganizationModel item = DataCore.CreateNewSubstitute<OrganizationModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         OrganizationModel item = DataCore.CreateNewSubstitute<OrganizationModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

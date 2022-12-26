@@ -21,4 +21,10 @@ internal class NomenclatureCharacteristicsFkModelTests
     {
         DataCore.TableBaseModelAssertEqualsNew<NomenclaturesCharacteristicsFkModel>();
     }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<NomenclaturesCharacteristicsFkModel>();
+    }
 }

@@ -21,4 +21,10 @@ internal class PluWeighingModelTests
     {
         DataCore.TableBaseModelAssertEqualsNew<PluWeighingModel>();
     }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<PluWeighingModel>();
+    }
 }

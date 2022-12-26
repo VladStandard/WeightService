@@ -13,18 +13,14 @@ internal class DeviceTypeValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         DeviceTypeModel item = DataCore.CreateNewSubstitute<DeviceTypeModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         DeviceTypeModel item = DataCore.CreateNewSubstitute<DeviceTypeModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

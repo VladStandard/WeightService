@@ -21,4 +21,10 @@ internal class PluTemplateFkModelTests
     {
         DataCore.TableBaseModelAssertEqualsNew<PluTemplateFkModel>();
     }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<PluTemplateFkModel>();
+    }
 }

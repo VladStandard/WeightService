@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleModels.PrintersResources;
 internal class PrinterResourceModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+   
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<PrinterResourceModel>(nameof(SqlTableBase.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -20,5 +28,11 @@ internal class PrinterResourceModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<PrinterResourceModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<PrinterResourceModel>();
     }
 }

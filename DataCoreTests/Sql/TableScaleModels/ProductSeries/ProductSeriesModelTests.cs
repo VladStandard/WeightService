@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleModels.ProductSeries;
 internal class ProductSeriesModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+    
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(ProductSeriesModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(ProductSeriesModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(SqlTableBase.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -20,5 +28,11 @@ internal class ProductSeriesModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<ProductSeriesModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<ProductSeriesModel>();
     }
 }

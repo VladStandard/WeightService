@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleModels.ScalesScreenshots;
 internal class ScaleScreenShotModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+    
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<ScaleScreenShotModel>(nameof(ScaleScreenShotModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<ScaleScreenShotModel>(nameof(ScaleScreenShotModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<ScaleScreenShotModel>(nameof(ScaleScreenShotModel.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -20,5 +28,11 @@ internal class ScaleScreenShotModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<ScaleScreenShotModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<ScaleScreenShotModel>();
     }
 }

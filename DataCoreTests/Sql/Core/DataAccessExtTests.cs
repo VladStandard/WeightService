@@ -9,7 +9,7 @@ using DataCore.Sql.TableScaleModels.Scales;
 namespace DataCoreTests.Sql.Core;
 
 [TestFixture]
-internal class DataAcessExtTests
+internal class DataAccessExtTests
 {
 	#region Public and private fields, properties, constructor
 

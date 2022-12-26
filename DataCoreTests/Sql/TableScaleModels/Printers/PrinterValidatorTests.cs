@@ -13,18 +13,14 @@ internal class PrinterValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         PrinterModel item = DataCore.CreateNewSubstitute<PrinterModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         PrinterModel item = DataCore.CreateNewSubstitute<PrinterModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -9,6 +9,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Versions;
 internal class VersionModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+    
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
+        DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Description));
+        DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
+        DataCore.AssertSqlPropertyCheckBool<VersionModel>(nameof(SqlTableBase.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -20,5 +31,11 @@ internal class VersionModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<VersionModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<VersionModel>();
     }
 }

@@ -13,18 +13,14 @@ internal class NomenclatureGroupFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         NomenclaturesGroupFkModel item = DataCore.CreateNewSubstitute<NomenclaturesGroupFkModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         NomenclaturesGroupFkModel item = DataCore.CreateNewSubstitute<NomenclaturesGroupFkModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

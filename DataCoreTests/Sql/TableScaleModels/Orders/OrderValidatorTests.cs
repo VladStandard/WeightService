@@ -13,18 +13,14 @@ internal class OrderValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         OrderModel item = DataCore.CreateNewSubstitute<OrderModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         OrderModel item = DataCore.CreateNewSubstitute<OrderModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleFkModels.DeviceScaleFks;
 internal class DeviceScaleFkModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+   
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<DeviceScaleFkModel>(nameof(DeviceScaleFkModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<DeviceScaleFkModel>(nameof(DeviceScaleFkModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<DeviceScaleFkModel>(nameof(SqlTableBase.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -20,5 +28,11 @@ internal class DeviceScaleFkModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<DeviceScaleFkModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<DeviceScaleFkModel>();
     }
 }

@@ -13,18 +13,14 @@ internal class PackageValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         PackageModel item = DataCore.CreateNewSubstitute<PackageModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         PackageModel item = DataCore.CreateNewSubstitute<PackageModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

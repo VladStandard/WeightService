@@ -13,18 +13,14 @@ internal class TemplateValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         TemplateModel item = DataCore.CreateNewSubstitute<TemplateModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         TemplateModel item = DataCore.CreateNewSubstitute<TemplateModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

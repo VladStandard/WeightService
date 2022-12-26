@@ -22,4 +22,10 @@ internal class BrandModelTests
     {
         DataCore.TableBaseModelAssertEqualsNew<BrandModel>();
     }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<BrandModel>();
+    }
 }

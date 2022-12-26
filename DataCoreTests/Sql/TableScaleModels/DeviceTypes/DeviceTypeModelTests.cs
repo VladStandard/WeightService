@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleModels.DeviceTypes;
 internal class DeviceTypeModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+    
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<DeviceTypeModel>(nameof(DeviceTypeModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<DeviceTypeModel>(nameof(DeviceTypeModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<DeviceTypeModel>(nameof(SqlTableBase.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -20,5 +28,11 @@ internal class DeviceTypeModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<DeviceTypeModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<DeviceTypeModel>();
     }
 }

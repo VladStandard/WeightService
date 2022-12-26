@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleModels.NomenclaturesCharacteristics;
 internal class NomenclaturesCharacteristicModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+    
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsModel>(nameof(NomenclaturesCharacteristicsModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsModel>(nameof(NomenclaturesCharacteristicsModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<NomenclaturesCharacteristicsModel>(nameof(NomenclaturesCharacteristicsModel.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -20,5 +28,11 @@ internal class NomenclaturesCharacteristicModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<NomenclaturesCharacteristicsModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<NomenclaturesCharacteristicsModel>();
     }
 }
