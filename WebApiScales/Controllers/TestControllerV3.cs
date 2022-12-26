@@ -2,17 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Utils;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using NHibernate;
 using System.Diagnostics;
 using System.Globalization;
-using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using WebApiCore.Controllers;
-using WebApiCore.Models;
-using WebApiCore.Utils;
 
 namespace WebApiScales.Controllers;
 

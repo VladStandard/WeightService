@@ -13,6 +13,7 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Linq;
+using DataCore.Models;
 using DataCore.Sql.Tables;
 using WebApiCore.Models;
 using WebApiCore.Models.WebResponses;
@@ -245,9 +246,11 @@ public class ControllerHelper
         try
         {
             (bool isOk, Exception? exception) resultDbStore;
-            T? itemDb = listDb.FirstOrDefault(x => x.IdentityValueUid.Equals(itemInput.IdentityValueUid));
-            // Find duplicate field "GUID".
-            if (itemDb is not null && itemDb.IdentityIsNotNew)
+            T? itemDb = listDb.FirstOrDefault(x => Equals(x.Identity.Name, SqlFieldIdentityEnum.Id) 
+	            ? x.IdentityValueId.Equals(itemInput.IdentityValueId)
+	            : x.IdentityValueUid.Equals(itemInput.IdentityValueUid));
+			// Find duplicate field Identity.
+			if (itemDb is not null && itemDb.IdentityIsNotNew)
             {
                 itemDb.UpdateProperties(itemInput);
                 resultDbStore = DataContext.DataAccess.Update(itemDb);
@@ -343,44 +346,11 @@ public class ControllerHelper
             try
             {
                 brand.ParseResult.Status = ParseStatus.Success;
-                // Guid.
-                if (Guid.TryParse(GetXmlAttributeValue(node, "Guid"), out Guid uid))
-                {
-                    brand.IdentityValueUid = uid;
-                }
-                else
-                {
-                    brand.ParseResult.Status = ParseStatus.Error;
-                    brand.ParseResult.Exception = "Guid is Empty!";
-                    //continue;
-                }
-                if (brand.IdentityValueUid.Equals(Guid.Empty))
-                {
-                    brand.ParseResult.Status = ParseStatus.Error;
-                    brand.ParseResult.Exception = "Guid is Empty!";
-                    //continue;
-                }
-
-                // IsMarked.
-                SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.IsMarked));
-
-                // Name.
-                brand.Name = GetXmlAttributeValue(node, nameof(brand.Name));
-                if (string.IsNullOrEmpty(brand.Name))
-                {
-                    brand.ParseResult.Status = ParseStatus.Error;
-                    brand.ParseResult.Exception = "Name is Empty!";
-                    //continue;
-                }
-
-                // Code.
-                brand.Code = GetXmlAttributeValue(node, nameof(brand.Code));
-                if (string.IsNullOrEmpty(brand.Code))
-                {
-                    brand.ParseResult.Status = ParseStatus.Error;
-                    brand.ParseResult.Exception = "Code is Empty!";
-                    //continue;
-                }
+                // Set properties.
+				SetItemPropertyFromXmlAttributeGuid(node, brand, "Guid");
+				SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.IsMarked));
+				SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Name));
+				SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Code));
 
                 if (string.IsNullOrEmpty(brand.ParseResult.Exception))
                     brand.ParseResult.Message = "Is success";
@@ -412,28 +382,11 @@ public class ControllerHelper
             try
             {
                 nomenclatureGroup.ParseResult.Status = ParseStatus.Success;
-                // Guid.
-                if (Guid.TryParse(GetXmlAttributeValue(node, "Guid"), out Guid uid))
-                {
-                    nomenclatureGroup.IdentityValueUid = uid;
-                }
-                else
-                {
-                    nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
-                    nomenclatureGroup.ParseResult.Exception = "Guid is Empty!";
-                    //continue;
-                }
-                if (nomenclatureGroup.IdentityValueUid.Equals(Guid.Empty))
-                {
-                    nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
-                    nomenclatureGroup.ParseResult.Exception = "Guid is Empty!";
-                    //continue;
-                }
-
                 // Set properties.
+				SetItemPropertyFromXmlAttributeGuid(node, nomenclatureGroup, "Guid");
                 SetItemPropertyFromXmlAttribute(node, nomenclatureGroup, nameof(nomenclatureGroup.IsMarked));
                 SetItemPropertyFromXmlAttribute(node, nomenclatureGroup, nameof(nomenclatureGroup.Name));
-                SetItemPropertyFromXmlAttribute(node, nomenclatureGroup, "Code");
+                SetItemPropertyFromXmlAttribute(node, nomenclatureGroup, nameof(nomenclatureGroup.Code));
 
                 if (string.IsNullOrEmpty(nomenclatureGroup.ParseResult.Exception))
                     nomenclatureGroup.ParseResult.Message = "Is success";
@@ -452,7 +405,7 @@ public class ControllerHelper
     }
 
     [Obsolete(@"Deprecated method")]
-    private List<NomenclatureModel> GetNomenclatureList(XElement xml)
+    private List<NomenclatureModel> GetNomenclatureDeprecatedList(XElement xml)
     {
         List<NomenclatureModel> nomenclatures = new();
         XmlDocument xmlDocument = new();
@@ -463,33 +416,29 @@ public class ControllerHelper
         foreach (XmlNode node in list)
         {
 	        NomenclatureModel nomenclature = new();
+	        BrandModel brand = new();
+	        NomenclatureGroupModel nomenclatureGroup = new();
             try
             {
                 nomenclature.ParseResult.Status = ParseStatus.Success;
-                // Guid.
-                if (Guid.TryParse(GetXmlAttributeValue(node, "Guid"), out Guid uid))
-                {
-                    nomenclature.IdentityValueUid = uid;
-                }
-                else
-                {
-                    nomenclature.ParseResult.Status = ParseStatus.Error;
-                    nomenclature.ParseResult.Exception = "Guid is Empty!";
-                    //continue;
-                }
-                if (nomenclature.IdentityValueUid.Equals(Guid.Empty))
-                {
-                    nomenclature.ParseResult.Status = ParseStatus.Error;
-                    nomenclature.ParseResult.Exception = "Guid is Empty!";
-                    //continue;
-                }
+                brand.ParseResult.Status = ParseStatus.Success;
+                nomenclatureGroup.ParseResult.Status = ParseStatus.Success;
+				// Set properties.
+				SetItemPropertyFromXmlAttributeGuid(node, nomenclature, "Guid");
+				SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.IsMarked));
+				//SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.IsGroup));
+				SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.Name));
+                SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.Code));
+				//SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.FullName));
+				SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.Description));
+				//SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Code));
+				SetItemPropertyFromXmlAttribute(node, brand, "BrandGuid");
+				SetItemPropertyFromXmlAttribute(node, nomenclatureGroup, "GroupGuid");
+				//SetItemPropertyFromXmlAttribute(node, , "BoxTypeGuid");
+				//SetItemPropertyFromXmlAttribute(node, , "PackageTypeGuid");
+				//SetItemPropertyFromXmlAttribute(node, , "ClipTypeGuid");
 
-                // Set properties.
-                SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.IsMarked));
-                SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.Name));
-                SetItemPropertyFromXmlAttribute(node, nomenclature, "Code");
-
-                if (string.IsNullOrEmpty(nomenclature.ParseResult.Exception))
+				if (string.IsNullOrEmpty(nomenclature.ParseResult.Exception))
                     nomenclature.ParseResult.Message = "Is success";
             }
             catch (Exception ex)
@@ -505,12 +454,133 @@ public class ControllerHelper
         return nomenclatures;
     }
 
-    private void SetItemPropertyFromXmlAttribute<T>(XmlNode node, T item, string property) where T : SqlTableBase, new()
+	private (object? Value, ParseResultModel ParseResult) GetItemPropertyFromXmlAttribute(XmlNode node, string propertyName)
+	{
+        object? value = null;
+		ParseResultModel parseResult = new() { Status = ParseStatus.Success };
+		switch (propertyName)
+		{
+			case "Guid":
+				if (Guid.TryParse(GetXmlAttributeValue(node, "Guid"), out Guid uid))
+				{
+					value = uid;
+				}
+				else
+				{
+					parseResult.Status = ParseStatus.Error;
+					parseResult.Exception = $"{propertyName} is Empty!";
+				}
+				if (value is Guid guid && guid.Equals(Guid.Empty))
+				{
+					parseResult.Status = ParseStatus.Error;
+					parseResult.Exception = $"{propertyName} is Empty!";
+				}
+				break;
+			case nameof(SqlTableBase.IsMarked):
+				string isMarkedStr = GetXmlAttributeValue(node, propertyName);
+				switch (isMarkedStr)
+				{
+					case "0":
+					case "false":
+						value = false;
+						break;
+					case "1":
+					case "true":
+						value = true;
+						break;
+					default:
+						parseResult.Status = ParseStatus.Error;
+						parseResult.Exception = $"{propertyName} is Empty!";
+						break;
+				}
+				break;
+			case nameof(SqlTableBase.Name):
+				value = GetXmlAttributeValue(node, propertyName);
+				if (value is string name && string.IsNullOrEmpty(name))
+				{
+					parseResult.Status = ParseStatus.Error;
+					parseResult.Exception = $"{propertyName} is Empty!";
+				}
+				break;
+			case "Code":
+				value = GetXmlAttributeValue(node, propertyName);
+				if (value is string code && string.IsNullOrEmpty(code))
+				{
+					parseResult.Status = ParseStatus.Error;
+					parseResult.Exception = $"{propertyName} is Empty!";
+				}
+				break;
+		}
+		return new(value, parseResult);
+	}
+
+	private void SetItemPropertyFromXmlAttributeGuid<T>(XmlNode node, T item, string propertyName) where T : SqlTableBase, new()
+	{
+        (object? Value, ParseResultModel ParseResult) property = GetItemPropertyFromXmlAttribute(node, propertyName);
+        if (property.Value is Guid uid)
+			item.IdentityValueUid = uid;
+        item.ParseResult = property.ParseResult;
+	}
+
+	private void SetItemPropertyFromXmlAttribute<T>(XmlNode node, T item, string propertyName) where T : SqlTableBase, new()
+	{
+		(object? Value, ParseResultModel ParseResult) property = GetItemPropertyFromXmlAttribute(node, propertyName);
+		item.ParseResult = property.ParseResult;
+		switch (propertyName)
+		{
+			case nameof(item.IsMarked):
+				if (property.Value is bool isMarked)
+					item.IsMarked = isMarked;
+                break;
+			case nameof(item.Name):
+				if (property.Value is string name)
+					item.Name = name;
+                break;
+			case nameof(item.Description):
+				if (property.Value is string description)
+					item.Description = description;
+                break;
+			case "Code":
+				if (property.Value is string code)
+					switch (item)
+					{
+						case BrandModel brand:
+							brand.Code = code;
+							break;
+						case NomenclatureModel nomenclature:
+							nomenclature.Code = code;
+							break;
+						case NomenclatureGroupModel nomenclatureGroup:
+							nomenclatureGroup.Code = code;
+							break;
+					}
+				break;
+		}
+	}
+	
+	[Obsolete(@"Deprecated method")]
+    private void SetItemPropertyFromXmlAttributeDeprecated<T>(XmlNode node, T item, string propertyName) where T : SqlTableBase, new()
     {
-        switch (property)
+        switch (propertyName)
         {
+	        case "Guid":
+		        if (Guid.TryParse(GetXmlAttributeValue(node, "Guid"), out Guid uid))
+		        {
+			        item.IdentityValueUid = uid;
+		        }
+		        else
+		        {
+			        item.ParseResult.Status = ParseStatus.Error;
+			        item.ParseResult.Exception = "Guid is Empty!";
+		        }
+		        if (item.IdentityValueUid.Equals(Guid.Empty))
+		        {
+			        item.ParseResult.Status = ParseStatus.Error;
+			        item.ParseResult.Exception = "Guid is Empty!";
+		        }
+		        break;
             case nameof(item.IsMarked):
-                string isMarkedStr = GetXmlAttributeValue(node, property);
+                string isMarkedStr = GetXmlAttributeValue(node, propertyName);
                 switch (isMarkedStr)
                 {
                     case "0":
@@ -528,7 +598,7 @@ public class ControllerHelper
                 }
                 break;
             case nameof(item.Name):
-                item.Name = GetXmlAttributeValue(node, property);
+                item.Name = GetXmlAttributeValue(node, propertyName);
                 if (string.IsNullOrEmpty(item.Name))
                 {
                     item.ParseResult.Status = ParseStatus.Error;
@@ -539,7 +609,7 @@ public class ControllerHelper
                 switch (item)
                 {
                     case BrandModel brand:
-                        brand.Code = GetXmlAttributeValue(node, property);
+                        brand.Code = GetXmlAttributeValue(node, propertyName);
                         if (string.IsNullOrEmpty(brand.Code))
                         {
                             brand.ParseResult.Status = ParseStatus.Error;
@@ -547,7 +617,7 @@ public class ControllerHelper
                         }
                         break;
                     case NomenclatureGroupModel nomenclatureGroup:
-                        nomenclatureGroup.Code = GetXmlAttributeValue(node, property);
+                        nomenclatureGroup.Code = GetXmlAttributeValue(node, propertyName);
                         if (string.IsNullOrEmpty(nomenclatureGroup.Code))
                         {
                             nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
@@ -648,7 +718,7 @@ public class ControllerHelper
 		    SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
 		    List<NomenclatureModel> nomenclaturesDb = DataContext.GetListNotNullable<NomenclatureModel>(sqlCrudConfig);
 
-		    List<NomenclatureModel> nomenclaturesInput = GetNomenclatureList(request);
+		    List<NomenclatureModel> nomenclaturesInput = GetNomenclatureDeprecatedList(request);
 		    foreach (NomenclatureModel nomenclatureInput in nomenclaturesInput)
 		    {
 			    // string xml = brandInput.SerializeAsXmlString<BrandModel>(false);
@@ -671,19 +741,14 @@ public class ControllerHelper
     /// New response 1C.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    /// <param name="request"></param>
+    /// <param name="version"></param>
     /// <param name="formatString"></param>
     /// <returns></returns>
-	public ContentResult NewResponse1C(ISessionFactory sessionFactory, string formatString)
-	{
-		return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
-		{
-			//AddResponse1CItem(response, nomenclaturesDb, nomenclatureInput);
-			//AddResponse1CException(nomenclatureInput.IdentityValueUid, response,
-			//nomenclatureInput.ParseResult.Exception, nomenclatureInput.ParseResult.InnerException);
-			response.Infos.Add(new("Default reponse."));
-		}, formatString, false, HttpStatusCode.NotFound);
-	}
-    
-	#endregion
+    public ContentResult NewResponse1CIsNotFound(ISessionFactory sessionFactory, string version, string formatString) =>
+	    NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+	    {
+		    response.Infos.Add(new($"Version {version} is not found!"));
+	    }, formatString, false, HttpStatusCode.NotFound);
+
+    #endregion
 }

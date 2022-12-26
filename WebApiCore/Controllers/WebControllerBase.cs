@@ -4,6 +4,7 @@
 using DataCore.Settings;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
+using WebApiCore.Enums;
 using WebApiCore.Utils;
 
 namespace WebApiCore.Controllers;
@@ -39,5 +40,17 @@ public class WebControllerBase : ControllerBase // ApiController
         SessionFactory = sessionFactory;
     }
 
-    #endregion
+	/// <summary>
+	/// Get AcceptVersion from string value.
+	/// </summary>
+	/// <returns></returns>
+	protected AcceptVersion GetAcceptVersion(string value) =>
+		value.ToUpper() switch
+		{
+			"V2" => AcceptVersion.V2,
+			"V3" => AcceptVersion.V3,
+			"*/*" or _ => AcceptVersion.V1
+		};
+
+	#endregion
 }
