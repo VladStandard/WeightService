@@ -246,7 +246,7 @@
 //            AddRequest(x);
 //        }
 
-//        public void SetTareWeight(int weightTare)
+//        public void SetWeightTare(int weightTare)
 //        {
 
 //            CmdSetTare x = new CmdSetTare();

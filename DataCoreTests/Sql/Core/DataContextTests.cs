@@ -18,10 +18,8 @@ using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.Organizations;
-using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
@@ -123,17 +121,11 @@ internal class DataContextTests
 					case var cls when cls == typeof(OrganizationModel):
 						GetListNotNullable<OrganizationModel>();
 						break;
-					case var cls when cls == typeof(PackageModel):
-						GetListNotNullable<PackageModel>();
-						break;
 					case var cls when cls == typeof(PluLabelModel):
 						GetListNotNullable<PluLabelModel>();
 						break;
 					case var cls when cls == typeof(PluModel):
 						GetListNotNullable<PluModel>();
-						break;
-					case var cls when cls == typeof(PluPackageModel):
-						GetListNotNullable<PluPackageModel>();
 						break;
 					case var cls when cls == typeof(PluBundleFkModel):
 						GetListNotNullable<PluBundleFkModel>();

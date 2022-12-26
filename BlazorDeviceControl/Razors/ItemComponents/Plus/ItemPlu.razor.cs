@@ -84,7 +84,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     SqlItemCast.Ean13 = string.Empty;
                     SqlItemCast.Itf14 = string.Empty;
                     SqlItemCast.BoxQuantly = 0;
-                    //SqlItemCast.TareWeight = 0;
+                    //SqlItemCast.WeightTare = 0;
                     break;
                 case nameof(LocaleCore.DeviceControl.TableActionFill):
                     if (string.IsNullOrEmpty(SqlItemCast.Name))
@@ -103,8 +103,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                         SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
                     if (SqlItemCast.BoxQuantly == 0)
                         SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
-                    //if (SqlItemCast.TareWeight == 0)
-                    //    SqlItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
+                    //if (SqlItemCast.WeightTare == 0)
+                    //    SqlItemCast.WeightTare = ProductHelper.CalcGoodsWeightTare(SqlItemCast.Nomenclature);
                     break;
                 case nameof(ProductHelper.GetXmlName):
                     SqlItemCast.Name = ProductHelper.GetXmlName(SqlItemCast.Nomenclature, SqlItemCast.Name);
@@ -134,8 +134,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                 case nameof(ProductHelper.GetXmlBoxQuantly):
                     SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
                     break;
-                case nameof(ProductHelper.CalcGoodsTareWeight):
-                    //SqlItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
+                case nameof(ProductHelper.CalcGoodsWeightTare):
+                    //SqlItemCast.WeightTare = ProductHelper.CalcGoodsWeightTare(SqlItemCast.Nomenclature);
                     break;
             }
         }

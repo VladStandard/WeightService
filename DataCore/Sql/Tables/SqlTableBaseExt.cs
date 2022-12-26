@@ -8,7 +8,6 @@ using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Organizations;
-using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Printers;
@@ -21,6 +20,10 @@ using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.Xml;
 using System.Globalization;
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleModels.Boxes;
+using DataCore.Sql.TableScaleModels.Bundles;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 
 namespace DataCore.Sql.Tables;
 
@@ -46,7 +49,10 @@ public static class SqlTableBaseExt
 			DeviceScaleFkModel deviceScaleFk => GetPropertyDeviceScaleFk(propertyName, deviceScaleFk),
 			Xml.LogQuickModel logQuick => GetPropertyLogQuick(propertyName, logQuick),
 			OrganizationModel organization => GetPropertyOrganization(propertyName, organization),
-			PackageModel package => GetPropertyPackage(propertyName, package),
+			BoxModel box => GetPropertyBox(propertyName, box),
+			BundleModel bundle => GetPropertyBundle(propertyName, bundle),
+			BundleFkModel bundleFk => GetPropertyBundleFk(propertyName, bundleFk),
+			PluBundleFkModel pluBundleFk => GetPropertyPluBundleFk(propertyName, pluBundleFk),
 			PluModel plu => GetPropertyPlu(propertyName, plu),
 			PluScaleModel pluScale => GetPropertyPluScale(propertyName, pluScale),
 			PrinterModel printer => GetPropertyPrinter(propertyName, printer),
@@ -189,11 +195,38 @@ public static class SqlTableBaseExt
 		};
 	}
 
-	private static string GetPropertyPackage(string propertyName, PackageModel package)
+	private static string GetPropertyBox(string propertyName, BoxModel box)
 	{
 		return propertyName switch
 		{
-			nameof(PackageModel.Weight) => package.Weight.ToString(CultureInfo.InvariantCulture),
+			nameof(BoxModel.Weight) => box.Weight.ToString(CultureInfo.InvariantCulture),
+			_ => LocaleCore.Table.FieldNotFound
+		};
+	}
+
+	private static string GetPropertyBundle(string propertyName, BundleModel bundle)
+	{
+		return propertyName switch
+		{
+			nameof(BundleModel.Weight) => bundle.Weight.ToString(CultureInfo.InvariantCulture),
+			_ => LocaleCore.Table.FieldNotFound
+		};
+	}
+
+	private static string GetPropertyBundleFk(string propertyName, BundleFkModel bundleFk)
+	{
+		return propertyName switch
+		{
+			nameof(BundleFkModel.WeightTare) => bundleFk.WeightTare.ToString(CultureInfo.InvariantCulture),
+			_ => LocaleCore.Table.FieldNotFound
+		};
+	}
+
+	private static string GetPropertyPluBundleFk(string propertyName, PluBundleFkModel pluBundleFk)
+	{
+		return propertyName switch
+		{
+			nameof(PluBundleFkModel.WeightTare) => pluBundleFk.WeightTare.ToString(CultureInfo.InvariantCulture),
 			_ => LocaleCore.Table.FieldNotFound
 		};
 	}

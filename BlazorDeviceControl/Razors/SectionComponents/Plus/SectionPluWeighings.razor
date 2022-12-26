@@ -47,14 +47,14 @@
 					Text=@(itemCast.PluScale.Plu.Name) />
 	        </Template>
         </RadzenGridColumn>
-		<RadzenGridColumn TItem=@PluWeighingModel Width="10%" Title=@LocaleCore.Table.PackageWeight TextAlign=@TextAlign.Center >
+		<RadzenGridColumn TItem=@PluWeighingModel Width="10%" Title=@LocaleCore.Table.BundleFkWeightTare TextAlign=@TextAlign.Center >
 	        <Template Context="itemCast" >
 		        <RadzenText 
 			        TextStyle=@TextStyle.Body2
-					Text=@itemCast.TareWeight.ToString(CultureInfo.InvariantCulture) />
+					Text=@itemCast.WeightTare.ToString(CultureInfo.InvariantCulture) />
 	        </Template>
         </RadzenGridColumn>
-		<RadzenGridColumn TItem=@PluWeighingModel Width="10%" Title=@LocaleCore.Table.NetWeight TextAlign=@TextAlign.Center >
+		<RadzenGridColumn TItem=@PluWeighingModel Width="10%" Title=@LocaleCore.Table.WeightNetto TextAlign=@TextAlign.Center >
 	        <Template Context="itemCast" >
 		        <RadzenText 
 			        TextStyle=@TextStyle.Body2

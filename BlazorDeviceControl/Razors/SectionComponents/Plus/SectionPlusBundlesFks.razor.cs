@@ -2,16 +2,16 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
-public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageModel, PluModel>
+public partial class SectionPlusBundlesFks : RazorComponentSectionBase<PluBundleFkModel, PluModel>
 {
     #region Public and private fields, properties, constructor
 
-    public SectionPlusPackages()
+    public SectionPlusBundlesFks()
     {
 	    SqlCrudConfigSection.IsGuiShowItemsCount = true;
 	    SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
@@ -29,8 +29,8 @@ public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageM
         {
             () =>
             {
-	            SqlCrudConfigSection.SetFilters(nameof(PluPackageModel.Plu), ParentRazor?.SqlItem);
-				SqlSectionCast = DataContext.GetListNotNullable<PluPackageModel>(SqlCrudConfigSection);
+	            SqlCrudConfigSection.SetFilters(nameof(PluBundleFkModel.Plu), ParentRazor?.SqlItem);
+				SqlSectionCast = DataContext.GetListNotNullable<PluBundleFkModel>(SqlCrudConfigSection);
             }
         });
     }

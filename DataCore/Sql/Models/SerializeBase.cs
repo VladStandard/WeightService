@@ -80,7 +80,7 @@ public class SerializeBase : ISerializable
         return result;
     }
 
-    public virtual string SerializeAsXmlString<T>(bool isAddEmptyNamespace, bool isUtf16 = false) where T : new()
+    public virtual string SerializeAsXmlString<T>(bool isAddEmptyNamespace, bool isUtf16) where T : new()
     {
         XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
 
@@ -115,11 +115,11 @@ public class SerializeBase : ISerializable
 
     public virtual string SerializeAsText() => ToString();
 
-    public virtual XmlDocument SerializeAsXmlDocument<T>(bool isAddEmptyNamespace) where T : new()
+    public virtual XmlDocument SerializeAsXmlDocument<T>(bool isAddEmptyNamespace, bool isUtf16) where T : new()
     {
         XmlDocument xmlDocument = new();
-        string xmlString = SerializeAsXmlString<T>(isAddEmptyNamespace);
-        byte[] bytes = Encoding.Unicode.GetBytes(xmlString);
+        string xmlString = SerializeAsXmlString<T>(isAddEmptyNamespace, false);
+        byte[] bytes = isUtf16 ? Encoding.Unicode.GetBytes(xmlString) : Encoding.UTF8.GetBytes(xmlString);
         using MemoryStream memoryStream = new(bytes);
         memoryStream.Flush();
         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -181,7 +181,7 @@ public class SerializeBase : ISerializable
         FormatType.JavaScript => GetContentResult(formatType, SerializeAsText(), statusCode),
         FormatType.Json => GetContentResult(formatType, SerializeAsJson(), statusCode),
         FormatType.Html => GetContentResult(formatType, SerializeAsHtml(), statusCode),
-        FormatType.Xml or FormatType.XmlUtf8 => GetContentResult(formatType, SerializeAsXmlString<T>(true), statusCode),
+        FormatType.Xml or FormatType.XmlUtf8 => GetContentResult(formatType, SerializeAsXmlString<T>(true, false), statusCode),
         FormatType.XmlUtf16 => GetContentResult(formatType, SerializeAsXmlString<T>(true, true), statusCode),
         _ => throw DataUtils.GetArgumentException(nameof(formatType)),
     };
@@ -250,7 +250,7 @@ public class SerializeBase : ISerializable
             FormatType.JavaScript => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
             FormatType.Json => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
             FormatType.Html => SerializeAsHtml(),
-            FormatType.Xml or FormatType.XmlUtf8 => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true)),
+            FormatType.Xml or FormatType.XmlUtf8 => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true, false)),
             FormatType.XmlUtf16 => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true, true)),
             _ => throw DataUtils.GetArgumentException(nameof(formatType)),
         };

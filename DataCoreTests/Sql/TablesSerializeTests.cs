@@ -1,15 +1,19 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Brands;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -21,10 +25,8 @@ using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
-using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
@@ -69,6 +71,15 @@ internal class TablesSerializeTests
 						break;
 					case var cls when cls == typeof(AppModel):
 						DataCore.TableBaseModelAssertSerialize<AppModel>();
+						break;
+					case var cls when cls == typeof(BoxModel):
+						DataCore.TableBaseModelAssertSerialize<BoxModel>();
+						break;
+					case var cls when cls == typeof(BundleModel):
+						DataCore.TableBaseModelAssertSerialize<BundleModel>();
+						break;
+					case var cls when cls == typeof(BundleFkModel):
+						DataCore.TableBaseModelAssertSerialize<BundleFkModel>();
 						break;
 					case var cls when cls == typeof(BarCodeModel):
 						DataCore.TableBaseModelAssertSerialize<BarCodeModel>();
@@ -124,17 +135,14 @@ internal class TablesSerializeTests
 					case var cls when cls == typeof(OrganizationModel):
 						DataCore.TableBaseModelAssertSerialize<OrganizationModel>();
 						break;
-					case var cls when cls == typeof(PackageModel):
-						DataCore.TableBaseModelAssertSerialize<PackageModel>();
+					case var cls when cls == typeof(PluBundleFkModel):
+						DataCore.TableBaseModelAssertSerialize<PluBundleFkModel>();
 						break;
 					case var cls when cls == typeof(PluLabelModel):
 						DataCore.TableBaseModelAssertSerialize<PluLabelModel>();
 						break;
 					case var cls when cls == typeof(PluModel):
 						DataCore.TableBaseModelAssertSerialize<PluModel>();
-						break;
-					case var cls when cls == typeof(PluPackageModel):
-						DataCore.TableBaseModelAssertSerialize<PluPackageModel>();
 						break;
 					case var cls when cls == typeof(PluScaleModel):
 						DataCore.TableBaseModelAssertSerialize<PluScaleModel>();

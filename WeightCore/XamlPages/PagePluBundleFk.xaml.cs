@@ -3,35 +3,35 @@
 
 using System.Windows;
 using System.Linq;
-using DataCore.Sql.TableScaleModels.PlusPackages;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 
 namespace WeightCore.XamlPages;
 
 /// <summary>
 /// Interaction logic for PageSqlSettings.xaml
 /// </summary>
-public partial class PagePackage
+public partial class PagePluBundleFk
 {
 	#region Public and private fields, properties, constructor
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PagePackage()
+	public PagePluBundleFk()
 	{
 		InitializeComponent();
 		Setup();
         
 		int i = 0;
-		if (UserSession.PluPackage.IdentityIsNew)
+		if (UserSession.BundleFk.IdentityIsNew)
 		{
 			comboBoxPluPackage.SelectedIndex = 0;
 		}
 		else
 		{
-			foreach (PluPackageModel pluPackage in UserSession.PluPackages)
+			foreach (PluBundleFkModel pluBundleFk in UserSession.PluBundlesFks)
 			{
-				if (UserSession.PluPackage.Equals(pluPackage))
+				if (UserSession.BundleFk.Equals(pluBundleFk))
 				{
 					comboBoxPluPackage.SelectedIndex = i;
 					break;
@@ -53,7 +53,7 @@ public partial class PagePackage
 
 	private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
 	{
-		UserSession.PluPackage = UserSession.PluPackages.First();
+		UserSession.BundleFk = UserSession.PluBundlesFks.First().BundleFk;
 		Result = System.Windows.Forms.DialogResult.Cancel;
 		OnClose?.Invoke(sender, e);
 	}

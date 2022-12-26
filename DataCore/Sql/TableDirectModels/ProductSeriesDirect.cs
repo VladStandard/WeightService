@@ -16,8 +16,8 @@ public class ProductSeriesDirect : SqlSerializeBase, ISerializable
 	[XmlElement] public DateTime CreateDate { get; set; }
 	[XmlElement] public SsccDirect Sscc { get; set; }
 	[XmlElement] public int CountUnit { get; set; }
-	[XmlElement] public decimal TotalNetWeight { get; set; }
-	[XmlElement] public decimal TotalTareWeight { get; set; }
+	[XmlElement] public decimal TotalWeightNetto { get; set; }
+	[XmlElement] public decimal TotalWeightTare { get; set; }
 	[XmlElement] public bool IsMarked { get; set; }
 
     #endregion
@@ -31,8 +31,8 @@ public class ProductSeriesDirect : SqlSerializeBase, ISerializable
         Uuid = Guid.Empty;
         CreateDate = DateTime.MinValue;
         CountUnit = 0;
-        TotalNetWeight = 0;
-        TotalTareWeight = 0;
+        TotalWeightNetto = 0;
+        TotalWeightTare = 0;
         Sscc = new();
         Scale = new();
     }
@@ -71,8 +71,8 @@ public class ProductSeriesDirect : SqlSerializeBase, ISerializable
                     Uuid = reader.GetGuid(2);
                     Sscc = new(reader.GetString(3));
                     CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
-                    TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
-                    TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
+                    TotalWeightNetto = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
+                    TotalWeightTare = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
                 }
             });
     }

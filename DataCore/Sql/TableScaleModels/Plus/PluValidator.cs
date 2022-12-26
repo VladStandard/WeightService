@@ -34,7 +34,7 @@ public class PluValidator : SqlTableValidator<PluModel>
             .NotNull()
             .GreaterThanOrEqualTo((short)0)
             .LessThanOrEqualTo((short)365);
-        //RuleFor(item => item.TareWeight)
+        //RuleFor(item => item.WeightTare)
         //	.NotNull()
         //	.GreaterThanOrEqualTo(0)
         //	.LessThanOrEqualTo(100);

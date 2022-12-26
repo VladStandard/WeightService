@@ -1,0 +1,35 @@
+﻿@inherits RazorComponentItemBase<BundleFkModel>
+@page "/item/bundle_fk"
+@page "/item/bundle_fk/new"
+@page "/item/bundle_fk/{IdentityUidStr}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleFkModels.BundlesFks
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=@BundleFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemContragent />
+
+<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+    <RazorItemTableHead TItem=@BundleFkModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <tbody>
+    <RazorItemTableBody TItem=@BundleFkModel ParentRazor=@(this) />
+    <tr>
+        <td>@LocaleCore.Table.Name</td>
+        <td colspan=3>
+            <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
+        </td>
+    </tr>
+    <tr>
+        <td>@LocaleCore.Table.BundleFkWeightTareKg</td>
+        <td colspan=3>
+            <RadzenNumeric 
+                Style="width: 100%; text-align: center; " 
+                TValue="decimal" @bind-Value=@SqlItemCast.WeightTare />
+        </td>
+    </tr>
+    </tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=@BundleFkModel ParentRazor=@(this) />
+<RazorItemDates TItem=@BundleFkModel ParentRazor=@(this) />

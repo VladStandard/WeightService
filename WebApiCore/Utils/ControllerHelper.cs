@@ -20,7 +20,6 @@ using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Brands;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
-using System;
 
 namespace WebApiCore.Utils;
 

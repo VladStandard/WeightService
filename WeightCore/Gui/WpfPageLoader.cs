@@ -22,7 +22,7 @@ public partial class WpfPageLoader : Form
     private PageMessageBox PageMessageBox { get; set; }
     private PagePinCode PagePinCode { get; set; }
     public PageDevice PageDevice { get; private set; }
-    public PagePackage PagePackage { get; private set; }
+    public PagePluBundleFk PagePluBundleFk { get; private set; }
 	private PageSqlSettings PageSqlSettings { get; set; }
     private DataCore.Models.PageEnum Page { get; }
 
@@ -114,11 +114,11 @@ public partial class WpfPageLoader : Form
                     ElementHost.Child = PageDevice;
                     PageDevice.OnClose += WpfPageLoader_OnClose;
                     break;
-                case DataCore.Models.PageEnum.Package:
-                    PagePackage = new();
-                    PagePackage.InitializeComponent();
-                    ElementHost.Child = PagePackage;
-                    PagePackage.OnClose += WpfPageLoader_OnClose;
+                case DataCore.Models.PageEnum.PluBundleFk:
+                    PagePluBundleFk = new();
+                    PagePluBundleFk.InitializeComponent();
+                    ElementHost.Child = PagePluBundleFk;
+                    PagePluBundleFk.OnClose += WpfPageLoader_OnClose;
                     break;
                 case DataCore.Models.PageEnum.PinCode:
                     PagePinCode = new();
@@ -160,7 +160,7 @@ public partial class WpfPageLoader : Form
 	        {
 		        DataCore.Models.PageEnum.MessageBox => MessageBox.Result,
 		        DataCore.Models.PageEnum.Device => PageDevice.Result,
-		        DataCore.Models.PageEnum.Package => PagePackage.Result,
+		        DataCore.Models.PageEnum.PluBundleFk => PagePluBundleFk.Result,
 				DataCore.Models.PageEnum.PinCode => PagePinCode.Result,
 		        DataCore.Models.PageEnum.SqlSettings => PageSqlSettings.Result,
 		        _ => DialogResult

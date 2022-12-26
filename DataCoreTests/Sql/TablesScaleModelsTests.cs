@@ -2,13 +2,17 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Boxes;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -19,10 +23,8 @@ using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.Organizations;
-using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
@@ -83,8 +85,17 @@ internal class TablesScaleModelsTests
 					case var cls when cls == typeof(AppModel):
 						CreateNewSubstitute<AppModel>();
 						break;
+					case var cls when cls == typeof(BoxModel):
+						CreateNewSubstitute<BoxModel>();
+						break;
 					case var cls when cls == typeof(BarCodeModel):
 						CreateNewSubstitute<BarCodeModel>();
+						break;
+					case var cls when cls == typeof(BundleModel):
+						CreateNewSubstitute<BundleModel>();
+						break;
+					case var cls when cls == typeof(BundleFkModel):
+						CreateNewSubstitute<BundleFkModel>();
 						break;
 					case var cls when cls == typeof(ContragentModel):
 						CreateNewSubstitute<ContragentModel>();
@@ -131,17 +142,14 @@ internal class TablesScaleModelsTests
 					case var cls when cls == typeof(OrganizationModel):
 						CreateNewSubstitute<OrganizationModel>();
 						break;
-					case var cls when cls == typeof(PackageModel):
-						CreateNewSubstitute<PackageModel>();
+					case var cls when cls == typeof(PluBundleFkModel):
+						CreateNewSubstitute<PluBundleFkModel>();
 						break;
 					case var cls when cls == typeof(PluLabelModel):
 						CreateNewSubstitute<PluLabelModel>();
 						break;
 					case var cls when cls == typeof(PluModel):
 						CreateNewSubstitute<PluModel>();
-						break;
-					case var cls when cls == typeof(PluPackageModel):
-						CreateNewSubstitute<PluPackageModel>();
 						break;
 					case var cls when cls == typeof(PluScaleModel):
 						CreateNewSubstitute<PluScaleModel>();

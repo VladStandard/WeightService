@@ -85,7 +85,7 @@ public class PluWeighingModel : SqlTableBase
         // This code need for print labels.
         set => _ = value;
     }
-    [XmlElement] public virtual decimal TareWeight { get; set; }
+    [XmlElement] public virtual decimal WeightTare { get; set; }
     [XmlElement] public virtual int RegNum { get; set; }
 
     /// <summary>
@@ -98,7 +98,7 @@ public class PluWeighingModel : SqlTableBase
         Kneading = 0;
         Sscc = string.Empty;
         NettoWeight = 0;
-        TareWeight = 0;
+        WeightTare = 0;
         RegNum = 0;
     }
 
@@ -114,7 +114,7 @@ public class PluWeighingModel : SqlTableBase
         Kneading = info.GetInt16(nameof(Kneading));
         Sscc = info.GetString(nameof(Sscc));
         NettoWeight = info.GetDecimal(nameof(NettoWeight));
-        TareWeight = info.GetDecimal(nameof(TareWeight));
+        WeightTare = info.GetDecimal(nameof(WeightTare));
         RegNum = info.GetInt32(nameof(RegNum));
     }
 
@@ -144,7 +144,7 @@ public class PluWeighingModel : SqlTableBase
         Equals(Kneading, default(short)) &&
         Equals(Sscc, string.Empty) &&
         Equals(NettoWeight, default(decimal)) &&
-        Equals(TareWeight, default(decimal)) &&
+        Equals(WeightTare, default(decimal)) &&
         Equals(RegNum, default(int)) &&
         PluScale.EqualsDefault() &&
         (Series is null || Series.EqualsDefault());
@@ -157,7 +157,7 @@ public class PluWeighingModel : SqlTableBase
         item.Kneading = Kneading;
         item.Sscc = Sscc;
         item.NettoWeight = NettoWeight;
-        item.TareWeight = TareWeight;
+        item.WeightTare = WeightTare;
         item.RegNum = RegNum;
         item.CloneSetup(base.CloneCast());
         return item;
@@ -171,7 +171,7 @@ public class PluWeighingModel : SqlTableBase
         info.AddValue(nameof(Kneading), Kneading);
         info.AddValue(nameof(Sscc), Sscc);
         info.AddValue(nameof(NettoWeight), NettoWeight);
-        info.AddValue(nameof(TareWeight), TareWeight);
+        info.AddValue(nameof(WeightTare), WeightTare);
         info.AddValue(nameof(RegNum), RegNum);
     }
 
@@ -186,7 +186,7 @@ public class PluWeighingModel : SqlTableBase
         base.FillProperties();
         Sscc = LocaleCore.Sql.SqlItemFieldSscc;
         NettoWeight = 1.1M;
-        TareWeight = 0.25M;
+        WeightTare = 0.25M;
         RegNum = 1;
         Kneading = 1;
         PluScale.FillProperties();
@@ -203,7 +203,7 @@ public class PluWeighingModel : SqlTableBase
         Equals(PluScale, item.PluScale) &&
         Equals(Sscc, item.Sscc) &&
         Equals(NettoWeight, item.NettoWeight) &&
-        Equals(TareWeight, item.TareWeight) &&
+        Equals(WeightTare, item.WeightTare) &&
         Equals(RegNum, item.RegNum) &&
         PluScale.Equals(item.PluScale) &&
         (Series is null && item.Series is null ||

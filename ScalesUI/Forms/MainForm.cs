@@ -623,10 +623,10 @@ public partial class MainForm : Form
                     ? LocaleCore.Table.FieldNull : UserSession.ProductionFacility.Name;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
                     UserSession.Scale.Description + Environment.NewLine + area);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage.IdentityIsNew
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.BundleFk.IdentityIsNew
                     ? LocaleCore.Table.FieldPackageIsNotSelected
-                    : UserSession.PluPackage.Name + Environment.NewLine +
-                      $"{LocaleCore.Table.PackageWeightKg}: {UserSession.PluPackage.Package.Weight}");
+                    : UserSession.BundleFk.Name + Environment.NewLine +
+                      $"{LocaleCore.Table.BundleFkWeightTareKg}: {UserSession.BundleFk.WeightTare}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -683,7 +683,7 @@ public partial class MainForm : Form
 
                 UserSession.ManagerControl.Massa.Close();
 
-                using WpfPageLoader wpfPageLoader = new(PageEnum.Package, false) { Width = 600, Height = 225 };
+                using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 600, Height = 225 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 if (dialogResult == DialogResult.OK)
@@ -903,7 +903,7 @@ public partial class MainForm : Form
                     UserSession.WeighingSettings.Kneading = 1;
                     UserSession.ProductDate = DateTime.Now;
                     UserSession.NewPallet();
-                    //_mkDevice.SetTareWeight((int) (_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.CurrentPLU.Scale.ScaleFactor));
+                    //_mkDevice.SetWeightTare((int) (_sessionState.CurrentPLU.GoodsWeightTare * _sessionState.CurrentPLU.Scale.ScaleFactor));
 
                     // форма с замесами, размерами паллет и прочее
                     ActionMore(null, null);
@@ -966,7 +966,7 @@ public partial class MainForm : Form
 
                 if (!UserSession.CheckPluIsEmpty(this)) return;
                 //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
-                if (UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
+                if (UserSession.PluBundlesFks.Count > 1 && UserSession.BundleFk.IdentityIsNew)
                     ActionPackage(sender, e);
                 if (!UserSession.CheckPluPackageIsEmpty(this)) return;
                 if (!UserSession.CheckWeightMassaDeviceExists(this)) return;

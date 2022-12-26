@@ -1,0 +1,63 @@
+﻿@inherits RazorComponentItemBase<PluBundleFkModel>
+@page "/item/plu_bundle_fk"
+@page "/item/plu_bundle_fk/new"
+@page "/item/plu_bundle_fk/{IdentityUidStr}"
+@using static BlazorCore.Utils.BlazorCoreUtuls
+@using BlazorCore.Razors
+@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
+@using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleFkModels.BundlesFks
+@using DataCore.Sql.TableScaleModels.Plus
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=@PluBundleFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluBundleFk />
+
+<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+	<RazorItemTableHead TItem=@PluBundleFkModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+	<tbody>
+		<RazorItemTableBody TItem=@PluBundleFkModel ParentRazor=@(this) />
+		<tr>
+			<td>@LocaleCore.Table.IsActive</td>
+			<td>
+				<RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsActive/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<RadzenLink 
+					Style="width: 100%; margin-left: 0;"
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)
+				    Text=@LocaleCore.Table.Plu />
+			</td>
+			<td>
+				<MudSelect 
+					Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				    @bind-Value=@SqlItemCast.Plu >
+					@foreach (PluModel item in DataContext.Plus)
+					{
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
+			<td>
+				<RadzenLink 
+					Style="width: 100%; margin-left: 0;"
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBundleFk, SqlItemCast.BundleFk, SqlItemCast.BundleFk.IdentityValueUid)
+					Text=@LocaleCore.Table.BundleFk />
+			</td>
+			<td>
+				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+					@bind-Value=@SqlItemCast.BundleFk>
+					@foreach (BundleFkModel item in DataContext.BundleFks)
+					{
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
+		</tr>
+	</tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=@PluBundleFkModel ParentRazor=@(this) />
+<RazorItemDates TItem=@PluBundleFkModel ParentRazor=@(this) />

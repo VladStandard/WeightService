@@ -130,7 +130,7 @@
 //		//            UserSession.SetCurrentPlu(UserSession.Order.PLU);
 //		//        }
 //		//        //ws.CurrentPLU.LoadTemplate();
-//		//        //_sessionState.WeightTare = (int)( _sessionState.CurrentOrder.PLU.GoodsTareWeight * _sessionState.CurrentPLU.);
+//		//        //_sessionState.WeightTare = (int)( _sessionState.CurrentOrder.PLU.GoodsWeightTare * _sessionState.CurrentPLU.);
 //		//        //_sessionState.WeightReal = 0;
 //		//        DialogResult = DialogResult.OK;
 //		//        Close();

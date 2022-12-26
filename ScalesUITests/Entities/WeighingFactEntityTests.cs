@@ -46,7 +46,7 @@
 
 //            //refDict.Add("Sscc", "");
 //            //refDict.Add("NetWeight", 1524);
-//            //refDict.Add("TareWeight", 150);
+//            //refDict.Add("WeightTare", 150);
 //            //refDict.Add("Calibre", 1000);
 //            //refDict.Add("RegDate", DateTime.Now);
 

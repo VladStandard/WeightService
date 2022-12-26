@@ -2,11 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using DataCore.Sql.TableScaleModels.Packages;
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 
-public partial class ItemPackage : RazorComponentItemBase<PackageModel>
+public partial class ItemBundleFk : RazorComponentItemBase<BundleFkModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,9 +22,9 @@ public partial class ItemPackage : RazorComponentItemBase<PackageModel>
 		{
 			() =>
 			{
-                SqlItemCast = DataContext.GetItemNotNullable<PackageModel>(IdentityUid);
+                SqlItemCast = DataContext.GetItemNotNullable<BundleFkModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-	                SqlItem = SqlItemNew<PackageModel>();
+	                SqlItem = SqlItemNew<BundleFkModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

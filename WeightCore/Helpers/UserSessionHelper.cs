@@ -13,11 +13,11 @@ using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
@@ -40,6 +40,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using WeightCore.Gui;
 using WeightCore.Managers;
 
@@ -120,38 +121,38 @@ public class UserSessionHelper : BaseViewModel
 			ManagerControl.PrintShipping.LabelsCount = 1;
             SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 				value.Plu, nameof(PluScaleModel.Plu), new(), false, false, true, true, 0);
-			PluPackages = DataContext.GetListNotNullable<PluPackageModel>(sqlCrudConfig);
-			PluPackage = PluPackages.Count > 1 ? PluPackages[1] : PluPackages.FirstOrDefault();
+			PluBundlesFks = DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
+			BundleFk = PluBundlesFks.Count > 1 ? PluBundlesFks[1].BundleFk : PluBundlesFks.FirstOrDefault().BundleFk;
 			OnPropertyChanged();
 		}
 	}
 #nullable enable
-	private PluPackageModel? _pluPackage;
+	private BundleFkModel? _bundleFk;
 #nullable disable
 	[XmlElement]
-	public PluPackageModel PluPackage
+	public BundleFkModel BundleFk
 	{
 		get
 		{
-			if (_pluPackage is null)
-				return _pluPackage = DataAccess.GetItemNew<PluPackageModel>();
-			return _pluPackage;
+			if (_bundleFk is null)
+				return _bundleFk = DataAccess.GetItemNew<BundleFkModel>();
+			return _bundleFk;
 		}
 		set
 		{
-			_pluPackage = value;
+			_bundleFk = value;
 			OnPropertyChanged();
 		}
 	}
 
-	private List<PluPackageModel> _pluPackages;
+	private List<PluBundleFkModel> _pluBundlesFks;
 	[XmlElement]
-	public List<PluPackageModel> PluPackages
+	public List<PluBundleFkModel> PluBundlesFks
 	{
-		get => _pluPackages;
+		get => _pluBundlesFks;
 		set
 		{
-			_pluPackages = value;
+			_pluBundlesFks = value;
 			OnPropertyChanged();
 		}
 	}
@@ -275,8 +276,8 @@ public class UserSessionHelper : BaseViewModel
     public UserSessionHelper()
 	{
 		_pluScale = new();
-		_pluPackage = new();
-		_pluPackages = new();
+		_bundleFk = new();
+		_pluBundlesFks = new();
 		_pluWeighing = new();
 		_deviceScaleFk = new();
 		_scale = new();
@@ -382,7 +383,7 @@ public class UserSessionHelper : BaseViewModel
 	public bool CheckPluPackageIsEmpty(IWin32Window owner)
 	{
 		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IdentityIsNew)
-		if (PluPackage.IdentityIsNew && PluPackages.Count > 1)
+		if (BundleFk.IdentityIsNew && PluBundlesFks.Count > 1)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning,
@@ -523,7 +524,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IdentityIsNew ? 0 : PluPackage.Package.Weight);
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IdentityIsNew ? 0 : BundleFk.WeightTare);
 		if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
@@ -544,7 +545,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IdentityIsNew ? 0 : PluPackage.Package.Weight);
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IdentityIsNew ? 0 : BundleFk.WeightTare);
 		if (weight > LocaleCore.Scales.MassaThresholdValue)
 		{
 			DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
@@ -629,9 +630,9 @@ public class UserSessionHelper : BaseViewModel
 		//if (CurrentPlu.NominalWeight > 0)
 		//{
 		//    if (Manager.Massa is not null)
-		//        CurrentWeighingFact.NettoWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
+		//        CurrentWeighingFact.NettoWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsWeightTare;
 		//    else
-		//        CurrentWeighingFact.NettoWeight -= CurrentPlu.GoodsTareWeight;
+		//        CurrentWeighingFact.NettoWeight -= CurrentPlu.GoodsWeightTare;
 		//    if (CurrentWeighingFact.NettoWeight >= CurrentPlu.LowerWeightThreshold &&
 		//        CurrentWeighingFact.NettoWeight <= CurrentPlu.UpperWeightThreshold)
 		//    {
@@ -694,8 +695,8 @@ public class UserSessionHelper : BaseViewModel
 		{
 			PluScale = PluScale,
 			Kneading = WeighingSettings.Kneading,
-			NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluPackage.Package.Weight : PluScale.Plu.NominalWeight,
-			TareWeight = PluPackage.Package.Weight,
+			NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - BundleFk.WeightTare : PluScale.Plu.NominalWeight,
+			WeightTare = BundleFk.WeightTare,
 			Series = productSeries,
 		};
 
@@ -793,8 +794,8 @@ public class UserSessionHelper : BaseViewModel
 			ProductDt = ProductDate,
 		};
 
-		XmlDocument xmlArea = ProductionFacility.SerializeAsXmlDocument<ProductionFacilityModel>(true);
-		pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
+		XmlDocument xmlArea = ProductionFacility.SerializeAsXmlDocument<ProductionFacilityModel>(true, true);
+		pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true, true);
 		pluLabel.Xml = XmlUtils.XmlMerge(pluLabel.Xml, xmlArea);
 		pluLabel.Zpl = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
 		pluLabel.Zpl = XmlUtils.XmlReplaceNextLine(pluLabel.Zpl);

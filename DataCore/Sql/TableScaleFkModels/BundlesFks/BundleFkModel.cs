@@ -13,9 +13,9 @@ namespace DataCore.Sql.TableScaleFkModels.BundlesFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("Type = {nameof(BundleFkModel)} | {nameof(Name)} = {Name} | " +
-                 "{nameof(Bundle)}.{nameof(Bundle.Weight)} = {Bundle.Weight} | " +
-				 "{nameof(BundleCount)} = {BundleCount} | " +
-				 "{nameof(Box)}.{nameof(Box.Weight)} = {Box.Weight} | ")]
+                 "{WeightTare} = {Bundle.Weight} * {BundleCount} + {Box.Weight} | " +
+                 "{nameof(WeightTare)} = {nameof(Bundle)}{nameof(Bundle.Weight)} * {nameof(BundleCount)} + " +
+                 "{nameof(Box)}.{nameof(Box.Weight)}")]
 public class BundleFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -23,11 +23,12 @@ public class BundleFkModel : SqlTableBase
     [XmlElement] public virtual short BundleCount { get; set; }
     [XmlElement] public virtual BundleModel Bundle { get; set; }
     [XmlElement] public virtual BoxModel Box { get; set; }
+    [XmlIgnore] public virtual decimal WeightTare { get => Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public BundleFkModel() : base(SqlFieldIdentityEnum.Uid)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public BundleFkModel() : base(SqlFieldIdentityEnum.Uid)
     {
         BundleCount = 0;
         Bundle = new();
@@ -55,11 +56,9 @@ public class BundleFkModel : SqlTableBase
     /// </summary>
     /// <returns></returns>
     public override string ToString() =>
-        $"{nameof(Name)}: {Name}. " +
         $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(BundleCount)}: {BundleCount}. " +
-        $"{nameof(Bundle)}: {Bundle}. " +
-        $"{nameof(Box)}: {Box}. ";
+        $"{nameof(Name)}: {Name}. " +
+        $"{nameof(WeightTare)}: {WeightTare}. ";
 
     public override bool Equals(object obj)
     {

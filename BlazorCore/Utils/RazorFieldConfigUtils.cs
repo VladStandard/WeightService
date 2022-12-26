@@ -5,12 +5,12 @@ using BlazorCore.Razors;
 using DataCore.Localizations;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Organizations;
-using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Printers;
@@ -113,9 +113,14 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetGln() => new(nameof(OrganizationModel.Gln), TextAlign.Center, LocaleCore.Table.Gln);
 	}
 
-	public static class Package
+	//public static class Package
+	//{
+	//	public static RazorFieldConfigModel GetWeight() => new(nameof(PackageModel.Weight), TextAlign.Center, LocaleCore.Table.WeightShort);
+	//}
+
+    public static class PluBundleFk
 	{
-		public static RazorFieldConfigModel GetWeight() => new(nameof(PackageModel.Weight), TextAlign.Center, LocaleCore.Table.WeightShort);
+		public static RazorFieldConfigModel GetWeightTare() => new(nameof(PluBundleFkModel.WeightTare), TextAlign.Center, LocaleCore.Table.WeightShort);
 	}
 
 	public static class Plu

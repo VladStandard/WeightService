@@ -26,10 +26,10 @@ using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
-using DataCore.Sql.TableScaleModels.Packages;
+//using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.PlusPackages;
+//using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
@@ -360,15 +360,6 @@ public class DataCoreHelper
 				organization.Name = LocaleCore.Sql.SqlItemFieldName;
 				organization.Gln = 1;
 				break;
-			case PluPackageModel packagePlu:
-				packagePlu.Name = LocaleCore.Sql.SqlItemFieldName;
-				packagePlu.Package = CreateNewSubstitute<PackageModel>(isNotDefault);
-				packagePlu.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
-				break;
-			case PackageModel package:
-				package.Name = LocaleCore.Sql.SqlItemFieldName;
-				package.Weight = 0.560M;
-				break;
             case PluModel plu:
 				plu.Name = LocaleCore.Sql.SqlItemFieldName;
 				plu.Number = 100;
@@ -401,7 +392,7 @@ public class DataCoreHelper
 			case PluWeighingModel pluWeighing:
 				pluWeighing.Sscc = LocaleCore.Sql.SqlItemFieldSscc;
 				pluWeighing.NettoWeight = 1.1M;
-				pluWeighing.TareWeight = 0.25M;
+				pluWeighing.WeightTare = 0.25M;
 				pluWeighing.RegNum = 1;
 				pluWeighing.Kneading = 1;
 				pluWeighing.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
@@ -508,7 +499,7 @@ public class DataCoreHelper
 			// Act.
 			T item2 = (T)item1.DeserializeFromXml<T>(xml1);
 			TestContext.WriteLine($"{nameof(item2)}: {item2}");
-			SqlTableBase base2 = (SqlTableBase)item2.DeserializeFromXml<SqlTableBase>(xml2);
+			SqlTableBase base2 = item2.DeserializeFromXml<SqlTableBase>(xml2);
 			TestContext.WriteLine($"{nameof(base2)}: {base2}");
 			// Assert.
 			Assert.AreNotEqual(item2, base2);

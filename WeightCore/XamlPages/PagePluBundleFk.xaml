@@ -1,5 +1,5 @@
 ﻿<xamlPages:XamlPageBase
-	x:Class="WeightCore.XamlPages.PagePackage"
+	x:Class="WeightCore.XamlPages.PagePluBundleFk"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -45,11 +45,11 @@
             <ComboBox 
 	            Margin="2" Grid.Column="1" Grid.Row="1" x:Name="comboBoxPluPackage"
                 HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
-                ItemsSource="{Binding Path=PluPackages, Mode=OneWay}" 
+                ItemsSource="{Binding Path=PluBundlesFks, Mode=OneWay}" 
                 DisplayMemberPath="Name"
                 SelectedValuePath="Name"
-                SelectedValue="{Binding Path=PluPackage.Name, Mode=OneWay}" 
-                SelectedItem="{Binding Path=PluPackage, Mode=TwoWay}" 
+                SelectedValue="{Binding Path=BundleFk.Name, Mode=OneWay}" 
+                SelectedItem="{Binding Path=BundleFk, Mode=TwoWay}" 
 	            />
             <Label 
 	            Margin="2" Grid.Column="0" Grid.Row="2" 
@@ -57,7 +57,7 @@
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
             <Label 
 	            Margin="2" Grid.Column="1" Grid.Row="2" 
-	            Content="{Binding Path=PluPackage.Package.Weight, Mode=OneWay}" 
+	            Content="{Binding Path=BundleFk.WeightTare, Mode=OneWay}" 
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
 
 			<Button 
