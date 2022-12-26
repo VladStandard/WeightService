@@ -91,8 +91,8 @@ public partial class DataAccessHelper
                 plu.Nomenclature = GetItemNotNullable<NomenclatureModel>(plu.Nomenclature.IdentityValueId);
 				break;
             case PluBundleFkModel pluBundle:
-                pluBundle.BundleFk = GetItemNotNullable<BundleFkModel>(pluBundle.BundleFk.IdentityValueId);
-                pluBundle.Plu = GetItemNotNullable<PluModel>(pluBundle.Plu.IdentityValueId);
+                pluBundle.BundleFk = GetItemNotNullable<BundleFkModel>(pluBundle.BundleFk.IdentityValueUid);
+                pluBundle.Plu = GetItemNotNullable<PluModel>(pluBundle.Plu.IdentityValueUid);
                 break;
             case PluLabelModel pluLabel:
 				pluLabel.PluWeighing = GetItemNullable<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);

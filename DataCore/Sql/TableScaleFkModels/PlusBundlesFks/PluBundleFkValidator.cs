@@ -25,6 +25,5 @@ public class PluBundleFkValidator : SqlTableValidator<PluBundleFkModel>
             .NotEmpty()
             .NotNull()
             .SetValidator(new BundleFkValidator());
-
     }
 }

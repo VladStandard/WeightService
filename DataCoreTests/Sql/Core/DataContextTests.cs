@@ -3,10 +3,13 @@
 
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Brands;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -74,6 +77,14 @@ internal class DataContextTests
 						// Arrange & Act.
 						GetListNotNullable<BrandModel>();
 						break;
+					case var cls when cls == typeof(BoxModel):
+						// Arrange & Act.
+						GetListNotNullable<BoxModel>();
+						break;
+					case var cls when cls == typeof(BundleModel):
+						// Arrange & Act.
+						GetListNotNullable<BundleModel>();
+						break;
 					case var cls when cls == typeof(ContragentModel):
 						// Arrange & Act.
 						GetListNotNullable<ContragentModel>();
@@ -123,6 +134,9 @@ internal class DataContextTests
 						break;
 					case var cls when cls == typeof(PluPackageModel):
 						GetListNotNullable<PluPackageModel>();
+						break;
+					case var cls when cls == typeof(PluBundleFkModel):
+						GetListNotNullable<PluBundleFkModel>();
 						break;
 					case var cls when cls == typeof(PluScaleModel):
 						GetListNotNullable<PluScaleModel>();

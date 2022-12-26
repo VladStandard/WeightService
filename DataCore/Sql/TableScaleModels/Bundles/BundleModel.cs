@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Bundles;
 /// Table "BUNDLES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(BundleModel)}")]
+[DebuggerDisplay("Type = {nameof(BundleModel)} | {nameof(Name)} = {Name} | {nameof(Weight)} = {Weight}")]
 public class BundleModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

@@ -7,7 +7,6 @@ namespace DataCore.Sql.TableScaleModels.Boxes;
 /// Table map "BOXES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(BoxMap)}")]
 public class BoxMap : ClassMap<BoxModel>
 {
     public BoxMap()

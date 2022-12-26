@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Boxes;
 /// Table "BOXES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(BoxModel)}")]
+[DebuggerDisplay("Type = {nameof(BoxModel)} | {nameof(Name)} = {Name} | {nameof(Weight)} = {Weight}")]
 public class BoxModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
