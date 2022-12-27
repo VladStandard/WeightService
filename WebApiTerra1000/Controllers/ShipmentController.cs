@@ -32,7 +32,7 @@ public class ShipmentController : WebControllerBase
     #region Public and private methods - API
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/shipment/")]
     public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string formatString = "")
     {
@@ -70,7 +70,7 @@ public class ShipmentController : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/shipmentsbydocdate/")]
     [Route("api/shipments/")]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 

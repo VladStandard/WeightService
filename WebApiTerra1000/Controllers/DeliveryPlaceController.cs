@@ -29,7 +29,7 @@ public class DeliveryPlaceController : WebControllerBase
     #region Public and private methods
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/deliveryplaces/")]
     public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string formatString = "")

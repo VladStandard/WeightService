@@ -30,7 +30,7 @@ public class NomenclatureController : WebControllerBase
     #region Public and private methods
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/nomenclature/")]
     public ContentResult GetNomenclature([FromQuery] string code, [FromQuery] long id, [FromQuery(Name = "format")] string formatString = "")
     {
@@ -46,7 +46,7 @@ public class NomenclatureController : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/nomenclatures/")]
     public ContentResult GetNomenclatures([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "")
@@ -62,7 +62,7 @@ public class NomenclatureController : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/nomenclaturescosts/")]
     public ContentResult GetNomenclaturesCosts([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "")

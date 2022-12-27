@@ -31,7 +31,7 @@ public class NomenclatureControllerV2 : WebControllerBase
     #region Public and private methods
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/nomenclature/")]
     public ContentResult GetNomenclatureFromCodeIdProd([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string formatString = "") =>
@@ -40,7 +40,7 @@ public class NomenclatureControllerV2 : WebControllerBase
             code, id, formatString);
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/nomenclature_preview/")]
     public ContentResult GetNomenclatureFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string formatString = "") =>
@@ -62,7 +62,7 @@ public class NomenclatureControllerV2 : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/nomenclatures/")]
     public ContentResult GetNomenclaturesProd([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string formatString = "")
@@ -77,7 +77,7 @@ public class NomenclatureControllerV2 : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/nomenclaturescosts/")]
     public ContentResult GetNomenclaturesProdDeprecated([FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() =>
@@ -87,7 +87,7 @@ public class NomenclatureControllerV2 : WebControllerBase
         }, formatString);
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/nomenclatures_preview/")]
     public ContentResult GetNomenclaturesPreview([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string formatString = "")
@@ -102,7 +102,7 @@ public class NomenclatureControllerV2 : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/nomenclaturescosts_preview/")]
     public ContentResult GetNomenclaturesPreviewDeprecated([FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() =>

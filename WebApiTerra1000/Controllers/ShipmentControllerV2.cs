@@ -32,13 +32,13 @@ public class ShipmentControllerV2 : WebControllerBase
     #region Public and private methods - API
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/shipment/")]
     public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string formatString = "") => 
         GetShipmentWork(SqlQueriesV2.GetShipment, id, formatString);
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/shipment_preview/")]
     public ContentResult GetShipmentPreview([FromQuery] long id, [FromQuery(Name = "format")] string formatString = "") => 
         GetShipmentWork(SqlQueriesV2.GetShipmentPreview, id, formatString);
@@ -79,14 +79,14 @@ public class ShipmentControllerV2 : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/shipments/")]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "") =>
         GetShipmentsCore(SqlQueriesV2.GetShipments, startDate, endDate, offset, rowCount, formatString);
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/shipments_preview/")]
     public ContentResult GetShipmentsPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "") =>

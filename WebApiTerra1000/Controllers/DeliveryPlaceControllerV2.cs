@@ -29,14 +29,14 @@ public class DeliveryPlaceControllerV2 : WebControllerBase
     #region Public and private methods
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/deliveryplaces/")]
     public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0,
         [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string formatString = "") =>
         GetDeliveryPlacesWork(SqlQueriesV2.GetDeliveryPlaces, startDate, endDate, offset, rowCount, formatString);
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/deliveryplaces_preview/")]
     public ContentResult GetDeliveryPlacesPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0, 
         [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string formatString = "") =>

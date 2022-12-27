@@ -31,7 +31,7 @@ public class ContragentControllerV2 : WebControllerBase
     #region Public and private methods
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/contragent/")]
     public ContentResult GetContragentFromCodeIdProd([FromQuery] string code, long id, 
         [FromQuery(Name = "format")] string formatString = "") =>
@@ -40,7 +40,7 @@ public class ContragentControllerV2 : WebControllerBase
             code, id, formatString);
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/contragent_preview/")]
     public ContentResult GetContragentFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string formatString = "") =>
@@ -62,7 +62,7 @@ public class ContragentControllerV2 : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/contragents/")]
     public ContentResult GetContragentsProd([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string formatString = "")
@@ -77,7 +77,7 @@ public class ContragentControllerV2 : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/contragents_preview/")]
     public ContentResult GetContragentsPreview([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string formatString = "")

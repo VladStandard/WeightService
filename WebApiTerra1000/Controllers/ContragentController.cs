@@ -30,7 +30,7 @@ public class ContragentController : WebControllerBase
     #region Public and private methods
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/contragent/")]
     public ContentResult GetContragent([FromQuery] long id, [FromQuery(Name = "format")] string formatString = "")
     {
@@ -45,7 +45,7 @@ public class ContragentController : WebControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/contragents/")]
     public ContentResult GetContragents([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0, 
         [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "")

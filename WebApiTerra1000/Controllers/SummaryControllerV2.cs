@@ -30,14 +30,14 @@ public class SummaryControllerV2 : WebControllerBase
     #region Public and private methods
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/summary/")]
     public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
         [FromQuery(Name = "format")] string formatString = "") =>
         GetSummaryCore(SqlQueriesV2.GetSummary, startDate, endDate, formatString);
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/summary_preview/")]
     public ContentResult GetSummaryPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
         [FromQuery(Name = "format")] string formatString = "") =>

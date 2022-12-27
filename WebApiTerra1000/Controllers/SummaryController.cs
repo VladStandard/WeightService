@@ -30,7 +30,7 @@ public class SummaryController : WebControllerBase
     #region Public and private methods
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/summary/")]
     public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery(Name = "format")] string formatString = "")
