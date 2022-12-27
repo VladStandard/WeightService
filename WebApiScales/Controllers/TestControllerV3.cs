@@ -35,7 +35,7 @@ public class TestControllerV3 : WebControllerBase
     /// <param name="formatString"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/info/")]
     [Route("api/v3/info/")]
     public ContentResult GetInfo([FromQuery(Name = "format")] string formatString = "") => 
@@ -66,7 +66,7 @@ public class TestControllerV3 : WebControllerBase
         }, formatString);
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/exception/")]
     [Route("api/v3/exception/")]
     public ContentResult GetException([FromQuery(Name = "format")] string formatString = "",
@@ -78,7 +78,7 @@ public class TestControllerV3 : WebControllerBase
         }, formatString);
 
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/simple/")]
     [Route("api/v3/simple/")]
     public ContentResult GetSimple([FromQuery(Name = "format")] string formatString = "") =>

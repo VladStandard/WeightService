@@ -31,7 +31,7 @@ public class BarCodeController : WebControllerBase
     /// <param name="formatString"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/get_barcode/top/")]
     [Route("api/v3/get_barcode/top/")]
     public ContentResult GetBarcodeTop([FromQuery] string barcode, bool useCrc = false,
@@ -46,7 +46,7 @@ public class BarCodeController : WebControllerBase
     /// <param name="formatString"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/get_barcode/bottom/")]
     [Route("api/v3/get_barcode/bottom/")]
     public ContentResult GetBarcodeBottom([FromQuery] string barcode, [FromQuery(Name = "format")] string formatString = "") =>
@@ -60,7 +60,7 @@ public class BarCodeController : WebControllerBase
     /// <param name="formatString"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/get_barcode/right/")]
     [Route("api/v3/get_barcode/right/")]
     public ContentResult GetBarcodeRight([FromQuery] string barcode, [FromQuery(Name = "format")] string formatString = "") =>
@@ -75,7 +75,7 @@ public class BarCodeController : WebControllerBase
     /// <param name="dtStart"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/get_barcodes/")]
     [Route("api/v3/get_barcodes/")]
     public ContentResult GetResponseBarCodes([FromQuery(Name = "StartDate")] DateTime dtStart, [FromQuery(Name = "EndDate")] DateTime dtEnd, 
