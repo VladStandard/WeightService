@@ -18,7 +18,7 @@ public class BoxMap : ClassMap<BoxModel>
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(128).Not.Nullable().Default("");
-        Map(x => x.Weight).CustomSqlType("DECIMAL").Column("WEIGHT").Unique().Scale(10).Precision(3).Not.Nullable();
+        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Unique().Length(128).Not.Nullable().Default("");
+        Map(x => x.Weight).CustomSqlType("DECIMAL").Column("WEIGHT").Scale(10).Precision(3).Not.Nullable();
     }
 }
