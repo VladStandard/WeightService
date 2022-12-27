@@ -36,7 +36,6 @@ public partial class ItemBundleFk : RazorComponentItemBase<BundleFkModel>
                 DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigList);
 
                 SqlItemCast = DataContext.GetItemNotNullable<BundleFkModel>(IdentityUid);
-
                 if (SqlItemCast.IdentityIsNew)
                 {
                     SqlItemCast = SqlItemNew<BundleFkModel>();

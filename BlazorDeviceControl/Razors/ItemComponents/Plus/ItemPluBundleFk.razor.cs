@@ -26,12 +26,12 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
 		{
 			() =>
 			{
-				SqlItemCast = DataContext.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
 				DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigList);
 				DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigList);
 				DataContext.GetListNotNullable<BundleFkModel>(SqlCrudConfigList);
 				DataContext.GetListNotNullable<PluModel>(SqlCrudConfigList);
 
+				SqlItemCast = DataContext.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
 				if (SqlItemCast.IdentityIsNew)
 				{
 					SqlItem = SqlItemNew<PluBundleFkModel>();
