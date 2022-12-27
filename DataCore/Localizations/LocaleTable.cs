@@ -129,7 +129,7 @@ public class LocaleTable
     public string Message => Lang == Lang.English ? "Message" : "Сообщение";
     public string Name => Lang == Lang.English ? "Name" : "Наименование";
     public string NameFull => Lang == Lang.English ? "Full name" : "Полное наименование";
-    public string NetWeight => Lang == Lang.English ? "Net weight" : "Вес нетто";
+    public string WeightNetto => Lang == Lang.English ? "Net weight" : "Вес нетто";
     public string Nomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";
     public string NomenclatureId => Lang == Lang.English ? "Nomenclature ID" : "ID номенклатуры";
     public string NomenclatureType => Lang == Lang.English ? "Type of nomenclature" : "Тип номенклатуры";
@@ -139,11 +139,11 @@ public class LocaleTable
     public string Number => Lang == Lang.English ? "Number" : "Номер";
     public string NumberShort => Lang == Lang.English ? "#" : "№";
     public string Order => Lang == Lang.English ? "Order" : "Заказ";
-    public string Package => Lang == Lang.English ? "Package" : "Тара";
-    public string PackageWeight => Lang == Lang.English ? "Package weight" : "Вес тары";
-    public string PackageWeightDescription => Lang == Lang.English ? "Calculation formula: Tare weight = weight of box + (weight of package * number of inserts)" : "Расчётная формула: Вес тары = вес коробки + (вес пакета * кол. вложений)";
-    public string PackageWeightKg => Lang == Lang.English ? "Tare weight, kg" : "Вес тары, кг";
-    public string PackageWeightShort => Lang == Lang.English ? "Weight" : "Вес";
+    public string BundleFk => Lang == Lang.English ? "Bundle" : "Упаковка";
+    public string BundleFkWeightTare => Lang == Lang.English ? "Bundle tare weight" : "Вес тары упаковки";
+    public string BundleFkWeightTareDescription => Lang == Lang.English ? "Tare weight = weight of package * count of inserts + weight of box" : "Вес тары = вес пакета * кол. вложений + вес коробки";
+    public string BundleFkWeightTareKg => Lang == Lang.English ? "Tare weight, kg" : "Вес тары, кг";
+    public string BundleFkWeightTareShort => Lang == Lang.English ? "Weight" : "Вес";
     public string PackQuantly => Lang == Lang.English ? "Pack quantly" : "Быстрота упаковки";
     public string PackTypeId => Lang == Lang.English ? "Package type ID" : "ID типа упаковки";
     public string Parent => Lang == Lang.English ? "Parent" : "Родитель";

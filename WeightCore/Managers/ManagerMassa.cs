@@ -226,10 +226,10 @@ public class ManagerMassa : ManagerBase
 
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight,
 			UserSessionHelper.Instance.PluScale.IdentityIsNotNew
-				? $"{UserSessionHelper.Instance.PluPackage.Package.Weight:0.000} {LocaleCore.Scales.UnitKg}"
+				? $"{UserSessionHelper.Instance.BundleFk.WeightTare:0.000} {LocaleCore.Scales.UnitKg}"
 				: $"0,000 {LocaleCore.Scales.UnitKg}");
 
-		decimal weight = UserSessionHelper.Instance.PluScale.IdentityIsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluPackage.Package.Weight;
+		decimal weight = UserSessionHelper.Instance.PluScale.IdentityIsNew ? 0 : WeightNet - UserSessionHelper.Instance.BundleFk.WeightTare;
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, MassaStable.IsStable
 			? $"{weight:0.000} {LocaleCore.Scales.UnitKg}"
 			:
@@ -456,7 +456,7 @@ public class ManagerMassa : ManagerBase
 		GetMassa();
 
 		SetZero();
-		SetTareWeight(0);
+		SetWeightTare(0);
 		SetZero();
 	}
 
@@ -466,7 +466,7 @@ public class ManagerMassa : ManagerBase
 	public void GetMassa() => MassaExchange = new(MassaCmdType.GetMassa);
 	public void GetScalePar() => MassaExchange = new(MassaCmdType.GetScalePar);
 	public void GetScaleParAfter() => MassaExchange = new(MassaCmdType.GetScaleParAfter);
-	public void SetTareWeight(int weightTare) => MassaExchange = new(MassaCmdType.SetTare, weightTare);
+	public void SetWeightTare(int weightTare) => MassaExchange = new(MassaCmdType.SetTare, weightTare);
 	public void SetZero() => MassaExchange = new(MassaCmdType.SetZero);
 
 	#endregion

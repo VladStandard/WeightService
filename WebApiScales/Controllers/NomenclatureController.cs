@@ -1,20 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using NHibernate;
-using System;
-using System.Xml.Linq;
-using WebApiCore.Controllers;
-using WebApiCore.Enums;
-
 namespace WebApiScales.Controllers;
 
 /// <summary>
 /// Nomenclature Group controller.
 /// </summary>
-public class NomenclatureController : WebControllerBase //ApiController
+public class NomenclatureController : WebControllerBase
 {
     #region Public and private fields and properties
 
@@ -36,15 +28,16 @@ public class NomenclatureController : WebControllerBase //ApiController
     [HttpPost]
     [Route("api/send_nomenclatures/")]
     public ContentResult SendNomenclatures([FromBody] XElement request, 
-        [FromQuery(Name = "format")] string formatString = "", [FromHeader] AcceptVersion acceptVersion = AcceptVersion.V1) =>
-	    acceptVersion switch
+        [FromQuery(Name = "format")] string formatString = "", 
+	    [FromHeader(Name = "accept")] string version = "") =>
+	    GetAcceptVersion(version) switch
 	    {
-		    AcceptVersion.V2 => ControllerHelp.GetContentResult(
-			    () => ControllerHelp.NewResponse1CNomenclaturesDeprecated(SessionFactory, request, formatString),
-			    formatString),
-		    _ => ControllerHelp.GetContentResult(() => ControllerHelp.NewResponse1C(SessionFactory, formatString),
-			    formatString)
-	    };
+		    AcceptVersion.V2 =>
+				ControllerHelp.GetContentResult(() => ControllerHelp
+					.NewResponse1CIsNotFound(SessionFactory, version, formatString), formatString),
+		    _ => ControllerHelp.GetContentResult(() => ControllerHelp
+					.NewResponse1CNomenclaturesDeprecated(SessionFactory, request, formatString), formatString)
+		};
 
     #endregion
 }

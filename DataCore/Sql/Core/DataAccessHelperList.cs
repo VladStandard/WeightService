@@ -4,10 +4,10 @@
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.PrintersResources;
@@ -146,18 +146,18 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	public List<PluPackageModel> GetListPluPackages(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public List<PluBundleFkModel> GetListPluBundles(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		List<PluPackageModel> result = new();
+		List<PluBundleFkModel> result = new();
 		if (isAddFieldNull)
-			result.Add(GetItemNew<PluPackageModel>());
-		List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PluPackageModel.Plu), itemFilter?.IdentityValueUid);
+			result.Add(GetItemNew<PluBundleFkModel>());
+		List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
 
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters,
-			new SqlFieldOrderModel(nameof(PluPackageModel.Plu), SqlFieldOrderEnum.Asc),
+			new SqlFieldOrderModel(nameof(PluBundleFkModel.Plu), SqlFieldOrderEnum.Asc),
 			isShowMarked, isShowOnlyTop);
-		result.AddRange(GetListNotNullable<PluPackageModel>(sqlCrudConfig));
-		result = result.OrderBy(x => x.Package.Name).ToList();
+		result.AddRange(GetListNotNullable<PluBundleFkModel>(sqlCrudConfig));
+		result = result.OrderBy(x => x.BundleFk.Name).ToList();
 		result = result.OrderBy(x => x.Plu.Number).ToList();
 		return result;
 	}

@@ -119,8 +119,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Review preview.md = Review preview.md
 		Technology stack.md = Technology stack.md
 		To-do list.md = To-do list.md
-		Web URLs.md = Web URLs.md
 		TroubleShooting.md = TroubleShooting.md
+		Web URLs.md = Web URLs.md
 		WebApiScales.md = WebApiScales.md
 	EndProjectSection
 EndProject
@@ -195,8 +195,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E04
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v4.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v4.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi вес v5.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v5.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт v4.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт v4.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi шт v5.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт v5.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TscPrintDemoWinForm", "TscPrintDemoWinForm\TscPrintDemoWinForm.csproj", "{5973F987-103A-455D-A5E3-C7429906657A}"
@@ -962,7 +964,7 @@ Global
 		{896D3900-B79A-4066-9456-8EE616307A9F} = {D6246DA8-3A49-4683-97B8-C62C333C4CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 	EndGlobalSection
 EndGlobal

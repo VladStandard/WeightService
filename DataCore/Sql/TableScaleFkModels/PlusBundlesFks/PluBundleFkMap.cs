@@ -20,6 +20,7 @@ public class PluBundleFkMap : ClassMap<PluBundleFkModel>
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(x => x.IsActive).CustomSqlType("BIT").Column("IS_ACTIVE").Not.Nullable().Default("0");
         References(x => x.BundleFk).Column("BUNDLE_FK_UID").Unique().Not.Nullable();
         References(x => x.Plu).Column("PLU_UID").Unique().Not.Nullable();
     }

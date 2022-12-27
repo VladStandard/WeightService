@@ -1,0 +1,28 @@
+﻿@inherits RazorComponentSectionBase<BundleFkModel, SqlTableBase>
+@page "/section/bundles_fks"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleFkModels.BundlesFks
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorSectionReload TItem=@BundleFkModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb />
+
+<RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify 
+	Style="margin-top: 5px; " 
+	Data=@SqlSectionCast TItem=@BundleFkModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    <Columns >
+        <RazorSectionFieldIsMarked TItem=@BundleFkModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@BundleFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
+        <RazorSectionField TItem=@BundleFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%"))
+            RazorFieldConfig=@RazorFieldConfigUtils.PluBundleFk.GetWeightTare() />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=@BundleFkModel ParentRazor=@(this) />

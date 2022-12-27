@@ -1,8 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Scales;
 
@@ -45,7 +45,7 @@ internal class DataAccessExtTests
 	}
 
 	[Test]
-	public void DataAccess_GetListPluPackages_CountExists()
+	public void DataAccess_GetListPluBundlesFks_CountExists()
 	{
 		DataCore.AssertAction(() =>
 		{
@@ -60,8 +60,8 @@ internal class DataAccessExtTests
 				if (plu.Number == 113)
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
-					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluPackageModel.Plu));
-					List<PluPackageModel> pluPackages = DataCore.DataContext.GetListNotNullable<PluPackageModel>(sqlCrudConfig);
+					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluBundleFkModel.Plu));
+					List<PluBundleFkModel> pluPackages = DataCore.DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}

@@ -419,8 +419,8 @@
     <Compile Include="XamlPages\PageMessageBox.xaml.cs">
       <DependentUpon>PageMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XamlPages\PagePackage.xaml.cs">
-      <DependentUpon>PagePackage.xaml</DependentUpon>
+    <Compile Include="XamlPages\PagePluBundleFk.xaml.cs">
+      <DependentUpon>PagePluBundleFk.xaml</DependentUpon>
     </Compile>
     <Compile Include="XamlPages\PagePinCode.xaml.cs">
       <DependentUpon>PagePinCode.xaml</DependentUpon>
@@ -478,7 +478,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XamlPages\PagePackage.xaml">
+    <Page Include="XamlPages\PagePluBundleFk.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -11,6 +11,7 @@ using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
 using MDSoft.BarcodePrintUtils.Wmi;
+using ScalesUI.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -74,7 +75,7 @@ public partial class MainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this, 
             () =>
             {
                 UserSession.StopwatchMain = Stopwatch.StartNew();
@@ -96,7 +97,7 @@ public partial class MainForm : Form
         _ = Task.Run(async () =>
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            ActionTryCatchFinally(
+	        ActionUtils.ActionTryCatchFinally(this,
                 () =>
                 {
                     Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
@@ -119,7 +120,7 @@ public partial class MainForm : Form
                         UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
 
                     UserSession.StopwatchMain.Stop();
-                    ActionMakeScreenShot();
+                    ActionUtils.ActionMakeScreenShot(this);
                 }
             );
         }).ConfigureAwait(false);
@@ -127,7 +128,7 @@ public partial class MainForm : Form
 
     private void MainForm_LoadResources()
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 System.Resources.ResourceManager resourceManager = new("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
@@ -147,7 +148,7 @@ public partial class MainForm : Form
 
     private void LoadManagerControl()
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             { // Labels.
                 UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
@@ -189,7 +190,7 @@ public partial class MainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 KeyboardMouseUnsubscribe();
@@ -214,7 +215,7 @@ public partial class MainForm : Form
                     LocaleData.Program.IsClosed + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
                     UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                 UserSession.StopwatchMain.Stop();
-                ActionMakeScreenShot();
+	            ActionUtils.ActionMakeScreenShot(this);
             }
         );
     }
@@ -393,11 +394,11 @@ public partial class MainForm : Form
     {
         lock (_lockerHours)
         {
-            ActionTryCatch(
+	        ActionUtils.ActionTryCatch(this,
                 () =>
                 {
                     if (Quartz is null) return;
-                    ActionMakeScreenShot();
+                    ActionUtils.ActionMakeScreenShot(this);
                 }
             );
         }
@@ -409,7 +410,7 @@ public partial class MainForm : Form
         {
             if (Quartz is null) return;
             UserSession.ProductDate = DateTime.Now;
-            ActionMakeScreenShot();
+            ActionUtils.ActionMakeScreenShot(this);
         }
     }
 
@@ -576,7 +577,7 @@ public partial class MainForm : Form
 
     private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 switch (fieldResolution.Items[fieldResolution.SelectedIndex])
@@ -615,7 +616,7 @@ public partial class MainForm : Form
 
     private void FieldLang_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
@@ -623,10 +624,10 @@ public partial class MainForm : Form
                     ? LocaleCore.Table.FieldNull : UserSession.ProductionFacility.Name;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
                     UserSession.Scale.Description + Environment.NewLine + area);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage.IdentityIsNew
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.BundleFk.IdentityIsNew
                     ? LocaleCore.Table.FieldPackageIsNotSelected
-                    : UserSession.PluPackage.Name + Environment.NewLine +
-                      $"{LocaleCore.Table.PackageWeightKg}: {UserSession.PluPackage.Package.Weight}");
+                    : UserSession.BundleFk.Name + Environment.NewLine +
+                      $"{LocaleCore.Table.BundleFkWeightTareKg}: {UserSession.BundleFk.WeightTare}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -654,7 +655,7 @@ public partial class MainForm : Form
 
     private void ActionDevice(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 UserSession.ManagerControl.Massa.Close();
@@ -676,14 +677,14 @@ public partial class MainForm : Form
 
     private void ActionPackage(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 if (!ActionPackageCheckPlu()) return;
 
                 UserSession.ManagerControl.Massa.Close();
 
-                using WpfPageLoader wpfPageLoader = new(PageEnum.Package, false) { Width = 600, Height = 225 };
+                using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 600, Height = 225 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 if (dialogResult == DialogResult.OK)
@@ -721,7 +722,7 @@ public partial class MainForm : Form
 
     private void ActionScalesTerminal(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
@@ -754,7 +755,7 @@ public partial class MainForm : Form
 
     private void ActionScalesInit(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 if (!UserSession.PluScale.Plu.IsCheckWeight)
@@ -852,7 +853,7 @@ public partial class MainForm : Form
 
     private void ActionNewPallet(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () => { UserSession.NewPallet(); },
             () => { MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint); }
         );
@@ -881,7 +882,7 @@ public partial class MainForm : Form
 
     private void ActionPlu(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 KeyboardMouseUnsubscribe();
@@ -903,7 +904,7 @@ public partial class MainForm : Form
                     UserSession.WeighingSettings.Kneading = 1;
                     UserSession.ProductDate = DateTime.Now;
                     UserSession.NewPallet();
-                    //_mkDevice.SetTareWeight((int) (_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.CurrentPLU.Scale.ScaleFactor));
+                    //_mkDevice.SetWeightTare((int) (_sessionState.CurrentPLU.GoodsWeightTare * _sessionState.CurrentPLU.Scale.ScaleFactor));
 
                     // форма с замесами, размерами паллет и прочее
                     ActionMore(null, null);
@@ -924,7 +925,7 @@ public partial class MainForm : Form
 
     private void ActionMore(object sender, EventArgs e)
     {
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 if (UserSession.PluScale.IdentityIsNew)
@@ -956,9 +957,9 @@ public partial class MainForm : Form
 
     private void ActionPrint(object sender, EventArgs e)
     {
-        ActionTryCatch(() => { UserSession.SetNewScaleCounter(); });
+	    ActionUtils.ActionTryCatch(this, UserSession.SetNewScaleCounter);
 
-        ActionTryCatchFinally(
+	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 UserSession.ManagerControl.PrintMain.IsPrintBusy = true;
@@ -966,7 +967,7 @@ public partial class MainForm : Form
 
                 if (!UserSession.CheckPluIsEmpty(this)) return;
                 //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
-                if (UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
+                if (UserSession.PluBundlesFks.Count > 1 && UserSession.BundleFk.IdentityIsNew)
                     ActionPackage(sender, e);
                 if (!UserSession.CheckPluPackageIsEmpty(this)) return;
                 if (!UserSession.CheckWeightMassaDeviceExists(this)) return;
@@ -1010,48 +1011,6 @@ public partial class MainForm : Form
                 //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState,
                 //_sessionState.PrintBrand, _sessionState.CurrentScale);
             });
-    }
-
-    private void ActionTryCatchFinally(Action action, Action actionFinally)
-    {
-        try
-        {
-            action.Invoke();
-        }
-        catch (Exception ex)
-        {
-            ActionMakeScreenShot();
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
-        }
-        finally
-        {
-            actionFinally.Invoke();
-        }
-    }
-    
-    private void ActionTryCatch(Action action)
-    {
-        try
-        {
-            action.Invoke();
-        }
-        catch (Exception ex)
-        {
-            ActionMakeScreenShot();
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
-        }
-    }
-
-    private void ActionMakeScreenShot()
-    {
-        try
-        {
-            UserSession.MakeScreenShot(this);
-        }
-        catch (Exception ex)
-        {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
-        }
     }
 
     #endregion

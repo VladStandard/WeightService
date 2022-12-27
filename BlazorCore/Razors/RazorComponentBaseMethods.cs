@@ -19,7 +19,6 @@ using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
-using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
@@ -36,6 +35,10 @@ using DataCore.Sql.TableScaleModels.WorkShops;
 using Radzen;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using DataCore.Sql.TableScaleModels.Boxes;
+using DataCore.Sql.TableScaleModels.Bundles;
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 
 namespace BlazorCore.Razors;
 
@@ -63,31 +66,34 @@ public partial class RazorComponentBase
 		result = item switch
 		{
 			AccessModel => LocaleCore.Strings.ItemAccess,
-			LogModel => LocaleCore.Strings.ItemLog,
 			BarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
+			BoxModel => LocaleCore.DeviceControl.ItemBox,
+			BundleFkModel => LocaleCore.DeviceControl.ItemBundleFk,
+			BundleModel => LocaleCore.DeviceControl.ItemBundle,
 			ContragentModel => LocaleCore.DeviceControl.ItemContragent,
 			DeviceModel => LocaleCore.DeviceControl.ItemDevice,
-			DeviceTypeModel => LocaleCore.DeviceControl.ItemDeviceType,
-			DeviceTypeFkModel => LocaleCore.DeviceControl.ItemDeviceTypeFk,
 			DeviceScaleFkModel => LocaleCore.DeviceControl.ItemDeviceScaleFk,
-			PluLabelModel => LocaleCore.DeviceControl.ItemLabel,
+			DeviceTypeFkModel => LocaleCore.DeviceControl.ItemDeviceTypeFk,
+			DeviceTypeModel => LocaleCore.DeviceControl.ItemDeviceType,
+			LogModel => LocaleCore.Strings.ItemLog,
 			NomenclatureModel => LocaleCore.DeviceControl.ItemNomenclature,
 			OrderModel => LocaleCore.DeviceControl.ItemOrder,
 			OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
-			PackageModel => LocaleCore.DeviceControl.RouteItemPackage,
+			OrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
+			PluBundleFkModel => LocaleCore.DeviceControl.ItemPluBundleFk,
+			PluLabelModel => LocaleCore.DeviceControl.ItemLabel,
 			PluModel => LocaleCore.DeviceControl.ItemPlu,
 			PluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
+			PluWeighingModel => LocaleCore.DeviceControl.ItemPluWeighing,
 			PrinterModel => LocaleCore.Print.Name,
 			PrinterResourceModel => LocaleCore.Print.Resources,
 			PrinterTypeModel => LocaleCore.Print.Types,
-			ProductSeriesModel => LocaleCore.DeviceControl.ItemProductSeries,
 			ProductionFacilityModel => LocaleCore.DeviceControl.ItemProductionFacility,
+			ProductSeriesModel => LocaleCore.DeviceControl.ItemProductSeries,
 			ScaleModel => LocaleCore.DeviceControl.ItemScale,
-			TemplateResourceModel => LocaleCore.DeviceControl.ItemTemplateResource,
 			TemplateModel => LocaleCore.DeviceControl.ItemTemplate,
-			PluWeighingModel => LocaleCore.DeviceControl.ItemPluWeighing,
+			TemplateResourceModel => LocaleCore.DeviceControl.ItemTemplateResource,
 			WorkShopModel => LocaleCore.DeviceControl.ItemWorkShop,
-			OrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
 			_ => result
 		};
 		return result;
@@ -99,31 +105,34 @@ public partial class RazorComponentBase
 		result = item switch
 		{
 			AccessModel => LocaleCore.Strings.SectionAccess,
-			LogModel => LocaleCore.Strings.SectionLog,
 			BarCodeModel => LocaleCore.DeviceControl.SectionBarCodes,
+			BoxModel => LocaleCore.DeviceControl.SectionBoxes,
+			BundleFkModel => LocaleCore.DeviceControl.SectionBundlesFk,
+			BundleModel => LocaleCore.DeviceControl.SectionBundles,
 			ContragentModel => LocaleCore.DeviceControl.SectionContragents,
 			DeviceModel => LocaleCore.DeviceControl.SectionDevices,
-			DeviceTypeModel => LocaleCore.DeviceControl.SectionDevicesTypes,
-			DeviceTypeFkModel => LocaleCore.DeviceControl.SectionDevicesTypesFk,
 			DeviceScaleFkModel => LocaleCore.DeviceControl.SectionDevicesScalesFk,
-			PluLabelModel => LocaleCore.DeviceControl.SectionLabels,
+			DeviceTypeFkModel => LocaleCore.DeviceControl.SectionDevicesTypesFk,
+			DeviceTypeModel => LocaleCore.DeviceControl.SectionDevicesTypes,
+			LogModel => LocaleCore.Strings.SectionLog,
 			NomenclatureModel => LocaleCore.DeviceControl.SectionNomenclatures,
 			OrderModel => LocaleCore.DeviceControl.SectionOrders,
 			OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
-			PackageModel => LocaleCore.DeviceControl.SectionPackages,
+			OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
+			PluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,
+			PluLabelModel => LocaleCore.DeviceControl.SectionLabels,
 			PluModel => LocaleCore.DeviceControl.SectionPlus,
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
+			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeighings,
 			PrinterModel => LocaleCore.Print.Name,
 			PrinterResourceModel => LocaleCore.Print.Resources,
 			PrinterTypeModel => LocaleCore.Print.Types,
-			ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
 			ProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
+			ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
 			ScaleModel => LocaleCore.DeviceControl.SectionScales,
-			TemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
 			TemplateModel => LocaleCore.DeviceControl.SectionTemplates,
-			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeighings,
+			TemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
 			WorkShopModel => LocaleCore.DeviceControl.SectionWorkShops,
-			OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
 			_ => result
 		};
 		return result;

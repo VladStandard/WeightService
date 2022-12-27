@@ -13,15 +13,17 @@ namespace DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 [Serializable]
 [DebuggerDisplay("Type = {nameof(PluBundleFkModel)} | {nameof(Name)} = {Name} | " +
 				 "{nameof(Plu)}.{nameof(Plu.Name)} = {Plu.Name} | " +
-				 "{nameof(BundleFk.Bundle)}.{nameof(BundleFk.Bundle.Weight)} = {BundleFk.Bundle.Weight} | " +
-				 "{nameof(BundleFk.BundleCount)} = {BundleFk.BundleCount} | " +
-				 "{nameof(BundleFk.Box)}.{nameof(BundleFk.Box.Weight)} = {BundleFk.Box.Weight} | ")]
+                 "{BundleFk.WeightTare} = {BundleFk.Bundle.Weight} * {BundleFk.BundleCount} + {BundleFk.Box.Weight} | " +
+                 "{nameof(WeightTare)} = {nameof(Bundle)}{nameof(Bundle.Weight)} * {nameof(BundleCount)} + " +
+                 "{nameof(Box)}.{nameof(Box.Weight)}")]
 public class PluBundleFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual BundleFkModel BundleFk { get; set; }
     [XmlElement] public virtual PluModel Plu { get; set; }
+    [XmlElement] public virtual bool IsActive { get; set; }
+	[XmlIgnore] public virtual decimal WeightTare { get => BundleFk.WeightTare; set => _ = value; }
 
     /// <summary>
     /// Constructor.
@@ -30,7 +32,9 @@ public class PluBundleFkModel : SqlTableBase
     {
         BundleFk = new(); 
         Plu = new();
-    }
+        IsActive = false;
+
+	}
 
     /// <summary>
     /// Constructor for serialization.
@@ -39,6 +43,7 @@ public class PluBundleFkModel : SqlTableBase
     /// <param name="context"></param>
     protected PluBundleFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
+		IsActive = info.GetBoolean(nameof(IsActive));
         Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
         BundleFk = (BundleFkModel)info.GetValue(nameof(BundleFk), typeof(BundleFkModel));
     }
@@ -52,10 +57,10 @@ public class PluBundleFkModel : SqlTableBase
     /// </summary>
     /// <returns></returns>
     public override string ToString() =>
-        $"{nameof(Name)}: {Name}. " +
         $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(BundleFk)}: {BundleFk}. " +
-        $"{nameof(Plu)}: {Plu}. ";
+        $"{nameof(IsActive)}: {IsActive}. " +
+        $"{nameof(Plu)}: {Plu.Name}. " +
+        $"{nameof(WeightTare)}: {WeightTare}. ";
 
     public override bool Equals(object obj)
     {
@@ -71,12 +76,14 @@ public class PluBundleFkModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
+        Equals(IsActive, false) &&
         BundleFk.EqualsDefault() &&
         Plu.EqualsDefault();
 
     public override object Clone()
     {
         PluBundleFkModel item = new();
+        item.IsActive = IsActive;
         item.BundleFk = BundleFk.CloneCast();
         item.Plu = Plu.CloneCast();
         item.CloneSetup(base.CloneCast());
@@ -91,6 +98,7 @@ public class PluBundleFkModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(IsActive), IsActive);
         info.AddValue(nameof(BundleFk), BundleFk);
         info.AddValue(nameof(Plu), Plu);
     }
@@ -108,6 +116,7 @@ public class PluBundleFkModel : SqlTableBase
 
     public virtual bool Equals(PluBundleFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
+        Equals(IsActive, item.IsActive) &&
         BundleFk.Equals(item.BundleFk) &&
         Plu.Equals(item.Plu);
 

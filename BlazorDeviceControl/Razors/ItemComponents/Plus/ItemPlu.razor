@@ -104,11 +104,11 @@
 @*
 	        <td>@LocaleCore.Table.PackageWeightKg</td>
             <td>
-                <RadzenNumeric Style="width: 88%; text-align: center; " 
-                    TValue="decimal" @bind-Value=@SqlItemCast.TareWeight />
+                <RadzenNumeric Style="width: 88%; text-align: center; "
+            TValue="decimal" @bind-Value=@SqlItemCast.WeightTare />
                 <RadzenButton Style="width: 10%; " Size=@ButtonSize.Small 
-                          Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
-                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.CalcGoodsTareWeight))) />
+                          Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary
+            Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.CalcGoodsWeightTare))) />
             </td>
 *@
             <td>@LocaleCore.Table.GoodsBoxQuantly</td>
@@ -124,7 +124,7 @@
 		    </td>*@
 		    <td colspan=2>
 			    <RadzenLabel 
-				    Text=@LocaleCore.Table.PackageWeightDescription />
+				    Text=@LocaleCore.Table.BundleFkWeightTareDescription />
 		    </td>
 	    </tr>
         <tr>
@@ -219,4 +219,4 @@
 
 <RazorItemDates TItem=@PluModel ParentRazor=@(this) />
 
-<SectionPlusPackages ParentRazor=@(this) />
+<SectionPlusBundlesFks ParentRazor=@(this) />

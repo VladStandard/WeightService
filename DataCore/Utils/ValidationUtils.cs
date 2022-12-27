@@ -27,10 +27,8 @@ using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
-using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
@@ -90,7 +88,6 @@ public class ValidationUtils
             var cls when cls == typeof(OrderModel) => new OrderValidator(),
             var cls when cls == typeof(OrderWeighingModel) => new OrderWeighingValidator(),
             var cls when cls == typeof(OrganizationModel) => new OrganizationValidator(),
-            var cls when cls == typeof(PackageModel) => new PackageValidator(),
             var cls when cls == typeof(PluLabelModel) => new PluLabelValidator(),
             var cls when cls == typeof(PluModel) => new PluValidator(),
             var cls when cls == typeof(PluBundleFkModel) => new PluBundleFkValidator(),
@@ -138,11 +135,9 @@ public class ValidationUtils
             OrderModel order => new OrderValidator().Validate(order),
             OrderWeighingModel orderWeighing => new OrderWeighingValidator().Validate(orderWeighing),
             OrganizationModel organization => new OrganizationValidator().Validate(organization),
-            PackageModel package => new PackageValidator().Validate(package),
             PluLabelModel pluLabel => new PluLabelValidator().Validate(pluLabel),
             PluBundleFkModel pluBundle => new PluBundleFkValidator().Validate(pluBundle),
             PluModel plu => new PluValidator().Validate(plu),
-            PluPackageModel package => new PluPackageValidator().Validate(package),
             PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),
             PluTemplateFkModel pluTemplate => new PluTemplateFkValidator().Validate(pluTemplate),
             PluWeighingModel pluWeighing => new PluWeighingValidator().Validate(pluWeighing),

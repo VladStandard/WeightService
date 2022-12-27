@@ -44,7 +44,7 @@ public enum PageEnum
     PinCode,
     Device,
     SqlSettings,
-    Package,
+    PluBundleFk,
 }
 
 public enum OrderStatusEnum

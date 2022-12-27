@@ -74,11 +74,11 @@ internal class RazorFieldConfigUtilsTests
 			// Arrange & Act & Assert.
 			razorFieldConfig = RazorFieldConfigUtils.Plu.GetShelfLifeDays();
 			TestContext.WriteLine(razorFieldConfig);
-			// Arrange & Act & Assert.
-			//razorFieldConfig = RazorFieldConfigUtils.Plu.GetTareWeight();
-			//TestContext.WriteLine(razorFieldConfig);
-			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Plu.GetBoxQuantly();
+            // Arrange & Act & Assert.
+            //razorFieldConfig = RazorFieldConfigUtils.Plu.GetWeightTare();
+            //TestContext.WriteLine(razorFieldConfig);
+            // Arrange & Act & Assert.
+            razorFieldConfig = RazorFieldConfigUtils.Plu.GetBoxQuantly();
 			TestContext.WriteLine(razorFieldConfig);
 		});
 	}

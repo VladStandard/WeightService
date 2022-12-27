@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 
 namespace DataCore.Sql.Xml;
 
@@ -309,7 +309,7 @@ public class XmlProductHelper
 					if (decimal.TryParse(rate1.ToString(), out decimal goodsBoxQuantly2))
 						return (T)Convert.ChangeType((int)goodsBoxQuantly2, typeof(int));
 					break;
-				case "GoodsTareWeight":
+				case "GoodsWeightTare":
 					decimal? rate = xmlProduct.Units
 						.OrderByDescending(x => x.Rate)
 						.FirstOrDefault(x => x.Description.Equals("Кор"))?
@@ -428,14 +428,14 @@ public class XmlProductHelper
 		return boxQuantly;
 	}
 
-	public decimal GetXmlTareWeight(NomenclatureModel nomenclature, decimal tareWeight)
+	public decimal GetXmlWeightTare(NomenclatureModel nomenclature, decimal weightTare)
 	{
 		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
 		{
-			return GetXmlValue<decimal>(xmlProduct, "GoodsTareWeight");
+			return GetXmlValue<decimal>(xmlProduct, "GoodsWeightTare");
 		}
-		return tareWeight;
+		return weightTare;
 	}
 
 	/// <summary>
@@ -492,7 +492,7 @@ public class XmlProductHelper
 		return 0M;
 	}
 
-	public decimal CalcGoodsTareWeight(NomenclatureModel nomenclature)
+	public decimal CalcGoodsWeightTare(NomenclatureModel nomenclature)
 	{
 		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew() && !nomenclature.EqualsNew())
@@ -523,14 +523,14 @@ public class XmlProductHelper
 		return false;
 	}
 
-    public string GetWeightFormula(PluModel plu, PluPackageModel pluPackage)
+    public string GetWeightFormula(PluModel plu, PluBundleFkModel pluBundleFk)
     {
         XmlProductModel xmlProduct = GetXmlProduct(plu.Nomenclature.Xml);
-        // Вес тары = вес коробки + (вес пакета * кол. вложений)
-        //return $"{CalcGoodWeightBox(plu.Nomenclature, xmlProduct)} + " +
-        //       $"({CalcGoodWeightPack(plu.Nomenclature, xmlProduct)} * " +
-        //       $"{CalcGoodRateUnit(plu.Nomenclature, xmlProduct)})";
-        return $"{pluPackage.Package.Weight} + " +
+		// Вес тары = вес пакета * кол. вложений + вес коробки
+		//return $"{CalcGoodWeightBox(plu.Nomenclature, xmlProduct)} + " +
+		//       $"({CalcGoodWeightPack(plu.Nomenclature, xmlProduct)} * " +
+		//       $"{CalcGoodRateUnit(plu.Nomenclature, xmlProduct)})";
+		return $"{pluBundleFk.WeightTare} + " +
                $"({CalcGoodWeightPack(plu.Nomenclature, xmlProduct)} * " +
                $"{CalcGoodRateUnit(plu.Nomenclature, xmlProduct)})";
     }

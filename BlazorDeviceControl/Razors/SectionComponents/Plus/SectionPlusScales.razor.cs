@@ -2,11 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Scales;
-using System;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
@@ -41,7 +40,7 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 	private string GetPluPackagesCount(PluModel plu)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu));
-		return DataContext.GetListNotNullable<PluPackageModel>(sqlCrudConfig).Count.ToString();
+		return DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}
 
 	#endregion

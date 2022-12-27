@@ -26,10 +26,8 @@ using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
-using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
@@ -76,11 +74,9 @@ public partial class DataContextModel
     public List<OrderModel> Orders { get; set; }
 	public List<OrderWeighingModel> OrderWeighings { get; set; }
 	public List<OrganizationModel> Organizations { get; set; }
-	public List<PackageModel> Packages { get; set; }
 	public List<PluLabelModel> PluLabels { get; set; }
 	public List<PluModel> Plus { get; set; }
     public List<PluBundleFkModel> PluBundleFks { get; set; }
-    public List<PluPackageModel> PluPackages { get; set; }
 	public List<PluScaleModel> PluScales { get; set; }
 	public List<PluTemplateFkModel> PluTemplateFks { get; set; }
 	public List<PluWeighingModel> PluWeighings { get; set; }
@@ -108,7 +104,7 @@ public partial class DataContextModel
         Boxes = new();
 		Brands = new();
 		Bundles = new();
-        BundleFks = new ();
+        BundleFks = new();
         Contragents = new();
 		Devices = new();
 		DeviceTypes = new();
@@ -124,12 +120,10 @@ public partial class DataContextModel
         NomenclaturesCharacteristicsFk = new();
         Orders = new();
 		Organizations = new();
-		Packages = new();
 		PluLabels = new();
 		Plus = new();
         PluBundleFks = new();
-        PluPackages = new();
-		PluScales = new();
+        PluScales = new();
         PluTemplateFks = new();
         PluWeighings = new();
 		Printers = new();
@@ -187,8 +181,12 @@ public partial class DataContextModel
 	            return Bundles.Cast<T>().ToList();
             case var cls when cls == typeof(BundleFkModel):
                 BundleFks = DataAccess.GetListNotNullable<BundleFkModel>(sqlCrudConfig);
-                if (sqlCrudConfig.IsResultOrder)
-                    BundleFks = BundleFks.OrderBy(item => item.Name).ToList();
+				if (sqlCrudConfig.IsResultOrder)
+                {
+	                BundleFks = BundleFks.OrderBy(item => item.Box.Name).ToList();
+	                BundleFks = BundleFks.OrderBy(item => item.Bundle.Name).ToList();
+	                BundleFks = BundleFks.OrderBy(item => item.Name).ToList();
+                }
                 return BundleFks.Cast<T>().ToList();
             case var cls when cls == typeof(ContragentModel):
 				Contragents = DataAccess.GetListNotNullable<ContragentModel>(sqlCrudConfig);
@@ -277,11 +275,6 @@ public partial class DataContextModel
 				if (sqlCrudConfig.IsResultOrder)
 					Organizations = Organizations.OrderBy(item => item.Name).ToList();
 				return Organizations.Cast<T>().ToList();
-			case var cls when cls == typeof(PackageModel):
-				Packages = DataAccess.GetListNotNullable<PackageModel>(sqlCrudConfig);
-				if (sqlCrudConfig.IsResultOrder)
-					Packages = Packages.OrderBy(item => item.Name).ToList();
-				return Packages.Cast<T>().ToList();
 			case var cls when cls == typeof(PluLabelModel):
 				PluLabels = DataAccess.GetListNotNullable<PluLabelModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
@@ -295,16 +288,12 @@ public partial class DataContextModel
             case var cls when cls == typeof(PluBundleFkModel):
                 PluBundleFks = DataAccess.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
                 if (sqlCrudConfig.IsResultOrder)
-                    PluBundleFks = PluBundleFks.OrderBy(item => item.Name).ToList();
-                return PluBundleFks.Cast<T>().ToList();
-            case var cls when cls == typeof(PluPackageModel):
-				PluPackages = DataAccess.GetListNotNullable<PluPackageModel>(sqlCrudConfig);
-				if (sqlCrudConfig.IsResultOrder)
 				{
-					PluPackages = PluPackages.OrderBy(item => item.Package.Name).ToList();
-					PluPackages = PluPackages.OrderBy(item => item.Plu.Name).ToList();
+					PluBundleFks = PluBundleFks.OrderBy(item => item.BundleFk.Box.Name).ToList();
+					PluBundleFks = PluBundleFks.OrderBy(item => item.BundleFk.Bundle.Name).ToList();
+					PluBundleFks = PluBundleFks.OrderBy(item => item.BundleFk.Name).ToList();
 				}
-				return PluPackages.Cast<T>().ToList();
+                return PluBundleFks.Cast<T>().ToList();
 			case var cls when cls == typeof(PluScaleModel):
 				PluScales = DataAccess.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
@@ -408,16 +397,14 @@ public partial class DataContextModel
 	/// <returns></returns>
 	public List<SqlTableBase> GetTableModels() => new()
 	{
-        new BrandModel(),
-        new BundleModel(),
-        new ContragentModel(),
-        new NomenclaturesCharacteristicsFkModel(),
-        new OrderModel(),
 		new AccessModel(),
 		new AppModel(),
 		new BarCodeModel(),
 		new BoxModel(),
+		new BrandModel(),
 		new BundleFkModel(),
+		new BundleModel(),
+		new ContragentModel(),
 		new DeviceModel(),
 		new DeviceScaleFkModel(),
 		new DeviceTypeFkModel(),
@@ -426,16 +413,16 @@ public partial class DataContextModel
 		new LogTypeModel(),
 		new NomenclatureGroupModel(),
 		new NomenclatureModel(),
+		new NomenclaturesCharacteristicsFkModel(),
 		new NomenclaturesCharacteristicsModel(),
 		new NomenclaturesGroupFkModel(),
 		new NomenclatureV2Model(),
+		new OrderModel(),
 		new OrderWeighingModel(),
 		new OrganizationModel(),
-		new PackageModel(),
 		new PluBundleFkModel(),
 		new PluLabelModel(),
 		new PluModel(),
-		new PluPackageModel(),
 		new PluScaleModel(),
 		new PluTemplateFkModel(),
 		new PluWeighingModel(),
@@ -460,14 +447,13 @@ public partial class DataContextModel
 	/// <returns></returns>
 	public List<Type> GetTableTypes() => new()
 	{
-        typeof(BoxModel),
-        typeof(BrandModel),
-        typeof(BundleFkModel),
-        typeof(ContragentModel),
-        typeof(NomenclaturesCharacteristicsFkModel),
-        typeof(OrderModel),
-        typeof(PluBundleFkModel),
-        typeof(PluPackageModel),
+		typeof(BoxModel),
+		typeof(BrandModel),
+		typeof(BundleFkModel),
+		typeof(ContragentModel),
+		typeof(NomenclaturesCharacteristicsFkModel),
+		typeof(OrderModel),
+		typeof(PluBundleFkModel),
 		typeof(AccessModel),
 		typeof(AppModel),
 		typeof(BarCodeModel),
@@ -485,7 +471,6 @@ public partial class DataContextModel
 		typeof(NomenclatureV2Model),
 		typeof(OrderWeighingModel),
 		typeof(OrganizationModel),
-		typeof(PackageModel),
 		typeof(PluLabelModel),
 		typeof(PluModel),
 		typeof(PluScaleModel),
@@ -512,16 +497,15 @@ public partial class DataContextModel
 		{
             var cls when cls == typeof(BoxModel) => nameof(BoxModel),
             var cls when cls == typeof(BrandModel) => nameof(BrandModel),
+			var cls when cls == typeof(BundleModel) => nameof(BundleModel),
             var cls when cls == typeof(BundleFkModel) => nameof(BundleFkModel),
             var cls when cls == typeof(ContragentModel) => nameof(ContragentModel),
             var cls when cls == typeof(NomenclaturesCharacteristicsFkModel) => nameof(NomenclaturesCharacteristicsFkModel),
             var cls when cls == typeof(OrderModel) => nameof(OrderModel),
             var cls when cls == typeof(PluBundleFkModel) => nameof(PluBundleFkModel),
-            var cls when cls == typeof(PluPackageModel) => nameof(PluPackageModel),
-			var cls when cls == typeof(AccessModel) => nameof(AccessModel),
+            var cls when cls == typeof(AccessModel) => nameof(AccessModel),
 			var cls when cls == typeof(AppModel) => nameof(AppModel),
 			var cls when cls == typeof(BarCodeModel) => nameof(BarCodeModel),
-			var cls when cls == typeof(BundleModel) => nameof(BundleModel),
 			var cls when cls == typeof(DeviceModel) => nameof(DeviceModel),
 			var cls when cls == typeof(DeviceScaleFkModel) => nameof(DeviceScaleFkModel),
 			var cls when cls == typeof(DeviceTypeFkModel) => nameof(DeviceTypeFkModel),
@@ -535,7 +519,6 @@ public partial class DataContextModel
 			var cls when cls == typeof(NomenclatureV2Model) => nameof(NomenclatureV2Model),
 			var cls when cls == typeof(OrderWeighingModel) => nameof(OrderWeighingModel),
 			var cls when cls == typeof(OrganizationModel) => nameof(OrganizationModel),
-			var cls when cls == typeof(PackageModel) => nameof(PackageModel),
 			var cls when cls == typeof(PluLabelModel) => nameof(PluLabelModel),
 			var cls when cls == typeof(PluModel) => nameof(PluModel),
 			var cls when cls == typeof(PluScaleModel) => nameof(PluScaleModel),

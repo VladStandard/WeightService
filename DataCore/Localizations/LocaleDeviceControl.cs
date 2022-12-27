@@ -20,7 +20,6 @@ public partial class LocaleDeviceControl
 
     #region Public and private fields, properties, constructor
 
-    public string WebAppIsStarted => Lang == Lang.English ? "Web-app is started" : "Веб-приложение запущено";
     public string Actions => Lang == Lang.English ? "Aaction" : "Действия";
     public string DataRecords => Lang == Lang.English ? "records" : "записей";
     public string DevicesTitle => Lang == Lang.English ? "Complexes of industrial devices" : "Комплексы промышленных устройств";
@@ -30,11 +29,14 @@ public partial class LocaleDeviceControl
     public string ItemBarcode => Lang == Lang.English ? "Barcode" : "Штрихкод";
     public string ItemBarCode => Lang == Lang.English ? "Barcode" : "Штрихкод";
     public string ItemBarCodeType => Lang == Lang.English ? "Barcodes type" : "Тип штрихкода";
+    public string ItemBox => Lang == Lang.English ? "Box" : "Коробка";
+    public string ItemBundle => Lang == Lang.English ? "Packet" : "Пакет";
+    public string ItemBundleFk => Lang == Lang.English ? "Bundle" : "Упаковка";
     public string ItemContragent => Lang == Lang.English ? "Counterparty" : "Контрагент";
     public string ItemDevice => Lang == Lang.English ? "Device" : "Устройство";
+    public string ItemDeviceScaleFk => Lang == Lang.English ? "Device with scale" : "Устройство с постом";
     public string ItemDeviceType => Lang == Lang.English ? "Device type" : "Тип устройства";
     public string ItemDeviceTypeFk => Lang == Lang.English ? "Device with type" : "Устройство с типом";
-    public string ItemDeviceScaleFk => Lang == Lang.English ? "Device with scale" : "Устройство с постом";
     public string ItemError => Lang == Lang.English ? "Error" : "Ошибка";
     public string ItemFont => Lang == Lang.English ? "Font" : "Шрифт";
     public string ItemHost => Lang == Lang.English ? "Host" : "Хост";
@@ -51,7 +53,7 @@ public partial class LocaleDeviceControl
     public string ItemOrderWeighing => Lang == Lang.English ? "Order weighing" : "Взвешивание заказа";
     public string ItemOrganization => Lang == Lang.English ? "Organization" : "Организация";
     public string ItemPlu => Lang == Lang.English ? "PLU" : "ПЛУ";
-    public string ItemPluPackage => Lang == Lang.English ? "PLU's nesting" : "Вложенность ПЛУ";
+    public string ItemPluBundleFk => Lang == Lang.English ? "PLU's bundle" : "Вложенность ПЛУ";
     public string ItemPluScale => Lang == Lang.English ? "Device PLU" : "ПЛУ устройства";
     public string ItemPluWeighing => Lang == Lang.English ? "Plu weighings" : "Взвешивание ПЛУ";
     public string ItemProductionFacilities => Lang == Lang.English ? "Prod. facilities" : "Производственные площадки";
@@ -76,12 +78,15 @@ public partial class LocaleDeviceControl
     public string SectionBarCodesShort => Lang == Lang.English ? "BC" : "ШК";
     public string SectionBarCodeTypes => Lang == Lang.English ? "Barcodes types" : "Типы штрихкодов";
     public string SectionBarCodeTypesShort => Lang == Lang.English ? "BC types" : "Типы ШК";
+    public string SectionBoxes => Lang == Lang.English ? "Boxes" : "Коробки";
     public string SectionBrands => Lang == Lang.English ? "Brands" : "Бренды";
+    public string SectionBundles => Lang == Lang.English ? "Bundles" : "Пакеты";
+    public string SectionBundlesFk => Lang == Lang.English ? "PLUs & bundles" : "ПЛУ и упаковки";
     public string SectionContragents => Lang == Lang.English ? "Counterparties" : "Контрагенты";
     public string SectionDevices => Lang == Lang.English ? "Devices" : "Устройства";
+    public string SectionDevicesScalesFk => Lang == Lang.English ? "Devices with scales" : "Устройства с постами";
     public string SectionDevicesTypes => Lang == Lang.English ? "Device types " : "Типы устройств";
     public string SectionDevicesTypesFk => Lang == Lang.English ? "Devices with types" : "Устройства с типами";
-    public string SectionDevicesScalesFk => Lang == Lang.English ? "Devices with scales" : "Устройства с постами";
     public string SectionDwh => Lang == Lang.English ? "DWH" : "МДМ";
     public string SectionDwhReferences => Lang == Lang.English ? "DWH References" : "DWH справочники";
     public string SectionFonts => Lang == Lang.English ? "Fonts" : "Шрифты";
@@ -102,9 +107,8 @@ public partial class LocaleDeviceControl
     public string SectionOrdersWeighings => Lang == Lang.English ? "Orders weighings" : "Взвешивание заказов";
     public string SectionOrderTypes => Lang == Lang.English ? "Order types" : "Типы заказов";
     public string SectionOrganizations => Lang == Lang.English ? "Organizations" : "Организации";
-    public string SectionPackages => Lang == Lang.English ? "Packages" : "Тара";
     public string SectionPlus => Lang == Lang.English ? "PLUs" : "ПЛУ";
-    public string SectionPlusPackages => Lang == Lang.English ? "PLU & packages (nesting)" : "ПЛУ и тара (вложенности)";
+    public string SectionPlusBundlesFk => Lang == Lang.English ? "PLU & bundles" : "ПЛУ и вложенности";
     public string SectionPlusScales => Lang == Lang.English ? "PLU & devices" : "ПЛУ и устройства";
     public string SectionPlusWeighings => Lang == Lang.English ? "Plus weighings" : "Взвешивания ПЛУ";
     public string SectionProductionFacilities => Lang == Lang.English ? "Production facilities" : "Производственные площадки";
@@ -139,6 +143,7 @@ public partial class LocaleDeviceControl
     public string TableActions => Lang == Lang.English ? "Actions" : "Действия";
     public string TableActionSave => Lang == Lang.English ? "Save" : "Сохранить";
     public string TableActionsIsDeny => Lang == Lang.English ? "Actions is deny" : "Действия недоступны";
+    public string WebAppIsStarted => Lang == Lang.English ? "Web-app is started" : "Веб-приложение запущено";
 
     #endregion
 }
