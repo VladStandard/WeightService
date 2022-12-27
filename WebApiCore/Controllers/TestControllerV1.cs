@@ -34,7 +34,7 @@ public class TestControllerV1 : WebControllerBase
 	#region Public and private methods
 
 	[AllowAnonymous]
-	[HttpGet()]
+	[HttpGet]
 	[Route("api/v1/info/")]
 	public ContentResult GetInfo([FromQuery(Name = "format")] string formatString = "") =>
 		ControllerHelp.GetContentResult(() =>
@@ -62,7 +62,7 @@ public class TestControllerV1 : WebControllerBase
 		}, formatString);
 
 	[AllowAnonymous]
-	[HttpGet()]
+	[HttpGet]
 	[Route("api/v1/exception/")]
 	public ContentResult GetException([FromQuery(Name = "format")] string formatString = "") =>
 		ControllerHelp.GetContentResult(() =>
@@ -73,7 +73,7 @@ public class TestControllerV1 : WebControllerBase
 		}, formatString);
 
 	[AllowAnonymous]
-	[HttpGet()]
+	[HttpGet]
 	[Route("api/v1/simple/")]
 	public ContentResult GetSimple([FromQuery(Name = "format")] string formatString = "", int version = 0)
 	{

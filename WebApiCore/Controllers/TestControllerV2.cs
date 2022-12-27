@@ -41,7 +41,7 @@ public class TestControllerV2 : WebControllerBase
     /// <param name="formatString"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/info/")]
     public ContentResult GetInfo([FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() =>
@@ -76,7 +76,7 @@ public class TestControllerV2 : WebControllerBase
     /// <param name="formatString"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/exception/")]
     public ContentResult GetException([FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() =>
@@ -93,7 +93,7 @@ public class TestControllerV2 : WebControllerBase
     /// <param name="formatString"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [HttpGet()]
+    [HttpGet]
     [Route("api/v2/simple/")]
     public ContentResult GetSimple([FromQuery(Name = "format")] string formatString = "", int version = 0)
     {
