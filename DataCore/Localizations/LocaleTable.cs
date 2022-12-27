@@ -30,7 +30,8 @@ public class LocaleTable
     public string BarcodeType => Lang == Lang.English ? "Barcode type" : "Тип штрихкода";
     public string BarCodeTypeId => Lang == Lang.English ? "Barcode type ID" : "ИД типа ШК";
     public string Brand => Lang == Lang.English ? "Brand" : "Бренд";
-    public string BundleWeight=> Lang == Lang.English ? "Bundle weight" : "Вес пакета";
+    public string BoxWeight => Lang == Lang.English ? "Box weight" : "Вес коробки (Кг)";
+    public string BundleWeight=> Lang == Lang.English ? "Bundle weight" : "Вес пакета (Кг)";
     public string BundleCount => Lang == Lang.English ? "Bundle count" : "Кол-во пакетов";
     public string Box => Lang == Lang.English ? "Box" : "Коробка";
     public string Bundle => Lang == Lang.English ? "Packet" : "Пакет";

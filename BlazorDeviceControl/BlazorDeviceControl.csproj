@@ -122,6 +122,7 @@
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsQuestions.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsStops.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsWarnings.razor" />
+    <Watch Remove="Razors\SectionComponents\Others\SectionBoxes.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionBrands.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionBundles.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionBundlesFks.razor" />
