@@ -13,8 +13,8 @@ internal class PrinterResourceModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<PrinterResourceModel>(nameof(SqlTableBase.IsMarked));
     }
 

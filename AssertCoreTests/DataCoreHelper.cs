@@ -26,10 +26,8 @@ using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
-//using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-//using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
@@ -245,6 +243,7 @@ public class DataCoreHelper
 		item.IsMarked.Returns(false);
 		item.Description.Returns(LocaleCore.Sql.SqlItemFieldDescription);
 
+
 		switch (item)
 		{
 			case AccessModel access:
@@ -293,14 +292,17 @@ public class DataCoreHelper
 				device.MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
 				break;
 			case DeviceTypeModel deviceType:
+                //device.FillProperties();
                 deviceType.Name = LocaleCore.Sql.SqlItemFieldName;
 				deviceType.PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
 				break;
 			case DeviceTypeFkModel deviceTypeFk:
-			    deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
+                //deviceTypeFk.FillProperties();
+                deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				deviceTypeFk.Type = CreateNewSubstitute<DeviceTypeModel>(isNotDefault);
 				break;
 			case DeviceScaleFkModel deviceScaleFk:
+                //deviceScaleFk.FillProperties();
                 deviceScaleFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				deviceScaleFk.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;

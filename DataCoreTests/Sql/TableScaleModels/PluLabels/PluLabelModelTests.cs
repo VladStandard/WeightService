@@ -13,8 +13,8 @@ internal class PluLabelModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(PluLabelModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(PluLabelModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<PluLabelModel>(nameof(SqlTableBase.IsMarked));
     }
 

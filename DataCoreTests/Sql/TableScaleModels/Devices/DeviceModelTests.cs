@@ -13,8 +13,8 @@ internal class DeviceModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(DeviceModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(DeviceModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<DeviceModel>(nameof(SqlTableBase.IsMarked));
     }
 

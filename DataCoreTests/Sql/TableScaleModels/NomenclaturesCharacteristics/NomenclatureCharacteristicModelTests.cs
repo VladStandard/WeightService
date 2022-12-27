@@ -13,9 +13,9 @@ internal class NomenclaturesCharacteristicModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsModel>(nameof(NomenclaturesCharacteristicsModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsModel>(nameof(NomenclaturesCharacteristicsModel.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<NomenclaturesCharacteristicsModel>(nameof(NomenclaturesCharacteristicsModel.IsMarked));
+        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsModel>(nameof(SqlTableBase.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<NomenclaturesCharacteristicsModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]

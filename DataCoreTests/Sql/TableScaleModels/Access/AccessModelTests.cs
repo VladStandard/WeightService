@@ -13,8 +13,8 @@ internal class AccessModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(AccessModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(AccessModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<AccessModel>(nameof(SqlTableBase.IsMarked));
     }
 

@@ -13,8 +13,8 @@ internal class OrderModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(OrderModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(OrderModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<OrderModel>(nameof(SqlTableBase.IsMarked));
     }
 

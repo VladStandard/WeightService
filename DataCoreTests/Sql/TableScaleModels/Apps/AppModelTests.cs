@@ -13,8 +13,8 @@ internal class AppModelTests
     [Test] 
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(AppModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(AppModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<AppModel>(nameof(SqlTableBase.IsMarked));
     }
     

@@ -13,8 +13,8 @@ internal class PrinterModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<PrinterModel>(nameof(SqlTableBase.IsMarked));
     }
 

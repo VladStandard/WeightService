@@ -13,8 +13,8 @@ internal class TaskModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<TaskModel>(nameof(TaskModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<TaskModel>(nameof(TaskModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<TaskModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<TaskModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<TaskModel>(nameof(SqlTableBase.IsMarked));
     }
 

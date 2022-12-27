@@ -13,8 +13,8 @@ internal class DeviceTypeFkModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(DeviceTypeFkModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(DeviceTypeFkModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<DeviceTypeFkModel>(nameof(SqlTableBase.IsMarked));
     }
 

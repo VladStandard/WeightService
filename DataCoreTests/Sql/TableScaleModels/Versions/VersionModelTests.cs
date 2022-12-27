@@ -13,10 +13,10 @@ internal class VersionModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
-        DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Description));
+        DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(SqlTableBase.Description));
         DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
         DataCore.AssertSqlPropertyCheckBool<VersionModel>(nameof(SqlTableBase.IsMarked));
     }

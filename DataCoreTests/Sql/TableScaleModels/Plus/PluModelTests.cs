@@ -13,8 +13,8 @@ internal class PluModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(PluModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(PluModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<PluModel>(nameof(SqlTableBase.IsMarked));
     }
 

@@ -13,8 +13,8 @@ internal class TemplateModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<TemplateModel>(nameof(TemplateModel.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<TemplateModel>(nameof(TemplateModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckDt<TemplateModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<TemplateModel>(nameof(SqlTableBase.ChangeDt));
         DataCore.AssertSqlPropertyCheckBool<TemplateModel>(nameof(SqlTableBase.IsMarked));
     }
 
