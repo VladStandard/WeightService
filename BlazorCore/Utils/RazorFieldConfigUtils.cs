@@ -9,6 +9,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Organizations;
@@ -113,6 +114,12 @@ public static class RazorFieldConfigUtils
 	{
 		public static RazorFieldConfigModel GetGln() => new(nameof(OrganizationModel.Gln), TextAlign.Center, LocaleCore.Table.Gln);
 	}
+
+    public static class Bundle
+    {
+        public static RazorFieldConfigModel GetName() => new(nameof(BundleModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+        public static RazorFieldConfigModel GetWeight() => new(nameof(BundleModel.Weight), TextAlign.Center, LocaleCore.Table.BundleWeight);
+    }
 
     public static class BundleFk
 	{
