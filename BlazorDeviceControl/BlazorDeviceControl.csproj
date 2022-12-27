@@ -101,6 +101,7 @@
     <Watch Remove="Razors\ItemComponents\ItemTemplate.razor" />
     <Watch Remove="Razors\ItemComponents\ItemTemplateResource.razor" />
     <Watch Remove="Razors\ItemComponents\ItemWorkshop.razor" />
+    <Watch Remove="Razors\ItemComponents\Others\ItemBox.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemBrand.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemBundle.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemBundleFk.razor" />
