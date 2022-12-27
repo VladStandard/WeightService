@@ -860,33 +860,5 @@ public class UserSessionHelper : BaseViewModel
 		return result;
 	}
 
-#nullable enable
-	public void MakeScreenShot(Form? owner)
-#nullable disable
-	{
-		using MemoryStream stream = new();
-
-		if (owner is null)
-		{
-            Rectangle bounds = Screen.GetBounds(System.Drawing.Point.Empty);
-			using Bitmap bitmap = new(bounds.Width, bounds.Height);
-			using Graphics graphics = Graphics.FromImage(bitmap);
-			graphics.CopyFromScreen(System.Drawing.Point.Empty, System.Drawing.Point.Empty, bounds.Size);
-			Image img = (Image)bitmap;
-			img.Save(stream, ImageFormat.Png);
-		}
-		else
-		{
-			using Bitmap bitmap = new(owner.Width, owner.Height);
-			using Graphics graphics = Graphics.FromImage(bitmap);
-			graphics.CopyFromScreen(owner.Location.X, owner.Location.Y, 0, 0, owner.Size);
-			using Image img = (Image)bitmap;
-			img.Save(stream, ImageFormat.Png);
-		}
-
-		ScaleScreenShotModel scaleScreenShot = new() { Scale = Scale, ScreenShot = stream.ToArray() };
-		DataAccess.Save(scaleScreenShot);
-	}
-
 	#endregion
 }
