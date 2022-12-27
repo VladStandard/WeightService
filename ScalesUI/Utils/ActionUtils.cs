@@ -39,7 +39,7 @@ internal static class ActionUtils
 		DataAccess.Save(scaleScreenShot);
 	}
 
-	internal static void MakeScreenShot(IWin32Window win32Window)
+	private static void MakeScreenShot(IWin32Window win32Window)
 	{
 		using MemoryStream memoryStream = new();
 

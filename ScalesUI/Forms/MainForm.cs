@@ -316,7 +316,7 @@ public partial class MainForm : Form
         if (buttonsSettings.IsPackage)
         {
             ButtonPackage = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonPackage), 1, rowCount++);
-            ButtonPackage.Click += ActionPackage;
+            ButtonPackage.Click += ActionPluBundleFk;
         }
 
         tableLayoutPanelDevice.ColumnCount = 1;
@@ -675,22 +675,22 @@ public partial class MainForm : Form
         );
     }
 
-    private void ActionPackage(object sender, EventArgs e)
+    private void ActionPluBundleFk(object sender, EventArgs e)
     {
 	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                if (!ActionPackageCheckPlu()) return;
+                if (!ActionCheckPluIdentityIsNew()) return;
 
                 UserSession.ManagerControl.Massa.Close();
 
                 using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 600, Height = 225 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
-                if (dialogResult == DialogResult.OK)
-                {
-                    //UserSession.Setup(wpfPageLoader.PageDevice.Scale.IdentityValueId);
-                }
+                //if (dialogResult == DialogResult.OK)
+                //{
+                //    //UserSession.Setup(wpfPageLoader.PageDevice.Scale.IdentityValueId);
+                //}
                 FieldLang_SelectedIndexChanged(sender, e);
 
                 UserSession.ManagerControl.Massa.Open();
@@ -699,25 +699,22 @@ public partial class MainForm : Form
         );
     }
 
-    private bool ActionPackageCheckPlu()
+    private bool ActionCheckPluIdentityIsNew()
     {
-        switch (UserSession.PluScale.Plu.IdentityIsNew)
-        {
-            case true:
-                {
-                    using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
-                    { Width = 700, Height = 450 };
-                    wpfPageLoader.Text = LocaleCore.Action.ActionAccessDeny;
-                    wpfPageLoader.MessageBox.Caption = LocaleCore.Table.FieldPluIsNotSelected;
-                    wpfPageLoader.MessageBox.Message = LocaleCore.Table.FieldPluMustBeSelected;
-                    wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = Visibility.Visible;
-                    _ = wpfPageLoader.ShowDialog(this);
-                    wpfPageLoader.Close();
-                    return false;
-                }
-            default:
-                return true;
-        }
+	    if (UserSession.PluScale.Plu.IdentityIsNew)
+	    {
+		    using WpfPageLoader wpfPageLoader = new(
+				PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
+			    { Width = 700, Height = 450 };
+		    wpfPageLoader.Text = LocaleCore.Action.ActionAccessDeny;
+		    wpfPageLoader.MessageBox.Caption = LocaleCore.Table.FieldPluIsNotSelected;
+		    wpfPageLoader.MessageBox.Message = LocaleCore.Table.FieldPluMustBeSelected;
+		    wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = Visibility.Visible;
+		    _ = wpfPageLoader.ShowDialog(this);
+		    wpfPageLoader.Close();
+		    return false;
+	    }
+	    return true;
     }
 
     private void ActionScalesTerminal(object sender, EventArgs e)
@@ -968,7 +965,7 @@ public partial class MainForm : Form
                 if (!UserSession.CheckPluIsEmpty(this)) return;
                 //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
                 if (UserSession.PluBundlesFks.Count > 1 && UserSession.BundleFk.IdentityIsNew)
-                    ActionPackage(sender, e);
+                    ActionPluBundleFk(sender, e);
                 if (!UserSession.CheckPluPackageIsEmpty(this)) return;
                 if (!UserSession.CheckWeightMassaDeviceExists(this)) return;
                 if (!UserSession.CheckWeightMassaIsStable(this)) return;
