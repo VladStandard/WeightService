@@ -18,6 +18,7 @@ public class PluModel : SqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual int Number { get; set; }
+    
     [XmlElement]
     public virtual string NumberFormat
     {

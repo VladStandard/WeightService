@@ -101,7 +101,9 @@
     <Watch Remove="Razors\ItemComponents\ItemTemplate.razor" />
     <Watch Remove="Razors\ItemComponents\ItemTemplateResource.razor" />
     <Watch Remove="Razors\ItemComponents\ItemWorkshop.razor" />
+    <Watch Remove="Razors\ItemComponents\Others\ItemBox.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemBrand.razor" />
+    <Watch Remove="Razors\ItemComponents\Others\ItemBundle.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemBundleFk.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemOrganization.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemScaleScreenShot.razor" />
@@ -122,6 +124,7 @@
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsQuestions.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsStops.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsWarnings.razor" />
+    <Watch Remove="Razors\SectionComponents\Others\SectionBoxes.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionBrands.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionBundles.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionBundlesFks.razor" />

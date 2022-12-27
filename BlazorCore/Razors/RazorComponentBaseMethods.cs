@@ -39,6 +39,8 @@ using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
+using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 
 namespace BlazorCore.Razors;
 
@@ -77,7 +79,8 @@ public partial class RazorComponentBase
 			DeviceTypeModel => LocaleCore.DeviceControl.ItemDeviceType,
 			LogModel => LocaleCore.Strings.ItemLog,
 			NomenclatureModel => LocaleCore.DeviceControl.ItemNomenclature,
-			OrderModel => LocaleCore.DeviceControl.ItemOrder,
+            NomenclatureGroupModel => LocaleCore.DeviceControl.ItemNomenclatureGroup,
+            OrderModel => LocaleCore.DeviceControl.ItemOrder,
 			OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
 			OrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
 			PluBundleFkModel => LocaleCore.DeviceControl.ItemPluBundleFk,
@@ -91,6 +94,7 @@ public partial class RazorComponentBase
 			ProductionFacilityModel => LocaleCore.DeviceControl.ItemProductionFacility,
 			ProductSeriesModel => LocaleCore.DeviceControl.ItemProductSeries,
 			ScaleModel => LocaleCore.DeviceControl.ItemScale,
+			ScaleScreenShotModel => LocaleCore.DeviceControl.ItemScreenShot,
 			TemplateModel => LocaleCore.DeviceControl.ItemTemplate,
 			TemplateResourceModel => LocaleCore.DeviceControl.ItemTemplateResource,
 			WorkShopModel => LocaleCore.DeviceControl.ItemWorkShop,
@@ -116,7 +120,8 @@ public partial class RazorComponentBase
 			DeviceTypeModel => LocaleCore.DeviceControl.SectionDevicesTypes,
 			LogModel => LocaleCore.Strings.SectionLog,
 			NomenclatureModel => LocaleCore.DeviceControl.SectionNomenclatures,
-			OrderModel => LocaleCore.DeviceControl.SectionOrders,
+            NomenclatureGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
+            OrderModel => LocaleCore.DeviceControl.SectionOrders,
 			OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
 			OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
 			PluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,
@@ -130,7 +135,8 @@ public partial class RazorComponentBase
 			ProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
 			ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
 			ScaleModel => LocaleCore.DeviceControl.SectionScales,
-			TemplateModel => LocaleCore.DeviceControl.SectionTemplates,
+            ScaleScreenShotModel => LocaleCore.DeviceControl.SectionScreenShots,
+            TemplateModel => LocaleCore.DeviceControl.SectionTemplates,
 			TemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
 			WorkShopModel => LocaleCore.DeviceControl.SectionWorkShops,
 			_ => result

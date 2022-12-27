@@ -1,0 +1,28 @@
+﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Boxes.BoxModel, SqlTableBase>
+@page "/section/boxes"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Boxes
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorSectionReload TItem=@BoxModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBoxes />
+
+<RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify 
+	Style="margin-top: 5px;" 
+	Data=@SqlSectionCast TItem=@BoxModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    <Columns>
+        <RazorSectionFieldIsMarked TItem=@BoxModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@BoxModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Box.GetName() />
+        <RazorSectionField TItem=@BoxModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Box.GetWeight() />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=@BoxModel ParentRazor=@(this) />

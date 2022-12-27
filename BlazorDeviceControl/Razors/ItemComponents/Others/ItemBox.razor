@@ -1,0 +1,34 @@
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Boxes.BoxModel>
+@page "/item/box"
+@page "/item/box/new"
+@page "/item/box/{IdentityUidStr}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Boxes
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=BoxModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBox />
+
+<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+    <RazorItemTableHead TItem=BoxModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <tbody>
+		<RazorItemTableBody TItem=BoxModel ParentRazor=@(this) />
+        <tr>
+            <td>@LocaleCore.Table.Name</td>
+            <td>
+                <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
+			</td>
+        </tr>
+		<tr>
+			<td>@LocaleCore.Table.Weighing</td>
+			<td>
+				<RadzenNumeric Style="width: 100%; " 
+				               TValue="decimal" @bind-Value=@SqlItemCast.Weight />
+			</td>
+		</tr>
+    </tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=BoxModel ParentRazor=@(this) />
+<RazorItemDates TItem=BoxModel ParentRazor=@(this) />
