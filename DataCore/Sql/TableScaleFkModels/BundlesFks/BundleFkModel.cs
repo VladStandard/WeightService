@@ -105,7 +105,7 @@ public class BundleFkModel : SqlTableBase
         base.FillProperties();
         Bundle.FillProperties();
         Box.FillProperties();
-        BundleCount = 0;
+        BundleCount = 1;
     }
 
     #endregion

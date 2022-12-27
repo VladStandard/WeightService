@@ -24,6 +24,9 @@ public partial class RazorComponentBase
         RunActionsSafe(string.Empty, actionsParametersSet);
     }
 
+    protected void RunActionsParametersSetJustOne(Action action) =>
+        RunActionsParametersSet(new List<Action> { action });
+
     protected void RunActionsSafe(string title, List<Action> actions, [CallerMemberName] string memberName = "")
     {
         try
@@ -124,7 +127,7 @@ public partial class RazorComponentBase
                         });
                         return renderFragment;
                     },
-                    new DialogOptions() { CloseDialogOnOverlayClick = true, ShowClose = true });
+                    new DialogOptions { CloseDialogOnOverlayClick = true, ShowClose = true });
 	        }).ConfigureAwait(true);
 		}
 	    catch (Exception ex)

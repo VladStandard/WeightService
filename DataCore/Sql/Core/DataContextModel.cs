@@ -167,7 +167,7 @@ public partial class DataContextModel
             case var cls when cls == typeof(BoxModel):
                 Boxes = DataAccess.GetListNotNullable<BoxModel>(sqlCrudConfig);
                 if (sqlCrudConfig.IsResultOrder)
-                    Boxes = Boxes.OrderBy(item => item.Name).ToList();
+                    Boxes = Boxes.OrderBy(item => item.Weight).ToList();
                 return Boxes.Cast<T>().ToList();
             case var cls when cls == typeof(BrandModel):
 				Brands = DataAccess.GetListNotNullable<BrandModel>(sqlCrudConfig);
@@ -177,7 +177,7 @@ public partial class DataContextModel
             case var cls when cls == typeof(BundleModel):
 	            Bundles = DataAccess.GetListNotNullable<BundleModel>(sqlCrudConfig);
 	            if (sqlCrudConfig.IsResultOrder)
-		            Bundles = Bundles.OrderBy(item => item.Name).ToList();
+		            Bundles = Bundles.OrderBy(item => item.Weight).ToList();
 	            return Bundles.Cast<T>().ToList();
             case var cls when cls == typeof(BundleFkModel):
                 BundleFks = DataAccess.GetListNotNullable<BundleFkModel>(sqlCrudConfig);
