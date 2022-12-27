@@ -61,6 +61,7 @@ public partial class LocaleDeviceControl
     public string ItemProductSeries => Lang == Lang.English ? "Product series" : "Серия продукта";
     public string ItemResource => Lang == Lang.English ? "Resource" : "Ресурс";
     public string ItemScale => Lang == Lang.English ? "Device" : "Устройство";
+    public string ItemScreenShot => Lang == Lang.English ? "ScreenShot" : "Скриншот";
     public string ItemTask => Lang == Lang.English ? "Task" : "Задача";
     public string ItemTaskModule => Lang == Lang.English ? "Task module" : "Модуль задачи";
     public string ItemTemplate => Lang == Lang.English ? "Template" : "Шаблон";
@@ -97,7 +98,7 @@ public partial class LocaleDeviceControl
     public string SectionLogs => Lang == Lang.English ? "Logs" : "Логи";
     public string SectionMeasurements => Lang == Lang.English ? "Measurements" : "Измерения";
     public string SectionModules => Lang == Lang.English ? "Modules" : "Модули";
-    public string SectionNomenclatures => Lang == Lang.English ? "Nomenclatures" : "Номенклатура";
+    public string SectionNomenclatures => Lang == Lang.English ? "Nomenclatures" : "Номенклатуры";
     public string SectionNomenclaturesGroups => Lang == Lang.English ? "Nomenclatures groups" : "Номенклатурные группы";
     public string SectionNomenclatureUnits => Lang == Lang.English ? "Packages" : "Упаковки";
     public string SectionObsoletes => Lang == Lang.English ? "Obsoletes" : "Устаревшие";
