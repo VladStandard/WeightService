@@ -13,18 +13,14 @@ internal class LogTypeValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         LogTypeModel item = DataCore.CreateNewSubstitute<LogTypeModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         LogTypeModel item = DataCore.CreateNewSubstitute<LogTypeModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

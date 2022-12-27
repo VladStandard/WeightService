@@ -13,18 +13,14 @@ internal class PluValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         PluModel item = DataCore.CreateNewSubstitute<PluModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         PluModel item = DataCore.CreateNewSubstitute<PluModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

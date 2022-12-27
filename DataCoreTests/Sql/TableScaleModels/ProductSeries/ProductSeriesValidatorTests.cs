@@ -13,18 +13,14 @@ internal class ProductSeriesValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         ProductSeriesModel item = DataCore.CreateNewSubstitute<ProductSeriesModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
-    {
-        // Arrange & Act.
+    { 
         ProductSeriesModel item = DataCore.CreateNewSubstitute<ProductSeriesModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

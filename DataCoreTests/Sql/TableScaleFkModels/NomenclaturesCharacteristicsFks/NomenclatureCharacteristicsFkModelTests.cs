@@ -10,6 +10,14 @@ internal class NomenclatureCharacteristicsFkModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
+    [Test] 
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsFkModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsFkModel>(nameof(SqlTableBase.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<NomenclaturesCharacteristicsFkModel>(nameof(SqlTableBase.IsMarked));
+    }
+
     [Test]
     public void Model_ToString()
     {
@@ -20,5 +28,11 @@ internal class NomenclatureCharacteristicsFkModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<NomenclaturesCharacteristicsFkModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<NomenclaturesCharacteristicsFkModel>();
     }
 }

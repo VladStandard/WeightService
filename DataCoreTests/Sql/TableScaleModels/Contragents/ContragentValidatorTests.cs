@@ -13,18 +13,14 @@ internal class ContragentValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         ContragentModel item = DataCore.CreateNewSubstitute<ContragentModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         ContragentModel item = DataCore.CreateNewSubstitute<ContragentModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

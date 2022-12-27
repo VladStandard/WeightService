@@ -13,18 +13,14 @@ internal class PluScaleValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         PluScaleModel item = DataCore.CreateNewSubstitute<PluScaleModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         PluScaleModel item = DataCore.CreateNewSubstitute<PluScaleModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

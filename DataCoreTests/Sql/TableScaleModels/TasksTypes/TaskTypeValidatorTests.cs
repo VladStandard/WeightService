@@ -13,18 +13,14 @@ internal class TaskTypeValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         TaskTypeModel item = DataCore.CreateNewSubstitute<TaskTypeModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         TaskTypeModel item = DataCore.CreateNewSubstitute<TaskTypeModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

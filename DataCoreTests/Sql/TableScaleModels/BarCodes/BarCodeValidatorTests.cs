@@ -13,18 +13,14 @@ internal class BarCodeValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         BarCodeModel item = DataCore.CreateNewSubstitute<BarCodeModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         BarCodeModel item = DataCore.CreateNewSubstitute<BarCodeModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -13,18 +13,14 @@ internal class OrderWeighingValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         OrderWeighingModel item = DataCore.CreateNewSubstitute<OrderWeighingModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         OrderWeighingModel item = DataCore.CreateNewSubstitute<OrderWeighingModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

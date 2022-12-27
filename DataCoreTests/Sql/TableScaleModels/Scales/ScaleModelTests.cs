@@ -9,6 +9,16 @@ namespace DataCoreTests.Sql.TableScaleModels.Scales;
 internal class ScaleModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+   
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(SqlTableBase.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<ScaleModel>(nameof(SqlTableBase.IsMarked));
+        //DataCore.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
+        DataCore.AssertSqlPropertyCheckString<ScaleModel>(nameof(SqlTableBase.Description));
+    }
 
     [Test]
     public void Model_ToString()
@@ -20,5 +30,11 @@ internal class ScaleModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<ScaleModel>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<ScaleModel>();
     }
 }

@@ -13,18 +13,14 @@ internal class ScaleScreenShotValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         ScaleScreenShotModel item = DataCore.CreateNewSubstitute<ScaleScreenShotModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         ScaleScreenShotModel item = DataCore.CreateNewSubstitute<ScaleScreenShotModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

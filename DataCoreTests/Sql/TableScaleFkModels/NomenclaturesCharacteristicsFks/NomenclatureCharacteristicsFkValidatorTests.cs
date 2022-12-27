@@ -13,18 +13,14 @@ internal class NomenclatureCharacteristicsFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         NomenclaturesCharacteristicsFkModel item = DataCore.CreateNewSubstitute<NomenclaturesCharacteristicsFkModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         NomenclaturesCharacteristicsFkModel item = DataCore.CreateNewSubstitute<NomenclaturesCharacteristicsFkModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

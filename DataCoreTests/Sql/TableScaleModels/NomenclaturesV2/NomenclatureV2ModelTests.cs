@@ -11,6 +11,14 @@ internal class NomenclatureV2ModelTests
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<NomenclatureV2Model>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<NomenclatureV2Model>(nameof(SqlTableBase.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<NomenclatureV2Model>(nameof(SqlTableBase.IsMarked));
+    }
+
+    [Test]
     public void Model_ToString()
     {
         DataCore.TableBaseModelAssertToString<NomenclatureV2Model>();
@@ -20,5 +28,11 @@ internal class NomenclatureV2ModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<NomenclatureV2Model>();
+    }
+
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<NomenclatureV2Model>();
     }
 }

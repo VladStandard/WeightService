@@ -13,18 +13,14 @@ internal class PluLabelValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         PluLabelModel item = DataCore.CreateNewSubstitute<PluLabelModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         PluLabelModel item = DataCore.CreateNewSubstitute<PluLabelModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

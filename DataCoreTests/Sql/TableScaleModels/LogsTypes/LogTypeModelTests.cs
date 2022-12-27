@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleModels.LogsTypes;
 internal class LogTypeModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+    
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<LogTypeModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<LogTypeModel>(nameof(SqlTableBase.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<LogTypeModel>(nameof(SqlTableBase.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -22,4 +30,9 @@ internal class LogTypeModelTests
         DataCore.TableBaseModelAssertEqualsNew<LogTypeModel>();
     }
 
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<LogTypeModel>();
+    }
 }

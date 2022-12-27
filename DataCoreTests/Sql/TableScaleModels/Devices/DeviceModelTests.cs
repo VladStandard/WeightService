@@ -11,6 +11,14 @@ internal class DeviceModelTests
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(SqlTableBase.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<DeviceModel>(nameof(SqlTableBase.IsMarked));
+    }
+
+    [Test]
     public void Model_ToString()
     {
         DataCore.TableBaseModelAssertToString<DeviceModel>();
@@ -22,4 +30,9 @@ internal class DeviceModelTests
         DataCore.TableBaseModelAssertEqualsNew<DeviceModel>();
     }
 
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<DeviceModel>();
+    }
 }

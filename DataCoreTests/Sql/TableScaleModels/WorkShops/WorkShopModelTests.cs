@@ -11,6 +11,14 @@ internal class WorkShopModelTests
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckBool<WorkShopModel>(nameof(SqlTableBase.IsMarked));
+    }
+
+    [Test]
     public void Model_ToString()
     {
         DataCore.TableBaseModelAssertToString<WorkShopModel>();
@@ -20,5 +28,11 @@ internal class WorkShopModelTests
     public void Model_EqualsNew()
     {
         DataCore.TableBaseModelAssertEqualsNew<WorkShopModel>();
+    }
+    
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<WorkShopModel>();
     }
 }

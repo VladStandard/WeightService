@@ -13,18 +13,14 @@ internal class PluTemplateFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         PluTemplateFkModel item = DataCore.CreateNewSubstitute<PluTemplateFkModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         PluTemplateFkModel item = DataCore.CreateNewSubstitute<PluTemplateFkModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

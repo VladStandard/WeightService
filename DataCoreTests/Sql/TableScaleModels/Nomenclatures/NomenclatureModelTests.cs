@@ -9,6 +9,14 @@ namespace DataCoreTests.Sql.TableScaleModels.Nomenclatures;
 internal class NomenclatureV2ModelTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+    
+    [Test]
+    public void Model_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<NomenclatureModel>(nameof(SqlTableBase.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<NomenclatureModel>(nameof(SqlTableBase.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<NomenclatureModel>(nameof(SqlTableBase.IsMarked));
+    }
 
     [Test]
     public void Model_ToString()
@@ -22,4 +30,9 @@ internal class NomenclatureV2ModelTests
         DataCore.TableBaseModelAssertEqualsNew<NomenclatureModel>();
     }
 
+    [Test]
+    public void Model_Serialize()
+    {
+        DataCore.TableBaseModelAssertSerialize<NomenclatureModel>();
+    }
 }

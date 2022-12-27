@@ -13,18 +13,14 @@ internal class WorkShopValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         WorkShopModel item = DataCore.CreateNewSubstitute<WorkShopModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         WorkShopModel item = DataCore.CreateNewSubstitute<WorkShopModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

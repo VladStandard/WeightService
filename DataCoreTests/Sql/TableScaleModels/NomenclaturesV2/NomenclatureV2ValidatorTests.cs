@@ -13,18 +13,14 @@ internal class NomenclaturesV2ValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         NomenclatureV2Model item = DataCore.CreateNewSubstitute<NomenclatureV2Model>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         NomenclatureV2Model item = DataCore.CreateNewSubstitute<NomenclatureV2Model>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

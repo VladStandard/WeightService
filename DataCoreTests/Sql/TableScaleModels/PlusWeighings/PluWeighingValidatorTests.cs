@@ -13,18 +13,14 @@ internal class PluWeighingValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         PluWeighingModel item = DataCore.CreateNewSubstitute<PluWeighingModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         PluWeighingModel item = DataCore.CreateNewSubstitute<PluWeighingModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

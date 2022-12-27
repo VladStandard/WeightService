@@ -13,18 +13,14 @@ internal class ProductionFacilityValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        // Arrange & Act.
         ProductionFacilityModel item = DataCore.CreateNewSubstitute<ProductionFacilityModel>(false);
-        // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        // Arrange & Act.
         ProductionFacilityModel item = DataCore.CreateNewSubstitute<ProductionFacilityModel>(true);
-        // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -1,26 +1,26 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleModels.Versions;
+using DataCore.Sql.TableScaleModels.Apps;
 
-namespace DataCoreTests.Sql.TableScaleModels.Versions;
+namespace DataCoreTests.Sql.TableScaleModels.Apps;
 
 [TestFixture]
-internal class VersionValidatorTests
+internal class AppValidatorTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     [Test]
     public void Model_Validate_IsFalse()
     {
-        VersionModel item = DataCore.CreateNewSubstitute<VersionModel>(false);
+        AppModel item = DataCore.CreateNewSubstitute<AppModel>(false);
         DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        VersionModel item = DataCore.CreateNewSubstitute<VersionModel>(true);
+        AppModel item = DataCore.CreateNewSubstitute<AppModel>(true);
         DataCore.AssertSqlValidate(item, true);
     }
 }
