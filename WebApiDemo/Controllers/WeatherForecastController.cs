@@ -17,7 +17,7 @@ public class WeatherForecastController : ControllerBase
 		_logger = logger;
 	}
 
-	[HttpGet()]
+	[HttpGet]
 	[Route("weather_forecast")]
 	public IEnumerable<WeatherForecast> Get()
 	{
