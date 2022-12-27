@@ -31,7 +31,7 @@ public partial class LocaleDeviceControl
     public string ItemBarCodeType => Lang == Lang.English ? "Barcodes type" : "Тип штрихкода";
     public string ItemBox => Lang == Lang.English ? "Box" : "Коробка";
     public string ItemBundle => Lang == Lang.English ? "Packet" : "Пакет";
-    public string ItemBundleFk => Lang == Lang.English ? "Bundle" : "Упаковка";
+    public string ItemBundleFk => Lang == Lang.English ? "Bundle for PLU" : "Упаковка для ПЛУ";
     public string ItemContragent => Lang == Lang.English ? "Counterparty" : "Контрагент";
     public string ItemDevice => Lang == Lang.English ? "Device" : "Устройство";
     public string ItemDeviceScaleFk => Lang == Lang.English ? "Device with scale" : "Устройство с постом";

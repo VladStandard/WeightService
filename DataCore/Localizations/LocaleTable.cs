@@ -31,6 +31,8 @@ public class LocaleTable
     public string BarCodeTypeId => Lang == Lang.English ? "Barcode type ID" : "ИД типа ШК";
     public string Brand => Lang == Lang.English ? "Brand" : "Бренд";
     public string BundleCount => Lang == Lang.English ? "Bundle count" : "Кол-во пакетов";
+    public string Box => Lang == Lang.English ? "Box" : "Коробка";
+    public string Bundle => Lang == Lang.English ? "Packet" : "Пакет";
     public string BundleFk => Lang == Lang.English ? "Bundle" : "Упаковка";
     public string BundleFkWeightTare => Lang == Lang.English ? "Bundle tare weight" : "Вес тары упаковки";
     public string BundleFkWeightTareDescription => Lang == Lang.English ? "Tare weight = weight of package * count of inserts + weight of box" : "Вес тары = вес пакета * кол. вложений + вес коробки";

@@ -217,6 +217,7 @@ public static class SqlTableBaseExt
 	{
 		return propertyName switch
 		{
+			nameof(BundleFkModel.BundleCount) => bundleFk.BundleCount.ToString(CultureInfo.InvariantCulture),
 			nameof(BundleFkModel.WeightTare) => bundleFk.WeightTare.ToString(CultureInfo.InvariantCulture),
 			_ => LocaleCore.Table.FieldNotFound
 		};
