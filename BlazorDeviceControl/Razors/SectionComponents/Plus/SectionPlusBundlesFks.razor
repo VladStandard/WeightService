@@ -58,9 +58,10 @@
 		</RadzenGridColumn>
 		<RadzenGridColumn TItem=PluBundleFkModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.BundleFkWeightTare>
 		    <Template Context="itemCast">
-			    <RadzenText
+                <RadzenLink
+                    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center 
 				    Text=@itemCast.WeightTare.ToString(CultureInfo.InvariantCulture)
-					TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center />
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
 		    </Template>
 	    </RadzenGridColumn>
     </Columns>

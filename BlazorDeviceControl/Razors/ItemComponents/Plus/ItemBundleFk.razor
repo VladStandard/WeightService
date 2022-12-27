@@ -21,8 +21,20 @@
         </td>
     </tr>
     <tr>
+        <td>@LocaleCore.Table.BundleCount</td>
+        <td>
+            <RadzenTemplateForm TItem=@BundleFkModel Data=@SqlItemCast>
+                <RadzenNumeric 
+                    Style="width: 100%; text-align: center; display: block;" Disabled=false
+                    Name="fieldBundleCount"
+                    TValue="short" @bind-Value=@SqlItemCast.BundleCount />
+                <RadzenNumericRangeValidator 
+                    Component="fieldBundleCount"
+                    Text=@LocaleCore.Strings.InputControlCheck(1, 100) Popup=true Style="position: absolute;" />
+            </RadzenTemplateForm>
+        </td>
         <td>@LocaleCore.Table.BundleFkWeightTareKg</td>
-        <td colspan=3>
+        <td>
             <RadzenNumeric 
                 Style="width: 100%; text-align: center; " 
                 TValue="decimal" @bind-Value=@SqlItemCast.WeightTare />

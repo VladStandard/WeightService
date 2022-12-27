@@ -3,6 +3,7 @@
 
 using BlazorCore.Razors;
 using DataCore.Localizations;
+using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -113,10 +114,11 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetGln() => new(nameof(OrganizationModel.Gln), TextAlign.Center, LocaleCore.Table.Gln);
 	}
 
-	//public static class Package
-	//{
-	//	public static RazorFieldConfigModel GetWeight() => new(nameof(PackageModel.Weight), TextAlign.Center, LocaleCore.Table.WeightShort);
-	//}
+    public static class BundleFk
+	{
+		public static RazorFieldConfigModel GetBundleCount() => new(nameof(BundleFkModel.BundleCount), TextAlign.Center, LocaleCore.Table.BundleCount);
+		public static RazorFieldConfigModel GetWeightTare() => new(nameof(BundleFkModel.WeightTare), TextAlign.Center, LocaleCore.Table.WeightShort);
+	}
 
     public static class PluBundleFk
 	{
@@ -148,11 +150,6 @@ public static class RazorFieldConfigUtils
 	{
 		public static RazorFieldConfigModel GetName(string url) => new(url, new PrinterResourceModel(), $"{nameof(PrinterResourceModel.TemplateResource)}.{nameof(TemplateResourceModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
 		public static RazorFieldConfigModel GetPrinter(string url) => new(url, new PrinterModel(), $"{nameof(PrinterResourceModel.Printer)}.{nameof(PrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
-	}
-
-	public static class PrinterType
-	{
-		//
 	}
 
 	public static class ProductionFacility

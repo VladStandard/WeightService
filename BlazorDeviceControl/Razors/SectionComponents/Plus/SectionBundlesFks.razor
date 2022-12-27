@@ -18,10 +18,12 @@
     AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@BundleFkModel ParentRazor=@(this) />
-        <RazorSectionField TItem=@BundleFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
+        <RazorSectionField TItem=@BundleFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("55%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
-        <RazorSectionField TItem=@BundleFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%"))
-            RazorFieldConfig=@RazorFieldConfigUtils.PluBundleFk.GetWeightTare() />
+        <RazorSectionField TItem=@BundleFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.BundleFk.GetBundleCount() />
+        <RazorSectionField TItem=@BundleFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.BundleFk.GetWeightTare() />
     </Columns>
 </RadzenGrid>
 
