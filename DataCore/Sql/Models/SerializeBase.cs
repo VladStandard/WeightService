@@ -4,10 +4,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
 using DataCore.Enums;
-using System.ComponentModel;
 
 namespace DataCore.Sql.Models;
-
 
 public class Utf8StringWriter : StringWriter
 {
@@ -64,7 +62,6 @@ public class SerializeBase : ISerializable
         IndentChars = "\t",
     };
 
-    # region Serialize
     public virtual string SerializeAsJson() => JsonConvert.SerializeObject(this);
 
     public virtual string SerializeByMemoryStream<T>() where T : new()
@@ -118,7 +115,7 @@ public class SerializeBase : ISerializable
     public virtual XmlDocument SerializeAsXmlDocument<T>(bool isAddEmptyNamespace, bool isUtf16) where T : new()
     {
         XmlDocument xmlDocument = new();
-        string xmlString = SerializeAsXmlString<T>(isAddEmptyNamespace, false);
+        string xmlString = SerializeAsXmlString<T>(isAddEmptyNamespace, isUtf16);
         byte[] bytes = isUtf16 ? Encoding.Unicode.GetBytes(xmlString) : Encoding.UTF8.GetBytes(xmlString);
         using MemoryStream memoryStream = new(bytes);
         memoryStream.Flush();
@@ -126,10 +123,6 @@ public class SerializeBase : ISerializable
         xmlDocument.Load(memoryStream);
         return xmlDocument;
     }
-
-    #endregion
-
-    #region Deserialize
 
     public virtual T DeserializeFromXml<T>(string xml) where T : new()
     {
@@ -156,9 +149,6 @@ public class SerializeBase : ISerializable
         return obj is null ? new() : (T)obj;
     }
 
-    #endregion
-
-    #region ContentResult
     public virtual ContentResult GetContentResultCore(FormatType formatType, object content, HttpStatusCode statusCode) => new()
     {
         ContentType = DataUtils.GetContentType(formatType),
@@ -188,8 +178,6 @@ public class SerializeBase : ISerializable
 
     public virtual ContentResult GetContentResult<T>(string formatString, HttpStatusCode statusCode) where T : new() =>
         GetContentResult<T>(GetFormatType(formatString), statusCode);
-
-    #endregion
 
     public virtual FormatType GetFormatType(string formatType) => formatType.ToUpper() switch
     {
@@ -257,29 +245,4 @@ public class SerializeBase : ISerializable
     }
 
     #endregion
-
-    #region Public and private methods - Properties
-
-    public virtual object? GetPropertyDefaultValue(string name)
-	{
-		AttributeCollection? attributes = TypeDescriptor.GetProperties(this)[name]?.Attributes;
-		Attribute? attribute = attributes?[typeof(DefaultValueAttribute)];
-		if (attribute is DefaultValueAttribute defaultValueAttribute)
-			return defaultValueAttribute.Value;
-		return null;
-	}
-
-	public virtual string GetPropertyDefaultValueAsString(string name) =>
-		GetPropertyDefaultValue(name)?.ToString() ?? string.Empty;
-
-	public virtual int GetPropertyDefaultValueAsInt(string name) =>
-		GetPropertyDefaultValue(name) is int value ? value : default;
-
-	public virtual bool GetPropertyDefaultValueAsBool(string name) =>
-		GetPropertyDefaultValue(name) is bool value ? value : default;
-
-	public virtual IEnumerable<string> GetPropertiesNames() => 
-		(from PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(this) select propertyDescriptor.Name).ToList();
-
-	#endregion
 }

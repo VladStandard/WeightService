@@ -5,6 +5,7 @@ using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using MDSoft.BarcodePrintUtils.Tsc;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 using System.Text.Unicode;
 using System.Xml.Xsl;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
@@ -47,7 +48,7 @@ public static class XmlUtils
     /// Get pretty formatted JSON string.
     /// </summary>
     /// <param name="json"></param>
-    public static string GetPrettyJson(string json) => 
+    private static string GetPrettyJson(string json) => 
 		string.IsNullOrEmpty(json) ? string.Empty : JToken.Parse(json).ToString(Newtonsoft.Json.Formatting.Indented);
 
 	public static XmlDocument XmlCompatibleReplace(XmlDocument xmlDocument)
@@ -214,6 +215,31 @@ public static class XmlUtils
 		}
 		return documentA;
 	}
+
+	#endregion
+
+	#region Public and private methods - Properties
+
+	public static object? GetPropertyDefaultValue<T>(T item, string name)
+	{
+		AttributeCollection? attributes = TypeDescriptor.GetProperties(item)[name]?.Attributes;
+		Attribute? attribute = attributes?[typeof(DefaultValueAttribute)];
+		if (attribute is DefaultValueAttribute defaultValueAttribute)
+			return defaultValueAttribute.Value;
+		return null;
+	}
+
+	public static string GetPropertyDefaultValueAsString<T>(T item, string name) =>
+		GetPropertyDefaultValue(item, name)?.ToString() ?? string.Empty;
+
+	public static int GetPropertyDefaultValueAsInt<T>(T item, string name) =>
+		GetPropertyDefaultValue(item, name) is int value ? value : default;
+
+	public static bool GetPropertyDefaultValueAsBool<T>(T item, string name) =>
+		GetPropertyDefaultValue(item, name) is bool value ? value : default;
+
+	public static IEnumerable<string> GetPropertiesNames<T>(T item) =>
+		(from PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(item) select propertyDescriptor.Name).ToList();
 
 	#endregion
 }
