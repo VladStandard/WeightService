@@ -30,8 +30,9 @@ public partial class LocaleDeviceControl
     public string ItemBarCode => Lang == Lang.English ? "Barcode" : "Штрихкод";
     public string ItemBarCodeType => Lang == Lang.English ? "Barcodes type" : "Тип штрихкода";
     public string ItemBox => Lang == Lang.English ? "Box" : "Коробка";
-    public string ItemBundle => Lang == Lang.English ? "Packet" : "Пакет";
-    public string ItemBundleFk => Lang == Lang.English ? "Bundle for PLU" : "Упаковка для ПЛУ";
+    public string ItemBundle => Lang == Lang.English ? "Bundle" : "Пакет";
+    public string ItemBundleFk => Lang == Lang.English ? "Bundle" : "Упаковка";
+    public string ItemPluBundleFk => Lang == Lang.English ? "PLU's bundle" : "Вложенность ПЛУ";
     public string ItemContragent => Lang == Lang.English ? "Counterparty" : "Контрагент";
     public string ItemDevice => Lang == Lang.English ? "Device" : "Устройство";
     public string ItemDeviceScaleFk => Lang == Lang.English ? "Device with scale" : "Устройство с постом";
@@ -53,7 +54,6 @@ public partial class LocaleDeviceControl
     public string ItemOrderWeighing => Lang == Lang.English ? "Order weighing" : "Взвешивание заказа";
     public string ItemOrganization => Lang == Lang.English ? "Organization" : "Организация";
     public string ItemPlu => Lang == Lang.English ? "PLU" : "ПЛУ";
-    public string ItemPluBundleFk => Lang == Lang.English ? "PLU's bundle" : "Вложенность ПЛУ";
     public string ItemPluScale => Lang == Lang.English ? "Device PLU" : "ПЛУ устройства";
     public string ItemPluWeighing => Lang == Lang.English ? "Plu weighings" : "Взвешивание ПЛУ";
     public string ItemProductionFacilities => Lang == Lang.English ? "Prod. facilities" : "Производственные площадки";
