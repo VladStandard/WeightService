@@ -19,6 +19,8 @@ public class BundleValidator : SqlTableValidator<BundleModel>
             .NotNull();
         RuleFor(item => item.Weight)
             .NotEmpty()
-            .NotNull();
+            .NotNull()
+            .GreaterThanOrEqualTo(0)
+            .LessThanOrEqualTo(100);
     }
 }

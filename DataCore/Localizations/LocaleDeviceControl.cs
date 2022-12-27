@@ -29,8 +29,8 @@ public partial class LocaleDeviceControl
     public string ItemBarcode => Lang == Lang.English ? "Barcode" : "Штрихкод";
     public string ItemBarCode => Lang == Lang.English ? "Barcode" : "Штрихкод";
     public string ItemBarCodeType => Lang == Lang.English ? "Barcodes type" : "Тип штрихкода";
-    public string ItemBox => Lang == Lang.English ? "Boxes" : "Коробки";
-    public string ItemBundle => Lang == Lang.English ? "Bundles" : "Пакеты";
+    public string ItemBox => Lang == Lang.English ? "Box" : "Коробка";
+    public string ItemBundle => Lang == Lang.English ? "Bundle" : "Пакет";
     public string ItemBundleFk => Lang == Lang.English ? "Bundle" : "Упаковка";
     public string ItemPluBundleFk => Lang == Lang.English ? "PLU's bundle" : "Вложенность ПЛУ";
     public string ItemContragent => Lang == Lang.English ? "Counterparty" : "Контрагент";

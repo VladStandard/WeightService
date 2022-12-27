@@ -19,6 +19,8 @@ public class BoxValidator : SqlTableValidator<BoxModel>
             .NotNull();
         RuleFor(item => item.Weight)
             .NotEmpty()
-            .NotNull();
+            .NotNull()
+            .GreaterThanOrEqualTo(0)
+            .LessThanOrEqualTo(100);
     }
 }
