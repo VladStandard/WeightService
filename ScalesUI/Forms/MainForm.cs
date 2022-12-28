@@ -150,7 +150,8 @@ public partial class MainForm : Form
     {
 	    ActionUtils.ActionTryCatchFinally(this,
             () =>
-            { // Labels.
+            {
+                // Labels.
                 UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                     labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
                     ButtonDevice, ButtonBundleFk, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
@@ -624,10 +625,10 @@ public partial class MainForm : Form
                     ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
                     UserSession.Scale.Description + Environment.NewLine + area);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonBundleFk, UserSession.BundleFk.IdentityIsNew
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonBundleFk, UserSession.PluBundleFk.IdentityIsNew
                     ? LocaleCore.Table.FieldPackageIsNotSelected
-                    : UserSession.BundleFk.Name + Environment.NewLine +
-                      $"{LocaleCore.Table.BundleFkWeightTareKg}: {UserSession.BundleFk.WeightTare}");
+                    : UserSession.PluBundleFk.BundleFk.Name + Environment.NewLine +
+                      $"{LocaleCore.Table.BundleFkWeightTareKg}: {UserSession.PluBundleFk.WeightTare}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -663,9 +664,17 @@ public partial class MainForm : Form
                 using WpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 600, Height = 225 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
-                if (dialogResult == DialogResult.OK)
+                // Here is another instance of wpfPageLoader.PageDevice.UserSession.
+                switch (dialogResult)
                 {
-                    UserSession.SetMain(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, UserSession.ProductionFacility.Name);
+                    case DialogResult.OK:
+                        if (wpfPageLoader.PageDevice is not null)
+                            UserSession.SetMain(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, UserSession.ProductionFacility.Name);
+                        break;
+                    case DialogResult.Cancel:
+                        if (wpfPageLoader.PageDevice is not null)
+                            UserSession.SetMain(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, string.Empty);
+                        break;
                 }
                 FieldLang_SelectedIndexChanged(sender, e);
 
@@ -687,10 +696,18 @@ public partial class MainForm : Form
                 using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 600, Height = 225 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
-                //if (dialogResult == DialogResult.OK)
-                //{
-                //    //UserSession.Setup(wpfPageLoader.PageDevice.Scale.IdentityValueId);
-                //}
+                // Here is another instance of wpfPageLoader.PagePluBundleFk.UserSession.
+                switch (dialogResult)
+                {
+                    case DialogResult.OK:
+                        if (wpfPageLoader.PagePluBundleFk is not null)
+                            UserSession.SetBundleFk(wpfPageLoader.PagePluBundleFk.UserSession.PluBundleFk.IdentityValueUid);
+                        break;
+                    case DialogResult.Cancel:
+                        if (wpfPageLoader.PagePluBundleFk is not null)
+                            UserSession.SetBundleFk(null);
+                        break;
+                }
                 FieldLang_SelectedIndexChanged(sender, e);
 
                 UserSession.ManagerControl.Massa.Open();
@@ -964,8 +981,9 @@ public partial class MainForm : Form
 
                 if (!UserSession.CheckPluIsEmpty(this)) return;
                 //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
-                if (UserSession.PluBundlesFks.Count > 1 && UserSession.BundleFk.IdentityIsNew)
-                    ActionPluBundleFk(sender, e);
+                // Maybe tare didn't need.
+                //if (UserSession.PluBundlesFks.Count > 1 && UserSession.PluBundleFk.IdentityIsNew)
+                //    ActionPluBundleFk(sender, e);
                 if (!UserSession.CheckPluBundleFkIsEmpty(this)) return;
                 if (!UserSession.CheckWeightMassaDeviceExists(this)) return;
                 if (!UserSession.CheckWeightMassaIsStable(this)) return;
@@ -996,7 +1014,7 @@ public partial class MainForm : Form
                 //    if (dialogResult is not DialogResult.Yes) return;
                 //}
 
-                UserSession.PrintLabel(false);
+                UserSession.PrintLabel(this, false);
                 //UserSession.Manager.Massa.Open();
             },
             () =>

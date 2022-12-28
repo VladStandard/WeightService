@@ -44,6 +44,9 @@ public partial class DataAccessHelper
         return GetItemNullable<ProductSeriesModel>(sqlCrudConfig);
     }
 
+    public ProductSeriesModel GetItemProductSeriesNotNullable(ScaleModel scale) =>
+        GetItemProductSeriesNullable(scale) ?? GetItemNewEmpty<ProductSeriesModel>();
+
     private PluModel? GetItemPluNullable(PluScaleModel pluScale)
     {
         if (!pluScale.IdentityIsNotNew || !pluScale.Plu.IdentityIsNotNew) return null;

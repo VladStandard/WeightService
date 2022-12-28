@@ -52,9 +52,9 @@
 					Mode=OneWay, IsAsync=True}" 
 	            DisplayMemberPath="BundleFk.Name"
 	            SelectedValuePath="BundleFk"
-	            SelectedValue="{Binding Path=BundleFk.Name, 
+	            SelectedValue="{Binding Path=PluBundleFk.BundleFk, 
 					Mode=OneWay, IsAsync=True}" 
-	            SelectedItem="{Binding Path=BundleFk, 
+	            SelectedItem="{Binding Path=PluBundleFk, 
 					Mode=TwoWay, IsAsync=True}" 
 	            />
             <Label 
@@ -64,7 +64,7 @@
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
             <Label 
 	            Margin="2" Grid.Column="1" Grid.Row="2" 
-	            Content="{Binding Path=BundleFk.WeightTare, 
+	            Content="{Binding Path=PluBundleFk.WeightTare, 
 					Mode=OneWay, IsAsync=True}" 
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
 

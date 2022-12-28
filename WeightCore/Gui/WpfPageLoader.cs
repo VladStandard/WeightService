@@ -23,7 +23,7 @@ public partial class WpfPageLoader : Form
     private PageMessageBox? PageMessageBox { get; set; }
     private PagePinCode? PagePinCode { get; set; }
     public PageDevice? PageDevice { get; private set; }
-    private PagePluBundleFk? PagePluBundleFk { get; set; }
+    public PagePluBundleFk? PagePluBundleFk { get; set; }
 	private PageSqlSettings? PageSqlSettings { get; set; }
     private DataCore.Models.PageEnum Page { get; }
 

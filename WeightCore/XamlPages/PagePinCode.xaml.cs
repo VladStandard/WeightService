@@ -20,7 +20,6 @@ public partial class PagePinCode
 	public PagePinCode()
 	{
 		InitializeComponent();
-		Setup();
 	}
 
 	#endregion

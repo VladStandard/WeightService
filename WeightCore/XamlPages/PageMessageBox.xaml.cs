@@ -24,7 +24,6 @@ public partial class PageMessageBox
 	public PageMessageBox()
 	{
 		InitializeComponent();
-		Setup();
 	}
 
 	#endregion

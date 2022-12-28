@@ -17,7 +17,6 @@ public partial class PageSqlSettings
 	public PageSqlSettings()
 	{
 		InitializeComponent();
-		Setup();
 	}
 
 	#endregion

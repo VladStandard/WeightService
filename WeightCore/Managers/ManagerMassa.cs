@@ -226,10 +226,10 @@ public class ManagerMassa : ManagerBase
 
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight,
 			UserSessionHelper.Instance.PluScale.IdentityIsNotNew
-				? $"{UserSessionHelper.Instance.BundleFk.WeightTare:0.000} {LocaleCore.Scales.UnitKg}"
+				? $"{UserSessionHelper.Instance.PluBundleFk.WeightTare:0.000} {LocaleCore.Scales.UnitKg}"
 				: $"0,000 {LocaleCore.Scales.UnitKg}");
 
-		decimal weight = UserSessionHelper.Instance.PluScale.IdentityIsNew ? 0 : WeightNet - UserSessionHelper.Instance.BundleFk.WeightTare;
+		decimal weight = UserSessionHelper.Instance.PluScale.IdentityIsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluBundleFk.WeightTare;
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, MassaStable.IsStable
 			? $"{weight:0.000} {LocaleCore.Scales.UnitKg}"
 			:
