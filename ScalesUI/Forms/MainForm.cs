@@ -46,7 +46,7 @@ public partial class MainForm : Form
     #region Public and private fields, properties, constructor
 
     private Button ButtonDevice { get; set; }
-    private Button ButtonPackage { get; set; }
+    private Button ButtonBundleFk { get; set; }
     private Button ButtonKneading { get; set; }
     private Button ButtonMore { get; set; }
     private Button ButtonNewPallet { get; set; }
@@ -153,7 +153,7 @@ public partial class MainForm : Form
             { // Labels.
                 UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                     labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
-                    ButtonDevice, ButtonPackage, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
+                    ButtonDevice, ButtonBundleFk, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
                     ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose,
                     fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
                 UserSession.ManagerControl.Labels.Open();
@@ -254,8 +254,8 @@ public partial class MainForm : Form
             ButtonDevice.Font = FontsSettings.FontButtonsSmall;
         if (ButtonPlu is not null)
             ButtonPlu.Font = FontsSettings.FontButtonsSmall;
-        if (ButtonPackage is not null)
-            ButtonPackage.Font = FontsSettings.FontButtonsSmall;
+        if (ButtonBundleFk is not null)
+            ButtonBundleFk.Font = FontsSettings.FontButtonsSmall;
 
         if (ButtonScalesTerminal is not null)
             ButtonScalesTerminal.Font = FontsSettings.FontButtons;
@@ -315,8 +315,8 @@ public partial class MainForm : Form
 
         if (buttonsSettings.IsPackage)
         {
-            ButtonPackage = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonPackage), 1, rowCount++);
-            ButtonPackage.Click += ActionPluBundleFk;
+            ButtonBundleFk = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonBundleFk), 1, rowCount++);
+            ButtonBundleFk.Click += ActionPluBundleFk;
         }
 
         tableLayoutPanelDevice.ColumnCount = 1;
@@ -621,10 +621,10 @@ public partial class MainForm : Form
             {
                 LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
                 string area = UserSession.Scale.WorkShop is null
-                    ? LocaleCore.Table.FieldNull : UserSession.ProductionFacility.Name;
+                    ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
                     UserSession.Scale.Description + Environment.NewLine + area);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.BundleFk.IdentityIsNew
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonBundleFk, UserSession.BundleFk.IdentityIsNew
                     ? LocaleCore.Table.FieldPackageIsNotSelected
                     : UserSession.BundleFk.Name + Environment.NewLine +
                       $"{LocaleCore.Table.BundleFkWeightTareKg}: {UserSession.BundleFk.WeightTare}");
@@ -665,7 +665,7 @@ public partial class MainForm : Form
                 wpfPageLoader.Close();
                 if (dialogResult == DialogResult.OK)
                 {
-                    UserSession.Setup(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, UserSession.ProductionFacility.Name);
+                    UserSession.SetMain(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, UserSession.ProductionFacility.Name);
                 }
                 FieldLang_SelectedIndexChanged(sender, e);
 
@@ -966,7 +966,7 @@ public partial class MainForm : Form
                 //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
                 if (UserSession.PluBundlesFks.Count > 1 && UserSession.BundleFk.IdentityIsNew)
                     ActionPluBundleFk(sender, e);
-                if (!UserSession.CheckPluPackageIsEmpty(this)) return;
+                if (!UserSession.CheckPluBundleFkIsEmpty(this)) return;
                 if (!UserSession.CheckWeightMassaDeviceExists(this)) return;
                 if (!UserSession.CheckWeightMassaIsStable(this)) return;
                 if (!UserSession.CheckPluGtin(this)) return;

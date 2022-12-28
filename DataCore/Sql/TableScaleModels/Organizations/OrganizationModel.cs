@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Organizations;
 /// Table "ORGANIZATIONS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(OrganizationModel)}")]
+[DebuggerDisplay("{nameof(OrganizationModel)}")]
 public class OrganizationModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

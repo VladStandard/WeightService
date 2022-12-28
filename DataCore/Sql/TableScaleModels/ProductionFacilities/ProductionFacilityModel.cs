@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.ProductionFacilities;
 /// Table "ProductionFacility".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(ProductionFacilityModel)}")]
+[DebuggerDisplay("{nameof(ProductionFacilityModel)}")]
 public class ProductionFacilityModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

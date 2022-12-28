@@ -26,7 +26,7 @@ public partial class DataAccessHelper
 	{
 		List<DeviceModel> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
-			result.Add(GetItemNew<DeviceModel>());
+			result.Add(GetItemNewEmpty<DeviceModel>());
 		List<DeviceModel> list = GetListNotNullable<DeviceModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.Name).ToList();
 		result.AddRange(list);
@@ -37,7 +37,7 @@ public partial class DataAccessHelper
 	{
 		List<DeviceTypeModel> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
-			result.Add(GetItemNew<DeviceTypeModel>());
+			result.Add(GetItemNewEmpty<DeviceTypeModel>());
 		List<DeviceTypeModel> list = GetListNotNullable<DeviceTypeModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.Name).ToList();
 		result.AddRange(list);
@@ -48,7 +48,7 @@ public partial class DataAccessHelper
 	{
 		List<DeviceTypeFkModel> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
-			result.Add(new() { Device = GetItemNew<DeviceModel>(), Type = GetItemNew<DeviceTypeModel>() });
+			result.Add(new() { Device = GetItemNewEmpty<DeviceModel>(), Type = GetItemNewEmpty<DeviceTypeModel>() });
 		List<DeviceTypeFkModel> list = GetListNotNullable<DeviceTypeFkModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.Type.Name).ToList();
 		result = result.OrderBy(x => x.Device.Name).ToList();
@@ -61,7 +61,7 @@ public partial class DataAccessHelper
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
 		List<DeviceScaleFkModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Device = GetItemNew<DeviceModel>(), Scale = GetItemNew<ScaleModel>() });
+			result.Add(new() { Device = GetItemNewEmpty<DeviceModel>(), Scale = GetItemNewEmpty<ScaleModel>() });
 		List<DeviceScaleFkModel> list = GetListNotNullable<DeviceScaleFkModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.Scale.Description).ToList();
 		result = result.OrderBy(x => x.Device.Name).ToList();
@@ -150,7 +150,7 @@ public partial class DataAccessHelper
 	{
 		List<PluBundleFkModel> result = new();
 		if (isAddFieldNull)
-			result.Add(GetItemNew<PluBundleFkModel>());
+			result.Add(GetItemNewEmpty<PluBundleFkModel>());
 		List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
 
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters,

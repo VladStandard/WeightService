@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.Tasks;
 /// Table "TASKS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(TaskModel)}")]
+[DebuggerDisplay("{nameof(TaskModel)}")]
 public class TaskModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

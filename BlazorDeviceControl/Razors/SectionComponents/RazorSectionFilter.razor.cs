@@ -43,18 +43,18 @@ public partial class RazorSectionFilter<TItem, TItemFilter> : RazorComponentSect
                     {
                         case var cls when cls == typeof(PluModel):
                             List<PluModel> plus = items.Cast<PluModel>().OrderBy(x => x.Name).ToList();
-                            List<PluModel> plusNull = new() { DataAccess.GetItemNew<PluModel>() };
+                            List<PluModel> plusNull = new() { DataAccess.GetItemNewEmpty<PluModel>() };
                             plusNull.AddRange(plus);
                             items = plusNull.Cast<TItemFilter>().ToArray();
 							// Add null item first.
 							break;
                         case var cls when cls == typeof(ScaleModel):
                             List<ScaleModel> scales = items.Cast<ScaleModel>().OrderBy(x => x.Description).ToList();
-                            List<ScaleModel> scalesNull = new() { DataAccess.GetItemNew<ScaleModel>() };
+                            List<ScaleModel> scalesNull = new() { DataAccess.GetItemNewEmpty<ScaleModel>() };
                             scalesNull.AddRange(scales);
                             items = scalesNull.Cast<TItemFilter>().ToArray();
 							// Add null item first.
-							SqlSectionFilterCast = new() { DataAccess.GetItemNew<TItemFilter>() };
+							SqlSectionFilterCast = new() { DataAccess.GetItemNewEmpty<TItemFilter>() };
                             break;
                     }
 					// Add sorted items second.

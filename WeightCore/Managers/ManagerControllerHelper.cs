@@ -45,11 +45,11 @@ public class ManagerControllerHelper : DisposableBase
 
 	~ManagerControllerHelper()
 	{
-		Labels?.Dispose();
-		Massa?.Dispose(false);
-		Memory?.Dispose(false);
-		PrintMain?.Dispose(false);
-		PrintShipping?.Dispose(false);
+		Labels.Dispose();
+		Massa.Dispose(false);
+		Memory.Dispose(false);
+		PrintMain.Dispose(false);
+		PrintShipping.Dispose(false);
 	}
 
 	#endregion
@@ -68,20 +68,20 @@ public class ManagerControllerHelper : DisposableBase
 
 	public void ReleaseManaged()
 	{
-		Labels?.ReleaseManaged();
-		Massa?.ReleaseManaged();
-		Memory?.ReleaseManaged();
-		PrintMain?.ReleaseManaged();
-		PrintShipping?.ReleaseManaged();
+		Labels.ReleaseManaged();
+		Massa.ReleaseManaged();
+		Memory.ReleaseManaged();
+		PrintMain.ReleaseManaged();
+		PrintShipping.ReleaseManaged();
 	}
 
-	public void ReleaseUnmanaged()
+    private void ReleaseUnmanaged()
 	{
-		Labels?.ReleaseUnmanaged();
-		Massa?.ReleaseUnmanaged();
-		Memory?.ReleaseUnmanaged();
-		PrintMain?.ReleaseUnmanaged();
-		PrintShipping?.ReleaseUnmanaged();
+		Labels.ReleaseUnmanaged();
+		Massa.ReleaseUnmanaged();
+		Memory.ReleaseUnmanaged();
+		PrintMain.ReleaseUnmanaged();
+		PrintShipping.ReleaseUnmanaged();
 	}
 
 	#endregion

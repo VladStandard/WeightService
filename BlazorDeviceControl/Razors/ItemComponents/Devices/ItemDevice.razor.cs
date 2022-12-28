@@ -38,7 +38,7 @@ public partial class ItemDevice : RazorComponentItemBase<DeviceModel>
                 if (SqlItemCast.IdentityIsNew)
                     SqlItem = SqlItemNew<DeviceModel>();
                 DeviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(SqlItemCast);
-                DeviceType = DeviceTypeFk.Type.IdentityIsNotNew ? DeviceTypeFk.Type : DataAccess.GetItemNew<DeviceTypeModel>();
+                DeviceType = DeviceTypeFk.Type.IdentityIsNotNew ? DeviceTypeFk.Type : DataAccess.GetItemNewEmpty<DeviceTypeModel>();
 
                 ButtonSettings = new(false, false, false, false, false, true, true);
             }

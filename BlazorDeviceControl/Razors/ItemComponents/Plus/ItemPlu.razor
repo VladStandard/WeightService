@@ -56,7 +56,7 @@
 				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 				           ReadOnly=true Disabled=true
 				           @bind-Value=@SqlItemCast.Nomenclature>
-					@foreach (NomenclatureModel item in DataContext.Nomenclatures)
+					@foreach (NomenclatureModel item in DataContext.NomenclatureDeprecated)
 					{
 						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}

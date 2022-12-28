@@ -39,7 +39,7 @@ internal static class Program
             JsonSettingsHelper.Instance.SetupScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
 
             // User
-            UserSessionHelper.Instance.Setup();
+            UserSessionHelper.Instance.SetMain();
             if (UserSessionHelper.Instance.DeviceScaleFk.IdentityIsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(UserSessionHelper.Instance.DeviceName);

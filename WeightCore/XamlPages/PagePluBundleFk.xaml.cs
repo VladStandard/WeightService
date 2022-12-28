@@ -25,15 +25,15 @@ public partial class PagePluBundleFk
 		int i = 0;
 		if (UserSession.BundleFk.IdentityIsNew)
 		{
-			comboBoxPluPackage.SelectedIndex = 0;
+			comboBoxPluBundleFks.SelectedIndex = 0;
 		}
 		else
 		{
 			foreach (PluBundleFkModel pluBundleFk in UserSession.PluBundlesFks)
 			{
-				if (UserSession.BundleFk.Equals(pluBundleFk))
+				if (Equals(UserSession.BundleFk.IdentityValueUid, pluBundleFk.IdentityValueUid))
 				{
-					comboBoxPluPackage.SelectedIndex = i;
+					comboBoxPluBundleFks.SelectedIndex = i;
 					break;
 				}
 				i++;
@@ -47,14 +47,16 @@ public partial class PagePluBundleFk
 
 	private void ButtonApply_OnClick(object sender, RoutedEventArgs e)
 	{
-		Result = System.Windows.Forms.DialogResult.OK;
+        //UserSession.BundleFk = UserSession.PluBundlesFks.First().BundleFk;
+        UserSession.SetBundleFk(UserSession.BundleFk.IdentityValueUid);
+        Result = System.Windows.Forms.DialogResult.OK;
 		OnClose?.Invoke(sender, e);
 	}
 
 	private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
 	{
-		UserSession.BundleFk = UserSession.PluBundlesFks.First().BundleFk;
-		Result = System.Windows.Forms.DialogResult.Cancel;
+        UserSession.SetBundleFk(null);
+        Result = System.Windows.Forms.DialogResult.Cancel;
 		OnClose?.Invoke(sender, e);
 	}
 

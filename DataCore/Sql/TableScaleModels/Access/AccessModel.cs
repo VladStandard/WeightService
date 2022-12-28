@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Access;
 /// Table "ACCESS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(AccessModel)}")]
+[DebuggerDisplay("{nameof(AccessModel)}")]
 public class AccessModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

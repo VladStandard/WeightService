@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.BarCodes;
 /// <summary>
 /// Table validation "BARCODES".
 /// </summary>
-[DebuggerDisplay("Type = {nameof(BarCodeValidator)}")]
+[DebuggerDisplay("{nameof(BarCodeValidator)}")]
 public class BarCodeValidator : SqlTableValidator<BarCodeModel>
 {
     /// <summary>

@@ -116,8 +116,8 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-    public T GetItemNew<T>() where T : SqlTableBase, new() =>
-        new() { Name = LocaleCore.Table.FieldNull, Description = LocaleCore.Table.FieldNull };
+    public T GetItemNewEmpty<T>() where T : SqlTableBase, new() =>
+        new() { Name = LocaleCore.Table.FieldEmpty, Description = LocaleCore.Table.FieldEmpty };
 
     #endregion
 
@@ -192,7 +192,7 @@ public partial class DataAccessHelper
 		List<T> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
 		{
-            result.Add(GetItemNew<T>());
+            result.Add(GetItemNewEmpty<T>());
 		}
 
 		List<T> list = new();

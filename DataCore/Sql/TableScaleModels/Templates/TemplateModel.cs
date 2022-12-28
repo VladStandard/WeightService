@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Templates;
 /// Table "Templates".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(TemplateModel)}")]
+[DebuggerDisplay("{nameof(TemplateModel)}")]
 public class TemplateModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

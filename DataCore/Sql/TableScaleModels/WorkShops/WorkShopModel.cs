@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.WorkShops;
 /// Table "WorkShop".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(WorkShopModel)}")]
+[DebuggerDisplay("{nameof(WorkShopModel)}")]
 public class WorkShopModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

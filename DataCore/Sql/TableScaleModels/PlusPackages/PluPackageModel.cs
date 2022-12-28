@@ -12,7 +12,7 @@
 ///// Table "PLUS_PACKAGES".
 ///// </summary>
 //[Serializable]
-//[DebuggerDisplay("Type = {nameof(PluPackageModel)}")]
+//[DebuggerDisplay("{nameof(PluPackageModel)}")]
 //public class PluPackageModel : SqlTableBase
 //{
 //    #region Public and private fields, properties, constructor

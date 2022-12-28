@@ -298,9 +298,9 @@ public static class SqlTableBaseExt
 		{
 			nameof(ScaleModel.Description) => scale.Description,
 			nameof(ScaleModel.Number) => scale.Number.ToString(),
-			$"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}" => scale.PrinterMain is not null ? scale.PrinterMain.Name : LocaleCore.Table.FieldNull,
-			$"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}" => scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldNull,
-			$"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}" => scale.WorkShop is not null ? scale.WorkShop.Name : LocaleCore.Table.FieldNull,
+			$"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}" => scale.PrinterMain is not null ? scale.PrinterMain.Name : LocaleCore.Table.FieldEmpty,
+			$"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}" => scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldEmpty,
+			$"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}" => scale.WorkShop is not null ? scale.WorkShop.Name : LocaleCore.Table.FieldEmpty,
 			_ => LocaleCore.Table.FieldNotFound
 		};
 	}

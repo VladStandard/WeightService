@@ -83,7 +83,7 @@ public class LocaleTable
     public string FieldModified => Lang == Lang.English ? "Modified" : "Изменено";
     public string FieldName => Lang == Lang.English ? "Name" : "Наименование";
     public string FieldNotFound => Lang == Lang.English ? "<Not found>" : "<Не найдено>";
-    public string FieldNull => Lang == Lang.English ? "<Null>" : "<Пусто>";
+    public string FieldEmpty => Lang == Lang.English ? "<Empty>" : "<Пусто>";
     public string FieldPackageIsNotSelected => Lang == Lang.English ? "Nesting of the PLU is not selected" : "Вложенность ПЛУ не выбрана";
     public string FieldPackageMustBeSelected => Lang == Lang.English ? "Select the Nesting of the PLU" : "Выберите вложенность ПЛУ";
     public string FieldPluIsNotSelected => Lang == Lang.English ? "PLU is not selected" : "ПЛУ не выбрана";

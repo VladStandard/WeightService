@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 /// Table "PLUS_TEMPLATES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(PluTemplateFkModel)}")]
+[DebuggerDisplay("{nameof(PluTemplateFkModel)}")]
 public class PluTemplateFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

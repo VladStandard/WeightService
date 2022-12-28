@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Brands;
 /// </summary>
 [Serializable]
 [XmlRoot("Brand", Namespace = "", IsNullable = false)]
-[DebuggerDisplay("Type = {nameof(BrandModel)} | Code = {Code}")]
+[DebuggerDisplay("{nameof(BrandModel)} | Code = {Code}")]
 public class BrandModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

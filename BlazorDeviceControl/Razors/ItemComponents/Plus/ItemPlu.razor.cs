@@ -61,7 +61,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	            //        PluItem.Plu = plu.Plu + 1;
 	            //    }
 	            PluTemplateFk = DataAccess.GetItemPluTemplateFkNotNullable(SqlItemCast);
-	            Template = PluTemplateFk.Template.IdentityIsNotNew ? PluTemplateFk.Template : DataAccess.GetItemNew<TemplateModel>();
+	            Template = PluTemplateFk.Template.IdentityIsNotNew ? PluTemplateFk.Template : DataAccess.GetItemNewEmpty<TemplateModel>();
 
 				ButtonSettings = new(true, true, true, true, true, true, true);
             }

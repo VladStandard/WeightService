@@ -12,10 +12,9 @@ namespace DataCore.Sql.TableScaleFkModels.BundlesFks;
 /// Table "BUNDLES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(BundleFkModel)} | {nameof(Name)} = {Name} | " +
-                 "{WeightTare} = {Bundle.Weight} * {BundleCount} + {Box.Weight} | " +
-                 "{nameof(WeightTare)} = {nameof(Bundle)}{nameof(Bundle.Weight)} * {nameof(BundleCount)} + " +
-                 "{nameof(Box)}.{nameof(Box.Weight)}")]
+[DebuggerDisplay("{nameof(BundleFkModel)} | " +
+                 "{nameof(Bundle)} = {Bundle.Name} | " +
+                 "{nameof(WeightTare)} = {Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}")]
 public class BundleFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

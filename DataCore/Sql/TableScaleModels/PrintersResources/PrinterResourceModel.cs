@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.PrintersResources;
 /// Table "ZebraPrinterResourceRef".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(PrinterResourceModel)}")]
+[DebuggerDisplay("{nameof(PrinterResourceModel)}")]
 public class PrinterResourceModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.LogsTypes;
 /// Table "LOG_TYPES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(LogTypeModel)}")]
+[DebuggerDisplay("{nameof(LogTypeModel)}")]
 public class LogTypeModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

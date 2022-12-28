@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.OrdersWeighings;
 /// Table "ORDERS_WEIGHINGS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(OrderWeighingModel)}")]
+[DebuggerDisplay("{nameof(OrderWeighingModel)}")]
 public class OrderWeighingModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

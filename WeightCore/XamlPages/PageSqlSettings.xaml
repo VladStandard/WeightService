@@ -60,45 +60,45 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Name="LabeldSqlStatus" Grid.Row="0" Grid.ColumnSpan="4" IsReadOnly="True" Margin="5"
+                <TextBox Grid.Row="0" Grid.ColumnSpan="4" IsReadOnly="True" Margin="5"
                          Text="{Binding SqlHelp.Status, Mode=OneWay}" 
                          BorderBrush="Transparent" Background="Transparent" />
 
-                <Label Name="LabeldSqlConnectionString"  Grid.Row="1" 
+                <Label Grid.Row="1" 
                        Content="Строка подключения" HorizontalAlignment="Center" VerticalAlignment="Center" ></Label>
                 <TextBox Name="fieldSqlConnectionString" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="True"
                     Text="{Binding SqlHelp.ConnectionString, Mode=OneWay}" 
                     BorderBrush="Transparent" Background="Transparent" />
 
-                <Label Name="LabeldSqlServer" Grid.Row="2" Content="Сервер" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Label Grid.Row="2" Content="Сервер" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <TextBox Name="fieldSqlServer" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
                          Text="{Binding SqlHelp.Authentication.Server, Mode=TwoWay}" BorderBrush="Transparent" Background="Transparent" />
 
-                <Label Name="LabeldSqlDb" Grid.Row="3" Content="БД" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBox Name="fieldSqlDb" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
+                <Label Grid.Row="3" Content="БД" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
                          Text="{Binding SqlHelp.Authentication.Database, Mode=TwoWay}" BorderBrush="Transparent" Background="Transparent" />
 
-                <Label Name="LabeldSqlUser" Grid.Row="4" Content="Пользователь" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBox Name="fieldSqlUser" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
+                <Label Grid.Row="4" Content="Пользователь" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
                          Text="{Binding SqlHelp.Authentication.UserId, Mode=TwoWay}" BorderBrush="Transparent" Background="Transparent" />
 
-                <Label Name="LabeldSqlPassword" Grid.Row="5" 
+                <Label Grid.Row="5" 
                     Content="Пароль" 
                     HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBox Name="fieldSqlPassword" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
+                <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
                     Text="{Binding SqlHelp.Authentication.Password, Mode=TwoWay}" 
                     BorderBrush="Transparent" Background="Transparent"></TextBox>
 
-                <CheckBox Name="fieldSqlIntegratedSecurity" Grid.Row="6" Grid.ColumnSpan="4" Margin="10 0 10 0" 
+                <CheckBox Grid.Row="6" Grid.ColumnSpan="4" Margin="10 0 10 0" 
                     Background="Transparent" VerticalAlignment="Center"
                     IsChecked="{Binding SqlHelp.Authentication.IntegratedSecurity, Mode=TwoWay}"
                     Content="Аутентификация Windows" 
                     Checked="fieldSqlIntegratedSecurity_Checked" />
 
-                <Button x:Name="ButtonSqlLoadConfig" Grid.Row="7" Grid.ColumnSpan="2" BorderBrush="Transparent" Background="Transparent" 
+                <Button Grid.Row="7" Grid.ColumnSpan="2" BorderBrush="Transparent" Background="Transparent" 
                     Content="Загрузить из конфига" 
                     Click="ButtonSqlLoadConfig_Click" />
-                <Button x:Name="ButtonSqlCheckConnect" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" BorderBrush="Transparent" Background="Transparent" 
+                <Button Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" BorderBrush="Transparent" Background="Transparent" 
                     Content="Проверить подключение к серверу" 
                     Click="ButtonSqlCheckConnect_Click" />
             </Grid>

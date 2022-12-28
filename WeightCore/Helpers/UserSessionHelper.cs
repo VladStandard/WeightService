@@ -41,6 +41,7 @@ using WeightCore.Gui;
 using WeightCore.Managers;
 
 namespace WeightCore.Helpers;
+#nullable enable
 
 public class UserSessionHelper : BaseViewModel
 {
@@ -55,13 +56,13 @@ public class UserSessionHelper : BaseViewModel
 
 	#region Public and private fields and properties
 
-	private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
-	private SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
-	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-	public DataContextModel DataContext { get; } = new();
-	public DebugHelper Debug { get; } = DebugHelper.Instance;
-	private FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
-	public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
+	private AppVersionHelper AppVersion => AppVersionHelper.Instance;
+	private SqlConnectFactory SqlConnect => SqlConnectFactory.Instance;
+	public DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    private DataContextModel DataContext { get; } = new();
+	public DebugHelper Debug => DebugHelper.Instance;
+	private FileLoggerHelper FileLogger => FileLoggerHelper.Instance;
+	public ManagerControllerHelper ManagerControl => ManagerControllerHelper.Instance;
 
 	private ProductSeriesDirect _productSeries;
 	[XmlElement]
@@ -115,44 +116,44 @@ public class UserSessionHelper : BaseViewModel
 					DeviceScaleFk.Device.Name, nameof(WeightCore));
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
-            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-				value.Plu, nameof(PluScaleModel.Plu), new(), false, false, true, true, 0);
-			PluBundlesFks = DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
-			BundleFk = PluBundlesFks.Count > 1 ? PluBundlesFks[1].BundleFk : PluBundlesFks.FirstOrDefault().BundleFk;
+			PluBundlesFks = DataContext.GetListNotNullable<PluBundleFkModel>(SqlCrudConfigPluBundlesFks);
 			OnPropertyChanged();
 		}
 	}
-#nullable enable
-	private BundleFkModel? _bundleFk;
-#nullable disable
-	[XmlElement]
-	public BundleFkModel BundleFk
-	{
-		get
-		{
-			if (_bundleFk is null)
-				return _bundleFk = DataAccess.GetItemNew<BundleFkModel>();
-			return _bundleFk;
-		}
-		set
-		{
-			_bundleFk = value;
-			OnPropertyChanged();
-		}
-	}
+    //private BundleFkModel? _bundleFk;
+    private BundleFkModel _bundleFk;
 
-	private List<PluBundleFkModel> _pluBundlesFks;
-	[XmlElement]
-	public List<PluBundleFkModel> PluBundlesFks
-	{
-		get => _pluBundlesFks;
-		set
-		{
-			_pluBundlesFks = value;
-			OnPropertyChanged();
-		}
-	}
-	private DeviceScaleFkModel _deviceScaleFk;
+    [XmlElement]
+    public BundleFkModel BundleFk
+    {
+        get => _bundleFk;
+        set
+        {
+            _bundleFk = value;
+            OnPropertyChanged();
+        }
+    }
+
+	private SqlCrudConfigModel SqlCrudConfigPluBundlesFks => 
+        SqlCrudConfigUtils.GetCrudConfig(PluScale.Plu, nameof(PluScaleModel.Plu), new (), 
+    false, false, true, true);
+
+    private List<PluBundleFkModel> _pluBundlesFks;
+
+    [XmlElement]
+    public List<PluBundleFkModel> PluBundlesFks
+    {
+        get => _pluBundlesFks;
+        set
+        {
+            _pluBundlesFks = value;
+            BundleFk = _pluBundlesFks.Exists(x => x.IsActive)
+                ? _pluBundlesFks.Find(x => x.IsActive).BundleFk : _pluBundlesFks.First().BundleFk;
+            OnPropertyChanged();
+        }
+    }
+
+    private DeviceScaleFkModel _deviceScaleFk;
 	[XmlElement]
 	public DeviceScaleFkModel DeviceScaleFk
 	{
@@ -251,8 +252,9 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-	public readonly DateTime ProductDateMaxValue = DateTime.Now.AddDays(+31);
-	public readonly DateTime ProductDateMinValue = DateTime.Now.AddDays(-31);
+
+    private DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
+    private DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
 	private DateTime _productDate;
 	public DateTime ProductDate
 	{
@@ -272,7 +274,6 @@ public class UserSessionHelper : BaseViewModel
     public UserSessionHelper()
 	{
 		_pluScale = new();
-		_bundleFk = new();
 		_pluBundlesFks = new();
 		_pluWeighing = new();
 		_deviceScaleFk = new();
@@ -281,6 +282,7 @@ public class UserSessionHelper : BaseViewModel
 		_productionFacilities = new();
 		_productSeries = new();
 		_weighingSettings = new();
+        _scales = new();
 		_publishDescription = string.Empty;
 		_sqlInstance = string.Empty;
 	}
@@ -289,7 +291,7 @@ public class UserSessionHelper : BaseViewModel
 
 	#region Public and private methods
 
-	public void Setup(long scaleId = -1, string productionFacilityName = "")
+	public void SetMain(long scaleId = -1, string productionFacilityName = "")
 	{
         SetSqlPublish();
         SetScale(scaleId, productionFacilityName);
@@ -341,7 +343,20 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 
-	public void NewPallet()
+
+    public void SetBundleFk(Guid? uid)
+    {
+        if (uid is null)
+        {
+            BundleFk = DataAccess.GetItemNewEmpty<BundleFkModel>();
+        }
+        else
+        {
+            BundleFk = DataContext.GetItemNotNullable<BundleFkModel>(uid);
+        }
+    }
+
+    public void NewPallet()
 	{
 		ManagerControl.PrintMain.LabelsCount = 1;
 		ProductSeries.Load();
@@ -372,11 +387,11 @@ public class UserSessionHelper : BaseViewModel
 	}
 
 	/// <summary>
-	/// Check PLU package is empty.
+	/// Check PLU BundleFk is empty.
 	/// </summary>
 	/// <param name="owner"></param>
 	/// <returns></returns>
-	public bool CheckPluPackageIsEmpty(IWin32Window owner)
+	public bool CheckPluBundleFkIsEmpty(IWin32Window owner)
 	{
 		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IdentityIsNew)
 		if (BundleFk.IdentityIsNew && PluBundlesFks.Count > 1)
@@ -580,7 +595,6 @@ public class UserSessionHelper : BaseViewModel
 		return true;
 	}
 
-#nullable enable
 	public void PrintLabel(bool isClearBuffer)
 	{
 		if (Scale is { IsOrder: true })
@@ -606,7 +620,6 @@ public class UserSessionHelper : BaseViewModel
 
 		PluWeighing = new();
 	}
-#nullable disable
 
 	public void SetNewScaleCounter()
 	{
@@ -682,7 +695,6 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 
-#nullable enable
 	public void NewPluWeighing()
 	{
 		ProductSeriesModel? productSeries = DataAccess.GetItemProductSeriesNullable(PluScale.Scale);
@@ -699,7 +711,6 @@ public class UserSessionHelper : BaseViewModel
 		// Save or update weighing products.
 		SaveOrUpdatePluWeighing();
 	}
-#nullable disable
 
 	/// <summary>
 	/// Set fake data for PLU weighing.

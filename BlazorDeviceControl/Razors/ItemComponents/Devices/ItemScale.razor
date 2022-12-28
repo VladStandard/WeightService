@@ -189,7 +189,7 @@
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; background-color: lightgray;" ReadOnly=true
-				    Value=@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldNull) />
+				    Value=@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldEmpty) />
 			</td>
 		</tr>
 		<tr>

@@ -10,30 +10,33 @@ using WeightCore.Helpers;
 using WeightCore.XamlPages;
 
 namespace WeightCore.Gui;
+#nullable enable
 
 public partial class WpfPageLoader : Form
 {
     #region Public and private fields and properties
 
-    public UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
-    private ElementHost ElementHost { get; set; }
+    private UserSessionHelper UserSession => UserSessionHelper.Instance;
+    private ElementHost ElementHost { get; }
     private bool UseOwnerSize { get; }
-    public MessageBoxModel MessageBox { get; } = new();
-    private PageMessageBox PageMessageBox { get; set; }
-    private PagePinCode PagePinCode { get; set; }
-    public PageDevice PageDevice { get; private set; }
-    public PagePluBundleFk PagePluBundleFk { get; private set; }
-	private PageSqlSettings PageSqlSettings { get; set; }
+    public MessageBoxModel MessageBox { get; }
+    private PageMessageBox? PageMessageBox { get; set; }
+    private PagePinCode? PagePinCode { get; set; }
+    public PageDevice? PageDevice { get; private set; }
+    private PagePluBundleFk? PagePluBundleFk { get; set; }
+	private PageSqlSettings? PageSqlSettings { get; set; }
     private DataCore.Models.PageEnum Page { get; }
 
     #endregion
 
     #region Constructor and destructor
 
-    public WpfPageLoader()
+    private WpfPageLoader()
     {
         InitializeComponent();
 
+        ElementHost = new() { Dock = DockStyle.Fill };
+        MessageBox = new();
         Page = DataCore.Models.PageEnum.Default;
     }
 
@@ -94,49 +97,51 @@ public partial class WpfPageLoader : Form
             }
 
             // WPF element.
-            if (Page != DataCore.Models.PageEnum.Default)
-            {
-                ElementHost = new() { Dock = DockStyle.Fill };
+            if (Page is not DataCore.Models.PageEnum.Default)
                 panelMain.Controls.Add(ElementHost);
-            }
-            switch (Page)
-            {
-                case DataCore.Models.PageEnum.MessageBox:
-                    PageMessageBox = new();
-                    PageMessageBox.InitializeComponent();
-                    ElementHost.Child = PageMessageBox;
-                    PageMessageBox.MessageBox = MessageBox;
-                    PageMessageBox.OnClose += WpfPageLoader_OnClose;
-                    break;
-                case DataCore.Models.PageEnum.Device:
-                    PageDevice = new();
-                    PageDevice.InitializeComponent();
-                    ElementHost.Child = PageDevice;
-                    PageDevice.OnClose += WpfPageLoader_OnClose;
-                    break;
-                case DataCore.Models.PageEnum.PluBundleFk:
-                    PagePluBundleFk = new();
-                    PagePluBundleFk.InitializeComponent();
-                    ElementHost.Child = PagePluBundleFk;
-                    PagePluBundleFk.OnClose += WpfPageLoader_OnClose;
-                    break;
-                case DataCore.Models.PageEnum.PinCode:
-                    PagePinCode = new();
-                    PagePinCode.InitializeComponent();
-                    ElementHost.Child = PagePinCode;
-                    PagePinCode.OnClose += WpfPageLoader_OnClose;
-                    break;
-                case DataCore.Models.PageEnum.SqlSettings:
-                    PageSqlSettings = new();
-                    PageSqlSettings.InitializeComponent();
-                    ElementHost.Child = PageSqlSettings;
-                    PageSqlSettings.OnClose += WpfPageLoader_OnClose;
-                    break;
-            }
+            SetElementHostChild();
         }
         catch (Exception ex)
         {
             GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+        }
+    }
+
+    private void SetElementHostChild()
+    {
+        switch (Page)
+        {
+            case DataCore.Models.PageEnum.MessageBox:
+                PageMessageBox = new();
+                PageMessageBox.InitializeComponent();
+                ElementHost.Child = PageMessageBox;
+                PageMessageBox.MessageBox = MessageBox;
+                PageMessageBox.OnClose += WpfPageLoader_OnClose;
+                break;
+            case DataCore.Models.PageEnum.Device:
+                PageDevice = new();
+                PageDevice.InitializeComponent();
+                ElementHost.Child = PageDevice;
+                PageDevice.OnClose += WpfPageLoader_OnClose;
+                break;
+            case DataCore.Models.PageEnum.PluBundleFk:
+                PagePluBundleFk = new();
+                PagePluBundleFk.InitializeComponent();
+                ElementHost.Child = PagePluBundleFk;
+                PagePluBundleFk.OnClose += WpfPageLoader_OnClose;
+                break;
+            case DataCore.Models.PageEnum.PinCode:
+                PagePinCode = new();
+                PagePinCode.InitializeComponent();
+                ElementHost.Child = PagePinCode;
+                PagePinCode.OnClose += WpfPageLoader_OnClose;
+                break;
+            case DataCore.Models.PageEnum.SqlSettings:
+                PageSqlSettings = new();
+                PageSqlSettings.InitializeComponent();
+                ElementHost.Child = PageSqlSettings;
+                PageSqlSettings.OnClose += WpfPageLoader_OnClose;
+                break;
         }
     }
 
@@ -159,11 +164,11 @@ public partial class WpfPageLoader : Form
 	        DialogResult = Page switch
 	        {
 		        DataCore.Models.PageEnum.MessageBox => MessageBox.Result,
-		        DataCore.Models.PageEnum.Device => PageDevice.Result,
-		        DataCore.Models.PageEnum.PluBundleFk => PagePluBundleFk.Result,
-				DataCore.Models.PageEnum.PinCode => PagePinCode.Result,
-		        DataCore.Models.PageEnum.SqlSettings => PageSqlSettings.Result,
-		        _ => DialogResult
+		        DataCore.Models.PageEnum.Device => PageDevice?.Result ?? DialogResult.Cancel,
+		        DataCore.Models.PageEnum.PluBundleFk => PagePluBundleFk?.Result ?? DialogResult.Cancel,
+                DataCore.Models.PageEnum.PinCode => PagePinCode?.Result ?? DialogResult.Cancel,
+                DataCore.Models.PageEnum.SqlSettings => PageSqlSettings?.Result ?? DialogResult.Cancel,
+                _ => DialogResult
 	        };
         }
         catch (Exception ex)

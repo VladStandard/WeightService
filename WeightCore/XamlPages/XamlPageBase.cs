@@ -6,13 +6,14 @@ using System.Windows.Controls;
 using WeightCore.Helpers;
 
 namespace WeightCore.XamlPages;
+#nullable enable
 
 public class XamlPageBase : UserControl
 {
 	#region Public and private fields, properties, constructor
 
 	public UserSessionHelper UserSession { get; private set; }
-	public System.Windows.Forms.DialogResult Result { get; set; }
+	public System.Windows.Forms.DialogResult Result { get; protected set; }
 	public RoutedEventHandler? OnClose { get; set; }
 
 	/// <summary>

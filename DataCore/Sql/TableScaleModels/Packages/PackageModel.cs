@@ -10,7 +10,7 @@
 ///// Table "PACKAGES".
 ///// </summary>
 //[Serializable]
-//[DebuggerDisplay("Type = {nameof(PackageModel)}")]
+//[DebuggerDisplay("{nameof(PackageModel)}")]
 //public class PackageModel : SqlTableBase
 //{
 //    #region Public and private fields, properties, constructor

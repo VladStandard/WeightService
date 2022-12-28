@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.TasksTypes;
 /// Table "TASKS_TYPES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(TaskTypeModel)}")]
+[DebuggerDisplay("{nameof(TaskTypeModel)}")]
 public class TaskTypeModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

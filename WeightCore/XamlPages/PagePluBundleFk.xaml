@@ -32,42 +32,52 @@
             </Grid.RowDefinitions>
             <Label 
 	            Margin="2" Grid.Column="0" Grid.Row="0" 
-                Content="{Binding Source={StaticResource LocaleTable}, Path=Plu, Mode=OneTime}"
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Plu, 
+					Mode=OneTime, IsAsync=True}"
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
             <Label 
 	            Margin="2" Grid.Column="1" Grid.Row="0" 
-                Content="{Binding Path=PluScale.Plu.Name, Mode=OneWay}" 
+                Content="{Binding Path=PluScale.Plu.Name, 
+					Mode=OneWay, IsAsync=True}" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
             <Label 
 	            Margin="2" Grid.Column="0" Grid.Row="1" 
-                Content="{Binding Source={StaticResource LocaleTable}, Path=PluNesting, Mode=OneWay}" 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=PluNesting, 
+					Mode=OneWay, IsAsync=True}" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
             <ComboBox 
-	            Margin="2" Grid.Column="1" Grid.Row="1" x:Name="comboBoxPluPackage"
+	            Margin="2" Grid.Column="1" Grid.Row="1" x:Name="comboBoxPluBundleFks"
                 HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
-                ItemsSource="{Binding Path=PluBundlesFks, Mode=OneWay}" 
-                DisplayMemberPath="Name"
-                SelectedValuePath="Name"
-                SelectedValue="{Binding Path=BundleFk.Name, Mode=OneWay}" 
-                SelectedItem="{Binding Path=BundleFk, Mode=TwoWay}" 
+	            ItemsSource="{Binding Path=PluBundlesFks, 
+					Mode=OneWay, IsAsync=True}" 
+	            DisplayMemberPath="BundleFk.Name"
+	            SelectedValuePath="BundleFk"
+	            SelectedValue="{Binding Path=BundleFk.Name, 
+					Mode=OneWay, IsAsync=True}" 
+	            SelectedItem="{Binding Path=BundleFk, 
+					Mode=TwoWay, IsAsync=True}" 
 	            />
             <Label 
 	            Margin="2" Grid.Column="0" Grid.Row="2" 
-	            Content="{Binding Source={StaticResource LocaleTable}, Path=PackageWeightKg, Mode=OneWay}" 
+	            Content="{Binding Source={StaticResource LocaleTable}, Path=BundleFk, 
+					Mode=OneWay, IsAsync=True}" 
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
             <Label 
 	            Margin="2" Grid.Column="1" Grid.Row="2" 
-	            Content="{Binding Path=BundleFk.WeightTare, Mode=OneWay}" 
+	            Content="{Binding Path=BundleFk.WeightTare, 
+					Mode=OneWay, IsAsync=True}" 
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
 
 			<Button 
 	            Margin="2" Grid.Column="0" Grid.Row="3"
-                Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply, Mode=OneWay}"
+                Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply, 
+					Mode=OneWay, IsAsync=True}"
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                 Click="ButtonApply_OnClick" />
             <Button 
 	            Margin="2" Grid.Column="1" Grid.Row="3" 
-                Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel, Mode=OneWay}" 
+                Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel, 
+					Mode=OneWay, IsAsync=True}" 
                 Click="ButtonCancel_OnClick" />
         </Grid>
     </Border>

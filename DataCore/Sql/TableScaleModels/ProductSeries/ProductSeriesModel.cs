@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.ProductSeries;
 /// Table "ProductSeries".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(ProductSeriesModel)}")]
+[DebuggerDisplay("{nameof(ProductSeriesModel)}")]
 public class ProductSeriesModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

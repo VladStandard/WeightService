@@ -26,7 +26,7 @@ public enum BarcodeTypeEnum
 /// Table "BARCODES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(BarCodeModel)} | " +
+[DebuggerDisplay("{nameof(BarCodeModel)} | " +
                  "{nameof(ValueTop)} = {ValueTop} | {nameof(ValueRight)} = {ValueRight} | " +
                  "{nameof(ValueBottom)} = {ValueBottom} | " +
                  "{nameof(PluLabel)} = {PluLabel}")]

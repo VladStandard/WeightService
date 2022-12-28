@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Apps;
 /// Table "APPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(AppModel)}")]
+[DebuggerDisplay("{nameof(AppModel)}")]
 public class AppModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

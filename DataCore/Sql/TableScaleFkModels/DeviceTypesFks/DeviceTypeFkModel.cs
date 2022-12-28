@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 /// Table "DEVICES_TYPES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(DeviceTypeFkModel)}")]
+[DebuggerDisplay("{nameof(DeviceTypeFkModel)}")]
 public class DeviceTypeFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
