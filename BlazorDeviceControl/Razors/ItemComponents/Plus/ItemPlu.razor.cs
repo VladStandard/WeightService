@@ -83,8 +83,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     SqlItemCast.Gtin = string.Empty;
                     SqlItemCast.Ean13 = string.Empty;
                     SqlItemCast.Itf14 = string.Empty;
-                    SqlItemCast.BoxQuantly = 0;
-                    //SqlItemCast.WeightTare = 0;
+                    throw new Exception("Under construct!");
+                    //SqlItemCast.BoxQuantly = 0;
                     break;
                 case nameof(LocaleCore.DeviceControl.TableActionFill):
                     if (string.IsNullOrEmpty(SqlItemCast.Name))
@@ -101,10 +101,9 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                         SqlItemCast.Ean13 = ProductHelper.GetXmlEan13(SqlItemCast.Nomenclature, SqlItemCast.Ean13);
                     if (string.IsNullOrEmpty(SqlItemCast.Itf14))
                         SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
-                    if (SqlItemCast.BoxQuantly == 0)
-                        SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
-                    //if (SqlItemCast.WeightTare == 0)
-                    //    SqlItemCast.WeightTare = ProductHelper.CalcGoodsWeightTare(SqlItemCast.Nomenclature);
+                    //throw new Exception("Under construct!");
+                    //if (SqlItemCast.BoxQuantly == 0)
+                    //    SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
                     break;
                 case nameof(ProductHelper.GetXmlName):
                     SqlItemCast.Name = ProductHelper.GetXmlName(SqlItemCast.Nomenclature, SqlItemCast.Name);
@@ -132,7 +131,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
                     break;
                 case nameof(ProductHelper.GetXmlBoxQuantly):
-                    SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
+                    throw new Exception("Under construct!");
+                    //SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
                     break;
                 case nameof(ProductHelper.CalcGoodsWeightTare):
                     //SqlItemCast.WeightTare = ProductHelper.CalcGoodsWeightTare(SqlItemCast.Nomenclature);

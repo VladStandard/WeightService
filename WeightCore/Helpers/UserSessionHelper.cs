@@ -35,7 +35,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using WeightCore.Gui;
 using WeightCore.Managers;
 
@@ -569,22 +568,23 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-        if (PluScale.Plu.NominalWeight > 0 && PluScale.Plu.LowerThreshold is not 0 && PluScale.Plu.UpperThreshold is not 0)
-        {
-            if (!(PluWeighing.NettoWeight >= PluScale.Plu.LowerThreshold && PluWeighing.NettoWeight <= PluScale.Plu.UpperThreshold))
-			{
-				if (PluWeighing.IdentityIsNotNew)
-					GuiUtils.WpfForm.ShowNewOperationControl(owner,
-						LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IdentityIsNew ? 0 : PluScale.Plu.UpperThreshold,
-						PluScale.IdentityIsNew ? 0 : PluScale.Plu.NominalWeight,
-						PluScale.IdentityIsNew ? 0 : PluScale.Plu.LowerThreshold),
-						true, LogTypeEnum.Warning,
-						new() { ButtonCancelVisibility = Visibility.Visible },
-						DeviceScaleFk.Device.Name, nameof(WeightCore));
-				return false;
-			}
-        }
-		return true;
+        throw new Exception("Under construct!");
+        //     if (PluScale.Plu.NominalWeight > 0 && PluScale.Plu.LowerThreshold is not 0 && PluScale.Plu.UpperThreshold is not 0)
+        //     {
+        //         if (!(PluWeighing.NettoWeight >= PluScale.Plu.LowerThreshold && PluWeighing.NettoWeight <= PluScale.Plu.UpperThreshold))
+        //{
+        //	if (PluWeighing.IdentityIsNotNew)
+        //		GuiUtils.WpfForm.ShowNewOperationControl(owner,
+        //			LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IdentityIsNew ? 0 : PluScale.Plu.UpperThreshold,
+        //			PluScale.IdentityIsNew ? 0 : PluScale.Plu.NominalWeight,
+        //			PluScale.IdentityIsNew ? 0 : PluScale.Plu.LowerThreshold),
+        //			true, LogTypeEnum.Warning,
+        //			new() { ButtonCancelVisibility = Visibility.Visible },
+        //			DeviceScaleFk.Device.Name, nameof(WeightCore));
+        //	return false;
+        //}
+        //     }
+        return true;
 	}
 
 	public void PrintLabel(IWin32Window owner, bool isClearBuffer)
@@ -701,14 +701,15 @@ public class UserSessionHelper : BaseViewModel
 	{
 		ProductSeriesModel productSeries = DataAccess.GetItemProductSeriesNotNullable(PluScale.Scale);
 
-		PluWeighing = new()
-		{
-			PluScale = PluScale,
-			Kneading = WeighingSettings.Kneading,
-			NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluBundleFk.WeightTare : PluScale.Plu.NominalWeight,
-			WeightTare = PluBundleFk.WeightTare,
-			Series = productSeries,
-		};
+        throw new Exception("Under construct!");
+		//PluWeighing = new()
+		//{
+		//	PluScale = PluScale,
+		//	Kneading = WeighingSettings.Kneading,
+		//	NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluBundleFk.WeightTare : PluScale.Plu.NominalWeight,
+		//	WeightTare = PluBundleFk.WeightTare,
+		//	Series = productSeries,
+		//};
 
 		// Save or update weighing products.
 		SaveOrUpdatePluWeighing();
@@ -731,8 +732,9 @@ public class UserSessionHelper : BaseViewModel
 			DeviceScaleFk.Device.Name, nameof(WeightCore));
 		if (dialogResult is DialogResult.Yes)
 		{
-			ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(PluScale.Plu.LowerThreshold, PluScale.Plu.UpperThreshold);
-			ManagerControl.Massa.IsWeightNetFake = true;
+            throw new Exception("Under construct!");
+            //ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(PluScale.Plu.LowerThreshold, PluScale.Plu.UpperThreshold);
+            ManagerControl.Massa.IsWeightNetFake = true;
 		}
 	}
 

@@ -134,22 +134,22 @@ public class JsonSettingsHelper
         }
 	}
 
-	private void SetupTests(string localDir, string deviceName, string appName, string fileName, bool isSqlDebug)
+	private void SetupTests(string localDir, string deviceName, string appName, string fileName, bool isShowSql)
 	{
 		CheckUpdates(localDir);
 
 		if (!SetupJsonSettings(localDir, false, fileName))
 			throw new(LocaleCore.System.JsonSettingsLocalFileException);
 		
-		DataAccessHelper.Instance.SetSessionFactory(isSqlDebug);
+		DataAccessHelper.Instance.SetSessionFactory(isShowSql);
 		DataAccessHelper.Instance.SetupLog(deviceName, appName);
 	}
 
-	public void SetupTestsDebug(string localDir, string deviceName, string appName, bool isSqlDebug) =>
-		SetupTests(localDir, deviceName, appName, FileNameDebug, isSqlDebug);
+	public void SetupTestsDebug(string localDir, string deviceName, string appName, bool isShowSql) =>
+		SetupTests(localDir, deviceName, appName, FileNameDebug, isShowSql);
 
-	public void SetupTestsRelease(string localDir, string deviceName, string appName, bool isSqlDebug) =>
-		SetupTests(localDir, deviceName, appName, FileNameRelease, isSqlDebug);
+	public void SetupTestsRelease(string localDir, string deviceName, string appName, bool isShowSql) =>
+		SetupTests(localDir, deviceName, appName, FileNameRelease, isShowSql);
 
 	public void SetupScales(string localDir, string appName)
     {

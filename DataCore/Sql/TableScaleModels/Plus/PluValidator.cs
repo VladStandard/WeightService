@@ -28,28 +28,16 @@ public class PluValidator : SqlTableValidator<PluModel>
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.Description)
-            //.NotEmpty()
             .NotNull();
         RuleFor(item => item.ShelfLifeDays)
             .NotNull()
             .GreaterThanOrEqualTo((short)0)
             .LessThanOrEqualTo((short)365);
-        //RuleFor(item => item.WeightTare)
-        //	.NotNull()
-        //	.GreaterThanOrEqualTo(0)
-        //	.LessThanOrEqualTo(100);
-        RuleFor(item => item.BoxQuantly)
-            .NotNull()
-            .GreaterThanOrEqualTo(0)
-            .LessThanOrEqualTo(100);
         RuleFor(item => item.Gtin)
-            //.NotEmpty()
             .NotNull();
         RuleFor(item => item.Ean13)
-            //.NotEmpty()
             .NotNull();
         RuleFor(item => item.Itf14)
-            //.NotEmpty()
             .NotNull();
 		RuleFor(item => item.IsCheckWeight)
             .NotNull();
@@ -57,30 +45,31 @@ public class PluValidator : SqlTableValidator<PluModel>
             .NotEmpty()
             .NotNull()
             .SetValidator(new NomenclatureValidator());
-        // Fix for 0 values.
-        RuleFor(item => item.UpperThreshold)
-	        .NotNull()
-	        .GreaterThanOrEqualTo(0)
-	        .LessThanOrEqualTo(100);
-        RuleFor(item => item.NominalWeight)
-	        .NotNull()
-	        .GreaterThanOrEqualTo(0)
-	        .LessThanOrEqualTo(100);
-        RuleFor(item => item.LowerThreshold)
-	        .NotNull()
-	        .GreaterThanOrEqualTo(0)
-	        .LessThanOrEqualTo(100);
-        RuleFor(item => item.UpperThreshold)
-	        .GreaterThanOrEqualTo(item => item.LowerThreshold)
-	        .GreaterThanOrEqualTo(item => item.NominalWeight)
-	        .When(item => item.UpperThreshold > 0 && item.NominalWeight > 0 && item.LowerThreshold > 0);
-		RuleFor(item => item.NominalWeight)
-	        .GreaterThanOrEqualTo(item => item.LowerThreshold)
-	        .LessThanOrEqualTo(item => item.UpperThreshold)
-			.When(item => item.UpperThreshold > 0 && item.NominalWeight > 0 && item.LowerThreshold > 0);
-		RuleFor(item => item.LowerThreshold)
-	        .LessThanOrEqualTo(item => item.UpperThreshold)
-	        .LessThanOrEqualTo(item => item.NominalWeight)
-			.When(item => item.UpperThreshold > 0 && item.NominalWeight > 0 && item.LowerThreshold > 0);
+        
+        // Move it to NestingFk : Fix for 0 values.
+  //      RuleFor(item => item.UpperThreshold)
+	 //       .NotNull()
+	 //       .GreaterThanOrEqualTo(0)
+	 //       .LessThanOrEqualTo(100);
+  //      RuleFor(item => item.NominalWeight)
+	 //       .NotNull()
+	 //       .GreaterThanOrEqualTo(0)
+	 //       .LessThanOrEqualTo(100);
+  //      RuleFor(item => item.LowerThreshold)
+	 //       .NotNull()
+	 //       .GreaterThanOrEqualTo(0)
+	 //       .LessThanOrEqualTo(100);
+  //      RuleFor(item => item.UpperThreshold)
+	 //       .GreaterThanOrEqualTo(item => item.LowerThreshold)
+	 //       .GreaterThanOrEqualTo(item => item.NominalWeight)
+	 //       .When(item => item.UpperThreshold > 0 && item.NominalWeight > 0 && item.LowerThreshold > 0);
+		//RuleFor(item => item.NominalWeight)
+	 //       .GreaterThanOrEqualTo(item => item.LowerThreshold)
+	 //       .LessThanOrEqualTo(item => item.UpperThreshold)
+		//	.When(item => item.UpperThreshold > 0 && item.NominalWeight > 0 && item.LowerThreshold > 0);
+		//RuleFor(item => item.LowerThreshold)
+	 //       .LessThanOrEqualTo(item => item.UpperThreshold)
+	 //       .LessThanOrEqualTo(item => item.NominalWeight)
+		//	.When(item => item.UpperThreshold > 0 && item.NominalWeight > 0 && item.LowerThreshold > 0);
 	}
 }
