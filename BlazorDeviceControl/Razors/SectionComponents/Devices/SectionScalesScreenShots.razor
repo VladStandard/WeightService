@@ -15,7 +15,6 @@
 	Data=@SqlSectionCast TItem=@ScaleScreenShotModel
 	RowClick=@(SqlItemSetAsync) 
 	RowDoubleClick=@(_ => SqlItemEditAsync())
-    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
 		<RazorSectionFieldIsMarked TItem=@ScaleScreenShotModel ParentRazor=@(this) />
