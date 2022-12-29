@@ -13,7 +13,13 @@
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="bunit" Version="1.13.5" />
     <PackageReference Include="FluentValidation" Version="11.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.10" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.0" />

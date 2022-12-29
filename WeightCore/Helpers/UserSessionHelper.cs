@@ -35,7 +35,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using WeightCore.Gui;
 using WeightCore.Managers;
 

@@ -68,34 +68,34 @@ public class DataCoreHelper
 
 	#region Public and private methods
 
-	public void SetupDebug(bool isSqlDebug)
+	public void SetupDebug(bool isShowSql)
 	{
 		JsonSettings.SetupTestsDebug(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isSqlDebug);
+			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
 
-	private void SetupRelease(bool isSqlDebug)
+	private void SetupRelease(bool isShowSql)
 	{
 		DataAccess.JsonSettings.SetupTestsRelease(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isSqlDebug);
+			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
 
-	public void AssertAction(Action action, bool isSqlDebug, bool isSkipDbRelease = false)
+	public void AssertAction(Action action, bool isShowSql, bool isSkipDbRelease = false)
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			if (!isSkipDbRelease)
 			{
-				SetupRelease(isSqlDebug);
+				SetupRelease(isShowSql);
 				action.Invoke();
 				TestContext.WriteLine();
 			}
 
-			SetupDebug(isSqlDebug);
+			SetupDebug(isShowSql);
 			action.Invoke();
 		});
 	}
