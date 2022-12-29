@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Доработать таблицу взвешиваний (учёт всей необходимой информации)
 - Обновить таблицу LOG_TYPES
 - Обновить таблицу LOGS
-- Распространиить метод UpdateProperties (см. BrandModel)
+- Распространить метод UpdateProperties (см. BrandModel)
 - #WS-T-610 БД. Удалить поле TemplateId в таблице PLUS
 - #WS-T-611 БД. Удалить табличную функцию GetTemplatesObjByID
 - #WS-T-619 Управление устройствами. Исправление задвоенной загрузки данных разделов
@@ -58,6 +58,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - #WS-T-685 Добавить классы для ВЛОЖЕННОСТИ
 - #WS-T-686 Добавить классы для ПЛУ и ВЛОЖЕННОСТИ
 - #WS-T-687 Добавить классы для ПЛУ и ПАКЕТЫ
+- #WS-T-688 БД. Исправить таблицу ПЛУ
+- #WS-T-689 Исправить классы ПЛУ
 - #ZPL Added ZPL folder
 
 ## [0.7.635] - 2022-12-16

@@ -143,8 +143,9 @@ public static class RazorFieldConfigUtils
 	{
 		public static RazorFieldConfigModel GetNumber() => new(nameof(PluModel.Number), TextAlign.Center, LocaleCore.Table.Number);
 		public static RazorFieldConfigModel GetShelfLifeDays() => new(nameof(PluModel.ShelfLifeDays), TextAlign.Center, LocaleCore.Table.ShelfLifeDaysShort);
-		public static RazorFieldConfigModel GetBoxQuantly() => new(nameof(PluModel.BoxQuantly), TextAlign.Center, LocaleCore.Table.GoodsBoxQuantlyShort);
-	}
+        public static RazorFieldConfigModel GetBoxQuantly() => throw new Exception("Under construct!");
+        //public static RazorFieldConfigModel GetBoxQuantly() => new(nameof(PluModel.BoxQuantly), TextAlign.Center, LocaleCore.Table.GoodsBoxQuantlyShort);
+    }
 
 	public static class PluScale
 	{

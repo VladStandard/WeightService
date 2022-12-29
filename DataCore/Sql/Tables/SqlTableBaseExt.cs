@@ -238,9 +238,9 @@ public static class SqlTableBaseExt
 		{
 			nameof(PluModel.Number) => plu.Number.ToString(),
 			nameof(PluModel.ShelfLifeDays) => plu.ShelfLifeDays.ToString(),
-			nameof(PluModel.BoxQuantly) => plu.BoxQuantly.ToString(),
+			//nameof(PluModel.BoxQuantly) => plu.BoxQuantly.ToString(),
 			_ => LocaleCore.Table.FieldNotFound
-		};
+		}; ;
 	}
 
 	private static string GetPropertyPluScale(string propertyName, PluScaleModel pluScale)

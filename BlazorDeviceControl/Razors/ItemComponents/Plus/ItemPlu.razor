@@ -75,23 +75,6 @@
 	        </td>
         </tr>
         <tr>
-            <td>@LocaleCore.Table.UpperWeightThreshold</td>
-            <td>
-                <RadzenNumeric Style="width: 100%; text-align: center; " 
-                    TValue="decimal" @bind-Value=@SqlItemCast.UpperThreshold />
-			</td>
-            <td>@LocaleCore.Table.NominalWeight</td>
-            <td>
-                <RadzenNumeric Style="width: 100%; text-align: center; " 
-                    TValue="decimal" @bind-Value=@SqlItemCast.NominalWeight />
-			</td>
-        </tr>
-        <tr>
-            <td>@LocaleCore.Table.LowerWeightThreshold</td>
-            <td>
-                <RadzenNumeric Style="width: 100%; text-align: center; " 
-                    TValue="decimal" @bind-Value=@SqlItemCast.LowerThreshold />
-			</td>
             <td>@LocaleCore.Table.ShelfLifeDays</td>
             <td>
                 <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small 
@@ -100,17 +83,7 @@
                     TValue="short" @bind-Value=@SqlItemCast.ShelfLifeDays />
 			</td>
         </tr>
-        <tr>
-@*
-	        <td>@LocaleCore.Table.PackageWeightKg</td>
-            <td>
-                <RadzenNumeric Style="width: 88%; text-align: center; "
-            TValue="decimal" @bind-Value=@SqlItemCast.WeightTare />
-                <RadzenButton Style="width: 10%; " Size=@ButtonSize.Small 
-                          Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary
-            Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.CalcGoodsWeightTare))) />
-            </td>
-*@
+        @*<tr>
             <td>@LocaleCore.Table.GoodsBoxQuantly</td>
             <td>
                 <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small
@@ -118,15 +91,11 @@
                 <RadzenNumeric Style="width: 88%; text-align: center; " 
                     TValue="int" @bind-Value=@SqlItemCast.BoxQuantly />
             </td>
-		    @*<td>
-			    <RadzenLabel 
-				    Text=@ProductHelper.GetWeightFormula(SqlItemCast) />
-		    </td>*@
 		    <td colspan=2>
 			    <RadzenLabel 
 				    Text=@LocaleCore.Table.BundleFkWeightTareDescription />
 		    </td>
-	    </tr>
+	    </tr>*@
         <tr>
             <td>@LocaleCore.Table.Ean13</td>
             <td >
