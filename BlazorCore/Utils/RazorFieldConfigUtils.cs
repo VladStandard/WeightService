@@ -3,7 +3,7 @@
 
 using BlazorCore.Razors;
 using DataCore.Localizations;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -130,13 +130,13 @@ public static class RazorFieldConfigUtils
 
     public static class BundleFk
 	{
-		public static RazorFieldConfigModel GetBundleCount() => new(nameof(BundleFkModel.BundleCount), TextAlign.Center, LocaleCore.Table.BundleCount);
-		public static RazorFieldConfigModel GetWeightTare() => new(nameof(BundleFkModel.WeightTare), TextAlign.Center, LocaleCore.Table.WeightShort);
+		public static RazorFieldConfigModel GetBundleCount() => new(nameof(NestingFkModel.BundleCount), TextAlign.Center, LocaleCore.Table.BundleCount);
+		public static RazorFieldConfigModel GetWeightTare() => new("0", TextAlign.Center, LocaleCore.Table.WeightShort);
 	}
 
     public static class PluBundleFk
 	{
-		public static RazorFieldConfigModel GetWeightTare() => new(nameof(PluBundleFkModel.WeightTare), TextAlign.Center, LocaleCore.Table.WeightShort);
+		public static RazorFieldConfigModel GetWeightTare() => new("0", TextAlign.Center, LocaleCore.Table.WeightShort);
 	}
 
 	public static class Plu

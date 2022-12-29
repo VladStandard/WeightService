@@ -20,7 +20,7 @@ using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.Xml;
 using System.Globalization;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -47,11 +47,11 @@ public static class SqlTableBaseExt
 			DeviceTypeModel deviceType => GetPropertyDeviceType(propertyName, deviceType),
 			DeviceTypeFkModel deviceTypeFk => GetPropertyDeviceTypeFk(propertyName, deviceTypeFk),
 			DeviceScaleFkModel deviceScaleFk => GetPropertyDeviceScaleFk(propertyName, deviceScaleFk),
-			Xml.LogQuickModel logQuick => GetPropertyLogQuick(propertyName, logQuick),
+			LogQuickModel logQuick => GetPropertyLogQuick(propertyName, logQuick),
 			OrganizationModel organization => GetPropertyOrganization(propertyName, organization),
 			BoxModel box => GetPropertyBox(propertyName, box),
 			BundleModel bundle => GetPropertyBundle(propertyName, bundle),
-			BundleFkModel bundleFk => GetPropertyBundleFk(propertyName, bundleFk),
+			NestingFkModel bundleFk => GetPropertyBundleFk(propertyName, bundleFk),
 			PluBundleFkModel pluBundleFk => GetPropertyPluBundleFk(propertyName, pluBundleFk),
 			PluModel plu => GetPropertyPlu(propertyName, plu),
 			PluScaleModel pluScale => GetPropertyPluScale(propertyName, pluScale),
@@ -213,12 +213,12 @@ public static class SqlTableBaseExt
 		};
 	}
 
-	private static string GetPropertyBundleFk(string propertyName, BundleFkModel bundleFk)
+	private static string GetPropertyBundleFk(string propertyName, NestingFkModel bundleFk)
 	{
 		return propertyName switch
 		{
-			nameof(BundleFkModel.BundleCount) => bundleFk.BundleCount.ToString(CultureInfo.InvariantCulture),
-			nameof(BundleFkModel.WeightTare) => bundleFk.WeightTare.ToString(CultureInfo.InvariantCulture),
+			nameof(NestingFkModel.BundleCount) => bundleFk.BundleCount.ToString(CultureInfo.InvariantCulture),
+			//nameof(BundleFkModel.WeightTare) => bundleFk.WeightTare.ToString(CultureInfo.InvariantCulture),
 			_ => LocaleCore.Table.FieldNotFound
 		};
 	}
@@ -227,8 +227,8 @@ public static class SqlTableBaseExt
 	{
 		return propertyName switch
 		{
-			nameof(PluBundleFkModel.WeightTare) => pluBundleFk.WeightTare.ToString(CultureInfo.InvariantCulture),
-			_ => LocaleCore.Table.FieldNotFound
+			//nameof(PluBundleFkModel.WeightTare) => pluBundleFk.WeightTare.ToString(CultureInfo.InvariantCulture),
+			//_ => LocaleCore.Table.FieldNotFound
 		};
 	}
 

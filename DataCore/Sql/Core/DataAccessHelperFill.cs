@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
@@ -61,9 +61,8 @@ public partial class DataAccessHelper
 			case BarCodeModel barcode:
 				barcode.PluLabel = GetItemNotNullable<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
 				break;
-            case BundleFkModel bundleFk:
-                bundleFk.Bundle = GetItemNotNullable<BundleModel>(bundleFk.Bundle.IdentityValueUid);
-                bundleFk.Box = GetItemNotNullable<BoxModel>(bundleFk.Box.IdentityValueUid);
+            case NestingFkModel nestingFk:
+                nestingFk.Box = GetItemNotNullable<BoxModel>(nestingFk.Box.IdentityValueUid);
                 break;
             case DeviceTypeFkModel deviceTypeFk:
 				deviceTypeFk.Device = GetItemNotNullable<DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
@@ -89,7 +88,7 @@ public partial class DataAccessHelper
                 plu.Nomenclature = GetItemNotNullable<NomenclatureModel>(plu.Nomenclature.IdentityValueId);
 				break;
             case PluBundleFkModel pluBundle:
-                pluBundle.BundleFk = GetItemNotNullable<BundleFkModel>(pluBundle.BundleFk.IdentityValueUid);
+                pluBundle.Bundle = GetItemNotNullable<BundleModel>(pluBundle.Bundle.IdentityValueUid);
                 pluBundle.Plu = GetItemNotNullable<PluModel>(pluBundle.Plu.IdentityValueUid);
                 break;
             case PluLabelModel pluLabel:

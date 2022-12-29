@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -11,27 +11,23 @@ namespace DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 /// Table "PLUS_BUNDLES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluBundleFkModel)} | {nameof(Name)} = {Name} | {nameof(Plu)} = {Plu.Name} | {nameof(IsActive)} = {IsActive} | " +
-                 "{BundleFk.WeightTare} = {BundleFk.Bundle.Weight} * {BundleFk.BundleCount} + {BundleFk.Box.Weight}")]
+[DebuggerDisplay("{nameof(PluBundleFkModel)}")]
 public class PluBundleFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual BundleFkModel BundleFk { get; set; }
+    [XmlElement] public virtual BundleModel Bundle { get; set; }
     [XmlElement] public virtual PluModel Plu { get; set; }
-    [XmlElement] public virtual bool IsActive { get; set; }
-	[XmlIgnore] public virtual decimal WeightTare { get => BundleFk.WeightTare; set => _ = value; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public PluBundleFkModel() : base(SqlFieldIdentityEnum.Uid)
     {
-        BundleFk = new(); 
+        Bundle = new(); 
         Plu = new();
-        IsActive = false;
 
-	}
+    }
 
     /// <summary>
     /// Constructor for serialization.
@@ -40,9 +36,8 @@ public class PluBundleFkModel : SqlTableBase
     /// <param name="context"></param>
     protected PluBundleFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-		IsActive = info.GetBoolean(nameof(IsActive));
         Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
-        BundleFk = (BundleFkModel)info.GetValue(nameof(BundleFk), typeof(BundleFkModel));
+        Bundle = (BundleModel)info.GetValue(nameof(Bundle), typeof(BundleModel));
     }
 
     #endregion
@@ -55,9 +50,8 @@ public class PluBundleFkModel : SqlTableBase
     /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(IsActive)}: {IsActive}. " +
         $"{nameof(Plu)}: {Plu.Name}. " +
-        $"{nameof(WeightTare)}: {WeightTare}. ";
+        $"{nameof(Bundle)}: {Bundle.Name}. ";
 
     public override bool Equals(object obj)
     {
@@ -73,15 +67,13 @@ public class PluBundleFkModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
-        Equals(IsActive, false) &&
-        BundleFk.EqualsDefault() &&
+        Bundle.EqualsDefault() &&
         Plu.EqualsDefault();
 
     public override object Clone()
     {
         PluBundleFkModel item = new();
-        item.IsActive = IsActive;
-        item.BundleFk = BundleFk.CloneCast();
+        item.Bundle = Bundle.CloneCast();
         item.Plu = Plu.CloneCast();
         item.CloneSetup(base.CloneCast());
         return item;
@@ -95,15 +87,14 @@ public class PluBundleFkModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(IsActive), IsActive);
-        info.AddValue(nameof(BundleFk), BundleFk);
+        info.AddValue(nameof(Bundle), Bundle);
         info.AddValue(nameof(Plu), Plu);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
-        BundleFk.FillProperties();
+        Bundle.FillProperties();
         Plu.FillProperties();
     }
 
@@ -113,8 +104,7 @@ public class PluBundleFkModel : SqlTableBase
 
     public virtual bool Equals(PluBundleFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(IsActive, item.IsActive) &&
-        BundleFk.Equals(item.BundleFk) &&
+        Bundle.Equals(item.Bundle) &&
         Plu.Equals(item.Plu);
 
     public new virtual PluBundleFkModel CloneCast() => (PluBundleFkModel)Clone();

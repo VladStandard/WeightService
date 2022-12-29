@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -21,9 +21,9 @@ public class PluBundleFkValidator : SqlTableValidator<PluBundleFkModel>
             .NotEmpty()
             .NotNull()
             .SetValidator(new PluValidator());
-        RuleFor(item => item.BundleFk)
+        RuleFor(item => item.Bundle)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new BundleFkValidator());
+            .SetValidator(new BundleValidator());
     }
 }

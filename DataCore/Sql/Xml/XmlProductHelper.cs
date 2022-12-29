@@ -523,17 +523,17 @@ public class XmlProductHelper
 		return false;
 	}
 
-    public string GetWeightFormula(PluModel plu, PluBundleFkModel pluBundleFk)
-    {
-        XmlProductModel xmlProduct = GetXmlProduct(plu.Nomenclature.Xml);
-		// Вес тары = вес пакета * кол. вложений + вес коробки
-		//return $"{CalcGoodWeightBox(plu.Nomenclature, xmlProduct)} + " +
-		//       $"({CalcGoodWeightPack(plu.Nomenclature, xmlProduct)} * " +
-		//       $"{CalcGoodRateUnit(plu.Nomenclature, xmlProduct)})";
-		return $"{pluBundleFk.WeightTare} + " +
-               $"({CalcGoodWeightPack(plu.Nomenclature, xmlProduct)} * " +
-               $"{CalcGoodRateUnit(plu.Nomenclature, xmlProduct)})";
-    }
+  //  public string GetWeightFormula(PluModel plu, PluBundleFkModel pluBundleFk)
+  //  {
+  //      XmlProductModel xmlProduct = GetXmlProduct(plu.Nomenclature.Xml);
+		//// Вес тары = вес пакета * кол. вложений + вес коробки
+		////return $"{CalcGoodWeightBox(plu.Nomenclature, xmlProduct)} + " +
+		////       $"({CalcGoodWeightPack(plu.Nomenclature, xmlProduct)} * " +
+		////       $"{CalcGoodRateUnit(plu.Nomenclature, xmlProduct)})";
+		//return $"{pluBundleFk.WeightTare} + " +
+  //             $"({CalcGoodWeightPack(plu.Nomenclature, xmlProduct)} * " +
+  //             $"{CalcGoodRateUnit(plu.Nomenclature, xmlProduct)})";
+  //  }
 
     #endregion
 }
