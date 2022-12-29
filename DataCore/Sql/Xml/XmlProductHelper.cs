@@ -418,7 +418,7 @@ public class XmlProductHelper
 		return itf14;
 	}
 
-	public int GetXmlBoxQuantly(NomenclatureModel nomenclature, int boxQuantly)
+	public int GetXmlBundleCount(NomenclatureModel nomenclature, int boxQuantly)
 	{
 		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())

@@ -9,33 +9,27 @@
 
 <RazorSectionReload TItem=@PluScaleModel TItemFilter=@ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusScales />
 
-<RadzenGrid PagerHorizontalAlign=@HorizontalAlign.Justify
-			Style="margin-top: 5px;"
+<RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify
+	Style="margin-top: 5px;"
 	Data=@SqlSectionCast TItem=@PluScaleModel
 	RowClick=@(RowClick) RowRender=@(RowRender)
 	RowDoubleClick=@(_ => SqlItemEditAsync())
-			AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount >
     <Columns>
 		<RazorSectionFieldIsMarked TItem=@PluScaleModel ParentRazor=@(this) />
-@*		<RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluScale>
-			<Template Context="itemCast">
-				<RadzenLink 
-					Text=@itemCast.IdentityValueUid.ToString()
-		Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.IdentityValueUid}") />
-			</Template>
-		</RadzenGridColumn>*@
 		<RadzenGridColumn TItem=@PluScaleModel Width="45%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.Plu.Name
-							Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.IdentityValueUid}") />
+					Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
 	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.NumberShort>
 		    <Template Context="itemCast">
 			    <RadzenLink 
 				    Text=@itemCast.Plu.Number.ToString()
-							Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.IdentityValueUid}") />
+					Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.IdentityValueUid}") />
 		    </Template>
 	    </RadzenGridColumn>
 	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Active>

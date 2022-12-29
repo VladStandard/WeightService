@@ -59,10 +59,9 @@ public partial class DataAccessHelper
     public PluModel GetItemPluNotNullable(PluScaleModel pluScale) =>
         GetItemPluNullable(pluScale) ?? new();
 
-    private PluTemplateFkModel? GetItemPluTemplateFkNullable(PluModel plu)
+    public PluTemplateFkModel? GetItemPluTemplateFkNullable(PluModel plu)
     {
 	    if (plu.IdentityIsNew) return null;
-
 	    SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 		    $"{nameof(PluTemplateFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
 		    false, false);

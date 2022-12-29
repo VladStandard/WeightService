@@ -94,8 +94,8 @@ public class LocaleTable
     public string FilePath => Lang == Lang.English ? "File path" : "Путь к файлу";
     public string FullName => Lang == Lang.English ? "Full name" : "Полное наименование";
     public string Gln => Lang == Lang.English ? "GLN" : "ГЛН";
-    public string GoodsBoxQuantly => Lang == Lang.English ? "Investments in the box" : "Вложений в короб";
-    public string GoodsBoxQuantlyShort => Lang == Lang.English ? "Attach" : "Влож";
+    public string GoodsBundleCount => Lang == Lang.English ? "Attaches" : "Вложений";
+    public string GoodsBundleCountShort => Lang == Lang.English ? "Attach" : "Влож";
     public string GoodsBruttoWeight => Lang == Lang.English ? "Gross weight" : "Вес брутто";
     public string GoodsDescription => Lang == Lang.English ? "Good description" : "Описание товара";
     public string GoodsName => Lang == Lang.English ? "Product" : "Товар";

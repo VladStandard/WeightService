@@ -84,12 +84,12 @@
 			</td>
         </tr>
         @*<tr>
-            <td>@LocaleCore.Table.GoodsBoxQuantly</td>
+            <td>@LocaleCore.Table.GoodsBundleCount</td>
             <td>
                 <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small
-                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlBoxQuantly))) />
+                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlBundleCount))) />
                 <RadzenNumeric Style="width: 88%; text-align: center; " 
-                    TValue="int" @bind-Value=@SqlItemCast.BoxQuantly />
+                    TValue="int" @bind-Value=@SqlItemCast.BundleCount />
             </td>
 		    <td colspan=2>
 			    <RadzenLabel 

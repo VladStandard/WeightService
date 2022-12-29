@@ -84,7 +84,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     SqlItemCast.Ean13 = string.Empty;
                     SqlItemCast.Itf14 = string.Empty;
                     throw new Exception("Under construct!");
-                    //SqlItemCast.BoxQuantly = 0;
+                    //SqlItemCast.BundleCount = 0;
                     break;
                 case nameof(LocaleCore.DeviceControl.TableActionFill):
                     if (string.IsNullOrEmpty(SqlItemCast.Name))
@@ -102,8 +102,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     if (string.IsNullOrEmpty(SqlItemCast.Itf14))
                         SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
                     //throw new Exception("Under construct!");
-                    //if (SqlItemCast.BoxQuantly == 0)
-                    //    SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
+                    //if (SqlItemCast.BundleCount == 0)
+                    //    SqlItemCast.BundleCount = ProductHelper.GetXmlBundleCount(SqlItemCast.Nomenclature, SqlItemCast.BundleCount);
                     break;
                 case nameof(ProductHelper.GetXmlName):
                     SqlItemCast.Name = ProductHelper.GetXmlName(SqlItemCast.Nomenclature, SqlItemCast.Name);
@@ -130,9 +130,9 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                 case nameof(ProductHelper.GetXmlItf14):
                     SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
                     break;
-                case nameof(ProductHelper.GetXmlBoxQuantly):
+                case nameof(ProductHelper.GetXmlBundleCount):
                     throw new Exception("Under construct!");
-                    //SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
+                    //SqlItemCast.BundleCount = ProductHelper.GetXmlBundleCount(SqlItemCast.Nomenclature, SqlItemCast.BundleCount);
                     break;
                 case nameof(ProductHelper.CalcGoodsWeightTare):
                     //SqlItemCast.WeightTare = ProductHelper.CalcGoodsWeightTare(SqlItemCast.Nomenclature);

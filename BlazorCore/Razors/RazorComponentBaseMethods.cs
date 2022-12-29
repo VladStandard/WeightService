@@ -41,6 +41,7 @@ using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
+using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 
 namespace BlazorCore.Razors;
 
@@ -250,6 +251,31 @@ public partial class RazorComponentBase
                                 {
                                     if (deviceTypeFk is not null)
                                         DataAccess.Delete(deviceTypeFk);
+                                }
+                            }
+                        }
+                    }
+                    break;
+				case PluModel plu:
+                    if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+                    {
+                        foreach (SqlTableBase item in SqlLinkedItems)
+                        {
+                            if (item is TemplateModel template)
+                            {
+                                PluTemplateFkModel? pluTemplateFk = DataAccess.GetItemPluTemplateFkNullable(plu);
+                                if (template is not null && template.IdentityIsNotNew)
+                                {
+									if (pluTemplateFk is null)
+										pluTemplateFk = new() { Plu = plu, Template = template };
+									else
+										pluTemplateFk.Template = template;
+                                    SqlItemSave(pluTemplateFk);
+                                }
+                                else
+                                {
+                                    if (pluTemplateFk is not null)
+                                        DataAccess.Delete(pluTemplateFk);
                                 }
                             }
                         }
