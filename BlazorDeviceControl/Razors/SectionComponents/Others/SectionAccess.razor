@@ -13,9 +13,8 @@
 	Style="margin-top: 5px; " 
     Data=@SqlSectionCast TItem=@AccessModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync()) 
-    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-    AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns >
 		<RazorSectionFieldIsMarked TItem=@AccessModel ParentRazor=@(this) />
 		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
