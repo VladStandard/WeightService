@@ -157,7 +157,7 @@ public partial class DataAccessHelper
 			new SqlFieldOrderModel(nameof(PluBundleFkModel.Plu), SqlFieldOrderEnum.Asc),
 			isShowMarked, isShowOnlyTop);
 		result.AddRange(GetListNotNullable<PluBundleFkModel>(sqlCrudConfig));
-		result = result.OrderBy(x => x.BundleFk.Name).ToList();
+		result = result.OrderBy(x => x.Bundle.Name).ToList();
 		result = result.OrderBy(x => x.Plu.Number).ToList();
 		return result;
 	}

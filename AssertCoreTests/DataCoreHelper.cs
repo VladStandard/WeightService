@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
@@ -274,11 +274,10 @@ public class DataCoreHelper
                 bundle.Name = LocaleCore.Sql.SqlItemFieldName;
                 bundle.Weight = 3;
                 break;
-            case BundleFkModel bundleFk:
+            case NestingFkModel bundleFk:
                 bundleFk.Name = LocaleCore.Sql.SqlItemFieldName;
-                bundleFk.Bundle = CreateNewSubstitute<BundleModel>(isNotDefault);
                 bundleFk.Box = CreateNewSubstitute<BoxModel>(isNotDefault);
-                bundleFk.BundleCount = 1;
+                bundleFk.BundleCount = 0;
                 break;
             case ContragentModel contragent:
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
@@ -369,7 +368,7 @@ public class DataCoreHelper
 				break;
 			case PluBundleFkModel pluBundle:
                 pluBundle.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
-                pluBundle.BundleFk = CreateNewSubstitute<BundleFkModel>(isNotDefault);
+                pluBundle.Bundle = CreateNewSubstitute<BundleModel>(isNotDefault);
 				break;
             case PluLabelModel pluLabel:
 				pluLabel.Zpl = LocaleCore.Sql.SqlItemFieldZpl;

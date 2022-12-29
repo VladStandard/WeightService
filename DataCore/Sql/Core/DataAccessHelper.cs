@@ -4,7 +4,7 @@
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using DataCore.Files;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
@@ -187,7 +187,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BoxMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BrandMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BundleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BundleFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NestingFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());

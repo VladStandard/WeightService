@@ -3,9 +3,9 @@
 
 using DataCore.CssStyles;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -72,7 +72,7 @@ public class ValidationUtils
             var cls when cls == typeof(BoxModel) => new BoxValidator(),
             var cls when cls == typeof(BrandModel) => new BrandValidator(),
             var cls when cls == typeof(BundleModel) => new BundleValidator(),
-            var cls when cls == typeof(BundleFkModel) => new BundleFkValidator(),
+            var cls when cls == typeof(NestingFkModel) => new NestingFkValidator(),
             var cls when cls == typeof(ContragentModel) => new ContragentValidator(),
             var cls when cls == typeof(DeviceModel) => new DeviceValidator(),
             var cls when cls == typeof(DeviceScaleFkModel) => new DeviceScaleFkValidator(),
@@ -122,7 +122,7 @@ public class ValidationUtils
             BoxModel box => new BoxValidator().Validate(box),
             BrandModel brand => new BrandValidator().Validate(brand),
             BundleModel bundle => new BundleValidator().Validate(bundle),
-            BundleFkModel bundleFk => new BundleFkValidator().Validate(bundleFk),
+            NestingFkModel bundleFk => new NestingFkValidator().Validate(bundleFk),
             ContragentModel contragent => new ContragentValidator().Validate(contragent),
             LogModel log => new LogValidator().Validate(log),
             LogTypeModel logType => new LogTypeValidator().Validate(logType),

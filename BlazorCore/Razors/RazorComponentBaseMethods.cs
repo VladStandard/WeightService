@@ -37,7 +37,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
@@ -71,7 +71,7 @@ public partial class RazorComponentBase
 			AccessModel => LocaleCore.Strings.ItemAccess,
 			BarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
 			BoxModel => LocaleCore.DeviceControl.ItemBox,
-			BundleFkModel => LocaleCore.DeviceControl.ItemBundleFk,
+			NestingFkModel => LocaleCore.DeviceControl.ItemBundleFk,
 			BundleModel => LocaleCore.DeviceControl.ItemBundle,
 			ContragentModel => LocaleCore.DeviceControl.ItemContragent,
 			DeviceModel => LocaleCore.DeviceControl.ItemDevice,
@@ -112,7 +112,7 @@ public partial class RazorComponentBase
 			AccessModel => LocaleCore.Strings.SectionAccess,
 			BarCodeModel => LocaleCore.DeviceControl.SectionBarCodes,
 			BoxModel => LocaleCore.DeviceControl.SectionBoxes,
-			BundleFkModel => LocaleCore.DeviceControl.SectionBundlesFk,
+            NestingFkModel => LocaleCore.DeviceControl.SectionBundlesFk,
 			BundleModel => LocaleCore.DeviceControl.SectionBundles,
 			ContragentModel => LocaleCore.DeviceControl.SectionContragents,
 			DeviceModel => LocaleCore.DeviceControl.SectionDevices,

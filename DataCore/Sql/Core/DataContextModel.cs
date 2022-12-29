@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
@@ -57,7 +57,7 @@ public partial class DataContextModel
     public List<BoxModel> Boxes { get; set; }
     public List<BrandModel> Brands { get; set; }
 	public List<BundleModel> Bundles { get; set; }
-    public List<BundleFkModel> BundleFks { get; set; }
+    public List<NestingFkModel> NestingFks { get; set; }
     public List<ContragentModel> Contragents { get; set; }
 	public List<DeviceModel> Devices { get; set; }
 	public List<DeviceTypeModel> DeviceTypes { get; set; }
@@ -104,7 +104,7 @@ public partial class DataContextModel
         Boxes = new();
 		Brands = new();
 		Bundles = new();
-        BundleFks = new();
+        NestingFks = new();
         Contragents = new();
 		Devices = new();
 		DeviceTypes = new();
@@ -155,7 +155,7 @@ public partial class DataContextModel
             var cls when cls == typeof(BarCodeModel) => GetListNotNullableBarCodes<T>(sqlCrudConfig),
             var cls when cls == typeof(BoxModel) => GetListNotNullableBoxes<T>(sqlCrudConfig),
             var cls when cls == typeof(BrandModel) => GetListNotNullableBrands<T>(sqlCrudConfig),
-            var cls when cls == typeof(BundleFkModel) => GetListNotNullableBundleFks<T>(sqlCrudConfig),
+            var cls when cls == typeof(NestingFkModel) => GetListNotNullableBundleFks<T>(sqlCrudConfig),
             var cls when cls == typeof(BundleModel) => GetListNotNullableBundles<T>(sqlCrudConfig),
             var cls when cls == typeof(ContragentModel) => GetListNotNullableContragents<T>(sqlCrudConfig),
             var cls when cls == typeof(DeviceModel) => GetListNotNullableDevices<T>(sqlCrudConfig),
@@ -246,13 +246,12 @@ public partial class DataContextModel
 
     private List<T> GetListNotNullableBundleFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
-        BundleFks = DataAccess.GetListNotNullable<BundleFkModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && BundleFks.Count > 1)
-            BundleFks = BundleFks
+        NestingFks = DataAccess.GetListNotNullable<NestingFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && NestingFks.Count > 1)
+            NestingFks = NestingFks
                 .OrderBy(item => item.Box.Name).ToList()
-                .OrderBy(item => item.Bundle.Name).ToList()
                 .OrderBy(item => item.Name).ToList();
-        return BundleFks.Cast<T>().ToList();
+        return NestingFks.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullableContragents<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
@@ -410,18 +409,13 @@ public partial class DataContextModel
             PluBundleFkModel bundleFk = PluBundleFks.First();
             if (bundleFk.Plu.IdentityIsNew)
                 bundleFk.Plu = DataAccess.GetItemNewEmpty<PluModel>();
-            if (bundleFk.BundleFk.IdentityIsNew)
-                bundleFk.BundleFk = DataAccess.GetItemNewEmpty<BundleFkModel>();
-            if (bundleFk.BundleFk.Bundle.IdentityIsNew)
-                bundleFk.BundleFk.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();
-            if (bundleFk.BundleFk.Box.IdentityIsNew)
-                bundleFk.BundleFk.Box = DataAccess.GetItemNewEmpty<BoxModel>();
+            if (bundleFk.Bundle.IdentityIsNew)
+                bundleFk.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();
         }
+
         if (sqlCrudConfig.IsResultOrder && PluBundleFks.Count > 1)
             PluBundleFks = PluBundleFks
-                .OrderBy(item => item.BundleFk.Box.Name).ToList()
-                .OrderBy(item => item.BundleFk.Bundle.Name).ToList()
-                .OrderBy(item => item.BundleFk.Name).ToList();
+                .OrderBy(item => item.Bundle.Name).ToList();
         return PluBundleFks.Cast<T>().ToList();
     }
 
@@ -578,7 +572,7 @@ public partial class DataContextModel
 		new BarCodeModel(),
 		new BoxModel(),
 		new BrandModel(),
-		new BundleFkModel(),
+		new NestingFkModel(),
 		new BundleModel(),
 		new ContragentModel(),
 		new DeviceModel(),
@@ -625,7 +619,7 @@ public partial class DataContextModel
 	{
 		typeof(BoxModel),
 		typeof(BrandModel),
-		typeof(BundleFkModel),
+		typeof(NestingFkModel),
 		typeof(ContragentModel),
 		typeof(NomenclaturesCharacteristicsFkModel),
 		typeof(OrderModel),
@@ -674,7 +668,7 @@ public partial class DataContextModel
             var cls when cls == typeof(BoxModel) => nameof(BoxModel),
             var cls when cls == typeof(BrandModel) => nameof(BrandModel),
 			var cls when cls == typeof(BundleModel) => nameof(BundleModel),
-            var cls when cls == typeof(BundleFkModel) => nameof(BundleFkModel),
+            var cls when cls == typeof(NestingFkModel) => nameof(NestingFkModel),
             var cls when cls == typeof(ContragentModel) => nameof(ContragentModel),
             var cls when cls == typeof(NomenclaturesCharacteristicsFkModel) => nameof(NomenclaturesCharacteristicsFkModel),
             var cls when cls == typeof(OrderModel) => nameof(OrderModel),

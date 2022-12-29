@@ -3,34 +3,34 @@
 
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.Boxes;
-using DataCore.Sql.TableScaleModels.Bundles;
 
 
-namespace DataCore.Sql.TableScaleFkModels.BundlesFks;
+namespace DataCore.Sql.TableScaleFkModels.NestingFks;
 
 /// <summary>
 /// Table "BUNDLES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(BundleFkModel)} | " +
-                 "{nameof(Bundle)} = {Bundle.Name} | " +
-                 "{nameof(WeightTare)} = {Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}")]
-public class BundleFkModel : SqlTableBase
+[DebuggerDisplay("{nameof(NestingFkModel)}")]
+public class NestingFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual short BundleCount { get; set; }
-    [XmlElement] public virtual BundleModel Bundle { get; set; }
+    [XmlElement] public virtual decimal WeightMax { get; set; }
+    [XmlElement] public virtual decimal WeightMin { get; set; }
+    [XmlElement] public virtual decimal WeightNom { get; set; }
     [XmlElement] public virtual BoxModel Box { get; set; }
-    [XmlIgnore] public virtual decimal WeightTare { get => Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
 
-	/// <summary>
+    /// <summary>
 	/// Constructor.
 	/// </summary>
-	public BundleFkModel() : base(SqlFieldIdentityEnum.Uid)
+	public NestingFkModel() : base(SqlFieldIdentityEnum.Uid)
     {
         BundleCount = 0;
-        Bundle = new();
+        WeightMax = 0;
+        WeightMin = 0;
+        WeightNom = 0;
         Box = new();
     }
 
@@ -39,11 +39,13 @@ public class BundleFkModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected BundleFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected NestingFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         BundleCount = info.GetInt16(nameof(BundleCount));
-        Bundle = (BundleModel)info.GetValue(nameof(Bundle), typeof(BundleModel));
         Box = (BoxModel)info.GetValue(nameof(Box), typeof(BoxModel));
+        WeightMax = info.GetDecimal(nameof(WeightMax));
+        WeightMin = info.GetDecimal(nameof(WeightMin));
+        WeightNom = info.GetDecimal(nameof(WeightNom));
     }
 
     #endregion
@@ -56,15 +58,15 @@ public class BundleFkModel : SqlTableBase
     /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(Name)}: {Name}. " +
-        $"{nameof(WeightTare)}: {WeightTare}. ";
+        $"{nameof(Name)}: {Name}. ";
+
 
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((BundleFkModel)obj);
+        return Equals((NestingFkModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -73,15 +75,20 @@ public class BundleFkModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
-        Bundle.EqualsDefault() &&
+        Equals(WeightMax, default(decimal)) &&
+        Equals(WeightMin, default(decimal)) &&
+        Equals(WeightNom, default(decimal)) &&
+        Equals(BundleCount, default(short)) &&
         Box.EqualsDefault();
         
     public override object Clone()
     {
-        BundleFkModel item = new();
-        item.Bundle = Bundle.CloneCast();
+        NestingFkModel item = new();
         item.Box = Box.CloneCast();
         item.BundleCount = BundleCount;
+        item.WeightMax = WeightMax;
+        item.WeightMin = WeightMin; 
+        item.WeightNom = WeightNom;
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -95,29 +102,32 @@ public class BundleFkModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(BundleCount), BundleCount);
-        info.AddValue(nameof(Bundle), Bundle);
         info.AddValue(nameof(Box), Box);
+        info.AddValue(nameof(WeightMax), WeightMax);
+        info.AddValue(nameof(WeightMin), WeightMin);
+        info.AddValue(nameof(WeightNom), WeightNom);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
-        Bundle.FillProperties();
         Box.FillProperties();
-        BundleCount = 1;
+        BundleCount = 0;
     }
 
     #endregion
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(BundleFkModel item) =>
+    public virtual bool Equals(NestingFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Bundle.Equals(item.Bundle) &&
-        Box.Equals(item.Box) && 
+        Box.Equals(item.Box) &&
+        Equals(WeightMax, item.WeightMax) &&
+        Equals(WeightMin, item.WeightMin) &&
+        Equals(WeightNom, item.WeightNom) &&
         Equals(BundleCount, item.BundleCount);
 
-    public new virtual BundleFkModel CloneCast() => (BundleFkModel)Clone();
+    public new virtual NestingFkModel CloneCast() => (NestingFkModel)Clone();
 
     #endregion
 }
