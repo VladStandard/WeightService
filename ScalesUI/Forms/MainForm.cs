@@ -625,10 +625,10 @@ public partial class MainForm : Form
                     ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
                     UserSession.Scale.Description + Environment.NewLine + area);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonBundleFk, UserSession.PluBundleFk.IdentityIsNew
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonBundleFk, UserSession.PluNestingFk.IdentityIsNew
                     ? LocaleCore.Table.FieldPackageIsNotSelected
-                    : UserSession.PluBundleFk.BundleFk.Name + Environment.NewLine +
-                      $"{LocaleCore.Table.BundleFkWeightTareKg}: {UserSession.PluBundleFk.WeightTare}");
+                    : UserSession.PluNestingFk.BundleFk.Name + Environment.NewLine +
+                      $"{LocaleCore.Table.BundleFkWeightTareKg}: {UserSession.PluNestingFk.WeightTare}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -701,7 +701,7 @@ public partial class MainForm : Form
                 {
                     case DialogResult.OK:
                         if (wpfPageLoader.PagePluBundleFk is not null)
-                            UserSession.SetBundleFk(wpfPageLoader.PagePluBundleFk.UserSession.PluBundleFk.IdentityValueUid);
+                            UserSession.SetBundleFk(wpfPageLoader.PagePluBundleFk.UserSession.PluNestingFk.IdentityValueUid);
                         break;
                     case DialogResult.Cancel:
                         if (wpfPageLoader.PagePluBundleFk is not null)
