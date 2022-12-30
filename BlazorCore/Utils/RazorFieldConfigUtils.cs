@@ -25,6 +25,7 @@ using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using Radzen;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 
 namespace BlazorCore.Utils;
 
@@ -147,12 +148,9 @@ public static class RazorFieldConfigUtils
 
     public static class PluNestingFk
 	{
-        // Under construct!
-        public static RazorFieldConfigModel GetBundleCount() => new(
-            $"NestingFk.BundleCount", TextAlign.Center, LocaleCore.Table.GoodsBundleCountShort);
-        //     public static RazorFieldConfigModel GetBundleCount() => new(
-        //$"{nameof(PluNestingFkModel.NestingFk)}.nameof(PluNestingFkModel.NestingFk.BundleCount)", TextAlign.Center, LocaleCore.Table.GoodsBundleCountShort);
-    }
+		public static RazorFieldConfigModel GetBundleCount() => new(
+			$"{nameof(PluNestingFkModel.Nesting)}.{nameof(NestingFkModel.BundleCount)}", TextAlign.Center, LocaleCore.Table.GoodsBundleCountShort);
+	}
 
     public static class PluScale
 	{
