@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.Scales;
 using System.Windows;
@@ -76,9 +77,9 @@ public class XamlPageBase : UserControl
     protected void SetPluBundleFks(ComboBox comboBox)
     {
         int i = 0;
-        foreach (PluBundleFkModel pluBundleFk in UserSession.PluBundlesFks)
+        foreach (PluNestingFkModel pluNestingFk in UserSession.PluNestingFks)
         {
-            if (Equals(UserSession.PluBundleFk.IdentityValueUid, pluBundleFk.BundleFk.IdentityValueUid))
+            if (Equals(UserSession.PluNestingFk.IdentityValueUid, pluNestingFk.IdentityValueUid))
             {
                 comboBox.SelectedIndex = i;
                 break;

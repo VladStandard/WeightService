@@ -64,7 +64,7 @@
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
             <Label 
 	            Margin="2" Grid.Column="1" Grid.Row="2" 
-	            Content="{Binding Path=PluBundleFk.WeightTare, 
+	            Content="{Binding Path=PluNestingFk.WeightTare, 
 					Mode=OneWay, IsAsync=True}" 
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
 
