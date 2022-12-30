@@ -1,22 +1,21 @@
-﻿@inherits RazorComponentItemBase<BundleFkModel>
+﻿@inherits RazorComponentItemBase<NestingFkModel>
 @page "/item/bundle_fk"
 @page "/item/bundle_fk/new"
 @page "/item/bundle_fk/{IdentityUidStr}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
-@using DataCore.Sql.TableScaleFkModels.BundlesFks
+@using DataCore.Sql.TableScaleFkModels.NestingFks
 @using DataCore.Sql.TableScaleModels.Boxes
-@using DataCore.Sql.TableScaleModels.Bundles
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=@BundleFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBundleFk />
+<RazorItemReload TItem=@NestingFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBundleFk />
 
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=@BundleFkModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <RazorItemTableHead TItem=@NestingFkModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
     <tbody>
-        <RazorItemTableBody TItem=@BundleFkModel ParentRazor=@(this) />
+        <RazorItemTableBody TItem=@NestingFkModel ParentRazor=@(this) />
         <tr>
             <td>@LocaleCore.Table.Name</td>
             <td colspan=3>
@@ -24,24 +23,9 @@
             </td>
         </tr>
         <tr>
+	        <td>@LocaleCore.Table.BundleCount</td>
             <td>
-                <RadzenLink 
-                    Style="width: 100%; margin-left: 0;"
-                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBundle, SqlItemCast.Bundle, SqlItemCast.Bundle.IdentityValueUid)
-                    Text=@LocaleCore.Table.Bundle />
-            </td>
-            <td>
-                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                @bind-Value=@SqlItemCast.Bundle>
-                    @foreach (BundleModel item in DataContext.Bundles)
-                    {
-                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-                    }
-                </MudSelect>
-            </td>
-            <td>@LocaleCore.Table.BundleCount</td>
-            <td>
-                <RadzenTemplateForm TItem=@BundleFkModel Data=@SqlItemCast>
+                <RadzenTemplateForm TItem=@NestingFkModel Data=@SqlItemCast>
                     <RadzenNumeric 
                         Style="width: 100%; text-align: center; display: block;" Disabled=false
                         Name="fieldBundleCount"
@@ -69,18 +53,7 @@
                 </MudSelect>
             </td>
         </tr>
-        <tr>
-            <td>@LocaleCore.Table.BundleFkWeightTareKg</td>
-            <td colspan=2>@LocaleCore.Table.BundleFkWeightTareDescription</td>
-            <td>
-                <RadzenNumeric 
-                    Style="width: 100%; text-align: center; background-color: lightgray;"
-                   ReadOnly=true Disabled=true
-                   TValue="decimal" @bind-Value=@SqlItemCast.WeightTare />
-            </td>
-        </tr>
     </tbody>
 </MudSimpleTable>
-
-<RazorItemActions TItem=@BundleFkModel ParentRazor=@(this) />
-<RazorItemDates TItem=@BundleFkModel ParentRazor=@(this) />
+<RazorItemActions TItem=@NestingFkModel ParentRazor=@(this) />
+<RazorItemDates TItem=@NestingFkModel ParentRazor=@(this) />

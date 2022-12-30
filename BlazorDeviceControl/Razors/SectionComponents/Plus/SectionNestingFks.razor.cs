@@ -2,15 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
-public partial class SectionBundlesFks : RazorComponentSectionBase<BundleFkModel, SqlTableBase>
+public partial class SectionNestingFks : RazorComponentSectionBase<NestingFkModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 
-    public SectionBundlesFks()
+    public SectionNestingFks()
     {
         SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
@@ -26,7 +26,7 @@ public partial class SectionBundlesFks : RazorComponentSectionBase<BundleFkModel
         {
             () =>
             {
-                SqlSectionCast = DataContext.GetListNotNullable<BundleFkModel>(SqlCrudConfigSection);
+                SqlSectionCast = DataContext.GetListNotNullable<NestingFkModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

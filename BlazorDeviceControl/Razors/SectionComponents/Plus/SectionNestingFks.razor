@@ -1,0 +1,29 @@
+﻿@inherits RazorComponentSectionBase<NestingFkModel, SqlTableBase>
+@page "/section/bundles_fks"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleFkModels.NestingFks
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorSectionReload TItem=@NestingFkModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBundlesFk />
+
+<RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify 
+	Style="margin-top: 5px; " 
+	Data=@SqlSectionCast TItem=@NestingFkModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    <Columns >
+        <RazorSectionFieldIsMarked TItem=@NestingFkModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@NestingFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("55%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
+        <RazorSectionField TItem=@NestingFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+                           RazorFieldConfig=@RazorFieldConfigUtils.BundleFk.GetBoxName() />
+        <RazorSectionField TItem=@NestingFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+                           RazorFieldConfig=@RazorFieldConfigUtils.BundleFk.GetBundleCount() />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=@NestingFkModel ParentRazor=@(this) />

@@ -131,6 +131,7 @@
     <Watch Remove="Razors\SectionComponents\Others\SectionOrganizations.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionPackagesPlus.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionScalesScreenShots.razor" />
+    <Watch Remove="Razors\SectionComponents\Plus\SectionNestingFks.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPlusBundlesFks.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPlusLabels.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeighings.razor" />

@@ -2,13 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleModels.Boxes;
-using DataCore.Sql.TableScaleModels.Bundles;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
-public partial class ItemBundleFk : RazorComponentItemBase<BundleFkModel>
+public partial class ItemBundleFk : RazorComponentItemBase<NestingFkModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -30,21 +29,12 @@ public partial class ItemBundleFk : RazorComponentItemBase<BundleFkModel>
     protected override void OnParametersSet()
     {
         RunActionsParametersSetJustOne(
-            () =>
+            () => 
             {
-                DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigList);
                 DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigList);
-
-                SqlItemCast = DataContext.GetItemNotNullable<BundleFkModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
-                {
-                    SqlItemCast = SqlItemNew<BundleFkModel>();
-                    if (DataContext.Boxes.Any())
-                        SqlItemCast.Box = DataContext.Boxes.First();
-                    if (DataContext.Bundles.Any())
-                        SqlItemCast.Bundle = DataContext.Bundles.First();
-                }
-
+                SqlItemCast = DataAccess.GetItemNotNullable<NestingFkModel>(IdentityUid);
+                    if (SqlItemCast.IdentityIsNew)
+                        SqlItem = SqlItemNew<NestingFkModel>();
                 ButtonSettings = new(false, false, false, false, false, true, true);
             }
         );

@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
+//using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
@@ -28,7 +28,7 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
 			{
 				DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigList);
 				DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigList);
-				DataContext.GetListNotNullable<BundleFkModel>(SqlCrudConfigList);
+				//DataContext.GetListNotNullable<BundleFkModel>(SqlCrudConfigList);
 				DataContext.GetListNotNullable<PluModel>(SqlCrudConfigList);
 
 				SqlItemCast = DataContext.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
@@ -37,8 +37,8 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
 					SqlItem = SqlItemNew<PluBundleFkModel>();
 					if (DataContext.Plus.Any())
 						SqlItemCast.Plu = DataContext.Plus.First();
-					if (DataContext.BundleFks.Any())
-						SqlItemCast.BundleFk = DataContext.BundleFks.First();
+					//if (DataContext.BundleFks.Any())
+					//	SqlItemCast.BundleFk = DataContext.BundleFks.First();
 				}
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

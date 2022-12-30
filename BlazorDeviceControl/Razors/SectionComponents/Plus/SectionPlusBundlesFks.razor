@@ -17,12 +17,7 @@
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
 		<RazorSectionFieldIsMarked TItem=PluBundleFkModel ParentRazor=@(this) />
-		<RadzenGridColumn TItem=PluBundleFkModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Active>
-			<Template Context="itemCast">
-				<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@itemCast.IsActive/>
-			</Template>
-		</RadzenGridColumn>
-	    <RadzenGridColumn TItem=PluBundleFkModel Width="7%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Weighted>
+		<RadzenGridColumn TItem=PluBundleFkModel Width="7%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Weighted>
 		    <Template Context="itemCast">
 			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.Plu.IsCheckWeight/>
 		    </Template>
@@ -51,18 +46,18 @@
 		<RadzenGridColumn TItem=PluBundleFkModel Width="15%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.BundleFk>
 			<Template Context="itemCast">
 				<RadzenLink 
-					Text=@itemCast.BundleFk.Name
+					Text=@itemCast.Bundle.Name
 	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
-		<RadzenGridColumn TItem=PluBundleFkModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.BundleFkWeightTare>
+		@*<RadzenGridColumn TItem=PluBundleFkModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.BundleFkWeightTare>
 		    <Template Context="itemCast">
                 <RadzenLink
                     TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center 
 				    Text=@itemCast.WeightTare.ToString(CultureInfo.InvariantCulture)
                     Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
 		    </Template>
-	    </RadzenGridColumn>
+	    </RadzenGridColumn>*@
     </Columns>
 </RadzenGrid>
 

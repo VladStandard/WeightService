@@ -131,9 +131,9 @@ public static class RazorFieldConfigUtils
 
     public static class BundleFk
 	{
-		public static RazorFieldConfigModel GetBundleCount() => new(nameof(NestingFkModel.BundleCount), TextAlign.Center, LocaleCore.Table.BundleCount);
-		public static RazorFieldConfigModel GetWeightTare() => new("0", TextAlign.Center, LocaleCore.Table.WeightShort);
-	}
+        public static RazorFieldConfigModel GetBoxName() => new(nameof(NestingFkModel.Box.Name), TextAlign.Center, LocaleCore.Table.BundleCount);
+        public static RazorFieldConfigModel GetBundleCount() => new(nameof(NestingFkModel.BundleCount), TextAlign.Center, LocaleCore.Table.BundleCount);
+    }
 
     public static class PluBundleFk
 	{
