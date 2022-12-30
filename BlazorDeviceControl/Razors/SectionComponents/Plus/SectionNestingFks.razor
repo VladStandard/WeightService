@@ -1,12 +1,12 @@
 ﻿@inherits RazorComponentSectionBase<NestingFkModel, SqlTableBase>
-@page "/section/bundles_fks"
+@page "/section/nesting"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleFkModels.NestingFks
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@NestingFkModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBundlesFk />
+<RazorSectionReload TItem=@NestingFkModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNestingFk />
 
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 

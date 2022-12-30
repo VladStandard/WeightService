@@ -61,6 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - #WS-T-687 Добавить классы для ПЛУ и ПАКЕТЫ
 - #WS-T-688 БД. Исправить таблицу ПЛУ
 - #WS-T-689 Исправить классы ПЛУ
+- #WS-T-690 Управление устройствами. Исправления под вложенности
 - #ZPL Added ZPL folder
 
 ## [0.7.635] - 2022-12-16

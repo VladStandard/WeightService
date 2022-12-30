@@ -32,7 +32,6 @@ public partial class LocaleDeviceControl
     public string ItemBox => Lang == Lang.English ? "Box" : "Коробка";
     public string ItemBundle => Lang == Lang.English ? "Bundle" : "Пакет";
     public string ItemBundleFk => Lang == Lang.English ? "Bundle" : "Упаковка";
-    public string ItemPluBundleFk => Lang == Lang.English ? "PLU's bundle" : "Вложенность ПЛУ";
     public string ItemContragent => Lang == Lang.English ? "Counterparty" : "Контрагент";
     public string ItemDevice => Lang == Lang.English ? "Device" : "Устройство";
     public string ItemDeviceScaleFk => Lang == Lang.English ? "Device with scale" : "Устройство с постом";
@@ -54,6 +53,7 @@ public partial class LocaleDeviceControl
     public string ItemOrderWeighing => Lang == Lang.English ? "Order weighing" : "Взвешивание заказа";
     public string ItemOrganization => Lang == Lang.English ? "Organization" : "Организация";
     public string ItemPlu => Lang == Lang.English ? "PLU" : "ПЛУ";
+    public string ItemPluBundleFk => Lang == Lang.English ? "PLU's bundle" : "Вложенность ПЛУ";
     public string ItemPluScale => Lang == Lang.English ? "Device PLU" : "ПЛУ устройства";
     public string ItemPluWeighing => Lang == Lang.English ? "Plu weighings" : "Взвешивание ПЛУ";
     public string ItemProductionFacilities => Lang == Lang.English ? "Prod. facilities" : "Производственные площадки";
@@ -82,7 +82,6 @@ public partial class LocaleDeviceControl
     public string SectionBoxes => Lang == Lang.English ? "Boxes" : "Коробки";
     public string SectionBrands => Lang == Lang.English ? "Brands" : "Бренды";
     public string SectionBundles => Lang == Lang.English ? "Bundles" : "Пакеты";
-    public string SectionBundlesFk => Lang == Lang.English ? "PLUs & bundles" : "ПЛУ и упаковки";
     public string SectionContragents => Lang == Lang.English ? "Counterparties" : "Контрагенты";
     public string SectionDevices => Lang == Lang.English ? "Devices" : "Устройства";
     public string SectionDevicesScalesFk => Lang == Lang.English ? "Devices with scales" : "Устройства с постами";
@@ -98,6 +97,8 @@ public partial class LocaleDeviceControl
     public string SectionLogs => Lang == Lang.English ? "Logs" : "Логи";
     public string SectionMeasurements => Lang == Lang.English ? "Measurements" : "Измерения";
     public string SectionModules => Lang == Lang.English ? "Modules" : "Модули";
+    public string SectionNestingFk => Lang == Lang.English ? "Nesting" : "Вложенность";
+    public string SectionPluNestingFk => Lang == Lang.English ? "PLU's nesting" : "Вложенность ПЛУ";
     public string SectionNomenclatures => Lang == Lang.English ? "Nomenclatures" : "Номенклатуры";
     public string SectionNomenclaturesGroups => Lang == Lang.English ? "Nomenclatures groups" : "Номенклатурные группы";
     public string SectionNomenclatureUnits => Lang == Lang.English ? "Packages" : "Упаковки";
@@ -109,7 +110,7 @@ public partial class LocaleDeviceControl
     public string SectionOrderTypes => Lang == Lang.English ? "Order types" : "Типы заказов";
     public string SectionOrganizations => Lang == Lang.English ? "Organizations" : "Организации";
     public string SectionPlus => Lang == Lang.English ? "PLUs" : "ПЛУ";
-    public string SectionPlusBundlesFk => Lang == Lang.English ? "PLU & bundles" : "ПЛУ и вложенности";
+    public string SectionPlusBundlesFk => Lang == Lang.English ? "PLU & bundles" : "Пакеты ПЛУ";
     public string SectionPlusScales => Lang == Lang.English ? "PLU & devices" : "ПЛУ и устройства";
     public string SectionPlusWeighings => Lang == Lang.English ? "Plus weighings" : "Взвешивания ПЛУ";
     public string SectionProductionFacilities => Lang == Lang.English ? "Production facilities" : "Производственные площадки";

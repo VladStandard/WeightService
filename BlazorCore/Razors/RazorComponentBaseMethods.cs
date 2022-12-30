@@ -42,6 +42,7 @@ using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 
 namespace BlazorCore.Razors;
 
@@ -109,10 +110,14 @@ public partial class RazorComponentBase
 		string result = string.Empty;
 		result = item switch
 		{
+            NestingFkModel => LocaleCore.DeviceControl.SectionNestingFk,
+            NomenclatureGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
+            OrderModel => LocaleCore.DeviceControl.SectionOrders,
+            ScaleScreenShotModel => LocaleCore.DeviceControl.SectionScreenShots,
+            TemplateModel => LocaleCore.DeviceControl.SectionTemplates,
 			AccessModel => LocaleCore.Strings.SectionAccess,
 			BarCodeModel => LocaleCore.DeviceControl.SectionBarCodes,
 			BoxModel => LocaleCore.DeviceControl.SectionBoxes,
-            NestingFkModel => LocaleCore.DeviceControl.SectionBundlesFk,
 			BundleModel => LocaleCore.DeviceControl.SectionBundles,
 			ContragentModel => LocaleCore.DeviceControl.SectionContragents,
 			DeviceModel => LocaleCore.DeviceControl.SectionDevices,
@@ -121,13 +126,12 @@ public partial class RazorComponentBase
 			DeviceTypeModel => LocaleCore.DeviceControl.SectionDevicesTypes,
 			LogModel => LocaleCore.Strings.SectionLog,
 			NomenclatureModel => LocaleCore.DeviceControl.SectionNomenclatures,
-            NomenclatureGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
-            OrderModel => LocaleCore.DeviceControl.SectionOrders,
 			OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
 			OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
 			PluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,
 			PluLabelModel => LocaleCore.DeviceControl.SectionLabels,
 			PluModel => LocaleCore.DeviceControl.SectionPlus,
+			PluNestingFkModel => LocaleCore.DeviceControl.SectionPluNestingFk,
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
 			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeighings,
 			PrinterModel => LocaleCore.Print.Name,
@@ -136,8 +140,6 @@ public partial class RazorComponentBase
 			ProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
 			ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
 			ScaleModel => LocaleCore.DeviceControl.SectionScales,
-            ScaleScreenShotModel => LocaleCore.DeviceControl.SectionScreenShots,
-            TemplateModel => LocaleCore.DeviceControl.SectionTemplates,
 			TemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
 			WorkShopModel => LocaleCore.DeviceControl.SectionWorkShops,
 			_ => result

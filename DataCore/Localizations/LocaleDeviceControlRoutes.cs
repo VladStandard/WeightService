@@ -52,7 +52,6 @@ public partial class LocaleDeviceControl
     public string RouteSectionBoxes => "/section/boxes";
     public string RouteSectionBrands => "/section/brands";
     public string RouteSectionBundles => "/section/bundles";
-    public string RouteSectionBundlesFks => "/section/bundles_fks";
     public string RouteSectionContragents => "/section/contragents";
     public string RouteSectionDevicesScalesFk => "/section/devices_scales_fks";
     public string RouteSectionLogs => "/section/logs";
@@ -63,16 +62,16 @@ public partial class LocaleDeviceControl
     public string RouteSectionLogsStops => "/section/logs_stops";
     public string RouteSectionLogsWarnings => "/section/logs_warnings";
     public string RouteSectionLogTypes => "/section/logtypes";
-    public string RouteSectionNestingFk => "/section/nesting_fks";
+    public string RouteSectionNestingFk => "/section/nesting";
     public string RouteSectionNomenclatures => "/section/nomenclatures";
     public string RouteSectionNomenclaturesGroups => "/section/nomenclatures_groups";
     public string RouteSectionOrders => "/section/orders";
     public string RouteSectionOrdersWeighings => "/section/ordersweighings";
     public string RouteSectionOrganizations => "/section/organizations";
     public string RouteSectionPluLabels => "/section/plus_labels";
-    public string RouteSectionPluNestingFk => "/section/plu_nesting_fks";
+    public string RouteSectionPluNestingFk => "/section/plu_nesting";
     public string RouteSectionPlus => "/section/plus";
-    public string RouteSectionPlusBundlesFks => "/section/plus_bundles_fks";
+    public string RouteSectionPlusBundlesFks => "/section/plus_bundles";
     public string RouteSectionPlusScales => "/section/plus_scales";
     public string RouteSectionPlusWeighings => "/section/plu_weighings";
     public string RouteSectionPlusWeighingsAggregation => "/section/plus_weighings_aggr";
