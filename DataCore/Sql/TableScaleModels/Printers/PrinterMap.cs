@@ -14,7 +14,7 @@ public class PrinterMap : ClassMap<PrinterModel>
     public PrinterMap()
     {
         Schema("db_scales");
-        Table("ZebraPrinter");
+        Table(SqlTableNamesUtils.Printers);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();

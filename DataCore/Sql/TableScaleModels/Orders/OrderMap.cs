@@ -16,7 +16,7 @@ public class OrderMap : ClassMap<OrderModel>
     public OrderMap()
     {
         Schema("db_scales");
-        Table("ORDERS");
+        Table(SqlTableNamesUtils.Orders);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

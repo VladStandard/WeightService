@@ -14,7 +14,7 @@ public class PluScaleMap : ClassMap<PluScaleModel>
     public PluScaleMap()
     {
         Schema("db_scales");
-        Table("PLUS_SCALES");
+        Table(SqlTableNamesUtils.PlusScales);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

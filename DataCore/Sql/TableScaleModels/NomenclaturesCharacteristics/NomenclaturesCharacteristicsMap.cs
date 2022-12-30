@@ -14,7 +14,7 @@ public class NomenclaturesCharacteristicsMap : ClassMap<NomenclaturesCharacteris
     public NomenclaturesCharacteristicsMap()
     {
         Schema("db_scales");
-        Table("NOMENCLATURES_CHARACTERISTICS");
+        Table(SqlTableNamesUtils.NomenclaturesCharacteristics);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

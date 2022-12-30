@@ -14,7 +14,7 @@ public class PluLabelMap : ClassMap<PluLabelModel>
     public PluLabelMap()
     {
         Schema("db_scales");
-        Table("PLUS_LABELS");
+        Table(SqlTableNamesUtils.PlusLabels);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

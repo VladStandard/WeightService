@@ -14,7 +14,7 @@ public class TemplateMap : ClassMap<TemplateModel>
     public TemplateMap()
     {
         Schema("db_scales");
-        Table("Templates");
+        Table(SqlTableNamesUtils.Templates);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
@@ -24,6 +24,5 @@ public class TemplateMap : ClassMap<TemplateModel>
         Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Nullable();
         Map(x => x.Title).CustomSqlType("NVARCHAR").Column("Title").Length(250).Nullable();
         Map(x => x.ImageDataValue).CustomSqlType("VARBINARY(MAX)").Column("ImageData").Nullable().Length(int.MaxValue);
-        //Map(x => x.ImageDataValueUnicode).CustomSqlType("VARBINARY(MAX)").Column("ImageData").Nullable();
     }
 }

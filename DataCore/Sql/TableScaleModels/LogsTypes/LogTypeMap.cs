@@ -14,7 +14,7 @@ public class LogTypeMap : ClassMap<LogTypeModel>
     public LogTypeMap()
     {
         Schema("db_scales");
-        Table("LOG_TYPES");
+        Table(SqlTableNamesUtils.LogsTypes);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
