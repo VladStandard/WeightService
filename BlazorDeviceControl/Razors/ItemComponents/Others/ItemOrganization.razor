@@ -10,7 +10,7 @@
 
 <RazorItemReload TItem=OrganizationModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemContragent />
 
-<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+<MudSimpleTable Style="overflow-x: auto; margin-top: 5px;" Dense=true Bordered=true FixedHeader=false>
     <RazorItemTableHead TItem=OrganizationModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
     <tbody>
 		<RazorItemTableBody TItem=OrganizationModel ParentRazor=@(this) />
@@ -29,12 +29,13 @@
         <tr>
             <td>@LocaleCore.Table.Gln</td>
             <td colspan=3>
-                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
-					ReadOnly=true TValue="int" @bind-Value=@SqlItemCast.Gln />
+                <RadzenNumeric Style="width: 100%; text-align: center; " 
+					TValue="int" @bind-Value=@SqlItemCast.Gln />
 			</td>
         </tr>
     </tbody>
 </MudSimpleTable>
 
 <RazorItemActions TItem=OrganizationModel ParentRazor=@(this) />
+
 <RazorItemDates TItem=OrganizationModel ParentRazor=@(this) />
