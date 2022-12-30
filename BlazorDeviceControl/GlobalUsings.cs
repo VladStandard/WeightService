@@ -11,7 +11,6 @@ global using DataCore.Protocols;
 global using DataCore.Sql.Core;
 global using DataCore.Sql.Models;
 global using DataCore.Sql.Tables;
-global using DataCore.Sql.TableScaleModels;
 global using DataCore.Utils;
 global using Microsoft.AspNetCore.Components.Forms;
 global using Microsoft.AspNetCore.Components;

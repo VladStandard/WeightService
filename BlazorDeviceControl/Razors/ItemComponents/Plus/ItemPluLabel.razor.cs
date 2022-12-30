@@ -24,7 +24,7 @@ public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
             {
                 SqlItemCast = DataAccess.GetItemNotNullable<PluLabelModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-	                SqlItem = SqlItemNew<PluLabelModel>();
+                    SqlItemCast = SqlItemNew<PluLabelModel>();
 
 				ButtonSettings = new(false, false, false, false, false, false, true);
             }

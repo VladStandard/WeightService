@@ -78,8 +78,8 @@ internal class RazorFieldConfigUtilsTests
             //razorFieldConfig = RazorFieldConfigUtils.Plu.GetWeightTare();
             //TestContext.WriteLine(razorFieldConfig);
             // Arrange & Act & Assert.
-            razorFieldConfig = RazorFieldConfigUtils.PluNestingFk.GetBundleCount();
-			TestContext.WriteLine(razorFieldConfig);
+            //razorFieldConfig = RazorFieldConfigUtils.PluNestingFk.GetBundleCount();
+			//TestContext.WriteLine(razorFieldConfig);
 		});
 	}
 

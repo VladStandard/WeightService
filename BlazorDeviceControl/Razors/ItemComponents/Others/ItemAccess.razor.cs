@@ -35,7 +35,9 @@ public partial class ItemAccess : RazorComponentItemBase<AccessModel>
 			{
 				SqlItemCast = DataContext.GetItemNotNullable<AccessModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-	                SqlItem = SqlItemNew<AccessModel>();
+				{
+					SqlItemCast = SqlItemNew<AccessModel>();
+				}
 				TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

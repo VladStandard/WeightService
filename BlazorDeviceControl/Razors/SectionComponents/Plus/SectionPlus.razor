@@ -17,14 +17,12 @@
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
 		<RazorSectionFieldIsMarked TItem=@PluModel ParentRazor=@(this) />
-		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("74%", true))
+		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
 		    RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
-		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetNumber() />
-		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetShelfLifeDays() />
-		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
-			RazorFieldConfig=@RazorFieldConfigUtils.PluNestingFk.GetBundleCount() />
     </Columns>
 </RadzenGrid>
 

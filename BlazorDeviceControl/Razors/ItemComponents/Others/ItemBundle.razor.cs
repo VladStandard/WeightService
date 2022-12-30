@@ -24,7 +24,7 @@ public partial class ItemBundle: RazorComponentItemBase<BundleModel>
 			{
                 SqlItemCast = DataAccess.GetItemNotNullable<BundleModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-	                SqlItem = SqlItemNew<BundleModel>();
+                    SqlItemCast = SqlItemNew<BundleModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

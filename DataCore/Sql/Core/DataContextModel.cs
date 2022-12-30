@@ -81,7 +81,7 @@ public class DataContextModel
 	public List<PluScaleModel> PluScales { get; set; }
 	public List<PluTemplateFkModel> PluTemplateFks { get; set; }
 	public List<PluWeighingModel> PluWeighings { get; set; }
-    public List<PluNestingFkModel> PluNesting { get; set; }
+    public List<PluNestingFkModel> PluNestingFks { get; set; }
     public List<PrinterModel> Printers { get; set; }
 	public List<PrinterResourceModel> PrinterResources { get; set; }
 	public List<PrinterTypeModel> PrinterTypes { get; set; }
@@ -129,7 +129,7 @@ public class DataContextModel
         PluScales = new();
         PluTemplateFks = new();
         PluWeighings = new();
-        PluNesting = new();
+        PluNestingFks = new();
         Printers = new();
 		PrinterResources = new();
 		PrinterTypes = new();
@@ -157,9 +157,9 @@ public class DataContextModel
             var cls when cls == typeof(AppModel) => GetListNotNullableApps<T>(sqlCrudConfig),
             var cls when cls == typeof(BarCodeModel) => GetListNotNullableBarCodes<T>(sqlCrudConfig),
             var cls when cls == typeof(BoxModel) => GetListNotNullableBoxes<T>(sqlCrudConfig),
+            var cls when cls == typeof(BundleModel) => GetListNotNullableBundles<T>(sqlCrudConfig),
             var cls when cls == typeof(BrandModel) => GetListNotNullableBrands<T>(sqlCrudConfig),
             var cls when cls == typeof(NestingFkModel) => GetListNotNullableBundleFks<T>(sqlCrudConfig),
-            var cls when cls == typeof(BundleModel) => GetListNotNullableBundles<T>(sqlCrudConfig),
             var cls when cls == typeof(ContragentModel) => GetListNotNullableContragents<T>(sqlCrudConfig),
             var cls when cls == typeof(DeviceModel) => GetListNotNullableDevices<T>(sqlCrudConfig),
             var cls when cls == typeof(DeviceScaleFkModel) => GetListNotNullableDeviceScalesFks<T>(sqlCrudConfig),
@@ -179,10 +179,10 @@ public class DataContextModel
             var cls when cls == typeof(PluBundleFkModel) => GetListNotNullablePluBundleFks<T>(sqlCrudConfig),
             var cls when cls == typeof(PluLabelModel) => GetListNotNullablePluLabels<T>(sqlCrudConfig),
             var cls when cls == typeof(PluModel) => GetListNotNullablePlus<T>(sqlCrudConfig),
+            var cls when cls == typeof(PluNestingFkModel) => GetListNotNullablePluNestingFks<T>(sqlCrudConfig),
             var cls when cls == typeof(PluScaleModel) => GetListNotNullablePluScales<T>(sqlCrudConfig),
             var cls when cls == typeof(PluTemplateFkModel) => GetListNotNullablePluTemplateFks<T>(sqlCrudConfig),
             var cls when cls == typeof(PluWeighingModel) => GetListNotNullablePluWeighings<T>(sqlCrudConfig),
-            var cls when cls == typeof(PluNestingFkModel) => GetListNotNullablePluNestingFks<T>(sqlCrudConfig),
             var cls when cls == typeof(PrinterModel) => GetListNotNullablePrinters<T>(sqlCrudConfig),
             var cls when cls == typeof(PrinterResourceModel) => GetListNotNullablePrinterResources<T>(sqlCrudConfig),
             var cls when cls == typeof(PrinterTypeModel) => GetListNotNullablePrinterTypes<T>(sqlCrudConfig),
@@ -452,10 +452,10 @@ public class DataContextModel
     }
     private List<T> GetListNotNullablePluNestingFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
-        PluNesting = DataAccess.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && PluNesting.Count > 1)
-            PluNesting = PluNesting.OrderByDescending(item => item.ChangeDt).ToList();
-        return PluNesting.Cast<T>().ToList();
+        PluNestingFks = DataAccess.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && PluNestingFks.Count > 1)
+            PluNestingFks = PluNestingFks.OrderByDescending(item => item.ChangeDt).ToList();
+        return PluNestingFks.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullablePrinters<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()

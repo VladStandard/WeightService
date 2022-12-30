@@ -26,7 +26,9 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 			{
 				SqlItemCast = DataContext.GetItemNotNullable<BarCodeModel>(IdentityUid);
 				if (SqlItemCast.IdentityIsNew)
-					SqlItem = SqlItemNew<BarCodeModel>();
+				{
+					SqlItemCast = SqlItemNew<BarCodeModel>();
+				}
 
 				ButtonSettings = new(false, false, false, false, false, false, true);
 			}

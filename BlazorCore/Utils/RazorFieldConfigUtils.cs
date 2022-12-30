@@ -146,12 +146,6 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetShelfLifeDays() => new(nameof(PluModel.ShelfLifeDays), TextAlign.Center, LocaleCore.Table.ShelfLifeDaysShort);
     }
 
-    public static class PluNestingFk
-	{
-		public static RazorFieldConfigModel GetBundleCount() => new(
-			$"{nameof(PluNestingFkModel.Nesting)}.{nameof(NestingFkModel.BundleCount)}", TextAlign.Center, LocaleCore.Table.GoodsBundleCountShort);
-	}
-
     public static class PluScale
 	{
 		public static RazorFieldConfigModel GetScaleNumber() => new(nameof(PluScaleModel.Scale.Number), TextAlign.Left, LocaleCore.Table.NumberShort);

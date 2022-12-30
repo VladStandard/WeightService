@@ -36,7 +36,7 @@ public partial class ItemDevice : RazorComponentItemBase<DeviceModel>
 
                 SqlItemCast = DataContext.GetItemNotNullable<DeviceModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-                    SqlItem = SqlItemNew<DeviceModel>();
+                    SqlItemCast = SqlItemNew<DeviceModel>();
                 DeviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(SqlItemCast);
                 DeviceType = DeviceTypeFk.Type.IdentityIsNotNew ? DeviceTypeFk.Type : DataAccess.GetItemNewEmpty<DeviceTypeModel>();
 

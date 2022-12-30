@@ -14,7 +14,6 @@ public partial class LocaleDeviceControl
     public string RouteItemBox => "/item/box";
     public string RouteItemBrand => "/item/brand";
     public string RouteItemBundle => "/item/bundle";
-    public string RouteItemBundleFk => "/item/bundle_fk";
     public string RouteItemDeviceScaleFk => "/item/device_scale_fk";
     public string RouteItemHost => "/item/host";
     public string RouteItemLog => "/item/log";

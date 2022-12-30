@@ -24,7 +24,9 @@ public partial class ItemBox: RazorComponentItemBase<BoxModel>
 			{
                 SqlItemCast = DataAccess.GetItemNotNullable<BoxModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-	                SqlItem = SqlItemNew<BoxModel>();
+                {
+					SqlItemCast = SqlItemNew<BoxModel>();
+				}
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

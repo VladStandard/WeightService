@@ -29,7 +29,7 @@ public partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourc
 			{
                 SqlItemCast = DataContext.GetItemNotNullable<PrinterResourceModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
-	                SqlItem = SqlItemNew<PrinterResourceModel>();
+                    SqlItemCast = SqlItemNew<PrinterResourceModel>();
 				DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigList);
 				DataContext.GetListNotNullable<TemplateResourceModel>(SqlCrudConfigList);
 				

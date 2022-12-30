@@ -24,7 +24,7 @@ public partial class ItemNomenclatureGroup : RazorComponentItemBase<Nomenclature
 			{
                 SqlItemCast = DataAccess.GetItemNotNullable<NomenclatureGroupModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-	                SqlItem = SqlItemNew<NomenclatureGroupModel>();
+                    SqlItemCast = SqlItemNew<NomenclatureGroupModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}
