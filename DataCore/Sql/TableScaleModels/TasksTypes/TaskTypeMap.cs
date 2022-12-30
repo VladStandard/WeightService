@@ -14,7 +14,7 @@ public class TaskTypeMap : ClassMap<TaskTypeModel>
     public TaskTypeMap()
     {
         Schema("db_scales");
-        Table("TASKS_TYPES");
+        Table(SqlTableNamesUtils.TasksTypes);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(32).Not.Nullable();

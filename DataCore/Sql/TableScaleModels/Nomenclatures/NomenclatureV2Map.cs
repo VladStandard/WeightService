@@ -14,7 +14,7 @@ public class NomenclatureV2Map : ClassMap<NomenclatureV2Model>
     public NomenclatureV2Map()
     {
         Schema("db_scales");
-        Table("NOMENCLATURES");
+        Table(SqlTableNamesUtils.Nomenclatures);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

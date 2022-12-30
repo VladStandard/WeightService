@@ -14,7 +14,7 @@ public class TemplateResourceMap : ClassMap<TemplateResourceModel>
     public TemplateResourceMap()
     {
         Schema("db_scales");
-        Table("TemplateResources");
+        Table(SqlTableNamesUtils.TemplatesResources);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();

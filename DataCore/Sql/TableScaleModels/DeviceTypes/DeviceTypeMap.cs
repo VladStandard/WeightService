@@ -14,7 +14,7 @@ public class DeviceTypeMap : ClassMap<DeviceTypeModel>
     public DeviceTypeMap()
     {
         Schema("db_scales");
-        Table("DEVICES_TYPES");
+        Table(SqlTableNamesUtils.DevicesTypes);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

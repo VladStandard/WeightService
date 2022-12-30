@@ -14,7 +14,7 @@ public class VersionMap : ClassMap<VersionModel>
     public VersionMap()
     {
         Schema("db_scales");
-        Table("VERSIONS");
+        Table(SqlTableNamesUtils.Versions);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

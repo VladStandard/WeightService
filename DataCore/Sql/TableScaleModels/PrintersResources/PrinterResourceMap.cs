@@ -14,7 +14,7 @@ public class PrinterResourceMap : ClassMap<PrinterResourceModel>
     public PrinterResourceMap()
     {
         Schema("db_scales");
-        Table("ZebraPrinterResourceRef");
+        Table(SqlTableNamesUtils.PrintersResourcesFks);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");

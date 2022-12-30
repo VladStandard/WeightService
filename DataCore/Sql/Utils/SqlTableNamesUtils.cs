@@ -45,14 +45,14 @@ public static partial class SqlTableNamesUtils
     public static string ScalesScreenshots => "SCALES_SCREENSHOTS";
     public static string Tasks => "TASKS";
     public static string TasksTypes => "TASKS_TYPES";
-    public static string TemplateResources => "TemplateResources";
+    public static string TemplatesResources => "TemplateResources";
     public static string Templates => "Templates";
     public static string Versions => "VERSIONS";
     public static string WeithingFacts => "WeithingFact";
     public static string WorkShops => "WorkShop";
-    public static string ZebraPrinters => "ZebraPrinter";
-    public static string ZebraPrintersResourcesRefs => "ZebraPrinterResourceRef";
-    public static string ZebraPrinterTypes => "ZebraPrinterType";
+    public static string Printers => "ZebraPrinter";
+    public static string PrintersResourcesFks => "ZebraPrinterResourceRef";
+    public static string PrintersTypes => "ZebraPrinterType";
 
     #endregion
 }

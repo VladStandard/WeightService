@@ -14,7 +14,7 @@ public class OrderWeighingMap : ClassMap<OrderWeighingModel>
     public OrderWeighingMap()
     {
         Schema("db_scales");
-        Table("ORDERS_WEIGHINGS");
+        Table(SqlTableNamesUtils.OrdersWeighings);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

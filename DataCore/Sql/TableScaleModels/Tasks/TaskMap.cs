@@ -14,7 +14,7 @@ public class TaskMap : ClassMap<TaskModel>
     public TaskMap()
     {
         Schema("db_scales");
-        Table("TASKS");
+        Table(SqlTableNamesUtils.Tasks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.Enabled).CustomSqlType("BIT").Column("ENABLED").Not.Nullable().Default("0");
