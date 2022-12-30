@@ -15,7 +15,7 @@ public class BundleMap : ClassMap<BundleModel>
     public BundleMap()
     {
         Schema("db_scales");
-        Table("BUNDLES");
+        Table(SqlTableNamesUtils.Bundles);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

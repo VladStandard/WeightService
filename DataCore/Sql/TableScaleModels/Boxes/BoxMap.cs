@@ -12,7 +12,7 @@ public class BoxMap : ClassMap<BoxModel>
     public BoxMap()
     {
         Schema("db_scales");
-        Table("BOXES");
+        Table(SqlTableNamesUtils.Boxes);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

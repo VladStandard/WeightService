@@ -14,7 +14,7 @@ public class BrandMap : ClassMap<BrandModel>
     public BrandMap()
     {
         Schema("db_scales");
-        Table("BRANDS");
+        Table(SqlTableNamesUtils.Brands);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
