@@ -627,7 +627,7 @@ public partial class MainForm : Form
                     UserSession.Scale.Description + Environment.NewLine + area);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonBundleFk, UserSession.PluNestingFk.IdentityIsNew
                     ? LocaleCore.Table.FieldPackageIsNotSelected
-                    : UserSession.PluNestingFk.BundleFk.Name + Environment.NewLine +
+                    : UserSession.PluNestingFk.PluBundle.Name + Environment.NewLine +
                       $"{LocaleCore.Table.BundleFkWeightTareKg}: {UserSession.PluNestingFk.WeightTare}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
