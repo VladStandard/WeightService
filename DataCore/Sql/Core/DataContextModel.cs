@@ -228,7 +228,7 @@ public class DataContextModel
     {
         Boxes = DataAccess.GetListNotNullable<BoxModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Boxes.Count > 1)
-            Boxes = Boxes.OrderBy(item => item.Weight).ToList();
+            Boxes = Boxes.OrderBy(item => item.Name).ToList();
         return Boxes.Cast<T>().ToList();
     }
 
@@ -244,7 +244,7 @@ public class DataContextModel
     {
         Bundles = DataAccess.GetListNotNullable<BundleModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Bundles.Count > 1)
-            Bundles = Bundles.OrderBy(item => item.Weight).ToList();
+            Bundles = Bundles.OrderBy(item => item.Name).ToList();
         return Bundles.Cast<T>().ToList();
     }
 

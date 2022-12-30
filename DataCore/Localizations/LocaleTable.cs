@@ -223,6 +223,7 @@ public class LocaleTable
     public string VatRate => Lang == Lang.English ? "VAT rate" : "Ставка НДС";
     public string Version => Lang == Lang.English ? "Version" : "Версия";
     public string Weighing => Lang == Lang.English ? "Weighing" : "Взвешивание";
+    public string Weight => Lang == Lang.English ? "Weight" : "Вес";
     public string Weighted => Lang == Lang.English ? "Weighted" : "Весовая";
     public string WeightNetto => Lang == Lang.English ? "Net weight" : "Вес нетто";
     public string WeightShort => Lang == Lang.English ? "Weight" : "Вес";

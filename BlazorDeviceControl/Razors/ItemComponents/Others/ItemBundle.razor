@@ -17,14 +17,14 @@
         <tr>
             <td>@LocaleCore.Table.Name</td>
             <td>
-                <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
+                <RadzenTextBox 
+					Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
 			</td>
-        </tr>
-		<tr>
-			<td>@LocaleCore.Table.Weighing</td>
+			<td>@LocaleCore.Table.Weight</td>
 			<td>
-				<RadzenNumeric Style="width: 100%; " 
-				               TValue="decimal" @bind-Value=@SqlItemCast.Weight />
+				<RadzenNumeric 
+					Style="width: 100%; " 
+				    TValue="decimal" @bind-Value=@SqlItemCast.Weight />
 			</td>
 		</tr>
     </tbody>
