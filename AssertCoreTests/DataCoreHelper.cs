@@ -43,6 +43,7 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 
 namespace AssertCoreTests;
 
@@ -395,7 +396,12 @@ public class DataCoreHelper
 				pluWeighing.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
 				pluWeighing.Series = CreateNewSubstitute<ProductSeriesModel>(isNotDefault);
 				break;
-			case PrinterModel printer:
+            case PluNestingFkModel pluNestingFk:
+                pluNestingFk.IsDefault = false;
+				pluNestingFk.PluBundle = CreateNewSubstitute<PluBundleFkModel>(isNotDefault);
+                pluNestingFk.Nesting = CreateNewSubstitute<NestingFkModel>(isNotDefault);
+                break;
+            case PrinterModel printer:
 				printer.DarknessLevel = 1;
 				printer.PrinterType = CreateNewSubstitute<PrinterTypeModel>(isNotDefault);
 				break;

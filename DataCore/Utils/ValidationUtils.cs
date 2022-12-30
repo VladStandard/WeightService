@@ -9,6 +9,7 @@ using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -73,6 +74,7 @@ public class ValidationUtils
             var cls when cls == typeof(BrandModel) => new BrandValidator(),
             var cls when cls == typeof(BundleModel) => new BundleValidator(),
             var cls when cls == typeof(NestingFkModel) => new NestingFkValidator(),
+            var cls when cls == typeof(PluNestingFkModel) => new PluNestingFkValidator(),
             var cls when cls == typeof(ContragentModel) => new ContragentValidator(),
             var cls when cls == typeof(DeviceModel) => new DeviceValidator(),
             var cls when cls == typeof(DeviceScaleFkModel) => new DeviceScaleFkValidator(),
@@ -140,6 +142,7 @@ public class ValidationUtils
             PluModel plu => new PluValidator().Validate(plu),
             PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),
             PluTemplateFkModel pluTemplate => new PluTemplateFkValidator().Validate(pluTemplate),
+            PluNestingFkModel nestingFk => new PluNestingFkValidator().Validate(nestingFk),
             PluWeighingModel pluWeighing => new PluWeighingValidator().Validate(pluWeighing),
             PrinterModel printer => new PrinterValidator().Validate(printer),
             PrinterResourceModel printerResource => new PrinterResourceValidator().Validate(printerResource),
