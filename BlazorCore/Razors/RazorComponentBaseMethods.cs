@@ -236,12 +236,13 @@ public partial class RazorComponentBase
 			return;
 		}
 
+        
         RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
-		{
-			switch (SqlItem)
-			{
+        {
+            switch (SqlItem)
+            {
                 case DeviceModel device:
-					SqlItemSave(SqlItem);
+                    SqlItemSave(SqlItem);
                     SqlItemSaveDevice(device);
                     break;
                 case PluModel plu:
@@ -249,7 +250,7 @@ public partial class RazorComponentBase
                     SqlItemSavePlu(plu);
                     break;
                 case PluBundleFkModel pluBundleFk:
-                    // Didn't do it!
+                    // Don't do it!
                     //SqlItemSave(SqlItem);
                     SqlItemSavePluBundleFk(pluBundleFk);
                     break;
@@ -257,11 +258,14 @@ public partial class RazorComponentBase
                     SqlItemSave(SqlItem);
                     SqlItemSaveScale(scale);
                     break;
+                default:
+                    SqlItemSave(SqlItem);
+                    break;
             }
-			SetRouteSectionNavigate();
-			OnChangeAsync();
-		});
-	}
+            SetRouteSectionNavigate();
+            OnChangeAsync();
+        });
+    }
 
     private void SqlItemSaveScale(ScaleModel scale)
     {

@@ -36,7 +36,7 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
                 SqlItemCast = DataAccess.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
                 DataContext.GetListNotNullable<PluModel>(SqlCrudConfigList);
                 DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigList);
-                
+
                 if (SqlItemCast.IdentityIsNew)
                 {
                     Plu = DataContext.Plus.FirstOrDefault() ?? SqlItemNewEmpty<PluModel>();
@@ -44,6 +44,11 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
                     SqlItemCast = SqlItemNew<PluBundleFkModel>();
                     SqlItemCast.Plu = Plu;
                     SqlItemCast.Bundle = Bundle;
+                }
+                else
+                {
+                    Plu = SqlItemCast.Plu;
+                    Bundle = SqlItemCast.Bundle;
                 }
 
                 ButtonSettings = new(false, false, false, false, false, true, true);
