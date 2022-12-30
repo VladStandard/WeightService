@@ -19,6 +19,7 @@ public partial class LocaleDeviceControl
     public string RouteItemHost => "/item/host";
     public string RouteItemLog => "/item/log";
     public string RouteItemLogType => "/item/logtype";
+    public string RouteItemNestingFk => "/item/nesting";
     public string RouteItemNomenclature => "/item/nomenclature";
     public string RouteItemNomenclatureGroup => "/item/nomenclature_group";
     public string RouteItemOrder => "/item/order";
@@ -28,6 +29,7 @@ public partial class LocaleDeviceControl
     public string RouteItemPluBundle => "/item/plu_bundle";
     public string RouteItemPluBundleFk => "/item/plu_bundle_fk";
     public string RouteItemPluLabel => "/item/plu_label";
+    public string RouteItemPluNestingFk => "/item/plu_nesting";
     public string RouteItemPluScale => "/item/plu_scale";
     public string RouteItemPluWeighing => "/item/plu_weighing";
     public string RouteItemPrinter => "/item/printer";
@@ -61,12 +63,14 @@ public partial class LocaleDeviceControl
     public string RouteSectionLogsStops => "/section/logs_stops";
     public string RouteSectionLogsWarnings => "/section/logs_warnings";
     public string RouteSectionLogTypes => "/section/logtypes";
+    public string RouteSectionNestingFk => "/section/nesting_fks";
     public string RouteSectionNomenclatures => "/section/nomenclatures";
     public string RouteSectionNomenclaturesGroups => "/section/nomenclatures_groups";
     public string RouteSectionOrders => "/section/orders";
     public string RouteSectionOrdersWeighings => "/section/ordersweighings";
     public string RouteSectionOrganizations => "/section/organizations";
     public string RouteSectionPluLabels => "/section/plus_labels";
+    public string RouteSectionPluNestingFk => "/section/plu_nesting_fks";
     public string RouteSectionPlus => "/section/plus";
     public string RouteSectionPlusBundlesFks => "/section/plus_bundles_fks";
     public string RouteSectionPlusScales => "/section/plus_scales";
