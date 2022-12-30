@@ -14,7 +14,7 @@ public class AccessMap : ClassMap<AccessModel>
     public AccessMap()
     {
         Schema("db_scales");
-        Table("ACCESS");
+        Table(SqlTableNamesUtils.Access);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
