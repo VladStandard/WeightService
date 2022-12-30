@@ -2,10 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Localizations;
-using DataCore.Sql.TableScaleFkModels.BundlesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
@@ -114,7 +115,6 @@ public partial class RazorComponentBase
         AppModel => LocaleCore.DeviceControl.RouteItemApp,
         BarCodeModel => LocaleCore.DeviceControl.RouteItemBarCode,
         BoxModel => LocaleCore.DeviceControl.RouteItemBox,
-        BundleFkModel => LocaleCore.DeviceControl.RouteItemBundleFk,
         BundleModel => LocaleCore.DeviceControl.RouteItemBundle,
         ContragentModel => LocaleCore.DeviceControl.RouteItemContragent,
         DeviceModel => LocaleCore.DeviceControl.RouteItemDevice,
@@ -124,13 +124,15 @@ public partial class RazorComponentBase
         LogModel => LocaleCore.DeviceControl.RouteItemLog,
         LogQuickModel => LocaleCore.DeviceControl.RouteItemLog,
         LogTypeModel => LocaleCore.DeviceControl.RouteItemLogType,
+        NestingFkModel => LocaleCore.DeviceControl.RouteItemNestingFk,
         NomenclatureModel => LocaleCore.DeviceControl.RouteItemNomenclature,
         OrderModel => LocaleCore.DeviceControl.RouteItemOrder,
         OrderWeighingModel => LocaleCore.DeviceControl.RouteItemOrderWeighing,
         OrganizationModel => LocaleCore.DeviceControl.RouteItemOrganization,
-        PluBundleFkModel => LocaleCore.DeviceControl.RouteItemPluBundleFk,
+        PluBundleFkModel => LocaleCore.DeviceControl.RouteItemBundleFk,
         PluLabelModel => LocaleCore.DeviceControl.RouteItemPluLabel,
         PluModel => LocaleCore.DeviceControl.RouteItemPlu,
+        PluNestingFkModel => LocaleCore.DeviceControl.RouteItemPluNestingFk,
         PluScaleModel => LocaleCore.DeviceControl.RouteItemPluScale,
         PluWeighingModel => LocaleCore.DeviceControl.RouteItemPluWeighing,
         PrinterModel => LocaleCore.DeviceControl.RouteItemPrinter,
@@ -156,7 +158,6 @@ public partial class RazorComponentBase
             BarCodeModel => LocaleCore.DeviceControl.RouteSectionBarCodes,
             BoxModel => LocaleCore.DeviceControl.RouteSectionBoxes,
             BrandModel => LocaleCore.DeviceControl.RouteSectionBrands,
-            BundleFkModel => LocaleCore.DeviceControl.RouteSectionBundlesFks,
             BundleModel => LocaleCore.DeviceControl.RouteSectionBundles,
             ContragentModel => LocaleCore.DeviceControl.RouteSectionContragents,
             DeviceModel => LocaleCore.DeviceControl.RouteSectionDevices,
@@ -166,6 +167,7 @@ public partial class RazorComponentBase
             LogModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogQuickModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogTypeModel => LocaleCore.DeviceControl.RouteSectionLogTypes,
+            NestingFkModel => LocaleCore.DeviceControl.RouteSectionNestingFk,
             NomenclatureGroupModel => LocaleCore.DeviceControl.RouteSectionNomenclaturesGroups,
             NomenclatureModel => LocaleCore.DeviceControl.RouteSectionNomenclatures,
             OrderModel => LocaleCore.DeviceControl.RouteSectionOrders,
@@ -174,6 +176,7 @@ public partial class RazorComponentBase
             PluBundleFkModel => LocaleCore.DeviceControl.RouteSectionPlusBundlesFks,
             PluLabelModel => LocaleCore.DeviceControl.RouteSectionPluLabels,
             PluModel => LocaleCore.DeviceControl.RouteSectionPlus,
+            PluNestingFkModel => LocaleCore.DeviceControl.RouteSectionPluNestingFk,
             PluScaleModel => LocaleCore.DeviceControl.RouteSectionScales,
             PluWeighingModel => LocaleCore.DeviceControl.RouteSectionPlusWeighings,
             PrinterModel => LocaleCore.DeviceControl.RouteSectionPrinters,
@@ -189,8 +192,6 @@ public partial class RazorComponentBase
             TemplateResourceModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
             VersionModel => LocaleCore.DeviceControl.RouteSectionVersions,
             WorkShopModel => LocaleCore.DeviceControl.RouteSectionWorkShops,
-            //PackageModel => LocaleCore.DeviceControl.RouteSectionPackages,
-            //PluPackageModel => LocaleCore.DeviceControl.RouteSectionPlusBundlesFks,
             _ => string.Empty
         };
 
