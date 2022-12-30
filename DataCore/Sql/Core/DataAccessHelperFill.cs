@@ -110,7 +110,7 @@ public partial class DataAccessHelper
 				break;
             case PluNestingFkModel pluNestingFk:
                 pluNestingFk.PluBundle = GetItemNotNullable<PluBundleFkModel>(pluNestingFk.PluBundle.IdentityValueUid);
-                pluNestingFk.Nesting = GetItemNotNullable<NestingFkModel>(pluNestingFk.Nesting.IdentityValueId);
+                pluNestingFk.Nesting = GetItemNotNullable<NestingFkModel>(pluNestingFk.Nesting.IdentityValueUid);
                 break;
             case PrinterModel printer:
                 printer.PrinterType = GetItemNotNullable<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
