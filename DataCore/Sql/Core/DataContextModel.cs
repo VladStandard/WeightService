@@ -8,6 +8,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -46,7 +47,7 @@ using DataCore.Sql.TableScaleModels.WorkShops;
 
 namespace DataCore.Sql.Core;
 
-public partial class DataContextModel
+public class DataContextModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -80,7 +81,8 @@ public partial class DataContextModel
 	public List<PluScaleModel> PluScales { get; set; }
 	public List<PluTemplateFkModel> PluTemplateFks { get; set; }
 	public List<PluWeighingModel> PluWeighings { get; set; }
-	public List<PrinterModel> Printers { get; set; }
+    public List<PluNestingFkModel> PluNesting { get; set; }
+    public List<PrinterModel> Printers { get; set; }
 	public List<PrinterResourceModel> PrinterResources { get; set; }
 	public List<PrinterTypeModel> PrinterTypes { get; set; }
 	public List<ProductionFacilityModel> ProductionFacilities { get; set; }
@@ -127,7 +129,8 @@ public partial class DataContextModel
         PluScales = new();
         PluTemplateFks = new();
         PluWeighings = new();
-		Printers = new();
+        PluNesting = new();
+        Printers = new();
 		PrinterResources = new();
 		PrinterTypes = new();
 		ProductionFacilities = new();
@@ -179,6 +182,7 @@ public partial class DataContextModel
             var cls when cls == typeof(PluScaleModel) => GetListNotNullablePluScales<T>(sqlCrudConfig),
             var cls when cls == typeof(PluTemplateFkModel) => GetListNotNullablePluTemplateFks<T>(sqlCrudConfig),
             var cls when cls == typeof(PluWeighingModel) => GetListNotNullablePluWeighings<T>(sqlCrudConfig),
+            var cls when cls == typeof(PluNestingFkModel) => GetListNotNullablePluNestingFks<T>(sqlCrudConfig),
             var cls when cls == typeof(PrinterModel) => GetListNotNullablePrinters<T>(sqlCrudConfig),
             var cls when cls == typeof(PrinterResourceModel) => GetListNotNullablePrinterResources<T>(sqlCrudConfig),
             var cls when cls == typeof(PrinterTypeModel) => GetListNotNullablePrinterTypes<T>(sqlCrudConfig),
@@ -445,6 +449,13 @@ public partial class DataContextModel
         if (sqlCrudConfig.IsResultOrder && PluWeighings.Count > 1)
             PluWeighings = PluWeighings.OrderByDescending(item => item.ChangeDt).ToList();
         return PluWeighings.Cast<T>().ToList();
+    }
+    private List<T> GetListNotNullablePluNestingFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
+    {
+        PluNesting = DataAccess.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && PluNesting.Count > 1)
+            PluNesting = PluNesting.OrderByDescending(item => item.ChangeDt).ToList();
+        return PluNesting.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullablePrinters<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()

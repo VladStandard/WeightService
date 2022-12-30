@@ -14,7 +14,7 @@ public class NestingFkMap : ClassMap<NestingFkModel>
     public NestingFkMap()
     {
         Schema("db_scales");
-        Table("BUNDLES_FK");
+        Table("NESTING_FK");
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
