@@ -43,6 +43,7 @@ using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using static BlazorCore.Utils.RazorFieldConfigUtils;
 
 namespace BlazorCore.Razors;
 
@@ -72,7 +73,7 @@ public partial class RazorComponentBase
 			AccessModel => LocaleCore.Strings.ItemAccess,
 			BarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
 			BoxModel => LocaleCore.DeviceControl.ItemBox,
-			NestingFkModel => LocaleCore.DeviceControl.ItemBundleFk,
+			NestingFkModel => LocaleCore.DeviceControl.ItemNesting,
 			BundleModel => LocaleCore.DeviceControl.ItemBundle,
 			ContragentModel => LocaleCore.DeviceControl.ItemContragent,
 			DeviceModel => LocaleCore.DeviceControl.ItemDevice,
@@ -196,6 +197,13 @@ public partial class RazorComponentBase
 		return item;
 	}
 
+	protected TItem SqlItemNewEmpty<TItem>() where TItem : SqlTableBase, new()
+	{
+		TItem item = DataAccess.GetItemNewEmpty<TItem>();
+		item.FillProperties();
+		return item;
+	}
+
 	private void SqlItemSave<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return;
@@ -227,94 +235,129 @@ public partial class RazorComponentBase
 			await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
 			return;
 		}
-		
-		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
+
+        RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
 		{
-			SqlItemSave(SqlItem);
 			switch (SqlItem)
 			{
-				case DeviceModel device:
-                    if (SqlLinkedItems is not null && SqlLinkedItems.Any())
-                    {
-                        foreach (SqlTableBase item in SqlLinkedItems)
-                        {
-                            if (item is DeviceTypeModel deviceType)
-                            {
-                                DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFkNullable(device);
-                                if (deviceType is not null && deviceType.IdentityIsNotNew)
-                                {
-									if (deviceTypeFk is null)
-										deviceTypeFk = new() { Type = deviceType, Device = device };
-									else
-										deviceTypeFk.Type = deviceType;
-                                    SqlItemSave(deviceTypeFk);
-                                }
-                                else
-                                {
-                                    if (deviceTypeFk is not null)
-                                        DataAccess.Delete(deviceTypeFk);
-                                }
-                            }
-                        }
-                    }
+                case DeviceModel device:
+					SqlItemSave(SqlItem);
+                    SqlItemSaveDevice(device);
                     break;
-				case PluModel plu:
-                    if (SqlLinkedItems is not null && SqlLinkedItems.Any())
-                    {
-                        foreach (SqlTableBase item in SqlLinkedItems)
-                        {
-                            if (item is TemplateModel template)
-                            {
-                                PluTemplateFkModel? pluTemplateFk = DataAccess.GetItemPluTemplateFkNullable(plu);
-                                if (template is not null && template.IdentityIsNotNew)
-                                {
-									if (pluTemplateFk is null)
-										pluTemplateFk = new() { Plu = plu, Template = template };
-									else
-										pluTemplateFk.Template = template;
-                                    SqlItemSave(pluTemplateFk);
-                                }
-                                else
-                                {
-                                    if (pluTemplateFk is not null)
-                                        DataAccess.Delete(pluTemplateFk);
-                                }
-                            }
-                        }
-                    }
+                case PluModel plu:
+                    SqlItemSave(SqlItem);
+                    SqlItemSavePlu(plu);
+                    break;
+                case PluBundleFkModel pluBundleFk:
+                    // Didn't do it!
+                    //SqlItemSave(SqlItem);
+                    SqlItemSavePluBundleFk(pluBundleFk);
                     break;
                 case ScaleModel scale:
-					if (SqlLinkedItems is not null && SqlLinkedItems.Any())
-					{
-						foreach (SqlTableBase item in SqlLinkedItems)
-						{
-							if (item is DeviceModel device)
-							{
-								DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale);
-								if (device is not null && device.IdentityIsNotNew)
-								{
-									if (deviceScaleFk is null)
-										deviceScaleFk = new() { Device = device, Scale = scale };
-									else
-										deviceScaleFk.Device = device;
-                                    SqlItemSave(deviceScaleFk);
-								}
-								else
-								{
-									if (deviceScaleFk is not null)
-										DataAccess.Delete(deviceScaleFk);
-								}
-							}
-						}
-					}
-					break;
-			}
+                    SqlItemSave(SqlItem);
+                    SqlItemSaveScale(scale);
+                    break;
+            }
 			SetRouteSectionNavigate();
 			OnChangeAsync();
 		});
 	}
 
-	protected async Task SqlItemsSaveAsync()
+    private void SqlItemSaveScale(ScaleModel scale)
+    {
+        if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+        {
+            foreach (SqlTableBase item in SqlLinkedItems)
+            {
+                if (item is DeviceModel device)
+                {
+                    DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale);
+                    if (device is not null && device.IdentityIsNotNew)
+                    {
+                        if (deviceScaleFk is null)
+                            deviceScaleFk = new() { Device = device, Scale = scale };
+                        else
+                            deviceScaleFk.Device = device;
+                        SqlItemSave(deviceScaleFk);
+                    }
+                    else
+                    {
+                        if (deviceScaleFk is not null)
+                            DataAccess.Delete(deviceScaleFk);
+                    }
+                }
+            }
+        }
+    }
+
+    private void SqlItemSavePlu(PluModel plu)
+    {
+        if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+        {
+            foreach (SqlTableBase item in SqlLinkedItems)
+            {
+                if (item is TemplateModel template)
+                {
+                    PluTemplateFkModel? pluTemplateFk = DataAccess.GetItemPluTemplateFkNullable(plu);
+                    if (template is not null && template.IdentityIsNotNew)
+                    {
+                        if (pluTemplateFk is null)
+                            pluTemplateFk = new() { Plu = plu, Template = template };
+                        else
+                            pluTemplateFk.Template = template;
+                        SqlItemSave(pluTemplateFk);
+                    }
+                    else
+                    {
+                        if (pluTemplateFk is not null)
+                            DataAccess.Delete(pluTemplateFk);
+                    }
+                }
+            }
+        }
+    }
+
+    private void SqlItemSavePluBundleFk(PluBundleFkModel pluBundleFk)
+    {
+        if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+        {
+            PluModel? plu = SqlLinkedItems.First(x => x is PluModel) as PluModel;
+            BundleModel? bundle = SqlLinkedItems.First(x => x is BundleModel) as BundleModel;
+			if (plu is null || bundle is null) return;
+            pluBundleFk.Plu = plu;
+            pluBundleFk.Bundle = bundle;
+            SqlItemSave(pluBundleFk);
+		}
+    }
+    
+	private void SqlItemSaveDevice(DeviceModel device)
+    {
+        if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+        {
+            foreach (SqlTableBase item in SqlLinkedItems)
+            {
+                if (item is DeviceTypeModel deviceType)
+                {
+                    DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFkNullable(device);
+                    if (deviceType is not null && deviceType.IdentityIsNotNew)
+                    {
+                        if (deviceTypeFk is null)
+                            deviceTypeFk = new() { Type = deviceType, Device = device };
+                        else
+                            deviceTypeFk.Type = deviceType;
+                        SqlItemSave(deviceTypeFk);
+                    }
+                    else
+                    {
+                        if (deviceTypeFk is not null)
+                            DataAccess.Delete(deviceTypeFk);
+                    }
+                }
+            }
+        }
+    }
+
+    protected async Task SqlItemsSaveAsync()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 

@@ -3,7 +3,8 @@
 
 using BlazorCore.Razors;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
-using DataCore.Sql.TableScaleModels.Boxes;
+using DataCore.Sql.TableScaleModels.Bundles;
+using DataCore.Sql.TableScaleModels.Plus;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
@@ -11,7 +12,17 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
 {
     #region Public and private fields, properties, constructor
 
-    //
+    private PluModel _plu;
+    private PluModel Plu { get => _plu; set { _plu = value; SqlLinkedItems = new() { _plu, _bundle }; } }
+
+    private BundleModel _bundle;
+    private BundleModel Bundle { get => _bundle; set { _bundle = value; SqlLinkedItems = new() { _plu, _bundle }; } }
+
+    public ItemPluBundleFk()
+    {
+        _plu = SqlItemNewEmpty<PluModel>();
+        _bundle = SqlItemNewEmpty<BundleModel>();
+    }
 
     #endregion
 
@@ -20,12 +31,20 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
     protected override void OnParametersSet()
     {
         RunActionsParametersSetJustOne(
-            () => 
+            () =>
             {
-                DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigList);
                 SqlItemCast = DataAccess.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
-                    if (SqlItemCast.IdentityIsNew)
+                DataContext.GetListNotNullable<PluModel>(SqlCrudConfigList);
+                DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigList);
+                
+                if (SqlItemCast.IdentityIsNew)
+                {
+                    Plu = DataContext.Plus.FirstOrDefault() ?? SqlItemNewEmpty<PluModel>();
+                    Bundle = DataContext.Bundles.FirstOrDefault() ?? SqlItemNewEmpty<BundleModel>();
                     SqlItemCast = SqlItemNew<PluBundleFkModel>();
+                    SqlItemCast.Plu = Plu;
+                    SqlItemCast.Bundle = Bundle;
+                }
 
                 ButtonSettings = new(false, false, false, false, false, true, true);
             }

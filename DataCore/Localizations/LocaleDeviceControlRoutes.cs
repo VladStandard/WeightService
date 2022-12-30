@@ -26,7 +26,6 @@ public partial class LocaleDeviceControl
     public string RouteItemOrganization => "/item/organization";
     public string RouteItemPlu => "/item/plu";
     public string RouteItemPluBundle => "/item/plu_bundle";
-    public string RouteItemPluBundleFk => "/item/plu_bundle_fk";
     public string RouteItemPluLabel => "/item/plu_label";
     public string RouteItemPluNestingFk => "/item/plu_nesting";
     public string RouteItemPluScale => "/item/plu_scale";

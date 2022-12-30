@@ -8,10 +8,12 @@
 @using DataCore.Sql.TableScaleFkModels.NestingFks
 @using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 @using DataCore.Sql.TableScaleModels.Boxes
+@using DataCore.Sql.TableScaleModels.Bundles;
+@using DataCore.Sql.TableScaleModels.Plus;
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=@PluBundleFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBundleFk />
+<RazorItemReload TItem=@PluBundleFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluBundleFk />
 
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
     <RazorItemTableHead TItem=@PluBundleFkModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
@@ -24,37 +26,42 @@
             </td>
         </tr>
         <tr>
-	        <td>@LocaleCore.Table.BundleCount</td>
-            <td>
-                @*<RadzenTemplateForm TItem=@PluBundleFkModel Data=@SqlItemCast>
-                    <RadzenNumeric 
-                        Style="width: 100%; text-align: center; display: block;" Disabled=false
-                        Name="fieldBundleCount"
-                        TValue="short" @bind-Value=@SqlItemCast.BundleCount />
-                    <RadzenNumericRangeValidator 
-                        Component="fieldBundleCount"
-                        Text=@LocaleCore.Strings.InputControlCheck(1, 100) Popup=true Style="position: absolute;" />
-                </RadzenTemplateForm>*@
+            <td >
+                <RadzenLink 
+                    Style="width: 100%; "
+                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, Plu, Plu.IdentityValueUid)
+                    Text=@LocaleCore.Table.Plu />
+            </td>
+            <td colspan=3>
+                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                    @bind-Value=@Plu>
+                    @foreach (PluModel item in DataContext.Plus)
+                    {
+                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+                    }
+                </MudSelect>
             </td>
         </tr>
         <tr>
             <td>
-                @*<RadzenLink 
+                <RadzenLink 
                     Style="width: 100%; margin-left: 0;"
-                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBox, SqlItemCast.Box, SqlItemCast.Box.IdentityValueUid)
-                    Text=@LocaleCore.Table.Box />*@
+                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBundle, SqlItemCast.Bundle, SqlItemCast.Bundle.IdentityValueUid)
+                    Text=@LocaleCore.Table.Bundle />
             </td>
             <td colspan=3>
-                @*<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                @bind-Value=@SqlItemCast.Box>
-                    @foreach (BoxModel item in DataContext.Boxes)
+                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                @bind-Value=@Bundle>
+                    @foreach (BundleModel item in DataContext.Bundles)
                     {
                         <MudSelectItem Value=@item>@item.Name</MudSelectItem>
                     }
-                </MudSelect>*@
+                </MudSelect>
             </td>
         </tr>
     </tbody>
 </MudSimpleTable>
+
 <RazorItemActions TItem=@PluBundleFkModel ParentRazor=@(this) />
+
 <RazorItemDates TItem=@PluBundleFkModel ParentRazor=@(this) />

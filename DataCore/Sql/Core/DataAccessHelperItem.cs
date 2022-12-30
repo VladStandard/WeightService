@@ -7,6 +7,7 @@ using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -70,6 +71,20 @@ public partial class DataAccessHelper
 
     public PluTemplateFkModel GetItemPluTemplateFkNotNullable(PluModel plu) =>
 	    GetItemPluTemplateFkNullable(plu) ?? new();
+
+    public PluBundleFkModel? GetItemPluBundleFkNullable(PluModel plu, TableScaleModels.Bundles.BundleModel bundle)
+    {
+	    if (plu.IdentityIsNew) return null;
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+            $"{nameof(PluBundleFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, false, false);
+        SqlCrudConfigModel sqlCrudConfigBundle = SqlCrudConfigUtils.GetCrudConfig(
+            $"{nameof(PluBundleFkModel.Bundle)}.{nameof(SqlTableBase.IdentityValueUid)}", bundle.IdentityValueUid, false, false);
+        sqlCrudConfig.Filters.Add(sqlCrudConfigBundle.Filters.First());
+        return GetItemNullable<PluBundleFkModel>(sqlCrudConfig);
+    }
+
+    public PluBundleFkModel GetItemPluBundleFkNotNullable(PluModel plu, TableScaleModels.Bundles.BundleModel bundle) =>
+        GetItemPluBundleFkNullable(plu, bundle) ?? new();
 
     private TemplateModel? GetItemTemplateNullable(PluScaleModel pluScale)
     {

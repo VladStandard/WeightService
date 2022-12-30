@@ -129,7 +129,7 @@ public partial class RazorComponentBase
         OrderModel => LocaleCore.DeviceControl.RouteItemOrder,
         OrderWeighingModel => LocaleCore.DeviceControl.RouteItemOrderWeighing,
         OrganizationModel => LocaleCore.DeviceControl.RouteItemOrganization,
-        PluBundleFkModel => LocaleCore.DeviceControl.RouteItemBundle,
+        PluBundleFkModel => LocaleCore.DeviceControl.RouteItemPluBundle,
         PluLabelModel => LocaleCore.DeviceControl.RouteItemPluLabel,
         PluModel => LocaleCore.DeviceControl.RouteItemPlu,
         PluNestingFkModel => LocaleCore.DeviceControl.RouteItemPluNestingFk,

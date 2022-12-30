@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 /// Table "PLUS_BUNDLES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluBundleFkModel)}")]
+[DebuggerDisplay("{nameof(PluBundleFkModel)} | {Plu.Number} | {Plu.Name} | {Bundle.Name} | {Bundle.Weight}")]
 public class PluBundleFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
