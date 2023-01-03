@@ -1,0 +1,64 @@
+﻿@inherits RazorComponentSectionBase<PluNestingFkModel, PluModel>
+@page "/section/plus_nesting"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
+@using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+@using DataCore.Sql.TableScaleModels.Plus
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorSectionReload TItem=@PluNestingFkModel TItemFilter=@PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusNestingFk />
+
+<RadzenGrid
+	Style="margin-top: 5px;"
+	Data=@SqlSectionCast TItem=@PluNestingFkModel
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    <Columns>
+		<RazorSectionFieldIsMarked TItem=PluNestingFkModel ParentRazor=@(this) />
+		<RadzenGridColumn TItem=PluNestingFkModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Weighted>
+		    <Template Context="itemCast">
+			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.PluBundle.Plu.IsCheckWeight/>
+		    </Template>
+	    </RadzenGridColumn>
+		<RadzenGridColumn TItem=PluNestingFkModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluNumber>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.PluBundle.Plu.Number.ToString()
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
+			</Template>
+		</RadzenGridColumn>
+		<RadzenGridColumn TItem=PluNestingFkModel Width="32%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.PluBundle.Plu.Name
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
+			</Template>
+		</RadzenGridColumn>
+		<RadzenGridColumn TItem=PluNestingFkModel Width="15%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Bundle>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.PluBundle.Bundle.Name
+	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
+			</Template>
+		</RadzenGridColumn>
+		<RadzenGridColumn TItem=PluNestingFkModel Width="33%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Box>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.Nesting.Box.Name
+	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
+			</Template>
+		</RadzenGridColumn>
+		<RadzenGridColumn TItem=PluNestingFkModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Count>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.Nesting.BundleCount.ToString()
+	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
+			</Template>
+		</RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=PluNestingFkModel ParentRazor=@(this) />

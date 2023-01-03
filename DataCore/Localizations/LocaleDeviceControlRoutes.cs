@@ -25,7 +25,7 @@ public partial class LocaleDeviceControl
     public string RouteItemOrderWeighing => "/item/order_weighing";
     public string RouteItemOrganization => "/item/organization";
     public string RouteItemPlu => "/item/plu";
-    public string RouteItemPluBundle => "/item/plu_bundle";
+    public string RouteItemPluBundleFk => "/item/plu_bundle";
     public string RouteItemPluLabel => "/item/plu_label";
     public string RouteItemPluNestingFk => "/item/plu_nesting";
     public string RouteItemPluScale => "/item/plu_scale";
@@ -66,10 +66,10 @@ public partial class LocaleDeviceControl
     public string RouteSectionOrders => "/section/orders";
     public string RouteSectionOrdersWeighings => "/section/ordersweighings";
     public string RouteSectionOrganizations => "/section/organizations";
-    public string RouteSectionPluLabels => "/section/plus_labels";
-    public string RouteSectionPluNestingFk => "/section/plu_nesting";
     public string RouteSectionPlus => "/section/plus";
     public string RouteSectionPlusBundlesFks => "/section/plus_bundles";
+    public string RouteSectionPlusLabels => "/section/plus_labels";
+    public string RouteSectionPlusNestingFks => "/section/plus_nesting";
     public string RouteSectionPlusScales => "/section/plus_scales";
     public string RouteSectionPlusWeighings => "/section/plu_weighings";
     public string RouteSectionPlusWeighingsAggregation => "/section/plus_weighings_aggr";

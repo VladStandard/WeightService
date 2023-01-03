@@ -49,7 +49,7 @@ public class LocaleTable
     public string Consumer => Lang == Lang.English ? "Consumer" : "Потребитель";
     public string Contragent => Lang == Lang.English ? "Contragent" : "Контрагент";
     public string ContragentId => Lang == Lang.English ? "Contragent ID" : "ИД контрагента";
-    public string Count => Lang == Lang.English ? "Count" : "Количество";
+    public string Count => Lang == Lang.English ? "Count" : "Кол-во";
     public string Counter => Lang == Lang.English ? "Counter" : "Счётчик";
     public string CreateDt => Lang == Lang.English ? "Created" : "Создано";
     public string Date => Lang == Lang.English ? "Date" : "Дата";
@@ -115,6 +115,7 @@ public class LocaleTable
     public string ImageData => Lang == Lang.English ? "Image data" : "Данные";
     public string ImageDataInfo => Lang == Lang.English ? "Info" : "Информация";
     public string InnerException => Lang == Lang.English ? "Inner exception" : "Вложенное исключение";
+    public string IsDefault => Lang == Lang.English ? "Default" : "По-умолчанию";
     public string IsActive => Lang == Lang.English ? "Active" : "Активно";
     public string IsClose => Lang == Lang.English ? "Is close" : "Закрыто";
     public string IsKneading => Lang == Lang.English ? "Kneading" : "Замес";
@@ -138,6 +139,7 @@ public class LocaleTable
     public string Message => Lang == Lang.English ? "Message" : "Сообщение";
     public string Name => Lang == Lang.English ? "Name" : "Наименование";
     public string NameFull => Lang == Lang.English ? "Full name" : "Полное наименование";
+    public string Nesting => Lang == Lang.English ? "Nesting" : "Вложенность";
     public string Nomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";
     public string NomenclatureCode => Lang == Lang.English ? "Nomenclature code" : "Код номенклатуры";
     public string NomenclatureId => Lang == Lang.English ? "Nomenclature ID" : "ID номенклатуры";

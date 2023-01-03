@@ -24,7 +24,7 @@
                 <RadzenLink 
                     Style="width: 100%; "
                     Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, Plu, Plu.IdentityValueUid)
-                    Text=@LocaleCore.Table.Plu />
+                    Text=@($"{LocaleCore.Table.Plu} / {Plu.Number}") />
             </td>
             <td colspan=3>
                 <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense

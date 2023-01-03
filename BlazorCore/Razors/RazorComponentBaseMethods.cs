@@ -132,7 +132,7 @@ public partial class RazorComponentBase
 			PluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,
 			PluLabelModel => LocaleCore.DeviceControl.SectionLabels,
 			PluModel => LocaleCore.DeviceControl.SectionPlus,
-			PluNestingFkModel => LocaleCore.DeviceControl.SectionPluNestingFk,
+			PluNestingFkModel => LocaleCore.DeviceControl.SectionPlusNestingFk,
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
 			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeighings,
 			PrinterModel => LocaleCore.Print.Name,
@@ -254,6 +254,11 @@ public partial class RazorComponentBase
                     //SqlItemSave(SqlItem);
                     SqlItemSavePluBundleFk(pluBundleFk);
                     break;
+                case PluNestingFkModel pluNestingFk:
+                    // Don't do it!
+                    //SqlItemSave(SqlItem);
+                    SqlItemSavePluNestingFk(pluNestingFk);
+                    break;
                 case ScaleModel scale:
                     SqlItemSave(SqlItem);
                     SqlItemSaveScale(scale);
@@ -331,6 +336,17 @@ public partial class RazorComponentBase
             pluBundleFk.Plu = plu;
             pluBundleFk.Bundle = bundle;
             SqlItemSave(pluBundleFk);
+		}
+    }
+    
+    private void SqlItemSavePluNestingFk(PluNestingFkModel pluNestingFk)
+    {
+        if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+        {
+            PluBundleFkModel? pluBundle = SqlLinkedItems.First(x => x is PluBundleFkModel) as PluBundleFkModel;
+			if (pluBundle is null) return;
+            pluNestingFk.PluBundle = pluBundle;
+            SqlItemSave(pluNestingFk);
 		}
     }
     

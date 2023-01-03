@@ -26,21 +26,21 @@
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.Plu.Number.ToString()
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundle}/{itemCast.IdentityValueUid}") />
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
 		<RadzenGridColumn TItem=PluBundleFkModel Width="23%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.Plu.Name
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundle}/{itemCast.IdentityValueUid}") />
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
 		<RadzenGridColumn TItem=PluBundleFkModel Width="15%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Bundle>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.Bundle.Name
-	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundle}/{itemCast.IdentityValueUid}") />
+	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
     </Columns>

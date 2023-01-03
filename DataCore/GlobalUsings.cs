@@ -3,9 +3,7 @@
 
 global using DataCore.Localizations;
 global using DataCore.Settings;
-global using DataCore.Sql;
 global using DataCore.Sql.Models;
-global using DataCore.Sql.TableScaleModels;
 global using DataCore.Utils;
 global using FluentNHibernate.Mapping;
 global using FluentValidation;

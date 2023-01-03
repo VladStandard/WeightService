@@ -4,7 +4,6 @@
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
-using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 
