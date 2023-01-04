@@ -309,17 +309,6 @@ public partial class RazorComponentBase
 		if (box is null) return;
         nestingFk.Box = box;
         SqlItemSave(nestingFk);
-        //   if (SqlLinkedItems is not null && SqlLinkedItems.Any())
-        //   {
-        //       foreach (SqlTableBase item in SqlLinkedItems)
-        //       {
-        //           if (item is BoxModel box)
-        //           {
-        //nestingFk.Box = box;
-        //               SqlItemSave(nestingFk);
-        //           }
-        //       }
-        //   }
     }
 
     private void SqlItemSavePlu(PluModel plu)
