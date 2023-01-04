@@ -6,11 +6,13 @@ using DataCore.Protocols;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
+using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.LogsTypes;
@@ -34,6 +36,18 @@ public partial class DataAccessHelper
         return GetItemNullable<AccessModel>(sqlCrudConfig);
     }
 
+    public NestingFkModel? GetItemNestingFkNullable(BoxModel box)
+    {
+        if (box.IdentityIsNew) return null;
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+            $"{nameof(NestingFkModel.Box)}.{nameof(SqlTableBase.IdentityValueUid)}", box.IdentityValueUid,
+            false, false);
+        return GetItemNullable<NestingFkModel>(sqlCrudConfig);
+    }
+
+    public NestingFkModel GetItemNestingFkNotNullable(BoxModel box) =>
+        GetItemNestingFkNullable(box) ?? new();
+    
     public ProductSeriesModel? GetItemProductSeriesNullable(ScaleModel scale)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(

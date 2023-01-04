@@ -245,6 +245,11 @@ public partial class RazorComponentBase
                     SqlItemSave(SqlItem);
                     SqlItemSaveDevice(device);
                     break;
+                case NestingFkModel nestingFk:
+                    // Don't do it!
+                    //SqlItemSave(SqlItem);
+                    SqlItemSaveNesting(nestingFk);
+                    break;
                 case PluModel plu:
                     SqlItemSave(SqlItem);
                     SqlItemSavePlu(plu);
@@ -274,29 +279,47 @@ public partial class RazorComponentBase
 
     private void SqlItemSaveScale(ScaleModel scale)
     {
-        if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+        if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
+        foreach (SqlTableBase item in SqlLinkedItems)
         {
-            foreach (SqlTableBase item in SqlLinkedItems)
+            if (item is DeviceModel device)
             {
-                if (item is DeviceModel device)
+                DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale);
+                if (device is not null && device.IdentityIsNotNew)
                 {
-                    DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale);
-                    if (device is not null && device.IdentityIsNotNew)
-                    {
-                        if (deviceScaleFk is null)
-                            deviceScaleFk = new() { Device = device, Scale = scale };
-                        else
-                            deviceScaleFk.Device = device;
-                        SqlItemSave(deviceScaleFk);
-                    }
+                    if (deviceScaleFk is null)
+                        deviceScaleFk = new() { Device = device, Scale = scale };
                     else
-                    {
-                        if (deviceScaleFk is not null)
-                            DataAccess.Delete(deviceScaleFk);
-                    }
+                        deviceScaleFk.Device = device;
+                    SqlItemSave(deviceScaleFk);
+                }
+                else
+                {
+                    if (deviceScaleFk is not null)
+                        DataAccess.Delete(deviceScaleFk);
                 }
             }
         }
+    }
+
+    private void SqlItemSaveNesting(NestingFkModel nestingFk)
+    {
+        if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
+        BoxModel? box = SqlLinkedItems.First(x => x is BoxModel) as BoxModel;
+		if (box is null) return;
+        nestingFk.Box = box;
+        SqlItemSave(nestingFk);
+        //   if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+        //   {
+        //       foreach (SqlTableBase item in SqlLinkedItems)
+        //       {
+        //           if (item is BoxModel box)
+        //           {
+        //nestingFk.Box = box;
+        //               SqlItemSave(nestingFk);
+        //           }
+        //       }
+        //   }
     }
 
     private void SqlItemSavePlu(PluModel plu)
@@ -328,50 +351,47 @@ public partial class RazorComponentBase
 
     private void SqlItemSavePluBundleFk(PluBundleFkModel pluBundleFk)
     {
-        if (SqlLinkedItems is not null && SqlLinkedItems.Any())
-        {
-            PluModel? plu = SqlLinkedItems.First(x => x is PluModel) as PluModel;
-            BundleModel? bundle = SqlLinkedItems.First(x => x is BundleModel) as BundleModel;
-			if (plu is null || bundle is null) return;
-            pluBundleFk.Plu = plu;
-            pluBundleFk.Bundle = bundle;
-            SqlItemSave(pluBundleFk);
-		}
+        if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
+        PluModel? plu = SqlLinkedItems.First(x => x is PluModel) as PluModel;
+        BundleModel? bundle = SqlLinkedItems.First(x => x is BundleModel) as BundleModel;
+		if (plu is null || bundle is null) return;
+        pluBundleFk.Plu = plu;
+        pluBundleFk.Bundle = bundle;
+        SqlItemSave(pluBundleFk);
     }
     
     private void SqlItemSavePluNestingFk(PluNestingFkModel pluNestingFk)
     {
-        if (SqlLinkedItems is not null && SqlLinkedItems.Any())
-        {
-            PluBundleFkModel? pluBundle = SqlLinkedItems.First(x => x is PluBundleFkModel) as PluBundleFkModel;
-			if (pluBundle is null) return;
-            pluNestingFk.PluBundle = pluBundle;
-            SqlItemSave(pluNestingFk);
-		}
+        if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
+        PluBundleFkModel? pluBundleFk = SqlLinkedItems.First(x => x is PluBundleFkModel) as PluBundleFkModel;
+        NestingFkModel? nestingFk = SqlLinkedItems.First(x => x is NestingFkModel) as NestingFkModel;
+        if (pluBundleFk is null) return;
+        if (nestingFk is null) return;
+        pluNestingFk.PluBundle = pluBundleFk;
+        pluNestingFk.Nesting = nestingFk;
+        SqlItemSave(pluNestingFk);
     }
-    
-	private void SqlItemSaveDevice(DeviceModel device)
+
+    private void SqlItemSaveDevice(DeviceModel device)
     {
-        if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+        if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
+        foreach (SqlTableBase item in SqlLinkedItems)
         {
-            foreach (SqlTableBase item in SqlLinkedItems)
+            if (item is DeviceTypeModel deviceType)
             {
-                if (item is DeviceTypeModel deviceType)
+                DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFkNullable(device);
+                if (deviceType is not null && deviceType.IdentityIsNotNew)
                 {
-                    DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFkNullable(device);
-                    if (deviceType is not null && deviceType.IdentityIsNotNew)
-                    {
-                        if (deviceTypeFk is null)
-                            deviceTypeFk = new() { Type = deviceType, Device = device };
-                        else
-                            deviceTypeFk.Type = deviceType;
-                        SqlItemSave(deviceTypeFk);
-                    }
+                    if (deviceTypeFk is null)
+                        deviceTypeFk = new() { Type = deviceType, Device = device };
                     else
-                    {
-                        if (deviceTypeFk is not null)
-                            DataAccess.Delete(deviceTypeFk);
-                    }
+                        deviceTypeFk.Type = deviceType;
+                    SqlItemSave(deviceTypeFk);
+                }
+                else
+                {
+                    if (deviceTypeFk is not null)
+                        DataAccess.Delete(deviceTypeFk);
                 }
             }
         }

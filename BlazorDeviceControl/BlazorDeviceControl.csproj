@@ -107,6 +107,7 @@
     <Watch Remove="Razors\ItemComponents\Others\ItemBundleFk.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemOrganization.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemScaleScreenShot.razor" />
+    <Watch Remove="Razors\ItemComponents\Plus\ItemNestingFk.razor" />
     <Watch Remove="Razors\ItemComponents\Plus\ItemPluBundleFk.razor" />
     <Watch Remove="Razors\ItemComponents\Plus\ItemPluLabel.razor" />
     <Watch Remove="Razors\ItemComponents\Plus\ItemPluNestingFk.razor" />

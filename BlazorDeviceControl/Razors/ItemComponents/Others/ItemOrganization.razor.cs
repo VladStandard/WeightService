@@ -24,7 +24,9 @@ public partial class ItemOrganization : RazorComponentItemBase<OrganizationModel
 			{
                 SqlItemCast = DataAccess.GetItemNotNullable<OrganizationModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-                    SqlItemCast = SqlItemNew<OrganizationModel>();
+                {
+					SqlItemCast = SqlItemNew < OrganizationModel >();
+				}
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

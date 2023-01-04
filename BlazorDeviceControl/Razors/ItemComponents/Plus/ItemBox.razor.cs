@@ -2,13 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.PlusScales;
-using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.Boxes;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
-public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
+public partial class ItemBox : RazorComponentItemBase<BoxModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -24,15 +22,13 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
         {
             () =>
             {
-                SqlItemCast = DataContext.GetItemNotNullable<PluScaleModel>(IdentityUid);
+                SqlItemCast = DataAccess.GetItemNotNullable<BoxModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
                 {
-                    SqlItemCast = SqlItemNew<PluScaleModel>();
+                    SqlItemCast = SqlItemNew<BoxModel>();
                 }
-                DataContext.GetListNotNullable<PluModel>(SqlCrudConfigList);
-	            DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigList);
 
-	            ButtonSettings = new(false, false, false, false, false, true, true);
+                ButtonSettings = new(false, false, false, false, false, true, true);
             }
         });
     }

@@ -24,7 +24,9 @@ public partial class ItemContragent : RazorComponentItemBase<ContragentModel>
             {
                 SqlItemCast = DataAccess.GetItemNotNullable<ContragentModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
+                {
                     SqlItemCast = SqlItemNew<ContragentModel>();
+                }
 
                 ButtonSettings = new(false, false, false, false, false, true, true);
             }

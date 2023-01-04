@@ -24,7 +24,9 @@ public partial class ItemPrinterType : RazorComponentItemBase<PrinterTypeModel>
 			{
                 SqlItemCast = DataAccess.GetItemNotNullable<PrinterTypeModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
-                    SqlItemCast = SqlItemNew<PrinterTypeModel>();
+                {
+					SqlItemCast = SqlItemNew<PrinterTypeModel>();
+				}
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

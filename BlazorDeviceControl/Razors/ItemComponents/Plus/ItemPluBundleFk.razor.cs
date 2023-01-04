@@ -39,8 +39,8 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
 
                 if (SqlItemCast.IdentityIsNew)
                 {
-                    Plu = DataContext.Plus.FirstOrDefault() ?? SqlItemNewEmpty<PluModel>();
-                    Bundle = DataContext.Bundles.FirstOrDefault() ?? SqlItemNewEmpty<BundleModel>();
+                    Plu = DataContext.Plus.Where(item => item.IdentityIsNew).FirstOrDefault() ?? SqlItemNewEmpty<PluModel>();
+                    Bundle = DataContext.Bundles.Where(item => item.IdentityIsNew).FirstOrDefault() ?? SqlItemNewEmpty<BundleModel>();
                     SqlItemCast = SqlItemNew<PluBundleFkModel>();
                     SqlItemCast.Plu = Plu;
                     SqlItemCast.Bundle = Bundle;

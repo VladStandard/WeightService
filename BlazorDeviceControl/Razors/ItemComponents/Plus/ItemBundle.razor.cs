@@ -4,18 +4,13 @@
 using BlazorCore.Razors;
 using DataCore.Sql.TableScaleModels.Bundles;
 
-namespace BlazorDeviceControl.Razors.SectionComponents.Others;
+namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
-public partial class SectionBundles : RazorComponentSectionBase<BundleModel, SqlTableBase>
+public partial class ItemBundle : RazorComponentItemBase<BundleModel>
 {
     #region Public and private fields, properties, constructor
 
-    public SectionBundles()
-    {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-	    SqlCrudConfigSection.IsGuiShowFilterOnlyTop = true;
-	}
+    //
 
     #endregion
 
@@ -27,11 +22,15 @@ public partial class SectionBundles : RazorComponentSectionBase<BundleModel, Sql
         {
             () =>
             {
-                SqlSectionCast = DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigSection);
+                SqlItemCast = DataAccess.GetItemNotNullable<BundleModel>(IdentityUid);
+                if (SqlItemCast.IdentityIsNew)
+                {
+                    SqlItemCast = SqlItemNew<BundleModel>();
+                }
 
-				ButtonSettings = new(true, true, true, true, true, false, false);
+                ButtonSettings = new(false, false, false, false, false, true, true);
             }
-		});
+        });
     }
 
     #endregion

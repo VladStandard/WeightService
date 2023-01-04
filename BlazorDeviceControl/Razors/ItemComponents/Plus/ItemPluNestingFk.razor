@@ -1,7 +1,7 @@
 ﻿@inherits RazorComponentItemBase<PluNestingFkModel>
-@page "/item/plu_nesting"
-@page "/item/plu_nesting/new"
-@page "/item/plu_nesting/{IdentityUidStr}"
+@page "/item/plu_nesting_fk"
+@page "/item/plu_nesting_fk/new"
+@page "/item/plu_nesting_fk/{IdentityUidStr}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
@@ -22,70 +22,150 @@
         <RazorItemTableBody TItem=@PluNestingFkModel ParentRazor=@(this) />
         <tr>
             <td>
-                <RadzenLink 
-                    Style="width: 100%; "
-                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, PluBundleFk.Plu, PluBundleFk.Plu.IdentityValueUid)
-                    Text=@($"{LocaleCore.Table.Plu} / {PluBundleFk.Plu.Number}") />
-            </td>
-            <td colspan=3>
-                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                    @bind-Value=@Plu>
-                    @foreach (PluModel item in DataContext.Plus)
-                    {
-                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-                    }
-                </MudSelect>
-            </td>
-        </tr>
-        <tr>
-            <td>
                 @LocaleCore.Table.IsDefault
             </td>
             <td>
                 <RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsDefault />
             </td>
         </tr>
+        @* PluBundleFk *@
         <tr>
             <td>
-                <RadzenLink 
-                    Style="width: 100%; margin-left: 0;"
-                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBundle, SqlItemCast.PluBundle.Bundle, SqlItemCast.PluBundle.Bundle.IdentityValueUid)
-                    Text=@LocaleCore.Table.Bundle />
-            </td>
-            <td>
-                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                    @bind-Value=@Bundle>
-                    @foreach (BundleModel item in DataContext.Bundles)
-                    {
-                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-                    }
-                </MudSelect>
-            </td>
-            <td>
-                <RadzenLabel 
-                    Style="width: 100%; margin-left: 0;"
-                    Text=@LocaleCore.Table.Weight />
-            </td>
-            <td>
-				<RadzenNumeric
-					Style="width: 100%; text-align: center; background-color: lightgray; "
-                    Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@Bundle.Weight />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <RadzenLabel 
-                    Style="width: 100%; margin-left: 0;"
-                    Text=@LocaleCore.Table.Nesting />
+                <RadzenLink Style="width: 100%; margin-left: 0; text-align: center; "
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPluBundleFk, SqlItemCast.PluBundle, SqlItemCast.PluBundle.IdentityValueUid)
+                            Text=@LocaleCore.Table.PluBundleFk />
             </td>
             <td colspan=3>
                 <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                    @bind-Value=@NestingFk>
+                @bind-Value=@PluBundleFk>
+                    @foreach (PluBundleFkModel item in DataContext.PluBundleFks)
+                    {
+                        <MudSelectItem Value=@item>@($"{item.Plu.Name} | {item.Plu.Number} | {item.Bundle.Name}")</MudSelectItem>
+                    }
+                </MudSelect>
+            </td>
+        </tr>
+        @* Plu *@
+        <tr>
+            <td>
+                <RadzenLink Style="width: 100%; "
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.PluBundle.Plu, SqlItemCast.PluBundle.Plu.IdentityValueUid)
+                            Text=@LocaleCore.Table.Plu />
+            </td>
+            <td>
+                <RadzenLink Style="width: 100%; "
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.PluBundle.Plu, SqlItemCast.PluBundle.Plu.IdentityValueUid)
+                            Text=@($"{PluBundleFk.Plu.Number}") />
+            </td>
+            <td colspan=2>
+                <RadzenLink Style="width: 100%; "
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.PluBundle.Plu, SqlItemCast.PluBundle.Plu.IdentityValueUid)
+                            Text=@PluBundleFk.Plu.Name />
+            </td>
+        </tr>
+        @* Nomenclature *@
+        <tr>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.Nomenclature />
+            </td>
+            <td>
+                <RadzenLink Style="width: 100%; "
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, SqlItemCast.PluBundle.Bundle, SqlItemCast.PluBundle.Plu.Nomenclature.IdentityValueId)
+                            Text=@(SqlItemCast.PluBundle.Plu.Nomenclature.Name) />
+            </td>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.NomenclatureCode />
+            </td>
+            <td>
+                <RadzenLink Style="width: 100%; "
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, SqlItemCast.PluBundle.Bundle, SqlItemCast.PluBundle.Plu.Nomenclature.IdentityValueId)
+                            Text=@(SqlItemCast.PluBundle.Plu.Nomenclature.Code) />
+            </td>
+        </tr>
+        @* Bundle *@
+        <tr>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.Bundle />
+            </td>
+            <td>
+                <RadzenLink Style="width: 100%; "
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBundle, SqlItemCast.PluBundle.Bundle, SqlItemCast.PluBundle.Bundle.IdentityValueUid)
+                            Text=@PluBundleFk.Bundle.Name />
+            </td>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.Weight />
+            </td>
+            <td>
+                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
+                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@PluBundleFk.Bundle.Weight />
+            </td>
+        </tr>
+        @* NestingFk *@
+        <tr>
+            <td>
+                <RadzenLink Style="width: 100%; "
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNestingFk, SqlItemCast.Nesting, SqlItemCast.Nesting.IdentityValueUid)
+                            Text=@LocaleCore.Table.Nesting />
+            </td>
+            <td colspan=3>
+                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                @bind-Value=@NestingFk>
                     @foreach (NestingFkModel item in DataContext.NestingFks)
                     {
                         <MudSelectItem Value=@item>@item.Name</MudSelectItem>
                     }
                 </MudSelect>
+            </td>
+        </tr>
+        @* Box *@
+        <tr>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.Box />
+            </td>
+            <td>
+                <RadzenLink Style="width: 100%; "
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBox, SqlItemCast.Nesting.Box, SqlItemCast.Nesting.Box.IdentityValueUid)
+                            Text=@NestingFk.Box.Name />
+            </td>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.BoxWeight />
+            </td>
+            <td>
+                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
+                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@NestingFk.Box.Weight />
+            </td>
+        </tr>
+        @* Nesting & Weight *@
+        <tr>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.NestingCount />
+            </td>
+            <td>
+                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
+                               Disabled=true TValue="short" ReadOnly=true @bind-Value=@NestingFk.BundleCount />
+            </td>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.WeightNominal />
+            </td>
+            <td>
+                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
+                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@NestingFk.WeightNom />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.WeightMinimal />
+            </td>
+            <td>
+                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
+                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@NestingFk.WeightMin />
+            </td>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.WeightMaximal />
+            </td>
+            <td>
+                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
+                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@NestingFk.WeightMax />
             </td>
         </tr>
     </tbody>

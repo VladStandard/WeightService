@@ -4,7 +4,7 @@
 using BlazorCore.Razors;
 using DataCore.Sql.TableScaleModels.Boxes;
 
-namespace BlazorDeviceControl.Razors.SectionComponents.Others;
+namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
 public partial class SectionBoxes : RazorComponentSectionBase<BoxModel, SqlTableBase>
 {
@@ -12,10 +12,10 @@ public partial class SectionBoxes : RazorComponentSectionBase<BoxModel, SqlTable
 
     public SectionBoxes()
     {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+        SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-	    SqlCrudConfigSection.IsGuiShowFilterOnlyTop = true;
-	}
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = true;
+    }
 
     #endregion
 
@@ -29,9 +29,9 @@ public partial class SectionBoxes : RazorComponentSectionBase<BoxModel, SqlTable
             {
                 SqlSectionCast = DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigSection);
 
-				ButtonSettings = new(true, true, true, true, true, false, false);
+                ButtonSettings = new(true, true, true, true, true, false, false);
             }
-		});
+        });
     }
 
     #endregion

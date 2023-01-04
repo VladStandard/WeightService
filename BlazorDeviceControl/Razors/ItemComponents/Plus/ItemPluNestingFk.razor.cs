@@ -5,8 +5,6 @@ using BlazorCore.Razors;
 using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
-using DataCore.Sql.TableScaleModels.Bundles;
-using DataCore.Sql.TableScaleModels.Plus;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
@@ -14,21 +12,15 @@ public partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel
 {
     #region Public and private fields, properties, constructor
 
-    private PluModel _plu;
-    private PluModel Plu { get => _plu; set { _plu = value; SqlLinkedItems = new() { _plu, _bundle, _pluBundleFk, _nestingFk }; } }
-    private BundleModel _bundle;
-    private BundleModel Bundle { get => _bundle; set { _bundle = value; SqlLinkedItems = new() { _plu, _bundle, _pluBundleFk, _nestingFk }; } }
     private PluBundleFkModel _pluBundleFk;
-    private PluBundleFkModel PluBundleFk { get => _pluBundleFk; set { _pluBundleFk = value; SqlLinkedItems = new() { _plu, _bundle, _pluBundleFk, _nestingFk }; } }
+    private PluBundleFkModel PluBundleFk { get => _pluBundleFk; set { _pluBundleFk = value; SqlLinkedItems = new() { _pluBundleFk, _nestingFk }; } }
     private NestingFkModel _nestingFk;
-    private NestingFkModel NestingFk { get => _nestingFk; set { _nestingFk = value; SqlLinkedItems = new() { _plu, _bundle, _pluBundleFk, _nestingFk }; } }
+    private NestingFkModel NestingFk { get => _nestingFk; set { _nestingFk = value; SqlLinkedItems = new() { _pluBundleFk, _nestingFk }; } }
 
     public ItemPluNestingFk()
     {
-        _plu = SqlItemNewEmpty<PluModel>();
-        _bundle = SqlItemNewEmpty<BundleModel>();
-        _nestingFk = SqlItemNewEmpty<NestingFkModel>();
         _pluBundleFk = SqlItemNewEmpty<PluBundleFkModel>();
+        _nestingFk = SqlItemNewEmpty<NestingFkModel>();
     }
 
     #endregion
@@ -40,18 +32,14 @@ public partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel
         RunActionsParametersSetJustOne(
             () =>
             {
-                SqlItemCast = DataAccess.GetItemNotNullable<PluNestingFkModel>(IdentityUid);
-                DataContext.GetListNotNullable<PluModel>(SqlCrudConfigList);
-                DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigList);
-                DataContext.GetListNotNullable<NestingFkModel>(SqlCrudConfigList);
                 DataContext.GetListNotNullable<PluBundleFkModel>(SqlCrudConfigList);
+                DataContext.GetListNotNullable<NestingFkModel>(SqlCrudConfigList);
+                SqlItemCast = DataAccess.GetItemNotNullable<PluNestingFkModel>(IdentityUid);
 
                 if (SqlItemCast.IdentityIsNew)
                 {
-                    PluBundleFk = DataContext.PluBundleFks.FirstOrDefault() ?? SqlItemNewEmpty<PluBundleFkModel>();
-                    PluBundleFk.Plu = Plu;
-                    PluBundleFk.Bundle = Bundle;
-                    NestingFk = DataContext.NestingFks.FirstOrDefault() ?? SqlItemNewEmpty<NestingFkModel>();
+                    PluBundleFk = DataContext.PluBundleFks.Where(item => item.IdentityIsNew).FirstOrDefault() ?? SqlItemNewEmpty<PluBundleFkModel>();
+                    NestingFk = DataContext.NestingFks.Where(item => item.IdentityIsNew).FirstOrDefault() ?? SqlItemNewEmpty<NestingFkModel>();
                     SqlItemCast = SqlItemNew<PluNestingFkModel>();
                     SqlItemCast.PluBundle = PluBundleFk;
                     SqlItemCast.Nesting = NestingFk;
@@ -59,8 +47,6 @@ public partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel
                 else
                 {
                     PluBundleFk = SqlItemCast.PluBundle;
-                    Plu = SqlItemCast.PluBundle.Plu;
-                    Bundle = SqlItemCast.PluBundle.Bundle;
                     NestingFk = SqlItemCast.Nesting;
                 }
 

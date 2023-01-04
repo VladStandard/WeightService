@@ -30,7 +30,20 @@
                     ReadOnly=false Value=@SqlItemCast.Name />
 			</td>
         </tr>
-		<tr>
+        @* CheckWeight & Code *@
+        <tr>
+            <td>@LocaleCore.Table.CheckWeight</td>
+            <td>
+                <RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsCheckWeight />
+            </td>
+            <td>@LocaleCore.Table.NomenclatureCode</td>
+            <td>
+                <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
+                               ReadOnly=true Value=@SqlItemCast.Nomenclature.Code.ToString() />
+            </td>
+        </tr>
+        @* Template & Nomenclature *@
+        <tr>
             <td>
                 <RadzenLink Style="width: 100%; margin-left: 0; "
                     Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, 
@@ -62,17 +75,6 @@
 					}
 				</MudSelect>
 			</td>
-        </tr>
-        <tr>
-            <td>@LocaleCore.Table.CheckWeight</td>
-            <td>
-                <RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsCheckWeight />
-            </td>
-	        <td>@LocaleCore.Table.NomenclatureCode</td>
-	        <td>
-		        <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
-		                       ReadOnly=true Value=@SqlItemCast.Nomenclature.Code.ToString() />
-	        </td>
         </tr>
         <tr>
             <td>@LocaleCore.Table.ShelfLifeDays</td>

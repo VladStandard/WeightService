@@ -167,7 +167,7 @@ public partial class RazorComponentBase
             LogModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogQuickModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogTypeModel => LocaleCore.DeviceControl.RouteSectionLogTypes,
-            NestingFkModel => LocaleCore.DeviceControl.RouteSectionNestingFk,
+            NestingFkModel => LocaleCore.DeviceControl.RouteSectionNestingFks,
             NomenclatureGroupModel => LocaleCore.DeviceControl.RouteSectionNomenclaturesGroups,
             NomenclatureModel => LocaleCore.DeviceControl.RouteSectionNomenclatures,
             OrderModel => LocaleCore.DeviceControl.RouteSectionOrders,

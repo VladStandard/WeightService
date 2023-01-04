@@ -40,7 +40,9 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
             {
                 SqlItemCast = DataContext.GetItemNotNullable<PluModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-                    SqlItemCast = SqlItemNew<PluModel>();
+                {
+                    SqlItemCast = SqlItemNew < PluModel >();
+                }
 
                 DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigList);
                 DataContext.GetListNotNullable<NomenclatureModel>(SqlCrudConfigList);
