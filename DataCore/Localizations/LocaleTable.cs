@@ -36,7 +36,7 @@ public class LocaleTable
     public string BundleCount => Lang == Lang.English ? "Bundle count" : "Кол-во пакетов";
     public string BundleFkWeightTare => Lang == Lang.English ? "Bundle tare weight" : "Вес тары упаковки";
     public string BundleFkWeightTareDescription => Lang == Lang.English ? "Tare weight = weight of package * count of inserts + weight of box" : "Вес тары = вес пакета * кол. вложений + вес коробки";
-    public string BundleFkWeightTareKg => Lang == Lang.English ? "Tare weight" : "Вес тары";
+    public string BundleFkWeightTareKg => Lang == Lang.English ? "Tare weight, kg" : "Вес тары, кг";
     public string BundleFkWeightTareShort => Lang == Lang.English ? "Weight" : "Вес";
     public string BundleWeight=> Lang == Lang.English ? "Bundle weight" : "Вес пакета";
     public string CategoryId => Lang == Lang.English ? "Category ID" : "ИД категории";
@@ -227,6 +227,7 @@ public class LocaleTable
     public string Weighing => Lang == Lang.English ? "Weighing" : "Взвешивание";
     public string Weight => Lang == Lang.English ? "Weight" : "Вес";
     public string Weighted => Lang == Lang.English ? "Weighted" : "Весовая";
+    public string WeightTare => Lang == Lang.English ? "Tare weight" : "Вес тары";
     public string WeightMaximal => Lang == Lang.English ? "Maximal weight" : "Максимальный вес";
     public string WeightMinimal => Lang == Lang.English ? "Minimal weight" : "Минимальный вес";
     public string WeightNetto => Lang == Lang.English ? "Net weight" : "Вес нетто";

@@ -8,17 +8,17 @@ namespace WeightCore.XamlPages;
 /// <summary>
 /// Interaction logic for PageSqlSettings.xaml
 /// </summary>
-public partial class PagePluBundleFk
+public partial class PagePluNestingFk
 {
 	#region Public and private fields, properties, constructor
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PagePluBundleFk()
+	public PagePluNestingFk()
 	{
 		InitializeComponent();
-		SetPluBundleFks(comboBoxPluBundleFks);
+		SetPluNestingFk(comboBoxPluNestingFks);
     }
 
     #endregion

@@ -74,7 +74,7 @@ public class XamlPageBase : UserControl
             comboBox.SelectedIndex = 0;
     }
 
-    protected void SetPluBundleFks(ComboBox comboBox)
+    protected void SetPluNestingFk(ComboBox comboBox)
     {
         int i = 0;
         foreach (PluNestingFkModel pluNestingFk in UserSession.PluNestingFks)

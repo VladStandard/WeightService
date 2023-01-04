@@ -30,7 +30,7 @@
                     Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
-		<RadzenGridColumn TItem=PluNestingFkModel Width="32%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
+		<RadzenGridColumn TItem=PluNestingFkModel Width="27%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.PluBundle.Plu.Name
@@ -44,7 +44,7 @@
 	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
-		<RadzenGridColumn TItem=PluNestingFkModel Width="33%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Box>
+		<RadzenGridColumn TItem=PluNestingFkModel Width="28%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Box>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.Nesting.Box.Name
@@ -56,6 +56,12 @@
 				<RadzenLink 
 					Text=@itemCast.Nesting.BundleCount.ToString()
 	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
+			</Template>
+		</RadzenGridColumn>
+		<RadzenGridColumn TItem=PluNestingFkModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Weight>
+			<Template Context="itemCast">
+				<RadzenLabel Style="text-align: center; "
+					Text=@itemCast.WeightTare.ToString() />
 			</Template>
 		</RadzenGridColumn>
     </Columns>

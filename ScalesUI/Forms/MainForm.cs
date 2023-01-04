@@ -46,7 +46,7 @@ public partial class MainForm : Form
     #region Public and private fields, properties, constructor
 
     private Button ButtonDevice { get; set; }
-    private Button ButtonBundleFk { get; set; }
+    private Button ButtonPluNestingFk { get; set; }
     private Button ButtonKneading { get; set; }
     private Button ButtonMore { get; set; }
     private Button ButtonNewPallet { get; set; }
@@ -154,7 +154,7 @@ public partial class MainForm : Form
                 // Labels.
                 UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                     labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
-                    ButtonDevice, ButtonBundleFk, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
+                    ButtonDevice, ButtonPluNestingFk, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
                     ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose,
                     fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
                 UserSession.ManagerControl.Labels.Open();
@@ -255,8 +255,8 @@ public partial class MainForm : Form
             ButtonDevice.Font = FontsSettings.FontButtonsSmall;
         if (ButtonPlu is not null)
             ButtonPlu.Font = FontsSettings.FontButtonsSmall;
-        if (ButtonBundleFk is not null)
-            ButtonBundleFk.Font = FontsSettings.FontButtonsSmall;
+        if (ButtonPluNestingFk is not null)
+            ButtonPluNestingFk.Font = FontsSettings.FontButtonsSmall;
 
         if (ButtonScalesTerminal is not null)
             ButtonScalesTerminal.Font = FontsSettings.FontButtons;
@@ -316,8 +316,8 @@ public partial class MainForm : Form
 
         if (buttonsSettings.IsPackage)
         {
-            ButtonBundleFk = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonBundleFk), 1, rowCount++);
-            ButtonBundleFk.Click += ActionPluBundleFk;
+            ButtonPluNestingFk = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonPluNestingFk), 1, rowCount++);
+            ButtonPluNestingFk.Click += ActionPluNestingFk;
         }
 
         tableLayoutPanelDevice.ColumnCount = 1;
@@ -625,10 +625,9 @@ public partial class MainForm : Form
                     ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
                     UserSession.Scale.Description + Environment.NewLine + area);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonBundleFk, UserSession.PluNestingFk.IdentityIsNew
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IdentityIsNew
                     ? LocaleCore.Table.FieldPackageIsNotSelected
-                    : UserSession.PluNestingFk.PluBundle.Name + Environment.NewLine +
-                      $"{LocaleCore.Table.BundleFkWeightTareKg}: {UserSession.PluNestingFk.WeightTare}");
+                    : $"{UserSession.PluNestingFk.Nesting.Name} {UserSession.PluNestingFk.WeightTare}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -684,7 +683,7 @@ public partial class MainForm : Form
         );
     }
 
-    private void ActionPluBundleFk(object sender, EventArgs e)
+    private void ActionPluNestingFk(object sender, EventArgs e)
     {
 	    ActionUtils.ActionTryCatchFinally(this,
             () =>
@@ -696,15 +695,15 @@ public partial class MainForm : Form
                 using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 600, Height = 225 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
-                // Here is another instance of wpfPageLoader.PagePluBundleFk.UserSession.
+                // Here is another instance of wpfPageLoader.PagePluNestingFk.UserSession.
                 switch (dialogResult)
                 {
                     case DialogResult.OK:
-                        if (wpfPageLoader.PagePluBundleFk is not null)
-                            UserSession.SetBundleFk(wpfPageLoader.PagePluBundleFk.UserSession.PluNestingFk.IdentityValueUid);
+                        if (wpfPageLoader.PagePluNestingFk is not null)
+                            UserSession.SetBundleFk(wpfPageLoader.PagePluNestingFk.UserSession.PluNestingFk.IdentityValueUid);
                         break;
                     case DialogResult.Cancel:
-                        if (wpfPageLoader.PagePluBundleFk is not null)
+                        if (wpfPageLoader.PagePluNestingFk is not null)
                             UserSession.SetBundleFk(null);
                         break;
                 }

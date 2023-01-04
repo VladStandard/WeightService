@@ -23,7 +23,7 @@ public partial class WpfPageLoader : Form
     private PageMessageBox? PageMessageBox { get; set; }
     private PagePinCode? PagePinCode { get; set; }
     public PageDevice? PageDevice { get; private set; }
-    public PagePluBundleFk? PagePluBundleFk { get; set; }
+    public PagePluNestingFk? PagePluNestingFk { get; set; }
 	private PageSqlSettings? PageSqlSettings { get; set; }
     private DataCore.Models.PageEnum Page { get; }
 
@@ -125,10 +125,10 @@ public partial class WpfPageLoader : Form
                 PageDevice.OnClose += WpfPageLoader_OnClose;
                 break;
             case DataCore.Models.PageEnum.PluBundleFk:
-                PagePluBundleFk = new();
-                PagePluBundleFk.InitializeComponent();
-                ElementHost.Child = PagePluBundleFk;
-                PagePluBundleFk.OnClose += WpfPageLoader_OnClose;
+                PagePluNestingFk = new();
+                PagePluNestingFk.InitializeComponent();
+                ElementHost.Child = PagePluNestingFk;
+                PagePluNestingFk.OnClose += WpfPageLoader_OnClose;
                 break;
             case DataCore.Models.PageEnum.PinCode:
                 PagePinCode = new();
@@ -165,7 +165,7 @@ public partial class WpfPageLoader : Form
 	        {
 		        DataCore.Models.PageEnum.MessageBox => MessageBox.Result,
 		        DataCore.Models.PageEnum.Device => PageDevice?.Result ?? DialogResult.Cancel,
-		        DataCore.Models.PageEnum.PluBundleFk => PagePluBundleFk?.Result ?? DialogResult.Cancel,
+		        DataCore.Models.PageEnum.PluBundleFk => PagePluNestingFk?.Result ?? DialogResult.Cancel,
                 DataCore.Models.PageEnum.PinCode => PagePinCode?.Result ?? DialogResult.Cancel,
                 DataCore.Models.PageEnum.SqlSettings => PageSqlSettings?.Result ?? DialogResult.Cancel,
                 _ => DialogResult

@@ -168,6 +168,15 @@
                                Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@NestingFk.WeightMax />
             </td>
         </tr>
+        <tr>
+            <td>
+                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.WeightTare />
+            </td>
+            <td colspan=3>
+                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
+                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@SqlItemCast.WeightTare />
+            </td>
+        </tr>
     </tbody>
 </MudSimpleTable>
 

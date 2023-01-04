@@ -447,11 +447,19 @@ public class DataContextModel
             PluWeighings = PluWeighings.OrderByDescending(item => item.ChangeDt).ToList();
         return PluWeighings.Cast<T>().ToList();
     }
+
     private List<T> GetListNotNullablePluNestingFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
         PluNestingFks = DataAccess.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PluNestingFks.Count > 1)
             PluNestingFks = PluNestingFks.OrderByDescending(item => item.ChangeDt).ToList();
+        if (PluNestingFks.Exists(x => x.IdentityIsNew))
+        {
+            PluNestingFkModel pluNestingFk = PluNestingFks.Find(x => x.IdentityIsNew);
+            pluNestingFk.PluBundle = DataAccess.GetItemNewEmpty<PluBundleFkModel>();
+            pluNestingFk.PluBundle.Plu = DataAccess.GetItemNewEmpty<PluModel>();
+            pluNestingFk.PluBundle.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();
+        }
         return PluNestingFks.Cast<T>().ToList();
     }
 

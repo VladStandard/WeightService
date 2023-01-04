@@ -12,11 +12,14 @@ using DataCore.Sql.Core;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
@@ -113,9 +116,29 @@ public class UserSessionHelper : BaseViewModel
 				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
-			PluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(
-                SqlCrudConfigUtils.GetCrudConfig(value.Plu, nameof(PluScaleModel.Plu), 
-                new(), false, false, true, true));
+
+			// Fix here.
+			//PluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(
+			//    SqlCrudConfigUtils.GetCrudConfig(value.Plu, nameof(PluScaleModel.Plu), 
+			//    new(), false, false, true, true));
+			if (value.Plu.IdentityIsNew)
+			{
+				PluNestingFkModel pluNestingFk = DataAccess.GetItemNewEmpty<PluNestingFkModel>();
+				pluNestingFk.PluBundle = DataAccess.GetItemNewEmpty<PluBundleFkModel>();
+				pluNestingFk.PluBundle.Plu = DataAccess.GetItemNewEmpty<PluModel>();
+				pluNestingFk.PluBundle.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();
+                PluNestingFks = new() { pluNestingFk };
+            }
+			else
+			{
+				DataCore.Sql.Models.SqlCrudConfigModel sqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
+				List<PluNestingFkModel> pluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(sqlCrudConfigList);
+				PluNestingFkModel pluNestingFk = pluNestingFks.Find(x => x.IdentityIsNew);
+                List<PluNestingFkModel> temp = new() { pluNestingFk };
+				temp.AddRange(pluNestingFks.Where(x => Equals(x.PluBundle.Plu.IdentityValueUid, value.Plu.IdentityValueUid)).ToList());
+                PluNestingFks = temp;
+			}
+
 			OnPropertyChanged();
 		}
 	}
@@ -142,8 +165,10 @@ public class UserSessionHelper : BaseViewModel
         set
         {
             _pluNestingFks = value;
-            PluNestingFk = value.Exists(x => x.IsDefault)
-                ? value.Find(x => x.IsDefault) : value.First();
+			if (value.Exists(x => !x.IdentityIsNew) && value.Exists(x => x.IsDefault))
+				PluNestingFk = value.Find(x => x.IsDefault);
+			else
+                PluNestingFk = value.First();
             OnPropertyChanged();
         }
     }
