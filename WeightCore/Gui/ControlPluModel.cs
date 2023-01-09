@@ -13,19 +13,21 @@ public class ControlPluModel
     private Label LabelPluNumber { get; }
     private Label LabelPluType { get; }
     private Label LabelPluCode { get; }
-    private Label LabelPluDescription { get; }
+    private Label LabelPluTemplate { get; }
+    private Label LabelPluValidate { get; }
 
     #endregion
 
     #region Constructor and destructor
 
-    public ControlPluModel(Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluDescription)
+    public ControlPluModel(Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluTemplate, Label labelPluValidate)
     {
         ButtonPlu = buttonPlu;
         LabelPluNumber = labelPluNumber;
         LabelPluType = labelPluType;
         LabelPluCode = labelPluCode;
-        LabelPluDescription = labelPluDescription;
+        LabelPluTemplate = labelPluTemplate;
+        LabelPluValidate = labelPluValidate;
     }
 
     #endregion
@@ -34,25 +36,45 @@ public class ControlPluModel
 
     public void SetupSizes()
     {
-        LabelPluNumber.Width = ButtonPlu.Width / 2 - 4;
-        LabelPluNumber.Height = ButtonPlu.Height / 4 - 4;
+        int height = ButtonPlu.Height / 4 - 4;
+        int width = ButtonPlu.Width / 2 - 4;
+
+        LabelPluNumber.Width = width;
+        LabelPluNumber.Height = height;
         LabelPluNumber.Left = 2;
         LabelPluNumber.Top = 2;
-        
-        LabelPluType.Width = ButtonPlu.Width / 2 - 4;
-        LabelPluType.Height = ButtonPlu.Height / 4 - 4;
-        LabelPluType.Left = ButtonPlu.Width / 2 + 2;
+
+        LabelPluType.Height = height;
         LabelPluType.Top = 2;
-        
-        LabelPluCode.Width = ButtonPlu.Width / 2 - 4;
-        LabelPluCode.Height = ButtonPlu.Height / 4 - 4;
+
+        if (LabelPluValidate.Text == "OK")
+        {
+            LabelPluType.Width = width;
+            LabelPluType.Left = ButtonPlu.Width / 2 + 2;
+
+        } 
+        else
+        {
+            LabelPluType.Width = (width + 4) / 2 - 4;
+            LabelPluType.Left = ButtonPlu.Width / 2 + 2;
+
+            LabelPluValidate.Width = (width + 4) / 2 - 4;
+            LabelPluValidate.Height = height;
+            LabelPluValidate.Left = ButtonPlu.Width / 2 + ButtonPlu.Width / 4 + 2;
+            LabelPluValidate.Top = 2;
+        }
+
+
+
+        LabelPluCode.Width = width;
+        LabelPluCode.Height = height;
         LabelPluCode.Left = 2;
         LabelPluCode.Top = ButtonPlu.Height / 4 * 3 + 2;
 
-        LabelPluDescription.Width = ButtonPlu.Width / 2 - 4;
-        LabelPluDescription.Height = ButtonPlu.Height / 4 - 4;
-        LabelPluDescription.Left = ButtonPlu.Width / 2 + 2;
-        LabelPluDescription.Top = ButtonPlu.Height / 4 * 3 + 2;
+        LabelPluTemplate.Width = width;
+        LabelPluTemplate.Height = height;
+        LabelPluTemplate.Left = ButtonPlu.Width / 2 + 2;
+        LabelPluTemplate.Top = ButtonPlu.Height / 4 * 3 + 2;
     }
 
     #endregion
