@@ -34,10 +34,10 @@ public class NomenclatureGroupController : WebControllerBase
 		{
 		    AcceptVersion.V2 => 
 				ControllerHelp.GetContentResult(() => ControllerHelp
-				.NewResponse1CIsNotFound(SessionFactory, version, formatString),
+				.NewResponse1cIsNotFound(SessionFactory, version, formatString),
 			    formatString),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-				.NewResponse1CNomenclaturesGroups(SessionFactory, request, formatString), formatString)
+				.NewResponse1cNomenclaturesGroups(SessionFactory, request, formatString), formatString)
 	    };
 
     #endregion

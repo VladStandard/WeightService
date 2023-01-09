@@ -34,9 +34,9 @@ public class NomenclatureController : WebControllerBase
 	    {
 		    AcceptVersion.V2 =>
 				ControllerHelp.GetContentResult(() => ControllerHelp
-					.NewResponse1CIsNotFound(SessionFactory, version, formatString), formatString),
+					.NewResponse1cIsNotFound(SessionFactory, version, formatString), formatString),
 		    _ => ControllerHelp.GetContentResult(() => ControllerHelp
-					.NewResponse1CNomenclaturesDeprecated(SessionFactory, request, formatString), formatString)
+					.NewResponse1cNomenclaturesDeprecated(SessionFactory, request, formatString), formatString)
 		};
 
     #endregion

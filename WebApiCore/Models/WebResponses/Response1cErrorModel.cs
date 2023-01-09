@@ -8,22 +8,33 @@ using WebApiCore.Utils;
 
 namespace WebApiCore.Models.WebResponses;
 
-[XmlRoot(WebConstants.Info, Namespace = "", IsNullable = false)]
-public class Response1cInfoModel : SerializeBase
+[XmlRoot(WebConstants.Record, Namespace = "", IsNullable = false)]
+public class Response1cErrorModel : SerializeBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
+
+    [XmlAttribute("Guid")]
+    public Guid Uid { get; set; }
 
     [XmlAttribute(nameof(Message))]
     public string Message { get; set; }
 
-    public Response1cInfoModel(string message)
+    public Response1cErrorModel()
     {
+        Uid = Guid.Empty;
+        Message = string.Empty;
+    }
+
+    public Response1cErrorModel(Guid uid, string message)
+    {
+        Uid = uid;
         Message = message;
     }
 
-    public Response1cInfoModel()
+    public Response1cErrorModel(Exception ex)
     {
-        Message = string.Empty;
+        Uid = Guid.Empty;
+        Message = ex.Message;
     }
 
     /// <summary>
@@ -31,8 +42,10 @@ public class Response1cInfoModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private Response1cInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private Response1cErrorModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
+        object? uid = info.GetValue(nameof(Uid), typeof(Guid));
+        Uid = uid is not null ? (Guid)uid : Guid.Empty;
         Message = info.GetString(nameof(Message)) as string ?? string.Empty;
     }
 
@@ -40,8 +53,7 @@ public class Response1cInfoModel : SerializeBase
 
     #region Public and private methods
 
-    public override string ToString() => 
-        $"{nameof(Message)}: {Message}. ";
+    public override string ToString() => $"{nameof(Uid)}: {Uid}. {nameof(Message)}: {Message}";
 
     /// <summary>
     /// Get object data for serialization info.
@@ -51,6 +63,7 @@ public class Response1cInfoModel : SerializeBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(Uid), Uid);
         info.AddValue(nameof(Message), Message);
     }
 

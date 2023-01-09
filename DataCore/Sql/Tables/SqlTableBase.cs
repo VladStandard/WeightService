@@ -22,6 +22,8 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
     [Obsolete(@"Use IsNotNew")]
     [XmlIgnore] public virtual bool IdentityIsNotNew => Identity.IsNotNew();
 	[XmlIgnore] public virtual bool IsNotNew => Identity.IsNotNew();
+	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, SqlFieldIdentityEnum.Id);
+	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, SqlFieldIdentityEnum.Uid);
 	[XmlElement] public virtual DateTime CreateDt { get; set; }
     [XmlElement] public virtual DateTime ChangeDt { get; set; }
     [XmlElement] public virtual bool IsMarked { get; set; }

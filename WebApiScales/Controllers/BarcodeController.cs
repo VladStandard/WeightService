@@ -89,7 +89,7 @@ public class BarCodeController : WebControllerBase
     [Route("api/v3/send_test/")]
     public ContentResult SendTest([FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() => 
-            ControllerHelp.NewResponse1CFromQuery(SessionFactory, string.Empty, null, formatString, false), formatString);
+            ControllerHelp.NewResponse1cFromQuery(SessionFactory, string.Empty, null, formatString, false), formatString);
 
     [AllowAnonymous]
     [HttpPost]
@@ -97,7 +97,7 @@ public class BarCodeController : WebControllerBase
     [Route("api/v3/send_query")]
     public ContentResult SendSqlquery([FromBody] string query, [FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() => 
-            ControllerHelp.NewResponse1CFromQuery(SessionFactory, query, null, formatString, false), formatString);
+            ControllerHelp.NewResponse1cFromQuery(SessionFactory, query, null, formatString, false), formatString);
 
     [AllowAnonymous]
     [Produces("application/xml")]
@@ -107,7 +107,7 @@ public class BarCodeController : WebControllerBase
     public ContentResult SendBarcodeBottom([FromBody] BarcodeBottomModel barcodeBottom,
         [FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() => 
-            ControllerHelp.NewResponse1CFromQuery(SessionFactory,
+            ControllerHelp.NewResponse1cFromQuery(SessionFactory,
             SqlQueriesBarcodes.FindBottom, new("VALUE_BOTTOM", barcodeBottom.GetValue()), formatString, false), formatString);
 
     [AllowAnonymous]
@@ -118,7 +118,7 @@ public class BarCodeController : WebControllerBase
     public ContentResult SendBarcodeRight([FromBody] BarcodeRightModel barcodeRight,
         [FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() => 
-            ControllerHelp.NewResponse1CFromQuery(SessionFactory, SqlQueriesBarcodes.FindRight,
+            ControllerHelp.NewResponse1cFromQuery(SessionFactory, SqlQueriesBarcodes.FindRight,
             new("VALUE_RIGHT", barcodeRight.GetValue()), formatString, false), formatString);
 
     [AllowAnonymous]
@@ -128,7 +128,7 @@ public class BarCodeController : WebControllerBase
     public ContentResult SendBarcodeTop([FromBody] BarcodeTopModel barcodeTop,
         [FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() => 
-            ControllerHelp.NewResponse1CFromQuery(SessionFactory, SqlQueriesBarcodes.FindTop,
+            ControllerHelp.NewResponse1cFromQuery(SessionFactory, SqlQueriesBarcodes.FindTop,
             new("VALUE_TOP", barcodeTop.GetValue()), formatString, false), formatString);
 
     [AllowAnonymous]
@@ -138,7 +138,7 @@ public class BarCodeController : WebControllerBase
     public ContentResult SendBarcodeTopV2([FromBody] string barcodeTop,
         [FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() => 
-            ControllerHelp.NewResponse1CFromQuery(SessionFactory, SqlQueriesBarcodes.FindTop,
+            ControllerHelp.NewResponse1cFromQuery(SessionFactory, SqlQueriesBarcodes.FindTop,
             new("VALUE_TOP", new BarcodeTopModel().DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()), formatString, false), formatString);
 
     #endregion

@@ -31,7 +31,7 @@ public partial class DataAccessHelper
 		return criteria;
 	}
 
-	private (bool isOk, Exception? exception) ExecuteCore(ExecCallback callback, bool isTransaction)
+	private (bool IsOk, Exception? Exception) ExecuteCore(ExecCallback callback, bool isTransaction)
 	{
 		ISession? session = null;
         Exception? exception = null;
@@ -74,9 +74,9 @@ public partial class DataAccessHelper
 		return (true, null);
 	}
 
-    private (bool isOk, Exception? exception) ExecuteTransaction(ExecCallback callback) => ExecuteCore(callback, true);
+    private (bool IsOk, Exception? Exception) ExecuteTransaction(ExecCallback callback) => ExecuteCore(callback, true);
 
-    private (bool isOk, Exception? exception) ExecuteSelect(ExecCallback callback) => ExecuteCore(callback, false);
+    private (bool IsOk, Exception? Exception) ExecuteSelect(ExecCallback callback) => ExecuteCore(callback, false);
 
     public bool IsConnected()
 	{
@@ -116,7 +116,7 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	public (bool isOk, Exception? exception) Save<T>(T? item) where T : SqlTableBase, new()
+	public (bool IsOk, Exception? Exception) Save<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return (false, null);
 
@@ -126,7 +126,7 @@ public partial class DataAccessHelper
 		return ExecuteTransaction(session => { session.Save(item); });
 	}
 
-	public (bool isOk, Exception? exception) Save<T>(T? item, SqlFieldIdentityModel? identity) where T : SqlTableBase, new()
+	public (bool IsOk, Exception? Exception) Save<T>(T? item, SqlFieldIdentityModel? identity) where T : SqlTableBase, new()
     {
 		if (item is null) return (false, null);
 
@@ -140,7 +140,7 @@ public partial class DataAccessHelper
             return ExecuteTransaction(session => { session.Save(item, id); });
     }
 
-	public (bool isOk, Exception? exception) Update<T>(T? item) where T : SqlTableBase, new()
+	public (bool IsOk, Exception? Exception) Update<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return (false, null);
         
@@ -149,14 +149,14 @@ public partial class DataAccessHelper
 		return ExecuteTransaction(session => { session.SaveOrUpdate(item); });
 	}
 
-	public (bool isOk, Exception? exception) Delete<T>(T? item) where T : SqlTableBase, new()
+	public (bool IsOk, Exception? Exception) Delete<T>(T? item) where T : SqlTableBase, new()
 	{
         if (item is null) return (false, null);
 
         return ExecuteTransaction(session => { session.Delete(item); });
 	}
 
-	public (bool isOk, Exception? exception) Mark<T>(T? item) where T : SqlTableBase, new()
+	public (bool IsOk, Exception? Exception) Mark<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return (false, null);
 

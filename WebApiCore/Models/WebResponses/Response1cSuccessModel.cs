@@ -8,22 +8,27 @@ using WebApiCore.Utils;
 
 namespace WebApiCore.Models.WebResponses;
 
-[XmlRoot(WebConstants.Info, Namespace = "", IsNullable = false)]
-public class Response1cInfoModel : SerializeBase
+[XmlRoot(WebConstants.Record, Namespace = "", IsNullable = false)]
+public class Response1cSuccessModel : SerializeBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
-    [XmlAttribute(nameof(Message))]
-    public string Message { get; set; }
+    [XmlAttribute("Guid")]
+    public Guid Uid { get; set; }
 
-    public Response1cInfoModel(string message)
+    public Response1cSuccessModel()
     {
-        Message = message;
+        Uid = Guid.Empty;
     }
 
-    public Response1cInfoModel()
+    public Response1cSuccessModel(Guid uid)
     {
-        Message = string.Empty;
+        Uid = uid;
+    }
+
+    public Response1cSuccessModel(Exception ex)
+    {
+        Uid = Guid.Empty;
     }
 
     /// <summary>
@@ -31,17 +36,17 @@ public class Response1cInfoModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private Response1cInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private Response1cSuccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Message = info.GetString(nameof(Message)) as string ?? string.Empty;
+        object? uid = info.GetValue(nameof(Uid), typeof(Guid));
+        Uid = uid is not null ? (Guid)uid : Guid.Empty;
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => 
-        $"{nameof(Message)}: {Message}. ";
+    public override string ToString() => $"{nameof(Uid)}: {Uid}. ";
 
     /// <summary>
     /// Get object data for serialization info.
@@ -51,7 +56,7 @@ public class Response1cInfoModel : SerializeBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Message), Message);
+        info.AddValue(nameof(Uid), Uid);
     }
 
     #endregion

@@ -87,7 +87,7 @@ public class ControllerHelper
         }
     }
 
-    private ContentResult NewResponse1CCore<T>(ISessionFactory sessionFactory, Action<T> action,
+    private ContentResult NewResponse1cCore<T>(ISessionFactory sessionFactory, Action<T> action,
 		string formatString, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
         using ISession session = sessionFactory.OpenSession();
@@ -103,8 +103,8 @@ public class ControllerHelper
         catch (Exception ex)
         {
             httpStatusCode = HttpStatusCode.InternalServerError;
-            if (response is Response1CModel response1C)
-                response1C.Errors.Add(new(ex));
+            if (response is Response1cModel response1c)
+                response1c.Errors.Add(new(ex));
             if (isTransaction)
                 transaction.Rollback();
         }
@@ -112,10 +112,10 @@ public class ControllerHelper
         return response.GetContentResult<T>(formatString, httpStatusCode);
     }
 
-    public ContentResult NewResponse1CFromQuery(ISessionFactory sessionFactory, string query,
+    public ContentResult NewResponse1cFromQuery(ISessionFactory sessionFactory, string query,
         SqlParameter? sqlParameter, string formatString, bool isTransaction)
     {
-        return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+        return NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
             if (!string.IsNullOrEmpty(query))
             {
@@ -153,34 +153,32 @@ public class ControllerHelper
         }, formatString, isTransaction);
     }
 
-    public ContentResult NewResponse1CBrandsFromAction(ISessionFactory sessionFactory, XElement request, string formatString)
+    public ContentResult NewResponse1cBrandsFromAction(ISessionFactory sessionFactory, XElement request, string formatString)
     {
-        return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+        return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
-
-            List<BrandModel> brandsInput = GetBrandList(request);
-            foreach (BrandModel brandInput in brandsInput)
+            List<BrandModel> brandsXml = GetBrandList(request);
+            foreach (BrandModel brandXml in brandsXml)
             {
-                switch (brandInput.ParseResult.Status)
+                switch (brandXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1CBrand(response, brandsDb, brandInput);
+                        AddResponse1cBrand(response, brandsDb, brandXml);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1CException(brandInput.IdentityValueUid, response, brandInput.ParseResult.Exception, brandInput.ParseResult.InnerException);
+                        AddResponse1cException(response, brandXml);
                         break;
                 }
             }
-            response.Infos.Add(new($"Proced input {brandsInput.Count} items of {nameof(brandsInput)}"));
         }, formatString, false);
     }
 
     [Obsolete(@"Deprecated method")]
     public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end, string formatString, bool isTransaction)
     {
-        return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+        return NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
 
             List<SqlFieldFilterModel> sqlFilters = new()
@@ -198,128 +196,134 @@ public class ControllerHelper
         }, formatString, isTransaction);
     }
 
-    private void AddResponse1CBrand(Response1CModel response, List<BrandModel> listDb, BrandModel itemInput)
+    private void AddResponse1cBrand(Response1cShortModel response, List<BrandModel> brandsDb, BrandModel brandXml)
     {
         try
         {
-            (bool isOk, Exception? exception) resultDbStore;
-            BrandModel? itemDb = listDb.FirstOrDefault(x => x.IdentityValueUid.Equals(itemInput.IdentityValueUid));
-            // Find duplicate field "GUID".
-            if (itemDb is not null && itemDb.IdentityIsNotNew)
+            BrandModel? itemDb = brandsDb.Find(x => x.IdentityValueUid.Equals(brandXml.IdentityValueUid));
+            
+            // Find by UID -> Update.
+            if (itemDb is not null && itemDb.IsNotNew)
             {
-                itemDb.UpdateProperties(itemInput);
-                resultDbStore = DataContext.DataAccess.Update(itemDb);
-                if (resultDbStore.isOk)
-                    response.Successes.Add(new(itemInput.IdentityValueUid, "Update was success"));
+                itemDb.UpdateProperties(brandXml);
+                (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.Update(itemDb);
+                if (dbUpdate.IsOk)
+                    response.Successes.Add(new(brandXml.IdentityValueUid));
                 else
-                    AddResponse1CException(itemInput.IdentityValueUid, response, resultDbStore.exception);
+                    AddResponse1cException(response, brandXml.IdentityValueUid, dbUpdate.Exception);
+                return;
             }
-            else
+
+            // Find by Code -> Delete.
+            itemDb = brandsDb.Find(x => x.Code.Equals(brandXml.Code));
+            if (itemDb is not null && itemDb.IsNotNew)
             {
-                // Find the duplicate field "Code".
-                itemDb = listDb.FirstOrDefault(x => x.Code.Equals(itemInput.Code));
-                if (itemDb is not null && itemDb.IdentityIsNotNew)
+                (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
+                // Delete was success. Duplicate field Code: {itemXml.Code}
+                if (!dbDelete.IsOk)
                 {
-                    resultDbStore = DataContext.DataAccess.Delete(itemDb);
-                    if (resultDbStore.isOk)
-                        response.Successes.Add(
-                            new(itemDb.IdentityValueUid, "Delete was success", $"Duplicate field Code: {itemInput.Code}"));
-                    else
-                        AddResponse1CException(itemDb.IdentityValueUid, response, resultDbStore.exception);
+                    AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
+                    return;
                 }
-                // Not find the duplicate field "Code".
-                resultDbStore = DataContext.DataAccess.Save(itemInput, itemInput.Identity);
-                if (resultDbStore.isOk)
-                    response.Successes.Add(new(itemInput.IdentityValueUid, "Add was success"));
-                else
-                    AddResponse1CException(itemInput.IdentityValueUid, response, resultDbStore.exception);
             }
+
+            // Not find -> Add.
+            (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(brandXml, brandXml.Identity);
+            // Add was success.
+            if (dbSave.IsOk)
+                response.Successes.Add(new(brandXml.IdentityValueUid));
+            else
+                AddResponse1cException(response, brandXml.IdentityValueUid, dbSave.Exception);
         }
         catch (Exception ex)
         {
-            AddResponse1CException(itemInput.IdentityValueUid, response, ex);
+            AddResponse1cException(response, brandXml.IdentityValueUid, ex);
         }
     }
 
-    private void AddResponse1CItem<T>(Response1CModel response, IReadOnlyCollection<T> listDb, T itemInput) where T : SqlTableBase, new()
+    private void AddResponse1cItem<T>(Response1cShortModel response, IReadOnlyCollection<T> listDb, T itemXml) where T : SqlTableBase, new()
     {
         try
         {
-            (bool isOk, Exception? exception) resultDbStore;
-            T? itemDb = listDb.FirstOrDefault(x => Equals(x.Identity.Name, SqlFieldIdentityEnum.Id) 
-	            ? x.IdentityValueId.Equals(itemInput.IdentityValueId)
-	            : x.IdentityValueUid.Equals(itemInput.IdentityValueUid));
-			// Find duplicate field Identity.
-			if (itemDb is not null && itemDb.IdentityIsNotNew)
+            T? itemDb = listDb.FirstOrDefault(x => x.IsIdentityId 
+                ? x.IdentityValueId.Equals(itemXml.IdentityValueId) : x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
+
+            // Find by Identity -> Update.
+            if (itemDb is not null && itemDb.IsNotNew)
             {
-                itemDb.UpdateProperties(itemInput);
-                resultDbStore = DataContext.DataAccess.Update(itemDb);
-                if (resultDbStore.isOk)
-                    response.Successes.Add(new(itemInput.IdentityValueUid, "Update was success"));
+                itemDb.UpdateProperties(itemXml);
+                (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.Update(itemDb);
+                if (dbUpdate.IsOk)
+                    response.Successes.Add(new(itemXml.IdentityValueUid));
                 else
-                    AddResponse1CException(itemInput.IdentityValueUid, response, resultDbStore.exception);
+                    AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
+                return;
             }
+            
+            // Find by Code -> Update.
+            //itemDb = listDb.Where(x => x.Code.Equals(itemXml.Code)).FirstOrDefault();
+            string itemInputCode = string.Empty;
+            switch(typeof(T))
+            {
+                case var cls when cls == typeof(BrandModel):
+                    if (itemXml is BrandModel brandInput)
+                    {
+                        itemInputCode = brandInput.Code;
+                        BrandModel? itemCast = listDb.Cast<BrandModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
+                        if (itemCast is T itemT) itemDb = itemT;
+                    }
+                    break;
+                case var cls when cls == typeof(NomenclatureGroupModel):
+                    if (itemXml is NomenclatureGroupModel nomenclatureGroupInput)
+                    {
+                        itemInputCode = nomenclatureGroupInput.Code;
+                        NomenclatureGroupModel? itemCast = listDb.Cast<NomenclatureGroupModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
+                        if (itemCast is T itemT) itemDb = itemT;
+                    }
+                    break;
+            }
+            if (itemDb is not null && itemDb.IsNotNew)
+            {
+                (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
+                // Delete was success. Duplicate field Code: {itemInputCode}.
+                if (!dbDelete.IsOk)
+                {
+                    AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
+                    return;
+                }
+            }
+
+            // Not find the duplicate field "Code".
+            (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
+            // Add was success.
+            if (dbSave.IsOk)
+                response.Successes.Add(new(itemXml.IdentityValueUid));
             else
-            {
-                // Find the duplicate field "Code".
-                //itemDb = listDb.Where(x => x.Code.Equals(itemInput.Code)).FirstOrDefault();
-                string itemInputCode = string.Empty;
-                switch(typeof(T))
-                {
-                    case var cls when cls == typeof(BrandModel):
-                        if (itemInput is BrandModel brandInput)
-                        {
-                            itemInputCode = brandInput.Code;
-                            BrandModel? itemCast = listDb
-	                            .Cast<BrandModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
-                            if (itemCast is T itemT)
-                                itemDb = itemT;
-                        }
-                        break;
-                    case var cls when cls == typeof(NomenclatureGroupModel):
-                        if (itemInput is NomenclatureGroupModel nomenclatureGroupInput)
-                        {
-                            itemInputCode = nomenclatureGroupInput.Code;
-                            NomenclatureGroupModel? itemCast = listDb
-	                            .Cast<NomenclatureGroupModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
-                            if (itemCast is T itemT)
-                                itemDb = itemT;
-                        }
-                        break;
-                }
-                if (itemDb is not null && itemDb.IdentityIsNotNew)
-                {
-                    resultDbStore = DataContext.DataAccess.Delete(itemDb);
-                    if (resultDbStore.isOk)
-                        response.Successes.Add(
-                            new(itemDb.IdentityValueUid, "Delete was success", $"Duplicate field Code: {itemInputCode}"));
-                    else
-                        AddResponse1CException(itemDb.IdentityValueUid, response, resultDbStore.exception);
-                }
-                // Not find the duplicate field "Code".
-                resultDbStore = DataContext.DataAccess.Save(itemInput, itemInput.Identity);
-                if (resultDbStore.isOk)
-                    response.Successes.Add(new(itemInput.IdentityValueUid, "Add was success"));
-                else
-                    AddResponse1CException(itemInput.IdentityValueUid, response, resultDbStore.exception);
-            }
+                AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
         }
         catch (Exception ex)
         {
-            AddResponse1CException(itemInput.IdentityValueUid, response, ex);
+            AddResponse1cException(response, itemXml.IdentityValueUid, ex);
         }
     }
 
-    private void AddResponse1CException(Guid uid, Response1CModel response, string? errorMessage, string? innerErrorMessage = null)
+    private void AddResponse1cException(Response1cShortModel response, Guid uid, string? errorMessage, string? innerErrorMessage = null)
     {
-        Response1CRecordModel responseRecord = new(uid, errorMessage ?? string.Empty);
-        if (!string.IsNullOrEmpty(innerErrorMessage))
-            responseRecord.InnerMessage = innerErrorMessage;
+        Response1cErrorModel responseRecord = new(uid, errorMessage ?? string.Empty);
+        responseRecord.Message += " | " + innerErrorMessage;
         response.Errors.Add(responseRecord);
     }
 
-    private void AddResponse1CException(Guid uid, Response1CModel response, Exception? ex) =>
-        AddResponse1CException(uid, response, ex?.Message, ex?.InnerException?.Message);
+    private void AddResponse1cException(Response1cShortModel response, BrandModel brand)
+    {
+        Response1cErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception ?? string.Empty);
+        if (!string.IsNullOrEmpty(brand.ParseResult.InnerException))
+            responseRecord.Message += " | " + brand.ParseResult.InnerException;
+        response.Errors.Add(responseRecord);
+    }
+
+    private void AddResponse1cException(Response1cShortModel response, Guid uid, Exception? ex) =>
+        AddResponse1cException(response, uid, ex?.Message, ex?.InnerException?.Message);
 
     private List<BrandModel> GetBrandList(XElement xml)
     {
@@ -668,7 +672,7 @@ public class ControllerHelper
     
     public ContentResult NewResponseBarCodes(ISessionFactory sessionFactory, DateTime dtStart, DateTime dtEnd, string formatString)
     {
-        return NewResponse1CCore<ResponseBarCodeListModel>(sessionFactory, response =>
+        return NewResponse1cCore<ResponseBarCodeListModel>(sessionFactory, response =>
         {
             List<SqlFieldFilterModel> sqlFilters = new()
             {
@@ -684,36 +688,35 @@ public class ControllerHelper
         }, formatString, false);
     }
 
-    public ContentResult NewResponse1CNomenclaturesGroups(ISessionFactory sessionFactory, XElement request, string formatString)
+    public ContentResult NewResponse1cNomenclaturesGroups(ISessionFactory sessionFactory, XElement request, string formatString)
     {
-        return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+        return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<NomenclatureGroupModel> nomenclaturesGroupsDb = DataContext.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);
 
-            List<NomenclatureGroupModel> nomenclaturesGroupsInput = GetNomenclatureGroupList(request);
-            foreach (NomenclatureGroupModel nomenclatureGroupInput in nomenclaturesGroupsInput)
+            List<NomenclatureGroupModel> nomenclaturesGroupsXml = GetNomenclatureGroupList(request);
+            foreach (NomenclatureGroupModel nomenclatureGroupXml in nomenclaturesGroupsXml)
             {
                 // string xml = brandInput.SerializeAsXmlString<BrandModel>(false);
-                switch (nomenclatureGroupInput.ParseResult.Status)
+                switch (nomenclatureGroupXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1CItem(response, nomenclaturesGroupsDb, nomenclatureGroupInput);
+                        AddResponse1cItem(response, nomenclaturesGroupsDb, nomenclatureGroupXml);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1CException(nomenclatureGroupInput.IdentityValueUid, response, 
-	                        nomenclatureGroupInput.ParseResult.Exception, nomenclatureGroupInput.ParseResult.InnerException);
+                        AddResponse1cException(response, nomenclatureGroupXml.IdentityValueUid, 
+                            nomenclatureGroupXml.ParseResult.Exception, nomenclatureGroupXml.ParseResult.InnerException);
                         break;
                 }
             }
-            response.Infos.Add(new($"Proced input {nomenclaturesGroupsInput.Count} items of {nameof(nomenclaturesGroupsInput)}"));
         }, formatString, false);
     }
 
     [Obsolete(@"Deprecated method")]
-    public ContentResult NewResponse1CNomenclaturesDeprecated(ISessionFactory sessionFactory, XElement request, string formatString)
+    public ContentResult NewResponse1cNomenclaturesDeprecated(ISessionFactory sessionFactory, XElement request, string formatString)
     {
-	    return NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+	    return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
 	    {
 		    SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
 		    List<NomenclatureModel> nomenclaturesDb = DataContext.GetListNotNullable<NomenclatureModel>(sqlCrudConfig);
@@ -725,15 +728,14 @@ public class ControllerHelper
 			    switch (nomenclatureInput.ParseResult.Status)
 			    {
 				    case ParseStatus.Success:
-					    AddResponse1CItem(response, nomenclaturesDb, nomenclatureInput);
+					    AddResponse1cItem(response, nomenclaturesDb, nomenclatureInput);
 					    break;
 				    case ParseStatus.Error:
-					    AddResponse1CException(nomenclatureInput.IdentityValueUid, response, 
-						    nomenclatureInput.ParseResult.Exception, nomenclatureInput.ParseResult.InnerException);
+					    AddResponse1cException(response, nomenclatureInput.IdentityValueUid, 
+                            nomenclatureInput.ParseResult.Exception, nomenclatureInput.ParseResult.InnerException);
 					    break;
 			    }
 		    }
-		    response.Infos.Add(new($"Proced input {nomenclaturesInput.Count} items of {nameof(nomenclaturesInput)}"));
 	    }, formatString, false);
     }
 
@@ -744,8 +746,8 @@ public class ControllerHelper
     /// <param name="version"></param>
     /// <param name="formatString"></param>
     /// <returns></returns>
-    public ContentResult NewResponse1CIsNotFound(ISessionFactory sessionFactory, string version, string formatString) =>
-	    NewResponse1CCore<Response1CModel>(sessionFactory, response =>
+    public ContentResult NewResponse1cIsNotFound(ISessionFactory sessionFactory, string version, string formatString) =>
+	    NewResponse1cCore<Response1cModel>(sessionFactory, response =>
 	    {
 		    response.Infos.Add(new($"Version {version} is not found!"));
 	    }, formatString, false, HttpStatusCode.NotFound);

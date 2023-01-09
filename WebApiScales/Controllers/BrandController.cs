@@ -27,12 +27,17 @@ public class BrandController : WebControllerBase
     [Produces("application/xml")]
     [HttpPost]
     [Route("api/send_brands/")]
-    [Route("api/v1/send_brands/")]
-    [Route("api/v2/send_brands/")]
-    [Route("api/v3/send_brands/")]
     public ContentResult SendBrandList([FromBody] XElement request, 
-        [FromQuery(Name = "format")] string formatString = "") =>
-        ControllerHelp.GetContentResult(() => ControllerHelp.NewResponse1CBrandsFromAction(SessionFactory, request, formatString), formatString);
+        [FromQuery(Name = "format")] string formatString = "",
+        [FromHeader(Name = "accept")] string version = "") =>
+        GetAcceptVersion(version) switch
+        {
+            AcceptVersion.V2 =>
+                ControllerHelp.GetContentResult(() => ControllerHelp
+                .NewResponse1cIsNotFound(SessionFactory, version, formatString), formatString),
+            _ => ControllerHelp.GetContentResult(() => ControllerHelp
+                .NewResponse1cBrandsFromAction(SessionFactory, request, formatString), formatString)
+        };
 
     #endregion
 }

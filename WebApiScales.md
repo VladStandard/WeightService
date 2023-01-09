@@ -1,12 +1,14 @@
 # Веб-сервис "Обмен с весовыми постами"
 https://discord.com/channels/917316972818092073/1026439309731057724/1040252367842578505
 
+# XWIKI
+http://wiki.kolbasa-vs.local:8080/bin/view/APK._Vesovaia_platforma/Prilozheniia/web-service-scales/
 
 ## URL-адреса
-[Предварительное тестирование](https://scales-dev-preview.kolbasa-vs.local:443/api/v3/)
-[Рабочее тестирование](https://scales-dev.kolbasa-vs.local:443/api/v3/)
-[Предварительный релиз](https://scales-prod-preview.kolbasa-vs.local:443/api/v3/)
-[Рабочий релиз](https://scales-prod.kolbasa-vs.local:443/api/v3/)
+[Предварительное тестирование](https://scales-dev-preview.kolbasa-vs.local:443/api/)
+[Рабочее тестирование](https://scales-dev.kolbasa-vs.local:443/api/)
+[Предварительный релиз](https://scales-prod-preview.kolbasa-vs.local:443/api/)
+[Рабочий релиз](https://scales-prod.kolbasa-vs.local:443/api/)
 
 ## GET-запросы
 [Инфо](https://{{serv}}/api/info/)

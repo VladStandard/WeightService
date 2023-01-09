@@ -9,7 +9,7 @@ using WebApiCore.Utils;
 namespace WebApiCore.Models.WebResponses;
 
 [XmlRoot(WebConstants.Record, Namespace = "", IsNullable = false)]
-public class Response1CRecordModel : SerializeBase
+public class Response1cRecordModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -22,23 +22,23 @@ public class Response1CRecordModel : SerializeBase
     [XmlAttribute(nameof(InnerMessage))]
     public string? InnerMessage { get; set; }
 
-    public Response1CRecordModel()
+    public Response1cRecordModel()
     {
         Uid = Guid.Empty;
         Message = string.Empty;
         InnerMessage = null;
     }
 
-    public Response1CRecordModel(Guid uid, string message, string innerMessage)
+    public Response1cRecordModel(Guid uid, string message, string innerMessage)
     {
         Uid = uid;
         Message = message;
         InnerMessage = innerMessage;
     }
 
-    public Response1CRecordModel(Guid uid, string message) : this(uid, message, string.Empty) { }
+    public Response1cRecordModel(Guid uid, string message) : this(uid, message, string.Empty) { }
 
-    public Response1CRecordModel(Exception ex)
+    public Response1cRecordModel(Exception ex)
     {
         Uid = Guid.Empty;
         Message = ex.Message;
@@ -50,7 +50,7 @@ public class Response1CRecordModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private Response1CRecordModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private Response1cRecordModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         object? uid = info.GetValue(nameof(Uid), typeof(Guid));
         Uid = uid is not null ? (Guid)uid : Guid.Empty;

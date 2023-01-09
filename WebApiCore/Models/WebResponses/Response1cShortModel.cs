@@ -4,48 +4,41 @@
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels.Brands;
 using WebApiCore.Utils;
 
 namespace WebApiCore.Models.WebResponses;
 
 [XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
-public class Response1cModel : SerializeBase
+public class Response1cShortModel : SerializeBase
 {
     #region Public and private fields and properties
 
+    [XmlAttribute]
+    public int SuccessesCount { get => Successes.Count; set => _ = value; }
     [XmlAttribute] 
-    public int SuccessesCount { get; set; }
-
-    [XmlAttribute] 
-    public int ErrorsCount { get; set; }
+    public int ErrorsCount { get => Errors.Count; set => _ = value; }
 
     [XmlElement("SqlQuery")]
     public ResponseQueryModel? ResponseQuery { get; set; }
 
-    [XmlArray, XmlArrayItem(WebConstants.Info)]
-    public List<Response1cInfoModel> Infos { get; set; }
+    [XmlArray, XmlArrayItem(WebConstants.Record)]
+    public List<Response1cSuccessModel> Successes { get; set; }
 
     [XmlArray, XmlArrayItem(WebConstants.Record)]
-    public List<Response1cRecordModel> Successes { get; set; }
+    public List<Response1cErrorModel> Errors { get; set; }
 
-    [XmlArray, XmlArrayItem(WebConstants.Record)]
-    public List<Response1cRecordModel> Errors { get; set; }
-
-    public Response1cModel()
+    public Response1cShortModel()
     {
         SuccessesCount = 0;
         ErrorsCount = 0;
         ResponseQuery = null;
-        Infos = new();
         Successes = new();
         Errors = new();
     }
 
-    public Response1cModel(List<Response1cInfoModel> infos, List<Response1cRecordModel> successes, 
-        List<Response1cRecordModel> errors, ResponseQueryModel? responseQuery, int count, List<BrandModel> brands) : this()
+    public Response1cShortModel(List<Response1cSuccessModel> successes, 
+        List<Response1cErrorModel> errors, ResponseQueryModel? responseQuery) : this()
     {
-        Infos = infos;
         Successes = successes;
         Errors = errors;
         ResponseQuery = responseQuery;
@@ -56,17 +49,13 @@ public class Response1cModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private Response1cModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private Response1cShortModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         SuccessesCount = info.GetInt32(nameof(SuccessesCount));
         ErrorsCount = info.GetInt32(nameof(ErrorsCount));
         ResponseQuery = info.GetValue(nameof(ResponseQuery), typeof(ResponseQueryModel)) as ResponseQueryModel ?? null;
-        Infos = info.GetValue(nameof(Infos), typeof(List<Response1cInfoModel>)) as List<Response1cInfoModel> ?? new();
-        Successes = info.GetValue(nameof(Successes), typeof(List<Response1cRecordModel>)) as List<Response1cRecordModel> ?? new();
-        Errors = info.GetValue(nameof(Errors), typeof(List<Response1cRecordModel>)) as List<Response1cRecordModel> ?? new();
-        //Count = info.GetInt32(nameof(Count));
-        //object? brands = info.GetValue(nameof(Brands), typeof(List<BrandModel>));
-        //Brands = brands is not null ? (List<BrandModel>)brands : new();
+        Successes = info.GetValue(nameof(Successes), typeof(List<Response1cSuccessModel>)) as List<Response1cSuccessModel> ?? new();
+        Errors = info.GetValue(nameof(Errors), typeof(List<Response1cErrorModel>)) as List<Response1cErrorModel> ?? new();
     }
 
     #endregion
@@ -76,7 +65,6 @@ public class Response1cModel : SerializeBase
     public override string ToString() =>
         $"{nameof(SuccessesCount)}: {SuccessesCount}. " +
         $"{nameof(ErrorsCount)}: {ErrorsCount}. " +
-        $"{nameof(Infos)}.{nameof(Infos.Count)}: {Infos.Count}. " +
         $"{nameof(Successes)}.{nameof(Successes.Count)}: {Successes.Count}. " +
         $"{nameof(Errors)}.{nameof(Errors.Count)}: {Errors.Count}. ";
 
@@ -91,7 +79,6 @@ public class Response1cModel : SerializeBase
         info.AddValue(nameof(SuccessesCount), SuccessesCount);
         info.AddValue(nameof(ErrorsCount), ErrorsCount);
         info.AddValue(nameof(ResponseQuery), ResponseQuery);
-        info.AddValue(nameof(Infos), Infos);
         info.AddValue(nameof(Successes), Successes);
         info.AddValue(nameof(Errors), Errors);
     }
