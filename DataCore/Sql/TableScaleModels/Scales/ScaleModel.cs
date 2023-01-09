@@ -17,8 +17,6 @@ public class ScaleModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement(IsNullable = true)] public virtual TemplateModel? TemplateDefault { get; set; }
-    [XmlElement(IsNullable = true)] public virtual TemplateModel? TemplateSeries { get; set; }
     [XmlElement(IsNullable = true)] public virtual WorkShopModel? WorkShop { get; set; }
     [XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterMain { get; set; }
     [XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterShipping { get; set; }
@@ -54,8 +52,6 @@ public class ScaleModel : SqlTableBase
     /// </summary>
     public ScaleModel() : base(SqlFieldIdentityEnum.Id)
     {
-        TemplateDefault = null;
-        TemplateSeries = null;
         WorkShop = null;
         PrinterMain = null;
         PrinterShipping = null;
@@ -80,8 +76,6 @@ public class ScaleModel : SqlTableBase
     /// <param name="context"></param>
     protected ScaleModel(SerializationInfo info, StreamingContext context) : this()
     {
-        TemplateDefault = (TemplateModel?)info.GetValue(nameof(TemplateDefault), typeof(TemplateModel));
-        TemplateSeries = (TemplateModel?)info.GetValue(nameof(TemplateSeries), typeof(TemplateModel));
         WorkShop = (WorkShopModel?)info.GetValue(nameof(WorkShop), typeof(WorkShopModel));
         PrinterMain = (PrinterModel?)info.GetValue(nameof(PrinterMain), typeof(PrinterModel));
         PrinterShipping = (PrinterModel?)info.GetValue(nameof(PrinterShipping), typeof(PrinterModel));
@@ -131,8 +125,6 @@ public class ScaleModel : SqlTableBase
         Equals(IsShipping, false) &&
         Equals(IsKneading, false) &&
         Equals(ShippingLength, (byte)0) &&
-        (TemplateDefault is null || TemplateDefault.EqualsDefault()) &&
-        (TemplateSeries is null || TemplateSeries.EqualsDefault()) &&
         (WorkShop is null || WorkShop.EqualsDefault()) &&
         (PrinterMain is null || PrinterMain.EqualsDefault()) &&
         (PrinterShipping is null || PrinterShipping.EqualsDefault());
@@ -140,8 +132,6 @@ public class ScaleModel : SqlTableBase
     public override object Clone()
     {
         ScaleModel item = new();
-        item.TemplateDefault = TemplateDefault?.CloneCast();
-        item.TemplateSeries = TemplateSeries?.CloneCast();
         item.WorkShop = WorkShop?.CloneCast();
         item.PrinterMain = PrinterMain?.CloneCast();
         item.PrinterShipping = PrinterShipping?.CloneCast();
@@ -169,8 +159,6 @@ public class ScaleModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(TemplateDefault), TemplateDefault);
-        info.AddValue(nameof(TemplateSeries), TemplateSeries);
         info.AddValue(nameof(WorkShop), WorkShop);
         info.AddValue(nameof(PrinterMain), PrinterMain);
         info.AddValue(nameof(PrinterShipping), PrinterShipping);
@@ -190,10 +178,6 @@ public class ScaleModel : SqlTableBase
 
     public override void ClearNullProperties()
     {
-        if (TemplateSeries is not null && TemplateSeries.Identity.EqualsDefault())
-            TemplateSeries = null;
-        if (TemplateDefault is not null && TemplateDefault.Identity.EqualsDefault())
-            TemplateDefault = null;
         if (WorkShop is not null && WorkShop.Identity.EqualsDefault())
             WorkShop = null;
         if (PrinterMain is not null && PrinterMain.Identity.EqualsDefault())
@@ -206,8 +190,6 @@ public class ScaleModel : SqlTableBase
     {
         base.FillProperties();
         Description = LocaleCore.Sql.SqlItemFieldDescription;
-        TemplateDefault?.FillProperties();
-        TemplateSeries?.FillProperties();
         WorkShop?.FillProperties();
         PrinterMain?.FillProperties();
         PrinterShipping?.FillProperties();
@@ -231,10 +213,6 @@ public class ScaleModel : SqlTableBase
         Equals(IsShipping, item.IsShipping) &&
         Equals(IsKneading, item.IsKneading) &&
         ShippingLength.Equals(item.ShippingLength) &&
-        (TemplateDefault is null && item.TemplateDefault is null || TemplateDefault is not null &&
-            item.TemplateDefault is not null && TemplateDefault.Equals(item.TemplateDefault)) &&
-        (TemplateSeries is null && item.TemplateSeries is null || TemplateSeries is not null &&
-            item.TemplateSeries is not null && TemplateSeries.Equals(item.TemplateSeries)) &&
         (WorkShop is null && item.WorkShop is null ||
          WorkShop is not null && item.WorkShop is not null && WorkShop.Equals(item.WorkShop)) &&
         (PrinterMain is null && item.PrinterMain is null || PrinterMain is not null &&

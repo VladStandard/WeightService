@@ -114,15 +114,17 @@ public partial class PlusForm : Form
         Label labelPluNumber = NewLabelPluNumber(pluScale, tabIndex, buttonPlu);
         Label labelPluType = NewLabelPluType(pluScale.Plu, tabIndex, buttonPlu);
         Label labelPluCode = NewLabelPluCode(pluScale.Plu, tabIndex, buttonPlu);
-        //Label labelPluDescription = NewLabelPluDescription(plu, tabIndex, buttonPlu);
+        Label labelPluValidate = NewPluValidLabel(pluScale.Plu, tabIndex, buttonPlu);
         Label labelTemplate = NewLabelPluTemplate(pluScale, tabIndex, buttonPlu);
-        return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelTemplate);
+        
+        return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelTemplate, labelPluValidate);
     }
 
     private Button NewButtonPlu(PluModel plu, int tabIndex)
     {
         const ushort buttonWidth = 150;
         const ushort buttonHeight = 30;
+
         Button buttonPlu = new()
         {
             Name = $@"{nameof(buttonPlu)}{tabIndex}",
@@ -155,6 +157,28 @@ public partial class PlusForm : Form
             Parent = buttonPlu,
             Dock = DockStyle.None,
             BackColor = Color.Transparent,
+            BorderStyle = BorderStyle.FixedSingle,
+            TabIndex = tabIndex,
+        };
+        labelPluNumber.MouseClick += ButtonPlu_Click;
+        return labelPluNumber;
+    }
+
+    private Label NewPluValidLabel(PluModel pluModel, int tabIndex, Control buttonPlu)
+    {
+
+        bool valid = PluController.IsFullValid(pluModel);
+
+        Label labelPluNumber = new()
+        {
+            Name = $@"{nameof(labelPluNumber)}{tabIndex}",
+            Font = FontsSettings.FontMinimum,
+            AutoSize = false,
+            Text = valid == false ? "!" : "OK",
+            TextAlign = ContentAlignment.MiddleCenter,
+            Parent = buttonPlu,
+            Dock = DockStyle.None,
+            BackColor = valid == false ? Color.Gold : Color.Transparent,
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };

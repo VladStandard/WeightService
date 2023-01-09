@@ -55,10 +55,6 @@ public class ScaleValidator : SqlTableValidator<ScaleModel>
                 result.Errors.Add(new(nameof(context), "Please ensure a model was supplied!"));
                 return false;
             default:
-                if (!PreValidateSubEntity(context.InstanceToValidate.TemplateDefault, ref result))
-                    return result.IsValid;
-                if (!PreValidateSubEntity(context.InstanceToValidate.TemplateSeries, ref result))
-                    return result.IsValid;
                 if (!PreValidateSubEntity(context.InstanceToValidate.WorkShop, ref result))
                     return result.IsValid;
                 if (!PreValidateSubEntity(context.InstanceToValidate.PrinterMain, ref result))

@@ -116,14 +116,6 @@ public partial class RazorComponentBase
         //{
         //    item.Host = AppSettings.DataAccess.GetItemById<HostModel>(hostId);
         //}
-        if (filterName == nameof(ScaleModel.TemplateDefault) && value is long templateDefaultId)
-        {
-            item.TemplateDefault = DataContext.GetItemNullable<TemplateModel>(templateDefaultId);
-        }
-        if (filterName == nameof(ScaleModel.TemplateSeries) && value is long templateSeriesId)
-        {
-            item.TemplateSeries = DataContext.GetItemNullable<TemplateModel>(templateSeriesId);
-        }
         if (filterName == nameof(ScaleModel.PrinterMain) && value is long printerId)
         {
             item.PrinterMain = DataContext.GetItemNullable<PrinterModel>(printerId);

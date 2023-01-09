@@ -9,7 +9,6 @@
 @using DataCore.Sql.TableScaleModels.Devices
 @using DataCore.Sql.TableScaleModels.Printers
 @using DataCore.Sql.TableScaleModels.Scales
-@using DataCore.Sql.TableScaleModels.Templates
 @using DataCore.Sql.TableScaleModels.WorkShops
 
 <SystemIdentity ParentRazor=@(this) />
@@ -132,7 +131,7 @@
 				<RadzenCheckBox Disabled=false @bind-Value=@SqlItemCast.IsOrder/>
 			</td>
 		</tr>
-		<tr>
+@*		<tr>
 			<td>
 				<RadzenLink 
 					Style="width: 100%; "
@@ -163,7 +162,7 @@
 					}
 				</MudSelect>
 			</td>
-		</tr>
+		</tr>*@
 		<tr>
 			<td>
 				<RadzenLink 

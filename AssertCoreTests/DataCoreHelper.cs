@@ -422,9 +422,7 @@ public class DataCoreHelper
 				productSeries.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case ScaleModel scale:
-				scale.TemplateDefault = CreateNewSubstitute<TemplateModel>(isNotDefault);
-				scale.TemplateSeries = CreateNewSubstitute<TemplateModel>(isNotDefault);
-				scale.WorkShop = CreateNewSubstitute<WorkShopModel>(isNotDefault);
+                scale.WorkShop = CreateNewSubstitute<WorkShopModel>(isNotDefault);
 				scale.PrinterMain = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				scale.PrinterShipping = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				break;
