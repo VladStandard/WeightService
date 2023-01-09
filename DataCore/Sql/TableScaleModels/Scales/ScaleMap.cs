@@ -33,8 +33,6 @@ public class ScaleMap : ClassMap<ScaleModel>
         Map(x => x.IsShipping).CustomSqlType("BIT").Column("IS_SHIPPING").Not.Nullable().Default("0");
         Map(x => x.ShippingLength).CustomSqlType("INT").Column("SHIPPING_LEN").Not.Nullable().Default("0");
         Map(x => x.IsKneading).CustomSqlType("BIT").Column("IS_KNEADING").Not.Nullable().Default("0");
-        References(x => x.TemplateDefault).Column("TemplateIdDefault").Nullable();
-        References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
         References(x => x.PrinterMain).Column("ZebraPrinterId").Nullable();
         References(x => x.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();
         References(x => x.WorkShop).Column("WorkShopId").Nullable();

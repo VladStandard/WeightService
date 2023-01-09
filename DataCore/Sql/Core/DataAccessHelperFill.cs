@@ -125,9 +125,7 @@ public partial class DataAccessHelper
                 product.Scale = GetItemNotNullable<ScaleModel>(product.Scale.IdentityValueId);
 				break;
 			case ScaleModel scale:
-				scale.TemplateDefault = GetItemNullable<TemplateModel>(scale.TemplateDefault?.IdentityValueId);
-				scale.TemplateSeries = GetItemNullable<TemplateModel>(scale.TemplateSeries?.IdentityValueId);
-				scale.PrinterMain = GetItemNullable<PrinterModel>(scale.PrinterMain?.IdentityValueId);
+                scale.PrinterMain = GetItemNullable<PrinterModel>(scale.PrinterMain?.IdentityValueId);
 				scale.PrinterShipping = GetItemNullable<PrinterModel>(scale.PrinterShipping?.IdentityValueId);
 				scale.WorkShop = GetItemNullable<WorkShopModel>(scale.WorkShop?.IdentityValueId);
 				break;

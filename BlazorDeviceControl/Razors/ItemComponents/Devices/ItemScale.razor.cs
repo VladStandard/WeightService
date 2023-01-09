@@ -55,9 +55,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 				SqlItemCast = DataContext.GetItemNotNullable<ScaleModel>(IdentityId);
 				SqlItemCast.PrinterMain ??= DataAccess.GetItemNewEmpty<PrinterModel>();
 				SqlItemCast.PrinterShipping ??= DataAccess.GetItemNewEmpty<PrinterModel>();
-				SqlItemCast.TemplateDefault ??= DataAccess.GetItemNewEmpty<TemplateModel>();
-				SqlItemCast.TemplateSeries ??= DataAccess.GetItemNewEmpty<TemplateModel>();
-				SqlItemCast.WorkShop ??= DataAccess.GetItemNewEmpty<WorkShopModel>();
+                SqlItemCast.WorkShop ??= DataAccess.GetItemNewEmpty<WorkShopModel>();
 				DeviceScaleFk = DataAccess.GetItemDeviceScaleFkNotNullable(SqlItemCast);
 				Device = DeviceScaleFk.Device.IdentityIsNotNew ? DeviceScaleFk.Device : DataAccess.GetItemNewEmpty<DeviceModel>();
 
