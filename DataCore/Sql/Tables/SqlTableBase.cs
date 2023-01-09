@@ -13,11 +13,15 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual SqlFieldIdentityModel Identity { get; }
+	[XmlIgnore] public virtual SqlFieldIdentityModel Identity { get; }
 	[XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
 	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
-	[XmlElement] public virtual bool IdentityIsNew => Identity.IsNew();
-	[XmlElement] public virtual bool IdentityIsNotNew => Identity.IsNotNew();
+	[Obsolete(@"Use IsNew")]
+	[XmlIgnore] public virtual bool IdentityIsNew => Identity.IsNew();
+	[XmlIgnore] public virtual bool IsNew => Identity.IsNew();
+    [Obsolete(@"Use IsNotNew")]
+    [XmlIgnore] public virtual bool IdentityIsNotNew => Identity.IsNotNew();
+	[XmlIgnore] public virtual bool IsNotNew => Identity.IsNotNew();
 	[XmlElement] public virtual DateTime CreateDt { get; set; }
     [XmlElement] public virtual DateTime ChangeDt { get; set; }
     [XmlElement] public virtual bool IsMarked { get; set; }

@@ -125,8 +125,8 @@ public class JsonSettingsHelper
 			}
 
             DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDebug);
-            DataAccessHelper.Instance.SetupLog("", appName);
-            DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted, "", nameof(DataCore));
+            //DataAccessHelper.Instance.SetupLog("", appName);
+            DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted, "", appName);
 		}
 		catch (Exception ex)
 		{
@@ -165,10 +165,8 @@ public class JsonSettingsHelper
 				throw new(LocaleCore.System.JsonSettingsLocalFileException);
 			}
 
-            FileLogger.StoreMessage($"DataAccessHelper start");
             DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDebug);
 			DataAccessHelper.Instance.SetupLog("", appName);
-            FileLogger.StoreMessage($"complete");
         }
 		catch (Exception ex)
 		{

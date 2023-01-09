@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Files;
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -18,7 +17,6 @@ public partial class DataAccessHelper
 	private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
 	private static AppModel App { get; set; } = new();
 	private static DeviceModel Device { get; set; } = new();
-	public FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
 
 	#endregion
 
@@ -26,13 +24,19 @@ public partial class DataAccessHelper
 
 	public void SetupLog(string deviceName, string appName)
 	{
-		if (string.IsNullOrEmpty(deviceName))
-			deviceName = NetUtils.GetLocalDeviceName(false);
-        Device = GetItemDeviceOrCreateNew(deviceName);
+		if (Device.IsNew)
+		{
+			if (string.IsNullOrEmpty(deviceName))
+				deviceName = NetUtils.GetLocalDeviceName(false);
+			Device = GetItemDeviceOrCreateNew(deviceName);
+		}
 
-		if (string.IsNullOrEmpty(appName))
-			appName = nameof(DataCore);
-		App = GetItemAppOrCreateNew(appName);
+		if (App.IsNew)
+		{
+			if (string.IsNullOrEmpty(appName))
+				appName = nameof(DataCore);
+			App = GetItemAppOrCreateNew(appName);
+		}
     }
 
 	public void LogError(Exception ex, [CallerFilePath] string filePath = "",

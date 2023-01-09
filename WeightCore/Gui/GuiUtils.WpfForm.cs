@@ -31,7 +31,6 @@ public static partial class GuiUtils
 
         private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
         public static WpfPageLoader WpfPage { get; private set; }
-        private static FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
 
         #endregion
 
@@ -243,12 +242,8 @@ public static partial class GuiUtils
         }
 
         public static DialogResult CatchExceptionCore(Exception ex, IWin32Window owner, 
-            bool isFileLog, bool isDbLog, bool isShowWindow, 
-            string filePath, int lineNumber, string memberName)
+            bool isDbLog, bool isShowWindow, string filePath, int lineNumber, string memberName)
         {
-            if (isFileLog)
-                FileLogger.StoreExceptionWithParams(ex, filePath, lineNumber, memberName);
-
             if (isDbLog)
                 DataAccess.LogError(ex, UserSessionHelper.Instance.DeviceScaleFk.Device.Name, null, filePath, lineNumber, memberName);
 
@@ -280,7 +275,7 @@ public static partial class GuiUtils
         public static DialogResult CatchException(Exception ex, IWin32Window owner,
             bool isFileLog = false, bool isDbLog = false, bool isShowWindow = false,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-            CatchExceptionCore(ex, owner, isFileLog, isDbLog, isShowWindow, filePath, lineNumber, memberName);
+            CatchExceptionCore(ex, owner, isDbLog, isShowWindow, filePath, lineNumber, memberName);
 
         /// <summary>
         /// Show catch exception window.
@@ -296,7 +291,7 @@ public static partial class GuiUtils
         public static DialogResult CatchException(Exception ex,
             bool isFileLog = false, bool isDbLog = false, bool isShowWindow = false,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-            CatchExceptionCore(ex, null, isFileLog, isDbLog, isShowWindow, filePath, lineNumber, memberName);
+            CatchExceptionCore(ex, null, isDbLog, isShowWindow, filePath, lineNumber, memberName);
 
         #endregion
     }

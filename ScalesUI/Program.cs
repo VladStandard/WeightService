@@ -22,7 +22,6 @@ internal static class Program
 
     private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
     private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-    private static FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
 
     #endregion
 
