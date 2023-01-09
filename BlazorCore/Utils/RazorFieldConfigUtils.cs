@@ -104,11 +104,10 @@ public static class RazorFieldConfigUtils
 	public static class LogQuick
 	{
 		public static RazorFieldConfigModel GetApp() => new(nameof(DataCore.Sql.Xml.LogQuickModel.App), TextAlign.Left, LocaleCore.Table.App);
-		public static RazorFieldConfigModel GetDevice(string url) => new(url, new DeviceModel(),
-			$"{nameof(DataCore.Sql.Xml.LogQuickModel.Host)}", TextAlign.Left, LocaleCore.Table.Host, "string");
+		public static RazorFieldConfigModel GetDevice() => new(nameof(DataCore.Sql.Xml.LogQuickModel.Host), TextAlign.Left, LocaleCore.Table.Host, "string");
 		public static RazorFieldConfigModel GetIcon() => new(nameof(DataCore.Sql.Xml.LogQuickModel.Icon), TextAlign.Left, LocaleCore.Table.Icon);
 		public static RazorFieldConfigModel GetMessage() => new(nameof(DataCore.Sql.Xml.LogQuickModel.Message), TextAlign.Left, LocaleCore.Table.Message);
-		public static RazorFieldConfigModel GetScale(string url) => new(url, new ScaleModel(), nameof(DataCore.Sql.Xml.LogQuickModel.Scale), TextAlign.Left, LocaleCore.Table.Arm, "string");
+		public static RazorFieldConfigModel GetScale() => new(nameof(DataCore.Sql.Xml.LogQuickModel.Scale), TextAlign.Left, LocaleCore.Table.Arm, "string");
 		public static RazorFieldConfigModel GetVersion() => new(nameof(DataCore.Sql.Xml.LogQuickModel.Version), TextAlign.Left, LocaleCore.Table.Version);
 	}
 
