@@ -8,6 +8,7 @@ using MDSoft.BarcodePrintUtils.Tsc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Unicode;
 using System.Xml.Xsl;
@@ -40,12 +41,21 @@ public static class DataFormatUtils
 		return value;
 	}
 
-	/// <summary>
-	/// Get pretty formatted XML string.
-	/// </summary>
-	/// <param name="xml"></param>
-	public static string GetPrettyXml(string xml) => 
-		string.IsNullOrEmpty(xml) ? string.Empty : XDocument.Parse(xml).ToString();
+    /// <summary>
+    /// Get pretty formatted XML string.
+    /// </summary>
+    /// <param name="xml"></param>
+    public static string GetPrettyXml(string xml)
+    {
+		try
+		{
+			return string.IsNullOrEmpty(xml) ? string.Empty : XDocument.Parse(xml).ToString();
+		}
+		catch (Exception ex)
+		{
+			return ex.Message;
+		}
+    }
 
     /// <summary>
     /// Get pretty formatted JSON string.
@@ -277,27 +287,32 @@ public static class DataFormatUtils
 
 	public static string SerializeAsXmlString<T>(ISerializable item, bool isAddEmptyNamespace, bool isUtf16)
 	{
-		XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-
-		using var stringWriter = isUtf16 ? new StringWriter() : new StringWriterUtf8Model();
-
-		switch (isAddEmptyNamespace)
+		try
 		{
-			case true:
-				{
-					XmlSerializerNamespaces emptyNamespaces = new();
-					emptyNamespaces.Add(string.Empty, string.Empty);
-					using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
-					xmlSerializer.Serialize(xmlWriter, item, emptyNamespaces);
-					xmlWriter.Flush();
-					xmlWriter.Close();
+			XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+			using var stringWriter = isUtf16 ? new StringWriter() : new StringWriterUtf8Model();
+			switch (isAddEmptyNamespace)
+			{
+				case true:
+					{
+						XmlSerializerNamespaces emptyNamespaces = new();
+						emptyNamespaces.Add(string.Empty, string.Empty);
+						using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
+						xmlSerializer.Serialize(xmlWriter, item, emptyNamespaces);
+						xmlWriter.Flush();
+						xmlWriter.Close();
+						break;
+					}
+				default:
+					xmlSerializer.Serialize(stringWriter, item);
 					break;
-				}
-			default:
-				xmlSerializer.Serialize(stringWriter, item);
-				break;
+			}
+			return stringWriter.ToString();
 		}
-		return stringWriter.ToString();
+		catch (Exception ex)
+		{
+            return ex.Message;
+        }
 	}
 
 	public static string SerializeAsXmlString(string item, bool isAddEmptyNamespace, bool isUtf16)
@@ -433,27 +448,27 @@ public static class DataFormatUtils
         return result;
     }
 
-    public static string GetContent<T>(ISerializable item, FormatType formatType) => formatType switch
+    public static string GetContent<T>(ISerializable item, FormatType formatType, bool isAddEmptyNamespace) => formatType switch
     {
         FormatType.Text => SerializeAsText<T>(item),
         FormatType.JavaScript => GetPrettyXmlOrJson(SerializeAsJson(item)),
         FormatType.Json => GetPrettyXmlOrJson(SerializeAsJson(item)),
         FormatType.Html => SerializeAsHtml(item),
-        FormatType.Xml or FormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString<T>(item, true, false)),
-        FormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString<T>(item, true, true)),
+        FormatType.Xml or FormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, false)),
+        FormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, true)),
         _ => throw DataUtils.GetArgumentException(nameof(formatType)),
     };
 
-    public static string GetContent(string item, FormatType formatType) => formatType switch
-    {
-        FormatType.Text => SerializeAsText(item),
-        FormatType.JavaScript => GetPrettyXmlOrJson(SerializeAsJson(item)),
-        FormatType.Json => GetPrettyXmlOrJson(SerializeAsJson(item)),
-        FormatType.Html => SerializeAsHtml(item),
-        FormatType.Xml or FormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString(item, true, false)),
-        FormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString(item, true, true)),
-        _ => throw DataUtils.GetArgumentException(nameof(formatType)),
-    };
+    //public static string GetContent(string item, FormatType formatType, bool isAddEmptyNamespace) => formatType switch
+    //{
+    //    FormatType.Text => SerializeAsText(item),
+    //    FormatType.JavaScript => GetPrettyXmlOrJson(SerializeAsJson(item)),
+    //    FormatType.Json => GetPrettyXmlOrJson(SerializeAsJson(item)),
+    //    FormatType.Html => SerializeAsHtml(item),
+    //    FormatType.Xml or FormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString(item, isAddEmptyNamespace, false)),
+    //    FormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString(item, isAddEmptyNamespace, true)),
+    //    _ => throw DataUtils.GetArgumentException(nameof(formatType)),
+    //};
 
     #endregion
 }

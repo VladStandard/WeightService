@@ -648,10 +648,10 @@ public class UserSessionHelper : BaseViewModel
 		PluWeighing = new();
 	}
 
-	public void SetNewScaleCounter()
+	public void AddScaleCounter()
 	{
 		Scale.Counter++;
-		DataAccess.Update(Scale);
+		DataAccess.UpdateForce(Scale);
 	}
 
 	/// <summary>

@@ -3,6 +3,7 @@
 
 using DataCore.Sql.Tables;
 using NHibernate;
+using System;
 
 namespace DataCore.Sql.Core;
 
@@ -140,6 +141,7 @@ public partial class DataAccessHelper
             return ExecuteTransaction(session => { session.Save(item, id); });
     }
 
+	[Obsolete(@"Use SaveOrUpdate or UpdateForce")]
 	public (bool IsOk, Exception? Exception) Update<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return (false, null);
@@ -147,6 +149,24 @@ public partial class DataAccessHelper
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
 		return ExecuteTransaction(session => { session.SaveOrUpdate(item); });
+	}
+
+	public (bool IsOk, Exception? Exception) SaveOrUpdate<T>(T? item) where T : SqlTableBase, new()
+	{
+		if (item is null) return (false, null);
+        
+        item.ClearNullProperties();
+        item.ChangeDt = DateTime.Now;
+		return ExecuteTransaction(session => { session.SaveOrUpdate(item); });
+	}
+
+	public (bool IsOk, Exception? Exception) UpdateForce<T>(T? item) where T : SqlTableBase, new()
+	{
+		if (item is null) return (false, null);
+        
+        item.ClearNullProperties();
+        item.ChangeDt = DateTime.Now;
+		return ExecuteTransaction(session => { session.Update(item); });
 	}
 
 	public (bool IsOk, Exception? Exception) Delete<T>(T? item) where T : SqlTableBase, new()

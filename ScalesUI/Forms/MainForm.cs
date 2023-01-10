@@ -975,7 +975,7 @@ public partial class MainForm : Form
 
     private void ActionPrint(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatch(this, UserSession.SetNewScaleCounter);
+	    ActionUtils.ActionTryCatch(this, UserSession.AddScaleCounter);
 
 	    ActionUtils.ActionTryCatchFinally(this,
             () =>

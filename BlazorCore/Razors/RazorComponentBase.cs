@@ -133,7 +133,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 		AccessModel? access = DataAccessHelper.Instance.GetItemAccessNullable(userName);
 		if (access is null) return;
 		access.LoginDt = DateTime.Now;
-		DataAccessHelper.Instance.Update(access);
+		DataAccessHelper.Instance.UpdateForce(access);
 
 		UserSettings = new(userName, (AccessRightsEnum)access.Rights);
 

@@ -4,6 +4,7 @@
 using BlazorCore.Razors;
 using DataCore.Enums;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using WebApiCore.Models;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 
@@ -34,17 +35,23 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
         });
     }
 
-    private string GetBarcodeTop(FormatType formatType) => DataFormatUtils.GetContent(SqlItemCast.ValueTop, formatType);
+    private string GetBarcodeTop(FormatType formatType)
+    {
+        BarcodeTopModel barcodeTop = new(SqlItemCast.ValueTop, false);
+        return DataFormatUtils.GetContent<BarcodeTopModel>(barcodeTop, formatType, true);
+    }
 
-    private string GetBarcodeTop(string formatString) => GetBarcodeTop(DataUtils.GetFormatType(formatString));
+    private string GetBarcodeRight(FormatType formatType)
+    {
+        BarcodeRightModel barcodeRight = new(SqlItemCast.ValueRight);
+        return DataFormatUtils.GetContent<BarcodeRightModel>(barcodeRight, formatType, true);
+    }
 
-    private string GetBarcodeRight(FormatType formatType) => DataFormatUtils.GetContent(SqlItemCast.ValueRight, formatType);
-
-    private string GetBarcodeRight(string formatString) => GetBarcodeRight(DataUtils.GetFormatType(formatString));
-
-    private string GetBarcodeBottom(FormatType formatType) => DataFormatUtils.GetContent(SqlItemCast.ValueBottom, formatType);
-
-    private string GetBarcodeBottom(string formatString) => GetBarcodeBottom(DataUtils.GetFormatType(formatString));
+    private string GetBarcodeBottom(FormatType formatType)
+    {
+        BarcodeBottomModel barcodeBottom = new(SqlItemCast.ValueBottom);
+        return DataFormatUtils.GetContent<BarcodeBottomModel>(barcodeBottom, formatType, true);
+    }
 
     #endregion
 }
