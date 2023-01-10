@@ -3,6 +3,7 @@
 
 using System.Net;
 using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Utils;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
@@ -48,6 +49,7 @@ public static class WebResponseUtils
                 else if (request.Parameters.Contains(WebRequestUtils.GetQueryParameterFormatXml()))
                 {
                     serviceInfo = new ServiceInfoModel().DeserializeFromXml<ServiceInfoModel>(response.Content);
+                    serviceInfo = DataFormatUtils.DeserializeFromXml<ServiceInfoModel>(response.Content);
                     Assert.IsTrue(serviceInfo is not null);
                 }
                 if (serviceInfo is not null)

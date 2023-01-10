@@ -93,7 +93,7 @@ public partial class MainWindow : Window
 		TscDriver.SendCmd(TscDriver.Cmd);
 	}
 
-	private void CmdConvertZpl_Click(object sender, RoutedEventArgs e) => XmlUtils.CmdConvertZpl(TscDriver, true);
+	private void CmdConvertZpl_Click(object sender, RoutedEventArgs e) => DataFormatUtils.CmdConvertZpl(TscDriver, true);
 
 	private void CmdSetCutter_Click(object sender, RoutedEventArgs e)
 	{
@@ -134,25 +134,25 @@ public partial class MainWindow : Window
 	private void GetZpl1_OnClick(object sender, RoutedEventArgs e)
 	{
 		TscDriver.TextPrepare = ZplSamples.GetSample1;
-		XmlUtils.CmdConvertZpl(TscDriver, true);
+		DataFormatUtils.CmdConvertZpl(TscDriver, true);
 	}
 
 	private void GetZpl2_OnClick(object sender, RoutedEventArgs e)
 	{
 		TscDriver.TextPrepare = ZplSamples.GetSample2;
-		XmlUtils.CmdConvertZpl(TscDriver, true);
+		DataFormatUtils.CmdConvertZpl(TscDriver, true);
 	}
 
 	private void GetZpl3_OnClick(object sender, RoutedEventArgs e)
 	{
 		TscDriver.TextPrepare = ZplSamples.GetSample3;
-		XmlUtils.CmdConvertZpl(TscDriver, true);
+		DataFormatUtils.CmdConvertZpl(TscDriver, true);
 	}
 
 	private void GetZplFull_OnClick(object sender, RoutedEventArgs e)
 	{
 		TscDriver.TextPrepare = ZplSamples.GetSampleFull;
-		XmlUtils.CmdConvertZpl(TscDriver, true);
+		DataFormatUtils.CmdConvertZpl(TscDriver, true);
 	}
 
 	#endregion

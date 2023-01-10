@@ -43,7 +43,7 @@
 		            ReadOnly=true
 		            Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
 		            Rows=15
-		            Value=@(XmlUtils.GetPrettyXmlOrJson(SqlItemCast.Xml)) />
+		            Value=@(DataFormatUtils.GetPrettyXmlOrJson(SqlItemCast.Xml)) />
 			</td>
         </tr>
     </tbody>

@@ -16,16 +16,16 @@ public class ZplUtilsTests
         Assert.DoesNotThrow(() =>
         {
             // Digits.
-            Assert.AreEqual(true, XmlUtils.IsDigit('0'));
-            Assert.AreEqual(true, XmlUtils.IsDigit('1'));
-            Assert.AreEqual(true, XmlUtils.IsDigit('2'));
-            Assert.AreEqual(true, XmlUtils.IsDigit('3'));
-            Assert.AreEqual(true, XmlUtils.IsDigit('4'));
-            Assert.AreEqual(true, XmlUtils.IsDigit('5'));
-            Assert.AreEqual(true, XmlUtils.IsDigit('6'));
-            Assert.AreEqual(true, XmlUtils.IsDigit('7'));
-            Assert.AreEqual(true, XmlUtils.IsDigit('8'));
-            Assert.AreEqual(true, XmlUtils.IsDigit('9'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('0'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('1'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('2'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('3'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('4'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('5'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('6'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('7'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('8'));
+            Assert.AreEqual(true, DataFormatUtils.IsDigit('9'));
         });
     }
 
@@ -35,40 +35,40 @@ public class ZplUtilsTests
         Assert.DoesNotThrow(() =>
         {
             // ' ', ',', '.', '-', 
-            Assert.AreEqual(true, XmlUtils.IsSpecial(' '));
-            Assert.AreEqual(true, XmlUtils.IsSpecial(','));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('.'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('-'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial(' '));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial(','));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('.'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('-'));
 
             // '~', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=',
-            Assert.AreEqual(true, XmlUtils.IsSpecial('~'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('!'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('#'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('$'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('%'));
-            Assert.AreEqual(false, XmlUtils.IsSpecial('^'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('&'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('*'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial(')'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('_'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('+'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('='));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('~'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('!'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('#'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('$'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('%'));
+            Assert.AreEqual(false, DataFormatUtils.IsSpecial('^'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('&'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('*'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial(')'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('_'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('+'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('='));
 
             // '"', '№', ';', ':', '?', 
-            Assert.AreEqual(true, XmlUtils.IsSpecial('"'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('№'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial(';'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial(':'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('?'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('"'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('№'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial(';'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial(':'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('?'));
 
             // '/', '|', '\\', '{', '}', '<', '>'
-            Assert.AreEqual(true, XmlUtils.IsSpecial('/'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('|'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('\\'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('{'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('}'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('<'));
-            Assert.AreEqual(true, XmlUtils.IsSpecial('>'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('/'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('|'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('\\'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('{'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('}'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('<'));
+            Assert.AreEqual(true, DataFormatUtils.IsSpecial('>'));
         });
     }
 
@@ -78,108 +78,108 @@ public class ZplUtilsTests
         Assert.DoesNotThrow(() =>
         {
             // Digits.
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('0'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('1'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('2'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('3'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('4'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('5'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('6'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('7'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('8'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('9'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('0'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('1'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('2'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('3'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('4'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('5'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('6'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('7'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('8'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('9'));
 
             // ' ', ',', '.', '-', 
-            Assert.AreEqual(false, XmlUtils.IsCyrillic(' '));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic(','));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('.'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('-'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic(' '));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic(','));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('.'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('-'));
 
             // '~', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=',
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('~'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('!'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('#'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('$'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('%'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('^'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('&'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('*'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic(')'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('_'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('+'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('='));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('~'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('!'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('#'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('$'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('%'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('^'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('&'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('*'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic(')'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('_'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('+'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('='));
 
             // '"', '№', ';', ':', '?', 
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('"'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('№'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic(';'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic(':'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('?'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('"'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('№'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic(';'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic(':'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('?'));
 
             // '/', '|', '\\', '{', '}'
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('/'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('|'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('\\'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('{'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('}'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('<'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('>'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('/'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('|'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('\\'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('{'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('}'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('<'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('>'));
 
             // English lower letters.
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('q'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('w'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('e'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('r'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('t'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('y'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('u'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('i'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('o'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('p'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('a'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('s'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('d'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('f'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('g'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('h'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('j'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('k'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('l'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('z'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('x'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('c'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('v'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('b'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('n'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('m'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('q'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('w'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('e'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('r'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('t'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('y'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('u'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('i'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('o'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('p'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('a'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('s'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('d'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('f'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('g'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('h'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('j'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('k'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('l'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('z'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('x'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('c'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('v'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('b'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('n'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('m'));
 
             // English upper letters.
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('Q'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('W'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('E'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('R'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('T'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('Y'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('U'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('I'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('O'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('P'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('A'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('S'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('D'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('F'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('G'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('H'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('J'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('K'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('L'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('Z'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('X'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('C'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('V'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('B'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('N'));
-            Assert.AreEqual(false, XmlUtils.IsCyrillic('M'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('Q'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('W'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('E'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('R'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('T'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('Y'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('U'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('I'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('O'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('P'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('A'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('S'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('D'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('F'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('G'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('H'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('J'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('K'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('L'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('Z'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('X'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('C'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('V'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('B'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('N'));
+            Assert.AreEqual(false, DataFormatUtils.IsCyrillic('M'));
         });
     }
 
@@ -189,74 +189,74 @@ public class ZplUtilsTests
         Assert.DoesNotThrow(() =>
         {
             // Russian lower letters.
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('й'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ц'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('у'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('к'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('е'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('н'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('г'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ш'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('щ'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('з'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('х'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ъ'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ф'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ы'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('в'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('а'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('п'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('р'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('о'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('л'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('д'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ж'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('э'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('я'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ч'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('с'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('м'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('и'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('т'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ь'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('б'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ю'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('ё'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('й'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ц'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('у'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('к'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('е'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('н'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('г'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ш'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('щ'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('з'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('х'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ъ'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ф'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ы'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('в'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('а'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('п'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('р'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('о'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('л'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('д'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ж'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('э'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('я'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ч'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('с'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('м'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('и'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('т'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ь'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('б'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ю'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('ё'));
 
             // Russian upper letters.
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Й'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ц'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('У'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('К'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Е'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Н'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Г'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ш'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Щ'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('З'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Х'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ъ'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ф'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ы'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('В'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('А'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('П'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Р'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('О'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Л'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Д'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ж'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Э'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Я'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ч'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('С'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('М'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('И'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Т'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ь'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Б'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ю'));
-            Assert.AreEqual(true, XmlUtils.IsCyrillic('Ё'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Й'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ц'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('У'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('К'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Е'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Н'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Г'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ш'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Щ'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('З'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Х'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ъ'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ф'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ы'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('В'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('А'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('П'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Р'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('О'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Л'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Д'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ж'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Э'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Я'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ч'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('С'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('М'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('И'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Т'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ь'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Б'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ю'));
+            Assert.AreEqual(true, DataFormatUtils.IsCyrillic('Ё'));
         });
     }
 

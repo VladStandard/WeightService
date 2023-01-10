@@ -23,10 +23,10 @@ public class WebRequestScales : WebRequestBase, IWebRequest
             },
         ServerType.All => new()
             {
-                $"https://scales-prod-preview.kolbasa-vs.local:443/api/{request}",
-                $"https://scales-prod.kolbasa-vs.local:443/api/{request}",
                 $"https://scales-dev-preview.kolbasa-vs.local:443/api/{request}",
                 $"https://scales-dev.kolbasa-vs.local:443/api/{request}",
+                $"https://scales-prod-preview.kolbasa-vs.local:443/api/{request}",
+                $"https://scales-prod.kolbasa-vs.local:443/api/{request}",
             },
         _ => new(),
     };

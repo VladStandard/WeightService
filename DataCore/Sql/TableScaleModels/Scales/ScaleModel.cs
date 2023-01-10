@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.WorkShops;
 
 namespace DataCore.Sql.TableScaleModels.Scales;

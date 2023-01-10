@@ -124,7 +124,7 @@ public class SerializeDeprecatedModel<T> where T : new()
     {
         FormatType.Text => GetContentResult(formatType, SerializeAsText(), statusCode),
         FormatType.JavaScript => GetContentResult(formatType, SerializeAsText(), statusCode),
-        FormatType.Json => GetContentResult(formatType, XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()), statusCode),
+        FormatType.Json => GetContentResult(formatType, DataFormatUtils.GetPrettyXmlOrJson(SerializeAsJson()), statusCode),
         FormatType.Html => GetContentResult(formatType, SerializeAsHtml(), statusCode),
         FormatType.Xml => GetContentResult(formatType, SerializeAsXml(), statusCode),
         _ => throw GetArgumentException(nameof(formatType)),
@@ -137,9 +137,9 @@ public class SerializeDeprecatedModel<T> where T : new()
     {
         FormatType.Text => SerializeAsText(),
         FormatType.JavaScript => SerializeAsText(),
-        FormatType.Json => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
+        FormatType.Json => DataFormatUtils.GetPrettyXmlOrJson(SerializeAsJson()),
         FormatType.Html => SerializeAsHtml(),
-        FormatType.Xml => XmlUtils.GetPrettyXml(SerializeAsXml()),
+        FormatType.Xml => DataFormatUtils.GetPrettyXml(SerializeAsXml()),
         _ => throw GetArgumentException(nameof(formatType)),
     };
 

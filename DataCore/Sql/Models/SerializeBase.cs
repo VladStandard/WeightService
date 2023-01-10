@@ -3,50 +3,8 @@
 
 using DataCore.Enums;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DataCore.Sql.Models;
-
-public class StringWriterUtf8 : StringWriter
-{
-	#region Public and private fields, properties, constructor
-
-	public override Encoding Encoding => Encoding.UTF8;
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public StringWriterUtf8()
-	{
-		//
-	}
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public StringWriterUtf8(IFormatProvider formatProvider) : base(formatProvider)
-	{
-		//
-	}
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public StringWriterUtf8(StringBuilder sb) : base(sb)
-	{
-		//
-	}
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public StringWriterUtf8(StringBuilder sb, IFormatProvider formatProvider) : base(sb, formatProvider)
-	{
-		//
-	}
-
-	#endregion
-}
 
 [Serializable]
 public class SerializeBase : ISerializable
@@ -61,6 +19,10 @@ public class SerializeBase : ISerializable
 		//
 	}
 
+    #endregion
+
+    #region Public and private methods - ISerializable
+
 	/// <summary>
 	/// Constructor.
 	/// </summary>
@@ -71,217 +33,46 @@ public class SerializeBase : ISerializable
 		//
 	}
 
-	#endregion
-
-	#region Public and private methods
-
-	/// <summary>
-	/// Get object data for serialization info.
-	/// </summary>
-	/// <param name="info"></param>
-	/// <param name="context"></param>
-	public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		//
 	}
 
-	public virtual XmlReaderSettings GetXmlReaderSettings() => new()
-	{
-		ConformanceLevel = ConformanceLevel.Document,
-	};
+    #endregion
 
-	public virtual XmlWriterSettings GetXmlWriterSettings() => new()
-	{
-		ConformanceLevel = ConformanceLevel.Document,
-		OmitXmlDeclaration = false,
-		Indent = true,
-		IndentChars = "\t",
-	};
+    #region Public and private methods - Obsolete
 
-	public virtual string SerializeAsJson() => JsonConvert.SerializeObject(this);
+    [Obsolete(@"Use DataFormatUtils")]
+    public virtual string SerializeAsXmlString<T>(bool isAddEmptyNamespace, bool isUtf16) => DataFormatUtils.SerializeAsXmlString<T>(this, isAddEmptyNamespace, isUtf16);
 
-	public virtual string SerializeByMemoryStream<T>()
-	{
-		MemoryStream memoryStream = new();
-		IFormatter binaryFormatter = new BinaryFormatter();
-		binaryFormatter.Serialize(memoryStream, this);
-		string result;
-		using StreamReader streamReader = new(memoryStream);
-		memoryStream.Position = 0;
-		result = streamReader.ReadToEnd();
-		memoryStream.Close();
-		return result;
-	}
+    [Obsolete(@"Use DataFormatUtils")]
+    public virtual string SerializeAsText() => DataFormatUtils.SerializeAsText<string>(this);
 
-	public virtual string SerializeAsXmlString<T>(bool isAddEmptyNamespace, bool isUtf16)
-	{
-		XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+	[Obsolete(@"Use DataFormatUtils")]
+	public virtual XmlDocument SerializeAsXmlDocument<T>(bool isAddEmptyNamespace, bool isUtf16) => DataFormatUtils.SerializeAsXmlDocument<T>(this, isAddEmptyNamespace, isUtf16);
 
-		using var stringWriter = isUtf16 ? new StringWriter() : new StringWriterUtf8();
+    [Obsolete(@"Use DataFormatUtils")]
+    public virtual T DeserializeFromXml<T>(string xml) => DataFormatUtils.DeserializeFromXml<T>(xml);
 
-		switch (isAddEmptyNamespace)
-		{
-			case true:
-				{
-					XmlSerializerNamespaces emptyNamespaces = new();
-					emptyNamespaces.Add(string.Empty, string.Empty);
-					using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
-					xmlSerializer.Serialize(xmlWriter, this, emptyNamespaces);
-					xmlWriter.Flush();
-					xmlWriter.Close();
-					break;
-				}
-			default:
-				xmlSerializer.Serialize(stringWriter, this);
-				break;
-		}
-		return stringWriter.ToString();
-	}
+	[Obsolete(@"Use DataFormatUtils")]
+	public virtual T DeserializeFromXml<T>(string xml, Encoding encoding) => DataFormatUtils.DeserializeFromXml<T>(xml, encoding);
 
-	public virtual string SerializeAsHtml() => @$"
-<html>
-<body>
-    {this}
-</body>
-</html>
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    [Obsolete(@"Use DataFormatUtils")]
+    public virtual ContentResult GetContentResultCore(FormatType formatType, object content, HttpStatusCode statusCode) => DataFormatUtils.GetContentResultCore(formatType, content, statusCode);
 
-	public virtual string SerializeAsText() => ToString();
+    [Obsolete(@"Use DataFormatUtils")]
+    public virtual ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) => DataFormatUtils.GetContentResultCore(formatString, content, statusCode);
 
-	public virtual XmlDocument SerializeAsXmlDocument<T>(bool isAddEmptyNamespace, bool isUtf16)
-	{
-		XmlDocument xmlDocument = new();
-		string xmlString = SerializeAsXmlString<T>(isAddEmptyNamespace, isUtf16);
-		byte[] bytes = isUtf16 ? Encoding.Unicode.GetBytes(xmlString) : Encoding.UTF8.GetBytes(xmlString);
-		using MemoryStream memoryStream = new(bytes);
-		memoryStream.Flush();
-		memoryStream.Seek(0, SeekOrigin.Begin);
-		xmlDocument.Load(memoryStream);
-		return xmlDocument;
-	}
+    [Obsolete(@"Use DataFormatUtils")]
+    public virtual ContentResult GetContentResult(FormatType formatType, object content, HttpStatusCode statusCode) => DataFormatUtils.GetContentResultCore(formatType, content, statusCode);
 
-	public virtual T DeserializeFromXml<T>(string xml) =>
-		DeserializeFromXml<T>(xml, Encoding.Unicode);
+    [Obsolete(@"Use DataFormatUtils")]
+    public virtual ContentResult GetContentResult<T>(string formatString, HttpStatusCode statusCode) => DataFormatUtils.GetContentResult<T>(this, formatString, statusCode);
 
-	public virtual T DeserializeFromXml<T>(string xml, Encoding encoding)
-	{
-		XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-		return (T)xmlSerializer.Deserialize(new MemoryStream(encoding.GetBytes(xml)));
-	}
-
-	public virtual T DeserializeFromXmlVersion2<T>(string xml)
-	{
-		// Don't use it.
-		// XmlSerializer xmlSerializer = new(typeof(T));
-		// Use it.
-		XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-		using TextReader reader = new StringReader(xml);
-		return (T)xmlSerializer.Deserialize(reader);
-	}
-
-	public virtual T DeserializeFromMemoryStream<T>(MemoryStream memoryStream) where T : new()
-	{
-		memoryStream.Position = 0;
-		IFormatter formatter = new BinaryFormatter();
-		memoryStream.Seek(0, SeekOrigin.Begin);
-		object? obj = formatter.Deserialize(memoryStream);
-		return obj is null ? new() : (T)obj;
-	}
-
-	public virtual ContentResult GetContentResultCore(FormatType formatType, object content, HttpStatusCode statusCode) => new()
-	{
-		ContentType = DataUtils.GetContentType(formatType),
-		StatusCode = (int)statusCode,
-		Content = content as string ?? content.ToString()
-	};
-
-	public virtual ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) =>
-		GetContentResultCore(DataUtils.GetFormatType(formatString), content, statusCode);
-
-	public virtual ContentResult GetContentResult(FormatType formatType, object content, HttpStatusCode statusCode) =>
-		GetContentResultCore(formatType, content, statusCode);
-
-	public virtual ContentResult GetContentResult(string formatString, object content, HttpStatusCode statusCode) =>
-		GetContentResultCore(formatString, content, statusCode);
-
-	public virtual ContentResult GetContentResult<T>(FormatType formatType, HttpStatusCode statusCode) => formatType switch
-	{
-		FormatType.Text => GetContentResult(formatType, SerializeAsText(), statusCode),
-		FormatType.JavaScript => GetContentResult(formatType, SerializeAsText(), statusCode),
-		FormatType.Json => GetContentResult(formatType, SerializeAsJson(), statusCode),
-		FormatType.Html => GetContentResult(formatType, SerializeAsHtml(), statusCode),
-		FormatType.Xml or FormatType.XmlUtf8 => GetContentResult(formatType, SerializeAsXmlString<T>(true, false), statusCode),
-		FormatType.XmlUtf16 => GetContentResult(formatType, SerializeAsXmlString<T>(true, true), statusCode),
-		_ => throw DataUtils.GetArgumentException(nameof(formatType)),
-	};
-
-	public virtual ContentResult GetContentResult<T>(string formatString, HttpStatusCode statusCode) =>
-		GetContentResult<T>(GetFormatType(formatString), statusCode);
-
-	public virtual FormatType GetFormatType(string formatType) => formatType.ToUpper() switch
-	{
-		"TEXT" => FormatType.Text,
-		"JAVASCRIPT" => FormatType.JavaScript,
-		"JSON" => FormatType.Json,
-		"HTML" => FormatType.Html,
-		"XML" or "" or "XMLUTF8" => FormatType.Xml,
-		"XMLUTF16" => FormatType.XmlUtf16,
-		_ => throw DataUtils.GetArgumentException(nameof(formatType)),
-	};
-
-	public virtual T ObjectFromDictionary<T>(IDictionary<string, object> dict)
-	{
-		Type type = typeof(T);
-		T result = (T)Activator.CreateInstance(type);
-		foreach (KeyValuePair<string, object> item in dict)
-		{
-			type.GetProperty(item.Key)?.SetValue(result, item.Value, null);
-		}
-		return result;
-	}
-
-	public virtual IDictionary<string, object> ObjectToDictionary<T>(T item)
-	{
-		IDictionary<string, object> result = new Dictionary<string, object>();
-		if (item is null)
-			return result;
-		object[] indexer = Array.Empty<object>();
-		foreach (PropertyInfo info in item.GetType().GetProperties())
-		{
-			object value = info.GetValue(item, indexer);
-			result.Add(info.Name, value);
-		}
-		return result;
-	}
-
-	public virtual XDocument GetBtXmlNamedSubString<T>(T item, XName name, object value)
-	{
-		IDictionary<string, object> dict = ObjectToDictionary(item);
-		XDocument result = new(
-			new XElement("XMLScript", new XAttribute("Version", "2.0"),
-				new XElement("Command",
-					new XElement("Print",
-						new XElement("Format", new XAttribute(name, value)),
-						dict.Select(x => new XElement("NameSubString",
-							new XAttribute("Key", x.Key),
-							new XElement("Value", x.Value)))
-					))));
-		return result;
-	}
-
-	public virtual string GetContent<T>(FormatType formatType)
-	{
-		return formatType switch
-		{
-			FormatType.Text => SerializeAsText(),
-			FormatType.JavaScript => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
-			FormatType.Json => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
-			FormatType.Html => SerializeAsHtml(),
-			FormatType.Xml or FormatType.XmlUtf8 => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true, false)),
-			FormatType.XmlUtf16 => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true, true)),
-			_ => throw DataUtils.GetArgumentException(nameof(formatType)),
-		};
-	}
-
-	#endregion
+    #endregion
 }

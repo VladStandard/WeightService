@@ -32,43 +32,16 @@ public class WebRequestBase
         _ => new(),
     };
 
-    
+
     public List<string> GetListInfo(ServerType serverType) => GetListCore(serverType, "info/");
 
-    public List<string> GetListInfoV1(ServerType serverType) => GetListCore(serverType, "v1/info/");
-
-    public List<string> GetListInfoV2(ServerType serverType) => GetListCore(serverType, "v2/info/");
-
-    public List<string> GetListInfoV3(ServerType serverType) => GetListCore(serverType, "v3/info/");
-
-    
     public List<string> GetListSimple(ServerType serverType) => GetListCore(serverType, "simple/");
-    
-    public List<string> GetListSimpleV1(ServerType serverType) => GetListCore(serverType, "v1/simple/");
-    
-    public List<string> GetListSimpleV2(ServerType serverType) => GetListCore(serverType, "v2/simple/");
-    
-    public List<string> GetListSimpleV3(ServerType serverType) => GetListCore(serverType, "v3/simple/");
 
-    
     public List<string> GetListException(ServerType serverType) => GetListCore(serverType, "exception/");
-    
-    public List<string> GetListExceptionV1(ServerType serverType) => GetListCore(serverType, "v1/exception/");
-    
-    public List<string> GetListExceptionV2(ServerType serverType) => GetListCore(serverType, "v2/exception/");
-    
-    public List<string> GetListExceptionV3(ServerType serverType) => GetListCore(serverType, "v3/exception/");
 
-    
     public List<string> GetListWeatherForecast(ServerType serverType) => GetListCore(serverType, "weatherforecast/");
-    
+
     public List<string> GetListWeatherForecastSpace(ServerType serverType) => GetListCore(serverType, "weather_forecast/");
-    
-    public List<string> GetListWeatherForecastV1(ServerType serverType) => GetListCore(serverType, "v1/weatherforecast/");
-    
-    public List<string> GetListWeatherForecastV2(ServerType serverType) => GetListCore(serverType, "v2/weatherforecast/");
-    
-    public List<string> GetListWeatherForecastV3(ServerType serverType) => GetListCore(serverType, "v3/weatherforecast/");
 
     #endregion
 }

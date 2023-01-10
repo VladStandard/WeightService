@@ -4,54 +4,47 @@
 using BlazorCore.Razors;
 using DataCore.Enums;
 using DataCore.Sql.TableScaleModels.BarCodes;
-using WebApiCore.Models;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 
 public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	//
+    //
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				SqlItemCast = DataContext.GetItemNotNullable<BarCodeModel>(IdentityUid);
-				if (SqlItemCast.IdentityIsNew)
-				{
-					SqlItemCast = SqlItemNew<BarCodeModel>();
-				}
+    protected override void OnParametersSet()
+    {
+        RunActionsParametersSet(new()
+        {
+            () =>
+            {
+                SqlItemCast = DataContext.GetItemNotNullable<BarCodeModel>(IdentityUid);
+                if (SqlItemCast.IsNew)
+                {
+                    SqlItemCast = SqlItemNew<BarCodeModel>();
+                }
 
-				ButtonSettings = new(false, false, false, false, false, false, true);
-			}
-		});
-	}
+                ButtonSettings = new(false, false, false, false, false, false, true);
+            }
+        });
+    }
 
-	private string GetBarcodeTop(FormatType formatType) =>
-		new BarcodeTopModel(SqlItemCast.ValueTop, false).GetContent<BarcodeTopModel>(formatType);
+    private string GetBarcodeTop(FormatType formatType) => DataFormatUtils.GetContent(SqlItemCast.ValueTop, formatType);
 
-	private string GetBarcodeTop(string formatString) =>
-		GetBarcodeTop(DataUtils.GetFormatType(formatString));
+    private string GetBarcodeTop(string formatString) => GetBarcodeTop(DataUtils.GetFormatType(formatString));
 
-	private string GetBarcodeRight(FormatType formatType) =>
-		new BarcodeRightModel(SqlItemCast.ValueRight).GetContent<BarcodeRightModel>(formatType);
+    private string GetBarcodeRight(FormatType formatType) => DataFormatUtils.GetContent(SqlItemCast.ValueRight, formatType);
 
-	private string GetBarcodeRight(string formatString) =>
-        GetBarcodeRight(DataUtils.GetFormatType(formatString));
+    private string GetBarcodeRight(string formatString) => GetBarcodeRight(DataUtils.GetFormatType(formatString));
 
-	private string GetBarcodeBottom(FormatType formatType) =>
-		new BarcodeBottomModel(SqlItemCast.ValueBottom).GetContent<BarcodeBottomModel>(formatType);
+    private string GetBarcodeBottom(FormatType formatType) => DataFormatUtils.GetContent(SqlItemCast.ValueBottom, formatType);
 
-	private string GetBarcodeBottom(string formatString) =>
-        GetBarcodeBottom(DataUtils.GetFormatType(formatString));
+    private string GetBarcodeBottom(string formatString) => GetBarcodeBottom(DataUtils.GetFormatType(formatString));
 
-	#endregion
+    #endregion
 }

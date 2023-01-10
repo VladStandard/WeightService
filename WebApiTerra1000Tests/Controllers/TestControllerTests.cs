@@ -26,49 +26,4 @@ internal class TestControllerTests
             }
         });
     }
-    
-    [Test]
-    public void GetListInfoV1_Execute_DoesNotThrow()
-    {
-        Assert.DoesNotThrowAsync(async () =>
-        {
-            foreach (string url in new WebRequestTerra1000().GetListInfoV1(ServerType.All))
-            {
-                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
-                {
-                    await WebResponseUtils.GetInfoAsync(url, request);
-                }
-            }
-        });
-    }
-    
-    [Test]
-    public void GetListInfoV2_Execute_DoesNotThrow()
-    {
-        Assert.DoesNotThrowAsync(async () =>
-        {
-            foreach (string url in new WebRequestTerra1000().GetListInfoV2(ServerType.All))
-            {
-                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
-                {
-                    await WebResponseUtils.GetInfoAsync(url, request);
-                }
-            }
-        });
-    }
-    
-    [Test]
-    public void GetListInfoV3_Execute_DoesNotThrow()
-    {
-        Assert.DoesNotThrowAsync(async () =>
-        {
-            foreach (string url in new WebRequestTerra1000().GetListInfoV3(ServerType.All))
-            {
-                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
-                {
-                    await WebResponseUtils.GetInfoAsync(url, request);
-                }
-            }
-        });
-    }
 }

@@ -830,11 +830,11 @@ public class UserSessionHelper : BaseViewModel
 
 		XmlDocument xmlArea = ProductionFacility.SerializeAsXmlDocument<ProductionFacilityModel>(true, true);
 		pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true, true);
-		pluLabel.Xml = XmlUtils.XmlMerge(pluLabel.Xml, xmlArea);
-		pluLabel.Zpl = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
-		pluLabel.Zpl = XmlUtils.XmlReplaceNextLine(pluLabel.Zpl);
+		pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
+		pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
+		pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
 		pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
-		pluLabel.Zpl = XmlUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
+		pluLabel.Zpl = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
 
 		// Merge.
 		//pluLabel.Zpl = zplArea + Environment.NewLine + pluLabel.Zpl;
