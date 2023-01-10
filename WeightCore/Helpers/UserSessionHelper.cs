@@ -60,7 +60,7 @@ public class UserSessionHelper : BaseViewModel
 	private AppVersionHelper AppVersion => AppVersionHelper.Instance;
 	private SqlConnectFactory SqlConnect => SqlConnectFactory.Instance;
 	public DataAccessHelper DataAccess => DataAccessHelper.Instance;
-    private DataContextModel DataContext { get; } = new();
+    public DataContextModel DataContext { get; } = new();
 	public DebugHelper Debug => DebugHelper.Instance;
 	private FileLoggerHelper FileLogger => FileLoggerHelper.Instance;
 	public ManagerControllerHelper ManagerControl => ManagerControllerHelper.Instance;

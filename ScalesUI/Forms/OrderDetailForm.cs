@@ -10,7 +10,7 @@
 //{
 //    #region Public and private fields and properties
 
-//    //private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+//    //private UserSessionHelper UserSession => UserSessionHelper.Instance;
 
 //    #endregion
 

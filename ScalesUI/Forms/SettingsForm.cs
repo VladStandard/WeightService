@@ -13,8 +13,8 @@
 //{
 //    #region Private fields and properties
 
-//    //private DebugHelper Debug { get; } = DebugHelper.Instance;
-//    //private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+//    //private DebugHelper Debug => DebugHelper.Instance;
+//    //private UserSessionHelper UserSession => UserSessionHelper.Instance;
 
 //    /// <summary>
 //    /// Constructor.

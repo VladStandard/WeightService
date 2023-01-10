@@ -29,7 +29,7 @@ public partial class SectionScalesScreenShots : RazorComponentSectionBase<ScaleS
         {
             () =>
             {
-	            SqlCrudConfigSection.SetFilters(nameof(ScaleScreenShotModel.Scale), ParentRazor?.SqlItem);
+	            SqlCrudConfigSection.AddFilters(nameof(ScaleScreenShotModel.Scale), ParentRazor?.SqlItem);
 				SqlSectionCast = DataContext.GetListNotNullable<ScaleScreenShotModel>(SqlCrudConfigSection);
             }
         });

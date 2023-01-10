@@ -426,7 +426,7 @@ public class DataContextModel
         if (sqlCrudConfig.IsResultOrder && PluScales.Count > 1)
             PluScales = PluScales
                 .OrderBy(item => item.Scale.Name).ToList()
-                .OrderBy(item => item.Plu.Name).ToList();
+                .OrderBy(item => item.Plu.Number).ToList();
         return PluScales.Cast<T>().ToList();
     }
 

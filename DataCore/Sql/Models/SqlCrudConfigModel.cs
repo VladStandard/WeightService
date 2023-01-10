@@ -117,108 +117,91 @@ public class SqlCrudConfigModel : ICloneable
 	private List<SqlFieldFilterModel> GetFiltersIsResultShowMarked(bool isShowMarked) =>
 		new() { new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, isShowMarked) };
 
-	public void SetFilters(List<SqlFieldFilterModel> filters, EnumCrudAction crudAction  = EnumCrudAction.Add)
+    public void AddFilters(List<SqlFieldFilterModel> filters)
+    {
+        if (!Filters.Any())
+			Filters = filters;
+        else
+            foreach (SqlFieldFilterModel filter in filters)
+            {
+                if (!Filters.Contains(filter))
+                {
+                    Filters.Add(filter);
+                }
+            }
+    }
+
+    public void AddFilters(string className, SqlTableBase? item) => AddFilters(GetFilters(className, item));
+
+    public void RemoveFilters(List<SqlFieldFilterModel> filters)
+    {
+		if (!Filters.Any()) return;
+            bool isExists = true;
+            while (isExists)
+            {
+                isExists = false;
+                foreach (SqlFieldFilterModel filter in filters)
+                {
+                    if (Filters.Contains(filter))
+                    {
+                        isExists = true;
+                        Filters.Remove(filter);
+                        break;
+                    }
+                }
+            }
+    }
+
+    public void RemoveFilters(string className, SqlTableBase? item) => RemoveFilters(GetFilters(className, item));
+
+    private void SetFiltersIsResultShowMarked()
 	{
-		switch (crudAction)
-		{
-			case EnumCrudAction.Remove:
-				switch (Filters.Any())
-				{
-					case true:
-						bool isExists = true;
-						while (isExists)
-						{
-							isExists = false;
-							foreach (SqlFieldFilterModel filter in filters)
-							{
-								if (Filters.Contains(filter))
-								{
-									isExists = true;
-									Filters.Remove(filter);
-									break;
-								}
-							}
-						}
-						break;
-				}
-				break;
-			case EnumCrudAction.Add:
-				switch (Filters.Any())
-				{
-					case false:
-						Filters = filters;
-						break;
-					case true:
-						foreach (SqlFieldFilterModel filter in filters)
-						{
-							if (!Filters.Contains(filter))
-							{
-								Filters.Add(filter);
-							}
-						}
-						break;
-				}
-				break;
-		}
-	}
-
-	private void SetFiltersIsResultShowMarked() => SetFilters(GetFiltersIsResultShowMarked(false), 
-		IsResultShowMarked ? EnumCrudAction.Remove : EnumCrudAction.Add);
-
-	public void SetFilters(string className, SqlTableBase? item, EnumCrudAction crudAction = EnumCrudAction.Add) =>
-		SetFilters(GetFilters(className, item), crudAction);
+        if (!IsResultShowMarked)
+            AddFilters(GetFiltersIsResultShowMarked(false));
+        else
+            RemoveFilters(GetFiltersIsResultShowMarked(false));
+    }
 
 	#endregion
 
 	#region Public and private methods - Orders
 
-	private void SetOrders(List<SqlFieldOrderModel> orders, EnumCrudAction crudAction = EnumCrudAction.Add)
+	private void AddOrders(List<SqlFieldOrderModel> orders)
 	{
-		switch (crudAction)
-		{
-			case EnumCrudAction.Remove:
-				switch (Orders.Any())
-				{
-					case true:
-						bool isExists = true;
-						while (isExists)
-						{
-							isExists = false;
-							foreach (SqlFieldOrderModel order in orders)
-							{
-								if (Orders.Contains(order))
-								{
-									isExists = true;
-									Orders.Remove(order);
-									break;
-								}
-							}
-						}
-						break;
-				}
-				break;
-			case EnumCrudAction.Add:
-				switch (Orders.Any())
-				{
-					case false:
-						Orders = orders;
-						break;
-					case true:
-						foreach (SqlFieldOrderModel order in orders)
-						{
-							if (!Orders.Contains(order))
-							{
-								Orders.Add(order);
-							}
-						}
-						break;
-				}
-				break;
-		}
-	}
+        if (!Orders.Any())
+			Orders = orders;
+        else
+			foreach (SqlFieldOrderModel order in orders)
+            {
+                if (!Orders.Contains(order))
+                {
+                    Orders.Add(order);
+                }
+            }
+    }
 
-	public void SetOrders(SqlFieldOrderModel order, EnumCrudAction crudAction = EnumCrudAction.Add) =>
-		SetOrders(new List<SqlFieldOrderModel>() { order }, crudAction);
+    public void AddOrders(SqlFieldOrderModel order) => AddOrders(new List<SqlFieldOrderModel>() { order });
+    
+	private void RemoveOrders(List<SqlFieldOrderModel> orders)
+    {
+        if (!Orders.Any()) return;
+        bool isExists = true;
+        while (isExists)
+        {
+            isExists = false;
+            foreach (SqlFieldOrderModel order in orders)
+            {
+                if (Orders.Contains(order))
+                {
+                    isExists = true;
+                    Orders.Remove(order);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void RemoveOrders(SqlFieldOrderModel order) => RemoveOrders(new List<SqlFieldOrderModel>() { order });
 
     public object Clone()
     {

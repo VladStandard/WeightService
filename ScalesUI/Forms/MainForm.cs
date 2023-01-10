@@ -7,6 +7,8 @@ using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Schedulers;
 using DataCore.Settings;
+using DataCore.Sql.Core;
+using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
@@ -36,10 +38,10 @@ public partial class MainForm : Form
     #region Private fields and properties - Helpers
 
     private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
-    private DebugHelper Debug { get; } = DebugHelper.Instance;
+    private DebugHelper Debug => DebugHelper.Instance;
     private ProcHelper Proc { get; } = ProcHelper.Instance;
     private QuartzHelper Quartz { get; } = QuartzHelper.Instance;
-    private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+    private UserSessionHelper UserSession => UserSessionHelper.Instance;
 
     #endregion
 
@@ -55,7 +57,7 @@ public partial class MainForm : Form
     private Button ButtonPrint { get; set; }
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
-    private FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
+    private FontsSettingsHelper FontsSettings => FontsSettingsHelper.Instance;
     private readonly object _lockerHours = new();
     private readonly object _lockerDays = new();
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
@@ -633,7 +635,10 @@ public partial class MainForm : Form
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-                List<PluScaleModel> pluScales = UserSession.DataAccess.GetListPluScales(UserSession.Scale);
+                SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale), false, false);
+                sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
+                sqlCrudConfig.IsResultOrder = true;
+                List<PluScaleModel> pluScales = UserSession.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(pluScales.Count));
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);

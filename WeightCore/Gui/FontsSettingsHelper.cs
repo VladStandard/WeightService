@@ -70,7 +70,7 @@ public class FontsSettingsHelper
         FontButtons = new("Microsoft Sans Serif", baseSize + 4.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontButtonsSmall = new("Microsoft Sans Serif", baseSize + 2.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontLabelsBlack = new("Microsoft Sans Serif", baseSize + 4.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
-        FontLabelsTitle = new("Microsoft Sans Serif", baseSize + 7.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
+        FontLabelsTitle = new("Microsoft Sans Serif", baseSize + 5.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontLabelsMaximum = new("Microsoft Sans Serif", baseSize + 16.00f, FontStyle.Bold, GraphicsUnit.Point, 204);
     }
 

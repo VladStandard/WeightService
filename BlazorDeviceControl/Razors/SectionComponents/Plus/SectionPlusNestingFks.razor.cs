@@ -30,7 +30,7 @@ public partial class SectionPlusNestingFks : RazorComponentSectionBase<PluNestin
         {
             () =>
             {
-	            SqlCrudConfigSection.SetFilters(nameof(PluBundleFkModel.Plu), ParentRazor?.SqlItem);
+	            SqlCrudConfigSection.AddFilters(nameof(PluBundleFkModel.Plu), ParentRazor?.SqlItem);
 				SqlSectionCast = DataContext.GetListNotNullable<PluNestingFkModel>(SqlCrudConfigSection);
             }
         });

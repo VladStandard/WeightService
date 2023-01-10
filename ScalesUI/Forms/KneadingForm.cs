@@ -16,10 +16,10 @@ public partial class KneadingForm : Form
 	#region Private fields and properties
 
 	private DateTime SaveProductDate { get; }
-	private DebugHelper Debug { get; } = DebugHelper.Instance;
+	private DebugHelper Debug => DebugHelper.Instance;
 	private short SaveKneading { get; }
 	private byte SavePalletSize { get; }
-	private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+	private UserSessionHelper UserSession => UserSessionHelper.Instance;
 
 	#endregion
 

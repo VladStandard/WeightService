@@ -33,7 +33,7 @@ internal static class Program
         try
         {
             // Setup.
-            AppVersion.Setup(Assembly.GetExecutingAssembly());
+            AppVersion.Setup(Assembly.GetExecutingAssembly(), LocaleCore.Scales.AppTitle);
             //FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
             JsonSettingsHelper.Instance.SetupScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
 

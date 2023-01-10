@@ -11,11 +11,11 @@
 //{
 //	#region Public and private fields and properties
 
-//	//private DebugHelper Debug { get; } = DebugHelper.Instance;
+//	//private DebugHelper Debug => DebugHelper.Instance;
 //	//private int NumPage { get; set; }
 //	//private static int Offset => 9;
 //	//private List<OrderEntity> OrdList { get; set; }
-//	//private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+//	//private UserSessionHelper UserSession => UserSessionHelper.Instance;
 
 //	#endregion
 

@@ -27,7 +27,7 @@ public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<Nome
             () =>
             {
                 SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigSection.CloneCast();
-                sqlCrudConfig.SetFilters(new() { new($"{nameof(NomenclatureGroupModel.IsGroup)}", false) });
+                sqlCrudConfig.AddFilters(new() { new($"{nameof(NomenclatureGroupModel.IsGroup)}", false) });
                 //sqlCrudConfig.SetOrders(new(nameof(SqlTableBase.Name), SqlFieldOrderEnum.Asc));
                 sqlCrudConfig.IsResultOrder = true;
                 SqlSectionCast = DataContext.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);

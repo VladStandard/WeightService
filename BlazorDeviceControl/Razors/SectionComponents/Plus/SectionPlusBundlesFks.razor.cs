@@ -29,7 +29,7 @@ public partial class SectionPlusBundlesFks : RazorComponentSectionBase<PluBundle
         {
             () =>
             {
-	            SqlCrudConfigSection.SetFilters(nameof(PluBundleFkModel.Plu), ParentRazor?.SqlItem);
+	            SqlCrudConfigSection.AddFilters(nameof(PluBundleFkModel.Plu), ParentRazor?.SqlItem);
 				SqlSectionCast = DataContext.GetListNotNullable<PluBundleFkModel>(SqlCrudConfigSection);
             }
         });

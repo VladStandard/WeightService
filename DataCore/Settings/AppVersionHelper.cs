@@ -119,9 +119,11 @@ public class AppVersionHelper
         return result;
     }
 
-    public void Setup(Assembly assembly)
+    public void Setup(Assembly assembly, string appTitle = "")
     {
-        AppTitle = $"{GetTitle(assembly)} {GetCurrentVersion(assembly, AppVerCountDigitsEnum.Use3)}";
+        AppTitle = string.IsNullOrEmpty(appTitle)
+            ? $"{GetTitle(assembly)} {GetCurrentVersion(assembly, AppVerCountDigitsEnum.Use3)}"
+            : $"{appTitle} {GetCurrentVersion(assembly, AppVerCountDigitsEnum.Use3)}";
         if (AppTitle.Split(' ').Length > 1)
         {
             App = AppTitle.Split(' ')[0];

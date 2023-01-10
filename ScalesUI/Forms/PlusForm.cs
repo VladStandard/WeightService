@@ -3,6 +3,10 @@
 
 using DataCore.Helpers;
 using DataCore.Localizations;
+using DataCore.Sql.Core;
+using DataCore.Sql.Fields;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Templates;
@@ -26,11 +30,11 @@ public partial class PlusForm : Form
     private const ushort ColumnCount = 4;
     private const ushort PageSize = 20;
     private const ushort RowCount = 5;
-    private DebugHelper Debug { get; } = DebugHelper.Instance;
-    private FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
+    private DebugHelper Debug => DebugHelper.Instance;
+    private FontsSettingsHelper FontsSettings => FontsSettingsHelper.Instance;
     private List<PluScaleModel> PluScales { get; set; }
     private int PageNumber { get; set; }
-    private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+    private UserSessionHelper UserSession => UserSessionHelper.Instance;
 
     /// <summary>
     /// Constructor.
@@ -48,7 +52,11 @@ public partial class PlusForm : Form
     {
         try
         {
-            PluScales = UserSession.DataAccess.GetListPluScales(UserSession.Scale);
+            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale), false, false);
+            sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
+            sqlCrudConfig.IsResultOrder = true;
+            //sqlCrudConfig.AddOrders(new SqlFieldOrderModel(nameof(PluScaleModel.Plu.Number), SqlFieldOrderEnum.Asc));
+            PluScales = UserSession.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
 
             LoadFormControls();
 
