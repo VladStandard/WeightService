@@ -285,7 +285,8 @@ public partial class MainForm : Form
             // Actions.
             IsKneading = false,
             IsMore = true,
-            IsNewPallet = true,
+            IsNewPallet = false,
+
             IsOrder = UserSession.Scale.IsOrder,
             IsPrint = true,
             IsScalesInit = false,
