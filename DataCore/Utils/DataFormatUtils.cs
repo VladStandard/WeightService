@@ -459,16 +459,5 @@ public static class DataFormatUtils
         _ => throw DataUtils.GetArgumentException(nameof(formatType)),
     };
 
-    //public static string GetContent(string item, FormatType formatType, bool isAddEmptyNamespace) => formatType switch
-    //{
-    //    FormatType.Text => SerializeAsText(item),
-    //    FormatType.JavaScript => GetPrettyXmlOrJson(SerializeAsJson(item)),
-    //    FormatType.Json => GetPrettyXmlOrJson(SerializeAsJson(item)),
-    //    FormatType.Html => SerializeAsHtml(item),
-    //    FormatType.Xml or FormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString(item, isAddEmptyNamespace, false)),
-    //    FormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString(item, isAddEmptyNamespace, true)),
-    //    _ => throw DataUtils.GetArgumentException(nameof(formatType)),
-    //};
-
     #endregion
 }

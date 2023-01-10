@@ -620,7 +620,10 @@ public class UserSessionHelper : BaseViewModel
 			//Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
 		}
 
-		TemplateModel template = DataAccess.GetItemTemplateNotNullable(PluScale);
+        // #WS-T-710
+        //PluScale = DataAccess.GetItemNotNullable<PluScaleModel>(PluScale.IdentityValueUid);
+        PluScale.Scale = Scale;
+        TemplateModel template = DataAccess.GetItemTemplateNotNullable(PluScale);
 		// Template isn't exist.
         if (template.IsNew)
         {

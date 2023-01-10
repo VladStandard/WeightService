@@ -975,11 +975,11 @@ public partial class MainForm : Form
 
     private void ActionPrint(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatch(this, UserSession.AddScaleCounter);
-
 	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
+                UserSession.AddScaleCounter();
+                
                 UserSession.ManagerControl.PrintMain.IsPrintBusy = true;
                 UserSession.ManagerControl.PrintShipping.IsPrintBusy = true;
 
