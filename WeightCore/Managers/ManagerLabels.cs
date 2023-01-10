@@ -116,11 +116,7 @@ public class ManagerLabels : ManagerBase
 	{
 		try
 		{
-			Open(
-				() =>
-				{
-					OpenTitle();
-				},
+			Open(OpenTitle,
 				() =>
 				{
 					RequestProductDate();
@@ -156,7 +152,7 @@ public class ManagerLabels : ManagerBase
 
 	private void RequestPlu()
 	{
-		if (UserSessionHelper.Instance.PluScale.IdentityIsNew)
+		if (UserSessionHelper.Instance.PluScale.IsNew)
 		{
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
 		}

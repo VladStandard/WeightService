@@ -186,7 +186,7 @@ public static partial class GuiUtils
         public static DeviceModel SetNewDeviceWithQuestion(string deviceName, string ip, string mac)
         {
             DeviceModel device = DataAccess.GetItemDeviceNotNullable(deviceName);
-            if (device.IdentityIsNew)
+            if (device.IsNew)
             {
                 DialogResult result = ShowNewOperationControl(
                     LocaleCore.Scales.HostNotFound(deviceName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,

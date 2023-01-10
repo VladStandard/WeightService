@@ -21,6 +21,7 @@ using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 using DataCore.Enums;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.Printers;
+using System.Threading.Tasks;
 
 namespace WeightCore.Managers;
 
@@ -73,7 +74,6 @@ public class ManagerPrint : ManagerBase
 								$"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
 							break;
 						case PrintBrand.TSC:
-							//TscDriver.Setup(PrintChannel.Name, printer.Name, PrintLabelSize.Size80x100, PrintDpi.Dpi300);
 							TscDriver.Setup(PrintChannel.Ethernet, printer.Ip, printer.Port, PrintLabelSize.Size80x100, PrintLabelDpi.Dpi300);
 							MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
 								$"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
@@ -81,7 +81,7 @@ public class ManagerPrint : ManagerBase
 							break;
 					}
 				},
-				new(waitReopen: 1_000, waitRequest: 1_000, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500,
+				new(waitReopen: 1_000, waitRequest: 1_000, waitResponse: 0_500, waitClose: 0_500, waitException: 0_500,
 					true, Application.DoEvents));
 		}
 		catch (Exception ex)
@@ -94,15 +94,7 @@ public class ManagerPrint : ManagerBase
 	{
 		try
 		{
-			Open(
-				() =>
-				{
-					Reopen();
-				},
-				() =>
-				{
-					Request();
-				},
+			Open(Reopen, Request,
 				() =>
 				{
 					Response(isMain,
@@ -159,6 +151,8 @@ public class ManagerPrint : ManagerBase
 			$"{GetDeviceNameShort(isMain)} | {Printer.Ip}: {Printer.PingStatus} | " +
 			$"{LocaleCore.Table.Counter}: {UserSessionHelper.Instance.Scale.Counter} | " +
 			$"{GetDeviceStatus()} | {value}");
+		MDSoft.WinFormsUtils.InvokeControl.SetForeColor(FieldPrint, 
+			Equals(Printer.PingStatus, IPStatus.Success) ? System.Drawing.Color.Green : System.Drawing.Color.Red);
 	}
 
 	public string GetDeviceName(bool isMain)

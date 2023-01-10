@@ -111,7 +111,7 @@ public class UserSessionHelper : BaseViewModel
 		set
 		{
 			_pluScale = value;
-			if (value.IdentityIsNotNew)
+			if (value.IsNotNew)
 				DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}",
 				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			ManagerControl.PrintMain.LabelsCount = 1;
@@ -121,7 +121,7 @@ public class UserSessionHelper : BaseViewModel
 			//PluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(
 			//    SqlCrudConfigUtils.GetCrudConfig(value.Plu, nameof(PluScaleModel.Plu), 
 			//    new(), false, false, true, true));
-			if (value.Plu.IdentityIsNew)
+			if (value.Plu.IsNew)
 			{
 				PluNestingFkModel pluNestingFk = DataAccess.GetItemNewEmpty<PluNestingFkModel>();
 				pluNestingFk.PluBundle = DataAccess.GetItemNewEmpty<PluBundleFkModel>();
@@ -133,7 +133,7 @@ public class UserSessionHelper : BaseViewModel
 			{
 				DataCore.Sql.Models.SqlCrudConfigModel sqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
 				List<PluNestingFkModel> pluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(sqlCrudConfigList);
-				PluNestingFkModel pluNestingFk = pluNestingFks.Find(x => x.IdentityIsNew);
+				PluNestingFkModel pluNestingFk = pluNestingFks.Find(x => x.IsNew);
                 List<PluNestingFkModel> temp = new() { pluNestingFk };
 				temp.AddRange(pluNestingFks.Where(x => Equals(x.PluBundle.Plu.IdentityValueUid, value.Plu.IdentityValueUid)).ToList());
                 PluNestingFks = temp;
@@ -165,7 +165,7 @@ public class UserSessionHelper : BaseViewModel
         set
         {
             _pluNestingFks = value;
-			if (value.Exists(x => !x.IdentityIsNew) && value.Exists(x => x.IsDefault))
+			if (value.Exists(x => !x.IsNew) && value.Exists(x => x.IsDefault))
 				PluNestingFk = value.Find(x => x.IsDefault);
 			else
                 PluNestingFk = value.First();
@@ -214,7 +214,7 @@ public class UserSessionHelper : BaseViewModel
 	public ProductionFacilityModel ProductionFacility
     {
 		get =>
-            _productionFacility.IdentityIsNotNew 
+            _productionFacility.IsNotNew 
                 ? _productionFacility : Scale.WorkShop is not null ? Scale.WorkShop.ProductionFacility : _productionFacility;
         set
 		{
@@ -328,7 +328,7 @@ public class UserSessionHelper : BaseViewModel
 
             // DeviceTypeFk.
             DeviceTypeFkModel deviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(device);
-            if (deviceTypeFk.IdentityIsNew)
+            if (deviceTypeFk.IsNew)
             {
                 // DeviceType.
                 DeviceTypeModel deviceType = DataAccess.GetItemDeviceTypeNotNullable("Monoblock");
@@ -410,8 +410,8 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
 	public bool CheckPluBundleFkIsEmpty(IWin32Window owner)
 	{
-		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IdentityIsNew)
-		if (PluNestingFk.IdentityIsNew && PluNestingFks.Count > 1)
+		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IsNew)
+		if (PluNestingFk.IsNew && PluNestingFks.Count > 1)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning,
@@ -429,7 +429,7 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
 	public bool CheckPluIsEmpty(IWin32Window owner)
 	{
-		if (PluScale.IdentityIsNew)
+		if (PluScale.IsNew)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
@@ -449,7 +449,7 @@ public class UserSessionHelper : BaseViewModel
 	{
         if (Debug.IsDebug) return true;
 
-        if (!PluScale.IdentityIsNew && !PluScale.Plu.IsCheckWeight) return true;
+        if (!PluScale.IsNew && !PluScale.Plu.IsCheckWeight) return true;
 		if (ManagerControl.Massa is null)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
@@ -552,7 +552,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IdentityIsNew ? 0 : PluNestingFk.WeightTare);
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
 		if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
@@ -573,7 +573,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IdentityIsNew ? 0 : PluNestingFk.WeightTare);
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
 		if (weight > LocaleCore.Scales.MassaThresholdValue)
 		{
 			DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
@@ -598,11 +598,11 @@ public class UserSessionHelper : BaseViewModel
 		{
 			if (!(PluWeighing.NettoWeight >= PluNestingFk.Nesting.WeightMin && PluWeighing.NettoWeight <= PluNestingFk.Nesting.WeightMax))
 			{
-				if (PluWeighing.IdentityIsNotNew)
+				if (PluWeighing.IsNotNew)
 					GuiUtils.WpfForm.ShowNewOperationControl(owner,
-						LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IdentityIsNew ? 0 : PluNestingFk.Nesting.WeightMax,
-						PluScale.IdentityIsNew ? 0 : PluNestingFk.Nesting.WeightNom,
-						PluScale.IdentityIsNew ? 0 : PluNestingFk.Nesting.WeightMin),
+						LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IsNew ? 0 : PluNestingFk.Nesting.WeightMax,
+						PluScale.IsNew ? 0 : PluNestingFk.Nesting.WeightNom,
+						PluScale.IsNew ? 0 : PluNestingFk.Nesting.WeightMin),
 						true, LogTypeEnum.Warning,
 						new() { ButtonCancelVisibility = Visibility.Visible },
 						DeviceScaleFk.Device.Name, nameof(WeightCore));
@@ -622,7 +622,7 @@ public class UserSessionHelper : BaseViewModel
 
 		TemplateModel template = DataAccess.GetItemTemplateNotNullable(PluScale);
 		// Template isn't exist.
-        if (template.IdentityIsNew)
+        if (template.IsNew)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner,
                 LocaleCore.Scales.PluTemplateNotSet,
@@ -808,7 +808,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluWeighing.PluScale.Plu.IsCheckWeight) return;
 
-		if (PluWeighing.IdentityIsNew)
+		if (PluWeighing.IsNew)
 			DataAccess.Save(PluWeighing);
 		else
 			DataAccess.Update(PluWeighing);
