@@ -69,6 +69,9 @@ Publish ScalesUI develop: ```\\palych\Install\VSSoft\Scales-1-Develop\```
 
 
 ## Branches
-git switch preview && git merge develop && git push all preview
-git switch bagger && git pull all bagger && git switch preview && git merge bagger
+### Merge commit from develop to preview and return into develop
+git switch preview && git merge develop && git push all preview && git switch develop && git bra
+### Merge commit from bagger to preview and return into preview
+git switch bagger && git pull all bagger && git switch preview && git merge bagger && git bra
+### Merge commit from preview to develop
 git switch develop && git merge preview && git bra
