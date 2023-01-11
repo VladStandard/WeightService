@@ -20,7 +20,6 @@ using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.Xml;
 using System.Globalization;
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -51,8 +50,7 @@ public static class SqlTableBaseExt
 			OrganizationModel organization => GetPropertyOrganization(propertyName, organization),
 			BoxModel box => GetPropertyBox(propertyName, box),
 			BundleModel bundle => GetPropertyBundle(propertyName, bundle),
-			NestingFkModel bundleFk => GetPropertyBundleFk(propertyName, bundleFk),
-			PluBundleFkModel pluBundleFk => GetPropertyPluBundleFk(propertyName, pluBundleFk),
+            PluBundleFkModel pluBundleFk => GetPropertyPluBundleFk(propertyName, pluBundleFk),
 			PluModel plu => GetPropertyPlu(propertyName, plu),
 			PluScaleModel pluScale => GetPropertyPluScale(propertyName, pluScale),
 			PrinterModel printer => GetPropertyPrinter(propertyName, printer),
@@ -213,17 +211,7 @@ public static class SqlTableBaseExt
 		};
 	}
 
-	private static string GetPropertyBundleFk(string propertyName, NestingFkModel bundleFk)
-	{
-		return propertyName switch
-		{
-			nameof(NestingFkModel.BundleCount) => bundleFk.BundleCount.ToString(CultureInfo.InvariantCulture),
-			//nameof(BundleFkModel.WeightTare) => bundleFk.WeightTare.ToString(CultureInfo.InvariantCulture),
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-	private static string GetPropertyPluBundleFk(string propertyName, PluBundleFkModel pluBundleFk)
+    private static string GetPropertyPluBundleFk(string propertyName, PluBundleFkModel pluBundleFk)
 	{
 		return propertyName switch
 		{

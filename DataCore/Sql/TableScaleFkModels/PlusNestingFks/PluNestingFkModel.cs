@@ -3,8 +3,8 @@
 
 
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleModels.Boxes;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 
@@ -16,20 +16,26 @@ namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 public class PluNestingFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
-
-    [XmlElement] public virtual NestingFkModel Nesting { get; set; }
+    [XmlElement] public virtual BoxModel Box { get; set; }
     [XmlElement] public virtual PluBundleFkModel PluBundle { get; set; }
     [XmlElement] public virtual bool IsDefault { get; set; }
-    [XmlIgnore] public virtual decimal WeightTare { get => PluBundle.Bundle.Weight * Nesting.BundleCount + Nesting.Box.Weight; set => _ = value; }
+    [XmlElement] public virtual short BundleCount { get; set; }
+    [XmlElement] public virtual decimal WeightMax { get; set; }
+    [XmlElement] public virtual decimal WeightMin { get; set; }
+    [XmlElement] public virtual decimal WeightNom { get; set; }
+    [XmlIgnore] public virtual decimal WeightTare { get => PluBundle.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
     /// <summary>
     /// Constructor.
     /// </summary>
     public PluNestingFkModel() : base(SqlFieldIdentityEnum.Uid)
     {
-        Nesting = new();
         PluBundle = new();
         IsDefault = false;
-
+        BundleCount = 0;
+        WeightMax = 0;
+        WeightMin = 0;
+        WeightNom = 0;
+        Box = new();
     }
 
     /// <summary>
@@ -40,8 +46,12 @@ public class PluNestingFkModel : SqlTableBase
     protected PluNestingFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PluBundle = (PluBundleFkModel)info.GetValue(nameof(PluBundle), typeof(PluBundleFkModel));
-        Nesting = (NestingFkModel)info.GetValue(nameof(Nesting), typeof(NestingFkModel));
         IsDefault = info.GetBoolean(nameof(IsDefault));
+        BundleCount = info.GetInt16(nameof(BundleCount));
+        Box = (BoxModel)info.GetValue(nameof(Box), typeof(BoxModel));
+        WeightMax = info.GetDecimal(nameof(WeightMax));
+        WeightMin = info.GetDecimal(nameof(WeightMin));
+        WeightNom = info.GetDecimal(nameof(WeightNom));
     }
 
     #endregion
@@ -57,8 +67,7 @@ public class PluNestingFkModel : SqlTableBase
         $"{nameof(PluBundle)}: {PluBundle.Plu.Name}. " +
         $"{nameof(PluBundle)}: {PluBundle.Bundle.Name}. " +
         $"{nameof(WeightTare)}: {WeightTare}. " +
-        $"{nameof(IsDefault)}: {IsDefault}. " +
-        $"{nameof(Nesting)}: {Nesting.Name}. ";
+        $"{nameof(IsDefault)}: {IsDefault}. ";
 
     public override bool Equals(object obj)
     {
@@ -75,14 +84,22 @@ public class PluNestingFkModel : SqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(IsDefault, false) &&
-        Nesting.EqualsDefault() &&
+        Equals(WeightMax, default(decimal)) &&
+        Equals(WeightMin, default(decimal)) &&
+        Equals(WeightNom, default(decimal)) &&
+        Equals(BundleCount, default(short)) &&
+        Box.EqualsDefault() &&
         PluBundle.EqualsDefault();
 
     public override object Clone()
     {
         PluNestingFkModel item = new();
         item.IsDefault = IsDefault;
-        item.Nesting = Nesting.CloneCast();
+        item.BundleCount = BundleCount;
+        item.WeightMax = WeightMax;
+        item.WeightMin = WeightMin;
+        item.WeightNom = WeightNom;
+        item.Box = Box.CloneCast();
         item.PluBundle = PluBundle.CloneCast();
         item.CloneSetup(base.CloneCast());
         return item;
@@ -97,14 +114,19 @@ public class PluNestingFkModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(IsDefault), IsDefault);
-        info.AddValue(nameof(Nesting), Nesting);
+        info.AddValue(nameof(BundleCount), BundleCount);
+        info.AddValue(nameof(Box), Box);
+        info.AddValue(nameof(WeightMax), WeightMax);
+        info.AddValue(nameof(WeightMin), WeightMin);
+        info.AddValue(nameof(WeightNom), WeightNom);
         info.AddValue(nameof(PluBundle), PluBundle);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
-        Nesting.FillProperties();
+        Box.FillProperties();
+        BundleCount = 0;
         PluBundle.FillProperties();
     }
 
@@ -114,9 +136,14 @@ public class PluNestingFkModel : SqlTableBase
 
     public virtual bool Equals(PluNestingFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Nesting.Equals(item.Nesting) &&
-        PluBundle.Equals(item.PluBundle) &&
-        Equals(IsDefault, item.IsDefault);
+        Box.Equals(item.Box) &&
+        PluBundle.Equals(item.PluBundle) && 
+        Equals(IsDefault, item.IsDefault) &&
+        Equals(WeightMax, item.WeightMax) &&
+        Equals(WeightMin, item.WeightMin) &&
+        Equals(WeightNom, item.WeightNom) &&
+        Equals(BundleCount, item.BundleCount);
+    
 
     public new virtual PluNestingFkModel CloneCast() => (PluNestingFkModel)Clone();
 
