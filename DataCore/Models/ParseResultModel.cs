@@ -19,7 +19,7 @@ public class ParseResultModel : SerializeBase, ICloneable // SqlTableBase, ISqlD
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ParseResultModel() : base()
+    public ParseResultModel()
     {
         Status = ParseStatus.Unknown;
         Message = string.Empty;

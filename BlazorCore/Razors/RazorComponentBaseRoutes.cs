@@ -4,7 +4,6 @@
 using DataCore.Localizations;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -124,7 +123,6 @@ public partial class RazorComponentBase
         LogModel => LocaleCore.DeviceControl.RouteItemLog,
         LogQuickModel => LocaleCore.DeviceControl.RouteItemLog,
         LogTypeModel => LocaleCore.DeviceControl.RouteItemLogType,
-        NestingFkModel => LocaleCore.DeviceControl.RouteItemNestingFk,
         NomenclatureModel => LocaleCore.DeviceControl.RouteItemNomenclature,
         OrderModel => LocaleCore.DeviceControl.RouteItemOrder,
         OrderWeighingModel => LocaleCore.DeviceControl.RouteItemOrderWeighing,
@@ -167,7 +165,6 @@ public partial class RazorComponentBase
             LogModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogQuickModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogTypeModel => LocaleCore.DeviceControl.RouteSectionLogTypes,
-            NestingFkModel => LocaleCore.DeviceControl.RouteSectionNestingFks,
             NomenclatureGroupModel => LocaleCore.DeviceControl.RouteSectionNomenclaturesGroups,
             NomenclatureModel => LocaleCore.DeviceControl.RouteSectionNomenclatures,
             OrderModel => LocaleCore.DeviceControl.RouteSectionOrders,
@@ -213,8 +210,8 @@ public partial class RazorComponentBase
 
         page = item.Identity.Name switch
         {
-            SqlFieldIdentityEnum.Id => item.IdentityIsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
-            SqlFieldIdentityEnum.Uid => item.IdentityIsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
+            SqlFieldIdentityEnum.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
+            SqlFieldIdentityEnum.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
             _ => page
         };
         NavigationManager?.NavigateTo(page);

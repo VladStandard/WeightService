@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -59,7 +58,6 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<AppModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<BarCodeModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<BoxModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<NestingFkModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<BundleModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<ContragentModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<DeviceModel>();
@@ -99,7 +97,6 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<AppModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<BarCodeModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<BoxModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<NestingFkModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<BundleModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<ContragentModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<DeviceModel>();

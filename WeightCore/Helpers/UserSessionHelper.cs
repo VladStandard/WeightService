@@ -12,7 +12,6 @@ using DataCore.Sql.Core;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.BarCodes;
@@ -594,15 +593,15 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-        if (PluNestingFk.Nesting.WeightNom > 0 && PluNestingFk.Nesting.WeightMin is not 0 && PluNestingFk.Nesting.WeightMax is not 0)
+        if (PluNestingFk.WeightNom > 0 && PluNestingFk.WeightMin is not 0 && PluNestingFk.WeightMax is not 0)
 		{
-			if (!(PluWeighing.NettoWeight >= PluNestingFk.Nesting.WeightMin && PluWeighing.NettoWeight <= PluNestingFk.Nesting.WeightMax))
+			if (!(PluWeighing.NettoWeight >= PluNestingFk.WeightMin && PluWeighing.NettoWeight <= PluNestingFk.WeightMax))
 			{
 				if (PluWeighing.IsNotNew)
 					GuiUtils.WpfForm.ShowNewOperationControl(owner,
-						LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IsNew ? 0 : PluNestingFk.Nesting.WeightMax,
-						PluScale.IsNew ? 0 : PluNestingFk.Nesting.WeightNom,
-						PluScale.IsNew ? 0 : PluNestingFk.Nesting.WeightMin),
+						LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IsNew ? 0 : PluNestingFk.WeightMax,
+						PluScale.IsNew ? 0 : PluNestingFk.WeightNom,
+						PluScale.IsNew ? 0 : PluNestingFk.WeightMin),
 						true, LogTypeEnum.Warning,
 						new() { ButtonCancelVisibility = Visibility.Visible },
 						DeviceScaleFk.Device.Name, nameof(WeightCore));
@@ -733,7 +732,7 @@ public class UserSessionHelper : BaseViewModel
 		{
 			PluScale = PluScale,
 			Kneading = WeighingSettings.Kneading,
-			NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluNestingFk.WeightTare : PluNestingFk.Nesting.WeightNom,
+			NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluNestingFk.WeightTare : PluNestingFk.WeightNom,
 			WeightTare = PluNestingFk.WeightTare,
 			Series = productSeries,
 		};
@@ -759,7 +758,7 @@ public class UserSessionHelper : BaseViewModel
 			DeviceScaleFk.Device.Name, nameof(WeightCore));
 		if (dialogResult is DialogResult.Yes)
 		{
-            ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(PluNestingFk.Nesting.WeightMin, PluNestingFk.Nesting.WeightMax);
+            ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(PluNestingFk.WeightMin, PluNestingFk.WeightMax);
             ManagerControl.Massa.IsWeightNetFake = true;
 		}
 	}
@@ -814,7 +813,7 @@ public class UserSessionHelper : BaseViewModel
 		if (PluWeighing.IsNew)
 			DataAccess.Save(PluWeighing);
 		else
-			DataAccess.Update(PluWeighing);
+			DataAccess.UpdateForce(PluWeighing);
 	}
 
 	/// <summary>
@@ -831,8 +830,8 @@ public class UserSessionHelper : BaseViewModel
 			ProductDt = ProductDate,
 		};
 
-		XmlDocument xmlArea = ProductionFacility.SerializeAsXmlDocument<ProductionFacilityModel>(true, true);
-		pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true, true);
+		XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
+		pluLabel.Xml = DataFormatUtils.SerializeAsXmlDocument<PluLabelModel>(pluLabel, true, true);
 		pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 		pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
 		pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);

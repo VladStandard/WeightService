@@ -54,6 +54,7 @@ public partial class LocaleDeviceControl
     public string ItemOrganization => Lang == Lang.English ? "Organization" : "Организация";
     public string ItemPlu => Lang == Lang.English ? "PLU" : "ПЛУ";
     public string ItemPluBundleFk => Lang == Lang.English ? "PLU's bundle" : "Пакет ПЛУ";
+    public string ItemPluNestingFk => Lang == Lang.English ? "PLU's nesting" : "Вложенность ПЛУ";
     public string ItemPluScale => Lang == Lang.English ? "Device PLU" : "ПЛУ устройства";
     public string ItemPluWeighing => Lang == Lang.English ? "Plu weighings" : "Взвешивание ПЛУ";
     public string ItemProductionFacilities => Lang == Lang.English ? "Prod. facilities" : "Производственные площадки";

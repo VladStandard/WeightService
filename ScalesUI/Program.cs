@@ -39,7 +39,7 @@ internal static class Program
 
             // User
             UserSessionHelper.Instance.SetMain();
-            if (UserSessionHelper.Instance.DeviceScaleFk.IdentityIsNew)
+            if (UserSessionHelper.Instance.DeviceScaleFk.IsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(UserSessionHelper.Instance.DeviceName);
                 GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);

@@ -627,9 +627,9 @@ public partial class MainForm : Form
                     ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
                     UserSession.Scale.Description + Environment.NewLine + area);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IdentityIsNew
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
                     ? LocaleCore.Table.FieldPackageIsNotSelected
-                    : $"{UserSession.PluNestingFk.Nesting.Name} {UserSession.PluNestingFk.WeightTare}");
+                    : $"{UserSession.PluNestingFk.PluBundle.Bundle.Name} {UserSession.PluNestingFk.WeightTare}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -722,7 +722,7 @@ public partial class MainForm : Form
 
     private bool ActionCheckPluIdentityIsNew()
     {
-	    if (UserSession.PluScale.Plu.IdentityIsNew)
+	    if (UserSession.PluScale.Plu.IsNew)
 	    {
 		    using WpfPageLoader wpfPageLoader = new(
 				PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
@@ -946,7 +946,7 @@ public partial class MainForm : Form
 	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                if (UserSession.PluScale.IdentityIsNew)
+                if (UserSession.PluScale.IsNew)
                 {
                     GuiUtils.WpfForm.ShowNewOperationControl(this,
                         LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
@@ -984,9 +984,9 @@ public partial class MainForm : Form
                 UserSession.ManagerControl.PrintShipping.IsPrintBusy = true;
 
                 if (!UserSession.CheckPluIsEmpty(this)) return;
-                //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
+                //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IsNew)
                 // Maybe tare didn't need.
-                //if (UserSession.PluBundlesFks.Count > 1 && UserSession.PluBundleFk.IdentityIsNew)
+                //if (UserSession.PluBundlesFks.Count > 1 && UserSession.PluBundleFk.IsNew)
                 //    ActionPluBundleFk(sender, e);
                 if (!UserSession.CheckPluBundleFkIsEmpty(this)) return;
                 if (!UserSession.CheckWeightMassaDeviceExists(this)) return;

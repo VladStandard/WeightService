@@ -21,7 +21,6 @@ using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 using DataCore.Enums;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.Printers;
-using System.Threading.Tasks;
 
 namespace WeightCore.Managers;
 

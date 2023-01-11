@@ -39,7 +39,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
             () =>
             {
                 SqlItemCast = DataContext.GetItemNotNullable<PluModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew < PluModel >();
                 }
@@ -63,7 +63,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	            //        PluItem.Plu = plu.Plu + 1;
 	            //    }
 	            PluTemplateFk = DataAccess.GetItemPluTemplateFkNotNullable(SqlItemCast);
-	            Template = PluTemplateFk.Template.IdentityIsNotNew ? PluTemplateFk.Template : DataAccess.GetItemNewEmpty<TemplateModel>();
+	            Template = PluTemplateFk.Template.IsNotNew ? PluTemplateFk.Template : DataAccess.GetItemNewEmpty<TemplateModel>();
 
 				ButtonSettings = new(true, true, true, true, true, true, true);
             }

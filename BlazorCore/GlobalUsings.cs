@@ -4,7 +4,6 @@
 
 global using BlazorDownloadFile;
 global using BlazorInputFile;
-global using DataCore.Sql.TableScaleModels;
 global using DataCore.Utils;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Http;

@@ -23,7 +23,7 @@ public partial class ItemOrganization : RazorComponentItemBase<OrganizationModel
 			() =>
 			{
                 SqlItemCast = DataAccess.GetItemNotNullable<OrganizationModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
 					SqlItemCast = SqlItemNew < OrganizationModel >();
 				}

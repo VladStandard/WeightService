@@ -82,7 +82,7 @@
 		</tr>
 		<tr>
 			<td>
-				@if (DeviceTypeFk.IdentityIsNotNew)
+				@if (DeviceTypeFk.IsNotNew)
 				{
 					<RadzenLink 
 						Style="width: 100%; "
@@ -104,7 +104,7 @@
 				</MudSelect>
 			</td>
 			<td colspan=2>
-				@if (DeviceTypeFk.IdentityIsNotNew)
+				@if (DeviceTypeFk.IsNotNew)
 				{
 					<RadzenLink
 						Style="width: 100%;"
@@ -115,7 +115,7 @@
 		</tr>
 		<tr>
 			<td>@LocaleCore.Table.DeviceType</td>
-			@if (DeviceTypeFk.IdentityIsNotNew)
+			@if (DeviceTypeFk.IsNotNew)
 			{
 				<td>
 					<RadzenTextBox 
@@ -124,7 +124,7 @@
 				</td>
 			}
 			<td>@LocaleCore.Table.PrettyName</td>
-			@if (DeviceTypeFk.IdentityIsNotNew)
+			@if (DeviceTypeFk.IsNotNew)
 			{
 				<td>
 					<RadzenTextBox 

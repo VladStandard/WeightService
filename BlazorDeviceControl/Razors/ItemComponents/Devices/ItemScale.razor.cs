@@ -57,7 +57,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 				SqlItemCast.PrinterShipping ??= DataAccess.GetItemNewEmpty<PrinterModel>();
                 SqlItemCast.WorkShop ??= DataAccess.GetItemNewEmpty<WorkShopModel>();
 				DeviceScaleFk = DataAccess.GetItemDeviceScaleFkNotNullable(SqlItemCast);
-				Device = DeviceScaleFk.Device.IdentityIsNotNew ? DeviceScaleFk.Device : DataAccess.GetItemNewEmpty<DeviceModel>();
+				Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : DataAccess.GetItemNewEmpty<DeviceModel>();
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);

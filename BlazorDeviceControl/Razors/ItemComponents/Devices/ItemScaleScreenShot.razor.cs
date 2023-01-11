@@ -30,7 +30,7 @@ public partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleScreenSho
                 SqlItemCast = DataContext.GetItemNotNullable<ScaleScreenShotModel>(IdentityUid);
                 if (SqlItemCast.ScreenShot.Length > 1)
 					ImagePath = "data:image/png;base64, " + Convert.ToBase64String(SqlItemCast.ScreenShot);
-				if (SqlItemCast.IdentityIsNew)
+				if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<ScaleScreenShotModel>();
                 }
