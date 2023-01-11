@@ -493,14 +493,14 @@ public class DataCoreHelper
 			T item1 = new();
 			SqlTableBase base1 = new();
 			// Act.
-			string xml1 = item1.SerializeAsXmlString<T>(true, true);
-			string xml2 = base1.SerializeAsXmlString<SqlTableBase>(true, true);
+			string xml1 = DataFormatUtils.SerializeAsXmlString<T>(item1, true, true);
+			string xml2 = DataFormatUtils.SerializeAsXmlString<SqlTableBase>(base1, true, true);
 			// Assert.
 			Assert.AreNotEqual(xml1, xml2);
 			// Act.
-			T item2 = (T)item1.DeserializeFromXml<T>(xml1);
+			T item2 = DataFormatUtils.DeserializeFromXml<T>(xml1);
 			TestContext.WriteLine($"{nameof(item2)}: {item2}");
-			SqlTableBase base2 = item2.DeserializeFromXml<SqlTableBase>(xml2);
+			SqlTableBase base2 = DataFormatUtils.DeserializeFromXml<SqlTableBase>(xml2);
 			TestContext.WriteLine($"{nameof(base2)}: {base2}");
 			// Assert.
 			Assert.AreNotEqual(item2, base2);
