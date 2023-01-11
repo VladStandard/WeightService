@@ -20,6 +20,8 @@ using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Models;
+using NHibernate.Util;
+using System.Drawing.Drawing2D;
 
 namespace WsWebApiCore.Utils;
 
@@ -331,43 +333,40 @@ public class ControllerHelper
         xmlDocument.LoadXml(xml.ToString());
         if (xmlDocument.DocumentElement is null) return brands;
 
-        // Root node.
-        //try
-        //{
-        //    if (int.TryParse(GetAttributeValue(xmlDocument.DocumentElement, "Count"), out int count))
-        //        response.Count = count;
-        //}
-        //catch (Exception ex)
-        //{
-        //    response.Errors.Add(new(ex));
-        //}
-
-        XmlNodeList list = xmlDocument.DocumentElement.GetElementsByTagName("brand");
-        foreach (XmlNode node in list)
+        XmlNodeList nodes = xmlDocument.DocumentElement.ChildNodes;
+        if (nodes is null || nodes.Count <= 0) return brands;
+        foreach (XmlNode node in nodes)
         {
             BrandModel brand = new();
-            try
+            if (node.Name.Equals("BRAND", StringComparison.InvariantCultureIgnoreCase))
             {
-                brand.ParseResult.Status = ParseStatus.Success;
-                // Set properties.
-                SetItemPropertyFromXmlAttributeGuid(node, brand, "Guid");
-                SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.IsMarked));
-                SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Name));
-                SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Code));
+                try
+                {
+                    brand.ParseResult.Status = ParseStatus.Success;
+                    // Set properties.
+                    SetItemPropertyFromXmlAttributeGuid(node, brand, "Guid");
+                    SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.IsMarked));
+                    SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Name));
+                    SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Code));
 
-                if (string.IsNullOrEmpty(brand.ParseResult.Exception))
-                    brand.ParseResult.Message = "Is success";
+                    if (string.IsNullOrEmpty(brand.ParseResult.Exception))
+                        brand.ParseResult.Message = "Is success";
+                }
+                catch (Exception ex)
+                {
+                    brand.ParseResult.Status = ParseStatus.Error;
+                    brand.ParseResult.Exception = ex.Message;
+                    if (ex.InnerException is not null)
+                        brand.ParseResult.InnerException = ex.InnerException.Message;
+                }
             }
-            catch (Exception ex)
+            else
             {
                 brand.ParseResult.Status = ParseStatus.Error;
-                brand.ParseResult.Exception = ex.Message;
-                if (ex.InnerException is not null)
-                    brand.ParseResult.InnerException = ex.InnerException.Message;
+                brand.ParseResult.Exception = $"The node with name '{node.Name}' is not ident Brand!";
             }
             brands.Add(brand);
         }
-
         return brands;
     }
 
