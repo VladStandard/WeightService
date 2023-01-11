@@ -5,6 +5,7 @@ using DataCore.Enums;
 using DataCore.Models;
 using NUnit.Framework;
 using WeightCore.Helpers;
+using WsLocalization.Enums;
 
 namespace WeightCoreTests.Helpers;
 

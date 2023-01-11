@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Settings;
 using System;
@@ -12,6 +11,7 @@ using DataCore.Managers;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using DataCore.Enums;
+using WsLocalization.Models;
 
 namespace WeightCore.Managers;
 

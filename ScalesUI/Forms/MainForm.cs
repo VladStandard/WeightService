@@ -1,9 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Enums;
 using DataCore.Helpers;
-using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Schedulers;
 using DataCore.Settings;
@@ -27,6 +25,8 @@ using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
+using WsLocalization.Enums;
+using WsLocalization.Models;
 
 namespace ScalesUI.Forms;
 

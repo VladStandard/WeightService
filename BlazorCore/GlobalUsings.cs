@@ -16,3 +16,4 @@ global using System;
 global using System.Globalization;
 global using DataCore.Sql.Core;
 global using DataCore.Sql.Tables;
+global using WsLocalization.Models;

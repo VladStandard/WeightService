@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Localizations;
 using DataCore.Protocols;
 using MDSoft.BarcodePrintUtils;
 using MDSoft.BarcodePrintUtils.Tsc;
@@ -18,9 +17,10 @@ using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
-using DataCore.Enums;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.Printers;
+using WsLocalization.Enums;
+using WsLocalization.Models;
 
 namespace WeightCore.Managers;
 

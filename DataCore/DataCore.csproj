@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj" />
+    <ProjectReference Include="..\WsLocalization\WsLocalization.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.Debug.json">

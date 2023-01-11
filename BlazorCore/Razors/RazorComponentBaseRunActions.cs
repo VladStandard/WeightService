@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using BlazorCore.Settings;
-using DataCore.Localizations;
 using DataCore.Protocols;
 using Microsoft.AspNetCore.Components;
 using Radzen;

@@ -1,9 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalization.Enums;
-
-namespace DataCore.Localizations;
+namespace WsLocalization.Models;
 
 public partial class LocaleDeviceControl
 {
@@ -43,7 +41,6 @@ public partial class LocaleDeviceControl
     public string ItemLog => Lang == Lang.English ? "Log" : "Лог";
     public string ItemLogo => Lang == Lang.English ? "Logo" : "Логотип";
     public string ItemModule => Lang == Lang.English ? "Module" : "Модуль";
-    public string ItemNesting => Lang == Lang.English ? "Nesting" : "Вложенность";
     public string ItemNomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";
     public string ItemNomenclatureGroup => Lang == Lang.English ? "Nomenclature group" : "Номенклатурная группа";
     public string ItemNomenclatureUnit => Lang == Lang.English ? "Package" : "Упаковка";
@@ -54,6 +51,7 @@ public partial class LocaleDeviceControl
     public string ItemOrganization => Lang == Lang.English ? "Organization" : "Организация";
     public string ItemPlu => Lang == Lang.English ? "PLU" : "ПЛУ";
     public string ItemPluBundleFk => Lang == Lang.English ? "PLU's bundle" : "Пакет ПЛУ";
+    public string ItemPluNestingFk => Lang == Lang.English ? "PLU's nesting" : "Вложенность ПЛУ";
     public string ItemPluScale => Lang == Lang.English ? "Device PLU" : "ПЛУ устройства";
     public string ItemPluWeighing => Lang == Lang.English ? "Plu weighings" : "Взвешивание ПЛУ";
     public string ItemProductionFacilities => Lang == Lang.English ? "Prod. facilities" : "Производственные площадки";
@@ -108,9 +106,9 @@ public partial class LocaleDeviceControl
     public string SectionOrdersWeighings => Lang == Lang.English ? "Orders weighings" : "Взвешивание заказов";
     public string SectionOrderTypes => Lang == Lang.English ? "Order types" : "Типы заказов";
     public string SectionOrganizations => Lang == Lang.English ? "Organizations" : "Организации";
-    public string SectionPlusNestingFk => Lang == Lang.English ? "PLU's nesting" : "Вложенности ПЛУ";
     public string SectionPlus => Lang == Lang.English ? "PLUs" : "ПЛУ";
     public string SectionPlusBundlesFk => Lang == Lang.English ? "PLU & bundles" : "Пакеты ПЛУ";
+    public string SectionPlusNestingFk => Lang == Lang.English ? "PLU's nesting" : "Вложенности ПЛУ";
     public string SectionPlusScales => Lang == Lang.English ? "PLU & devices" : "ПЛУ и устройства";
     public string SectionPlusWeighings => Lang == Lang.English ? "Plus weighings" : "Взвешивания ПЛУ";
     public string SectionProductionFacilities => Lang == Lang.English ? "Production facilities" : "Производственные площадки";

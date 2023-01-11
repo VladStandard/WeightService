@@ -5,7 +5,6 @@
 global using BlazorCore.Services;
 global using BlazorCore.Utils;
 global using BlazorDownloadFile;
-global using DataCore.Localizations;
 global using DataCore.Models;
 global using DataCore.Protocols;
 global using DataCore.Sql.Core;
@@ -19,3 +18,5 @@ global using Radzen;
 global using RazorFieldConfigUtils = BlazorCore.Utils.RazorFieldConfigUtils;
 global using System.Globalization;
 global using System.Runtime.CompilerServices;
+global using WsLocalization.Enums;
+global using WsLocalization.Models;
