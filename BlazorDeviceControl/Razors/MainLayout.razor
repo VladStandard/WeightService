@@ -23,7 +23,7 @@
                     @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
 	                {
 		                <RadzenMenuItem Icon="people" Style="background-color: transparent;"
-							Text=@($"{UserSettings.UserName}")/>
+							Text=@($"{UserSettings.UserName}") Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}/true") />
 	                }
                 </RadzenMenu>
             </div>
