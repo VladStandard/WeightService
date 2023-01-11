@@ -23,6 +23,7 @@ public class PluNestingFkModel : SqlTableBase
     [XmlElement] public virtual decimal WeightMax { get; set; }
     [XmlElement] public virtual decimal WeightMin { get; set; }
     [XmlElement] public virtual decimal WeightNom { get; set; }
+    [XmlIgnore] public override string Name => $"{PluBundle.Bundle.Name} | {BundleCount} | {Box.Name}"; 
     [XmlIgnore] public virtual decimal WeightTare { get => PluBundle.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
     /// <summary>
     /// Constructor.
