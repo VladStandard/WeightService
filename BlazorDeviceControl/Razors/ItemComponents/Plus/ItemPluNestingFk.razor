@@ -21,11 +21,19 @@
         <RazorItemTableBody TItem=@PluNestingFkModel ParentRazor=@(this) />
         <tr>
             <td>
-                @LocaleCore.Table.IsDefault
+                @LocaleCore.Table.Name
             </td>
-            <td>
-                <RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsDefault />
-            </td>
+	        <td>
+		        <RadzenTextBox 
+			        Style="width: 100%; text-align: center; background-color: lightgray; "
+			        ReadOnly=true Value=@SqlItemCast.Name />
+	        </td>
+	        <td>
+		        @LocaleCore.Table.IsDefault
+	        </td>
+	        <td>
+		        <RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsDefault />
+	        </td>
         </tr>
         @* PluBundleFk *@
         <tr>
