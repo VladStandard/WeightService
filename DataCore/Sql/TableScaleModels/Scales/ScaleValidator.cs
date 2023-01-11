@@ -19,6 +19,13 @@ public class ScaleValidator : SqlTableValidator<ScaleModel>
         RuleFor(item => item.Description)
             .NotEmpty()
             .NotNull();
+        RuleFor(item => item.Number)
+            .NotEmpty()
+            .NotNull()
+            .GreaterThanOrEqualTo(10000)
+            .LessThanOrEqualTo(99999);
+
+
         //RuleFor(item => item.TemplateDefault)
         //	.Custom((template, _) =>
         //	{
