@@ -8,7 +8,6 @@ using MDSoft.BarcodePrintUtils.Tsc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Unicode;
 using System.Xml.Xsl;
@@ -255,7 +254,7 @@ public static class DataFormatUtils
 
 	#endregion
 
-	#region Public and private methods - Serializw
+	#region Public and private methods - Serialize
 
 	public static XmlReaderSettings GetXmlReaderSettings() => new()
 	{

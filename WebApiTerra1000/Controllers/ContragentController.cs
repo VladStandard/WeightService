@@ -1,15 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Models;
+using DataCore.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using NHibernate;
 using System;
 using System.Net;
-using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebApiTerra1000.Utils;
 using WsStorageCore.Utils;
 using WsWebApiCore.Controllers;
 using WsWebApiCore.Models;
@@ -40,7 +40,6 @@ public class ContragentController : WebControllerBase
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
-            //return SerializeBase.GetResult<XDocument>(format, doc, HttpStatusCode.OK);
         }, formatString);
     }
 

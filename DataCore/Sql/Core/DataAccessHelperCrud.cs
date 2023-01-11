@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Tables;
 using NHibernate;
-using System;
 
 namespace DataCore.Sql.Core;
 

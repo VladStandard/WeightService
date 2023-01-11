@@ -66,3 +66,9 @@ git commit -m "Develop feature updates"
 Publish BlazorDeviceControl dev-preview: ```https://device-control-dev-preview.kolbasa-vs.local/```
 Publish BlazorDeviceControl prod-preview: ```https://device-control-prod-preview.kolbasa-vs.local/```
 Publish ScalesUI develop: ```\\palych\Install\VSSoft\Scales-1-Develop\```
+
+
+## Branches
+git switch preview && git merge develop && git push all preview
+git switch bagger && git pull all bagger && git switch preview && git merge bagger
+git switch develop && git merge preview && git bra
