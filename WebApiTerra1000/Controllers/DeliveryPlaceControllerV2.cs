@@ -9,9 +9,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using WebApiCore.Controllers;
-using WebApiCore.Utils;
-using WebApiCore.Models;
+using WsStorageCore.Utils;
+using WsWebApiCore.Controllers;
+using WsWebApiCore.Models;
 
 namespace WebApiTerra1000.Controllers;
 

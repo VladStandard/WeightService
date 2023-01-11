@@ -26,8 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApiCore\WebApiCore.csproj" />
     <ProjectReference Include="..\WebApiScales\WebApiScales.csproj" />
+    <ProjectReference Include="..\WsWebApiCoreTests\WsWebApiCoreTests.csproj" />
+    <ProjectReference Include="..\WsWebApiCore\WsWebApiCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="NUnit.Framework" />
   </ItemGroup>
 
 </Project>

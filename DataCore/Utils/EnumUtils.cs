@@ -5,8 +5,13 @@ using DataCore.Models;
 
 namespace DataCore.Utils;
 
+/// <summary>
+/// Enumeration utilities.
+/// </summary>
 public static class EnumUtils
 {
+    #region Public and private methods
+
     // https://stackoverflow.com/questions/79126/create-generic-method-constraining-t-to-an-enum
     public static T ParseEnum<T>(string value, T defaultValue) where T : struct, IConvertible
     {
@@ -130,4 +135,6 @@ public static class EnumUtils
             _ => string.Empty,
         };
     }
+
+    #endregion
 }

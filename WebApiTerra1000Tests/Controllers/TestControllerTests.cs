@@ -3,9 +3,10 @@
 
 using NUnit.Framework;
 using RestSharp;
-using WebApiCore.Enums;
-using WebApiCore.Models.WebRequests;
-using WebApiCore.Models.WebResponses;
+using WsStorageCore.Enums;
+using WsWebApiCore.Models.WebRequests;
+using WsWebApiCore.Utils;
+using WsWebApiCoreTests.Utils;
 
 namespace WebApiTerra1000Tests.Controllers;
 
@@ -21,7 +22,7 @@ internal class TestControllerTests
             {
                 foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
                 {
-                    await WebResponseUtils.GetInfoAsync(url, request);
+                    await WebResponseUtilsTests.GetInfoAsync(url, request);
                 }
             }
         });

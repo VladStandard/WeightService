@@ -21,6 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
-    <ProjectReference Include="..\WebApiCore\WebApiCore.csproj" />
+    <ProjectReference Include="..\WsWebApiCore\WsWebApiCore.csproj" />
   </ItemGroup>
 </Project>
