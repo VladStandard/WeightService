@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Localizations;
 using System;
 using System.Windows.Forms;
 using DataCore.Managers;
@@ -10,6 +9,7 @@ using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
 using WeightCore.MassaK.Enums;
+using WsLocalization.Models;
 
 namespace WeightCore.Managers;
 

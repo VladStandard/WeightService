@@ -2,11 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Helpers;
-using DataCore.Localizations;
 using DataCore.Sql.Core;
-using DataCore.Sql.Fields;
 using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Templates;
@@ -17,6 +14,7 @@ using System.Linq;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
+using WsLocalization.Models;
 
 namespace ScalesUI.Forms;
 

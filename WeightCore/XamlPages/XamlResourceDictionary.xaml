@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:locale="clr-namespace:DataCore.Localizations;assembly=DataCore"
+    xmlns:locale="clr-namespace:WsLocalization.Models;assembly=WsLocalization"
     xmlns:helpers="clr-namespace:WeightCore.Helpers">
     
     <SolidColorBrush x:Key="brush" Color="Red"/>

@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using DataCore.CssStyles;
-using DataCore.Localizations;
 
 namespace BlazorCore.Razors;
 

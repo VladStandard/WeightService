@@ -513,6 +513,10 @@
       <Project>{c3d727df-b6dc-4106-9116-9569a6bb587b}</Project>
       <Name>WpfCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WsLocalization\WsLocalization.csproj">
+      <Project>{f494c3d7-e4c9-4d2b-926f-66835260f4b5}</Project>
+      <Name>WsLocalization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

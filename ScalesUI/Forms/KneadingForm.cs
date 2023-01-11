@@ -1,13 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Localizations;
 using System;
 using System.Windows.Forms;
 using DataCore.Helpers;
 using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Helpers;
+using WsLocalization.Models;
 
 namespace ScalesUI.Forms;
 

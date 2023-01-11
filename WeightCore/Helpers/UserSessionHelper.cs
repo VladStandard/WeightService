@@ -4,7 +4,6 @@
 using DataCore.Enums;
 using DataCore.Files;
 using DataCore.Helpers;
-using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Settings;
@@ -40,6 +39,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using WeightCore.Gui;
 using WeightCore.Managers;
+using WsLocalization.Models;
 
 namespace WeightCore.Helpers;
 

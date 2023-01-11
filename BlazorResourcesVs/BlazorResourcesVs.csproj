@@ -31,5 +31,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
+    <ProjectReference Include="..\WsLocalization\WsLocalization.csproj" />
   </ItemGroup>
 </Project>
