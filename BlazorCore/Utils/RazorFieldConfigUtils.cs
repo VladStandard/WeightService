@@ -3,10 +3,9 @@
 
 using BlazorCore.Razors;
 using DataCore.Localizations;
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Boxes;
@@ -25,7 +24,6 @@ using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using Radzen;
-using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 
 namespace BlazorCore.Utils;
 
@@ -130,8 +128,8 @@ public static class RazorFieldConfigUtils
 
     public static class BundleFk
 	{
-        public static RazorFieldConfigModel GetBoxName() => new(nameof(NestingFkModel.Box.Name), TextAlign.Center, LocaleCore.Table.BundleCount);
-        public static RazorFieldConfigModel GetBundleCount() => new(nameof(NestingFkModel.BundleCount), TextAlign.Center, LocaleCore.Table.BundleCount);
+        public static RazorFieldConfigModel GetBoxName() => new(nameof(PluNestingFkModel.Box.Name), TextAlign.Center, LocaleCore.Table.BundleCount);
+        public static RazorFieldConfigModel GetBundleCount() => new(nameof(PluNestingFkModel.BundleCount), TextAlign.Center, LocaleCore.Table.BundleCount);
     }
 
     public static class PluBundleFk

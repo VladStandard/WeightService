@@ -28,7 +28,7 @@ public partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 			() =>
 			{
                 SqlItemCast = DataContext.GetItemNotNullable<TemplateModel>(IdentityId);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
 					SqlItemCast = SqlItemNew < TemplateModel >();
 				}

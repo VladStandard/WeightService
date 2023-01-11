@@ -2,9 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using DataCore.Sql.TableScaleModels.Boxes;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
@@ -12,15 +12,15 @@ public partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel
 {
     #region Public and private fields, properties, constructor
 
+    private BoxModel _box;
+    private BoxModel Box { get => _box; set { _box = value; SqlLinkedItems = new() { _box, _pluBundleFk }; } }
     private PluBundleFkModel _pluBundleFk;
-    private PluBundleFkModel PluBundleFk { get => _pluBundleFk; set { _pluBundleFk = value; SqlLinkedItems = new() { _pluBundleFk, _nestingFk }; } }
-    private NestingFkModel _nestingFk;
-    private NestingFkModel NestingFk { get => _nestingFk; set { _nestingFk = value; SqlLinkedItems = new() { _pluBundleFk, _nestingFk }; } }
+    private PluBundleFkModel PluBundleFk { get => _pluBundleFk; set { _pluBundleFk = value; SqlLinkedItems = new() { _box, _pluBundleFk }; } }
 
     public ItemPluNestingFk()
     {
         _pluBundleFk = SqlItemNewEmpty<PluBundleFkModel>();
-        _nestingFk = SqlItemNewEmpty<NestingFkModel>();
+        _box = SqlItemNewEmpty<BoxModel>();
     }
 
     #endregion
@@ -32,22 +32,23 @@ public partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel
         RunActionsParametersSetJustOne(
             () =>
             {
+                DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigList);
                 DataContext.GetListNotNullable<PluBundleFkModel>(SqlCrudConfigList);
-                DataContext.GetListNotNullable<NestingFkModel>(SqlCrudConfigList);
+
                 SqlItemCast = DataAccess.GetItemNotNullable<PluNestingFkModel>(IdentityUid);
 
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
-                    PluBundleFk = DataContext.PluBundleFks.Where(item => item.IdentityIsNew).FirstOrDefault() ?? SqlItemNewEmpty<PluBundleFkModel>();
-                    NestingFk = DataContext.NestingFks.Where(item => item.IdentityIsNew).FirstOrDefault() ?? SqlItemNewEmpty<NestingFkModel>();
+                    PluBundleFk = DataContext.PluBundleFks.Where(item => item.IsNew).FirstOrDefault() ?? SqlItemNewEmpty<PluBundleFkModel>();
+                    Box = DataContext.Boxes.Where(item => item.IsNew).FirstOrDefault() ?? SqlItemNewEmpty<BoxModel>();
                     SqlItemCast = SqlItemNew<PluNestingFkModel>();
+                    SqlItemCast.Box = Box;
                     SqlItemCast.PluBundle = PluBundleFk;
-                    SqlItemCast.Nesting = NestingFk;
                 }
                 else
                 {
+                    Box = SqlItemCast.Box;
                     PluBundleFk = SqlItemCast.PluBundle;
-                    NestingFk = SqlItemCast.Nesting;
                 }
 
                 ButtonSettings = new(false, false, false, false, false, true, true);

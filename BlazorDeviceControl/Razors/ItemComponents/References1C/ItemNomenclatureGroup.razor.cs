@@ -23,7 +23,7 @@ public partial class ItemNomenclatureGroup : RazorComponentItemBase<Nomenclature
 			() =>
 			{
                 SqlItemCast = DataAccess.GetItemNotNullable<NomenclatureGroupModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
 					SqlItemCast = SqlItemNew<NomenclatureGroupModel>();
 				}

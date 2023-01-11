@@ -23,7 +23,7 @@ public partial class ItemBundle : RazorComponentItemBase<BundleModel>
             () =>
             {
                 SqlItemCast = DataAccess.GetItemNotNullable<BundleModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<BundleModel>();
                 }

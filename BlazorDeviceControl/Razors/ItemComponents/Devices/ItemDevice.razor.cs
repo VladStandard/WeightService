@@ -35,12 +35,12 @@ public partial class ItemDevice : RazorComponentItemBase<DeviceModel>
                 DataContext.GetListNotNullable<DeviceTypeModel>(SqlCrudConfigList);
 
                 SqlItemCast = DataContext.GetItemNotNullable<DeviceModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<DeviceModel>();
                 }
                 DeviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(SqlItemCast);
-                DeviceType = DeviceTypeFk.Type.IdentityIsNotNew ? DeviceTypeFk.Type : DataAccess.GetItemNewEmpty<DeviceTypeModel>();
+                DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : DataAccess.GetItemNewEmpty<DeviceTypeModel>();
 
                 ButtonSettings = new(false, false, false, false, false, true, true);
             }

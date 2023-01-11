@@ -25,7 +25,7 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
             () =>
             {
                 SqlItemCast = DataContext.GetItemNotNullable<PluScaleModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<PluScaleModel>();
                 }

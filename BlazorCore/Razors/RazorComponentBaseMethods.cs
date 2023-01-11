@@ -37,13 +37,11 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
-using static BlazorCore.Utils.RazorFieldConfigUtils;
 
 namespace BlazorCore.Razors;
 
@@ -73,7 +71,6 @@ public partial class RazorComponentBase
 			AccessModel => LocaleCore.Strings.ItemAccess,
 			BarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
 			BoxModel => LocaleCore.DeviceControl.ItemBox,
-			NestingFkModel => LocaleCore.DeviceControl.ItemNesting,
 			BundleModel => LocaleCore.DeviceControl.ItemBundle,
 			ContragentModel => LocaleCore.DeviceControl.ItemContragent,
 			DeviceModel => LocaleCore.DeviceControl.ItemDevice,
@@ -111,7 +108,6 @@ public partial class RazorComponentBase
 		string result = string.Empty;
 		result = item switch
 		{
-            NestingFkModel => LocaleCore.DeviceControl.SectionNestingFk,
             NomenclatureGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
             OrderModel => LocaleCore.DeviceControl.SectionOrders,
             ScaleScreenShotModel => LocaleCore.DeviceControl.SectionScreenShots,
@@ -207,14 +203,14 @@ public partial class RazorComponentBase
 	private void SqlItemSave<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return;
-		if (item.IdentityIsNew)
+		if (item.IsNew)
 		{
 			BlazorAppSettings.DataAccess.Save(item);
 		}
 		else
 		{
 			if (!SqlItemValidate(NotificationService, item)) return;
-			BlazorAppSettings.DataAccess.Update(item);
+			BlazorAppSettings.DataAccess.UpdateForce(item);
 		}
 	}
 
@@ -244,11 +240,6 @@ public partial class RazorComponentBase
                 case DeviceModel device:
                     SqlItemSave(SqlItem);
                     SqlItemSaveDevice(device);
-                    break;
-                case NestingFkModel nestingFk:
-                    // Don't do it!
-                    //SqlItemSave(SqlItem);
-                    SqlItemSaveNesting(nestingFk);
                     break;
                 case PluModel plu:
                     SqlItemSave(SqlItem);
@@ -285,7 +276,7 @@ public partial class RazorComponentBase
             if (item is DeviceModel device)
             {
                 DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale);
-                if (device is not null && device.IdentityIsNotNew)
+                if (device is not null && device.IsNotNew)
                 {
                     if (deviceScaleFk is null)
                         deviceScaleFk = new() { Device = device, Scale = scale };
@@ -302,15 +293,6 @@ public partial class RazorComponentBase
         }
     }
 
-    private void SqlItemSaveNesting(NestingFkModel nestingFk)
-    {
-        if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
-        BoxModel? box = SqlLinkedItems.First(x => x is BoxModel) as BoxModel;
-		if (box is null) return;
-        nestingFk.Box = box;
-        SqlItemSave(nestingFk);
-    }
-
     private void SqlItemSavePlu(PluModel plu)
     {
         if (SqlLinkedItems is not null && SqlLinkedItems.Any())
@@ -320,7 +302,7 @@ public partial class RazorComponentBase
                 if (item is TemplateModel template)
                 {
                     PluTemplateFkModel? pluTemplateFk = DataAccess.GetItemPluTemplateFkNullable(plu);
-                    if (template is not null && template.IdentityIsNotNew)
+                    if (template is not null && template.IsNotNew)
                     {
                         if (pluTemplateFk is null)
                             pluTemplateFk = new() { Plu = plu, Template = template };
@@ -353,11 +335,11 @@ public partial class RazorComponentBase
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
         PluBundleFkModel? pluBundleFk = SqlLinkedItems.First(x => x is PluBundleFkModel) as PluBundleFkModel;
-        NestingFkModel? nestingFk = SqlLinkedItems.First(x => x is NestingFkModel) as NestingFkModel;
+        BoxModel? box = SqlLinkedItems.First(x => x is BoxModel) as BoxModel;
         if (pluBundleFk is null) return;
-        if (nestingFk is null) return;
+        if (box is null) return;
         pluNestingFk.PluBundle = pluBundleFk;
-        pluNestingFk.Nesting = nestingFk;
+        pluNestingFk.Box = box;
         SqlItemSave(pluNestingFk);
     }
 
@@ -369,7 +351,7 @@ public partial class RazorComponentBase
             if (item is DeviceTypeModel deviceType)
             {
                 DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFkNullable(device);
-                if (deviceType is not null && deviceType.IdentityIsNotNew)
+                if (deviceType is not null && deviceType.IsNotNew)
                 {
                     if (deviceTypeFk is null)
                         deviceTypeFk = new() { Type = deviceType, Device = device };

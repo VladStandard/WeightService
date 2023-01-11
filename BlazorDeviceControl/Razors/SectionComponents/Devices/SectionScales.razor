@@ -32,7 +32,7 @@
             <Template Context="itemCast">
                 @if (DataAccess.GetItemDeviceScaleFkNotNullable(itemCast).Device is DeviceModel device)
                 {
-                    @if (device.IdentityIsNew)
+                    @if (device.IsNew)
                     {
                         <RadzenText 
                             Style="margin-top: 10px; "

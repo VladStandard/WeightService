@@ -23,7 +23,7 @@ public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
             () =>
             {
                 SqlItemCast = DataAccess.GetItemNotNullable<PluLabelModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<PluLabelModel>();
                 }

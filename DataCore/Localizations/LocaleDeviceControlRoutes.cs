@@ -18,7 +18,6 @@ public partial class LocaleDeviceControl
     public string RouteItemHost => "/item/host";
     public string RouteItemLog => "/item/log";
     public string RouteItemLogType => "/item/logtype";
-    public string RouteItemNestingFk => "/item/nesting_fk";
     public string RouteItemNomenclature => "/item/nomenclature";
     public string RouteItemNomenclatureGroup => "/item/nomenclature_group";
     public string RouteItemOrder => "/item/order";

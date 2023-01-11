@@ -5,7 +5,6 @@
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
-@using DataCore.Sql.TableScaleFkModels.NestingFks
 @using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 @using DataCore.Sql.TableScaleModels.Boxes
 @using DataCore.Sql.TableScaleModels.Bundles;
@@ -14,7 +13,7 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=@PluNestingFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluBundleFk />
+<RazorItemReload TItem=@PluNestingFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluNestingFk />
 
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
     <RazorItemTableHead TItem=@PluNestingFkModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
@@ -100,19 +99,19 @@
                                Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@PluBundleFk.Bundle.Weight />
             </td>
         </tr>
-        @* NestingFk *@
+        @* Box *@
         <tr>
             <td>
                 <RadzenLink Style="width: 100%; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNestingFk, SqlItemCast.Nesting, SqlItemCast.Nesting.IdentityValueUid)
-                            Text=@LocaleCore.Table.Nesting />
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBox, SqlItemCast.Box, SqlItemCast.Box.IdentityValueUid)
+                            Text=@LocaleCore.Table.Box />
             </td>
             <td colspan=3>
                 <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                @bind-Value=@NestingFk>
-                    @foreach (NestingFkModel item in DataContext.NestingFks)
+                @bind-Value=@Box>
+                    @foreach (BoxModel item in DataContext.Boxes)
                     {
-                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+                        <MudSelectItem Value=@item>@($"{item.Name} | {item.Weight}")</MudSelectItem>
                     }
                 </MudSelect>
             </td>
@@ -120,19 +119,11 @@
         @* Box *@
         <tr>
             <td>
-                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.Box />
-            </td>
-            <td>
-                <RadzenLink Style="width: 100%; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBox, SqlItemCast.Nesting.Box, SqlItemCast.Nesting.Box.IdentityValueUid)
-                            Text=@NestingFk.Box.Name />
-            </td>
-            <td>
                 <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.BoxWeight />
             </td>
             <td>
                 <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
-                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@NestingFk.Box.Weight />
+                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@Box.Weight />
             </td>
         </tr>
         @* Nesting & Weight *@
@@ -141,15 +132,15 @@
                 <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.NestingCount />
             </td>
             <td>
-                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
-                               Disabled=true TValue="short" ReadOnly=true @bind-Value=@NestingFk.BundleCount />
+                <RadzenNumeric Style="width: 100%; text-align: center; "
+                               TValue="short" @bind-Value=@SqlItemCast.BundleCount />
             </td>
             <td>
                 <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.WeightNominal />
             </td>
             <td>
-                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
-                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@NestingFk.WeightNom />
+                <RadzenNumeric Style="width: 100%; text-align: center; "
+                               TValue="decimal" @bind-Value=@SqlItemCast.WeightNom />
             </td>
         </tr>
         <tr>
@@ -157,24 +148,15 @@
                 <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.WeightMinimal />
             </td>
             <td>
-                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
-                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@NestingFk.WeightMin />
+                <RadzenNumeric Style="width: 100%; text-align: center; "
+                               TValue="decimal" @bind-Value=@SqlItemCast.WeightMin />
             </td>
             <td>
                 <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.WeightMaximal />
             </td>
             <td>
-                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
-                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@NestingFk.WeightMax />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.WeightTare />
-            </td>
-            <td colspan=3>
-                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
-                               Disabled=true TValue="decimal" ReadOnly=true @bind-Value=@SqlItemCast.WeightTare />
+                <RadzenNumeric Style="width: 100%; text-align: center; "
+                               TValue="decimal" @bind-Value=@SqlItemCast.WeightMax />
             </td>
         </tr>
     </tbody>

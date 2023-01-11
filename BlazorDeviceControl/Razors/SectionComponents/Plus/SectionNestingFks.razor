@@ -1,4 +1,4 @@
-﻿@inherits RazorComponentSectionBase<NestingFkModel, SqlTableBase>
+﻿@*@inherits RazorComponentSectionBase<NestingFkModel, SqlTableBase>
 @page "/section/nesting_fks"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
@@ -26,4 +26,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@NestingFkModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@NestingFkModel ParentRazor=@(this) />*@

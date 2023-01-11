@@ -23,7 +23,7 @@ public partial class ItemBox : RazorComponentItemBase<BoxModel>
             () =>
             {
                 SqlItemCast = DataAccess.GetItemNotNullable<BoxModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<BoxModel>();
                 }

@@ -47,14 +47,14 @@
 		<RadzenGridColumn TItem=PluNestingFkModel Width="28%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Box>
 			<Template Context="itemCast">
 				<RadzenLink 
-					Text=@itemCast.Nesting.Box.Name
+					Text=@itemCast.Box.Name
 	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
 		<RadzenGridColumn TItem=PluNestingFkModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Count>
 			<Template Context="itemCast">
 				<RadzenLink 
-					Text=@itemCast.Nesting.BundleCount.ToString()
+					Text=@itemCast.BundleCount.ToString()
 	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluNestingFk}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>

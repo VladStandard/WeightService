@@ -23,7 +23,7 @@ public partial class ItemContragent : RazorComponentItemBase<ContragentModel>
             () =>
             {
                 SqlItemCast = DataAccess.GetItemNotNullable<ContragentModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
+                if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<ContragentModel>();
                 }
