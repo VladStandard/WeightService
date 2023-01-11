@@ -46,7 +46,7 @@
 					@bind-Value=@Device>
 					@foreach (DeviceModel item in DataContext.Devices)
 					{
-						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+						<MudSelectItem Value=@item>@item.Name | @item.Ipv4 </MudSelectItem>
 					}
 				</MudSelect>
 			</td>
@@ -68,7 +68,7 @@
 					@bind-Value=@SqlItemCast.PrinterMain>
 					@foreach (PrinterModel item in DataContext.Printers)
 					{
-						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+						<MudSelectItem Value=@item>@item.Name | @item.Ip </MudSelectItem>
 					}
 				</MudSelect>
 			</td>
@@ -90,7 +90,7 @@
 					@bind-Value=@SqlItemCast.PrinterShipping>
 					@foreach (PrinterModel item in DataContext.Printers)
 					{
-						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+						<MudSelectItem Value=@item>@item.Name | @item.Ip </MudSelectItem>
 					}
 				</MudSelect>
 			</td>
