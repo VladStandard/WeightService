@@ -420,7 +420,8 @@ public class DataCoreHelper
                 scale.WorkShop = CreateNewSubstitute<WorkShopModel>(isNotDefault);
 				scale.PrinterMain = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				scale.PrinterShipping = CreateNewSubstitute<PrinterModel>(isNotDefault);
-				break;
+                scale.Number =10000;
+                break;
 			case ScaleScreenShotModel scaleScreenShot:
 				scaleScreenShot.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				scaleScreenShot.ScreenShot = new byte[] { 0x00 };
