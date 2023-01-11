@@ -59,7 +59,6 @@ public partial class LocaleDeviceControl
     public string RouteSectionLogsStops => "/section/logs_stops";
     public string RouteSectionLogsWarnings => "/section/logs_warnings";
     public string RouteSectionLogTypes => "/section/logtypes";
-    public string RouteSectionNestingFks => "/section/nesting_fks";
     public string RouteSectionNomenclatures => "/section/nomenclatures";
     public string RouteSectionNomenclaturesGroups => "/section/nomenclatures_groups";
     public string RouteSectionOrders => "/section/orders";
