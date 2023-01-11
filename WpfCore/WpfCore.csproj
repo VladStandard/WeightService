@@ -4,7 +4,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
 	<LangVersion>10.0</LangVersion>
-	<Version>0.8.110.0</Version>
+	<Version>0.8.117.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
