@@ -21,8 +21,11 @@ public class PluNestingFkMap : ClassMap<PluNestingFkModel>
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(x => x.IsDefault).CustomSqlType("BIT").Column("IS_DEFAULT").Not.Nullable().Default("0");
-        References(x => x.Nesting).Column("NESTING_FK").Unique().Not.Nullable();
+        Map(x => x.BundleCount).CustomSqlType("SMALLINT").Column("BUNDLE_COUNT").Not.Nullable().Default("0").Unique();
+        Map(x => x.WeightMax).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_MAX").Not.Nullable().Unique();
+        Map(x => x.WeightMin).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_MIN").Not.Nullable().Unique();
+        Map(x => x.WeightNom).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_NOM").Not.Nullable().Unique();
+        References(x => x.Box).Column("BOX_UID").Unique().Not.Nullable();
         References(x => x.PluBundle).Column("PLU_BUNDLE_FK").Unique().Not.Nullable();
     }
 }
-

@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
@@ -275,11 +274,6 @@ public class DataCoreHelper
                 bundle.Name = LocaleCore.Sql.SqlItemFieldName;
                 bundle.Weight = 3;
                 break;
-            case NestingFkModel bundleFk:
-                bundleFk.Name = LocaleCore.Sql.SqlItemFieldName;
-                bundleFk.Box = CreateNewSubstitute<BoxModel>(isNotDefault);
-                bundleFk.BundleCount = 0;
-                break;
             case ContragentModel contragent:
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
@@ -399,7 +393,8 @@ public class DataCoreHelper
             case PluNestingFkModel pluNestingFk:
                 pluNestingFk.IsDefault = false;
 				pluNestingFk.PluBundle = CreateNewSubstitute<PluBundleFkModel>(isNotDefault);
-                pluNestingFk.Nesting = CreateNewSubstitute<NestingFkModel>(isNotDefault);
+                pluNestingFk.Box = CreateNewSubstitute<BoxModel>(isNotDefault);
+                pluNestingFk.BundleCount = 0;
                 break;
             case PrinterModel printer:
 				printer.DarknessLevel = 1;

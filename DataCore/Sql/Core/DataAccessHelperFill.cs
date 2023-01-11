@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.NestingFks;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
@@ -62,9 +61,6 @@ public partial class DataAccessHelper
 			case BarCodeModel barcode:
 				barcode.PluLabel = GetItemNotNullable<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
 				break;
-            case NestingFkModel nestingFk:
-                nestingFk.Box = GetItemNotNullable<BoxModel>(nestingFk.Box.IdentityValueUid);
-                break;
             case DeviceTypeFkModel deviceTypeFk:
 				deviceTypeFk.Device = GetItemNotNullable<DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
 				deviceTypeFk.Type = GetItemNotNullable<DeviceTypeModel>(deviceTypeFk.Type.IdentityValueUid);
@@ -110,7 +106,7 @@ public partial class DataAccessHelper
 				break;
             case PluNestingFkModel pluNestingFk:
                 pluNestingFk.PluBundle = GetItemNotNullable<PluBundleFkModel>(pluNestingFk.PluBundle.IdentityValueUid);
-                pluNestingFk.Nesting = GetItemNotNullable<NestingFkModel>(pluNestingFk.Nesting.IdentityValueUid);
+                pluNestingFk.Box = GetItemNotNullable<BoxModel>(pluNestingFk.Box.IdentityValueUid);
                 break;
             case PrinterModel printer:
                 printer.PrinterType = GetItemNotNullable<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
