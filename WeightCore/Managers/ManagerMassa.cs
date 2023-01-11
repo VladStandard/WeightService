@@ -132,9 +132,9 @@ public class ManagerMassa : ManagerBase
 		else
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold,
 				$"{LocaleCore.Scales.FieldThresholds}: " +
-				$"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.PluNestingFk.Nesting.WeightMin:0.000} {LocaleCore.Scales.UnitKg} | " +
-				$"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.PluNestingFk.Nesting.WeightNom:0.000} {LocaleCore.Scales.UnitKg} | " +
-				$"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.PluNestingFk.Nesting.WeightMax:0.000} {LocaleCore.Scales.UnitKg}");
+				$"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.PluNestingFk.WeightMin:0.000} {LocaleCore.Scales.UnitKg} | " +
+				$"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.PluNestingFk.WeightNom:0.000} {LocaleCore.Scales.UnitKg} | " +
+				$"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.PluNestingFk.WeightMax:0.000} {LocaleCore.Scales.UnitKg}");
 		SetControlsVisible(true, true);
 	}
 
