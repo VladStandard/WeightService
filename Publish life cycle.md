@@ -19,6 +19,7 @@ git push all --tags
 - develop -> preview: `git switch preview && git merge develop && git push all preview && git switch develop && git bra && git st`
 - bagger -> preview:  `git switch bagger && git pull all bagger && git switch preview && git merge bagger && git bra && git st`
 - preview -> develop: `git switch develop && git merge preview && git bra && git st`
+- develop -> main:    `git switch main && git merge develop && git push all main && git switch develop && git bra && git st`
 
 ## Tuesday Release-version
 Switch on `preview` branch
