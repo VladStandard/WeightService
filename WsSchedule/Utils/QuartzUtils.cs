@@ -2,9 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // https://www.freeformatter.com/cron-expression-generator-quartz.html
 
-using Quartz;
+using WsSchedule.Enums;
+using WsSchedule.Models;
 
-namespace DataCore.Schedulers;
+namespace WsSchedule.Utils;
 
 public static class QuartzUtils
 {

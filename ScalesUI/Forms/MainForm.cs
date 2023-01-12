@@ -3,7 +3,6 @@
 
 using DataCore.Helpers;
 using DataCore.Models;
-using DataCore.Schedulers;
 using DataCore.Settings;
 using DataCore.Sql.Core;
 using DataCore.Sql.Models;
@@ -27,6 +26,8 @@ using WeightCore.Helpers;
 using WeightCore.Managers;
 using WsLocalization.Enums;
 using WsLocalization.Models;
+using WsSchedule.Helpers;
+using WsSchedule.Utils;
 
 namespace ScalesUI.Forms;
 

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{03F82B97-71C5-4E00-AA9E-54DC604089C0}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ConsoleQuartzExample</RootNamespace>
-    <AssemblyName>ConsoleQuartzExample</AssemblyName>
+    <RootNamespace>ConsoleQuartzDemo</RootNamespace>
+    <AssemblyName>ConsoleQuartzDemo</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -127,6 +127,10 @@
     <ProjectReference Include="..\DataCore\DataCore.csproj">
       <Project>{2A3AF48B-DC5B-4359-B056-3605631440F5}</Project>
       <Name>DataCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsSchedule\WsSchedule.csproj">
+      <Project>{d1197800-5cd2-4ee1-bf86-71a87b384ecf}</Project>
+      <Name>WsSchedule</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

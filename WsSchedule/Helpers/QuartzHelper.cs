@@ -1,10 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Quartz;
-using Quartz.Impl;
+using WsSchedule.Enums;
+using WsSchedule.Models;
+using WsSchedule.Utils;
 
-namespace DataCore.Schedulers;
+namespace WsSchedule.Helpers;
 
 public class QuartzHelper : IDisposable
 {

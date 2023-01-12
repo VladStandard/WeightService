@@ -1,12 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Quartz;
-using System.Threading.Tasks;
+namespace WsSchedule.Models;
 
-namespace DataCore.Schedulers;
-
-public class QuartzJobEverySeconds10Model : IJob
+public class QuartzJobModel : IJob
 {
     #region Public and private fields, properties, constructor
 
