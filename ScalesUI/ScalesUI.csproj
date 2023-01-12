@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>10.0</LangVersion>
     <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release\</PublishUrl>
@@ -588,13 +589,13 @@
       <Project>{A713AB22-2C23-48B6-8974-2FD7230012F7}</Project>
       <Name>MDSoft.BarcodePrintUtils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WeightCore\WeightCore.csproj">
-      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
-      <Name>WeightCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WsLocalization\WsLocalization.csproj">
       <Project>{F494C3D7-E4C9-4D2B-926F-66835260F4B5}</Project>
       <Name>WsLocalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsWeightCore\WsWeightCore.csproj">
+      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
+      <Name>WsWeightCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -626,8 +627,10 @@
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>

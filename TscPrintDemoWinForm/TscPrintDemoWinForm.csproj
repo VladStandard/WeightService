@@ -11,8 +11,10 @@
     <RootNamespace>TscPrintDemoWinForm</RootNamespace>
     <AssemblyName>TscPrintDemoWinForm</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -158,10 +160,6 @@
     <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj">
       <Project>{A713AB22-2C23-48B6-8974-2FD7230012F7}</Project>
       <Name>MDSoft.BarcodePrintUtils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WeightCore\WeightCore.csproj">
-      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
-      <Name>WeightCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

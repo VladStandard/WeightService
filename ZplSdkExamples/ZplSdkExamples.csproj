@@ -233,10 +233,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WeightCore\WeightCore.csproj">
-      <Project>{51C1AA1F-3104-4438-93EA-9E348F18EAD7}</Project>
-      <Name>WeightCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ZabbixStubService\ZabbixStubService.csproj">
       <Project>{8C23E252-17B8-4ECC-9AF3-2EA30A2DF9CD}</Project>
       <Name>ZabbixStubService</Name>

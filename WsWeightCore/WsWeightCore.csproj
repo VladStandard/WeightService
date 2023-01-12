@@ -509,10 +509,6 @@
       <Project>{7859db5a-22a2-44a4-a4e8-4f341c8d3e4e}</Project>
       <Name>MDSoft.SerialPorts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WpfCore\WpfCore.csproj">
-      <Project>{c3d727df-b6dc-4106-9116-9569a6bb587b}</Project>
-      <Name>WpfCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WsLocalization\WsLocalization.csproj">
       <Project>{f494c3d7-e4c9-4d2b-926f-66835260f4b5}</Project>
       <Name>WsLocalization</Name>
