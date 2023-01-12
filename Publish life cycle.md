@@ -16,6 +16,7 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 
 ## Release/Preview ScalesUI routing
 Временное окно выпуска обновления ПО "Печать этикеток": 16.30 - 17.00.
+ПО "Печать этикеток" обновлена до версии v0.x.yyy.
 Publish ScalesUI preview: `\\palych\Install\VSSoft\Scales-2-Preview\``
 Publish ScalesUI release: `\\palych\Install\VSSoft\Scales-3-Release\`
 
