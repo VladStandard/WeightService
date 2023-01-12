@@ -105,13 +105,13 @@ internal class RazorFieldConfigUtilsTests
 			//razorFieldConfig = RazorFieldConfigUtils.Scale.GetHost(razorPage.GetRouteItemPath(host));
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Scale.GetPrinterMain(razorPage.GetRouteItemPath(printer));
+			razorFieldConfig = RazorFieldConfigUtils.Scale.GetPrinterMain();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Scale.GetPrinterShipping(razorPage.GetRouteItemPath(printer));
+			razorFieldConfig = RazorFieldConfigUtils.Scale.GetPrinterShipping();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Scale.GetWorkShop(razorPage.GetRouteItemPath(workShop));
+			razorFieldConfig = RazorFieldConfigUtils.Scale.GetWorkShop();
 			TestContext.WriteLine(razorFieldConfig);
 		});
 	}
