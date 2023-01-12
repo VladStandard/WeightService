@@ -8,7 +8,6 @@
 	mc:Ignorable="d" 
     d:DesignWidth="800" d:DesignHeight="300" FontSize="20"
     DataContext="{DynamicResource UserSession}" >
-
 	<xamlPages:XamlPageBase.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -16,7 +15,6 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</xamlPages:XamlPageBase.Resources>
-
 	<Border
 	    BorderBrush="Blue" BorderThickness="1" Margin="2" >
 		<Grid >
@@ -56,9 +54,8 @@
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
 			<Label 
 	            Margin="2" Grid.Column="1" Grid.Row="2" 
-	            Content="{Binding Path=PluNestingFk.WeightTare}" 
+	            Content="{Binding Path=PluNestingFk.WeightTareKg}" 
 	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
-
 			<Button 
 	            Margin="2" Grid.Column="0" Grid.Row="3"
                 Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply}"

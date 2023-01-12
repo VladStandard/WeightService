@@ -662,7 +662,7 @@ public partial class MainForm : Form
             {
                 UserSession.ManagerControl.Massa.Close();
 
-                using WpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 600, Height = 225 };
+                using WpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 800, Height = 400 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 // Here is another instance of wpfPageLoader.PageDevice.UserSession.
