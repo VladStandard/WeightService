@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 using System;
 using System.Drawing;
@@ -10,6 +9,7 @@ using System.IO;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
+using WeightCore.Wpf.Utils;
 
 namespace ScalesUI.Utils;
 
@@ -65,7 +65,7 @@ internal static class ActionUtils
 		catch (Exception ex)
 		{
 			ActionMakeScreenShot(win32Window);
-			GuiUtils.WpfForm.CatchException(ex, win32Window, true, true, true);
+			WpfUtils.CatchException(ex, win32Window, true, true, true);
 		}
 		finally
 		{
@@ -82,7 +82,7 @@ internal static class ActionUtils
 		catch (Exception ex)
 		{
 			ActionMakeScreenShot(win32Window);
-			GuiUtils.WpfForm.CatchException(ex, win32Window, true, true, true);
+			WpfUtils.CatchException(ex, win32Window, true, true, true);
 		}
 	}
 
@@ -94,7 +94,7 @@ internal static class ActionUtils
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, win32Window, true, true, true);
+			WpfUtils.CatchException(ex, win32Window, true, true, true);
 		}
 	}
 

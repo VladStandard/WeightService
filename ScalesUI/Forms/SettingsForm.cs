@@ -35,7 +35,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -52,7 +52,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -67,7 +67,7 @@
 //        //catch (Exception ex)
 //        //{
 //        //    result = false;
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 
 //        //// GUI.
@@ -109,7 +109,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -134,7 +134,7 @@
 //    //    //}
 //    //    //catch (Exception ex)
 //    //    //{
-//    //    //    GuiUtils.WpfForm.CatchException(this, ex);
+//    //    //    WpfUtils.CatchException(this, ex);
 //    //    //}
 //    //}
 
@@ -146,7 +146,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -158,7 +158,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -180,7 +180,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -192,7 +192,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -210,7 +210,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -222,7 +222,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 

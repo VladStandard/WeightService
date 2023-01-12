@@ -2,8 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Helpers;
-using DataCore.Sql.Core;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Templates;
@@ -14,7 +12,7 @@ using System.Linq;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
-using WsLocalization.Models;
+using WeightCore.Wpf.Utils;
 
 namespace ScalesUI.Forms;
 
@@ -64,7 +62,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
     }
 
@@ -101,7 +99,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
         return controls;
     }
@@ -283,7 +281,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
     }
 
@@ -305,7 +303,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
     }
 
@@ -325,7 +323,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
         finally
         {
@@ -353,7 +351,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
         finally
         {

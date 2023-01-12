@@ -4,10 +4,9 @@
 using System;
 using System.Windows.Forms;
 using DataCore.Helpers;
-using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Helpers;
-using WsLocalization.Models;
+using WeightCore.Wpf.Utils;
 
 namespace ScalesUI.Forms;
 
@@ -54,7 +53,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, false, true, true);
+			WpfUtils.CatchException(ex, this, false, true, true);
 		}
 		finally
 		{
@@ -70,7 +69,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -82,7 +81,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -100,7 +99,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -113,7 +112,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -131,7 +130,7 @@ public partial class KneadingForm : Form
 		catch (Exception ex)
 		{
 			DialogResult = DialogResult.Abort;
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -140,7 +139,7 @@ public partial class KneadingForm : Form
 		if (UserSession.PluScale.IsNotNew && UserSession.PluScale.Plu.IsCheckWeight && 
 		    UserSession.WeighingSettings.LabelsCountMain > 1)
 		{
-			//GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
+			//WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
 			//    UserSession.HostName, nameof(ScalesUI));
 			UserSession.WeighingSettings.LabelsCountMain = 1;
 		}
@@ -158,7 +157,7 @@ public partial class KneadingForm : Form
 		catch (Exception ex)
 		{
 			DialogResult = DialogResult.Abort;
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -171,7 +170,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -184,7 +183,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -201,7 +200,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -219,7 +218,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -232,7 +231,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -265,7 +264,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 
@@ -280,7 +279,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true, true);
 		}
 	}
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using DataCore.Sql.TableScaleModels.Scales;
+using WeightCore.Wpf.Utils;
 
 namespace WeightCore.Gui;
 
@@ -49,7 +50,7 @@ public static class SerialPortsUtils
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, true, true, true);
+            WpfUtils.CatchException(ex, true, true, true);
         }
     }
 }

@@ -38,7 +38,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -51,7 +51,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -66,7 +66,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -81,7 +81,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 
@@ -96,7 +96,7 @@
 //        //}
 //        //catch (Exception ex)
 //        //{
-//        //    GuiUtils.WpfForm.CatchException(this, ex);
+//        //    WpfUtils.CatchException(this, ex);
 //        //}
 //    }
 

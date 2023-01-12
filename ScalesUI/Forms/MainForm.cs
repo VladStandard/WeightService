@@ -2,10 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Helpers;
-using DataCore.Models;
 using DataCore.Settings;
-using DataCore.Sql.Core;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
@@ -24,8 +21,7 @@ using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
-using WsLocalization.Enums;
-using WsLocalization.Models;
+using WeightCore.Wpf.Utils;
 using WsSchedule.Helpers;
 using WsSchedule.Utils;
 
@@ -198,7 +194,7 @@ public partial class MainForm : Form
             () =>
             {
                 KeyboardMouseUnsubscribe();
-                GuiUtils.WpfForm.Dispose();
+                WpfUtils.Dispose();
                 UserSession.StopwatchMain.Restart();
                 if (Quartz is not null)
                 {
@@ -745,7 +741,7 @@ public partial class MainForm : Form
 	    ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
+                DialogResult result = WpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
                     true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
@@ -761,7 +757,7 @@ public partial class MainForm : Form
                 }
                 else
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this,
+                    WpfUtils.ShowNewOperationControl(this,
                         LocaleCore.Scales.ProgramNotFound(
                             LocaleData.Paths.ScalesTerminal), true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible },
@@ -780,7 +776,7 @@ public partial class MainForm : Form
             {
                 if (!UserSession.PluScale.Plu.IsCheckWeight)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this,
+                    WpfUtils.ShowNewOperationControl(this,
                         LocaleCore.Scales.PluNotSelectWeight, true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible },
                         UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
@@ -788,13 +784,13 @@ public partial class MainForm : Form
                 }
                 if (!UserSession.ManagerControl.Massa.MassaDevice.IsOpenPort)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogTypeEnum.Warning,
+                    WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible },
                         UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                     return;
                 }
 
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
+                DialogResult result = WpfUtils.ShowNewOperationControl(this,
                     LocaleCore.Scales.QuestionPerformOperation, true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                     UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
@@ -863,7 +859,7 @@ public partial class MainForm : Form
         //}
         //catch (Exception ex)
         //{
-        //    GuiUtils.WpfForm.CatchException(this, ex);
+        //    WpfUtils.CatchException(this, ex);
         //}
         //finally
         //{
@@ -892,7 +888,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
         finally
         {
@@ -950,7 +946,7 @@ public partial class MainForm : Form
             {
                 if (UserSession.PluScale.IsNew)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this,
+                    WpfUtils.ShowNewOperationControl(this,
                         LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible },
                         UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
@@ -1013,7 +1009,7 @@ public partial class MainForm : Form
                 // Debug check.
                 //if (Debug.IsDebug)
                 //{
-                //    DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, 
+                //    DialogResult dialogResult = WpfUtils.ShowNewOperationControl(this, 
                 //     LocaleCore.Print.QuestionPrint, true, LogTypeEnum.Question,
                 //        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                 //        UserSession.HostName, nameof(WeightCore));

@@ -37,8 +37,8 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using WeightCore.Gui;
 using WeightCore.Managers;
+using WeightCore.Wpf.Utils;
 using WsLocalization.Models;
 
 namespace WeightCore.Helpers;
@@ -322,7 +322,7 @@ public class UserSessionHelper : BaseViewModel
 		lock (_locker)
 		{
             // Device.
-            DeviceModel device = GuiUtils.WpfForm.SetNewDeviceWithQuestion(
+            DeviceModel device = WpfUtils.SetNewDeviceWithQuestion(
 				DeviceName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
 
             // DeviceTypeFk.
@@ -412,7 +412,7 @@ public class UserSessionHelper : BaseViewModel
 		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IsNew)
 		if (PluNestingFk.IsNew && PluNestingFks.Count > 1)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner,
+			WpfUtils.ShowNewOperationControl(owner,
 				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
 				DeviceScaleFk.Device.Name, nameof(WeightCore));
@@ -430,7 +430,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (PluScale.IsNew)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner,
+			WpfUtils.ShowNewOperationControl(owner,
 				LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
 				DeviceScaleFk.Device.Name, nameof(WeightCore));
@@ -451,7 +451,7 @@ public class UserSessionHelper : BaseViewModel
         if (!PluScale.IsNew && !PluScale.Plu.IsCheckWeight) return true;
 		if (ManagerControl.Massa is null)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner,
+			WpfUtils.ShowNewOperationControl(owner,
 				LocaleCore.Scales.MassaIsNotFound, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
 				DeviceScaleFk.Device.Name, nameof(WeightCore));
@@ -471,7 +471,7 @@ public class UserSessionHelper : BaseViewModel
 
         if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner,
+			WpfUtils.ShowNewOperationControl(owner,
 				LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
@@ -490,7 +490,7 @@ public class UserSessionHelper : BaseViewModel
 	{
         if (string.IsNullOrEmpty(PluScale.Plu.Gtin))
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner,
+			WpfUtils.ShowNewOperationControl(owner,
 				LocaleCore.Scales.PluGtinIsNotSet,
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
@@ -509,7 +509,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!managerPrint.Printer.IsPing)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
+			WpfUtils.ShowNewOperationControl(owner, isMain
 				? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
 				: LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
 				true, LogTypeEnum.Warning,
@@ -531,7 +531,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!managerPrint.CheckDeviceStatus())
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
+			WpfUtils.ShowNewOperationControl(owner, isMain
 				? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
 				: LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
 				true, LogTypeEnum.Warning,
@@ -554,7 +554,7 @@ public class UserSessionHelper : BaseViewModel
 		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
 		if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner,
+			WpfUtils.ShowNewOperationControl(owner,
 				LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
 				DeviceScaleFk.Device.Name, nameof(WeightCore));
@@ -575,7 +575,7 @@ public class UserSessionHelper : BaseViewModel
 		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
 		if (weight > LocaleCore.Scales.MassaThresholdValue)
 		{
-			DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
+			DialogResult result = WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
 				DeviceScaleFk.Device.Name, nameof(WeightCore));
@@ -598,7 +598,7 @@ public class UserSessionHelper : BaseViewModel
 			if (!(PluWeighing.NettoWeight >= PluNestingFk.WeightMin && PluWeighing.NettoWeight <= PluNestingFk.WeightMax))
 			{
 				if (PluWeighing.IsNotNew)
-					GuiUtils.WpfForm.ShowNewOperationControl(owner,
+					WpfUtils.ShowNewOperationControl(owner,
 						LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IsNew ? 0 : PluNestingFk.WeightMax,
 						PluScale.IsNew ? 0 : PluNestingFk.WeightNom,
 						PluScale.IsNew ? 0 : PluNestingFk.WeightMin),
@@ -626,7 +626,7 @@ public class UserSessionHelper : BaseViewModel
 		// Template isn't exist.
         if (template.IsNew)
         {
-            GuiUtils.WpfForm.ShowNewOperationControl(owner,
+            WpfUtils.ShowNewOperationControl(owner,
                 LocaleCore.Scales.PluTemplateNotSet,
                 true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
@@ -751,7 +751,7 @@ public class UserSessionHelper : BaseViewModel
 		if (!PluScale.Plu.IsCheckWeight) return;
 		if (ManagerControl.Massa.WeightNet > 0) return;
 
-		DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(owner,
+		DialogResult dialogResult = WpfUtils.ShowNewOperationControl(owner,
 			LocaleCore.Print.QuestionUseFakeData,
 			true, LogTypeEnum.Question,
 			new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
@@ -786,7 +786,7 @@ public class UserSessionHelper : BaseViewModel
 			// Send cmd to the print.
 			if (Debug.IsDebug)
 			{
-				DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(
+				DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
 					LocaleCore.Print.QuestionPrintSendCmd, true, LogTypeEnum.Question,
 					new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
 					DeviceScaleFk.Device.Name, nameof(WeightCore));
@@ -799,7 +799,7 @@ public class UserSessionHelper : BaseViewModel
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, true, true, true);
+			WpfUtils.CatchException(ex, true, true, true);
 		}
 	}
 

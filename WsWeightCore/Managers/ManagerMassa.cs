@@ -5,10 +5,10 @@ using System;
 using System.Windows.Forms;
 using DataCore.Managers;
 using DataCore.Models;
-using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
 using WeightCore.MassaK.Enums;
+using WeightCore.Wpf.Utils;
 using WsLocalization.Models;
 
 namespace WeightCore.Managers;
@@ -92,7 +92,7 @@ public class ManagerMassa : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex);
+			WpfUtils.CatchException(ex);
 		}
 	}
 
@@ -119,7 +119,7 @@ public class ManagerMassa : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex);
+			WpfUtils.CatchException(ex);
 		}
 	}
 

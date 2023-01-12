@@ -3,7 +3,6 @@
 
 using DataCore.Files;
 using DataCore.Settings;
-using DataCore.Sql.Core;
 using ScalesUI.Forms;
 using System;
 using System.IO;
@@ -12,7 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
-using WsLocalization.Models;
+using WeightCore.Wpf.Utils;
 
 namespace ScalesUI;
 
@@ -42,7 +41,7 @@ internal static class Program
             if (UserSessionHelper.Instance.DeviceScaleFk.IsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(UserSessionHelper.Instance.DeviceName);
-                GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
+                WpfUtils.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
                 DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
                 Application.Exit();
                 return;
@@ -53,7 +52,7 @@ internal static class Program
             if (!createdNew)
             {
                 string message = $"{LocaleCore.Strings.Application} {Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
-                GuiUtils.WpfForm.ShowNewRegistration(message);
+                WpfUtils.ShowNewRegistration(message);
                 DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
                 Application.Exit();
             }
@@ -69,7 +68,7 @@ internal static class Program
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, true, true, true);
+            WpfUtils.CatchException(ex, true, true, true);
         }
     }
 

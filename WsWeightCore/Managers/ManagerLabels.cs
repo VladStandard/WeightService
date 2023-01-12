@@ -8,10 +8,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using DataCore.Helpers;
 using DataCore.Managers;
-using WeightCore.Gui;
 using WeightCore.Helpers;
 using DataCore.Enums;
 using WsLocalization.Models;
+using WeightCore.Wpf.Utils;
 
 namespace WeightCore.Managers;
 
@@ -108,7 +108,7 @@ public class ManagerLabels : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex);
+			WpfUtils.CatchException(ex);
 		}
 	}
 
@@ -128,7 +128,7 @@ public class ManagerLabels : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex);
+			WpfUtils.CatchException(ex);
 		}
 	}
 

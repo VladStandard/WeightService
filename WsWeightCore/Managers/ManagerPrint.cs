@@ -11,7 +11,6 @@ using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using DataCore.Managers;
 using DataCore.Models;
-using WeightCore.Gui;
 using WeightCore.Helpers;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
@@ -21,6 +20,7 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.Printers;
 using WsLocalization.Enums;
 using WsLocalization.Models;
+using WeightCore.Wpf.Utils;
 
 namespace WeightCore.Managers;
 
@@ -85,7 +85,7 @@ public class ManagerPrint : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex);
+			WpfUtils.CatchException(ex);
 		}
 	}
 
@@ -103,7 +103,7 @@ public class ManagerPrint : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex);
+			WpfUtils.CatchException(ex);
 		}
 	}
 
@@ -133,7 +133,7 @@ public class ManagerPrint : ManagerBase
 						}
 						catch (Exception ex)
 						{
-							GuiUtils.WpfForm.CatchException(ex);
+							WpfUtils.CatchException(ex);
 							SendCmdToZebra(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplHostStatusReturn);
 						}
 					}
@@ -334,14 +334,14 @@ public class ManagerPrint : ManagerBase
 					}
 					else
 					{
-						GuiUtils.WpfForm.CatchException(new Exception($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"), true, true, true);
+						WpfUtils.CatchException(new Exception($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"), true, true, true);
 					}
 				}
 			}
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, true, true, true);
+			WpfUtils.CatchException(ex, true, true, true);
 		}
 	}
 
@@ -357,7 +357,7 @@ public class ManagerPrint : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex, true, true, true);
+			WpfUtils.CatchException(ex, true, true, true);
 		}
 	}
 

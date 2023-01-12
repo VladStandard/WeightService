@@ -8,8 +8,8 @@ using System.Windows.Forms;
 using DataCore.Helpers;
 using DataCore.Managers;
 using DataCore.Models;
-using WeightCore.Gui;
 using WsLocalization.Models;
+using WeightCore.Wpf.Utils;
 
 namespace WeightCore.Managers;
 
@@ -59,7 +59,7 @@ public class ManagerMemory : ManagerBase
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex);
+            WpfUtils.CatchException(ex);
         }
     }
 
@@ -78,7 +78,7 @@ public class ManagerMemory : ManagerBase
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex);
+            WpfUtils.CatchException(ex);
         }
     }
 

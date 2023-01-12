@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using WeightCore.Helpers;
+using WeightCore.Wpf.Utils;
 using WeightCore.XamlPages;
 
 namespace WeightCore.Gui;
@@ -58,7 +59,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
     }
 
@@ -103,7 +104,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
     }
 
@@ -153,7 +154,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
     }
 
@@ -173,7 +174,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true, true);
         }
     }
 
