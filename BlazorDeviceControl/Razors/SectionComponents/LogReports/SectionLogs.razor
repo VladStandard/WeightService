@@ -1,0 +1,41 @@
+﻿@inherits RazorComponentSectionBase<LogQuickModel, SqlTableBase>
+@page "/section/logs"
+@using BlazorCore
+@using BlazorCore.Razors
+@using DataCore.Sql.Xml
+@using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Devices
+@using DataCore.Sql.TableScaleModels.Scales
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorSectionReload TItem=@LogQuickModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
+
+<RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify 
+	Style="margin-top: 5px; "
+	Data=@SqlSectionCast TItem=@LogQuickModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive 
+    AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    <Columns >
+        <RazorSectionFieldIsMarked TItem=@LogQuickModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@LogQuickModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("14%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetCreateDt() />
+        <RazorSectionField TItem=@LogQuickModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("17%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.LogQuick.GetScale() />
+        <RazorSectionField TItem=@LogQuickModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("13%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.LogQuick.GetDevice() />
+        <RazorSectionField TItem=@LogQuickModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("13%"))
+            RazorFieldConfig=@RazorFieldConfigUtils.LogQuick.GetApp() />
+        <RazorSectionField TItem=@LogQuickModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("6%"))
+            RazorFieldConfig=@RazorFieldConfigUtils.LogQuick.GetVersion() />
+        <RazorSectionField TItem=@LogQuickModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%"))
+            RazorFieldConfig=@RazorFieldConfigUtils.LogQuick.GetIcon() />
+        <RazorSectionField TItem=@LogQuickModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.LogQuick.GetMessage() />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=@LogQuickModel ParentRazor=@(this) />

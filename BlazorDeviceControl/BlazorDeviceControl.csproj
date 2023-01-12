@@ -121,10 +121,10 @@
     <Watch Remove="Razors\ItemComponents\References1C\ItemNomenclatureGroup.razor" />
     <Watch Remove="Razors\RazorActionLoad.razor" />
     <Watch Remove="Razors\SectionComponents\Devices\SectionDevices.razor" />
-    <Watch Remove="Razors\SectionComponents\Logs\SectionLogsNones.razor" />
-    <Watch Remove="Razors\SectionComponents\Logs\SectionLogsQuestions.razor" />
-    <Watch Remove="Razors\SectionComponents\Logs\SectionLogsStops.razor" />
-    <Watch Remove="Razors\SectionComponents\Logs\SectionLogsWarnings.razor" />
+    <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsNones.razor" />
+    <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsQuestions.razor" />
+    <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsStops.razor" />
+    <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsWarnings.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionBoxes.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionBrands.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionBundles.razor" />
