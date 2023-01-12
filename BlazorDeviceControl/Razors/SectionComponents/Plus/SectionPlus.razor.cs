@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Sql.Fields;
 using DataCore.Sql.TableScaleModels.Plus;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
@@ -14,7 +15,11 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableB
 	{
 		SqlCrudConfigSection.IsGuiShowItemsCount = true;
 		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-	}
+
+        SqlCrudConfigSection.IsResultOrder = false;
+		SqlCrudConfigSection.AddOrders(new SqlFieldOrderModel($"{nameof(PluModel.Number)}", 
+			SqlFieldOrderEnum.Asc));
+    }
 
 	#endregion
 

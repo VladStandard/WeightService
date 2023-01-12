@@ -384,7 +384,7 @@ public class DataContextModel
     {
         Plus = DataAccess.GetListNotNullable<PluModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Plus.Count > 1)
-            Plus = Plus.OrderBy(item => item.Name).ToList();
+            Plus = Plus.OrderBy(item => item.Number).ToList();
         return Plus.Cast<T>().ToList();
     }
 
