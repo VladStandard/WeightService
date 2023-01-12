@@ -20,15 +20,15 @@
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@ScaleModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription(LocaleCore.Table.Arm) />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription(LocaleCore.Table.Name) />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetNumber() />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain(GetRouteItemPathShort<PrinterModel>()) />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetWorkShop(GetRouteItemPathShort<WorkShopModel>()) />
-        <RadzenGridColumn TItem=@ScaleModel Width="15%" Title=@LocaleCore.Table.Device TextAlign=@TextAlign.Left>
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("35%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetWorkShop() />
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("35%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain() />
+        @*<RadzenGridColumn TItem=@ScaleModel Width="15%" Title=@LocaleCore.Table.Device TextAlign=@TextAlign.Left>
             <Template Context="itemCast">
                 @if (DataAccess.GetItemDeviceScaleFkNotNullable(itemCast).Device is DeviceModel device)
                 {
@@ -48,7 +48,7 @@
                     }
                 }
             </Template>
-        </RadzenGridColumn>
+        </RadzenGridColumn>*@
     </Columns>
 </RadzenGrid>
 

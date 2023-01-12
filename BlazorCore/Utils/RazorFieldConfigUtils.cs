@@ -48,7 +48,7 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetChangeDt() => new(nameof(SqlTableBase.ChangeDt), TextAlign.Center, LocaleCore.Table.ChangeDt);
 		public static RazorFieldConfigModel GetCreateDt() => new(nameof(SqlTableBase.CreateDt), TextAlign.Center, LocaleCore.Table.CreateDt);
 		public static RazorFieldConfigModel GetDescription(string description = "") => new(nameof(SqlTableBase.Description), TextAlign.Left, !string.IsNullOrEmpty(description) ? description : LocaleCore.Table.Description);
-		public static RazorFieldConfigModel GetName(string name = "") => new(nameof(SqlTableBase.Name), TextAlign.Left, !string.IsNullOrEmpty(name) ? name : LocaleCore.Table.Name);
+        public static RazorFieldConfigModel GetName(string name = "") => new(nameof(SqlTableBase.Name), TextAlign.Left, !string.IsNullOrEmpty(name) ? name : LocaleCore.Table.Name);
 	}
 
 	public static class Device
@@ -169,16 +169,16 @@ public static class RazorFieldConfigUtils
 
 	public static class Scale
 	{
-		public static RazorFieldConfigModel GetNumber() => new($"{nameof(ScaleModel.Number)}", TextAlign.Left, LocaleCore.Table.Number);
-		public static RazorFieldConfigModel GetPrinterMain(string url) => new(url, new PrinterModel(), $"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}",
+		public static RazorFieldConfigModel GetNumber() => new($"{nameof(ScaleModel.Number)}", TextAlign.Center, LocaleCore.Table.Number);
+		public static RazorFieldConfigModel GetPrinterMain() => new(new PrinterModel(), $"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}",
 			TextAlign.Left, LocaleCore.Print.NameMain, "string");
-		public static RazorFieldConfigModel GetPrinterShipping(string url) => new(url, new PrinterModel(), $"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}",
+		public static RazorFieldConfigModel GetPrinterShipping() => new(new PrinterModel(), $"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}",
 			TextAlign.Left, LocaleCore.Print.NameShipping, "string");
-		public static RazorFieldConfigModel GetWorkShop(string url) => new(url, new WorkShopModel(), $"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}",
+		public static RazorFieldConfigModel GetWorkShop() => new(new WorkShopModel(), $"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}",
 			TextAlign.Left, LocaleCore.Table.WorkShop, "string");
-	}
+    }
 
-	public static class Version
+    public static class Version
 	{
 		public static RazorFieldConfigModel GetReleaseDt() => new(nameof(VersionModel.ReleaseDt), TextAlign.Center, LocaleCore.Table.ReleaseDt);
 		public static RazorFieldConfigModel GetVersion() => new(nameof(VersionModel.Version), TextAlign.Center, LocaleCore.Table.Version);
