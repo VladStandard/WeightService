@@ -626,8 +626,7 @@ public partial class MainForm : Form
                     UserSession.Scale.Description + Environment.NewLine + area);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
                     ? LocaleCore.Table.FieldPackageIsNotSelected
-                    //: $"{UserSession.PluNestingFk.PluBundle.Bundle.Name} {UserSession.PluNestingFk.WeightTare}");
-                    : $"{UserSession.PluNestingFk.Name} {UserSession.PluNestingFk.WeightTare}");
+                    : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -663,7 +662,7 @@ public partial class MainForm : Form
             {
                 UserSession.ManagerControl.Massa.Close();
 
-                using WpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 600, Height = 225 };
+                using WpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 800, Height = 400 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 // Here is another instance of wpfPageLoader.PageDevice.UserSession.
@@ -695,7 +694,7 @@ public partial class MainForm : Form
 
                 UserSession.ManagerControl.Massa.Close();
 
-                using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 600, Height = 225 };
+                using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 800, Height = 300 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 // Here is another instance of wpfPageLoader.PagePluNestingFk.UserSession.

@@ -23,8 +23,10 @@ public class PluNestingFkModel : SqlTableBase
     [XmlElement] public virtual decimal WeightMax { get; set; }
     [XmlElement] public virtual decimal WeightMin { get; set; }
     [XmlElement] public virtual decimal WeightNom { get; set; }
-    [XmlIgnore] public override string Name => $"{PluBundle.Bundle.Name} | {BundleCount} | {Box.Name}"; 
-    [XmlIgnore] public virtual decimal WeightTare { get => PluBundle.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
+    [XmlIgnore] public override string Name => $"{LocaleCore.Scales.Bundle} {BundleCount} {LocaleCore.Scales.WeightUnitGr} | {Box.Name}";
+    [XmlElement] public virtual decimal WeightTare { get => PluBundle.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
+    [XmlIgnore] public virtual string WeightTareKg => $"{WeightTare} {LocaleCore.Scales.WeightUnitKg}";
+    
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -53,6 +55,7 @@ public class PluNestingFkModel : SqlTableBase
         WeightMax = info.GetDecimal(nameof(WeightMax));
         WeightMin = info.GetDecimal(nameof(WeightMin));
         WeightNom = info.GetDecimal(nameof(WeightNom));
+        WeightTare = info.GetDecimal(nameof(WeightTare));
     }
 
     #endregion
@@ -121,6 +124,7 @@ public class PluNestingFkModel : SqlTableBase
         info.AddValue(nameof(WeightMin), WeightMin);
         info.AddValue(nameof(WeightNom), WeightNom);
         info.AddValue(nameof(PluBundle), PluBundle);
+        info.AddValue(nameof(WeightTare), WeightTare);
     }
 
     public override void FillProperties()

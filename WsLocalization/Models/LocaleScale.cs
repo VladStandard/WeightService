@@ -35,11 +35,12 @@ public class LocaleScale
     public string ButtonSelectPlu(int count) => Lang == Lang.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
     public string ButtonSetKneading => Lang == Lang.English ? "More" : "Ещё";
     public string ButtonSettings => Lang == Lang.English ? "Settings" : "Настройки";
+    public string Bundle => Lang == Lang.English ? "Bundle" : "Пакет";
     public string CheckPluWeightCount => Lang == Lang.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";
-    public string CheckWeightBefore(decimal currentWeight) => Lang == Lang.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {MassaThresholdValue:0.000} {UnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {UnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {MassaThresholdValue:0.000} {UnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {UnitKg}.";
+    public string CheckWeightBefore(decimal currentWeight) => Lang == Lang.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {MassaThresholdValue:0.000} {WeightUnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {WeightUnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {MassaThresholdValue:0.000} {WeightUnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {WeightUnitKg}.";
     public string CheckWeightIsEmpty() => Lang == Lang.English ? "For products by weight, put the product on the scale!" + Environment.NewLine + "Label printing is not possible!" : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + "Печать этикетки невозможна!";
-    public string CheckWeightThreshold(decimal weightNet) => Lang == Lang.English ? WeightingControl + Environment.NewLine + $"Product weight: {weightNet:0.000} {UnitKg}" + Environment.NewLine + "Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес продукта: {weightNet:0.000} {UnitKg}" + Environment.NewLine + "Печать этикетки невозможна!";
-    public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => Lang == Lang.English ? WeightingControl + Environment.NewLine + $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Nominal weight value: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + "Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Номинальное значение веса: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + "Печать этикетки невозможна!";
+    public string CheckWeightThreshold(decimal weightNet) => Lang == Lang.English ? WeightingControl + Environment.NewLine + $"Product weight: {weightNet:0.000} {WeightUnitKg}" + Environment.NewLine + "Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес продукта: {weightNet:0.000} {WeightUnitKg}" + Environment.NewLine + "Печать этикетки невозможна!";
+    public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => Lang == Lang.English ? WeightingControl + Environment.NewLine + $"Net weight: {currentNet:0.000} {WeightUnitKg}" + Environment.NewLine + $"Upper weight value: {upperWeightThreshold:0.000} {WeightUnitKg}" + Environment.NewLine + $"Nominal weight value: {nominalWeight:0.000} {WeightUnitKg}" + Environment.NewLine + $"Lower weight value: {lowerWeightThreshold:0.000} {WeightUnitKg}" + Environment.NewLine + "Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес нетто: {currentNet:0.000} {WeightUnitKg}" + Environment.NewLine + $"Верхнее значение веса: {upperWeightThreshold:0.000} {WeightUnitKg}" + Environment.NewLine + $"Номинальное значение веса: {nominalWeight:0.000} {WeightUnitKg}" + Environment.NewLine + $"Нижнее значение веса: {lowerWeightThreshold:0.000} {WeightUnitKg}" + Environment.NewLine + "Печать этикетки невозможна!";
     public string CommunicateWithAdmin => Lang == Lang.English ? "Contact your system administrator." : "Свяжитесь с администратором системы.";
     public string ComPort => Lang == Lang.English ? "COM-port" : "COM-порт";
     public string ComPortState => Lang == Lang.English ? "COM-port status" : "Состояние COM-порта";
@@ -145,8 +146,6 @@ public class LocaleScale
     public string ThreadsCount => Lang == Lang.English ? "Threads count" : "Количество потоков";
     public string ThreadStartTime => Lang == Lang.English ? "Start time" : "Время запуска";
     public string ThreadState => Lang == Lang.English ? "State" : "Состояние";
-    public string UnitKg => Lang == Lang.English ? "kg" : "кг";
-    public string UnitPcs => Lang == Lang.English ? "pcs." : "шт.";
     public string UnitWeight => Lang == Lang.English ? "weight" : "вес";
     public string WeightingControl => Lang == Lang.English ? "The weight is out of bounds!" : "Вес выходит за границы!";
     public string WeightingIsCalc => Lang == Lang.English ? "Stable is calculated" : "Рассчитывается вес";
@@ -157,6 +156,9 @@ public class LocaleScale
     public string WeightingMessage => Lang == Lang.English ? "Weighting message" : "Сообщение взвешивания";
     public string WeightingProcess => Lang == Lang.English ? "Weighing | Gross weight" : "Взвешивание | Вес брутто";
     public string WeightingScaleCmd => Lang == Lang.English ? "Command for scales" : "Команда для весов";
+    public string WeightUnitGr => Lang == Lang.English ? "gr" : "гр";
+    public string WeightUnitKg => Lang == Lang.English ? "kg" : "кг";
+    public string WeightUnitPcs => Lang == Lang.English ? "pcs." : "шт.";
 
     #endregion
 }

@@ -6,9 +6,8 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:xamlPages="clr-namespace:WeightCore.XamlPages"
 	mc:Ignorable="d" 
-    d:DesignWidth="700" d:DesignHeight="300" FontSize="20"
+    d:DesignWidth="800" d:DesignHeight="300" FontSize="20"
     DataContext="{DynamicResource UserSession}" >
-
 	<xamlPages:XamlPageBase.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -16,76 +15,57 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</xamlPages:XamlPageBase.Resources>
-
 	<Border
 	    BorderBrush="Blue" BorderThickness="1" Margin="2" >
-        <Grid >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Label 
+		<Grid >
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"></ColumnDefinition>
+				<ColumnDefinition Width="2*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Label 
 	            Margin="2" Grid.Column="0" Grid.Row="0" 
-                Content="{Binding Source={StaticResource LocaleTable}, Path=Plu, 
-					Mode=OneTime, IsAsync=True}"
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-            <Label 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Plu}"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+			<Label 
 	            Margin="2" Grid.Column="1" Grid.Row="0" 
-                Content="{Binding Path=PluScale.Plu.Name, 
-					Mode=OneWay, IsAsync=True}" 
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-            <Label 
+                Content="{Binding Path=PluScale.Plu.Name}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+			<Label 
 	            Margin="2" Grid.Column="0" Grid.Row="1" 
-                Content="{Binding Source={StaticResource LocaleTable}, Path=PluNesting, 
-					Mode=OneWay, IsAsync=True}" 
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-			<!--<ComboBox 
-	            Margin="2" Grid.Column="1" Grid.Row="1" x:Name="comboBoxPluBundleFks"
-                HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
-	            ItemsSource="{Binding Path=PluBundlesFks, Mode=OneWay, IsAsync=True}" 
-	            DisplayMemberPath="BundleFk.Name"
-	            SelectedValuePath="BundleFk"
-	            SelectedValue="{Binding Path=PluBundleFk.BundleFk, Mode=OneWay, IsAsync=True}" 
-	            SelectedItem="{Binding Path=PluBundleFk, Mode=TwoWay, IsAsync=True}" 
-	            />-->
+                Content="{Binding Source={StaticResource LocaleTable}, Path=PluNesting}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
 			<ComboBox 
-	            Margin="2" Grid.Column="1" Grid.Row="1" x:Name="comboBoxPluNestingFks"
-                HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
-	            ItemsSource="{Binding Path=PluNestingFks, Mode=OneWay, IsAsync=True}" 
-	            DisplayMemberPath="Nesting.Name"
-	            SelectedValuePath="Nesting"
-	            SelectedValue="{Binding Path=PluNestingFk.Nesting, Mode=OneWay, IsAsync=True}" 
-	            SelectedItem="{Binding Path=PluNestingFk, Mode=TwoWay, IsAsync=True}" 
-	            />
-            <Label 
+	            Margin="10" Grid.Column="1" Grid.Row="1" x:Name="comboBoxPluNestingFks"
+	            ItemsSource="{Binding PluNestingFks}" 
+	            DisplayMemberPath="Name" SelectedValuePath=""
+	            SelectedValue="{Binding Path=PluNestingFk}" 
+	            SelectedItem="{Binding Path=PluNestingFk}"
+				HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+				Background="Transparent" FontSize="18"/>
+			<Label 
 	            Margin="2" Grid.Column="0" Grid.Row="2" 
-	            Content="{Binding Source={StaticResource LocaleTable}, Path=BundleFk, 
-					Mode=OneWay, IsAsync=True}" 
-	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-            <Label 
+	            Content="{Binding Source={StaticResource LocaleTable}, Path=WeightTare}" 
+	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+			<Label 
 	            Margin="2" Grid.Column="1" Grid.Row="2" 
-	            Content="{Binding Path=PluNestingFk.WeightTare, 
-					Mode=OneWay, IsAsync=True}" 
-	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-
+	            Content="{Binding Path=PluNestingFk.WeightTareKg}" 
+	            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
 			<Button 
 	            Margin="2" Grid.Column="0" Grid.Row="3"
-                Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply, 
-					Mode=OneWay, IsAsync=True}"
+                Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply}"
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                 Click="ButtonApply_OnClick" />
-            <Button 
+			<Button 
 	            Margin="2" Grid.Column="1" Grid.Row="3" 
-                Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel, 
-					Mode=OneWay, IsAsync=True}" 
+                Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel}" 
                 Click="ButtonCancel_OnClick" />
-        </Grid>
-    </Border>
-            
+		</Grid>
+	</Border>
+
 </xamlPages:XamlPageBase>

@@ -8,6 +8,8 @@ using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql.Core;
+using DataCore.Sql.Fields;
+using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -313,8 +315,14 @@ public class UserSessionHelper : BaseViewModel
 	{
         SetSqlPublish();
         SetScale(scaleId, productionFacilityName);
-		Scales = DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
-		ProductionFacilities = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
+		
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
+		sqlCrudConfig.AddOrders(new SqlFieldOrderModel(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
+        Scales = DataContext.GetListNotNullable<ScaleModel>(sqlCrudConfig);
+        
+		sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
+        sqlCrudConfig.AddOrders(new SqlFieldOrderModel(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc));
+        ProductionFacilities = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
 	}
 
 	private void SetScale(long scaleId, string productionFacilityName)

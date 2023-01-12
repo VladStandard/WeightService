@@ -132,9 +132,9 @@ public class ManagerMassa : ManagerBase
 		else
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold,
 				$"{LocaleCore.Scales.FieldThresholds}: " +
-				$"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.PluNestingFk.WeightMin:0.000} {LocaleCore.Scales.UnitKg} | " +
-				$"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.PluNestingFk.WeightNom:0.000} {LocaleCore.Scales.UnitKg} | " +
-				$"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.PluNestingFk.WeightMax:0.000} {LocaleCore.Scales.UnitKg}");
+				$"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.PluNestingFk.WeightMin:0.000} {LocaleCore.Scales.WeightUnitKg} | " +
+				$"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.PluNestingFk.WeightNom:0.000} {LocaleCore.Scales.WeightUnitKg} | " +
+				$"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.PluNestingFk.WeightMax:0.000} {LocaleCore.Scales.WeightUnitKg}");
 		SetControlsVisible(true, true);
 	}
 
@@ -186,9 +186,9 @@ public class ManagerMassa : ManagerBase
 	private void SetControlsTextDefault()
 	{
 		MDSoft.WinFormsUtils.InvokeControl.SetText(LabelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
+		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, $"{0:0.000} {LocaleCore.Scales.WeightUnitKg}");
 		MDSoft.WinFormsUtils.InvokeControl.SetText(LabelPackageWeight, LocaleCore.Scales.FieldWeightTare);
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
+		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight, $"{0:0.000} {LocaleCore.Scales.WeightUnitKg}");
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, LocaleCore.Scales.FieldThresholds);
 
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocaleCore.Scales.ComPort);
@@ -227,12 +227,12 @@ public class ManagerMassa : ManagerBase
 
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight,
 			UserSessionHelper.Instance.PluScale.IsNotNew
-				? $"{UserSessionHelper.Instance.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.UnitKg}"
-				: $"0,000 {LocaleCore.Scales.UnitKg}");
+				? $"{UserSessionHelper.Instance.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
+				: $"0,000 {LocaleCore.Scales.WeightUnitKg}");
 
 		decimal weight = UserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluNestingFk.WeightTare;
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, MassaStable.IsStable
-			? $"{weight:0.000} {LocaleCore.Scales.UnitKg}"
+			? $"{weight:0.000} {LocaleCore.Scales.WeightUnitKg}"
 			:
 #if DEBUG
 			$"{LocaleCore.Scales.WeightingIsCalc}" +
@@ -244,7 +244,7 @@ public class ManagerMassa : ManagerBase
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaPluDescription,
 			$"{LocaleCore.Scales.WeightingProcess}: " +
 			(UserSessionHelper.Instance.PluScale.IsNew ? $"{0:0.000} " : $"{WeightNet:0.000} ") +
-			$"{LocaleCore.Scales.UnitKg} | {LocaleCore.Scales.RequestParameters}" +
+			$"{LocaleCore.Scales.WeightUnitKg} | {LocaleCore.Scales.RequestParameters}" +
 			(ResponseParseScalePar is null ? string.Empty : $" | {ResponseParseScalePar.Message}"));
 	}
 
