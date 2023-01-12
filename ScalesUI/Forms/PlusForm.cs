@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Helpers;
+using DataCore.Sql.Fields;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Templates;
@@ -50,8 +51,9 @@ public partial class PlusForm : Form
         {
             SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale), false, false);
             sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
+            //sqlCrudConfig.AddOrders(new(nameof(PluScaleModel.Plu.Number), SqlFieldOrderEnum.Asc));
+            sqlCrudConfig.AddOrders(new(nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc));
             sqlCrudConfig.IsResultOrder = true;
-            //sqlCrudConfig.AddOrders(new SqlFieldOrderModel(nameof(PluScaleModel.Plu.Number), SqlFieldOrderEnum.Asc));
             PluScales = UserSession.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
 
             LoadFormControls();

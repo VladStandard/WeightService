@@ -3,6 +3,7 @@
 
 using DataCore.Helpers;
 using DataCore.Settings;
+using DataCore.Sql.Fields;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
@@ -632,11 +633,14 @@ public partial class MainForm : Form
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-                SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale), false, false);
-                sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
-                sqlCrudConfig.IsResultOrder = true;
-                List<PluScaleModel> pluScales = UserSession.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(pluScales.Count));
+
+                // ButtonPlu.
+                //SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale), false, false);
+                //sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
+                //sqlCrudConfig.AddOrders(new($"{nameof(PluScaleModel.Plu)}.{nameof(PluScaleModel.Plu.Number)}", SqlFieldOrderEnum.Asc));
+                //List<PluScaleModel> pluScales = UserSession.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSwitchPlu);
+
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
                 SetComboBoxItems(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
@@ -881,7 +885,7 @@ public partial class MainForm : Form
             using NumberInputForm numberInputForm = new() { InputValue = 0 };
             DialogResult result = numberInputForm.ShowDialog(this);
             numberInputForm.Close();
-            numberInputForm.Dispose();
+            //numberInputForm.Dispose();
             if (result == DialogResult.OK)
                 UserSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
         }
@@ -913,20 +917,19 @@ public partial class MainForm : Form
                 using PlusForm pluListForm = new() { Owner = this };
                 DialogResult result = pluListForm.ShowDialog(this);
                 pluListForm.Close();
-                pluListForm.Dispose();
                 if (result == DialogResult.OK)
                 {
                     UserSession.WeighingSettings.Kneading = 1;
                     UserSession.ProductDate = DateTime.Now;
-                    UserSession.NewPallet();
+                    if (ButtonNewPallet?.Visible == true)
+                        UserSession.NewPallet();
                     //_mkDevice.SetWeightTare((int) (_sessionState.CurrentPLU.GoodsWeightTare * _sessionState.CurrentPLU.Scale.ScaleFactor));
-
                     // форма с замесами, размерами паллет и прочее
                     ActionMore(null, null);
                 }
                 else
                 {
-                    UserSession.PluScale = new();
+                    UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
                 }
                 FieldLang_SelectedIndexChanged(sender, e);
 
@@ -957,7 +960,7 @@ public partial class MainForm : Form
                 using KneadingForm kneadingForm = new() { Owner = this };
                 DialogResult result = kneadingForm.ShowDialog();
                 kneadingForm.Close();
-                kneadingForm.Dispose();
+                //kneadingForm.Dispose();
                 if (result == DialogResult.OK)
                 {
                     //_sessionState.Kneading = settingsForm.CurrentKneading;

@@ -33,6 +33,7 @@ public class LocaleScale
     public string ButtonScalesInitShort => ">0<";
     public string ButtonSelectOrder => Lang == Lang.English ? "Order" : "Заказ";
     public string ButtonSelectPlu(int count) => Lang == Lang.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
+    public string ButtonSwitchPlu => Lang == Lang.English ? $"Switch PLU" : $"Смена ПЛУ";
     public string ButtonSetKneading => Lang == Lang.English ? "More" : "Ещё";
     public string ButtonSettings => Lang == Lang.English ? "Settings" : "Настройки";
     public string Bundle => Lang == Lang.English ? "Bundle" : "Пакет";
