@@ -9,9 +9,9 @@ using WeightCore.Gui;
 namespace WeightCore.Wpf.Pages;
 
 /// <summary>
-/// Interaction logic for PageMessageBox.xaml
+/// Interaction logic for WpfPageMessageBox.xaml
 /// </summary>
-public partial class PageMessageBox
+public partial class WpfPageMessageBox
 {
 	#region Public and private fields, properties, constructor
 
@@ -21,7 +21,7 @@ public partial class PageMessageBox
 
 	#region Constructor and destructor
 
-	public PageMessageBox()
+	public WpfPageMessageBox()
 	{
 		InitializeComponent();
 	}

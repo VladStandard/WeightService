@@ -1,5 +1,5 @@
-﻿<pages:XamlPageBase 
-	x:Class="WeightCore.Wpf.Pages.PageDevice"
+﻿<pages:WpfPageBase 
+	x:Class="WeightCore.Wpf.Pages.WpfPageDevice"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,13 +8,13 @@
     mc:Ignorable="d" 
     d:DesignWidth="800" d:DesignHeight="400" FontSize="20"
 	DataContext="{DynamicResource UserSession}" >
-	<pages:XamlPageBase.Resources>
+	<pages:WpfPageBase.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="XamlResourceDictionary.xaml" />
+				<ResourceDictionary Source="WpfResourceDictionary.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-	</pages:XamlPageBase.Resources>
+	</pages:WpfPageBase.Resources>
 	<Border
 	    BorderBrush="Blue" BorderThickness="1" Margin="2" >
 		<Grid >
@@ -80,4 +80,4 @@
                 Click="ButtonCancel_OnClick" />
 		</Grid>
 	</Border>
-</pages:XamlPageBase>
+</pages:WpfPageBase>

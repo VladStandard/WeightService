@@ -5,7 +5,7 @@ namespace WeightCore.MassaK.Enums;
 
 public enum MassaCmdType
 {
-	Nack,
+	Nack = 0,
 	UdpPoll,
 	GetInit2,
 	GetInit3,

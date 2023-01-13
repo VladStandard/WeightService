@@ -6,16 +6,16 @@ using System.Windows;
 namespace WeightCore.Wpf.Pages;
 
 /// <summary>
-/// Interaction logic for PageSqlSettings.xaml
+/// Interaction logic for WpfPagePluNestingFk.xaml
 /// </summary>
-public partial class PagePluNestingFk
+public partial class WpfPagePluNestingFk
 {
 	#region Public and private fields, properties, constructor
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PagePluNestingFk()
+	public WpfPagePluNestingFk()
 	{
 		InitializeComponent();
 		SetPluNestingFk(comboBoxPluNestingFks);

@@ -22,11 +22,12 @@ public partial class WpfPageLoader : Form
     private ElementHost ElementHost { get; }
     private bool UseOwnerSize { get; }
     public MessageBoxModel MessageBox { get; }
-    private PageMessageBox? PageMessageBox { get; set; }
-    private PagePinCode? PagePinCode { get; set; }
-    public PageDevice? PageDevice { get; private set; }
-    public PagePluNestingFk? PagePluNestingFk { get; set; }
-	private PageSqlSettings? PageSqlSettings { get; set; }
+    private WpfPageMessageBox? PageMessageBox { get; set; }
+    private WpfPagePinCode? PagePinCode { get; set; }
+    public WpfPageDevice? PageDevice { get; private set; }
+    public bool IsPageDeviceLoad => PageDevice is not null;
+    public WpfPagePluNestingFk? PagePluNestingFk { get; set; }
+	private WpfPageSqlSettings? PageSqlSettings { get; set; }
     private PageEnum Page { get; }
 
     #endregion

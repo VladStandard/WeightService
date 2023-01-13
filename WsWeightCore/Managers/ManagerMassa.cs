@@ -25,13 +25,10 @@ public class ManagerMassa : ManagerBase
 	private Label LabelPackageWeight { get; set; }
 	private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
 	private readonly object _locker = new();
-	//private BlockingCollection<MassaExchangeEntity> Requests { get; set; } = new();
 	private MassaExchangeModel MassaExchange { get; set; }
 	public MassaStableModel MassaStable { get; } = new();
-	public MassaStableModel MassaStableEmpty { get; } = new();
-	public decimal WeightGross { get; private set; }
+    private decimal WeightGross { get; set; }
 	private decimal _weightNet;
-
 	public decimal WeightNet
 	{
 		get => _weightNet;
@@ -41,18 +38,21 @@ public class ManagerMassa : ManagerBase
 				_weightNet = value;
 		}
 	}
-	public int ScaleFactor { get; set; } = 1_000;
+    private int ScaleFactor { get; set; } = 1_000;
 	public MassaDeviceModel MassaDevice { get; private set; }
-	public ResponseParseModel ResponseParseGet { get; private set; }
-	public ResponseParseModel ResponseParseScalePar { get; private set; }
-	public ResponseParseModel ResponseParseSet { get; private set; }
+    private ResponseParseModel ResponseParseGet { get; set; }
+    private ResponseParseModel ResponseParseScalePar { get; set; }
+    private ResponseParseModel ResponseParseSet { get; set; }
 	public bool IsWeightNetFake { get; set; }
 
-	#endregion
+    #endregion
 
-	#region Constructor and destructor
+    #region Constructor and destructor
 
-	public ManagerMassa() : base()
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    public ManagerMassa() : base()
 	{
 		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 	}
@@ -99,22 +99,7 @@ public class ManagerMassa : ManagerBase
 	{
 		try
 		{
-			Open(
-				// Reopen.
-				() =>
-				{
-					Reopen();
-				},
-				// Request.
-				() =>
-				{
-					Request();
-				},
-				// Response.
-				() =>
-				{
-					Response();
-				});
+			Open(Reopen, Request, Response);
 		}
 		catch (Exception ex)
 		{
@@ -125,7 +110,7 @@ public class ManagerMassa : ManagerBase
 	private void Reopen()
 	{
 		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
-			MassaDevice?.Open();
+			MassaDevice.Open();
 		if (UserSessionHelper.Instance.PluScale.IsNew)
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, $"{LocaleCore.Scales.FieldThresholds}: {LocaleCore.Scales.StateDisable}");
 		else
@@ -141,12 +126,10 @@ public class ManagerMassa : ManagerBase
 	{
 		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
 		{
-			if (MassaDevice?.IsOpenPort == true)
+			if (MassaDevice.IsOpenPort)
 				GetMassa();
-			//else
-			//    ClearRequestsByLimit(0);
 
-			if (MassaDevice?.IsOpenPort == true)
+			if (MassaDevice.IsOpenPort)
 			{
 				//ClearRequestsByLimit(100);
 				//if (Requests.Count > 0)
@@ -207,20 +190,20 @@ public class ManagerMassa : ManagerBase
 				break;
 			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsException:
 				MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, 
-					LocaleCore.Scales.IsException(MassaDevice.PortController.CatchException.Message));
+					LocaleCore.Scales.IsException(MassaDevice.PortController.CatchException?.Message));
 				break;
 			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.Default:
 			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsConnectWithMassa:
 			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsDataExists:
 			default:
-				string massaDevice = MassaDevice is not null
-					? MassaDevice.IsOpenPort
-						? $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateResponsed} | "
-						: $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateNotResponsed} | "
-					: $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateDisable} | ";
-				MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, ResponseParseGet is null
-					? $"{massaDevice} {LocaleCore.Scales.Message}: ..."
-					: $"{massaDevice} {LocaleCore.Scales.Message}: {ResponseParseGet.Message}");
+                string massaDevice = //MassaDevice is not null ? 
+                    MassaDevice.IsOpenPort
+                        ? $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateResponsed} | "
+                        : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateNotResponsed} | ";
+					//: $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateDisable} | ";
+				MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, 
+                    //ResponseParseGet is null ? $"{massaDevice} {LocaleCore.Scales.Message}: ..." : 
+                    $"{massaDevice} {LocaleCore.Scales.Message}: {ResponseParseGet.Message}");
 				break;
 		}
 
@@ -232,19 +215,12 @@ public class ManagerMassa : ManagerBase
 		decimal weight = UserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluNestingFk.WeightTare;
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, MassaStable.IsStable
 			? $"{weight:0.000} {LocaleCore.Scales.WeightUnitKg}"
-			:
-#if DEBUG
-			$"{LocaleCore.Scales.WeightingIsCalc}" +
-			$" ({(ushort)MassaStable.StopwatchStable.Elapsed.TotalMilliseconds})");
-#else
-                $"{LocaleCore.Scales.WeightingIsCalc}");
-#endif
-
+			: $"{LocaleCore.Scales.WeightingIsCalc}");
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaPluDescription,
 			$"{LocaleCore.Scales.WeightingProcess}: " +
-			(UserSessionHelper.Instance.PluScale.IsNew ? $"{0:0.000} " : $"{WeightNet:0.000} ") +
+			(UserSessionHelper.Instance.PluScale.IsNew ? "{0:0.000} " : $"{WeightNet:0.000} ") +
 			$"{LocaleCore.Scales.WeightUnitKg} | {LocaleCore.Scales.RequestParameters}" +
-			(ResponseParseScalePar is null ? string.Empty : $" | {ResponseParseScalePar.Message}"));
+			$" | {ResponseParseScalePar.Message}");
 	}
 
 	private void SetControlsVisible(bool isTopControls, bool isVisible)
@@ -285,12 +261,8 @@ public class ManagerMassa : ManagerBase
 		base.Close();
 
 		MassaStable.StopwatchStable.Stop();
-		MassaDevice?.Close();
-		MassaExchange = null;
-		//while (Requests?.Count > 0)
-		//{
-		//    Requests.Take();
-		//}
+		MassaDevice.Close();
+		MassaExchange = new();
 	}
 
 	public new void ReleaseManaged()
@@ -298,14 +270,13 @@ public class ManagerMassa : ManagerBase
 		SetControlsVisible(true, false);
 		SetControlsVisible(false, false);
 
-		ResponseParseScalePar = null;
-		ResponseParseGet = null;
-		ResponseParseSet = null;
+		ResponseParseScalePar = new();
+		ResponseParseGet = new();
+		ResponseParseSet = new();
 
-		//Requests?.Dispose();
-		MassaExchange = null;
-		MassaRequest = null;
-		MassaDevice?.Dispose(true);
+		MassaExchange = new();
+		MassaRequest = new();
+		MassaDevice.Dispose(true);
 
 		base.ReleaseManaged();
 	}
@@ -364,31 +335,34 @@ public class ManagerMassa : ManagerBase
 				massaExchange.Request = MassaRequest.CMD_SET_ZERO;
 				break;
 		}
-		if (massaExchange.Request is null)
-			return;
 
-		MassaDevice?.SendData(massaExchange);
+        MassaDevice.SendData(massaExchange);
 	}
 
 	private void GetData(MassaExchangeModel massaExchange, byte[] response)
 	{
 		lock (_locker)
 		{
-			if (response is null || response.Length == 0)
+			if (response.Length == 0)
 				return;
 
-			if (massaExchange is not null)
-			{
-				massaExchange.ResponseParse = new ResponseParseModel(massaExchange.CmdType, response);
-				ParseSetResponse(massaExchange);
-				ParseSetMassa(massaExchange);
-			}
+			massaExchange.ResponseParse = new(massaExchange.CmdType, response);
+			ParseSetResponse(massaExchange);
+			ParseSetMassa(massaExchange);
 		}
 	}
 
 	private void ParseSetResponse(MassaExchangeModel massaExchange)
 	{
-		switch (massaExchange.CmdType)
+        if (massaExchange is null)
+        {
+            ResponseParseGet = new();
+            ResponseParseScalePar = new();
+            ResponseParseSet = new();
+            return;
+        }
+
+        switch (massaExchange.CmdType)
 		{
 			case MassaCmdType.GetMassa:
 				ResponseParseGet = massaExchange.ResponseParse;
@@ -460,14 +434,14 @@ public class ManagerMassa : ManagerBase
 		SetZero();
 	}
 
-	public void GetInit1() => MassaExchange = new(MassaCmdType.UdpPoll);
-	public void GetInit2() => MassaExchange = new(MassaCmdType.GetInit2);
-	public void GetInit3() => MassaExchange = new(MassaCmdType.GetInit3);
-	public void GetMassa() => MassaExchange = new(MassaCmdType.GetMassa);
-	public void GetScalePar() => MassaExchange = new(MassaCmdType.GetScalePar);
-	public void GetScaleParAfter() => MassaExchange = new(MassaCmdType.GetScaleParAfter);
-	public void SetWeightTare(int weightTare) => MassaExchange = new(MassaCmdType.SetTare, weightTare);
-	public void SetZero() => MassaExchange = new(MassaCmdType.SetZero);
+    private void GetInit1() => MassaExchange = new(MassaCmdType.UdpPoll);
+    private void GetInit2() => MassaExchange = new(MassaCmdType.GetInit2);
+    private void GetInit3() => MassaExchange = new(MassaCmdType.GetInit3);
+    private void GetMassa() => MassaExchange = new(MassaCmdType.GetMassa);
+    private void GetScalePar() => MassaExchange = new(MassaCmdType.GetScalePar);
+    private void GetScaleParAfter() => MassaExchange = new(MassaCmdType.GetScaleParAfter);
+    private void SetWeightTare(int weightTare) => MassaExchange = new(MassaCmdType.SetTare, weightTare);
+    private void SetZero() => MassaExchange = new(MassaCmdType.SetZero);
 
 	#endregion
 }

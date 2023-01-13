@@ -9,16 +9,15 @@ public class DisposableBase : IDisposable
 {
     #region Public and private fields, properties, constructor
 
-    public bool IsOpen { get; private set; }
-    private readonly ushort _maxCount = ushort.MaxValue;
+    protected bool IsOpen { get; private set; }
+    private const ushort MaxCount = ushort.MaxValue;
     private ushort _reopenCount;
     public ushort ReopenCount
     {
         get => _reopenCount;
         set
         {
-            if (value >= _maxCount)
-                value = 0;
+            if (value >= MaxCount) value = 0;
             _reopenCount = value;
         }
     }
@@ -28,8 +27,7 @@ public class DisposableBase : IDisposable
         get => _requestCount;
         set
         {
-            if (value >= _maxCount)
-                value = 0;
+            if (value >= MaxCount) value = 0;
             _requestCount = value;
         }
     }
@@ -39,22 +37,17 @@ public class DisposableBase : IDisposable
         get => _responseCount;
         set
         {
-            if (value >= _maxCount)
-                value = 0;
+            if (value >= MaxCount) value = 0;
             _responseCount = value;
         }
     }
-    public bool IsDispose { get; private set; }
-    public CloseCallback? CloseCaller { get; private set; }
-    public ReleaseManagedCallback? ReleaseManagedResourcesCaller { get; private set; }
-    public ReleaseUnmanagedCallback? ReleaseUnmanagedResourcesCaller { get; private set; }
+    private bool IsDispose { get; set; }
+    private CloseCallback? CloseCaller { get; set; }
+    private ReleaseManagedCallback? ReleaseManagedResourcesCaller { get; set; }
+    private ReleaseUnmanagedCallback? ReleaseUnmanagedResourcesCaller { get; set; }
     private readonly object _locker = new();
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public DisposableBase()
+    protected DisposableBase()
     {
         SetDefault();
     }
@@ -68,7 +61,7 @@ public class DisposableBase : IDisposable
         IsDispose = false;
     }
 
-    public void Init(CloseCallback close, ReleaseManagedCallback releaseManaged, ReleaseUnmanagedCallback releaseUnmanaged)
+    protected void Init(CloseCallback close, ReleaseManagedCallback releaseManaged, ReleaseUnmanagedCallback releaseUnmanaged)
     {
         CheckIsDisposed();
         lock (_locker)
@@ -89,7 +82,7 @@ public class DisposableBase : IDisposable
 
     #region Public and private methods
 
-    public void CheckIsDisposed()
+    protected void CheckIsDisposed()
     {
         if (IsDispose)
         {
@@ -97,7 +90,7 @@ public class DisposableBase : IDisposable
         }
     }
 
-    public void Open()
+    protected void Open()
     {
         CheckIsDisposed();
         lock (_locker)
@@ -107,7 +100,7 @@ public class DisposableBase : IDisposable
         }
     }
 
-    public void Close()
+    protected void Close()
     {
         // For Close - don't use check for disposing.
         //CheckIsDisposed(filePath, lineNumber, memberName);

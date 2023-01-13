@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 namespace ScalesUI.Forms;
 
 /// <summary>
@@ -33,7 +34,7 @@ public partial class PlusForm : Form
 
     private void PluListForm_Load(object sender, EventArgs e)
     {
-        try
+        ActionUtils.ActionTryCatch(this, () =>
         {
             SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale), false, false);
             sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
@@ -47,11 +48,7 @@ public partial class PlusForm : Form
             ControlPluModel[,] controls = CreateControls();
             Setup(tableLayoutPanelPlu, controls);
             SetupSizes(controls);
-        }
-        catch (Exception ex)
-        {
-            WpfUtils.CatchException(ex, this, true, true, true);
-        }
+        });
     }
 
     private void LoadFormControls()

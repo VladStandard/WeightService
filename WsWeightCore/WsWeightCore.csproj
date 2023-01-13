@@ -415,22 +415,22 @@
     <Compile Include="Wpf\WpfPageLoader.Designer.cs">
       <DependentUpon>WpfPageLoader.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Pages\PageDevice.xaml.cs">
-      <DependentUpon>PageDevice.xaml</DependentUpon>
+    <Compile Include="Wpf\Pages\WpfPageDevice.xaml.cs">
+      <DependentUpon>WpfPageDevice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Pages\PageMessageBox.xaml.cs">
-      <DependentUpon>PageMessageBox.xaml</DependentUpon>
+    <Compile Include="Wpf\Pages\WpfPageMessageBox.xaml.cs">
+      <DependentUpon>WpfPageMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Pages\PagePinCode.xaml.cs">
-      <DependentUpon>PagePinCode.xaml</DependentUpon>
+    <Compile Include="Wpf\Pages\WpfPagePinCode.xaml.cs">
+      <DependentUpon>WpfPagePinCode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Pages\PagePluNestingFk.xaml.cs">
-      <DependentUpon>PagePluNestingFk.xaml</DependentUpon>
+    <Compile Include="Wpf\Pages\WpfPagePluNestingFk.xaml.cs">
+      <DependentUpon>WpfPagePluNestingFk.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Pages\PageSqlSettings.xaml.cs">
-      <DependentUpon>PageSqlSettings.xaml</DependentUpon>
+    <Compile Include="Wpf\Pages\WpfPageSqlSettings.xaml.cs">
+      <DependentUpon>WpfPageSqlSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Pages\XamlPageBase.cs" />
+    <Compile Include="Wpf\Pages\WpfPageBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -472,27 +472,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\Pages\PageDevice.xaml">
+    <Page Include="Wpf\Pages\WpfPageDevice.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Pages\PageMessageBox.xaml">
+    <Page Include="Wpf\Pages\WpfPageMessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Pages\PagePinCode.xaml">
+    <Page Include="Wpf\Pages\WpfPagePinCode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Pages\PagePluNestingFk.xaml">
+    <Page Include="Wpf\Pages\WpfPagePluNestingFk.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Pages\PageSqlSettings.xaml">
+    <Page Include="Wpf\Pages\WpfPageSqlSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Pages\XamlResourceDictionary.xaml">
+    <Page Include="Wpf\Pages\WpfResourceDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

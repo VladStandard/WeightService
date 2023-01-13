@@ -10,7 +10,7 @@ using WeightCore.Helpers;
 namespace WeightCore.Wpf.Pages;
 #nullable enable
 
-public class XamlPageBase : UserControl
+public class WpfPageBase : UserControl
 {
 	#region Public and private fields, properties, constructor
 
@@ -21,7 +21,7 @@ public class XamlPageBase : UserControl
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	protected XamlPageBase()
+	protected WpfPageBase()
 	{
 		UserSession = UserSessionHelper.Instance;
 		Result = System.Windows.Forms.DialogResult.Cancel;

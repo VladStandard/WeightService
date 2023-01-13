@@ -394,9 +394,9 @@ public class DataContextModel
         if (PluBundleFks.Count > 0)
         {
             PluBundleFkModel bundleFk = PluBundleFks.First();
-            if (bundleFk.Plu.IdentityIsNew)
+            if (bundleFk.Plu.IsNew)
                 bundleFk.Plu = DataAccess.GetItemNewEmpty<PluModel>();
-            if (bundleFk.Bundle.IdentityIsNew)
+            if (bundleFk.Bundle.IsNew)
                 bundleFk.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();
         }
 
@@ -439,9 +439,9 @@ public class DataContextModel
         PluNestingFks = DataAccess.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PluNestingFks.Count > 1)
             PluNestingFks = PluNestingFks.OrderByDescending(item => item.ChangeDt).ToList();
-        if (PluNestingFks.Exists(x => x.IdentityIsNew))
+        if (PluNestingFks.Exists(x => x.IsNew))
         {
-            PluNestingFkModel pluNestingFk = PluNestingFks.Find(x => x.IdentityIsNew);
+            PluNestingFkModel pluNestingFk = PluNestingFks.Find(x => x.IsNew);
             pluNestingFk.PluBundle = DataAccess.GetItemNewEmpty<PluBundleFkModel>();
             pluNestingFk.PluBundle.Plu = DataAccess.GetItemNewEmpty<PluModel>();
             pluNestingFk.PluBundle.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();

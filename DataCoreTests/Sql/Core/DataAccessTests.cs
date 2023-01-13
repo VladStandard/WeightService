@@ -117,7 +117,7 @@ internal class DataAccessTests
 	        List<DeviceTypeFkModel> deviceTypesFks = DataCore.DataAccess.GetListDevicesTypesFks(true, false, false);
 	        foreach (DeviceTypeFkModel deviceTypeFk in deviceTypesFks)
 	        {
-		        if (deviceTypeFk.Device.IdentityIsNotNew)
+		        if (deviceTypeFk.Device.IsNotNew)
 		        {
 			        DeviceScaleFkModel deviceScaleFks = DataCore.DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
 			        if (deviceTypeFk.Device.Name.Equals("SCALES-MON-101"))

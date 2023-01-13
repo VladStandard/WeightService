@@ -16,11 +16,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
 	[XmlIgnore] public virtual SqlFieldIdentityModel Identity { get; }
 	[XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
 	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
-	[Obsolete(@"Use IsNew")]
-	[XmlIgnore] public virtual bool IdentityIsNew => Identity.IsNew();
 	[XmlIgnore] public virtual bool IsNew => Identity.IsNew();
-    [Obsolete(@"Use IsNotNew")]
-    [XmlIgnore] public virtual bool IdentityIsNotNew => Identity.IsNotNew();
 	[XmlIgnore] public virtual bool IsNotNew => Identity.IsNotNew();
 	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, SqlFieldIdentityEnum.Id);
 	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, SqlFieldIdentityEnum.Uid);

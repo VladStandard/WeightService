@@ -72,8 +72,8 @@ public static class SqlTableBaseExt
 		{
 			nameof(SqlTableBase.IdentityValueId) => true,
 			nameof(SqlTableBase.IdentityValueUid) => true,
-			nameof(SqlTableBase.IdentityIsNew) => true,
-			nameof(SqlTableBase.IdentityIsNotNew) => true,
+			nameof(SqlTableBase.IsNew) => true,
+			nameof(SqlTableBase.IsNotNew) => true,
 			nameof(SqlTableBase.CreateDt) => true,
 			nameof(SqlTableBase.ChangeDt) => true,
 			nameof(SqlTableBase.IsMarked) => true,
@@ -90,8 +90,8 @@ public static class SqlTableBaseExt
 		{
 			nameof(SqlTableBase.IdentityValueId) => $"{item.IdentityValueId}",
 			nameof(SqlTableBase.IdentityValueUid) => $"{item.IdentityValueUid}",
-			nameof(SqlTableBase.IdentityIsNew) => $"{item.IdentityIsNew}",
-			nameof(SqlTableBase.IdentityIsNotNew) => $"{item.IdentityIsNotNew}",
+			nameof(SqlTableBase.IsNew) => $"{item.IsNew}",
+			nameof(SqlTableBase.IsNotNew) => $"{item.IsNotNew}",
 			nameof(SqlTableBase.CreateDt) => StringUtils.FormatDtRus(item.CreateDt, true, true),
 			nameof(SqlTableBase.ChangeDt) => StringUtils.FormatDtRus(item.ChangeDt, true, true),
 			nameof(SqlTableBase.IsMarked) => $"{item.IsMarked}",

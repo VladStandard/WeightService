@@ -8,13 +8,13 @@ using System.Windows.Controls;
 namespace WeightCore.Wpf.Pages;
 
 /// <summary>
-/// Interaction logic for PageSettings.xaml
+/// Interaction logic for WpfPageSqlSettings.xaml
 /// </summary>
-public partial class PageSqlSettings
+public partial class WpfPageSqlSettings
 {
 	#region Public and private fields, properties, constructor
 
-	public PageSqlSettings()
+	public WpfPageSqlSettings()
 	{
 		InitializeComponent();
 	}

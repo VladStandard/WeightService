@@ -57,7 +57,7 @@ public class PluLabelModel : SqlTableBase
     [XmlElement]
     public virtual DateTime ExpirationDt
     {
-        get => PluScale.IdentityIsNew ? DateTime.MinValue : ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
+        get => PluScale.IsNew ? DateTime.MinValue : ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
         // This code need for print labels.
         set => _ = value;
     }

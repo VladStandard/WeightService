@@ -8,16 +8,16 @@ using System.Windows.Controls;
 namespace WeightCore.Wpf.Pages;
 
 /// <summary>
-/// Interaction logic for PagePin.xaml
+/// Interaction logic for WpfPagePinCode.xaml
 /// </summary>
-public partial class PagePinCode
+public partial class WpfPagePinCode
 {
 	#region Public and private fields, properties, constructor
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PagePinCode()
+	public WpfPagePinCode()
 	{
 		InitializeComponent();
 	}
@@ -48,14 +48,6 @@ public partial class PagePinCode
 
 	private void ButtonEnter_Click(object sender, RoutedEventArgs e)
 	{
-		//if (_settings.PinCode.AccessGranted)
-		//{
-		//    _settings.ActivePage = WpfActivePage.Settings;
-		//}
-		//else
-		//{
-		//    ButtonClear_Click(sender, e);
-		//}
 		Result = System.Windows.Forms.DialogResult.OK;
 		OnClose?.Invoke(sender, e);
 	}

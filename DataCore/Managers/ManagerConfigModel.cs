@@ -62,7 +62,7 @@ public class ManagerConfigModel
 			}
 		}
 		stopwatchSleep.Stop();
-	}
+    }
 
 	public void WaitSync(Stopwatch? stopwatch, ushort wait)
 	{

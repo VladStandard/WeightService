@@ -49,7 +49,7 @@ public class ProductSeriesDirect : SqlSerializeBase, ISerializable
 
     public void Load()
     {
-        if (Scale is null || Scale.IdentityIsNew) 
+        if (Scale is null || Scale.IsNew) 
         {
             throw new("Equipment instance not identified. Set [Scale].");
         }

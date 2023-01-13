@@ -84,19 +84,19 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 		}
 	}
 
-	public void PortResponseCallback(object sender, SerialPortEventArgs e)
+    private void PortResponseCallback(object sender, SerialPortEventArgs e)
 	{
 		lock (_locker)
 		{
 			IsResponseResult = true;
 			CheckIsDisposed();
 			ReceiveBytesCount += e.ReceivedBytes.Length;
-			_massaResponseCallback?.Invoke(_massaExchange, e.ReceivedBytes);
-			_massaExchange = null;
+			_massaResponseCallback(_massaExchange, e.ReceivedBytes);
+			_massaExchange = new();
 		}
 	}
 
-	public void PortExceptionCallback(Exception ex,
+    private void PortExceptionCallback(Exception ex,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		IsExceptionResult = true;

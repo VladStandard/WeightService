@@ -2,40 +2,51 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WeightCore.MassaK;
 
 public class ResponseMassaModel
 {
-	public int Weight;
-	public int ScaleFactor = 1_000;
-	public byte _division;
-	public byte Division
-	{
-		get => _division;
-		set
-		{
-			_division = value;
-			ScaleFactor = value switch
-			{
-				0x00 => 10000,
-				0x01 => 1000,
-				0x02 => 100,
-				0x03 => 10,
-				0x04 => 1,
-				_ => 1_000,
-			};
-		}
-	}
-	public byte IsStable;
-	public byte Net;
-	public byte Zero;
-	public int Tare;
+	#region Public and private fields, properties, constructor
 
-	public ResponseMassaModel(byte[] response)
+    public int Weight { get; }
+	private byte Division { get; }
+    public int ScaleFactor => Division switch
+    {
+        0x00 => 10000,
+        0x01 => 1000,
+        0x02 => 100,
+        0x03 => 10,
+        0x04 => 1,
+        _ => 1_000,
+    };
+    public byte IsStable { get; }
+    private byte Net { get; }
+    private byte Zero { get; }
+    public int Tare { get; }
+
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    public ResponseMassaModel()
 	{
-		if (response is null || response.Length < 10)
+		Weight = default;
+		Division = default;
+		IsStable = default;
+		Net = default;
+		Zero = default;
+		Tare = default;
+	}
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="response"></param>
+    public ResponseMassaModel(IReadOnlyList<byte> response)
+	{
+		if (response.Count < 10)
 			return;
 		Weight = BitConverter.ToInt32(response.Skip(6).Take(4).ToArray(), 0);
 		Division = response[10];
@@ -44,4 +55,6 @@ public class ResponseMassaModel
 		Zero = response[13];
 		Tare = BitConverter.ToInt32(response.Skip(14).Take(4).ToArray(), 0);
 	}
+
+	#endregion
 }

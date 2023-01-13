@@ -346,9 +346,10 @@
             // 
             // pictureBoxClose
             // 
-            this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxClose.BackColor = System.Drawing.Color.DarkGray;
             this.pictureBoxClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxClose.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxClose.Enabled = false;
             this.pictureBoxClose.Image = global::ScalesUI.Properties.Resources.exit_1;
             this.pictureBoxClose.Location = new System.Drawing.Point(915, 3);
             this.pictureBoxClose.Name = "pictureBoxClose";
@@ -492,7 +493,6 @@
             this.fieldPlu.Text = "PLU";
             this.fieldPlu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldPlu.Visible = false;
-            this.fieldPlu.Click += new System.EventHandler(this.ActionPlu);
             // 
             // tableLayoutPanelRight
             // 

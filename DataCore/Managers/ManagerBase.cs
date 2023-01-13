@@ -24,19 +24,22 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	private Task? TaskReopen { get; set; }
 	private Task? TaskRequest { get; set; }
 	private Task? TaskResponse { get; set; }
-	private readonly object _locker = new();
+    public bool IsReopenSuspend { get; set; }
+    public bool IsRequestSuspend { get; set; }
+    public bool IsResponseSuspend { get; set; }
+    private readonly object _locker = new();
 
 	#endregion
 
 	#region Public and private methods
 
-	public ManagerBase() : base()
+    protected ManagerBase() : base()
 	{
 		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 		Config = new();
 	}
 
-	public void Init(TaskTypeEnum taskType, InitCallback? initCallback, ManagerConfigModel waitConfig)
+    protected void Init(TaskTypeEnum taskType, InitCallback? initCallback, ManagerConfigModel waitConfig)
 	{
 		lock (_locker)
 		{
@@ -46,10 +49,9 @@ public class ManagerBase : DisposableBase, IDisposableBase
 		}
 	}
 
-	public void Open(ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
+    protected void Open(ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
 	{
 		Close();
-		//if (IsOpen) return;
 		Open();
 
 		MutexReopen = null;
@@ -165,7 +167,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 		TaskReopen = Task.Run(async () =>
 		{
 			ReopenCount = 0;
-			while (IsOpen)
+			while (IsOpen && !IsReopenSuspend)
 			{
 				ReopenCount++;
 				MutexReopen ??= new();
@@ -184,12 +186,6 @@ public class ManagerBase : DisposableBase, IDisposableBase
 						callback?.Invoke();
 					}
 				}
-				//catch (TaskCanceledException tcex)
-				//{
-				//    // Not the problem.
-				//    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-				//    WaitConfig.WaitSync(WaitConfig.WaitException);
-				//}
 				catch (TaskCanceledException)
 				{
 					// Not the problem.
@@ -292,7 +288,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 		TaskRequest = Task.Run(async () =>
 		{
 			RequestCount = 0;
-			while (IsOpen)
+			while (IsOpen && !IsRequestSuspend)
 			{
 				RequestCount++;
 				MutexRequest ??= new();
@@ -311,12 +307,6 @@ public class ManagerBase : DisposableBase, IDisposableBase
 						callback?.Invoke();
 					}
 				}
-				//catch (TaskCanceledException tcex)
-				//{
-				//    // Not the problem.
-				//    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-				//    WaitConfig.WaitSync(WaitConfig.WaitException);
-				//}
 				catch (TaskCanceledException)
 				{
 					// Not the problem.
@@ -419,7 +409,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 		TaskResponse = Task.Run(async () =>
 		{
 			ResponseCount = 0;
-			while (IsOpen)
+			while (IsOpen && !IsResponseSuspend)
 			{
 				ResponseCount++;
 				MutexResponse ??= new();
@@ -438,12 +428,6 @@ public class ManagerBase : DisposableBase, IDisposableBase
 						callback?.Invoke();
 					}
 				}
-				//catch (TaskCanceledException tcex)
-				//{
-				//    // Not the problem.
-				//    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-				//    WaitConfig.WaitSync(WaitConfig.WaitException);
-				//}
 				catch (TaskCanceledException)
 				{
 					// Not the problem.
@@ -461,7 +445,6 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	{
 		base.Close();
 
-		//if (!IsOpen) return;
 		CheckIsDisposed();
 
 		CtsReopen?.Cancel();
@@ -521,5 +504,19 @@ public class ManagerBase : DisposableBase, IDisposableBase
 		//
 	}
 
-	#endregion
+    public void Suspend()
+    {
+        IsReopenSuspend = true;
+        IsRequestSuspend = true;
+        IsResponseSuspend = true;
+    }
+
+    public void UnSuspend()
+    {
+        IsReopenSuspend = true;
+        IsRequestSuspend = true;
+        IsResponseSuspend = true;
+    }
+
+    #endregion
 }

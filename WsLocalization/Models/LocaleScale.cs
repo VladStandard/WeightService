@@ -76,7 +76,7 @@ public class LocaleScale
     public string HostUidQuestionWriteToFile => Lang == Lang.English ? "Write a new UID to the file?" : "Записать новый УИД в файл?";
     public string IsConnectWithMassa => Lang == Lang.English ? "The scales are connected." : "Весы подключены.";
     public string IsDataNotExists => Lang == Lang.English ? "Check the connection of the scales!" : "Проверьте подключение весов!";
-    public string IsException(string message) => Lang == Lang.English ? $"Error! {message}" : $"Ошибка! {message}";
+    public string IsException(string? message) => Lang == Lang.English ? $"Error! {message}" : $"Ошибка! {message}";
     public string IsNotConnectWithMassa => Lang == Lang.English ? "Check the connection of the USB-adapter!" : "Проверьте подключение ЮСБ-адапетра!";
     public string Labels => Lang == Lang.English ? "Labels" : "Этикетки";
     public string Line => Lang == Lang.English ? "Ling" : "Строка";

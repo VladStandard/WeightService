@@ -9,25 +9,27 @@ namespace WeightCore.MassaK;
 
 public class ResponseParseModel
 {
-	public MassaCmdType CmdType { get; }
-	public byte[] Response { get; }
-	public byte[] Header { get; }
-	public byte[] Len { get; }
-	public ushort LenAsUshort { get; }
-	public byte Command { get; }
-	public byte[] Body { get; }
-	public byte[] Crc { get; }
-	public byte[] CrcCalc { get; }
-	public bool IsValidHeaders { get; }
-	public bool IsValidLength { get; }
-	public bool IsValidCommand { get; }
-	public bool IsValidCrc { get; }
+	#region Public and private fields, properties, constructor
+
+	private MassaCmdType CmdType { get; }
+	private byte[] Response { get; }
+	private byte[] Header { get; }
+	private byte[] Len { get; }
+	private ushort LenAsUshort { get; }
+	private byte Command { get; }
+	private byte[] Body { get; }
+	private byte[] Crc { get; }
+	private byte[] CrcCalc { get; }
+	private bool IsValidHeaders { get; }
+	private bool IsValidLength { get; }
+	private bool IsValidCommand { get; }
+	private bool IsValidCrc { get; }
 	public bool IsValidAll => IsValidHeaders && IsValidLength && IsValidCommand && IsValidCrc;
-	public byte ErrorCode
+	private byte ErrorCode
 	{
 		get
 		{
-			if (Body is null || Body.Length < 6)
+			if (Body.Length < 6)
 				return 0x00;
 			switch (CmdType)
 			{
@@ -85,7 +87,6 @@ public class ResponseParseModel
 			return 0x00;
 		}
 	}
-        
 	public string Message
 	{
 		get
@@ -186,10 +187,13 @@ public class ResponseParseModel
 					if (Command == 0x27) return "Передача параметров доступа к сети Wi-Fi выполнена успешно";
 					if (Command == 0x28)
 					{
-						if (ErrorCode == 0x0A) return "Ошибка входных данных";
-						else if (ErrorCode == 0x0B) return "Ошибка сохранения данных";
-						else if (ErrorCode == 0x10) return "Интерфейс WiFi не поддерживается";
-						return "Ошибка выполнения команды";
+						return ErrorCode switch
+						{
+							0x0A => "Ошибка входных данных",
+							0x0B => "Ошибка сохранения данных",
+							0x10 => "Интерфейс WiFi не поддерживается",
+							_ => "Ошибка выполнения команды"
+						};
 					}
 					break;
 				case MassaCmdType.Nack:
@@ -199,13 +203,30 @@ public class ResponseParseModel
 			return string.Empty;
 		}
 	}
-
 	public ResponseMassaModel Massa { get; }
-	public ResponseScaleParModel ScalePar { get; }
 	private MassaCrcHelper MassaCrc { get; } = MassaCrcHelper.Instance;
 	private MassaRequestHelper MassaRequest { get; } = MassaRequestHelper.Instance;
 
-	public ResponseParseModel(MassaCmdType cmdType, byte[] response)
+	/// <summary>
+	/// Default constructor.
+	/// </summary>
+	public ResponseParseModel()
+	{
+		Body = Array.Empty<byte>();
+		Crc = Array.Empty<byte>();
+		CrcCalc = Array.Empty<byte>();
+		Response = Array.Empty<byte>();
+		Header = Array.Empty<byte>();
+		Len = Array.Empty<byte>();
+		Massa = new();
+	}
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="cmdType"></param>
+	/// <param name="response"></param>
+	public ResponseParseModel(MassaCmdType cmdType, byte[] response) : this()
 	{
 		CmdType = cmdType;
 		Response = response;
@@ -214,7 +235,7 @@ public class ResponseParseModel
 		IsValidHeaders = false;
 		Len = new byte[2];
 		IsValidLength = false;
-		Command = new byte();
+		Command = new();
 		IsValidCommand = false;
 		IsValidCrc = false;
 
@@ -245,10 +266,12 @@ public class ResponseParseModel
 				case MassaCmdType.GetMassa:
 					Massa = new(Response);
 					break;
-				case MassaCmdType.GetScalePar:
-					ScalePar = new ResponseScaleParModel(Response);
-					break;
+					//case MassaCmdType.GetScalePar:
+					//	ScalePar = new(Response);
+					//	break;
 			}
 		}
 	}
+
+	#endregion
 }

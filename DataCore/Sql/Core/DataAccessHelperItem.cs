@@ -50,7 +50,7 @@ public partial class DataAccessHelper
 
     private PluModel? GetItemPluNullable(PluScaleModel pluScale)
     {
-        if (!pluScale.IdentityIsNotNew || !pluScale.Plu.IdentityIsNotNew) return null;
+        if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return null;
         
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
             nameof(SqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, false, false);
@@ -62,7 +62,7 @@ public partial class DataAccessHelper
 
     public PluTemplateFkModel? GetItemPluTemplateFkNullable(PluModel plu)
     {
-	    if (plu.IdentityIsNew) return null;
+	    if (plu.IsNew) return null;
 	    SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 		    $"{nameof(PluTemplateFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
 		    false, false);
@@ -74,7 +74,7 @@ public partial class DataAccessHelper
 
     public PluBundleFkModel? GetItemPluBundleFkNullable(PluModel plu, TableScaleModels.Bundles.BundleModel bundle)
     {
-	    if (plu.IdentityIsNew) return null;
+	    if (plu.IsNew) return null;
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
             $"{nameof(PluBundleFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, false, false);
         SqlCrudConfigModel sqlCrudConfigBundle = SqlCrudConfigUtils.GetCrudConfig(
@@ -88,7 +88,7 @@ public partial class DataAccessHelper
 
     private TemplateModel? GetItemTemplateNullable(PluScaleModel pluScale)
     {
-        if (pluScale.IdentityIsNew || pluScale.Plu.IdentityIsNew) return null;
+        if (pluScale.IsNew || pluScale.Plu.IsNew) return null;
         PluModel plu = GetItemPluNotNullable(pluScale);
         return GetItemPluTemplateFkNullable(plu)?.Template;
     }
@@ -100,7 +100,7 @@ public partial class DataAccessHelper
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), appName, false, false);
         AppModel app = GetItemNotNullable<AppModel>(sqlCrudConfig);
-        if (app.IdentityIsNew)
+        if (app.IsNew)
         {
             app = new()
             {
@@ -129,7 +129,7 @@ public partial class DataAccessHelper
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
             nameof(SqlTableBase.Name), name, true, false);
         DeviceModel device = GetItemNotNullable<DeviceModel>(sqlCrudConfig);
-        if (device.IdentityIsNew)
+        if (device.IsNew)
         {
             device = new()
             {

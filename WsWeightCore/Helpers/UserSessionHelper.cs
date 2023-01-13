@@ -445,19 +445,16 @@ public class UserSessionHelper : BaseViewModel
 			return false;
 		}
 		return true;
-	}
+    }
 
-	/// <summary>
-	/// Check Massa-K device exists.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <returns></returns>
+	[Obsolete(@"Use CheckWeightMassaDeviceExists()")]
 	public bool CheckWeightMassaDeviceExists(IWin32Window owner)
-	{
+    {
         if (Debug.IsDebug) return true;
 
-        if (!PluScale.IsNew && !PluScale.Plu.IsCheckWeight) return true;
-		if (ManagerControl.Massa is null)
+        if (PluScale is { IsNew: false, Plu.IsCheckWeight: false }) return true;
+
+        if (ManagerControl.Massa is null)
 		{
 			WpfUtils.ShowNewOperationControl(owner,
 				LocaleCore.Scales.MassaIsNotFound, true, LogTypeEnum.Warning,
@@ -466,9 +463,15 @@ public class UserSessionHelper : BaseViewModel
 			return false;
 		}
 		return true;
-	}
+    }
 
-	/// <summary>
+    /// <summary>
+    /// Check Massa-K device exists.
+    /// </summary>
+    /// <returns></returns>
+    public bool CheckWeightMassaDeviceExists() => Debug.IsDebug || PluScale is { IsNew: false, Plu.IsCheckWeight: false } || true;
+
+    /// <summary>
 	/// Check Massa-K is stable.
 	/// </summary>
 	/// <param name="owner"></param>

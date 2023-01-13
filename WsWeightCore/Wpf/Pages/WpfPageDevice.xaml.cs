@@ -6,16 +6,16 @@ using System.Windows;
 namespace WeightCore.Wpf.Pages;
 
 /// <summary>
-/// Interaction logic for PageSqlSettings.xaml
+/// Interaction logic for WpfPageDevice.xaml
 /// </summary>
-public partial class PageDevice
+public partial class WpfPageDevice
 {
     #region Public and private fields, properties, constructor
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PageDevice()
+    public WpfPageDevice()
     {
         InitializeComponent();
         SetScale(comboBoxScale);
