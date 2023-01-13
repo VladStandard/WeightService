@@ -24,6 +24,7 @@ using MvvmHelpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -123,7 +124,7 @@ public class UserSessionHelper : BaseViewModel
             }
 			else
 			{
-				DataCore.Sql.Models.SqlCrudConfigModel sqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
+				SqlCrudConfigModel sqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
 				List<PluNestingFkModel> pluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(sqlCrudConfigList);
 				PluNestingFkModel pluNestingFk = pluNestingFks.Find(x => x.IsNew);
                 List<PluNestingFkModel> temp = new() { pluNestingFk };
@@ -134,7 +135,12 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-    
+    public readonly ushort PageColumnCount = 4;
+    public readonly ushort PageSize = 20;
+    public readonly ushort PageRowCount = 5;
+    public int PageNumber { get; set; }
+    public List<PluScaleModel> PluScales { get; private set; }
+
     private PluNestingFkModel _pluNestingFk;
 
     [XmlElement]
@@ -883,5 +889,21 @@ public class UserSessionHelper : BaseViewModel
 		return result;
 	}
 
-	#endregion
+    public void UpdatePluScales()
+    {
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(Scale, nameof(PluScaleModel.Scale), false, false);
+        sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
+        sqlCrudConfig.AddOrders(new(nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc));
+        sqlCrudConfig.IsResultOrder = true;
+        PluScales = DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
+    }
+    
+    public List<PluScaleModel> GetCurrentPlus()
+    {
+        IEnumerable<PluScaleModel> plusSkip = PluScales.Skip(PageNumber * PageSize);
+        IEnumerable<PluScaleModel> plusTake = plusSkip.Take(PageSize);
+        return plusTake.ToList();
+    }
+
+    #endregion
 }

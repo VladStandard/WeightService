@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
 namespace ScalesUI.Forms;
 
 /// <summary>
@@ -11,13 +10,8 @@ public partial class PlusForm : Form
 {
     #region Private fields and properties
 
-    private const ushort ColumnCount = 4;
-    private const ushort PageSize = 20;
-    private const ushort RowCount = 5;
     private DebugHelper Debug => DebugHelper.Instance;
     private FontsSettingsHelper FontsSettings => FontsSettingsHelper.Instance;
-    private List<PluScaleModel> PluScales { get; set; }
-    private int PageNumber { get; set; }
     private UserSessionHelper UserSession => UserSessionHelper.Instance;
 
     /// <summary>
@@ -36,24 +30,16 @@ public partial class PlusForm : Form
     {
         ActionUtils.ActionTryCatch(this, () =>
         {
-            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale), false, false);
-            sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
-            //sqlCrudConfig.AddOrders(new(nameof(PluScaleModel.Plu.Number), SqlFieldOrderEnum.Asc));
-            sqlCrudConfig.AddOrders(new(nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc));
-            sqlCrudConfig.IsResultOrder = true;
-            PluScales = UserSession.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
-
+            UserSession.UpdatePluScales();
             LoadFormControls();
 
-            ControlPluModel[,] controls = CreateControls();
-            Setup(tableLayoutPanelPlu, controls);
-            SetupSizes(controls);
+            Setup(tableLayoutPanelPlu);
         });
     }
 
     private void LoadFormControls()
     {
-        labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {PageNumber}";
+        labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
         buttonClose.Text = LocaleCore.Buttons.Close;
         buttonLeftRoll.Text = LocaleCore.Buttons.Previous;
         buttonRightRoll.Text = LocaleCore.Buttons.Next;
@@ -67,16 +53,16 @@ public partial class PlusForm : Form
 
     private ControlPluModel[,] CreateControls()
     {
-        List<PluScaleModel> plus = GetCurrentPlus();
-        ControlPluModel[,] controls = new ControlPluModel[ColumnCount, RowCount];
+        List<PluScaleModel> plus = UserSession.GetCurrentPlus();
+        ControlPluModel[,] controls = new ControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
         try
         {
-            for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < RowCount; ++rowNumber)
+            for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < UserSession.PageRowCount; ++rowNumber)
             {
-                for (ushort columnNumber = 0; columnNumber < ColumnCount; ++columnNumber)
+                for (ushort columnNumber = 0; columnNumber < UserSession.PageColumnCount; ++columnNumber)
                 {
                     if (buttonNumber >= plus.Count) break;
-                    ControlPluModel control = NewControlGroup(plus[buttonNumber], PageNumber, buttonNumber);
+                    ControlPluModel control = NewControlGroup(plus[buttonNumber], UserSession.PageNumber, buttonNumber);
                     controls[columnNumber, rowNumber] = control;
                     buttonNumber++;
                 }
@@ -89,16 +75,9 @@ public partial class PlusForm : Form
         return controls;
     }
 
-    private List<PluScaleModel> GetCurrentPlus()
-    {
-        IEnumerable<PluScaleModel> plusSkip = PluScales.Skip(PageNumber * PageSize);
-        IEnumerable<PluScaleModel> plusTake = plusSkip.Take(PageSize);
-        return plusTake.ToList();
-    }
-
     private ControlPluModel NewControlGroup(PluScaleModel pluScale, int pageNumber, ushort buttonNumber)
     {
-        int tabIndex = buttonNumber + pageNumber * PageSize;
+        int tabIndex = buttonNumber + pageNumber * UserSession.PageSize;
         Button buttonPlu = NewButtonPlu(pluScale.Plu, tabIndex);
         Label labelPluNumber = NewLabelPluNumber(pluScale, tabIndex, buttonPlu);
         Label labelPluType = NewLabelPluType(pluScale.Plu, tabIndex, buttonPlu);
@@ -130,7 +109,7 @@ public partial class PlusForm : Form
             BackColor = System.Drawing.SystemColors.Control,
             TabIndex = tabIndex,
         };
-        buttonPlu.Click += ButtonPlu_Click;
+        buttonPlu.Click += ButtonPluSelect_Click;
         return buttonPlu;
     }
 
@@ -149,7 +128,7 @@ public partial class PlusForm : Form
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluNumber.MouseClick += ButtonPlu_Click;
+        labelPluNumber.MouseClick += ButtonPluSelect_Click;
         return labelPluNumber;
     }
 
@@ -171,7 +150,7 @@ public partial class PlusForm : Form
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluNumber.MouseClick += ButtonPlu_Click;
+        labelPluNumber.MouseClick += ButtonPluSelect_Click;
         return labelPluNumber;
     }
 
@@ -190,7 +169,7 @@ public partial class PlusForm : Form
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluType.MouseClick += ButtonPlu_Click;
+        labelPluType.MouseClick += ButtonPluSelect_Click;
         return labelPluType;
     }
 
@@ -211,7 +190,7 @@ public partial class PlusForm : Form
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluCode.MouseClick += ButtonPlu_Click;
+        labelPluCode.MouseClick += ButtonPluSelect_Click;
         return labelPluCode;
     }
 
@@ -253,7 +232,7 @@ public partial class PlusForm : Form
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluTemplate.MouseClick += ButtonPlu_Click;
+        labelPluTemplate.MouseClick += ButtonPluSelect_Click;
         return labelPluTemplate;
     }
 
@@ -270,18 +249,16 @@ public partial class PlusForm : Form
         }
     }
 
-    private void ButtonPlu_Click(object sender, EventArgs e)
+    private void ButtonPluSelect_Click(object sender, EventArgs e)
     {
         try
         {
-            //UserSession.SetCurrentPlu(PluScales[tabIndex]);
             ushort tabIndex = 0;
             if (sender is Control control)
                 tabIndex = (ushort)control.TabIndex;
-            if (PluScales?.Count >= tabIndex)
+            if (UserSession.PluScales.Count >= tabIndex)
             {
-                UserSession.PluScale = PluScales[tabIndex];
-                //UserSession.Plu.LoadTemplate();
+                UserSession.PluScale = UserSession.PluScales[tabIndex];
                 DialogResult = DialogResult.OK;
             }
             Close();
@@ -294,17 +271,15 @@ public partial class PlusForm : Form
 
     private void ButtonPreviousRoll_Click(object sender, EventArgs e)
     {
-        int saveCurrentPage = PageNumber;
-        PageNumber = PageNumber > 0 ? PageNumber - 1 : 0;
-        if (PageNumber == saveCurrentPage)
+        int saveCurrentPage = UserSession.PageNumber;
+        UserSession.PageNumber = UserSession.PageNumber > 0 ? UserSession.PageNumber - 1 : 0;
+        if (UserSession.PageNumber == saveCurrentPage)
             return;
         try
         {
             tableLayoutPanelPlu.Visible = false;
-            labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {PageNumber}";
-            ControlPluModel[,] controls = CreateControls();
-            Setup(tableLayoutPanelPlu, controls);
-            SetupSizes(controls);
+            labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
+            Setup(tableLayoutPanelPlu);
         }
         catch (Exception ex)
         {
@@ -318,21 +293,19 @@ public partial class PlusForm : Form
 
     private void ButtonNextRoll_Click(object sender, EventArgs e)
     {
-        int saveCurrentPage = PageNumber;
-        int countPage = PluScales.Count / PageSize;
-        PageNumber = PageNumber < countPage ? PageNumber + 1 : countPage;
-        if (PageNumber > countPage)
-            PageNumber = countPage - 1;
-        if (PageNumber == saveCurrentPage)
+        int saveCurrentPage = UserSession.PageNumber;
+        int countPage = UserSession.PluScales.Count / UserSession.PageSize;
+        UserSession.PageNumber = UserSession.PageNumber < countPage ? UserSession.PageNumber + 1 : countPage;
+        if (UserSession.PageNumber > countPage)
+            UserSession.PageNumber = countPage - 1;
+        if (UserSession.PageNumber == saveCurrentPage)
             return;
 
         try
         {
             tableLayoutPanelPlu.Visible = false;
-            labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {PageNumber}";
-            ControlPluModel[,] controls = CreateControls();
-            Setup(tableLayoutPanelPlu, controls);
-            SetupSizes(controls);
+            labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
+            Setup(tableLayoutPanelPlu);
         }
         catch (Exception ex)
         {
@@ -389,8 +362,10 @@ public partial class PlusForm : Form
         panel.Controls.Clear();
     }
 
-    private void Setup(TableLayoutPanel panelPlu, ControlPluModel[,] controls)
+    private void Setup(TableLayoutPanel panelPlu)
     {
+        ControlPluModel[,] controls = CreateControls();
+
         panelPlu.Visible = false;
         ClearPanel(panelPlu);
         SetupPanel(panelPlu, (ushort)(controls.GetUpperBound(0) + 1), (ushort)(controls.GetUpperBound(1) + 1));
@@ -417,8 +392,10 @@ public partial class PlusForm : Form
             tableLayoutPanelActions.Dock = DockStyle.Fill;
         }
 
-        panelPlu.Refresh();
+        //panelPlu.Refresh();
         panelPlu.Visible = true;
+
+        SetupSizes(controls);
     }
 
     private void SetupSizes(ControlPluModel[,] controls)
