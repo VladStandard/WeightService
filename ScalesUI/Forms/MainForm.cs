@@ -3,7 +3,6 @@
 
 using DataCore.Helpers;
 using DataCore.Settings;
-using DataCore.Sql.Fields;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
@@ -75,7 +74,7 @@ public partial class MainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this, 
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 UserSession.StopwatchMain = Stopwatch.StartNew();
@@ -97,7 +96,7 @@ public partial class MainForm : Form
         _ = Task.Run(async () =>
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-	        ActionUtils.ActionTryCatchFinally(this,
+            ActionUtils.ActionTryCatchFinally(this,
                 () =>
                 {
                     Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
@@ -128,7 +127,7 @@ public partial class MainForm : Form
 
     private void MainForm_LoadResources()
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 System.Resources.ResourceManager resourceManager = new("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
@@ -148,7 +147,7 @@ public partial class MainForm : Form
 
     private void LoadManagerControl()
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 // Labels.
@@ -191,7 +190,7 @@ public partial class MainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 KeyboardMouseUnsubscribe();
@@ -216,7 +215,7 @@ public partial class MainForm : Form
                     LocaleData.Program.IsClosed + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
                     UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                 UserSession.StopwatchMain.Stop();
-	            ActionUtils.ActionMakeScreenShot(this);
+                ActionUtils.ActionMakeScreenShot(this);
             }
         );
     }
@@ -395,7 +394,7 @@ public partial class MainForm : Form
     {
         lock (_lockerHours)
         {
-	        ActionUtils.ActionTryCatch(this,
+            ActionUtils.ActionTryCatch(this,
                 () =>
                 {
                     if (Quartz is null) return;
@@ -578,7 +577,7 @@ public partial class MainForm : Form
 
     private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 switch (fieldResolution.Items[fieldResolution.SelectedIndex])
@@ -617,7 +616,7 @@ public partial class MainForm : Form
 
     private void FieldLang_SelectedIndexChanged(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
@@ -661,7 +660,7 @@ public partial class MainForm : Form
 
     private void ActionDevice(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 UserSession.ManagerControl.Massa.Close();
@@ -691,7 +690,7 @@ public partial class MainForm : Form
 
     private void ActionPluNestingFk(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 if (!ActionCheckPluIdentityIsNew()) return;
@@ -723,25 +722,25 @@ public partial class MainForm : Form
 
     private bool ActionCheckPluIdentityIsNew()
     {
-	    if (UserSession.PluScale.Plu.IsNew)
-	    {
-		    using WpfPageLoader wpfPageLoader = new(
-				PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
-			    { Width = 700, Height = 450 };
-		    wpfPageLoader.Text = LocaleCore.Action.ActionAccessDeny;
-		    wpfPageLoader.MessageBox.Caption = LocaleCore.Table.FieldPluIsNotSelected;
-		    wpfPageLoader.MessageBox.Message = LocaleCore.Table.FieldPluMustBeSelected;
-		    wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = Visibility.Visible;
-		    _ = wpfPageLoader.ShowDialog(this);
-		    wpfPageLoader.Close();
-		    return false;
-	    }
-	    return true;
+        if (UserSession.PluScale.Plu.IsNew)
+        {
+            using WpfPageLoader wpfPageLoader = new(
+                PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
+            { Width = 700, Height = 450 };
+            wpfPageLoader.Text = LocaleCore.Action.ActionAccessDeny;
+            wpfPageLoader.MessageBox.Caption = LocaleCore.Table.FieldPluIsNotSelected;
+            wpfPageLoader.MessageBox.Message = LocaleCore.Table.FieldPluMustBeSelected;
+            wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = Visibility.Visible;
+            _ = wpfPageLoader.ShowDialog(this);
+            wpfPageLoader.Close();
+            return false;
+        }
+        return true;
     }
 
     private void ActionScalesTerminal(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 DialogResult result = WpfUtils.ShowNewOperationControl(this,
@@ -774,7 +773,7 @@ public partial class MainForm : Form
 
     private void ActionScalesInit(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 if (!UserSession.PluScale.Plu.IsCheckWeight)
@@ -872,7 +871,7 @@ public partial class MainForm : Form
 
     private void ActionNewPallet(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () => { UserSession.NewPallet(); },
             () => { MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint); }
         );
@@ -901,7 +900,7 @@ public partial class MainForm : Form
 
     private void ActionPlu(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 KeyboardMouseUnsubscribe();
@@ -943,7 +942,7 @@ public partial class MainForm : Form
 
     private void ActionMore(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 if (UserSession.PluScale.IsNew)
@@ -975,11 +974,11 @@ public partial class MainForm : Form
 
     private void ActionPrint(object sender, EventArgs e)
     {
-	    ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
                 UserSession.AddScaleCounter();
-                
+
                 UserSession.ManagerControl.PrintMain.IsPrintBusy = true;
                 UserSession.ManagerControl.PrintShipping.IsPrintBusy = true;
 
