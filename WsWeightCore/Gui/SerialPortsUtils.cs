@@ -48,7 +48,7 @@ public static class SerialPortsUtils
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, true, true, true);
+            WpfUtils.CatchException(ex, true, true);
         }
     }
 }

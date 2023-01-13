@@ -46,7 +46,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, false, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 		finally
 		{
@@ -62,7 +62,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -74,7 +74,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -92,7 +92,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -105,7 +105,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -123,7 +123,7 @@ public partial class KneadingForm : Form
 		catch (Exception ex)
 		{
 			DialogResult = DialogResult.Abort;
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -150,7 +150,7 @@ public partial class KneadingForm : Form
 		catch (Exception ex)
 		{
 			DialogResult = DialogResult.Abort;
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -163,7 +163,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -176,7 +176,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -193,7 +193,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -211,7 +211,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -224,7 +224,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -257,7 +257,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 
@@ -272,7 +272,7 @@ public partial class KneadingForm : Form
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, this, true, true, true);
+			WpfUtils.CatchException(ex, this, true, true);
 		}
 	}
 

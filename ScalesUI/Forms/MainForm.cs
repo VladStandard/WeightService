@@ -173,10 +173,12 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                LockUi();
+                Visible = false;
 
-                WpfUtils.Dispose();
                 UserSession.StopwatchMain.Restart();
+                ActionUtils.ActionMakeScreenShot(this);
+                HideControls();
+
                 if (Quartz is not null)
                 {
                     Quartz.Close();
@@ -192,11 +194,11 @@ public partial class MainForm : Form
             },
             () =>
             {
+                WpfUtils.Dispose();
+                UserSession.StopwatchMain.Stop();
                 UserSession.DataAccess.LogInformation(
                     LocaleData.Program.IsClosed + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
                     UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
-                UserSession.StopwatchMain.Stop();
-                ActionUtils.ActionMakeScreenShot(this);
             }
         );
     }
@@ -261,11 +263,11 @@ public partial class MainForm : Form
             IsScalesTerminal = true,
         };
 
-        MainForm_ButtonsCreate_TableDevice();
-        MainForm_ButtonsCreate_TableActions();
+        CreateButtonsDevices();
+        CreateButtonsActions();
     }
 
-    private void MainForm_ButtonsCreate_TableDevice()
+    private void CreateButtonsDevices()
     {
         TableLayoutPanel tableLayoutPanelDevice = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(tableLayoutPanelDevice),
             1, 14, 1, 98);
@@ -307,7 +309,7 @@ public partial class MainForm : Form
         GuiUtils.WinForm.SetTableLayoutPanelRowStyles(tableLayoutPanelDevice);
     }
 
-    private void MainForm_ButtonsCreate_TableActions()
+    private void CreateButtonsActions()
     {
         TableLayoutPanel tableLayoutPanelActions = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(tableLayoutPanelActions),
             2, 14, tableLayoutPanelMain.ColumnCount - 2, 99);
@@ -383,6 +385,12 @@ public partial class MainForm : Form
         GuiUtils.WinForm.SetTableLayoutPanelColumnStyles(tableLayoutPanelActions);
         tableLayoutPanelActions.RowCount = 1;
         GuiUtils.WinForm.SetTableLayoutPanelRowStyles(tableLayoutPanelActions);
+    }
+
+    private void HideControls()
+    {
+        tableLayoutPanelMain.Visible = false;
+        pictureBoxClose.Parent = this;
     }
 
     #endregion
@@ -649,16 +657,17 @@ public partial class MainForm : Form
     {
         KeyboardMouseUnSubscribe();
         pictureBoxClose.Enabled = false;
-        pictureBoxClose.BackColor = Color.DarkGray;
+        pictureBoxClose.Visible = false;
         UserSession.ManagerControl.Massa.Suspend();
     }
 
     private void UnLockUi()
     {
         pictureBoxClose.Enabled = true;
-        pictureBoxClose.BackColor = Color.Transparent;
-        UserSession.ManagerControl.Massa.UnSuspend();
+        pictureBoxClose.Visible = true;
         MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
+        UserSession.ManagerControl.Massa.UnSuspend();
+        KeyboardMouseSubscribe();
     }
 
     #endregion
@@ -667,7 +676,26 @@ public partial class MainForm : Form
 
     private void ActionClose(object sender, EventArgs e)
     {
-        Close();
+        ActionUtils.ActionTryCatch(this,
+            () =>
+            {
+                LockUi();
+
+                DialogResult result = WpfUtils.ShowNewOperationControl(this,
+                    $"{LocaleCore.Scales.QuestionCloseApp}?",
+                    true, LogTypeEnum.Question,
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                    UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
+                UnLockUi();
+                if (result is not DialogResult.Yes)
+                {
+                    return;
+                }
+
+                // See the MainForm_FormClosing() method.
+                Close();
+            }
+        );
     }
 
     private void ActionDevice(object sender, EventArgs e)
@@ -777,11 +805,7 @@ public partial class MainForm : Form
                         UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                 }
             },
-            () =>
-            {
-                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-                UnLockUi();
-            }
+            UnLockUi
         );
     }
 
@@ -831,58 +855,6 @@ public partial class MainForm : Form
         );
     }
 
-    private void ActionOrder(object sender, EventArgs e)
-    {
-        throw new("Order is under construct!");
-        //try
-        //{
-        //    UserSession.ManagerControl.Massa.Close();
-
-        //    if (UserSession.Order is null)
-        //    {
-        //        using OrderListForm settingsForm = new();
-        //        settingsForm.ShowDialog(this);
-        //        settingsForm.Close();
-        //        settingsForm.Dispose();
-        //    }
-        //    else
-        //    {
-        //        using OrderDetailForm settingsForm = new();
-        //        DialogResult result = settingsForm.ShowDialog(this);
-        //        settingsForm.Close();
-        //        settingsForm.Dispose();
-        //        if (result == DialogResult.Retry)
-        //        {
-        //            UserSession.Order = null;
-        //        }
-        //        if (result == DialogResult.OK)
-        //        {
-        //            //ws.Kneading = (int)settingsForm.currentKneading;
-        //        }
-        //        if (result == DialogResult.Cancel)
-        //        {
-        //            //ws.Kneading = (int)settingsForm.currentKneading;
-        //        }
-        //    }
-        //    //if (UserSession.Order is not null)
-        //    //{
-        //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, UserSession.Order.PlaneBoxCount);
-        //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldPrintProgressMain, 0);
-        //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, UserSession.Order.FactBoxCount);
-        //    //}
-
-        //    UserSession.ManagerControl.Massa.Open();
-        //}
-        //catch (Exception ex)
-        //{
-        //    WpfUtils.CatchException(this, ex);
-        //}
-        //finally
-        //{
-        //    MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-        //}
-    }
-
     private void ActionNewPallet(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this,
@@ -910,7 +882,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
         finally
         {

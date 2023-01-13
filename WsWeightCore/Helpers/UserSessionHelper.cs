@@ -2,14 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Enums;
-using DataCore.Files;
-using DataCore.Helpers;
-using DataCore.Models;
 using DataCore.Protocols;
-using DataCore.Settings;
-using DataCore.Sql.Core;
 using DataCore.Sql.Fields;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -19,13 +13,10 @@ using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
-using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
-using DataCore.Sql.TableScaleModels.Scales;
 using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Utils;
 using MDSoft.BarcodePrintUtils;
@@ -317,11 +308,11 @@ public class UserSessionHelper : BaseViewModel
         SetScale(scaleId, productionFacilityName);
 		
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
-		sqlCrudConfig.AddOrders(new SqlFieldOrderModel(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
+		sqlCrudConfig.AddOrders(new(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
         Scales = DataContext.GetListNotNullable<ScaleModel>(sqlCrudConfig);
         
 		sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
-        sqlCrudConfig.AddOrders(new SqlFieldOrderModel(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc));
+        sqlCrudConfig.AddOrders(new(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc));
         ProductionFacilities = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
 	}
 
@@ -332,43 +323,31 @@ public class UserSessionHelper : BaseViewModel
             // Device.
             DeviceModel device = WpfUtils.SetNewDeviceWithQuestion(
 				DeviceName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
-
             // DeviceTypeFk.
             DeviceTypeFkModel deviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)
             {
                 // DeviceType.
                 DeviceTypeModel deviceType = DataAccess.GetItemDeviceTypeNotNullable("Monoblock");
-                //FileLogger.StoreMessage($"{nameof(deviceType)}: {deviceType}");
                 // DeviceTypeFk.
                 deviceTypeFk.Device = device;
                 deviceTypeFk.Type = deviceType;
                 DataAccess.Save(deviceTypeFk);
             }
-			FileLogger.StoreMessage($"{nameof(deviceTypeFk)}: {deviceTypeFk}");
-			FileLogger.StoreMessage($"{nameof(deviceTypeFk.Device)}: {deviceTypeFk.Device}");
-
 			// DeviceTypeFk.
             DeviceScaleFk = DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
-            FileLogger.StoreMessage($"{nameof(DeviceScaleFk)}: {DeviceScaleFk}");
-            FileLogger.StoreMessage($"{nameof(DeviceScaleFk.Scale)}: {DeviceScaleFk.Scale}");
-            
 			// Scale.
 			Scale = scaleId <= 0 ? DeviceScaleFk.Scale : DataAccess.GetScaleNotNullable(scaleId);
-
             // Area.
             ProductionFacility = DataAccess.GetProductionFacilityNotNullable(productionFacilityName);
-
 			// Other.
 			AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
 			ProductDate = DateTime.Now;
-			// начинается новыя серия, упаковки продукции, новая паллета
+			// Новыя серия, упаковка продукции, новая паллета.
 			ProductSeries = new(Scale);
-			//ProductSeries.Load();
 			WeighingSettings = new();
 		}
 	}
-
 
     public void SetBundleFk(Guid? uid)
     {
@@ -384,9 +363,6 @@ public class UserSessionHelper : BaseViewModel
 	{
 		ManagerControl.PrintMain.LabelsCount = 1;
 		ProductSeries.Load();
-		//if (Manager is null || Manager.Print is null)
-		//    return;
-		//Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
 	}
 
 	public void RotateProductDate(DirectionEnum direction)
@@ -810,7 +786,7 @@ public class UserSessionHelper : BaseViewModel
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, true, true, true);
+			WpfUtils.CatchException(ex, true, true);
 		}
 	}
 

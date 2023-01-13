@@ -84,7 +84,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
         return controls;
     }
@@ -266,7 +266,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
     }
 
@@ -288,7 +288,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
     }
 
@@ -308,7 +308,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
         finally
         {
@@ -336,7 +336,7 @@ public partial class PlusForm : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
         finally
         {

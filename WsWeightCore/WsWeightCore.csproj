@@ -408,7 +408,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Utils\GuiUtils.WpfForm.cs" />
+    <Compile Include="Wpf\Utils\WpfUtils.cs" />
     <Compile Include="Wpf\WpfPageLoader.cs">
       <SubType>Form</SubType>
     </Compile>

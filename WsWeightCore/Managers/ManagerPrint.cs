@@ -333,14 +333,14 @@ public class ManagerPrint : ManagerBase
 					}
 					else
 					{
-						WpfUtils.CatchException(new Exception($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"), true, true, true);
+						WpfUtils.CatchException(new($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"), true, true);
 					}
 				}
 			}
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, true, true, true);
+			WpfUtils.CatchException(ex, true, true);
 		}
 	}
 
@@ -356,7 +356,7 @@ public class ManagerPrint : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, true, true, true);
+			WpfUtils.CatchException(ex, true, true);
 		}
 	}
 
@@ -420,7 +420,7 @@ public class ManagerPrint : ManagerBase
 	public WmiWin32PrinterEntity GetWin32Printer(string name)
 	{
 		if (string.IsNullOrEmpty(name))
-			return new WmiWin32PrinterEntity(name, string.Empty, string.Empty, string.Empty, string.Empty, Win32PrinterStatusEnum.Error);
+			return new(name, string.Empty, string.Empty, string.Empty, string.Empty, Win32PrinterStatusEnum.Error);
 		// PowerShell: gwmi Win32_Printer | select DriverName, PortName, Status, PrinterState, PrinterStatus
 		// PowerShell: gwmi -query "select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name='SCALES-PRN-DEV'"
 		ObjectQuery wql = new($"select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name = '{name}'");
@@ -442,7 +442,7 @@ public class ManagerPrint : ManagerBase
 				printerStatus = Convert.ToInt16(item["PrinterStatus"]);
 			}
 		}
-		return new WmiWin32PrinterEntity(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
+		return new(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
 	}
 
 	public string GetPrinterStatusDescription(Lang lang, Win32PrinterStatusEnum printerStatus)

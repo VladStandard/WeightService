@@ -34,7 +34,7 @@ public partial class WpfPageLoader : Form
 
     #region Constructor and destructor
 
-    private WpfPageLoader()
+    public WpfPageLoader()
     {
         InitializeComponent();
 
@@ -61,7 +61,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
     }
 
@@ -106,7 +106,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
     }
 
@@ -156,7 +156,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
     }
 
@@ -176,7 +176,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true, true);
+            WpfUtils.CatchException(ex, this, true, true);
         }
     }
 

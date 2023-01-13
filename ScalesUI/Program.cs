@@ -19,9 +19,12 @@ internal static class Program
     {
         try
         {
+            // SetCompatibleTextRenderingDefault is the first.
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+
             // Setup.
             AppVersion.Setup(Assembly.GetExecutingAssembly(), LocaleCore.Scales.AppTitle);
-            //FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
             JsonSettingsHelper.Instance.SetupScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
 
             // User
@@ -35,7 +38,7 @@ internal static class Program
                 return;
             }
 
-            // Mutex.
+            // Mutex for check run app.
             _ = new Mutex(true, System.Windows.Forms.Application.ProductName, out bool createdNew);
             if (!createdNew)
             {
@@ -49,14 +52,12 @@ internal static class Program
                 DataAccess.LogInformation(
                     LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description),
                     UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
-                System.Windows.Forms.Application.EnableVisualStyles();
-                System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
                 System.Windows.Forms.Application.Run(new MainForm());
             }
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, true, true, true);
+            WpfUtils.CatchException(ex, true, true);
         }
     }
 

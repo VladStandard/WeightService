@@ -63,7 +63,7 @@ public static class ActionUtils
 		catch (Exception ex)
 		{
 			ActionMakeScreenShot(win32Window);
-			WpfUtils.CatchException(ex, win32Window, true, true, true);
+			WpfUtils.CatchException(ex, win32Window, true, true);
 		}
 		finally
 		{
@@ -80,7 +80,7 @@ public static class ActionUtils
 		catch (Exception ex)
 		{
 			ActionMakeScreenShot(win32Window);
-			WpfUtils.CatchException(ex, win32Window, true, true, true);
+			WpfUtils.CatchException(ex, win32Window, true, true);
 		}
 	}
 
@@ -92,7 +92,7 @@ public static class ActionUtils
 		}
 		catch (Exception ex)
 		{
-			WpfUtils.CatchException(ex, win32Window, true, true, true);
+			WpfUtils.CatchException(ex, win32Window, true, true);
 		}
 	}
 

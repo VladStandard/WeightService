@@ -346,7 +346,7 @@
             // 
             // pictureBoxClose
             // 
-            this.pictureBoxClose.BackColor = System.Drawing.Color.DarkGray;
+            this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxClose.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxClose.Enabled = false;

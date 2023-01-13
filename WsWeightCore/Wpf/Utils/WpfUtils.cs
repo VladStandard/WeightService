@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.Diagnostics;
 using DataCore.Sql.TableScaleModels.Devices;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -21,7 +20,7 @@ public static class WpfUtils
     #region Public and private fields, properties, constructor
 
     private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-    public static WpfPageLoader WpfPage { get; private set; }
+    private static WpfPageLoader WpfPage { get; set; } = new();
 
     #endregion
 
@@ -43,25 +42,19 @@ public static class WpfUtils
 
     public static bool IsExistsWpfPage(IWin32Window owner, ref DialogResult resultWpf)
     {
-        if (WpfPage is not null)
+        if (!WpfPage.Visible)
         {
-            if (!WpfPage.Visible)
-            {
-                resultWpf = owner is not null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
-            }
-            WpfPage.Activate();
-            return true;
+            resultWpf = owner is not null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
         }
+        WpfPage.Activate();
+        return true;
         return false;
     }
 
     public static void Dispose()
     {
-        if (WpfPage is not null)
-        {
-            WpfPage.Close();
-            WpfPage.Dispose();
-        }
+        WpfPage.Close();
+        WpfPage.Dispose();
     }
 
     /// <summary>
@@ -71,7 +64,7 @@ public static class WpfUtils
     /// <param name="caption"></param>
     /// <param name="message"></param>
     /// <param name="visibilitySettings"></param>
-    private static DialogResult ShowNew(IWin32Window owner, string caption, string message,
+    private static DialogResult ShowNew(IWin32Window? owner, string caption, string message,
         VisibilitySettingsModel visibilitySettings)
     {
         Dispose();
@@ -101,25 +94,6 @@ public static class WpfUtils
         WpfPage.Close();
         WpfPage.Dispose();
         return result;
-    }
-
-    /// <summary>
-    /// Show settings form.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <param name="isDebug"></param>
-    public static DialogResult ShowNewSettings(IWin32Window owner, bool isDebug)
-    {
-        DialogResult resultWpf = ShowNew(owner, LocaleCore.Scales.OperationControl,
-            LocaleCore.Scales.DeviceControlIsPreview,
-            new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-        if (resultWpf == DialogResult.Yes)
-            Process.Start(isDebug
-                ? "https://device-control-dev-preview.kolbasa-vs.local/" : "https://device-control-prod-preview.kolbasa-vs.local/");
-        else
-            Process.Start(isDebug
-                ? "https://device-control-dev.kolbasa-vs.local/" : "https://device-control.kolbasa-vs.local/");
-        return resultWpf;
     }
 
     /// <summary>
@@ -233,11 +207,11 @@ public static class WpfUtils
         return result;
     }
 
-    public static DialogResult CatchExceptionCore(Exception ex, IWin32Window owner,
+    private static DialogResult CatchExceptionCore(Exception ex, IWin32Window? owner,
         bool isDbLog, bool isShowWindow, string filePath, int lineNumber, string memberName)
     {
         if (isDbLog)
-            DataAccess.LogError(ex, UserSessionHelper.Instance.DeviceScaleFk.Device.Name, null, filePath, lineNumber, memberName);
+            DataAccess.LogError(ex, UserSessionHelper.Instance.DeviceScaleFk.Device.Name, string.Empty, filePath, lineNumber, memberName);
 
 
         if (isShowWindow)
@@ -257,7 +231,6 @@ public static class WpfUtils
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="owner"></param>
-    /// <param name="isFileLog"></param>
     /// <param name="isDbLog"></param>
     /// <param name="isShowWindow"></param>
     /// <param name="filePath"></param>
@@ -265,7 +238,7 @@ public static class WpfUtils
     /// <param name="memberName"></param>
     /// <returns></returns>
     public static DialogResult CatchException(Exception ex, IWin32Window owner,
-        bool isFileLog = false, bool isDbLog = false, bool isShowWindow = false,
+        bool isDbLog = false, bool isShowWindow = false,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         CatchExceptionCore(ex, owner, isDbLog, isShowWindow, filePath, lineNumber, memberName);
 
@@ -281,7 +254,7 @@ public static class WpfUtils
     /// <param name="memberName"></param>
     /// <returns></returns>
     public static DialogResult CatchException(Exception ex,
-        bool isFileLog = false, bool isDbLog = false, bool isShowWindow = false,
+        bool isDbLog = false, bool isShowWindow = false,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         CatchExceptionCore(ex, null, isDbLog, isShowWindow, filePath, lineNumber, memberName);
 

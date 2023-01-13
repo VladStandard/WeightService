@@ -118,6 +118,7 @@ public class LocaleScale
     public string ProgramExit => Lang == Lang.English ? "Ending the program ..." : "Завершение программы ...";
     public string ProgramLoad => Lang == Lang.English ? "Loading the program ..." : "Загрузка программы ...";
     public string ProgramNotFound(string fileName) => Lang == Lang.English ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator." : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
+    public string QuestionCloseApp => Lang == Lang.English ? "Close the app" : "Завершить приложение";
     public string QuestionPerformOperation => Lang == Lang.English ? "Perform the operation?" : "Выполнить операцию?";
     public string QuestionRunApp => Lang == Lang.English ? "Run the app" : "Запустить приложение";
     public string QuestionWriteToDb => Lang == Lang.English ? "Add new record into the DB?" : "Добавить новую запись в БД?";
@@ -148,6 +149,7 @@ public class LocaleScale
     public string ThreadStartTime => Lang == Lang.English ? "Start time" : "Время запуска";
     public string ThreadState => Lang == Lang.English ? "State" : "Состояние";
     public string UnitWeight => Lang == Lang.English ? "weight" : "вес";
+    public string WaitAppComplete => Lang == Lang.English ? "Wait for application to complete" : "Ожидайте завершения приложения";
     public string WeightingControl => Lang == Lang.English ? "The weight is out of bounds!" : "Вес выходит за границы!";
     public string WeightingIsCalc => Lang == Lang.English ? "Stable is calculated" : "Рассчитывается вес";
     public string WeightingIsStableDescription => Lang == Lang.English ? "Scales are stable | Gross weight" : "Весы стабильны | Вес брутто";
