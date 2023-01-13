@@ -4,7 +4,6 @@
 using System;
 using System.Windows.Forms;
 using DataCore.Managers;
-using DataCore.Models;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
 using WeightCore.MassaK.Enums;

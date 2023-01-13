@@ -1,14 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
-using DataCore.Sql.TableScaleModels.ProductionFacilities;
-using DataCore.Sql.TableScaleModels.Scales;
 using System.Windows;
 using System.Windows.Controls;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using WeightCore.Helpers;
 
-namespace WeightCore.XamlPages;
+namespace WeightCore.Wpf.Pages;
 #nullable enable
 
 public class XamlPageBase : UserControl
@@ -41,7 +40,7 @@ public class XamlPageBase : UserControl
 
     #region Public and private methods
 
-    protected void SetScale(ComboBox comboBox)
+    protected void SetScale(System.Windows.Controls.ComboBox comboBox)
     {
         int i = 0;
         foreach (ScaleModel scale in UserSession.Scales)

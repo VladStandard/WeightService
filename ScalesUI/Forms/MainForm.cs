@@ -1,29 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Helpers;
-using DataCore.Settings;
-using DataCore.Sql.TableScaleModels.PlusScales;
-using DataCore.Wmi;
-using Gma.System.MouseKeyHook;
-using MDSoft.BarcodePrintUtils.Wmi;
-using ScalesUI.Utils;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
-using WeightCore.Gui;
-using WeightCore.Helpers;
-using WeightCore.Managers;
-using WeightCore.Wpf.Utils;
-using WsSchedule.Helpers;
-using WsSchedule.Utils;
+using WeightCore.Wpf;
 
 namespace ScalesUI.Forms;
 

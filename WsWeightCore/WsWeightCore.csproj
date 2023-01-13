@@ -353,6 +353,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="Gui\ControlPluModel.cs" />
     <Compile Include="Gui\FontsSettingsHelper.cs" />
     <Compile Include="Gui\GuiUtils.WinForm.cs" />
@@ -361,6 +362,7 @@
     <Compile Include="Gui\VisibilitySettingsModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\UserSessionHelper.cs" />
+    <Compile Include="Utils\ActionUtils.cs" />
     <Compile Include="Wpf\Helpers\XamlHelper.cs" />
     <Compile Include="Managers\ManagerLabels.cs" />
     <Compile Include="Gui\NumberInputForm.cs">

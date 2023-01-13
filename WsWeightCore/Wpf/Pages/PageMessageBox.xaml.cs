@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using WeightCore.Gui;
 
-namespace WeightCore.XamlPages;
+namespace WeightCore.Wpf.Pages;
 
 /// <summary>
 /// Interaction logic for PageMessageBox.xaml

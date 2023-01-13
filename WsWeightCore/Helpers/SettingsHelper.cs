@@ -9,8 +9,6 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using DataCore.Helpers;
-using DataCore.Models;
 using WsLocalization.Enums;
 
 namespace WeightCore.Helpers;

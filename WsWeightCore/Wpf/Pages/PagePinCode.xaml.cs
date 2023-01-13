@@ -5,7 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WeightCore.XamlPages;
+namespace WeightCore.Wpf.Pages;
 
 /// <summary>
 /// Interaction logic for PagePin.xaml

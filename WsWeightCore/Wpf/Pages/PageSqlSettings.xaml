@@ -1,23 +1,23 @@
-﻿<xamlPages:XamlPageBase 
-	x:Class="WeightCore.XamlPages.PageSqlSettings"
+﻿<pages:XamlPageBase 
+	x:Class="WeightCore.Wpf.Pages.PageSqlSettings"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:xamlPages="clr-namespace:WeightCore.XamlPages"
+	xmlns:pages="clr-namespace:WeightCore.Wpf.Pages"
 	mc:Ignorable="d" 
 	d:DesignWidth="700" d:DesignHeight="700" FontSize="20"
 	Loaded="PageSettings_OnLoaded"
 	Background="Transparent" 
 	DataContext="{DynamicResource UserSession}" >
 
-	<xamlPages:XamlPageBase.Resources>
+	<pages:XamlPageBase.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="XamlResourceDictionary.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-	</xamlPages:XamlPageBase.Resources>
+	</pages:XamlPageBase.Resources>
 
 	<Grid>
         <Grid.RowDefinitions>
@@ -104,4 +104,4 @@
             </Grid>
         </GroupBox>
     </Grid>
-</xamlPages:XamlPageBase>
+</pages:XamlPageBase>

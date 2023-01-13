@@ -1,4 +1,4 @@
-﻿namespace WeightCore.Gui
+﻿namespace WeightCore.Wpf
 {
     partial class WpfPageLoader
     {

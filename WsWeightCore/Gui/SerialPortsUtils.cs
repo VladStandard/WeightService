@@ -4,15 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
-using DataCore.Sql.TableScaleModels.Scales;
 using WeightCore.Wpf.Utils;
 
 namespace WeightCore.Gui;
 
 public static class SerialPortsUtils
 {
-    public static void DefaultComPortName(ScaleModel scale, ComboBox fieldComPort, List<string> listComPorts)
+    public static void DefaultComPortName(ScaleModel scale, System.Windows.Controls.ComboBox fieldComPort, List<string> listComPorts)
     {
         try
         {
@@ -21,7 +19,7 @@ public static class SerialPortsUtils
 
             // Текущий порт из настроек.
             string curPort = string.Empty;
-            if (scale.DeviceComPort is not null)
+            if (!string.IsNullOrEmpty(scale.DeviceComPort))
             {
                 curPort = scale.DeviceComPort;
                 if (!string.IsNullOrEmpty(curPort))

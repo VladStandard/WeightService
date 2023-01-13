@@ -1,26 +1,25 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 using DataCore.Protocols;
 using MDSoft.BarcodePrintUtils;
 using MDSoft.BarcodePrintUtils.Tsc;
-using MDSoft.BarcodePrintUtils.Wmi;
-using System;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using DataCore.Managers;
-using DataCore.Models;
-using WeightCore.Helpers;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.Printers;
+using MDSoft.BarcodePrintUtils.Wmi;
+using WeightCore.Helpers;
+using WeightCore.Wpf.Utils;
 using WsLocalization.Enums;
 using WsLocalization.Models;
-using WeightCore.Wpf.Utils;
 
 namespace WeightCore.Managers;
 

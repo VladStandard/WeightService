@@ -3,7 +3,7 @@
 
 using System.Windows;
 
-namespace WeightCore.XamlPages;
+namespace WeightCore.Wpf.Pages;
 
 /// <summary>
 /// Interaction logic for PageSqlSettings.xaml

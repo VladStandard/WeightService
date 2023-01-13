@@ -59,7 +59,7 @@ public static partial class GuiUtils
                 Visible = false,
                 BackColor = Color.Transparent,
                 Dock = DockStyle.Fill,
-                ForeColor = System.Drawing.SystemColors.ControlText,
+                ForeColor = SystemColors.ControlText,
                 Margin = new(5, 2, 5, 2),
                 Size = new(100, 100),
                 UseVisualStyleBackColor = false,

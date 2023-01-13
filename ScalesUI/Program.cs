@@ -1,18 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Files;
-using DataCore.Settings;
-using ScalesUI.Forms;
-using System;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using System.Windows.Forms;
-using WeightCore.Gui;
-using WeightCore.Helpers;
-using WeightCore.Wpf.Utils;
-
 namespace ScalesUI;
 
 internal static class Program
@@ -43,27 +31,27 @@ internal static class Program
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(UserSessionHelper.Instance.DeviceName);
                 WpfUtils.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
                 DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
                 return;
             }
 
             // Mutex.
-            _ = new Mutex(true, Application.ProductName, out bool createdNew);
+            _ = new Mutex(true, System.Windows.Forms.Application.ProductName, out bool createdNew);
             if (!createdNew)
             {
-                string message = $"{LocaleCore.Strings.Application} {Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
+                string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
                 WpfUtils.ShowNewRegistration(message);
                 DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
             }
             else
             {
                 DataAccess.LogInformation(
                     LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description),
                     UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
+                System.Windows.Forms.Application.EnableVisualStyles();
+                System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+                System.Windows.Forms.Application.Run(new MainForm());
             }
         }
         catch (Exception ex)

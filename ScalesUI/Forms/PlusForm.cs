@@ -1,20 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Helpers;
-using DataCore.Sql.Fields;
-using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.PlusScales;
-using DataCore.Sql.TableScaleModels.Templates;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using WeightCore.Gui;
-using WeightCore.Helpers;
-using WeightCore.Wpf.Utils;
-
 namespace ScalesUI.Forms;
 
 /// <summary>
@@ -122,7 +108,7 @@ public partial class PlusForm : Form
         Label labelPluCode = NewLabelPluCode(pluScale.Plu, tabIndex, buttonPlu);
         Label labelPluValidate = NewPluValidLabel(pluScale.Plu, tabIndex, buttonPlu);
         Label labelTemplate = NewLabelPluTemplate(pluScale, tabIndex, buttonPlu);
-        
+
         return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelTemplate, labelPluValidate);
     }
 
@@ -144,7 +130,7 @@ public partial class PlusForm : Form
             FlatStyle = FlatStyle.Flat,
             Location = new(0, 0),
             UseVisualStyleBackColor = true,
-            BackColor = SystemColors.Control,
+            BackColor = System.Drawing.SystemColors.Control,
             TabIndex = tabIndex,
         };
         buttonPlu.Click += ButtonPlu_Click;

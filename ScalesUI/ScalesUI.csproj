@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>10.0</LangVersion>
     <PublishUrl>\\palych\Install\VSSoft\Scales-2-Preview\</PublishUrl>
@@ -490,14 +491,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\OrderDetailForm.cs" />
-    <Compile Include="Forms\OrderDetailForm.Designer.cs">
-      <DependentUpon>OrderDetailForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\OrderListForm.cs" />
-    <Compile Include="Forms\OrderListForm.Designer.cs">
-      <DependentUpon>OrderListForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\PlusForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -509,10 +502,6 @@
     </Compile>
     <Compile Include="Forms\KneadingForm.Designer.cs">
       <DependentUpon>KneadingForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SettingsForm.cs" />
-    <Compile Include="Forms\SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -533,7 +522,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Utils\ActionUtils.cs" />
     <None Include="CHANGELOG.md" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -541,20 +529,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="Forms\OrderDetailForm.resx">
-      <DependentUpon>OrderDetailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OrderListForm.resx">
-      <DependentUpon>OrderListForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PlusForm.resx">
       <DependentUpon>PlusForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\KneadingForm.resx">
       <DependentUpon>KneadingForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -631,8 +610,10 @@
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
