@@ -11,7 +11,7 @@ if (!Element.prototype.closest) {
     do {
       if (el.matches(s)) return el;
       el = el.parentElement || el.parentNode;
-    } while (el !is null && el.nodeType === 1);
+    } while (el !== null && el.nodeType === 1);
     return null;
   };
 }
@@ -266,7 +266,7 @@ window.Radzen = {
         slider.canChange &&
         newValue >= min &&
         newValue <= max &&
-        newValue is not oldValue
+        newValue != oldValue
       ) {
         slider.invokeMethodAsync(
           'RadzenSlider.OnValueChange',
@@ -289,7 +289,7 @@ window.Radzen = {
         var percent = offsetX / parent.offsetWidth;
         var newValue = percent * max;
         var oldValue = range ? value[slider.isMin ? 0 : 1] : value;
-        if (newValue >= min && newValue <= max && newValue is not oldValue) {
+        if (newValue >= min && newValue <= max && newValue != oldValue) {
           slider.invokeMethodAsync(
             'RadzenSlider.OnValueChange',
             newValue,
@@ -379,7 +379,7 @@ window.Radzen = {
 
     if (!childNodes || childNodes.length == 0) return;
 
-    if (startIndex == undefined || startIndex is null) {
+    if (startIndex == undefined || startIndex == null) {
       startIndex = -1;
     }
 
@@ -460,7 +460,7 @@ window.Radzen = {
     var file = uploadComponent.files.find(function (f) { return f.name == name; })
     if (!file) return;
     var index = uploadComponent.files.indexOf(file)
-    if (index is not -1) {
+    if (index != -1) {
         uploadComponent.files.splice(index, 1);
     }
     fileInput.value = '';
@@ -740,14 +740,14 @@ window.Radzen = {
         Radzen.popups = [];
     }
 
-    Radzen.popups.push({Identity.Id, instance, callback});
+    Radzen.popups.push({ id, instance, callback });
 
     document.body.appendChild(popup);
     document.removeEventListener('click', Radzen[id]);
     document.addEventListener('click', Radzen[id]);
 
     var p = parent;
-    while (p && p is not document.body) {
+    while (p && p != document.body) {
         if (p.scrollWidth > p.clientWidth || p.scrollHeight > p.clientHeight) {
             p.removeEventListener('scroll', Radzen.closePopupsOnScroll);
             p.addEventListener('scroll', Radzen.closePopupsOnScroll);
@@ -1019,14 +1019,14 @@ window.Radzen = {
     return {width: rect.width, height: rect.height};
   },
   innerHTML: function (ref, value) {
-    if (value is not undefined) {
+    if (value != undefined) {
       ref.innerHTML = value;
     } else {
       return ref.innerHTML;
     }
   },
   execCommand: function (ref, name, value) {
-    if (document.activeElement is not ref) {
+    if (document.activeElement != ref) {
       ref.focus();
     }
     document.execCommand(name, false, value);
