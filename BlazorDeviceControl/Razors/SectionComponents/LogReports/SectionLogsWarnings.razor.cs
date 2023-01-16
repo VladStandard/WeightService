@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 
-namespace BlazorDeviceControl.Razors.SectionComponents.Logs;
+namespace BlazorDeviceControl.Razors.SectionComponents.LogReports;
 
 public partial class SectionLogsWarnings : RazorComponentSectionBase<LogModel, LogTypeModel>
 {

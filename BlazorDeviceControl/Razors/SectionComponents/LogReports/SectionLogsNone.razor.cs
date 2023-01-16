@@ -5,13 +5,13 @@ using BlazorCore.Razors;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 
-namespace BlazorDeviceControl.Razors.SectionComponents.Logs;
-
-public partial class SectionLogsNones : RazorComponentSectionBase<LogModel, LogTypeModel>
+namespace BlazorDeviceControl.Razors.SectionComponents.LogReports;
+  
+public partial class SectionLogsNone : RazorComponentSectionBase<LogModel, LogTypeModel>
 {
 	#region Public and private fields, properties, constructor
 
-	public SectionLogsNones()
+	public SectionLogsNone()
 	{
 		SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
