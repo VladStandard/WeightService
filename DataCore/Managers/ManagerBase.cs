@@ -192,7 +192,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 				}
 				catch (Exception ex)
 				{
-					DataAccessHelper.Instance.LogError(ex);
+					DataAccessHelper.Instance.LogErrorFast(ex);
 					Config.WaitSync(Config.WaitException);
 				}
 			}

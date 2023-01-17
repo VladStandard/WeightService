@@ -1,61 +1,45 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace ScalesUI.Forms;
+namespace ScalesUI.Controls;
 
-/// <summary>
-/// Select PLU form.
-/// </summary>
-public partial class PlusForm : Form
+public partial class PluUserControl : UserControlBase
 {
-    #region Private fields and properties
+    #region Public and private fields, properties, constructor
 
-    private DebugHelper Debug => DebugHelper.Instance;
-    private FontsSettingsHelper FontsSettings => FontsSettingsHelper.Instance;
-    private UserSessionHelper UserSession => UserSessionHelper.Instance;
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public PlusForm()
+    public PluUserControl()
     {
         InitializeComponent();
+        RefreshAction = PluUserControl_Refresh;
     }
 
     #endregion
 
     #region Public and private methods
 
-    private void PluListForm_Load(object sender, EventArgs e)
+    private void PluUserControl_Refresh()
     {
         ActionUtils.ActionTryCatch(this, () =>
         {
-            UserSession.UpdatePluScales();
+            UserSession.SetPluScales();
             LoadFormControls();
 
-            Setup(tableLayoutPanelPlu);
+            SetupLayoutPanel();
         });
     }
 
     private void LoadFormControls()
     {
         labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
-        buttonClose.Text = LocaleCore.Buttons.Close;
         buttonLeftRoll.Text = LocaleCore.Buttons.Previous;
         buttonRightRoll.Text = LocaleCore.Buttons.Next;
-
-        TopMost = !Debug.IsDebug;
-        Width = Owner.Width;
-        Height = Owner.Height;
-        Left = Owner.Left;
-        Top = Owner.Top;
     }
 
     private ControlPluModel[,] CreateControls()
     {
         List<PluScaleModel> plus = UserSession.GetCurrentPlus();
         ControlPluModel[,] controls = new ControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
-        try
+        ActionUtils.ActionTryCatch(this, () =>
         {
             for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < UserSession.PageRowCount; ++rowNumber)
             {
@@ -67,11 +51,7 @@ public partial class PlusForm : Form
                     buttonNumber++;
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            WpfUtils.CatchException(ex, this, true, true);
-        }
+        });
         return controls;
     }
 
@@ -102,7 +82,7 @@ public partial class PlusForm : Form
             Dock = DockStyle.Fill,
             Size = new(buttonWidth, buttonHeight),
             Visible = true,
-            Parent = tableLayoutPanelPlu,
+            Parent = layoutPanel,
             FlatStyle = FlatStyle.Flat,
             Location = new(0, 0),
             UseVisualStyleBackColor = true,
@@ -236,22 +216,9 @@ public partial class PlusForm : Form
         return labelPluTemplate;
     }
 
-    private void ButtonClose_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
-        catch (Exception ex)
-        {
-            WpfUtils.CatchException(ex, this, true, true);
-        }
-    }
-
     private void ButtonPluSelect_Click(object sender, EventArgs e)
     {
-        try
+        ActionUtils.ActionTryCatch(this, () =>
         {
             ushort tabIndex = 0;
             if (sender is Control control)
@@ -259,14 +226,10 @@ public partial class PlusForm : Form
             if (UserSession.PluScales.Count >= tabIndex)
             {
                 UserSession.PluScale = UserSession.PluScales[tabIndex];
-                DialogResult = DialogResult.OK;
+                Result = DialogResult.OK;
             }
-            Close();
-        }
-        catch (Exception ex)
-        {
-            WpfUtils.CatchException(ex, this, true, true);
-        }
+            ReturnBackAction();
+        });
     }
 
     private void ButtonPreviousRoll_Click(object sender, EventArgs e)
@@ -275,20 +238,8 @@ public partial class PlusForm : Form
         UserSession.PageNumber = UserSession.PageNumber > 0 ? UserSession.PageNumber - 1 : 0;
         if (UserSession.PageNumber == saveCurrentPage)
             return;
-        try
-        {
-            tableLayoutPanelPlu.Visible = false;
-            labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
-            Setup(tableLayoutPanelPlu);
-        }
-        catch (Exception ex)
-        {
-            WpfUtils.CatchException(ex, this, true, true);
-        }
-        finally
-        {
-            tableLayoutPanelPlu.Visible = true;
-        }
+
+        ActionUtils.ActionTryCatchFinally(this, SetupLayoutPanel, () => { layoutPanel.Visible = true; }); 
     }
 
     private void ButtonNextRoll_Click(object sender, EventArgs e)
@@ -301,30 +252,17 @@ public partial class PlusForm : Form
         if (UserSession.PageNumber == saveCurrentPage)
             return;
 
-        try
-        {
-            tableLayoutPanelPlu.Visible = false;
-            labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
-            Setup(tableLayoutPanelPlu);
-        }
-        catch (Exception ex)
-        {
-            WpfUtils.CatchException(ex, this, true, true);
-        }
-        finally
-        {
-            tableLayoutPanelPlu.Visible = true;
-        }
+        ActionUtils.ActionTryCatchFinally(this, SetupLayoutPanel, () => { layoutPanel.Visible = true; });
     }
 
-    private void SetupPanel(TableLayoutPanel panel, ushort columnCount, ushort rowCount)
+    private void SetupPanel(ushort columnCount, ushort rowCount)
     {
-        panel.ColumnStyles.Clear();
-        panel.RowStyles.Clear();
-        panel.ColumnCount = 0;
-        panel.RowCount = 0;
-        AddColumns(panel, columnCount);
-        AddRows(panel, rowCount);
+        layoutPanel.ColumnStyles.Clear();
+        layoutPanel.RowStyles.Clear();
+        layoutPanel.ColumnCount = 0;
+        layoutPanel.RowCount = 0;
+        AddColumns(layoutPanel, columnCount);
+        AddRows(layoutPanel, rowCount);
     }
 
     private void AddColumns(TableLayoutPanel panel, ushort columnCount)
@@ -342,58 +280,63 @@ public partial class PlusForm : Form
     {
         panel.RowStyles.Clear();
         panel.RowCount += rowCount;
-        ushort height = (ushort)(100 / panel.RowCount);
+        //ushort heightPanelActions = 0;
+        ushort height = (ushort)(100 / (panel.RowCount));
         for (ushort i = 0; i < panel.RowCount; i++)
         {
             panel.RowStyles.Add(new(SizeType.Percent, height));
         }
     }
 
-    private void ClearPanel(TableLayoutPanel panel)
+    private void ClearPanel()
     {
-        foreach (object control in panel.Controls)
+        layoutPanel.Visible = false;
+        foreach (object control in layoutPanel.Controls)
         {
             if (control is TableLayoutPanel subPanel)
             {
-                tableLayoutPanelActions = subPanel;
-                tableLayoutPanelActions.Parent = null;
+                layoutPanelActions = subPanel;
+                layoutPanelActions.Parent = null;
             }
         }
-        panel.Controls.Clear();
+        layoutPanel.Controls.Clear();
     }
 
-    private void Setup(TableLayoutPanel panelPlu)
+    private void SetupLayoutPanel()
     {
+        layoutPanel.Visible = false;
+        labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
+
         ControlPluModel[,] controls = CreateControls();
 
-        panelPlu.Visible = false;
-        ClearPanel(panelPlu);
-        SetupPanel(panelPlu, (ushort)(controls.GetUpperBound(0) + 1), (ushort)(controls.GetUpperBound(1) + 1));
+        ClearPanel();
+        ushort columnCount = (ushort)(controls.GetUpperBound(0) + 1);
+        ushort rowCount = (ushort)(controls.GetUpperBound(1) + 1);
+        SetupPanel(columnCount, rowCount);
 
-        for (ushort column = 0; column <= controls.GetUpperBound(0); column++)
+        for (ushort column = 0; column < columnCount; column++)
         {
-            for (ushort row = 0; row <= controls.GetUpperBound(1); row++)
+            for (ushort row = 0; row < rowCount; row++)
             {
                 ControlPluModel control = controls[column, row];
                 if (control is not null)
                 {
-                    panelPlu.Controls.Add(control.ButtonPlu, column, row);
+                    layoutPanel.Controls.Add(control.ButtonPlu, column, row);
                 }
             }
         }
 
-        if (tableLayoutPanelActions is not null)
+        if (layoutPanelActions is not null)
         {
-            AddRows(panelPlu, 1);
-            tableLayoutPanelActions.Parent = panelPlu;
-            panelPlu.SetColumn(tableLayoutPanelActions, 0);
-            panelPlu.SetRow(tableLayoutPanelActions, panelPlu.RowCount - 1);
-            panelPlu.SetColumnSpan(tableLayoutPanelActions, panelPlu.ColumnCount);
-            tableLayoutPanelActions.Dock = DockStyle.Fill;
+            AddRows(layoutPanel, 1);
+            layoutPanelActions.Parent = layoutPanel;
+            layoutPanel.SetColumn(layoutPanelActions, 0);
+            layoutPanel.SetRow(layoutPanelActions, layoutPanel.RowCount - 1);
+            layoutPanel.SetColumnSpan(layoutPanelActions, layoutPanel.ColumnCount);
+            layoutPanelActions.Dock = DockStyle.Fill;
         }
 
-        //panelPlu.Refresh();
-        panelPlu.Visible = true;
+        layoutPanel.Visible = true;
 
         SetupSizes(controls);
     }

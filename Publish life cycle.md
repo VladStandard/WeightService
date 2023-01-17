@@ -9,6 +9,7 @@ cmd: `git add . && git ci -m "#Version update to v0.x.xxx" && git bra && git st`
 cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 
 ## Branche routing
+- view changes:       `cls && git bra && git st`
 - develop -> preview: `git switch preview && git merge develop && git push all preview && git switch develop && git bra && git st`
 - bagger -> preview:  `git switch bagger && git pull all bagger && git switch preview && git merge bagger && git bra && git st`
 - preview -> develop: `git switch develop && git merge preview && git bra && git st`

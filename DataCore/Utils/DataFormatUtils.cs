@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Enums;
+using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Utils;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using MDSoft.BarcodePrintUtils.Tsc;

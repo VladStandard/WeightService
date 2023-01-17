@@ -3,6 +3,8 @@
 
 using DataCore.Models;
 using DataCore.Protocols;
+using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -225,6 +227,17 @@ public partial class DataAccessHelper
             { new(nameof(LogTypeModel.Number), SqlFieldComparerEnum.Equal, (byte)logType) },
             true, true, false, false);
         return GetItemNullable<LogTypeModel>(sqlCrudConfig);
+    }
+
+    public LogTypeModel GetItemLogTypeNotNullable(LogTypeEnum logType) => 
+        GetItemLogTypeNullable(logType) ?? new();
+
+    public List<LogTypeModel> GetListLogTypesNotNullable()
+    {
+        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(),
+            false, false, false, true);
+        sqlCrudConfig.AddOrders(new(nameof(LogTypeModel.Number), SqlFieldOrderEnum.Asc));
+        return GetListNotNullable<LogTypeModel>(sqlCrudConfig);
     }
 
     public string GetAccessRightsDescription(AccessRightsEnum? accessRights)

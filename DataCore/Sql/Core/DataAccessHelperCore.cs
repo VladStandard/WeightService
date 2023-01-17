@@ -1,9 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 using FluentNHibernate.Conventions;
 using NHibernate;
+using System;
 
 namespace DataCore.Sql.Core;
 
@@ -135,10 +137,11 @@ public partial class DataAccessHelper
 		ExecuteSelect(session =>
 		{
 			items = GetArrayCore<T>(session, sqlCrudConfig);
-			foreach (T item in items)
-			{
-				FillReferences(item);
-			}
+			if (sqlCrudConfig.IsFillReferences)
+			    foreach (T item in items)
+			    {
+				    FillReferences(item);
+			    }
 		});
 		return items;
 	}
@@ -158,12 +161,16 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-    private object[]? GetArrayObjectsNullable(string query)
+	[Obsolete(@"Use GetArrayObjectsNullable(string query, List<SqlParameter> parameters)")]
+	private object[]? GetArrayObjectsNullable(string query) => 
+        GetArrayObjectsNullable(query, new());
+
+    private object[]? GetArrayObjectsNullable(string query, List<SqlParameter> parameters)
 	{
 		object[]? result = null;
 		ExecuteSelect(session =>
 		{
-			ISQLQuery? sqlQuery = GetSqlQuery(session, query);
+			ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
 			if (sqlQuery is not null)
 			{
 				System.Collections.IList? listEntities = sqlQuery.List();
@@ -180,8 +187,15 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	public object[] GetArrayObjectsNotNullable(string query) => 
-		GetArrayObjectsNullable(query) ?? Array.Empty<object>();
+	[Obsolete(@"Use GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters)")]
+	public object[] GetArrayObjectsNotNullable(string query) =>
+        GetArrayObjectsNotNullable(query, new());
+
+	public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) => 
+		GetArrayObjectsNullable(query, parameters) ?? Array.Empty<object>();
+
+	public object[] GetArrayObjectsNotNullable(SqlCrudConfigModel sqlCrudConfig) => 
+		GetArrayObjectsNullable(sqlCrudConfig.NativeQuery, sqlCrudConfig.NativeParameters) ?? Array.Empty<object>();
 
 	#endregion
 
@@ -189,18 +203,18 @@ public partial class DataAccessHelper
 
 	public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
-		List<T> result = new();
+        List<T> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
 		{
             result.Add(GetItemNewEmpty<T>());
 		}
 
-		List<T> list = new();
+        List<T> list = new();
 		T[]? items = GetArrayNullable<T>(sqlCrudConfig);
 		if (items is not null && items.Length > 0)
 			list = items.ToList();
-		
-		result.AddRange(list);
+
+        result.AddRange(list);
 		return result;
 	}
 

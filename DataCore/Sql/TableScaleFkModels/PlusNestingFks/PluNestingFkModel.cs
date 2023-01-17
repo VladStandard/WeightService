@@ -2,9 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 
+using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Boxes;
+using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 
@@ -17,6 +19,7 @@ public class PluNestingFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
     [XmlElement] public virtual BoxModel Box { get; set; }
+    //[XmlElement] public virtual PluModel Plu { get; set; }
     [XmlElement] public virtual PluBundleFkModel PluBundle { get; set; }
     [XmlElement] public virtual bool IsDefault { get; set; }
     [XmlElement] public virtual short BundleCount { get; set; }
@@ -32,13 +35,14 @@ public class PluNestingFkModel : SqlTableBase
     /// </summary>
     public PluNestingFkModel() : base(SqlFieldIdentityEnum.Uid)
     {
+        Box = new();
+        //Plu = new();
         PluBundle = new();
         IsDefault = false;
         BundleCount = 0;
         WeightMax = 0;
         WeightMin = 0;
         WeightNom = 0;
-        Box = new();
     }
 
     /// <summary>
@@ -48,10 +52,11 @@ public class PluNestingFkModel : SqlTableBase
     /// <param name="context"></param>
     protected PluNestingFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
+        Box = (BoxModel)info.GetValue(nameof(Box), typeof(BoxModel));
+        //Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
         PluBundle = (PluBundleFkModel)info.GetValue(nameof(PluBundle), typeof(PluBundleFkModel));
         IsDefault = info.GetBoolean(nameof(IsDefault));
         BundleCount = info.GetInt16(nameof(BundleCount));
-        Box = (BoxModel)info.GetValue(nameof(Box), typeof(BoxModel));
         WeightMax = info.GetDecimal(nameof(WeightMax));
         WeightMin = info.GetDecimal(nameof(WeightMin));
         WeightNom = info.GetDecimal(nameof(WeightNom));
@@ -68,7 +73,8 @@ public class PluNestingFkModel : SqlTableBase
     /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(PluBundle)}: {PluBundle.Plu.Name}. " +
+        $"{nameof(Box)}: {Box.Name}. " +
+        //$"{nameof(Plu)}: {Plu.Name}. " +
         $"{nameof(PluBundle)}: {PluBundle.Bundle.Name}. " +
         $"{nameof(WeightTare)}: {WeightTare}. " +
         $"{nameof(IsDefault)}: {IsDefault}. ";
@@ -87,24 +93,26 @@ public class PluNestingFkModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
+        Box.EqualsDefault() &&
+        //Plu.EqualsDefault() &&
+        PluBundle.EqualsDefault() &&
         Equals(IsDefault, false) &&
         Equals(WeightMax, default(decimal)) &&
         Equals(WeightMin, default(decimal)) &&
         Equals(WeightNom, default(decimal)) &&
-        Equals(BundleCount, default(short)) &&
-        Box.EqualsDefault() &&
-        PluBundle.EqualsDefault();
+        Equals(BundleCount, default(short));
 
     public override object Clone()
     {
         PluNestingFkModel item = new();
+        item.Box = Box.CloneCast();
+        //item.Plu = Plu.CloneCast();
+        item.PluBundle = PluBundle.CloneCast();
         item.IsDefault = IsDefault;
         item.BundleCount = BundleCount;
         item.WeightMax = WeightMax;
         item.WeightMin = WeightMin;
         item.WeightNom = WeightNom;
-        item.Box = Box.CloneCast();
-        item.PluBundle = PluBundle.CloneCast();
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -117,13 +125,14 @@ public class PluNestingFkModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(Box), Box);
+        //info.AddValue(nameof(Plu), Plu);
+        info.AddValue(nameof(PluBundle), PluBundle);
         info.AddValue(nameof(IsDefault), IsDefault);
         info.AddValue(nameof(BundleCount), BundleCount);
-        info.AddValue(nameof(Box), Box);
         info.AddValue(nameof(WeightMax), WeightMax);
         info.AddValue(nameof(WeightMin), WeightMin);
         info.AddValue(nameof(WeightNom), WeightNom);
-        info.AddValue(nameof(PluBundle), PluBundle);
         info.AddValue(nameof(WeightTare), WeightTare);
     }
 
@@ -131,8 +140,9 @@ public class PluNestingFkModel : SqlTableBase
     {
         base.FillProperties();
         Box.FillProperties();
-        BundleCount = 0;
+        //Plu.FillProperties();
         PluBundle.FillProperties();
+        BundleCount = 0;
     }
 
     #endregion
@@ -142,6 +152,7 @@ public class PluNestingFkModel : SqlTableBase
     public virtual bool Equals(PluNestingFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Box.Equals(item.Box) &&
+        //Plu.Equals(item.Plu) && 
         PluBundle.Equals(item.PluBundle) && 
         Equals(IsDefault, item.IsDefault) &&
         Equals(WeightMax, item.WeightMax) &&

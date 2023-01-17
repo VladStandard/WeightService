@@ -1,10 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Enums;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace DataCore.Sql.Core;
+namespace DataCore.Sql.Core.Utils;
 
 /// <summary>
 /// SQL extensions.
@@ -29,28 +30,28 @@ public static class SqlExtensions
         return false;
     }
 
-	public static void SetCriteriaFilters(this ICriteria criteria, List<SqlFieldFilterModel>? filters)
-	{
-		if (filters is null) return;
+    public static void SetCriteriaFilters(this ICriteria criteria, List<SqlFieldFilterModel>? filters)
+    {
+        if (filters is null) return;
 
-		foreach (SqlFieldFilterModel filter in filters)
-		{
-			AbstractCriterion? criterion = filter.Comparer switch
-			{
+        foreach (SqlFieldFilterModel filter in filters)
+        {
+            AbstractCriterion? criterion = filter.Comparer switch
+            {
                 SqlFieldComparerEnum.Less => Restrictions.Lt(filter.Name, filter.Value),
                 SqlFieldComparerEnum.More => Restrictions.Gt(filter.Name, filter.Value),
                 SqlFieldComparerEnum.LessOrEqual => Restrictions.Le(filter.Name, filter.Value),
                 SqlFieldComparerEnum.MoreOrEqual => Restrictions.Ge(filter.Name, filter.Value),
                 SqlFieldComparerEnum.Equal => Restrictions.Eq(filter.Name, filter.Value),
-				SqlFieldComparerEnum.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
-				_ => throw new ArgumentOutOfRangeException(),
+                SqlFieldComparerEnum.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
+                _ => throw new ArgumentOutOfRangeException(),
             };
-			if (criterion is not null)
-				criteria.Add(criterion);
-		}
-	}
+            if (criterion is not null)
+                criteria.Add(criterion);
+        }
+    }
 
-	public static void SetCriteriaOrder(this ICriteria criteria, List<SqlFieldOrderModel>? orders)
+    public static void SetCriteriaOrder(this ICriteria criteria, List<SqlFieldOrderModel>? orders)
     {
         if (orders is null) return;
 
@@ -67,6 +68,6 @@ public static class SqlExtensions
             }
         }
     }
-    
-	#endregion
+
+    #endregion
 }

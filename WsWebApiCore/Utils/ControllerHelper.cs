@@ -22,6 +22,7 @@ using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Models;
 using NHibernate.Util;
 using System.Drawing.Drawing2D;
+using DataCore.Sql.Core.Enums;
 
 namespace WsWebApiCore.Utils;
 

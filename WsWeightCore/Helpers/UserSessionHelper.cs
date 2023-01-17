@@ -3,7 +3,6 @@
 
 using DataCore.Enums;
 using DataCore.Protocols;
-using DataCore.Sql.Fields;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -24,117 +23,98 @@ using MvvmHelpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using DataCore.Sql.Fields;
+using Microsoft.Data.SqlClient;
 using WeightCore.Managers;
 using WeightCore.Wpf.Utils;
 using WsLocalization.Models;
+using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Utils;
+using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
 
 namespace WeightCore.Helpers;
 
 public class UserSessionHelper : BaseViewModel
 {
-	#region Design pattern "Lazy Singleton"
+    #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618
-	private static UserSessionHelper _instance;
+    private static UserSessionHelper _instance;
 #pragma warning restore CS8618
-	public static UserSessionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static UserSessionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-	#endregion
+    #endregion
 
-	#region Public and private fields and properties
+    #region Public and private fields and properties
 
-	private AppVersionHelper AppVersion => AppVersionHelper.Instance;
-	private SqlConnectFactory SqlConnect => SqlConnectFactory.Instance;
-	public DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    private AppVersionHelper AppVersion => AppVersionHelper.Instance;
+    private SqlConnectFactory SqlConnect => SqlConnectFactory.Instance;
+    public DataAccessHelper DataAccess => DataAccessHelper.Instance;
     public DataContextModel DataContext { get; } = new();
-	public DebugHelper Debug => DebugHelper.Instance;
-	private FileLoggerHelper FileLogger => FileLoggerHelper.Instance;
-	public ManagerControllerHelper ManagerControl => ManagerControllerHelper.Instance;
+    public DebugHelper Debug => DebugHelper.Instance;
+    public ManagerControllerHelper ManagerControl => ManagerControllerHelper.Instance;
 
-	private ProductSeriesDirect _productSeries;
-	[XmlElement]
-	public ProductSeriesDirect ProductSeries
-	{
-		get => _productSeries;
-		set
-		{
-			_productSeries = value;
-			OnPropertyChanged();
-		}
-	}
-	public PrintBrand PrintBrandMain =>
-		Scale.PrinterMain is not null && Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
-	public PrintBrand PrintBrandShipping =>
-		Scale.PrinterShipping is not null && Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
-	private PluWeighingModel _pluWeighing;
-	[XmlElement]
-	public PluWeighingModel PluWeighing
-	{
-		get => _pluWeighing;
-		private set
-		{
-			_pluWeighing = value;
-			OnPropertyChanged();
-		}
-	}
-	private WeighingSettingsModel _weighingSettings;
-	[XmlElement]
-	public WeighingSettingsModel WeighingSettings
-	{
-		get => _weighingSettings;
-		set
-		{
-			_weighingSettings = value;
-			OnPropertyChanged();
-		}
-	}
-	public Stopwatch StopwatchMain { get; set; } = new();
-	private PluScaleModel _pluScale;
-	[XmlElement]
-	public PluScaleModel PluScale
-	{
-		get => _pluScale;
-		set
-		{
-			_pluScale = value;
-			if (value.IsNotNew)
-				DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}",
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			ManagerControl.PrintMain.LabelsCount = 1;
-			ManagerControl.PrintShipping.LabelsCount = 1;
+    private ProductSeriesDirect _productSeries;
+    [XmlElement]
+    public ProductSeriesDirect ProductSeries
+    {
+        get => _productSeries;
+        set
+        {
+            _productSeries = value;
+            OnPropertyChanged();
+        }
+    }
+    public PrintBrand PrintBrandMain =>
+        Scale.PrinterMain is not null && Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
+    public PrintBrand PrintBrandShipping =>
+        Scale.PrinterShipping is not null && Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
+    private PluWeighingModel _pluWeighing;
+    [XmlElement]
+    public PluWeighingModel PluWeighing
+    {
+        get => _pluWeighing;
+        private set
+        {
+            _pluWeighing = value;
+            OnPropertyChanged();
+        }
+    }
+    private WeighingSettingsModel _weighingSettings;
+    [XmlElement]
+    public WeighingSettingsModel WeighingSettings
+    {
+        get => _weighingSettings;
+        set
+        {
+            _weighingSettings = value;
+            OnPropertyChanged();
+        }
+    }
+    public Stopwatch StopwatchMain { get; set; } = new();
+    private PluScaleModel _pluScale;
+    [XmlElement]
+    public PluScaleModel PluScale
+    {
+        get => _pluScale;
+        set
+        {
+            _pluScale = value;
+            if (value.IsNotNew)
+                DataAccess.LogInformationFast($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
+            ManagerControl.PrintMain.LabelsCount = 1;
+            ManagerControl.PrintShipping.LabelsCount = 1;
+            SetPluNestingFks(value.Plu);
+            OnPropertyChanged();
+        }
+    }
 
-			// Fix here.
-			//PluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(
-			//    SqlCrudConfigUtils.GetCrudConfig(value.Plu, nameof(PluScaleModel.Plu), 
-			//    new(), false, false, true, true));
-			if (value.Plu.IsNew)
-			{
-				PluNestingFkModel pluNestingFk = DataAccess.GetItemNewEmpty<PluNestingFkModel>();
-				pluNestingFk.PluBundle = DataAccess.GetItemNewEmpty<PluBundleFkModel>();
-				pluNestingFk.PluBundle.Plu = DataAccess.GetItemNewEmpty<PluModel>();
-				pluNestingFk.PluBundle.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();
-                PluNestingFks = new() { pluNestingFk };
-            }
-			else
-			{
-				SqlCrudConfigModel sqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
-				List<PluNestingFkModel> pluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(sqlCrudConfigList);
-				PluNestingFkModel pluNestingFk = pluNestingFks.Find(x => x.IsNew);
-                List<PluNestingFkModel> temp = new() { pluNestingFk };
-				temp.AddRange(pluNestingFks.Where(x => Equals(x.PluBundle.Plu.IdentityValueUid, value.Plu.IdentityValueUid)).ToList());
-                PluNestingFks = temp;
-			}
-
-			OnPropertyChanged();
-		}
-	}
     public readonly ushort PageColumnCount = 4;
     public readonly ushort PageSize = 20;
     public readonly ushort PageRowCount = 5;
@@ -160,175 +140,176 @@ public class UserSessionHelper : BaseViewModel
     public List<PluNestingFkModel> PluNestingFks
     {
         get => _pluNestingFks;
-        set
+        private set
         {
             _pluNestingFks = value;
-			if (value.Exists(x => !x.IsNew) && value.Exists(x => x.IsDefault))
-				PluNestingFk = value.Find(x => x.IsDefault);
-			else
+            if (PluNestingFks.Exists(x => !x.IsNew) && value.Exists(x => x.IsDefault))
+                PluNestingFk = value.Find(x => x.IsDefault);
+            else
                 PluNestingFk = value.First();
             OnPropertyChanged();
         }
     }
 
     private DeviceScaleFkModel _deviceScaleFk;
-	[XmlElement]
-	public DeviceScaleFkModel DeviceScaleFk
-	{
-		get => _deviceScaleFk;
-		private set
-		{
-			_deviceScaleFk = value;
-			OnPropertyChanged();
-		}
-	}
-	private ScaleModel _scale;
-	[XmlElement]
-	public ScaleModel Scale
-	{
-		get => _scale;
-		set
-		{
-			_scale = value ?? DataAccess.GetItemNewEmpty<ScaleModel>();
-			_ = ProductionFacility;
-			PluScale = DataAccess.GetItemNewEmpty<PluScaleModel>();
-			OnPropertyChanged();
-		}
-	}
-	private List<ScaleModel> _scales;
-	[XmlElement]
-	public List<ScaleModel> Scales
-	{
-		get => _scales;
-		set
-		{
-			_scales = value;
-			OnPropertyChanged();
-		}
-	}
-
-	private ProductionFacilityModel _productionFacility;
-	[XmlElement]
-	public ProductionFacilityModel ProductionFacility
+    [XmlElement]
+    public DeviceScaleFkModel DeviceScaleFk
     {
-		get =>
-            _productionFacility.IsNotNew 
+        get => _deviceScaleFk;
+        private set
+        {
+            _deviceScaleFk = value;
+            OnPropertyChanged();
+        }
+    }
+    private ScaleModel _scale;
+    [XmlElement]
+    public ScaleModel Scale
+    {
+        get => _scale;
+        set
+        {
+            _scale = value ?? DataAccess.GetItemNewEmpty<ScaleModel>();
+            _ = ProductionFacility;
+            PluScale = DataAccess.GetItemNewEmpty<PluScaleModel>();
+            OnPropertyChanged();
+        }
+    }
+    private List<ScaleModel> _scales;
+    [XmlElement]
+    public List<ScaleModel> Scales
+    {
+        get => _scales;
+        set
+        {
+            _scales = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private ProductionFacilityModel _productionFacility;
+    [XmlElement]
+    public ProductionFacilityModel ProductionFacility
+    {
+        get =>
+            _productionFacility.IsNotNew
                 ? _productionFacility : Scale.WorkShop is not null ? Scale.WorkShop.ProductionFacility : _productionFacility;
         set
-		{
-			_productionFacility = value ?? DataAccess.GetItemNewEmpty<ProductionFacilityModel>();
-			OnPropertyChanged();
-		}
-	}
-	private List<ProductionFacilityModel> _productionFacilities;
-	[XmlElement]
-	public List<ProductionFacilityModel> ProductionFacilities
+        {
+            _productionFacility = value ?? DataAccess.GetItemNewEmpty<ProductionFacilityModel>();
+            OnPropertyChanged();
+        }
+    }
+    private List<ProductionFacilityModel> _productionFacilities;
+    [XmlElement]
+    public List<ProductionFacilityModel> ProductionFacilities
     {
-		get => _productionFacilities;
-		set
-		{
-			_productionFacilities = value;
-			OnPropertyChanged();
-		}
-	}
-	private PublishType _publishType = PublishType.Unknown;
-	[XmlElement]
-	public PublishType PublishType
-	{
-		get => _publishType;
-		set
-		{
-			_publishType = value;
-			OnPropertyChanged();
-		}
-	}
-	private string _publishDescription;
-	[XmlElement]
-	public string PublishDescription
-	{
-		get => _publishDescription;
-		set
-		{
-			_publishDescription = value;
-			OnPropertyChanged();
-		}
-	}
-	private string _sqlInstance;
-	[XmlElement]
-	private string SqlInstance
-	{
-		get => _sqlInstance;
-		set
-		{
-			_sqlInstance = value;
-			OnPropertyChanged();
-		}
-	}
+        get => _productionFacilities;
+        set
+        {
+            _productionFacilities = value;
+            OnPropertyChanged();
+        }
+    }
+    private PublishType _publishType = PublishType.Unknown;
+    [XmlElement]
+    public PublishType PublishType
+    {
+        get => _publishType;
+        set
+        {
+            _publishType = value;
+            OnPropertyChanged();
+        }
+    }
+    private string _publishDescription;
+    [XmlElement]
+    public string PublishDescription
+    {
+        get => _publishDescription;
+        set
+        {
+            _publishDescription = value;
+            OnPropertyChanged();
+        }
+    }
+    private string _sqlInstance;
+    [XmlElement]
+    private string SqlInstance
+    {
+        get => _sqlInstance;
+        set
+        {
+            _sqlInstance = value;
+            OnPropertyChanged();
+        }
+    }
 
     private DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
     private DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
-	private DateTime _productDate;
-	public DateTime ProductDate
-	{
-		get => _productDate;
-		set
-		{
-			_productDate = value;
-			OnPropertyChanged();
-		}
-	}
-	private readonly object _locker = new();
-	public string DeviceName => NetUtils.GetLocalDeviceName(false);
+    private DateTime _productDate;
+    public DateTime ProductDate
+    {
+        get => _productDate;
+        set
+        {
+            _productDate = value;
+            OnPropertyChanged();
+        }
+    }
+    private readonly object _locker = new();
+    public string DeviceName => NetUtils.GetLocalDeviceName(false);
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public UserSessionHelper()
-	{
-		// Items.
+    {
+        // Items.
         _pluNestingFk = DataAccess.GetItemNewEmpty<PluNestingFkModel>();
         _pluScale = DataAccess.GetItemNewEmpty<PluScaleModel>();
         _pluWeighing = DataAccess.GetItemNewEmpty<PluWeighingModel>();
-		_deviceScaleFk = DataAccess.GetItemNewEmpty<DeviceScaleFkModel>();
-		_productionFacility = DataAccess.GetItemNewEmpty<ProductionFacilityModel>();
-		_scale = DataAccess.GetItemNewEmpty<ScaleModel>();
+        _deviceScaleFk = DataAccess.GetItemNewEmpty<DeviceScaleFkModel>();
+        _productionFacility = DataAccess.GetItemNewEmpty<ProductionFacilityModel>();
+        _scale = DataAccess.GetItemNewEmpty<ScaleModel>();
         // Lists.
         _pluNestingFks = new();
         _productionFacilities = new();
         _productSeries = new();
         _scales = new();
-		// Strings
+        PluScales = new();
+        // Strings
         _sqlInstance = string.Empty;
-		_publishDescription = string.Empty;
-		// Others.
-		_weighingSettings = new();
-	}
+        _publishDescription = string.Empty;
+        // Others.
+        _weighingSettings = new();
+    }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	public void SetMain(long scaleId = -1, string productionFacilityName = "")
-	{
+    public void SetMain(long scaleId = -1, string productionFacilityName = "")
+    {
         SetSqlPublish();
         SetScale(scaleId, productionFacilityName);
-		
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
-		sqlCrudConfig.AddOrders(new(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
+
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
+        sqlCrudConfig.AddOrders(new(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
         Scales = DataContext.GetListNotNullable<ScaleModel>(sqlCrudConfig);
-        
-		sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
+
+        sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
         sqlCrudConfig.AddOrders(new(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc));
         ProductionFacilities = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
-	}
+    }
 
-	private void SetScale(long scaleId, string productionFacilityName)
-	{
-		lock (_locker)
-		{
+    private void SetScale(long scaleId, string productionFacilityName)
+    {
+        lock (_locker)
+        {
             // Device.
             DeviceModel device = WpfUtils.SetNewDeviceWithQuestion(
-				DeviceName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
+                DeviceName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
             DeviceTypeFkModel deviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)
@@ -340,25 +321,25 @@ public class UserSessionHelper : BaseViewModel
                 deviceTypeFk.Type = deviceType;
                 DataAccess.Save(deviceTypeFk);
             }
-			// DeviceTypeFk.
+            // DeviceTypeFk.
             DeviceScaleFk = DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
-			// Scale.
-			Scale = scaleId <= 0 ? DeviceScaleFk.Scale : DataAccess.GetScaleNotNullable(scaleId);
+            // Scale.
+            Scale = scaleId <= 0 ? DeviceScaleFk.Scale : DataAccess.GetScaleNotNullable(scaleId);
             // Area.
             ProductionFacility = DataAccess.GetProductionFacilityNotNullable(productionFacilityName);
-			// Other.
-			AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
-			ProductDate = DateTime.Now;
-			// Новыя серия, упаковка продукции, новая паллета.
-			ProductSeries = new(Scale);
-			WeighingSettings = new();
-		}
-	}
+            // Other.
+            AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
+            ProductDate = DateTime.Now;
+            // Новыя серия, упаковка продукции, новая паллета.
+            ProductSeries = new(Scale);
+            WeighingSettings = new();
+        }
+    }
 
     public void SetBundleFk(Guid? uid)
     {
         if (uid is null)
-			// Manual set by another place.
+            // Manual set by another place.
             PluNestingFk = DataAccess.GetItemNewEmpty<PluNestingFkModel>();
         else
             // PluBundlesFks set default BundleFk.
@@ -366,85 +347,82 @@ public class UserSessionHelper : BaseViewModel
     }
 
     public void NewPallet()
-	{
-		ManagerControl.PrintMain.LabelsCount = 1;
-		ProductSeries.Load();
-	}
-
-	public void RotateProductDate(DirectionEnum direction)
-	{
-		switch (direction)
-		{
-			case DirectionEnum.Left:
-				{
-					ProductDate = ProductDate.AddDays(-1);
-					if (ProductDate < ProductDateMinValue)
-						ProductDate = ProductDateMinValue;
-					break;
-				}
-			case DirectionEnum.Right:
-				{
-					ProductDate = ProductDate.AddDays(1);
-					if (ProductDate > ProductDateMaxValue)
-						ProductDate = ProductDateMaxValue;
-					break;
-				}
-		}
-	}
-
-	/// <summary>
-	/// Check PLU BundleFk is empty.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <returns></returns>
-	public bool CheckPluBundleFkIsEmpty(IWin32Window owner)
-	{
-		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IsNew)
-		if (PluNestingFk.IsNew && PluNestingFks.Count > 1)
-		{
-			WpfUtils.ShowNewOperationControl(owner,
-				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning,
-				new() { ButtonCancelVisibility = Visibility.Visible },
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return false;
-		}
-		return true;
-	}
-
-	/// <summary>
-	/// Check PLU is empty.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <returns></returns>
-	public bool CheckPluIsEmpty(IWin32Window owner)
-	{
-		if (PluScale.IsNew)
-		{
-			WpfUtils.ShowNewOperationControl(owner,
-				LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
-				new() { ButtonCancelVisibility = Visibility.Visible },
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return false;
-		}
-		return true;
+    {
+        ManagerControl.PrintMain.LabelsCount = 1;
+        ProductSeries.Load();
     }
 
-	[Obsolete(@"Use CheckWeightMassaDeviceExists()")]
-	public bool CheckWeightMassaDeviceExists(IWin32Window owner)
+    public void RotateProductDate(DirectionEnum direction)
+    {
+        switch (direction)
+        {
+            case DirectionEnum.Left:
+                {
+                    ProductDate = ProductDate.AddDays(-1);
+                    if (ProductDate < ProductDateMinValue)
+                        ProductDate = ProductDateMinValue;
+                    break;
+                }
+            case DirectionEnum.Right:
+                {
+                    ProductDate = ProductDate.AddDays(1);
+                    if (ProductDate > ProductDateMaxValue)
+                        ProductDate = ProductDateMaxValue;
+                    break;
+                }
+        }
+    }
+
+    /// <summary>
+    /// Check PLU BundleFk is empty.
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <returns></returns>
+    public bool CheckPluBundleFkIsEmpty(IWin32Window owner)
+    {
+        //if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IsNew)
+        if (PluNestingFk.IsNew && PluNestingFks.Count > 1)
+        {
+            WpfUtils.ShowNewOperationControl(owner,
+                LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning,
+                new() { ButtonCancelVisibility = Visibility.Visible });
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Check PLU is empty.
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <returns></returns>
+    public bool CheckPluIsEmpty(IWin32Window owner)
+    {
+        if (PluScale.IsNew)
+        {
+            WpfUtils.ShowNewOperationControl(owner,
+                LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
+                new() { ButtonCancelVisibility = Visibility.Visible });
+            return false;
+        }
+        return true;
+    }
+
+    [Obsolete(@"Use CheckWeightMassaDeviceExists()")]
+    public bool CheckWeightMassaDeviceExists(IWin32Window owner)
     {
         if (Debug.IsDebug) return true;
 
         if (PluScale is { IsNew: false, Plu.IsCheckWeight: false }) return true;
 
         if (ManagerControl.Massa is null)
-		{
-			WpfUtils.ShowNewOperationControl(owner,
-				LocaleCore.Scales.MassaIsNotFound, true, LogTypeEnum.Warning,
-				new() { ButtonCancelVisibility = Visibility.Visible },
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return false;
-		}
-		return true;
+        {
+            WpfUtils.ShowNewOperationControl(owner,
+                LocaleCore.Scales.MassaIsNotFound, true, LogTypeEnum.Warning,
+                new() { ButtonCancelVisibility = Visibility.Visible });
+            return false;
+        }
+        return true;
     }
 
     /// <summary>
@@ -459,450 +437,463 @@ public class UserSessionHelper : BaseViewModel
 	/// <param name="owner"></param>
 	/// <returns></returns>
 	public bool CheckWeightMassaIsStable(IWin32Window owner)
-	{
+    {
         if (Debug.IsDebug) return true;
 
         if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
-		{
-			WpfUtils.ShowNewOperationControl(owner,
-				LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
-				true, LogTypeEnum.Warning,
-				new() { ButtonCancelVisibility = Visibility.Visible },
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return false;
-		}
-		return true;
-	}
+        {
+            WpfUtils.ShowNewOperationControl(owner,
+                LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
+                true, LogTypeEnum.Warning,
+                new() { ButtonCancelVisibility = Visibility.Visible });
+            return false;
+        }
+        return true;
+    }
 
-	/// <summary>
-	/// Check PLU GTIN.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <returns></returns>
-	public bool CheckPluGtin(IWin32Window owner)
-	{
+    /// <summary>
+    /// Check PLU GTIN.
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <returns></returns>
+    public bool CheckPluGtin(IWin32Window owner)
+    {
         if (string.IsNullOrEmpty(PluScale.Plu.Gtin))
-		{
-			WpfUtils.ShowNewOperationControl(owner,
-				LocaleCore.Scales.PluGtinIsNotSet,
-				true, LogTypeEnum.Warning,
-				new() { ButtonCancelVisibility = Visibility.Visible },
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return false;
-		}
-		return true;
-	}
+        {
+            WpfUtils.ShowNewOperationControl(owner,
+                LocaleCore.Scales.PluGtinIsNotSet,
+                true, LogTypeEnum.Warning,
+                new() { ButtonCancelVisibility = Visibility.Visible });
+            return false;
+        }
+        return true;
+    }
 
-	/// <summary>
-	/// Check printer connection.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <returns></returns>
-	public bool CheckPrintIsConnect(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
-	{
-		if (!managerPrint.Printer.IsPing)
-		{
-			WpfUtils.ShowNewOperationControl(owner, isMain
-				? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
-				: LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
-				true, LogTypeEnum.Warning,
-				new() { ButtonCancelVisibility = Visibility.Visible },
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return false;
-		}
-		return true;
-	}
+    /// <summary>
+    /// Check printer connection.
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <returns></returns>
+    public bool CheckPrintIsConnect(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
+    {
+        if (!managerPrint.Printer.IsPing)
+        {
+            WpfUtils.ShowNewOperationControl(owner, isMain
+                ? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
+                : LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
+                true, LogTypeEnum.Warning,
+                new() { ButtonCancelVisibility = Visibility.Visible });
+            return false;
+        }
+        return true;
+    }
 
-	/// <summary>
-	/// Check printer status on ready.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <param name="managerPrint"></param>
-	/// <param name="isMain"></param>
-	/// <returns></returns>
-	public bool CheckPrintStatusReady(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
-	{
-		if (!managerPrint.CheckDeviceStatus())
-		{
-			WpfUtils.ShowNewOperationControl(owner, isMain
-				? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
-				: LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
-				true, LogTypeEnum.Warning,
-				new() { ButtonCancelVisibility = Visibility.Visible },
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return false;
-		}
-		return true;
-	}
+    /// <summary>
+    /// Check printer status on ready.
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <param name="managerPrint"></param>
+    /// <param name="isMain"></param>
+    /// <returns></returns>
+    public bool CheckPrintStatusReady(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
+    {
+        if (!managerPrint.CheckDeviceStatus())
+        {
+            WpfUtils.ShowNewOperationControl(owner, isMain
+                ? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
+                : LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
+                true, LogTypeEnum.Warning,
+                new() { ButtonCancelVisibility = Visibility.Visible });
+            return false;
+        }
+        return true;
+    }
 
-	/// <summary>
-	/// Check weight is negative.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <returns></returns>
-	public bool CheckWeightIsNegative(IWin32Window owner)
-	{
-		if (!PluScale.Plu.IsCheckWeight) return true;
+    /// <summary>
+    /// Check weight is negative.
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <returns></returns>
+    public bool CheckWeightIsNegative(IWin32Window owner)
+    {
+        if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
-		if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
-		{
-			WpfUtils.ShowNewOperationControl(owner,
-				LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
-				new() { ButtonCancelVisibility = Visibility.Visible },
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return false;
-		}
-		return true;
-	}
+        decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
+        if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
+        {
+            WpfUtils.ShowNewOperationControl(owner,
+                LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
+                new() { ButtonCancelVisibility = Visibility.Visible });
+            return false;
+        }
+        return true;
+    }
 
-	/// <summary>
-	/// Check weight is positive.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <returns></returns>
-	public bool CheckWeightIsPositive(IWin32Window owner)
-	{
-		if (!PluScale.Plu.IsCheckWeight) return true;
+    /// <summary>
+    /// Check weight is positive.
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <returns></returns>
+    public bool CheckWeightIsPositive(IWin32Window owner)
+    {
+        if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
-		if (weight > LocaleCore.Scales.MassaThresholdValue)
-		{
-			DialogResult result = WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
-				true, LogTypeEnum.Warning,
-				new() { ButtonCancelVisibility = Visibility.Visible },
-				DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return result == DialogResult.Cancel;
-		}
-		return true;
-	}
+        decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
+        if (weight > LocaleCore.Scales.MassaThresholdValue)
+        {
+            DialogResult result = WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
+                true, LogTypeEnum.Warning,
+                new() { ButtonCancelVisibility = Visibility.Visible });
+            return result == DialogResult.Cancel;
+        }
+        return true;
+    }
 
-	/// <summary>
-	/// Check weight thresholds.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <returns></returns>
-	public bool CheckWeightThresholds(IWin32Window owner)
-	{
-		if (!PluScale.Plu.IsCheckWeight) return true;
+    /// <summary>
+    /// Check weight thresholds.
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <returns></returns>
+    public bool CheckWeightThresholds(IWin32Window owner)
+    {
+        if (!PluScale.Plu.IsCheckWeight) return true;
 
         if (PluNestingFk.WeightNom > 0 && PluNestingFk.WeightMin is not 0 && PluNestingFk.WeightMax is not 0)
-		{
-			if (!(PluWeighing.NettoWeight >= PluNestingFk.WeightMin && PluWeighing.NettoWeight <= PluNestingFk.WeightMax))
-			{
-				if (PluWeighing.IsNotNew)
-					WpfUtils.ShowNewOperationControl(owner,
-						LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IsNew ? 0 : PluNestingFk.WeightMax,
-						PluScale.IsNew ? 0 : PluNestingFk.WeightNom,
-						PluScale.IsNew ? 0 : PluNestingFk.WeightMin),
-						true, LogTypeEnum.Warning,
-						new() { ButtonCancelVisibility = Visibility.Visible },
-						DeviceScaleFk.Device.Name, nameof(WeightCore));
-				return false;
-			}
-		}
-		return true;
-	}
+        {
+            if (!(PluWeighing.NettoWeight >= PluNestingFk.WeightMin && PluWeighing.NettoWeight <= PluNestingFk.WeightMax))
+            {
+                if (PluWeighing.IsNotNew)
+                    WpfUtils.ShowNewOperationControl(owner,
+                        LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IsNew ? 0 : PluNestingFk.WeightMax,
+                        PluScale.IsNew ? 0 : PluNestingFk.WeightNom,
+                        PluScale.IsNew ? 0 : PluNestingFk.WeightMin),
+                        true, LogTypeEnum.Warning,
+                        new() { ButtonCancelVisibility = Visibility.Visible });
+                return false;
+            }
+        }
+        return true;
+    }
 
-	public void PrintLabel(IWin32Window owner, bool isClearBuffer)
-	{
-		if (Scale is { IsOrder: true })
-		{
-			throw new("Order under construct!");
-			//Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
-		}
+    public void PrintLabel(IWin32Window owner, bool isClearBuffer)
+    {
+        if (Scale is { IsOrder: true })
+        {
+            throw new("Order under construct!");
+            //Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
+        }
 
         // #WS-T-710
         //PluScale = DataAccess.GetItemNotNullable<PluScaleModel>(PluScale.IdentityValueUid);
         PluScale.Scale = Scale;
         TemplateModel template = DataAccess.GetItemTemplateNotNullable(PluScale);
-		// Template isn't exist.
+        // Template isn't exist.
         if (template.IsNew)
         {
             WpfUtils.ShowNewOperationControl(owner,
                 LocaleCore.Scales.PluTemplateNotSet,
                 true, LogTypeEnum.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible },
-                DeviceScaleFk.Device.Name, nameof(WeightCore));
+                new() { ButtonCancelVisibility = Visibility.Visible });
             return;
         }
-		// Temlate is exists!
-		else
+        // Temlate is exists!
+        else
         {
-			switch (PluScale.Plu.IsCheckWeight)
-			{
-				case true:
-					PrintLabelCore(template, isClearBuffer);
-					break;
-				default:
-					PrintLabelCount(template, isClearBuffer);
-					break;
-			}
-		}
+            switch (PluScale.Plu.IsCheckWeight)
+            {
+                case true:
+                    PrintLabelCore(template, isClearBuffer);
+                    break;
+                default:
+                    PrintLabelCount(template, isClearBuffer);
+                    break;
+            }
+        }
 
-		PluWeighing = new();
-	}
+        PluWeighing = new();
+    }
 
-	public void AddScaleCounter()
-	{
-		Scale.Counter++;
-		DataAccess.UpdateForce(Scale);
-	}
+    public void AddScaleCounter()
+    {
+        Scale.Counter++;
+        DataAccess.UpdateForce(Scale);
+    }
 
-	/// <summary>
-	/// Count label printing.
-	/// </summary>
-	/// <param name="template"></param>
-	/// <param name="isClearBuffer"></param>
-	private void PrintLabelCount(TemplateModel template, bool isClearBuffer)
-	{
-		//// Указан номинальный вес.
-		//bool isCheck = false;
-		//if (CurrentPlu.NominalWeight > 0)
-		//{
-		//    if (Manager.Massa is not null)
-		//        CurrentWeighingFact.NettoWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsWeightTare;
-		//    else
-		//        CurrentWeighingFact.NettoWeight -= CurrentPlu.GoodsWeightTare;
-		//    if (CurrentWeighingFact.NettoWeight >= CurrentPlu.LowerWeightThreshold &&
-		//        CurrentWeighingFact.NettoWeight <= CurrentPlu.UpperWeightThreshold)
-		//    {
-		//        isCheck = true;
-		//    }
-		//}
-		//else
-		//    isCheck = true;
-		//if (!isCheck)
-		//{
-		//    // WPF MessageBox.
-		//    using WpfPageLoader wpfPageLoader = new(Page.MessageBox, false) { Width = 700, Height = 400 };
-		//    wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
-		//    wpfPageLoader.MessageBox.Message =
-		//        LocaleCore.Scales.WeightingControl + Environment.NewLine +
-		//        $"Вес нетто: {CurrentWeighingFact.NettoWeight} кг" + Environment.NewLine +
-		//        $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
-		//        $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
-		//        $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
-		//        "Для продолжения печати нажмите Ignore.";
-		//    wpfPageLoader.MessageBox.ButtonAbortVisibility = Visibility.Visible;
-		//    wpfPageLoader.MessageBox.ButtonRetryVisibility = Visibility.Visible;
-		//    wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
-		//    wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-		//    wpfPageLoader.ShowDialog(owner);
-		//    DialogResult result = wpfPageLoader.MessageBox.Result;
-		//    wpfPageLoader.Close();
-		//    wpfPageLoader.Dispose();
-		//    if (result != DialogResult.Ignore)
-		//        return;
-		//}
+    /// <summary>
+    /// Count label printing.
+    /// </summary>
+    /// <param name="template"></param>
+    /// <param name="isClearBuffer"></param>
+    private void PrintLabelCount(TemplateModel template, bool isClearBuffer)
+    {
+        //// Указан номинальный вес.
+        //bool isCheck = false;
+        //if (CurrentPlu.NominalWeight > 0)
+        //{
+        //    if (Manager.Massa is not null)
+        //        CurrentWeighingFact.NettoWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsWeightTare;
+        //    else
+        //        CurrentWeighingFact.NettoWeight -= CurrentPlu.GoodsWeightTare;
+        //    if (CurrentWeighingFact.NettoWeight >= CurrentPlu.LowerWeightThreshold &&
+        //        CurrentWeighingFact.NettoWeight <= CurrentPlu.UpperWeightThreshold)
+        //    {
+        //        isCheck = true;
+        //    }
+        //}
+        //else
+        //    isCheck = true;
+        //if (!isCheck)
+        //{
+        //    // WPF MessageBox.
+        //    using WpfPageLoader wpfPageLoader = new(Page.MessageBox, false) { Width = 700, Height = 400 };
+        //    wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
+        //    wpfPageLoader.MessageBox.Message =
+        //        LocaleCore.Scales.WeightingControl + Environment.NewLine +
+        //        $"Вес нетто: {CurrentWeighingFact.NettoWeight} кг" + Environment.NewLine +
+        //        $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
+        //        $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
+        //        $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
+        //        "Для продолжения печати нажмите Ignore.";
+        //    wpfPageLoader.MessageBox.ButtonAbortVisibility = Visibility.Visible;
+        //    wpfPageLoader.MessageBox.ButtonRetryVisibility = Visibility.Visible;
+        //    wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
+        //    wpfPageLoader.MessageBox.VisibilitySettings.Localization();
+        //    wpfPageLoader.ShowDialog(owner);
+        //    DialogResult result = wpfPageLoader.MessageBox.Result;
+        //    wpfPageLoader.Close();
+        //    wpfPageLoader.Dispose();
+        //    if (result != DialogResult.Ignore)
+        //        return;
+        //}
 
-		// Шаблон с указанием кол-ва и не весовой продукт.
-		if (template.ImageData.ValueUnicode.Contains("^PQ1") && !PluScale.Plu.IsCheckWeight)
-		{
-			// Изменить кол-во этикеток.
-			if (WeighingSettings.LabelsCountMain > 1)
-				template.ImageData.ValueUnicode = template.ImageData.ValueUnicode.Replace(
-					"^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
-			// Печать этикетки.
-			PrintLabelCore(template, isClearBuffer);
-		}
-		// Шаблон без указания кол-ва.
-		else
-		{
-			for (int i = ManagerControl.PrintMain.LabelsCount; i <= WeighingSettings.LabelsCountMain; i++)
-			{
-				// Печать этикетки.
-				PrintLabelCore(template, isClearBuffer);
-			}
-		}
-	}
+        // Шаблон с указанием кол-ва и не весовой продукт.
+        if (template.ImageData.ValueUnicode.Contains("^PQ1") && !PluScale.Plu.IsCheckWeight)
+        {
+            // Изменить кол-во этикеток.
+            if (WeighingSettings.LabelsCountMain > 1)
+                template.ImageData.ValueUnicode = template.ImageData.ValueUnicode.Replace(
+                    "^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
+            // Печать этикетки.
+            PrintLabelCore(template, isClearBuffer);
+        }
+        // Шаблон без указания кол-ва.
+        else
+        {
+            for (int i = ManagerControl.PrintMain.LabelsCount; i <= WeighingSettings.LabelsCountMain; i++)
+            {
+                // Печать этикетки.
+                PrintLabelCore(template, isClearBuffer);
+            }
+        }
+    }
 
-	public void NewPluWeighing()
-	{
-		ProductSeriesModel productSeries = DataAccess.GetItemProductSeriesNotNullable(PluScale.Scale);
+    public void NewPluWeighing()
+    {
+        ProductSeriesModel productSeries = DataAccess.GetItemProductSeriesNotNullable(PluScale.Scale);
 
-		PluWeighing = new()
-		{
-			PluScale = PluScale,
-			Kneading = WeighingSettings.Kneading,
-			NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluNestingFk.WeightTare : PluNestingFk.WeightNom,
-			WeightTare = PluNestingFk.WeightTare,
-			Series = productSeries,
-		};
+        PluWeighing = new()
+        {
+            PluScale = PluScale,
+            Kneading = WeighingSettings.Kneading,
+            NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluNestingFk.WeightTare : PluNestingFk.WeightNom,
+            WeightTare = PluNestingFk.WeightTare,
+            Series = productSeries,
+        };
 
-		// Save or update weighing products.
-		SaveOrUpdatePluWeighing();
-	}
+        // Save or update weighing products.
+        SaveOrUpdatePluWeighing();
+    }
 
-	/// <summary>
-	/// Set fake data for PLU weighing.
-	/// </summary>
-	/// <param name="owner"></param>
-	public void SetPluWeighingFake(IWin32Window owner)
-	{
-		if (!Debug.IsDebug) return;
-		if (!PluScale.Plu.IsCheckWeight) return;
-		if (ManagerControl.Massa.WeightNet > 0) return;
+    /// <summary>
+    /// Set fake data for PLU weighing.
+    /// </summary>
+    /// <param name="owner"></param>
+    public void SetPluWeighingFake(IWin32Window owner)
+    {
+        if (!Debug.IsDebug) return;
+        if (!PluScale.Plu.IsCheckWeight) return;
+        if (ManagerControl.Massa.WeightNet > 0) return;
 
-		DialogResult dialogResult = WpfUtils.ShowNewOperationControl(owner,
-			LocaleCore.Print.QuestionUseFakeData,
-			true, LogTypeEnum.Question,
-			new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-			DeviceScaleFk.Device.Name, nameof(WeightCore));
-		if (dialogResult is DialogResult.Yes)
-		{
+        DialogResult dialogResult = WpfUtils.ShowNewOperationControl(owner,
+            LocaleCore.Print.QuestionUseFakeData,
+            true, LogTypeEnum.Question,
+            new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+        if (dialogResult is DialogResult.Yes)
+        {
             ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(PluNestingFk.WeightMin, PluNestingFk.WeightMax);
             ManagerControl.Massa.IsWeightNetFake = true;
-		}
-	}
+        }
+    }
 
-	/// <summary>
-	/// Weight label printing.
-	/// </summary>
-	/// <param name="template"></param>
-	/// <param name="isClearBuffer"></param>
-	private void PrintLabelCore(TemplateModel template, bool isClearBuffer)
-	{
-		try
-		{
-			PluLabelModel pluLabel = CreateAndSavePluLabel(template);
-			CreateAndSaveBarCodes(pluLabel);
+    /// <summary>
+    /// Weight label printing.
+    /// </summary>
+    /// <param name="template"></param>
+    /// <param name="isClearBuffer"></param>
+    private void PrintLabelCore(TemplateModel template, bool isClearBuffer)
+    {
+        try
+        {
+            PluLabelModel pluLabel = CreateAndSavePluLabel(template);
+            CreateAndSaveBarCodes(pluLabel);
 
-			// Print.
-			if (isClearBuffer)
-			{
-				ManagerControl.PrintMain.ClearPrintBuffer();
-				if (Scale.IsShipping)
-					ManagerControl.PrintShipping.ClearPrintBuffer();
-			}
+            // Print.
+            if (isClearBuffer)
+            {
+                ManagerControl.PrintMain.ClearPrintBuffer();
+                if (Scale.IsShipping)
+                    ManagerControl.PrintShipping.ClearPrintBuffer();
+            }
 
-			// Send cmd to the print.
-			if (Debug.IsDebug)
-			{
-				DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
-					LocaleCore.Print.QuestionPrintSendCmd, true, LogTypeEnum.Question,
-					new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-					DeviceScaleFk.Device.Name, nameof(WeightCore));
-				if (dialogResult != DialogResult.Yes)
-					return;
-			}
+            // Send cmd to the print.
+            if (Debug.IsDebug)
+            {
+                DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
+                    LocaleCore.Print.QuestionPrintSendCmd, true, LogTypeEnum.Question,
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                if (dialogResult != DialogResult.Yes)
+                    return;
+            }
 
-			// Send cmd to the print.
-			ManagerControl.PrintMain.SendCmd(pluLabel);
-		}
-		catch (Exception ex)
-		{
-			WpfUtils.CatchException(ex, true, true);
-		}
-	}
+            // Send cmd to the print.
+            ManagerControl.PrintMain.SendCmd(pluLabel);
+        }
+        catch (Exception ex)
+        {
+            WpfUtils.CatchException(ex, true, true);
+        }
+    }
 
-	/// <summary>
-	/// Save or update weighing products.
-	/// </summary>
-	private void SaveOrUpdatePluWeighing()
-	{
-		if (!PluWeighing.PluScale.Plu.IsCheckWeight) return;
+    /// <summary>
+    /// Save or update weighing products.
+    /// </summary>
+    private void SaveOrUpdatePluWeighing()
+    {
+        if (!PluWeighing.PluScale.Plu.IsCheckWeight) return;
 
-		if (PluWeighing.IsNew)
-			DataAccess.Save(PluWeighing);
-		else
-			DataAccess.UpdateForce(PluWeighing);
-	}
+        if (PluWeighing.IsNew)
+            DataAccess.Save(PluWeighing);
+        else
+            DataAccess.UpdateForce(PluWeighing);
+    }
 
-	/// <summary>
-	/// Create and save PLU label.
-	/// </summary>
-	/// <param name="template"></param>
-	/// <returns></returns>
-	private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
-	{
-		PluLabelModel pluLabel = new()
-		{
-			PluWeighing = PluWeighing,
-			PluScale = PluScale,
-			ProductDt = ProductDate,
-		};
+    /// <summary>
+    /// Create and save PLU label.
+    /// </summary>
+    /// <param name="template"></param>
+    /// <returns></returns>
+    private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
+    {
+        PluLabelModel pluLabel = new()
+        {
+            PluWeighing = PluWeighing,
+            PluScale = PluScale,
+            ProductDt = ProductDate,
+        };
 
-		XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
-		pluLabel.Xml = DataFormatUtils.SerializeAsXmlDocument<PluLabelModel>(pluLabel, true, true);
-		pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
-		pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
-		pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
-		pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
-		pluLabel.Zpl = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
+        XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
+        pluLabel.Xml = DataFormatUtils.SerializeAsXmlDocument<PluLabelModel>(pluLabel, true, true);
+        pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
+        pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
+        pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
+        pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
+        pluLabel.Zpl = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
 
-		// Merge.
-		//pluLabel.Zpl = zplArea + Environment.NewLine + pluLabel.Zpl;
+        // Merge.
+        //pluLabel.Zpl = zplArea + Environment.NewLine + pluLabel.Zpl;
 
-		// Save.
-		DataAccess.Save(pluLabel);
+        // Save.
+        DataAccess.Save(pluLabel);
 
-		return pluLabel;
-	}
+        return pluLabel;
+    }
 
-	private void CreateAndSaveBarCodes(PluLabelModel pluLabel)
-	{
-		BarCodeModel barCode = new() { PluLabel = pluLabel };
-		barCode.SetBarCodeTop(pluLabel);
-		barCode.SetBarCodeRight(pluLabel);
-		barCode.SetBarCodeBottom(pluLabel);
-		DataAccess.Save(barCode);
-	}
+    private void CreateAndSaveBarCodes(PluLabelModel pluLabel)
+    {
+        BarCodeModel barCode = new() { PluLabel = pluLabel };
+        barCode.SetBarCodeTop(pluLabel);
+        barCode.SetBarCodeRight(pluLabel);
+        barCode.SetBarCodeBottom(pluLabel);
+        DataAccess.Save(barCode);
+    }
 
-	private void SetSqlPublish()
-	{
-		PublishType = PublishType.Unknown;
-		PublishDescription = "Неизвестный сервер";
-		SqlInstance = GetSqlInstanceString();
-		SetSqlPublishFromInstance();
-	}
+    private void SetSqlPublish()
+    {
+        PublishType = PublishType.Unknown;
+        PublishDescription = "Неизвестный сервер";
+        SqlInstance = GetSqlInstanceString();
+        SetSqlPublishFromInstance();
+    }
 
-	private void SetSqlPublishFromInstance()
-	{
-		switch (SqlInstance)
-		{
-			case "INS1":
-				PublishType = PublishType.Debug;
-				PublishDescription = LocaleCore.Sql.SqlServerTest;
-				break;
-			case "SQL2019":
-				PublishType = PublishType.Develop;
-				PublishDescription = LocaleCore.Sql.SqlServerDev;
-				break;
-			case "LUTON":
-				PublishType = PublishType.Release;
-				PublishDescription = LocaleCore.Sql.SqlServerProd;
-				break;
-		}
-	}
+    private void SetSqlPublishFromInstance()
+    {
+        switch (SqlInstance)
+        {
+            case "INS1":
+                PublishType = PublishType.Debug;
+                PublishDescription = LocaleCore.Sql.SqlServerTest;
+                break;
+            case "SQL2019":
+                PublishType = PublishType.Develop;
+                PublishDescription = LocaleCore.Sql.SqlServerDev;
+                break;
+            case "LUTON":
+                PublishType = PublishType.Release;
+                PublishDescription = LocaleCore.Sql.SqlServerProd;
+                break;
+        }
+    }
 
-	private string GetSqlInstanceString()
-	{
-		string result = string.Empty;
-		SqlConnect.ExecuteReader(SqlQueries.DbSystem.Properties.GetInstance, (reader) =>
-		{
-			if (reader.Read())
-			{
-				result = SqlConnect.GetValueAsString(reader, "InstanceName");
-			}
-		});
-		return result;
-	}
+    private string GetSqlInstanceString()
+    {
+        string result = string.Empty;
+        SqlConnect.ExecuteReader(SqlQueries.DbSystem.Properties.GetInstance, (reader) =>
+        {
+            if (reader.Read())
+            {
+                result = SqlConnect.GetValueAsString(reader, "InstanceName");
+            }
+        });
+        return result;
+    }
 
-    public void UpdatePluScales()
+    public void SetPluScales()
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(Scale, nameof(PluScaleModel.Scale), false, false);
-        sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
+        sqlCrudConfig.AddFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), true));
         sqlCrudConfig.AddOrders(new(nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc));
         sqlCrudConfig.IsResultOrder = true;
         PluScales = DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
     }
-    
+
     public List<PluScaleModel> GetCurrentPlus()
     {
         IEnumerable<PluScaleModel> plusSkip = PluScales.Skip(PageNumber * PageSize);
         IEnumerable<PluScaleModel> plusTake = plusSkip.Take(PageSize);
         return plusTake.ToList();
+    }
+
+    private void SetNewPluNestingFks()
+    {
+        PluNestingFkModel pluNestingFk = DataAccess.GetItemNewEmpty<PluNestingFkModel>();
+        pluNestingFk.PluBundle = DataAccess.GetItemNewEmpty<PluBundleFkModel>();
+        pluNestingFk.PluBundle.Plu = DataAccess.GetItemNewEmpty<PluModel>();
+        pluNestingFk.PluBundle.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();
+        PluNestingFks = new() { pluNestingFk };
+    }
+
+    private void SetPluNestingFks(PluModel plu)
+    {
+        if (plu.IsNew)
+        {
+            SetNewPluNestingFks();
+        }
+        else
+        {
+            SqlCrudConfigModel sqlCrudConfig = new(
+                SqlQueries.DbScales.Tables.PluNestingFks.GetList, new SqlParameter("P_UID", plu.IdentityValueUid), true);
+            PluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
+        }
     }
 
     #endregion

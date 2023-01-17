@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -43,6 +44,8 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
+using DataCore.Sql.Xml;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DataCore.Sql.Core;
 
@@ -436,15 +439,77 @@ public class DataContextModel
 
     private List<T> GetListNotNullablePluNestingFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
-        PluNestingFks = DataAccess.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && PluNestingFks.Count > 1)
-            PluNestingFks = PluNestingFks.OrderByDescending(item => item.ChangeDt).ToList();
-        if (PluNestingFks.Exists(x => x.IsNew))
+        PluNestingFks = new();
+        if (sqlCrudConfig.IsResultAddFieldEmpty)
         {
-            PluNestingFkModel pluNestingFk = PluNestingFks.Find(x => x.IsNew);
-            pluNestingFk.PluBundle = DataAccess.GetItemNewEmpty<PluBundleFkModel>();
-            pluNestingFk.PluBundle.Plu = DataAccess.GetItemNewEmpty<PluModel>();
-            pluNestingFk.PluBundle.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();
+            PluNestingFks.Add(DataAccess.GetItemNewEmpty<PluNestingFkModel>());
+        }
+        object[] objects = DataAccess.GetArrayObjectsNotNullable(sqlCrudConfig);
+        foreach (object obj in objects)
+        {
+            if (obj is object[] { Length: 43 } item)
+            {
+                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                {
+                    PluBundleFkModel pluBundle = new();
+                    if (Guid.TryParse(Convert.ToString(item[11]), out Guid pluBundleUid))
+                    {
+                        pluBundle.IdentityValueUid = pluBundleUid;
+                        pluBundle.CreateDt = Convert.ToDateTime(item[12]);
+                        pluBundle.ChangeDt = Convert.ToDateTime(item[13]);
+                        pluBundle.IsMarked = Convert.ToBoolean(item[14]);
+                    }
+                    if (Guid.TryParse(Convert.ToString(item[17]), out Guid pluUid))
+                    {
+                        pluBundle.Plu.IdentityValueUid = pluUid;
+                        pluBundle.Plu.CreateDt = Convert.ToDateTime(item[18]);
+                        pluBundle.Plu.ChangeDt = Convert.ToDateTime(item[19]);
+                        pluBundle.Plu.IsMarked = Convert.ToBoolean(item[20]);
+                        pluBundle.Plu.Number = Convert.ToInt32(item[21]);
+                        pluBundle.Plu.Name = Convert.ToString(item[22]);
+                        pluBundle.Plu.FullName = Convert.ToString(item[23]);
+                        pluBundle.Plu.Description = Convert.ToString(item[24]);
+                        pluBundle.Plu.ShelfLifeDays = Convert.ToInt16(item[25]);
+                        pluBundle.Plu.Gtin = Convert.ToString(item[26]);
+                        pluBundle.Plu.Ean13 = Convert.ToString(item[27]);
+                        pluBundle.Plu.Itf14 = Convert.ToString(item[28]);
+                        pluBundle.Plu.IsCheckWeight = Convert.ToBoolean(item[29]);
+                    }
+                    if (Guid.TryParse(Convert.ToString(item[31]), out Guid bundleUid))
+                    {
+                        pluBundle.Bundle.IdentityValueUid = bundleUid;
+                        pluBundle.Bundle.CreateDt = Convert.ToDateTime(item[32]);
+                        pluBundle.Bundle.ChangeDt = Convert.ToDateTime(item[33]);
+                        pluBundle.Bundle.IsMarked = Convert.ToBoolean(item[34]);
+                        pluBundle.Bundle.Name = Convert.ToString(item[35]);
+                        pluBundle.Bundle.Weight = Convert.ToDecimal(item[36]);
+                    }
+                    BoxModel box = new();
+                    if (Guid.TryParse(Convert.ToString(item[37]), out Guid boxUid))
+                    {
+                        box.IdentityValueUid = boxUid;
+                        box.CreateDt = Convert.ToDateTime(item[38]);
+                        box.ChangeDt = Convert.ToDateTime(item[39]);
+                        box.IsMarked = Convert.ToBoolean(item[40]);
+                        box.Name = Convert.ToString(item[41]);
+                        box.Weight = Convert.ToDecimal(item[42]);
+                    }
+                    PluNestingFks.Add(new()
+                    {
+                        IdentityValueUid = uid,
+                        CreateDt = Convert.ToDateTime(item[1]),
+                        ChangeDt = Convert.ToDateTime(item[2]),
+                        IsMarked = Convert.ToBoolean(item[3]),
+                        IsDefault = Convert.ToBoolean(item[4]),
+                        BundleCount = Convert.ToInt16(item[5]),
+                        WeightMax = Convert.ToDecimal(item[6]),
+                        WeightMin = Convert.ToDecimal(item[7]),
+                        WeightNom = Convert.ToDecimal(item[8]),
+                        PluBundle = pluBundle,
+                        Box = box,
+                    });
+                }
+            }
         }
         return PluNestingFks.Cast<T>().ToList();
     }

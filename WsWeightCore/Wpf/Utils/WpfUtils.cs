@@ -40,17 +40,6 @@ public static class WpfUtils
         return resultPsw == DialogResult.OK;
     }
 
-    public static bool IsExistsWpfPage(IWin32Window owner, ref DialogResult resultWpf)
-    {
-        if (!WpfPage.Visible)
-        {
-            resultWpf = owner is not null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
-        }
-        WpfPage.Activate();
-        return true;
-        return false;
-    }
-
     public static void Dispose()
     {
         WpfPage.Close();
@@ -104,44 +93,42 @@ public static class WpfUtils
     /// <param name="isLog"></param>
     /// <param name="logType"></param>
     /// <param name="visibility"></param>
-    /// <param name="deviceName"></param>
-    /// <param name="appName"></param>
     /// <returns></returns>
     public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog,
-        LogTypeEnum logType, VisibilitySettingsModel visibility, string deviceName, string appName)
+        LogTypeEnum logType, VisibilitySettingsModel visibility)
     {
         if (isLog)
-            ShowNewOperationControlLogType(message, logType, deviceName, appName);
+            ShowNewOperationControlLogType(message, logType);
         return ShowNew(owner, LocaleCore.Scales.OperationControl, message, visibility);
     }
 
     public static DialogResult ShowNewOperationControl(string message, bool isLog,
-        LogTypeEnum logType, VisibilitySettingsModel visibility, string deviceName, string appName)
+        LogTypeEnum logType, VisibilitySettingsModel visibility)
     {
         if (isLog)
-            ShowNewOperationControlLogType(message, logType, deviceName, appName);
+            ShowNewOperationControlLogType(message, logType);
         return ShowNew(null, LocaleCore.Scales.OperationControl, message, visibility);
     }
 
-    private static void ShowNewOperationControlLogType(string message, LogTypeEnum logType, string deviceName,
-        string appName)
+    private static void ShowNewOperationControlLogType(string message, LogTypeEnum logType,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         switch (logType)
         {
             case LogTypeEnum.None:
-                DataAccess.LogInformation(message, deviceName, appName);
+                DataAccess.LogInformationFast(message);
                 break;
             case LogTypeEnum.Error:
-                DataAccess.LogError(message, deviceName, appName);
+                DataAccess.LogErrorFast(message, filePath, lineNumber, memberName);
                 break;
             case LogTypeEnum.Question:
-                DataAccess.LogQuestion(message, deviceName, appName);
+                DataAccess.LogQuestionFast(message);
                 break;
             case LogTypeEnum.Warning:
-                DataAccess.LogWarning(message, deviceName, appName);
+                DataAccess.LogWarningFast(message);
                 break;
             case LogTypeEnum.Information:
-                DataAccess.LogInformation(message, deviceName, appName);
+                DataAccess.LogInformationFast(message);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
@@ -156,8 +143,7 @@ public static class WpfUtils
             DialogResult result = ShowNewOperationControl(
                 LocaleCore.Scales.HostNotFound(deviceName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
                 false, LogTypeEnum.Information,
-                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                UserSessionHelper.Instance.DeviceScaleFk.Device.Name, nameof(WeightCore));
+                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
             if (result == DialogResult.Yes)
             {
                 device = new()
@@ -246,7 +232,6 @@ public static class WpfUtils
     /// Show catch exception window.
     /// </summary>
     /// <param name="ex"></param>
-    /// <param name="isFileLog"></param>
     /// <param name="isDbLog"></param>
     /// <param name="isShowWindow"></param>
     /// <param name="filePath"></param>

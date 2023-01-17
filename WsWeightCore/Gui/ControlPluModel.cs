@@ -7,7 +7,7 @@ namespace WeightCore.Gui;
 
 public class ControlPluModel
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     public Button ButtonPlu { get; }
     private Label LabelPluNumber { get; }
@@ -16,10 +16,15 @@ public class ControlPluModel
     private Label LabelPluTemplate { get; }
     private Label LabelPluValidate { get; }
 
-    #endregion
-
-    #region Constructor and destructor
-
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="buttonPlu"></param>
+    /// <param name="labelPluNumber"></param>
+    /// <param name="labelPluType"></param>
+    /// <param name="labelPluCode"></param>
+    /// <param name="labelPluTemplate"></param>
+    /// <param name="labelPluValidate"></param>
     public ControlPluModel(Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluTemplate, Label labelPluValidate)
     {
         ButtonPlu = buttonPlu;
@@ -47,7 +52,7 @@ public class ControlPluModel
         LabelPluType.Height = height;
         LabelPluType.Top = 2;
 
-        if (LabelPluValidate.Text == "OK")
+        if (LabelPluValidate.Text == @"OK")
         {
             LabelPluType.Width = width;
             LabelPluType.Left = ButtonPlu.Width / 2 + 2;

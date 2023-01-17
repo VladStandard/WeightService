@@ -39,21 +39,56 @@ public partial class DataAccessHelper
 		}
     }
 
-	public void LogError(Exception ex, [CallerFilePath] string filePath = "",
-		[CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogError(ex, "", nameof(DataCore), filePath, lineNumber, memberName);
-	
-	public void LogError(Exception ex, string deviceName, string appName, [CallerFilePath] string filePath = "", 
+    private void LogCore(string message, LogTypeEnum logType, string deviceName, string appName, string filePath, int lineNumber, string memberName)
+    {
+        SetupLog(deviceName, appName);
+        LogCoreFast(message, logType, filePath, lineNumber, memberName);
+    }
+
+    private void LogCoreFast(string message, LogTypeEnum logType, string filePath, int lineNumber, string memberName)
+    {
+        StringUtils.SetStringValueTrim(ref filePath, 32, true);
+        StringUtils.SetStringValueTrim(ref memberName, 32);
+        StringUtils.SetStringValueTrim(ref message, 1024);
+        LogTypeModel? logTypeItem = GetItemLogTypeNullable(logType);
+
+        LogModel log = new()
+        {
+            CreateDt = DateTime.Now,
+            ChangeDt = DateTime.Now,
+            IsMarked = false,
+            Device = Device,
+            App = App,
+            LogType = logTypeItem,
+            Version = AppVersion.Version,
+            File = filePath,
+            Line = lineNumber,
+            Member = memberName,
+            Message = message,
+        };
+        SaveAsync(log).ConfigureAwait(false);
+    }
+
+	public void LogErrorFast(Exception ex, [CallerFilePath] string filePath = "",
+		[CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        LogCoreFast(ex.Message, LogTypeEnum.Error, filePath, lineNumber, memberName);
+        if (ex.InnerException is not null)
+            LogCoreFast(ex.InnerException.Message, LogTypeEnum.Error, filePath, lineNumber, memberName);
+    }
+
+	public void LogErrorFast(string message, string filePath, int lineNumber, string memberName)
+    {
+        LogCoreFast(message, LogTypeEnum.Error, filePath, lineNumber, memberName);
+    }
+
+    public void LogError(Exception ex, string deviceName, string appName, [CallerFilePath] string filePath = "", 
 		[CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		LogCore(ex.Message, LogTypeEnum.Error, deviceName, appName, filePath, lineNumber, memberName);
 		if (ex.InnerException is not null)
 			LogCore(ex.InnerException.Message, LogTypeEnum.Error, deviceName, appName, filePath, lineNumber, memberName);
 	}
-
-	public void LogError(string message, [CallerFilePath] string filePath = "", 
-		[CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogError(message, "", nameof(DataCore), filePath, lineNumber, memberName);
 
 	public void LogError(string message, string deviceName, string appName,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -65,42 +100,33 @@ public partial class DataAccessHelper
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
 		LogCore(message, LogTypeEnum.Stop, deviceName, appName, filePath, lineNumber, memberName);
 
+	public void LogStopFast(string message, 
+		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+		LogCoreFast(message, LogTypeEnum.Stop, filePath, lineNumber, memberName);
+
 	public void LogInformation(string message, string deviceName, string appName,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
 		LogCore(message, LogTypeEnum.Information, deviceName, appName, filePath, lineNumber, memberName);
+
+	public void LogInformationFast(string message, 
+		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+		LogCoreFast(message, LogTypeEnum.Information, filePath, lineNumber, memberName);
 
 	public void LogWarning(string message, string deviceName, string appName,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
 		LogCore(message, LogTypeEnum.Warning, deviceName, appName, filePath, lineNumber, memberName);
 
+	public void LogWarningFast(string message, 
+		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+		LogCoreFast(message, LogTypeEnum.Warning, filePath, lineNumber, memberName);
+
 	public void LogQuestion(string message, string deviceName, string appName,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
 		LogCore(message, LogTypeEnum.Question, deviceName, appName, filePath, lineNumber, memberName);
 
-	private void LogCore(string message, LogTypeEnum logType, string deviceName, string appName, string filePath, int lineNumber, string memberName)
-	{
-		StringUtils.SetStringValueTrim(ref filePath, 32, true);
-		StringUtils.SetStringValueTrim(ref memberName, 32);
-		StringUtils.SetStringValueTrim(ref message, 1024);
-        LogTypeModel? logTypeItem = GetItemLogTypeNullable(logType);
-        SetupLog(deviceName, appName);
-
-		LogModel log = new()
-		{
-			CreateDt = DateTime.Now,
-			ChangeDt = DateTime.Now,
-			IsMarked = false,
-			Device = Device,
-			App = App,
-			LogType = logTypeItem,
-			Version = AppVersion.Version,
-			File = filePath,
-			Line = lineNumber,
-			Member = memberName,
-			Message = message,
-		};
-		Save(log);
-	}
+	public void LogQuestionFast(string message, 
+		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+		LogCoreFast(message, LogTypeEnum.Question, filePath, lineNumber, memberName);
 
 	#endregion
 }

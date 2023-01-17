@@ -1,8 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Tables;
 using NHibernate;
+using System;
+using System.Threading.Tasks;
 
 namespace DataCore.Sql.Core;
 
@@ -88,12 +91,25 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-    private ISQLQuery? GetSqlQuery(ISession session, string query)
+	[Obsolete(@"Use GetSqlQuery(ISession session, string query, List<SqlParameter> parameters)")]
+	private ISQLQuery? GetSqlQuery(ISession session, string query)
 	{
 		if (string.IsNullOrEmpty(query)) return null;
 
 		return session.CreateSQLQuery(query);
 	}
+    
+    private ISQLQuery? GetSqlQuery(ISession session, string query, List<SqlParameter> parameters)
+	{
+		if (string.IsNullOrEmpty(query)) return null;
+
+		ISQLQuery sqlQuery = session.CreateSQLQuery(query);
+        foreach (SqlParameter parameter in parameters)
+        {
+            sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
+        }
+        return sqlQuery;
+    }
 
 	public int ExecQueryNative(string query, Dictionary<string, object>? parameters)
 	{
@@ -124,6 +140,12 @@ public partial class DataAccessHelper
         item.CreateDt = DateTime.Now;
 		item.ChangeDt = DateTime.Now;
 		return ExecuteTransaction(session => { session.Save(item); });
+	}
+
+	public async Task<(bool IsOk, Exception? Exception)> SaveAsync<T>(T? item) where T : SqlTableBase, new()
+	{
+		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+		return Save(item);
 	}
 
 	public (bool IsOk, Exception? Exception) Save<T>(T? item, SqlFieldIdentityModel? identity) where T : SqlTableBase, new()

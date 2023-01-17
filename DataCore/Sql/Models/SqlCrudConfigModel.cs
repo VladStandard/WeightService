@@ -2,21 +2,19 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Files;
+using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Models;
-
-public enum EnumCrudAction
-{
-	Add,
-	Remove
-}
 
 public class SqlCrudConfigModel : ICloneable
 {
 	#region Public and private fields, properties, constructor
 
-	public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
+    private JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
+    public string NativeQuery { get; set; }
+    public bool IsFillReferences { get; set; }
+    public List<SqlParameter> NativeParameters { get; set; }
 	public List<SqlFieldFilterModel> Filters { get; private set; }
 	public List<SqlFieldOrderModel> Orders { get; private set; }
 	public bool IsGuiShowFilterAdditional { get; set; }
@@ -44,9 +42,12 @@ public class SqlCrudConfigModel : ICloneable
 			: IsResultShowOnlyTop ? JsonSettings.Local.SelectTopRowsCount : value;
 	}
 
-	public SqlCrudConfigModel()
-	{
-		Filters = new();
+    public SqlCrudConfigModel()
+    {
+        NativeQuery = string.Empty;
+        NativeParameters = new();
+        IsFillReferences = true;
+        Filters = new();
 		Orders = new();
 
 		IsGuiShowFilterAdditional = false;
@@ -62,16 +63,23 @@ public class SqlCrudConfigModel : ICloneable
 		ResultMaxCount = 0;
 	}
 
-	public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders,
-		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0)
-	{
-		Filters = filters;
-		Orders = orders;
+    public SqlCrudConfigModel(string query, List<SqlParameter> parameters) : this()
+    {
+        NativeQuery = query;
+        NativeParameters = parameters;
+    }
 
-		IsGuiShowFilterAdditional = false;
-		IsGuiShowFilterMarked = false;
-		IsGuiShowFilterOnlyTop = true;
-		IsGuiShowItemsCount = false;
+    public SqlCrudConfigModel(string query, SqlParameter parameter, bool isResultAddFieldEmpty) :
+        this(query, new List<SqlParameter> { parameter })
+    {
+        IsResultAddFieldEmpty = isResultAddFieldEmpty;
+    }
+
+	public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders,
+		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0) : this()
+    {
+        Filters = filters;
+		Orders = orders;
 
 		IsResultShowMarked = isShowMarked;
 		IsResultShowOnlyTop = isShowOnlyTop;
@@ -83,17 +91,14 @@ public class SqlCrudConfigModel : ICloneable
 
 	public SqlCrudConfigModel(List<SqlFieldFilterModel> filters,
 		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0) :
-		this(filters, new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, maxCount)
-	{ }
+		this(filters, new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, maxCount) { }
 
 	public SqlCrudConfigModel(List<SqlFieldOrderModel> orders,
 		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0) :
-		this(new(), orders, isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, maxCount)
-	{ }
+		this(new(), orders, isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, maxCount) { }
 
 	public SqlCrudConfigModel(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0) :
-		this(new(), new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, maxCount)
-	{ }
+		this(new(), new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, maxCount) { }
 
 	#endregion
 
@@ -122,14 +127,14 @@ public class SqlCrudConfigModel : ICloneable
         if (!Filters.Any())
 			Filters = filters;
         else
-            foreach (SqlFieldFilterModel filter in filters)
+            foreach (SqlFieldFilterModel filter in filters.Where(filter => !Filters.Contains(filter)))
             {
-                if (!Filters.Contains(filter))
-                {
-                    Filters.Add(filter);
-                }
+                Filters.Add(filter);
             }
     }
+
+    public void AddFilters(SqlFieldFilterModel filter) => 
+        AddFilters(new List<SqlFieldFilterModel>() { filter });
 
     public void AddFilters(string className, SqlTableBase? item) => AddFilters(GetFilters(className, item));
 
@@ -171,12 +176,9 @@ public class SqlCrudConfigModel : ICloneable
         if (!Orders.Any())
 			Orders = orders;
         else
-			foreach (SqlFieldOrderModel order in orders)
+			foreach (SqlFieldOrderModel order in orders.Where(order => !Orders.Contains(order)))
             {
-                if (!Orders.Contains(order))
-                {
-                    Orders.Add(order);
-                }
+                Orders.Add(order);
             }
     }
 

@@ -24,6 +24,8 @@ public class LocaleScale
     public readonly decimal MassaThresholdPositive = 0.050M;
     public readonly decimal MassaThresholdValue = 0.010M;
     public string AppTitle => Lang == Lang.English ? "Label print" : "Печать этикеток";
+    public string AppWaitLoad => Lang == Lang.English ? "Wait for the program to start" : "Подождите запуска программы";
+    public string AppWaitExit => Lang == Lang.English ? "Wait for the program to complete" : "Подождите завершения программы";
     public string AlreadyRunning => Lang == Lang.English ? "already running" : "уже запущено";
     public string ButtonAddKneading => Lang == Lang.English ? "Kneading" : "Замес";
     public string ButtonNewPallet => Lang == Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";

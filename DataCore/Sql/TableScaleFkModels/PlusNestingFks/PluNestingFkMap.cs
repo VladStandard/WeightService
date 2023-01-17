@@ -26,6 +26,7 @@ public class PluNestingFkMap : ClassMap<PluNestingFkModel>
         Map(x => x.WeightMin).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_MIN").Not.Nullable().Unique();
         Map(x => x.WeightNom).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_NOM").Not.Nullable().Unique();
         References(x => x.Box).Column("BOX_UID").Unique().Not.Nullable();
+        //References(x => x.Plu).Column("PLU_BUNDLE_FK.PLU_UID").Unique().Not.Nullable();
         References(x => x.PluBundle).Column("PLU_BUNDLE_FK").Unique().Not.Nullable();
     }
 }

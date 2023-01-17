@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>10.0</LangVersion>
     <PublishUrl>\\palych\Install\VSSoft\Scales-2-Preview\</PublishUrl>
@@ -32,7 +33,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.8.160.0</ApplicationVersion>
+    <ApplicationVersion>0.8.161.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -496,6 +497,12 @@
     <Compile Include="Controls\KneadingUserControl.Designer.cs">
       <DependentUpon>KneadingUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WaitUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WaitUserControl.Designer.cs">
+      <DependentUpon>WaitUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserControlBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -540,8 +547,14 @@
     <EmbeddedResource Include="Controls\KneadingUserControl.resx">
       <DependentUpon>KneadingUserControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WaitUserControl.resx">
+      <DependentUpon>WaitUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\PluUserControl.resx">
       <DependentUpon>PluUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UserControlBase.resx">
+      <DependentUpon>UserControlBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -622,8 +635,10 @@
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
