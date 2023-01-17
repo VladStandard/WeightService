@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.Settings;
 using DataCore.CssStyles;
 using Microsoft.AspNetCore.Components;
 
@@ -22,7 +23,9 @@ public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : Sq
 		set => SqlItemOnTable = value;
 	}
 
-	[Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
+    public ButtonSettingsModel? ButtonSettings { get; set; }
+
+    [Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
 	[Parameter] public CssStyleTableBodyModel CssTableStyleBody { get; set; }
 
 	public RazorComponentItemBase()
@@ -35,17 +38,6 @@ public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : Sq
 	#endregion
 
 	#region Public and private methods
-
-	//protected override void OnParametersSet()
-	//{
-	//	RunActionsParametersSet(new()
-	//	{
-	//		() =>
-	//		{
-	//			//
-	//		}
-	//	});
-	//}
-
+	
 	#endregion
 }

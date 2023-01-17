@@ -13,10 +13,9 @@ public partial class SectionProductionFacilities : RazorComponentSectionBase<Pro
 {
     #region Public and private fields, properties, constructor
 
-    public SectionProductionFacilities()
+    public SectionProductionFacilities() : base()
     {
-	    SqlCrudConfigSection.IsGuiShowItemsCount = true;
-	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
     }
 
     #endregion
@@ -30,8 +29,6 @@ public partial class SectionProductionFacilities : RazorComponentSectionBase<Pro
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

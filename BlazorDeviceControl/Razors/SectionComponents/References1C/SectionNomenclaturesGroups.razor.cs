@@ -10,12 +10,6 @@ public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<Nome
 {
     #region Public and private fields, properties, constructor
 
-    public SectionNomenclaturesGroups()
-    {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -31,8 +25,6 @@ public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<Nome
                 //sqlCrudConfig.SetOrders(new(nameof(SqlTableBase.Name), SqlFieldOrderEnum.Asc));
                 sqlCrudConfig.IsResultOrder = true;
                 SqlSectionCast = DataContext.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

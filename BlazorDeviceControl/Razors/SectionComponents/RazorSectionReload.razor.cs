@@ -10,22 +10,12 @@ public partial class RazorSectionReload<TItem, TItemFilter> : RazorComponentSect
 {
 	#region Public and private fields, properties, constructor
 
-	//
 
 	#endregion
 
 	#region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				//
-			}
-		});
-	}
+	//
 
-	#endregion
+    #endregion
 }

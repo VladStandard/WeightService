@@ -5,16 +5,23 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using DataCore.CssStyles;
 using DataCore.Sql.TableScaleModels.PlusScales;
+using BlazorCore.Settings;
 
 namespace BlazorCore.Razors;
 
 public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase 
 	where TItem : SqlTableBase, new() where TItemFilter : SqlTableBase, new() 
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	[Parameter] public CssStyleRadzenColumnModel CssStyleRadzenColumn { get; set; }
-	protected List<TItem> SqlSectionCast
+    #region Parameters
+
+    [Parameter] public CssStyleRadzenColumnModel CssStyleRadzenColumn { get; set; }
+    [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
+
+    #endregion
+
+    protected List<TItem> SqlSectionCast
 	{
 		get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
 		set => SqlSection = !value.Any() ? null : new(value);
@@ -32,12 +39,18 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 	protected List<TItemFilter> SqlSectionFilterCast { get; set; }
 	protected string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
 
-	public RazorComponentSectionBase()
+    public RazorComponentSectionBase()
 	{
 		CssStyleRadzenColumn = new("5%");
-		SqlItemFilterCast = new();
-		SqlSectionFilterCast = new();
-	}
+         // SqlItemFilterCast = new();
+		// SqlSectionFilterCast = new();
+
+        SqlCrudConfigSection.IsGuiShowItemsCount = true;
+        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = true;
+
+        ButtonSettings = new(true, true, true, true, true, false, false);
+    }
 
 	#endregion
 

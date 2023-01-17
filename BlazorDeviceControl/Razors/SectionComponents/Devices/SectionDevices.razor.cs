@@ -10,10 +10,9 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, Sql
 {
     #region Public and private fields, properties, constructor
 
-    public SectionDevices()
+    public SectionDevices() : base()
     {
-	    SqlCrudConfigSection.IsGuiShowItemsCount = true;
-		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
     }
 
     #endregion
@@ -27,8 +26,6 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, Sql
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<DeviceModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

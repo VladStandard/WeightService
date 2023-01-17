@@ -10,12 +10,6 @@ public partial class SectionContragents : RazorComponentSectionBase<ContragentMo
 {
     #region Public and private fields, properties, constructor
 
-    public SectionContragents()
-    {
-        SqlCrudConfigSection.IsGuiShowItemsCount = true;
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -27,8 +21,6 @@ public partial class SectionContragents : RazorComponentSectionBase<ContragentMo
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<ContragentModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

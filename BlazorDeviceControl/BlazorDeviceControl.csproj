@@ -133,12 +133,11 @@
     <Watch Remove="Razors\SectionComponents\Others\SectionOrganizations.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionPackagesPlus.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionScalesScreenShots.razor" />
-    <Watch Remove="Razors\SectionComponents\Plus\SectionNestingFks.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPlusBundlesFks.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPlusLabels.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPlusNestingFks.razor" />
-    <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeighings.razor" />
-    <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeighingsAggr.razor" />
+    <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeightings.razor" />
+    <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeightingsAggr.razor" />
     <Watch Remove="Razors\SectionComponents\RazorSectionActions.razor" />
     <Watch Remove="Razors\SectionComponents\RazorSectionField.razor" />
     <Watch Remove="Razors\SectionComponents\RazorSectionFieldIdentity.razor" />

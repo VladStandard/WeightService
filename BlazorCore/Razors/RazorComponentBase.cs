@@ -40,7 +40,6 @@ public partial class RazorComponentBase : LayoutComponentBase
     #region Parameters
 
     [Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
-    [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
     [Parameter] public Guid? IdentityUid { get; set; }
     [Parameter] public long? IdentityId { get; set; }
     [Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
@@ -80,8 +79,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		HttpContext = null;
         UserSettings = null;
-		ButtonSettings = null;
-		Title = string.Empty;
+        Title = string.Empty;
 
 		SqlItem = null;
 		SqlItemOnTable = null;
@@ -118,9 +116,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 			SqlSectionOnTable = ParentRazor.SqlSectionOnTable;
 		if (ParentRazor.SqlLinkedItems is not null)
 			SqlLinkedItems = ParentRazor.SqlLinkedItems;
-		if (ParentRazor.ButtonSettings is not null)
-			ButtonSettings = ParentRazor.ButtonSettings;
-		SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
+        SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
 		SqlCrudConfigSection = ParentRazor.SqlCrudConfigSection;
 	}
 

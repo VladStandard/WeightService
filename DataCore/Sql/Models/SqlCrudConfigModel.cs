@@ -14,37 +14,43 @@ public enum EnumCrudAction
 
 public class SqlCrudConfigModel : ICloneable
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
-	public List<SqlFieldFilterModel> Filters { get; private set; }
-	public List<SqlFieldOrderModel> Orders { get; private set; }
-	public bool IsGuiShowFilterAdditional { get; set; }
-	public bool IsGuiShowFilterMarked { get; set; }
-	public bool IsGuiShowFilterOnlyTop { get; set; }
-	public bool IsGuiShowItemsCount { get; set; }
-	public bool IsResultAddFieldEmpty { get; }
-	public bool IsResultOrder { get; set; }
-	private bool _isResultShowMarked;
-	public bool IsResultShowMarked
-	{
-		get => _isResultShowMarked;
-		set
-		{
-			_isResultShowMarked = value;
-			SetFiltersIsResultShowMarked();
-		}
-	}
-	public bool IsResultShowOnlyTop { get; set; }
-	private int _resultMaxCount;
-	public int ResultMaxCount
-	{
-		get => _resultMaxCount;
-		set => _resultMaxCount = value == 1 ? 1
-			: IsResultShowOnlyTop ? JsonSettings.Local.SelectTopRowsCount : value;
-	}
+    #region Properties
+    
+    public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
+    public List<SqlFieldFilterModel> Filters { get; private set; }
+    public List<SqlFieldOrderModel> Orders { get; private set; }
+    public bool IsGuiShowFilterAdditional { get; set; }
+    public bool IsGuiShowFilterMarked { get; set; }
+    public bool IsGuiShowFilterOnlyTop { get; set; }
+    public bool IsGuiShowItemsCount { get; set; }
+    public bool IsResultAddFieldEmpty { get; }
+    public bool IsResultOrder { get; set; }
+    public bool IsResultShowOnlyTop { get; set; }
+    public bool IsResultShowMarked
+    {
+        get => _isResultShowMarked;
+        set
+        {
+            _isResultShowMarked = value;
+            SetFiltersIsResultShowMarked();
+        }
+    }
+    public int ResultMaxCount
+    {
+        get => _resultMaxCount;
+        set => _resultMaxCount = value == 1 ? 1
+            : IsResultShowOnlyTop ? JsonSettings.Local.SelectTopRowsCount : value;
+    }
 
-	public SqlCrudConfigModel()
+    #endregion
+
+    private bool _isResultShowMarked;
+
+    private int _resultMaxCount;
+
+    public SqlCrudConfigModel()
 	{
 		Filters = new();
 		Orders = new();

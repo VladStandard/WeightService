@@ -11,10 +11,9 @@ public partial class SectionLogsQuestions : RazorComponentSectionBase<LogModel, 
 {
 	#region Public and private fields, properties, constructor
 
-	public SectionLogsQuestions()
-	{
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+    public SectionLogsQuestions() : base()
+    {
+        ButtonSettings = new(false, true, false, false, false, false, false);
     }
 
     #endregion

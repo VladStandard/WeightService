@@ -10,11 +10,10 @@ public partial class SectionPlusLabels : RazorComponentSectionBase<PluLabelModel
 {
 	#region Public and private fields, properties, constructor
 
-	public SectionPlusLabels()
+	public SectionPlusLabels() :base()
 	{
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-	}
+        ButtonSettings = new(false, true, false, true, false, false, false);
+    }
 
 	#endregion
 
@@ -28,7 +27,6 @@ public partial class SectionPlusLabels : RazorComponentSectionBase<PluLabelModel
             {
                 SqlSectionCast = DataContext.GetListNotNullable<PluLabelModel>(SqlCrudConfigSection);
 
-				ButtonSettings = new(false, true, false, true, false, false, false);
             }
 		});
 	}

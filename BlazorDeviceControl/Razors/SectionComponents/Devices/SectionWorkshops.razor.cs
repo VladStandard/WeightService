@@ -10,10 +10,9 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel,
 {
     #region Public and private fields, properties, constructor
 
-    public SectionWorkshops()
+    public SectionWorkshops() : base()
     {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
     }
 
     #endregion
@@ -27,8 +26,6 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel,
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<WorkShopModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

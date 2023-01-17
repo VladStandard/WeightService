@@ -10,11 +10,9 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
 {
     #region Public and private fields, properties, constructor
 
-    public SectionTemplateResources()
+    public SectionTemplateResources() : base()
     {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-	    CssStyleRadzenColumn.Width = "40%";
+        CssStyleRadzenColumn.Width = "40%";
     }
 
     #endregion
@@ -28,8 +26,6 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<TemplateResourceModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

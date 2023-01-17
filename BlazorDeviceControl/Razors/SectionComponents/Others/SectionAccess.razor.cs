@@ -10,12 +10,10 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
 {
     #region Public and private fields, properties, constructor
 
-    public SectionAccess()
+    public SectionAccess() : base()
     {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-	    SqlCrudConfigSection.IsGuiShowFilterOnlyTop = true;
-	}
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
+    }
 
     #endregion
 
@@ -29,7 +27,6 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
             {
                 SqlSectionCast = DataContext.GetListNotNullable<AccessModel>(SqlCrudConfigSection);
 
-				ButtonSettings = new(true, true, true, true, true, false, false);
             }
 		});
     }

@@ -6,15 +6,14 @@ using DataCore.Sql.TableScaleModels.PlusWeighings;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
-public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighingModel, SqlTableBase>
+public partial class SectionPluWeightings : RazorComponentSectionBase<PluWeighingModel, SqlTableBase>
 {
 	#region Public and private fields, properties, constructor
 
-	public SectionPluWeighings()
+	public SectionPluWeightings() : base()
 	{
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-	}
+        ButtonSettings = new(false, true, false, true, false, false, false);
+    }
 
 	#endregion
 
@@ -27,9 +26,7 @@ public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighing
 			() =>
 			{
 				SqlSectionCast = DataContext.GetListNotNullable<PluWeighingModel>(SqlCrudConfigSection);
-				
-				ButtonSettings = new(false, true, false, true, false, false, false);
-			}
+            }
 		});
 	}
 

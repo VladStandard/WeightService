@@ -11,10 +11,9 @@ public partial class SectionLogs : RazorComponentSectionBase<LogQuickModel, SqlT
 {
     #region Public and private fields, properties, constructor
 
-    public SectionLogs()
+    public SectionLogs() : base()
     {
-        SqlCrudConfigSection.IsGuiShowItemsCount = true;
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+        ButtonSettings = new(false, true,  false, false, false, false, false);
     }
 
     #endregion
@@ -59,8 +58,6 @@ public partial class SectionLogs : RazorComponentSectionBase<LogQuickModel, SqlT
                     }
                 }
                 SqlSectionCast = items;
-
-                ButtonSettings = new(false, true, true, false, false, false, false);
             }
         });
     }

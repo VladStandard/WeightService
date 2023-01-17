@@ -11,12 +11,10 @@ public partial class SectionPlusBundlesFks : RazorComponentSectionBase<PluBundle
 {
     #region Public and private fields, properties, constructor
 
-    public SectionPlusBundlesFks()
+    public SectionPlusBundlesFks() : base()
     {
-	    SqlCrudConfigSection.IsGuiShowItemsCount = true;
-	    SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
-	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-		ButtonSettings = new(true, true, true, true, true, true, false);
+        SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
+        ButtonSettings = new(true, true, true, true, true, true, false);
     }
 
     #endregion
