@@ -3,10 +3,7 @@
 @page "/item/nomenclature_group/new"
 @page "/item/nomenclature_group/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.NomenclaturesGroups
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@NomenclatureGroupModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemNomenclatureGroup />
 

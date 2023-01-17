@@ -3,10 +3,7 @@
 @page "/item/plu_label/new"
 @page "/item/plu_label/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.PlusLabels
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@PluLabelModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
 

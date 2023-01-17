@@ -5,11 +5,9 @@
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SectionComponents.Printers
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Printers
 @using DataCore.Sql.TableScaleModels.PrintersTypes
 
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@PrinterModel ParentRazor=@(this) Title=@LocaleCore.Print.Name />
 

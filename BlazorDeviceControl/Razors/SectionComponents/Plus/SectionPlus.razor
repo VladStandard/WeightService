@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Plus.PluModel, SqlTableBase>
 @page "/section/plus"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Plus
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@PluModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
 

@@ -3,11 +3,8 @@
 @page "/item/device/new"
 @page "/item/device/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Devices
 @using DataCore.Sql.TableScaleModels.DeviceTypes
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@DeviceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemHost />
 

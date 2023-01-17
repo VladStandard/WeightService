@@ -3,10 +3,8 @@
 @page "/item/plu_weighing/new"
 @page "/item/plu_weighing/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.PlusWeighings
 
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluWeighing />
 

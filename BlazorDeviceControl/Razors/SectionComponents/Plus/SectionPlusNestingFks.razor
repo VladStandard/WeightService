@@ -1,12 +1,9 @@
 ﻿@inherits RazorComponentSectionBase<PluNestingFkModel, PluModel>
 @page "/section/plus_nesting_fks"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
-@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
 @using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 @using DataCore.Sql.TableScaleModels.Plus
 
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@PluNestingFkModel TItemFilter=@PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusNestingFk />
 

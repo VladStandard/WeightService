@@ -3,10 +3,7 @@
 @page "/item/scale_screenshot/new"
 @page "/item/scale_screenshot/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.ScalesScreenshots
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@ScaleScreenShotModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemScreenShot />
 

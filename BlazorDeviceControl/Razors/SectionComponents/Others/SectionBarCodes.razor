@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.BarCodes.BarCodeModel, SqlTableBase>
 @page "/section/barcodes"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.BarCodes
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@BarCodeModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
 

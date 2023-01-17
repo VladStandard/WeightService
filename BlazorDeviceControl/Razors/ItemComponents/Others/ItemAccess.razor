@@ -3,10 +3,7 @@
 @page "/item/access/new"
 @page "/item/access/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Access
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@AccessModel ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
 

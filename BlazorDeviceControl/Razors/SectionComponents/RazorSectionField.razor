@@ -7,8 +7,6 @@
 @using Radzen.Blazor
 @using BlazorDeviceControl.Razors.SystemComponents
 
-<SystemIdentity ParentRazor=@(this) />
-
 <RadzenGridColumn TItem=@TItem Type=@RazorFieldConfig.Type TextAlign=@RazorFieldConfig.TextAlign
                   Width=@(CssStyleRadzenColumn.Width) Title=@RazorFieldConfig.Title>
 	<Template Context="item">

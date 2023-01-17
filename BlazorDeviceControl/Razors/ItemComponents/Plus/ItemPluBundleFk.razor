@@ -4,12 +4,10 @@
 @page "/item/plu_bundle_fk/{IdentityUidStr}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 @using DataCore.Sql.TableScaleModels.Bundles;
 @using DataCore.Sql.TableScaleModels.Plus;
 
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@PluBundleFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluBundleFk />
 

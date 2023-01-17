@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusWeighings.PluWeighingModel, SqlTableBase>
 @page "/section/plu_weighings"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.PlusWeighings
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@PluWeighingModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
 

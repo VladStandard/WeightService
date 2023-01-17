@@ -3,10 +3,7 @@
 @page "/item/production_facility/new"
 @page "/item/production_facility/{IdentityId:long}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.ProductionFacilities
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
 

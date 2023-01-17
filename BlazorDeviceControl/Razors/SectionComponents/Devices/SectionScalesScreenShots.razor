@@ -1,11 +1,8 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.ScalesScreenshots.ScaleScreenShotModel, DataCore.Sql.TableScaleModels.Scales.ScaleModel>
 @page "/section/scales_screenshots"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Scales
 @using DataCore.Sql.TableScaleModels.ScalesScreenshots
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@ScaleScreenShotModel TItemFilter=@ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScreenShots />
 

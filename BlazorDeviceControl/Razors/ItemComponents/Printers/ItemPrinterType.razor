@@ -3,10 +3,7 @@
 @page "/item/printer_type/new"
 @page "/item/printer_type/{IdentityId:long}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.PrintersTypes
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Type />
 

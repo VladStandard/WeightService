@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Nomenclatures.NomenclatureModel, SqlTableBase>
 @page "/section/nomenclatures"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Nomenclatures
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@NomenclatureModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures />
 

@@ -3,10 +3,7 @@
 @page "/item/contragent/new"
 @page "/item/contragent/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Contragents
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@ContragentModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemContragent />
 
