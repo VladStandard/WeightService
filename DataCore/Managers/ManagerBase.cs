@@ -50,7 +50,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 		}
 	}
 
-    protected void Open(ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
+    protected void Open(ReopenCallback? reopenCallback, RequestCallback? requestCallback, ResponseCallback? responseCallback)
 	{
 		Close();
 		Open();
@@ -514,9 +514,9 @@ public class ManagerBase : DisposableBase, IDisposableBase
 
     public void UnSuspend()
     {
-        IsReopenSuspend = true;
-        IsRequestSuspend = true;
-        IsResponseSuspend = true;
+        IsReopenSuspend = false;
+        IsRequestSuspend = false;
+        IsResponseSuspend = false;
     }
 
     #endregion

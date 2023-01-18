@@ -19,8 +19,6 @@ public class AppVersionHelper
     #region Public and private fields, properties, constructor
 
     public string App { get; private set; }
-    public string AppName { get; private set; }
-    public string AppDescription { get; set; }
     public string AppTitle { get; private set; }
     public string Version { get; private set; }
 
@@ -31,8 +29,6 @@ public class AppVersionHelper
     public AppVersionHelper()
     {
         App = string.Empty;
-        AppName = string.Empty;
-        AppDescription = string.Empty;
         AppTitle = string.Empty;
         Version = string.Empty;
     }
@@ -41,13 +37,13 @@ public class AppVersionHelper
 
     #region Public and private methods
 
-    public string GetCurrentVersion(Assembly assembly, AppVerCountDigitsEnum countDigits, List<AppVerStringFormatEnum>? stringFormats = null)
+    private string GetCurrentVersion(Assembly assembly, AppVerCountDigitsEnum countDigits, List<AppVerStringFormatEnum>? stringFormats = null)
     {
-        if (stringFormats == null || stringFormats.Count == 0)
+        if (stringFormats is null || stringFormats.Count is 0)
             stringFormats = new() {
                 AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2 };
 
-        AppVerStringFormatEnum formatMajor = stringFormats[0];
+        AppVerStringFormatEnum formatMajor = stringFormats.First();
         AppVerStringFormatEnum formatMinor = AppVerStringFormatEnum.AsString;
         AppVerStringFormatEnum formatBuild = AppVerStringFormatEnum.AsString;
         AppVerStringFormatEnum formatRevision = AppVerStringFormatEnum.AsString;
@@ -83,14 +79,14 @@ public class AppVersionHelper
         return result;
     }
 
-    public string GetCurrentVersionFormat(int input, AppVerStringFormatEnum format)
+    private string GetCurrentVersionFormat(int input, AppVerStringFormatEnum format)
     {
         return format switch
         {
-            AppVerStringFormatEnum.Use1 => $"{input:D1}",
-            AppVerStringFormatEnum.Use2 => $"{input:D2}",
-            AppVerStringFormatEnum.Use3 => $"{input:D3}",
-            AppVerStringFormatEnum.Use4 => $"{input:D4}",
+            AppVerStringFormatEnum.Use1 => $"{input:D}",
+            AppVerStringFormatEnum.Use2 => $"{input:D}",
+            AppVerStringFormatEnum.Use3 => $"{input:D}",
+            AppVerStringFormatEnum.Use4 => $"{input:D}",
             _ => $"{input:D}",
         };
     }
@@ -107,7 +103,7 @@ public class AppVersionHelper
         return result;
     }
 
-    public string GetTitle(Assembly assembly)
+    private string GetTitle(Assembly assembly)
     {
         string result = string.Empty;
         object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
@@ -126,8 +122,8 @@ public class AppVersionHelper
             : $"{appTitle} {GetCurrentVersion(assembly, AppVerCountDigitsEnum.Use3)}";
         if (AppTitle.Split(' ').Length > 1)
         {
-            App = AppTitle.Split(' ')[0];
-            Version = AppTitle.Split(' ')[1];
+            App = AppTitle.Split(' ').First();
+            Version = AppTitle.Split(' ').Last();
         }
     }
 

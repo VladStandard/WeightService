@@ -28,26 +28,6 @@ public static class WpfUtils
     #region Public and private methods
 
     /// <summary>
-    /// Show pin-code form.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public static bool ShowNewPinCode(IWin32Window owner)
-    {
-        using PasswordForm passwordForm = new();
-        DialogResult resultPsw = passwordForm.ShowDialog(owner);
-        passwordForm.Close();
-        passwordForm.Dispose();
-        return resultPsw == DialogResult.OK;
-    }
-
-    public static void Dispose()
-    {
-        WpfPage.Close();
-        WpfPage.Dispose();
-    }
-
-    /// <summary>
     /// Show new form.
     /// </summary>
     /// <param name="owner"></param>
@@ -57,7 +37,7 @@ public static class WpfUtils
     private static DialogResult ShowNew(IWin32Window? owner, string caption, string message,
         VisibilitySettingsModel visibilitySettings)
     {
-        Dispose();
+        WpfPage.Close();
 
         WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
         WpfPage.MessageBox.Caption = caption;
@@ -66,13 +46,12 @@ public static class WpfUtils
         WpfPage.MessageBox.VisibilitySettings.Localization();
         DialogResult resultWpf = owner is not null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
         WpfPage.Close();
-        WpfPage.Dispose();
         return resultWpf;
     }
 
     public static DialogResult ShowNewRegistration(string message)
     {
-        Dispose();
+        WpfPage.Close();
 
         WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
         WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
@@ -82,7 +61,6 @@ public static class WpfUtils
         WpfPage.ShowDialog();
         DialogResult result = WpfPage.MessageBox.Result;
         WpfPage.Close();
-        WpfPage.Dispose();
         return result;
     }
 
@@ -171,27 +149,6 @@ public static class WpfUtils
             DataAccess.UpdateForce(device);
         }
         return device;
-    }
-
-    /// <summary>
-    /// Show new host not found.
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <returns></returns>
-    public static DialogResult ShowNewHostNotFound(Guid uid)
-    {
-        Dispose();
-
-        WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
-        WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
-        WpfPage.MessageBox.Message = LocaleCore.Scales.RegistrationWarning(uid);
-        WpfPage.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
-        WpfPage.MessageBox.VisibilitySettings.Localization();
-        WpfPage.ShowDialog();
-        DialogResult result = WpfPage.MessageBox.Result;
-        WpfPage.Close();
-        WpfPage.Dispose();
-        return result;
     }
 
     private static DialogResult CatchExceptionCore(Exception ex, IWin32Window? owner,

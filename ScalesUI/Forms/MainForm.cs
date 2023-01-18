@@ -3,6 +3,7 @@
 
 using ScalesUI.Controls;
 using WeightCore.Wpf;
+using WsLocalization.Models;
 
 namespace ScalesUI.Forms;
 
@@ -57,41 +58,58 @@ public partial class MainForm : Form
 
     private void ReturnBackLoad()
     {
-        UserSession.StopwatchMain = Stopwatch.StartNew();
-        UserSession.StopwatchMain.Restart();
-
         FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         TopMost = !Debug.IsDebug;
-        SetButtonsSettings();
-        MainForm_LoadResources();
         UserSession.NewPallet();
-
-        MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
+        
+        MDSoft.WinFormsUtils.InvokeControl.SetText(this, AppVersion.AppTitle);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, string.Empty);
+        LoadMainControls();
         SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
+
+        // Quartz.
+        LoadQuartz();
+
+        ActionUtils.ActionMakeScreenShot(this);
         UserSession.StopwatchMain.Stop();
 
+        UserSession.DataAccess.LogInformation(
+            $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
+            $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
+            $"{nameof(LocaleData.Program.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
+            UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
+
+        AfterAction();
+    }
+
+    private void PreLoadControls()
+    {
+        // Mouse hook.
+        KeyboardMouseEvents = Hook.AppEvents();
+        // NavigationControl.
+        NavigationControl = new() { ReturnBackAction = ReturnBackDefault };
+        NavigationControl.Parent = this;
+        NavigationControl.Dock = DockStyle.Fill;
+        WaitControl = new();
+        PluControl = new();
+        PluControl.RefreshAction();
+        KneadingControl = new();
+        KneadingControl.RefreshAction();
+        // Buttons.
+        SetButtonsSettings();
+        // Form resolution and postion.
+        SetComboBoxItems(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
+            Debug.IsDebug ? 2 : LocaleCore.Scales.ListResolutions.Count - 1);
+    }
+
+    private void LoadQuartz()
+    {
         Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
             $"job{nameof(ScheduleEveryHours)}", $"trigger{nameof(ScheduleEveryHours)}",
             $"triggerGroup{nameof(ScheduleEveryHours)}");
         Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
             $"job{nameof(ScheduleEveryDays)}", $"trigger{nameof(ScheduleEveryDays)}",
             $"triggerGroup{nameof(ScheduleEveryDays)}");
-        
-        LoadControls();
-
-        MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-        SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
-        UserSession.DataAccess.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
-            UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
-        UserSession.DataAccess.LogInformation(
-            LocaleData.Program.IsLoaded +
-            $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-            UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
-
-        UserSession.StopwatchMain.Stop();
-        ActionUtils.ActionMakeScreenShot(this);
-
-        UnLockUi();
     }
 
     private void MainForm_Load(object sender, EventArgs e)
@@ -99,61 +117,31 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                // Controls.
-                NavigationControl = new() { ReturnBackAction = ReturnBackDefault };
-                PluControl = new();
-                KneadingControl = new();
-                WaitControl = new();
+                UserSession.StopwatchMain = Stopwatch.StartNew();
+                UserSession.StopwatchMain.Restart();
+                // Load controls.
+                PreLoadControls();
                 // Navigate to wait control.
                 NavigateToControl(WaitControl, ReturnBackLoad, true, LocaleCore.Scales.AppWaitLoad);
                 // Return back.
                 WaitControl.ReturnBackAction();
-            },
-            () =>
-            {
-                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-                SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
-                UserSession.StopwatchMain.Stop();
-            }
-        );
+            }, AfterAction);
     }
 
-    private void MainForm_LoadResources()
-    {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
-            {
-                System.Resources.ResourceManager resourceManager = new("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
-                object exit = resourceManager.GetObject("exit_1");
-                if (exit is not null)
-                {
-                    Bitmap bmpExit = new((Bitmap)exit);
-                    pictureBoxClose.Image = bmpExit;
-                }
-
-                MDSoft.WinFormsUtils.InvokeControl.SetText(this, AppVersion.AppTitle);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, string.Empty);
-            },
-            () => { MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint); }
-        );
-    }
-
-    private void LoadControls()
+    private void LoadMainControls()
     {
         // Labels.
         UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
-            labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
+            fieldProductDate, fieldKneading, fieldResolution, fieldLang,
             ButtonDevice, ButtonPluNestingFk, ButtonKneading, ButtonMore, ButtonNewPallet, 
-            ButtonPlu, ButtonPrint, ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose,
+            ButtonPlu, ButtonPrint, ButtonScalesInit, ButtonScalesTerminal, 
             fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
         UserSession.ManagerControl.Labels.Open();
         // Memory.
         UserSession.ManagerControl.Memory.Init(fieldMemory, fieldTasks);
         UserSession.ManagerControl.Memory.Open();
         // Massa.
-        UserSession.ManagerControl.Massa.Init(labelNettoWeight, fieldNettoWeight,
-            labelPackageWeight, fieldPackageWeight,
-            fieldMassaThreshold, fieldMassaGet, fieldMassaPluDescription);
+        UserSession.ManagerControl.Massa.Init(fieldNettoWeight, fieldMassaGet);
         UserSession.ManagerControl.Massa.Open();
         // PrintMain.
         if (UserSession.Scale.PrinterMain is not null)
@@ -173,8 +161,6 @@ public partial class MainForm : Form
         }
         // ButtonScalesInit_Click(sender, e);
         UserSession.ManagerControl.Labels.SetControlsVisible();
-        
-        MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
     }
 
     private void ReturnBackExit()
@@ -203,16 +189,13 @@ public partial class MainForm : Form
                 UserSession.ManagerControl.PrintMain.Close();
                 UserSession.ManagerControl.PrintShipping.Close();
                 UserSession.ManagerControl.Close();
-                UserSession.ManagerControl.Dispose();
-
-                KeyboardMouseEvents.Dispose();
             },
             () =>
             {
-                WpfUtils.Dispose();
                 UserSession.StopwatchMain.Stop();
                 UserSession.DataAccess.LogInformation(
-                    LocaleData.Program.IsClosed + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
+                    LocaleData.Program.IsClosed + Environment.NewLine + 
+                    $"{LocaleData.Program.Elapsed}: {UserSession.StopwatchMain.Elapsed}.",
                     UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
             }
         );
@@ -230,12 +213,10 @@ public partial class MainForm : Form
         fieldPlu.Font = FontsSettings.FontLabelsMaximum;
         fieldProductDate.Font = FontsSettings.FontLabelsMaximum;
 
-        fieldMassaThreshold.Font = FontsSettings.FontLabelsGray;
         fieldSscc.Font = FontsSettings.FontLabelsGray;
         fieldTasks.Font = FontsSettings.FontLabelsGray;
         fieldPrintMain.Font = FontsSettings.FontLabelsGray;
         fieldPrintShipping.Font = FontsSettings.FontLabelsGray;
-        fieldMassaPluDescription.Font = FontsSettings.FontLabelsGray;
         fieldMassaManager.Font = FontsSettings.FontLabelsGray;
         fieldMassaGet.Font = FontsSettings.FontLabelsGray;
         fieldPrintMainManager.Font = FontsSettings.FontLabelsGray;
@@ -267,7 +248,7 @@ public partial class MainForm : Form
             // Device.
             IsDevice = true,
             IsPlu = true,
-            IsPackage = true,
+            IsNesting = true,
             // Actions.
             IsKneading = false,
             IsMore = true,
@@ -308,7 +289,7 @@ public partial class MainForm : Form
             ButtonPlu = new();
         }
 
-        if (ButtonsSettings.IsPackage)
+        if (ButtonsSettings.IsNesting)
         {
             ButtonPluNestingFk = GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPluNestingFk), 1, rowCount++);
             ButtonPluNestingFk.Click += ActionPluNestingFk;
@@ -432,36 +413,13 @@ public partial class MainForm : Form
 
     #endregion
 
-    #region Public and private methods - MouseHook
-
-    private void KeyboardMouseSubscribe()
-    {
-        if (!IsKeyboardMouseEventsSubscribe)
-        {
-            KeyboardMouseEvents = Hook.AppEvents();
-            KeyboardMouseEvents.MouseDownExt += MouseDownExt;
-        }
-        IsKeyboardMouseEventsSubscribe = true;
-    }
-
-    private void KeyboardMouseUnSubscribe()
-    {
-        if (IsKeyboardMouseEventsSubscribe)
-        {
-            KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
-        }
-        IsKeyboardMouseEventsSubscribe = false;
-    }
+    #region Public and private methods - Controls
 
     private void MouseDownExt(object sender, MouseEventExtArgs e)
     {
         if (e.Button == MouseButtons.Middle)
             ActionPrint(sender, e);
     }
-
-    #endregion
-
-    #region Public and private methods - Controls
 
     private void SetComboBoxItems(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
     {
@@ -622,60 +580,62 @@ public partial class MainForm : Form
                 CenterToScreen();
                 FontsSettings.Transform(Width, Height);
                 MainForm_FontsSet();
-            },
-            () => { MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint); }
-        );
+            }, AfterAction);
     }
 
     private void FieldLang_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
-            {
-                LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
-                string area = UserSession.Scale.WorkShop is null
-                    ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
-                    UserSession.Scale.Description + Environment.NewLine + area);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
-                    ? LocaleCore.Table.FieldPackageIsNotSelected
-                    : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
+        LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
+        string area = UserSession.Scale.WorkShop is null
+            ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
+            UserSession.Scale.Description + Environment.NewLine + area);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
+            ? LocaleCore.Table.FieldPackageIsNotSelected
+            : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSwitchPlu);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
 
-                // ButtonPlu.
-                //SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale), false, false);
-                //sqlCrudConfig.AddFilters(new() { new(nameof(PluScaleModel.IsActive), true) });
-                //sqlCrudConfig.AddOrders(new($"{nameof(PluScaleModel.Plu)}.{nameof(PluScaleModel.Plu.Number)}", SqlFieldOrderEnum.Asc));
-                //List<PluScaleModel> pluScales = UserSession.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSwitchPlu);
-
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
-                SetComboBoxItems(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
-                    Debug.IsDebug ? 2 : LocaleCore.Scales.ListResolutions.Count - 1);
-            },
-            () => { MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint); }
-        );
+        MDSoft.WinFormsUtils.InvokeControl.SetText(labelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(labelPackageWeight, LocaleCore.Scales.FieldWeightTare);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
+        //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPackageWeight, $"{0:0.000} {LocaleCore.Scales.WeightUnitKg}");
+        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPackageWeight,
+            UserSessionHelper.Instance.PluScale.IsNotNew
+                ? $"{UserSessionHelper.Instance.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
+                : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
     }
 
     #endregion
 
     #region Public and private methods - UI
 
-    private void LockUi()
+    private void BeforeAction()
     {
-        KeyboardMouseUnSubscribe();
+        if (IsKeyboardMouseEventsSubscribe)
+        {
+            KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
+            IsKeyboardMouseEventsSubscribe = false;
+        }
         UserSession.ManagerControl.Massa.Suspend();
     }
 
-    private void UnLockUi()
+    private void AfterAction()
     {
-        MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
         UserSession.ManagerControl.Massa.UnSuspend();
-        KeyboardMouseSubscribe();
+        if (!IsKeyboardMouseEventsSubscribe)
+        {
+            KeyboardMouseEvents.MouseDownExt += MouseDownExt;
+            IsKeyboardMouseEventsSubscribe = true;
+        }
+        MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
+        FieldLang_SelectedIndexChanged(null, null);
     }
 
     private void NavigateToControl(UserControlBase userControlBase, Action returnBack, bool isJoinReturnBackAction, string message = "")
@@ -683,22 +643,20 @@ public partial class MainForm : Form
         if (userControlBase is null) return;
         
         layoutPanel.Visible = false;
-        NavigationControl.Visible = false;
-        NavigationControl.Parent = this;
-        NavigationControl.Dock = DockStyle.Fill;
-        NavigationControl.Visible = true;
+        userControlBase.Visible = false;
         NavigationControl.UserControl = userControlBase;
+        NavigationControl.Visible = true;
         userControlBase.ReturnBackAction = returnBack;
         if (isJoinReturnBackAction)
             userControlBase.ReturnBackAction += NavigationControl.ReturnBackAction;
         userControlBase.Message = message;
         userControlBase.RefreshAction();
+        userControlBase.Visible = true;
     }
 
     private void ReturnBackDefault()
     {
         NavigationControl.Visible = false;
-        NavigationControl.Parent = null;
         layoutPanel.Visible = true;
     }
 
@@ -711,13 +669,13 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatch(this,
             () =>
             {
-                LockUi();
+                BeforeAction();
 
                 DialogResult result = WpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionCloseApp}?",
                     true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                UnLockUi();
+                AfterAction();
                 if (result is not DialogResult.Yes)
                 {
                     return;
@@ -734,7 +692,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                LockUi();
+                BeforeAction();
 
                 using WpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 800, Height = 400 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
@@ -751,10 +709,7 @@ public partial class MainForm : Form
                             UserSession.SetMain(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, string.Empty);
                         break;
                 }
-                FieldLang_SelectedIndexChanged(sender, e);
-            },
-            UnLockUi
-        );
+            }, AfterAction);
     }
 
     private void ActionPluNestingFk(object sender, EventArgs e)
@@ -762,7 +717,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                LockUi();
+                BeforeAction();
 
                 if (!ActionCheckPluIdentityIsNew()) return;
                 
@@ -781,10 +736,7 @@ public partial class MainForm : Form
                             UserSession.SetBundleFk(null);
                         break;
                 }
-                FieldLang_SelectedIndexChanged(sender, e);
-            },
-            UnLockUi
-        );
+            }, AfterAction);
     }
 
     private bool ActionCheckPluIdentityIsNew()
@@ -810,7 +762,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                LockUi();
+                BeforeAction();
 
                 DialogResult result = WpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
@@ -833,9 +785,7 @@ public partial class MainForm : Form
                             LocaleData.Paths.ScalesTerminal), true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                 }
-            },
-            UnLockUi
-        );
+            }, AfterAction);
     }
 
     private void ActionScalesInit(object sender, EventArgs e)
@@ -843,7 +793,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                LockUi();
+                BeforeAction();
 
                 if (!UserSession.PluScale.Plu.IsCheckWeight)
                 {
@@ -876,9 +826,7 @@ public partial class MainForm : Form
 
                 UserSession.ManagerControl.Massa.Open();
                 UserSession.ManagerControl.Massa.GetInit();
-            },
-            UnLockUi
-        );
+            }, AfterAction);
     }
 
     private void ActionNewPallet(object sender, EventArgs e)
@@ -886,12 +834,9 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                LockUi();
-
+                BeforeAction();
                 UserSession.NewPallet();
-            },
-            UnLockUi
-        );
+            }, AfterAction);
     }
 
     private void ReturnBackKneading()
@@ -899,7 +844,6 @@ public partial class MainForm : Form
         using NumberInputForm numberInputForm = new() { InputValue = 0 };
         DialogResult result = numberInputForm.ShowDialog(this);
         numberInputForm.Close();
-        //numberInputForm.Dispose();
         if (result == DialogResult.OK)
             UserSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
     }
@@ -917,7 +861,7 @@ public partial class MainForm : Form
         finally
         {
             MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-            UnLockUi();
+            AfterAction();
         }
     }
 
@@ -936,7 +880,6 @@ public partial class MainForm : Form
         {
             UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
         }
-        FieldLang_SelectedIndexChanged(null, null);
     }
 
     private void ActionPlu(object sender, EventArgs e)
@@ -944,7 +887,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                LockUi();
+                BeforeAction();
 
                 UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
                 if (UserSession.CheckWeightMassaDeviceExists())
@@ -955,24 +898,13 @@ public partial class MainForm : Form
 
                 NavigateToControl(PluControl, ReturnBackPlu, false);
             },
-            () =>
-            {
-                UserSession.ManagerControl.Massa.UnSuspend();
-                UserSession.ManagerControl.Labels.SetControlsVisible();
-                KeyboardMouseSubscribe();
-                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-                UnLockUi();
-            }
+            AfterAction
         );
     }
 
     private void ReturnBackMore()
     {
-        if (KneadingControl.Result == DialogResult.OK)
-        {
-            //_sessionState.Kneading = settingsForm.CurrentKneading;
-            //_sessionState.ProductDate = settingsForm.CurrentProductDate;
-        }
+        //
     }
 
     private void ActionMore(object sender, EventArgs e)
@@ -980,7 +912,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                LockUi();
+                BeforeAction();
 
                 if (UserSession.PluScale.IsNew)
                 {
@@ -996,7 +928,7 @@ public partial class MainForm : Form
             {
                 UserSession.ManagerControl.Massa.UnSuspend();
                 MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-                UnLockUi();
+                AfterAction();
             }
         );
     }
@@ -1006,12 +938,13 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                LockUi();
+                BeforeAction();
 
                 UserSession.AddScaleCounter();
 
                 UserSession.ManagerControl.PrintMain.IsPrintBusy = true;
-                UserSession.ManagerControl.PrintShipping.IsPrintBusy = true;
+                if (UserSession.Scale.IsShipping)
+                    UserSession.ManagerControl.PrintShipping.IsPrintBusy = true;
 
                 if (!UserSession.CheckPluIsEmpty(this)) return;
                 //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IsNew)
@@ -1042,11 +975,12 @@ public partial class MainForm : Form
             },
             () =>
             {
-                UnLockUi();
+                AfterAction();
 
                 UserSession.ManagerControl.Massa.IsWeightNetFake = false;
                 UserSession.ManagerControl.PrintMain.IsPrintBusy = false;
-                UserSession.ManagerControl.PrintShipping.IsPrintBusy = false;
+                if (UserSession.Scale.IsShipping)
+                    UserSession.ManagerControl.PrintShipping.IsPrintBusy = false;
             });
     }
 

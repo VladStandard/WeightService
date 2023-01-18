@@ -8,7 +8,7 @@ public class ActionSettingsModel
 	#region Public and private fields and properties
 
 	public bool IsDevice { get; set; }
-	public bool IsPackage { get; set; }
+	public bool IsNesting { get; set; }
 	public bool IsKneading { get; set; }
 	public bool IsMore { get; set; }
 	public bool IsNewPallet { get; set; }
@@ -25,7 +25,7 @@ public class ActionSettingsModel
 	public ActionSettingsModel()
 	{
 		IsDevice = false;
-		IsPackage = false;
+		IsNesting = false;
 		IsKneading = false;
 		IsMore = false;
 		IsNewPallet = false;

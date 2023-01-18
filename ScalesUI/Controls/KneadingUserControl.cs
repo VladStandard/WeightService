@@ -10,15 +10,17 @@ public partial class KneadingUserControl : UserControlBase
     private DateTime SaveProductDate { get; }
     private short SaveKneading { get; }
     private byte SavePalletSize { get; }
+    private Guid PreviousPluScaleUid { get; set; }
 
     public KneadingUserControl()
     {
         InitializeComponent();
 
-        RefreshAction = KneadingUserControl_Refresh;
+        PreviousPluScaleUid = Guid.Empty;
         SaveProductDate = UserSession.ProductDate;
         SaveKneading = UserSession.WeighingSettings.Kneading;
         SavePalletSize = UserSession.WeighingSettings.LabelsCountMain;
+        RefreshAction = KneadingUserControl_Refresh;
     }
 
     #endregion
@@ -29,29 +31,21 @@ public partial class KneadingUserControl : UserControlBase
     {
         ActionUtils.ActionTryCatchFinally(this, () =>
         {
-            ShowPalletSize();
-            SetGuiConfig();
-            SetGuiLocalize();
-
-            GuiUpdate();
-            ShowProductDate();
-        }, () => { buttonOk.Select(); });
+            if (!UserSession.PluScale.IdentityValueUid.Equals(PreviousPluScaleUid))
+            {
+                PreviousPluScaleUid = UserSession.PluScale.IdentityValueUid;
+                ShowPalletSize();
+                SetGuiConfig();
+                SetGuiLocalize();
+                RefreshControlsText();
+            }
+        }, buttonOk.Select);
     }
 
-    private void ShowProductDate()
+    private void RefreshControlsText()
     {
-        ActionUtils.ActionTryCatch(this, () =>
-        {
-            fieldProdDate.Text = UserSession.ProductDate.ToString("dd.MM.yyyy");
-        });
-    }
-
-    private void GuiUpdate()
-    {
-        ActionUtils.ActionTryCatch(this, () =>
-        {
-            fieldKneading.Text = $@"{UserSession.WeighingSettings.Kneading}";
-        });
+        fieldKneading.Text = $@"{UserSession.WeighingSettings.Kneading}";
+        fieldProdDate.Text = UserSession.ProductDate.ToString("dd.MM.yyyy");
     }
 
     private void ButtonKneadingLeft_Click(object sender, EventArgs e)
@@ -64,7 +58,7 @@ public partial class KneadingUserControl : UserControlBase
             numberInputForm.Dispose();
             if (result == DialogResult.OK)
                 UserSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
-            GuiUpdate();
+            RefreshControlsText();
         });
     }
 
@@ -83,7 +77,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void CheckWeightCount()
     {
-        if (UserSession.PluScale.IsNotNew && UserSession.PluScale.Plu.IsCheckWeight &&
+        if (UserSession.PluScale is { IsNotNew: true, Plu.IsCheckWeight: true } &&
             UserSession.WeighingSettings.LabelsCountMain > 1)
         {
             //WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
@@ -108,7 +102,7 @@ public partial class KneadingUserControl : UserControlBase
         ActionUtils.ActionTryCatch(this, () =>
         {
             UserSession.RotateProductDate(DirectionEnum.Right);
-            ShowProductDate();
+            RefreshControlsText();
         });
     }
 
@@ -117,7 +111,7 @@ public partial class KneadingUserControl : UserControlBase
         ActionUtils.ActionTryCatch(this, () =>
         {
             UserSession.RotateProductDate(DirectionEnum.Left);
-            ShowProductDate();
+            RefreshControlsText();
         });
     }
 

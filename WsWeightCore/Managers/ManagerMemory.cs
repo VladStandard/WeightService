@@ -10,6 +10,7 @@ using WeightCore.Wpf.Utils;
 using WsLocalization.Models;
 
 namespace WeightCore.Managers;
+#nullable enable
 
 public class ManagerMemory : ManagerBase
 {
@@ -65,14 +66,7 @@ public class ManagerMemory : ManagerBase
     {
         try
         {
-            Open(
-                () =>
-                {
-                    MemorySize.Open();
-                },
-                null,
-                Response
-            );
+            Open(MemorySize.Open, null, Response);
         }
         catch (Exception ex)
         {
@@ -83,15 +77,16 @@ public class ManagerMemory : ManagerBase
     private void Response()
     {
         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory,
-            $"{LocaleCore.Scales.Memory} | " +
-            $"{LocaleCore.Scales.MemoryFree}: " +
-            (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : $"- MB") +
+            $"{LocaleCore.Scales.Memory}" +
             $" | {LocaleCore.Scales.MemoryBusy}: " +
-            (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : $"- MB") +
+            (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : "- MB") +
+            $" | {LocaleCore.Scales.MemoryFree}: " +
+            (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : "- MB") +
             $" | {LocaleCore.Scales.MemoryAll}: " +
-            (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : $"- MB")
+            (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : "- MB")
         );
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, 
+            $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
     }
 
     public new void Close() => base.Close();

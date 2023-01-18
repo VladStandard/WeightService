@@ -70,8 +70,8 @@ public static class NetUtils
 			UseDefaultCredentials = true,
 			ThrowOnAnyError = true,
 			MaxTimeout = timeOut,
-			RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-		};
+			RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+        };
 		using RestClient client = new(options);
 		RestRequest request = new();
 		try
@@ -85,14 +85,14 @@ public static class NetUtils
 		}
 	}
 
-	public static bool RequestPing(PrinterModel printer, int timeOut)
+	public static bool RequestPing(PrinterModel? printer, int timeOut)
 	{
-		if (printer == null)
-			return false;
+		if (printer is null) return false;
 		try
 		{
 			using Ping ping = new();
-			PingReply pingReply = ping.Send(printer.Ip, timeOut);
+			PingReply? pingReply = ping.Send(printer.Ip, timeOut);
+			if (pingReply is null) return false;
 			return (printer.PingStatus = pingReply.Status) == IPStatus.Success;
 		}
 		catch (Exception ex)

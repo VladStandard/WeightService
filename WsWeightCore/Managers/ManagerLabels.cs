@@ -25,7 +25,6 @@ public class ManagerLabels : ManagerBase
     private Button ButtonPrint { get; set; }
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
-    private PictureBox PictureBoxClose { get; set; }
     private ComboBox FieldLang { get; set; }
     private ComboBox FieldResolution { get; set; }
     private Label FieldKneading { get; set; }
@@ -33,8 +32,6 @@ public class ManagerLabels : ManagerBase
     private Label FieldProductDate { get; set; }
     private Label FieldSscc { get; set; }
     private Label FieldTitle { get; set; }
-    private Label LabelKneading { get; set; }
-    private Label LabelProductDate { get; set; }
     private Label FieldPrintMainManager { get; set; }
     private Label FieldPrintShippingManager { get; set; }
     private Label FieldMassaManager { get; set; }
@@ -53,10 +50,10 @@ public class ManagerLabels : ManagerBase
 
     #region Public and private methods
 
-    public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label labelProductDate, Label fieldProductDate,
-        Label labelKneading, Label fieldKneading, ComboBox fieldResolution, ComboBox fieldLang,
+    public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label fieldProductDate,
+        Label fieldKneading, ComboBox fieldResolution, ComboBox fieldLang,
         Button buttonDevice, Button buttonPackage, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonPlu,
-        Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, PictureBox pictureBoxClose,
+        Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, 
         Label fieldPrintMainManager, Label fieldPrintShippingManager, Label fieldMassaManager)
     {
         try
@@ -67,9 +64,7 @@ public class ManagerLabels : ManagerBase
                     FieldTitle = fieldTitle;
                     FieldPlu = fieldPlu;
                     FieldSscc = fieldSscc;
-                    LabelProductDate = labelProductDate;
                     FieldProductDate = fieldProductDate;
-                    LabelKneading = labelKneading;
                     FieldKneading = fieldKneading;
                     FieldResolution = fieldResolution;
                     FieldLang = fieldLang;
@@ -82,7 +77,6 @@ public class ManagerLabels : ManagerBase
                     ButtonPrint = buttonPrint;
                     ButtonScalesInit = buttonScalesInit;
                     ButtonScalesTerminal = buttonScalesTerminal;
-                    PictureBoxClose = pictureBoxClose;
                     FieldPrintMainManager = fieldPrintMainManager;
                     FieldPrintShippingManager = fieldPrintShippingManager;
                     FieldMassaManager = fieldMassaManager;
@@ -90,9 +84,7 @@ public class ManagerLabels : ManagerBase
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate, LocaleCore.Scales.FieldTime);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, LocaleCore.Scales.FieldKneading);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMainManager, LocaleCore.Print.PrintManager);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintShippingManager, LocaleCore.Print.PrintManager);
@@ -139,10 +131,7 @@ public class ManagerLabels : ManagerBase
 
     private void RequestProductDate()
     {
-        MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate,
-            $"{LocaleCore.Scales.FieldTime}: {DateTime.Now:HH:mm:ss}");
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate,
-            $"{LocaleCore.Scales.FieldDate}: {UserSessionHelper.Instance.ProductDate:dd.MM.yyyy}");
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, $"{UserSessionHelper.Instance.ProductDate:dd.MM.yyyy}");
     }
 
     private void RequestPlu()
@@ -170,7 +159,6 @@ public class ManagerLabels : ManagerBase
 
     private void RequestKneading()
     {
-        MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, $"{LocaleCore.Scales.FieldKneading}");
         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, $"{UserSessionHelper.Instance.WeighingSettings.Kneading}");
     }
 
@@ -206,12 +194,8 @@ public class ManagerLabels : ManagerBase
     {
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, false);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, false);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, false);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, false);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, false);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, false);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, false);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(PictureBoxClose, false);
 
         base.ReleaseManaged();
     }
@@ -224,14 +208,10 @@ public class ManagerLabels : ManagerBase
     public void SetControlsVisible()
     {
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
-        //if (UserSessionHelper.Instance.Scale.IsShipping && !FieldSscc.Visible)
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
         if (UserSessionHelper.Instance.Scale.IsKneading)
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
         }
 
@@ -254,9 +234,6 @@ public class ManagerLabels : ManagerBase
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonPrint, true);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScalesInit, true);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScalesTerminal, true);
-
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(PictureBoxClose, true);
-        MDSoft.WinFormsUtils.InvokeControl.SetEnabled(PictureBoxClose, true);
 
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldResolution, Debug.IsDebug);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldLang, Debug.IsDebug);

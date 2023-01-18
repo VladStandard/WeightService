@@ -7,9 +7,13 @@ public partial class PluUserControl : UserControlBase
 {
     #region Public and private fields, properties, constructor
 
+    private long PreviousScaleId { get; set; }
+
     public PluUserControl()
     {
         InitializeComponent();
+
+        PreviousScaleId = 0;
         RefreshAction = PluUserControl_Refresh;
     }
 
@@ -21,14 +25,17 @@ public partial class PluUserControl : UserControlBase
     {
         ActionUtils.ActionTryCatch(this, () =>
         {
-            UserSession.SetPluScales();
-            LoadFormControls();
-
+            if (!UserSession.Scale.IdentityValueId.Equals(PreviousScaleId))
+            {
+                PreviousScaleId = UserSession.Scale.IdentityValueId;
+                UserSession.SetPluScales();
+                LoadFormControlsText();
+            }
             SetupLayoutPanel();
         });
     }
 
-    private void LoadFormControls()
+    private void LoadFormControlsText()
     {
         labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
         buttonLeftRoll.Text = LocaleCore.Buttons.Previous;

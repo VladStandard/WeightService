@@ -330,7 +330,6 @@ public class UserSessionHelper : BaseViewModel
             // Area.
             ProductionFacility = DataAccess.GetProductionFacilityNotNullable(productionFacilityName);
             // Other.
-            AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
             ProductDate = DateTime.Now;
             // Новыя серия, упаковка продукции, новая паллета.
             ProductSeries = new(Scale);

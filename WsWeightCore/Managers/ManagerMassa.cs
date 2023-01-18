@@ -17,12 +17,7 @@ public class ManagerMassa : ManagerBase
 	#region Public and private fields and properties
 
 	private Label FieldMassaGet { get; set; }
-	private Label FieldMassaPluDescription { get; set; }
-	private Label FieldMassaThreshold { get; set; }
 	private Label FieldNettoWeight { get; set; }
-	private Label FieldPackageWeight { get; set; }
-	private Label LabelNettoWeight { get; set; }
-	private Label LabelPackageWeight { get; set; }
 	private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
 	private readonly object _locker = new();
 	private MassaExchangeModel MassaExchange { get; set; }
@@ -45,15 +40,14 @@ public class ManagerMassa : ManagerBase
     private ResponseParseModel ResponseParseSet { get; set; }
 	public bool IsWeightNetFake { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
     /// <summary>
     /// Default constructor.
     /// </summary>
     public ManagerMassa() : base()
-	{
+    {
+        ResponseParseScalePar = new();
+        ResponseParseGet = new();
+        ResponseParseSet = new();
 		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 	}
 
@@ -61,9 +55,7 @@ public class ManagerMassa : ManagerBase
 
 	#region Public and private methods
 
-	public void Init(Label labelNettoWeight, Label fieldNettoWeight, 
-		Label labelPackageWeight, Label fieldPackageWeight,
-		Label fieldMassaThreshold, Label fieldMassaGet, Label fieldMassaPluDescription)
+	public void Init(Label fieldNettoWeight, Label fieldMassaGet)
 	{
 		try
 		{
@@ -77,12 +69,7 @@ public class ManagerMassa : ManagerBase
 							UserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
 					}
 					FieldMassaGet = fieldMassaGet;
-					FieldMassaPluDescription = fieldMassaPluDescription;
-					FieldMassaThreshold = fieldMassaThreshold;
 					FieldNettoWeight = fieldNettoWeight;
-					FieldPackageWeight = fieldPackageWeight;
-					LabelNettoWeight = labelNettoWeight;
-					LabelPackageWeight = labelPackageWeight;
 
 					SetControlsTextDefault();
 				},
@@ -111,15 +98,7 @@ public class ManagerMassa : ManagerBase
 	{
 		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
 			MassaDevice.Open();
-		if (UserSessionHelper.Instance.PluScale.IsNew)
-			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, $"{LocaleCore.Scales.FieldThresholds}: {LocaleCore.Scales.StateDisable}");
-		else
-			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold,
-				$"{LocaleCore.Scales.FieldThresholds}: " +
-				$"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.PluNestingFk.WeightMin:0.000} {LocaleCore.Scales.WeightUnitKg} | " +
-				$"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.PluNestingFk.WeightNom:0.000} {LocaleCore.Scales.WeightUnitKg} | " +
-				$"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.PluNestingFk.WeightMax:0.000} {LocaleCore.Scales.WeightUnitKg}");
-		SetControlsVisible(true, true);
+		SetControlsOtherVisible(true);
 	}
 
 	private void Request()
@@ -155,31 +134,24 @@ public class ManagerMassa : ManagerBase
 		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
 		{
 			SetControlsText();
-			SetControlsVisible(false, true);
+			SetControlsOtherVisible(true);
 		}
 		else
 		{
 			if (UserSessionHelper.Instance.PluScale.IsNew)
 				SetControlsTextDefault();
-			SetControlsVisible(false, false);
+			SetControlsOtherVisible(false);
 		}
 	}
 
 	private void SetControlsTextDefault()
 	{
-		MDSoft.WinFormsUtils.InvokeControl.SetText(LabelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, $"{0:0.000} {LocaleCore.Scales.WeightUnitKg}");
-		MDSoft.WinFormsUtils.InvokeControl.SetText(LabelPackageWeight, LocaleCore.Scales.FieldWeightTare);
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight, $"{0:0.000} {LocaleCore.Scales.WeightUnitKg}");
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, LocaleCore.Scales.FieldThresholds);
-
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocaleCore.Scales.ComPort);
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaPluDescription, LocaleCore.Scales.RequestParameters);
 	}
 
 	private void SetControlsText()
 	{
-            
 		switch (MassaDevice.PortController.AdapterStatus)
 		{
 			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsNotConnectWithMassa:
@@ -207,53 +179,16 @@ public class ManagerMassa : ManagerBase
 				break;
 		}
 
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight,
-			UserSessionHelper.Instance.PluScale.IsNotNew
-				? $"{UserSessionHelper.Instance.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
-				: $"0,000 {LocaleCore.Scales.WeightUnitKg}");
-
 		decimal weight = UserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluNestingFk.WeightTare;
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, MassaStable.IsStable
 			? $"{weight:0.000} {LocaleCore.Scales.WeightUnitKg}"
 			: $"{LocaleCore.Scales.WeightingIsCalc}");
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaPluDescription,
-			$"{LocaleCore.Scales.WeightingProcess}: " +
-			(UserSessionHelper.Instance.PluScale.IsNew ? "{0:0.000} " : $"{WeightNet:0.000} ") +
-			$"{LocaleCore.Scales.WeightUnitKg} | {LocaleCore.Scales.RequestParameters}" +
-			$" | {ResponseParseScalePar.Message}");
 	}
 
-	private void SetControlsVisible(bool isTopControls, bool isVisible)
+    private void SetControlsOtherVisible(bool isVisible)
 	{
-		if (isTopControls)
-		{
-			if (LabelNettoWeight.Visible != isVisible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelNettoWeight, isVisible);
-			if (FieldNettoWeight.Visible != isVisible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldNettoWeight, isVisible);
-			if (LabelPackageWeight.Visible != isVisible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelPackageWeight, isVisible);
-			if (FieldPackageWeight.Visible != isVisible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPackageWeight, isVisible);
-		}
-		else
-		{
-			if (UserSessionHelper.Instance.PluScale.IsNew)
-			{
-				if (FieldMassaThreshold.Visible != isVisible)
-					MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaThreshold, isVisible);
-			}
-			else
-			{
-				if (!FieldMassaThreshold.Visible)
-					MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaThreshold, true);
-			}
-
-			if (FieldMassaGet.Visible != isVisible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGet, isVisible);
-			if (!FieldMassaPluDescription.Visible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaPluDescription, isVisible);
-		}
+		if (FieldMassaGet.Visible != isVisible)
+			MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGet, isVisible);
 	}
 
 	public new void Close()
@@ -267,8 +202,7 @@ public class ManagerMassa : ManagerBase
 
 	public new void ReleaseManaged()
 	{
-		SetControlsVisible(true, false);
-		SetControlsVisible(false, false);
+		SetControlsOtherVisible(false);
 
 		ResponseParseScalePar = new();
 		ResponseParseGet = new();
@@ -352,7 +286,7 @@ public class ManagerMassa : ManagerBase
 		}
 	}
 
-	private void ParseSetResponse(MassaExchangeModel massaExchange)
+	private void ParseSetResponse(MassaExchangeModel? massaExchange)
 	{
         if (massaExchange is null)
         {

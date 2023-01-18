@@ -33,15 +33,12 @@
             this.fieldNettoWeight = new System.Windows.Forms.Label();
             this.layoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.fieldPrintShippingManager = new System.Windows.Forms.Label();
-            this.fieldPrintProgressShipping = new System.Windows.Forms.ProgressBar();
             this.fieldPrintShipping = new System.Windows.Forms.Label();
-            this.fieldMassaThreshold = new System.Windows.Forms.Label();
             this.fieldSscc = new System.Windows.Forms.Label();
             this.fieldTasks = new System.Windows.Forms.Label();
             this.fieldMemory = new System.Windows.Forms.Label();
             this.fieldPrintMainManager = new System.Windows.Forms.Label();
             this.fieldMassaManager = new System.Windows.Forms.Label();
-            this.fieldMassaPluDescription = new System.Windows.Forms.Label();
             this.fieldMassaGet = new System.Windows.Forms.Label();
             this.labelPackageWeight = new System.Windows.Forms.Label();
             this.labelKneading = new System.Windows.Forms.Label();
@@ -75,7 +72,6 @@
             this.labelNettoWeight.TabIndex = 12;
             this.labelNettoWeight.Text = "labelNettoWeight";
             this.labelNettoWeight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelNettoWeight.Visible = false;
             // 
             // fieldPackageWeight
             // 
@@ -91,7 +87,6 @@
             this.fieldPackageWeight.TabIndex = 11;
             this.fieldPackageWeight.Text = "0,000";
             this.fieldPackageWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldPackageWeight.Visible = false;
             // 
             // fieldNettoWeight
             // 
@@ -107,7 +102,6 @@
             this.fieldNettoWeight.TabIndex = 10;
             this.fieldNettoWeight.Text = "0,000";
             this.fieldNettoWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldNettoWeight.Visible = false;
             // 
             // layoutPanel
             // 
@@ -118,16 +112,13 @@
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
             this.layoutPanel.Controls.Add(this.fieldPrintShippingManager, 1, 8);
-            this.layoutPanel.Controls.Add(this.fieldPrintProgressShipping, 1, 9);
             this.layoutPanel.Controls.Add(this.fieldPrintShipping, 2, 8);
-            this.layoutPanel.Controls.Add(this.fieldMassaThreshold, 2, 9);
             this.layoutPanel.Controls.Add(this.fieldSscc, 2, 6);
             this.layoutPanel.Controls.Add(this.fieldTasks, 1, 13);
             this.layoutPanel.Controls.Add(this.fieldMemory, 2, 13);
             this.layoutPanel.Controls.Add(this.fieldPrintMainManager, 1, 7);
-            this.layoutPanel.Controls.Add(this.fieldMassaManager, 1, 11);
-            this.layoutPanel.Controls.Add(this.fieldMassaPluDescription, 2, 10);
-            this.layoutPanel.Controls.Add(this.fieldMassaGet, 2, 11);
+            this.layoutPanel.Controls.Add(this.fieldMassaManager, 1, 9);
+            this.layoutPanel.Controls.Add(this.fieldMassaGet, 2, 9);
             this.layoutPanel.Controls.Add(this.labelPackageWeight, 2, 3);
             this.layoutPanel.Controls.Add(this.labelNettoWeight, 2, 2);
             this.layoutPanel.Controls.Add(this.fieldNettoWeight, 3, 2);
@@ -177,16 +168,6 @@
             this.fieldPrintShippingManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldPrintShippingManager.Visible = false;
             // 
-            // fieldPrintProgressShipping
-            // 
-            this.fieldPrintProgressShipping.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPrintProgressShipping.Enabled = false;
-            this.fieldPrintProgressShipping.Location = new System.Drawing.Point(8, 377);
-            this.fieldPrintProgressShipping.Name = "fieldPrintProgressShipping";
-            this.fieldPrintProgressShipping.Size = new System.Drawing.Size(96, 19);
-            this.fieldPrintProgressShipping.TabIndex = 67;
-            this.fieldPrintProgressShipping.Visible = false;
-            // 
             // fieldPrintShipping
             // 
             this.fieldPrintShipping.AutoSize = true;
@@ -204,23 +185,6 @@
             this.fieldPrintShipping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldPrintShipping.Visible = false;
             this.fieldPrintShipping.Click += new System.EventHandler(this.FieldPrintManager_Click);
-            // 
-            // fieldMassaThreshold
-            // 
-            this.fieldMassaThreshold.AutoSize = true;
-            this.fieldMassaThreshold.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanel.SetColumnSpan(this.fieldMassaThreshold, 2);
-            this.fieldMassaThreshold.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaThreshold.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaThreshold.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMassaThreshold.Location = new System.Drawing.Point(110, 377);
-            this.fieldMassaThreshold.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMassaThreshold.Name = "fieldMassaThreshold";
-            this.fieldMassaThreshold.Size = new System.Drawing.Size(904, 19);
-            this.fieldMassaThreshold.TabIndex = 64;
-            this.fieldMassaThreshold.Text = "fieldMassaThreshold";
-            this.fieldMassaThreshold.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaThreshold.Visible = false;
             // 
             // fieldSscc
             // 
@@ -299,7 +263,7 @@
             this.fieldMassaManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldMassaManager.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMassaManager.Location = new System.Drawing.Point(8, 427);
+            this.fieldMassaManager.Location = new System.Drawing.Point(8, 377);
             this.fieldMassaManager.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaManager.Name = "fieldMassaManager";
             this.fieldMassaManager.Size = new System.Drawing.Size(96, 19);
@@ -307,23 +271,6 @@
             this.fieldMassaManager.Text = "fieldMassaManager";
             this.fieldMassaManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldMassaManager.Visible = false;
-            // 
-            // fieldMassaPluDescription
-            // 
-            this.fieldMassaPluDescription.AutoSize = true;
-            this.fieldMassaPluDescription.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanel.SetColumnSpan(this.fieldMassaPluDescription, 2);
-            this.fieldMassaPluDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaPluDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaPluDescription.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMassaPluDescription.Location = new System.Drawing.Point(110, 402);
-            this.fieldMassaPluDescription.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMassaPluDescription.Name = "fieldMassaPluDescription";
-            this.fieldMassaPluDescription.Size = new System.Drawing.Size(904, 19);
-            this.fieldMassaPluDescription.TabIndex = 49;
-            this.fieldMassaPluDescription.Text = "fieldMassaPluDescription";
-            this.fieldMassaPluDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaPluDescription.Visible = false;
             // 
             // fieldMassaGet
             // 
@@ -333,7 +280,7 @@
             this.fieldMassaGet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldMassaGet.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMassaGet.Location = new System.Drawing.Point(110, 427);
+            this.fieldMassaGet.Location = new System.Drawing.Point(110, 377);
             this.fieldMassaGet.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaGet.Name = "fieldMassaGet";
             this.fieldMassaGet.Size = new System.Drawing.Size(904, 19);
@@ -357,7 +304,6 @@
             this.labelPackageWeight.TabIndex = 17;
             this.labelPackageWeight.Text = "labelPackageWeight";
             this.labelPackageWeight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelPackageWeight.Visible = false;
             // 
             // labelKneading
             // 
@@ -374,7 +320,6 @@
             this.labelKneading.TabIndex = 27;
             this.labelKneading.Text = "labelKneading";
             this.labelKneading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelKneading.Visible = false;
             // 
             // labelProductDate
             // 
@@ -391,7 +336,6 @@
             this.labelProductDate.TabIndex = 28;
             this.labelProductDate.Text = "labelProductDate";
             this.labelProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelProductDate.Visible = false;
             // 
             // fieldProductDate
             // 
@@ -407,7 +351,6 @@
             this.fieldProductDate.TabIndex = 31;
             this.fieldProductDate.Text = "ProductDate";
             this.fieldProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldProductDate.Visible = false;
             // 
             // fieldKneading
             // 
@@ -423,7 +366,6 @@
             this.fieldKneading.TabIndex = 32;
             this.fieldKneading.Text = "Kneading";
             this.fieldKneading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldKneading.Visible = false;
             // 
             // fieldPrintMain
             // 
@@ -458,7 +400,6 @@
             this.fieldPlu.TabIndex = 14;
             this.fieldPlu.Text = "PLU";
             this.fieldPlu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldPlu.Visible = false;
             // 
             // layoutPanelTop
             // 
@@ -512,7 +453,6 @@
             this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxClose.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxClose.Enabled = false;
             this.pictureBoxClose.Image = global::ScalesUI.Properties.Resources.exit_1;
             this.pictureBoxClose.Location = new System.Drawing.Point(956, 3);
             this.pictureBoxClose.Name = "pictureBoxClose";
@@ -520,7 +460,6 @@
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxClose.TabIndex = 22;
             this.pictureBoxClose.TabStop = false;
-            this.pictureBoxClose.Visible = false;
             this.pictureBoxClose.Click += new System.EventHandler(this.ActionClose);
             // 
             // fieldTitle
@@ -577,15 +516,12 @@
         private System.Windows.Forms.Label fieldKneading;
         private System.Windows.Forms.Label fieldPrintMain;
         private System.Windows.Forms.Label fieldMassaGet;
-        private System.Windows.Forms.Label fieldMassaPluDescription;
         private System.Windows.Forms.Label fieldPrintMainManager;
         private System.Windows.Forms.Label fieldMassaManager;
         private System.Windows.Forms.Label fieldMemory;
         private System.Windows.Forms.Label fieldTasks;
         private System.Windows.Forms.Label fieldSscc;
-        private System.Windows.Forms.Label fieldMassaThreshold;
         private System.Windows.Forms.Label fieldPrintShipping;
-        private System.Windows.Forms.ProgressBar fieldPrintProgressShipping;
         private System.Windows.Forms.Label fieldPrintShippingManager;
         private TableLayoutPanel layoutPanelTop;
         private PictureBox pictureBoxClose;
