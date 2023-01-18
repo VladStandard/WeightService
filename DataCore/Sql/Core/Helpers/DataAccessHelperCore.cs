@@ -5,9 +5,8 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 using FluentNHibernate.Conventions;
 using NHibernate;
-using System;
 
-namespace DataCore.Sql.Core;
+namespace DataCore.Sql.Core.Helpers;
 
 public partial class DataAccessHelper
 {

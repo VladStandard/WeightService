@@ -3,6 +3,7 @@
 
 using DataCore.Files;
 using DataCore.Sql.Core;
+using DataCore.Sql.Core.Helpers;
 using Microsoft.Net.Http.Headers;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

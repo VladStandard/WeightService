@@ -24,7 +24,7 @@ using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Scales;
 using DataCore.Sql.TableScaleModels.Templates;
 
-namespace DataCore.Sql.Core;
+namespace DataCore.Sql.Core.Helpers;
 
 public partial class DataAccessHelper
 {

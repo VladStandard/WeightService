@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Unicode;
 using System.Xml.Xsl;
+using DataCore.Sql.Core.Helpers;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
 
 namespace DataCore.Utils;

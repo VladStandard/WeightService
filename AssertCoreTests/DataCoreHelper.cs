@@ -44,7 +44,9 @@ using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Utils;
+using DataCore.Sql.Core.Models;
 
 namespace AssertCoreTests;
 

@@ -4,6 +4,7 @@
 using System.Threading.Tasks;
 using DataCore.Models;
 using DataCore.Protocols;
+using DataCore.Sql.Core.Helpers;
 using Nito.AsyncEx;
 using static DataCore.Models.IDisposableBase;
 

@@ -4,6 +4,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using DataCore.Protocols;
+using DataCore.Sql.Core.Helpers;
 using MDSoft.SerialPorts;
 
 namespace WeightCore.MassaK;

@@ -6,7 +6,6 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Boxes;
-using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 

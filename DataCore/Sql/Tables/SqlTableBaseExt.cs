@@ -20,6 +20,7 @@ using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.Xml;
 using System.Globalization;
+using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;

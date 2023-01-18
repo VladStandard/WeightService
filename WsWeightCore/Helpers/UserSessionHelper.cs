@@ -35,8 +35,10 @@ using WeightCore.Managers;
 using WeightCore.Wpf.Utils;
 using WsLocalization.Models;
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Utils;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
+using DataCore.Sql.Core.Models;
 
 namespace WeightCore.Helpers;
 

@@ -17,7 +17,7 @@ using DataCore.Sql.TableScaleModels.Scales;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 
-namespace DataCore.Sql.Core;
+namespace DataCore.Sql.Core.Helpers;
 
 public partial class DataAccessHelper
 {

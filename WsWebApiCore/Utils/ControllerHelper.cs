@@ -9,7 +9,6 @@ using System.Xml.Linq;
 using WsWebApiCore.Models.WebResponses;
 using WsWebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
-using DataCore.Sql.Core;
 using DataCore.Utils;
 using Microsoft.Data.SqlClient;
 using DataCore.Sql.TableScaleModels.Brands;
@@ -23,6 +22,7 @@ using DataCore.Models;
 using NHibernate.Util;
 using System.Drawing.Drawing2D;
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Models;
 
 namespace WsWebApiCore.Utils;
 

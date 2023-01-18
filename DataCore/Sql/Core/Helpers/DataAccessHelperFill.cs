@@ -39,7 +39,7 @@ using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.Xml;
 
-namespace DataCore.Sql.Core;
+namespace DataCore.Sql.Core.Helpers;
 
 public partial class DataAccessHelper
 {

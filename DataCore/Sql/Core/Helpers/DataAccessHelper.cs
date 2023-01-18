@@ -47,7 +47,7 @@ using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using NHibernate;
 
-namespace DataCore.Sql.Core;
+namespace DataCore.Sql.Core.Helpers;
 
 public partial class DataAccessHelper
 {

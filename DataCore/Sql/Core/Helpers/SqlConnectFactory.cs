@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.Core;
+namespace DataCore.Sql.Core.Helpers;
 
 public class SqlConnectFactory
 {
@@ -67,13 +67,13 @@ public class SqlConnectFactory
 
     #region Public and private methods - Wrappers execute
 
-    public void ExecuteReader(string query, Action<SqlDataReader> action) => 
-	    ExecuteReader(query, new SqlParameter[] { }, action);
+    public void ExecuteReader(string query, Action<SqlDataReader> action) =>
+        ExecuteReader(query, new SqlParameter[] { }, action);
 
-	public void ExecuteReader(string query, SqlParameter parameter, Action<SqlDataReader> action) =>
-		ExecuteReader(query, new[] { parameter }, action);
+    public void ExecuteReader(string query, SqlParameter parameter, Action<SqlDataReader> action) =>
+        ExecuteReader(query, new[] { parameter }, action);
 
-	private void ExecuteReader(string query, SqlParameter[] parameters, Action<SqlDataReader> action)
+    private void ExecuteReader(string query, SqlParameter[] parameters, Action<SqlDataReader> action)
     {
         using SqlConnection con = GetConnection();
         con.Open();
@@ -92,8 +92,8 @@ public class SqlConnectFactory
         con.Close();
     }
 
-    public T? ExecuteReader<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) => 
-	    ExecuteReader(query, new[] { parameter }, func);
+    public T? ExecuteReader<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) =>
+        ExecuteReader(query, new[] { parameter }, func);
 
     private T? ExecuteReader<T>(string query, SqlParameter[] parameters, Func<SqlDataReader, T> func)
     {
@@ -110,16 +110,16 @@ public class SqlConnectFactory
             using SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
-				result = func.Invoke(reader);
-			}
+                result = func.Invoke(reader);
+            }
             reader.Close();
         }
         con.Close();
         return result;
     }
 
-    public T ExecuteReaderForItem<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) where T : new() => 
-	    ExecuteReaderForItem(query, new[] { parameter }, func);
+    public T ExecuteReaderForItem<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) where T : new() =>
+        ExecuteReaderForItem(query, new[] { parameter }, func);
 
     private T ExecuteReaderForItem<T>(string query, SqlParameter[] parameters, Func<SqlDataReader, T> func) where T : new()
     {

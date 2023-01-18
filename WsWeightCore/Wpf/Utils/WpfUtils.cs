@@ -6,6 +6,7 @@ using DataCore.Sql.TableScaleModels.Devices;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
+using DataCore.Sql.Core.Helpers;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WsLocalization.Models;
