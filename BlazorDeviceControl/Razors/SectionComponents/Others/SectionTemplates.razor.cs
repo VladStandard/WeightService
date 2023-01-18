@@ -10,12 +10,6 @@ public partial class SectionTemplates : RazorComponentSectionBase<TemplateModel,
 {
     #region Public and private fields, properties, constructor
 
-    public SectionTemplates()
-    {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -27,8 +21,6 @@ public partial class SectionTemplates : RazorComponentSectionBase<TemplateModel,
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

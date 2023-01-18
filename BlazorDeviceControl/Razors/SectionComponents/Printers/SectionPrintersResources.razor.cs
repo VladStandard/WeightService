@@ -8,12 +8,11 @@ namespace BlazorDeviceControl.Razors.SectionComponents.Printers;
 
 public partial class SectionPrintersResources : RazorComponentSectionBase<PrinterResourceModel, SqlTableBase>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	public SectionPrintersResources()
+    public SectionPrintersResources() : base()
     {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
     }
 
     #endregion
@@ -28,8 +27,6 @@ public partial class SectionPrintersResources : RazorComponentSectionBase<Printe
             {
 	            SqlCrudConfigSection.AddFilters(nameof(PrinterResourceModel.Printer), ParentRazor ?.SqlItem);
 				SqlSectionCast = DataContext.GetListNotNullable<PrinterResourceModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

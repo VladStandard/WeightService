@@ -5,8 +5,6 @@
 @using DataCore.Sql.TableScaleModels.PlusScales
 @using DataCore.Sql.TableScaleModels.Scales
 
-<SystemIdentity ParentRazor=@(this) />
-
 <RazorSectionReload TItem=@PluScaleModel TItemFilter=@ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusScales />
 
 <RadzenGrid 
@@ -62,4 +60,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@PluScaleModel ParentRazor=@(this) />
+<RazorSectionActions TItem="@PluScaleModel" ButtonSettings="@ButtonSettings" />

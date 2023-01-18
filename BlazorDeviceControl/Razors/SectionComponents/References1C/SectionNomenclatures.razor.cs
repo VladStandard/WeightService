@@ -10,12 +10,6 @@ public partial class SectionNomenclatures : RazorComponentSectionBase<Nomenclatu
 {
     #region Public and private fields, properties, constructor
 
-    public SectionNomenclatures()
-    {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -27,8 +21,6 @@ public partial class SectionNomenclatures : RazorComponentSectionBase<Nomenclatu
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<NomenclatureModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

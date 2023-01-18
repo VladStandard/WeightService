@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel, SqlTableBase>
 @page "/section/templates_resources"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.TemplatesResources
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@TemplateResourceModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplateResources />
 
@@ -41,4 +38,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@TemplateResourceModel ParentRazor=@(this) />
+<RazorSectionActions TItem="@TemplateResourceModel" ButtonSettings="@ButtonSettings" />

@@ -1,5 +1,4 @@
 ﻿@inherits BlazorCore.Razors.RazorComponentBase
-@using BlazorDeviceControl.Razors.SystemComponents
 
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -9,11 +8,11 @@
 <RadzenNotification />
 <RadzenTooltip />
 
-<SystemIdentity ParentRazor=@(this) />
-
 <div class="page">
     <div class=@BlazorCoreUtuls.GetCssName.Sidebar(BlazorAppSettings)>
-        <NavMenu ParentRazor=@(this) />
+	    <CascadingValue Value="@UserSettings" name="user">
+			<NavMenu/>
+	    </CascadingValue>
     </div>
 
     <div class="main">
@@ -23,13 +22,15 @@
                     @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
 	                {
 		                <RadzenMenuItem Icon="people" Style="background-color: transparent;"
-							Text=@($"{UserSettings.UserName}") Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}/true") />
+							Text=@($"{UserSettings.UserName}") Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
 	                }
                 </RadzenMenu>
             </div>
         </div>
         <div class="content px-4" style="margin-left: -25px; margin-top: -15px; margin-bottom: -15px; margin-right: -15px; background-color: transparent; ">
-            @Body
+	        <CascadingValue Value="@UserSettings" name="user">
+		        @Body
+	        </CascadingValue>
         </div>
     </div>
 </div>

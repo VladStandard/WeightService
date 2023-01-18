@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Boxes.BoxModel, SqlTableBase>
 @page "/section/boxes"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Boxes
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@BoxModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBoxes />
 
@@ -24,4 +21,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@BoxModel ParentRazor=@(this) />
+<RazorSectionActions TItem="@BoxModel" ButtonSettings="@ButtonSettings" />

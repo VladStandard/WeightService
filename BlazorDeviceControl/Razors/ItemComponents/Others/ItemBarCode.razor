@@ -3,11 +3,8 @@
 @page "/item/barcode/new"
 @page "/item/barcode/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Enums;
 @using DataCore.Sql.TableScaleModels.BarCodes
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
 

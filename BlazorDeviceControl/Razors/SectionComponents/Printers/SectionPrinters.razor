@@ -1,11 +1,8 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Printers.PrinterModel, SqlTableBase>
 @page "/section/printers"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Printers
 @using DataCore.Sql.TableScaleModels.PrintersTypes
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@PrinterModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Names />
 
@@ -37,4 +34,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@PrinterModel ParentRazor=@(this) />
+<RazorSectionActions TItem="@PrinterModel" ButtonSettings="@ButtonSettings" />

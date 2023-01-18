@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Organizations.OrganizationModel, SqlTableBase>
 @page "/section/organizations"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Organizations
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@OrganizationModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionOrganizations />
 
@@ -24,4 +21,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@OrganizationModel ParentRazor=@(this) />
+<RazorSectionActions TItem="@OrganizationModel" ButtonSettings="@ButtonSettings" />

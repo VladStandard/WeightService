@@ -11,14 +11,12 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableB
 {
 	#region Public and private fields, properties, constructor
 
-	public SectionPlus()
+	public SectionPlus() : base()
 	{
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-
         SqlCrudConfigSection.IsResultOrder = false;
 		SqlCrudConfigSection.AddOrders(new SqlFieldOrderModel($"{nameof(PluModel.Number)}", 
 			SqlFieldOrderEnum.Asc));
+        ButtonSettings = new(false, false, true, true, false, false, false);
     }
 
 	#endregion
@@ -32,9 +30,7 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableB
 			() =>
 			{
 				SqlSectionCast = DataContext.GetListNotNullable<PluModel>(SqlCrudConfigSection);
-
-				ButtonSettings = new(false, false, true, true, false, false, false);
-			}
+            }
 		});
 	}
 

@@ -10,10 +10,9 @@ public partial class SectionBrands : RazorComponentSectionBase<BrandModel, SqlTa
 {
     #region Public and private fields, properties, constructor
 
-    public SectionBrands()
+    public SectionBrands() : base()
     {
-        SqlCrudConfigSection.IsGuiShowItemsCount = true;
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+        ButtonSettings = new(false, true, true, true, false, false, false);
     }
 
     #endregion
@@ -27,8 +26,6 @@ public partial class SectionBrands : RazorComponentSectionBase<BrandModel, SqlTa
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<BrandModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(false, true, true, true, false, false, false);
             }
         });
     }

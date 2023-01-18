@@ -17,29 +17,42 @@ public partial class RazorComponentBase : LayoutComponentBase
 {
 	#region Public and private fields, properties, constructor
 
-	[Inject] public DialogService? DialogService { get; set; }
-	[Inject] public IJSRuntime? JsRuntime { get; set; }
-	[Inject] public NavigationManager? NavigationManager { get; set; }
-	[Inject] public NotificationService? NotificationService { get; set; }
-	[Inject] public TooltipService? TooltipService { get; set; }
-	[Inject] public IHttpContextAccessor? HttpContextAccess { get; set; }
-	[Parameter] public bool IsShowReload { get; set; }
-	[Parameter]
-	public string IsShowReloadStr
-	{
-		get => IsShowReload ? "true" : "false";
-		set => IsShowReload = value.Equals("TRUE", StringComparison.InvariantCultureIgnoreCase);
-	}
-	[Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
-	[Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
-	[Parameter] public Guid? IdentityUid { get; set; }
-	[Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
-	[Parameter] public long? IdentityId { get; set; }
-	[Parameter] public RazorComponentBase? ParentRazor { get; set; }
-	[Parameter] public UserSettingsModel? UserSettings { get; set; }
-	[Parameter] public HttpContext? HttpContext { get; set; }
-	[Parameter] public string Title { get; set; }
-	protected BlazorAppSettingsHelper BlazorAppSettings { get; } = BlazorAppSettingsHelper.Instance;
+    #region Inject
+    [Inject] public DialogService? DialogService { get; set; }
+    [Inject] public IJSRuntime? JsRuntime { get; set; }
+    [Inject] public NavigationManager? NavigationManager { get; set; }
+    [Inject] public NotificationService? NotificationService { get; set; }
+    [Inject] public TooltipService? TooltipService { get; set; }
+    [Inject] public IHttpContextAccessor? HttpContextAccess { get; set; }
+
+    #endregion
+
+    #region Cascade Parameters
+    
+    [CascadingParameter(Name = "user")]
+    public UserSettingsModel? UserSettings { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+    #endregion
+
+    #region Parameters
+
+    [Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
+    [Parameter] public Guid? IdentityUid { get; set; }
+    [Parameter] public long? IdentityId { get; set; }
+    [Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+    [Parameter] public RazorComponentBase? ParentRazor { get; set; }
+    [Parameter] public HttpContext? HttpContext { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public SqlCrudConfigModel SqlCrudConfigItem { get; set; }
+    [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
+    [Parameter] public SqlCrudConfigModel SqlCrudConfigList { get; set; }
+
+    #endregion
+
+    protected BlazorAppSettingsHelper BlazorAppSettings { get; } = BlazorAppSettingsHelper.Instance;
 	private string HttpId => HttpContext is null ? string.Empty : HttpContext.Connection.Id;
 	private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
 	protected string HttpIdDescription => $"{LocaleCore.Strings.AuthorizingId}: {HttpId}";
@@ -50,13 +63,8 @@ public partial class RazorComponentBase : LayoutComponentBase
 	public List<SqlTableBase>? SqlSection { get; set; }
 	public List<SqlTableBase>? SqlSectionOnTable { get; set; }
 	public List<SqlTableBase>? SqlLinkedItems { get; set; }
-	public AuthorizeView? AuthorizeViewBase { get; set; }
-	public AuthenticationState? AuthenticationStateBase { get; set; }
-	public DataContextModel DataContext { get; } = new();
+    public DataContextModel DataContext { get; } = new();
 	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-	[Parameter] public SqlCrudConfigModel SqlCrudConfigItem { get; set; }
-	[Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
-	[Parameter] public SqlCrudConfigModel SqlCrudConfigList { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -70,11 +78,8 @@ public partial class RazorComponentBase : LayoutComponentBase
 		TooltipService = null;
 
 		HttpContext = null;
-		AuthorizeViewBase = null;
-		AuthenticationStateBase = null;
-		UserSettings = null;
-		ButtonSettings = null;
-		Title = string.Empty;
+        UserSettings = null;
+        Title = string.Empty;
 
 		SqlItem = null;
 		SqlItemOnTable = null;
@@ -95,11 +100,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		if (ParentRazor.HttpContext is not null)
 			HttpContext = ParentRazor.HttpContext;
-		if (ParentRazor.AuthorizeViewBase is not null)
-			AuthorizeViewBase = ParentRazor.AuthorizeViewBase;
-		if (ParentRazor.AuthenticationStateBase is not null)
-			AuthenticationStateBase = ParentRazor.AuthenticationStateBase;
-		if (ParentRazor.UserSettings is not null)
+        if (ParentRazor.UserSettings is not null)
 			UserSettings = ParentRazor.UserSettings;
 		if (ParentRazor.IdentityId is not null)
 			IdentityId = ParentRazor.IdentityId;
@@ -115,18 +116,16 @@ public partial class RazorComponentBase : LayoutComponentBase
 			SqlSectionOnTable = ParentRazor.SqlSectionOnTable;
 		if (ParentRazor.SqlLinkedItems is not null)
 			SqlLinkedItems = ParentRazor.SqlLinkedItems;
-		if (ParentRazor.ButtonSettings is not null)
-			ButtonSettings = ParentRazor.ButtonSettings;
-		SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
+        SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
 		SqlCrudConfigSection = ParentRazor.SqlCrudConfigSection;
 	}
 
-	private void SetUserSettings(AuthenticationState? authenticationState)
+	protected async void SetUserSettings()
 	{
-		AuthenticationStateBase = authenticationState;
-		if (AuthenticationStateBase?.User.Identity is null) return;
+		var auth = await AuthenticationStateTask;
+		if (auth?.User.Identity is null) return;
 
-		string? userName = AuthenticationStateBase.User.Identity.Name;
+		string? userName = auth.User.Identity.Name;
 		if (string.IsNullOrEmpty(userName)) return;
 
 		AccessModel? access = DataAccessHelper.Instance.GetItemAccessNullable(userName);
@@ -135,33 +134,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 		DataAccessHelper.Instance.UpdateForce(access);
 
 		UserSettings = new(userName, (AccessRightsEnum)access.Rights);
+    }
 
-		if (ParentRazor is null) return;
-		bool isOnChange = ParentRazor.UserSettings is null;
-		ParentRazor.UserSettings = UserSettings;
-		if (isOnChange)
-			ParentRazor.OnChange();
-	}
-
-	protected string SetAuthorizing()
-	{
-		SetUserSettings(null);
-		return LocaleCore.Strings.AuthorizingProcess;
-	}
-
-	protected string SetAuthorized(AuthenticationState authenticationState)
-	{
-		SetUserSettings(authenticationState);
-		return LocaleCore.Strings.AuthorizingSuccess;
-	}
-
-	protected string SetNotAuthorized()
-	{
-		SetUserSettings(null);
-		return LocaleCore.System.SystemIdentityNotAuthorized;
-	}
-
-	/// <summary>
+    /// <summary>
 	/// Add item to items table list.
 	/// </summary>
 	/// <param name="item"></param>
@@ -189,8 +164,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 		}
 	}
 
-
-	protected void ChangeSqlItemOnTable(SqlTableBase? item, bool isAdd)
+    protected void ChangeSqlItemOnTable(SqlTableBase? item, bool isAdd)
 	{
 		switch (isAdd)
 		{

@@ -4,11 +4,8 @@
 @page "/item/workshop/{IdentityId:long}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.ProductionFacilities
 @using DataCore.Sql.TableScaleModels.WorkShops
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemWorkshop />
 

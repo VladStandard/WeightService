@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Brands.BrandModel, SqlTableBase>
 @page "/section/brands"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Brands
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@BrandModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBrands />
 
@@ -41,4 +38,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@BrandModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@BrandModel ButtonSettings="@ButtonSettings" />

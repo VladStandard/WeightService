@@ -3,10 +3,7 @@
 @page "/item/bundle/new"
 @page "/item/bundle/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Bundles
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=BundleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBundle />
 

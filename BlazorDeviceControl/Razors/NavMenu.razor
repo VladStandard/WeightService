@@ -3,8 +3,6 @@
 @using BlazorDeviceControl.Razors.SystemComponents
 @using static BlazorCore.Utils.BlazorCoreUtuls
 
-<SystemIdentity ParentRazor=@(this) />
-
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">
         <RadzenLabel 
@@ -117,7 +115,7 @@
             {
                 <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.Menu.MenuHelp>
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"
-                        Text=@LocaleCore.System.UserInfo Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}/true") />
+                        Text=@LocaleCore.System.UserInfo Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"
                         Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"

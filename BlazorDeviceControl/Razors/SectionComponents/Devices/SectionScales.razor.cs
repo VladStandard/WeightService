@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using DataCore.Sql.Fields;
 using DataCore.Sql.TableScaleModels.Scales;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Devices;
@@ -11,11 +10,9 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
 {
     #region Public and private fields, properties, constructor
 
-    public SectionScales()
+    public SectionScales() : base()
     {
-	    SqlCrudConfigSection.IsGuiShowItemsCount = true;
-	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-        SqlCrudConfigSection.AddOrders(new SqlFieldOrderModel(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
     }
 
     #endregion
@@ -29,8 +26,6 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

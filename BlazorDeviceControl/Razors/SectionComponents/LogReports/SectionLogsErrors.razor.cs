@@ -11,11 +11,10 @@ public partial class SectionLogsErrors : RazorComponentSectionBase<LogModel, Log
 {
 	#region Public and private fields, properties, constructor
 
-	public SectionLogsErrors()
-	{
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-	}
+    public SectionLogsErrors() : base()
+    {
+	    ButtonSettings = new(false, true, false, false, false, false, false);
+    }
 
 	#endregion
 

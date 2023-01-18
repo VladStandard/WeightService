@@ -11,11 +11,8 @@ public partial class SectionScalesScreenShots : RazorComponentSectionBase<ScaleS
 {
     #region Public and private fields, properties, constructor
 
-    public SectionScalesScreenShots()
+    public SectionScalesScreenShots() : base()
     {
-	    SqlCrudConfigSection.IsGuiShowItemsCount = true;
-	    SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
-	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         ButtonSettings = new(true, true, true, true, true, true, false);
     }
 

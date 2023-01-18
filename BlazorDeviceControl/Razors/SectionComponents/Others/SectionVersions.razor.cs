@@ -10,11 +10,11 @@ public partial class SectionVersions : RazorComponentSectionBase<VersionModel, S
 {
     #region Public and private fields, properties, constructor
 
-    public SectionVersions()
+    public SectionVersions() : base()
     {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
-	}
+        ButtonSettings = new(false, false, false, false, false, false, false);
+    }
 
     #endregion
 
@@ -27,8 +27,6 @@ public partial class SectionVersions : RazorComponentSectionBase<VersionModel, S
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<VersionModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(false, false, false, false, false, false, false);
             }
         });
     }

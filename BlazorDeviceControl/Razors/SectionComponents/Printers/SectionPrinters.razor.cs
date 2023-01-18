@@ -10,10 +10,9 @@ public partial class SectionPrinters : RazorComponentSectionBase<PrinterModel, S
 {
     #region Public and private fields, properties, constructor
 
-    public SectionPrinters()
+    public SectionPrinters() : base()
     {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
-	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
     }
 
     #endregion
@@ -27,8 +26,6 @@ public partial class SectionPrinters : RazorComponentSectionBase<PrinterModel, S
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

@@ -3,10 +3,7 @@
 @page "/item/log/new"
 @page "/item/log/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Logs
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=LogModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLog />
 

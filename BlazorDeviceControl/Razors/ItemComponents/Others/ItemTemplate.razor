@@ -3,10 +3,7 @@
 @page "/item/template/new"
 @page "/item/template/{IdentityId:long}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Templates
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=@TemplateModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemTemplate />
 

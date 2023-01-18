@@ -6,8 +6,6 @@
 @using DataCore.Sql.TableScaleModels.PrintersResources
 @using DataCore.Sql.TableScaleModels.TemplatesResources
 
-<SystemIdentity ParentRazor=@(this) />
-
 <RazorSectionReload TItem=@PrinterResourceModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
 <RadzenGrid 
@@ -28,4 +26,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@PrinterResourceModel ParentRazor=@(this) />
+<RazorSectionActions TItem="@PrinterResourceModel" ButtonSettings="@ButtonSettings" />

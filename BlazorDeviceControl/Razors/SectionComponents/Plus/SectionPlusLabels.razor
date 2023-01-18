@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusLabels.PluLabelModel, SqlTableBase>
 @page "/section/plus_labels"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.PlusLabels
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@PluLabelModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionLabels />
 
@@ -73,4 +70,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@PluLabelModel ParentRazor=@(this) />
+<RazorSectionActions TItem="@PluLabelModel" ButtonSettings="@ButtonSettings" />

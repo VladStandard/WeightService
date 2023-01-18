@@ -10,13 +10,6 @@ public partial class SectionBoxes : RazorComponentSectionBase<BoxModel, SqlTable
 {
     #region Public and private fields, properties, constructor
 
-    public SectionBoxes()
-    {
-        SqlCrudConfigSection.IsGuiShowItemsCount = true;
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = true;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -28,8 +21,6 @@ public partial class SectionBoxes : RazorComponentSectionBase<BoxModel, SqlTable
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigSection);
-
-                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

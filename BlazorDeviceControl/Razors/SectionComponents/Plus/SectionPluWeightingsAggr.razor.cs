@@ -6,13 +6,13 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
-public partial class SectionPluWeighingsAggr : RazorComponentSectionBase<WeithingFactSummaryModel, SqlTableBase>
+public partial class SectionPluWeightingsAggr : RazorComponentSectionBase<WeithingFactSummaryModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 
-    public SectionPluWeighingsAggr()
+    public SectionPluWeightingsAggr() : base()
     {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+        ButtonSettings = new(false, false, false, false, false, false, false);
     }
 
 	#endregion
@@ -44,8 +44,6 @@ public partial class SectionPluWeighingsAggr : RazorComponentSectionBase<Weithin
                     }
                 }
                 SqlSectionCast = items;
-
-				ButtonSettings = new(false, false, false, false, false, false, false);
             }
 		});
 	}

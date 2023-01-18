@@ -3,10 +3,7 @@
 @page "/item/box/new"
 @page "/item/box/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Boxes
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=BoxModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBox />
 

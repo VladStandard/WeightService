@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Bundles.BundleModel, SqlTableBase>
 @page "/section/bundles"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.Bundles
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@BundleModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBundles />
 
@@ -24,4 +21,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@BundleModel ParentRazor=@(this) />
+<RazorSectionActions TItem="@BundleModel" ButtonSettings="@ButtonSettings" />

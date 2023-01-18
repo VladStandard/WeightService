@@ -1,11 +1,8 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel, SqlTableBase>
 @page "/section/workshops"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Sql.TableScaleModels.ProductionFacilities
 @using DataCore.Sql.TableScaleModels.WorkShops
-
-<SystemIdentity ParentRazor=@(this) />
 
 <RazorSectionReload TItem=@WorkShopModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWorkShops />
 
@@ -25,4 +22,4 @@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=@WorkShopModel ParentRazor=@(this) />
+<RazorSectionActions TItem="@WorkShopModel" ButtonSettings="@ButtonSettings" />
