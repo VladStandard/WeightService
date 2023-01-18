@@ -1,10 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Razors;
-using DataCore.Sql.TableScaleModels.Logs;
-using DataCore.Sql.TableScaleModels.LogsTypes;
-
 namespace BlazorDeviceControl.Razors.SectionComponents.LogReports;
 
 public partial class SectionLogsErrors : RazorComponentSectionBase<LogModel, LogTypeModel>

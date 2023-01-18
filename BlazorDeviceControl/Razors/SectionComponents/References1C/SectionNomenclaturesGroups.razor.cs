@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Razors;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.References1C;
@@ -21,7 +20,7 @@ public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<Nome
             () =>
             {
                 SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigSection.CloneCast();
-                sqlCrudConfig.AddFilters(new() { new($"{nameof(NomenclatureGroupModel.IsGroup)}", false) });
+                sqlCrudConfig.AddFilters(new SqlFieldFilterModel($"{nameof(NomenclatureGroupModel.IsGroup)}", false));
                 //sqlCrudConfig.SetOrders(new(nameof(SqlTableBase.Name), SqlFieldOrderEnum.Asc));
                 sqlCrudConfig.IsResultOrder = true;
                 SqlSectionCast = DataContext.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);

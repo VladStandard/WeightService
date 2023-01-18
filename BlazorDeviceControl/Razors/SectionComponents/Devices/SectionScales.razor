@@ -1,10 +1,7 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Scales.ScaleModel, SqlTableBase>
 @page "/section/scales"
 @using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Devices
-@using DataCore.Sql.TableScaleModels.Printers
 @using DataCore.Sql.TableScaleModels.Scales
-@using DataCore.Sql.TableScaleModels.WorkShops
 
 
 <RazorSectionReload TItem=@ScaleModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScales />

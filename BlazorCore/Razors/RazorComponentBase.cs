@@ -3,7 +3,6 @@
 
 using BlazorCore.Settings;
 using DataCore.Models;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels.Access;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;

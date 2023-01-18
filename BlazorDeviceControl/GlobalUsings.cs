@@ -2,14 +2,21 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // Global using directives
 
+global using BlazorCore.Razors;
 global using BlazorCore.Services;
 global using BlazorCore.Utils;
 global using BlazorDownloadFile;
 global using DataCore.Models;
 global using DataCore.Protocols;
+global using DataCore.Sql.Core.Enums;
+global using DataCore.Sql.Core.Utils;
 global using DataCore.Sql.Core;
+global using DataCore.Sql.Fields;
 global using DataCore.Sql.Models;
 global using DataCore.Sql.Tables;
+global using DataCore.Sql.TableScaleModels.Logs;
+global using DataCore.Sql.TableScaleModels.LogsTypes;
+global using DataCore.Sql.TableScaleModels.Plus;
 global using DataCore.Utils;
 global using Microsoft.AspNetCore.Components.Forms;
 global using Microsoft.AspNetCore.Components;

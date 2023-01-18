@@ -3,10 +3,6 @@
 
 using System.Collections.Generic;
 using BlazorCore.Settings;
-using DataCore.Sql.Fields;
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels.Contragents;
-using DataCore.Sql.TableScaleModels.Nomenclatures;
 
 namespace BlazorCore.Razors;
 

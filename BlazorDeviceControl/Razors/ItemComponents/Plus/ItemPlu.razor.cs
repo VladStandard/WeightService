@@ -1,10 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Razors;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
-using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.Xml;
 
