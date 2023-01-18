@@ -26,8 +26,6 @@ public partial class ItemBrand : RazorComponentItemBase<BrandModel>
                 {
                     SqlItemCast = SqlItemNew<BrandModel>();
                 }
-
-                ButtonSettings = new(false, false, false, false, false, true, true);
             }
         });
     }

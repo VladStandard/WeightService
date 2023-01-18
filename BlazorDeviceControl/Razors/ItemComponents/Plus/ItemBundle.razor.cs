@@ -11,8 +11,8 @@ public partial class ItemBundle : RazorComponentItemBase<BundleModel>
 
     //
 
-    #endregion
-
+    #endregion 
+    
     #region Public and private methods
 
     protected override void OnParametersSet()
@@ -26,8 +26,6 @@ public partial class ItemBundle : RazorComponentItemBase<BundleModel>
                 {
                     SqlItemCast = SqlItemNew<BundleModel>();
                 }
-
-                ButtonSettings = new(false, false, false, false, false, true, true);
             }
         });
     }

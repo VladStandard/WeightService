@@ -18,12 +18,14 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
     private TemplateModel Template { get => _template; set { _template = value; SqlLinkedItems = new() { Template }; } }
     private PluTemplateFkModel PluTemplateFk { get; set; }
 
-    public ItemPlu()
+    public ItemPlu() : base()
     {
 	    SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
 	    SqlCrudConfigItem.IsGuiShowFilterMarked = true;
 	    _template = new();
 	    PluTemplateFk = new();
+
+        ButtonSettings = new(true, true, true, true, true, true, true);
     }
 
     #endregion
@@ -62,8 +64,6 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	            //    }
 	            PluTemplateFk = DataAccess.GetItemPluTemplateFkNotNullable(SqlItemCast);
 	            Template = PluTemplateFk.Template.IsNotNew ? PluTemplateFk.Template : DataAccess.GetItemNewEmpty<TemplateModel>();
-
-				ButtonSettings = new(true, true, true, true, true, true, true);
             }
         });
     }

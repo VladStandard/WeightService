@@ -39,8 +39,8 @@
 	</tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem=@TemplateResourceModel ParentRazor=@(this) />
-<RazorItemDates TItem=@TemplateResourceModel ParentRazor=@(this) />
+<RazorItemActions TItem="@TemplateResourceModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorItemDates TItem="@TemplateResourceModel" ParentRazor=@(this) />
 
 @*
 <RadzenLabel Style="width: 97%;" Text=@FileInfo />

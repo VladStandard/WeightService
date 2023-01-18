@@ -26,9 +26,7 @@ public partial class ItemPrinterType : RazorComponentItemBase<PrinterTypeModel>
                 {
 					SqlItemCast = SqlItemNew<PrinterTypeModel>();
 				}
-
-				ButtonSettings = new(false, false, false, false, false, true, true);
-			}
+            }
 		});
 	}
 

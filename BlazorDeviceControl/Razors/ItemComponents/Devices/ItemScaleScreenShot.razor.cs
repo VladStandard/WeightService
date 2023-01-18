@@ -11,9 +11,10 @@ public partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleScreenSho
 
     private string ImagePath { get; set; }
 
-    public ItemScaleScreenShot()
+    public ItemScaleScreenShot() : base()
     {
 	    ImagePath = string.Empty;
+        ButtonSettings = new(false, false, false, false, false, false, true);
     }
 
     #endregion
@@ -33,8 +34,6 @@ public partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleScreenSho
                 {
                     SqlItemCast = SqlItemNew<ScaleScreenShotModel>();
                 }
-
-	            ButtonSettings = new(false, false, false, false, false, false, true);
             }
         });
     }

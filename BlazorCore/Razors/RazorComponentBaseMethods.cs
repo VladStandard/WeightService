@@ -271,7 +271,7 @@ public partial class RazorComponentBase
             if (item is DeviceModel device)
             {
                 DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale);
-                if (device is not null && device.IsNotNew)
+                if (device.IsNotNew)
                 {
                     if (deviceScaleFk is null)
                         deviceScaleFk = new() { Device = device, Scale = scale };
@@ -297,7 +297,7 @@ public partial class RazorComponentBase
                 if (item is TemplateModel template)
                 {
                     PluTemplateFkModel? pluTemplateFk = DataAccess.GetItemPluTemplateFkNullable(plu);
-                    if (template is not null && template.IsNotNew)
+                    if (template.IsNotNew)
                     {
                         if (pluTemplateFk is null)
                             pluTemplateFk = new() { Plu = plu, Template = template };
@@ -346,7 +346,7 @@ public partial class RazorComponentBase
             if (item is DeviceTypeModel deviceType)
             {
                 DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFkNullable(device);
-                if (deviceType is not null && deviceType.IsNotNew)
+                if (deviceType.IsNotNew)
                 {
                     if (deviceTypeFk is null)
                         deviceTypeFk = new() { Type = deviceType, Device = device };

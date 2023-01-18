@@ -23,17 +23,16 @@ public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : Sq
 		set => SqlItemOnTable = value;
 	}
 
-    public ButtonSettingsModel? ButtonSettings { get; set; }
-
+    [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
     [Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
 	[Parameter] public CssStyleTableBodyModel CssTableStyleBody { get; set; }
 
-	public RazorComponentItemBase()
+    public RazorComponentItemBase()
 	{
-		SqlItemCast = new();
-		CssTableStyleHead = new();
+        CssTableStyleHead = new();
 		CssTableStyleBody = new();
-	}
+        ButtonSettings = new(false, false, false, false, false, true, true);
+    }
 
 	#endregion
 

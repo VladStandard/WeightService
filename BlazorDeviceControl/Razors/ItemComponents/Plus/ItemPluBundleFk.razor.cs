@@ -16,7 +16,7 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
     private BundleModel _bundle;
     private BundleModel Bundle { get => _bundle; set { _bundle = value; SqlLinkedItems = new() { _plu, _bundle }; } }
 
-    public ItemPluBundleFk()
+    public ItemPluBundleFk() : base()
     {
         _plu = SqlItemNewEmpty<PluModel>();
         _bundle = SqlItemNewEmpty<BundleModel>();
@@ -48,8 +48,6 @@ public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
                     Plu = SqlItemCast.Plu;
                     Bundle = SqlItemCast.Bundle;
                 }
-
-                ButtonSettings = new(false, false, false, false, false, true, true);
             }
         );
     }

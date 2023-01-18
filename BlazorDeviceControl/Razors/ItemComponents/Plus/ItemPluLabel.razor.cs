@@ -9,7 +9,10 @@ public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
 {
     #region Public and private fields, properties, constructor
 
-    //
+    public ItemPluLabel() : base()
+    {
+        ButtonSettings = new(false, false, false, false, false, false, true);
+    }
 
     #endregion
 
@@ -26,8 +29,6 @@ public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
                 {
                     SqlItemCast = SqlItemNew<PluLabelModel>();
                 }
-
-				ButtonSettings = new(false, false, false, false, false, false, true);
             }
         });
     }

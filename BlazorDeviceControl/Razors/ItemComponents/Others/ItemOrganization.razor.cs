@@ -9,7 +9,6 @@ public partial class ItemOrganization : RazorComponentItemBase<OrganizationModel
 {
 	#region Public and private fields, properties, constructor
 
-	//
 
 	#endregion
 
@@ -26,9 +25,7 @@ public partial class ItemOrganization : RazorComponentItemBase<OrganizationModel
                 {
 					SqlItemCast = SqlItemNew < OrganizationModel >();
 				}
-
-				ButtonSettings = new(false, false, false, false, false, true, true);
-			}
+            }
 		});
 	}
 

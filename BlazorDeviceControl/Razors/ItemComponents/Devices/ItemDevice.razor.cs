@@ -16,8 +16,8 @@ public partial class ItemDevice : RazorComponentItemBase<DeviceModel>
     private DeviceTypeFkModel DeviceTypeFk { get; set; }
 
     #endregion
-
-    public ItemDevice()
+                                                                                                                                                                                                                                                                                                                    
+    public ItemDevice() : base()
     {
         _deviceType = new();
         DeviceTypeFk = new();
@@ -40,8 +40,6 @@ public partial class ItemDevice : RazorComponentItemBase<DeviceModel>
                 }
                 DeviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(SqlItemCast);
                 DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : DataAccess.GetItemNewEmpty<DeviceTypeModel>();
-
-                ButtonSettings = new(false, false, false, false, false, true, true);
             }
         });
     }

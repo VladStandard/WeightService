@@ -16,7 +16,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>10.0</LangVersion>
-    <PublishUrl>\\palych\Install\VSSoft\Scales-2-Preview\</PublishUrl>
+    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -33,7 +33,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.8.161.0</ApplicationVersion>
+    <ApplicationVersion>0.8.120.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -491,38 +491,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\KneadingUserControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Forms\OrderDetailForm.cs" />
+    <Compile Include="Forms\OrderDetailForm.Designer.cs">
+      <DependentUpon>OrderDetailForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\KneadingUserControl.Designer.cs">
-      <DependentUpon>KneadingUserControl.cs</DependentUpon>
+    <Compile Include="Forms\OrderListForm.cs" />
+    <Compile Include="Forms\OrderListForm.Designer.cs">
+      <DependentUpon>OrderListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WaitUserControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Forms\PlusForm.cs" />
+    <Compile Include="Forms\PlusForm.Designer.cs">
+      <DependentUpon>PlusForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WaitUserControl.Designer.cs">
-      <DependentUpon>WaitUserControl.cs</DependentUpon>
+    <Compile Include="Forms\KneadingForm.cs" />
+    <Compile Include="Forms\KneadingForm.Designer.cs">
+      <DependentUpon>KneadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\UserControlBase.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Forms\SettingsForm.cs" />
+    <Compile Include="Forms\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\NavigationUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\NavigationUserControl.Designer.cs">
-      <DependentUpon>NavigationUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PluUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\PluUserControl.Designer.cs">
-      <DependentUpon>PluUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Program.cs" />
@@ -537,6 +530,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ActionUtils.cs" />
     <None Include="CHANGELOG.md" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -544,23 +538,23 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="Controls\KneadingUserControl.resx">
-      <DependentUpon>KneadingUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\OrderDetailForm.resx">
+      <DependentUpon>OrderDetailForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WaitUserControl.resx">
-      <DependentUpon>WaitUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\OrderListForm.resx">
+      <DependentUpon>OrderListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\PluUserControl.resx">
-      <DependentUpon>PluUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PlusForm.resx">
+      <DependentUpon>PlusForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UserControlBase.resx">
-      <DependentUpon>UserControlBase.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\KneadingForm.resx">
+      <DependentUpon>KneadingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NavigationUserControl.resx">
-      <DependentUpon>NavigationUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -629,7 +623,6 @@
     <None Include="README.md" />
     <None Include="Resources\exit_1.png" />
     <None Include="Resources\exit_2.png" />
-    <None Include="Resources\left_1.png" />
     <Content Include="ScalesUI.ico" />
   </ItemGroup>
   <ItemGroup>

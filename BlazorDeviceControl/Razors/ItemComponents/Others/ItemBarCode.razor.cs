@@ -11,7 +11,11 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 {
     #region Public and private fields, properties, constructor
 
-    //
+    public ItemBarCode() : base()
+    {
+
+        ButtonSettings = new(false, false, false, false, false, false, true);
+    }
 
     #endregion
 
@@ -28,8 +32,6 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
                 {
                     SqlItemCast = SqlItemNew<BarCodeModel>();
                 }
-
-                ButtonSettings = new(false, false, false, false, false, false, true);
             }
         });
     }

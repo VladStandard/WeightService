@@ -11,7 +11,7 @@ public partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 
 	private List<TypeModel<string>>? TemplateCategories { get; }
 
-	public ItemTemplate()
+	public ItemTemplate() : base()
 	{
 		TemplateCategories = BlazorAppSettings.DataSourceDics.GetTemplateCategories();
 	}
@@ -31,9 +31,7 @@ public partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
                 {
 					SqlItemCast = SqlItemNew < TemplateModel >();
 				}
-
-				ButtonSettings = new(false, false, false, false, false, true, true);
-			}
+            }
 		});
 	}
 
