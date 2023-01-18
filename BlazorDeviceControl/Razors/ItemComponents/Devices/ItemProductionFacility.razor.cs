@@ -9,7 +9,6 @@ public partial class ItemProductionFacility : RazorComponentItemBase<ProductionF
 {
 	#region Public and private fields, properties, constructor
 
-	//
 
 	#endregion
 
@@ -24,9 +23,7 @@ public partial class ItemProductionFacility : RazorComponentItemBase<ProductionF
 				SqlItemCast = DataAccess.GetItemNotNullable<ProductionFacilityModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
-				
-				ButtonSettings = new(false, false, false, false, false, true, true);
-			}
+            }
 		});
 	}
 

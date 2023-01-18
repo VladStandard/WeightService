@@ -33,9 +33,7 @@ public partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourc
 				}
 				DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigList);
 				DataContext.GetListNotNullable<TemplateResourceModel>(SqlCrudConfigList);
-				
-				ButtonSettings = new(false, false, false, false, false, true, true);
-			}
+            }
 		});
 	}
 

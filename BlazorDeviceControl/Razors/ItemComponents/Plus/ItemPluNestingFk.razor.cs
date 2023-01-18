@@ -16,7 +16,7 @@ public partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel
     private PluBundleFkModel _pluBundleFk;
     private PluBundleFkModel PluBundleFk { get => _pluBundleFk; set { _pluBundleFk = value; SqlLinkedItems = new() { _box, _pluBundleFk }; } }
 
-    public ItemPluNestingFk()
+    public ItemPluNestingFk() : base()
     {
         _pluBundleFk = SqlItemNewEmpty<PluBundleFkModel>();
         _box = SqlItemNewEmpty<BoxModel>();
@@ -49,8 +49,6 @@ public partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel
                     Box = SqlItemCast.Box;
                     PluBundleFk = SqlItemCast.PluBundle;
                 }
-
-                ButtonSettings = new(false, false, false, false, false, true, true);
             }
         );
     }

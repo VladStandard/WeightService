@@ -26,9 +26,7 @@ public partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
 				DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigList);
-
-				ButtonSettings = new(false, false, false, false, false, true, true);
-			}
+            }
 		});
 	}
 

@@ -9,7 +9,10 @@ public partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
 {
     #region Public and private fields, properties, constructor
 
-    //
+    public ItemPluWeighing() : base()
+    {
+        ButtonSettings = new(false, false, false, false, false, false, true);
+    }
 
     #endregion
 
@@ -26,8 +29,6 @@ public partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
                 {
                     SqlItemCast = SqlItemNew<PluWeighingModel>();
                 }
-
-				ButtonSettings = new(false, false, false, false, false, false, true);
             }
         });
     }

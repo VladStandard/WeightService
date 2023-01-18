@@ -26,8 +26,6 @@ public partial class ItemContragent : RazorComponentItemBase<ContragentModel>
                 {
                     SqlItemCast = SqlItemNew<ContragentModel>();
                 }
-
-                ButtonSettings = new(false, false, false, false, false, true, true);
             }
         });
     }

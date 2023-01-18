@@ -29,8 +29,6 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
                 }
                 DataContext.GetListNotNullable<PluModel>(SqlCrudConfigList);
 	            DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigList);
-
-	            ButtonSettings = new(false, false, false, false, false, true, true);
             }
         });
     }

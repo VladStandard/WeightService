@@ -23,16 +23,15 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 	private DeviceScaleFkModel DeviceScaleFk { get; set; }
 	private List<TypeModel<string>> ComPorts { get; set; }
 
-	public ItemScale()
+	public ItemScale() : base()
 	{
 		SqlCrudConfigItem.IsGuiShowItemsCount = true;
 		SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
 		SqlCrudConfigItem.IsGuiShowFilterMarked = true;
         _device = new();
 		DeviceScaleFk = new();
-		ComPorts = new();
-		ButtonSettings = new(false, false, false, false, false, true, true);
-	}
+        ComPorts = new();
+    }
 
 	#endregion
 

@@ -14,7 +14,6 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
     [Inject] private IFileDownload? FileDownload { get; set; }
     [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }
 
-    //
 
     #endregion
 
@@ -29,8 +28,6 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
                 SqlItemCast = DataContext.GetItemNotNullable<TemplateResourceModel>(IdentityId);
                 //if (IdentityId is not null && TableAction == DbTableAction.New)
                 //    SqlItemCast.IdentityValueId = (long)IdentityId;
-
-                ButtonSettings = new(false, false, false, false, false, true, true);
             }
         });
     }

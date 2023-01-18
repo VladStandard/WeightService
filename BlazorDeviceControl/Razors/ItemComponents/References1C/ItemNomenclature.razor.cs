@@ -26,9 +26,7 @@ public partial class ItemNomenclature : RazorComponentItemBase<NomenclatureModel
                 {
 					SqlItemCast = SqlItemNew<NomenclatureModel>();
 				}
-
-				ButtonSettings = new(false, false, false, false, false, true, true);
-			}
+            }
 		});
 	}
 

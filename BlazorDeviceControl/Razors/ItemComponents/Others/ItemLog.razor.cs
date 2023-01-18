@@ -7,7 +7,10 @@ public partial class ItemLog : RazorComponentItemBase<LogModel>
 {
 	#region Public and private fields, properties, constructor
 
-	//
+    public ItemLog() : base()
+    {
+        ButtonSettings = new(false, false, false, false, false, false, true);
+    }
 
 	#endregion
 
@@ -24,9 +27,7 @@ public partial class ItemLog : RazorComponentItemBase<LogModel>
                 {
 					SqlItemCast = SqlItemNew < LogModel >();
 				}
-
-				ButtonSettings = new(false, false, false, false, false, false, true);
-			}
+            }
 		});
 	}
 

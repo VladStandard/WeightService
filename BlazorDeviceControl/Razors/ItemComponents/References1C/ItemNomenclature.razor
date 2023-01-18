@@ -46,8 +46,8 @@
     </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem=@NomenclatureModel ParentRazor=@(this) />
-<RazorItemDates TItem=@NomenclatureModel ParentRazor=@(this) />
+<RazorItemActions TItem="@NomenclatureModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorItemDates TItem="@NomenclatureModel" ParentRazor=@(this) />
 
 @*
 <RadzenLabel Style="width: 100%; text-align: center;" Text=@LocaleCore.DeviceControl.SectionNomenclatureUnits />
