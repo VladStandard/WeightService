@@ -173,6 +173,7 @@
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
     <ProjectReference Include="..\WsLocalization\WsLocalization.csproj" />
+    <ProjectReference Include="..\WsStorage\WsStorage.csproj" />
   </ItemGroup>
   <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
     <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

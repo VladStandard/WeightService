@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Models.Tables.BarCodes;
-using WsWebApiCore.Controllers;
-using WsWebApiCore.Utils;
+using WsStorage.Models.Tables.BarCodes;
+using WsWebApi.Controllers;
+using WsWebApi.Utils;
 
 namespace WebApiScales.Controllers;
 

@@ -24,7 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebApiTerra1000\WebApiTerra1000.csproj" />
-    <ProjectReference Include="..\WsWebApiCoreTests\WsWebApiCoreTests.csproj" />
+    <ProjectReference Include="..\WsWebApiTests\WsWebApiTests.csproj" />
   </ItemGroup>
 	<PropertyGroup>
 		<Version>0.8.190.0</Version>

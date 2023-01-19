@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using WsStorageCore.Utils;
-using WsWebApiCore.Controllers;
-using WsWebApiCore.Models;
-using WsWebApiCore.Utils;
+using WsStorage.Utils;
+using WsWebApi.Controllers;
+using WsWebApi.Models;
+using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 

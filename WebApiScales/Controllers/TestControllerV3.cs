@@ -6,9 +6,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using WsStorageCore.Utils;
-using WsWebApiCore.Controllers;
-using WsWebApiCore.Models;
+using WsStorage.Utils;
+using WsWebApi.Controllers;
+using WsWebApi.Models;
 
 namespace WebApiScales.Controllers;
 

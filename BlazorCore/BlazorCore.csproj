@@ -47,6 +47,5 @@
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
     <ProjectReference Include="..\WsLocalization\WsLocalization.csproj" />
-    <ProjectReference Include="..\WsStorageCore\WsStorageCore.csproj" />
   </ItemGroup>
 </Project>

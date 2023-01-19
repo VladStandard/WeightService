@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Files;
-using DataCore.Sql.Core;
 using DataCore.Sql.Core.Helpers;
 using Microsoft.Net.Http.Headers;
 

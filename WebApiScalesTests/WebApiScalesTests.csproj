@@ -29,8 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebApiScales\WebApiScales.csproj" />
-    <ProjectReference Include="..\WsWebApiCoreTests\WsWebApiCoreTests.csproj" />
-    <ProjectReference Include="..\WsWebApiCore\WsWebApiCore.csproj" />
+    <ProjectReference Include="..\WsWebApiTests\WsWebApiTests.csproj" />
   </ItemGroup>
 
   <ItemGroup>
