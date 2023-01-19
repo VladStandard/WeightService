@@ -48,7 +48,6 @@
             this.fieldPrintMain = new System.Windows.Forms.Label();
             this.fieldPlu = new System.Windows.Forms.Label();
             this.layoutPanelTop = new System.Windows.Forms.TableLayoutPanel();
-            this.fieldLang = new System.Windows.Forms.ComboBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.fieldTitle = new System.Windows.Forms.Label();
             this.layoutPanel.SuspendLayout();
@@ -409,7 +408,6 @@
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.layoutPanelTop.Controls.Add(this.fieldLang, 3, 0);
             this.layoutPanelTop.Controls.Add(this.pictureBoxClose, 4, 0);
             this.layoutPanelTop.Controls.Add(this.fieldTitle, 2, 0);
             this.layoutPanelTop.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -419,19 +417,6 @@
             this.layoutPanelTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.layoutPanelTop.Size = new System.Drawing.Size(1006, 34);
             this.layoutPanelTop.TabIndex = 69;
-            // 
-            // fieldLang
-            // 
-            this.fieldLang.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.fieldLang.Enabled = false;
-            this.fieldLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldLang.FormattingEnabled = true;
-            this.fieldLang.Location = new System.Drawing.Point(806, 3);
-            this.fieldLang.Name = "fieldLang";
-            this.fieldLang.Size = new System.Drawing.Size(144, 21);
-            this.fieldLang.TabIndex = 58;
-            this.fieldLang.Visible = false;
             // 
             // pictureBoxClose
             // 
@@ -511,7 +496,6 @@
         private TableLayoutPanel layoutPanelTop;
         private PictureBox pictureBoxClose;
         private Label fieldTitle;
-        private ComboBox fieldLang;
     }
 }
 

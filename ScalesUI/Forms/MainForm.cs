@@ -3,7 +3,6 @@
 
 using DataCore.Settings.Helpers;
 using ScalesUI.Controls;
-using System.Windows.Forms;
 using WeightCore.Wpf;
 using WsWinForms.Enums;
 using WsWinForms.Helpers;
@@ -69,7 +68,7 @@ public partial class MainForm : Form
         MDSoft.WinFormsUtils.InvokeControl.SetText(this, AppVersion.AppTitle);
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, string.Empty);
         LoadMainControls();
-        fieldLang.SetEventWithItems(FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
+        LoadLocalization(Lang.Russian);
 
         // Quartz.
         LoadQuartz();
@@ -102,7 +101,7 @@ public partial class MainForm : Form
         // Buttons.
         SetButtonsSettings();
         // Form resolution and postion.
-        this.SwitchResolution(Debug.IsDebug ? Resolution.Value1920x1080 : Resolution.FullScreen);
+        this.SwitchResolution(Debug.IsDebug ? Resolution.Value1366x768 : Resolution.FullScreen);
         CenterToScreen();
         LoadFonts();
     }
@@ -512,11 +511,9 @@ public partial class MainForm : Form
         wpfPageLoader.Close();
     }
 
-
-
-    private void FieldLang_SelectedIndexChanged(object sender, EventArgs e)
+    private void LoadLocalization(Lang lang)
     {
-        LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
+        LocaleCore.Lang = LocaleData.Lang = lang;
         string area = UserSession.Scale.WorkShop is null
             ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
@@ -566,7 +563,7 @@ public partial class MainForm : Form
             IsKeyboardMouseEventsSubscribe = true;
         }
         MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-        FieldLang_SelectedIndexChanged(null, null);
+        LoadLocalization(Lang.Russian);
     }
 
     private void NavigateToControl(UserControlBase userControlBase, Action returnBack, bool isJoinReturnBackAction, string message = "")
