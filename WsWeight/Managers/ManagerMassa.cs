@@ -75,8 +75,7 @@ public class ManagerMassa : ManagerBase
 
 					SetControlsTextDefault();
 				},
-				new(waitReopen: 2_500, waitRequest: 0_250, waitResponse: 0_250, waitClose: 1_000, waitException: 1_000,
-					true, Application.DoEvents));
+				new(waitReopen: 0_500, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
 		}
 		catch (Exception ex)
 		{

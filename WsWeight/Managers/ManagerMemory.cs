@@ -16,8 +16,7 @@ public class ManagerMemory : ManagerBase
     private Label FieldMemory { get; set; }
     private Label FieldTasks { get; set; }
     private MemorySizeModel MemorySize { get; set; }
-    private DebugHelper Debug { get; } = DebugHelper.Instance;
-
+    
     #endregion
 
     #region Constructor and destructor
@@ -45,8 +44,7 @@ public class ManagerMemory : ManagerBase
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocaleCore.Scales.Threads);
                 },
-                new(waitReopen: 2_500, waitRequest: 0_500, waitResponse: 0_500, waitClose: 1_000, waitException: 1_000,
-                    true, Application.DoEvents));
+                new(waitReopen: 0_500, waitRequest: 0_500, waitResponse: 0_500, waitClose: 0_500, waitException: 0_500));
         }
         catch (Exception ex)
         {

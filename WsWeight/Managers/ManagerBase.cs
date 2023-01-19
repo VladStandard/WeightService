@@ -24,7 +24,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 	}
 
-    protected void Init(TaskType taskType, InitCallback? initCallback, ManagerConfigModel waitConfig)
+    protected void Init(TaskType taskType, Action? init, ManagerConfigModel waitConfig)
 	{
 		lock (_locker)
 		{
@@ -34,7 +34,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
             Reopen.Config = waitConfig;
             Request.Config = waitConfig;
             Response.Config = waitConfig;
-			initCallback?.Invoke();
+			init?.Invoke();
 		}
 	}
 

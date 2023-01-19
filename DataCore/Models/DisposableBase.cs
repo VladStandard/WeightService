@@ -42,9 +42,9 @@ public class DisposableBase : IDisposable
         }
     }
     private bool IsDispose { get; set; }
-    private CloseCallback? CloseCaller { get; set; }
-    private ReleaseManagedCallback? ReleaseManagedResourcesCaller { get; set; }
-    private ReleaseUnmanagedCallback? ReleaseUnmanagedResourcesCaller { get; set; }
+    private Action? CloseCaller { get; set; }
+    private Action? ReleaseManagedResourcesCaller { get; set; }
+    private Action? ReleaseUnmanagedResourcesCaller { get; set; }
     private readonly object _locker = new();
 
     protected DisposableBase()
@@ -61,7 +61,7 @@ public class DisposableBase : IDisposable
         IsDispose = false;
     }
 
-    protected void Init(CloseCallback close, ReleaseManagedCallback releaseManaged, ReleaseUnmanagedCallback releaseUnmanaged)
+    protected void Init(Action? close, Action? releaseManaged, Action? releaseUnmanaged)
     {
         CheckIsDisposed();
         lock (_locker)

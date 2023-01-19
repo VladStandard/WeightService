@@ -18,15 +18,12 @@ public class ManagerConfigModel
 	public Stopwatch StopwatchReopen { get; }
 	public Stopwatch StopwatchRequest { get; }
 	public Stopwatch StopwatchResponse { get; }
-	private bool IsDoEvents { get; set; }
-	private Action? ActionDoEvents { get; set; }
 
 	#endregion
 
 	#region Constructor and destructor
 
-	public ManagerConfigModel(ushort waitReopen, ushort waitRequest, ushort waitResponse, ushort waitClose, ushort waitException,
-		bool isDoEvents, Action? actionDoEvents)
+	public ManagerConfigModel(ushort waitReopen, ushort waitRequest, ushort waitResponse, ushort waitClose, ushort waitException)
 	{
 		WaitReopen = waitReopen == 0 ? (ushort)1_000 : waitReopen;
 		WaitRequest = waitRequest == 0 ? (ushort)250 : waitRequest;
@@ -36,12 +33,9 @@ public class ManagerConfigModel
 		StopwatchReopen = Stopwatch.StartNew();
 		StopwatchRequest = Stopwatch.StartNew();
 		StopwatchResponse = Stopwatch.StartNew();
-		IsDoEvents = isDoEvents;
-		ActionDoEvents = actionDoEvents;
 	}
 
-	public ManagerConfigModel() : this(1_000, 0_250, 0_250, 1_000, 1_000, 
-		false, null) { }
+	public ManagerConfigModel() : this(1_000, 0_250, 0_250, 1_000, 1_000) { }
 
 	public void WaitSync(ushort miliSeconds)
 	{
@@ -54,10 +48,7 @@ public class ManagerConfigModel
 		while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
 		{
 			Thread.Sleep(WaitSleep);
-			if (IsDoEvents)
-			{
-				ActionDoEvents?.Invoke();
-			}
+            System.Windows.Forms.Application.DoEvents();
 		}
 		stopwatchSleep.Stop();
     }
@@ -71,11 +62,8 @@ public class ManagerConfigModel
 		while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)
 		{
 			Thread.Sleep(WaitSleep);
-			if (IsDoEvents)
-			{
-				ActionDoEvents?.Invoke();
-			}
-		}
+            System.Windows.Forms.Application.DoEvents();
+        }
 		stopwatch.Stop();
 	}
 
@@ -90,11 +78,8 @@ public class ManagerConfigModel
 		while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
 		{
 			await Task.Delay(TimeSpan.FromMilliseconds(WaitSleep)).ConfigureAwait(true);
-			if (IsDoEvents)
-			{
-				ActionDoEvents?.Invoke();
-			}
-		}
+            System.Windows.Forms.Application.DoEvents();
+        }
 		stopwatchSleep.Stop();
 	}
 

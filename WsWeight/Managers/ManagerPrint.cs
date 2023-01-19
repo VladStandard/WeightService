@@ -76,8 +76,7 @@ public class ManagerPrint : ManagerBase
                             break;
                     }
                 },
-                new(waitReopen: 2_500, waitRequest: 1_000, waitResponse: 1_000, waitClose: 1_000, waitException: 1_000,
-                    true, Application.DoEvents));
+                new(waitReopen: 0_500, waitRequest: 1_000, waitResponse: 1_000, waitClose: 1_000, waitException: 1_000));
         }
         catch (Exception ex)
         {
