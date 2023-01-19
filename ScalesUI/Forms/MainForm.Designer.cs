@@ -49,7 +49,6 @@
             this.fieldPlu = new System.Windows.Forms.Label();
             this.layoutPanelTop = new System.Windows.Forms.TableLayoutPanel();
             this.fieldLang = new System.Windows.Forms.ComboBox();
-            this.fieldResolution = new System.Windows.Forms.ComboBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.fieldTitle = new System.Windows.Forms.Label();
             this.layoutPanel.SuspendLayout();
@@ -411,7 +410,6 @@
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.layoutPanelTop.Controls.Add(this.fieldLang, 3, 0);
-            this.layoutPanelTop.Controls.Add(this.fieldResolution, 1, 0);
             this.layoutPanelTop.Controls.Add(this.pictureBoxClose, 4, 0);
             this.layoutPanelTop.Controls.Add(this.fieldTitle, 2, 0);
             this.layoutPanelTop.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -434,19 +432,6 @@
             this.fieldLang.Size = new System.Drawing.Size(144, 21);
             this.fieldLang.TabIndex = 58;
             this.fieldLang.Visible = false;
-            // 
-            // fieldResolution
-            // 
-            this.fieldResolution.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.fieldResolution.Enabled = false;
-            this.fieldResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldResolution.FormattingEnabled = true;
-            this.fieldResolution.Location = new System.Drawing.Point(53, 3);
-            this.fieldResolution.Name = "fieldResolution";
-            this.fieldResolution.Size = new System.Drawing.Size(144, 21);
-            this.fieldResolution.TabIndex = 31;
-            this.fieldResolution.Visible = false;
             // 
             // pictureBoxClose
             // 
@@ -527,7 +512,6 @@
         private PictureBox pictureBoxClose;
         private Label fieldTitle;
         private ComboBox fieldLang;
-        private ComboBox fieldResolution;
     }
 }
 

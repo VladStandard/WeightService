@@ -3,7 +3,11 @@
 
 using DataCore.Settings.Helpers;
 using ScalesUI.Controls;
+using System.Windows.Forms;
 using WeightCore.Wpf;
+using WsWinForms.Enums;
+using WsWinForms.Helpers;
+using WsWinForms.Utils;
 
 namespace ScalesUI.Forms;
 
@@ -98,8 +102,9 @@ public partial class MainForm : Form
         // Buttons.
         SetButtonsSettings();
         // Form resolution and postion.
-        fieldResolution.SetEventWithItems(FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
-            Debug.IsDebug ? 2 : LocaleCore.Scales.ListResolutions.Count - 1);
+        this.SwitchResolution(Debug.IsDebug ? Resolution.Value1920x1080 : Resolution.FullScreen);
+        CenterToScreen();
+        LoadFonts();
     }
 
     private void LoadQuartz()
@@ -200,7 +205,7 @@ public partial class MainForm : Form
         );
     }
 
-    private void MainForm_FontsSet()
+    private void LoadFonts()
     {
         fieldTitle.Font = FontsSettings.FontLabelsTitle;
 
@@ -417,7 +422,7 @@ public partial class MainForm : Form
             ActionPrint(sender, e);
     }
 
-    
+
 
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
@@ -507,42 +512,7 @@ public partial class MainForm : Form
         wpfPageLoader.Close();
     }
 
-    private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
-            {
-                switch (fieldResolution.Items[fieldResolution.SelectedIndex])
-                {
-                    case "800x600":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(800, 600);
-                        break;
-                    case "1024x768":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(1024, 768);
-                        break;
-                    case "1366x768":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(1366, 768);
-                        break;
-                    case "1600x1024":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(1600, 1024);
-                        break;
-                    case "1920x1080":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(1920, 1080);
-                        break;
-                    default:
-                        WindowState = FormWindowState.Maximized;
-                        break;
-                }
-                CenterToScreen();
-                FontsSettings.Transform(Width, Height);
-                MainForm_FontsSet();
-            }, AfterAction);
-    }
+
 
     private void FieldLang_SelectedIndexChanged(object sender, EventArgs e)
     {

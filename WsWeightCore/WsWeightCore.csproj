@@ -355,7 +355,6 @@
   <ItemGroup>
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Gui\ControlPluModel.cs" />
-    <Compile Include="Gui\FontsSettingsHelper.cs" />
     <Compile Include="Gui\GuiUtils.WinForm.cs" />
     <Compile Include="Gui\MessageBoxModel.cs" />
     <Compile Include="Gui\SerialPortsUtils.cs" />
