@@ -18,8 +18,7 @@
 				@if (ButtonSettings.IsShowCopy)
 				{
 			        <RadzenButton 
-				        class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
-				       @* Click=@(_ => SqlItemCopyAsync())*@
+				        class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong
 				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
 				        Text=@LocaleCore.DeviceControl.TableActionCopy />
 				}
