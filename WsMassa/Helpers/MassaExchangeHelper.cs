@@ -5,18 +5,23 @@ namespace WsMassa.Helpers;
 
 public class MassaExchangeHelper
 {
+	#region Design pattern "Lazy Singleton"
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+	private static MassaExchangeHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+	public static MassaExchangeHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+	#endregion
+
 	#region Public and private fields and properties
 
 	private MassaRequestHelper MassaRequest { get; } = MassaRequestHelper.Instance;
 	public byte[] Request { get; set; }
-    private int ScaleFactor { get; } = 1_000;
-    private int WeightTare { get; }
-	public MassaCmdType CmdType { get; }
+    private int ScaleFactor { get; set; } = 1_000;
+    private int WeightTare { get; set; }
+	public MassaCmdType CmdType { get; set; }
 	public ResponseParseModel ResponseParse { get; set; }
-
-	#endregion
-
-	#region Constructor and destructor
 
 	public MassaExchangeHelper()
 	{
@@ -25,14 +30,14 @@ public class MassaExchangeHelper
 		ResponseParse = new(CmdType, Array.Empty<byte>());
 	}
 
-	public MassaExchangeHelper(MassaCmdType cmdType)
+	public void Init(MassaCmdType cmdType)
 	{
         Request = Array.Empty<byte>();
         CmdType = cmdType;
 		ResponseParse = new(CmdType, Array.Empty<byte>());
 	}
 
-	public MassaExchangeHelper(MassaCmdType cmdType, int weightTare, int scaleFactor = 1_000)
+	public void Init(MassaCmdType cmdType, int weightTare, int scaleFactor = 1_000)
 	{
         Request = Array.Empty<byte>();
         CmdType = cmdType;

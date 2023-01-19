@@ -1,19 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Settings.Helpers;
-using MDSoft.BarcodePrintUtils.Enums;
-using ScalesUI.Controls;
-using WsWeight.Gui;
-using WsWeight.Helpers;
-using WsWeight.Managers;
-using WsWeight.Utils;
-using WsWeight.Wpf;
-using WsWeight.Wpf.Utils;
-using WsWinForms.Enums;
-using WsWinForms.Helpers;
-using WsWinForms.Utils;
-
 namespace ScalesUI.Forms;
 
 /// <summary>
@@ -547,7 +534,7 @@ public partial class MainForm : Form
                 ? $"{UserSessionHelper.Instance.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
     }
-    
+
     #endregion
 
     #region Public and private methods - UI
@@ -559,12 +546,10 @@ public partial class MainForm : Form
             KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
             IsKeyboardMouseEventsSubscribe = false;
         }
-        UserSession.ManagerControl.Massa.Suspend();
     }
 
     private void AfterAction()
     {
-        UserSession.ManagerControl.Massa.UnSuspend();
         if (!IsKeyboardMouseEventsSubscribe)
         {
             KeyboardMouseEvents.MouseDownExt += MouseDownExt;
@@ -823,6 +808,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
+                UserSession.ManagerControl.Massa.Suspend();
                 BeforeAction();
 
                 UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
@@ -840,7 +826,7 @@ public partial class MainForm : Form
 
     private void ReturnBackMore()
     {
-        //
+        UserSession.ManagerControl.Massa.UnSuspend();
     }
 
     private void ActionMore(object sender, EventArgs e)
@@ -848,6 +834,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
+                UserSession.ManagerControl.Massa.Suspend();
                 BeforeAction();
 
                 if (UserSession.PluScale.IsNew)
@@ -862,7 +849,6 @@ public partial class MainForm : Form
             },
             () =>
             {
-                UserSession.ManagerControl.Massa.UnSuspend();
                 MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 AfterAction();
             }

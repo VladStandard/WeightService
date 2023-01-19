@@ -27,17 +27,15 @@ public class MassaDeviceHelper : DisposableBase, IDisposableBase
 	public SerialPortController PortController { get; private set; }
     private int SendBytesCount { get; set; }
     private int ReceiveBytesCount { get; set; }
-	public delegate void MassaResponseCallback(MassaExchangeHelper massaExchange, byte[] response);
+	public delegate void MassaResponseCallback(byte[] response);
 	private MassaResponseCallback _massaResponseCallback;
-	private MassaExchangeHelper _massaExchange;
 	private readonly object _locker = new();
 
     public MassaDeviceHelper()
     {
         PortName = string.Empty;
         PortController = new();
-        _massaExchange = new();
-		_massaResponseCallback = (_, _) => { };
+		_massaResponseCallback = (_) => { };
     }
 
     public void Init(string portName, short? readTimeout, short? writeTimeout, MassaResponseCallback massaCallback)
@@ -98,8 +96,7 @@ public class MassaDeviceHelper : DisposableBase, IDisposableBase
 			IsResponseResult = true;
 			CheckIsDisposed();
 			ReceiveBytesCount += e.ReceivedBytes.Length;
-			_massaResponseCallback(_massaExchange, e.ReceivedBytes);
-			_massaExchange = new();
+			_massaResponseCallback(e.ReceivedBytes);
 		}
 	}
 
@@ -123,12 +120,11 @@ public class MassaDeviceHelper : DisposableBase, IDisposableBase
 		PortController.Open(PortName, ReadTimeout, WriteTimeout);
 	}
 
-	public void SendData(MassaExchangeHelper massaExchange)
+	public void SendData()
 	{
 		CheckIsDisposed();
-		_massaExchange = massaExchange;
-		PortController.Send(massaExchange.Request);
-		SendBytesCount += massaExchange.Request.Length;
+		PortController.Send(MassaExchangeHelper.Instance.Request);
+		SendBytesCount += MassaExchangeHelper.Instance.Request.Length;
 	}
 
 	public new void Close()
