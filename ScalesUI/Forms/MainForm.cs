@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Settings.Helpers;
 using ScalesUI.Controls;
 using WeightCore.Wpf;
-using WsLocalization.Models;
 
 namespace ScalesUI.Forms;
 
@@ -61,11 +61,11 @@ public partial class MainForm : Form
         FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         TopMost = !Debug.IsDebug;
         UserSession.NewPallet();
-        
+
         MDSoft.WinFormsUtils.InvokeControl.SetText(this, AppVersion.AppTitle);
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, string.Empty);
         LoadMainControls();
-        SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
+        fieldLang.SetEventWithItems(FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
 
         // Quartz.
         LoadQuartz();
@@ -98,7 +98,7 @@ public partial class MainForm : Form
         // Buttons.
         SetButtonsSettings();
         // Form resolution and postion.
-        SetComboBoxItems(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
+        fieldResolution.SetEventWithItems(FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
             Debug.IsDebug ? 2 : LocaleCore.Scales.ListResolutions.Count - 1);
     }
 
@@ -132,9 +132,8 @@ public partial class MainForm : Form
     {
         // Labels.
         UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
-            fieldProductDate, fieldKneading, fieldResolution, fieldLang,
-            ButtonDevice, ButtonPluNestingFk, ButtonKneading, ButtonMore, ButtonNewPallet, 
-            ButtonPlu, ButtonPrint, ButtonScalesInit, ButtonScalesTerminal, 
+            fieldProductDate, fieldKneading, ButtonDevice, ButtonPluNestingFk, ButtonKneading, ButtonMore, ButtonNewPallet,
+            ButtonPlu, ButtonPrint, ButtonScalesInit, ButtonScalesTerminal,
             fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
         UserSession.ManagerControl.Labels.Open();
         // Memory.
@@ -175,7 +174,7 @@ public partial class MainForm : Form
             {
                 UserSession.StopwatchMain.Restart();
                 ActionUtils.ActionMakeScreenShot(this);
-                
+
                 NavigateToControl(WaitControl, ReturnBackExit, true, LocaleCore.Scales.AppWaitExit);
 
                 if (Quartz is not null)
@@ -194,7 +193,7 @@ public partial class MainForm : Form
             {
                 UserSession.StopwatchMain.Stop();
                 UserSession.DataAccess.LogInformation(
-                    LocaleData.Program.IsClosed + Environment.NewLine + 
+                    LocaleData.Program.IsClosed + Environment.NewLine +
                     $"{LocaleData.Program.Elapsed}: {UserSession.StopwatchMain.Elapsed}.",
                     UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
             }
@@ -203,9 +202,6 @@ public partial class MainForm : Form
 
     private void MainForm_FontsSet()
     {
-        fieldResolution.Font = FontsSettings.FontMinimum;
-        fieldLang.Font = FontsSettings.FontMinimum;
-
         fieldTitle.Font = FontsSettings.FontLabelsTitle;
 
         fieldNettoWeight.Font = FontsSettings.FontLabelsMaximum;
@@ -421,42 +417,7 @@ public partial class MainForm : Form
             ActionPrint(sender, e);
     }
 
-    private void SetComboBoxItems(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
-    {
-        if (comboBox is null || sourceList is null || sourceList.Count == 0 || selectedIndex < 0)
-            return;
-
-        if (comboBox.InvokeRequired)
-        {
-            comboBox.Invoke((Action)delegate
-            {
-                SetComboBoxItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
-            });
-        }
-        else
-            SetComboBoxItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
-    }
-
-    private void SetComboBoxItemsWork(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
-    {
-        comboBox.SelectedIndexChanged -= eventHandler;
-
-        int backupIndex = comboBox.SelectedIndex;
-        comboBox.Items.Clear();
-        if (sourceList.Any())
-        {
-            foreach (string source in sourceList)
-            {
-                comboBox.Items.Add(source);
-            }
-        }
-        comboBox.SelectedIndex = selectedIndex <= 0
-            ? backupIndex <= 0 ? 0 : backupIndex
-            : selectedIndex < comboBox.Items.Count ? selectedIndex : 0;
-
-        comboBox.SelectedIndexChanged += eventHandler;
-        eventHandler.Invoke(comboBox, null);
-    }
+    
 
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
@@ -641,7 +602,7 @@ public partial class MainForm : Form
     private void NavigateToControl(UserControlBase userControlBase, Action returnBack, bool isJoinReturnBackAction, string message = "")
     {
         if (userControlBase is null) return;
-        
+
         layoutPanel.Visible = false;
         userControlBase.Visible = false;
         NavigationControl.UserControl = userControlBase;
@@ -720,7 +681,7 @@ public partial class MainForm : Form
                 BeforeAction();
 
                 if (!ActionCheckPluIdentityIsNew()) return;
-                
+
                 using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 800, Height = 300 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
@@ -872,8 +833,8 @@ public partial class MainForm : Form
             UserSession.WeighingSettings.Kneading = 1;
             UserSession.ProductDate = DateTime.Now;
             //if (ButtonNewPallet?.Visible == true)
-                UserSession.NewPallet();
-            
+            UserSession.NewPallet();
+
             ActionMore(null, null);
         }
         else

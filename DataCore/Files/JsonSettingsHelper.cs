@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Helpers;
+using DataCore.Settings.Helpers;
 using DataCore.Sql.Core.Helpers;
 
 namespace DataCore.Files;
@@ -188,17 +189,19 @@ public class JsonSettingsHelper
 		object? jsonObject = (JsonSettingsModel?)serializer.Deserialize(streamReader, typeof(JsonSettingsModel));
 		if (jsonObject is JsonSettingsModel jsonSettings)
 		{
-			SqlConnectionStringBuilder sqlConnectionStringBuilder = new();
-			sqlConnectionStringBuilder["Data Source"] = jsonSettings.Sql.DataSource;
-			sqlConnectionStringBuilder["Initial Catalog"] = jsonSettings.Sql.InitialCatalog;
-			sqlConnectionStringBuilder["Persist Security Info"] = jsonSettings.Sql.PersistSecurityInfo;
-			sqlConnectionStringBuilder["User ID"] = jsonSettings.Sql.UserId;
-			sqlConnectionStringBuilder["Password"] = jsonSettings.Sql.Password;
-			//sqlConnectionStringBuilder["Encrypt"] = jsonSettings.Sql.Encrypt;
-			sqlConnectionStringBuilder["Connect Timeout"] = jsonSettings.Sql.ConnectTimeout;
-			sqlConnectionStringBuilder["TrustServerCertificate"] = jsonSettings.Sql.TrustServerCertificate;
+			SqlConnectionStringBuilder sqlConnectionStringBuilder = new()
+            {
+                ["Data Source"] = jsonSettings.Sql.DataSource,
+                ["Initial Catalog"] = jsonSettings.Sql.InitialCatalog,
+                ["Persist Security Info"] = jsonSettings.Sql.PersistSecurityInfo,
+                ["User ID"] = jsonSettings.Sql.UserId,
+                ["Password"] = jsonSettings.Sql.Password,
+                //sqlConnectionStringBuilder["Encrypt"] = jsonSettings.Sql.Encrypt;
+                ["Connect Timeout"] = jsonSettings.Sql.ConnectTimeout,
+                ["TrustServerCertificate"] = jsonSettings.Sql.TrustServerCertificate
+            };
 
-			switch (isRemote)
+            switch (isRemote)
 			{
 				case false:
 					Local = jsonSettings;

@@ -39,6 +39,7 @@ using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Utils;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
 using DataCore.Sql.Core.Models;
+using DataCore.Settings.Helpers;
 
 namespace WeightCore.Helpers;
 

@@ -3,7 +3,7 @@
 
 using DataCore.Models;
 
-namespace DataCore.Settings;
+namespace DataCore.Settings.Helpers;
 
 public class AppVersionHelper
 {

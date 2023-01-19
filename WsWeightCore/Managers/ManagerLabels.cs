@@ -3,6 +3,7 @@
 
 using DataCore.Enums;
 using DataCore.Managers;
+using DataCore.Settings.Helpers;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -25,8 +26,6 @@ public class ManagerLabels : ManagerBase
     private Button ButtonPrint { get; set; }
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
-    private ComboBox FieldLang { get; set; }
-    private ComboBox FieldResolution { get; set; }
     private Label FieldKneading { get; set; }
     private Label FieldPlu { get; set; }
     private Label FieldProductDate { get; set; }
@@ -51,8 +50,7 @@ public class ManagerLabels : ManagerBase
     #region Public and private methods
 
     public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label fieldProductDate,
-        Label fieldKneading, ComboBox fieldResolution, ComboBox fieldLang,
-        Button buttonDevice, Button buttonPackage, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonPlu,
+        Label fieldKneading, Button buttonDevice, Button buttonPackage, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonPlu,
         Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, 
         Label fieldPrintMainManager, Label fieldPrintShippingManager, Label fieldMassaManager)
     {
@@ -66,8 +64,6 @@ public class ManagerLabels : ManagerBase
                     FieldSscc = fieldSscc;
                     FieldProductDate = fieldProductDate;
                     FieldKneading = fieldKneading;
-                    FieldResolution = fieldResolution;
-                    FieldLang = fieldLang;
                     ButtonDevice = buttonDevice;
                     ButtonPackage = buttonPackage;
                     ButtonKneading = buttonKneading;
@@ -234,11 +230,6 @@ public class ManagerLabels : ManagerBase
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonPrint, true);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScalesInit, true);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScalesTerminal, true);
-
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldResolution, Debug.IsDebug);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldLang, Debug.IsDebug);
-        MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldResolution, Debug.IsDebug);
-        MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldLang, Debug.IsDebug);
 
         if (Debug.IsDebug && !FieldPrintMainManager.Visible)
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintMainManager, true);

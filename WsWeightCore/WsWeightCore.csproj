@@ -363,6 +363,7 @@
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\UserSessionHelper.cs" />
     <Compile Include="Utils\ActionUtils.cs" />
+    <Compile Include="Utils\ComboBoxExtensions.cs" />
     <Compile Include="Wpf\Helpers\XamlHelper.cs" />
     <Compile Include="Managers\ManagerLabels.cs" />
     <Compile Include="Gui\NumberInputForm.cs">
