@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WeightCore.Wpf.Pages;
+namespace WsWeight.Wpf.Pages;
 
 /// <summary>
 /// Interaction logic for WpfPageSqlSettings.xaml

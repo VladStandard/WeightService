@@ -4,11 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.Win32;
 using System.Management;
 using System.Threading;
+using Microsoft.Win32;
 
-namespace WeightCore.Helpers;
+namespace WsWeight.Helpers;
 
 public class HardwareHelper
 {

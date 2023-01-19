@@ -4,7 +4,12 @@
 using DataCore.Settings.Helpers;
 using MDSoft.BarcodePrintUtils.Enums;
 using ScalesUI.Controls;
-using WeightCore.Wpf;
+using WsWeight.Gui;
+using WsWeight.Helpers;
+using WsWeight.Managers;
+using WsWeight.Utils;
+using WsWeight.Wpf;
+using WsWeight.Wpf.Utils;
 using WsWinForms.Enums;
 using WsWinForms.Helpers;
 using WsWinForms.Utils;

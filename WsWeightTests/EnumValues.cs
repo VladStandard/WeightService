@@ -1,12 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-
-
 // ReSharper disable UnusedMember.Global
 // Last changed 2021-01-28.
 
-namespace WsWeightCoreTests;
+namespace WsWeightTests;
 
 /// <summary>
 /// Enumeration of values.

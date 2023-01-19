@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace WeightCore.Wpf.Helpers;
+namespace WsWeight.Wpf.Helpers;
 
 public class XamlHelper
 {

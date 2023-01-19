@@ -2,16 +2,16 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using DataCore.Sql.TableScaleModels.Devices;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using DataCore.Sql.Core.Helpers;
-using WeightCore.Gui;
-using WeightCore.Helpers;
+using DataCore.Sql.TableScaleModels.Devices;
 using WsLocalization.Models;
+using WsWeight.Gui;
+using WsWeight.Helpers;
 
-namespace WeightCore.Wpf.Utils;
+namespace WsWeight.Wpf.Utils;
 
 /// <summary>
 /// Show WPF form inside WinForm.

@@ -5,7 +5,7 @@ using System.Windows;
 using MvvmHelpers;
 using WsLocalization.Models;
 
-namespace WeightCore.Gui;
+namespace WsWeight.Gui;
 
 public class VisibilitySettingsModel : BaseViewModel
 {

@@ -4,7 +4,7 @@
 using System.Windows.Forms;
 using MvvmHelpers;
 
-namespace WeightCore.Gui;
+namespace WsWeight.Gui;
 
 public class MessageBoxModel : BaseViewModel
 {

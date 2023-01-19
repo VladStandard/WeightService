@@ -1,4 +1,4 @@
-﻿namespace WeightCore.Gui
+﻿namespace WsWeight.Gui
 {
     partial class NumberInputForm
     {

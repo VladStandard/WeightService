@@ -3,7 +3,7 @@
 
 using System.Windows;
 
-namespace WeightCore.Wpf.Pages;
+namespace WsWeight.Wpf.Pages;
 
 /// <summary>
 /// Interaction logic for WpfPagePluNestingFk.xaml

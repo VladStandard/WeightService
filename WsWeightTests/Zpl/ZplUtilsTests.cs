@@ -1,11 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Utils;
-using MDSoft.BarcodePrintUtils.Zpl;
-using NUnit.Framework;
-
-namespace WsWeightCoreTests.Zpl;
+namespace WsWeightTests.Zpl;
 
 [TestFixture]
 public class ZplUtilsTests

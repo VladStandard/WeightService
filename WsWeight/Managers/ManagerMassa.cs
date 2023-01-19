@@ -4,15 +4,15 @@
 using System;
 using System.Windows.Forms;
 using DataCore.Managers;
-using WeightCore.Helpers;
-using WeightCore.Wpf.Utils;
 using WsLocalization.Models;
 using WsMassa.Controllers;
 using WsMassa.Enums;
 using WsMassa.Helpers;
 using WsMassa.Models;
+using WsWeight.Helpers;
+using WsWeight.Wpf.Utils;
 
-namespace WeightCore.Managers;
+namespace WsWeight.Managers;
 
 public class ManagerMassa : ManagerBase
 {

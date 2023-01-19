@@ -3,12 +3,12 @@
 
 using System;
 using System.Diagnostics;
-using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Threading;
+using Microsoft.Win32;
 
-namespace WeightCore.Helpers;
+namespace WsWeight.Helpers;
 
 public class UacHelper
 {

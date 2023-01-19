@@ -3,7 +3,7 @@
 
 using System.Threading;
 
-namespace WeightCore.Managers;
+namespace WsWeight.Managers;
 
 public class ManagerControllerHelper : DisposableBase
 {

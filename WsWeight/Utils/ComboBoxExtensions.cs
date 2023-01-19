@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace WeightCore.Utils;
+namespace WsWeight.Utils;
 
 public static class ComboBoxExtensions
 {

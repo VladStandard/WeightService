@@ -3,6 +3,8 @@
 
 using DataCore.Settings.Helpers;
 using DataCore.Sql.Core.Helpers;
+using WsWeight.Helpers;
+using WsWeight.Wpf.Utils;
 
 namespace ScalesUI;
 

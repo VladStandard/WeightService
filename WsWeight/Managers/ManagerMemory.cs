@@ -4,12 +4,12 @@
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using DataCore.Memory;
 using DataCore.Managers;
-using WeightCore.Wpf.Utils;
+using DataCore.Memory;
 using WsLocalization.Models;
+using WsWeight.Wpf.Utils;
 
-namespace WeightCore.Managers;
+namespace WsWeight.Managers;
 #nullable enable
 
 public class ManagerMemory : ManagerBase

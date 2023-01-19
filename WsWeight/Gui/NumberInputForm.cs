@@ -4,7 +4,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace WeightCore.Gui;
+namespace WsWeight.Gui;
 
 public partial class NumberInputForm : Form
 {

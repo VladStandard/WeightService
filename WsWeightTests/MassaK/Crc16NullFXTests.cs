@@ -2,10 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // http://srecord.sourceforge.net/crc16-ccitt.html
 
-using NUnit.Framework;
-using WsMassa.Helpers;
-
-namespace WsWeightCoreTests.MassaK;
+namespace WsWeightTests.MassaK;
 
 [TestFixture]
 public class Crc16NullFxTests

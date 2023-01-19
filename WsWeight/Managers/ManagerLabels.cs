@@ -1,17 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Enums;
-using DataCore.Managers;
-using DataCore.Settings.Helpers;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using WeightCore.Helpers;
-using WeightCore.Wpf.Utils;
+using DataCore.Enums;
+using DataCore.Managers;
+using DataCore.Settings.Helpers;
 using WsLocalization.Models;
+using WsWeight.Helpers;
+using WsWeight.Wpf.Utils;
 
-namespace WeightCore.Managers;
+namespace WsWeight.Managers;
 
 public class ManagerLabels : ManagerBase
 {

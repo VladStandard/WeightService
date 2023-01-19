@@ -5,9 +5,9 @@ using System.Windows;
 using System.Windows.Controls;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
-using WeightCore.Helpers;
+using WsWeight.Helpers;
 
-namespace WeightCore.Wpf.Pages;
+namespace WsWeight.Wpf.Pages;
 #nullable enable
 
 public class WpfPageBase : UserControl

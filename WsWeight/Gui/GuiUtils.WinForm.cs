@@ -4,7 +4,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace WeightCore.Gui;
+namespace WsWeight.Gui;
 
 public static partial class GuiUtils
 {

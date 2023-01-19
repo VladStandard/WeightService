@@ -4,10 +4,7 @@
 // https://www.tahapaksu.com/crc/
 // https://github.com/nullfx/NullFX.CRC
 
-using NUnit.Framework;
-using WsMassa.Helpers;
-
-namespace WsWeightCoreTests.MassaK;
+namespace WsWeightTests.MassaK;
 
 [TestFixture]
 public class MassaUtilsTests

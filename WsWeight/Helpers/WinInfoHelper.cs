@@ -7,7 +7,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace WeightCore.Helpers;
+namespace WsWeight.Helpers;
 
 public class WinInfoHelper
 {

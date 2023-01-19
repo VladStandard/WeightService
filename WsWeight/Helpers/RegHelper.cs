@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using Microsoft.Win32;
 
-namespace WeightCore.Helpers;
+namespace WsWeight.Helpers;
 
 public class RegHelper
 {

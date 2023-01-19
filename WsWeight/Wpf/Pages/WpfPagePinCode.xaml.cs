@@ -5,7 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WeightCore.Wpf.Pages;
+namespace WsWeight.Wpf.Pages;
 
 /// <summary>
 /// Interaction logic for WpfPagePinCode.xaml

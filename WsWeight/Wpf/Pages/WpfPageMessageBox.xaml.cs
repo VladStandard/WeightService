@@ -4,9 +4,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WeightCore.Gui;
+using WsWeight.Gui;
 
-namespace WeightCore.Wpf.Pages;
+namespace WsWeight.Wpf.Pages;
 
 /// <summary>
 /// Interaction logic for WpfPageMessageBox.xaml

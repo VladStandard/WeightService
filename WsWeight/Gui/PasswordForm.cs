@@ -4,9 +4,9 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using WeightCore.Helpers;
+using WsWeight.Helpers;
 
-namespace WeightCore.Gui;
+namespace WsWeight.Gui;
 
 public partial class PasswordForm : Form
 {

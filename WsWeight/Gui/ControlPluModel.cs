@@ -3,7 +3,7 @@
 
 using System.Windows.Forms;
 
-namespace WeightCore.Gui;
+namespace WsWeight.Gui;
 
 public class ControlPluModel
 {

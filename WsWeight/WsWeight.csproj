@@ -8,8 +8,8 @@
     <ProjectGuid>{51C1AA1F-3104-4438-93EA-9E348F18EAD7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WeightCore</RootNamespace>
-    <AssemblyName>WeightCore</AssemblyName>
+    <RootNamespace>WsWeight</RootNamespace>
+    <AssemblyName>WsWeight</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

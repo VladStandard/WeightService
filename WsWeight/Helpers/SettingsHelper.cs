@@ -11,7 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 using WsLocalization.Enums;
 
-namespace WeightCore.Helpers;
+namespace WsWeight.Helpers;
 
 /// <summary>
 /// Settings helper.

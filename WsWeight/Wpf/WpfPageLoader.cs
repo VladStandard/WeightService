@@ -6,12 +6,12 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using WeightCore.Gui;
-using WeightCore.Helpers;
-using WeightCore.Wpf.Pages;
-using WeightCore.Wpf.Utils;
+using WsWeight.Gui;
+using WsWeight.Helpers;
+using WsWeight.Wpf.Pages;
+using WsWeight.Wpf.Utils;
 
-namespace WeightCore.Wpf;
+namespace WsWeight.Wpf;
 #nullable enable
 
 public partial class WpfPageLoader : Form

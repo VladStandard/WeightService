@@ -1,8 +1,23 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Windows;
+using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 using DataCore.Enums;
 using DataCore.Protocols;
+using DataCore.Settings.Helpers;
+using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Helpers;
+using DataCore.Sql.Core.Models;
+using DataCore.Sql.Core.Utils;
+using DataCore.Sql.Fields;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -18,31 +33,15 @@ using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Utils;
-using MDSoft.BarcodePrintUtils;
-using MvvmHelpers;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Windows;
-using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
-using DataCore.Sql.Fields;
-using Microsoft.Data.SqlClient;
-using WeightCore.Managers;
-using WeightCore.Wpf.Utils;
-using WsLocalization.Models;
-using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Helpers;
-using DataCore.Sql.Core.Utils;
-using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
-using DataCore.Sql.Core.Models;
-using DataCore.Settings.Helpers;
 using MDSoft.BarcodePrintUtils.Enums;
+using Microsoft.Data.SqlClient;
+using MvvmHelpers;
+using WsLocalization.Models;
+using WsWeight.Managers;
+using WsWeight.Wpf.Utils;
+using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
 
-namespace WeightCore.Helpers;
+namespace WsWeight.Helpers;
 
 public class UserSessionHelper : BaseViewModel
 {
