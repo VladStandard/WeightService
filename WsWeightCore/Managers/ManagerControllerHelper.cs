@@ -55,17 +55,7 @@ public class ManagerControllerHelper : DisposableBase
 
 	#region Public and private methods
 
-	public new void Open()
-	{
-		base.Open();
-	}
-
-	public new void Close()
-	{
-		base.Close();
-	}
-
-	public void ReleaseManaged()
+    private void ReleaseManaged()
 	{
 		Labels.ReleaseManaged();
 		Massa.ReleaseManaged();

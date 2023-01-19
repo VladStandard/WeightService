@@ -7,6 +7,8 @@ using DataCore.Managers;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
 using WeightCore.MassaK.Enums;
+using WeightCore.MassaK.Helpers;
+using WeightCore.MassaK.Models;
 using WeightCore.Wpf.Utils;
 using WsLocalization.Models;
 
@@ -45,9 +47,9 @@ public class ManagerMassa : ManagerBase
     /// </summary>
     public ManagerMassa() : base()
     {
-        ResponseParseScalePar = new();
-        ResponseParseGet = new();
-        ResponseParseSet = new();
+        //ResponseParseScalePar = new();
+        //ResponseParseGet = new();
+        //ResponseParseSet = new();
 		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 	}
 

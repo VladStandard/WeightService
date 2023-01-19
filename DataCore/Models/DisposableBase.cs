@@ -90,7 +90,7 @@ public class DisposableBase : IDisposable
         }
     }
 
-    protected void Open()
+    public void Open()
     {
         CheckIsDisposed();
         lock (_locker)
@@ -100,7 +100,7 @@ public class DisposableBase : IDisposable
         }
     }
 
-    protected void Close()
+    public void Close()
     {
         // For Close - don't use check for disposing.
         //CheckIsDisposed(filePath, lineNumber, memberName);

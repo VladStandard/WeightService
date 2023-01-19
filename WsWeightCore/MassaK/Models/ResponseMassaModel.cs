@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WeightCore.MassaK;
+namespace WeightCore.MassaK.Models;
 
 public class ResponseMassaModel
 {

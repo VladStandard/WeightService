@@ -3,22 +3,17 @@
 
 using System.Diagnostics;
 
-namespace WeightCore.MassaK;
+namespace WeightCore.MassaK.Models;
 
 public class MassaStableModel
 {
-	public ushort WaitMilliseconds => 0_100;
+    private static ushort WaitMilliseconds => 0_100;
 	public Stopwatch StopwatchStable { get; } = new();
 	private bool _isStable;
 	public bool IsStable
 	{
-		get
-		{
-			if ((ushort)StopwatchStable.Elapsed.TotalMilliseconds < WaitMilliseconds)
-				return false;
-			return _isStable;
-		}
-		set
+		get => (ushort)StopwatchStable.Elapsed.TotalMilliseconds >= WaitMilliseconds && _isStable;
+        set
 		{
 			if (_isStable != value)
 			{

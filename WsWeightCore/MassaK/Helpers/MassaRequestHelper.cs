@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using MDSoft.SerialPorts;
 
-namespace WeightCore.MassaK;
+namespace WeightCore.MassaK.Helpers;
 
 public class MassaRequestHelper
 {

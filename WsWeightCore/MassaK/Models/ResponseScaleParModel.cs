@@ -4,7 +4,7 @@
 using System.IO;
 using System.Text;
 
-namespace WeightCore.MassaK;
+namespace WeightCore.MassaK.Models;
 
 public class ResponseScaleParModel
 {

@@ -4,6 +4,7 @@
 
 using NUnit.Framework;
 using WeightCore.MassaK;
+using WeightCore.MassaK.Helpers;
 
 namespace WeightCoreTests.MassaK;
 

@@ -6,8 +6,9 @@ using System.Runtime.CompilerServices;
 using DataCore.Protocols;
 using DataCore.Sql.Core.Helpers;
 using MDSoft.SerialPorts;
+using WeightCore.MassaK.Models;
 
-namespace WeightCore.MassaK;
+namespace WeightCore.MassaK.Helpers;
 
 public class MassaDeviceModel : DisposableBase, IDisposableBase
 {

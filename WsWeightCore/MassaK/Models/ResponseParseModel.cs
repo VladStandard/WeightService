@@ -4,8 +4,9 @@
 using System;
 using System.Linq;
 using WeightCore.MassaK.Enums;
+using WeightCore.MassaK.Helpers;
 
-namespace WeightCore.MassaK;
+namespace WeightCore.MassaK.Models;
 
 public class ResponseParseModel
 {

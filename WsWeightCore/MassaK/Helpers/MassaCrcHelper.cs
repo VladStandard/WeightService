@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using MDSoft.SerialPorts;
 
-namespace WeightCore.MassaK;
+namespace WeightCore.MassaK.Helpers;
 
 public class MassaCrcHelper
 {
