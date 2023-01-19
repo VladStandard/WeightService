@@ -1,13 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using MDSoft.SerialPorts;
 using System;
 using System.IO.Ports;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
 using DataCore.Utils;
+using WsMassa.Controllers;
+using WsMassa.Helpers;
+using WsMassa.Models;
+using WsMassa.Utils;
 
 namespace SerialPortExchangeTool;
 

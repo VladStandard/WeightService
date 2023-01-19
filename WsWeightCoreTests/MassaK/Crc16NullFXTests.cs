@@ -3,13 +3,12 @@
 // http://srecord.sourceforge.net/crc16-ccitt.html
 
 using NUnit.Framework;
-using WeightCore.MassaK;
-using WeightCore.MassaK.Helpers;
+using WsMassa.Helpers;
 
-namespace WeightCoreTests.MassaK;
+namespace WsWeightCoreTests.MassaK;
 
 [TestFixture]
-public class Crc16NullFXTests
+public class Crc16NullFxTests
 {
     // WRITE	F8 55 CE 01 00 23 23 00
     private readonly byte[] getMassaRequest = MassaRequestHelper.Instance.CMD_GET_MASSA;

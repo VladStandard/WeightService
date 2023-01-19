@@ -3,7 +3,7 @@
 
 using NUnit.Framework;
 
-namespace WeightCoreTests.Tsc;
+namespace WsWeightCoreTests.Tsc;
 
 [TestFixture]
 public class PrintControlEntityTests

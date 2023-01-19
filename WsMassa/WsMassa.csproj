@@ -43,7 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\SerialPortController.cs" />
+    <Compile Include="Enums\DataBits.cs" />
+    <Compile Include="Enums\BaudRate.cs" />
     <Compile Include="Enums\MassaCmdType.cs" />
+    <Compile Include="GlobalUsings.cs" />
+    <Compile Include="Helpers\BytesHelper.cs" />
     <Compile Include="Helpers\MassaCrcHelper.cs" />
     <Compile Include="Helpers\MassaDeviceHelper.cs" />
     <Compile Include="Helpers\MassaExchangeHelper.cs" />
@@ -52,7 +57,15 @@
     <Compile Include="Models\ResponseMassaModel.cs" />
     <Compile Include="Models\ResponseParseModel.cs" />
     <Compile Include="Models\ResponseScaleParModel.cs" />
+    <Compile Include="Models\SerialPortEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\SerialPortUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataCore\DataCore.csproj">
+      <Project>{2a3af48b-dc5b-4359-b056-3605631440f5}</Project>
+      <Name>DataCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

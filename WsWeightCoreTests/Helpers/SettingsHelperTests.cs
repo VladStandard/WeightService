@@ -1,13 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Enums;
 using DataCore.Models;
 using NUnit.Framework;
 using WeightCore.Helpers;
 using WsLocalization.Enums;
 
-namespace WeightCoreTests.Helpers;
+namespace WsWeightCoreTests.Helpers;
 
 [TestFixture]
 public class SettingsHelperTests

@@ -4,12 +4,10 @@
 // https://www.tahapaksu.com/crc/
 // https://github.com/nullfx/NullFX.CRC
 
-using MDSoft.SerialPorts;
 using NUnit.Framework;
-using WeightCore.MassaK;
-using WeightCore.MassaK.Helpers;
+using WsMassa.Helpers;
 
-namespace WeightCoreTests.MassaK;
+namespace WsWeightCoreTests.MassaK;
 
 [TestFixture]
 public class Crc16MassaEntityTests

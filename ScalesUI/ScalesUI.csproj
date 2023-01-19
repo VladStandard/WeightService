@@ -602,6 +602,10 @@
       <Project>{F494C3D7-E4C9-4D2B-926F-66835260F4B5}</Project>
       <Name>WsLocalization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WsMassa\WsMassa.csproj">
+      <Project>{b16ecc51-2ef8-49e6-b77e-b8cc065550a4}</Project>
+      <Name>WsMassa</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WsSchedule\WsSchedule.csproj">
       <Project>{d1197800-5cd2-4ee1-bf86-71a87b384ecf}</Project>
       <Name>WsSchedule</Name>

@@ -5,12 +5,12 @@ using System;
 using System.Windows.Forms;
 using DataCore.Managers;
 using WeightCore.Helpers;
-using WeightCore.MassaK;
-using WeightCore.MassaK.Enums;
-using WeightCore.MassaK.Helpers;
-using WeightCore.MassaK.Models;
 using WeightCore.Wpf.Utils;
 using WsLocalization.Models;
+using WsMassa.Controllers;
+using WsMassa.Enums;
+using WsMassa.Helpers;
+using WsMassa.Models;
 
 namespace WeightCore.Managers;
 
@@ -153,19 +153,19 @@ public class ManagerMassa : ManagerBase
 	{
 		switch (MassaDevice.PortController.AdapterStatus)
 		{
-			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsNotConnectWithMassa:
+			case SerialPortController.EnumUsbAdapterStatus.IsNotConnectWithMassa:
 				MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocaleCore.Scales.IsNotConnectWithMassa);
 				break;
-			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsDataNotExists:
+			case SerialPortController.EnumUsbAdapterStatus.IsDataNotExists:
 				MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocaleCore.Scales.IsDataNotExists);
 				break;
-			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsException:
+			case SerialPortController.EnumUsbAdapterStatus.IsException:
 				MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, 
 					LocaleCore.Scales.IsException(MassaDevice.PortController.CatchException?.Message));
 				break;
-			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.Default:
-			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsConnectWithMassa:
-			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsDataExists:
+			case SerialPortController.EnumUsbAdapterStatus.Default:
+			case SerialPortController.EnumUsbAdapterStatus.IsConnectWithMassa:
+			case SerialPortController.EnumUsbAdapterStatus.IsDataExists:
 			default:
                 string massaDevice = //MassaDevice is not null ? 
                     MassaDevice.IsOpenPort

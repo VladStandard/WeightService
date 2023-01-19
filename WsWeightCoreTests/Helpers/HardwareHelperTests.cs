@@ -4,7 +4,7 @@
 using NUnit.Framework;
 using WeightCore.Helpers;
 
-namespace WeightCoreTests.Helpers;
+namespace WsWeightCoreTests.Helpers;
 
 [TestFixture]
 public class HardwareHelperTests

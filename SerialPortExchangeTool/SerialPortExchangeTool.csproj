@@ -157,9 +157,9 @@
       <Project>{2A3AF48B-DC5B-4359-B056-3605631440F5}</Project>
       <Name>DataCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MDSoft.SerialPorts\MDSoft.SerialPorts.csproj">
-      <Project>{889e1126-2da8-4196-a083-5a163cc41864}</Project>
-      <Name>MDSoft.SerialPorts</Name>
+    <ProjectReference Include="..\WsMassa\WsMassa.csproj">
+      <Project>{b16ecc51-2ef8-49e6-b77e-b8cc065550a4}</Project>
+      <Name>WsMassa</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

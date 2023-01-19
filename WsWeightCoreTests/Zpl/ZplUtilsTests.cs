@@ -5,7 +5,7 @@ using DataCore.Utils;
 using MDSoft.BarcodePrintUtils.Zpl;
 using NUnit.Framework;
 
-namespace WeightCoreTests.Zpl;
+namespace WsWeightCoreTests.Zpl;
 
 [TestFixture]
 public class ZplUtilsTests
