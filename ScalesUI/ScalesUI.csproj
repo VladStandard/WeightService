@@ -610,9 +610,9 @@
       <Project>{d1197800-5cd2-4ee1-bf86-71a87b384ecf}</Project>
       <Name>WsSchedule</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WsWeightCore\WsWeightCore.csproj">
-      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
-      <Name>WsWeightCore</Name>
+    <ProjectReference Include="..\WsWeight\WsWeight.csproj">
+      <Project>{51C1AA1F-3104-4438-93EA-9E348F18EAD7}</Project>
+      <Name>WsWeight</Name>
     </ProjectReference>
     <ProjectReference Include="..\WsWinForms\WsWinForms.csproj">
       <Project>{1EB9514D-984C-456A-8237-0314ED0EB53C}</Project>

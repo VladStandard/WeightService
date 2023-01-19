@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AssertCoreTests\AssertCoreTests.csproj" />
-    <ProjectReference Include="..\WsWeightCore\WsWeightCore.csproj" />
+    <ProjectReference Include="..\WsWeight\WsWeight.csproj" />
   </ItemGroup>
 
   <ItemGroup>

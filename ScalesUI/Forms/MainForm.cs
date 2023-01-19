@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Settings.Helpers;
-using Gma.System.MouseKeyHook;
 using MDSoft.BarcodePrintUtils.Enums;
 using ScalesUI.Controls;
 using WeightCore.Wpf;
