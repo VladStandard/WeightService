@@ -7,9 +7,9 @@ public class ManagerBase : DisposableBase, IDisposableBase
 {
 	#region Public and private fields and properties - Manager
 
-	public ManagerItemModel Reopen { get; set; }
-    public ManagerItemModel Request { get; set; }
-    public ManagerItemModel Response { get; set; }
+	public ManagerItemModel ReopenItem { get; set; }
+    public ManagerItemModel RequestItem { get; set; }
+    public ManagerItemModel ResponseItem { get; set; }
     private readonly object _locker = new();
 
 	#endregion
@@ -18,9 +18,9 @@ public class ManagerBase : DisposableBase, IDisposableBase
 
     protected ManagerBase() : base()
     {
-        Reopen = new();
-        Request = new();
-        Response = new();
+        ReopenItem = new();
+        RequestItem = new();
+        ResponseItem = new();
 		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 	}
 
@@ -28,12 +28,12 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	{
 		lock (_locker)
 		{
-            Reopen.TaskType = taskType;
-            Request.TaskType = taskType;
-            Response.TaskType = taskType;
-            Reopen.Config = waitConfig;
-            Request.Config = waitConfig;
-            Response.Config = waitConfig;
+            ReopenItem.TaskType = taskType;
+            RequestItem.TaskType = taskType;
+            ResponseItem.TaskType = taskType;
+            ReopenItem.Config = waitConfig;
+            RequestItem.Config = waitConfig;
+            ResponseItem.Config = waitConfig;
 			init?.Invoke();
 		}
 	}
@@ -42,24 +42,24 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	{
 		Close();
 		Open();
-        Reopen.Open(reopenCallback);
-		Request.Open(requestCallback);
-        Response.Open(responseCallback);
+        ReopenItem.Open(reopenCallback);
+		RequestItem.Open(requestCallback);
+        ResponseItem.Open(responseCallback);
 	}
 
 	public new void Close()
 	{
 		base.Close();
 		CheckIsDisposed();
-        Reopen.Close();
-        Request.Close();
-        Response.Close();
+        ReopenItem.Close();
+        RequestItem.Close();
+        ResponseItem.Close();
 	}
 
 	public void ReleaseManaged()
 	{
 		Close();
-        Reopen.ReleaseManaged();
+        ReopenItem.ReleaseManaged();
 	}
 
 	public void ReleaseUnmanaged()
@@ -67,19 +67,19 @@ public class ManagerBase : DisposableBase, IDisposableBase
 		//
 	}
 
-    public void Suspend()
-    {
-        Reopen.IsSuspend = true;
-        Request.IsSuspend = true;
-        Response.IsSuspend = true;
-    }
+    //public void Suspend()
+    //{
+    //    Reopen.IsSuspend = true;
+    //    Request.IsSuspend = true;
+    //    Response.IsSuspend = true;
+    //}
 
-    public void UnSuspend()
-    {
-        Reopen.IsSuspend = false;
-        Request.IsSuspend = false;
-        Response.IsSuspend = false;
-    }
+    //public void UnSuspend()
+    //{
+    //    Reopen.IsSuspend = false;
+    //    Request.IsSuspend = false;
+    //    Response.IsSuspend = false;
+    //}
 
     #endregion
 }

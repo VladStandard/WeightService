@@ -75,8 +75,8 @@ public class ManagerMassa : ManagerBase
 
 					SetControlsTextDefault();
 				},
-				new(waitReopen: 0_500, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
-		}
+                new(waitReopen: 0_250, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_250, waitException: 0_250));
+        }
 		catch (Exception ex)
 		{
 			WpfUtils.CatchException(ex);
@@ -84,7 +84,8 @@ public class ManagerMassa : ManagerBase
 	}
 
 	public new void Open()
-	{
+    {
+        base.Open();
 		try
 		{
 			Open(Reopen, Request, Response);

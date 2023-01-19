@@ -511,7 +511,7 @@ public partial class MainForm : Form
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSwitchPlu);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonPlu);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
@@ -808,7 +808,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                UserSession.ManagerControl.Massa.Suspend();
+                UserSession.ManagerControl.Massa.Close();
                 BeforeAction();
 
                 UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
@@ -826,7 +826,8 @@ public partial class MainForm : Form
 
     private void ReturnBackMore()
     {
-        UserSession.ManagerControl.Massa.UnSuspend();
+        UserSession.ManagerControl.Open();
+        UserSession.ManagerControl.Massa.Open();
     }
 
     private void ActionMore(object sender, EventArgs e)
@@ -834,7 +835,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
-                UserSession.ManagerControl.Massa.Suspend();
+                UserSession.ManagerControl.Massa.Close();
                 BeforeAction();
 
                 if (UserSession.PluScale.IsNew)

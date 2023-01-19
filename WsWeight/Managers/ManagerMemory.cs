@@ -44,7 +44,7 @@ public class ManagerMemory : ManagerBase
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocaleCore.Scales.Threads);
                 },
-                new(waitReopen: 0_500, waitRequest: 0_500, waitResponse: 0_500, waitClose: 0_500, waitException: 0_500));
+                new(waitReopen: 0_250, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_250, waitException: 0_250));
         }
         catch (Exception ex)
         {

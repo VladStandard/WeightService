@@ -84,7 +84,7 @@ public class ManagerLabels : ManagerBase
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintShippingManager, LocaleCore.Print.PrintManager);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager, LocaleCore.Scales.MassaManager);
                 },
-                new(waitReopen: 0_500, waitRequest: 0_500, waitResponse: 0_500, waitClose: 0_500, waitException: 0_500));
+                new(waitReopen: 0_250, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_250, waitException: 0_250));
         }
         catch (Exception ex)
         {

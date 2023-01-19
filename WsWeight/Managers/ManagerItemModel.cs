@@ -7,10 +7,10 @@ public class ManagerItemModel : DisposableBase
 {
     #region Public and private fields, properties, constructor
 
-    public AsyncLock? Mutex { get; set; }
-    public CancellationTokenSource? Cts { get; set; }
-    public Task? Tsk { get; set; }
-    public bool IsSuspend { get; set; }
+    private AsyncLock? Mutex { get; set; }
+    private CancellationTokenSource? Cts { get; set; }
+    private Task? Tsk { get; set; }
+    //public bool IsSuspend { get; set; }
     public ManagerConfigModel Config { get; set; }
     public TaskType TaskType { get; set; }
 
@@ -19,23 +19,20 @@ public class ManagerItemModel : DisposableBase
         Mutex = null;
         Cts = null;
         Tsk = null;
-        IsSuspend = true;
+        //IsSuspend = false;
         TaskType = TaskType.Default;
         Config = new();
-    }
-
-    public ManagerItemModel(TaskType taskType, ManagerConfigModel managerConfig) : this()
-    {
-        TaskType = taskType;
-        Config = managerConfig;
     }
 
     #endregion
 
     #region Public and private methods
 
-    private void OpenTaskBase()
+    private void PreOpen()
     {
+        Mutex = null;
+        Cts = null;
+
         CheckIsDisposed();
         if (Tsk is null) return;
 
@@ -51,28 +48,24 @@ public class ManagerItemModel : DisposableBase
     /// <param name="callback"></param>
     public void Open(Action? callback)
     {
-        Mutex = null;
-        Cts = null;
-        
-        OpenTaskBase();
-
-        Tsk = System.Threading.Tasks.Task.Run(async () =>
+        PreOpen();
+        Tsk = Task.Run(async () =>
         {
             ReopenCount = 0;
-            while (IsOpen && !IsSuspend)
+            //while (IsOpen && !IsSuspend)
+            while (IsOpen)
             {
                 ReopenCount++;
                 Mutex ??= new();
-                Cts ??= new(); try
+                Cts ??= new();
+                try
                 {
                     // AsyncLock can be locked asynchronously
                     AwaitableDisposable<IDisposable> lockTask = Mutex.LockAsync(Cts.Token);
                     using (await lockTask.ConfigureAwait(true))
                     {
                         Config.WaitSync(Config.StopwatchReopen, Config.WaitReopen);
-
-                        if (Cts is null || Cts.IsCancellationRequested)
-                            continue;
+                        if (Cts is null || Cts.IsCancellationRequested) continue;
                         // It's safe to await while the lock is held
                         callback?.Invoke();
                     }
@@ -418,6 +411,9 @@ public class ManagerItemModel : DisposableBase
 
     public new void Close()
     {
+        // Need to check.
+        base.Close();
+
         Cts?.Cancel();
         Config.WaitSync(Config.WaitClose);
         Mutex = null;

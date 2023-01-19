@@ -55,7 +55,7 @@ public class ManagerPrint : ManagerBase
     {
         try
         {
-            Init(TaskType.TaskMemory,
+            Init(TaskType.TaskPrint,
                 () =>
                 {
                     PrintBrand = printBrand;
@@ -76,7 +76,7 @@ public class ManagerPrint : ManagerBase
                             break;
                     }
                 },
-                new(waitReopen: 0_500, waitRequest: 1_000, waitResponse: 1_000, waitClose: 1_000, waitException: 1_000));
+                new(waitReopen: 0_250, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_250, waitException: 0_250));
         }
         catch (Exception ex)
         {

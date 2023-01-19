@@ -43,8 +43,8 @@ public class DisposableBase : IDisposable
     }
     private bool IsDispose { get; set; }
     private Action? CloseCaller { get; set; }
-    private Action? ReleaseManagedResourcesCaller { get; set; }
-    private Action? ReleaseUnmanagedResourcesCaller { get; set; }
+    private Action? ReleaseManaged { get; set; }
+    private Action? ReleaseUnmanaged { get; set; }
     private readonly object _locker = new();
 
     protected DisposableBase()
@@ -55,8 +55,8 @@ public class DisposableBase : IDisposable
     private void SetDefault()
     {
         CloseCaller = null;
-        ReleaseManagedResourcesCaller = null;
-        ReleaseUnmanagedResourcesCaller = null;
+        ReleaseManaged = null;
+        ReleaseUnmanaged = null;
         IsOpen = false;
         IsDispose = false;
     }
@@ -68,8 +68,8 @@ public class DisposableBase : IDisposable
         {
             SetDefault();
             CloseCaller = close;
-            ReleaseManagedResourcesCaller = releaseManaged;
-            ReleaseUnmanagedResourcesCaller = releaseUnmanaged;
+            ReleaseManaged = releaseManaged;
+            ReleaseUnmanaged = releaseUnmanaged;
         }
     }
 
@@ -129,13 +129,13 @@ public class DisposableBase : IDisposable
                 // Releasing managed resources.
                 if (disposing)
                 {
-                    ReleaseManagedResourcesCaller?.Invoke();
-                    ReleaseManagedResourcesCaller = null;
+                    ReleaseManaged?.Invoke();
+                    ReleaseManaged = null;
                 }
 
                 // Releasing unmanaged resources.
-                ReleaseUnmanagedResourcesCaller?.Invoke();
-                ReleaseUnmanagedResourcesCaller = null;
+                ReleaseUnmanaged?.Invoke();
+                ReleaseUnmanaged = null;
 
                 // Resource release flag.
                 IsDispose = true;
