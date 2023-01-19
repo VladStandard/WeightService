@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Settings.Helpers;
+using Gma.System.MouseKeyHook;
 using ScalesUI.Controls;
 using WeightCore.Wpf;
 using WsWinForms.Enums;
@@ -68,10 +69,10 @@ public partial class MainForm : Form
         MDSoft.WinFormsUtils.InvokeControl.SetText(this, AppVersion.AppTitle);
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, string.Empty);
         LoadMainControls();
-        LoadLocalization(Lang.Russian);
+        LoadLocalizationStatic(Lang.Russian);
 
         // Quartz.
-        LoadQuartz();
+        LoadSchedule();
 
         ActionUtils.ActionMakeScreenShot(this);
         UserSession.StopwatchMain.Stop();
@@ -104,16 +105,6 @@ public partial class MainForm : Form
         this.SwitchResolution(Debug.IsDebug ? Resolution.Value1366x768 : Resolution.FullScreen);
         CenterToScreen();
         LoadFonts();
-    }
-
-    private void LoadQuartz()
-    {
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
-            $"job{nameof(ScheduleEveryHours)}", $"trigger{nameof(ScheduleEveryHours)}",
-            $"triggerGroup{nameof(ScheduleEveryHours)}");
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
-            $"job{nameof(ScheduleEveryDays)}", $"trigger{nameof(ScheduleEveryDays)}",
-            $"triggerGroup{nameof(ScheduleEveryDays)}");
     }
 
     private void MainForm_Load(object sender, EventArgs e)
@@ -179,6 +170,7 @@ public partial class MainForm : Form
                 UserSession.StopwatchMain.Restart();
                 ActionUtils.ActionMakeScreenShot(this);
 
+                KeyboardMouseEvents.Dispose();
                 NavigateToControl(WaitControl, ReturnBackExit, true, LocaleCore.Scales.AppWaitExit);
 
                 if (Quartz is not null)
@@ -385,7 +377,17 @@ public partial class MainForm : Form
 
     #endregion
 
-    #region Public and private methods - Schedulers
+    #region Public and private methods - Schedule
+
+    private void LoadSchedule()
+    {
+        Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
+            $"job{nameof(ScheduleEveryHours)}", $"trigger{nameof(ScheduleEveryHours)}",
+            $"triggerGroup{nameof(ScheduleEveryHours)}");
+        Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
+            $"job{nameof(ScheduleEveryDays)}", $"trigger{nameof(ScheduleEveryDays)}",
+            $"triggerGroup{nameof(ScheduleEveryDays)}");
+    }
 
     private void ScheduleEveryHours()
     {
@@ -420,8 +422,6 @@ public partial class MainForm : Form
         if (e.Button == MouseButtons.Middle)
             ActionPrint(sender, e);
     }
-
-
 
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
@@ -511,16 +511,9 @@ public partial class MainForm : Form
         wpfPageLoader.Close();
     }
 
-    private void LoadLocalization(Lang lang)
+    private void LoadLocalizationStatic(Lang lang)
     {
         LocaleCore.Lang = LocaleData.Lang = lang;
-        string area = UserSession.Scale.WorkShop is null
-            ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
-            UserSession.Scale.Description + Environment.NewLine + area);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
-            ? LocaleCore.Table.FieldPackageIsNotSelected
-            : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
@@ -528,18 +521,27 @@ public partial class MainForm : Form
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSwitchPlu);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
-
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelPackageWeight, LocaleCore.Scales.FieldWeightTare);
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
-        //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPackageWeight, $"{0:0.000} {LocaleCore.Scales.WeightUnitKg}");
+    }
+
+    private void LoadLocalizationDynamic(Lang lang)
+    {
+        LocaleCore.Lang = LocaleData.Lang = lang;
+        string area = UserSession.Scale.WorkShop is null
+            ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice, UserSession.Scale.Description + Environment.NewLine + area);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
+            ? LocaleCore.Table.FieldPackageIsNotSelected
+            : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPackageWeight,
             UserSessionHelper.Instance.PluScale.IsNotNew
                 ? $"{UserSessionHelper.Instance.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
     }
-
+    
     #endregion
 
     #region Public and private methods - UI
@@ -563,7 +565,7 @@ public partial class MainForm : Form
             IsKeyboardMouseEventsSubscribe = true;
         }
         MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-        LoadLocalization(Lang.Russian);
+        LoadLocalizationDynamic(Lang.Russian);
     }
 
     private void NavigateToControl(UserControlBase userControlBase, Action returnBack, bool isJoinReturnBackAction, string message = "")

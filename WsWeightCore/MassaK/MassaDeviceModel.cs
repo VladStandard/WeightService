@@ -14,17 +14,16 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 	#region Public and private fields and properties
 
 	public bool IsOpenPort => PortController.SerialPort.IsOpen;
-	public bool IsOpenResult { get; set; }
-	public bool IsCloseResult { get; set; }
-	public bool IsResponseResult { get; set; }
-	public bool IsExceptionResult { get; set; }
-	public int ReadTimeout { get; }
-	public int WriteTimeout { get; }
-	public string PortName { get; }
-	public BytesHelper Bytes { get; } = BytesHelper.Instance;
+    private bool IsOpenResult { get; set; }
+    private bool IsCloseResult { get; set; }
+    private bool IsResponseResult { get; set; }
+    private bool IsExceptionResult { get; set; }
+    private int ReadTimeout { get; }
+    private int WriteTimeout { get; }
+    private string PortName { get; }
 	public SerialPortController PortController { get; private set; }
-	public int SendBytesCount { get; private set; }
-	public int ReceiveBytesCount { get; private set; }
+    private int SendBytesCount { get; set; }
+    private int ReceiveBytesCount { get; set; }
 	public delegate void MassaResponseCallback(MassaExchangeModel massaExchange, byte[] response);
 	private readonly MassaResponseCallback _massaResponseCallback;
 	private MassaExchangeModel _massaExchange;
@@ -42,12 +41,13 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 		ReadTimeout = readTimeout ?? 0_100;
 		WriteTimeout = writeTimeout ?? 0_100;
 		_massaResponseCallback = massaCallback;
+        _massaExchange = new();
 		PortController = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
 		IsOpenResult = false;
 		IsCloseResult = false;
 		IsResponseResult = false;
 		IsExceptionResult = false;
-	}
+    }
 
 	#endregion
 
@@ -58,7 +58,7 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 		PortController = controller;
 	}
 
-	public void PortOpenCallback(object sender, SerialPortEventArgs e)
+    private void PortOpenCallback(object sender, SerialPortEventArgs e)
 	{
 		if (e.SerialPort.IsOpen)
 		{
@@ -71,7 +71,7 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 		}
 	}
 
-	public void PortCloseCallback(object sender, SerialPortEventArgs e)
+    private void PortCloseCallback(object sender, SerialPortEventArgs e)
 	{
 		// Close successfully.
 		if (!e.SerialPort.IsOpen)

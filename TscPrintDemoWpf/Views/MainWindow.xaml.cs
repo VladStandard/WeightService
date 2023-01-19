@@ -6,7 +6,8 @@ using MDSoft.BarcodePrintUtils.Tsc;
 using System;
 using System.Windows;
 using DataCore.Utils;
-using WeightCore.Zpl;
+using MDSoft.BarcodePrintUtils.Enums;
+using MDSoft.BarcodePrintUtils.Zpl;
 
 namespace TscPrintDemoWpf.Views;
 

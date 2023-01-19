@@ -40,6 +40,7 @@ using DataCore.Sql.Core.Utils;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
 using DataCore.Sql.Core.Models;
 using DataCore.Settings.Helpers;
+using MDSoft.BarcodePrintUtils.Enums;
 
 namespace WeightCore.Helpers;
 
@@ -404,23 +405,6 @@ public class UserSessionHelper : BaseViewModel
         {
             WpfUtils.ShowNewOperationControl(owner,
                 LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
-            return false;
-        }
-        return true;
-    }
-
-    [Obsolete(@"Use CheckWeightMassaDeviceExists()")]
-    public bool CheckWeightMassaDeviceExists(IWin32Window owner)
-    {
-        if (Debug.IsDebug) return true;
-
-        if (PluScale is { IsNew: false, Plu.IsCheckWeight: false }) return true;
-
-        if (ManagerControl.Massa is null)
-        {
-            WpfUtils.ShowNewOperationControl(owner,
-                LocaleCore.Scales.MassaIsNotFound, true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
         }

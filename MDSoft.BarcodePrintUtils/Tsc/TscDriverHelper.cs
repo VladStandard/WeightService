@@ -3,6 +3,7 @@
 
 using System;
 using System.Threading;
+using MDSoft.BarcodePrintUtils.Enums;
 
 namespace MDSoft.BarcodePrintUtils.Tsc;
 

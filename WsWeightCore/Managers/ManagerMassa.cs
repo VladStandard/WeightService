@@ -98,7 +98,6 @@ public class ManagerMassa : ManagerBase
 	{
 		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
 			MassaDevice.Open();
-		SetControlsOtherVisible(true);
 	}
 
 	private void Request()
@@ -134,13 +133,11 @@ public class ManagerMassa : ManagerBase
 		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
 		{
 			SetControlsText();
-			SetControlsOtherVisible(true);
 		}
 		else
 		{
 			if (UserSessionHelper.Instance.PluScale.IsNew)
 				SetControlsTextDefault();
-			SetControlsOtherVisible(false);
 		}
 	}
 
@@ -185,12 +182,6 @@ public class ManagerMassa : ManagerBase
 			: $"{LocaleCore.Scales.WeightingIsCalc}");
 	}
 
-    private void SetControlsOtherVisible(bool isVisible)
-	{
-		if (FieldMassaGet.Visible != isVisible)
-			MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGet, isVisible);
-	}
-
 	public new void Close()
 	{
 		base.Close();
@@ -202,8 +193,6 @@ public class ManagerMassa : ManagerBase
 
 	public new void ReleaseManaged()
 	{
-		SetControlsOtherVisible(false);
-
 		ResponseParseScalePar = new();
 		ResponseParseGet = new();
 		ResponseParseSet = new();

@@ -15,7 +15,7 @@ public class DisposableBase : IDisposable
     public ushort ReopenCount
     {
         get => _reopenCount;
-        set
+        protected set
         {
             if (value >= MaxCount) value = 0;
             _reopenCount = value;
@@ -25,7 +25,7 @@ public class DisposableBase : IDisposable
     public ushort RequestCount
     {
         get => _requestCount;
-        set
+        protected set
         {
             if (value >= MaxCount) value = 0;
             _requestCount = value;
@@ -35,7 +35,7 @@ public class DisposableBase : IDisposable
     public ushort ResponseCount
     {
         get => _responseCount;
-        set
+        protected set
         {
             if (value >= MaxCount) value = 0;
             _responseCount = value;

@@ -52,7 +52,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums.cs" />
+    <Compile Include="Enums\PrintSpeed.cs" />
+    <Compile Include="Enums\PrintTscDll.cs" />
+    <Compile Include="Enums\PrintBrand.cs" />
+    <Compile Include="Enums\PrintChannel.cs" />
+    <Compile Include="Enums\PrintDensity.cs" />
+    <Compile Include="Enums\PrintInitialCrcValue.cs" />
+    <Compile Include="Enums\PrintInterface.cs" />
+    <Compile Include="Enums\PrintLabelDpi.cs" />
+    <Compile Include="Enums\PrintLabelSize.cs" />
+    <Compile Include="Enums\PrintSensor.cs" />
+    <Compile Include="Enums\PrintStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Raw\RawPrinterHelper.cs" />
     <Compile Include="Tsc\TscDriverHelper.cs" />
@@ -79,6 +89,9 @@
     <PackageReference Include="Zebra.Printer.SDK">
       <Version>2.15.2634</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

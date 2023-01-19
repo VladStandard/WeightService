@@ -15,6 +15,7 @@ using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.Printers;
+using MDSoft.BarcodePrintUtils.Enums;
 using MDSoft.BarcodePrintUtils.Wmi;
 using WeightCore.Helpers;
 using WeightCore.Wpf.Utils;
@@ -146,14 +147,14 @@ public class ManagerPrint : ManagerBase
 	private void Response(bool isMain, string value)
 	{
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-			$"{GetDeviceNameShort(isMain)} | {Printer.Ip}: {Printer.PingStatus} | " +
+			$"{GetDeviceNameShort(isMain)} | {Printer.Ip} | {Printer.PingStatus} | " +
 			$"{LocaleCore.Table.Counter}: {UserSessionHelper.Instance.Scale.Counter} | " +
 			$"{GetDeviceStatus()} | {value}");
 		MDSoft.WinFormsUtils.InvokeControl.SetForeColor(FieldPrint, 
 			Equals(Printer.PingStatus, IPStatus.Success) ? System.Drawing.Color.Green : System.Drawing.Color.Red);
 	}
 
-	public string GetDeviceName(bool isMain)
+    public string GetDeviceName(bool isMain)
 	{
 		return isMain
 			? PrintBrand switch

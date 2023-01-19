@@ -103,5 +103,34 @@ public static class NetUtils
 		return false;
 	}
 
-	#endregion
+    public static string GetPingStatus(IPStatus ipStatus) =>
+        ipStatus switch
+        {
+            IPStatus.Success => LocaleCore.Ping.StatusSuccess,
+            IPStatus.DestinationNetworkUnreachable => LocaleCore.Ping.StatusDestinationNetworkUnreachable,
+            IPStatus.DestinationHostUnreachable => LocaleCore.Ping.StatusDestinationHostUnreachable,
+            IPStatus.DestinationProtocolUnreachable => LocaleCore.Ping.StatusDestinationProtocolUnreachable,
+            IPStatus.DestinationPortUnreachable => LocaleCore.Ping.StatusDestinationPortUnreachable,
+            IPStatus.NoResources => LocaleCore.Ping.StatusNoResources,
+            IPStatus.BadOption => LocaleCore.Ping.StatusBadOption,
+            IPStatus.HardwareError => LocaleCore.Ping.StatusHardwareError,
+            IPStatus.PacketTooBig => LocaleCore.Ping.StatusPacketTooBig,
+            IPStatus.TimedOut => LocaleCore.Ping.StatusTimedOut,
+            IPStatus.BadRoute => LocaleCore.Ping.StatusBadRoute,
+            IPStatus.TtlExpired => LocaleCore.Ping.StatusTtlExpired,
+            IPStatus.TtlReassemblyTimeExceeded => LocaleCore.Ping.StatusTtlReassemblyTimeExceeded,
+            IPStatus.ParameterProblem => LocaleCore.Ping.StatusParameterProblem,
+            IPStatus.SourceQuench => LocaleCore.Ping.StatusSourceQuench,
+            IPStatus.BadDestination => LocaleCore.Ping.StatusBadDestination,
+            IPStatus.DestinationUnreachable => LocaleCore.Ping.StatusDestinationUnreachable,
+            IPStatus.TimeExceeded => LocaleCore.Ping.StatusTimeExceeded,
+            IPStatus.BadHeader => LocaleCore.Ping.StatusBadHeader,
+            IPStatus.UnrecognizedNextHeader => LocaleCore.Ping.StatusUnrecognizedNextHeader,
+            IPStatus.IcmpError => LocaleCore.Ping.StatusIcmpError,
+            IPStatus.DestinationScopeMismatch => LocaleCore.Ping.StatusDestinationScopeMismatch,
+            IPStatus.Unknown => LocaleCore.Ping.StatusUnknown,
+            _ => LocaleCore.Ping.StatusUnknown
+        };
+
+    #endregion
 }

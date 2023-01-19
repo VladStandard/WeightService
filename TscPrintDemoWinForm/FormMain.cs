@@ -3,7 +3,7 @@
 
 using System;
 using System.Windows.Forms;
-using MDSoft.BarcodePrintUtils;
+using MDSoft.BarcodePrintUtils.Enums;
 using MDSoft.BarcodePrintUtils.Tsc;
 
 namespace TscPrintDemoWinForm

@@ -47,11 +47,6 @@ public class ManagerMemory : ManagerBase
 
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocaleCore.Scales.Threads);
-
-                    if (Debug.IsDebug && !fieldMemory.Visible)
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMemory, true);
-                    if (Debug.IsDebug && !fieldTasks.Visible)
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, true);
                 },
                 new(waitReopen: 1_000, waitRequest: 0_500, waitResponse: 0_500, waitClose: 0_500, waitException: 0_500,
                     true, Application.DoEvents));
@@ -76,7 +71,7 @@ public class ManagerMemory : ManagerBase
 
     private void Response()
     {
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory,
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, 
             $"{LocaleCore.Scales.Memory}" +
             $" | {LocaleCore.Scales.MemoryBusy}: " +
             (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : "- MB") +
@@ -93,15 +88,8 @@ public class ManagerMemory : ManagerBase
 
     public new void ReleaseManaged()
     {
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMemory, false);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, false);
-
-        if (MemorySize is not null)
-        {
-            MemorySize.Close();
-            MemorySize.Dispose(false);
-            MemorySize = null;
-        }
+        MemorySize.Close();
+        MemorySize.Dispose(false);
 
         base.ReleaseManaged();
     }
