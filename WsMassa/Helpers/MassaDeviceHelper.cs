@@ -3,6 +3,7 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using DataCore.Protocols;
 using DataCore.Sql.Core.Helpers;
 using MDSoft.SerialPorts;
@@ -10,8 +11,17 @@ using WeightCore.MassaK.Models;
 
 namespace WeightCore.MassaK.Helpers;
 
-public class MassaDeviceModel : DisposableBase, IDisposableBase
+public class MassaDeviceHelper : DisposableBase, IDisposableBase
 {
+	#region Design pattern "Lazy Singleton"
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+	private static MassaDeviceHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+	public static MassaDeviceHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+	#endregion
+
 	#region Public and private fields and properties
 
 	public bool IsOpenPort => PortController.SerialPort.IsOpen;
@@ -19,22 +29,26 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
     private bool IsCloseResult { get; set; }
     private bool IsResponseResult { get; set; }
     private bool IsExceptionResult { get; set; }
-    private int ReadTimeout { get; }
-    private int WriteTimeout { get; }
-    private string PortName { get; }
+    private int ReadTimeout { get; set; }
+    private int WriteTimeout { get; set; }
+    private string PortName { get; set; }
 	public SerialPortController PortController { get; private set; }
     private int SendBytesCount { get; set; }
     private int ReceiveBytesCount { get; set; }
-	public delegate void MassaResponseCallback(MassaExchangeModel massaExchange, byte[] response);
-	private readonly MassaResponseCallback _massaResponseCallback;
-	private MassaExchangeModel _massaExchange;
+	public delegate void MassaResponseCallback(MassaExchangeHelper massaExchange, byte[] response);
+	private MassaResponseCallback _massaResponseCallback;
+	private MassaExchangeHelper _massaExchange;
 	private readonly object _locker = new();
 
-	#endregion
+    public MassaDeviceHelper()
+    {
+        PortName = string.Empty;
+        PortController = new();
+        _massaExchange = new();
+		_massaResponseCallback = (_, _) => { };
+    }
 
-	#region Constructor and destructor
-
-	public MassaDeviceModel(string portName, short? readTimeout, short? writeTimeout, MassaResponseCallback massaCallback)
+    public void Init(string portName, short? readTimeout, short? writeTimeout, MassaResponseCallback massaCallback)
 	{
 		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 
@@ -42,7 +56,6 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 		ReadTimeout = readTimeout ?? 0_100;
 		WriteTimeout = writeTimeout ?? 0_100;
 		_massaResponseCallback = massaCallback;
-        _massaExchange = new();
 		PortController = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
 		IsOpenResult = false;
 		IsCloseResult = false;
@@ -102,7 +115,7 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		IsExceptionResult = true;
-		DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(MassaDeviceModel), filePath, lineNumber, memberName);
+		DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(MassaDeviceHelper), filePath, lineNumber, memberName);
 	}
 
 	#endregion
@@ -118,7 +131,7 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 		PortController.Open(PortName, ReadTimeout, WriteTimeout);
 	}
 
-	public void SendData(MassaExchangeModel massaExchange)
+	public void SendData(MassaExchangeHelper massaExchange)
 	{
 		CheckIsDisposed();
 		_massaExchange = massaExchange;

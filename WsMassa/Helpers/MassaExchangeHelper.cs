@@ -4,11 +4,11 @@
 using System;
 using System.Linq;
 using WeightCore.MassaK.Enums;
-using WeightCore.MassaK.Helpers;
+using WeightCore.MassaK.Models;
 
-namespace WeightCore.MassaK.Models;
+namespace WeightCore.MassaK.Helpers;
 
-public class MassaExchangeModel
+public class MassaExchangeHelper
 {
 	#region Public and private fields and properties
 
@@ -23,21 +23,21 @@ public class MassaExchangeModel
 
 	#region Constructor and destructor
 
-	public MassaExchangeModel()
+	public MassaExchangeHelper()
 	{
         Request = Array.Empty<byte>();
         CmdType = MassaCmdType.Nack;
 		ResponseParse = new(CmdType, Array.Empty<byte>());
 	}
 
-	public MassaExchangeModel(MassaCmdType cmdType)
+	public MassaExchangeHelper(MassaCmdType cmdType)
 	{
         Request = Array.Empty<byte>();
         CmdType = cmdType;
 		ResponseParse = new(CmdType, Array.Empty<byte>());
 	}
 
-	public MassaExchangeModel(MassaCmdType cmdType, int weightTare, int scaleFactor = 1_000)
+	public MassaExchangeHelper(MassaCmdType cmdType, int weightTare, int scaleFactor = 1_000)
 	{
         Request = Array.Empty<byte>();
         CmdType = cmdType;

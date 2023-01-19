@@ -27,24 +27,29 @@ public class SerialPortController
 
 	public delegate void PortCallback(object sender, SerialPortEventArgs e);
 	public delegate void PortExceptionCallback(Exception ex, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "");
-	public SerialPort SerialPort { get; private set; }
-	public PortCallback OpenCallback { get; private set; }
-	public PortCallback CloseCallback { get; private set; }
-	public PortCallback ResponseCallback { get; private set; }
-	public PortExceptionCallback ExceptionCallback { get; private set; }
+	public SerialPort SerialPort { get; }
+    private PortCallback OpenCallback { get; }
+    private PortCallback CloseCallback { get; }
+    private PortCallback ResponseCallback { get; }
+    private PortExceptionCallback ExceptionCallback { get; }
 	private readonly object _locker = new();
-	public EnumUsbAdapterStatus AdapterStatus { get; set; }
-	public Exception? CatchException { get; set; }
+	public EnumUsbAdapterStatus AdapterStatus { get; private set; }
+	public Exception? CatchException { get; private set; }
 
-	#endregion
+    public SerialPortController()
+    {
+        SerialPort = new();
+        AdapterStatus = EnumUsbAdapterStatus.Default;
 
-	#region Constructor and destructor
+        OpenCallback = (_, _) => { };
+        CloseCallback = (_, _) => { };
+        ResponseCallback = (_, _) => { };
+        ExceptionCallback = (_, _, _, _) => { };
+    }
 
-	public SerialPortController(PortCallback openCallback, PortCallback closeCallback, PortCallback responseCallback, PortExceptionCallback exceptionCallback)
+    public SerialPortController(PortCallback openCallback, PortCallback closeCallback, PortCallback responseCallback, 
+        PortExceptionCallback exceptionCallback) : this()
 	{
-		SerialPort = new();
-		AdapterStatus = EnumUsbAdapterStatus.Default;
-
 		OpenCallback = openCallback;
 		CloseCallback = closeCallback;
 		ResponseCallback = responseCallback;

@@ -6,7 +6,7 @@
     <FileVersion>0.8.190.0</FileVersion>
     <AssemblyVersion>0.8.190.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Version>0.8.190.0</Version>
   </PropertyGroup>
   <ItemGroup>

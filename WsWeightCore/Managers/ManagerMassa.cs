@@ -22,7 +22,7 @@ public class ManagerMassa : ManagerBase
 	private Label FieldNettoWeight { get; set; }
 	private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
 	private readonly object _locker = new();
-	private MassaExchangeModel MassaExchange { get; set; }
+	private MassaExchangeHelper MassaExchange { get; set; }
 	public MassaStableModel MassaStable { get; } = new();
     private decimal WeightGross { get; set; }
 	private decimal _weightNet;
@@ -36,8 +36,8 @@ public class ManagerMassa : ManagerBase
 		}
 	}
     private int ScaleFactor { get; set; } = 1_000;
-	public MassaDeviceModel MassaDevice { get; private set; }
-    private ResponseParseModel ResponseParseGet { get; set; }
+	public MassaDeviceHelper MassaDevice => MassaDeviceHelper.Instance;
+	private ResponseParseModel ResponseParseGet { get; set; }
     private ResponseParseModel ResponseParseScalePar { get; set; }
     private ResponseParseModel ResponseParseSet { get; set; }
 	public bool IsWeightNetFake { get; set; }
@@ -66,7 +66,7 @@ public class ManagerMassa : ManagerBase
 				{
 					if (UserSessionHelper.Instance.Scale.IsNotNew)
 					{
-						MassaDevice = new(UserSessionHelper.Instance.Scale.DeviceComPort,
+						MassaDevice.Init(UserSessionHelper.Instance.Scale.DeviceComPort,
 							UserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
 							UserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
 					}
@@ -223,7 +223,7 @@ public class ManagerMassa : ManagerBase
 	//    }
 	//}
 
-	private void SendData(MassaExchangeModel massaExchange)
+	private void SendData(MassaExchangeHelper massaExchange)
 	{
 		switch (massaExchange.CmdType)
 		{
@@ -264,7 +264,7 @@ public class ManagerMassa : ManagerBase
         MassaDevice.SendData(massaExchange);
 	}
 
-	private void GetData(MassaExchangeModel massaExchange, byte[] response)
+	private void GetData(MassaExchangeHelper massaExchange, byte[] response)
 	{
 		lock (_locker)
 		{
@@ -277,7 +277,7 @@ public class ManagerMassa : ManagerBase
 		}
 	}
 
-	private void ParseSetResponse(MassaExchangeModel? massaExchange)
+	private void ParseSetResponse(MassaExchangeHelper? massaExchange)
 	{
         if (massaExchange is null)
         {
@@ -316,7 +316,7 @@ public class ManagerMassa : ManagerBase
 		}
 	}
 
-	private void ParseSetMassa(MassaExchangeModel massaExchange)
+	private void ParseSetMassa(MassaExchangeHelper massaExchange)
 	{
 		switch (massaExchange.CmdType)
 		{

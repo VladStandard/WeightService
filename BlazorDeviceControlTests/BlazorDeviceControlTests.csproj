@@ -12,7 +12,7 @@
     <RootNamespace>DeviceControlBlazorTests</RootNamespace>
     <Configurations>Debug;Release;Dev</Configurations>
     <NeutralLanguage>en</NeutralLanguage>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
