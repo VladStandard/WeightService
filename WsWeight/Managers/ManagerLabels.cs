@@ -1,11 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
 using System.Drawing;
 using System.Windows.Forms;
 using DataCore.Enums;
-using DataCore.Managers;
 using DataCore.Settings.Helpers;
 using WsLocalization.Models;
 using WsWeight.Helpers;
@@ -56,7 +54,7 @@ public class ManagerLabels : ManagerBase
     {
         try
         {
-            Init(TaskTypeEnum.LabelManager,
+            Init(TaskType.TaskLabel,
                 () =>
                 {
                     FieldTitle = fieldTitle;
@@ -86,7 +84,7 @@ public class ManagerLabels : ManagerBase
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintShippingManager, LocaleCore.Print.PrintManager);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager, LocaleCore.Scales.MassaManager);
                 },
-                new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500,
+                new(waitReopen: 2_500, waitRequest: 0_500, waitResponse: 0_500, waitClose: 1_000, waitException: 1_000, 
                     true, Application.DoEvents));
         }
         catch (Exception ex)

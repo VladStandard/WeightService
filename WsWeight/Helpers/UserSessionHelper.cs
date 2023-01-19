@@ -1,20 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using DataCore.Enums;
-using DataCore.Protocols;
 using DataCore.Settings.Helpers;
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Models;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Fields;

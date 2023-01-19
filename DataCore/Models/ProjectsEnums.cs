@@ -3,15 +3,6 @@
 
 namespace DataCore.Models;
 
-public enum TaskTypeEnum
-{
-    Default,
-    MassaManager,
-    MemoryManager,
-    PrintManager,
-    LabelManager,
-}
-
 public enum DefaultSettingEnum
 {
     All,

@@ -1,9 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
 using System.Windows.Forms;
-using DataCore.Managers;
 using WsLocalization.Models;
 using WsMassa.Controllers;
 using WsMassa.Enums;
@@ -47,6 +45,8 @@ public class ManagerMassa : ManagerBase
     /// </summary>
     public ManagerMassa() : base()
     {
+        FieldMassaGet = new();
+        FieldNettoWeight = new();
         ResponseParseScalePar = new();
         ResponseParseGet = new();
         ResponseParseSet = new();
@@ -61,7 +61,7 @@ public class ManagerMassa : ManagerBase
 	{
 		try
 		{
-			Init(TaskTypeEnum.MassaManager,
+			Init(TaskType.TaskMassa,
 				() =>
 				{
 					if (UserSessionHelper.Instance.Scale.IsNotNew)
@@ -75,7 +75,7 @@ public class ManagerMassa : ManagerBase
 
 					SetControlsTextDefault();
 				},
-				new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500,
+				new(waitReopen: 2_500, waitRequest: 0_250, waitResponse: 0_250, waitClose: 1_000, waitException: 1_000,
 					true, Application.DoEvents));
 		}
 		catch (Exception ex)
@@ -97,14 +97,16 @@ public class ManagerMassa : ManagerBase
 	}
 
 	private void Reopen()
-	{
-		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
-			MassaDevice.Open();
+    {
+        if (UserSessionHelper.Instance.PluScale.Plu.IsNew) return;
+		if (!UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight) return;
+		MassaDevice.Open();
 	}
 
 	private void Request()
 	{
-		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
+        if (UserSessionHelper.Instance.PluScale.Plu.IsNew) return;
+        if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
 		{
 			if (MassaDevice.IsOpenPort)
 				GetMassa();
@@ -132,14 +134,14 @@ public class ManagerMassa : ManagerBase
 
 	private void Response()
 	{
-		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
+        if (UserSessionHelper.Instance.PluScale.Plu.IsNew ||
+            !UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
+        {
+            SetControlsTextDefault();
+        }
+        else
 		{
 			SetControlsText();
-		}
-		else
-		{
-			if (UserSessionHelper.Instance.PluScale.IsNew)
-				SetControlsTextDefault();
 		}
 	}
 

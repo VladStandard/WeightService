@@ -376,6 +376,10 @@
     <Compile Include="Gui\VisibilitySettingsModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\UserSessionHelper.cs" />
+    <Compile Include="Managers\ManagerBase.cs" />
+    <Compile Include="Managers\ManagerConfigModel.cs" />
+    <Compile Include="Managers\ManagerItemModel.cs" />
+    <Compile Include="Managers\TaskType.cs" />
     <Compile Include="Utils\ActionUtils.cs" />
     <Compile Include="Utils\ComboBoxExtensions.cs" />
     <Compile Include="Wpf\Helpers\XamlHelper.cs" />

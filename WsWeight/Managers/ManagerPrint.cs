@@ -1,12 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
-using DataCore.Managers;
-using DataCore.Protocols;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.Printers;
 using MDSoft.BarcodePrintUtils.Enums;
@@ -58,7 +55,7 @@ public class ManagerPrint : ManagerBase
     {
         try
         {
-            Init(TaskTypeEnum.MemoryManager,
+            Init(TaskType.TaskMemory,
                 () =>
                 {
                     PrintBrand = printBrand;
@@ -79,7 +76,7 @@ public class ManagerPrint : ManagerBase
                             break;
                     }
                 },
-                new(waitReopen: 1_000, waitRequest: 1_000, waitResponse: 0_500, waitClose: 0_500, waitException: 0_500,
+                new(waitReopen: 2_500, waitRequest: 1_000, waitResponse: 1_000, waitClose: 1_000, waitException: 1_000,
                     true, Application.DoEvents));
         }
         catch (Exception ex)
@@ -232,25 +229,25 @@ public class ManagerPrint : ManagerBase
         {
             if (ZebraStatus.printMode == ZplPrintMode.REWIND)
                 return LocaleCore.Print.ModeRewind;
-            else if (ZebraStatus.printMode == ZplPrintMode.PEEL_OFF)
+            if (ZebraStatus.printMode == ZplPrintMode.PEEL_OFF)
                 return LocaleCore.Print.ModePeelOff;
-            else if (ZebraStatus.printMode == ZplPrintMode.TEAR_OFF)
+            if (ZebraStatus.printMode == ZplPrintMode.TEAR_OFF)
                 return LocaleCore.Print.ModeTearOff;
-            else if (ZebraStatus.printMode == ZplPrintMode.CUTTER)
+            if (ZebraStatus.printMode == ZplPrintMode.CUTTER)
                 return LocaleCore.Print.ModeCutter;
-            else if (ZebraStatus.printMode == ZplPrintMode.APPLICATOR)
+            if (ZebraStatus.printMode == ZplPrintMode.APPLICATOR)
                 return LocaleCore.Print.ModeApplicator;
-            else if (ZebraStatus.printMode == ZplPrintMode.DELAYED_CUT)
+            if (ZebraStatus.printMode == ZplPrintMode.DELAYED_CUT)
                 return LocaleCore.Print.ModeDelayedCut;
-            else if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_PEEL)
+            if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_PEEL)
                 return LocaleCore.Print.ModeLinerlessPeel;
-            else if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_REWIND)
+            if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_REWIND)
                 return LocaleCore.Print.ModeLinerlessRewind;
-            else if (ZebraStatus.printMode == ZplPrintMode.PARTIAL_CUTTER)
+            if (ZebraStatus.printMode == ZplPrintMode.PARTIAL_CUTTER)
                 return LocaleCore.Print.ModePartialCutter;
-            else if (ZebraStatus.printMode == ZplPrintMode.RFID)
+            if (ZebraStatus.printMode == ZplPrintMode.RFID)
                 return LocaleCore.Print.ModeRfid;
-            else if (ZebraStatus.printMode == ZplPrintMode.KIOSK)
+            if (ZebraStatus.printMode == ZplPrintMode.KIOSK)
                 return LocaleCore.Print.ModeKiosk;
         }
         return LocaleCore.Print.ModeUnknown;
@@ -378,8 +375,6 @@ public class ManagerPrint : ManagerBase
                 break;
             case PrintBrand.TSC:
                 break;
-            default:
-                break;
         }
     }
 
@@ -397,12 +392,10 @@ public class ManagerPrint : ManagerBase
                 break;
             case PrintBrand.TSC:
                 break;
-            default:
-                break;
         }
     }
 
-    public WmiWin32PrinterEntity GetWin32Printer(string name)
+    private WmiWin32PrinterEntity GetWin32Printer(string name)
     {
         if (string.IsNullOrEmpty(name))
             return new(name, string.Empty, string.Empty, string.Empty, string.Empty, Win32PrinterStatusEnum.Error);

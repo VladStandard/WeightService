@@ -1,10 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Diagnostics;
 using System.Windows.Forms;
-using DataCore.Managers;
 using DataCore.Memory;
 using WsLocalization.Models;
 using WsWeight.Wpf.Utils;
@@ -38,7 +35,7 @@ public class ManagerMemory : ManagerBase
     {
         try
         {
-            Init(TaskTypeEnum.MemoryManager,
+            Init(TaskType.TaskMemory,
                 () =>
                 {
                     MemorySize = new();
@@ -48,7 +45,7 @@ public class ManagerMemory : ManagerBase
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocaleCore.Scales.Threads);
                 },
-                new(waitReopen: 1_000, waitRequest: 0_500, waitResponse: 0_500, waitClose: 0_500, waitException: 0_500,
+                new(waitReopen: 2_500, waitRequest: 0_500, waitResponse: 0_500, waitClose: 1_000, waitException: 1_000,
                     true, Application.DoEvents));
         }
         catch (Exception ex)

@@ -35,10 +35,10 @@ public class SerialPortController
         SerialPort = new();
         AdapterStatus = EnumUsbAdapterStatus.Default;
 
-        OpenCallback = (_, _) => { };
-        CloseCallback = (_, _) => { };
-        ResponseCallback = (_, _) => { };
-        ExceptionCallback = (_, _, _, _) => { };
+        //OpenCallback = (_, _) => { };
+        //CloseCallback = (_, _) => { };
+        //ResponseCallback = (_, _) => { };
+        //ExceptionCallback = (_, _, _, _) => { };
     }
 
     public SerialPortController(PortCallback openCallback, PortCallback closeCallback, PortCallback responseCallback, 
@@ -98,7 +98,7 @@ public class SerialPortController
 			SerialPort.BaudRate = Convert.ToInt32(baudRate);
 			SerialPort.DataBits = Convert.ToInt16(dataBits);
 
-			/**
+			/*
 			 *  If the Handshake property is set to None the DTR and RTS pins 
 			 *  are then freed up for the common use of Power, the PC on which
 			 *  this is being typed gives +10.99 volts on the DTR pin & +10.99
@@ -107,7 +107,7 @@ public class SerialPortController
 			 *  These values are between +3 to +25 and -3 to -25 volts this 
 			 *  give a dead zone to allow for noise immunity.
 			 *  http://www.codeproject.com/Articles/678025/Serial-Comms-in-Csharp-for-Beginners
-			 */
+			*/
 			if (handshake == "None")
 			{
 				// Never delete this property.

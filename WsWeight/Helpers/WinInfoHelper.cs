@@ -3,9 +3,7 @@
 
 // https://stackoverflow.com/questions/2819934/detect-windows-version-in-net
 
-using System;
 using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace WsWeight.Helpers;
 

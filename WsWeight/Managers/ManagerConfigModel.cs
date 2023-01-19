@@ -1,9 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Threading.Tasks;
-
-namespace DataCore.Managers;
+namespace WsWeight.Managers;
 
 public class ManagerConfigModel
 {
@@ -14,9 +12,9 @@ public class ManagerConfigModel
 	public ushort WaitReopen { get; }
 	public ushort WaitRequest { get; }
 	public ushort WaitResponse { get; }
-	public const ushort WaitSleep = 0_050;
-	public const ushort WaitLowLimit = 0_050;
-	public const ushort WaitHighLimit = 5_000;
+    public const ushort WaitSleep = 0_050;
+    public const ushort WaitLowLimit = 0_050;
+    public const ushort WaitHighLimit = 5_000;
 	public Stopwatch StopwatchReopen { get; }
 	public Stopwatch StopwatchRequest { get; }
 	public Stopwatch StopwatchResponse { get; }
