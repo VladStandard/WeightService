@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>enable</Nullable>
     <LangVersion>10.0</LangVersion>
-    <Version>0.8.180.0</Version>
+    <Version>0.8.190.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Quartz" Version="3.5.0" />
