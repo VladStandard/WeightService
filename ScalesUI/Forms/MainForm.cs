@@ -3,6 +3,7 @@
 
 using DataCore.Settings.Helpers;
 using Gma.System.MouseKeyHook;
+using MDSoft.BarcodePrintUtils.Enums;
 using ScalesUI.Controls;
 using WeightCore.Wpf;
 using WsWinForms.Enums;
@@ -455,9 +456,10 @@ public partial class MainForm : Form
         string printMode = isMain
             ? UserSession.ManagerControl.PrintMain.GetZebraPrintMode() :
             UserSession.ManagerControl.PrintShipping.GetZebraPrintMode();
+        PrintBrand printBrand = isMain ? UserSession.ManagerControl.PrintMain.PrintBrand : UserSession.ManagerControl.PrintShipping.PrintBrand;
         WmiWin32PrinterEntity wmiPrinter = managerPrint.TscWmiPrinter;
         return
-            $"{managerPrint.GetDeviceName(isMain)}" + Environment.NewLine +
+            $"{UserSession.WeighingSettings.GetPrintName(isMain, printBrand)}" + Environment.NewLine +
             $"{LocaleCore.Print.DeviceCommunication} ({managerPrint.Printer.Ip}): {managerPrint.Printer.PingStatus}" + Environment.NewLine +
             $"{LocaleCore.Print.PrinterStatus}: {managerPrint.GetDeviceStatus()}" + Environment.NewLine +
             Environment.NewLine +

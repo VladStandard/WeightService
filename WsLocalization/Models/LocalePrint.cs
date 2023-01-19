@@ -55,8 +55,8 @@ public class LocalePrint
     public string ModeTearOff => Lang == Lang.English ? "Tear-Off" : "Отрывание";
     public string ModeUnknown => Lang == Lang.English ? "Unknown" : "Неизвестный";
     public string Name => Lang == Lang.English ? "Printer" : "Принтер";
-    public string NameMain => Lang == Lang.English ? "Main printer" : "Основной принтер";
-    public string NameMainTsc => Lang == Lang.English ? "Main printer TSC" : "Основной принтер ТСК";
+    public string NameMain => Lang == Lang.English ? "Printer" : "Принтер";
+    public string NameMainTsc => Lang == Lang.English ? "Printer TSC" : "Принтер ТСК";
     public string NameMainTscShort => Lang == Lang.English ? "TSC" : "ТСК";
     public string NameMainZebra => Lang == Lang.English ? "Main printer Zebra" : "Основной принтер Зебра";
     public string NameMainZebraShort => Lang == Lang.English ? "Zebra" : "Зебра";

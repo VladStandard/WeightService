@@ -49,6 +49,7 @@ public class LocaleTable
     public string ContragentId => Lang == Lang.English ? "Contragent ID" : "ИД контрагента";
     public string Count => Lang == Lang.English ? "Count" : "Кол-во";
     public string Counter => Lang == Lang.English ? "Counter" : "Счётчик";
+    public string LabelCounter => Lang == Lang.English ? "Label counter" : "Счётчик этикеток";
     public string CreateDt => Lang == Lang.English ? "Created" : "Создано";
     public string Date => Lang == Lang.English ? "Date" : "Дата";
     public string DayOfWeek => Lang == Lang.English ? "Weekday" : "День недели";
@@ -179,6 +180,7 @@ public class LocaleTable
     public string ShelfLifeDaysShort => Lang == Lang.English ? "Life" : "Срок";
     public string Sscc => Lang == Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
     public string State => Lang == Lang.English ? "Status" : "Статус";
+    public string Status => Lang == Lang.English ? "Status" : "Статус";
     public string Storage => Lang == Lang.English ? "Storage" : "Склад";
     public string TableCalc => Lang == Lang.English ? "Calc" : "Расчитать";
     public string TableCancel => Lang == Lang.English ? "Close record" : "Закрыть запись";

@@ -112,8 +112,8 @@ public class UserSessionHelper : BaseViewModel
             _pluScale = value;
             if (value.IsNotNew)
                 DataAccess.LogInformationFast($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
-            ManagerControl.PrintMain.LabelsCount = 1;
-            ManagerControl.PrintShipping.LabelsCount = 1;
+            ManagerControl.PrintMain.LabelPrintedCount = 1;
+            ManagerControl.PrintShipping.LabelPrintedCount = 1;
             SetPluNestingFks(value.Plu);
             OnPropertyChanged();
         }
@@ -351,7 +351,7 @@ public class UserSessionHelper : BaseViewModel
 
     public void NewPallet()
     {
-        ManagerControl.PrintMain.LabelsCount = 1;
+        ManagerControl.PrintMain.LabelPrintedCount = 1;
         ProductSeries.Load();
     }
 
@@ -665,7 +665,7 @@ public class UserSessionHelper : BaseViewModel
         // Шаблон без указания кол-ва.
         else
         {
-            for (int i = ManagerControl.PrintMain.LabelsCount; i <= WeighingSettings.LabelsCountMain; i++)
+            for (int i = ManagerControl.PrintMain.LabelPrintedCount; i <= WeighingSettings.LabelsCountMain; i++)
             {
                 // Печать этикетки.
                 PrintLabelCore(template, isClearBuffer);

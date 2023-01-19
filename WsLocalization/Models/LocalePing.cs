@@ -18,8 +18,8 @@ public class LocalePing
 
     #region Public and private fields, properties, constructor
 
-    public string StatusUnknown => Lang == Lang.English ? "Unknown" : "Непонятно";
-    public string StatusSuccess => Lang == Lang.English ? "Success" : "Успешно";
+    public string StatusUnknown => Lang == Lang.English ? "Unknown" : "Нет данных";
+    public string StatusSuccess => Lang == Lang.English ? "Success access" : "Успешный доступ";
     public string StatusDestinationNetworkUnreachable => Lang == Lang.English ? "Destination network unreachable" : "Сеть назначения недоступна";
     public string StatusDestinationHostUnreachable => Lang == Lang.English ? "Destination host unreachable" : "Хост назначения недоступен";
     public string StatusDestinationProtocolUnreachable => Lang == Lang.English ? "Destination protocol unreachable" : "Протокол назначения недоступен";
