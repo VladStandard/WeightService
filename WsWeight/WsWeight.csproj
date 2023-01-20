@@ -376,14 +376,9 @@
     <Compile Include="Gui\VisibilitySettingsModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\UserSessionHelper.cs" />
-    <Compile Include="Managers\ManagerBase.cs" />
-    <Compile Include="Managers\ManagerConfigModel.cs" />
-    <Compile Include="Managers\ManagerItemModel.cs" />
-    <Compile Include="Managers\TaskType.cs" />
     <Compile Include="Utils\ActionUtils.cs" />
     <Compile Include="Utils\ComboBoxExtensions.cs" />
     <Compile Include="Wpf\Helpers\XamlHelper.cs" />
-    <Compile Include="Managers\ManagerLabels.cs" />
     <Compile Include="Gui\NumberInputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -402,10 +397,6 @@
     <Compile Include="Helpers\RegHelper.cs" />
     <Compile Include="Helpers\UacHelper.cs" />
     <Compile Include="Helpers\WinInfoHelper.cs" />
-    <Compile Include="Managers\ManagerPrint.cs" />
-    <Compile Include="Managers\ManagerMassa.cs" />
-    <Compile Include="Managers\ManagerMemory.cs" />
-    <Compile Include="Managers\ManagerControllerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -506,7 +497,9 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PluginManagment\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj">
       <Project>{2a3af48b-dc5b-4359-b056-3605631440f5}</Project>
@@ -523,6 +516,10 @@
     <ProjectReference Include="..\WsMassa\WsMassa.csproj">
       <Project>{b16ecc51-2ef8-49e6-b77e-b8cc065550a4}</Project>
       <Name>WsMassa</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsPluginManagment\WsPluginManagment.csproj">
+      <Project>{2350a1f2-99d3-430c-9fdc-243287602967}</Project>
+      <Name>WsPluginManagment</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

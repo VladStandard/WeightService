@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WsMassa")]
+[assembly: AssemblyTitle("WsPluginManagment")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Владимирский стандарт")]
-[assembly: AssemblyProduct("WsMassa")]
+[assembly: AssemblyProduct("WsPluginManagment")]
 [assembly: AssemblyCopyright("Copyright © Владимирский стандарт 2020 - 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b16ecc51-2ef8-49e6-b77e-b8cc065550a4")]
+[assembly: Guid("2350a1f2-99d3-430c-9fdc-243287602967")]
 
 // Version information for an assembly consists of the following four values:
 //
