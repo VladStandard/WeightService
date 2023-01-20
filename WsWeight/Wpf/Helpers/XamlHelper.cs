@@ -1,10 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.IO;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace WsWeight.Wpf.Helpers;
@@ -70,9 +68,9 @@ public class XamlHelper
     /// </summary>
     /// <param name="canvas"></param>
     /// <returns></returns>
-    public Canvas GetCanvasCopy(Canvas canvas)
+    public System.Windows.Controls.Canvas GetCanvasCopy(System.Windows.Controls.Canvas canvas)
     {
-        Canvas result = new()
+        System.Windows.Controls.Canvas result = new()
         {
             Width = canvas.ActualWidth,
             Height = canvas.ActualHeight,
@@ -87,63 +85,63 @@ public class XamlHelper
         return result;
     }
 
-    /// <summary>
-    /// Печать.
-    /// </summary>
-    /// <param name="canvas"></param>
-    /// <param name="description"></param>
-    public void Print(Canvas canvas, string description)
-    {
-        if (canvas is null)
-        {
-            MessageBox.Show("Не заполнена область печати!");
-            return;
-        }
-        if (canvas.Width < 100 || canvas.Height < 100)
-        {
-            MessageBox.Show("Область печати имеет недопустимый размер!");
-            return;
-        }
+    ///// <summary>
+    ///// Печать.
+    ///// </summary>
+    ///// <param name="canvas"></param>
+    ///// <param name="description"></param>
+    //public void Print(System.Windows.Controls.Canvas canvas, string description)
+    //{
+    //    if (canvas is null)
+    //    {
+    //        MessageBox.Show("Не заполнена область печати!");
+    //        return;
+    //    }
+    //    if (canvas.Width < 100 || canvas.Height < 100)
+    //    {
+    //        MessageBox.Show("Область печати имеет недопустимый размер!");
+    //        return;
+    //    }
 
-        //var children = canvas.Children.Cast<UIElement>().ToArray();
-        Canvas canvasPrint = GetCanvasCopy(canvas);
+    //    //var children = canvas.Children.Cast<UIElement>().ToArray();
+    //    System.Windows.Controls.Canvas canvasPrint = GetCanvasCopy(canvas);
 
-        // Получить PrintTicket по умолчанию с принтера.
-        System.Printing.LocalPrintServer localPrintServer = new();
-        // Получение коллекции локального принтера на компьютере пользователя.
-        System.Printing.PrintQueueCollection localPrinterCollection = localPrintServer.GetPrintQueues();
-        System.Collections.IEnumerator localPrinterEnumerator = localPrinterCollection.GetEnumerator();
-        if (localPrinterEnumerator.MoveNext())
-        {
-            // Получить PrintQueue с первого доступного принтера.
-            System.Printing.PrintQueue printQueue = (System.Printing.PrintQueue)localPrinterEnumerator.Current;
-            // Получить PrintTicket по умолчанию с принтера.
-            if (printQueue is not null)
-            {
-                System.Printing.PrintTicket printTicket = printQueue.DefaultPrintTicket;
-                System.Printing.PageMediaSize pageMediaSize = new(canvasPrint.Width, canvasPrint.Height);
-                printTicket.PageMediaSize = pageMediaSize;
-                //printTicket.PageMediaType = System.Printing.PageMediaType.Unknown;
-                //var printCapabilites = printQueue.GetPrintCapabilities();
-                // Modify PrintTicket
-                //if (printCapabilites.CollationCapability.Contains(System.Printing.Collation.Collated))
-                //    printTicket.Collation = System.Printing.Collation.Collated;
-                //if (printCapabilites.DuplexingCapability.Contains(System.Printing.Duplexing.TwoSidedLongEdge))
-                //    printTicket.Duplexing = System.Printing.Duplexing.TwoSidedLongEdge;
-                //if (printCapabilites.StaplingCapability.Contains(System.Printing.Stapling.StapleDualLeft))
-                //    printTicket.Stapling = System.Printing.Stapling.StapleDualLeft;
-                PrintDialog printDialog = new()
-                {
-                    //PrintQueue = printQueue,
-                    PrintTicket = printTicket,
-                };
-                printDialog.PrintQueue.Commit();
-                bool? result = printDialog.ShowDialog();
-                if (result == true)
-                {
-                    printDialog.PrintVisual(canvasPrint, description);
-                }
-            }
-        }
-    }
+    //    // Получить PrintTicket по умолчанию с принтера.
+    //    System.Printing.LocalPrintServer localPrintServer = new();
+    //    // Получение коллекции локального принтера на компьютере пользователя.
+    //    System.Printing.PrintQueueCollection localPrinterCollection = localPrintServer.GetPrintQueues();
+    //    System.Collections.IEnumerator localPrinterEnumerator = localPrinterCollection.GetEnumerator();
+    //    if (localPrinterEnumerator.MoveNext())
+    //    {
+    //        // Получить PrintQueue с первого доступного принтера.
+    //        System.Printing.PrintQueue printQueue = (System.Printing.PrintQueue)localPrinterEnumerator.Current;
+    //        // Получить PrintTicket по умолчанию с принтера.
+    //        if (printQueue is not null)
+    //        {
+    //            System.Printing.PrintTicket printTicket = printQueue.DefaultPrintTicket;
+    //            System.Printing.PageMediaSize pageMediaSize = new(canvasPrint.Width, canvasPrint.Height);
+    //            printTicket.PageMediaSize = pageMediaSize;
+    //            //printTicket.PageMediaType = System.Printing.PageMediaType.Unknown;
+    //            //var printCapabilites = printQueue.GetPrintCapabilities();
+    //            // Modify PrintTicket
+    //            //if (printCapabilites.CollationCapability.Contains(System.Printing.Collation.Collated))
+    //            //    printTicket.Collation = System.Printing.Collation.Collated;
+    //            //if (printCapabilites.DuplexingCapability.Contains(System.Printing.Duplexing.TwoSidedLongEdge))
+    //            //    printTicket.Duplexing = System.Printing.Duplexing.TwoSidedLongEdge;
+    //            //if (printCapabilites.StaplingCapability.Contains(System.Printing.Stapling.StapleDualLeft))
+    //            //    printTicket.Stapling = System.Printing.Stapling.StapleDualLeft;
+    //            PrintDialog printDialog = new()
+    //            {
+    //                //PrintQueue = printQueue,
+    //                PrintTicket = printTicket,
+    //            };
+    //            printDialog.PrintQueue.Commit();
+    //            bool? result = System.Windows.printDialog.ShowDialog();
+    //            if (result == true)
+    //            {
+    //                printDialog.PrintVisual(canvasPrint, description);
+    //            }
+    //        }
+    //    }
+    //}
 }

@@ -19,7 +19,7 @@ public partial class WaitUserControl : UserControlBase
 
     private void WaitUserControl_Refresh()
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             labelMessage.Text = Message;
         });

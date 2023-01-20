@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>10.0</LangVersion>
     <PublishUrl>\\palych\Install\VSSoft\Scales-2-Preview\</PublishUrl>
@@ -605,6 +606,10 @@
       <Project>{b16ecc51-2ef8-49e6-b77e-b8cc065550a4}</Project>
       <Name>WsMassa</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WsPluginManagment\WsPluginManagment.csproj">
+      <Project>{2350a1f2-99d3-430c-9fdc-243287602967}</Project>
+      <Name>WsPluginManagment</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WsSchedule\WsSchedule.csproj">
       <Project>{d1197800-5cd2-4ee1-bf86-71a87b384ecf}</Project>
       <Name>WsSchedule</Name>
@@ -648,8 +653,10 @@
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>

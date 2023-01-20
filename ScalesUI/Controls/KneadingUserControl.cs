@@ -29,7 +29,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void KneadingUserControl_Refresh()
     {
-        ActionUtils.ActionTryCatchFinally(this, () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
         {
             if (!UserSession.PluScale.IdentityValueUid.Equals(PreviousPluScaleUid))
             {
@@ -50,7 +50,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void ButtonKneadingLeft_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             NumberInputForm numberInputForm = new() { InputValue = 0 };
             DialogResult result = numberInputForm.ShowDialog(this);
@@ -64,7 +64,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void ButtonClose_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             CheckWeightCount();
             Result = DialogResult.Cancel;
@@ -89,7 +89,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void ButtonOk_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             CheckWeightCount();
             Result = DialogResult.OK;
@@ -99,7 +99,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void ButtonDtRight_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             UserSession.RotateProductDate(DirectionEnum.Right);
             RefreshControlsText();
@@ -108,7 +108,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void ButtonDtLeft_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             UserSession.RotateProductDate(DirectionEnum.Left);
             RefreshControlsText();
@@ -122,7 +122,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             UserSession.WeighingSettings.LabelsCountMain++;
             ShowPalletSize();
@@ -131,7 +131,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void ButtonPalletSizePrev_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             UserSession.WeighingSettings.LabelsCountMain--;
             ShowPalletSize();
@@ -145,7 +145,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void ButtonPalletSizeSet10_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             int n = UserSession.WeighingSettings.LabelsCountMain == 1 ? 9 : 10;
             for (int i = 0; i < n; i++)
@@ -173,7 +173,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void SetLabelsCount(byte count)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             UserSession.WeighingSettings.LabelsCountMain = count;
             ShowPalletSize();
@@ -182,7 +182,7 @@ public partial class KneadingUserControl : UserControlBase
 
     private void KneadingUserControl_KeyUp(object sender, KeyEventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             if (e.KeyCode == Keys.Escape)
             {

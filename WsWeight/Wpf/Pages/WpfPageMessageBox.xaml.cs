@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WsWeight.Gui;
+using Button = System.Windows.Controls.Button;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace WsWeight.Wpf.Pages;
 
@@ -145,7 +147,7 @@ public partial class WpfPageMessageBox
 				Background = System.Windows.Media.Brushes.Transparent,
 				TextAlignment = TextAlignment.Center,
 				VerticalAlignment = VerticalAlignment.Center,
-				HorizontalAlignment = HorizontalAlignment.Center,
+				HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
 			};
 			System.Windows.Data.Binding binding = new("Caption") { Mode = System.Windows.Data.BindingMode.OneWay, IsAsync = true, Source = MessageBox };
 			System.Windows.Data.BindingOperations.SetBinding(field, TextBlock.TextProperty, binding);
@@ -174,7 +176,7 @@ public partial class WpfPageMessageBox
 				Background = System.Windows.Media.Brushes.Transparent,
 				TextAlignment = TextAlignment.Center,
 				VerticalAlignment = VerticalAlignment.Center,
-				HorizontalAlignment = HorizontalAlignment.Center,
+				HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
 			};
 			System.Windows.Data.Binding binding = new("Message") { Mode = System.Windows.Data.BindingMode.OneWay, IsAsync = true, Source = MessageBox };
 			System.Windows.Data.BindingOperations.SetBinding(field, TextBlock.TextProperty, binding);

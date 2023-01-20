@@ -3,7 +3,7 @@
 
 namespace WsMassa.Helpers;
 
-public class MassaDeviceHelper : DisposableBase, IDisposableBase
+public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
 {
 	#region Design pattern "Lazy Singleton"
 
@@ -35,13 +35,12 @@ public class MassaDeviceHelper : DisposableBase, IDisposableBase
     {
         PortName = string.Empty;
         PortController = new();
-		_massaResponseCallback = (_) => { };
+		_massaResponseCallback = _ => { };
     }
 
     public void Init(string portName, short? readTimeout, short? writeTimeout, MassaResponseCallback massaCallback)
 	{
-		Init(Close, ReleaseManaged, ReleaseUnmanaged);
-
+		base.Init();
 		PortName = portName;
 		ReadTimeout = readTimeout ?? 0_100;
 		WriteTimeout = writeTimeout ?? 0_100;
@@ -94,7 +93,6 @@ public class MassaDeviceHelper : DisposableBase, IDisposableBase
 		lock (_locker)
 		{
 			IsResponseResult = true;
-			CheckIsDisposed();
 			ReceiveBytesCount += e.ReceivedBytes.Length;
 			_massaResponseCallback(e.ReceivedBytes);
 		}
@@ -111,40 +109,23 @@ public class MassaDeviceHelper : DisposableBase, IDisposableBase
 
 	#region Public and private methods
 
-	public new void Open()
+    public override void Execute()
 	{
-		base.Open();
-		//if (IsOpen) return;
+		base.Execute();
 		if (IsOpenPort) return;
-
 		PortController.Open(PortName, ReadTimeout, WriteTimeout);
 	}
 
 	public void SendData()
 	{
-		CheckIsDisposed();
 		PortController.Send(MassaExchangeHelper.Instance.Request);
 		SendBytesCount += MassaExchangeHelper.Instance.Request.Length;
 	}
 
-	public new void Close()
+    public override void Close()
 	{
 		base.Close();
-
-		//if (!IsOpen) return;
-		CheckIsDisposed();
-
 		PortController.Close();
-	}
-
-	public void ReleaseManaged()
-	{
-		Close();
-	}
-
-	public void ReleaseUnmanaged()
-	{
-		//
 	}
 
 	#endregion

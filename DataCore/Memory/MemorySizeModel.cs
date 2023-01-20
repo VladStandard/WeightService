@@ -6,82 +6,70 @@ using DataCore.Wmi;
 
 namespace DataCore.Memory;
 
-public class MemorySizeModel : DisposableBase, IDisposableBase
+public class MemorySizeModel : HelperBase//DisposableBase, IDisposableBase
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	public MemorySizeConvertModel? VirtualCurrent { get; private set; }
-	public MemorySizeConvertModel? PhysicalCurrent { get; private set; }
-	public MemorySizeConvertModel? VirtualFree { get; private set; }
-	public MemorySizeConvertModel? PhysicalFree { get; private set; }
-	public MemorySizeConvertModel? VirtualTotal { get; private set; }
-	public MemorySizeConvertModel? PhysicalTotal { get; private set; }
-	public MemorySizeConvertModel VirtualAllocated =>
-		new(VirtualTotal is not null && VirtualFree is not null ? VirtualTotal.Bytes - VirtualFree.Bytes : 0);
-	public MemorySizeConvertModel PhysicalAllocated =>
-		new(PhysicalTotal is not null && PhysicalFree is not null ? PhysicalTotal.Bytes - PhysicalFree.Bytes : 0);
-	private WmiHelper? Wmi { get; set; } = WmiHelper.Instance;
+    public MemorySizeConvertModel? VirtualCurrent { get; private set; }
+    public MemorySizeConvertModel? PhysicalCurrent { get; private set; }
+    public MemorySizeConvertModel? VirtualFree { get; private set; }
+    public MemorySizeConvertModel? PhysicalFree { get; private set; }
+    public MemorySizeConvertModel? VirtualTotal { get; private set; }
+    public MemorySizeConvertModel? PhysicalTotal { get; private set; }
+    public MemorySizeConvertModel VirtualAllocated =>
+        new(VirtualTotal is not null && VirtualFree is not null ? VirtualTotal.Bytes - VirtualFree.Bytes : 0);
+    public MemorySizeConvertModel PhysicalAllocated =>
+        new(PhysicalTotal is not null && PhysicalFree is not null ? PhysicalTotal.Bytes - PhysicalFree.Bytes : 0);
+    private WmiHelper? Wmi { get; set; } = WmiHelper.Instance;
 
-	#endregion
+    #endregion
 
-	#region Constructor and destructor
+    #region Constructor and destructor
 
-	public MemorySizeModel() : base()
-	{
-		Init(Close, ReleaseManaged, ReleaseUnmanaged);
+    public MemorySizeModel() : base()
+    {
+        PhysicalCurrent = new();
+        VirtualCurrent = new();
+        VirtualFree = new();
+        VirtualTotal = new();
+        PhysicalFree = new();
+        PhysicalTotal = new();
+    }
 
-		PhysicalCurrent = new();
-		VirtualCurrent = new();
-		VirtualFree = new();
-		VirtualTotal = new();
-		PhysicalFree = new();
-		PhysicalTotal = new();
-	}
+    #endregion
 
-	#endregion
+    #region Public and private methods
 
-	#region Public and private methods
+    public override void Execute()
+    {
+        base.Execute();
 
-	public new void Open()
-	{
-		base.Open();
-		CheckIsDisposed();
+        if (PhysicalCurrent is not null)
+            PhysicalCurrent.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
+        if (VirtualCurrent is not null)
+            VirtualCurrent.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
 
-		if (PhysicalCurrent is not null)
-			PhysicalCurrent.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
-		if (VirtualCurrent is not null)
-			VirtualCurrent.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
+        if (Wmi is not null)
+        {
+            WmiWin32MemoryModel getWmi = Wmi.GetWin32OperatingSystemMemory();
+            VirtualFree = new() { Bytes = getWmi.FreeVirtual };
+            PhysicalFree = new() { Bytes = getWmi.FreePhysical };
+            VirtualTotal = new() { Bytes = getWmi.TotalVirtual };
+            PhysicalTotal = new() { Bytes = getWmi.TotalPhysical };
+        }
+    }
 
-		if (Wmi is not null)
-		{
-			WmiWin32MemoryModel getWmi = Wmi.GetWin32OperatingSystemMemory();
-			VirtualFree = new() { Bytes = getWmi.FreeVirtual };
-			PhysicalFree = new() { Bytes = getWmi.FreePhysical };
-			VirtualTotal = new() { Bytes = getWmi.TotalVirtual };
-			PhysicalTotal = new() { Bytes = getWmi.TotalPhysical };
-		}
-	}
+    public override void Close()
+    {
+        base.Close();
+        VirtualCurrent = null;
+        PhysicalCurrent = null;
+        VirtualFree = null;
+        PhysicalFree = null;
+        VirtualTotal = null;
+        PhysicalTotal = null;
+        Wmi = null;
+    }
 
-	public new void Close()
-	{
-		base.Close();
-	}
-
-	public void ReleaseManaged()
-	{
-		VirtualCurrent = null;
-		PhysicalCurrent = null;
-		VirtualFree = null;
-		PhysicalFree = null;
-		VirtualTotal = null;
-		PhysicalTotal = null;
-		Wmi = null;
-	}
-
-	public void ReleaseUnmanaged()
-	{
-		//
-	}
-
-	#endregion
+    #endregion
 }

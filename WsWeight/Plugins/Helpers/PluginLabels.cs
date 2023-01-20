@@ -1,17 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Drawing;
-using System.Windows.Forms;
-using DataCore.Enums;
-using DataCore.Settings.Helpers;
-using WsLocalization.Models;
-using WsWeight.Helpers;
-using WsWeight.Wpf.Utils;
+using WsWeight.WinForms.Utils;
 
-namespace WsWeight.Managers;
+namespace WsWeight.Plugins.Helpers;
 
-public class ManagerLabels : ManagerBase
+public class PluginLabels : PluginHelperBase
 {
     #region Public and private fields and properties
 
@@ -29,87 +23,75 @@ public class ManagerLabels : ManagerBase
     private Label FieldProductDate { get; set; }
     private Label FieldSscc { get; set; }
     private Label FieldTitle { get; set; }
-    private Label FieldPrintMainManager { get; set; }
-    private Label FieldPrintShippingManager { get; set; }
-    private Label FieldMassaManager { get; set; }
-    private DebugHelper Debug { get; } = DebugHelper.Instance;
+    private Label FieldPrintMain { get; set; }
+    private Label FieldPrintShipping { get; set; }
+    private Label FieldMassa { get; set; }
+    private PluginManagerHelper Plugin => PluginManagerHelper.Instance;
+    private DebugHelper Debug => DebugHelper.Instance;
 
     #endregion
 
     #region Constructor and destructor
 
-    public ManagerLabels() : base()
+    public PluginLabels()
     {
-        Init(Close, ReleaseManaged, ReleaseUnmanaged);
+        TskType = TaskType.TaskLabel;
     }
 
     #endregion
 
     #region Public and private methods
 
-    public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label fieldProductDate,
+    public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
+        Label fieldTitle, Label fieldPlu, Label fieldSscc, Label fieldProductDate,
         Label fieldKneading, Button buttonDevice, Button buttonPackage, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonPlu,
         Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, 
         Label fieldPrintMainManager, Label fieldPrintShippingManager, Label fieldMassaManager)
     {
-        try
-        {
-            Init(TaskType.TaskLabel,
-                () =>
-                {
-                    FieldTitle = fieldTitle;
-                    FieldPlu = fieldPlu;
-                    FieldSscc = fieldSscc;
-                    FieldProductDate = fieldProductDate;
-                    FieldKneading = fieldKneading;
-                    ButtonDevice = buttonDevice;
-                    ButtonPackage = buttonPackage;
-                    ButtonKneading = buttonKneading;
-                    ButtonMore = buttonMore;
-                    ButtonNewPallet = buttonNewPallet;
-                    ButtonPlu = buttonPlu;
-                    ButtonPrint = buttonPrint;
-                    ButtonScalesInit = buttonScalesInit;
-                    ButtonScalesTerminal = buttonScalesTerminal;
-                    FieldPrintMainManager = fieldPrintMainManager;
-                    FieldPrintShippingManager = fieldPrintShippingManager;
-                    FieldMassaManager = fieldMassaManager;
-
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMainManager, LocaleCore.Print.PrintManager);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintShippingManager, LocaleCore.Print.PrintManager);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager, LocaleCore.Scales.MassaManager);
-                },
-                new(waitReopen: 0_250, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_250, waitException: 0_250));
-        }
-        catch (Exception ex)
-        {
-            WpfUtils.CatchException(ex);
-        }
+        base.Init();
+        ReopenItem.Config = configReopen;
+        RequestItem.Config = configRequest;
+        ResponseItem.Config = configResponse;
+        ActionUtils.ActionTryCatch(() => {
+            FieldTitle = fieldTitle;
+            FieldPlu = fieldPlu;
+            FieldSscc = fieldSscc;
+            FieldProductDate = fieldProductDate;
+            FieldKneading = fieldKneading;
+            ButtonDevice = buttonDevice;
+            ButtonPackage = buttonPackage;
+            ButtonKneading = buttonKneading;
+            ButtonMore = buttonMore;
+            ButtonNewPallet = buttonNewPallet;
+            ButtonPlu = buttonPlu;
+            ButtonPrint = buttonPrint;
+            ButtonScalesInit = buttonScalesInit;
+            ButtonScalesTerminal = buttonScalesTerminal;
+            FieldPrintMain = fieldPrintMainManager;
+            FieldPrintShipping = fieldPrintShippingManager;
+            FieldMassa = fieldMassaManager;
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMain, LocaleCore.Print.PrintManager);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintShipping, LocaleCore.Print.PrintManager);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa, LocaleCore.Scales.MassaManager);
+        });
     }
 
-    public new void Open()
+    public override void Execute()
     {
-        try
+        base.Execute();
+        ReopenItem.ExecuteInfinity(OpenTitle);
+        RequestItem.ExecuteInfinity(() =>
         {
-            Open(OpenTitle,
-                () =>
-                {
-                    RequestProductDate();
-                    RequestPlu();
-                    RequestKneading();
-                    RequestMassaDevice();
-                },
-                null);
-        }
-        catch (Exception ex)
-        {
-            WpfUtils.CatchException(ex);
-        }
+            RequestProductDate();
+            RequestPlu();
+            RequestKneading();
+            RequestMassaDevice();
+        });
     }
 
     private void OpenTitle()
@@ -158,44 +140,24 @@ public class ManagerLabels : ManagerBase
     private void RequestMassaDevice()
     {
         // FieldPrintManager.
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMainManager,
-            $"{ManagerControllerHelper.Instance.PrintMain.ReopenCount} | " +
-            $"{ManagerControllerHelper.Instance.PrintMain.RequestCount} | " +
-            $"{ManagerControllerHelper.Instance.PrintMain.ResponseCount}"
-        );
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMain,
+            $"{Plugin.PrintMain.ReopenCounter} | {Plugin.PrintMain.RequestCounter} | {Plugin.PrintMain.ResponseCounter}");
         if (UserSessionHelper.Instance.Scale.IsShipping)
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMainManager,
-                $"{ManagerControllerHelper.Instance.PrintMain.ReopenCount} | " +
-                $"{ManagerControllerHelper.Instance.PrintMain.RequestCount} | " +
-                $"{ManagerControllerHelper.Instance.PrintMain.ResponseCount}"
-            );
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMain,
+                $"{Plugin.PrintShipping.ReopenCounter} | {Plugin.PrintShipping.RequestCounter} | {Plugin.PrintShipping.ResponseCounter}");
 
         // FieldMassaManager.
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager,
-            $"{ManagerControllerHelper.Instance.Massa.ReopenCount} | " +
-            $"{ManagerControllerHelper.Instance.Massa.RequestCount} | " +
-            $"{ManagerControllerHelper.Instance.Massa.ResponseCount}"
-        );
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa,
+            $"{Plugin.Massa.ReopenCounter} | {Plugin.Massa.RequestCounter} | {Plugin.Massa.ReopenCounter}");
     }
 
-    public new void Close()
+    public override void Close()
     {
         base.Close();
-    }
-
-    public new void ReleaseManaged()
-    {
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, false);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, false);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, false);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, false);
-
-        base.ReleaseManaged();
-    }
-
-    public new void ReleaseUnmanaged()
-    {
-        base.ReleaseUnmanaged();
     }
 
     public void SetControlsVisible()
@@ -228,13 +190,13 @@ public class ManagerLabels : ManagerBase
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScalesInit, true);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScalesTerminal, true);
 
-        if (Debug.IsDebug && !FieldPrintMainManager.Visible)
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintMainManager, true);
+        if (Debug.IsDebug && !FieldPrintMain.Visible)
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintMain, true);
         if (UserSessionHelper.Instance.Scale.IsShipping)
-            if (Debug.IsDebug && !FieldPrintShippingManager.Visible)
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintShippingManager, true);
-        if (Debug.IsDebug && !FieldMassaManager.Visible)
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaManager, true);
+            if (Debug.IsDebug && !FieldPrintShipping.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintShipping, true);
+        if (Debug.IsDebug && !FieldMassa.Visible)
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassa, true);
     }
 
     #endregion

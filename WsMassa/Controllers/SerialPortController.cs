@@ -28,17 +28,16 @@ public class SerialPortController
     private PortExceptionCallback ExceptionCallback { get; }
 	private readonly object _locker = new();
 	public EnumUsbAdapterStatus AdapterStatus { get; private set; }
-	public Exception? CatchException { get; private set; }
+	public Exception CatchException { get; private set; }
 
     public SerialPortController()
     {
         SerialPort = new();
         AdapterStatus = EnumUsbAdapterStatus.Default;
-
-        //OpenCallback = (_, _) => { };
-        //CloseCallback = (_, _) => { };
-        //ResponseCallback = (_, _) => { };
-        //ExceptionCallback = (_, _, _, _) => { };
+        OpenCallback = (_, _) => { };
+        CloseCallback = (_, _) => { };
+        ResponseCallback = (_, _) => { };
+        ExceptionCallback = (_, _, _, _) => { };
     }
 
     public SerialPortController(PortCallback openCallback, PortCallback closeCallback, PortCallback responseCallback, 

@@ -5,7 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
-using WsWeight.Helpers;
+using ComboBox = System.Windows.Controls.ComboBox;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace WsWeight.Wpf.Pages;
 #nullable enable

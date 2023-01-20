@@ -46,7 +46,7 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
         Memory.Close();
         Memory = new();
         //Memory.OpenAsync(callRefreshAsync);
-        Memory.MemorySize.Open();
+        Memory.MemorySize.Execute();
     }
 
     #endregion

@@ -1,22 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Windows.Forms;
-using WsLocalization.Models;
-using WsMassa.Controllers;
-using WsMassa.Enums;
-using WsMassa.Helpers;
-using WsMassa.Models;
-using WsWeight.Helpers;
-using WsWeight.Wpf.Utils;
+using WsWeight.WinForms.Utils;
 
-namespace WsWeight.Managers;
+namespace WsWeight.Plugins.Helpers;
 
-public class ManagerMassa : ManagerBase
+public class PluginMassa : PluginHelperBase
 {
 	#region Public and private fields and properties
 
-	private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
+	private MassaRequestHelper MassaRequest => MassaRequestHelper.Instance;
     private MassaExchangeHelper MassaExchange => MassaExchangeHelper.Instance;
 	public MassaDeviceHelper MassaDevice => MassaDeviceHelper.Instance;
 	private Label FieldMassaGet { get; set; }
@@ -43,64 +36,53 @@ public class ManagerMassa : ManagerBase
     /// <summary>
     /// Default constructor.
     /// </summary>
-    public ManagerMassa() : base()
+    public PluginMassa()
     {
+        TskType = TaskType.TaskMassa;
         FieldMassaGet = new();
         FieldNettoWeight = new();
         ResponseParseScalePar = new();
         ResponseParseGet = new();
         ResponseParseSet = new();
-		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 	}
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	public void Init(Label fieldNettoWeight, Label fieldMassaGet)
+    public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
+        Label fieldNettoWeight, Label fieldMassaGet)
 	{
-		try
-		{
-			Init(TaskType.TaskMassa,
-				() =>
-				{
-					if (UserSessionHelper.Instance.Scale.IsNotNew)
-					{
-						MassaDevice.Init(UserSessionHelper.Instance.Scale.DeviceComPort,
-							UserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
-							UserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
-					}
-					FieldMassaGet = fieldMassaGet;
-					FieldNettoWeight = fieldNettoWeight;
-
-					SetControlsTextDefault();
-				},
-                new(waitReopen: 0_250, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_250, waitException: 0_250));
-        }
-		catch (Exception ex)
-		{
-			WpfUtils.CatchException(ex);
-		}
+		base.Init();
+        ReopenItem.Config = configReopen;
+        RequestItem.Config = configRequest;
+        ResponseItem.Config = configResponse;
+        ActionUtils.ActionTryCatch(() => {
+			if (UserSessionHelper.Instance.Scale.IsNotNew)
+			{
+				MassaDevice.Init(UserSessionHelper.Instance.Scale.DeviceComPort,
+					UserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
+					UserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
+			}
+			FieldMassaGet = fieldMassaGet;
+			FieldNettoWeight = fieldNettoWeight;
+			SetControlsTextDefault();
+        });
 	}
 
-	public new void Open()
+    public override void Execute()
     {
-        base.Open();
-		try
-		{
-			Open(Reopen, Request, Response);
-		}
-		catch (Exception ex)
-		{
-			WpfUtils.CatchException(ex);
-		}
+        base.Execute();
+        ReopenItem.ExecuteInfinity(Reopen);
+        RequestItem.ExecuteInfinity(Request);
+        ResponseItem.ExecuteInfinity(Response);
 	}
 
 	private void Reopen()
     {
         if (UserSessionHelper.Instance.PluScale.Plu.IsNew) return;
 		if (!UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight) return;
-		MassaDevice.Open();
+		MassaDevice.Execute();
 	}
 
 	private void Request()
@@ -186,29 +168,17 @@ public class ManagerMassa : ManagerBase
 			: $"{LocaleCore.Scales.WeightingIsCalc}");
 	}
 
-	public new void Close()
+    public override void Close()
 	{
 		base.Close();
 
 		MassaStable.StopwatchStable.Stop();
 		MassaDevice.Close();
-	}
 
-	public new void ReleaseManaged()
-	{
-		ResponseParseScalePar = new();
-		ResponseParseGet = new();
-		ResponseParseSet = new();
-
-		MassaDevice.Dispose(true);
-
-		base.ReleaseManaged();
-	}
-
-	public new void ReleaseUnmanaged()
-	{
-		base.ReleaseUnmanaged();
-	}
+        ResponseParseScalePar = new();
+        ResponseParseGet = new();
+        ResponseParseSet = new();
+    }
 
 	#endregion
 

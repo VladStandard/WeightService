@@ -66,7 +66,7 @@ public partial class MainForm : Form
         // Quartz.
         LoadSchedule();
 
-        ActionUtils.ActionMakeScreenShot(this);
+        ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
         UserSession.StopwatchMain.Stop();
 
         UserSession.DataAccess.LogInformation(
@@ -101,8 +101,7 @@ public partial class MainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 UserSession.StopwatchMain = Stopwatch.StartNew();
                 UserSession.StopwatchMain.Restart();
@@ -118,35 +117,39 @@ public partial class MainForm : Form
     private void LoadMainControls()
     {
         // Labels.
-        UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
+        UserSession.Plugin.Labels.Init(
+            new(0_250, 0_250), new(0_250, 0_250), new(0_250, 0_250),
+            fieldTitle, fieldPlu, fieldSscc,
             fieldProductDate, fieldKneading, ButtonDevice, ButtonPluNestingFk, ButtonKneading, ButtonMore, ButtonNewPallet,
             ButtonPlu, ButtonPrint, ButtonScalesInit, ButtonScalesTerminal,
             fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
-        UserSession.ManagerControl.Labels.Open();
+        UserSession.Plugin.Labels.Execute();
         // Memory.
-        UserSession.ManagerControl.Memory.Init(fieldMemory, fieldTasks);
-        UserSession.ManagerControl.Memory.Open();
+        UserSession.Plugin.Memory.Init(new(0_250, 0_250), new(0_250, 0_250),
+            new(0_250, 0_250),
+            fieldMemory, fieldTasks);
+        UserSession.Plugin.Memory.Execute();
         // Massa.
-        UserSession.ManagerControl.Massa.Init(fieldNettoWeight, fieldMassaGet);
-        UserSession.ManagerControl.Massa.Open();
+        UserSession.Plugin.Massa.Init(new(0_250, 0_250), new(0_250, 0_250), new(0_250, 0_250),
+            fieldNettoWeight, fieldMassaGet);
+        UserSession.Plugin.Massa.Execute();
         // PrintMain.
         if (UserSession.Scale.PrinterMain is not null)
-            UserSession.ManagerControl.PrintMain.Init(UserSession.PrintBrandMain, UserSession.Scale.PrinterMain,
-                fieldPrintMain, true);
-        UserSession.ManagerControl.PrintMain.Open(true);
-        UserSession.ManagerControl.PrintMain.SetOdometorUserLabel(1);
+            UserSession.Plugin.PrintMain.Init(new(0_250, 0_250), new(0_250, 0_250), new(0_250, 0_250),
+                UserSession.PrintBrandMain, UserSession.Scale.PrinterMain, fieldPrintMain, true);
+        UserSession.Plugin.PrintMain.Execute(true);
+        UserSession.Plugin.PrintMain.SetOdometorUserLabel(1);
         // PrintShipping.
         if (UserSession.Scale.IsShipping)
         {
             if (UserSession.Scale.PrinterShipping is not null)
-                UserSession.ManagerControl.PrintShipping.Init(UserSession.PrintBrandShipping,
-                    UserSession.Scale.PrinterShipping,
-                    fieldPrintShipping, false);
-            UserSession.ManagerControl.PrintShipping.Open(false);
-            UserSession.ManagerControl.PrintShipping.SetOdometorUserLabel(1);
+                UserSession.Plugin.PrintShipping.Init(new(0_250, 0_250), new(0_250, 0_250), new(0_250, 0_250),
+                    UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping, fieldPrintShipping, false);
+            UserSession.Plugin.PrintShipping.Execute(false);
+            UserSession.Plugin.PrintShipping.SetOdometorUserLabel(1);
         }
         // ButtonScalesInit_Click(sender, e);
-        UserSession.ManagerControl.Labels.SetControlsVisible();
+        UserSession.Plugin.Labels.SetControlsVisible();
     }
 
     private void ReturnBackExit()
@@ -156,11 +159,10 @@ public partial class MainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 UserSession.StopwatchMain.Restart();
-                ActionUtils.ActionMakeScreenShot(this);
+                ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
 
                 KeyboardMouseEvents.Dispose();
                 NavigateToControl(WaitControl, ReturnBackExit, true, LocaleCore.Scales.AppWaitExit);
@@ -170,12 +172,7 @@ public partial class MainForm : Form
                     Quartz.Close();
                     Quartz.Dispose();
                 }
-                UserSession.ManagerControl.Labels.Close();
-                UserSession.ManagerControl.Massa.Close();
-                UserSession.ManagerControl.Memory.Close();
-                UserSession.ManagerControl.PrintMain.Close();
-                UserSession.ManagerControl.PrintShipping.Close();
-                UserSession.ManagerControl.Close();
+                UserSession.Plugin.Close();
             },
             () =>
             {
@@ -385,11 +382,10 @@ public partial class MainForm : Form
     {
         lock (_lockerHours)
         {
-            ActionUtils.ActionTryCatch(this,
-                () =>
+            ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
                 {
                     if (Quartz is null) return;
-                    ActionUtils.ActionMakeScreenShot(this);
+                    ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
                 }
             );
         }
@@ -401,7 +397,7 @@ public partial class MainForm : Form
         {
             if (Quartz is null) return;
             UserSession.ProductDate = DateTime.Now;
-            ActionUtils.ActionMakeScreenShot(this);
+            ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
         }
     }
 
@@ -420,11 +416,11 @@ public partial class MainForm : Form
         using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
         wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Caption = LocaleCore.Print.InfoCaption;
-        wpfPageLoader.MessageBox.Message = GetPrintInfo(UserSession.ManagerControl.PrintMain, true);
+        wpfPageLoader.MessageBox.Message = GetPrintInfo(UserSession.Plugin.PrintMain, true);
         if (UserSession.Scale.IsShipping)
         {
             wpfPageLoader.MessageBox.Message += Environment.NewLine + Environment.NewLine +
-                GetPrintInfo(UserSession.ManagerControl.PrintShipping, false);
+                GetPrintInfo(UserSession.Plugin.PrintShipping, false);
             wpfPageLoader.Height = 700;
         }
         wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
@@ -434,31 +430,31 @@ public partial class MainForm : Form
         wpfPageLoader.Close();
         if (result == DialogResult.Retry)
         {
-            UserSession.ManagerControl.PrintMain.ClearPrintBuffer(1);
+            UserSession.Plugin.PrintMain.ClearPrintBuffer(1);
             if (UserSession.Scale.IsShipping)
-                UserSession.ManagerControl.PrintShipping.ClearPrintBuffer(1);
+                UserSession.Plugin.PrintShipping.ClearPrintBuffer(1);
         }
     }
 
-    private string GetPrintInfo(ManagerPrint managerPrint, bool isMain)
+    private string GetPrintInfo(PluginPrint pluginPrint, bool isMain)
     {
         string peeler = isMain
-            ? UserSession.ManagerControl.PrintMain.ZebraPeelerStatus : UserSession.ManagerControl.PrintShipping.ZebraPeelerStatus;
+            ? UserSession.Plugin.PrintMain.ZebraPeelerStatus : UserSession.Plugin.PrintShipping.ZebraPeelerStatus;
         string printMode = isMain
-            ? UserSession.ManagerControl.PrintMain.GetZebraPrintMode() :
-            UserSession.ManagerControl.PrintShipping.GetZebraPrintMode();
-        PrintBrand printBrand = isMain ? UserSession.ManagerControl.PrintMain.PrintBrand : UserSession.ManagerControl.PrintShipping.PrintBrand;
-        WmiWin32PrinterEntity wmiPrinter = managerPrint.TscWmiPrinter;
+            ? UserSession.Plugin.PrintMain.GetZebraPrintMode() :
+            UserSession.Plugin.PrintShipping.GetZebraPrintMode();
+        PrintBrand printBrand = isMain ? UserSession.Plugin.PrintMain.PrintBrand : UserSession.Plugin.PrintShipping.PrintBrand;
+        WmiWin32PrinterEntity wmiPrinter = pluginPrint.TscWmiPrinter;
         return
             $"{UserSession.WeighingSettings.GetPrintName(isMain, printBrand)}" + Environment.NewLine +
-            $"{LocaleCore.Print.DeviceCommunication} ({managerPrint.Printer.Ip}): {managerPrint.Printer.PingStatus}" + Environment.NewLine +
-            $"{LocaleCore.Print.PrinterStatus}: {managerPrint.GetDeviceStatus()}" + Environment.NewLine +
+            $"{LocaleCore.Print.DeviceCommunication} ({pluginPrint.Printer.Ip}): {pluginPrint.Printer.PingStatus}" + Environment.NewLine +
+            $"{LocaleCore.Print.PrinterStatus}: {pluginPrint.GetDeviceStatus()}" + Environment.NewLine +
             Environment.NewLine +
             $"{LocaleCore.Print.Driver}: {wmiPrinter.DriverName}" + Environment.NewLine +
             $"{LocaleCore.Print.Port}: {wmiPrinter.PortName}" + Environment.NewLine +
             $"{LocaleCore.Print.StateCode}: {wmiPrinter.PrinterState}" + Environment.NewLine +
             $"{LocaleCore.Print.StatusCode}: {wmiPrinter.PrinterStatus}" + Environment.NewLine +
-            $"{LocaleCore.Print.Status}: {managerPrint.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
+            $"{LocaleCore.Print.Status}: {pluginPrint.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
             $"{LocaleCore.Print.State} (ENG): {wmiPrinter.Status}" + Environment.NewLine +
             $"{LocaleCore.Print.State}: {WmiHelper.Instance.GetStatusDescription(LocaleCore.Lang, wmiPrinter.Status)}" + Environment.NewLine +
             $"{LocaleCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +
@@ -587,8 +583,7 @@ public partial class MainForm : Form
 
     private void ActionClose(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this,
-            () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
             {
                 BeforeAction();
 
@@ -610,8 +605,7 @@ public partial class MainForm : Form
 
     private void ActionDevice(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 BeforeAction();
 
@@ -635,8 +629,7 @@ public partial class MainForm : Form
 
     private void ActionPluNestingFk(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 BeforeAction();
 
@@ -680,8 +673,7 @@ public partial class MainForm : Form
 
     private void ActionScalesTerminal(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 BeforeAction();
 
@@ -695,9 +687,9 @@ public partial class MainForm : Form
                 // Run app.
                 if (File.Exists(LocaleData.Paths.ScalesTerminal))
                 {
-                    UserSession.ManagerControl.Massa.Close();
+                    UserSession.Plugin.Massa.Close();
                     Proc.Run(LocaleData.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
-                    UserSession.ManagerControl.Open();
+                    UserSession.Plugin.Execute();
                 }
                 else
                 {
@@ -711,8 +703,7 @@ public partial class MainForm : Form
 
     private void ActionScalesInit(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 BeforeAction();
 
@@ -723,7 +714,7 @@ public partial class MainForm : Form
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
                 }
-                if (!UserSession.ManagerControl.Massa.MassaDevice.IsOpenPort)
+                if (!UserSession.Plugin.Massa.MassaDevice.IsOpenPort)
                 {
                     WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
@@ -737,23 +728,22 @@ public partial class MainForm : Form
                     return;
 
                 // Fix negative weight.
-                if (UserSession.ManagerControl.Massa.WeightNet < 0)
+                if (UserSession.Plugin.Massa.WeightNet < 0)
                 {
-                    UserSession.ManagerControl.Massa.ResetMassa();
+                    UserSession.Plugin.Massa.ResetMassa();
                 }
 
                 UserSession.CheckWeightMassaDeviceExists();
                 UserSession.PluScale = new();
 
-                UserSession.ManagerControl.Massa.Open();
-                UserSession.ManagerControl.Massa.GetInit();
+                UserSession.Plugin.Massa.Execute();
+                UserSession.Plugin.Massa.GetInit();
             }, AfterAction);
     }
 
     private void ActionNewPallet(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 BeforeAction();
                 UserSession.NewPallet();
@@ -805,10 +795,9 @@ public partial class MainForm : Form
 
     private void ActionPlu(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
-                UserSession.ManagerControl.Massa.Close();
+                UserSession.Plugin.Massa.Close();
                 BeforeAction();
 
                 UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
@@ -826,16 +815,16 @@ public partial class MainForm : Form
 
     private void ReturnBackMore()
     {
-        UserSession.ManagerControl.Open();
-        UserSession.ManagerControl.Massa.Open();
+        UserSession.Plugin.Execute();
+        UserSession.Plugin.Massa.Execute();
     }
 
     private void ActionMore(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale,
             () =>
             {
-                UserSession.ManagerControl.Massa.Close();
+                UserSession.Plugin.Massa.Close();
                 BeforeAction();
 
                 if (UserSession.PluScale.IsNew)
@@ -858,16 +847,15 @@ public partial class MainForm : Form
 
     private void ActionPrint(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 BeforeAction();
 
                 UserSession.AddScaleCounter();
 
-                UserSession.ManagerControl.PrintMain.IsPrintBusy = true;
+                UserSession.Plugin.PrintMain.IsPrintBusy = true;
                 if (UserSession.Scale.IsShipping)
-                    UserSession.ManagerControl.PrintShipping.IsPrintBusy = true;
+                    UserSession.Plugin.PrintShipping.IsPrintBusy = true;
 
                 if (!UserSession.CheckPluIsEmpty(this)) return;
                 //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IsNew)
@@ -886,13 +874,13 @@ public partial class MainForm : Form
                 if (!UserSession.CheckWeightThresholds(this)) return;
 
                 // Check printers connections.
-                if (!UserSession.CheckPrintIsConnect(this, UserSession.ManagerControl.PrintMain, true)) return;
+                if (!UserSession.CheckPrintIsConnect(this, UserSession.Plugin.PrintMain, true)) return;
                 if (UserSession.Scale.IsShipping)
-                    if (!UserSession.CheckPrintIsConnect(this, UserSession.ManagerControl.PrintShipping, false)) return;
+                    if (!UserSession.CheckPrintIsConnect(this, UserSession.Plugin.PrintShipping, false)) return;
                 // Check printers statuses.
-                if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintMain, true)) return;
+                if (!UserSession.CheckPrintStatusReady(this, UserSession.Plugin.PrintMain, true)) return;
                 if (UserSession.Scale.IsShipping)
-                    if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintShipping, false)) return;
+                    if (!UserSession.CheckPrintStatusReady(this, UserSession.Plugin.PrintShipping, false)) return;
 
                 UserSession.PrintLabel(this, false);
             },
@@ -900,10 +888,10 @@ public partial class MainForm : Form
             {
                 AfterAction();
 
-                UserSession.ManagerControl.Massa.IsWeightNetFake = false;
-                UserSession.ManagerControl.PrintMain.IsPrintBusy = false;
+                UserSession.Plugin.Massa.IsWeightNetFake = false;
+                UserSession.Plugin.PrintMain.IsPrintBusy = false;
                 if (UserSession.Scale.IsShipping)
-                    UserSession.ManagerControl.PrintShipping.IsPrintBusy = false;
+                    UserSession.Plugin.PrintShipping.IsPrintBusy = false;
             });
     }
 

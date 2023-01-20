@@ -1,31 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Management;
-using System.Net.NetworkInformation;
-using System.Windows.Forms;
-using DataCore.Sql.TableScaleModels.PlusLabels;
-using DataCore.Sql.TableScaleModels.Printers;
-using MDSoft.BarcodePrintUtils.Enums;
-using MDSoft.BarcodePrintUtils.Tsc;
-using MDSoft.BarcodePrintUtils.Wmi;
-using WsLocalization.Enums;
-using WsLocalization.Models;
-using WsWeight.Helpers;
-using WsWeight.Wpf.Utils;
-using Zebra.Sdk.Comm;
-using Zebra.Sdk.Printer;
-using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
-using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
+namespace WsWeight.Plugins.Helpers;
 
-namespace WsWeight.Managers;
-
-public class ManagerPrint : ManagerBase
+public class PluginPrint : PluginHelperBase
 {
     #region Public and private fields and properties
 
     private ZebraPrinter _zebraDriver;
-    private Connection ZebraConnection { get; set; }
+    private Connection? ZebraConnection { get; set; }
     public byte LabelPrintedCount { get; set; }
     private Label FieldPrint { get; set; }
     public PrintBrand PrintBrand { get; private set; }
@@ -41,42 +24,42 @@ public class ManagerPrint : ManagerBase
 
     #region Constructor and destructor
 
-    public ManagerPrint() : base()
+    public PluginPrint()
     {
+        TskType = TaskType.TaskPrint;
         LabelPrintedCount = 0;
-        Init(Close, ReleaseManaged, ReleaseUnmanaged);
     }
 
     #endregion
 
     #region Public and private methods
 
-    public void Init(PrintBrand printBrand, PrinterModel printer, Label fieldPrint, bool isMain)
+    public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
+        PrintBrand printBrand, PrinterModel printer, Label fieldPrint, bool isMain)
     {
+        base.Init();
+        ReopenItem.Config = configReopen;
+        RequestItem.Config = configRequest;
+        ResponseItem.Config = configResponse;
         try
         {
-            Init(TaskType.TaskPrint,
-                () =>
-                {
-                    PrintBrand = printBrand;
-                    Printer = printer;
-                    FieldPrint = fieldPrint;
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
-                    switch (PrintBrand)
-                    {
-                        case PrintBrand.Zebra:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                                $"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
-                            break;
-                        case PrintBrand.TSC:
-                            TscDriver.Setup(PrintChannel.Ethernet, printer.Ip, printer.Port, PrintLabelSize.Size80x100, PrintLabelDpi.Dpi300);
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                                $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
-                            TscDriver.Properties.PrintName = printer.Name;
-                            break;
-                    }
-                },
-                new(waitReopen: 0_250, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_250, waitException: 0_250));
+            PrintBrand = printBrand;
+            Printer = printer;
+            FieldPrint = fieldPrint;
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
+            switch (PrintBrand)
+            {
+                case PrintBrand.Zebra:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
+                        $"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
+                    break;
+                case PrintBrand.TSC:
+                    TscDriver.Setup(PrintChannel.Ethernet, printer.Ip, printer.Port, PrintLabelSize.Size80x100, PrintLabelDpi.Dpi300);
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
+                        $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
+                    TscDriver.Properties.PrintName = printer.Name;
+                    break;
+            }
         }
         catch (Exception ex)
         {
@@ -84,20 +67,12 @@ public class ManagerPrint : ManagerBase
         }
     }
 
-    public void Open(bool isMain)
+    public void Execute(bool isMain)
     {
-        try
-        {
-            Open(Reopen, Request,
-                () =>
-                {
-                    Response(isMain);
-                });
-        }
-        catch (Exception ex)
-        {
-            WpfUtils.CatchException(ex);
-        }
+        base.Execute();
+        ReopenItem.ExecuteInfinity(Reopen);
+        RequestItem.ExecuteInfinity(Request);
+        ResponseItem.ExecuteInfinity(() => Response(isMain));
     }
 
     private void Reopen()
@@ -252,34 +227,20 @@ public class ManagerPrint : ManagerBase
         return LocaleCore.Print.ModeUnknown;
     }
 
-    public new void Close()
+    public override void Close()
     {
         base.Close();
-    }
-
-    public new void ReleaseManaged()
-    {
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, false);
-
         if (PrintBrand == PrintBrand.Zebra)
         {
             ZebraConnection?.Close();
         }
         ZebraConnection = null;
-
-        base.ReleaseManaged();
-    }
-
-    public new void ReleaseUnmanaged()
-    {
         ZebraPeelerStatus = string.Empty;
-
-        base.ReleaseUnmanaged();
     }
 
     public void SendCmd(PluLabelModel pluLabel)
     {
-        CheckIsDisposed();
         if (string.IsNullOrEmpty(pluLabel.Zpl))
             return;
         if (Printer.PingStatus != IPStatus.Success)
@@ -343,8 +304,6 @@ public class ManagerPrint : ManagerBase
 
     public void ClearPrintBuffer(int odometerValue = -1)
     {
-        CheckIsDisposed();
-
         switch (PrintBrand)
         {
             case PrintBrand.Default:
@@ -362,8 +321,6 @@ public class ManagerPrint : ManagerBase
 
     public void SetOdometorUserLabel(int value)
     {
-        CheckIsDisposed();
-
         switch (PrintBrand)
         {
             case PrintBrand.Default:
@@ -379,8 +336,6 @@ public class ManagerPrint : ManagerBase
 
     public void GetOdometorUserLabel()
     {
-        CheckIsDisposed();
-
         switch (PrintBrand)
         {
             case PrintBrand.Default:

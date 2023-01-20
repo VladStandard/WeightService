@@ -2,12 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using WsWeight.Gui;
-using WsWeight.Helpers;
 using WsWeight.Wpf.Pages;
-using WsWeight.Wpf.Utils;
 
 namespace WsWeight.Wpf;
 #nullable enable
@@ -25,7 +22,7 @@ public partial class WpfPageLoader : Form
     public WpfPageDevice? PageDevice { get; private set; }
     public bool IsPageDeviceLoad => PageDevice is not null;
     public WpfPagePluNestingFk? PagePluNestingFk { get; set; }
-	private WpfPageSqlSettings? PageSqlSettings { get; set; }
+    private WpfPageSqlSettings? PageSqlSettings { get; set; }
     private PageEnum Page { get; }
 
     #endregion
@@ -162,15 +159,15 @@ public partial class WpfPageLoader : Form
     {
         try
         {
-	        DialogResult = Page switch
-	        {
-		        PageEnum.MessageBox => MessageBox.Result,
-		        PageEnum.Device => PageDevice?.Result ?? DialogResult.Cancel,
-		        PageEnum.PluBundleFk => PagePluNestingFk?.Result ?? DialogResult.Cancel,
+            DialogResult = Page switch
+            {
+                PageEnum.MessageBox => MessageBox.Result,
+                PageEnum.Device => PageDevice?.Result ?? DialogResult.Cancel,
+                PageEnum.PluBundleFk => PagePluNestingFk?.Result ?? DialogResult.Cancel,
                 PageEnum.PinCode => PagePinCode?.Result ?? DialogResult.Cancel,
                 PageEnum.SqlSettings => PageSqlSettings?.Result ?? DialogResult.Cancel,
                 _ => DialogResult
-	        };
+            };
         }
         catch (Exception ex)
         {

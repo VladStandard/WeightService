@@ -376,8 +376,20 @@
     <Compile Include="Gui\VisibilitySettingsModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\UserSessionHelper.cs" />
-    <Compile Include="Utils\ActionUtils.cs" />
-    <Compile Include="Utils\ComboBoxExtensions.cs" />
+    <Compile Include="Plugins\Enums\TaskType.cs" />
+    <Compile Include="Plugins\Helpers\PluginLabels.cs" />
+    <Compile Include="Plugins\Helpers\PluginManagerHelper.cs" />
+    <Compile Include="Plugins\Helpers\PluginMassa.cs" />
+    <Compile Include="Plugins\Helpers\PluginMemoryHelper.cs" />
+    <Compile Include="Plugins\Helpers\PluginPrint.cs" />
+    <Compile Include="Plugins\Models\ConfigModel.cs" />
+    <Compile Include="Plugins\Models\PluginHelperBase.cs" />
+    <Compile Include="Plugins\Models\PluginModel.cs" />
+    <Compile Include="WinForms\Enums\ResolutionEnum.cs" />
+    <Compile Include="WinForms\Helpers\FontsSettingsHelper.cs" />
+    <Compile Include="WinForms\Utils\ActionUtils.cs" />
+    <Compile Include="WinForms\Utils\ComboBoxExtensions.cs" />
+    <Compile Include="WinForms\Utils\FormUtils.cs" />
     <Compile Include="Wpf\Helpers\XamlHelper.cs" />
     <Compile Include="Gui\NumberInputForm.cs">
       <SubType>Form</SubType>
@@ -498,7 +510,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PluginManagment\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj">
@@ -520,6 +532,10 @@
     <ProjectReference Include="..\WsPluginManagment\WsPluginManagment.csproj">
       <Project>{2350a1f2-99d3-430c-9fdc-243287602967}</Project>
       <Name>WsPluginManagment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsWinForms\WsWinForms.csproj">
+      <Project>{1eb9514d-984c-456a-8237-0314ed0eb53c}</Project>
+      <Name>WsWinForms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
