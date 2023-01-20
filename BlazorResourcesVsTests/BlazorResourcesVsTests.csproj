@@ -3,11 +3,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>0.8.180.0</Version>
+    <Version>0.8.190.0</Version>
     <NeutralLanguage>English</NeutralLanguage>
-    <AssemblyVersion>0.8.180.0</AssemblyVersion>
-    <FileVersion>0.8.180.0</FileVersion>
-    <LangVersion>10.0</LangVersion>
+    <AssemblyVersion>0.8.190.0</AssemblyVersion>
+    <FileVersion>0.8.190.0</FileVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>

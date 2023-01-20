@@ -19,7 +19,7 @@ public class LocaleScale
     #region Public and private fields, properties, constructor
 
     public List<string> ListLanguages => Lang == Lang.English ? new() { "Russian", "English" } : new List<string> { "Russian", "English" };
-    public List<string> ListResolutions => Lang == Lang.English ? new() { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Maximum" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
+    public List<string> ListResolutions => Lang == Lang.English ? new() { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "FullScreen" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
     public readonly decimal MassaThresholdNegative = -1.000M;
     public readonly decimal MassaThresholdPositive = 0.050M;
     public readonly decimal MassaThresholdValue = 0.010M;
@@ -35,7 +35,8 @@ public class LocaleScale
     public string ButtonScalesInitShort => ">0<";
     public string ButtonSelectOrder => Lang == Lang.English ? "Order" : "Заказ";
     public string ButtonSelectPlu(int count) => Lang == Lang.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
-    public string ButtonSwitchPlu => Lang == Lang.English ? $"Switch PLU" : $"Смена ПЛУ";
+    public string ButtonSwitchPlu => Lang == Lang.English ? "Switch PLU" : "Смена ПЛУ";
+    public string ButtonPlu => Lang == Lang.English ? "PLU" : "ПЛУ";
     public string ButtonSetKneading => Lang == Lang.English ? "More" : "Ещё";
     public string ButtonSettings => Lang == Lang.English ? "Settings" : "Настройки";
     public string Bundle => Lang == Lang.English ? "Bundle" : "Пакет";

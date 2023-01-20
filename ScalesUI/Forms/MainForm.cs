@@ -1,10 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using ScalesUI.Controls;
-using WeightCore.Wpf;
-using WsLocalization.Models;
-
 namespace ScalesUI.Forms;
 
 /// <summary>
@@ -61,14 +57,14 @@ public partial class MainForm : Form
         FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         TopMost = !Debug.IsDebug;
         UserSession.NewPallet();
-        
+
         MDSoft.WinFormsUtils.InvokeControl.SetText(this, AppVersion.AppTitle);
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, string.Empty);
         LoadMainControls();
-        SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
+        LoadLocalizationStatic(Lang.Russian);
 
         // Quartz.
-        LoadQuartz();
+        LoadSchedule();
 
         ActionUtils.ActionMakeScreenShot(this);
         UserSession.StopwatchMain.Stop();
@@ -98,18 +94,9 @@ public partial class MainForm : Form
         // Buttons.
         SetButtonsSettings();
         // Form resolution and postion.
-        SetComboBoxItems(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
-            Debug.IsDebug ? 2 : LocaleCore.Scales.ListResolutions.Count - 1);
-    }
-
-    private void LoadQuartz()
-    {
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
-            $"job{nameof(ScheduleEveryHours)}", $"trigger{nameof(ScheduleEveryHours)}",
-            $"triggerGroup{nameof(ScheduleEveryHours)}");
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
-            $"job{nameof(ScheduleEveryDays)}", $"trigger{nameof(ScheduleEveryDays)}",
-            $"triggerGroup{nameof(ScheduleEveryDays)}");
+        this.SwitchResolution(Debug.IsDebug ? Resolution.Value1366x768 : Resolution.FullScreen);
+        CenterToScreen();
+        LoadFonts();
     }
 
     private void MainForm_Load(object sender, EventArgs e)
@@ -132,9 +119,8 @@ public partial class MainForm : Form
     {
         // Labels.
         UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
-            fieldProductDate, fieldKneading, fieldResolution, fieldLang,
-            ButtonDevice, ButtonPluNestingFk, ButtonKneading, ButtonMore, ButtonNewPallet, 
-            ButtonPlu, ButtonPrint, ButtonScalesInit, ButtonScalesTerminal, 
+            fieldProductDate, fieldKneading, ButtonDevice, ButtonPluNestingFk, ButtonKneading, ButtonMore, ButtonNewPallet,
+            ButtonPlu, ButtonPrint, ButtonScalesInit, ButtonScalesTerminal,
             fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
         UserSession.ManagerControl.Labels.Open();
         // Memory.
@@ -175,7 +161,8 @@ public partial class MainForm : Form
             {
                 UserSession.StopwatchMain.Restart();
                 ActionUtils.ActionMakeScreenShot(this);
-                
+
+                KeyboardMouseEvents.Dispose();
                 NavigateToControl(WaitControl, ReturnBackExit, true, LocaleCore.Scales.AppWaitExit);
 
                 if (Quartz is not null)
@@ -194,18 +181,15 @@ public partial class MainForm : Form
             {
                 UserSession.StopwatchMain.Stop();
                 UserSession.DataAccess.LogInformation(
-                    LocaleData.Program.IsClosed + Environment.NewLine + 
+                    LocaleData.Program.IsClosed + Environment.NewLine +
                     $"{LocaleData.Program.Elapsed}: {UserSession.StopwatchMain.Elapsed}.",
                     UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
             }
         );
     }
 
-    private void MainForm_FontsSet()
+    private void LoadFonts()
     {
-        fieldResolution.Font = FontsSettings.FontMinimum;
-        fieldLang.Font = FontsSettings.FontMinimum;
-
         fieldTitle.Font = FontsSettings.FontLabelsTitle;
 
         fieldNettoWeight.Font = FontsSettings.FontLabelsMaximum;
@@ -385,7 +369,17 @@ public partial class MainForm : Form
 
     #endregion
 
-    #region Public and private methods - Schedulers
+    #region Public and private methods - Schedule
+
+    private void LoadSchedule()
+    {
+        Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
+            $"job{nameof(ScheduleEveryHours)}", $"trigger{nameof(ScheduleEveryHours)}",
+            $"triggerGroup{nameof(ScheduleEveryHours)}");
+        Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
+            $"job{nameof(ScheduleEveryDays)}", $"trigger{nameof(ScheduleEveryDays)}",
+            $"triggerGroup{nameof(ScheduleEveryDays)}");
+    }
 
     private void ScheduleEveryHours()
     {
@@ -421,43 +415,6 @@ public partial class MainForm : Form
             ActionPrint(sender, e);
     }
 
-    private void SetComboBoxItems(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
-    {
-        if (comboBox is null || sourceList is null || sourceList.Count == 0 || selectedIndex < 0)
-            return;
-
-        if (comboBox.InvokeRequired)
-        {
-            comboBox.Invoke((Action)delegate
-            {
-                SetComboBoxItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
-            });
-        }
-        else
-            SetComboBoxItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
-    }
-
-    private void SetComboBoxItemsWork(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
-    {
-        comboBox.SelectedIndexChanged -= eventHandler;
-
-        int backupIndex = comboBox.SelectedIndex;
-        comboBox.Items.Clear();
-        if (sourceList.Any())
-        {
-            foreach (string source in sourceList)
-            {
-                comboBox.Items.Add(source);
-            }
-        }
-        comboBox.SelectedIndex = selectedIndex <= 0
-            ? backupIndex <= 0 ? 0 : backupIndex
-            : selectedIndex < comboBox.Items.Count ? selectedIndex : 0;
-
-        comboBox.SelectedIndexChanged += eventHandler;
-        eventHandler.Invoke(comboBox, null);
-    }
-
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
         using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
@@ -490,9 +447,10 @@ public partial class MainForm : Form
         string printMode = isMain
             ? UserSession.ManagerControl.PrintMain.GetZebraPrintMode() :
             UserSession.ManagerControl.PrintShipping.GetZebraPrintMode();
+        PrintBrand printBrand = isMain ? UserSession.ManagerControl.PrintMain.PrintBrand : UserSession.ManagerControl.PrintShipping.PrintBrand;
         WmiWin32PrinterEntity wmiPrinter = managerPrint.TscWmiPrinter;
         return
-            $"{managerPrint.GetDeviceName(isMain)}" + Environment.NewLine +
+            $"{UserSession.WeighingSettings.GetPrintName(isMain, printBrand)}" + Environment.NewLine +
             $"{LocaleCore.Print.DeviceCommunication} ({managerPrint.Printer.Ip}): {managerPrint.Printer.PingStatus}" + Environment.NewLine +
             $"{LocaleCore.Print.PrinterStatus}: {managerPrint.GetDeviceStatus()}" + Environment.NewLine +
             Environment.NewLine +
@@ -546,66 +504,31 @@ public partial class MainForm : Form
         wpfPageLoader.Close();
     }
 
-    private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
+    private void LoadLocalizationStatic(Lang lang)
     {
-        ActionUtils.ActionTryCatchFinally(this,
-            () =>
-            {
-                switch (fieldResolution.Items[fieldResolution.SelectedIndex])
-                {
-                    case "800x600":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(800, 600);
-                        break;
-                    case "1024x768":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(1024, 768);
-                        break;
-                    case "1366x768":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(1366, 768);
-                        break;
-                    case "1600x1024":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(1600, 1024);
-                        break;
-                    case "1920x1080":
-                        WindowState = FormWindowState.Normal;
-                        Size = new(1920, 1080);
-                        break;
-                    default:
-                        WindowState = FormWindowState.Maximized;
-                        break;
-                }
-                CenterToScreen();
-                FontsSettings.Transform(Width, Height);
-                MainForm_FontsSet();
-            }, AfterAction);
-    }
-
-    private void FieldLang_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
-        string area = UserSession.Scale.WorkShop is null
-            ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
-            UserSession.Scale.Description + Environment.NewLine + area);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
-            ? LocaleCore.Table.FieldPackageIsNotSelected
-            : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
+        LocaleCore.Lang = LocaleData.Lang = lang;
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSwitchPlu);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonPlu);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
-
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelPackageWeight, LocaleCore.Scales.FieldWeightTare);
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
-        //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPackageWeight, $"{0:0.000} {LocaleCore.Scales.WeightUnitKg}");
+    }
+
+    private void LoadLocalizationDynamic(Lang lang)
+    {
+        LocaleCore.Lang = LocaleData.Lang = lang;
+        string area = UserSession.Scale.WorkShop is null
+            ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice, UserSession.Scale.Description + Environment.NewLine + area);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
+            ? LocaleCore.Table.FieldPackageIsNotSelected
+            : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPackageWeight,
             UserSessionHelper.Instance.PluScale.IsNotNew
                 ? $"{UserSessionHelper.Instance.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
@@ -623,25 +546,23 @@ public partial class MainForm : Form
             KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
             IsKeyboardMouseEventsSubscribe = false;
         }
-        UserSession.ManagerControl.Massa.Suspend();
     }
 
     private void AfterAction()
     {
-        UserSession.ManagerControl.Massa.UnSuspend();
         if (!IsKeyboardMouseEventsSubscribe)
         {
             KeyboardMouseEvents.MouseDownExt += MouseDownExt;
             IsKeyboardMouseEventsSubscribe = true;
         }
         MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-        FieldLang_SelectedIndexChanged(null, null);
+        LoadLocalizationDynamic(Lang.Russian);
     }
 
     private void NavigateToControl(UserControlBase userControlBase, Action returnBack, bool isJoinReturnBackAction, string message = "")
     {
         if (userControlBase is null) return;
-        
+
         layoutPanel.Visible = false;
         userControlBase.Visible = false;
         NavigationControl.UserControl = userControlBase;
@@ -720,7 +641,7 @@ public partial class MainForm : Form
                 BeforeAction();
 
                 if (!ActionCheckPluIdentityIsNew()) return;
-                
+
                 using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 800, Height = 300 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
@@ -872,8 +793,8 @@ public partial class MainForm : Form
             UserSession.WeighingSettings.Kneading = 1;
             UserSession.ProductDate = DateTime.Now;
             //if (ButtonNewPallet?.Visible == true)
-                UserSession.NewPallet();
-            
+            UserSession.NewPallet();
+
             ActionMore(null, null);
         }
         else
@@ -887,6 +808,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
+                UserSession.ManagerControl.Massa.Close();
                 BeforeAction();
 
                 UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
@@ -904,7 +826,8 @@ public partial class MainForm : Form
 
     private void ReturnBackMore()
     {
-        //
+        UserSession.ManagerControl.Open();
+        UserSession.ManagerControl.Massa.Open();
     }
 
     private void ActionMore(object sender, EventArgs e)
@@ -912,6 +835,7 @@ public partial class MainForm : Form
         ActionUtils.ActionTryCatchFinally(this,
             () =>
             {
+                UserSession.ManagerControl.Massa.Close();
                 BeforeAction();
 
                 if (UserSession.PluScale.IsNew)
@@ -926,7 +850,6 @@ public partial class MainForm : Form
             },
             () =>
             {
-                UserSession.ManagerControl.Massa.UnSuspend();
                 MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 AfterAction();
             }

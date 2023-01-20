@@ -3,6 +3,7 @@
 
 using DataCore.Models;
 using DataCore.Protocols;
+using DataCore.Settings.Helpers;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.Logs;

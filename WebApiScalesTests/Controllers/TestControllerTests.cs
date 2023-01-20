@@ -2,10 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using RestSharp;
-using WsStorageCore.Enums;
-using WsWebApiCore.Models.WebRequests;
-using WsWebApiCore.Utils;
-using WsWebApiCoreTests.Utils;
+using WsStorage.Enums;
+using WsWebApi.Models.WebRequests;
+using WsWebApi.Utils;
+using WsWebApiTests.Utils;
 
 namespace WebApiScalesTests.Controllers;
 

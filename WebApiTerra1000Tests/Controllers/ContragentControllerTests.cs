@@ -4,9 +4,9 @@
 using NUnit.Framework;
 using System.Net;
 using System.Threading.Tasks;
-using WsStorageCore.Enums;
-using WsWebApiCore.Models.WebRequests;
-using WsWebApiCore.Utils;
+using WsStorage.Enums;
+using WsWebApi.Models.WebRequests;
+using WsWebApi.Utils;
 
 namespace WebApiTerra1000Tests.Controllers;
 

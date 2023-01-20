@@ -10,9 +10,9 @@ using System.Data;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using WsStorageCore.Utils;
-using WsWebApiCore.Controllers;
-using WsWebApiCore.Models;
+using WsStorage.Utils;
+using WsWebApi.Controllers;
+using WsWebApi.Models;
 
 namespace WebApiTerra1000.Controllers;
 

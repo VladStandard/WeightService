@@ -4,23 +4,24 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:barcodePrintUtils="clr-namespace:MDSoft.BarcodePrintUtils;assembly=MDSoft.BarcodePrintUtils"
              xmlns:tsc="clr-namespace:MDSoft.BarcodePrintUtils.Tsc;assembly=MDSoft.BarcodePrintUtils"
+             xmlns:enums="clr-namespace:MDSoft.BarcodePrintUtils.Enums;assembly=MDSoft.BarcodePrintUtils"
              StartupUri="Views/MainWindow.xaml">
     
     <Application.Resources>
         <tsc:TscDriverHelper x:Key="PrintControlEntityViewModel" />
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintLabelSize">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="barcodePrintUtils:PrintLabelSize"/>
+                <x:Type TypeName="enums:PrintLabelSize"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintDpi">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="barcodePrintUtils:PrintLabelDpi"/>
+                <x:Type TypeName="enums:PrintLabelDpi"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintChannel">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="barcodePrintUtils:PrintChannel"/>
+                <x:Type TypeName="enums:PrintChannel"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Application.Resources>

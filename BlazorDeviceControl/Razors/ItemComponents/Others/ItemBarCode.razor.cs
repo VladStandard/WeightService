@@ -3,7 +3,7 @@
 
 using DataCore.Enums;
 using DataCore.Sql.TableScaleModels.BarCodes;
-using WsStorageCore.Models.Tables.BarCodes;
+using WsStorage.Models.Tables.BarCodes;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 

@@ -3,7 +3,7 @@
     <TargetFramework>net7.0</TargetFramework>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.8.180.0</Version>
+    <Version>0.8.190.0</Version>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
     <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
@@ -13,11 +13,11 @@
 	<AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<FileVersion>0.8.180.0</FileVersion>
-    <AssemblyVersion>0.8.180.0</AssemblyVersion>
+	<FileVersion>0.8.190.0</FileVersion>
+    <AssemblyVersion>0.8.190.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
@@ -173,6 +173,7 @@
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
     <ProjectReference Include="..\WsLocalization\WsLocalization.csproj" />
+    <ProjectReference Include="..\WsStorage\WsStorage.csproj" />
   </ItemGroup>
   <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
     <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

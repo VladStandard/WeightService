@@ -33,7 +33,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.8.180.0</ApplicationVersion>
+    <ApplicationVersion>0.8.190.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -51,6 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,6 +62,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>ScalesUI.Program</StartupObject>
@@ -101,6 +103,7 @@
     <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -111,6 +114,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -121,6 +125,7 @@
     <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -131,6 +136,7 @@
     <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -596,13 +602,21 @@
       <Project>{F494C3D7-E4C9-4D2B-926F-66835260F4B5}</Project>
       <Name>WsLocalization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WsMassa\WsMassa.csproj">
+      <Project>{b16ecc51-2ef8-49e6-b77e-b8cc065550a4}</Project>
+      <Name>WsMassa</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WsSchedule\WsSchedule.csproj">
       <Project>{d1197800-5cd2-4ee1-bf86-71a87b384ecf}</Project>
       <Name>WsSchedule</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WsWeightCore\WsWeightCore.csproj">
-      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
-      <Name>WsWeightCore</Name>
+    <ProjectReference Include="..\WsWeight\WsWeight.csproj">
+      <Project>{51C1AA1F-3104-4438-93EA-9E348F18EAD7}</Project>
+      <Name>WsWeight</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsWinForms\WsWinForms.csproj">
+      <Project>{1EB9514D-984C-456A-8237-0314ED0EB53C}</Project>
+      <Name>WsWinForms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

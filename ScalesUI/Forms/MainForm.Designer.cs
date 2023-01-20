@@ -48,8 +48,6 @@
             this.fieldPrintMain = new System.Windows.Forms.Label();
             this.fieldPlu = new System.Windows.Forms.Label();
             this.layoutPanelTop = new System.Windows.Forms.TableLayoutPanel();
-            this.fieldLang = new System.Windows.Forms.ComboBox();
-            this.fieldResolution = new System.Windows.Forms.ComboBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.fieldTitle = new System.Windows.Forms.Label();
             this.layoutPanel.SuspendLayout();
@@ -111,14 +109,14 @@
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
-            this.layoutPanel.Controls.Add(this.fieldPrintShippingManager, 1, 8);
-            this.layoutPanel.Controls.Add(this.fieldPrintShipping, 2, 8);
+            this.layoutPanel.Controls.Add(this.fieldPrintShippingManager, 1, 10);
+            this.layoutPanel.Controls.Add(this.fieldPrintShipping, 2, 10);
             this.layoutPanel.Controls.Add(this.fieldSscc, 2, 6);
-            this.layoutPanel.Controls.Add(this.fieldTasks, 1, 13);
-            this.layoutPanel.Controls.Add(this.fieldMemory, 2, 13);
-            this.layoutPanel.Controls.Add(this.fieldPrintMainManager, 1, 7);
-            this.layoutPanel.Controls.Add(this.fieldMassaManager, 1, 9);
-            this.layoutPanel.Controls.Add(this.fieldMassaGet, 2, 9);
+            this.layoutPanel.Controls.Add(this.fieldTasks, 1, 7);
+            this.layoutPanel.Controls.Add(this.fieldMemory, 2, 7);
+            this.layoutPanel.Controls.Add(this.fieldPrintMainManager, 1, 9);
+            this.layoutPanel.Controls.Add(this.fieldMassaManager, 1, 8);
+            this.layoutPanel.Controls.Add(this.fieldMassaGet, 2, 8);
             this.layoutPanel.Controls.Add(this.labelPackageWeight, 2, 3);
             this.layoutPanel.Controls.Add(this.labelNettoWeight, 2, 2);
             this.layoutPanel.Controls.Add(this.fieldNettoWeight, 3, 2);
@@ -127,7 +125,7 @@
             this.layoutPanel.Controls.Add(this.labelProductDate, 2, 4);
             this.layoutPanel.Controls.Add(this.fieldProductDate, 3, 4);
             this.layoutPanel.Controls.Add(this.fieldKneading, 3, 5);
-            this.layoutPanel.Controls.Add(this.fieldPrintMain, 2, 7);
+            this.layoutPanel.Controls.Add(this.fieldPrintMain, 2, 9);
             this.layoutPanel.Controls.Add(this.fieldPlu, 1, 1);
             this.layoutPanel.Controls.Add(this.layoutPanelTop, 1, 0);
             this.layoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -159,7 +157,7 @@
             this.fieldPrintShippingManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintShippingManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintShippingManager.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintShippingManager.Location = new System.Drawing.Point(8, 352);
+            this.fieldPrintShippingManager.Location = new System.Drawing.Point(8, 402);
             this.fieldPrintShippingManager.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintShippingManager.Name = "fieldPrintShippingManager";
             this.fieldPrintShippingManager.Size = new System.Drawing.Size(96, 19);
@@ -176,7 +174,7 @@
             this.fieldPrintShipping.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintShipping.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintShipping.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintShipping.Location = new System.Drawing.Point(110, 352);
+            this.fieldPrintShipping.Location = new System.Drawing.Point(110, 402);
             this.fieldPrintShipping.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintShipping.Name = "fieldPrintShipping";
             this.fieldPrintShipping.Size = new System.Drawing.Size(904, 19);
@@ -212,14 +210,13 @@
             this.fieldTasks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldTasks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldTasks.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldTasks.Location = new System.Drawing.Point(8, 477);
+            this.fieldTasks.Location = new System.Drawing.Point(8, 327);
             this.fieldTasks.Margin = new System.Windows.Forms.Padding(3);
             this.fieldTasks.Name = "fieldTasks";
             this.fieldTasks.Size = new System.Drawing.Size(96, 19);
             this.fieldTasks.TabIndex = 57;
             this.fieldTasks.Text = "fieldTasks";
             this.fieldTasks.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldTasks.Visible = false;
             this.fieldTasks.Click += new System.EventHandler(this.FieldTasks_Click);
             this.fieldTasks.DoubleClick += new System.EventHandler(this.FieldTasks_Click);
             // 
@@ -231,14 +228,13 @@
             this.fieldMemory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMemory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldMemory.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMemory.Location = new System.Drawing.Point(110, 477);
+            this.fieldMemory.Location = new System.Drawing.Point(110, 327);
             this.fieldMemory.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMemory.Name = "fieldMemory";
             this.fieldMemory.Size = new System.Drawing.Size(904, 19);
             this.fieldMemory.TabIndex = 53;
             this.fieldMemory.Text = "fieldMemory";
             this.fieldMemory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMemory.Visible = false;
             // 
             // fieldPrintMainManager
             // 
@@ -247,14 +243,13 @@
             this.fieldPrintMainManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintMainManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintMainManager.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintMainManager.Location = new System.Drawing.Point(8, 327);
+            this.fieldPrintMainManager.Location = new System.Drawing.Point(8, 377);
             this.fieldPrintMainManager.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintMainManager.Name = "fieldPrintMainManager";
             this.fieldPrintMainManager.Size = new System.Drawing.Size(96, 19);
             this.fieldPrintMainManager.TabIndex = 52;
             this.fieldPrintMainManager.Text = "fieldPrintMainManager";
             this.fieldPrintMainManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldPrintMainManager.Visible = false;
             // 
             // fieldMassaManager
             // 
@@ -263,14 +258,13 @@
             this.fieldMassaManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldMassaManager.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMassaManager.Location = new System.Drawing.Point(8, 377);
+            this.fieldMassaManager.Location = new System.Drawing.Point(8, 352);
             this.fieldMassaManager.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaManager.Name = "fieldMassaManager";
             this.fieldMassaManager.Size = new System.Drawing.Size(96, 19);
             this.fieldMassaManager.TabIndex = 51;
             this.fieldMassaManager.Text = "fieldMassaManager";
             this.fieldMassaManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldMassaManager.Visible = false;
             // 
             // fieldMassaGet
             // 
@@ -280,14 +274,13 @@
             this.fieldMassaGet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldMassaGet.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMassaGet.Location = new System.Drawing.Point(110, 377);
+            this.fieldMassaGet.Location = new System.Drawing.Point(110, 352);
             this.fieldMassaGet.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaGet.Name = "fieldMassaGet";
             this.fieldMassaGet.Size = new System.Drawing.Size(904, 19);
             this.fieldMassaGet.TabIndex = 46;
             this.fieldMassaGet.Text = "fieldMassaGet";
             this.fieldMassaGet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaGet.Visible = false;
             // 
             // labelPackageWeight
             // 
@@ -375,14 +368,13 @@
             this.fieldPrintMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintMain.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintMain.Location = new System.Drawing.Point(110, 327);
+            this.fieldPrintMain.Location = new System.Drawing.Point(110, 377);
             this.fieldPrintMain.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintMain.Name = "fieldPrintMain";
             this.fieldPrintMain.Size = new System.Drawing.Size(904, 19);
             this.fieldPrintMain.TabIndex = 37;
             this.fieldPrintMain.Text = "fieldPrintLabelsMain";
             this.fieldPrintMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldPrintMain.Visible = false;
             this.fieldPrintMain.Click += new System.EventHandler(this.FieldPrintManager_Click);
             // 
             // fieldPlu
@@ -410,8 +402,6 @@
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.layoutPanelTop.Controls.Add(this.fieldLang, 3, 0);
-            this.layoutPanelTop.Controls.Add(this.fieldResolution, 1, 0);
             this.layoutPanelTop.Controls.Add(this.pictureBoxClose, 4, 0);
             this.layoutPanelTop.Controls.Add(this.fieldTitle, 2, 0);
             this.layoutPanelTop.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -421,32 +411,6 @@
             this.layoutPanelTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.layoutPanelTop.Size = new System.Drawing.Size(1006, 34);
             this.layoutPanelTop.TabIndex = 69;
-            // 
-            // fieldLang
-            // 
-            this.fieldLang.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.fieldLang.Enabled = false;
-            this.fieldLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldLang.FormattingEnabled = true;
-            this.fieldLang.Location = new System.Drawing.Point(806, 3);
-            this.fieldLang.Name = "fieldLang";
-            this.fieldLang.Size = new System.Drawing.Size(144, 21);
-            this.fieldLang.TabIndex = 58;
-            this.fieldLang.Visible = false;
-            // 
-            // fieldResolution
-            // 
-            this.fieldResolution.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.fieldResolution.Enabled = false;
-            this.fieldResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldResolution.FormattingEnabled = true;
-            this.fieldResolution.Location = new System.Drawing.Point(53, 3);
-            this.fieldResolution.Name = "fieldResolution";
-            this.fieldResolution.Size = new System.Drawing.Size(144, 21);
-            this.fieldResolution.TabIndex = 31;
-            this.fieldResolution.Visible = false;
             // 
             // pictureBoxClose
             // 
@@ -526,8 +490,6 @@
         private TableLayoutPanel layoutPanelTop;
         private PictureBox pictureBoxClose;
         private Label fieldTitle;
-        private ComboBox fieldLang;
-        private ComboBox fieldResolution;
     }
 }
 

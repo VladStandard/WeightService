@@ -1,6 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Protocols;
+using DataCore.Sql.TableScaleModels.Printers;
+using MDSoft.BarcodePrintUtils.Enums;
+using NHibernate.Impl;
+
 namespace DataCore.Models;
 
 public class WeighingSettingsModel
@@ -39,24 +44,20 @@ public class WeighingSettingsModel
                 _labelsCountMain = value;
         }
     }
-    public byte CurrentLabelsCountShipping { get; set; }
-
-	//public void RotatePalletSize(Direction direction)
-	//{
-	//    if (direction == Direction.Left)
-	//    {
-	//        CurrentLabelsCountMain--;
-	//        if (CurrentLabelsCountMain < LabelsCountMinValue)
-	//            CurrentLabelsCountMain = LabelsCountMinValue;
-
-	//    }
-	//    if (direction == Direction.Right)
-	//    {
-	//        CurrentLabelsCountMain++;
-	//        if (CurrentLabelsCountMain > LabelsCountMaxValue)
-	//            CurrentLabelsCountMain = LabelsCountMaxValue;
-	//    }
-	//}
+    private byte _labelsCountShipping;
+    public byte LabelsCountShipping
+    {
+        get => _labelsCountShipping;
+        set
+        {
+            if (value < KneadingMinValue)
+                _labelsCountShipping = LabelsCountMinValue;
+            else if (value > KneadingMaxValue)
+                _labelsCountShipping = LabelsCountMaxValue;
+            else
+                _labelsCountShipping = value;
+        }
+    }
 
 	/// <summary>
 	/// Constructor.
@@ -71,21 +72,31 @@ public class WeighingSettingsModel
 
     #region Public and private methods
 
-    public void RotateKneading(DirectionEnum direction)
+    public string GetPrintName(bool isMain, PrintBrand printBrand)
     {
-        if (direction == DirectionEnum.Left)
-        {
-            Kneading--;
-            if (Kneading < KneadingMinValue)
-                Kneading = KneadingMinValue;
-        }
-        if (direction == DirectionEnum.Right)
-        {
-            Kneading++;
-            if (Kneading > KneadingMaxValue)
-                Kneading = KneadingMaxValue;
-        }
+        return isMain
+            ? printBrand switch
+            {
+                PrintBrand.Zebra => LocaleCore.Print.NameMainZebra,
+                PrintBrand.TSC => LocaleCore.Print.NameMainTsc,
+                _ => LocaleCore.Print.DeviceName,
+            }
+            : printBrand switch
+            {
+                PrintBrand.Zebra => LocaleCore.Print.NameShippingZebra,
+                PrintBrand.TSC => LocaleCore.Print.NameShippingTsc,
+                _ => LocaleCore.Print.DeviceNameIsUnavailable,
+            };
     }
+
+    public string GetPrintDescription(bool isMain, PrintBrand printBrand, PrinterModel printer, int scaleCounter,
+        string deviceStatus, int labelPrintedCount, byte labelCount) =>
+        $"{GetPrintName(isMain, printBrand)} | " +
+        $"{LocaleCore.Table.DeviceIp}: {printer.Ip} | " +
+        $"{LocaleCore.Table.Status}: {NetUtils.GetPingStatus(printer.PingStatus)} | " +
+        $"{LocaleCore.Table.LabelCounter}: {scaleCounter} | " +
+        $"{deviceStatus} | " +
+        $"{LocaleCore.Scales.Labels}: {labelPrintedCount} {LocaleCore.Strings.From} {labelCount}";
 
     #endregion
 }

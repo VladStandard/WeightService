@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.8.180.0</Version>
+    <Version>0.8.190.0</Version>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
 </Project>

@@ -24,6 +24,7 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
         {
             () =>
             {
+                SqlCrudConfigSection.AddOrders(new(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
                 SqlSectionCast = DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigSection);
             }
         });

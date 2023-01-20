@@ -5,14 +5,6 @@ namespace DataCore.Models;
 
 public interface IDisposableBase
 {
-    public delegate void InitCallback();
-    public delegate void CloseCallback();
-    public delegate void ReopenCallback();
-    public delegate void RequestCallback();
-    public delegate void ResponseCallback();
-    public delegate void ReleaseManagedCallback();
-    public delegate void ReleaseUnmanagedCallback();
-
     public void Close();
 
     public void Dispose(bool disposing);

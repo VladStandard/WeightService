@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -92,10 +94,6 @@
     <ProjectReference Include="..\WsLocalization\WsLocalization.csproj">
       <Project>{f494c3d7-e4c9-4d2b-926f-66835260f4b5}</Project>
       <Name>WsLocalization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WsWeightCore\WsWeightCore.csproj">
-      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
-      <Name>WsWeightCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

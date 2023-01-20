@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -10,9 +9,9 @@ using System;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using WsStorageCore.Utils;
-using WsWebApiCore.Controllers;
-using WsWebApiCore.Models;
+using WsStorage.Utils;
+using WsWebApi.Controllers;
+using WsWebApi.Models;
 
 namespace WebApiTerra1000.Controllers;
 

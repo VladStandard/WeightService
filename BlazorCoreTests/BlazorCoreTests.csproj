@@ -7,10 +7,10 @@
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2023</Copyright>
     <Platforms>AnyCPU;x64</Platforms>
-    <AssemblyVersion>0.8.180.0</AssemblyVersion>
-    <FileVersion>0.8.180.0</FileVersion>
-    <Version>0.8.180.0</Version>
-    <LangVersion>10.0</LangVersion>
+    <AssemblyVersion>0.8.190.0</AssemblyVersion>
+    <FileVersion>0.8.190.0</FileVersion>
+    <Version>0.8.190.0</Version>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.13.5" />

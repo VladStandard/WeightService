@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace WeightCore.Zpl;
+namespace MDSoft.BarcodePrintUtils.Zpl;
 
 /// <summary>
 /// ZPLConverterHelper to assist in converting bitmap images into zpl strings.  Context of conversion output zpl strings will be either a string

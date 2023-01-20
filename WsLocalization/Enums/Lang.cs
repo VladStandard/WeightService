@@ -5,7 +5,6 @@ namespace WsLocalization.Enums;
 
 public enum Lang
 {
-    Unknown,
     English,
     Russian
 }

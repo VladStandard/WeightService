@@ -4,8 +4,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<Platforms>AnyCPU;x64</Platforms>
-    <LangVersion>10.0</LangVersion>
-    <Version>0.8.180.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Version>0.8.190.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Utils\" />

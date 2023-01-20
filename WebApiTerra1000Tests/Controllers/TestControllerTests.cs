@@ -3,10 +3,10 @@
 
 using NUnit.Framework;
 using RestSharp;
-using WsStorageCore.Enums;
-using WsWebApiCore.Models.WebRequests;
-using WsWebApiCore.Utils;
-using WsWebApiCoreTests.Utils;
+using WsStorage.Enums;
+using WsWebApi.Models.WebRequests;
+using WsWebApi.Utils;
+using WsWebApiTests.Utils;
 
 namespace WebApiTerra1000Tests.Controllers;
 
