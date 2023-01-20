@@ -18,7 +18,7 @@ public class PluginManagerHelper : HelperBase
 
     public PluginLabels Labels { get; }
     public PluginMassa Massa { get; }
-    public PluginMemoryHelper Memory { get; }
+    public PluginMemoryHelper Memory => PluginMemoryHelper.Instance;
     public PluginPrint PrintMain { get; }
     public PluginPrint PrintShipping { get; }
 
@@ -30,7 +30,6 @@ public class PluginManagerHelper : HelperBase
     {
         Labels = new();
         Massa = new();
-        Memory = new();
         PrintMain = new();
         PrintShipping = new();
     }
@@ -39,7 +38,7 @@ public class PluginManagerHelper : HelperBase
 
     #region Public and private methods
 
-    public override void Close()
+    public void CloseAll()
     {
         base.Close();
         Labels.Close();

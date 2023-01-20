@@ -172,7 +172,7 @@ public partial class MainForm : Form
                     Quartz.Close();
                     Quartz.Dispose();
                 }
-                UserSession.Plugin.Close();
+                //UserSession.Plugin.CloseAll();
             },
             () =>
             {

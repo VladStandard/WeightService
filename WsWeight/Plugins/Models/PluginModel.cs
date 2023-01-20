@@ -30,7 +30,7 @@ public class PluginModel : HelperBase
         TskType = TaskType.Default;
         Mutex = new();
         Cts = new();
-        Tsk = Task.Run(Close);
+        Tsk = Task.Run(() => { });
         Config = new();
     }
 
@@ -50,10 +50,10 @@ public class PluginModel : HelperBase
     /// <param name="action"></param>
     public void ExecuteInfinity(Action action)
     {
+        Close();
         base.Execute();
         Tsk = Task.Run(async () =>
         {
-            Close();
             Counter = 0;
             while (IsExecute)
             {
