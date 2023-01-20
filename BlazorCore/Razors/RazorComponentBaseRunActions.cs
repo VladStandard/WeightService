@@ -71,7 +71,7 @@ public partial class RazorComponentBase
         }
 
         // SQL log.
-        BlazorAppSettings.DataAccess.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(BlazorCore));
+        DataAccess.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(BlazorCore));
     }
 
     private void RunActionsWithQeustion(string title, string questionAdd, Action action)

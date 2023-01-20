@@ -3,7 +3,7 @@
 @using BlazorCore.Razors
 @using DataCore.Sql.TableScaleModels.BarCodes
 
-<RazorSectionReload TItem=@BarCodeModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
+<RazorSectionReload TItem=@BarCodeModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
@@ -13,7 +13,7 @@
 	RowDoubleClick=@(_ => SqlItemEditAsync())
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns >
-        <RazorSectionFieldIsMarked TItem=@BarCodeModel ParentRazor=@(this) />
+        <RazorSectionFieldIsMarked TItem=@BarCodeModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ChangeDt Width="12%">
 	        <Template Context="itemCast" >
 		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")

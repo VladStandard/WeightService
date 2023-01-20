@@ -7,11 +7,6 @@ public partial class SectionLogsWarnings : RazorComponentSectionBase<LogModel, L
 {
 	#region Public and private fields, properties, constructor
 
-    public SectionLogsWarnings() : base()
-    {
-        ButtonSettings = new(false, true, false, false, false, false, false);
-    }
-
     #endregion
 
     #region Public and private methods

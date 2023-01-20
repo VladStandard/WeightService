@@ -4,7 +4,7 @@
 @using DataCore.Sql.TableScaleModels.Printers
 @using DataCore.Sql.TableScaleModels.PrintersTypes
 
-<RazorSectionReload TItem=@PrinterModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Names />
+<RazorSectionReload TItem=@PrinterModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Names SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify
@@ -12,9 +12,9 @@
 	Data=@SqlSectionCast TItem=@PrinterModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@BlazorAppSettings.DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
-        <RazorSectionFieldIsMarked TItem=@PrinterModel ParentRazor=@(this) />
+        <RazorSectionFieldIsMarked TItem=@PrinterModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))

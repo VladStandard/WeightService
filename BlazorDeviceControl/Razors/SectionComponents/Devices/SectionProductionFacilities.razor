@@ -3,7 +3,7 @@
 @using BlazorCore.Razors
 @using DataCore.Sql.TableScaleModels.ProductionFacilities
 
-<RazorSectionReload TItem=@ProductionFacilityModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionProductionFacilities />
+<RazorSectionReload TItem=@ProductionFacilityModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionProductionFacilities SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
@@ -13,7 +13,7 @@
 	RowDoubleClick=@(_ => SqlItemEditAsync())
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns >
-        <RazorSectionFieldIsMarked TItem=@ProductionFacilityModel ParentRazor=@(this) />
+        <RazorSectionFieldIsMarked TItem=@ProductionFacilityModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
         <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("70%", true))

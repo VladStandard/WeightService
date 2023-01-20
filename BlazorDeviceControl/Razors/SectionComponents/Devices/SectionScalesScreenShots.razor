@@ -4,7 +4,7 @@
 @using DataCore.Sql.TableScaleModels.Scales
 @using DataCore.Sql.TableScaleModels.ScalesScreenshots
 
-<RazorSectionReload TItem=@ScaleScreenShotModel TItemFilter=@ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScreenShots />
+<RazorSectionReload TItem=@ScaleScreenShotModel TItemFilter=@ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScreenShots SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenGrid 
     PagerHorizontalAlign=@HorizontalAlign.Justify
@@ -14,7 +14,7 @@
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
-		<RazorSectionFieldIsMarked TItem=@ScaleScreenShotModel ParentRazor=@(this) />
+		<RazorSectionFieldIsMarked TItem=@ScaleScreenShotModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
 		<RadzenGridColumn TItem=@ScaleScreenShotModel Width="12%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.ChangeDt>
 			<Template Context="itemCast">
 				<RadzenLink TextStyle=@TextStyle.Body2

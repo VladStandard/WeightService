@@ -25,7 +25,6 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<AccessModel>(SqlCrudConfigSection);
-
             }
 		});
     }

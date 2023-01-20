@@ -17,7 +17,8 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
     #region Parameters
 
     [Parameter] public CssStyleRadzenColumnModel CssStyleRadzenColumn { get; set; }
-    [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
+    [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
+    [Parameter]  public ButtonSettingsModel? ButtonSettings { get; set; }
 
     #endregion
 
@@ -44,12 +45,14 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		CssStyleRadzenColumn = new("5%");
          // SqlItemFilterCast = new();
 		// SqlSectionFilterCast = new();
+        SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
 
         SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.IsGuiShowFilterOnlyTop = true;
 
-        ButtonSettings = new(true, true, true, true, true, false, false);
+
+            ButtonSettings = new(true, true, true, true, true, false, false);
     }
 
 	#endregion

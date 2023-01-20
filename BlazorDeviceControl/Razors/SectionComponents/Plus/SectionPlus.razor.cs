@@ -10,8 +10,7 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableB
 	public SectionPlus() : base()
 	{
         SqlCrudConfigSection.IsResultOrder = false;
-		SqlCrudConfigSection.AddOrders(new SqlFieldOrderModel($"{nameof(PluModel.Number)}", 
-			SqlFieldOrderEnum.Asc));
+		SqlCrudConfigSection.AddOrders(new SqlFieldOrderModel($"{nameof(PluModel.Number)}", SqlFieldOrderEnum.Asc));
         ButtonSettings = new(false, false, true, true, false, false, false);
     }
 

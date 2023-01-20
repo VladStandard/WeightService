@@ -3,7 +3,7 @@
 @using BlazorCore.Razors
 @using DataCore.Sql.TableScaleModels.Templates
 
-<RazorSectionReload TItem=@TemplateModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplates />
+<RazorSectionReload TItem=@TemplateModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplates SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
@@ -11,11 +11,10 @@
 	Data=@SqlSectionCast TItem=@TemplateModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@BlazorAppSettings.DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
-        <RazorSectionFieldIsMarked TItem=@TemplateModel ParentRazor=@(this) />
+        <RazorSectionFieldIsMarked TItem=@TemplateModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RazorSectionFieldIdentity TItem=@TemplateModel ParentRazor=@(this) />
-
         <RadzenGridColumn 
             TItem=@TemplateModel Property="CategoryId" TextAlign=@TextAlign.Center
             Title=@LocaleCore.Table.CategoryName Width="15%" />

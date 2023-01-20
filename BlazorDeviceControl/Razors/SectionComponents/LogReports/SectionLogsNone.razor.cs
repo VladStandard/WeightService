@@ -7,11 +7,6 @@ public partial class SectionLogsNone : RazorComponentSectionBase<LogModel, LogTy
 {
 	#region Public and private fields, properties, constructor
 
-    public SectionLogsNone() : base()
-    {
-        ButtonSettings = new(false, true, false, false, false, false, false);
-    }
-
     #endregion
 
     #region Public and private methods
@@ -25,7 +20,7 @@ public partial class SectionLogsNone : RazorComponentSectionBase<LogModel, LogTy
 	            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 		            nameof(LogTypeModel.Number), (byte)LogTypeEnum.None,
 		            SqlCrudConfigItem.IsResultShowMarked, SqlCrudConfigItem.IsResultShowOnlyTop);
-				SqlItem = BlazorAppSettings.DataAccess.GetItemNotNullable<LogTypeModel>(sqlCrudConfig);
+				SqlItem = DataAccess.GetItemNotNullable<LogTypeModel>(sqlCrudConfig);
             }
         });
     }
