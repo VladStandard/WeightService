@@ -40,7 +40,7 @@
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.Label Width="12%">
 	        <Template Context="itemCast" >
-		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.PluLabel.IdentityValueUid}")
+				<RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 					Text=@(StringUtils.FormatDtRus(itemCast.PluLabel.ChangeDt, true)) />
 	        </Template>
         </RadzenGridColumn>

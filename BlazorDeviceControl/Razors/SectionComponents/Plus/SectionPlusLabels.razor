@@ -34,7 +34,7 @@
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Scale Width="16%" TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
-				<RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{itemCast.PluScale.Scale.IdentityValueId}")
+				<RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.IdentityValueUid}")
 			        Text=@(itemCast.PluScale.Scale.Description)/>
 	        </Template>
         </RadzenGridColumn>
@@ -46,15 +46,15 @@
         </RadzenGridColumn>*@
         <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Plu Width="23%" TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
-		        <RadzenLink
-			        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.PluScale.Plu.IdentityValueUid}")
+                <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.IdentityValueUid}")
 			        Text=@(itemCast.PluScale.Plu.Name)/>
 	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Template Width="16%" TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
-                <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).IdentityValueId}")
-	   Text=@(DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).Title) />
+                <RadzenLink
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.IdentityValueUid}")
+                    Text=@(DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).Title) />
 	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Weighing Width="12%" TextAlign=@TextAlign.Center >
@@ -62,7 +62,7 @@
 				@if (itemCast.PluWeighing is not null)
 				{
 					<RadzenLink 
-						Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.PluWeighing.IdentityValueUid}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.IdentityValueUid}")
 				        Text=@(StringUtils.FormatDtRus(itemCast.PluWeighing.ChangeDt, true)) />
 				}
 	        </Template>

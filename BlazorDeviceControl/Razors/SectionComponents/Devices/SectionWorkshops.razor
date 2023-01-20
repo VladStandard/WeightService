@@ -1,7 +1,6 @@
 ﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel, SqlTableBase>
 @page "/section/workshops"
 @using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.ProductionFacilities
 @using DataCore.Sql.TableScaleModels.WorkShops
 
 <RazorSectionReload TItem=@WorkShopModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWorkShops SqlCrudConfigSection="@SqlCrudConfigSection" />
@@ -18,7 +17,7 @@
         <RazorSectionField TItem=@WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
         <RazorSectionField TItem=@WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.WorkShop.GetProductionFacility(GetRouteItemPathShort<ProductionFacilityModel>()) />
+            RazorFieldConfig=@RazorFieldConfigUtils.WorkShop.GetProductionFacility(GetRouteItemPath((WorkShopModel?) SqlItem)) />
     </Columns>
 </RadzenGrid>
 

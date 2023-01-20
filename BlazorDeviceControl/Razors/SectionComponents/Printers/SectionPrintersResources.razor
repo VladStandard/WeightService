@@ -11,18 +11,22 @@
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify
     Style="margin-top: 5px;"
-	Data=@SqlSectionCast TItem=@PrinterResourceModel
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    Data=@SqlSectionCast 
+    TItem=@PrinterResourceModel
+    RowClick=@(SqlItemSetAsync) 
+    RowRender=@(args => RowRender(args))
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
+    AllowPaging=true
+    AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@PrinterResourceModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("32%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
         <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("32%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
+            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPath((PrinterResourceModel?) SqlItem)) />
         <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("31%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetName(GetRouteItemPathShort<TemplateResourceModel>()) />
+            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetName(GetRouteItemPath((PrinterResourceModel?) SqlItem)) />
     </Columns>
 </RadzenGrid>
 

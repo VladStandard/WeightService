@@ -18,7 +18,7 @@
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType(GetRouteItemPathShort<PrinterTypeModel>()) />
+            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType(GetRouteItemPath((PrinterModel?) SqlItem)) />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetIp() />
         <RadzenGridColumn TItem=@PrinterModel TextAlign=@TextAlign.Center
