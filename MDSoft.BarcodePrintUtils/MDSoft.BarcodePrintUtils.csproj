@@ -90,8 +90,8 @@
     <Compile Include="Tsc\TscLibNet64Native.cs" />
     <Compile Include="Tsc\TscLibNet32Native.cs" />
     <Compile Include="Tsc\TscPrintProperties.cs" />
-    <Compile Include="Wmi\WmiWin32PrinterEntity.cs" />
-    <Compile Include="Wmi\WmiWin32PrinterEnums.cs" />
+    <Compile Include="Wmi\Models\WmiWin32PrinterModel.cs" />
+    <Compile Include="Wmi\Enums\Win32PrinterStatus.cs" />
     <Compile Include="Zebra\DeviceEntity.cs" />
     <Compile Include="Zebra\DeviceSocketRaw.cs" />
     <Compile Include="Zebra\DeviceSocketTcp.cs" />

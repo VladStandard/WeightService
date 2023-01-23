@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MDSoft.BarcodePrintUtils.Wmi.Models;
+
 namespace ScalesUI.Forms;
 
 /// <summary>
@@ -444,7 +446,7 @@ public partial class MainForm : Form
             ? UserSession.Plugin.PrintMain.GetZebraPrintMode() :
             UserSession.Plugin.PrintShipping.GetZebraPrintMode();
         PrintBrand printBrand = isMain ? UserSession.Plugin.PrintMain.PrintBrand : UserSession.Plugin.PrintShipping.PrintBrand;
-        WmiWin32PrinterEntity wmiPrinter = pluginPrint.TscWmiPrinter;
+        WmiWin32PrinterModel wmiPrinter = pluginPrint.TscWmiPrinter;
         return
             $"{UserSession.WeighingSettings.GetPrintName(isMain, printBrand)}" + Environment.NewLine +
             $"{LocaleCore.Print.DeviceCommunication} ({pluginPrint.Printer.Ip}): {pluginPrint.Printer.PingStatus}" + Environment.NewLine +

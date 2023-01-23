@@ -2,9 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-printer
 
-namespace MDSoft.BarcodePrintUtils.Wmi;
+namespace MDSoft.BarcodePrintUtils.Wmi.Enums;
 
-public enum Win32PrinterStatusEnum
+public enum Win32PrinterStatus
 {
 	Idle = 0,
 	Paused = 1,
@@ -32,20 +32,4 @@ public enum Win32PrinterStatusEnum
 	DoorOpen = 23,
 	ServerUnknown = 24,
 	PowerSave = 25,
-}
-
-public enum Win32PrinterStatusShortEnum
-{
-	OK,
-	Error,
-	Degraded,
-	Unknown,
-	PredFail,
-	Starting,
-	Stopping,
-	Service,
-	Stressed,
-	NonRecover,
-	NoContact,
-	LostComm,
 }
