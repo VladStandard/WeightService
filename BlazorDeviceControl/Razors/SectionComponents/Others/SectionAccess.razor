@@ -3,7 +3,7 @@
 @using BlazorCore.Razors
 @using DataCore.Sql.TableScaleModels.Access
 
-<RazorSectionReload TItem=@AccessModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
+<RazorSectionReload TItem=@AccessModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify
@@ -13,7 +13,7 @@
 	RowDoubleClick=@(_ => SqlItemEditAsync())
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns >
-		<RazorSectionFieldIsMarked TItem=@AccessModel ParentRazor=@(this) />
+		<RazorSectionFieldIsMarked TItem=@AccessModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
 		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Access.GetLoginDt() />
 		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))

@@ -11,15 +11,7 @@ public partial class MainLayout : RazorComponentBase
 	{
         RunActionsInitialized(new()
 		{
-			() =>
-            {
-                SetUserSettings();
-
-                if (HttpContextAccess?.HttpContext is not null)
-                {
-                    HttpContext = HttpContextAccess.HttpContext;
-                }
-            }
+			SetUserSettings
 		});
 	}
 

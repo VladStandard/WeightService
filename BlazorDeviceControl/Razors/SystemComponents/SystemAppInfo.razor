@@ -4,8 +4,6 @@
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemComponents
 
-<RazorItemReload TItem=SqlTableEmptyModel ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
-
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
 	<RazorItemTableHead TItem=SqlTableEmptyModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTabelHeadStyleInfo() />

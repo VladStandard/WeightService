@@ -3,7 +3,7 @@
 @using BlazorCore.Razors
 @using DataCore.Sql.TableScaleModels.Nomenclatures
 
-<RazorSectionReload TItem=@NomenclatureModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures />
+<RazorSectionReload TItem=@NomenclatureModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
@@ -13,7 +13,7 @@
 	RowDoubleClick=@(_ => SqlItemEditAsync())
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns >
-        <RazorSectionFieldIsMarked TItem=@NomenclatureModel ParentRazor=@(this) />
+        <RazorSectionFieldIsMarked TItem=@NomenclatureModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RadzenGridColumn TItem=@NomenclatureModel Title=@LocaleCore.Table.Name Width="45%" >
             <Template Context="itemCast" >
 	            <RadzenLink Style="width: 100%; margin-left: 0; "

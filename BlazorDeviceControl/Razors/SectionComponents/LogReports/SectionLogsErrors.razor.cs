@@ -7,12 +7,7 @@ public partial class SectionLogsErrors : RazorComponentSectionBase<LogModel, Log
 {
 	#region Public and private fields, properties, constructor
 
-    public SectionLogsErrors() : base()
-    {
-	    ButtonSettings = new(false, true, false, false, false, false, false);
-    }
-
-	#endregion
+    #endregion
 
 	#region Public and private methods
 
@@ -25,7 +20,7 @@ public partial class SectionLogsErrors : RazorComponentSectionBase<LogModel, Log
 				SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 					nameof(LogTypeModel.Number), (byte)LogTypeEnum.Error,
 					SqlCrudConfigSection.IsResultShowMarked, SqlCrudConfigSection.IsResultShowOnlyTop);
-				SqlItem = BlazorAppSettings.DataAccess.GetItemNotNullable<LogTypeModel>(sqlCrudConfig);
+				SqlItem = DataAccess.GetItemNotNullable<LogTypeModel>(sqlCrudConfig);
 			}
 		});
 	}

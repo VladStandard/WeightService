@@ -3,7 +3,7 @@
 @using BlazorCore.Razors
 @using DataCore.Sql.TableScaleModels.Versions
 
-<RazorSectionReload TItem=@VersionModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb />
+<RazorSectionReload TItem=@VersionModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
@@ -11,7 +11,7 @@
 	Data=@SqlSectionCast TItem=@VersionModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@BlazorAppSettings.DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionField TItem=@VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
             RazorFieldConfig=@RazorFieldConfigUtils.Version.GetReleaseDt() />

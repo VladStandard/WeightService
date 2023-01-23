@@ -18,9 +18,18 @@
 			default:
 				@if (CssStyleRadzenColumn.IsShowLink)
 				{
-					<RadzenLink 
-						Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
-					    Path=@GetRouteItemPathForLink(item) />
+					@if (RazorFieldConfig.LinkUrl != "")
+					{
+					    <RadzenLink 
+                            Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
+                            Path=@RazorFieldConfig.LinkUrl  />
+					}
+					else
+					{
+					    <RadzenLink 
+                            Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
+                            Path=@GetRouteItemPathForLink(item) />
+					}
 				}
 				else
 				{

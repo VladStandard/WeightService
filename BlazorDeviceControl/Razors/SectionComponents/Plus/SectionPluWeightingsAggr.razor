@@ -3,7 +3,7 @@
 @using BlazorCore.Razors
 @using DataCore.Sql.Xml
 
-<RazorSectionReload TItem=@WeithingFactSummaryModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation />
+<RazorSectionReload TItem=@WeithingFactSummaryModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenGrid PagerHorizontalAlign=@HorizontalAlign.Justify
 			Style="margin-top: 5px;"
@@ -12,7 +12,7 @@
 	AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
-        <RazorSectionFieldIsMarked TItem=@WeithingFactSummaryModel ParentRazor=@(this) />
+        <RazorSectionFieldIsMarked TItem=@WeithingFactSummaryModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RadzenGridColumn 
 	        TItem=@WeithingFactSummaryModel Width="15%"
 	        Title=@LocaleCore.Table.WeithingDt >

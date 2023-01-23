@@ -200,12 +200,12 @@ public partial class RazorComponentBase
 		if (item is null) return;
 		if (item.IsNew)
 		{
-			BlazorAppSettings.DataAccess.Save(item);
+			DataAccess.Save(item);
 		}
 		else
 		{
 			if (!SqlItemValidate(NotificationService, item)) return;
-			BlazorAppSettings.DataAccess.UpdateForce(item);
+			DataAccess.UpdateForce(item);
 		}
 	}
 
@@ -460,7 +460,7 @@ public partial class RazorComponentBase
 		
 		RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
 		{
-			BlazorAppSettings.DataAccess.Mark(SqlItem);
+			DataAccess.Mark(SqlItem);
 			OnChangeAsync();
 		});
 	}
@@ -478,7 +478,7 @@ public partial class RazorComponentBase
 		
 		RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
 		{
-			BlazorAppSettings.DataAccess.Delete(SqlItem);
+			DataAccess.Delete(SqlItem);
 			OnChangeAsync();
 		});
 	}
@@ -518,7 +518,7 @@ public partial class RazorComponentBase
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
                 new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), false, false);
-			List<TemplateResourceModel> templateResources = BlazorAppSettings.DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
+			List<TemplateResourceModel> templateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains(fileType))

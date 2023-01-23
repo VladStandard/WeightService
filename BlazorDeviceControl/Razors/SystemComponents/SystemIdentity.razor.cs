@@ -9,8 +9,12 @@ public partial class SystemIdentity : RazorComponentBase
 
 	private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
 	private List<Lang> Langs { get; set; }
-
-	public SystemIdentity()
+    private string HttpId => HttpContext is null ? string.Empty : HttpContext.Connection.Id;
+    private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
+    protected string HttpIdDescription => $"{LocaleCore.Strings.AuthorizingId}: {HttpId}";
+    protected string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {IpAddress}";
+   
+    public SystemIdentity()
 	{
 		Langs = new();
 		foreach (Lang lang in Enum.GetValues(typeof(Lang)))

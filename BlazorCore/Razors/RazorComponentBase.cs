@@ -19,6 +19,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 	#region Public and private fields, properties, constructor
 
     #region Inject
+    
     [Inject] public DialogService? DialogService { get; set; }
     [Inject] public IJSRuntime? JsRuntime { get; set; }
     [Inject] public NavigationManager? NavigationManager { get; set; }
@@ -38,6 +39,15 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     #endregion
 
+    #region Constants
+
+    public DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    public HttpContext? HttpContext => HttpContextAccess?.HttpContext;
+    protected BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
+    public DataContextModel DataContext { get; } = new();
+    
+    #endregion
+
     #region Parameters
 
     [Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
@@ -45,40 +55,24 @@ public partial class RazorComponentBase : LayoutComponentBase
     [Parameter] public long? IdentityId { get; set; }
     [Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
     [Parameter] public RazorComponentBase? ParentRazor { get; set; }
-    [Parameter] public HttpContext? HttpContext { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public SqlCrudConfigModel SqlCrudConfigItem { get; set; }
-    [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public SqlCrudConfigModel SqlCrudConfigList { get; set; }
 
     #endregion
 
-    protected BlazorAppSettingsHelper BlazorAppSettings { get; } = BlazorAppSettingsHelper.Instance;
-	private string HttpId => HttpContext is null ? string.Empty : HttpContext.Connection.Id;
-	private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
-	protected string HttpIdDescription => $"{LocaleCore.Strings.AuthorizingId}: {HttpId}";
-	protected string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {IpAddress}";
-	public SqlTableBase? SqlItem { get; set; }
+    public SqlTableBase? SqlItem { get; set; }
 	protected SqlTableBase? SqlItemOnTable { get; set; }
 	public SqlTableBase? SqlItemFilter { get; set; }
 	public List<SqlTableBase>? SqlSection { get; set; }
 	public List<SqlTableBase>? SqlSectionOnTable { get; set; }
 	public List<SqlTableBase>? SqlLinkedItems { get; set; }
-    public DataContextModel DataContext { get; } = new();
-	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public RazorComponentBase()
 	{
-		NotificationService = null;
-		NavigationManager = null;
-		JsRuntime = null;
-		DialogService = null;
-		TooltipService = null;
-
-		HttpContext = null;
         UserSettings = null;
         Title = string.Empty;
 
@@ -91,19 +85,13 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		RazorFieldConfig = new();
 		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem(true);
-		SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
-		SqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
+        SqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
 	}
 
 	private void SetPropertiesFromParent()
 	{
 		if (ParentRazor is null) return;
-
-		if (ParentRazor.HttpContext is not null)
-			HttpContext = ParentRazor.HttpContext;
-        if (ParentRazor.UserSettings is not null)
-			UserSettings = ParentRazor.UserSettings;
-		if (ParentRazor.IdentityId is not null)
+        if (ParentRazor.IdentityId is not null)
 			IdentityId = ParentRazor.IdentityId;
 		if (ParentRazor.IdentityUid is not null)
 			IdentityUid = ParentRazor.IdentityUid;
@@ -117,9 +105,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 			SqlSectionOnTable = ParentRazor.SqlSectionOnTable;
 		if (ParentRazor.SqlLinkedItems is not null)
 			SqlLinkedItems = ParentRazor.SqlLinkedItems;
+
         SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
-		SqlCrudConfigSection = ParentRazor.SqlCrudConfigSection;
-	}
+    }
 
 	protected async void SetUserSettings()
 	{
@@ -129,10 +117,10 @@ public partial class RazorComponentBase : LayoutComponentBase
 		string? userName = auth.User.Identity.Name;
 		if (string.IsNullOrEmpty(userName)) return;
 
-		AccessModel? access = DataAccessHelper.Instance.GetItemAccessNullable(userName);
+		AccessModel? access = DataAccess.GetItemAccessNullable(userName);
 		if (access is null) return;
 		access.LoginDt = DateTime.Now;
-		DataAccessHelper.Instance.UpdateForce(access);
+		DataAccess.UpdateForce(access);
 
 		UserSettings = new(userName, (AccessRightsEnum)access.Rights);
     }

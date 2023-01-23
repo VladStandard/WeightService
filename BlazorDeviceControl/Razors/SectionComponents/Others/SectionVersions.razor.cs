@@ -12,6 +12,7 @@ public partial class SectionVersions : RazorComponentSectionBase<VersionModel, S
     public SectionVersions() : base()
     {
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
         ButtonSettings = new(false, false, false, false, false, false, false);
     }
 

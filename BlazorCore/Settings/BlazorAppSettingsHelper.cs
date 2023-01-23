@@ -22,8 +22,8 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
 
     #region Public and private fields, properties, constructor
 
-    public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-    public DataSourceDicsHelper DataSourceDics { get; } = DataSourceDicsHelper.Instance;
+    public DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    public DataSourceDicsHelper DataSourceDics => DataSourceDicsHelper.Instance;
     public MemoryModel Memory { get; private set; } = new();
     public static int Delay => 5_000;
     public string MemoryInfo => Memory.MemorySize.PhysicalTotal != null

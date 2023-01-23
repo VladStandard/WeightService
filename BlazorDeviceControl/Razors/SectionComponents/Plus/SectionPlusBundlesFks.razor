@@ -4,7 +4,7 @@
 @using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
 @using DataCore.Sql.TableScaleModels.Plus
 
-<RazorSectionReload TItem=@PluBundleFkModel TItemFilter=@PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusBundlesFk />
+<RazorSectionReload TItem=@PluBundleFkModel TItemFilter=@PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusBundlesFk SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenGrid
 	Style="margin-top: 5px;"
@@ -13,7 +13,7 @@
 	RowDoubleClick=@(_ => SqlItemEditAsync())
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
-		<RazorSectionFieldIsMarked TItem=PluBundleFkModel ParentRazor=@(this) />
+		<RazorSectionFieldIsMarked TItem=PluBundleFkModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
 		<RadzenGridColumn TItem=PluBundleFkModel Width="7%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Weighted>
 		    <Template Context="itemCast">
 			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.Plu.IsCheckWeight/>
