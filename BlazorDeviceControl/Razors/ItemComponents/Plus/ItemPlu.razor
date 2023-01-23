@@ -48,7 +48,7 @@
                     Text=@LocaleCore.Table.Template />
             </td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                <MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
                     @bind-Value=@Template>
 					@foreach (TemplateModel item in DataContext.Templates)
 					{
@@ -62,7 +62,7 @@
 				            Text=@LocaleCore.Table.Nomenclature />
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                <MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 				           ReadOnly=true Disabled=true
 				           @bind-Value=@SqlItemCast.Nomenclature>
 					@foreach (NomenclatureModel item in DataContext.NomenclatureDeprecated)

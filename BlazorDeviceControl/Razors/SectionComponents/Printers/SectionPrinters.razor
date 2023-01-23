@@ -12,13 +12,14 @@
 	Data=@SqlSectionCast TItem=@PrinterModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    AllowPaging=true
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@PrinterModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType(GetRouteItemPath((PrinterModel?) SqlItem)) />
+            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType() />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetIp() />
         <RadzenGridColumn TItem=@PrinterModel TextAlign=@TextAlign.Center

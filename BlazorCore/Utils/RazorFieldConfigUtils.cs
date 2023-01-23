@@ -68,7 +68,7 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetDeviceLoginDt() => new($"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.LoginDt)}", TextAlign.Center, LocaleCore.Table.LoginDt);
 		public static RazorFieldConfigModel GetDeviceLogoutDt() => new($"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}", TextAlign.Center, LocaleCore.Table.LogoutDt);
 		public static RazorFieldConfigModel GetDeviceMacAddress() => new($"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.MacAddress)}", TextAlign.Center, LocaleCore.Table.DeviceMac);
-		public static RazorFieldConfigModel GetDeviceName(string url) => new(url, new DeviceModel(), $"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Device, LocaleCore.Table.Name);
+		public static RazorFieldConfigModel GetDeviceName() => new(new DeviceModel(), $"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Device, LocaleCore.Table.Name);
 		public static RazorFieldConfigModel GetDevicePrettyName() => new($"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
 	}
 
@@ -153,13 +153,13 @@ public static class RazorFieldConfigUtils
 	{
 		public static RazorFieldConfigModel GetIp() => new(nameof(PrinterModel.Ip), TextAlign.Left, LocaleCore.Print.Ip);
 		public static RazorFieldConfigModel GetMacAddress() => new(nameof(PrinterModel.MacAddress), TextAlign.Left, LocaleCore.Print.Mac);
-		public static RazorFieldConfigModel GetPrinterType(string url) => new(url, new PrinterTypeModel(), $"{nameof(PrinterModel.PrinterType)}.{nameof(PrinterTypeModel.Name)}", TextAlign.Left, LocaleCore.Print.Type, "string");
+		public static RazorFieldConfigModel GetPrinterType() => new(new PrinterTypeModel(), $"{nameof(PrinterModel.PrinterType)}.{nameof(PrinterTypeModel.Name)}", TextAlign.Left, LocaleCore.Print.Type, "string");
 	}
 
 	public static class PrinterResource
 	{
-		public static RazorFieldConfigModel GetName(string url) => new(url, new PrinterResourceModel(), $"{nameof(PrinterResourceModel.TemplateResource)}.{nameof(TemplateResourceModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
-		public static RazorFieldConfigModel GetPrinter(string url) => new(url, new PrinterModel(), $"{nameof(PrinterResourceModel.Printer)}.{nameof(PrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
+		public static RazorFieldConfigModel GetName() => new(new PrinterResourceModel(), $"{nameof(PrinterResourceModel.TemplateResource)}.{nameof(TemplateResourceModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
+		public static RazorFieldConfigModel GetPrinter() => new(new PrinterModel(), $"{nameof(PrinterResourceModel.Printer)}.{nameof(PrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
 	}
 
 	public static class ProductionFacility
@@ -186,6 +186,6 @@ public static class RazorFieldConfigUtils
 
 	public static class WorkShop
 	{
-		public static RazorFieldConfigModel GetProductionFacility(string url) => new(url, new ProductionFacilityModel(), $"{nameof(WorkShopModel.ProductionFacility)}.{nameof(ProductionFacilityModel.Name)}", TextAlign.Left, LocaleCore.Table.ProductionFacility, "string");
+		public static RazorFieldConfigModel GetProductionFacility() => new(new ProductionFacilityModel(), $"{nameof(WorkShopModel.ProductionFacility)}.{nameof(ProductionFacilityModel.Name)}", TextAlign.Left, LocaleCore.Table.ProductionFacility, "string");
 	}
 }

@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WsStorageCore\WsStorage.csproj" />
     <ProjectReference Include="..\WsStorage\WsStorage.csproj" />
   </ItemGroup>
 
