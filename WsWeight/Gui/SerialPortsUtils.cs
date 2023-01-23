@@ -13,24 +13,19 @@ public static class SerialPortsUtils
                 throw new ArgumentNullException(nameof(scale));
 
             // Текущий порт из настроек.
-            string curPort = string.Empty;
             if (!string.IsNullOrEmpty(scale.DeviceComPort))
             {
-                curPort = scale.DeviceComPort;
-                if (!string.IsNullOrEmpty(curPort))
+                bool isFind = false;
+                foreach (string portName in listComPorts)
                 {
-                    bool find = false;
-                    foreach (string portName in listComPorts)
+                    if (portName.Equals(scale.DeviceComPort, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (portName.Equals(curPort, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            find = true;
-                            break;
-                        }
+                        isFind = true;
+                        break;
                     }
-                    if (!find)
-                        fieldComPort.Items.Add(curPort);
                 }
+                if (!isFind)
+                    fieldComPort.Items.Add(scale.DeviceComPort);
             }
             // Сортировка.
             listComPorts = listComPorts.OrderBy(o => o).ToList();
@@ -38,7 +33,7 @@ public static class SerialPortsUtils
             foreach (string portName in listComPorts)
             {
                 fieldComPort.Items.Add(portName);
-                fieldComPort.Text = curPort;
+                fieldComPort.Text = scale.DeviceComPort;
             }
         }
         catch (Exception ex)

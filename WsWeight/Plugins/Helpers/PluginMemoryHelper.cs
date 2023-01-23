@@ -19,7 +19,7 @@ public class PluginMemoryHelper : PluginHelperBase
     #region Public and private fields and properties
 
     private Label FieldMemory { get; set; }
-    private Label FieldTasks { get; set; }
+    private Label FieldMemoryExt { get; set; }
     private MemorySizeModel MemorySize { get; }
 
     #endregion
@@ -30,7 +30,7 @@ public class PluginMemoryHelper : PluginHelperBase
     {
         TskType = TaskType.TaskMemory;
         FieldMemory = new();
-        FieldTasks = new();
+        FieldMemoryExt = new();
         MemorySize = new();
     }
 
@@ -39,7 +39,7 @@ public class PluginMemoryHelper : PluginHelperBase
     #region Public and private methods
 
     public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
-        Label fieldMemory, Label fieldTasks)
+        Label fieldMemory, Label fieldMemoryExt)
     {
         base.Init();
         ReopenItem.Config = configReopen;
@@ -48,17 +48,17 @@ public class PluginMemoryHelper : PluginHelperBase
         ActionUtils.ActionTryCatch(() =>
         {
             FieldMemory = fieldMemory;
-            FieldTasks = fieldTasks;
+            FieldMemoryExt = fieldMemoryExt;
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocaleCore.Scales.Threads);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
         });
     }
 
     public override void Execute()
     {
         base.Execute();
-        RequestItem.ExecuteInfinity(MemorySize.Execute);
-        ResponseItem.ExecuteInfinity(Response);
+        RequestItem.Execute(MemorySize.Execute);
+        ResponseItem.Execute(Response);
     }
 
     private void Response()
@@ -72,8 +72,7 @@ public class PluginMemoryHelper : PluginHelperBase
             $" | {LocaleCore.Scales.MemoryAll}: " +
             (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : "- MB")
         );
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks,
-            $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
     }
 
     public override void Close()

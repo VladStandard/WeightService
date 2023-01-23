@@ -123,16 +123,16 @@ public class TscPrintProperties
 				Height = 100.0;
 				break;
 			case PrintLabelSize.Size80x100:
-				if (CultureInfo.CurrentCulture.Name.Equals("ru-RU"))
-				{
+				//if (CultureInfo.CurrentCulture.Name.Equals("ru-RU"))
+				//{
 					Width = 83.00;
 					Height = 101.50;
-				}
-				else
-				{
-					Width = 83.00;
-					Height = 101.50;
-				}
+				//}
+				//else
+				//{
+				//	Width = 83.00;
+				//	Height = 101.50;
+				//}
 				break;
 			case PrintLabelSize.Size100x100:
 				Width = 100.0;

@@ -7,7 +7,7 @@ public class HelperBase
 {
     #region Public and private fields, properties, constructor
 
-    protected bool IsExecute { get; set; }
+    protected bool IsExecute { get; private set; }
     private Action CloseAction { get; set; }
 
     protected HelperBase()

@@ -377,11 +377,10 @@
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\UserSessionHelper.cs" />
     <Compile Include="Plugins\Enums\TaskType.cs" />
-    <Compile Include="Plugins\Helpers\PluginLabels.cs" />
-    <Compile Include="Plugins\Helpers\PluginManagerHelper.cs" />
-    <Compile Include="Plugins\Helpers\PluginMassa.cs" />
+    <Compile Include="Plugins\Helpers\PluginLabelsHelper.cs" />
+    <Compile Include="Plugins\Helpers\PluginMassaHelper.cs" />
     <Compile Include="Plugins\Helpers\PluginMemoryHelper.cs" />
-    <Compile Include="Plugins\Helpers\PluginPrint.cs" />
+    <Compile Include="Plugins\Helpers\PluginPrintModel.cs" />
     <Compile Include="Plugins\Models\ConfigModel.cs" />
     <Compile Include="Plugins\Models\PluginHelperBase.cs" />
     <Compile Include="Plugins\Models\PluginModel.cs" />
@@ -509,9 +508,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj">
       <Project>{2a3af48b-dc5b-4359-b056-3605631440f5}</Project>

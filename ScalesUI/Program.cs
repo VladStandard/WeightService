@@ -9,9 +9,9 @@ internal static class Program
 {
     #region Public and private fields and properties
 
-    private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
-    private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-
+    private static AppVersionHelper AppVersion => AppVersionHelper.Instance;
+    private static DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    
     #endregion
 
     #region Public and private methods
@@ -54,6 +54,7 @@ internal static class Program
                 DataAccess.LogInformation(
                     LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description),
                     UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
+                // Run app.
                 System.Windows.Forms.Application.Run(new MainForm());
             }
         }

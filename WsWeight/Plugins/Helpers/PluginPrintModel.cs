@@ -3,16 +3,18 @@
 
 using MDSoft.BarcodePrintUtils.Wmi.Enums;
 using MDSoft.BarcodePrintUtils.Wmi.Models;
+using Label = System.Windows.Forms.Label;
 
 namespace WsWeight.Plugins.Helpers;
 
-public class PluginPrint : PluginHelperBase
+public class PluginPrintModel : PluginHelperBase
 {
     #region Public and private fields and properties
 
     private Connection? ZebraConnection { get; set; }
     public byte LabelPrintedCount { get; set; }
     private Label FieldPrint { get; set; }
+    private Label FieldPrintExt { get; set; }
     public PrintBrand PrintBrand { get; private set; }
     public PrinterModel Printer { get; private set; }
     public string ZebraPeelerStatus { get; private set; }
@@ -22,12 +24,13 @@ public class PluginPrint : PluginHelperBase
     private ZebraPrinter ZebraDriver { get { if (ZebraConnection is not null && _zebraDriver is null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
     private ZebraPrinterStatus ZebraStatus { get; set; }
     public bool IsPrintBusy { get; set; }
+    public bool IsMain { get; set; }
 
     #endregion
 
     #region Constructor and destructor
 
-    public PluginPrint()
+    public PluginPrintModel()
     {
         TskType = TaskType.TaskPrint;
         LabelPrintedCount = 0;
@@ -38,7 +41,7 @@ public class PluginPrint : PluginHelperBase
     #region Public and private methods
 
     public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
-        PrintBrand printBrand, PrinterModel printer, Label fieldPrint, bool isMain)
+        PrintBrand printBrand, PrinterModel printer, Label fieldPrint, Label fieldPrintExt, bool isMain)
     {
         base.Init();
         ReopenItem.Config = configReopen;
@@ -49,17 +52,19 @@ public class PluginPrint : PluginHelperBase
             PrintBrand = printBrand;
             Printer = printer;
             FieldPrint = fieldPrint;
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
+            FieldPrintExt = fieldPrintExt;
+            IsMain = isMain;
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
             switch (PrintBrand)
             {
                 case PrintBrand.Zebra:
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                        $"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
+                        $"{(IsMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
                     break;
                 case PrintBrand.TSC:
                     TscDriver.Setup(PrintChannel.Ethernet, printer.Ip, printer.Port, PrintLabelSize.Size80x100, PrintLabelDpi.Dpi300);
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                        $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
+                        $"{(IsMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
                     TscDriver.Properties.PrintName = printer.Name;
                     break;
             }
@@ -70,12 +75,12 @@ public class PluginPrint : PluginHelperBase
         }
     }
 
-    public void Execute(bool isMain)
+    public override void Execute()
     {
         base.Execute();
-        ReopenItem.ExecuteInfinity(Reopen);
-        RequestItem.ExecuteInfinity(Request);
-        ResponseItem.ExecuteInfinity(() => Response(isMain));
+        ReopenItem.Execute(Reopen);
+        RequestItem.Execute(Request);
+        ResponseItem.Execute(Response);
     }
 
     private void Reopen()
@@ -85,6 +90,9 @@ public class PluginPrint : PluginHelperBase
 
     private void Request()
     {
+        // FieldPrintManager.
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
+        
         if (Printer.PingStatus == IPStatus.Success)
         {
             switch (PrintBrand)
@@ -115,23 +123,23 @@ public class PluginPrint : PluginHelperBase
         }
     }
 
-    private byte GetLabelCount(bool isMain) => 
-        isMain
+    private byte GetLabelCount() =>
+        IsMain
             ? UserSessionHelper.Instance.WeighingSettings.LabelsCountMain
             : UserSessionHelper.Instance.WeighingSettings.LabelsCountShipping;
 
-    private void Response(bool isMain)
+    private void Response()
     {
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint, 
-            UserSessionHelper.Instance.WeighingSettings.GetPrintDescription(isMain, PrintBrand, Printer, 
-                UserSessionHelper.Instance.Scale.Counter, GetDeviceStatus(), LabelPrintedCount, GetLabelCount(isMain)));
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
+            UserSessionHelper.Instance.WeighingSettings.GetPrintDescription(IsMain, PrintBrand, Printer,
+                UserSessionHelper.Instance.Scale.Counter, GetDeviceStatus(), LabelPrintedCount, GetLabelCount()));
         MDSoft.WinFormsUtils.InvokeControl.SetForeColor(FieldPrint,
-            Equals(Printer.PingStatus, IPStatus.Success) ? System.Drawing.Color.Green : System.Drawing.Color.Red);
+            Equals(Printer.PingStatus, IPStatus.Success) ? Color.Green : Color.Red);
     }
 
-    public string GetDeviceNameShort(bool isMain)
+    public string GetDeviceNameShort()
     {
-        return isMain
+        return IsMain
             ? PrintBrand switch
             {
                 PrintBrand.Zebra => LocaleCore.Print.NameMainZebraShort,
@@ -233,7 +241,6 @@ public class PluginPrint : PluginHelperBase
     public override void Close()
     {
         base.Close();
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, false);
         if (PrintBrand == PrintBrand.Zebra)
         {
             ZebraConnection?.Close();

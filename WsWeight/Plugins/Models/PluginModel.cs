@@ -9,7 +9,7 @@ public class PluginModel : HelperBase
     #region Public and private fields, properties, constructor
 
     private AsyncLock Mutex { get; }
-    private CancellationTokenSource Cts { get; }
+    private CancellationTokenSource Cts { get; set; }
     private Task Tsk { get; set; }
     public ConfigModel Config { get; set; }
     public TaskType TskType { get; set; }
@@ -48,10 +48,11 @@ public class PluginModel : HelperBase
     /// Open v.4
     /// </summary>
     /// <param name="action"></param>
-    public void ExecuteInfinity(Action action)
+    public void Execute(Action action)
     {
         Close();
         base.Execute();
+        Cts = new();
         Tsk = Task.Run(async () =>
         {
             Counter = 0;
