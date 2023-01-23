@@ -23,7 +23,7 @@
 			</td>
 			<td>@LocaleCore.Table.DeviceComPort</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 	                @bind-Value=@SqlItemCast.DeviceComPort>
 					@foreach (TypeModel<string> item in ComPorts)
 					{
@@ -39,7 +39,7 @@
 		            Text=@LocaleCore.Table.Host/>
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 					@bind-Value=@Device>
 					@foreach (DeviceModel item in DataContext.Devices)
 					{
@@ -61,7 +61,7 @@
 				            Text=@LocaleCore.Print.NameMain/>
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 					@bind-Value=@SqlItemCast.PrinterMain>
 					@foreach (PrinterModel item in DataContext.Printers)
 					{
@@ -83,7 +83,7 @@
 				    Text=@LocaleCore.Print.NameShipping/>
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 					@bind-Value=@SqlItemCast.PrinterShipping>
 					@foreach (PrinterModel item in DataContext.Printers)
 					{
@@ -136,7 +136,7 @@
 				    Text=@LocaleCore.Table.TemplateDefault/>
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 	                @bind-Value=@SqlItemCast.TemplateDefault>
 					@foreach (TemplateModel item in DataContext.Templates)
 					{
@@ -151,7 +151,7 @@
 				    Text=@LocaleCore.Table.TemplateSeries/>
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 					@bind-Value=@SqlItemCast.TemplateSeries>
 					@foreach (TemplateModel item in DataContext.Templates)
 					{
@@ -168,7 +168,7 @@
 				    Text=@LocaleCore.Table.WorkShopName />
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 					@bind-Value=@SqlItemCast.WorkShop>
 					@foreach (WorkShopModel item in DataContext.WorkShops)
 					{

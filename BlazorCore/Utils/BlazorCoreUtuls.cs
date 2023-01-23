@@ -29,15 +29,10 @@ public static class BlazorCoreUtuls
         {
             if (appSettings.IsSqlServerRelease)
                 return "SidebarRelease";
-            else if (appSettings.IsSqlServerDebug)
+            if (appSettings.IsSqlServerDebug)
                 return "SidebarDebug";
             return "SidebarDefault";
         }
-
-        public static string MudSelect => "MudSelect";
-        public static string RadzenButtonLong => "RadzenButtonLong";
-        public static string MudSelectEdge => "MudSelectEdge";
-        public static string MudSelectFlexible => "MudSelectFlexible";
         public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
         public static string RadzenPanelMenu(BlazorAppSettingsHelper appSettings)
         {
@@ -46,7 +41,6 @@ public static class BlazorCoreUtuls
             return appSettings.IsSqlServerDebug 
 	            ? "RadzenPanelMenuDebug" : "RadzenPanelMenuDefault";
         }
-
         public static string RadzenPanelMenuItem(BlazorAppSettingsHelper appSettings)
         {
             if (appSettings.IsSqlServerRelease)
@@ -61,7 +55,6 @@ public static class BlazorCoreUtuls
             return appSettings.IsSqlServerDebug 
 	            ? "RadzenPanelMenuSubItemDebug" : "RadzenPanelMenuSubItemDefault";
         }
-        public static string RadzenProgressBar => "RadzenProgressBar";
     }
 
     #endregion

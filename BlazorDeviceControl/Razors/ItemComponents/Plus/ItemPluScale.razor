@@ -29,7 +29,7 @@
 				    Text=@LocaleCore.Table.Scale/>
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 				    ReadOnly=true Disabled=true @bind-Value=@SqlItemCast.Scale >
 					@foreach (ScaleModel item in DataContext.Scales)
 					{
@@ -43,7 +43,7 @@
 				    Text=@LocaleCore.Table.Plu />
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
 					ReadOnly=true Disabled=true @bind-Value=@SqlItemCast.Plu >
 					@foreach (PluModel item in DataContext.Plus)
 					{

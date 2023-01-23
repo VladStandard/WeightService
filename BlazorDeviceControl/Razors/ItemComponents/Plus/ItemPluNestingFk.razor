@@ -39,7 +39,7 @@
                             Text=@LocaleCore.Table.PluBundleFk />
             </td>
             <td colspan=3>
-                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                <MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
                 @bind-Value=@PluBundleFk>
                     @foreach (PluBundleFkModel item in DataContext.PluBundleFks)
                     {
@@ -111,7 +111,7 @@
                             Text=@LocaleCore.Table.Box />
             </td>
             <td colspan=3>
-                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                <MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
                 @bind-Value=@Box>
                     @foreach (BoxModel item in DataContext.Boxes)
                     {

@@ -23,7 +23,7 @@
 					@if (ButtonSettings.IsShowSave && UserSettings.AccessRightsIsWrite)
 					{
 						<RadzenButton 
-							class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
+                            class="RadzenButtonLong"
 							Click=@(_ => SqlItemSaveAsync())
 							ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
 							Style="width: 100%; "
@@ -35,7 +35,7 @@
 					@if (ButtonSettings.IsShowCancel && UserSettings.AccessRightsIsRead)
 					{
 						<RadzenButton 
-							class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
+                            class="RadzenButtonLong"
 							Click=@(_ => SqlItemCancelAsync())
 							ButtonStyle=@ButtonStyle.Secondary Size=@ButtonSize.Small
 							Style="width: 100%; "

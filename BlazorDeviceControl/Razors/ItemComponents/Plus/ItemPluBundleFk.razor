@@ -23,7 +23,7 @@
                             Text=@LocaleCore.Table.Plu />
             </td>
             <td colspan=3>
-                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                <MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
                 @bind-Value=@Plu>
                     @foreach (PluModel item in DataContext.Plus)
                     {
@@ -77,7 +77,7 @@
                             Text=@LocaleCore.Table.Bundle />
             </td>
             <td colspan=3>
-                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                <MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
                 @bind-Value=@Bundle>
                     @foreach (BundleModel item in DataContext.Bundles)
                     {

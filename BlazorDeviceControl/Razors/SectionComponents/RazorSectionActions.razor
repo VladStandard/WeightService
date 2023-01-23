@@ -17,8 +17,8 @@
 	        {
 				@if (ButtonSettings.IsShowCopy)
 				{
-			        <RadzenButton 
-				        class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong
+				    <RadzenButton
+                        class="RadzenButtonLong"
 				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
 				        Text=@LocaleCore.DeviceControl.TableActionCopy />
 				}
@@ -28,15 +28,15 @@
 		        @if (ButtonSettings.IsShowNew)
 		        {
 			        <RadzenButton 
-				        class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
+                        class="RadzenButtonLong"
 				        Click=@(_ => SqlItemNewAsync<TItem>())
 				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="add_circle_outline"
 				        Text=@LocaleCore.DeviceControl.TableActionAdd />
 		        }
 		        @if (ButtonSettings.IsShowSave)
 				{
-			        <RadzenButton 
-		                class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
+				    <RadzenButton 
+                        class="RadzenButtonLong"
 				        Click=@(_ => SqlItemsSaveAsync())
 		                ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
 						Text=@LocaleCore.DeviceControl.TableActionSave />
@@ -44,7 +44,7 @@
 		        @if (ButtonSettings.IsShowEdit)
 		        {
 			        <RadzenButton 
-				        class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
+                        class="RadzenButtonLong"
 				        Click=@(_ => SqlItemEditAsync())
 				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
 		                Text=@LocaleCore.DeviceControl.TableActionEdit />
@@ -52,7 +52,7 @@
 		        @if (ButtonSettings.IsShowMark)
 		        {
 			        <RadzenButton 
-				        class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong
+                        class="RadzenButtonLong"
 				        Click=@(_ => SqlItemMarkAsync())
 		                ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
 		                Text=@LocaleCore.DeviceControl.TableActionMark />
@@ -63,7 +63,7 @@
 				@if (ButtonSettings.IsShowDelete)
 				{
 					<RadzenButton 
-				        class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong
+                        class="RadzenButtonLong"
 				        Click=@(_ => SqlItemDeleteAsync())
 		                ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
 		                Text=@LocaleCore.DeviceControl.TableActionDelete />
