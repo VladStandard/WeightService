@@ -3,11 +3,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <FileVersion>0.8.200.0</FileVersion>
-    <AssemblyVersion>0.8.200.0</AssemblyVersion>
+    <FileVersion>0.8.210.0</FileVersion>
+    <AssemblyVersion>0.8.210.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <LangVersion>latest</LangVersion>
-    <Version>0.8.200.0</Version>
+    <Version>0.8.210.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="wwwroot\background.png" />
