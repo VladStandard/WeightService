@@ -3,6 +3,7 @@
 
 using MDSoft.BarcodePrintUtils.Wmi.Enums;
 using MDSoft.BarcodePrintUtils.Wmi.Models;
+using System.Net.Sockets;
 using Label = System.Windows.Forms.Label;
 
 namespace WsWeight.Plugins.Helpers;
@@ -259,15 +260,20 @@ public class PluginPrintModel : PluginHelperBase
         switch (PrintBrand)
         {
             case PrintBrand.Zebra:
-                SendCmdToZebra(pluLabel.Zpl);
+                SendCmdToZebra(pluLabel);
                 break;
-            case PrintBrand.TSC:
-                SendCmdToTsc(pluLabel.Zpl);
+            //case PrintBrand.TSC:
+            //    SendCmdToTsc(pluLabel);
+            //    break;
+            default: 
+                SendCmdToTcp(pluLabel);
                 break;
         }
     }
 
-    private void SendCmdToZebra(string zpl)
+    private void SendCmdToZebra(PluLabelModel pluLabel) => SendCmdToZebra(pluLabel.Zpl);
+
+    private void SendCmdToZebra(string cmd)
     {
         if (ZebraDriver is null || GetDeviceStatus() != LocaleCore.Print.StatusIsReadyToPrint)
             return;
@@ -281,7 +287,7 @@ public class PluginPrintModel : PluginHelperBase
                     ZebraPeelerStatus = SGD.GET("sensor.peeler", ZebraDriver.Connection);
                     if (ZebraPeelerStatus == "clear")
                     {
-                        ZebraDriver.SendCommand(zpl.Replace("|", "\\&"));
+                        ZebraDriver.SendCommand(cmd.Replace("|", "\\&"));
                     }
                     else
                     {
@@ -296,20 +302,43 @@ public class PluginPrintModel : PluginHelperBase
         }
     }
 
-    private void SendCmdToTsc(string printCmd)
+    private void SendCmdToTsc(PluLabelModel pluLabel) => SendCmdToTsc(pluLabel.Zpl);
+
+    private void SendCmdToTsc(string cmd)
     {
         try
         {
-            string docReplace = printCmd.Replace("|", "\\&");
-            if (!docReplace.Equals("^XA~JA^XZ") && !docReplace.Contains("odometer.user_label_count"))
+            cmd = cmd.Replace("|", "\\&");
+            if (!cmd.Equals("^XA~JA^XZ") && !cmd.Contains("odometer.user_label_count"))
             {
-                TscDriver.SendCmd(docReplace);
+                TscDriver.SendCmd(cmd);
             }
         }
         catch (Exception ex)
         {
             WpfUtils.CatchException(ex, true, true);
         }
+    }
+
+    private void SendCmdToTcp(PluLabelModel pluLabel) => SendCmdToTcp(pluLabel.Zpl);
+
+    private void SendCmdToTcp(string cmd)
+    {
+        cmd = cmd.Replace("|", "\\&");
+
+        // Open connection.
+        using TcpClient tcpClient = new();
+        //tcpClient.Connect(TscDriver.Properties.PrintIp, TscDriver.Properties.PrintPort);
+        tcpClient.Connect(TscDriver.Properties.PrintIp, 9100);
+
+        // Send Zpl data to printer.
+        using StreamWriter writer = new(tcpClient.GetStream());
+        writer.Write(cmd);
+        writer.Flush();
+
+        // Close Connection.
+        writer.Close();
+        tcpClient.Close();
     }
 
     public void ClearPrintBuffer(int odometerValue = -1)
