@@ -2,8 +2,8 @@
 
 ## Update routing
 VS -> Tools -> Version changer
-cmd: `git add *.csproj && git add *AssemblyInfo.cs && git add CHANGELOG.md && git ci -m "#Version update to v0.x.xxx" && git bra && git st`
-cmd: `git add . && git ci -m "#Version update to v0.x.xxx" && git bra && git st`
+cmd: `git add *.csproj && git add *AssemblyInfo.cs && git add CHANGELOG.md && git ci -m "#Version update to v0.x.xxx" -S && git bra && git st`
+cmd: `git add . && git ci -m "#Version update to v0.x.xxx" -S && git bra && git st`
 
 ## Tag routing
 cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
