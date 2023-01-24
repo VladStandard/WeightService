@@ -3,25 +3,13 @@
 
 namespace WsMassa.Models;
 
-public class ResponseMassaModel
+public readonly struct ResponseMassaModel
 {
     #region Public and private fields, properties, constructor
 
     public int Weight { get; }
-    private byte Division { get; }
-    public int ScaleFactor => Division switch
-    {
-        0x00 => 10000,
-        0x01 => 1000,
-        0x02 => 100,
-        0x03 => 10,
-        0x04 => 1,
-        _ => 1_000,
-    };
-    public byte IsStable { get; }
-    private byte Net { get; }
-    private byte Zero { get; }
-    public int Tare { get; }
+    public int ScaleFactor { get; }
+    public bool IsStable { get; }
 
     /// <summary>
     /// Default constructor.
@@ -29,11 +17,8 @@ public class ResponseMassaModel
     public ResponseMassaModel()
     {
         Weight = default;
-        Division = default;
+        ScaleFactor = default;
         IsStable = default;
-        Net = default;
-        Zero = default;
-        Tare = default;
     }
 
     /// <summary>
@@ -42,14 +27,22 @@ public class ResponseMassaModel
     /// <param name="response"></param>
     public ResponseMassaModel(IReadOnlyList<byte> response)
     {
-        if (response.Count < 10)
-            return;
+        if (response.Count < 10) return;
         Weight = BitConverter.ToInt32(response.Skip(6).Take(4).ToArray(), 0);
-        Division = response[10];
-        IsStable = response[11];
-        Net = response[12];
-        Zero = response[13];
-        Tare = BitConverter.ToInt32(response.Skip(14).Take(4).ToArray(), 0);
+        //Division = response[10];
+        ScaleFactor = response[10] switch
+        {
+            0x00 => 10_000,
+            0x01 => 1_000,
+            0x02 => 0_100,
+            0x03 => 0_010,
+            0x04 => 0_001,
+            _ => 0,
+        };
+        IsStable = response[11] == 0x01;
+        //Net = response[12];
+        //Zero = response[13];
+        //Tare = BitConverter.ToInt32(response.Skip(14).Take(4).ToArray(), 0);
     }
 
     #endregion

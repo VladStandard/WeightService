@@ -16,13 +16,13 @@ public class FontsSettingsHelper
 
     #region Public and private fields and properties
 
+    public Font FontMinimum { get; private set; }
+    public Font FontLabelsGray { get; private set; }
     public Font FontButtons { get; private set; }
     public Font FontButtonsSmall { get; private set; }
-    public Font FontMinimum { get; private set; }
     public Font FontLabelsBlack { get; private set; }
-    public Font FontLabelsGray { get; private set; }
-    public Font FontLabelsMaximum { get; private set; }
     public Font FontLabelsTitle { get; private set; }
+    public Font FontLabelsMaximum { get; private set; }
 
     #endregion
 
@@ -35,28 +35,14 @@ public class FontsSettingsHelper
 
     public void Transform(int width, int height)
     {
-        float baseSize;
-        if (width >= 1920 && height >= 1080)
+        float baseSize = width switch
         {
-            baseSize = 15.00f;
-        }
-        else if (width >= 1600 && height >= 1024)
-        {
-            baseSize = 13.00f;
-        }
-        else if (width >= 1366 && height >= 768)
-        {
-            baseSize = 11.00f;
-        }
-        else if (width >= 1024 && height >= 768)
-        {
-            baseSize = 9.00f;
-        }
-        else
-        {
-            baseSize = 8.00f;
-        }
-
+            >= 1920 when height >= 1080 => 15.00f,
+            >= 1600 when height >= 1024 => 13.00f,
+            >= 1366 when height >= 768 => 11.00f,
+            >= 1024 when height >= 768 => 9.00f,
+            _ => 8.00f
+        };
         Resize(baseSize);
     }
 

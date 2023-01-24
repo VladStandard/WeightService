@@ -283,11 +283,11 @@ public class UserSessionHelper : BaseViewModel
 
     public void PluginsClose()
     {
-        PluginLabels.Close();
-        PluginMassa.Close();
         PluginMemory.Close();
+        PluginMassa.Close();
         PluginPrintMain.Close();
         PluginPrintShipping.Close();
+        PluginLabels.Close();
     }
 
     public void SetMain(long scaleId = -1, string productionFacilityName = "")
@@ -423,7 +423,7 @@ public class UserSessionHelper : BaseViewModel
     {
         if (Debug.IsDebug) return true;
 
-        if (PluScale.Plu.IsCheckWeight && !PluginMassa.MassaStable.IsStable)
+        if (PluScale.Plu.IsCheckWeight && !PluginMassa.IsStable)
         {
             WpfUtils.ShowNewOperationControl(owner,
                 LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
@@ -499,15 +499,24 @@ public class UserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckWeightIsNegative(IWin32Window owner)
     {
+        if (PluginMassa.IsWeightNetFake) return true;
         if (!PluScale.Plu.IsCheckWeight) return true;
 
-        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
-        if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
+        if (PluginMassa.WeightNet <= 0)
         {
-            WpfUtils.ShowNewOperationControl(owner,
-                LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
+            WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightIsZero, true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
+        }
+        else
+        {
+            decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
+            if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
+            {
+                WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
+                    new() { ButtonCancelVisibility = Visibility.Visible });
+                return false;
+            }
         }
         return true;
     }
@@ -539,6 +548,7 @@ public class UserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckWeightThresholds(IWin32Window owner)
     {
+        if (PluginMassa.IsWeightNetFake) return true;
         if (!PluScale.Plu.IsCheckWeight) return true;
 
         if (PluNestingFk.WeightNom > 0 && PluNestingFk.WeightMin is not 0 && PluNestingFk.WeightMax is not 0)

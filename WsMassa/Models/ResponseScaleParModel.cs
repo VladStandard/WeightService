@@ -3,44 +3,44 @@
 
 namespace WsMassa.Models;
 
-public class ResponseScaleParModel
+public struct ResponseScaleParModel
 {
 	#region Public and private fields and properties
 
-	/// <summary>
-	/// Максимальная нагрузка, Max.
-	/// </summary>
-	public string P_Max;
-	/// <summary>
-	/// Минимальная нагрузка, Min.
-	/// </summary>
-	public string P_Min;
-	/// <summary>
-	/// Поверочный интервал весов.
-	/// </summary>
-	public string P_e;
-	/// <summary>
-	/// Максимальная масса тары, T.
-	/// </summary>
-	public string P_T;
-	/// <summary>
-	/// Параметр фиксации веса.
-	/// </summary>
-	public string Fix;
-	/// <summary>
-	/// Код юстировки.
-	/// </summary>
-	public string Calcode;
-	/// <summary>
-	/// Версия ПО датчика взвешивания.
-	/// </summary>
-	public string PO_Ver;
-	/// <summary>
-	/// Контрольная сумма ПО датчика взвешивания.
-	/// </summary>
-	public string PO_Summ;
+    /// <summary>
+    /// Максимальная нагрузка, Max.
+    /// </summary>
+    private string P_Max;
+    /// <summary>
+    /// Минимальная нагрузка, Min.
+    /// </summary>
+    private string P_Min;
+    /// <summary>
+    /// Поверочный интервал весов.
+    /// </summary>
+    private string P_e;
+    /// <summary>
+    /// Максимальная масса тары, T.
+    /// </summary>
+    private string P_T;
+    /// <summary>
+    /// Параметр фиксации веса.
+    /// </summary>
+    private string Fix;
+    /// <summary>
+    /// Код юстировки.
+    /// </summary>
+    private string Calcode;
+    /// <summary>
+    /// Версия ПО датчика взвешивания.
+    /// </summary>
+    private string PO_Ver;
+    /// <summary>
+    /// Контрольная сумма ПО датчика взвешивания.
+    /// </summary>
+    private string PO_Summ;
 
-	#endregion
+    #endregion
 
 	#region Constructor and destructor
 

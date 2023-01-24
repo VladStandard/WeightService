@@ -29,7 +29,7 @@ public class MassaRequestHelper
     {
         byte[] len = BitConverter.GetBytes((ushort)body.Length);
         byte[] crc = MassaCrc.CrcGet(body);
-        return Bytes.MergeBytes(new List<byte[]>() { Header, len, body, crc });
+        return Bytes.MergeBytes(new() { Header, len, body, crc });
     }
 
     public byte[] MakeRequestCrcAdd(byte body) => MakeRequestCrcAdd(new byte[] { body });
@@ -45,7 +45,7 @@ public class MassaRequestHelper
         len[1] = request[4];
         ushort lenAsUshort = BitConverter.ToUInt16(len, 0);
         byte[] body = request.Skip(5).Take(lenAsUshort).ToArray();
-        return Bytes.MergeBytes(new List<byte[]>() { Header, len, MassaCrc.CrcGetWithBody(body) });
+        return Bytes.MergeBytes(new() { Header, len, MassaCrc.CrcGetWithBody(body) });
     }
 
     #endregion

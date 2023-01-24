@@ -119,8 +119,8 @@ public partial class MainForm : Form
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryExt, Debug.IsDebug);
 
         // Massa.
-        UserSession.PluginMassa.Init(new(0_500, 0_250), new(0_200, 0_250), 
-            new(0_250, 0_250), fieldNettoWeight, fieldMassa, fieldMassaExt);
+        UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100), 
+            new(0_050, 0_100), fieldNettoWeight, fieldMassa, fieldMassaExt);
         UserSession.PluginMassa.Execute();
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaExt, Debug.IsDebug);
 
@@ -460,6 +460,7 @@ public partial class MainForm : Form
             $"{LocaleCore.Print.DeviceCommunication} ({pluginPrint.Printer.Ip}): {pluginPrint.Printer.PingStatus}" + Environment.NewLine +
             $"{LocaleCore.Print.PrinterStatus}: {pluginPrint.GetDeviceStatus()}" + Environment.NewLine +
             Environment.NewLine +
+            $"{LocaleCore.Print.Name}: {wmiPrinter.Name}" + Environment.NewLine +
             $"{LocaleCore.Print.Driver}: {wmiPrinter.DriverName}" + Environment.NewLine +
             $"{LocaleCore.Print.Port}: {wmiPrinter.PortName}" + Environment.NewLine +
             $"{LocaleCore.Print.StateCode}: {wmiPrinter.PrinterState}" + Environment.NewLine +
@@ -711,10 +712,10 @@ public partial class MainForm : Form
                     return;
 
                 // Fix negative weight.
-                if (UserSession.PluginMassa.WeightNet < 0)
-                {
-                    UserSession.PluginMassa.ResetMassa();
-                }
+                //if (UserSession.PluginMassa.WeightNet < 0)
+                //{
+                //    UserSession.PluginMassa.ResetMassa();
+                //}
 
                 UserSession.CheckWeightMassaDeviceExists();
                 UserSession.PluScale = new();
@@ -773,14 +774,12 @@ public partial class MainForm : Form
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelNettoWeight, false);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldNettoWeight, false);
-
                 UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
-                if (UserSession.CheckWeightMassaDeviceExists())
-                {
-                    if (!UserSession.CheckWeightIsNegative(this) || !UserSession.CheckWeightIsPositive(this))
-                        return;
-                }
-
+                //if (UserSession.CheckWeightMassaDeviceExists())
+                //{
+                //    if (!UserSession.CheckWeightIsNegative(this) || !UserSession.CheckWeightIsPositive(this))
+                //        return;
+                //}
                 NavigateToControl(PluControl, ReturnBackPlu, false);
             }, FinallyAction);
     }
@@ -813,10 +812,6 @@ public partial class MainForm : Form
             {
                 UserSession.AddScaleCounter();
 
-                UserSession.PluginPrintMain.IsPrintBusy = true;
-                if (UserSession.Scale.IsShipping)
-                    UserSession.PluginPrintShipping.IsPrintBusy = true;
-
                 if (!UserSession.CheckPluIsEmpty(this)) return;
                 //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IsNew)
                 // Maybe tare didn't need.
@@ -848,9 +843,6 @@ public partial class MainForm : Form
             {
                 FinallyAction();
                 UserSession.PluginMassa.IsWeightNetFake = false;
-                UserSession.PluginPrintMain.IsPrintBusy = false;
-                if (UserSession.Scale.IsShipping)
-                    UserSession.PluginPrintShipping.IsPrintBusy = false;
             });
     }
 

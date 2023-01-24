@@ -373,49 +373,49 @@ public partial class WpfPageMessageBox
 
 	public void ButtonCustom_OnClick(object sender, RoutedEventArgs e)
 	{
-		MessageBox.Result = System.Windows.Forms.DialogResult.Retry;
+		MessageBox.Result = DialogResult.Retry;
 		OnClose?.Invoke(sender, e);
 	}
 
 	public void ButtonYes_OnClick(object sender, RoutedEventArgs e)
 	{
-		MessageBox.Result = System.Windows.Forms.DialogResult.Yes;
+		MessageBox.Result = DialogResult.Yes;
 		OnClose?.Invoke(sender, e);
 	}
 
 	public void ButtonRetry_OnClick(object sender, RoutedEventArgs e)
 	{
-		MessageBox.Result = System.Windows.Forms.DialogResult.Retry;
+		MessageBox.Result = DialogResult.Retry;
 		OnClose?.Invoke(sender, e);
 	}
 
 	public void ButtonNo_OnClick(object sender, RoutedEventArgs e)
 	{
-		MessageBox.Result = System.Windows.Forms.DialogResult.No;
+		MessageBox.Result = DialogResult.No;
 		OnClose?.Invoke(sender, e);
 	}
 
 	public void ButtonIgnore_OnClick(object sender, RoutedEventArgs e)
 	{
-		MessageBox.Result = System.Windows.Forms.DialogResult.Ignore;
+		MessageBox.Result = DialogResult.Ignore;
 		OnClose?.Invoke(sender, e);
 	}
 
 	public void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
 	{
-		MessageBox.Result = System.Windows.Forms.DialogResult.Cancel;
+		MessageBox.Result = DialogResult.Cancel;
 		OnClose?.Invoke(sender, e);
 	}
 
 	public void ButtonAbort_OnClick(object sender, RoutedEventArgs e)
 	{
-		MessageBox.Result = System.Windows.Forms.DialogResult.Abort;
+		MessageBox.Result = DialogResult.Abort;
 		OnClose?.Invoke(sender, e);
 	}
 
 	public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
 	{
-		MessageBox.Result = System.Windows.Forms.DialogResult.OK;
+		MessageBox.Result = DialogResult.OK;
 		OnClose?.Invoke(sender, e);
 	}
 

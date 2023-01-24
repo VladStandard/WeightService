@@ -35,7 +35,6 @@ global using System.IO;
 global using System.Linq;
 global using WsLocalization.Enums;
 global using WsLocalization.Models;
-global using WsMassa.Controllers;
 global using WsMassa.Enums;
 global using WsMassa.Helpers;
 global using WsMassa.Models;

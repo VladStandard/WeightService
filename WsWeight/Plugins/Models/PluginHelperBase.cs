@@ -11,9 +11,9 @@ public class PluginHelperBase : HelperBase
     protected PluginModel RequestItem { get; }
     protected PluginModel ResponseItem { get; }
     protected TaskType TskType { get; set; }
-    public int ReopenCounter => ReopenItem.Counter;
-    public int RequestCounter => RequestItem.Counter;
-    public int ResponseCounter => ResponseItem.Counter;
+    protected int ReopenCounter => ReopenItem.Counter;
+    protected int RequestCounter => RequestItem.Counter;
+    protected int ResponseCounter => ResponseItem.Counter;
 
     #endregion
 

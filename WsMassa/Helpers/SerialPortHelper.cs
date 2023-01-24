@@ -3,50 +3,38 @@
 
 using WsMassa.Utils;
 
-namespace WsMassa.Controllers;
+namespace WsMassa.Helpers;
 
-public class SerialPortController
+public class SerialPortHelper
 {
-	public enum EnumUsbAdapterStatus
-	{
-		Default,
-		IsConnectWithMassa,
-		IsNotConnectWithMassa,
-		IsDataExists,
-		IsDataNotExists,
-		IsException,
-	}
-
 	#region Public and private fields and properties
 
-	public delegate void PortCallback(object sender, SerialPortEventArgs e);
-	public delegate void PortExceptionCallback(Exception ex, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "");
 	public SerialPort SerialPort { get; }
-    private PortCallback OpenCallback { get; }
-    private PortCallback CloseCallback { get; }
-    private PortCallback ResponseCallback { get; }
-    private PortExceptionCallback ExceptionCallback { get; }
-	private readonly object _locker = new();
-	public EnumUsbAdapterStatus AdapterStatus { get; private set; }
-	public Exception CatchException { get; private set; }
+    private Action<object, SerialPortEventArgs> OpenCallback { get; }
+    private Action<object, SerialPortEventArgs> CloseCallback { get; }
+    private Action<object, SerialPortEventArgs> ResponseCallback { get; }
+	private Action<Exception> ExceptionAction { get; }
+    private readonly object _locker = new();
+	public UsbAdapterStatus AdapterStatus { get; private set; }
+	public Exception Exception { get; private set; }
 
-    public SerialPortController()
+    public SerialPortHelper()
     {
         SerialPort = new();
-        AdapterStatus = EnumUsbAdapterStatus.Default;
+        AdapterStatus = UsbAdapterStatus.Default;
         OpenCallback = (_, _) => { };
         CloseCallback = (_, _) => { };
         ResponseCallback = (_, _) => { };
-        ExceptionCallback = (_, _, _, _) => { };
+        ExceptionAction = (_) => { };
     }
 
-    public SerialPortController(PortCallback openCallback, PortCallback closeCallback, PortCallback responseCallback, 
-        PortExceptionCallback exceptionCallback) : this()
-	{
+    public SerialPortHelper(Action<object, SerialPortEventArgs> openCallback, Action<object, SerialPortEventArgs> closeCallback,
+        Action<object, SerialPortEventArgs> responseCallback, Action<Exception> exceptionAction) : this()
+    {
 		OpenCallback = openCallback;
 		CloseCallback = closeCallback;
 		ResponseCallback = responseCallback;
-		ExceptionCallback = exceptionCallback;
+		ExceptionAction = exceptionAction;
 	}
 
 	#endregion
@@ -76,7 +64,7 @@ public class SerialPortController
 	public void Open(string portName, string baudRate, string parity, string dataBits, string stopBits, string handshake, int readTimeout, int writeTimeout)
 	{
 		SerialPortEventArgs args = new();
-		CatchException = null;
+		Exception = null;
 		try
 		{
 			if (SerialPort.IsOpen)
@@ -87,11 +75,11 @@ public class SerialPortController
 			List<string> comPorts = SerialPort.GetPortNames().ToList();
 			if (!comPorts.Contains(portName))
 			{
-				AdapterStatus = EnumUsbAdapterStatus.IsNotConnectWithMassa;
+				AdapterStatus = UsbAdapterStatus.IsNotConnectWithMassa;
 				return;
 			}
 			else
-				AdapterStatus = EnumUsbAdapterStatus.IsConnectWithMassa;
+				AdapterStatus = UsbAdapterStatus.IsConnectWithMassa;
 
 			SerialPort.PortName = portName;
 			SerialPort.BaudRate = Convert.ToInt32(baudRate);
@@ -120,15 +108,15 @@ public class SerialPortController
 			SerialPort.ReadTimeout = readTimeout;
 			SerialPort.WriteTimeout = writeTimeout;
 			SerialPort.Open();
-			SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
+			SerialPort.DataReceived += DataReceived;
 			args.SerialPort = SerialPort;
 
 			OpenCallback?.Invoke(this, args);
 		}
 		catch (Exception ex)
 		{
-			AdapterStatus = EnumUsbAdapterStatus.IsException;
-			CatchException = ex;
+			AdapterStatus = UsbAdapterStatus.IsException;
+			Exception = ex;
 			args.SerialPort = new();
 			//ExceptionCallback?.Invoke(ex);
 		}
@@ -152,26 +140,20 @@ public class SerialPortController
 				{
 					ReceivedBytes = data
 				};
-				AdapterStatus = data.All(x => x == 0x00) ? EnumUsbAdapterStatus.IsDataNotExists : EnumUsbAdapterStatus.IsDataExists;
+				AdapterStatus = data.All(x => x == 0x00) ? UsbAdapterStatus.IsDataNotExists : UsbAdapterStatus.IsDataExists;
 				ResponseCallback?.Invoke(this, args);
 			}
 			catch (Exception ex)
 			{
-				ExceptionCallback?.Invoke(ex);
+				ExceptionAction.Invoke(ex);
 			}
 		}
 	}
 
-	public bool Send(string str)
-	{
-		if (str != null && str != "")
-		{
-			return Send(Encoding.Default.GetBytes(str));
-		}
-		return false;
-	}
+	public bool Send(string str) => 
+        !string.IsNullOrEmpty(str) && Send(Encoding.Default.GetBytes(str));
 
-	public bool Send(byte[] bytes)
+    public bool Send(byte[] bytes)
 	{
 		if (!SerialPort.IsOpen)
 		{
@@ -185,7 +167,7 @@ public class SerialPortController
 		}
 		catch (Exception ex)
 		{
-			ExceptionCallback?.Invoke(ex);
+			ExceptionAction?.Invoke(ex);
 		}
 		return false;
 	}
@@ -214,7 +196,7 @@ public class SerialPortController
          */
 	public void Close()
 	{
-		Thread closeThread = new(new ThreadStart(CloseThread));
+		Thread closeThread = new(CloseThread);
 		closeThread.Start();
 	}
 
@@ -224,12 +206,12 @@ public class SerialPortController
 		try
 		{
 			SerialPort.Close();
-			SerialPort.DataReceived -= new SerialDataReceivedEventHandler(DataReceived);
+			SerialPort.DataReceived -= DataReceived;
 		}
 		catch (Exception ex)
 		{
 			args.SerialPort = new();
-			ExceptionCallback?.Invoke(ex);
+			ExceptionAction?.Invoke(ex);
 		}
 		finally
 		{

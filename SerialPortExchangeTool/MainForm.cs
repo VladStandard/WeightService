@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
 using DataCore.Utils;
-using WsMassa.Controllers;
 using WsMassa.Helpers;
 using WsMassa.Models;
 using WsMassa.Utils;
@@ -18,10 +17,10 @@ public partial class MainForm : Form
 {
     #region Public and private fields and properties
 
-    private BytesHelper Bytes { get; set; } = BytesHelper.Instance;
-    private SerialPortController PortController { get; set; }
-    private int SendBytesCount { get; set; } = 0;
-    private int ReceiveBytesCount { get; set; } = 0;
+    private BytesHelper Bytes { get; } = BytesHelper.Instance;
+    private SerialPortHelper PortController { get; }
+    private int SendBytesCount { get; set; }
+    private int ReceiveBytesCount { get; set; }
 
     #endregion
 
@@ -103,8 +102,8 @@ public partial class MainForm : Form
 
         if (e.SerialPort.IsOpen)
         {
-            statuslabel.Text = comListCbx.Text + " Opend";
-            openCloseSpbtn.Text = "Close";
+            statuslabel.Text = comListCbx.Text + @" Opend";
+            openCloseSpbtn.Text = @"Close";
             sendbtn.Enabled = true;
             autoSendcbx.Enabled = true;
             autoReplyCbx.Enabled = true;
@@ -125,7 +124,7 @@ public partial class MainForm : Form
         }
         else
         {
-            statuslabel.Text = "Open failed !";
+            statuslabel.Text = @"Open failed !";
             sendbtn.Enabled = false;
             autoSendcbx.Enabled = false;
             autoReplyCbx.Enabled = false;
@@ -143,8 +142,8 @@ public partial class MainForm : Form
         // Close successfully.
         if (!e.SerialPort.IsOpen)
         {
-            statuslabel.Text = comListCbx.Text + " Closed";
-            openCloseSpbtn.Text = "Open";
+            statuslabel.Text = comListCbx.Text + @" Closed";
+            openCloseSpbtn.Text = @"Open";
 
             sendbtn.Enabled = false;
             sendtbx.ReadOnly = false;
@@ -186,21 +185,20 @@ public partial class MainForm : Form
         }
         // update status bar
         ReceiveBytesCount += e.ReceivedBytes.Length;
-        toolStripStatusRx.Text = "Received: " + ReceiveBytesCount.ToString();
+        toolStripStatusRx.Text = @"Received: " + ReceiveBytesCount.ToString();
 
         // auto reply
         if (autoReplyCbx.Checked)
         {
-            Sendbtn_Click(this, new EventArgs());
+            Sendbtn_Click(this, EventArgs.Empty);
         }
     }
 
-    private void PortExceptionCallback(Exception ex,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    private void PortExceptionCallback(Exception ex)
     {
         if (InvokeRequired)
         {
-            Invoke(new Action<Exception, string, int, string>(PortExceptionCallback), ex);
+            Invoke(new Action<Exception>(PortExceptionCallback), ex);
             return;
         }
 
@@ -223,7 +221,7 @@ public partial class MainForm : Form
 
     private void OpenCloseSpbtn_Click(object sender, EventArgs e)
     {
-        if (openCloseSpbtn.Text == "Open")
+        if (openCloseSpbtn.Text == @"Open")
         {
             PortController.Open(comListCbx.Text, baudRateCbx.Text, parityCbx.Text, dataBitsCbx.Text, stopBitsCbx.Text, handshakingcbx.Text);
         }
@@ -237,22 +235,22 @@ public partial class MainForm : Form
     {
         comListCbx.Items.Clear();
         //Com Ports
-        string[] ArrayComPortsNames = SerialPort.GetPortNames();
-        if (ArrayComPortsNames.Length == 0)
+        string[] arrayComPortsNames = SerialPort.GetPortNames();
+        if (arrayComPortsNames.Length == 0)
         {
-            statuslabel.Text = "No COM found !";
+            statuslabel.Text = @"No COM found !";
             openCloseSpbtn.Enabled = false;
         }
         else
         {
-            Array.Sort(ArrayComPortsNames);
-            for (int i = 0; i < ArrayComPortsNames.Length; i++)
+            Array.Sort(arrayComPortsNames);
+            for (int i = 0; i < arrayComPortsNames.Length; i++)
             {
-                comListCbx.Items.Add(ArrayComPortsNames[i]);
+                comListCbx.Items.Add(arrayComPortsNames[i]);
             }
-            comListCbx.Text = ArrayComPortsNames[0];
+            comListCbx.Text = arrayComPortsNames[0];
             openCloseSpbtn.Enabled = true;
-            statuslabel.Text = "OK !";
+            statuslabel.Text = @"OK";
         }
     }
 
@@ -287,20 +285,20 @@ public partial class MainForm : Form
         }
         if (flag)
         {
-            statuslabel.Text = "Send OK !";
+            statuslabel.Text = @"Send OK";
         }
         else
         {
-            statuslabel.Text = "Send failed !";
+            statuslabel.Text = @"Send failed!";
         }
         //update status bar
-        toolStripStatusTx.Text = "Sent: " + SendBytesCount.ToString();
+        toolStripStatusTx.Text = @"Sent: " + SendBytesCount.ToString();
     }
 
     private void ClearSendbtn_Click(object sender, EventArgs e)
     {
         sendtbx.Text = "";
-        toolStripStatusTx.Text = "Sent: 0";
+        toolStripStatusTx.Text = @"Sent: 0";
         SendBytesCount = 0;
         addCRCcbx.Checked = false;
     }
@@ -308,7 +306,7 @@ public partial class MainForm : Form
     private void ClearReceivebtn_Click(object sender, EventArgs e)
     {
         receivetbx.Text = "";
-        toolStripStatusRx.Text = "Received: 0";
+        toolStripStatusRx.Text = @"Received: 0";
         ReceiveBytesCount = 0;
     }
 
@@ -437,7 +435,7 @@ public partial class MainForm : Form
     private void AddCRCcbx_CheckedChanged(object sender, EventArgs e)
     {
         string sendText = sendtbx.Text;
-        if (sendText == null || sendText == "")
+        if (string.IsNullOrEmpty(sendText))
         {
             addCRCcbx.Checked = false;
             return;
@@ -466,7 +464,7 @@ public partial class MainForm : Form
         SaveFileDialog saveFileDialog = new()
         {
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            Filter = "txt file|*.txt",
+            Filter = @"txt file|*.txt",
             DefaultExt = ".txt",
             FileName = "received.txt"
         };
@@ -483,7 +481,7 @@ public partial class MainForm : Form
         SaveFileDialog saveFileDialog = new()
         {
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            Filter = "txt file|*.txt",
+            Filter = @"txt file|*.txt",
             DefaultExt = ".txt",
             FileName = "send.txt"
         };
@@ -502,7 +500,7 @@ public partial class MainForm : Form
 
     private void ButtonCmdGetMassa_Click(object sender, EventArgs e)
     {
-        byte[] bytes = new byte[] { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x23, 0x23, 0x00 };
+        byte[] bytes = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x23, 0x23, 0x00 };
         sendtbx.Text = BitConverter.ToString(bytes);
     }
 

@@ -89,9 +89,6 @@ public static class WpfUtils
     {
         switch (logType)
         {
-            case LogTypeEnum.None:
-                DataAccess.LogInformationFast(message);
-                break;
             case LogTypeEnum.Error:
                 DataAccess.LogErrorFast(message, filePath, lineNumber, memberName);
                 break;
@@ -101,6 +98,7 @@ public static class WpfUtils
             case LogTypeEnum.Warning:
                 DataAccess.LogWarningFast(message);
                 break;
+            case LogTypeEnum.None:
             case LogTypeEnum.Information:
                 DataAccess.LogInformationFast(message);
                 break;

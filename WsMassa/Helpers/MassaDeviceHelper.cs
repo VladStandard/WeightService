@@ -24,7 +24,7 @@ public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
     private int ReadTimeout { get; set; }
     private int WriteTimeout { get; set; }
     private string PortName { get; set; }
-	public SerialPortController PortController { get; private set; }
+	public SerialPortHelper PortController { get; private set; }
     private int SendBytesCount { get; set; }
     private int ReceiveBytesCount { get; set; }
 	public delegate void MassaResponseCallback(byte[] response);
@@ -56,7 +56,7 @@ public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
 
 	#region Public and private methods - ISerialPortView
 
-	public void SetController(SerialPortController controller)
+	public void SetController(SerialPortHelper controller)
 	{
 		PortController = controller;
 	}
@@ -98,11 +98,10 @@ public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
 		}
 	}
 
-    private void PortExceptionCallback(Exception ex,
-		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    private void PortExceptionCallback(Exception ex)
 	{
 		IsExceptionResult = true;
-		DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(MassaDeviceHelper), filePath, lineNumber, memberName);
+		DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(MassaDeviceHelper));
 	}
 
 	#endregion

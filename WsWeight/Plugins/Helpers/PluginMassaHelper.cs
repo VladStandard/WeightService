@@ -26,19 +26,16 @@ public class PluginMassaHelper : PluginHelperBase
     private Label FieldMassaExt { get; set; }
     private Label FieldNettoWeight { get; set; }
     private readonly object _locker = new();
-    public MassaStableModel MassaStable { get; } = new();
-    private decimal WeightGross { get; set; }
+    //public MassaStableModel MassaStable { get; set; } = new(0_100, false);
+    public bool IsStable { get; set; }
     private decimal _weightNet;
     public decimal WeightNet
     {
         get => _weightNet;
-        set
-        {
-            if (!IsWeightNetFake)
-                _weightNet = value;
-        }
+        set { if (!IsWeightNetFake) _weightNet = value; }
     }
-    private int ScaleFactor { get; set; } = 1_000;
+
+    private int ScaleFactor { get ; set; } = 1_000;
     private ResponseParseModel ResponseParseGet { get; set; }
     private ResponseParseModel ResponseParseScalePar { get; set; }
     private ResponseParseModel ResponseParseSet { get; set; }
@@ -66,9 +63,14 @@ public class PluginMassaHelper : PluginHelperBase
         Label fieldNettoWeight, Label fieldMassa, Label fieldMassaExt)
     {
         base.Init();
+        
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
+        FieldNettoWeight = fieldNettoWeight;
+        FieldMassa = fieldMassa;
+        FieldMassaExt = fieldMassaExt;
+        
         ActionUtils.ActionTryCatch(() =>
         {
             if (UserSessionHelper.Instance.Scale.IsNotNew)
@@ -77,9 +79,6 @@ public class PluginMassaHelper : PluginHelperBase
                     UserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
                     UserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
             }
-            FieldNettoWeight = fieldNettoWeight;
-            FieldMassa = fieldMassa;
-            FieldMassaExt = fieldMassaExt;
             SetControlsTextDefault();
         });
     }
@@ -87,6 +86,7 @@ public class PluginMassaHelper : PluginHelperBase
     public override void Execute()
     {
         base.Execute();
+        
         ReopenItem.Execute(Reopen);
         RequestItem.Execute(Request);
         ResponseItem.Execute(Response);
@@ -98,6 +98,7 @@ public class PluginMassaHelper : PluginHelperBase
 
         if (UserSessionHelper.Instance.PluScale.Plu.IsNew) return;
         if (!UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight) return;
+        
         MassaDevice.Execute();
     }
 
@@ -107,26 +108,11 @@ public class PluginMassaHelper : PluginHelperBase
         if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
         {
             if (MassaDevice.IsOpenPort)
-                GetMassa();
-
-            if (MassaDevice.IsOpenPort)
             {
-                //ClearRequestsByLimit(100);
-                //if (Requests.Count > 0)
-                //{
-                //    foreach (MassaExchangeEntity MassaExchange in Requests.GetConsumingEnumerable())
-                //    {
-                //        if (MassaDevice is null || MassaExchange is null) return;
-                //        SendData(MassaExchange);
-                //    }
-                //}
-                //Requests = new BlockingCollection<MassaExchangeEntity>();
+                GetMassa();
                 SendData();
             }
-            else
-            {
-                ResetMassa();
-            }
+            //else ResetMassa();
         }
     }
 
@@ -149,34 +135,27 @@ public class PluginMassaHelper : PluginHelperBase
     {
         switch (MassaDevice.PortController.AdapterStatus)
         {
-            case SerialPortController.EnumUsbAdapterStatus.IsNotConnectWithMassa:
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa, LocaleCore.Scales.IsNotConnectWithMassa);
+            case UsbAdapterStatus.IsNotConnectWithMassa:
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa, 
+                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsNotConnectWithMassa}");
                 break;
-            case SerialPortController.EnumUsbAdapterStatus.IsDataNotExists:
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa, LocaleCore.Scales.IsDataNotExists);
-                break;
-            case SerialPortController.EnumUsbAdapterStatus.IsException:
+            case UsbAdapterStatus.IsDataNotExists:
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa,
-                    LocaleCore.Scales.IsException(MassaDevice.PortController.CatchException?.Message));
+                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsDataNotExists}");
                 break;
-            case SerialPortController.EnumUsbAdapterStatus.Default:
-            case SerialPortController.EnumUsbAdapterStatus.IsConnectWithMassa:
-            case SerialPortController.EnumUsbAdapterStatus.IsDataExists:
+            case UsbAdapterStatus.IsException:
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa,
+                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsException(MassaDevice.PortController.Exception.Message)}");
+                break;
             default:
-                string massaDevice = //MassaDevice is not null ? 
-                    MassaDevice.IsOpenPort
-                        ? $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateResponsed} | "
-                        : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateNotResponsed} | ";
-                //: $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateDisable} | ";
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa,
-                    //ResponseParseGet is null ? $"{massaDevice} {LocaleCore.Scales.Message}: ..." : 
-                    $"{massaDevice} {LocaleCore.Scales.Message}: {ResponseParseGet.Message}");
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa, $"{(MassaDevice.IsOpenPort
+                    ? $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.StateIsResponsed} | "
+                    : $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.StateIsNotResponsed} | ")} | {ResponseParseGet.Message}");
                 break;
         }
 
-        decimal weight = UserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluNestingFk.WeightTare;
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, MassaStable.IsStable
-            ? $"{weight:0.000} {LocaleCore.Scales.WeightUnitKg}"
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, IsStable
+            ? $"{(UserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluNestingFk.WeightTare):0.000} {LocaleCore.Scales.WeightUnitKg}"
             : $"{LocaleCore.Scales.WeightingIsCalc}");
     }
 
@@ -184,7 +163,7 @@ public class PluginMassaHelper : PluginHelperBase
     {
         base.Close();
 
-        MassaStable.StopwatchStable.Stop();
+        //MassaStable.StopwatchStable.Stop();
         MassaDevice.Close();
 
         ResponseParseScalePar = new();
@@ -195,14 +174,6 @@ public class PluginMassaHelper : PluginHelperBase
     #endregion
 
     #region Public and private methods - Control
-
-    //public void ClearRequestsByLimit(ushort countLimit)
-    //{
-    //    if (Requests.Count > countLimit)
-    //    {
-    //        Requests = new BlockingCollection<MassaExchangeEntity>();
-    //    }
-    //}
 
     private void SendData()
     {
@@ -260,13 +231,6 @@ public class PluginMassaHelper : PluginHelperBase
 
     private void ParseSetResponse()
     {
-        //if (MassaExchange is null)
-        //{
-        //    ResponseParseGet = new();
-        //    ResponseParseScalePar = new();
-        //    ResponseParseSet = new();
-        //    return;
-        //}
         switch (MassaExchange.CmdType)
         {
             case MassaCmdType.GetMassa:
@@ -307,20 +271,16 @@ public class PluginMassaHelper : PluginHelperBase
                 // 4 байта. Текущая масса нетто со знаком
                 WeightNet = MassaExchange.ResponseParse.Massa.Weight / (decimal)ScaleFactor;
                 // 4 байта. Текущая масса тары со знаком
-                decimal weightTare = MassaExchange.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
+                //decimal weightTare = MassaExchange.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
                 // 4 байта. Текущая масса тары со знаком
-                WeightGross = WeightNet + weightTare;
+                //WeightGross = WeightNet + weightTare;
                 // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
-                MassaStable.IsStable = MassaExchange.ResponseParse.Massa.IsStable == 0x01;
+                //MassaStable = new(0_100, MassaExchange.ResponseParse.Massa.IsStable == 0x01);
+                IsStable = MassaExchange.ResponseParse.Massa.IsStable;
                 // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
                 //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
                 break;
         }
-    }
-
-    public void ResetMassa()
-    {
-        WeightGross = WeightNet = 0;
     }
 
     public void GetInit()
