@@ -3,15 +3,17 @@
 
 namespace WsMassa.Models;
 
-public class MassaStableModel
+public struct MassaStableModel
 {
-    private static ushort WaitMilliseconds => 0_100;
-	public Stopwatch StopwatchStable { get; } = new();
+	#region Public and private fields, properties, constructor
+
+    private ushort WaitMilliseconds { get; }
+    public Stopwatch StopwatchStable { get; } = new();
 	private bool _isStable;
 	public bool IsStable
 	{
 		get => (ushort)StopwatchStable.Elapsed.TotalMilliseconds >= WaitMilliseconds && _isStable;
-        set
+		set
 		{
 			if (_isStable != value)
 			{
@@ -20,4 +22,12 @@ public class MassaStableModel
 			}
 		}
 	}
+
+	public MassaStableModel(ushort waitMilliseconds, bool isStable)
+	{
+        WaitMilliseconds = waitMilliseconds;
+		_isStable = isStable;
+    }
+
+	#endregion
 }

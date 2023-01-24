@@ -9,16 +9,14 @@ public class SerialPortHelper
 {
 	#region Public and private fields and properties
 
-	public delegate void PortCallback(object sender, SerialPortEventArgs e);
-	public delegate void PortExceptionCallback(Exception ex, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "");
 	public SerialPort SerialPort { get; }
-    private PortCallback OpenCallback { get; }
-    private PortCallback CloseCallback { get; }
-    private PortCallback ResponseCallback { get; }
-    private PortExceptionCallback ExceptionCallback { get; }
-	private readonly object _locker = new();
+    private Action<object, SerialPortEventArgs> OpenCallback { get; }
+    private Action<object, SerialPortEventArgs> CloseCallback { get; }
+    private Action<object, SerialPortEventArgs> ResponseCallback { get; }
+	private Action<Exception> ExceptionAction { get; }
+    private readonly object _locker = new();
 	public UsbAdapterStatus AdapterStatus { get; private set; }
-	public Exception CatchException { get; private set; }
+	public Exception Exception { get; private set; }
 
     public SerialPortHelper()
     {
@@ -27,16 +25,16 @@ public class SerialPortHelper
         OpenCallback = (_, _) => { };
         CloseCallback = (_, _) => { };
         ResponseCallback = (_, _) => { };
-        ExceptionCallback = (_, _, _, _) => { };
+        ExceptionAction = (_) => { };
     }
 
-    public SerialPortHelper(PortCallback openCallback, PortCallback closeCallback, PortCallback responseCallback, 
-        PortExceptionCallback exceptionCallback) : this()
-	{
+    public SerialPortHelper(Action<object, SerialPortEventArgs> openCallback, Action<object, SerialPortEventArgs> closeCallback,
+        Action<object, SerialPortEventArgs> responseCallback, Action<Exception> exceptionAction) : this()
+    {
 		OpenCallback = openCallback;
 		CloseCallback = closeCallback;
 		ResponseCallback = responseCallback;
-		ExceptionCallback = exceptionCallback;
+		ExceptionAction = exceptionAction;
 	}
 
 	#endregion
@@ -66,7 +64,7 @@ public class SerialPortHelper
 	public void Open(string portName, string baudRate, string parity, string dataBits, string stopBits, string handshake, int readTimeout, int writeTimeout)
 	{
 		SerialPortEventArgs args = new();
-		CatchException = null;
+		Exception = null;
 		try
 		{
 			if (SerialPort.IsOpen)
@@ -118,7 +116,7 @@ public class SerialPortHelper
 		catch (Exception ex)
 		{
 			AdapterStatus = UsbAdapterStatus.IsException;
-			CatchException = ex;
+			Exception = ex;
 			args.SerialPort = new();
 			//ExceptionCallback?.Invoke(ex);
 		}
@@ -147,7 +145,7 @@ public class SerialPortHelper
 			}
 			catch (Exception ex)
 			{
-				ExceptionCallback?.Invoke(ex);
+				ExceptionAction.Invoke(ex);
 			}
 		}
 	}
@@ -169,7 +167,7 @@ public class SerialPortHelper
 		}
 		catch (Exception ex)
 		{
-			ExceptionCallback?.Invoke(ex);
+			ExceptionAction?.Invoke(ex);
 		}
 		return false;
 	}
@@ -213,7 +211,7 @@ public class SerialPortHelper
 		catch (Exception ex)
 		{
 			args.SerialPort = new();
-			ExceptionCallback?.Invoke(ex);
+			ExceptionAction?.Invoke(ex);
 		}
 		finally
 		{

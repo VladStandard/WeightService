@@ -98,11 +98,10 @@ public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
 		}
 	}
 
-    private void PortExceptionCallback(Exception ex,
-		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    private void PortExceptionCallback(Exception ex)
 	{
 		IsExceptionResult = true;
-		DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(MassaDeviceHelper), filePath, lineNumber, memberName);
+		DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(MassaDeviceHelper));
 	}
 
 	#endregion

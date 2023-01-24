@@ -24,8 +24,7 @@ public class PluginPrintModel : PluginHelperBase
     private ZebraPrinter _zebraDriver;
     private ZebraPrinter ZebraDriver { get { if (ZebraConnection is not null && _zebraDriver is null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
     private ZebraPrinterStatus ZebraStatus { get; set; }
-    public bool IsPrintBusy { get; set; }
-    public bool IsMain { get; set; }
+    private bool IsMain { get; set; }
 
     #endregion
 
@@ -185,9 +184,8 @@ public class PluginPrintModel : PluginHelperBase
                 }
                 break;
             case PrintBrand.TSC:
-                return IsPrintBusy
-                    ? GetPrinterStatusDescription(LocaleCore.Lang, Win32PrinterStatus.PendingDeletion)
-                    : GetPrinterStatusDescription(LocaleCore.Lang, TscWmiPrinter.PrinterStatus);
+                //return IsPrintBusy ? GetPrinterStatusDescription(LocaleCore.Lang, Win32PrinterStatus.PendingDeletion)
+                return GetPrinterStatusDescription(LocaleCore.Lang, TscWmiPrinter.PrinterStatus);
         }
         return LocaleCore.Print.StatusIsUnavailable;
     }
@@ -262,10 +260,8 @@ public class PluginPrintModel : PluginHelperBase
             case PrintBrand.Zebra:
                 SendCmdToZebra(pluLabel);
                 break;
-            //case PrintBrand.TSC:
-            //    SendCmdToTsc(pluLabel);
-            //    break;
-            default: 
+            case PrintBrand.TSC:
+                //SendCmdToTsc(pluLabel);
                 SendCmdToTcp(pluLabel);
                 break;
         }

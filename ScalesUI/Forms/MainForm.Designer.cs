@@ -442,7 +442,6 @@
             this.fieldTitle.TabIndex = 21;
             this.fieldTitle.Text = "ScalesUI";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldTitle.Visible = false;
             // 
             // MainForm
             // 
