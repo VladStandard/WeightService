@@ -24,7 +24,7 @@ public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
     private int ReadTimeout { get; set; }
     private int WriteTimeout { get; set; }
     private string PortName { get; set; }
-	public SerialPortController PortController { get; private set; }
+	public SerialPortHelper PortController { get; private set; }
     private int SendBytesCount { get; set; }
     private int ReceiveBytesCount { get; set; }
 	public delegate void MassaResponseCallback(byte[] response);
@@ -56,7 +56,7 @@ public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
 
 	#region Public and private methods - ISerialPortView
 
-	public void SetController(SerialPortController controller)
+	public void SetController(SerialPortHelper controller)
 	{
 		PortController = controller;
 	}

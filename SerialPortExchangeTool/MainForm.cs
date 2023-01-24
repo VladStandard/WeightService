@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
 using DataCore.Utils;
-using WsMassa.Controllers;
 using WsMassa.Helpers;
 using WsMassa.Models;
 using WsMassa.Utils;
@@ -19,7 +18,7 @@ public partial class MainForm : Form
     #region Public and private fields and properties
 
     private BytesHelper Bytes { get; set; } = BytesHelper.Instance;
-    private SerialPortController PortController { get; set; }
+    private SerialPortHelper PortController { get; set; }
     private int SendBytesCount { get; set; } = 0;
     private int ReceiveBytesCount { get; set; } = 0;
 

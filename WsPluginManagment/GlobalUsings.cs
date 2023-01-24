@@ -24,7 +24,6 @@ global using System.Threading;
 global using System.Windows.Forms;
 global using System;
 global using WsLocalization.Models;
-global using WsMassa.Controllers;
 global using WsMassa.Enums;
 global using WsMassa.Helpers;
 global using WsMassa.Models;

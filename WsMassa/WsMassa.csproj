@@ -61,10 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\SerialPortController.cs" />
+    <Compile Include="Helpers\SerialPortHelper.cs" />
     <Compile Include="Enums\DataBits.cs" />
     <Compile Include="Enums\BaudRate.cs" />
     <Compile Include="Enums\MassaCmdType.cs" />
+    <Compile Include="Enums\UsbAdapterStatus.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\BytesHelper.cs" />
     <Compile Include="Helpers\MassaCrcHelper.cs" />
@@ -85,5 +86,6 @@
       <Name>DataCore</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

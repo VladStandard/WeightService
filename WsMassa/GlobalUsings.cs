@@ -14,7 +14,6 @@ global using System.Runtime.CompilerServices;
 global using System.Text;
 global using System.Threading;
 global using System;
-global using WsMassa.Controllers;
 global using WsMassa.Enums;
 global using WsMassa.Helpers;
 global using WsMassa.Models;

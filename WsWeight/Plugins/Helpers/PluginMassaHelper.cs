@@ -149,28 +149,21 @@ public class PluginMassaHelper : PluginHelperBase
     {
         switch (MassaDevice.PortController.AdapterStatus)
         {
-            case SerialPortController.EnumUsbAdapterStatus.IsNotConnectWithMassa:
+            case UsbAdapterStatus.IsNotConnectWithMassa:
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa, LocaleCore.Scales.IsNotConnectWithMassa);
                 break;
-            case SerialPortController.EnumUsbAdapterStatus.IsDataNotExists:
+            case UsbAdapterStatus.IsDataNotExists:
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa, LocaleCore.Scales.IsDataNotExists);
                 break;
-            case SerialPortController.EnumUsbAdapterStatus.IsException:
+            case UsbAdapterStatus.IsException:
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa,
                     LocaleCore.Scales.IsException(MassaDevice.PortController.CatchException?.Message));
                 break;
-            case SerialPortController.EnumUsbAdapterStatus.Default:
-            case SerialPortController.EnumUsbAdapterStatus.IsConnectWithMassa:
-            case SerialPortController.EnumUsbAdapterStatus.IsDataExists:
             default:
-                string massaDevice = //MassaDevice is not null ? 
-                    MassaDevice.IsOpenPort
-                        ? $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateResponsed} | "
-                        : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateNotResponsed} | ";
-                //: $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateDisable} | ";
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa,
-                    //ResponseParseGet is null ? $"{massaDevice} {LocaleCore.Scales.Message}: ..." : 
-                    $"{massaDevice} {LocaleCore.Scales.Message}: {ResponseParseGet.Message}");
+                string massaDevice = MassaDevice.IsOpenPort
+                    ? $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.StateIsResponsed} | "
+                    : $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.StateIsNotResponsed} | ";
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassa, $"{massaDevice} | {ResponseParseGet.Message}");
                 break;
         }
 
@@ -195,14 +188,6 @@ public class PluginMassaHelper : PluginHelperBase
     #endregion
 
     #region Public and private methods - Control
-
-    //public void ClearRequestsByLimit(ushort countLimit)
-    //{
-    //    if (Requests.Count > countLimit)
-    //    {
-    //        Requests = new BlockingCollection<MassaExchangeEntity>();
-    //    }
-    //}
 
     private void SendData()
     {
