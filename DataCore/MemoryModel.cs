@@ -23,11 +23,6 @@ public class MemoryModel
         IsExecute = false;
     }
 
-    ~MemoryModel()
-    {
-        MemorySize.Dispose();
-    }
-
     #endregion
 
     #region Public and private methods

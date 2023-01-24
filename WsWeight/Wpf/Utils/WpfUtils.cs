@@ -3,11 +3,8 @@
 
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Forms;
 using DataCore.Sql.TableScaleModels.Devices;
-using WsLocalization.Models;
 using WsWeight.Gui;
-using WsWeight.Helpers;
 
 namespace WsWeight.Wpf.Utils;
 
@@ -154,7 +151,6 @@ public static class WpfUtils
     {
         if (isDbLog)
             DataAccess.LogError(ex, UserSessionHelper.Instance.DeviceScaleFk.Device.Name, string.Empty, filePath, lineNumber, memberName);
-
 
         if (isShowWindow)
         {

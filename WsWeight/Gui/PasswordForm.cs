@@ -2,8 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using WsWeight.Helpers;
 
 namespace WsWeight.Gui;
 
@@ -13,7 +11,7 @@ public partial class PasswordForm : Form
 
     private ushort UnlockCode => (ushort)(DateTime.Now.Hour * 100 + DateTime.Now.Minute);
     private ushort UserCode { get; set; }
-    public UserSessionHelper UserSession { get; } = UserSessionHelper .Instance;
+    public UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
     #endregion
 

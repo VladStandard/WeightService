@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows;
-using System.Windows.Controls;
 
 namespace WsWeight.Wpf.Pages;
 
@@ -11,45 +10,45 @@ namespace WsWeight.Wpf.Pages;
 /// </summary>
 public partial class WpfPagePinCode
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public WpfPagePinCode()
-	{
-		InitializeComponent();
-	}
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public WpfPagePinCode()
+    {
+        InitializeComponent();
+    }
 
-	#endregion
+    #endregion
 
-	#region Private methods
+    #region Private methods
 
-	private void PagePin_OnLoaded(object sender, RoutedEventArgs e)
-	{
-		// Очистить.
-		ButtonClear_Click(sender, e);
-	}
+    private void PagePin_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        // Очистить.
+        ButtonClear_Click(sender, e);
+    }
 
-	private void ButtonNum_Click(object sender, EventArgs e)
-	{
-		if (sender is Button button)
-		{
-			string num = (string)button.Content;
-			//_settings.PinCode.Input = int.Parse(_settings.PinCode.Input.ToString() + num);
-		}
-	}
+    private void ButtonNum_Click(object sender, EventArgs e)
+    {
+        //if (sender is System.Windows.Button button)
+        //{
+        //    //string num = (string)button.Content;
+        //    //_settings.PinCode.Input = int.Parse(_settings.PinCode.Input.ToString() + num);
+        //}
+    }
 
-	private void ButtonClear_Click(object sender, RoutedEventArgs e)
-	{
-		//_settings.PinCode.Input = 0;
-	}
+    private void ButtonClear_Click(object sender, RoutedEventArgs e)
+    {
+        //_settings.PinCode.Input = 0;
+    }
 
-	private void ButtonEnter_Click(object sender, RoutedEventArgs e)
-	{
-		Result = System.Windows.Forms.DialogResult.OK;
-		OnClose?.Invoke(sender, e);
-	}
+    private void ButtonEnter_Click(object sender, RoutedEventArgs e)
+    {
+        Result = DialogResult.OK;
+        OnClose?.Invoke(sender, e);
+    }
 
-	#endregion
+    #endregion
 }

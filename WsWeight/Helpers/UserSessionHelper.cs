@@ -1,14 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
-using DataCore.Enums;
-using DataCore.Settings.Helpers;
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Models;
 using DataCore.Sql.Core.Utils;
@@ -22,18 +14,17 @@ using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
-using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Utils;
-using MDSoft.BarcodePrintUtils.Enums;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
-using WsLocalization.Models;
-using WsWeight.Managers;
-using WsWeight.Wpf.Utils;
+using System.Windows;
+using System.Xml;
+using System.Xml.Serialization;
+using WsWeight.Plugins.Helpers;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
 
 namespace WsWeight.Helpers;
@@ -51,12 +42,15 @@ public class UserSessionHelper : BaseViewModel
 
     #region Public and private fields and properties
 
-    private AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private SqlConnectFactory SqlConnect => SqlConnectFactory.Instance;
     public DataAccessHelper DataAccess => DataAccessHelper.Instance;
     public DataContextModel DataContext { get; } = new();
     public DebugHelper Debug => DebugHelper.Instance;
-    public ManagerControllerHelper ManagerControl => ManagerControllerHelper.Instance;
+    public PluginLabelsHelper PluginLabels => PluginLabelsHelper.Instance;
+    public PluginMassaHelper PluginMassa => PluginMassaHelper.Instance;
+    public PluginMemoryHelper PluginMemory => PluginMemoryHelper.Instance;
+    public PluginPrintModel PluginPrintMain { get; } = new();
+    public PluginPrintModel PluginPrintShipping { get; } = new();
 
     private ProductSeriesDirect _productSeries;
     [XmlElement]
@@ -106,8 +100,8 @@ public class UserSessionHelper : BaseViewModel
             _pluScale = value;
             if (value.IsNotNew)
                 DataAccess.LogInformationFast($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
-            ManagerControl.PrintMain.LabelPrintedCount = 1;
-            ManagerControl.PrintShipping.LabelPrintedCount = 1;
+            PluginPrintMain.LabelPrintedCount = 1;
+            PluginPrintShipping.LabelPrintedCount = 1;
             SetPluNestingFks(value.Plu);
             OnPropertyChanged();
         }
@@ -287,6 +281,15 @@ public class UserSessionHelper : BaseViewModel
 
     #region Public and private methods
 
+    public void PluginsClose()
+    {
+        PluginLabels.Close();
+        PluginMassa.Close();
+        PluginMemory.Close();
+        PluginPrintMain.Close();
+        PluginPrintShipping.Close();
+    }
+
     public void SetMain(long scaleId = -1, string productionFacilityName = "")
     {
         SetSqlPublish();
@@ -345,7 +348,7 @@ public class UserSessionHelper : BaseViewModel
 
     public void NewPallet()
     {
-        ManagerControl.PrintMain.LabelPrintedCount = 1;
+        PluginPrintMain.LabelPrintedCount = 1;
         ProductSeries.Load();
     }
 
@@ -420,7 +423,7 @@ public class UserSessionHelper : BaseViewModel
     {
         if (Debug.IsDebug) return true;
 
-        if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
+        if (PluScale.Plu.IsCheckWeight && !PluginMassa.MassaStable.IsStable)
         {
             WpfUtils.ShowNewOperationControl(owner,
                 LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
@@ -454,7 +457,7 @@ public class UserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="owner"></param>
     /// <returns></returns>
-    public bool CheckPrintIsConnect(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
+    public bool CheckPrintIsConnect(IWin32Window owner, PluginPrintModel managerPrint, bool isMain)
     {
         if (!managerPrint.Printer.IsPing)
         {
@@ -475,7 +478,7 @@ public class UserSessionHelper : BaseViewModel
     /// <param name="managerPrint"></param>
     /// <param name="isMain"></param>
     /// <returns></returns>
-    public bool CheckPrintStatusReady(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
+    public bool CheckPrintStatusReady(IWin32Window owner, PluginPrintModel managerPrint, bool isMain)
     {
         if (!managerPrint.CheckDeviceStatus())
         {
@@ -498,7 +501,7 @@ public class UserSessionHelper : BaseViewModel
     {
         if (!PluScale.Plu.IsCheckWeight) return true;
 
-        decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
+        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
         if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
         {
             WpfUtils.ShowNewOperationControl(owner,
@@ -518,7 +521,7 @@ public class UserSessionHelper : BaseViewModel
     {
         if (!PluScale.Plu.IsCheckWeight) return true;
 
-        decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
+        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
         if (weight > LocaleCore.Scales.MassaThresholdValue)
         {
             DialogResult result = WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
@@ -659,7 +662,7 @@ public class UserSessionHelper : BaseViewModel
         // Шаблон без указания кол-ва.
         else
         {
-            for (int i = ManagerControl.PrintMain.LabelPrintedCount; i <= WeighingSettings.LabelsCountMain; i++)
+            for (int i = PluginPrintMain.LabelPrintedCount; i <= WeighingSettings.LabelsCountMain; i++)
             {
                 // Печать этикетки.
                 PrintLabelCore(template, isClearBuffer);
@@ -675,7 +678,7 @@ public class UserSessionHelper : BaseViewModel
         {
             PluScale = PluScale,
             Kneading = WeighingSettings.Kneading,
-            NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluNestingFk.WeightTare : PluNestingFk.WeightNom,
+            NettoWeight = PluScale.Plu.IsCheckWeight ? PluginMassa.WeightNet - PluNestingFk.WeightTare : PluNestingFk.WeightNom,
             WeightTare = PluNestingFk.WeightTare,
             Series = productSeries,
         };
@@ -692,7 +695,7 @@ public class UserSessionHelper : BaseViewModel
     {
         if (!Debug.IsDebug) return;
         if (!PluScale.Plu.IsCheckWeight) return;
-        if (ManagerControl.Massa.WeightNet > 0) return;
+        if (PluginMassa.WeightNet > 0) return;
 
         DialogResult dialogResult = WpfUtils.ShowNewOperationControl(owner,
             LocaleCore.Print.QuestionUseFakeData,
@@ -700,8 +703,8 @@ public class UserSessionHelper : BaseViewModel
             new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
         if (dialogResult is DialogResult.Yes)
         {
-            ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(PluNestingFk.WeightMin, PluNestingFk.WeightMax);
-            ManagerControl.Massa.IsWeightNetFake = true;
+            PluginMassa.WeightNet = StringUtils.NextDecimal(PluNestingFk.WeightMin, PluNestingFk.WeightMax);
+            PluginMassa.IsWeightNetFake = true;
         }
     }
 
@@ -720,9 +723,9 @@ public class UserSessionHelper : BaseViewModel
             // Print.
             if (isClearBuffer)
             {
-                ManagerControl.PrintMain.ClearPrintBuffer();
+                PluginPrintMain.ClearPrintBuffer();
                 if (Scale.IsShipping)
-                    ManagerControl.PrintShipping.ClearPrintBuffer();
+                    PluginPrintShipping.ClearPrintBuffer();
             }
 
             // Send cmd to the print.
@@ -736,7 +739,7 @@ public class UserSessionHelper : BaseViewModel
             }
 
             // Send cmd to the print.
-            ManagerControl.PrintMain.SendCmd(pluLabel);
+            PluginPrintMain.SendCmd(pluLabel);
         }
         catch (Exception ex)
         {

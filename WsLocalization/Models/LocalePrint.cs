@@ -73,7 +73,8 @@ public class LocalePrint
     public string Port => Lang == Lang.English ? "Printer port" : "Порт принтера";
     public string PortShort => Lang == Lang.English ? "Port" : "Порт";
     public string PrinterStatus => Lang == Lang.English ? "Printer status" : "Состояние принтера";
-    public string PrintManager => Lang == Lang.English ? "Print manager" : "Менеджер принтера";
+    public string PrintPlugin => Lang == Lang.English ? "Printer plugin" : "Плагин принтера";
+    public string PrintPluginExt => Lang == Lang.English ? "Printer extension" : "Расширение принтера";
     public string QuestionUseFakeData => Lang == Lang.English ? "Use fake data?" : "Использовать фейк данные?";
     public string QuestionPrint => Lang == Lang.English ? "Continue printing?" : "Продолжить печать?";
     public string QuestionPrintSendCmd => Lang == Lang.English ? "Send cmd to the print?" : "Отправить команду на печать?";

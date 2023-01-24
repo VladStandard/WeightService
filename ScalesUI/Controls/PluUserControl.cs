@@ -23,7 +23,7 @@ public partial class PluUserControl : UserControlBase
 
     private void PluUserControl_Refresh()
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             if (!UserSession.Scale.IdentityValueId.Equals(PreviousScaleId))
             {
@@ -46,7 +46,7 @@ public partial class PluUserControl : UserControlBase
     {
         List<PluScaleModel> plus = UserSession.GetCurrentPlus();
         ControlPluModel[,] controls = new ControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < UserSession.PageRowCount; ++rowNumber)
             {
@@ -225,7 +225,7 @@ public partial class PluUserControl : UserControlBase
 
     private void ButtonPluSelect_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, () =>
+        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             ushort tabIndex = 0;
             if (sender is Control control)
@@ -246,7 +246,7 @@ public partial class PluUserControl : UserControlBase
         if (UserSession.PageNumber == saveCurrentPage)
             return;
 
-        ActionUtils.ActionTryCatchFinally(this, SetupLayoutPanel, () => { layoutPanel.Visible = true; }); 
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, SetupLayoutPanel, () => { layoutPanel.Visible = true; }); 
     }
 
     private void ButtonNextRoll_Click(object sender, EventArgs e)
@@ -259,7 +259,7 @@ public partial class PluUserControl : UserControlBase
         if (UserSession.PageNumber == saveCurrentPage)
             return;
 
-        ActionUtils.ActionTryCatchFinally(this, SetupLayoutPanel, () => { layoutPanel.Visible = true; });
+        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, SetupLayoutPanel, () => { layoutPanel.Visible = true; });
     }
 
     private void SetupPanel(ushort columnCount, ushort rowCount)

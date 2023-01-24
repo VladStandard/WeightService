@@ -55,8 +55,8 @@ public static partial class GuiUtils
             Button button = new()
             {
                 Name = name,
-                Enabled = false,
-                Visible = false,
+                Enabled = true,
+                Visible = true,
                 BackColor = Color.Transparent,
                 Dock = DockStyle.Fill,
                 ForeColor = SystemColors.ControlText,
@@ -64,7 +64,6 @@ public static partial class GuiUtils
                 Size = new(100, 100),
                 UseVisualStyleBackColor = false,
                 TabIndex = 100 + column,
-                //Location = new(2, 2),
             };
             tableLayoutPanel.Controls.Add(button, column - 1, row > 0 ? row : 0);
             return button;

@@ -376,14 +376,20 @@
     <Compile Include="Gui\VisibilitySettingsModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\UserSessionHelper.cs" />
-    <Compile Include="Managers\ManagerBase.cs" />
-    <Compile Include="Managers\ManagerConfigModel.cs" />
-    <Compile Include="Managers\ManagerItemModel.cs" />
-    <Compile Include="Managers\TaskType.cs" />
-    <Compile Include="Utils\ActionUtils.cs" />
-    <Compile Include="Utils\ComboBoxExtensions.cs" />
+    <Compile Include="Plugins\Enums\TaskType.cs" />
+    <Compile Include="Plugins\Helpers\PluginLabelsHelper.cs" />
+    <Compile Include="Plugins\Helpers\PluginMassaHelper.cs" />
+    <Compile Include="Plugins\Helpers\PluginMemoryHelper.cs" />
+    <Compile Include="Plugins\Helpers\PluginPrintModel.cs" />
+    <Compile Include="Plugins\Models\ConfigModel.cs" />
+    <Compile Include="Plugins\Models\PluginHelperBase.cs" />
+    <Compile Include="Plugins\Models\PluginModel.cs" />
+    <Compile Include="WinForms\Enums\ResolutionEnum.cs" />
+    <Compile Include="WinForms\Helpers\FontsSettingsHelper.cs" />
+    <Compile Include="WinForms\Utils\ActionUtils.cs" />
+    <Compile Include="WinForms\Utils\ComboBoxExtensions.cs" />
+    <Compile Include="WinForms\Utils\FormUtils.cs" />
     <Compile Include="Wpf\Helpers\XamlHelper.cs" />
-    <Compile Include="Managers\ManagerLabels.cs" />
     <Compile Include="Gui\NumberInputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -402,10 +408,6 @@
     <Compile Include="Helpers\RegHelper.cs" />
     <Compile Include="Helpers\UacHelper.cs" />
     <Compile Include="Helpers\WinInfoHelper.cs" />
-    <Compile Include="Managers\ManagerPrint.cs" />
-    <Compile Include="Managers\ManagerMassa.cs" />
-    <Compile Include="Managers\ManagerMemory.cs" />
-    <Compile Include="Managers\ManagerControllerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -523,6 +525,14 @@
     <ProjectReference Include="..\WsMassa\WsMassa.csproj">
       <Project>{b16ecc51-2ef8-49e6-b77e-b8cc065550a4}</Project>
       <Name>WsMassa</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsPluginManagment\WsPluginManagment.csproj">
+      <Project>{2350a1f2-99d3-430c-9fdc-243287602967}</Project>
+      <Name>WsPluginManagment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsWinForms\WsWinForms.csproj">
+      <Project>{1eb9514d-984c-456a-8237-0314ed0eb53c}</Project>
+      <Name>WsWinForms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

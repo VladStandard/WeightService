@@ -4,7 +4,6 @@
 using DataCore.Protocols;
 using DataCore.Sql.TableScaleModels.Printers;
 using MDSoft.BarcodePrintUtils.Enums;
-using NHibernate.Impl;
 
 namespace DataCore.Models;
 

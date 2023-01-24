@@ -1,26 +1,36 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsWeight.Managers;
+namespace WsWeight.Plugins.Models;
 
-public class ManagerItemModel : DisposableBase
+[DebuggerDisplay("{nameof(ManagerItemModel)} | {TskType}")]
+public class PluginModel : HelperBase
 {
     #region Public and private fields, properties, constructor
 
-    private AsyncLock? Mutex { get; set; }
-    private CancellationTokenSource? Cts { get; set; }
-    private Task? Tsk { get; set; }
-    //public bool IsSuspend { get; set; }
-    public ManagerConfigModel Config { get; set; }
-    public TaskType TaskType { get; set; }
-
-    public ManagerItemModel()
+    private AsyncLock Mutex { get; }
+    private CancellationTokenSource Cts { get; set; }
+    private Task Tsk { get; set; }
+    public ConfigModel Config { get; set; }
+    public TaskType TskType { get; set; }
+    private const ushort MaxCount = ushort.MaxValue;
+    private ushort _counter;
+    public ushort Counter
     {
-        Mutex = null;
-        Cts = null;
-        Tsk = null;
-        //IsSuspend = false;
-        TaskType = TaskType.Default;
+        get => _counter;
+        private set
+        {
+            if (value >= MaxCount) value = 0;
+            _counter = value;
+        }
+    }
+
+    public PluginModel()
+    {
+        TskType = TaskType.Default;
+        Mutex = new();
+        Cts = new();
+        Tsk = Task.Run(() => { });
         Config = new();
     }
 
@@ -28,46 +38,37 @@ public class ManagerItemModel : DisposableBase
 
     #region Public and private methods
 
-    private void PreOpen()
+    public void Init(ConfigModel config)
     {
-        Mutex = null;
-        Cts = null;
-
-        CheckIsDisposed();
-        if (Tsk is null) return;
-
-        Cts?.Cancel();
-        Tsk.Wait(Config.WaitClose);
-        if (Tsk.IsCompleted)
-            Tsk.Dispose();
+        base.Init();
+        Config = config;
     }
 
     /// <summary>
-    /// OpenTask v.4
+    /// Open v.4
     /// </summary>
-    /// <param name="callback"></param>
-    public void Open(Action? callback)
+    /// <param name="action"></param>
+    public void Execute(Action action)
     {
-        PreOpen();
+        Close();
+        base.Execute();
+        Cts = new();
         Tsk = Task.Run(async () =>
         {
-            ReopenCount = 0;
-            //while (IsOpen && !IsSuspend)
-            while (IsOpen)
+            Counter = 0;
+            while (IsExecute)
             {
-                ReopenCount++;
-                Mutex ??= new();
-                Cts ??= new();
+                Counter++;
                 try
                 {
                     // AsyncLock can be locked asynchronously
                     AwaitableDisposable<IDisposable> lockTask = Mutex.LockAsync(Cts.Token);
                     using (await lockTask.ConfigureAwait(true))
                     {
-                        Config.WaitSync(Config.StopwatchReopen, Config.WaitReopen);
-                        if (Cts is null || Cts.IsCancellationRequested) continue;
+                        Config.WaitSync(Config.StopwatchExecute, Config.WaitExecute);
+                        if (Cts.IsCancellationRequested) continue;
                         // It's safe to await while the lock is held
-                        callback?.Invoke();
+                        action();
                     }
                 }
                 catch (TaskCanceledException)
@@ -77,7 +78,6 @@ public class ManagerItemModel : DisposableBase
                 catch (Exception ex)
                 {
                     DataAccessHelper.Instance.LogErrorFast(ex);
-                    Config.WaitSync(Config.WaitException);
                 }
             }
         });
@@ -409,28 +409,15 @@ public class ManagerItemModel : DisposableBase
     //    });
     //}
 
-    public new void Close()
+    public override void Close()
     {
         // Need to check.
         base.Close();
 
-        Cts?.Cancel();
+        Cts.Cancel();
         Config.WaitSync(Config.WaitClose);
-        Mutex = null;
-    }
 
-    public void ReleaseManaged()
-    {
-        Cts?.Cancel();
-        Cts?.Dispose();
-
-        if (Tsk is not null)
-        {
-            Tsk.Wait(ManagerConfigModel.WaitLowLimit);
-            if (Tsk.IsCompleted)
-                Tsk.Dispose();
-            Tsk = null;
-        }
+        Tsk.Wait(ConfigModel.WaitLowLimit);
     }
 
     #endregion
