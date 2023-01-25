@@ -364,7 +364,8 @@ public class DataCoreHelper
 				plu.Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
 				plu.Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
 				plu.Nomenclature = CreateNewSubstitute<NomenclatureModel>(isNotDefault);
-				break;
+                plu.Nomenclatures = CreateNewSubstitute<NomenclatureV2Model>(isNotDefault);
+                break;
 			case PluBundleFkModel pluBundle:
                 pluBundle.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
                 pluBundle.Bundle = CreateNewSubstitute<BundleModel>(isNotDefault);

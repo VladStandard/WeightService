@@ -43,6 +43,7 @@ public class PluModel : SqlTableBase
     [XmlElement] public virtual string Itf14 { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
     [XmlElement] public virtual NomenclatureModel Nomenclature { get; set; }
+    [XmlElement] public virtual NomenclatureV2Model Nomenclatures { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -57,6 +58,7 @@ public class PluModel : SqlTableBase
         Itf14 = string.Empty;
         IsCheckWeight = false;
         Nomenclature = new();
+        Nomenclatures = new();
     }
 
     /// <summary>
@@ -74,6 +76,7 @@ public class PluModel : SqlTableBase
         Itf14 = info.GetString(nameof(Itf14));
         IsCheckWeight = info.GetBoolean(nameof(IsCheckWeight));
         Nomenclature = (NomenclatureModel)info.GetValue(nameof(Nomenclature), typeof(NomenclatureModel));
+        Nomenclatures = (NomenclatureV2Model)info.GetValue(nameof(Nomenclatures), typeof(NomenclatureV2Model));
     }
 
     #endregion
@@ -106,7 +109,8 @@ public class PluModel : SqlTableBase
         Equals(Ean13, string.Empty) &&
         Equals(Itf14, string.Empty) &&
         Equals(IsCheckWeight, false) &&
-        Nomenclature.EqualsDefault();
+        Nomenclature.EqualsDefault() &&
+        Nomenclatures.EqualsDefault();
 
     public override object Clone()
     {
@@ -119,6 +123,7 @@ public class PluModel : SqlTableBase
         item.Itf14 = Itf14;
         item.IsCheckWeight = IsCheckWeight;
         item.Nomenclature = Nomenclature.CloneCast();
+        item.Nomenclatures = Nomenclatures.CloneCast();
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -134,6 +139,7 @@ public class PluModel : SqlTableBase
         info.AddValue(nameof(Itf14), Itf14);
         info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
         info.AddValue(nameof(Nomenclature), Nomenclature);
+        info.AddValue(nameof(Nomenclatures), Nomenclatures);
     }
 
     public override void FillProperties()
@@ -145,6 +151,7 @@ public class PluModel : SqlTableBase
         Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
         Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
         Nomenclature.FillProperties();
+        Nomenclatures.FillProperties();
     }
 
     #endregion
@@ -160,7 +167,8 @@ public class PluModel : SqlTableBase
         Equals(Ean13, item.Ean13) &&
         Equals(Itf14, item.Itf14) &&
         Equals(IsCheckWeight, item.IsCheckWeight) &&
-        Nomenclature.Equals(item.Nomenclature);
+        Nomenclature.Equals(item.Nomenclature) &&
+        Nomenclatures.Equals(item.Nomenclatures);
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 
