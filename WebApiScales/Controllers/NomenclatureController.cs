@@ -35,11 +35,11 @@ public class NomenclatureController : WebControllerBase
 	    [FromHeader(Name = "accept")] string version = "") =>
 	    GetAcceptVersion(version) switch
 	    {
-		    AcceptVersion.V2 =>
-				ControllerHelp.GetContentResult(() => ControllerHelp
-					.NewResponse1cIsNotFound(SessionFactory, version, formatString), formatString),
+            AcceptVersion.V2 =>
+                ControllerHelp.GetContentResult(() => ControllerHelp
+                    .NewResponse1cIsNotFound(SessionFactory, version, formatString), formatString),
 		    _ => ControllerHelp.GetContentResult(() => ControllerHelp
-					.NewResponse1cNomenclaturesDeprecated(SessionFactory, request, formatString), formatString)
+					.NewResponse1cNomenclatures(SessionFactory, request, formatString), formatString)
 		};
 
     #endregion

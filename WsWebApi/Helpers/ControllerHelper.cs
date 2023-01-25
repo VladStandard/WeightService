@@ -1,12 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsWebApi.Utils;
+namespace WsWebApi.Helpers;
 
 /// <summary>
 /// Web API Controller helper.
 /// </summary>
-public class ControllerHelper
+public partial class ControllerHelper
 {
     #region Design pattern "Lazy Singleton"
 
@@ -66,6 +66,7 @@ public class ControllerHelper
         }
     }
 
+    // ReSharper disable once InconsistentNaming
     private ContentResult NewResponse1cCore<T>(ISessionFactory sessionFactory, Action<T> action,
         string formatString, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
@@ -91,6 +92,7 @@ public class ControllerHelper
         return DataFormatUtils.GetContentResult<T>(response, formatString, httpStatusCode);
     }
 
+    // ReSharper disable once InconsistentNaming
     public ContentResult NewResponse1cFromQuery(ISessionFactory sessionFactory, string query,
         SqlParameter? sqlParameter, string formatString, bool isTransaction)
     {
@@ -132,28 +134,6 @@ public class ControllerHelper
         }, formatString, isTransaction);
     }
 
-    public ContentResult NewResponse1cBrandsFromAction(ISessionFactory sessionFactory, XElement request, string formatString)
-    {
-        return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
-        {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-            List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
-            List<BrandModel> brandsXml = GetBrandList(request);
-            foreach (BrandModel brandXml in brandsXml)
-            {
-                switch (brandXml.ParseResult.Status)
-                {
-                    case ParseStatus.Success:
-                        AddResponse1cBrand(response, brandsDb, brandXml);
-                        break;
-                    case ParseStatus.Error:
-                        AddResponse1cException(response, brandXml);
-                        break;
-                }
-            }
-        }, formatString, false);
-    }
-
     [Obsolete(@"Deprecated method")]
     public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end, string formatString, bool isTransaction)
     {
@@ -175,51 +155,7 @@ public class ControllerHelper
         }, formatString, isTransaction);
     }
 
-    private void AddResponse1cBrand(Response1cShortModel response, List<BrandModel> brandsDb, BrandModel brandXml)
-    {
-        try
-        {
-            BrandModel? itemDb = brandsDb.Find(x => x.IdentityValueUid.Equals(brandXml.IdentityValueUid));
-
-            // Find by UID -> Update.
-            if (itemDb is not null && itemDb.IsNotNew)
-            {
-                itemDb.UpdateProperties(brandXml);
-                (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.Update(itemDb);
-                if (dbUpdate.IsOk)
-                    response.Successes.Add(new(brandXml.IdentityValueUid));
-                else
-                    AddResponse1cException(response, brandXml.IdentityValueUid, dbUpdate.Exception);
-                return;
-            }
-
-            // Find by Code -> Delete.
-            itemDb = brandsDb.Find(x => x.Code.Equals(brandXml.Code));
-            if (itemDb is not null && itemDb.IsNotNew)
-            {
-                (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
-                // Delete was success. Duplicate field Code: {itemXml.Code}
-                if (!dbDelete.IsOk)
-                {
-                    AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
-                    return;
-                }
-            }
-
-            // Not find -> Add.
-            (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(brandXml, brandXml.Identity);
-            // Add was success.
-            if (dbSave.IsOk)
-                response.Successes.Add(new(brandXml.IdentityValueUid));
-            else
-                AddResponse1cException(response, brandXml.IdentityValueUid, dbSave.Exception);
-        }
-        catch (Exception ex)
-        {
-            AddResponse1cException(response, brandXml.IdentityValueUid, ex);
-        }
-    }
-
+    // ReSharper disable once InconsistentNaming
     private void AddResponse1cItem<T>(Response1cShortModel response, IReadOnlyCollection<T> listDb, T itemXml) where T : SqlTableBase, new()
     {
         try
@@ -286,6 +222,7 @@ public class ControllerHelper
         }
     }
 
+    // ReSharper disable once InconsistentNaming
     private void AddResponse1cException(Response1cShortModel response, Guid uid, string? errorMessage, string? innerErrorMessage = null)
     {
         Response1cErrorModel responseRecord = new(uid, errorMessage ?? string.Empty);
@@ -293,6 +230,7 @@ public class ControllerHelper
         response.Errors.Add(responseRecord);
     }
 
+    // ReSharper disable once InconsistentNaming
     private void AddResponse1cException(Response1cShortModel response, BrandModel brand)
     {
         Response1cErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception ?? string.Empty);
@@ -301,52 +239,9 @@ public class ControllerHelper
         response.Errors.Add(responseRecord);
     }
 
+    // ReSharper disable once InconsistentNaming
     private void AddResponse1cException(Response1cShortModel response, Guid uid, Exception? ex) =>
         AddResponse1cException(response, uid, ex?.Message, ex?.InnerException?.Message);
-
-    private List<BrandModel> GetBrandList(XElement xml)
-    {
-        List<BrandModel> brands = new();
-        XmlDocument xmlDocument = new();
-        xmlDocument.LoadXml(xml.ToString());
-        if (xmlDocument.DocumentElement is null) return brands;
-
-        XmlNodeList nodes = xmlDocument.DocumentElement.ChildNodes;
-        if (nodes is null || nodes.Count <= 0) return brands;
-        foreach (XmlNode node in nodes)
-        {
-            BrandModel brand = new();
-            if (node.Name.Equals("BRAND", StringComparison.InvariantCultureIgnoreCase))
-            {
-                try
-                {
-                    brand.ParseResult.Status = ParseStatus.Success;
-                    // Set properties.
-                    SetItemPropertyFromXmlAttributeGuid(node, brand, "Guid");
-                    SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.IsMarked));
-                    SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Name));
-                    SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Code));
-
-                    if (string.IsNullOrEmpty(brand.ParseResult.Exception))
-                        brand.ParseResult.Message = "Is success";
-                }
-                catch (Exception ex)
-                {
-                    brand.ParseResult.Status = ParseStatus.Error;
-                    brand.ParseResult.Exception = ex.Message;
-                    if (ex.InnerException is not null)
-                        brand.ParseResult.InnerException = ex.InnerException.Message;
-                }
-            }
-            else
-            {
-                brand.ParseResult.Status = ParseStatus.Error;
-                brand.ParseResult.Exception = $"The node with name '{node.Name}' is not ident Brand!";
-            }
-            brands.Add(brand);
-        }
-        return brands;
-    }
 
     private List<NomenclatureGroupModel> GetNomenclatureGroupList(XElement xml)
     {
@@ -382,56 +277,6 @@ public class ControllerHelper
         }
 
         return nomenclatureGroups;
-    }
-
-    [Obsolete(@"Deprecated method")]
-    private List<NomenclatureModel> GetNomenclatureDeprecatedList(XElement xml)
-    {
-        List<NomenclatureModel> nomenclatures = new();
-        XmlDocument xmlDocument = new();
-        xmlDocument.LoadXml(xml.ToString());
-        if (xmlDocument.DocumentElement is null) return nomenclatures;
-
-        XmlNodeList list = xmlDocument.DocumentElement.GetElementsByTagName("Nomenclature");
-        foreach (XmlNode node in list)
-        {
-            NomenclatureModel nomenclature = new();
-            BrandModel brand = new();
-            NomenclatureGroupModel nomenclatureGroup = new();
-            try
-            {
-                nomenclature.ParseResult.Status = ParseStatus.Success;
-                brand.ParseResult.Status = ParseStatus.Success;
-                nomenclatureGroup.ParseResult.Status = ParseStatus.Success;
-                // Set properties.
-                SetItemPropertyFromXmlAttributeGuid(node, nomenclature, "Guid");
-                SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.IsMarked));
-                //SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.IsGroup));
-                SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.Name));
-                SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.Code));
-                //SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.FullName));
-                SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.Description));
-                //SetItemPropertyFromXmlAttribute(node, brand, nameof(brand.Code));
-                SetItemPropertyFromXmlAttribute(node, brand, "BrandGuid");
-                SetItemPropertyFromXmlAttribute(node, nomenclatureGroup, "GroupGuid");
-                //SetItemPropertyFromXmlAttribute(node, , "BoxTypeGuid");
-                //SetItemPropertyFromXmlAttribute(node, , "PackageTypeGuid");
-                //SetItemPropertyFromXmlAttribute(node, , "ClipTypeGuid");
-
-                if (string.IsNullOrEmpty(nomenclature.ParseResult.Exception))
-                    nomenclature.ParseResult.Message = "Is success";
-            }
-            catch (Exception ex)
-            {
-                nomenclature.ParseResult.Status = ParseStatus.Error;
-                nomenclature.ParseResult.Exception = ex.Message;
-                if (ex.InnerException is not null)
-                    nomenclature.ParseResult.InnerException = ex.InnerException.Message;
-            }
-            nomenclatures.Add(nomenclature);
-        }
-
-        return nomenclatures;
     }
 
     private (object? Value, ParseResultModel ParseResult) GetItemPropertyFromXmlAttribute(XmlNode node, string propertyName)
@@ -520,20 +365,54 @@ public class ControllerHelper
                 if (property.Value is string description)
                     item.Description = description;
                 break;
-            case "Code":
-                if (property.Value is string code)
-                    switch (item)
-                    {
-                        case BrandModel brand:
-                            brand.Code = code;
-                            break;
-                        case NomenclatureModel nomenclature:
-                            nomenclature.Code = code;
-                            break;
-                        case NomenclatureGroupModel nomenclatureGroup:
-                            nomenclatureGroup.Code = code;
-                            break;
-                    }
+        }
+
+        switch (item)
+        {
+            case BrandModel brand:
+                switch (propertyName)
+                {
+                    case nameof(brand.Code):
+                        brand.Code = code;
+                        break;
+                }
+                break;
+            case NomenclatureModel nomenclature:
+                switch (propertyName)
+                {
+                    case nameof(nomenclature.Code):
+                        nomenclature.Code = code;
+                        break;
+                }
+                break;
+            case NomenclatureGroupModel nomenclatureGroup:
+                switch (propertyName)
+                {
+                    case nameof(nomenclatureGroup.Code):
+                        nomenclatureGroup.Code = code;
+                        break;
+                }
+                break;
+            case NomenclatureV2Model nomenclatureV2:
+                switch (propertyName)
+                {
+                    case nameof(nomenclatureV2.FullName):
+                        if (property.Value is string fullName)
+                            nomenclatureV2.FullName = fullName;
+                        break;
+                    case nameof(nomenclatureV2.Code):
+                        if (property.Value is string code)
+                            nomenclatureV2.Code = code;
+                        break;
+                    case nameof(nomenclatureV2.ShelfLife):
+                        if (property.Value is short shelfLife)
+                            nomenclatureV2.ShelfLife = shelfLife;
+                        break;
+                    case nameof(nomenclatureV2.MeasurementType):
+                        if (property.Value is string measurementType)
+                            nomenclatureV2.MeasurementType = measurementType;
+                        break;
+                }
                 break;
         }
     }
@@ -664,6 +543,7 @@ public class ControllerHelper
         }, formatString, false);
     }
 
+    // ReSharper disable once InconsistentNaming
     public ContentResult NewResponse1cNomenclaturesGroups(ISessionFactory sessionFactory, XElement request, string formatString)
     {
         return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
@@ -689,32 +569,7 @@ public class ControllerHelper
         }, formatString, false);
     }
 
-    [Obsolete(@"Deprecated method")]
-    public ContentResult NewResponse1cNomenclaturesDeprecated(ISessionFactory sessionFactory, XElement request, string formatString)
-    {
-        return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
-        {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-            List<NomenclatureModel> nomenclaturesDb = DataContext.GetListNotNullable<NomenclatureModel>(sqlCrudConfig);
-
-            List<NomenclatureModel> nomenclaturesInput = GetNomenclatureDeprecatedList(request);
-            foreach (NomenclatureModel nomenclatureInput in nomenclaturesInput)
-            {
-                // string xml = brandInput.SerializeAsXmlString<BrandModel>(false);
-                switch (nomenclatureInput.ParseResult.Status)
-                {
-                    case ParseStatus.Success:
-                        AddResponse1cItem(response, nomenclaturesDb, nomenclatureInput);
-                        break;
-                    case ParseStatus.Error:
-                        AddResponse1cException(response, nomenclatureInput.IdentityValueUid,
-                            nomenclatureInput.ParseResult.Exception, nomenclatureInput.ParseResult.InnerException);
-                        break;
-                }
-            }
-        }, formatString, false);
-    }
-
+    // ReSharper disable once InconsistentNaming
     /// <summary>
     /// New response 1C.
     /// </summary>

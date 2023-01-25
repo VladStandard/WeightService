@@ -39,7 +39,7 @@ public class BrandController : WebControllerBase
                 ControllerHelp.GetContentResult(() => ControllerHelp
                 .NewResponse1cIsNotFound(SessionFactory, version, formatString), formatString),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cBrandsFromAction(SessionFactory, request, formatString), formatString)
+                .NewResponse1cBrands(SessionFactory, request, formatString), formatString)
         };
 
     #endregion

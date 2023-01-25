@@ -13,16 +13,8 @@ public class NomenclatureV2Validator : SqlTableValidator<NomenclatureV2Model>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureV2Validator()
+    public NomenclatureV2Validator() : base(true, true)
     {
-        RuleFor(item => item.CreateDt)
-            .NotEmpty()
-            .NotNull()
-            .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-        RuleFor(item => item.ChangeDt)
-            .NotEmpty()
-            .NotNull()
-            .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
         RuleFor(item => item.Name)
             .NotNull();
         RuleFor(item => item.FullName)
