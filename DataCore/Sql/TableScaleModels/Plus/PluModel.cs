@@ -19,6 +19,7 @@ public class PluModel : SqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual int Number { get; set; }
+    [XmlElement] public virtual string Code { get; set; }
     [XmlElement] public virtual string NumberFormat
     {
         get => $"{Number:000}";
@@ -55,6 +56,7 @@ public class PluModel : SqlTableBase
         Gtin = string.Empty;
         Ean13 = string.Empty;
         Itf14 = string.Empty;
+        Code = string.Empty;
         IsCheckWeight = false;
         Nomenclature = new();
     }
@@ -72,6 +74,7 @@ public class PluModel : SqlTableBase
         Gtin = info.GetString(nameof(Gtin));
         Ean13 = info.GetString(nameof(Ean13));
         Itf14 = info.GetString(nameof(Itf14));
+        Code = info.GetString(nameof(Code));
         IsCheckWeight = info.GetBoolean(nameof(IsCheckWeight));
         Nomenclature = (NomenclatureModel)info.GetValue(nameof(Nomenclature), typeof(NomenclatureModel));
     }
@@ -83,6 +86,7 @@ public class PluModel : SqlTableBase
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
+        $"{nameof(Code)}: {Code}. " +
         $"{nameof(Number)}: {Number}. ";
 
     public override bool Equals(object obj)
@@ -99,6 +103,7 @@ public class PluModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
+        Equals(Code, string.Empty) &&
         Equals(Number, default(int)) &&
         Equals(FullName, string.Empty) &&
         Equals(ShelfLifeDays, default(short)) &&
@@ -111,6 +116,7 @@ public class PluModel : SqlTableBase
     public override object Clone()
     {
         PluModel item = new();
+        item.Code = Code;
         item.Number = Number;
         item.FullName = FullName;
         item.ShelfLifeDays = ShelfLifeDays;
@@ -139,6 +145,7 @@ public class PluModel : SqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
+        Code = LocaleCore.Sql.SqlItemFieldCode;
         Number = 100;
         FullName = LocaleCore.Sql.SqlItemFieldFullName;
         Gtin = LocaleCore.Sql.SqlItemFieldGtin;
@@ -153,6 +160,7 @@ public class PluModel : SqlTableBase
 
     public virtual bool Equals(PluModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        Equals(Code, item.Code) &&
         Equals(Number, item.Number) &&
         Equals(FullName, item.FullName) &&
         Equals(ShelfLifeDays, item.ShelfLifeDays) &&

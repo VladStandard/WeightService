@@ -1,20 +1,20 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.TableScaleModels.Bundles;
+namespace DataCore.Sql.TableScaleModels.Clips;
 
 /// <summary>
-/// Table map "BUNDLES".
+/// Table map "CLIPS".
 /// </summary>
-public class BundleMap : ClassMap<BundleModel>
+public class ClipMap: ClassMap<ClipModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BundleMap()
+    public ClipMap()
     {
         Schema("db_scales");
-        Table(SqlTableNamesUtils.Bundles);
+        Table(SqlTableNamesUtils.Clips);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

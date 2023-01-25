@@ -13,6 +13,7 @@ public static partial class SqlTableNamesUtils
     public static string Boxes => "BOXES";
     public static string Brands => "BRANDS";
     public static string Bundles => "BUNDLES";
+    public static string Clips => "CLIPS";
     public static string Contragents => "CONTRAGENTS_V2";
     public static string Devices => "DEVICES";
     public static string DevicesScalesFks => "DEVICES_SCALES_FK";

@@ -3,17 +3,18 @@
 
 using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.TableScaleModels.Bundles;
+namespace DataCore.Sql.TableScaleModels.Clips;
+
 
 /// <summary>
-/// Table validation "BUNDLES".
+/// Table validation "CLIPS".
 /// </summary>
-public class BundleValidator : SqlTableValidator<BundleModel>
+public class ClipValidator: SqlTableValidator<ClipModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BundleValidator()
+    public ClipValidator()
     {
         RuleFor(item => item.Name)
             .NotNull();
