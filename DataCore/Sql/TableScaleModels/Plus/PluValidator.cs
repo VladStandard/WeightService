@@ -41,14 +41,13 @@ public class PluValidator : SqlTableValidator<PluModel>
             .NotNull();
 		RuleFor(item => item.IsCheckWeight)
             .NotNull();
+        RuleFor(item => item.Code)
+            .NotEmpty()
+            .NotNull();
         RuleFor(item => item.Nomenclature)
             .NotEmpty()
             .NotNull()
             .SetValidator(new NomenclatureValidator());
-        RuleFor(item => item.Nomenclatures)
-            .NotEmpty()
-            .NotNull()
-            .SetValidator(new NomenclatureV2Validator());
 
         // Move it to NestingFk : Fix for 0 values.
         //      RuleFor(item => item.UpperThreshold)

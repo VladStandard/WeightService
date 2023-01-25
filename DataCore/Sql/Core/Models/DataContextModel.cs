@@ -16,6 +16,7 @@ using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Brands;
 using DataCore.Sql.TableScaleModels.Bundles;
+using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -44,6 +45,7 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
+using NHibernate.SqlCommand;
 
 namespace DataCore.Sql.Core.Models;
 
@@ -58,6 +60,7 @@ public class DataContextModel
     public List<BoxModel> Boxes { get; set; }
     public List<BrandModel> Brands { get; set; }
     public List<BundleModel> Bundles { get; set; }
+    public List<ClipModel> Clips { get; set; }
     public List<ContragentModel> Contragents { get; set; }
     public List<DeviceModel> Devices { get; set; }
     public List<DeviceTypeModel> DeviceTypes { get; set; }
@@ -105,6 +108,7 @@ public class DataContextModel
         Boxes = new();
         Brands = new();
         Bundles = new();
+        Clips = new();
         Contragents = new();
         Devices = new();
         DeviceTypes = new();
@@ -155,6 +159,7 @@ public class DataContextModel
         var cls when cls == typeof(BoxModel) => GetListNotNullableBoxes<T>(sqlCrudConfig),
         var cls when cls == typeof(BundleModel) => GetListNotNullableBundles<T>(sqlCrudConfig),
         var cls when cls == typeof(BrandModel) => GetListNotNullableBrands<T>(sqlCrudConfig),
+        var cls when cls == typeof(ClipModel) => GetListNotNullableClips<T>(sqlCrudConfig),
         var cls when cls == typeof(ContragentModel) => GetListNotNullableContragents<T>(sqlCrudConfig),
         var cls when cls == typeof(DeviceModel) => GetListNotNullableDevices<T>(sqlCrudConfig),
         var cls when cls == typeof(DeviceScaleFkModel) => GetListNotNullableDeviceScalesFks<T>(sqlCrudConfig),
@@ -242,6 +247,14 @@ public class DataContextModel
         return Bundles.Cast<T>().ToList();
     }
 
+    private List<T> GetListNotNullableClips<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
+    {
+        Clips = DataAccess.GetListNotNullable<ClipModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && Bundles.Count > 1)
+            Clips = Clips.OrderBy(item => item.Name).ToList();
+        return Clips.Cast<T>().ToList();
+    }
+    
     private List<T> GetListNotNullableContragents<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
         Contragents = DataAccess.GetListNotNullable<ContragentModel>(sqlCrudConfig);
@@ -638,6 +651,7 @@ public class DataContextModel
         new BoxModel(),
         new BrandModel(),
         new BundleModel(),
+        new ClipModel(),
         new ContragentModel(),
         new DeviceModel(),
         new DeviceScaleFkModel(),
@@ -731,6 +745,7 @@ public class DataContextModel
             var cls when cls == typeof(BoxModel) => nameof(BoxModel),
             var cls when cls == typeof(BrandModel) => nameof(BrandModel),
             var cls when cls == typeof(BundleModel) => nameof(BundleModel),
+            var cls when cls == typeof(ClipModel) => nameof(ClipModel),
             var cls when cls == typeof(ContragentModel) => nameof(ContragentModel),
             var cls when cls == typeof(NomenclaturesCharacteristicsFkModel) => nameof(NomenclaturesCharacteristicsFkModel),
             var cls when cls == typeof(OrderModel) => nameof(OrderModel),

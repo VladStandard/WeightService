@@ -19,6 +19,7 @@ public class PluModel : SqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual int Number { get; set; }
+    [XmlElement] public virtual string Code { get; set; }
     [XmlElement] public virtual string NumberFormat
     {
         get => $"{Number:000}";
@@ -43,7 +44,6 @@ public class PluModel : SqlTableBase
     [XmlElement] public virtual string Itf14 { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
     [XmlElement] public virtual NomenclatureModel Nomenclature { get; set; }
-    [XmlElement] public virtual NomenclatureV2Model Nomenclatures { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -56,9 +56,9 @@ public class PluModel : SqlTableBase
         Gtin = string.Empty;
         Ean13 = string.Empty;
         Itf14 = string.Empty;
+        Code = string.Empty;
         IsCheckWeight = false;
         Nomenclature = new();
-        Nomenclatures = new();
     }
 
     /// <summary>
@@ -74,9 +74,9 @@ public class PluModel : SqlTableBase
         Gtin = info.GetString(nameof(Gtin));
         Ean13 = info.GetString(nameof(Ean13));
         Itf14 = info.GetString(nameof(Itf14));
+        Code = info.GetString(nameof(Code));
         IsCheckWeight = info.GetBoolean(nameof(IsCheckWeight));
         Nomenclature = (NomenclatureModel)info.GetValue(nameof(Nomenclature), typeof(NomenclatureModel));
-        Nomenclatures = (NomenclatureV2Model)info.GetValue(nameof(Nomenclatures), typeof(NomenclatureV2Model));
     }
 
     #endregion
@@ -86,6 +86,7 @@ public class PluModel : SqlTableBase
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
+        $"{nameof(Code)}: {Code}. " +
         $"{nameof(Number)}: {Number}. ";
 
     public override bool Equals(object obj)
@@ -102,6 +103,7 @@ public class PluModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
+        Equals(Code, string.Empty) &&
         Equals(Number, default(int)) &&
         Equals(FullName, string.Empty) &&
         Equals(ShelfLifeDays, default(short)) &&
@@ -109,12 +111,12 @@ public class PluModel : SqlTableBase
         Equals(Ean13, string.Empty) &&
         Equals(Itf14, string.Empty) &&
         Equals(IsCheckWeight, false) &&
-        Nomenclature.EqualsDefault() &&
-        Nomenclatures.EqualsDefault();
+        Nomenclature.EqualsDefault();
 
     public override object Clone()
     {
         PluModel item = new();
+        item.Code = Code;
         item.Number = Number;
         item.FullName = FullName;
         item.ShelfLifeDays = ShelfLifeDays;
@@ -123,7 +125,6 @@ public class PluModel : SqlTableBase
         item.Itf14 = Itf14;
         item.IsCheckWeight = IsCheckWeight;
         item.Nomenclature = Nomenclature.CloneCast();
-        item.Nomenclatures = Nomenclatures.CloneCast();
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -139,19 +140,18 @@ public class PluModel : SqlTableBase
         info.AddValue(nameof(Itf14), Itf14);
         info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
         info.AddValue(nameof(Nomenclature), Nomenclature);
-        info.AddValue(nameof(Nomenclatures), Nomenclatures);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
+        Code = LocaleCore.Sql.SqlItemFieldCode;
         Number = 100;
         FullName = LocaleCore.Sql.SqlItemFieldFullName;
         Gtin = LocaleCore.Sql.SqlItemFieldGtin;
         Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
         Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
         Nomenclature.FillProperties();
-        Nomenclatures.FillProperties();
     }
 
     #endregion
@@ -160,6 +160,7 @@ public class PluModel : SqlTableBase
 
     public virtual bool Equals(PluModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        Equals(Code, item.Code) &&
         Equals(Number, item.Number) &&
         Equals(FullName, item.FullName) &&
         Equals(ShelfLifeDays, item.ShelfLifeDays) &&
@@ -167,8 +168,7 @@ public class PluModel : SqlTableBase
         Equals(Ean13, item.Ean13) &&
         Equals(Itf14, item.Itf14) &&
         Equals(IsCheckWeight, item.IsCheckWeight) &&
-        Nomenclature.Equals(item.Nomenclature) &&
-        Nomenclatures.Equals(item.Nomenclatures);
+        Nomenclature.Equals(item.Nomenclature);
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 

@@ -47,6 +47,7 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Core.Models;
+using DataCore.Sql.TableScaleModels.Clips;
 
 namespace AssertCoreTests;
 
@@ -278,6 +279,10 @@ public class DataCoreHelper
                 bundle.Name = LocaleCore.Sql.SqlItemFieldName;
                 bundle.Weight = 3;
                 break;
+            case ClipModel clip:
+                clip.Name = LocaleCore.Sql.SqlItemFieldName;
+                clip.Weight = 2;
+                break;
             case ContragentModel contragent:
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
@@ -363,8 +368,8 @@ public class DataCoreHelper
 				plu.Gtin = LocaleCore.Sql.SqlItemFieldGtin;
 				plu.Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
 				plu.Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
-				plu.Nomenclature = CreateNewSubstitute<NomenclatureModel>(isNotDefault);
-                plu.Nomenclatures = CreateNewSubstitute<NomenclatureV2Model>(isNotDefault);
+                plu.Code = LocaleCore.Sql.SqlItemFieldCode;
+                plu.Nomenclature = CreateNewSubstitute<NomenclatureModel>(isNotDefault);
                 break;
 			case PluBundleFkModel pluBundle:
                 pluBundle.Plu = CreateNewSubstitute<PluModel>(isNotDefault);

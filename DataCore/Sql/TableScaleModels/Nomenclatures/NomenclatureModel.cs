@@ -18,6 +18,7 @@ public class NomenclatureModel : SqlTableBase
 
     [XmlElement] public virtual string Code { get; set; }
     [XmlElement(IsNullable = true)] public virtual string? Xml { get; set; }
+   
     /// <summary>
     /// Is weighted or pcs.
     /// </summary>

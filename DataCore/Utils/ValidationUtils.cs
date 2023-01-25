@@ -16,6 +16,7 @@ using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Brands;
 using DataCore.Sql.TableScaleModels.Bundles;
+using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -72,6 +73,7 @@ public class ValidationUtils
             var cls when cls == typeof(BoxModel) => new BoxValidator(),
             var cls when cls == typeof(BrandModel) => new BrandValidator(),
             var cls when cls == typeof(BundleModel) => new BundleValidator(),
+            var cls when cls == typeof(ClipModel) => new ClipValidator(),
             var cls when cls == typeof(PluNestingFkModel) => new PluNestingFkValidator(),
             var cls when cls == typeof(ContragentModel) => new ContragentValidator(),
             var cls when cls == typeof(DeviceModel) => new DeviceValidator(),
@@ -122,6 +124,7 @@ public class ValidationUtils
             BoxModel box => new BoxValidator().Validate(box),
             BrandModel brand => new BrandValidator().Validate(brand),
             BundleModel bundle => new BundleValidator().Validate(bundle),
+            ClipModel clip => new ClipValidator().Validate(clip),
             ContragentModel contragent => new ContragentValidator().Validate(contragent),
             LogModel log => new LogValidator().Validate(log),
             LogTypeModel logType => new LogTypeValidator().Validate(logType),

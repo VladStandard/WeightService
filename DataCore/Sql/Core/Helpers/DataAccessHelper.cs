@@ -17,6 +17,7 @@ using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Brands;
 using DataCore.Sql.TableScaleModels.Bundles;
+using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -187,6 +188,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BoxMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BrandMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BundleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ClipMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
