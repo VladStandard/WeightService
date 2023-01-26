@@ -21,6 +21,7 @@ using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.Xml;
 using System.Globalization;
 using DataCore.Sql.Core.Helpers;
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -34,7 +35,7 @@ public static class SqlTableBaseExt
 {
 	#region Public and private methods
 
-	public static string GetPropertyAsString<T>(this T? item, string propertyName) where T : SqlTableBase, new()
+	public static string GetPropertyAsString<T>(this T? item, string propertyName) where T : ISqlTable
 	{
 		if (IsPropertyBase(propertyName))
 		{
@@ -84,7 +85,7 @@ public static class SqlTableBaseExt
 		};
 	}
 
-	private static string GetPropertySqlTable<T>(string propertyName, T? item) where T : SqlTableBase, new()
+	private static string GetPropertySqlTable<T>(string propertyName, T? item) where T : ISqlTable
 	{
 		if (item is null) return LocaleCore.Table.FieldNotFound;
 		return propertyName switch
@@ -313,16 +314,16 @@ public static class SqlTableBaseExt
 		};
 	}
 
-	public static bool GetPropertyAsBool<T>(this T? item, string propertyName) where T : SqlTableBase, new()
-	{
+	public static bool GetPropertyAsBool<T>(this T? item, string propertyName) where T : ISqlTable
+    {
 		object? value = GetPropertyAsObject(item, propertyName);
 		if (value is bool isValue)
 			return isValue;
 		return false;
 	}
 
-	public static object? GetPropertyAsObject<T>(this T? item, string propertyName) where T : SqlTableBase, new()
-	{
+	public static object? GetPropertyAsObject<T>(this T? item, string propertyName) where T : ISqlTable
+    {
 		if (item is not null && !string.IsNullOrEmpty(propertyName))
 		{
 			//if (propertyName.Contains('.'))

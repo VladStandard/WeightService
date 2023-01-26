@@ -10,6 +10,8 @@ namespace DataCore.Sql.TableScaleModels.Nomenclatures;
 /// Table "NOMENCLATURES".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("{nameof(NomenclatureV2Model)} | {IsGroup} | {Code} | {MeasurementType}")]
+[Obsolete(@"Use PluModel")]
 public class NomenclatureV2Model : SqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -18,7 +20,7 @@ public class NomenclatureV2Model : SqlTableBase
     [XmlElement] public virtual string FullName { get; set; }
     [XmlElement] public virtual string Code { get; set; }
     [XmlElement] public virtual string MeasurementType { get; set; }
-    [XmlIgnore] public virtual bool IsWeighted => MeasurementType.ToUpper().Equals("КГ");
+    [XmlIgnore] public virtual bool IsWeighted => string.Equals(MeasurementType, "кг", StringComparison.InvariantCultureIgnoreCase);
     [XmlElement] public virtual short AttachmentsCount { get; set; }
     [XmlElement] public virtual short ShelfLife { get; set; }
 

@@ -11,7 +11,7 @@ namespace DataCore.Sql.Tables;
 /// DB table model.
 /// </summary>
 [Serializable]
-public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
+public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,12 +22,12 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
 	[XmlIgnore] public virtual bool IsNotNew => Identity.IsNotNew();
 	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, SqlFieldIdentityEnum.Id);
 	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, SqlFieldIdentityEnum.Uid);
-	[XmlElement] public virtual DateTime CreateDt { get; set; }
-    [XmlElement] public virtual DateTime ChangeDt { get; set; }
-    [XmlElement] public virtual bool IsMarked { get; set; }
-    [XmlElement] public virtual string Name { get; set; }
-    [XmlElement] public virtual string Description { get; set; }
-    [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; }
+	[XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
+    [XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
+    [XmlElement] public virtual bool IsMarked { get; set; } = false;
+    [XmlElement] public virtual string Name { get; set; } = string.Empty;
+    [XmlElement] public virtual string Description { get; set; } = string.Empty;
+    [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; } = new();
 
     /// <summary>
     /// Constructor.
@@ -35,11 +35,6 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
     public SqlTableBase()
     {
 	    Identity = new(SqlFieldIdentityEnum.Empty);
-	    ChangeDt = CreateDt = DateTime.MinValue;
-	    IsMarked = false;
-	    Name = string.Empty;
-		Description = string.Empty;
-        ParseResult = new();
     }
 
 	/// <summary>
@@ -86,7 +81,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
 		return strCreateDt + strChangeDt + strIsMarked + strName + strDescription;
     }
 
-    public virtual bool Equals(SqlTableBase item) =>
+    public virtual bool Equals(ISqlTable item) =>
 	    ReferenceEquals(this, item) || Identity.Equals(item.Identity) && //-V3130
 	    Equals(CreateDt, item.CreateDt) &&
 	    Equals(ChangeDt, item.ChangeDt) &&
@@ -126,7 +121,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
 
 	#region Public and private methods - virtual
 
-	public virtual bool EqualsNew() => Equals(new());
+	public virtual bool EqualsNew() => Equals(new SqlTableBase());
 
 	public virtual bool EqualsDefault() =>
 		Identity.EqualsDefault() &&
@@ -175,7 +170,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
 		Description = LocaleCore.Sql.SqlItemFieldDescription;
 	}
 
-    public virtual void UpdateProperties(SqlTableBase item)
+    public virtual void UpdateProperties(ISqlTable item)
     {
 		if (!item.CreateDt.Equals(DateTime.MinValue))
 			CreateDt = item.CreateDt;

@@ -2,14 +2,15 @@
 
 ## Update routing
 VS -> Tools -> Version changer
-cmd: `git add *.csproj && git add *AssemblyInfo.cs && git add CHANGELOG.md && git ci -m "#Version update to v0.x.xxx" -S && git bra && git st`
-cmd: `git add . && git ci -m "#Version update to v0.x.xxx" -S && git bra && git st`
+cmd: `git add *.csproj && git add *AssemblyInfo.cs && git add CHANGELOG.md && git cism "#Version update to v0.x.xxx" && git bra && git st`
+cmd: `git add . && git cism "#Version update to v0.x.xxx" && git bra && git st`
 
 ## Tag routing
 cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 
 ## Branche routing
 - view changes:       `cls && git bra && git st`
+- add & view changes: `git add . && cls && git bra && git st`
 - develop -> preview: `git switch preview && git merge develop && git push all preview && git switch develop && git bra && git st`
 - bagger -> preview:  `git switch bagger && git pull all bagger && git switch preview && git merge bagger && git bra && git st`
 - preview -> develop: `git switch develop && git merge preview && git bra && git st`
@@ -19,7 +20,7 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 ## Release/Preview ScalesUI routing
 Временное окно выпуска обновления ПО "Печать этикеток": 16.30 - 17.00.
 ПО "Печать этикеток" обновлена до версии v0.x.yyy.
-Publish ScalesUI preview: `\\palych\Install\VSSoft\Scales-2-Preview\``
+Publish ScalesUI preview: `\\palych\Install\VSSoft\Scales-2-Preview\`
 Publish ScalesUI release: `\\palych\Install\VSSoft\Scales-3-Release\`
 
 ## Release/Preview DeviceControl routing

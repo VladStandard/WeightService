@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.Nomenclatures;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(NomenclatureModel)} | Code = {Code}")]
-[Obsolete(@"Use NomenclatureV2Model")]
+[Obsolete(@"Use PluModel")]
 public class NomenclatureModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

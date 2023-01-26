@@ -32,6 +32,7 @@ global using System.Runtime.Serialization;
 global using System.Xml.Linq;
 global using System.Xml.Serialization;
 global using System.Xml;
+global using DataCore.Sql.Core.Interfaces;
 global using WsStorage.Enums;
 global using WsStorage.Models;
 global using WsStorage.Utils;
