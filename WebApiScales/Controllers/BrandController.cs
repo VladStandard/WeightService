@@ -3,6 +3,7 @@
 
 using WsStorage.Enums;
 using WsWebApi.Controllers;
+using static WsWebApi.Models.WebUtils;
 
 namespace WebApiScales.Controllers;
 
@@ -30,17 +31,20 @@ public class BrandController : WebControllerBase
     [Produces("application/xml")]
     [HttpPost]
     [Route("api/send_brands/")]
-    public ContentResult SendBrandList([FromBody] XElement request, 
-        [FromQuery(Name = "format")] string formatString = "",
-        [FromHeader(Name = "accept")] string version = "") =>
-        GetAcceptVersion(version) switch
+    public ContentResult SendBrandList([FromBody] XElement xml, 
+        [FromQuery(Name = "format")] string format = "",
+        [FromHeader(Name = "accept")] string version = "")
+    {
+        ControllerHelp.LogRequestXml(nameof(WebApiScales), xml, format, version).ConfigureAwait(false);
+        return GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cIsNotFound(SessionFactory, version, formatString), formatString),
+                    .NewResponse1cIsNotFound(SessionFactory, version, format), format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cBrands(SessionFactory, request, formatString), formatString)
+                .NewResponse1cBrands(SessionFactory, xml, format), format)
         };
+    }
 
     #endregion
 }

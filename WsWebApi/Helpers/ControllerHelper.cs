@@ -1,6 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels.Plus;
+using System.Text;
+
 namespace WsWebApi.Helpers;
 
 /// <summary>
@@ -25,7 +28,7 @@ public partial class ControllerHelper
 
     #region Public and private methods
 
-    public ContentResult GetContentResult(Task<ContentResult> task, string formatString,
+    public ContentResult GetContentResult(Task<ContentResult> task, string format,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
@@ -37,7 +40,7 @@ public partial class ControllerHelper
         {
             filePath = Path.GetFileName(filePath);
             ServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
-            return DataFormatUtils.GetContentResult<ServiceExceptionModel>(serviceException, formatString, HttpStatusCode.OK);
+            return DataFormatUtils.GetContentResult<ServiceExceptionModel>(serviceException, format, HttpStatusCode.OK);
         }
         finally
         {
@@ -47,7 +50,7 @@ public partial class ControllerHelper
 
     public delegate ContentResult GetContentResultDelegate();
 
-    public ContentResult GetContentResult(GetContentResultDelegate getContentResult, string formatString,
+    public ContentResult GetContentResult(GetContentResultDelegate getContentResult, string format,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
@@ -58,7 +61,7 @@ public partial class ControllerHelper
         {
             filePath = Path.GetFileName(filePath);
             ServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
-            return DataFormatUtils.GetContentResult<ServiceExceptionModel>(serviceException, formatString, HttpStatusCode.OK);
+            return DataFormatUtils.GetContentResult<ServiceExceptionModel>(serviceException, format, HttpStatusCode.OK);
         }
         finally
         {
@@ -68,7 +71,7 @@ public partial class ControllerHelper
 
     // ReSharper disable once InconsistentNaming
     private ContentResult NewResponse1cCore<T>(ISessionFactory sessionFactory, Action<T> action,
-        string formatString, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
+        string format, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
         using ISession session = sessionFactory.OpenSession();
         using ITransaction transaction = session.BeginTransaction();
@@ -89,12 +92,12 @@ public partial class ControllerHelper
                 transaction.Rollback();
         }
 
-        return DataFormatUtils.GetContentResult<T>(response, formatString, httpStatusCode);
+        return DataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
     }
 
     // ReSharper disable once InconsistentNaming
     public ContentResult NewResponse1cFromQuery(ISessionFactory sessionFactory, string query,
-        SqlParameter? sqlParameter, string formatString, bool isTransaction)
+        SqlParameter? sqlParameter, string format, bool isTransaction)
     {
         return NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
@@ -131,11 +134,11 @@ public partial class ControllerHelper
             }
             else
                 response.Infos.Add(new("Empty query. Try to make some select from any table."));
-        }, formatString, isTransaction);
+        }, format, isTransaction);
     }
 
     [Obsolete(@"Deprecated method")]
-    public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end, string formatString, bool isTransaction)
+    public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end, string format, bool isTransaction)
     {
         return NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
@@ -152,7 +155,7 @@ public partial class ControllerHelper
             // ResponseBarCodeModels barCodes = new(barcodesDb);
             // response.SerializeAsXmlString<BarCodeModel>(false);
 
-        }, formatString, isTransaction);
+        }, format, isTransaction);
     }
 
     // ReSharper disable once InconsistentNaming
@@ -359,38 +362,35 @@ public partial class ControllerHelper
             case BrandModel brand:
                 SetItemPropertyFromXmlAttributeForBrand(propertyName, brand, property);
                 break;
-            case NomenclatureModel nomenclature:
-                SetItemPropertyFromXmlAttributeForNomenclature(propertyName, nomenclature, property);
-                break;
             case NomenclatureGroupModel nomenclatureGroup:
                 SetItemPropertyFromXmlAttributeForNomenclatureGroup(propertyName, nomenclatureGroup, property);
                 break;
-            case NomenclatureV2Model nomenclatureV2:
-                SetItemPropertyFromXmlAttributeForNomenclatureV2(propertyName, nomenclatureV2, property);
+            case PluModel plu:
+                SetItemPropertyFromXmlAttributeForPlu(propertyName, plu, property);
                 break;
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForNomenclatureV2(string propertyName,
-        NomenclatureV2Model nomenclatureV2, (object? Value, ParseResultModel ParseResult) property)
+    private static void SetItemPropertyFromXmlAttributeForPlu(string propertyName,
+        PluModel plu, (object? Value, ParseResultModel ParseResult) property)
     {
         switch (propertyName)
         {
-            case nameof(nomenclatureV2.FullName):
+            case nameof(plu.FullName):
                 if (property.Value is string fullName)
-                    nomenclatureV2.FullName = fullName;
+                    plu.FullName = fullName;
                 break;
-            case nameof(nomenclatureV2.Code):
+            case nameof(plu.Code):
                 if (property.Value is string code)
-                    nomenclatureV2.Code = code;
+                    plu.Code = code;
                 break;
-            case nameof(nomenclatureV2.ShelfLife):
-                if (property.Value is short shelfLife)
-                    nomenclatureV2.ShelfLife = shelfLife;
+            case nameof(plu.ShelfLifeDays):
+                if (property.Value is short shelfLifeDays)
+                    plu.ShelfLifeDays = shelfLifeDays;
                 break;
-            case nameof(nomenclatureV2.MeasurementType):
-                if (property.Value is string measurementType)
-                    nomenclatureV2.MeasurementType = measurementType;
+            case nameof(plu.IsCheckWeight):
+                if (property.Value is bool isCheckWeight)
+                    plu.IsCheckWeight = isCheckWeight;
                 break;
         }
     }
@@ -403,18 +403,6 @@ public partial class ControllerHelper
             case nameof(nomenclatureGroup.Code):
                 if (property.Value is string code)
                     nomenclatureGroup.Code = code;
-                break;
-        }
-    }
-
-    private static void SetItemPropertyFromXmlAttributeForNomenclature(string propertyName,
-        NomenclatureModel nomenclature, (object? Value, ParseResultModel ParseResult) property)
-    {
-        switch (propertyName)
-        {
-            case nameof(nomenclature.Code):
-                if (property.Value is string code)
-                    nomenclature.Code = code;
                 break;
         }
     }
@@ -559,7 +547,7 @@ public partial class ControllerHelper
         return result;
     }
 
-    public ContentResult NewResponseBarCodes(ISessionFactory sessionFactory, DateTime dtStart, DateTime dtEnd, string formatString)
+    public ContentResult NewResponseBarCodes(ISessionFactory sessionFactory, DateTime dtStart, DateTime dtEnd, string format)
     {
         return NewResponse1cCore<ResponseBarCodeListModel>(sessionFactory, response =>
         {
@@ -574,11 +562,11 @@ public partial class ControllerHelper
             response.StartDate = dtStart;
             response.EndDate = dtEnd;
             response.Count = response.ResponseBarCodes.Count;
-        }, formatString, false);
+        }, format, false);
     }
 
     // ReSharper disable once InconsistentNaming
-    public ContentResult NewResponse1cNomenclaturesGroups(ISessionFactory sessionFactory, XElement request, string formatString)
+    public ContentResult NewResponse1cNomenclaturesGroups(ISessionFactory sessionFactory, XElement request, string format)
     {
         return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
@@ -600,7 +588,7 @@ public partial class ControllerHelper
                         break;
                 }
             }
-        }, formatString, false);
+        }, format, false);
     }
 
     // ReSharper disable once InconsistentNaming
@@ -609,13 +597,41 @@ public partial class ControllerHelper
     /// </summary>
     /// <param name="sessionFactory"></param>
     /// <param name="version"></param>
-    /// <param name="formatString"></param>
+    /// <param name="format"></param>
     /// <returns></returns>
-    public ContentResult NewResponse1cIsNotFound(ISessionFactory sessionFactory, string version, string formatString) =>
+    public ContentResult NewResponse1cIsNotFound(ISessionFactory sessionFactory, string version, string format) =>
         NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
             response.Infos.Add(new($"Version {version} is not found!"));
-        }, formatString, false, HttpStatusCode.NotFound);
+        }, format, false, HttpStatusCode.NotFound);
+
+    public async Task LogRequestString(string appName, string query, string format, string version)
+    {
+        string directory = @"\\ds4tb\Dev\WebServicesLogs\";
+        if (!Directory.Exists(directory)) return;
+        directory += @$"{Environment.MachineName}";
+        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+        string dtCurrent = StringUtils.FormatCurDtEng(true).Replace(':', '.');
+
+        // File with query.
+        string fileXml = @$"{directory}\{appName}_{dtCurrent}.txt";
+        if (!File.Exists(fileXml))
+            await File.WriteAllTextAsync(fileXml, query, Encoding.UTF8);
+
+        // File with meta data.
+        string fileMetaData = @$"{directory}\{appName}_{dtCurrent}.info";
+        if (!File.Exists(fileMetaData))
+        {
+            string data = $"DateTime: {dtCurrent}" + Environment.NewLine;
+            data += $"{nameof(format)}: {format}" + Environment.NewLine;
+            data += $"{nameof(version)}: {version}" + Environment.NewLine;
+            data += $"{nameof(query)}.{nameof(string.Length)}: {query.Length} B | {query.Length/1024} KB | {query.Length/1024/1024} MB" + Environment.NewLine;
+            await File.WriteAllTextAsync(fileMetaData, data, Encoding.UTF8);
+        }
+    }
+
+    public async Task LogRequestXml(string appName, XElement xml, string format, string version) =>
+        await LogRequestString(appName, xml.ToString(), format, version).ConfigureAwait(false);
 
     #endregion
 }

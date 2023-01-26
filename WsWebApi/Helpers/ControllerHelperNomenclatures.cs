@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels.Plus;
+
 namespace WsWebApi.Helpers;
 
 public partial class ControllerHelper
@@ -57,18 +59,18 @@ public partial class ControllerHelper
         return nomenclatures;
     }
 
-    private List<NomenclatureV2Model> GetNomenclatureList(XElement xml)
+    private List<PluModel> GetPluList(XElement xml)
     {
-        List<NomenclatureV2Model> itemsXml = new();
+        List<PluModel> itemsXml = new();
         XmlDocument xmlDocument = new();
         xmlDocument.LoadXml(xml.ToString());
         if (xmlDocument.DocumentElement is null) return itemsXml;
 
         XmlNodeList nodes = xmlDocument.DocumentElement.ChildNodes;
-        if (nodes is null || nodes.Count <= 0) return itemsXml;
+        if (nodes.Count <= 0) return itemsXml;
         foreach (XmlNode node in nodes)
         {
-            NomenclatureV2Model itemXml = new();
+            PluModel itemXml = new();
             if (node.Name.Equals("Nomenclature", StringComparison.InvariantCultureIgnoreCase))
             {
                 try
@@ -81,8 +83,8 @@ public partial class ControllerHelper
                     SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Name));
                     SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.FullName));
                     SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Description));
-                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.MeasurementType));
-                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.ShelfLife));
+                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.IsCheckWeight));
+                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.ShelfLifeDays));
 
                     if (string.IsNullOrEmpty(itemXml.ParseResult.Exception))
                         itemXml.ParseResult.Message = "Is success";
@@ -106,12 +108,11 @@ public partial class ControllerHelper
     }
 
     // ReSharper disable once InconsistentNaming
-    private void AddResponse1cNomenclature(Response1cShortModel response, 
-        List<NomenclatureV2Model> itemsDb, NomenclatureV2Model itemXml)
+    private void AddResponse1cPlus(Response1cShortModel response, List<PluModel> itemsDb, PluModel itemXml)
     {
         try
         {
-            NomenclatureV2Model? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
+            PluModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
 
             // Find -> Update.
             if (itemDb is not null && itemDb.IsNotNew)
@@ -153,19 +154,19 @@ public partial class ControllerHelper
     }
 
     // ReSharper disable once InconsistentNaming
-    public ContentResult NewResponse1cNomenclatures(ISessionFactory sessionFactory, XElement request, string formatString)
+    public ContentResult NewResponse1cPlus(ISessionFactory sessionFactory, XElement xml, string format)
     {
         return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-            List<NomenclatureV2Model> itemsDb = DataContext.GetListNotNullable<NomenclatureV2Model>(sqlCrudConfig);
-            List<NomenclatureV2Model> itemsXml = GetNomenclatureList(request);
-            foreach (NomenclatureV2Model itemXml in itemsXml)
+            List<PluModel> itemsDb = DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
+            List<PluModel> itemsXml = GetPluList(xml);
+            foreach (PluModel itemXml in itemsXml)
             {
                 switch (itemXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cNomenclature(response, itemsDb, itemXml);
+                        AddResponse1cPlus(response, itemsDb, itemXml);
                         break;
                     case ParseStatus.Error:
                         AddResponse1cException(response, itemXml.IdentityValueUid,
@@ -173,7 +174,7 @@ public partial class ControllerHelper
                         break;
                 }
             }
-        }, formatString, false);
+        }, format, false);
     }
 
     #endregion

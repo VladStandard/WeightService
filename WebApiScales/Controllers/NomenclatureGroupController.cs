@@ -3,6 +3,7 @@
 
 using WsStorage.Enums;
 using WsWebApi.Controllers;
+using static WsWebApi.Models.WebUtils;
 
 namespace WebApiScales.Controllers;
 
@@ -30,18 +31,21 @@ public class NomenclatureGroupController : WebControllerBase
     [Produces("application/xml")]
     [HttpPost]
     [Route("api/send_nomenclatures_groups/")]
-    public ContentResult SendNomenclaturesGroupsList([FromBody] XElement request, 
-        [FromQuery(Name = "format")] string formatString = "",
-	    [FromHeader(Name = "accept")] string version = "") =>
-		GetAcceptVersion(version) switch
-		{
-		    AcceptVersion.V2 => 
-				ControllerHelp.GetContentResult(() => ControllerHelp
-				.NewResponse1cIsNotFound(SessionFactory, version, formatString),
-			    formatString),
+    public ContentResult SendNomenclaturesGroupsList([FromBody] XElement xml, 
+        [FromQuery(Name = "format")] string format = "",
+	    [FromHeader(Name = "accept")] string version = "")
+    {
+        ControllerHelp.LogRequestXml(nameof(WebApiScales), xml, format, version).ConfigureAwait(false);
+        return GetAcceptVersion(version) switch
+        {
+            AcceptVersion.V2 =>
+                ControllerHelp.GetContentResult(() => ControllerHelp
+                        .NewResponse1cIsNotFound(SessionFactory, version, format),
+                    format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-				.NewResponse1cNomenclaturesGroups(SessionFactory, request, formatString), formatString)
-	    };
+                .NewResponse1cNomenclaturesGroups(SessionFactory, xml, format), format)
+        };
+    }
 
     #endregion
 }
