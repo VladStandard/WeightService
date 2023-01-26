@@ -13,7 +13,7 @@ public class BoxValidator : SqlTableValidator<BoxModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BoxValidator()
+    public BoxValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotNull();

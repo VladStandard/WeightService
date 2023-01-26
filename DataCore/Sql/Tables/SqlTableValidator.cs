@@ -14,7 +14,7 @@ public class SqlTableValidator<T> : AbstractValidator<T> where T : ISqlTable
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected SqlTableValidator(bool isCheckCreateDt = true, bool isCheckChangeDt = true)
+    protected SqlTableValidator(bool isCheckCreateDt, bool isCheckChangeDt)
     {
 	    RuleFor(item => item.Identity).SetValidator(new SqlFieldIdentityValidator());
         if (isCheckCreateDt)

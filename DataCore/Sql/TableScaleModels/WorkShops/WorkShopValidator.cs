@@ -14,7 +14,7 @@ public class WorkShopValidator : SqlTableValidator<WorkShopModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WorkShopValidator()
+    public WorkShopValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

@@ -14,7 +14,7 @@ public class AccessValidator : SqlTableValidator<AccessModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AccessValidator()
+    public AccessValidator() : base(true, true)
     {
         RuleFor(item => item.LoginDt)
             .NotEmpty()

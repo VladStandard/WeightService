@@ -13,7 +13,7 @@ public class ContragentValidator : SqlTableValidator<ContragentModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ContragentValidator()
+    public ContragentValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

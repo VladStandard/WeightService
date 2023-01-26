@@ -15,7 +15,7 @@ public class PluBundleFkValidator : SqlTableValidator<PluBundleFkModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluBundleFkValidator()
+    public PluBundleFkValidator() : base(true, true)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()

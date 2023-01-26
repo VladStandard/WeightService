@@ -14,7 +14,7 @@ public class ClipValidator: SqlTableValidator<ClipModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ClipValidator()
+    public ClipValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotNull();

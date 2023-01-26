@@ -15,7 +15,7 @@ public class OrderWeighingValidator : SqlTableValidator<OrderWeighingModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public OrderWeighingValidator()
+    public OrderWeighingValidator() : base(true, true)
     {
         RuleFor(item => item.Order)
             .NotEmpty()

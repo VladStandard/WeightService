@@ -14,7 +14,7 @@ public class NomenclaturesGroupFkValidator : SqlTableValidator<NomenclaturesGrou
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclaturesGroupFkValidator()
+    public NomenclaturesGroupFkValidator() : base(true, true)
     {
         RuleFor(item => item.NomenclatureGroup)
             .NotEmpty()

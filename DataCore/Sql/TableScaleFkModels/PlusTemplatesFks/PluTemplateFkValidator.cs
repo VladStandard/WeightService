@@ -15,7 +15,7 @@ public class PluTemplateFkValidator : SqlTableValidator<PluTemplateFkModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluTemplateFkValidator()
+    public PluTemplateFkValidator() : base(true, true)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()

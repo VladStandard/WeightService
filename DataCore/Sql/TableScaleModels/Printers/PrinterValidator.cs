@@ -14,7 +14,7 @@ public class PrinterValidator : SqlTableValidator<PrinterModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PrinterValidator()
+    public PrinterValidator() : base(true, true)
     {
         RuleFor(item => item.DarknessLevel)
             .NotNull()

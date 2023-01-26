@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 /// </summary>
 public class PluNestingFkValidator : SqlTableValidator<PluNestingFkModel>
 {
-    public PluNestingFkValidator()
+    public PluNestingFkValidator() : base(true, true)
     {
         RuleFor(item => item.PluBundle)
             .NotEmpty()

@@ -8,13 +8,13 @@ namespace DataCore.Sql.TableScaleModels.Nomenclatures;
 /// <summary>
 /// Table validation "Nomenclature".
 /// </summary>
-[Obsolete(@"Use NomenclatureV2Validator")]
+[Obsolete(@"Use PluValidator")]
 public class NomenclatureValidator : SqlTableValidator<NomenclatureModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureValidator()
+    public NomenclatureValidator() : base(true, true)
     {
         RuleFor(item => item.CreateDt)
             .NotEmpty()

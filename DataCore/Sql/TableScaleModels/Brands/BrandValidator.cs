@@ -13,7 +13,7 @@ public class BrandValidator : SqlTableValidator<BrandModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BrandValidator()
+    public BrandValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

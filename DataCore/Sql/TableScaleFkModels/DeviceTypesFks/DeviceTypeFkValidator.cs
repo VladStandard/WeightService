@@ -15,7 +15,7 @@ public class DeviceTypeFkValidator : SqlTableValidator<DeviceTypeFkModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public DeviceTypeFkValidator()
+    public DeviceTypeFkValidator() : base(true, true)
     {
         RuleFor(item => item.Device)
             .NotEmpty()
