@@ -8,6 +8,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -93,6 +94,7 @@ public class ValidationUtils
             var cls when cls == typeof(PluLabelModel) => new PluLabelValidator(),
             var cls when cls == typeof(PluModel) => new PluValidator(),
             var cls when cls == typeof(PluBundleFkModel) => new PluBundleFkValidator(),
+            var cls when cls == typeof(PluClipFkModel) => new PluClipFkValidator(),
             var cls when cls == typeof(PluScaleModel) => new PluScaleValidator(),
             var cls when cls == typeof(PluWeighingModel) => new PluWeighingValidator(),
             var cls when cls == typeof(PrinterModel) => new PrinterValidator(),
@@ -139,6 +141,7 @@ public class ValidationUtils
             OrganizationModel organization => new OrganizationValidator().Validate(organization),
             PluLabelModel pluLabel => new PluLabelValidator().Validate(pluLabel),
             PluBundleFkModel pluBundle => new PluBundleFkValidator().Validate(pluBundle),
+            PluClipFkModel pluClip => new PluClipFkValidator().Validate(pluClip),
             PluModel plu => new PluValidator().Validate(plu),
             PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),
             PluTemplateFkModel pluTemplate => new PluTemplateFkValidator().Validate(pluTemplate),

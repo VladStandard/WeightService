@@ -8,6 +8,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -45,7 +46,6 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
-using NHibernate.SqlCommand;
 
 namespace DataCore.Sql.Core.Models;
 
@@ -80,6 +80,7 @@ public class DataContextModel
     public List<PluLabelModel> PluLabels { get; set; }
     public List<PluModel> Plus { get; set; }
     public List<PluBundleFkModel> PluBundleFks { get; set; }
+    public List<PluClipFkModel> PluClipFks { get; set; }
     public List<PluScaleModel> PluScales { get; set; }
     public List<PluTemplateFkModel> PluTemplateFks { get; set; }
     public List<PluWeighingModel> PluWeighings { get; set; }
@@ -128,6 +129,7 @@ public class DataContextModel
         PluLabels = new();
         Plus = new();
         PluBundleFks = new();
+        PluClipFks = new();
         PluScales = new();
         PluTemplateFks = new();
         PluWeighings = new();
@@ -177,6 +179,7 @@ public class DataContextModel
         var cls when cls == typeof(OrderWeighingModel) => GetListNotNullableOrderWeighings<T>(sqlCrudConfig),
         var cls when cls == typeof(OrganizationModel) => GetListNotNullableOrganizations<T>(sqlCrudConfig),
         var cls when cls == typeof(PluBundleFkModel) => GetListNotNullablePluBundleFks<T>(sqlCrudConfig),
+        var cls when cls == typeof(PluClipFkModel) => GetListNotNullablePluClipFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluLabelModel) => GetListNotNullablePluLabels<T>(sqlCrudConfig),
         var cls when cls == typeof(PluModel) => GetListNotNullablePlus<T>(sqlCrudConfig),
         var cls when cls == typeof(PluNestingFkModel) => GetListNotNullablePluNestingFks<T>(sqlCrudConfig),
@@ -415,9 +418,25 @@ public class DataContextModel
         }
 
         if (sqlCrudConfig.IsResultOrder && PluBundleFks.Count > 1)
-            PluBundleFks = PluBundleFks
-                .OrderBy(item => item.Bundle.Name).ToList();
+            PluBundleFks = PluBundleFks.OrderBy(item => item.Bundle.Name).ToList();
         return PluBundleFks.Cast<T>().ToList();
+    }
+
+    private List<T> GetListNotNullablePluClipFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
+    {
+        PluClipFks = DataAccess.GetListNotNullable<PluClipFkModel>(sqlCrudConfig);
+        if (PluClipFks.Count > 0)
+        {
+            PluClipFkModel pluClipFk = PluClipFks.First();
+            if (pluClipFk.Plu.IsNew)
+                pluClipFk.Plu = DataAccess.GetItemNewEmpty<PluModel>();
+            if (pluClipFk.Clip.IsNew)
+                pluClipFk.Clip = DataAccess.GetItemNewEmpty<ClipModel>();
+        }
+
+        if (sqlCrudConfig.IsResultOrder && PluClipFks.Count > 1)
+            PluClipFks = PluClipFks.OrderBy(item => item.Clip.Name).ToList();
+        return PluClipFks.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullablePluScales<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()

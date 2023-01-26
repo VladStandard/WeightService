@@ -9,6 +9,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -204,6 +205,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluLabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluBundleFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluClipFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluTemplateFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluNestingFkMap>());
