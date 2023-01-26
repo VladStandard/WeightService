@@ -156,7 +156,7 @@ public partial class ControllerHelper
     }
 
     // ReSharper disable once InconsistentNaming
-    private void AddResponse1cItem<T>(Response1cShortModel response, IReadOnlyCollection<T> listDb, T itemXml) where T : SqlTableBase, new()
+    private void AddResponse1cItem<T>(Response1cShortModel response, IReadOnlyCollection<T> listDb, T itemXml) where T : ISqlTable
     {
         try
         {
@@ -177,7 +177,7 @@ public partial class ControllerHelper
 
             // Find by Code -> Update.
             //itemDb = listDb.Where(x => x.Code.Equals(itemXml.Code)).FirstOrDefault();
-            string itemInputCode = string.Empty;
+            string itemInputCode;
             switch (typeof(T))
             {
                 case var cls when cls == typeof(BrandModel):
@@ -339,7 +339,7 @@ public partial class ControllerHelper
         return new(value, parseResult);
     }
 
-    private void SetItemPropertyFromXmlAttributeGuid<T>(XmlNode node, T item, string propertyName) where T : SqlTableBase, new()
+    private void SetItemPropertyFromXmlAttributeGuid<T>(XmlNode node, T item, string propertyName) where T : ISqlTable
     {
         (object? Value, ParseResultModel ParseResult) property = GetItemPropertyFromXmlAttribute(node, propertyName);
         if (property.Value is Guid uid)
@@ -347,10 +347,93 @@ public partial class ControllerHelper
         item.ParseResult = property.ParseResult;
     }
 
-    private void SetItemPropertyFromXmlAttribute<T>(XmlNode node, T item, string propertyName) where T : SqlTableBase, new()
+    private void SetItemPropertyFromXmlAttribute<T>(XmlNode node, T item, string propertyName) where T : ISqlTable
     {
         (object? Value, ParseResultModel ParseResult) property = GetItemPropertyFromXmlAttribute(node, propertyName);
         item.ParseResult = property.ParseResult;
+        
+        SetItemPropertyFromXmlAttributeForBase(item, propertyName, property);
+
+        switch (item)
+        {
+            case BrandModel brand:
+                SetItemPropertyFromXmlAttributeForBrand(propertyName, brand, property);
+                break;
+            case NomenclatureModel nomenclature:
+                SetItemPropertyFromXmlAttributeForNomenclature(propertyName, nomenclature, property);
+                break;
+            case NomenclatureGroupModel nomenclatureGroup:
+                SetItemPropertyFromXmlAttributeForNomenclatureGroup(propertyName, nomenclatureGroup, property);
+                break;
+            case NomenclatureV2Model nomenclatureV2:
+                SetItemPropertyFromXmlAttributeForNomenclatureV2(propertyName, nomenclatureV2, property);
+                break;
+        }
+    }
+
+    private static void SetItemPropertyFromXmlAttributeForNomenclatureV2(string propertyName,
+        NomenclatureV2Model nomenclatureV2, (object? Value, ParseResultModel ParseResult) property)
+    {
+        switch (propertyName)
+        {
+            case nameof(nomenclatureV2.FullName):
+                if (property.Value is string fullName)
+                    nomenclatureV2.FullName = fullName;
+                break;
+            case nameof(nomenclatureV2.Code):
+                if (property.Value is string code)
+                    nomenclatureV2.Code = code;
+                break;
+            case nameof(nomenclatureV2.ShelfLife):
+                if (property.Value is short shelfLife)
+                    nomenclatureV2.ShelfLife = shelfLife;
+                break;
+            case nameof(nomenclatureV2.MeasurementType):
+                if (property.Value is string measurementType)
+                    nomenclatureV2.MeasurementType = measurementType;
+                break;
+        }
+    }
+
+    private static void SetItemPropertyFromXmlAttributeForNomenclatureGroup(string propertyName,
+        NomenclatureGroupModel nomenclatureGroup, (object? Value, ParseResultModel ParseResult) property)
+    {
+        switch (propertyName)
+        {
+            case nameof(nomenclatureGroup.Code):
+                if (property.Value is string code)
+                    nomenclatureGroup.Code = code;
+                break;
+        }
+    }
+
+    private static void SetItemPropertyFromXmlAttributeForNomenclature(string propertyName,
+        NomenclatureModel nomenclature, (object? Value, ParseResultModel ParseResult) property)
+    {
+        switch (propertyName)
+        {
+            case nameof(nomenclature.Code):
+                if (property.Value is string code)
+                    nomenclature.Code = code;
+                break;
+        }
+    }
+
+    private static void SetItemPropertyFromXmlAttributeForBrand(string propertyName, BrandModel brand,
+        (object? Value, ParseResultModel ParseResult) property)
+    {
+        switch (propertyName)
+        {
+            case nameof(brand.Code):
+                if (property.Value is string code)
+                    brand.Code = code;
+                break;
+        }
+    }
+
+    private static void SetItemPropertyFromXmlAttributeForBase<T>(T item, string propertyName,
+        (object? Value, ParseResultModel ParseResult) property) where T : ISqlTable
+    {
         switch (propertyName)
         {
             case nameof(item.IsMarked):
@@ -366,59 +449,10 @@ public partial class ControllerHelper
                     item.Description = description;
                 break;
         }
-
-        switch (item)
-        {
-            case BrandModel brand:
-                switch (propertyName)
-                {
-                    case nameof(brand.Code):
-                        brand.Code = code;
-                        break;
-                }
-                break;
-            case NomenclatureModel nomenclature:
-                switch (propertyName)
-                {
-                    case nameof(nomenclature.Code):
-                        nomenclature.Code = code;
-                        break;
-                }
-                break;
-            case NomenclatureGroupModel nomenclatureGroup:
-                switch (propertyName)
-                {
-                    case nameof(nomenclatureGroup.Code):
-                        nomenclatureGroup.Code = code;
-                        break;
-                }
-                break;
-            case NomenclatureV2Model nomenclatureV2:
-                switch (propertyName)
-                {
-                    case nameof(nomenclatureV2.FullName):
-                        if (property.Value is string fullName)
-                            nomenclatureV2.FullName = fullName;
-                        break;
-                    case nameof(nomenclatureV2.Code):
-                        if (property.Value is string code)
-                            nomenclatureV2.Code = code;
-                        break;
-                    case nameof(nomenclatureV2.ShelfLife):
-                        if (property.Value is short shelfLife)
-                            nomenclatureV2.ShelfLife = shelfLife;
-                        break;
-                    case nameof(nomenclatureV2.MeasurementType):
-                        if (property.Value is string measurementType)
-                            nomenclatureV2.MeasurementType = measurementType;
-                        break;
-                }
-                break;
-        }
     }
 
     [Obsolete(@"Deprecated method")]
-    private void SetItemPropertyFromXmlAttributeDeprecated<T>(XmlNode node, T item, string propertyName) where T : SqlTableBase, new()
+    private void SetItemPropertyFromXmlAttributeDeprecated<T>(XmlNode node, T item, string propertyName) where T : ISqlTable
     {
         switch (propertyName)
         {

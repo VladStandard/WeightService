@@ -6,17 +6,17 @@ using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Core.Interfaces;
 
-internal interface ISqlTable : ISqlDbBase
+public interface ISqlTable : ISqlDbBase
 {
     #region Public and private fields, properties, constructor
 
-    SqlFieldIdentityModel Identity { get; set; }
+    public SqlFieldIdentityModel Identity { get; }
     public long IdentityValueId { get; set; }
-    Guid IdentityValueUid { get; set; }
-    public bool IsNew { get; set; }
-    public bool IsNotNew { get; set; }
-    public bool IsIdentityId { get; set; }
-    public bool IsIdentityUid { get; set; }
+    public Guid IdentityValueUid { get; set; }
+    public bool IsNew { get; }
+    public bool IsNotNew { get; }
+    public bool IsIdentityId { get; }
+    public bool IsIdentityUid { get; }
     public DateTime CreateDt { get; set; }
     public DateTime ChangeDt { get; set; }
     public bool IsMarked { get; set; }
