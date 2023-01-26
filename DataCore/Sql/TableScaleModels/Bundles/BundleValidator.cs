@@ -13,7 +13,7 @@ public class BundleValidator : SqlTableValidator<BundleModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BundleValidator()
+    public BundleValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotNull();

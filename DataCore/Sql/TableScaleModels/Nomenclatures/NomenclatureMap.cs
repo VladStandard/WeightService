@@ -25,6 +25,5 @@ public class NomenclatureMap : ClassMap<NomenclatureModel>
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(300);
         Map(x => x.Xml).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
         Map(x => x.Weighted).CustomSqlType("BIT").Column("Weighted").Not.Nullable().Default("0");
-        Map(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Not.Nullable().Default(Guid.Empty.ToString());
     }
 }

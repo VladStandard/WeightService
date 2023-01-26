@@ -13,7 +13,7 @@ public class NomenclatureGroupValidator : SqlTableValidator<NomenclatureGroupMod
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureGroupValidator()
+    public NomenclatureGroupValidator() : base(true, true)
     {
         RuleFor(item => item.CreateDt)
             .NotEmpty()

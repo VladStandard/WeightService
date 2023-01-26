@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 
 public class NomenclaturesCharacteristicsValidator : SqlTableValidator<NomenclaturesCharacteristicsModel>
 {
-    public NomenclaturesCharacteristicsValidator()
+    public NomenclaturesCharacteristicsValidator() : base(true, true)
     {
         RuleFor(item => item.AttachmentsCount)
             .NotNull()

@@ -14,7 +14,7 @@ public class ScaleValidator : SqlTableValidator<ScaleModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleValidator()
+    public ScaleValidator() : base(true, true)
     {
         RuleFor(item => item.Description)
             .NotEmpty()

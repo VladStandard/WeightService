@@ -14,7 +14,7 @@ public class ScaleScreenShotValidator : SqlTableValidator<ScaleScreenShotModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleScreenShotValidator()
+    public ScaleScreenShotValidator() : base(true, true)
     {
         RuleFor(item => item.Scale)
             .NotEmpty()

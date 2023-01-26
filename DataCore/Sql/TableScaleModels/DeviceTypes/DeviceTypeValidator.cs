@@ -13,7 +13,7 @@ public class DeviceTypeValidator : SqlTableValidator<DeviceTypeModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public DeviceTypeValidator()
+    public DeviceTypeValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

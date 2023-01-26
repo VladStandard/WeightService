@@ -13,7 +13,7 @@ public class OrganizationValidator : SqlTableValidator<OrganizationModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public OrganizationValidator()
+    public OrganizationValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

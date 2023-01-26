@@ -14,7 +14,7 @@ public class PluLabelValidator : SqlTableValidator<PluLabelModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluLabelValidator()
+    public PluLabelValidator() : base(true, true)
     {
         RuleFor(item => item.PluScale)
             .NotEmpty()

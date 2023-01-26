@@ -14,7 +14,7 @@ public class PluValidator : SqlTableValidator<PluModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluValidator() : base()
+    public PluValidator() : base(true, true)
     {
         RuleFor(item => item.Number)
             .NotEmpty()
@@ -42,7 +42,7 @@ public class PluValidator : SqlTableValidator<PluModel>
 		RuleFor(item => item.IsCheckWeight)
             .NotNull();
         RuleFor(item => item.Code)
-            .NotEmpty()
+            //.NotEmpty()
             .NotNull();
         RuleFor(item => item.Nomenclature)
             .NotEmpty()

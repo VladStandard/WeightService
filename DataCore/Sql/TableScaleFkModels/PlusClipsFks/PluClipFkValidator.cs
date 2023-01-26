@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 /// </summary>
 public class PluClipFkValidator : SqlTableValidator<PluClipFkModel>
 {
-    public PluClipFkValidator()
+    public PluClipFkValidator() : base(true, true)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()

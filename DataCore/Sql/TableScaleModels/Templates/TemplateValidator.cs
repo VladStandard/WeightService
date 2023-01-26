@@ -13,7 +13,7 @@ public class TemplateValidator : SqlTableValidator<TemplateModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TemplateValidator()
+    public TemplateValidator() : base(true, true)
     {
         RuleFor(item => item.Title)
             .NotEmpty()

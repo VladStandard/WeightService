@@ -14,7 +14,7 @@ public class PluWeighingValidator : SqlTableValidator<PluWeighingModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluWeighingValidator()
+    public PluWeighingValidator() : base(true, true)
     {
         RuleFor(item => item.Kneading)
             .NotEmpty()

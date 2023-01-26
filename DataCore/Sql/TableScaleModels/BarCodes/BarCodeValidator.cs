@@ -14,7 +14,7 @@ public class BarCodeValidator : SqlTableValidator<BarCodeModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarCodeValidator()
+    public BarCodeValidator() : base(true, true)
     {
         RuleFor(item => item.TypeTop)
             //.NotEmpty()

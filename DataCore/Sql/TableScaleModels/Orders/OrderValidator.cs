@@ -13,7 +13,7 @@ public class OrderValidator : SqlTableValidator<OrderModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public OrderValidator()
+    public OrderValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

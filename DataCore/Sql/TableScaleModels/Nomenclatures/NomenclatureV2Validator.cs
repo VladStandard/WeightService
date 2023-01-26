@@ -2,12 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using System;
 
 namespace DataCore.Sql.TableScaleModels.Nomenclatures;
 
 /// <summary>
 /// Table validation "NOMENCLATURES".
 /// </summary>
+[Obsolete(@"Use PluValidator")]
 public class NomenclatureV2Validator : SqlTableValidator<NomenclatureV2Model>
 {
     /// <summary>

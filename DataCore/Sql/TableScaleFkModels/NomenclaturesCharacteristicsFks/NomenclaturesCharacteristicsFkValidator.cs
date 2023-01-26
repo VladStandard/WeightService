@@ -15,7 +15,7 @@ public class NomenclaturesCharacteristicsFkValidator : SqlTableValidator<Nomencl
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclaturesCharacteristicsFkValidator()
+    public NomenclaturesCharacteristicsFkValidator() : base(true, true)
     {
         RuleFor(item => item.Nomenclature)
             .NotEmpty()
