@@ -139,32 +139,5 @@ public partial class RazorComponentBase : LayoutComponentBase
 		}
 	}
 
-	/// <summary>
-	/// Remove item from items table list.
-	/// </summary>
-	/// <param name="item"></param>
-	protected void RemoveSqlItemOnTable(SqlTableBase? item)
-	{
-		if (SqlSectionOnTable is null || !SqlSectionOnTable.Any()) return;
-		if (item is not null)
-		{
-			if (SqlSectionOnTable.Any(i => i.Identity.Equals(item.Identity)))
-				SqlSectionOnTable.Remove(item);
-		}
-	}
-
-    protected void ChangeSqlItemOnTable(SqlTableBase? item, bool isAdd)
-	{
-		switch (isAdd)
-		{
-			case true:
-				AddSqlItemOnTable(item);
-				break;
-			default:
-				RemoveSqlItemOnTable(item);
-				break;
-		}
-	}
-
-	#endregion
+    #endregion
 }

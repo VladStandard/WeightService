@@ -69,9 +69,9 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 			switch (typeof(TItem))
 			{
 				case var cls when cls == typeof(PluScaleModel):
-					if (SqlItemOnTable is PluScaleModel pluScale)
-						ChangeSqlItemOnTable(pluScale, pluScale.IsActive);
-					break;
+                    if (SqlItemOnTable is PluScaleModel pluScale)
+                        AddSqlItemOnTable(pluScale);
+                    break;
 			}
 		});
 	}
