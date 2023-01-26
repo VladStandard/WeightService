@@ -47,6 +47,7 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Core.Models;
+using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleModels.Clips;
 
 namespace AssertCoreTests;
@@ -375,6 +376,10 @@ public class DataCoreHelper
                 pluBundle.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
                 pluBundle.Bundle = CreateNewSubstitute<BundleModel>(isNotDefault);
 				break;
+			case PluClipFkModel pluClips:
+                pluClips.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluClips.Clip = CreateNewSubstitute<ClipModel>(isNotDefault);
+                break;
             case PluLabelModel pluLabel:
 				pluLabel.Zpl = LocaleCore.Sql.SqlItemFieldZpl;
 				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
