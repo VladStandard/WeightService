@@ -34,8 +34,9 @@ public class PluController : WebControllerBase
         [FromQuery(Name = "format")] string format = "", 
 	    [FromHeader(Name = "accept")] string version = "")
     {
-        ControllerHelp.LogRequestXml(nameof(WebApiScales), xml, format, version).ConfigureAwait(false);
-        return GetAcceptVersion(version) switch
+        DateTime dtStamp = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, xml, format, version).ConfigureAwait(false);
+        ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
@@ -43,6 +44,8 @@ public class PluController : WebControllerBase
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
                 .NewResponse1cPlus(SessionFactory, xml, format), format)
         };
+        ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, version).ConfigureAwait(false);
+        return result;
     }
 
     #endregion

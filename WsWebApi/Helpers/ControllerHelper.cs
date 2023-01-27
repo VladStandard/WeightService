@@ -3,6 +3,9 @@
 
 using DataCore.Sql.TableScaleModels.Plus;
 using System.Text;
+using WsWebApi.Enums;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static WsWebApi.Models.WebUtils;
 
 namespace WsWebApi.Helpers;
 
@@ -23,6 +26,7 @@ public partial class ControllerHelper
     #region Public and private fields, properties, constructor
 
     private DataContextModel DataContext { get; } = new();
+    private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
 
     #endregion
 
@@ -605,34 +609,15 @@ public partial class ControllerHelper
             response.Infos.Add(new($"Version {version} is not found!"));
         }, format, false, HttpStatusCode.NotFound);
 
-    public async Task LogRequestString(string appName, string query, string format, string version)
-    {
-        string directory = @"\\ds4tb\Dev\WebServicesLogs\";
-        if (!Directory.Exists(directory)) return;
-        directory += @$"{Environment.MachineName}";
-        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
-        string dtCurrent = StringUtils.FormatCurDtEng(true).Replace(':', '.');
-
-        // File with query.
-        string fileXml = @$"{directory}\{appName}_{dtCurrent}.txt";
-        if (!File.Exists(fileXml))
-            await File.WriteAllTextAsync(fileXml, query, Encoding.UTF8);
-
-        // File with meta data.
-        string fileMetaData = @$"{directory}\{appName}_{dtCurrent}.info";
-        if (!File.Exists(fileMetaData))
-        {
-            string data = $"DateTime: {dtCurrent}" + Environment.NewLine;
-            data += $"{nameof(format)}: {format}" + Environment.NewLine;
-            data += $"{nameof(version)}: {version}" + Environment.NewLine;
-            data += $"{nameof(query)}.{nameof(string.Length)}: {query.Length} B | {query.Length/1024} KB | {query.Length/1024/1024} MB" + Environment.NewLine;
-            await File.WriteAllTextAsync(fileMetaData, data, Encoding.UTF8);
-        }
-    }
-
-    public async Task LogRequestXml(string appName, XElement xml, string format, string version) =>
-        await LogRequestString(appName, xml.ToString(), format, version).ConfigureAwait(false);
-
+    /// <summary>
+    /// Update a record in the database.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="response"></param>
+    /// <param name="itemXml"></param>
+    /// <param name="itemDb"></param>
+    /// <param name="isUpdateIdentity"></param>
+    /// <returns></returns>
     private bool UpdateItemDb<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isUpdateIdentity) where T : ISqlTable
     {
         if (itemDb is not null && itemDb.IsNotNew)
@@ -647,8 +632,115 @@ public partial class ControllerHelper
                 AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
             return true;
         }
-
         return false;
+    }
+
+    /// <summary>
+    /// Save the record to the database.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="itemXml"></param>
+    private void SaveItemDb<T>(Response1cShortModel response, T itemXml) where T : ISqlTable
+    {
+        (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
+        // Add was success.
+        if (dbSave.IsOk)
+            response.Successes.Add(new(itemXml.IdentityValueUid));
+        else
+            AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
+    }
+
+    /// <summary>
+    /// Log the request.
+    /// </summary>
+    /// <param name="serviceLogType"></param>
+    /// <param name="appName"></param>
+    /// <param name="dtStamp"></param>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    private async Task LogCore(ServiceLogType serviceLogType, string appName, DateTime dtStamp, string text)
+    {
+        // Get directory name.
+        if (!Directory.Exists(RootDirectory)) return;
+        string directory = RootDirectory + @$"{Environment.MachineName}";
+        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+
+        // Get file name.
+        string filePath = @$"{directory}\{appName}_{dtStamp}";
+        filePath += serviceLogType switch
+        {
+            ServiceLogType.Request => ".request",
+            ServiceLogType.Response => ".response",
+            ServiceLogType.MetaData => ".metadata",
+            _ => ".txt"
+        };
+
+        // Store data into the log.
+        if (!File.Exists(filePath))
+        {
+            await File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
+        }
+        else
+        {
+            string textExists = await File.ReadAllTextAsync(filePath);
+            byte[] encodedText = Encoding.Unicode.GetBytes(Environment.NewLine + Environment.NewLine + text);
+            await using FileStream sourceStream =
+                new(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true);
+            await sourceStream.WriteAsync(encodedText, textExists.Length, encodedText.Length);
+        }
+    }
+
+    /// <summary>
+    /// Log the request.
+    /// </summary>
+    /// <param name="appName"></param>
+    /// <param name="dtStamp"></param>
+    /// <param name="xml"></param>
+    /// <param name="format"></param>
+    /// <param name="version"></param>
+    /// <returns></returns>
+    public async Task LogRequest(string appName, DateTime dtStamp, string xml, string format, string version)
+    {
+        await LogCore(ServiceLogType.Request, appName, dtStamp, xml).ConfigureAwait(false);
+        
+        string text = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
+        text += $"{nameof(format)}: {format}" + Environment.NewLine;
+        text += $"{nameof(version)}: {version}" + Environment.NewLine;
+        text += $"Request data: {nameof(xml)}.{nameof(string.Length)}: {xml.Length} B | {xml.Length / 1024} KB | {xml.Length / 1024 / 1024} MB" + Environment.NewLine;
+        await LogCore(ServiceLogType.MetaData, appName, dtStamp, text).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Log the request.
+    /// </summary>
+    /// <param name="appName"></param>
+    /// <param name="dtStamp"></param>
+    /// <param name="xml"></param>
+    /// <param name="format"></param>
+    /// <param name="version"></param>
+    /// <returns></returns>
+    public async Task LogRequest(string appName, DateTime dtStamp, XElement xml, string format, string version) => 
+        await LogRequest(appName, dtStamp, xml.ToString(), format, version).ConfigureAwait(false);
+
+    /// <summary>
+    /// Log the response.
+    /// </summary>
+    /// <param name="appName"></param>
+    /// <param name="dtStamp"></param>
+    /// <param name="result"></param>
+    /// <param name="format"></param>
+    /// <param name="version"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task LogResponse(string appName, DateTime dtStamp, ContentResult result, string format, string version)
+    {
+        await LogCore(ServiceLogType.Response, appName, dtStamp, result.Content).ConfigureAwait(false);
+
+        string text = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
+        text += $"{nameof(format)}: {format}" + Environment.NewLine;
+        text += $"{nameof(version)}: {version}" + Environment.NewLine;
+        text += $"Response data: {nameof(result.Content)}.{nameof(string.Length)}: {result.Content.Length} B | {result.Content.Length / 1024} KB | {result.Content.Length / 1024 / 1024} MB" + Environment.NewLine;
+        await LogCore(ServiceLogType.MetaData, appName, dtStamp, text).ConfigureAwait(false);
     }
 
     #endregion

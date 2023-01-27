@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.TableScaleModels.Plus;
 
 namespace WsWebApi.Helpers;
@@ -62,7 +63,7 @@ public partial class ControllerHelper
     {
         try
         {
-            // Find -> Update.
+            // Find by Identity -> Update.
             PluModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
             if (UpdateItemDb(response, itemXml, itemDb, false)) return;
 
@@ -70,13 +71,13 @@ public partial class ControllerHelper
             itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
             if (UpdateItemDb(response, itemXml, itemDb, true)) return;
 
+            // Find by Name -> Update.
+            itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Name));
+            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
+
             // Not find -> Add.
-            (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
-            // Add was success.
-            if (dbSave.IsOk)
-                response.Successes.Add(new(itemXml.IdentityValueUid));
-            else
-                AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
+            itemXml.Nomenclature = DataAccessHelper.Instance.GetItemNewEmpty<NomenclatureModel>();
+            SaveItemDb(response, itemXml);
         }
         catch (Exception ex)
         {

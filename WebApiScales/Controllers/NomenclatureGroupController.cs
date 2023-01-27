@@ -3,7 +3,6 @@
 
 using WsStorage.Enums;
 using WsWebApi.Controllers;
-using static WsWebApi.Models.WebUtils;
 
 namespace WebApiScales.Controllers;
 
@@ -35,8 +34,9 @@ public class NomenclatureGroupController : WebControllerBase
         [FromQuery(Name = "format")] string format = "",
 	    [FromHeader(Name = "accept")] string version = "")
     {
-        ControllerHelp.LogRequestXml(nameof(WebApiScales), xml, format, version).ConfigureAwait(false);
-        return GetAcceptVersion(version) switch
+        DateTime dtStamp = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, xml, format, version).ConfigureAwait(false);
+        ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
@@ -45,6 +45,8 @@ public class NomenclatureGroupController : WebControllerBase
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
                 .NewResponse1cNomenclaturesGroups(SessionFactory, xml, format), format)
         };
+        ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, version).ConfigureAwait(false);
+        return result;
     }
 
     #endregion

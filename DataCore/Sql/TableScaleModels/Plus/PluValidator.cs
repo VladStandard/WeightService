@@ -45,8 +45,8 @@ public class PluValidator : SqlTableValidator<PluModel>
             //.NotEmpty()
             .NotNull();
         RuleFor(item => item.Nomenclature)
-            .NotEmpty()
-            .NotNull()
+            //.NotEmpty()
+            //.NotNull()
             .SetValidator(new NomenclatureValidator());
 
         // Move it to NestingFk : Fix for 0 values.

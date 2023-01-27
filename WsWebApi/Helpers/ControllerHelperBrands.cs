@@ -63,24 +63,24 @@ public partial class ControllerHelper
 
             // Find by Code -> Update.
             itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
-            if (itemDb is not null && itemDb.IsNotNew)
-            {
-                (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
-                // Delete was success. Duplicate field Code: {itemXml.Code}
-                if (!dbDelete.IsOk)
-                {
-                    AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
-                    return;
-                }
-            }
+            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
+            //if (itemDb is not null && itemDb.IsNotNew)
+            //{
+            //    (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
+            //    // Delete was success. Duplicate field Code: {itemXml.Code}
+            //    if (!dbDelete.IsOk)
+            //    {
+            //        AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
+            //        return;
+            //    }
+            //}
+
+            // Find by Name -> Update.
+            itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Name));
+            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
 
             // Not find -> Add.
-            (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
-            // Add was success.
-            if (dbSave.IsOk)
-                response.Successes.Add(new(itemXml.IdentityValueUid));
-            else
-                AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
+            SaveItemDb(response, itemXml);
         }
         catch (Exception ex)
         {

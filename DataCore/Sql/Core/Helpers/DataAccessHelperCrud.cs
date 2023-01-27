@@ -155,10 +155,9 @@ public partial class DataAccessHelper
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
         object? id = identity?.GetValueAsObjectNullable();
-        if (id is null)
-            return ExecuteTransaction(session => { session.Save(item); });
-        else
-            return ExecuteTransaction(session => { session.Save(item, id); });
+        return id is null 
+            ? ExecuteTransaction(session => { session.Save(item); }) 
+            : ExecuteTransaction(session => { session.Save(item, id); });
     }
 
     [Obsolete(@"Use SaveOrUpdate or UpdateForce")]
