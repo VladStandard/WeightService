@@ -13,7 +13,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual SqlFieldIdentityEnum Name { get; private set; }
+	[XmlElement] public virtual SqlFieldIdentity Name { get; private set; }
 	[XmlElement] public virtual long Id { get; private set; }
 	[XmlElement] public virtual Guid Uid { get; private set; }
 
@@ -23,7 +23,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
 	public SqlFieldIdentityModel()
 	{
 		FieldName = nameof(SqlFieldIdentityModel);
-		Name = SqlFieldIdentityEnum.Empty;
+		Name = SqlFieldIdentity.Empty;
 		Id = 0;
 		Uid = Guid.Empty;
 	}
@@ -32,7 +32,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
 	/// Constructor.
 	/// </summary>
 	/// <param name="identityName"></param>
-	public SqlFieldIdentityModel(SqlFieldIdentityEnum identityName) : this()
+	public SqlFieldIdentityModel(SqlFieldIdentity identityName) : this()
 	{
 		Name = identityName;
 	}
@@ -40,7 +40,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	private SqlFieldIdentityModel(SqlFieldIdentityEnum identityName, long identityId, Guid identityUid) : this(identityName)
+	private SqlFieldIdentityModel(SqlFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
 	{
 		Id = identityId;
 		Uid = identityUid;
@@ -53,7 +53,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
 	/// <param name="context"></param>
 	protected SqlFieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = (SqlFieldIdentityEnum)info.GetValue(nameof(Name), typeof(SqlFieldIdentityEnum));
+		Name = (SqlFieldIdentity)info.GetValue(nameof(Name), typeof(SqlFieldIdentity));
 		Id = info.GetInt64(nameof(Id));
 		Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
 	}
@@ -67,10 +67,10 @@ public class SqlFieldIdentityModel : SqlFieldBase
 		string strIdentityValue = string.Empty;
 		switch (Name)
 		{
-			case SqlFieldIdentityEnum.Id:
+			case SqlFieldIdentity.Id:
 				strIdentityValue = $"{nameof(Id)}: {Id}. ";
 				break;
-			case SqlFieldIdentityEnum.Uid:
+			case SqlFieldIdentity.Uid:
 				strIdentityValue = $"{nameof(Uid)}: {Uid}. ";
 				break;
 		}
@@ -79,15 +79,15 @@ public class SqlFieldIdentityModel : SqlFieldBase
 
     public virtual string GetValueAsString() => Name switch
     {
-        SqlFieldIdentityEnum.Id => Id.ToString(),
-        SqlFieldIdentityEnum.Uid => Uid.ToString(),
+        SqlFieldIdentity.Id => Id.ToString(),
+        SqlFieldIdentity.Uid => Uid.ToString(),
         _ => string.Empty
     };
 
     public virtual object? GetValueAsObjectNullable() => Name switch
     {
-        SqlFieldIdentityEnum.Id => Id,
-        SqlFieldIdentityEnum.Uid => Uid,
+        SqlFieldIdentity.Id => Id,
+        SqlFieldIdentity.Uid => Uid,
         _ => null
     };
 
@@ -101,8 +101,8 @@ public class SqlFieldIdentityModel : SqlFieldBase
 
 	public override int GetHashCode() => Name switch
 	{
-		SqlFieldIdentityEnum.Id => Id.GetHashCode(),
-		SqlFieldIdentityEnum.Uid => Uid.GetHashCode(),
+		SqlFieldIdentity.Id => Id.GetHashCode(),
+		SqlFieldIdentity.Uid => Uid.GetHashCode(),
 		_ => default,
 	};
 
@@ -139,15 +139,15 @@ public class SqlFieldIdentityModel : SqlFieldBase
 
 	public virtual bool IsNew() => Name switch
 	{
-		SqlFieldIdentityEnum.Id => Equals(Id, default(long)),
-		SqlFieldIdentityEnum.Uid => Equals(Uid, Guid.Empty),
+		SqlFieldIdentity.Id => Equals(Id, default(long)),
+		SqlFieldIdentity.Uid => Equals(Uid, Guid.Empty),
 		_ => default,
 	};
 
 	public virtual bool IsNotNew() => Name switch
 	{
-		SqlFieldIdentityEnum.Id => !Equals(Id, default(long)),
-		SqlFieldIdentityEnum.Uid => !Equals(Uid, Guid.Empty),
+		SqlFieldIdentity.Id => !Equals(Id, default(long)),
+		SqlFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
 		_ => default,
 	};
 

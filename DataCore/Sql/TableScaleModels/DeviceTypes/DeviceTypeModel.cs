@@ -20,7 +20,7 @@ public class DeviceTypeModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public DeviceTypeModel() : base(SqlFieldIdentityEnum.Uid)
+    public DeviceTypeModel() : base(SqlFieldIdentity.Uid)
     {
         PrettyName = string.Empty;
     }

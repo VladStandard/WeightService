@@ -9,7 +9,7 @@ namespace WebApiScales.Controllers;
 /// <summary>
 /// Nomenclature Group controller.
 /// </summary>
-public class NomenclatureController : WebControllerBase
+public class PluController : WebControllerBase
 {
     #region Public and private fields and properties
 
@@ -17,7 +17,7 @@ public class NomenclatureController : WebControllerBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public NomenclatureController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public PluController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }

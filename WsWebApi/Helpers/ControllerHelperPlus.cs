@@ -1,15 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels.Plus;
+
 namespace WsWebApi.Helpers;
 
 public partial class ControllerHelper
 {
     #region Public and private methods
 
-    private List<BrandModel> GetBrandList(XElement xml)
+    private List<PluModel> GetPluList(XElement xml)
     {
-        List<BrandModel> itemsXml = new();
+        List<PluModel> itemsXml = new();
         XmlDocument xmlDocument = new();
         xmlDocument.LoadXml(xml.ToString());
         if (xmlDocument.DocumentElement is null) return itemsXml;
@@ -18,8 +20,8 @@ public partial class ControllerHelper
         if (nodes.Count <= 0) return itemsXml;
         foreach (XmlNode node in nodes)
         {
-            BrandModel itemXml = new();
-            if (node.Name.Equals("Brand", StringComparison.InvariantCultureIgnoreCase))
+            PluModel itemXml = new();
+            if (node.Name.Equals("Nomenclature", StringComparison.InvariantCultureIgnoreCase))
             {
                 try
                 {
@@ -27,8 +29,12 @@ public partial class ControllerHelper
                     // Set properties.
                     SetItemPropertyFromXmlAttributeGuid(node, itemXml, "Guid");
                     SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.IsMarked));
-                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Name));
                     SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Code));
+                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Name));
+                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.FullName));
+                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Description));
+                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.IsCheckWeight));
+                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.ShelfLifeDays));
 
                     if (string.IsNullOrEmpty(itemXml.ParseResult.Exception))
                         itemXml.ParseResult.Message = "Is success";
@@ -52,27 +58,17 @@ public partial class ControllerHelper
     }
 
     // ReSharper disable once InconsistentNaming
-    private void AddResponse1cBrand(Response1cShortModel response, 
-        List<BrandModel> itemsDb, BrandModel itemXml)
+    private void AddResponse1cPlus(Response1cShortModel response, List<PluModel> itemsDb, PluModel itemXml)
     {
         try
         {
-            // Find by UID -> Update.
-            BrandModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
+            // Find -> Update.
+            PluModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
             if (UpdateItemDb(response, itemXml, itemDb, false)) return;
 
             // Find by Code -> Update.
             itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
-            if (itemDb is not null && itemDb.IsNotNew)
-            {
-                (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
-                // Delete was success. Duplicate field Code: {itemXml.Code}
-                if (!dbDelete.IsOk)
-                {
-                    AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
-                    return;
-                }
-            }
+            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
 
             // Not find -> Add.
             (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
@@ -89,26 +85,27 @@ public partial class ControllerHelper
     }
 
     // ReSharper disable once InconsistentNaming
-    public ContentResult NewResponse1cBrands(ISessionFactory sessionFactory, XElement request, string formatString)
+    public ContentResult NewResponse1cPlus(ISessionFactory sessionFactory, XElement xml, string format)
     {
         return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-            List<BrandModel> itemsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
-            List<BrandModel> itemsXml = GetBrandList(request);
-            foreach (BrandModel itemXml in itemsXml)
+            List<PluModel> itemsDb = DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
+            List<PluModel> itemsXml = GetPluList(xml);
+            foreach (PluModel itemXml in itemsXml)
             {
                 switch (itemXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cBrand(response, itemsDb, itemXml);
+                        AddResponse1cPlus(response, itemsDb, itemXml);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1cException(response, itemXml);
+                        AddResponse1cException(response, itemXml.IdentityValueUid,
+                            itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
                         break;
                 }
             }
-        }, formatString, false);
+        }, format, false);
     }
 
     #endregion

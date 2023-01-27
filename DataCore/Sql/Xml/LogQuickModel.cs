@@ -25,7 +25,7 @@ public class LogQuickModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogQuickModel() : base(SqlFieldIdentityEnum.Uid)
+	public LogQuickModel() : base(SqlFieldIdentity.Uid)
 	{
 		Scale = string.Empty;
 		Host = string.Empty;

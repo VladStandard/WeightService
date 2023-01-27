@@ -21,7 +21,7 @@ public class WeithingFactSummaryModel : SqlTableBase, ICloneable, ISqlDbBase, IS
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WeithingFactSummaryModel() : base(SqlFieldIdentityEnum.Id)
+	public WeithingFactSummaryModel() : base(SqlFieldIdentity.Id)
     {
 	    WeithingDate = DateTime.MinValue;
 	    Count = 0;

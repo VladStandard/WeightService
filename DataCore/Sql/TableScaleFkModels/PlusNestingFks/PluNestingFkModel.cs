@@ -32,7 +32,7 @@ public class PluNestingFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluNestingFkModel() : base(SqlFieldIdentityEnum.Uid)
+    public PluNestingFkModel() : base(SqlFieldIdentity.Uid)
     {
         Box = new();
         //Plu = new();

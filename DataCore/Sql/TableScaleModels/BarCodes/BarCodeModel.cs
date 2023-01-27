@@ -53,7 +53,7 @@ public class BarCodeModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarCodeModel() : base(SqlFieldIdentityEnum.Uid)
+    public BarCodeModel() : base(SqlFieldIdentity.Uid)
     {
         TypeTop = string.Empty;
         ValueTop = string.Empty;

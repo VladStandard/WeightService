@@ -9,7 +9,7 @@ public class CssStyleTableBodyModel : CssStyleBase
 {
     #region Public and private fields, properties, constructor
 
-    public SqlFieldIdentityEnum IdentityName { get; set; }
+    public SqlFieldIdentity IdentityName { get; set; }
     public bool IsShowMarked { get; set; }
 
 	/// <summary>
@@ -17,7 +17,7 @@ public class CssStyleTableBodyModel : CssStyleBase
 	/// </summary>
 	public CssStyleTableBodyModel()
     {
-		IdentityName = SqlFieldIdentityEnum.Empty;
+		IdentityName = SqlFieldIdentity.Empty;
 		IsShowMarked = false;
 	}
 
@@ -26,7 +26,7 @@ public class CssStyleTableBodyModel : CssStyleBase
 	/// </summary>
 	/// <param name="identityName"></param>
 	/// <param name="isShowMarked"></param>
-	public CssStyleTableBodyModel(SqlFieldIdentityEnum identityName, bool isShowMarked)
+	public CssStyleTableBodyModel(SqlFieldIdentity identityName, bool isShowMarked)
     {
         IdentityName = identityName;
         IsShowMarked = isShowMarked;

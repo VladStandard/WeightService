@@ -25,7 +25,7 @@ public class PluScaleModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluScaleModel() : base(SqlFieldIdentityEnum.Uid)
+    public PluScaleModel() : base(SqlFieldIdentity.Uid)
     {
         IsActive = false;
         Plu = new();

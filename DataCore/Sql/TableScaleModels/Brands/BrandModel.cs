@@ -21,7 +21,7 @@ public class BrandModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BrandModel() : base(SqlFieldIdentityEnum.Uid)
+    public BrandModel() : base(SqlFieldIdentity.Uid)
     {
         Code = string.Empty;
     }

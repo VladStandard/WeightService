@@ -3,6 +3,7 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.Xml;
@@ -48,7 +49,7 @@ public class PluModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluModel() : base(SqlFieldIdentityEnum.Uid)
+    public PluModel() : base(SqlFieldIdentity.Uid)
     {
         Number = 0;
         FullName = string.Empty;
@@ -171,6 +172,22 @@ public class PluModel : SqlTableBase
         Nomenclature.Equals(item.Nomenclature);
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
+
+    public override void UpdateProperties(ISqlTable item)
+    {
+        base.UpdateProperties(item);
+        if (item is not PluModel plu) return;
+        
+        Number = plu.Number;
+        Code = plu.Code;
+        FullName = plu.FullName;
+        ShelfLifeDays = plu.ShelfLifeDays;
+        Gtin = plu.Gtin;
+        Ean13 = plu.Ean13;
+        Itf14 = plu.Itf14;
+        IsCheckWeight = plu.IsCheckWeight;
+        Nomenclature = plu.Nomenclature.CloneCast();
+    }
 
     #endregion
 }

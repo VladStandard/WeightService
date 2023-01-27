@@ -27,7 +27,7 @@ public class NomenclatureModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureModel() : base(SqlFieldIdentityEnum.Id)
+    public NomenclatureModel() : base(SqlFieldIdentity.Id)
     {
         Code = string.Empty;
         Xml = string.Empty;

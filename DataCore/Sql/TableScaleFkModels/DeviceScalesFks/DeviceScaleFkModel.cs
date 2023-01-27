@@ -23,7 +23,7 @@ public class DeviceScaleFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public DeviceScaleFkModel() : base(SqlFieldIdentityEnum.Uid)
+    public DeviceScaleFkModel() : base(SqlFieldIdentity.Uid)
     {
         Device = new();
         Scale = new();

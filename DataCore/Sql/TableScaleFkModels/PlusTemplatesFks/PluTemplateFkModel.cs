@@ -23,7 +23,7 @@ public class PluTemplateFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluTemplateFkModel() : base(SqlFieldIdentityEnum.Uid)
+    public PluTemplateFkModel() : base(SqlFieldIdentity.Uid)
     {
         Plu = new();
         Template = new();

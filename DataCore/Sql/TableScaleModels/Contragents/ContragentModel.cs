@@ -24,7 +24,7 @@ public class ContragentModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ContragentModel() : base(SqlFieldIdentityEnum.Uid)
+    public ContragentModel() : base(SqlFieldIdentity.Uid)
     {
         FullName = string.Empty;
         IdRRef = Guid.Empty;

@@ -14,10 +14,10 @@
 		<td>
 			@switch (SqlItem.Identity.Name)
 			{
-				case SqlFieldIdentityEnum.Id:
+				case SqlFieldIdentity.Id:
 					@LocaleCore.Table.Id;
 					break;
-				case SqlFieldIdentityEnum.Uid:
+				case SqlFieldIdentity.Uid:
 					@LocaleCore.Table.Uid;
 					break;
 			}
@@ -25,12 +25,12 @@
 		<td>
 			@switch (SqlItem.Identity.Name)
 			{
-				case SqlFieldIdentityEnum.Id:
+				case SqlFieldIdentity.Id:
 					<RadzenTextBox 
 						Style="width: 100%; text-align: center; background-color: lightgray;"
 					   ReadOnly=true Value=@SqlItem.IdentityValueId.ToString() />
 					break;
-				case SqlFieldIdentityEnum.Uid:
+				case SqlFieldIdentity.Uid:
 					<RadzenTextBox 
 						Style="width: 100%; text-align: center; background-color: lightgray;"
 						ReadOnly=true Value=@SqlItem.IdentityValueUid.ToString() />

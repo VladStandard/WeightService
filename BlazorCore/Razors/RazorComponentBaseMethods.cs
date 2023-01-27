@@ -48,10 +48,10 @@ public partial class RazorComponentBase
 	{
 		return ParentRazor?.SqlItem?.Identity.Name switch
 		{
-			SqlFieldIdentityEnum.Id =>
+			SqlFieldIdentity.Id =>
 				LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
 				$"{nameof(ParentRazor.SqlItem.IdentityValueId)}: {ParentRazor.SqlItem.IdentityValueId}",
-			SqlFieldIdentityEnum.Uid =>
+			SqlFieldIdentity.Uid =>
 				LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
 				$"{nameof(ParentRazor.SqlItem.IdentityValueUid)}: {ParentRazor.SqlItem.IdentityValueUid}",
 			_ => string.Empty

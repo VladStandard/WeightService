@@ -18,7 +18,7 @@ public class ClipModel : SqlTableBase
 
     [XmlElement] public virtual decimal Weight { get; set; }
 
-    public ClipModel() : base(SqlFieldIdentityEnum.Uid)
+    public ClipModel() : base(SqlFieldIdentity.Uid)
     {
         Weight = 0;
     }

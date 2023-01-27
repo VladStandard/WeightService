@@ -16,5 +16,5 @@ public static class RazorComponentUtils
 		new() { LocaleCore.Strings.SettingName, LocaleCore.Strings.SettingValue },
 		"blue", "12px", "center");
 
-	public static CssStyleTableBodyModel GetTableBodyStyle(SqlFieldIdentityEnum columnName, bool isShowMarked) => new(columnName, isShowMarked);
+	public static CssStyleTableBodyModel GetTableBodyStyle(SqlFieldIdentity columnName, bool isShowMarked) => new(columnName, isShowMarked);
 }

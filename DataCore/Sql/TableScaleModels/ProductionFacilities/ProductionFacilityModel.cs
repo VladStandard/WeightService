@@ -21,7 +21,7 @@ public class ProductionFacilityModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ProductionFacilityModel() : base(SqlFieldIdentityEnum.Id)
+    public ProductionFacilityModel() : base(SqlFieldIdentity.Id)
     {
         Address = string.Empty;
     }

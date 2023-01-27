@@ -23,7 +23,7 @@ public class TemplateResourceModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TemplateResourceModel() : base(SqlFieldIdentityEnum.Id)
+    public TemplateResourceModel() : base(SqlFieldIdentity.Id)
     {
         Type = string.Empty;
         ImageData = new();

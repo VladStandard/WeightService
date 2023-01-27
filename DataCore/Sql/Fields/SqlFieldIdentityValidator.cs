@@ -15,10 +15,10 @@ public class SqlFieldIdentityValidator : AbstractValidator<SqlFieldIdentityModel
 		RuleFor(item => item.Id)
 			.NotEmpty()
 			.NotNull()
-			.NotEqual(0).When(item => item.Name == SqlFieldIdentityEnum.Id);
+			.NotEqual(0).When(item => item.Name == SqlFieldIdentity.Id);
 		RuleFor(item => item.Uid)
 			.NotEmpty()
 			.NotNull()
-			.NotEqual(Guid.Empty).When(item => item.Name == SqlFieldIdentityEnum.Uid);
+			.NotEqual(Guid.Empty).When(item => item.Name == SqlFieldIdentity.Uid);
 	}
 }

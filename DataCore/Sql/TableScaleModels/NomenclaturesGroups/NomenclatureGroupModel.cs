@@ -21,7 +21,7 @@ public class NomenclatureGroupModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureGroupModel() : base(SqlFieldIdentityEnum.Uid)
+    public NomenclatureGroupModel() : base(SqlFieldIdentity.Uid)
     {
         IsGroup = false;
         Code = string.Empty;

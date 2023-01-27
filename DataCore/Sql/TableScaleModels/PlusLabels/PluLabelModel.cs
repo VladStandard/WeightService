@@ -73,7 +73,7 @@ public class PluLabelModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluLabelModel() : base(SqlFieldIdentityEnum.Uid)
+    public PluLabelModel() : base(SqlFieldIdentity.Uid)
     {
         PluWeighing = null;
         PluScale = new();

@@ -18,7 +18,7 @@ public class AppModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AppModel() : base(SqlFieldIdentityEnum.Uid)
+    public AppModel() : base(SqlFieldIdentity.Uid)
     {
         //
     }

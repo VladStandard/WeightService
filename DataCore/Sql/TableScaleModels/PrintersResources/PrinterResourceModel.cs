@@ -23,7 +23,7 @@ public class PrinterResourceModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PrinterResourceModel() : base(SqlFieldIdentityEnum.Id)
+    public PrinterResourceModel() : base(SqlFieldIdentity.Id)
     {
         Printer = new();
         TemplateResource = new();

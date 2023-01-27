@@ -633,5 +633,23 @@ public partial class ControllerHelper
     public async Task LogRequestXml(string appName, XElement xml, string format, string version) =>
         await LogRequestString(appName, xml.ToString(), format, version).ConfigureAwait(false);
 
+    private bool UpdateItemDb<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isUpdateIdentity) where T : ISqlTable
+    {
+        if (itemDb is not null && itemDb.IsNotNew)
+        {
+            if (isUpdateIdentity)
+                itemDb.Identity = itemXml.Identity;
+            itemDb.UpdateProperties(itemXml);
+            (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
+            if (dbUpdate.IsOk)
+                response.Successes.Add(new(itemXml.IdentityValueUid));
+            else
+                AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
+            return true;
+        }
+
+        return false;
+    }
+
     #endregion
 }

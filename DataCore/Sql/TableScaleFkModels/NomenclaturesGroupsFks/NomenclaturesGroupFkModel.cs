@@ -22,7 +22,7 @@ public class NomenclaturesGroupFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclaturesGroupFkModel() : base(SqlFieldIdentityEnum.Uid)
+    public NomenclaturesGroupFkModel() : base(SqlFieldIdentity.Uid)
     {
         NomenclatureGroup = new();
         NomenclatureGroupParent = new();

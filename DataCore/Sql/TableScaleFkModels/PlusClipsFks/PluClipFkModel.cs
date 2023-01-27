@@ -24,7 +24,7 @@ public class PluClipFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluClipFkModel() : base(SqlFieldIdentityEnum.Uid)
+    public PluClipFkModel() : base(SqlFieldIdentity.Uid)
     {
         Clip = new();
         Plu = new();

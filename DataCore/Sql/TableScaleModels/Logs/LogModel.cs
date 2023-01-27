@@ -30,7 +30,7 @@ public class LogModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogModel() : base(SqlFieldIdentityEnum.Uid)
+    public LogModel() : base(SqlFieldIdentity.Uid)
     {
         Device = null;
         App = null;
