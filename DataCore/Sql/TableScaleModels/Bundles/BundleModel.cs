@@ -17,7 +17,7 @@ public class BundleModel : SqlTableBase
 
     [XmlElement] public virtual decimal Weight { get; set; }
 
-    public BundleModel() : base(SqlFieldIdentityEnum.Uid)
+    public BundleModel() : base(SqlFieldIdentity.Uid)
     {
        Weight = 0;
     }

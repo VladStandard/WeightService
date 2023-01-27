@@ -3,20 +3,10 @@
 
 namespace DataCore.Sql.Core.Enums;
 
-public enum SqlFieldComparerEnum
+public enum SqlFieldIdentity
 {
     Empty,
-    Equal,
-    NotEqual,
-    More,
-    Less,
-    MoreOrEqual,
-    LessOrEqual,
-}
-
-public enum SqlFieldOrderEnum
-{
-    Empty,
-    Asc,
-    Desc
+    Id,
+    Uid,
+    Test,
 }

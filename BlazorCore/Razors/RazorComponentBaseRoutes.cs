@@ -52,8 +52,8 @@ public partial class RazorComponentBase
         if (!string.IsNullOrEmpty(page))
             return item.Identity.Name switch
             {
-                SqlFieldIdentityEnum.Id => LocaleCore.Table.IdentityId,
-                SqlFieldIdentityEnum.Uid => LocaleCore.Table.IdentityUid,
+                SqlFieldIdentity.Id => LocaleCore.Table.IdentityId,
+                SqlFieldIdentity.Uid => LocaleCore.Table.IdentityUid,
                 _ => LocaleCore.Table.Identity
             };
         return string.Empty;
@@ -94,9 +94,9 @@ public partial class RazorComponentBase
             if (!string.IsNullOrEmpty(page))
                 return item.Identity.Name switch
                 {
-                    SqlFieldIdentityEnum.Id => $"{page}/{item.IdentityValueId}",
-                    SqlFieldIdentityEnum.Uid => $"{page}/{item.IdentityValueUid}",
-                    SqlFieldIdentityEnum.Test => $"{page}/{nameof(SqlFieldIdentityEnum.Test)}",
+                    SqlFieldIdentity.Id => $"{page}/{item.IdentityValueId}",
+                    SqlFieldIdentity.Uid => $"{page}/{item.IdentityValueUid}",
+                    SqlFieldIdentity.Test => $"{page}/{nameof(SqlFieldIdentity.Test)}",
                     _ => string.Empty
                 };
         }
@@ -207,8 +207,8 @@ public partial class RazorComponentBase
 
         page = item.Identity.Name switch
         {
-            SqlFieldIdentityEnum.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
-            SqlFieldIdentityEnum.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
+            SqlFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
+            SqlFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
             _ => page
         };
         NavigationManager?.NavigateTo(page);

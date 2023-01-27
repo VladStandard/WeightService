@@ -23,7 +23,7 @@ public class NomenclaturesCharacteristicsFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclaturesCharacteristicsFkModel() : base(SqlFieldIdentityEnum.Uid)
+    public NomenclaturesCharacteristicsFkModel() : base(SqlFieldIdentity.Uid)
     {
         Nomenclature = new();
         NomenclaturesCharacteristics = new();

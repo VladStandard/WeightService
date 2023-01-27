@@ -30,17 +30,23 @@ public class BrandController : WebControllerBase
     [Produces("application/xml")]
     [HttpPost]
     [Route("api/send_brands/")]
-    public ContentResult SendBrandList([FromBody] XElement request, 
-        [FromQuery(Name = "format")] string formatString = "",
-        [FromHeader(Name = "accept")] string version = "") =>
-        GetAcceptVersion(version) switch
+    public ContentResult SendBrandList([FromBody] XElement xml, 
+        [FromQuery(Name = "format")] string format = "",
+        [FromHeader(Name = "accept")] string version = "")
+    {
+        DateTime dtStamp = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, xml, format, version).ConfigureAwait(false);
+        ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cIsNotFound(SessionFactory, version, formatString), formatString),
+                    .NewResponse1cIsNotFound(SessionFactory, version, format), format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cBrands(SessionFactory, request, formatString), formatString)
+                .NewResponse1cBrands(SessionFactory, xml, format), format)
         };
+        ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, version).ConfigureAwait(false);
+        return result;
+    }
 
     #endregion
 }

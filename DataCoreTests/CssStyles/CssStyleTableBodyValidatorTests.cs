@@ -26,7 +26,7 @@ internal class CssStyleTableBodyValidatorTests
 		// Assert.
 		DataCore.AssertValidate(item, false);
 		// Act.
-		item.IdentityName = SqlFieldIdentityEnum.Empty;
+		item.IdentityName = SqlFieldIdentity.Empty;
 		// Assert.
 		DataCore.AssertValidate(item, false);
 	}
@@ -37,7 +37,7 @@ internal class CssStyleTableBodyValidatorTests
 		// Arrange.
 		CssStyleTableBodyModel item = Substitute.For<CssStyleTableBodyModel>();
 		// Act.
-		item.IdentityName = SqlFieldIdentityEnum.Uid;
+		item.IdentityName = SqlFieldIdentity.Uid;
 		item.IsShowMarked = true;
 		// Assert.
 		DataCore.AssertValidate(item, true);

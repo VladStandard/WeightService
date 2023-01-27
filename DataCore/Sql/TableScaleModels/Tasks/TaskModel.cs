@@ -24,7 +24,7 @@ public class TaskModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TaskModel() : base(SqlFieldIdentityEnum.Uid)
+    public TaskModel() : base(SqlFieldIdentity.Uid)
     {
         TaskType = new();
         Scale = new();

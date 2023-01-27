@@ -18,7 +18,7 @@ public class XmlDeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializabl
     /// <summary>
     /// Constructor.
     /// </summary>
-    public XmlDeviceModel() : base(SqlFieldIdentityEnum.Id)
+    public XmlDeviceModel() : base(SqlFieldIdentity.Id)
     {
         Scale = new();
     }

@@ -50,7 +50,7 @@ public class ScaleModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleModel() : base(SqlFieldIdentityEnum.Id)
+    public ScaleModel() : base(SqlFieldIdentity.Id)
     {
         WorkShop = null;
         PrinterMain = null;

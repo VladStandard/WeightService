@@ -20,7 +20,7 @@ public class OrganizationModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public OrganizationModel() : base(SqlFieldIdentityEnum.Uid)
+    public OrganizationModel() : base(SqlFieldIdentity.Uid)
     {
         Gln = 0;
     }

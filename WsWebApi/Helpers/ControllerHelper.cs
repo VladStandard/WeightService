@@ -1,6 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels.Plus;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WsWebApi.Enums;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static WsWebApi.Models.WebUtils;
+
 namespace WsWebApi.Helpers;
 
 /// <summary>
@@ -20,12 +27,13 @@ public partial class ControllerHelper
     #region Public and private fields, properties, constructor
 
     private DataContextModel DataContext { get; } = new();
+    private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
 
     #endregion
 
     #region Public and private methods
 
-    public ContentResult GetContentResult(Task<ContentResult> task, string formatString,
+    public ContentResult GetContentResult(Task<ContentResult> task, string format,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
@@ -37,7 +45,7 @@ public partial class ControllerHelper
         {
             filePath = Path.GetFileName(filePath);
             ServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
-            return DataFormatUtils.GetContentResult<ServiceExceptionModel>(serviceException, formatString, HttpStatusCode.OK);
+            return DataFormatUtils.GetContentResult<ServiceExceptionModel>(serviceException, format, HttpStatusCode.OK);
         }
         finally
         {
@@ -47,7 +55,7 @@ public partial class ControllerHelper
 
     public delegate ContentResult GetContentResultDelegate();
 
-    public ContentResult GetContentResult(GetContentResultDelegate getContentResult, string formatString,
+    public ContentResult GetContentResult(GetContentResultDelegate getContentResult, string format,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
@@ -58,7 +66,7 @@ public partial class ControllerHelper
         {
             filePath = Path.GetFileName(filePath);
             ServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
-            return DataFormatUtils.GetContentResult<ServiceExceptionModel>(serviceException, formatString, HttpStatusCode.OK);
+            return DataFormatUtils.GetContentResult<ServiceExceptionModel>(serviceException, format, HttpStatusCode.OK);
         }
         finally
         {
@@ -66,9 +74,9 @@ public partial class ControllerHelper
         }
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private ContentResult NewResponse1cCore<T>(ISessionFactory sessionFactory, Action<T> action,
-        string formatString, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
+        string format, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
         using ISession session = sessionFactory.OpenSession();
         using ITransaction transaction = session.BeginTransaction();
@@ -89,12 +97,12 @@ public partial class ControllerHelper
                 transaction.Rollback();
         }
 
-        return DataFormatUtils.GetContentResult<T>(response, formatString, httpStatusCode);
+        return DataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public ContentResult NewResponse1cFromQuery(ISessionFactory sessionFactory, string query,
-        SqlParameter? sqlParameter, string formatString, bool isTransaction)
+        SqlParameter? sqlParameter, string format, bool isTransaction)
     {
         return NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
@@ -131,11 +139,11 @@ public partial class ControllerHelper
             }
             else
                 response.Infos.Add(new("Empty query. Try to make some select from any table."));
-        }, formatString, isTransaction);
+        }, format, isTransaction);
     }
 
     [Obsolete(@"Deprecated method")]
-    public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end, string formatString, bool isTransaction)
+    public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end, string format, bool isTransaction)
     {
         return NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
@@ -152,10 +160,10 @@ public partial class ControllerHelper
             // ResponseBarCodeModels barCodes = new(barcodesDb);
             // response.SerializeAsXmlString<BarCodeModel>(false);
 
-        }, formatString, isTransaction);
+        }, format, isTransaction);
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cItem<T>(Response1cShortModel response, IReadOnlyCollection<T> listDb, T itemXml) where T : ISqlTable
     {
         try
@@ -222,15 +230,15 @@ public partial class ControllerHelper
         }
     }
 
-    // ReSharper disable once InconsistentNaming
-    private void AddResponse1cException(Response1cShortModel response, Guid uid, string? errorMessage, string? innerErrorMessage = null)
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    private void AddResponse1cException(Response1cShortModel response, Guid uid, string? errorMessage, string? innerErrorMessage)
     {
-        Response1cErrorModel responseRecord = new(uid, errorMessage ?? string.Empty);
-        responseRecord.Message += " | " + innerErrorMessage;
+        Response1cErrorModel responseRecord = new(uid, innerErrorMessage ?? errorMessage ?? string.Empty);
+        //responseRecord.Message += " | " + innerErrorMessage;
         response.Errors.Add(responseRecord);
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cException(Response1cShortModel response, BrandModel brand)
     {
         Response1cErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception ?? string.Empty);
@@ -239,7 +247,7 @@ public partial class ControllerHelper
         response.Errors.Add(responseRecord);
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cException(Response1cShortModel response, Guid uid, Exception? ex) =>
         AddResponse1cException(response, uid, ex?.Message, ex?.InnerException?.Message);
 
@@ -359,38 +367,35 @@ public partial class ControllerHelper
             case BrandModel brand:
                 SetItemPropertyFromXmlAttributeForBrand(propertyName, brand, property);
                 break;
-            case NomenclatureModel nomenclature:
-                SetItemPropertyFromXmlAttributeForNomenclature(propertyName, nomenclature, property);
-                break;
             case NomenclatureGroupModel nomenclatureGroup:
                 SetItemPropertyFromXmlAttributeForNomenclatureGroup(propertyName, nomenclatureGroup, property);
                 break;
-            case NomenclatureV2Model nomenclatureV2:
-                SetItemPropertyFromXmlAttributeForNomenclatureV2(propertyName, nomenclatureV2, property);
+            case PluModel plu:
+                SetItemPropertyFromXmlAttributeForPlu(propertyName, plu, property);
                 break;
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForNomenclatureV2(string propertyName,
-        NomenclatureV2Model nomenclatureV2, (object? Value, ParseResultModel ParseResult) property)
+    private static void SetItemPropertyFromXmlAttributeForPlu(string propertyName,
+        PluModel plu, (object? Value, ParseResultModel ParseResult) property)
     {
         switch (propertyName)
         {
-            case nameof(nomenclatureV2.FullName):
+            case nameof(plu.FullName):
                 if (property.Value is string fullName)
-                    nomenclatureV2.FullName = fullName;
+                    plu.FullName = fullName;
                 break;
-            case nameof(nomenclatureV2.Code):
+            case nameof(plu.Code):
                 if (property.Value is string code)
-                    nomenclatureV2.Code = code;
+                    plu.Code = code;
                 break;
-            case nameof(nomenclatureV2.ShelfLife):
-                if (property.Value is short shelfLife)
-                    nomenclatureV2.ShelfLife = shelfLife;
+            case nameof(plu.ShelfLifeDays):
+                if (property.Value is short shelfLifeDays)
+                    plu.ShelfLifeDays = shelfLifeDays;
                 break;
-            case nameof(nomenclatureV2.MeasurementType):
-                if (property.Value is string measurementType)
-                    nomenclatureV2.MeasurementType = measurementType;
+            case nameof(plu.IsCheckWeight):
+                if (property.Value is bool isCheckWeight)
+                    plu.IsCheckWeight = isCheckWeight;
                 break;
         }
     }
@@ -403,18 +408,6 @@ public partial class ControllerHelper
             case nameof(nomenclatureGroup.Code):
                 if (property.Value is string code)
                     nomenclatureGroup.Code = code;
-                break;
-        }
-    }
-
-    private static void SetItemPropertyFromXmlAttributeForNomenclature(string propertyName,
-        NomenclatureModel nomenclature, (object? Value, ParseResultModel ParseResult) property)
-    {
-        switch (propertyName)
-        {
-            case nameof(nomenclature.Code):
-                if (property.Value is string code)
-                    nomenclature.Code = code;
                 break;
         }
     }
@@ -559,7 +552,7 @@ public partial class ControllerHelper
         return result;
     }
 
-    public ContentResult NewResponseBarCodes(ISessionFactory sessionFactory, DateTime dtStart, DateTime dtEnd, string formatString)
+    public ContentResult NewResponseBarCodes(ISessionFactory sessionFactory, DateTime dtStart, DateTime dtEnd, string format)
     {
         return NewResponse1cCore<ResponseBarCodeListModel>(sessionFactory, response =>
         {
@@ -574,11 +567,11 @@ public partial class ControllerHelper
             response.StartDate = dtStart;
             response.EndDate = dtEnd;
             response.Count = response.ResponseBarCodes.Count;
-        }, formatString, false);
+        }, format, false);
     }
 
-    // ReSharper disable once InconsistentNaming
-    public ContentResult NewResponse1cNomenclaturesGroups(ISessionFactory sessionFactory, XElement request, string formatString)
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public ContentResult NewResponse1cNomenclaturesGroups(ISessionFactory sessionFactory, XElement request, string format)
     {
         return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
@@ -600,22 +593,153 @@ public partial class ControllerHelper
                         break;
                 }
             }
-        }, formatString, false);
+        }, format, false);
     }
 
-    // ReSharper disable once InconsistentNaming
     /// <summary>
     /// New response 1C.
     /// </summary>
     /// <param name="sessionFactory"></param>
     /// <param name="version"></param>
-    /// <param name="formatString"></param>
+    /// <param name="format"></param>
     /// <returns></returns>
-    public ContentResult NewResponse1cIsNotFound(ISessionFactory sessionFactory, string version, string formatString) =>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public ContentResult NewResponse1cIsNotFound(ISessionFactory sessionFactory, string version, string format) =>
         NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
             response.Infos.Add(new($"Version {version} is not found!"));
-        }, formatString, false, HttpStatusCode.NotFound);
+        }, format, false, HttpStatusCode.NotFound);
+
+    /// <summary>
+    /// Update a record in the database.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="response"></param>
+    /// <param name="itemXml"></param>
+    /// <param name="itemDb"></param>
+    /// <param name="isUpdateIdentity"></param>
+    /// <returns></returns>
+    private bool UpdateItemDb<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isUpdateIdentity) where T : ISqlTable
+    {
+        if (itemDb is null || !itemDb.IsNotNew) return false;
+        if (isUpdateIdentity)
+            itemDb.Identity = itemXml.Identity;
+        itemDb.UpdateProperties(itemXml);
+        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
+        if (dbUpdate.IsOk)
+            response.Successes.Add(new(itemXml.IdentityValueUid));
+        else
+            AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
+        return true;
+    }
+
+    /// <summary>
+    /// Save the record to the database.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="itemXml"></param>
+    private void SaveItemDb<T>(Response1cShortModel response, T itemXml) where T : ISqlTable
+    {
+        (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
+        // Add was success.
+        if (dbSave.IsOk)
+            response.Successes.Add(new(itemXml.IdentityValueUid));
+        else
+            AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
+    }
+
+    /// <summary>
+    /// Log the request.
+    /// </summary>
+    /// <param name="serviceLogType"></param>
+    /// <param name="appName"></param>
+    /// <param name="dtStamp"></param>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    private async Task LogCore(ServiceLogType serviceLogType, string appName, DateTime dtStamp, string text)
+    {
+        string dtString = StringUtils.FormatDtEng(dtStamp, true).Replace(':', '.');
+        // Get directory name.
+        if (!Directory.Exists(RootDirectory)) return;
+        string directory = RootDirectory + @$"{Environment.MachineName}";
+        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+
+        // Get file name.
+        string filePath = @$"{directory}\{appName}_{dtString}";
+        filePath += serviceLogType switch
+        {
+            ServiceLogType.Request => ".request",
+            ServiceLogType.Response => ".response",
+            ServiceLogType.MetaData => ".metadata",
+            _ => ".txt"
+        };
+
+        // Store data into the log.
+        if (!File.Exists(filePath))
+        {
+            await File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
+        }
+        else
+        {
+            string textExists = await File.ReadAllTextAsync(filePath);
+            text = textExists + Environment.NewLine + text;
+            File.Delete(filePath);
+            await File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
+        }
+    }
+
+    /// <summary>
+    /// Log the request.
+    /// </summary>
+    /// <param name="appName"></param>
+    /// <param name="dtStamp"></param>
+    /// <param name="xml"></param>
+    /// <param name="format"></param>
+    /// <param name="version"></param>
+    /// <returns></returns>
+    public async Task LogRequest(string appName, DateTime dtStamp, string xml, string format, string version)
+    {
+        await LogCore(ServiceLogType.Request, appName, dtStamp, xml).ConfigureAwait(false);
+        
+        string text = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
+        text += $"{nameof(format)}: {format}" + Environment.NewLine;
+        text += $"{nameof(version)}: {version}" + Environment.NewLine;
+        text += $"Request data: {nameof(xml)}.{nameof(string.Length)}: {xml.Length} B | {xml.Length / 1024} KB | {xml.Length / 1024 / 1024} MB" + Environment.NewLine;
+        await LogCore(ServiceLogType.MetaData, appName, dtStamp, text).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Log the request.
+    /// </summary>
+    /// <param name="appName"></param>
+    /// <param name="dtStamp"></param>
+    /// <param name="xml"></param>
+    /// <param name="format"></param>
+    /// <param name="version"></param>
+    /// <returns></returns>
+    public async Task LogRequest(string appName, DateTime dtStamp, XElement xml, string format, string version) => 
+        await LogRequest(appName, dtStamp, xml.ToString(), format, version).ConfigureAwait(false);
+
+    /// <summary>
+    /// Log the response.
+    /// </summary>
+    /// <param name="appName"></param>
+    /// <param name="dtStamp"></param>
+    /// <param name="result"></param>
+    /// <param name="format"></param>
+    /// <param name="version"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task LogResponse(string appName, DateTime dtStamp, ContentResult result, string format, string version)
+    {
+        await LogCore(ServiceLogType.Response, appName, dtStamp, result.Content).ConfigureAwait(false);
+
+        string text = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
+        text += $"{nameof(format)}: {format}" + Environment.NewLine;
+        text += $"{nameof(version)}: {version}" + Environment.NewLine;
+        text += $"Response data: {nameof(result.Content)}.{nameof(string.Length)}: {result.Content.Length} B | {result.Content.Length / 1024} KB | {result.Content.Length / 1024 / 1024} MB" + Environment.NewLine;
+        await LogCore(ServiceLogType.MetaData, appName, dtStamp, text).ConfigureAwait(false);
+    }
 
     #endregion
 }

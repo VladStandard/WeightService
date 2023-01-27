@@ -23,7 +23,7 @@ public class DeviceTypeFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public DeviceTypeFkModel() : base(SqlFieldIdentityEnum.Uid)
+    public DeviceTypeFkModel() : base(SqlFieldIdentity.Uid)
     {
         Device = new();
         Type = new();

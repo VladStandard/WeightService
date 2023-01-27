@@ -24,7 +24,7 @@ public class OrderModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public OrderModel() : base(SqlFieldIdentityEnum.Uid)
+    public OrderModel() : base(SqlFieldIdentity.Uid)
     {
         BeginDt = DateTime.MinValue;
         ProdDt = DateTime.MinValue;

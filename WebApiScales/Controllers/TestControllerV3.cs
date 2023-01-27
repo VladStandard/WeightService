@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
+using static WsWebApi.Models.WebUtils;
 
 namespace WebApiScales.Controllers;
 
@@ -35,14 +36,17 @@ public class TestControllerV3 : WebControllerBase
     /// <summary>
     /// Get info.
     /// </summary>
-    /// <param name="formatString"></param>
+    /// <param name="format"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
     [Route("api/info/")]
     [Route("api/v3/info/")]
-    public ContentResult GetInfo([FromQuery(Name = "format")] string formatString = "") => 
-        ControllerHelp.GetContentResult(() =>
+    public ContentResult GetInfo([FromQuery(Name = "format")] string format = "")
+    {
+        DateTime dtStamp = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, string.Empty, format, string.Empty).ConfigureAwait(false);
+        ContentResult result = ControllerHelp.GetContentResult(() =>
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
 
@@ -52,40 +56,40 @@ public class TestControllerV3 : WebControllerBase
             sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
             string response = sqlQuery.UniqueResult<string>();
             transaction.Commit();
-
             return new ServiceInfoModel(
-                AppVersion.App,
-                AppVersion.Version,
-                StringUtils.FormatDtEng(DateTime.Now, true),
-                response.ToString(CultureInfo.InvariantCulture),
-                session.Connection.ConnectionString.ToString(),
-                session.Connection.ConnectionTimeout,
-                session.Connection.DataSource,
-                session.Connection.ServerVersion,
-                session.Connection.Database,
-                (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576,
-                (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
-            .GetContentResult<ServiceInfoModel>(formatString, HttpStatusCode.OK);
-        }, formatString);
+                    AppVersion.App,
+                    AppVersion.Version,
+                    StringUtils.FormatDtEng(DateTime.Now, true),
+                    response.ToString(CultureInfo.InvariantCulture),
+                    session.Connection.ConnectionString.ToString(),
+                    session.Connection.ConnectionTimeout,
+                    session.Connection.DataSource,
+                    session.Connection.ServerVersion,
+                    session.Connection.Database,
+                    (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576,
+                    (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
+                .GetContentResult<ServiceInfoModel>(format, HttpStatusCode.OK);
+        }, format);
+        ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, string.Empty).ConfigureAwait(false);
+        return result;
+    }
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/exception/")]
     [Route("api/v3/exception/")]
-    public ContentResult GetException([FromQuery(Name = "format")] string formatString = "",
+    public ContentResult GetException([FromQuery(Name = "format")] string format = "",
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        ControllerHelp.GetContentResult(() =>
-        {
-            return new ServiceExceptionModel(filePath, lineNumber, memberName, "Test Exception!", "Test inner exception!")
-                .GetContentResult<ServiceExceptionModel>(formatString, HttpStatusCode.InternalServerError);
-        }, formatString);
+        ControllerHelp.GetContentResult(() => 
+            new ServiceExceptionModel(filePath, lineNumber, memberName, "Test Exception!", "Test inner exception!")
+            .GetContentResult<ServiceExceptionModel>(format, HttpStatusCode.InternalServerError), format);
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/simple/")]
     [Route("api/v3/simple/")]
-    public ContentResult GetSimple([FromQuery(Name = "format")] string formatString = "") =>
-        new TestControllerV2(SessionFactory).GetSimple(formatString);
+    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "") =>
+        new TestControllerV2(SessionFactory).GetSimple(format);
 
     #endregion
 }

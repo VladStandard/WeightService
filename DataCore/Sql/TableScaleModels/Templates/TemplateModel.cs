@@ -27,7 +27,7 @@ public class TemplateModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TemplateModel() : base(SqlFieldIdentityEnum.Id)
+    public TemplateModel() : base(SqlFieldIdentity.Id)
     {
         CategoryId = string.Empty;
         IdRRef = Guid.Empty;

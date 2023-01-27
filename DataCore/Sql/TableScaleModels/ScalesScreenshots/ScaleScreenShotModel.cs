@@ -23,7 +23,7 @@ public class ScaleScreenShotModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleScreenShotModel() : base(SqlFieldIdentityEnum.Uid)
+    public ScaleScreenShotModel() : base(SqlFieldIdentity.Uid)
     {
         Scale = new();
         ScreenShot = Array.Empty<byte>();

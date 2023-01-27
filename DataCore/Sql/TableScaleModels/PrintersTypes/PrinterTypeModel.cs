@@ -18,7 +18,7 @@ public class PrinterTypeModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PrinterTypeModel() : base(SqlFieldIdentityEnum.Id)
+    public PrinterTypeModel() : base(SqlFieldIdentity.Id)
     {
         //
     }

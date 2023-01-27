@@ -17,7 +17,7 @@ public class BoxModel : SqlTableBase
 
     [XmlElement] public virtual decimal Weight { get; set; }
 
-    public BoxModel() : base(SqlFieldIdentityEnum.Uid)
+    public BoxModel() : base(SqlFieldIdentity.Uid)
     {
         Weight = 0;
     }

@@ -18,7 +18,7 @@ public class TaskTypeModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TaskTypeModel() : base(SqlFieldIdentityEnum.Uid)
+    public TaskTypeModel() : base(SqlFieldIdentity.Uid)
     {
         //
     }

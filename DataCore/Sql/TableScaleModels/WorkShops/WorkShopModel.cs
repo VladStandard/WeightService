@@ -21,7 +21,7 @@ public class WorkShopModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WorkShopModel() : base(SqlFieldIdentityEnum.Id)
+    public WorkShopModel() : base(SqlFieldIdentity.Id)
     {
         ProductionFacility = new();
     }

@@ -9,7 +9,7 @@ namespace WebApiScales.Controllers;
 /// <summary>
 /// Nomenclature Group controller.
 /// </summary>
-public class NomenclatureGroupController : WebControllerBase
+public class PluController : WebControllerBase
 {
     #region Public and private fields and properties
 
@@ -17,7 +17,7 @@ public class NomenclatureGroupController : WebControllerBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public NomenclatureGroupController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public PluController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -29,9 +29,9 @@ public class NomenclatureGroupController : WebControllerBase
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost]
-    [Route("api/send_nomenclatures_groups/")]
-    public ContentResult SendNomenclaturesGroupsList([FromBody] XElement xml, 
-        [FromQuery(Name = "format")] string format = "",
+    [Route("api/send_nomenclatures/")]
+    public ContentResult SendNomenclatures([FromBody] XElement xml, 
+        [FromQuery(Name = "format")] string format = "", 
 	    [FromHeader(Name = "accept")] string version = "")
     {
         DateTime dtStamp = DateTime.Now;
@@ -40,10 +40,9 @@ public class NomenclatureGroupController : WebControllerBase
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
-                        .NewResponse1cIsNotFound(SessionFactory, version, format),
-                    format),
+                    .NewResponse1cIsNotFound(SessionFactory, version, format), format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cNomenclaturesGroups(SessionFactory, xml, format), format)
+                .NewResponse1cPlus(SessionFactory, xml, format), format)
         };
         ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, version).ConfigureAwait(false);
         return result;

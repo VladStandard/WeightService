@@ -17,7 +17,7 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
 
     [XmlElement] public virtual decimal AttachmentsCount { get; set; }
 
-    public NomenclaturesCharacteristicsModel() : base(SqlFieldIdentityEnum.Uid)
+    public NomenclaturesCharacteristicsModel() : base(SqlFieldIdentity.Uid)
     {
         AttachmentsCount = 0;
     }

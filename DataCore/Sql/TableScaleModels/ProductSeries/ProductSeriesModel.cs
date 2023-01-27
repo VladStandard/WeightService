@@ -24,7 +24,7 @@ public class ProductSeriesModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ProductSeriesModel() : base(SqlFieldIdentityEnum.Id)
+    public ProductSeriesModel() : base(SqlFieldIdentity.Id)
     {
         Scale = new();
         IsClose = false;

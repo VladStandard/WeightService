@@ -27,7 +27,7 @@ public class NomenclatureV2Model : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureV2Model() : base(SqlFieldIdentityEnum.Uid)
+    public NomenclatureV2Model() : base(SqlFieldIdentity.Uid)
     {
         IsGroup = false;
         FullName = string.Empty;

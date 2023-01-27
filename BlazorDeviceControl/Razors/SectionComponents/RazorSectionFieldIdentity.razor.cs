@@ -12,8 +12,8 @@ public partial class RazorSectionFieldIdentity<TItem> : RazorComponentSectionBas
 		CssStyleRadzenColumn.IsShowLink = true;
 		CssStyleRadzenColumn.Width = new TItem().Identity.Name switch
 		{
-			SqlFieldIdentityEnum.Id => "5%",
-			SqlFieldIdentityEnum.Uid => "20%",
+			SqlFieldIdentity.Id => "5%",
+			SqlFieldIdentity.Uid => "20%",
 			_ => CssStyleRadzenColumn.Width
 		};
 	}

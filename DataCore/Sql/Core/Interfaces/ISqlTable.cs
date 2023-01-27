@@ -10,7 +10,7 @@ public interface ISqlTable : ISqlDbBase
 {
     #region Public and private fields, properties, constructor
 
-    public SqlFieldIdentityModel Identity { get; }
+    public SqlFieldIdentityModel Identity { get; set; }
     public long IdentityValueId { get; set; }
     public Guid IdentityValueUid { get; set; }
     public bool IsNew { get; }

@@ -106,7 +106,7 @@ public class SqlCrudConfigModel : ICloneable
 
 	public static List<SqlFieldFilterModel> GetFilters(string className, SqlTableBase? item) =>
 		item is null || string.IsNullOrEmpty(className) ? new()
-			: GetFiltersIdentity(className, item.Identity.Name == SqlFieldIdentityEnum.Uid ? item.IdentityValueUid : item.IdentityValueId);
+			: GetFiltersIdentity(className, item.Identity.Name == SqlFieldIdentity.Uid ? item.IdentityValueUid : item.IdentityValueId);
 
 	public static List<SqlFieldFilterModel> GetFilters(string className, object? value) =>
 		new() { new(className, SqlFieldComparerEnum.Equal, value) };

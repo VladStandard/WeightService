@@ -92,7 +92,7 @@ public class PluWeighingModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluWeighingModel() : base(SqlFieldIdentityEnum.Uid)
+    public PluWeighingModel() : base(SqlFieldIdentity.Uid)
     {
         PluScale = new();
         Series = null;

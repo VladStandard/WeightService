@@ -23,7 +23,7 @@ public class PluBundleFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluBundleFkModel() : base(SqlFieldIdentityEnum.Uid)
+    public PluBundleFkModel() : base(SqlFieldIdentity.Uid)
     {
         Bundle = new(); 
         Plu = new();

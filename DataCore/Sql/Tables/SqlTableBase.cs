@@ -15,13 +15,13 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlIgnore] public virtual SqlFieldIdentityModel Identity { get; }
+	[XmlIgnore] public virtual SqlFieldIdentityModel Identity { get; set; }
 	[XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
 	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
 	[XmlIgnore] public virtual bool IsNew => Identity.IsNew();
 	[XmlIgnore] public virtual bool IsNotNew => Identity.IsNotNew();
-	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, SqlFieldIdentityEnum.Id);
-	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, SqlFieldIdentityEnum.Uid);
+	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, SqlFieldIdentity.Id);
+	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, SqlFieldIdentity.Uid);
 	[XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual bool IsMarked { get; set; } = false;
@@ -34,13 +34,13 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
     /// </summary>
     public SqlTableBase()
     {
-	    Identity = new(SqlFieldIdentityEnum.Empty);
+	    Identity = new(SqlFieldIdentity.Empty);
     }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public SqlTableBase(SqlFieldIdentityEnum identityName) : this()
+	public SqlTableBase(SqlFieldIdentity identityName) : this()
     {
 	    Identity = new(identityName);
     }

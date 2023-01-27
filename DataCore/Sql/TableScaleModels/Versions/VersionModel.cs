@@ -21,7 +21,7 @@ public class VersionModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public VersionModel() : base(SqlFieldIdentityEnum.Uid)
+    public VersionModel() : base(SqlFieldIdentity.Uid)
     {
         ReleaseDt = DateTime.MinValue;
         Version = 0;
