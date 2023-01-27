@@ -154,9 +154,12 @@ public class PluginMassaHelper : PluginHelperBase
                 break;
         }
 
+        decimal weight = (UserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluNestingFk.WeightTare);
+
         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, IsStable
-            ? $"{(UserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluNestingFk.WeightTare):0.000} {LocaleCore.Scales.WeightUnitKg}"
+            ? $"{weight:0.000} {LocaleCore.Scales.WeightUnitKg}"
             : $"{LocaleCore.Scales.WeightingIsCalc}");
+        MDSoft.WinFormsUtils.InvokeControl.SetForeColor(FieldNettoWeight, Equals(IsStable, true) && weight > 0 ? Color.Green : Color.Red);
     }
 
     public override void Close()
