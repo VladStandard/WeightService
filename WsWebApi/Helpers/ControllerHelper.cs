@@ -74,7 +74,7 @@ public partial class ControllerHelper
         }
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private ContentResult NewResponse1cCore<T>(ISessionFactory sessionFactory, Action<T> action,
         string format, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
@@ -100,7 +100,7 @@ public partial class ControllerHelper
         return DataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public ContentResult NewResponse1cFromQuery(ISessionFactory sessionFactory, string query,
         SqlParameter? sqlParameter, string format, bool isTransaction)
     {
@@ -163,7 +163,7 @@ public partial class ControllerHelper
         }, format, isTransaction);
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cItem<T>(Response1cShortModel response, IReadOnlyCollection<T> listDb, T itemXml) where T : ISqlTable
     {
         try
@@ -230,15 +230,15 @@ public partial class ControllerHelper
         }
     }
 
-    // ReSharper disable once InconsistentNaming
-    private void AddResponse1cException(Response1cShortModel response, Guid uid, string? errorMessage, string? innerErrorMessage = null)
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    private void AddResponse1cException(Response1cShortModel response, Guid uid, string? errorMessage, string? innerErrorMessage)
     {
-        Response1cErrorModel responseRecord = new(uid, errorMessage ?? string.Empty);
-        responseRecord.Message += " | " + innerErrorMessage;
+        Response1cErrorModel responseRecord = new(uid, innerErrorMessage ?? errorMessage ?? string.Empty);
+        //responseRecord.Message += " | " + innerErrorMessage;
         response.Errors.Add(responseRecord);
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cException(Response1cShortModel response, BrandModel brand)
     {
         Response1cErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception ?? string.Empty);
@@ -247,7 +247,7 @@ public partial class ControllerHelper
         response.Errors.Add(responseRecord);
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cException(Response1cShortModel response, Guid uid, Exception? ex) =>
         AddResponse1cException(response, uid, ex?.Message, ex?.InnerException?.Message);
 
@@ -570,7 +570,7 @@ public partial class ControllerHelper
         }, format, false);
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public ContentResult NewResponse1cNomenclaturesGroups(ISessionFactory sessionFactory, XElement request, string format)
     {
         return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
@@ -596,7 +596,6 @@ public partial class ControllerHelper
         }, format, false);
     }
 
-    // ReSharper disable once InconsistentNaming
     /// <summary>
     /// New response 1C.
     /// </summary>
@@ -604,6 +603,7 @@ public partial class ControllerHelper
     /// <param name="version"></param>
     /// <param name="format"></param>
     /// <returns></returns>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public ContentResult NewResponse1cIsNotFound(ISessionFactory sessionFactory, string version, string format) =>
         NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
@@ -621,19 +621,16 @@ public partial class ControllerHelper
     /// <returns></returns>
     private bool UpdateItemDb<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isUpdateIdentity) where T : ISqlTable
     {
-        if (itemDb is not null && itemDb.IsNotNew)
-        {
-            if (isUpdateIdentity)
-                itemDb.Identity = itemXml.Identity;
-            itemDb.UpdateProperties(itemXml);
-            (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
-            if (dbUpdate.IsOk)
-                response.Successes.Add(new(itemXml.IdentityValueUid));
-            else
-                AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
-            return true;
-        }
-        return false;
+        if (itemDb is null || !itemDb.IsNotNew) return false;
+        if (isUpdateIdentity)
+            itemDb.Identity = itemXml.Identity;
+        itemDb.UpdateProperties(itemXml);
+        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
+        if (dbUpdate.IsOk)
+            response.Successes.Add(new(itemXml.IdentityValueUid));
+        else
+            AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
+        return true;
     }
 
     /// <summary>

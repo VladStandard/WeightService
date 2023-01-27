@@ -58,7 +58,7 @@ public partial class ControllerHelper
         return itemsXml;
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPlus(Response1cShortModel response, List<PluModel> itemsDb, PluModel itemXml)
     {
         try
@@ -85,10 +85,9 @@ public partial class ControllerHelper
         }
     }
 
-    // ReSharper disable once InconsistentNaming
-    public ContentResult NewResponse1cPlus(ISessionFactory sessionFactory, XElement xml, string format)
-    {
-        return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public ContentResult NewResponse1cPlus(ISessionFactory sessionFactory, XElement xml, string format) =>
+        NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<PluModel> itemsDb = DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
@@ -107,7 +106,6 @@ public partial class ControllerHelper
                 }
             }
         }, format, false);
-    }
 
     #endregion
 }

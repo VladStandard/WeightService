@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 /// Table "PLUS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluModel)} | {Name} | {nameof(Number)} = {Number}")]
+[DebuggerDisplay("{nameof(PluModel)} | {Name} | {nameof(Number)} = {Number} | {nameof(Code)} = {Code}")]
 public class PluModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -178,15 +178,23 @@ public class PluModel : SqlTableBase
         base.UpdateProperties(item);
         if (item is not PluModel plu) return;
         
-        Number = plu.Number;
-        Code = plu.Code;
-        FullName = plu.FullName;
-        ShelfLifeDays = plu.ShelfLifeDays;
-        Gtin = plu.Gtin;
-        Ean13 = plu.Ean13;
-        Itf14 = plu.Itf14;
+        if (plu.Number > 0)
+            Number = plu.Number;
+        if (!string.IsNullOrEmpty(plu.Code))
+            Code = plu.Code;
+        if (!string.IsNullOrEmpty(plu.FullName))
+            FullName = plu.FullName;
+        if (plu.ShelfLifeDays > 0)
+            ShelfLifeDays = plu.ShelfLifeDays;
+        if (!string.IsNullOrEmpty(plu.Gtin))
+            Gtin = plu.Gtin;
+        if (!string.IsNullOrEmpty(plu.Ean13))
+            Ean13 = plu.Ean13;
+        if (!string.IsNullOrEmpty(plu.Itf14))
+            Itf14 = plu.Itf14;
         IsCheckWeight = plu.IsCheckWeight;
-        Nomenclature = plu.Nomenclature.CloneCast();
+        if (plu.Nomenclature.IsNotNew)
+            Nomenclature = plu.Nomenclature.CloneCast();
     }
 
     #endregion

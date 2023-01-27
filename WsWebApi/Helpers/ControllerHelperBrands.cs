@@ -51,7 +51,7 @@ public partial class ControllerHelper
         return itemsXml;
     }
 
-    // ReSharper disable once InconsistentNaming
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cBrand(Response1cShortModel response, 
         List<BrandModel> itemsDb, BrandModel itemXml)
     {
@@ -88,10 +88,9 @@ public partial class ControllerHelper
         }
     }
 
-    // ReSharper disable once InconsistentNaming
-    public ContentResult NewResponse1cBrands(ISessionFactory sessionFactory, XElement request, string formatString)
-    {
-        return NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public ContentResult NewResponse1cBrands(ISessionFactory sessionFactory, XElement request, string formatString) =>
+        NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<BrandModel> itemsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
@@ -109,7 +108,6 @@ public partial class ControllerHelper
                 }
             }
         }, formatString, false);
-    }
 
     #endregion
 }
