@@ -122,42 +122,52 @@ public class SqlCrudConfigModel : ICloneable
 	private List<SqlFieldFilterModel> GetFiltersIsResultShowMarked(bool isShowMarked) =>
 		new() { new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, isShowMarked) };
 
+    #region Add Filter
+    
     public void AddFilters(List<SqlFieldFilterModel> filters)
     {
         if (!Filters.Any())
-			Filters = filters;
-        else
-            foreach (SqlFieldFilterModel filter in filters.Where(filter => !Filters.Contains(filter)))
-            {
+        {
+            Filters = filters;
+            return;
+        }
+
+        foreach (SqlFieldFilterModel filter in filters)
+        {
+            if (!Filters.Contains(filter))
                 Filters.Add(filter);
-            }
+        }
     }
 
-    public void AddFilters(SqlFieldFilterModel filter) => 
-        AddFilters(new List<SqlFieldFilterModel>() { filter });
+    public void AddFilters(SqlFieldFilterModel filter) => AddFilters(new List<SqlFieldFilterModel>() { filter });
 
     public void AddFilters(string className, SqlTableBase? item) => AddFilters(GetFilters(className, item));
 
+    #endregion
+
+    #region Remove Filter
+
     public void RemoveFilters(List<SqlFieldFilterModel> filters)
     {
-		if (!Filters.Any()) return;
-            bool isExists = true;
-            while (isExists)
+        if (!Filters.Any())
+            return;
+
+        foreach (SqlFieldFilterModel filter in filters)
+        {
+            if (Filters.Contains(filter))
             {
-                isExists = false;
-                foreach (SqlFieldFilterModel filter in filters)
-                {
-                    if (Filters.Contains(filter))
-                    {
-                        isExists = true;
-                        Filters.Remove(filter);
-                        break;
-                    }
-                }
+                Filters.Remove(filter);
+                break;
             }
+        }
     }
 
+    public void RemoveFilters(SqlFieldFilterModel filter) => RemoveFilters(new List<SqlFieldFilterModel>() { filter });
+
     public void RemoveFilters(string className, SqlTableBase? item) => RemoveFilters(GetFilters(className, item));
+
+    #endregion
+
 
     private void SetFiltersIsResultShowMarked()
 	{

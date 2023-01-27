@@ -45,18 +45,9 @@ public partial class RazorComponentBase
 	#region Public and private methods
 
 	private string GetQuestionAdd()
-	{
-		return ParentRazor?.SqlItem?.Identity.Name switch
-		{
-			SqlFieldIdentityEnum.Id =>
-				LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
-				$"{nameof(ParentRazor.SqlItem.IdentityValueId)}: {ParentRazor.SqlItem.IdentityValueId}",
-			SqlFieldIdentityEnum.Uid =>
-				LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
-				$"{nameof(ParentRazor.SqlItem.IdentityValueUid)}: {ParentRazor.SqlItem.IdentityValueUid}",
-			_ => string.Empty
-		};
-	}
+    {
+        return LocaleCore.Dialog.DialogQuestion + Environment.NewLine;
+    }
 
 	protected string GetItemTitle(SqlTableBase? item)
 	{

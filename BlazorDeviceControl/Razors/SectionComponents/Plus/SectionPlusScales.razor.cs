@@ -3,7 +3,6 @@
 
 using BlazorCore.Razors;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
-using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Scales;
 
@@ -13,9 +12,12 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 {
 	#region Public and private fields, properties, constructor
 
-	public SectionPlusScales() : base()
-	{
+	public bool HideNoneActivePlu { get; set; }
+    public SectionPlusScales() : base()
+    {
+        HideNoneActivePlu = true;
         SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
+		SqlCrudConfigSection.IsResultOrder = true;
         ButtonSettings = new(true, true, true, true, true, true, false);
 	}
 
@@ -29,8 +31,13 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 		{
 			() =>
 			{
-				SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), ParentRazor ?.SqlItem);
-				SqlSectionCast = DataContext.GetListNotNullable<PluScaleModel>(SqlCrudConfigSection);
+                if (HideNoneActivePlu)
+                    SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
+				else
+                    SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
+
+                SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), ParentRazor?.SqlItem);
+                SqlSectionCast = DataContext.GetListNotNullable<PluScaleModel>(SqlCrudConfigSection);
 			}
 		});
 	}

@@ -444,7 +444,6 @@ public class DataContextModel
         PluScales = DataAccess.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PluScales.Count > 1)
             PluScales = PluScales
-                .OrderBy(item => item.Scale.Name).ToList()
                 .OrderBy(item => item.Plu.Number).ToList();
         return PluScales.Cast<T>().ToList();
     }

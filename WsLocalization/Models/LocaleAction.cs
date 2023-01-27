@@ -27,6 +27,7 @@ public class LocaleAction
     public string ActionDataControlField => Lang == Lang.English ? "Need to fill in the field" : "Необходимо заполнить поле";
     public string ActionIsShowMarked => Lang == Lang.English ? "Archive records" : "Архивные записи";
     public string ActionIsSelectTopRowsCount(int count) => Lang == Lang.English ? $"First {count} records" : $"Первые {count} записей";
+    public string ActionIsShowActivePlu => Lang == Lang.English ? $"Active plu" : $"Активные плу";
     public string ActionMethod => Lang == Lang.English ? "Method" : "Метод";
 
     #endregion
