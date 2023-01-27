@@ -25,7 +25,7 @@ public partial class SectionPlusLabels : RazorComponentSectionBase<PluLabelModel
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<PluLabelModel>(SqlCrudConfigSection);
-
+                AutoShowFilterOnlyTopSetup();
             }
 		});
 	}

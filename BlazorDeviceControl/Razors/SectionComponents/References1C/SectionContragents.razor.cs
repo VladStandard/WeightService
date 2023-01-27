@@ -20,6 +20,7 @@ public partial class SectionContragents : RazorComponentSectionBase<ContragentMo
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<ContragentModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

@@ -9,10 +9,6 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
 {
     #region Public and private fields, properties, constructor
 
-    public SectionScales() : base()
-    {
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
-    }
 
     #endregion
 
@@ -26,6 +22,7 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
             {
                 SqlCrudConfigSection.AddOrders(new(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
                 SqlSectionCast = DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

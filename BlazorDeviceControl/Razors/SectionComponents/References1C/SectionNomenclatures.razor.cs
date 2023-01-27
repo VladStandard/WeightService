@@ -20,6 +20,7 @@ public partial class SectionNomenclatures : RazorComponentSectionBase<Nomenclatu
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<NomenclatureModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

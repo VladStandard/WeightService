@@ -9,10 +9,6 @@ public partial class SectionPrinters : RazorComponentSectionBase<PrinterModel, S
 {
     #region Public and private fields, properties, constructor
 
-    public SectionPrinters() : base()
-    {
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
-    }
 
     #endregion
 
@@ -25,6 +21,7 @@ public partial class SectionPrinters : RazorComponentSectionBase<PrinterModel, S
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

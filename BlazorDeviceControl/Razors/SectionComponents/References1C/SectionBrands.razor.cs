@@ -25,6 +25,7 @@ public partial class SectionBrands : RazorComponentSectionBase<BrandModel, SqlTa
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<BrandModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

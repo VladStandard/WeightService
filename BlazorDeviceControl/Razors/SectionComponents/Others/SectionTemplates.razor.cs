@@ -20,6 +20,7 @@ public partial class SectionTemplates : RazorComponentSectionBase<TemplateModel,
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

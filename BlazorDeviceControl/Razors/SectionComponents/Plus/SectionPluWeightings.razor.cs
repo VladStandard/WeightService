@@ -25,6 +25,7 @@ public partial class SectionPluWeightings : RazorComponentSectionBase<PluWeighin
 			() =>
 			{
 				SqlSectionCast = DataContext.GetListNotNullable<PluWeighingModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
 		});
 	}

@@ -40,6 +40,11 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 	protected List<TItemFilter> SqlSectionFilterCast { get; set; }
 	protected string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
 
+    protected void AutoShowFilterOnlyTopSetup()
+    {
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = (SqlSectionCast.Count >= DataAccess.JsonSettings.Local.SelectTopRowsCount);
+    }
+
     public RazorComponentSectionBase()
 	{
 		CssStyleRadzenColumn = new("5%");
@@ -49,10 +54,9 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 
         SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = true;
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
 
-
-            ButtonSettings = new(true, true, true, true, true, false, false);
+        ButtonSettings = new(true, true, true, true, true, false, false);
     }
 
 	#endregion

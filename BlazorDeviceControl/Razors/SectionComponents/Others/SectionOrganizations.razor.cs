@@ -9,11 +9,6 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
 {
     #region Public and private fields, properties, constructor
 
-    public SectionOrganizations() : base()
-    {
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -25,6 +20,7 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<OrganizationModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

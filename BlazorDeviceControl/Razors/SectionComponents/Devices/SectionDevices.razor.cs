@@ -9,11 +9,6 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, Sql
 {
     #region Public and private fields, properties, constructor
 
-    public SectionDevices() : base()
-    {
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -25,6 +20,7 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, Sql
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<DeviceModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

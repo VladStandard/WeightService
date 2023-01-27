@@ -25,6 +25,7 @@ public partial class SectionBarCodes : RazorComponentSectionBase<BarCodeModel, S
 			() =>
 			{
 				SqlSectionCast = DataContext.GetListNotNullable<BarCodeModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
 		});
 	}

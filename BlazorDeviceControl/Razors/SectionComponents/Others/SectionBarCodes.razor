@@ -9,7 +9,8 @@
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
     Data=@SqlSectionCast TItem=@BarCodeModel 
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+    RowClick=@(SqlItemSetAsync) 
+    RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns >

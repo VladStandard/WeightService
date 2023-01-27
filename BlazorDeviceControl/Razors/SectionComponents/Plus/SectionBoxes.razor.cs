@@ -20,6 +20,7 @@ public partial class SectionBoxes : RazorComponentSectionBase<BoxModel, SqlTable
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

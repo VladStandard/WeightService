@@ -12,7 +12,7 @@
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
 	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
-    <Columns >
+    <Columns>
 		<RazorSectionFieldIsMarked TItem=@AccessModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
 		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Access.GetLoginDt() />

@@ -9,11 +9,6 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel,
 {
     #region Public and private fields, properties, constructor
 
-    public SectionWorkshops() : base()
-    {
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -25,6 +20,7 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel,
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<WorkShopModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

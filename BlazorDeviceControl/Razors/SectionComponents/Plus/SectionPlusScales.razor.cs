@@ -38,7 +38,8 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 
                 SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), ParentRazor?.SqlItem);
                 SqlSectionCast = DataContext.GetListNotNullable<PluScaleModel>(SqlCrudConfigSection);
-			}
+                AutoShowFilterOnlyTopSetup();
+            }
 		});
 	}
 

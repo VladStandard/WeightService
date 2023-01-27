@@ -20,6 +20,7 @@ public partial class SectionBundles : RazorComponentSectionBase<BundleModel, Sql
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

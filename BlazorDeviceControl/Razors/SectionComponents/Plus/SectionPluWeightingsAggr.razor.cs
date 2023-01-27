@@ -43,6 +43,7 @@ public partial class SectionPluWeightingsAggr : RazorComponentSectionBase<Weithi
                     }
                 }
                 SqlSectionCast = items;
+                AutoShowFilterOnlyTopSetup();
             }
 		});
 	}

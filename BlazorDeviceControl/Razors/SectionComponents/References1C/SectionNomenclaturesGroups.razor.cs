@@ -24,6 +24,7 @@ public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<Nome
                 //sqlCrudConfig.SetOrders(new(nameof(SqlTableBase.Name), SqlFieldOrderEnum.Asc));
                 sqlCrudConfig.IsResultOrder = true;
                 SqlSectionCast = DataContext.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }

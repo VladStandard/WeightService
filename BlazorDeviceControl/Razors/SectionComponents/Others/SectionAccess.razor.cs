@@ -9,11 +9,6 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
 {
     #region Public and private fields, properties, constructor
 
-    public SectionAccess() : base()
-    {
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -25,6 +20,7 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
             () =>
             {
                 SqlSectionCast = DataContext.GetListNotNullable<AccessModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
 		});
     }

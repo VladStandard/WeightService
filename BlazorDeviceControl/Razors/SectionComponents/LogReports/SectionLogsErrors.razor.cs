@@ -21,7 +21,8 @@ public partial class SectionLogsErrors : RazorComponentSectionBase<LogModel, Log
 					nameof(LogTypeModel.Number), (byte)LogTypeEnum.Error,
 					SqlCrudConfigSection.IsResultShowMarked, SqlCrudConfigSection.IsResultShowOnlyTop);
 				SqlItem = DataAccess.GetItemNotNullable<LogTypeModel>(sqlCrudConfig);
-			}
+                AutoShowFilterOnlyTopSetup();
+            }
 		});
 	}
 

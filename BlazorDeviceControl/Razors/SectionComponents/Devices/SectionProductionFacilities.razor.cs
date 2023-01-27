@@ -12,11 +12,6 @@ public partial class SectionProductionFacilities : RazorComponentSectionBase<Pro
 {
     #region Public and private fields, properties, constructor
 
-    public SectionProductionFacilities() : base()
-    {
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
-    }
-
     #endregion
 
     #region Public and private methods
@@ -28,6 +23,7 @@ public partial class SectionProductionFacilities : RazorComponentSectionBase<Pro
             () =>
             {
 	            SqlSectionCast = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigSection);
+                AutoShowFilterOnlyTopSetup();
             }
         });
     }
