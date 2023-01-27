@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels.Plus;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WsWebApi.Enums;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -660,13 +661,14 @@ public partial class ControllerHelper
     /// <returns></returns>
     private async Task LogCore(ServiceLogType serviceLogType, string appName, DateTime dtStamp, string text)
     {
+        string dtString = StringUtils.FormatDtEng(dtStamp, true).Replace(':', '.');
         // Get directory name.
         if (!Directory.Exists(RootDirectory)) return;
         string directory = RootDirectory + @$"{Environment.MachineName}";
         if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
         // Get file name.
-        string filePath = @$"{directory}\{appName}_{dtStamp}";
+        string filePath = @$"{directory}\{appName}_{dtString}";
         filePath += serviceLogType switch
         {
             ServiceLogType.Request => ".request",
@@ -683,10 +685,9 @@ public partial class ControllerHelper
         else
         {
             string textExists = await File.ReadAllTextAsync(filePath);
-            byte[] encodedText = Encoding.Unicode.GetBytes(Environment.NewLine + Environment.NewLine + text);
-            await using FileStream sourceStream =
-                new(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true);
-            await sourceStream.WriteAsync(encodedText, textExists.Length, encodedText.Length);
+            text = textExists + Environment.NewLine + text;
+            File.Delete(filePath);
+            await File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
         }
     }
 
