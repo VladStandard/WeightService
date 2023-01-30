@@ -42,10 +42,10 @@ public class TestControllerV3 : WebControllerBase
     [HttpGet]
     [Route("api/info/")]
     [Route("api/v3/info/")]
-    public ContentResult GetInfo([FromQuery(Name = "format")] string format = "")
+    public ContentResult GetInfo([FromQuery(Name = "format")] string format = "", [FromHeader(Name = "host")] string host = "")
     {
         DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, string.Empty, format, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, string.Empty, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());

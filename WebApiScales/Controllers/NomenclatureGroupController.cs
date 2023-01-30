@@ -30,12 +30,11 @@ public class NomenclatureGroupController : WebControllerBase
     [Produces("application/xml")]
     [HttpPost]
     [Route("api/send_nomenclatures_groups/")]
-    public ContentResult SendNomenclaturesGroupsList([FromBody] XElement xml, 
-        [FromQuery(Name = "format")] string format = "",
-	    [FromHeader(Name = "accept")] string version = "")
+    public ContentResult SendNomenclaturesGroupsList([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
+        [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, xml, format, version).ConfigureAwait(false);
+        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, xml, format, host, version).ConfigureAwait(false);
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
