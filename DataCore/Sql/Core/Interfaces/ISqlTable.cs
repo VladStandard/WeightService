@@ -15,6 +15,8 @@ public interface ISqlTable : ISqlDbBase
     public Guid IdentityValueUid { get; set; }
     public bool IsNew { get; }
     public bool IsNotNew { get; }
+    public bool IsExists { get; }
+    public bool IsNotExists { get; }
     public bool IsIdentityId { get; }
     public bool IsIdentityUid { get; }
     public DateTime CreateDt { get; set; }

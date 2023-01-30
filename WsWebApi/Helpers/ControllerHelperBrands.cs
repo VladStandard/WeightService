@@ -13,13 +13,14 @@ public partial class ControllerHelper
         XmlDocument xmlDocument = new();
         xmlDocument.LoadXml(xml.ToString());
         if (xmlDocument.DocumentElement is null) return itemsXml;
+        string nodeIdentity = "Brand";
 
         XmlNodeList nodes = xmlDocument.DocumentElement.ChildNodes;
         if (nodes.Count <= 0) return itemsXml;
         foreach (XmlNode node in nodes)
         {
             BrandModel itemXml = new();
-            if (node.Name.Equals("Brand", StringComparison.InvariantCultureIgnoreCase))
+            if (node.Name.Equals(nodeIdentity, StringComparison.InvariantCultureIgnoreCase))
             {
                 try
                 {
@@ -44,7 +45,7 @@ public partial class ControllerHelper
             else
             {
                 itemXml.ParseResult.Status = ParseStatus.Error;
-                itemXml.ParseResult.Exception = $"The node with name '{node.Name}' is not ident Brand!";
+                itemXml.ParseResult.Exception = $"The node `{nodeIdentity}` with `{node.Name}` is not ident!";
             }
             itemsXml.Add(itemXml);
         }

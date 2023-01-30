@@ -4,6 +4,7 @@
 using DataCore.Models;
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
+using System;
 
 namespace DataCore.Sql.Tables;
 
@@ -18,8 +19,12 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
 	[XmlIgnore] public virtual SqlFieldIdentityModel Identity { get; set; }
 	[XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
 	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
-	[XmlIgnore] public virtual bool IsNew => Identity.IsNew();
-	[XmlIgnore] public virtual bool IsNotNew => Identity.IsNotNew();
+	[XmlIgnore] public virtual bool IsExists => Identity.IsExists;
+	[XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
+	[Obsolete(@"Use IsNotExists")]
+	[XmlIgnore] public virtual bool IsNew => IsNotExists;
+    [Obsolete(@"Use IsExists")]
+    [XmlIgnore] public virtual bool IsNotNew => IsExists;
 	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, SqlFieldIdentity.Id);
 	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, SqlFieldIdentity.Uid);
 	[XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;

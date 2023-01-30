@@ -19,7 +19,7 @@ public class PluModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual int Number { get; set; }
+    [XmlElement] public virtual ushort Number { get; set; }
     [XmlElement] public virtual string Code { get; set; }
     [XmlElement] public virtual string NumberFormat
     {
@@ -28,7 +28,7 @@ public class PluModel : SqlTableBase
         set => _ = value;
     }
     [XmlElement] public virtual string FullName { get; set; }
-    [XmlElement] public virtual short ShelfLifeDays { get; set; }
+    [XmlElement] public virtual ushort ShelfLifeDays { get; set; }
     [XmlElement] public virtual string Gtin { get; set; }
     [XmlElement] public virtual string Gtin14Format
     {
@@ -51,9 +51,9 @@ public class PluModel : SqlTableBase
     /// </summary>
     public PluModel() : base(SqlFieldIdentity.Uid)
     {
-        Number = 0;
+        Number = default;
         FullName = string.Empty;
-        ShelfLifeDays = 0;
+        ShelfLifeDays = default;
         Gtin = string.Empty;
         Ean13 = string.Empty;
         Itf14 = string.Empty;
@@ -69,9 +69,9 @@ public class PluModel : SqlTableBase
     /// <param name="context"></param>
     protected PluModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Number = info.GetInt32(nameof(Number));
+        Number = info.GetUInt16(nameof(Number));
         FullName = info.GetString(nameof(FullName));
-        ShelfLifeDays = info.GetInt16(nameof(ShelfLifeDays));
+        ShelfLifeDays = info.GetUInt16(nameof(ShelfLifeDays));
         Gtin = info.GetString(nameof(Gtin));
         Ean13 = info.GetString(nameof(Ean13));
         Itf14 = info.GetString(nameof(Itf14));
@@ -105,9 +105,9 @@ public class PluModel : SqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(Code, string.Empty) &&
-        Equals(Number, default(int)) &&
+        Equals(Number, default(ushort)) &&
         Equals(FullName, string.Empty) &&
-        Equals(ShelfLifeDays, default(short)) &&
+        Equals(ShelfLifeDays, default(ushort)) &&
         Equals(Gtin, string.Empty) &&
         Equals(Ean13, string.Empty) &&
         Equals(Itf14, string.Empty) &&

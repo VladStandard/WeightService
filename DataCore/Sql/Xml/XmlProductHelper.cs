@@ -368,7 +368,7 @@ public class XmlProductHelper
 		return description;
 	}
 
-	public short GetXmlShelfLifeDays(NomenclatureModel nomenclature, short shelfLifeDays)
+	public ushort GetXmlShelfLifeDays(NomenclatureModel nomenclature, ushort shelfLifeDays)
 	{
 		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
@@ -377,10 +377,10 @@ public class XmlProductHelper
 			string[] arr = strProductShelfLife.Split(' ');
 			if (arr.Length > 1)
 			{
-				if (short.TryParse(arr[0], out short productShelfLife2))
+				if (ushort.TryParse(arr[0], out ushort productShelfLife2))
 					return productShelfLife2;
 			}
-			if (short.TryParse(strProductShelfLife, out short productShelfLife1))
+			if (ushort.TryParse(strProductShelfLife, out ushort productShelfLife1))
 				return productShelfLife1;
 		}
 		return shelfLifeDays;

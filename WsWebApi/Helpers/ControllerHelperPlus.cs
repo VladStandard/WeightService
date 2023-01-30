@@ -3,6 +3,7 @@
 
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.TableScaleModels.Plus;
+using System;
 
 namespace WsWebApi.Helpers;
 
@@ -10,19 +11,21 @@ public partial class ControllerHelper
 {
     #region Public and private methods
 
-    private List<PluModel> GetPluList(XElement xml)
+    [Obsolete(@"Use GetPluList")]
+    private List<PluModel> GetPluListDeprecated(XElement xml)
     {
         List<PluModel> itemsXml = new();
         XmlDocument xmlDocument = new();
         xmlDocument.LoadXml(xml.ToString());
         if (xmlDocument.DocumentElement is null) return itemsXml;
+        string nodeIdentity = "Nomenclature";
 
         XmlNodeList nodes = xmlDocument.DocumentElement.ChildNodes;
         if (nodes.Count <= 0) return itemsXml;
         foreach (XmlNode node in nodes)
         {
             PluModel itemXml = new();
-            if (node.Name.Equals("Nomenclature", StringComparison.InvariantCultureIgnoreCase))
+            if (node.Name.Equals(nodeIdentity, StringComparison.InvariantCultureIgnoreCase))
             {
                 try
                 {
@@ -36,6 +39,7 @@ public partial class ControllerHelper
                     SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Description));
                     SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.IsCheckWeight));
                     SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.ShelfLifeDays));
+                    SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Number));
 
                     if (string.IsNullOrEmpty(itemXml.ParseResult.Exception))
                         itemXml.ParseResult.Message = "Is success";
@@ -51,12 +55,29 @@ public partial class ControllerHelper
             else
             {
                 itemXml.ParseResult.Status = ParseStatus.Error;
-                itemXml.ParseResult.Exception = $"The node with name '{node.Name}' is not ident Brand!";
+                itemXml.ParseResult.Exception = $"The node `{nodeIdentity}` with `{node.Name}` is not ident!";
             }
             itemsXml.Add(itemXml);
         }
         return itemsXml;
     }
+
+    private List<PluModel> GetPluList(XElement xml) =>
+        GetNodesListCore<PluModel>(xml, "Nomenclature", (node, itemXml) =>
+        {
+            SetItemPropertyFromXmlAttributeGuid(node, itemXml, "Guid");
+            SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.IsMarked));
+            SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Code));
+            SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Name));
+            SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.FullName));
+            SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Description));
+            SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.IsCheckWeight));
+            SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.ShelfLifeDays));
+            SetItemPropertyFromXmlAttribute(node, itemXml, nameof(itemXml.Number));
+            // ParseResult.
+            if (string.IsNullOrEmpty(itemXml.ParseResult.Exception))
+                itemXml.ParseResult.Message = "Is success";
+        });
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPlus(Response1cShortModel response, List<PluModel> itemsDb, PluModel itemXml)

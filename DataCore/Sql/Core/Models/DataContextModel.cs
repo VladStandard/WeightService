@@ -494,11 +494,11 @@ public class DataContextModel
                         pluBundle.Plu.CreateDt = Convert.ToDateTime(item[18]);
                         pluBundle.Plu.ChangeDt = Convert.ToDateTime(item[19]);
                         pluBundle.Plu.IsMarked = Convert.ToBoolean(item[20]);
-                        pluBundle.Plu.Number = Convert.ToInt32(item[21]);
+                        pluBundle.Plu.Number = Convert.ToUInt16(item[21]);
                         pluBundle.Plu.Name = Convert.ToString(item[22]);
                         pluBundle.Plu.FullName = Convert.ToString(item[23]);
                         pluBundle.Plu.Description = Convert.ToString(item[24]);
-                        pluBundle.Plu.ShelfLifeDays = Convert.ToInt16(item[25]);
+                        pluBundle.Plu.ShelfLifeDays = Convert.ToUInt16(item[25]);
                         pluBundle.Plu.Gtin = Convert.ToString(item[26]);
                         pluBundle.Plu.Ean13 = Convert.ToString(item[27]);
                         pluBundle.Plu.Itf14 = Convert.ToString(item[28]);
