@@ -161,6 +161,13 @@ public partial class RazorComponentBase
 		}
 	}
 
+	protected TItem SqlItemNew<TItem>() where TItem : SqlTableBase, new()
+	{
+		TItem item = new();
+		item.FillProperties();
+		return item;
+	}
+
 	protected async Task SqlItemCancelAsync()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -170,13 +177,6 @@ public partial class RazorComponentBase
 			SetRouteSectionNavigate();
 			OnChangeAsync();
 		});
-	}
-
-	protected TItem SqlItemNew<TItem>() where TItem : SqlTableBase, new()
-	{
-		TItem item = new();
-		item.FillProperties();
-		return item;
 	}
 
 	protected TItem SqlItemNewEmpty<TItem>() where TItem : SqlTableBase, new()
@@ -392,49 +392,6 @@ public partial class RazorComponentBase
 		{
 			SqlItem = SqlItem.CloneCast();
 			SetRouteItemNavigate(SqlItem);
-		});
-	}
-
-	protected async Task SqlItemEditAsync()
-	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-		RunActionsSafe(string.Empty, () =>
-		{
-			SetRouteItemNavigate(SqlItem);
-			OnChangeAsync();
-		});
-	}
-
-	protected async Task SqlItemEditAsync<TItem>(TItem item) where TItem : SqlTableBase, new()
-	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-		RunActionsSafe(string.Empty, () =>
-		{
-			SetRouteItemNavigate(SqlItem);
-			OnChangeAsync();
-		});
-	}
-
-	protected void RowRender<TItem>(RowRenderEventArgs<TItem> args) where TItem : SqlTableBase, new()
-	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
-		if (args.Data is AccessModel access)
-		{
-			args.Attributes.Add("class", UserSettings.GetColorAccessRights((AccessRightsEnum)access.Rights));
-		}
-	}
-
-	protected async Task SqlItemSetAsync<TItem>(TItem item) where TItem : SqlTableBase, new()
-	{
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-		RunActionsSafe(string.Empty, () =>
-		{
-			SqlItem = item;
 		});
 	}
 

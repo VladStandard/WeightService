@@ -5,28 +5,32 @@
 
 <RazorSectionReload TItem=@ContragentModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenGrid 
+<RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
-    Data=@SqlSectionCast TItem=@ContragentModel 
-    RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+    Data=@SqlSectionCast
+    TItem=@ContragentModel 
+    RowSelect=@(SqlItemSetAsync) 
+    RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
+    AllowPaging=true
+    AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@ContragentModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenGridColumn 
+        <RadzenDataGridColumn 
             TItem=@ContragentModel Title=@LocaleCore.Table.Name Width="50%" >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; "
                             Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.IdentityValueUid}")
                     Text=@itemCast.Name />
             </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn 
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn 
             TItem=@ContragentModel Property="FullName" TextAlign=@TextAlign.Left
             Title=@LocaleCore.Table.FullName
-            Type="string" Width="50%" />
+            Width="50%" />
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@ContragentModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

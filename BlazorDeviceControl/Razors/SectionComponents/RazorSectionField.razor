@@ -7,8 +7,7 @@
 @using Radzen.Blazor
 @using BlazorDeviceControl.Razors.SystemComponents
 
-<RadzenGridColumn TItem=@TItem Type=@RazorFieldConfig.Type TextAlign=@RazorFieldConfig.TextAlign
-                  Width=@(CssStyleRadzenColumn.Width) Title=@RazorFieldConfig.Title>
+<RadzenDataGridColumn TItem=@TItem TextAlign=@RazorFieldConfig.TextAlign Width=@(CssStyleRadzenColumn.Width) Title=@RazorFieldConfig.Title>
 	<Template Context="item">
 		@switch (RazorFieldConfig.Type)
 		{
@@ -18,19 +17,18 @@
 			default:
 				@if (CssStyleRadzenColumn.IsShowLink)
 				{
-				    <RadzenLink 
-                            Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
-                            Path=@GetRouteItemPathForLink(item) />
+				    <RadzenLink
+                        Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
+                            Path=@GetRouteItemPathForLink(item)
+                    />
 				}
 				else
 				{
-					<RadzenText 
-						Style="margin-top: 10px; "
-						Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
-						TextStyle=@TextStyle.Body2 
-						TextAlign=@RazorFieldConfig.TextAlign />
+					<RadzenText
+                        Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
+                    />
 				}
 				break;
 		}
 	</Template>
-</RadzenGridColumn>
+</RadzenDataGridColumn>

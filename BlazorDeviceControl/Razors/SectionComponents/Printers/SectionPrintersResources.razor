@@ -8,12 +8,12 @@
 
 <RazorSectionReload TItem=@PrinterResourceModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Resources SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenGrid 
+<RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify
     Style="margin-top: 5px;"
     Data=@SqlSectionCast 
     TItem=@PrinterResourceModel
-    RowClick=@(SqlItemSetAsync) 
+    RowSelect=@(SqlItemSetAsync) 
     RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())
     PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
@@ -28,6 +28,6 @@
         <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("31%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetName() />
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@PrinterResourceModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

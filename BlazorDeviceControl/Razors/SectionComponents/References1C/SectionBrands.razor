@@ -1,41 +1,45 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Brands.BrandModel, SqlTableBase>
+﻿ @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Brands.BrandModel, SqlTableBase>
 @page "/section/brands"
 @using BlazorCore.Razors
 @using DataCore.Sql.TableScaleModels.Brands
 
 <RazorSectionReload TItem=@BrandModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBrands SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenGrid 
+<RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
-    Data=@SqlSectionCast TItem=@BrandModel 
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    Data=@SqlSectionCast 
+    TItem=@BrandModel 
+    RowSelect=@(SqlItemSetAsync)
+    RowRender=@(args => RowRender(args))
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
+    AllowPaging=true 
+    AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@BrandModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenGridColumn TItem=@BrandModel Title=@LocaleCore.Table.ChangeDt Width="12%">
+        <RadzenDataGridColumn TItem=@BrandModel Title=@LocaleCore.Table.ChangeDt Width="12%">
 	        <Template Context="itemCast" >
 		        <RadzenLink 
 					Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
 					Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true)) />
 	        </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem=@BrandModel Title=@LocaleCore.Table.Name Width="42%">
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem=@BrandModel Title=@LocaleCore.Table.Name Width="42%">
 	        <Template Context="itemCast" >
 		        <RadzenLink 
 					Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
 			        Text=@itemCast.Name />
 	        </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem=@BrandModel Title=@LocaleCore.Table.Code Width="41%">
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem=@BrandModel Title=@LocaleCore.Table.Code Width="41%">
 	        <Template Context="itemCast" >
 		        <RadzenLink 
 					Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
 			        Text=@itemCast.Code />
 	        </Template>
-        </RadzenGridColumn>
+        </RadzenDataGridColumn>
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem=@BrandModel ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

@@ -5,34 +5,38 @@
 
 <RazorSectionReload TItem=@NomenclatureModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenGrid 
+<RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
-	Data=@SqlSectionCast TItem=@NomenclatureModel 
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    Data=@SqlSectionCast 
+    TItem=@NomenclatureModel 
+    RowSelect=@(SqlItemSetAsync)
+    RowRender=@(args => RowRender(args))
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
+    AllowPaging=true 
+    AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@NomenclatureModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenGridColumn TItem=@NomenclatureModel Title=@LocaleCore.Table.Name Width="45%" >
+        <RadzenDataGridColumn TItem=@NomenclatureModel Title=@LocaleCore.Table.Name Width="45%" >
             <Template Context="itemCast" >
 	            <RadzenLink Style="width: 100%; margin-left: 0; "
                             Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclature}/{itemCast.IdentityValueId}")
 	                        Text=@itemCast.Name />
             </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn 
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn 
             TItem=@NomenclatureModel Property="Code" 
             Title=@LocaleCore.Table.Code
-            Type="string" Width="20%" />
-        <RadzenGridColumn 
+            Width="20%" />
+        <RadzenDataGridColumn 
             TItem=@NomenclatureModel TextAlign=@TextAlign.Center Width="5%" 
             Title=@LocaleCore.Table.Weighted >
             <Template Context="itemCast" >
                 <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Weighted />
             </Template>
-        </RadzenGridColumn>
+        </RadzenDataGridColumn>
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@NomenclatureModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

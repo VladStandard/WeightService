@@ -5,47 +5,50 @@
 
 <RazorSectionReload TItem=@BarCodeModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenGrid 
+<RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
-    Data=@SqlSectionCast TItem=@BarCodeModel 
-    RowClick=@(SqlItemSetAsync) 
+    Data=@SqlSectionCast 
+    TItem=@BarCodeModel 
+    RowSelect=@(SqlItemSetAsync) 
     RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
+    AllowPaging=true
+    AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@BarCodeModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ChangeDt Width="12%">
+        <RadzenDataGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ChangeDt Width="12%">
 	        <Template Context="itemCast" >
 		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 					Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true)) />
 	        </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueTop Width="28%">
+        </RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueTop Width="28%">
 	        <Template Context="itemCast" >
 		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 			        Text=@itemCast.ValueTop />
 	        </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueRight Width="15%">
+        </RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueRight Width="15%">
 	        <Template Context="itemCast" >
 		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 			        Text=@itemCast.ValueRight />
 	        </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueBottom Width="28%">
+        </RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueBottom Width="28%">
 	        <Template Context="itemCast" >
 		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 			        Text=@itemCast.ValueBottom />
 	        </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.Label Width="12%">
+        </RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.Label Width="12%">
 	        <Template Context="itemCast" >
 				<RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 					Text=@(StringUtils.FormatDtRus(itemCast.PluLabel.ChangeDt, true)) />
 	        </Template>
-        </RadzenGridColumn>
+        </RadzenDataGridColumn>
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@BarCodeModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

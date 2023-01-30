@@ -206,7 +206,7 @@ public class DataContextModel
     {
         Accesses = DataAccess.GetListNotNullable<AccessModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Accesses.Count > 1)
-            Accesses = Accesses.OrderBy(item => item.Name).ToList();
+            Accesses = Accesses.OrderByDescending(item => item.RightsEnum).ThenByDescending(item => item.LoginDt).ToList();
         return Accesses.Cast<T>().ToList();
     }
 

@@ -9,6 +9,11 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
 {
     #region Public and private fields, properties, constructor
 
+    public SectionAccess() : base()
+    {
+	    SqlCrudConfigSection.IsResultOrder = true;
+    }
+    
     #endregion
 
     #region Public and private methods

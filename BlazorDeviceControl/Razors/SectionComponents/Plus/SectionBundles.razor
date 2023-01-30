@@ -5,13 +5,17 @@
 
 <RazorSectionReload TItem=@BundleModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBundles SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenGrid 
+<RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
-	Data=@SqlSectionCast TItem=@BundleModel 
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+    Data=@SqlSectionCast 
+    TItem=@BundleModel 
+    RowSelect=@(SqlItemSetAsync)
+    RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+	PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
+    AllowPaging=true 
+    AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@BundleModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RazorSectionField TItem=@BundleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
@@ -19,6 +23,6 @@
         <RazorSectionField TItem=@BundleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Bundle.GetWeight() />
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@BundleModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
