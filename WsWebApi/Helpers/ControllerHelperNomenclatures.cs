@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleModels.Plus;
-
 namespace WsWebApi.Helpers;
 
 public partial class ControllerHelper
@@ -29,7 +27,7 @@ public partial class ControllerHelper
                 brand.ParseResult.Status = ParseStatus.Success;
                 nomenclatureGroup.ParseResult.Status = ParseStatus.Success;
                 // Set properties.
-                SetItemPropertyFromXmlAttributeGuid(node, nomenclature, "Guid");
+                SetItemPropertyFromXmlAttribute(node, nomenclature, "Guid");
                 SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.IsMarked));
                 //SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.IsGroup));
                 SetItemPropertyFromXmlAttribute(node, nomenclature, nameof(nomenclature.Name));

@@ -12,49 +12,49 @@ namespace MDSoft.BarcodePrintUtils.Zpl;
 
 public static class ZplUtils
 {
-	#region Public and private fields and properties
+    #region Public and private fields and properties
 
-	//
+    //
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	//public static string ZplCmdByIp(string ip, int port, string zplCommand)
-	//{
-	//    StringBuilder result = new();
-	//    try
-	//    {
-	//        string zpl = ConvertStringToHex(zplCommand);
-	//        string info = InterplayToPrinter(ip, port, zpl.Split('\n'), out string errorMessage);
-	//        result.AppendLine(info);
-	//        result.AppendLine(errorMessage);
-	//    }
-	//    catch (Exception ex)
-	//    {
-	//        result.AppendLine(zplCommand);
-	//        result.AppendLine(ex.Message);
-	//    }
-	//    return result.ToString();
-	//}
+    //public static string ZplCmdByIp(string ip, int port, string zplCommand)
+    //{
+    //    StringBuilder result = new();
+    //    try
+    //    {
+    //        string zpl = ConvertStringToHex(zplCommand);
+    //        string info = InterplayToPrinter(ip, port, zpl.Split('\n'), out string exceptionMessage);
+    //        result.AppendLine(info);
+    //        result.AppendLine(exceptionMessage);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        result.AppendLine(zplCommand);
+    //        result.AppendLine(ex.Message);
+    //    }
+    //    return result.ToString();
+    //}
 
-	//public static string ZplCmdByRaw(string printerName, string zplCommand)
-	//{
-	//    StringBuilder result = new();
-	//    try
-	//    {
-	//        string zpl = ConvertStringToHex(zplCommand);
-	//        RawPrinterHelper.SendStringToPrinter(printerName, zpl);
-	//    }
-	//    catch (Exception ex)
-	//    {
-	//        result.AppendLine(zplCommand);
-	//        result.AppendLine(ex.Message);
-	//    }
-	//    return result.ToString();
-	//}
-        
-	public static string ZplHostQuery(string prm = "ES") => $"~HQ{prm}";
+    //public static string ZplCmdByRaw(string printerName, string zplCommand)
+    //{
+    //    StringBuilder result = new();
+    //    try
+    //    {
+    //        string zpl = ConvertStringToHex(zplCommand);
+    //        RawPrinterHelper.SendStringToPrinter(printerName, zpl);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        result.AppendLine(zplCommand);
+    //        result.AppendLine(ex.Message);
+    //    }
+    //    return result.ToString();
+    //}
+
+    public static string ZplHostQuery(string prm = "ES") => $"~HQ{prm}";
 
 	public static string ZplFontsClear() => @"^XA^IDE:*.TTF^FS^XZ";
 
@@ -244,10 +244,10 @@ public static class ZplUtils
 		return result.ToString();
 	}
 
-	public static string InterplayToPrinter(string ip, int port, string[] zplCommand, out string errorMessage,
+	public static string InterplayToPrinter(string ip, int port, string[] zplCommand, out string exceptionMessage,
 		int receiveTimeout = 1_000, int sendTimeout = 100)
 	{
-		errorMessage = @"";
+		exceptionMessage = @"";
 		StringBuilder response = new();
 
 		using (TcpClient client = new())
@@ -285,7 +285,7 @@ public static class ZplUtils
 			{
 				if (ex.InnerException is SocketException sockEx)
 				{
-					errorMessage = @"(" + sockEx.NativeErrorCode + ") Exception = " + ex.Message;
+					exceptionMessage = @"(" + sockEx.NativeErrorCode + ") Exception = " + ex.Message;
 				}
 				throw;
 			}

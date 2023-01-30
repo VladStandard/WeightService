@@ -43,7 +43,7 @@ public class NomenclatureGroupController : WebControllerBase
                         .NewResponse1cIsNotFound(SessionFactory, version, format),
                     format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cNomenclaturesGroups(SessionFactory, xml, format), format)
+                .NewResponse1cNomenclatureGroups(SessionFactory, xml, format), format)
         };
         ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, version).ConfigureAwait(false);
         return result;
