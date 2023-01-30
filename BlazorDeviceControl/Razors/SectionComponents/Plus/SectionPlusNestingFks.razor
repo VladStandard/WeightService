@@ -12,6 +12,7 @@
     RowSelect=@(SqlItemSetAsync) 
     RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())
+    PagerPosition="@PagerPos"
     PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
     AllowPaging=true 
     AllowSorting=true >

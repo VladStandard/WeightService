@@ -8,11 +8,13 @@
 
 <RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
-	Style="margin-top: 5px;" 
-	Data=@SqlSectionCast TItem=@ScaleModel 
+    Style="margin-top: 5px;"
+    Data=@SqlSectionCast
+    TItem=@ScaleModel 
     RowSelect=@(SqlItemSetAsync)
     RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())
+    PagerPosition="@PagerPos"
     PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
     AllowSorting=true
 	AllowPaging=true>

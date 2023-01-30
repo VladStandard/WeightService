@@ -5,15 +5,16 @@
 
 <RazorSectionReload TItem=@WorkShopModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWorkShops SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenDataGrid 
-	PagerHorizontalAlign=@HorizontalAlign.Justify 
+<RadzenDataGrid
+    PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
     Data=@SqlSectionCast 
     TItem=@WorkShopModel 
     RowSelect=@(SqlItemSetAsync)
     RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-	PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    PagerPosition="@PagerPos"
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
     AllowPaging=true 
     AllowSorting=true >
     <Columns >

@@ -26,6 +26,7 @@ public partial class RazorComponentBase : LayoutComponentBase
     [Inject] public NotificationService? NotificationService { get; set; }
     [Inject] public TooltipService? TooltipService { get; set; }
     [Inject] public IHttpContextAccessor? HttpContextAccess { get; set; }
+    [Inject] public ContextMenuService? ContextMenuService { get; set; }
 
     #endregion
 
