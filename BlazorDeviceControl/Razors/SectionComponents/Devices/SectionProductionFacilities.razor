@@ -5,13 +5,17 @@
 
 <RazorSectionReload TItem=@ProductionFacilityModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionProductionFacilities SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenGrid 
+<RadzenDataGrid  
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
-	Data=@SqlSectionCast TItem=@ProductionFacilityModel 
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    Data=@SqlSectionCast 
+    TItem=@ProductionFacilityModel 
+    RowSelect=@(SqlItemSetAsync) 
+    RowRender=@(args => RowRender(args))
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
+    AllowPaging=true  
+    AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@ProductionFacilityModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
@@ -19,6 +23,6 @@
         <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("70%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.ProductionFacility.GetAddress() />
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@ProductionFacilityModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

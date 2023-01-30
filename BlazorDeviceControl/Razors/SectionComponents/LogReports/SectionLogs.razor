@@ -9,14 +9,17 @@
 
 <RazorSectionReload TItem=@LogQuickModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenGrid 
+<RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px; "
-	Data=@SqlSectionCast TItem=@LogQuickModel 
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive 
-    AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+	Data=@SqlSectionCast
+    TItem=@LogQuickModel 
+    RowSelect=@(SqlItemSetAsync) 
+    RowRender=@(args => RowRender(args))
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
+    AllowPaging=true 
+    AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@LogQuickModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RazorSectionField TItem=@LogQuickModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("14%", true))
@@ -34,6 +37,6 @@
         <RazorSectionField TItem=@LogQuickModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.LogQuick.GetMessage() />
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@LogQuickModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

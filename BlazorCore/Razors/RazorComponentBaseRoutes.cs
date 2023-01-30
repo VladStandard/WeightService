@@ -109,6 +109,7 @@ public partial class RazorComponentBase
     {
         AccessModel => LocaleCore.DeviceControl.RouteItemAccess,
         AppModel => LocaleCore.DeviceControl.RouteItemApp,
+        BrandModel => LocaleCore.DeviceControl.RouteItemBrand,
         BarCodeModel => LocaleCore.DeviceControl.RouteItemBarCode,
         BoxModel => LocaleCore.DeviceControl.RouteItemBox,
         BundleModel => LocaleCore.DeviceControl.RouteItemBundle,
@@ -121,6 +122,7 @@ public partial class RazorComponentBase
         LogQuickModel => LocaleCore.DeviceControl.RouteItemLog,
         LogTypeModel => LocaleCore.DeviceControl.RouteItemLogType,
         NomenclatureModel => LocaleCore.DeviceControl.RouteItemNomenclature,
+        NomenclatureGroupModel => LocaleCore.DeviceControl.RouteItemNomenclatureGroup,
         OrderModel => LocaleCore.DeviceControl.RouteItemOrder,
         OrderWeighingModel => LocaleCore.DeviceControl.RouteItemOrderWeighing,
         OrganizationModel => LocaleCore.DeviceControl.RouteItemOrganization,
@@ -135,6 +137,7 @@ public partial class RazorComponentBase
         PrinterTypeModel => LocaleCore.DeviceControl.RouteItemPrinterType,
         ProductionFacilityModel => LocaleCore.DeviceControl.RouteItemProductionFacility,
         ProductSeriesModel => LocaleCore.DeviceControl.RouteItemProductSerie,
+        ScaleScreenShotModel => LocaleCore.DeviceControl.RouteItemScalesScreenShots,
         ScaleModel => LocaleCore.DeviceControl.RouteItemScale,
         TaskModel => LocaleCore.DeviceControl.RouteItemTaskModule,
         TaskTypeModel => LocaleCore.DeviceControl.RouteItemTaskTypeModule,
@@ -199,7 +202,7 @@ public partial class RazorComponentBase
             _ => $"{uriItem}/",
         };
 
-    private void SetRouteItemNavigate<TItem>(TItem? item) where TItem : SqlTableBase, new()
+    protected void SetRouteItemNavigate<TItem>(TItem? item) where TItem : SqlTableBase, new()
     {
         if (item is null) return;
         string page = GetRouteItemPathShort(SqlItem);

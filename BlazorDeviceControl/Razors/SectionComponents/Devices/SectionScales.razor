@@ -6,14 +6,17 @@
 
 <RazorSectionReload TItem=@ScaleModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScales SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenGrid 
+<RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
 	Data=@SqlSectionCast TItem=@ScaleModel 
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
-    <Columns >
+    RowSelect=@(SqlItemSetAsync)
+    RowRender=@(args => RowRender(args))
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
+    AllowSorting=true
+	AllowPaging=true>
+    <Columns>
         <RazorSectionFieldIsMarked TItem=@ScaleModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription(LocaleCore.Table.Arm) />
@@ -45,6 +48,6 @@
             </Template>
         </RadzenGridColumn>*@
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@ScaleModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

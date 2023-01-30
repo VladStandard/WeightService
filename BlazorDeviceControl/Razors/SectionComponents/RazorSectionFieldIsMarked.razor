@@ -10,7 +10,7 @@
 
 @if (SqlCrudConfigSection.IsResultShowMarked)
 {
-	<RadzenGridColumn TItem=@TItem
+	<RadzenDataGridColumn TItem=@TItem
 			TextAlign=@TextAlign.Center Width=@(CssStyleRadzenColumn.Width) SortProperty="IsMarked"
 			Title=@LocaleCore.Table.IsMarkedShort >
 		<Template Context="item">
@@ -19,5 +19,5 @@
 				<RadzenIcon IconStyle=@IconStyle.Primary Icon="delete" />
 			}
 		</Template>
-	</RadzenGridColumn>
+	</RadzenDataGridColumn>
 }

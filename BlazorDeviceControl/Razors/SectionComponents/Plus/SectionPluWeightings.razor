@@ -5,30 +5,34 @@
 
 <RazorSectionReload TItem=@PluWeighingModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenGrid 
+<RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;"
-	Data=@SqlSectionCast TItem=@PluWeighingModel 
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-	AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+	Data=@SqlSectionCast
+    TItem=@PluWeighingModel 
+    RowSelect=@(SqlItemSetAsync)
+    RowRender=@(args => RowRender(args))
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
+    AllowPaging=true
+    AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@PluWeighingModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenGridColumn TItem=@PluWeighingModel Width="12%" Title=@LocaleCore.Table.ChangeDt TextAlign=@TextAlign.Center >
+        <RadzenDataGridColumn TItem=@PluWeighingModel Width="12%" Title=@LocaleCore.Table.ChangeDt TextAlign=@TextAlign.Center >
 	        <Template Context="itemCast">
 		        <RadzenLink 
 			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.IdentityValueUid}") 
 			        Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true)) />
 	        </Template>
-        </RadzenGridColumn>
-		<RadzenGridColumn TItem=@PluWeighingModel Width="22%" Title=@LocaleCore.Table.Scale TextAlign=@TextAlign.Left >
+        </RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem=@PluWeighingModel Width="22%" Title=@LocaleCore.Table.Scale TextAlign=@TextAlign.Left >
 			<Template Context="itemCast">
                 <RadzenLink
                     Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.IdentityValueUid}") 
 					Text=@(itemCast.PluScale.Scale.Description)/>
 			</Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem=@PluWeighingModel Width="13%" Title=@LocaleCore.Table.Host TextAlign=@TextAlign.Left >
+        </RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem=@PluWeighingModel Width="13%" Title=@LocaleCore.Table.Host TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
 				@if (DataAccess.GetItemDeviceNullable(itemCast.PluScale.Scale) is { } device)
 		        {
@@ -37,29 +41,29 @@
 				        Text=@device.Name/>
 		        }
 	        </Template>
-        </RadzenGridColumn>
-		<RadzenGridColumn TItem=@PluWeighingModel Width="18%" Title=@LocaleCore.Table.Plu TextAlign=@TextAlign.Left >
+        </RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem=@PluWeighingModel Width="18%" Title=@LocaleCore.Table.Plu TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast" >
                 <RadzenLink 
                     Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.IdentityValueUid}") 
 					Text=@(itemCast.PluScale.Plu.Name) />
 	        </Template>
-        </RadzenGridColumn>
-		<RadzenGridColumn TItem=@PluWeighingModel Width="10%" Title=@LocaleCore.Table.BundleFkWeightTare TextAlign=@TextAlign.Center >
+        </RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem=@PluWeighingModel Width="10%" Title=@LocaleCore.Table.BundleFkWeightTare TextAlign=@TextAlign.Center >
 	        <Template Context="itemCast" >
 		        <RadzenText 
 			        TextStyle=@TextStyle.Body2
 					Text=@itemCast.WeightTare.ToString(CultureInfo.InvariantCulture) />
 	        </Template>
-        </RadzenGridColumn>
-		<RadzenGridColumn TItem=@PluWeighingModel Width="10%" Title=@LocaleCore.Table.WeightNetto TextAlign=@TextAlign.Center >
+        </RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem=@PluWeighingModel Width="10%" Title=@LocaleCore.Table.WeightNetto TextAlign=@TextAlign.Center >
 	        <Template Context="itemCast" >
 		        <RadzenText 
 			        TextStyle=@TextStyle.Body2
 			        Text=@itemCast.NettoWeight.ToString(CultureInfo.InvariantCulture) />
 	        </Template>
-        </RadzenGridColumn>
+        </RadzenDataGridColumn>
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@PluWeighingModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

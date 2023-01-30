@@ -215,3 +215,11 @@ a, .btn-link {
     right: 0.75rem;
     top: 0.5rem;
 }
+
+.rz-state-highlight .rz-link-text {
+    color: white !important;
+}
+
+.rz-state-highlight .rz-text-body2 {
+    color: white !important;
+}

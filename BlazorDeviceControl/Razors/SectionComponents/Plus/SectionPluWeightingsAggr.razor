@@ -5,15 +5,19 @@
 
 <RazorSectionReload TItem=@WeithingFactSummaryModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenGrid PagerHorizontalAlign=@HorizontalAlign.Justify
-			Style="margin-top: 5px;"
-	Data=@SqlSectionCast TItem=@WeithingFactSummaryModel 
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
-	AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-    AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+<RadzenDataGrid 
+    PagerHorizontalAlign=@HorizontalAlign.Justify
+    Style="margin-top: 5px;"
+    Data=@SqlSectionCast 
+    TItem=@WeithingFactSummaryModel 
+    RowSelect=@(SqlItemSetAsync) 
+    RowRender=@(args => RowRender(args))
+    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
+    AllowPaging=true
+    AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@WeithingFactSummaryModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenGridColumn 
+        <RadzenDataGridColumn 
 	        TItem=@WeithingFactSummaryModel Width="15%"
 	        Title=@LocaleCore.Table.WeithingDt >
 	        <Template Context="itemCast" >
@@ -21,8 +25,8 @@
 			        TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
 			        Text=@(StringUtils.FormatDtRus(itemCast.WeithingDate, true)) />
 	        </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn 
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn 
 	        TItem=@WeithingFactSummaryModel Width="15%"
             Title=@LocaleCore.Table.DayOfWeek >
             <Template Context="itemCast" >
@@ -30,8 +34,8 @@
 		            TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
 		            Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
             </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn 
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn 
 	        TItem=@WeithingFactSummaryModel Width="15%"
 	        Title=@LocaleCore.Table.Count >
 	        <Template Context="itemCast" >
@@ -39,8 +43,8 @@
 			        TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
 			        Text=@itemCast.Count.ToString() />
 	        </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn 
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn 
 	        TItem=@WeithingFactSummaryModel Width="55%" 
             Title=@LocaleCore.Table.Scale >
 			<Template Context="itemCast" >
@@ -48,9 +52,9 @@
 					TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
 					Text=@itemCast.Scale />
 			</Template>
-        </RadzenGridColumn>
+        </RadzenDataGridColumn>
 
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 <RazorSectionActions TItem="@WeithingFactSummaryModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
