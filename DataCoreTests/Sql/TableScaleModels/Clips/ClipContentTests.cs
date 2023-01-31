@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Clips;
 [TestFixture]
 internal class ClipContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_Content()
     {
-        DataCore.AssertSqlDbContentValidate<ClipModel>();
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<ClipModel>();
     }
 }

@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleFkModels.PlusNestingFks;
 [TestFixture]
 internal class PluNestingFkValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluNestingFkModel item = DataCore.CreateNewSubstitute<PluNestingFkModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        PluNestingFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluNestingFkModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluNestingFkModel item = DataCore.CreateNewSubstitute<PluNestingFkModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        PluNestingFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluNestingFkModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Printers;
 [TestFixture]
 internal class PrinterContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<PrinterModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<PrinterModel>();
 	}
 }

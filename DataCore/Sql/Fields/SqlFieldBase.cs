@@ -72,8 +72,8 @@ public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 
 	public virtual object Clone() => new SqlFieldBase()
 	{
-		FieldName = FieldName,
-	};
+		FieldName = FieldName
+    };
 
 	public virtual SqlFieldBase CloneCast() => (SqlFieldBase)Clone();
 

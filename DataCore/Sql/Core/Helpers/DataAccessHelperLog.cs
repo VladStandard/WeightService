@@ -65,7 +65,7 @@ public partial class DataAccessHelper
             File = filePath,
             Line = lineNumber,
             Member = memberName,
-            Message = message,
+            Message = message
         };
         SaveAsync(log).ConfigureAwait(false);
     }

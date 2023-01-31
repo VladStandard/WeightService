@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.WorkShops;
 [TestFixture]
 internal class WorkShopValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        WorkShopModel item = DataCore.CreateNewSubstitute<WorkShopModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        WorkShopModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<WorkShopModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        WorkShopModel item = DataCore.CreateNewSubstitute<WorkShopModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        WorkShopModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<WorkShopModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.Orders;
 [TestFixture]
 internal class OrderModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<OrderModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<OrderModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<OrderModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<OrderModel>();
     }
     
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<OrderModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<OrderModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<OrderModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<OrderModel>();
     }
 }

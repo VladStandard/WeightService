@@ -9,12 +9,6 @@ namespace DataCoreTests.CssStyles;
 [TestFixture]
 internal class CssStyleTableBodyValidatorTests
 {
-	#region Public and private fields, properties, constructor
-
-	private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
-	#endregion
-
 	#region Public and private methods
 
 	[Test]
@@ -24,11 +18,11 @@ internal class CssStyleTableBodyValidatorTests
 		CssStyleTableBodyModel item = Substitute.For<CssStyleTableBodyModel>();
 		// Act.
 		// Assert.
-		DataCore.AssertValidate(item, false);
+		DataCoreTestsUtils.DataCore.AssertValidate(item, false);
 		// Act.
 		item.IdentityName = SqlFieldIdentity.Empty;
 		// Assert.
-		DataCore.AssertValidate(item, false);
+		DataCoreTestsUtils.DataCore.AssertValidate(item, false);
 	}
 
 	[Test]
@@ -40,7 +34,7 @@ internal class CssStyleTableBodyValidatorTests
 		item.IdentityName = SqlFieldIdentity.Uid;
 		item.IsShowMarked = true;
 		// Assert.
-		DataCore.AssertValidate(item, true);
+		DataCoreTestsUtils.DataCore.AssertValidate(item, true);
 	}
 
 	#endregion

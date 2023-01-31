@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.Access;
 [TestFixture]
 internal class AccessModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<AccessModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<AccessModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<AccessModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<AccessModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<AccessModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<AccessModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<AccessModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<AccessModel>();
     }
 }

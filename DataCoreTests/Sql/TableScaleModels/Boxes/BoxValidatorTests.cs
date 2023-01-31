@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Boxes;
 [TestFixture]
 internal class BoxValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BoxModel item = DataCore.CreateNewSubstitute<BoxModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        BoxModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BoxModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BoxModel item = DataCore.CreateNewSubstitute<BoxModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        BoxModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BoxModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -126,7 +126,7 @@ public class WmiHelper
                 "Doesn't restore" => "Не восстанавливается",
                 "No contact" => "Нет контакта",
                 "Lost Comm" => "Потерянная связь",
-                _ => string.Empty,
+                _ => string.Empty
             }
             : status switch
             {
@@ -142,7 +142,7 @@ public class WmiHelper
                 "Doesn't restore" => "Doesn't restore",
                 "No contact" => "No contact",
                 "Lost Comm" => "Lost Comm",
-                _ => string.Empty,
+                _ => string.Empty
             };
     }
 

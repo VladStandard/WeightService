@@ -33,10 +33,10 @@ using System.Net.Sockets;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace BlazorCore.Razors;
 
@@ -65,7 +65,7 @@ public partial class RazorComponentBase
 			DeviceTypeModel => LocaleCore.DeviceControl.ItemDeviceType,
 			LogModel => LocaleCore.Strings.ItemLog,
 			NomenclatureModel => LocaleCore.DeviceControl.ItemNomenclature,
-            NomenclatureGroupModel => LocaleCore.DeviceControl.ItemNomenclatureGroup,
+            PluGroupModel => LocaleCore.DeviceControl.ItemNomenclatureGroup,
             OrderModel => LocaleCore.DeviceControl.ItemOrder,
 			OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
 			OrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
@@ -94,7 +94,7 @@ public partial class RazorComponentBase
 		string result = string.Empty;
 		result = item switch
 		{
-            NomenclatureGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
+            PluGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
             OrderModel => LocaleCore.DeviceControl.SectionOrders,
             ScaleScreenShotModel => LocaleCore.DeviceControl.SectionScreenShots,
             TemplateModel => LocaleCore.DeviceControl.SectionTemplates,

@@ -99,7 +99,7 @@ public static class EnumUtils
         {
             new("Неизвестно", 0),
             new("Актуально", 1),
-            new("Неактуально", 2),
+            new("Неактуально", 2)
         };
         return result;
     }
@@ -116,7 +116,7 @@ public static class EnumUtils
             new("Ненормализована", 0),
             new("Нормализована полностью", 1),
             new("Нормализована частично", 2),
-            new("Не подлежит нормализации", 3),
+            new("Не подлежит нормализации", 3)
         };
         return result;
     }
@@ -132,7 +132,7 @@ public static class EnumUtils
             DayOfWeek.Friday => "Пятница",
             DayOfWeek.Saturday => "Суббота",
             DayOfWeek.Sunday => "Воскресенье",
-            _ => string.Empty,
+            _ => string.Empty
         };
     }
 

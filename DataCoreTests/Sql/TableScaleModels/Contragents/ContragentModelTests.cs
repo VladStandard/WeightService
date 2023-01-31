@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.Contragents;
 [TestFixture]
 internal class ContragentModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<ContragentModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<ContragentModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<ContragentModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ContragentModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ContragentModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<ContragentModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<ContragentModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<ContragentModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<ContragentModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ContragentModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<ContragentModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<ContragentModel>();
     }
 }

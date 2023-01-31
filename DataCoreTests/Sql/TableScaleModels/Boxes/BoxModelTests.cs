@@ -8,32 +8,30 @@ namespace DataCoreTests.Sql.TableScaleModels.Boxes;
 [TestFixture]
 internal class BoxModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<BoxModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<BoxModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<BoxModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<BoxModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<BoxModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<BoxModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<BoxModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<BoxModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<BoxModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<BoxModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<BoxModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<BoxModel>();
     }
 
 }

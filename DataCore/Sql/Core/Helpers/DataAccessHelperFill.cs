@@ -20,10 +20,10 @@ using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
@@ -72,8 +72,8 @@ public partial class DataAccessHelper
 				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
 			case NomenclaturesGroupFkModel nomenclatureGroupFk:
-                nomenclatureGroupFk.NomenclatureGroup = GetItemNotNullable<NomenclatureGroupModel>(nomenclatureGroupFk.NomenclatureGroup.IdentityValueUid);
-                nomenclatureGroupFk.NomenclatureGroupParent = GetItemNotNullable<NomenclatureGroupModel>(nomenclatureGroupFk.NomenclatureGroupParent.IdentityValueUid);
+                nomenclatureGroupFk.NomenclatureGroup = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.NomenclatureGroup.IdentityValueUid);
+                nomenclatureGroupFk.NomenclatureGroupParent = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.NomenclatureGroupParent.IdentityValueUid);
 				break;
             case NomenclaturesCharacteristicsFkModel nomenclatureCharacteristicsFk:
                 nomenclatureCharacteristicsFk.Nomenclature = GetItemNotNullable<NomenclatureV2Model>(nomenclatureCharacteristicsFk.Nomenclature.IdentityValueUid);

@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.Plus;
 [TestFixture]
 internal class PluModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-   
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<PluModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<PluModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PluModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<PluModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<PluModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PluModel>();
     }
 }

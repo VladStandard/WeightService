@@ -19,7 +19,7 @@ public enum EnumGtinVariant
     /// <summary>
     /// Variant 3.
     /// </summary>
-    Var3,
+    Var3
 }
 
 /// <summary>

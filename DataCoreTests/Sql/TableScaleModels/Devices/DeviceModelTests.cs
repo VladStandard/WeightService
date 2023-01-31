@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.Devices;
 [TestFixture]
 internal class DeviceModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<DeviceModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<DeviceModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<DeviceModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<DeviceModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<DeviceModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<DeviceModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<DeviceModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<DeviceModel>();
     }
 }

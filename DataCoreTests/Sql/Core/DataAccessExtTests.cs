@@ -12,22 +12,16 @@ namespace DataCoreTests.Sql.Core;
 [TestFixture]
 internal class DataAccessExtTests
 {
-	#region Public and private fields, properties, constructor
-
-	private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
-	#endregion
-
 	#region Public and private methods
 
 	[Test]
 	public void DataAccess_GetListPluScales_CountExists()
 	{
-		DataCore.AssertAction(() =>
+        DataCoreTestsUtils.DataCore.AssertAction(() =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<ScaleModel> scales = DataCore.DataContext.GetListNotNullable<ScaleModel>(sqlCrudConfig);
+			List<ScaleModel> scales = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullable<ScaleModel>(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
 			// Assert.
 			Assert.IsTrue(scales.Count > 0);
@@ -37,7 +31,7 @@ internal class DataAccessExtTests
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
 					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(scale, nameof(PluScaleModel.Scale));
-					List<PluScaleModel> pluScales = DataCore.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
+					List<PluScaleModel> pluScales = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}
@@ -48,11 +42,11 @@ internal class DataAccessExtTests
 	[Test]
 	public void DataAccess_GetListPluBundlesFks_CountExists()
 	{
-		DataCore.AssertAction(() =>
+		DataCoreTestsUtils.DataCore.AssertAction(() =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<PluModel> plus = DataCore.DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
+			List<PluModel> plus = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 			// Assert.
 			Assert.IsTrue(plus.Count > 0);
@@ -62,7 +56,7 @@ internal class DataAccessExtTests
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
 					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluBundleFkModel.Plu));
-					List<PluBundleFkModel> pluPackages = DataCore.DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
+					List<PluBundleFkModel> pluPackages = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}

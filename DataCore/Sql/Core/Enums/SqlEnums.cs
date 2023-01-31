@@ -11,7 +11,7 @@ public enum SqlFieldComparerEnum
     More,
     Less,
     MoreOrEqual,
-    LessOrEqual,
+    LessOrEqual
 }
 
 public enum SqlFieldOrderEnum

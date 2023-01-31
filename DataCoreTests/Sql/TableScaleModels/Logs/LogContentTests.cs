@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Logs;
 [TestFixture]
 internal class LogContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
 	public void Model_Validate_Content()
 	{
-		DataCore.AssertSqlDbContentValidate<LogModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<LogModel>();
 	}
 }

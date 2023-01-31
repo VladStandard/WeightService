@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleFkModels.PlusTemplateFks;
 [TestFixture]
 internal class PluTemplateFkContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<PluTemplateFkModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<PluTemplateFkModel>();
 	}
 }

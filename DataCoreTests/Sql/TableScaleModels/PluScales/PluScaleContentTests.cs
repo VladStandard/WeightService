@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.PluScales;
 [TestFixture]
 internal class PluScaleContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<PluScaleModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<PluScaleModel>();
 	}
 }

@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.ScalesScreenshots;
 [TestFixture]
 internal class ScaleScreenShotContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<ScaleScreenShotModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<ScaleScreenShotModel>();
 	}
 }

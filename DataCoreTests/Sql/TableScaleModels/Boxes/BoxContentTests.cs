@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Boxes;
 [TestFixture]
 internal class BoxContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_Content()
     {
-        DataCore.AssertSqlDbContentValidate<BoxModel>();
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<BoxModel>();
     }
 }

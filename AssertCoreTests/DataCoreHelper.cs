@@ -21,7 +21,6 @@ using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
@@ -49,6 +48,7 @@ using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleModels.Clips;
+using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace AssertCoreTests;
 
@@ -359,7 +359,7 @@ public class DataCoreHelper
                 nomenclatureV2.Code = LocaleCore.Sql.SqlItemFieldCode;
                 nomenclatureV2.MeasurementType = LocaleCore.Sql.SqlItemFieldMeasurementTypeKg;
                 break;
-			case NomenclatureGroupModel nomenclatureGroup:
+			case PluGroupModel nomenclatureGroup:
                 nomenclatureGroup.Name = LocaleCore.Sql.SqlItemFieldName;
                 nomenclatureGroup.Code = LocaleCore.Sql.SqlItemFieldCode;
                 break;
@@ -372,8 +372,8 @@ public class DataCoreHelper
                 nomenclatureCharacteristicFk.NomenclaturesCharacteristics = CreateNewSubstitute<NomenclaturesCharacteristicsModel>(isNotDefault);
                 break;
             case NomenclaturesGroupFkModel nomenclatureGroupFk:
-                nomenclatureGroupFk.NomenclatureGroup = CreateNewSubstitute<NomenclatureGroupModel>(isNotDefault);
-                nomenclatureGroupFk.NomenclatureGroupParent = CreateNewSubstitute<NomenclatureGroupModel>(isNotDefault);
+                nomenclatureGroupFk.NomenclatureGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
+                nomenclatureGroupFk.NomenclatureGroupParent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
                 break;
 			case OrderModel order:
 				order.Name = LocaleCore.Sql.SqlItemFieldName;

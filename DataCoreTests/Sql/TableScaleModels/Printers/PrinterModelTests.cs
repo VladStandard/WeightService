@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.Printers;
 [TestFixture]
 internal class PrinterModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<PrinterModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PrinterModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<PrinterModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PrinterModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<PrinterModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PrinterModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<PrinterModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PrinterModel>();
     }
 }

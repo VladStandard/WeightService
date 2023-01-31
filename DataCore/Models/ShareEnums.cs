@@ -11,7 +11,7 @@ public enum AccessRightsEnum
     None = 0,
     Read = 1,
     Write = 2,
-    Admin = 3,
+    Admin = 3
 }
 
 // https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxicon?view=net-5.0
@@ -24,7 +24,7 @@ public enum LogTypeEnum
     Stop = 2,
     Question = 3,
     Warning = 4,
-    Information = 5,
+    Information = 5
     //Trace,
     //Debug,
     //Fatal,
@@ -36,7 +36,7 @@ public enum AppVerStringFormatEnum
     Use1,
     Use2,
     Use3,
-    Use4,
+    Use4
 }
 
 public enum AppVerCountDigitsEnum
@@ -44,7 +44,7 @@ public enum AppVerCountDigitsEnum
     Use1,
     Use2,
     Use3,
-    Use4,
+    Use4
 }
 
 public enum MemoryLimitActionEnum
@@ -57,7 +57,7 @@ public enum RelevanceStatusEnum
 {
     Unknown = 0,
     Actual = 1,
-    NoActual = 2,
+    NoActual = 2
 }
 
 public enum NormilizationStatusEnum
@@ -65,7 +65,7 @@ public enum NormilizationStatusEnum
     NotNormilized = 0,
     NormilizedFull = 1,
     NormilizedPart = 2,
-    NotSubjectNormalization = 3,
+    NotSubjectNormalization = 3
 }
 
 public enum ActionLoadEnum
@@ -73,7 +73,7 @@ public enum ActionLoadEnum
     None,
     Loading,
     Success,
-    Error,
+    Error
 }
 
 public enum WindowResolutionEnum
@@ -82,7 +82,7 @@ public enum WindowResolutionEnum
     Res800X600,
     Res1024X768,
     Res1366Х768,
-    Res1920Х1080,
+    Res1920Х1080
 }
 
 public enum ResultEnum
@@ -95,7 +95,7 @@ public enum ResultEnum
     /// <summary>
     /// Выполнено успешно.
     /// </summary>
-    Good = 0,
+    Good = 0
 }
 
 public enum WinVersionEnum
@@ -144,7 +144,7 @@ public enum WinVersionEnum
     /// <summary>
     /// Windows 10 x64.
     /// </summary>
-    Win10x64 = 3,
+    Win10x64 = 3
 }
 
 public enum WinProviderEnum
@@ -182,7 +182,7 @@ public enum WinProviderEnum
     /// <summary>
     /// Windows Management Instrumentation.
     /// </summary>
-    Wmi = 6,
+    Wmi = 6
 }
 
 public enum StringTemplateEnum
@@ -205,7 +205,7 @@ public enum StringTemplateEnum
     /// <summary>
     /// "*text" or like "%text".
     /// </summary>
-    EndsWith = 3,
+    EndsWith = 3
 }
 
 public enum ProgramStateEnum

@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels.PlusGroups;
+
 namespace WsWebApi.Helpers;
 
 /// <summary>
@@ -188,11 +190,11 @@ public partial class ControllerHelper
                         if (itemCast is T itemT) itemDb = itemT;
                     }
                     break;
-                case var cls when cls == typeof(NomenclatureGroupModel):
-                    if (itemXml is NomenclatureGroupModel nomenclatureGroupInput)
+                case var cls when cls == typeof(PluGroupModel):
+                    if (itemXml is PluGroupModel nomenclatureGroupInput)
                     {
                         itemInputCode = nomenclatureGroupInput.Code;
-                        NomenclatureGroupModel? itemCast = listDb.Cast<NomenclatureGroupModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
+                        PluGroupModel? itemCast = listDb.Cast<PluGroupModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
                         if (itemCast is T itemT) itemDb = itemT;
                     }
                     break;
@@ -251,7 +253,7 @@ public partial class ControllerHelper
             case BrandModel brand:
                 SetItemPropertyFromXmlAttributeForBrand(xmlNode, xmlPropertyName, brand);
                 break;
-            case NomenclatureGroupModel nomenclatureGroup:
+            case PluGroupModel nomenclatureGroup:
                 SetItemPropertyFromXmlAttributeForNomenclatureGroup(xmlNode, xmlPropertyName, nomenclatureGroup);
                 break;
             case PluModel plu:
@@ -330,7 +332,7 @@ public partial class ControllerHelper
     }
 
     private void SetItemPropertyFromXmlAttributeForNomenclatureGroup(XmlNode xmlNode, string xmlPropertyName,
-        NomenclatureGroupModel item)
+        PluGroupModel item)
     {
         switch (xmlPropertyName)
         {

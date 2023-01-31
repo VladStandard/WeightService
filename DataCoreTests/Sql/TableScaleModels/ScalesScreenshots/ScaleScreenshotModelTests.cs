@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.ScalesScreenshots;
 [TestFixture]
 internal class ScaleScreenShotModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<ScaleScreenShotModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<ScaleScreenShotModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<ScaleScreenShotModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleScreenShotModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleScreenShotModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<ScaleScreenShotModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<ScaleScreenShotModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<ScaleScreenShotModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<ScaleScreenShotModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ScaleScreenShotModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<ScaleScreenShotModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<ScaleScreenShotModel>();
     }
 }

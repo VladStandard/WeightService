@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Versions;
 [TestFixture]
 internal class VersionValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        VersionModel item = DataCore.CreateNewSubstitute<VersionModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        VersionModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<VersionModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        VersionModel item = DataCore.CreateNewSubstitute<VersionModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        VersionModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<VersionModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

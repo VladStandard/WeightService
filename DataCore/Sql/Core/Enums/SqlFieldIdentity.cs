@@ -8,5 +8,5 @@ public enum SqlFieldIdentity
     Empty,
     Id,
     Uid,
-    Test,
+    Test
 }

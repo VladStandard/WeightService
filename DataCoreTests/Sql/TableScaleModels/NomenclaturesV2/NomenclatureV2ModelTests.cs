@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.NomenclaturesV2;
 [TestFixture]
 internal class NomenclatureV2ModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<NomenclatureV2Model>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<NomenclatureV2Model>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<NomenclatureV2Model>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<NomenclatureV2Model>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<NomenclatureV2Model>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<NomenclatureV2Model>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<NomenclatureV2Model>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<NomenclatureV2Model>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<NomenclatureV2Model>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<NomenclatureV2Model>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<NomenclatureV2Model>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<NomenclatureV2Model>();
     }
 }

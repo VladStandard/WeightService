@@ -1,14 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels.PlusGroups;
+
 namespace WsWebApi.Helpers;
 
 public partial class ControllerHelper
 {
     #region Public and private methods
 
-    private List<NomenclatureGroupModel> GetNomenclatureGroupsList(XElement xml) =>
-        GetNodesListCore<NomenclatureGroupModel>(xml, "Nomenclature", (xmlNode, itemXml) =>
+    private List<PluGroupModel> GetNomenclatureGroupsList(XElement xml) =>
+        GetNodesListCore<PluGroupModel>(xml, "Nomenclature", (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
@@ -17,12 +19,12 @@ public partial class ControllerHelper
         });
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    private void AddResponse1cNomenclatureGroups(Response1cShortModel response, List<NomenclatureGroupModel> itemsDb, NomenclatureGroupModel itemXml)
+    private void AddResponse1cNomenclatureGroups(Response1cShortModel response, List<PluGroupModel> itemsDb, PluGroupModel itemXml)
     {
         try
         {
             // Find by Identity -> Update.
-            NomenclatureGroupModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
+            PluGroupModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
             if (UpdateItemDb(response, itemXml, itemDb, false)) return;
 
             // Find by Code -> Update.
@@ -48,9 +50,9 @@ public partial class ControllerHelper
         NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-            List<NomenclatureGroupModel> itemsDb = DataContext.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);
-            List<NomenclatureGroupModel> itemsXml = GetNomenclatureGroupsList(xml);
-            foreach (NomenclatureGroupModel itemXml in itemsXml)
+            List<PluGroupModel> itemsDb = DataContext.GetListNotNullable<PluGroupModel>(sqlCrudConfig);
+            List<PluGroupModel> itemsXml = GetNomenclatureGroupsList(xml);
+            foreach (PluGroupModel itemXml in itemsXml)
             {
                 switch (itemXml.ParseResult.Status)
                 {

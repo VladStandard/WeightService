@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleFkModels.DeviceScaleFks;
 [TestFixture]
 internal class DeviceScaleFkModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-   
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<DeviceScaleFkModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<DeviceScaleFkModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<DeviceScaleFkModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<DeviceScaleFkModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<DeviceScaleFkModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<DeviceScaleFkModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<DeviceScaleFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<DeviceScaleFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<DeviceScaleFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<DeviceScaleFkModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<DeviceScaleFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<DeviceScaleFkModel>();
     }
 }

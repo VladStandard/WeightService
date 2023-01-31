@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.ProductSeries;
 [TestFixture]
 internal class ProductSeriesContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<ProductSeriesModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<ProductSeriesModel>();
 	}
 }

@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Access;
 [TestFixture]
 internal class AccessValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        AccessModel item = DataCore.CreateNewSubstitute<AccessModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        AccessModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<AccessModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        AccessModel item = DataCore.CreateNewSubstitute<AccessModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        AccessModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<AccessModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.WorkShops;
 [TestFixture]
 internal class WorkShopContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<WorkShopModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<WorkShopModel>();
 	}
 }

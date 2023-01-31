@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleFkModels.PlusTemplateFks;
 [TestFixture]
 internal class PluTemplateFkValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluTemplateFkModel item = DataCore.CreateNewSubstitute<PluTemplateFkModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        PluTemplateFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluTemplateFkModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluTemplateFkModel item = DataCore.CreateNewSubstitute<PluTemplateFkModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        PluTemplateFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluTemplateFkModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.WorkShops;
 [TestFixture]
 internal class WorkShopModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckBool<WorkShopModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<WorkShopModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<WorkShopModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<WorkShopModel>();
     }
     
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<WorkShopModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<WorkShopModel>();
     }
     
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<WorkShopModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<WorkShopModel>();
     }
 }

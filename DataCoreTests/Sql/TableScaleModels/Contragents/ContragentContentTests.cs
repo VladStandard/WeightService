@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Contragents;
 [TestFixture]
 internal class ContragentContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
 	public void Model_Validate_Content()
 	{
-		DataCore.AssertSqlDbContentValidate<ContragentModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<ContragentModel>();
 	}
 }

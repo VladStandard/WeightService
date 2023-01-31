@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.PlusWeighings;
 [TestFixture]
 internal class PluWeighingModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<PluWeighingModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluWeighingModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<PluWeighingModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PluWeighingModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<PluWeighingModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluWeighingModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<PluWeighingModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PluWeighingModel>();
     }
 }

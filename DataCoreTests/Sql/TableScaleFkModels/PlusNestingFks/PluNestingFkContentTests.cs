@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleFkModels.PlusNestingFks;
 [TestFixture]
 internal class PluNestingFkContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Content_Validate()
     {
-        DataCore.AssertSqlDbContentValidate<PluNestingFkModel>();
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<PluNestingFkModel>();
     }
 }

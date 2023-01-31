@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Scales;
 [TestFixture]
 internal class ScaleValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ScaleModel item = DataCore.CreateNewSubstitute<ScaleModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        ScaleModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<ScaleModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        ScaleModel item = DataCore.CreateNewSubstitute<ScaleModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        ScaleModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<ScaleModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

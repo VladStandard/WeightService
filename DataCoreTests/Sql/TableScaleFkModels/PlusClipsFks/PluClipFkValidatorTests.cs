@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleFkModels.PlusClipsFks;
 [TestFixture]
 internal class PluClipFkValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluClipFkModel item = DataCore.CreateNewSubstitute<PluClipFkModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        PluClipFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluClipFkModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluClipFkModel item = DataCore.CreateNewSubstitute<PluClipFkModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        PluClipFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluClipFkModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

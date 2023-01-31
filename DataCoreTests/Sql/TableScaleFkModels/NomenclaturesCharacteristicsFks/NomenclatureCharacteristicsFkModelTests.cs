@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 [TestFixture]
 internal class NomenclatureCharacteristicsFkModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test] 
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsFkModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsFkModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<NomenclaturesCharacteristicsFkModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsFkModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsFkModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<NomenclaturesCharacteristicsFkModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<NomenclaturesCharacteristicsFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<NomenclaturesCharacteristicsFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<NomenclaturesCharacteristicsFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<NomenclaturesCharacteristicsFkModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<NomenclaturesCharacteristicsFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<NomenclaturesCharacteristicsFkModel>();
     }
 }

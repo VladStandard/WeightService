@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleFkModels.DeviceTypeFks;
 [TestFixture]
 internal class DeviceTypeFkValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        DeviceTypeFkModel item = DataCore.CreateNewSubstitute<DeviceTypeFkModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        DeviceTypeFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeFkModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        DeviceTypeFkModel item = DataCore.CreateNewSubstitute<DeviceTypeFkModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        DeviceTypeFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeFkModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

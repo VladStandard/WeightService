@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Brands;
 [TestFixture]
 internal class BrandContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
 	public void Model_Validate_Content()
 	{
-		DataCore.AssertSqlDbContentValidate<BrandModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<BrandModel>();
 	}
 }

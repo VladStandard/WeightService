@@ -29,9 +29,9 @@ public class ProcHelper
 			{
 				Verb = runAs ? "runas" : "",
 				WindowStyle = windowStyle,
-				UseShellExecute = useShellExecute,
-			},
-		};
+				UseShellExecute = useShellExecute
+            }
+        };
 		process.Start();
 		process.WaitForExit();
 	}

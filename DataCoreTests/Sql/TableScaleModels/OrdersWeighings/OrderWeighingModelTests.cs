@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.OrdersWeighings;
 [TestFixture]
 internal class OrdersWeighingModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<OrderWeighingModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<OrderWeighingModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<OrderWeighingModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<OrderWeighingModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<OrderWeighingModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<OrderWeighingModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<OrderWeighingModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<OrderWeighingModel>();
     }
 }

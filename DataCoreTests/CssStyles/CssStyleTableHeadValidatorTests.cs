@@ -8,8 +8,6 @@ namespace DataCoreTests.CssStyles;
 [TestFixture]
 internal class CssStyleTableHeadValidatorTests
 {
-	private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
@@ -17,11 +15,11 @@ internal class CssStyleTableHeadValidatorTests
 		CssStyleTableHeadModel item = Substitute.For<CssStyleTableHeadModel>();
 		// Act.
 		// Assert.
-		DataCore.AssertValidate(item, false);
+		DataCoreTestsUtils.DataCore.AssertValidate(item, false);
 		// Act.
 		item.Color = "";
 		// Assert.
-		DataCore.AssertValidate(item, false);
+		DataCoreTestsUtils.DataCore.AssertValidate(item, false);
 	}
 
 	[Test]
@@ -36,6 +34,6 @@ internal class CssStyleTableHeadValidatorTests
 		item.FontWeight = "bold";
 		item.TextAlign = "center";
 		// Assert.
-		DataCore.AssertValidate(item, true);
+		DataCoreTestsUtils.DataCore.AssertValidate(item, true);
 	}
 }

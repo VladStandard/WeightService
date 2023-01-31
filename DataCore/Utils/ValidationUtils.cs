@@ -25,11 +25,11 @@ using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
@@ -85,7 +85,7 @@ public class ValidationUtils
             var cls when cls == typeof(LogTypeModel) => new LogTypeValidator(),
             var cls when cls == typeof(NomenclatureModel) => new NomenclatureValidator(),
             var cls when cls == typeof(NomenclatureV2Model) => new NomenclatureV2Validator(),
-            var cls when cls == typeof(NomenclatureGroupModel) => new NomenclatureGroupValidator(),
+            var cls when cls == typeof(PluGroupModel) => new PluGroupValidator(),
             var cls when cls == typeof(NomenclaturesCharacteristicsModel) => new NomenclaturesCharacteristicsValidator(),
             var cls when cls == typeof(NomenclaturesCharacteristicsFkModel) => new NomenclaturesCharacteristicsFkValidator(),
             var cls when cls == typeof(OrderModel) => new OrderValidator(),
@@ -134,7 +134,7 @@ public class ValidationUtils
             NomenclatureV2Model nomenclatureV2 => new NomenclatureV2Validator().Validate(nomenclatureV2),
             NomenclaturesCharacteristicsModel nomenclaturesCharacteristics => new NomenclaturesCharacteristicsValidator().Validate(nomenclaturesCharacteristics),
             NomenclaturesCharacteristicsFkModel nomenclatureCharacteristicsFk => new NomenclaturesCharacteristicsFkValidator().Validate(nomenclatureCharacteristicsFk),
-            NomenclatureGroupModel nomenclatureGroup => new NomenclatureGroupValidator().Validate(nomenclatureGroup),
+            PluGroupModel nomenclatureGroup => new PluGroupValidator().Validate(nomenclatureGroup),
             NomenclaturesGroupFkModel nomenclatureGroupFk => new NomenclaturesGroupFkValidator().Validate(nomenclatureGroupFk),
             OrderModel order => new OrderValidator().Validate(order),
             OrderWeighingModel orderWeighing => new OrderWeighingValidator().Validate(orderWeighing),

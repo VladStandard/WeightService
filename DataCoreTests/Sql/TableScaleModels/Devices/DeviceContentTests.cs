@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Devices;
 [TestFixture]
 internal class DeviceContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
 	public void Model_Validate_Content()
 	{
-		DataCore.AssertSqlDbContentValidate<DeviceModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<DeviceModel>();
 	}
 }

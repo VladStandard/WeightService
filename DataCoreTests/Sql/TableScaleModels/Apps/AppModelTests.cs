@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.Apps;
 [TestFixture]
 internal class AppModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test] 
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<AppModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<AppModel>(nameof(SqlTableBase.IsMarked));
     }
     
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<AppModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<AppModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<AppModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<AppModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<AppModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<AppModel>();
     }
 }

@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleFkModels.PlusTemplateFks;
 [TestFixture]
 internal class PluTemplateFkModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PluTemplateFkModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PluTemplateFkModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<PluTemplateFkModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluTemplateFkModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluTemplateFkModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluTemplateFkModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<PluTemplateFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PluTemplateFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<PluTemplateFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluTemplateFkModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<PluTemplateFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PluTemplateFkModel>();
     }
 }

@@ -100,7 +100,7 @@ public static partial class DataUtils
         "HTML" => FormatType.Html,
         "XML" or "" or "XMLUTF8" => FormatType.Xml,
         "XMLUTF16" => FormatType.XmlUtf16,
-        _ => throw GetArgumentException(nameof(formatString)),
+        _ => throw GetArgumentException(nameof(formatString))
     };
 
     public static string GetContentType(FormatType formatType) => formatType switch
@@ -110,7 +110,7 @@ public static partial class DataUtils
         FormatType.Json => "application/json",
         FormatType.Html => "application/html",
         FormatType.Xml or FormatType.XmlUtf8 or FormatType.XmlUtf16 => "application/xml",
-        _ => throw GetArgumentException(nameof(formatType)),
+        _ => throw GetArgumentException(nameof(formatType))
     };
 
     public static string GetContentType(string formatString) => 

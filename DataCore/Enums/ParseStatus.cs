@@ -7,5 +7,5 @@ public enum ParseStatus
 {
     Unknown,
     Success,
-    Error,
+    Error
 }

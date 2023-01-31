@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleFkModels.PlusNestingFks;
 [TestFixture]
 internal class PluNestingFkModelTests
 { 
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PluNestingFkModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PluNestingFkModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<PluNestingFkModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluNestingFkModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluNestingFkModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluNestingFkModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<PluNestingFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PluNestingFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<PluNestingFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluNestingFkModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<PluNestingFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PluNestingFkModel>();
     }
 }

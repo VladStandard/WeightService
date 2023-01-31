@@ -261,16 +261,16 @@ public static class DataFormatUtils
 
 	public static XmlReaderSettings GetXmlReaderSettings() => new()
 	{
-		ConformanceLevel = ConformanceLevel.Document,
-	};
+		ConformanceLevel = ConformanceLevel.Document
+    };
 
 	public static XmlWriterSettings GetXmlWriterSettings() => new()
 	{
 		ConformanceLevel = ConformanceLevel.Document,
 		OmitXmlDeclaration = false,
 		Indent = true,
-		IndentChars = "\t",
-	};
+		IndentChars = "\t"
+    };
 
 	public static string SerializeAsJson<T>(T item) => JsonConvert.SerializeObject(item);
 
@@ -419,7 +419,7 @@ public static class DataFormatUtils
         FormatType.Html => GetContentResult(formatType, SerializeAsHtml(item), statusCode),
         FormatType.Xml or FormatType.XmlUtf8 => GetContentResult(formatType, SerializeAsXmlString<T>(item, true, false), statusCode),
         FormatType.XmlUtf16 => GetContentResult(formatType, SerializeAsXmlString<T>(item, true, true), statusCode),
-        _ => throw DataUtils.GetArgumentException(nameof(formatType)),
+        _ => throw DataUtils.GetArgumentException(nameof(formatType))
     };
 
     public static ContentResult GetContentResult<T>(ISerializable item, string formatString, HttpStatusCode statusCode) =>
@@ -433,7 +433,7 @@ public static class DataFormatUtils
         "HTML" => FormatType.Html,
         "XML" or "" or "XMLUTF8" => FormatType.Xml,
         "XMLUTF16" => FormatType.XmlUtf16,
-        _ => throw DataUtils.GetArgumentException(nameof(formatType)),
+        _ => throw DataUtils.GetArgumentException(nameof(formatType))
     };
 
     public static IDictionary<string, object> ObjectToDictionary<T>(T item)
@@ -458,7 +458,7 @@ public static class DataFormatUtils
         FormatType.Html => SerializeAsHtml(item),
         FormatType.Xml or FormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, false)),
         FormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, true)),
-        _ => throw DataUtils.GetArgumentException(nameof(formatType)),
+        _ => throw DataUtils.GetArgumentException(nameof(formatType))
     };
 
     #endregion

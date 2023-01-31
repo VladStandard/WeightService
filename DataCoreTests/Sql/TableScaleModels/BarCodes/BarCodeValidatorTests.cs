@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.BarCodes;
 [TestFixture]
 internal class BarCodeValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BarCodeModel item = DataCore.CreateNewSubstitute<BarCodeModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        BarCodeModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BarCodeModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BarCodeModel item = DataCore.CreateNewSubstitute<BarCodeModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        BarCodeModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BarCodeModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

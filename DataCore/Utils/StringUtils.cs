@@ -64,8 +64,8 @@ public static class StringUtils
 		    '|' => '\\',
 		    '\\' => '-',
 		    '-' => '/',
-		    _ => '*',
-	    };
+		    _ => '*'
+        };
 
     public static string GetProgressString(string s) =>
 	    s switch
@@ -74,8 +74,8 @@ public static class StringUtils
 		    "." => "..",
 		    ".." => "...",
 		    "..." => "",
-		    _ => "",
-	    };
+		    _ => ""
+        };
 
     public static string GetStringValueTrim(string value, int length) => 
 	    value.Length > length ? value[..length] : value;

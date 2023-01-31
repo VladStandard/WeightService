@@ -26,11 +26,11 @@ using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
@@ -47,6 +47,7 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
+using FluentNHibernate.Cfg;
 using NHibernate;
 
 namespace DataCore.Sql.Core.Helpers;
@@ -69,7 +70,7 @@ public partial class DataAccessHelper
     public delegate void ExecCallback(ISession session);
     public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
 
-    private FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; set; }
+    public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; private set; }
 
 	// Be careful. If setup SqlConfiguration.DefaultSchema, this line will make an Exception!
 	private void SetSqlConfiguration(bool isShowSql)
@@ -84,8 +85,8 @@ public partial class DataAccessHelper
         SqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
     }
 
-    private FluentNHibernate.Cfg.FluentConfiguration? _fluentConfiguration;
-    private FluentNHibernate.Cfg.FluentConfiguration FluentConfiguration
+    private FluentConfiguration? _fluentConfiguration;
+    private FluentConfiguration FluentConfiguration
     {
 	    get
 	    {
@@ -113,8 +114,8 @@ public partial class DataAccessHelper
         if (SqlConfiguration is null)
             throw new ArgumentNullException(nameof(SqlConfiguration));
 
-        FluentConfiguration = FluentNHibernate.Cfg.Fluently.Configure().Database(SqlConfiguration);
-        AddConfigurationMappings(FluentConfiguration, JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
+        FluentConfiguration = Fluently.Configure().Database(SqlConfiguration);
+        AddConfigurationMappings(FluentConfiguration);
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
         FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
@@ -129,13 +130,6 @@ public partial class DataAccessHelper
             SessionFactory = sessionFactory ?? FluentConfiguration.BuildSessionFactory();
         }
     }
-
-    //public void CloseSessionFactory()
-    //{
-    //    using NHibernate.ISessionFactory session = SessionFactory;
-    //    session.Close();
-    //    session.Dispose();
-    //}
 
     ~DataAccessHelper()
     {
@@ -171,18 +165,7 @@ public partial class DataAccessHelper
           (JsonSettings.Local.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Local.Sql.UserId}; Password={JsonSettings.Local.Sql.Password}; ") +
           $"TrustServerCertificate={JsonSettings.Local.Sql.TrustServerCertificate}; ";
 
-    private void AddConfigurationMappings(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration, JsonSettingsModel jsonSettings)
-    {
-        switch (jsonSettings.Sql.InitialCatalog.ToUpper())
-        {
-            case "SCALESDB":
-            case "SCALES":
-                AddConfigurationMappingsForScale(fluentConfiguration);
-                break;
-        }
-    }
-
-    private void AddConfigurationMappingsForScale(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)
+    public void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
@@ -194,7 +177,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclaturesGroupFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureGroupMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluGroupMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureV2Map>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclaturesCharacteristicsMap>());

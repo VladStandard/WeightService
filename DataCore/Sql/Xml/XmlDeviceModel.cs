@@ -64,7 +64,7 @@ public class XmlDeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializabl
     {
         XmlDeviceModel item = new()
         {
-            Scale = Scale.CloneCast(),
+            Scale = Scale.CloneCast()
         };
         item.CloneSetup(base.CloneCast());
         return item;

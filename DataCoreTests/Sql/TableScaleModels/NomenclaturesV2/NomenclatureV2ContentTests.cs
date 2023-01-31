@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.NomenclaturesV2;
 [TestFixture]
 internal class NomenclatureV2ContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
 	public void Model_Content_Validate()
 	{
-		DataCore.AssertSqlDbContentValidate<NomenclatureV2Model>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<NomenclatureV2Model>();
 	}
 }

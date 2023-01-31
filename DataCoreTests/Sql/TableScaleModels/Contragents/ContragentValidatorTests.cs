@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Contragents;
 [TestFixture]
 internal class ContragentValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ContragentModel item = DataCore.CreateNewSubstitute<ContragentModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        ContragentModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<ContragentModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        ContragentModel item = DataCore.CreateNewSubstitute<ContragentModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        ContragentModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<ContragentModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

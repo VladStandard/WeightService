@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Bundles;
 [TestFixture]
 internal class BundleValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BundleModel item = DataCore.CreateNewSubstitute<BundleModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        BundleModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BundleModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BundleModel item = DataCore.CreateNewSubstitute<BundleModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        BundleModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BundleModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.BarCodes;
 [TestFixture]
 internal class BarCodeModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<BarCodeModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<BarCodeModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<BarCodeModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<BarCodeModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<BarCodeModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<BarCodeModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<BarCodeModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<BarCodeModel>();
     }
 }

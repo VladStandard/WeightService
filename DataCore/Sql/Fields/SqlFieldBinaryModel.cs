@@ -70,7 +70,7 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerial
     {
         SqlFieldBinaryModel item = new()
         {
-            Value = DataUtils.ByteClone(Value),
+            Value = DataUtils.ByteClone(Value)
         };
         return item;
     }

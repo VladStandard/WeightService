@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.TasksTypes;
 [TestFixture]
 internal class TaskTypeModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<TaskTypeModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<TaskTypeModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<TaskTypeModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<TaskTypeModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<TaskTypeModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<TaskTypeModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<TaskTypeModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<TaskTypeModel>();
     }
 }

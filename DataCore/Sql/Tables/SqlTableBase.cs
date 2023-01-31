@@ -4,7 +4,6 @@
 using DataCore.Models;
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
-using System;
 
 namespace DataCore.Sql.Tables;
 
@@ -144,8 +143,8 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
 		IsMarked = IsMarked,
 		Name = Name,
 		Description = Description,
-        ParseResult = ParseResult.CloneCast(),
-	};
+        ParseResult = ParseResult.CloneCast()
+    };
 
 	public virtual SqlTableBase CloneCast() => (SqlTableBase)Clone();
 

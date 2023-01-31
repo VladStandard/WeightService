@@ -32,7 +32,7 @@ public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISe
                     // 00-00-00-00-00-00 // 00:00:00:00:00:00
                     17 => $"{value[0]}{value[1]}{value[3]}{value[4]}{value[6]}{value[7]}" +
                           $"{value[9]}{value[10]}{value[12]}{value[13]}{value[15]}{value[16]}",
-                    _ => value,
+                    _ => value
                 };
             }
         }
@@ -97,7 +97,7 @@ public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISe
     {
         SqlFieldMacAddressModel item = new()
         {
-            Value = Value,
+            Value = Value
         };
         //item.Setup(((TableModel)this).CloneCast);
         return item;
@@ -118,7 +118,7 @@ public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISe
                   $"{Value[6]}{Value[7]}{ch}{Value[8]}{Value[9]}{ch}{Value[10]}{Value[11]}",
             17 => $"{Value[0]}{Value[1]}{ch}{Value[3]}{Value[4]}{ch}{Value[6]}{Value[7]}{ch}" +
                   $"{Value[9]}{Value[10]}{ch}{Value[12]}{Value[13]}{ch}{Value[15]}{Value[16]}",
-            _ => Value,
+            _ => Value
         };
     }
 

@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.TasksTypes;
 [TestFixture]
 internal class TaskTypeContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<TaskTypeModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<TaskTypeModel>();
 	}
 }

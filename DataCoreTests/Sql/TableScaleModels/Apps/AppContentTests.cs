@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Apps;
 [TestFixture]
 internal class AppContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_Content()
     {
-        DataCore.AssertSqlDbContentValidate<AppModel>();
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<AppModel>();
     }
 }

@@ -8,33 +8,31 @@ namespace DataCoreTests.Sql.TableScaleModels.Scales;
 [TestFixture]
 internal class ScaleModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-   
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<ScaleModel>(nameof(SqlTableBase.IsMarked));
-        //DataCore.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
-        DataCore.AssertSqlPropertyCheckString<ScaleModel>(nameof(SqlTableBase.Description));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<ScaleModel>(nameof(SqlTableBase.IsMarked));
+        //DataCoreTestsUtils.DataCore.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckString<ScaleModel>(nameof(SqlTableBase.Description));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<ScaleModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<ScaleModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<ScaleModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ScaleModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<ScaleModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<ScaleModel>();
     }
 }

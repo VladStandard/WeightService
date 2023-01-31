@@ -25,11 +25,11 @@ using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
@@ -70,7 +70,7 @@ public class DataContextModel
     public List<LogTypeModel> LogTypes { get; set; }
     public List<NomenclatureModel> NomenclatureDeprecated { get; set; }
     public List<NomenclatureV2Model> NomenclaturesV2 { get; set; }
-    public List<NomenclatureGroupModel> NomenclaturesGroups { get; set; }
+    public List<PluGroupModel> NomenclaturesGroups { get; set; }
     public List<NomenclaturesGroupFkModel> NomenclaturesGroupsFk { get; set; }
     public List<NomenclaturesCharacteristicsModel> NomenclaturesCharacteristics { get; set; }
     public List<NomenclaturesCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; }
@@ -169,7 +169,7 @@ public class DataContextModel
         var cls when cls == typeof(DeviceTypeModel) => GetListNotNullableDeviceTypes<T>(sqlCrudConfig),
         var cls when cls == typeof(LogModel) => GetListNotNullableLogs<T>(sqlCrudConfig),
         var cls when cls == typeof(LogTypeModel) => GetListNotNullableLogTypes<T>(sqlCrudConfig),
-        var cls when cls == typeof(NomenclatureGroupModel) => GetListNotNullableNomenclatureGroups<T>(sqlCrudConfig),
+        var cls when cls == typeof(PluGroupModel) => GetListNotNullableNomenclatureGroups<T>(sqlCrudConfig),
         var cls when cls == typeof(NomenclatureModel) => GetListNotNullableNomenclatures<T>(sqlCrudConfig),
         var cls when cls == typeof(NomenclaturesCharacteristicsFkModel) => GetListNotNullableNomenclatureCharacteristicFks<T>(sqlCrudConfig),
         var cls when cls == typeof(NomenclaturesCharacteristicsModel) => GetListNotNullableNomenclatureCharacteristics<T>(sqlCrudConfig),
@@ -349,7 +349,7 @@ public class DataContextModel
 
     private List<T> GetListNotNullableNomenclatureGroups<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
-        NomenclaturesGroups = DataAccess.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);
+        NomenclaturesGroups = DataAccess.GetListNotNullable<PluGroupModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && NomenclaturesGroups.Count > 1)
             NomenclaturesGroups = NomenclaturesGroups.OrderBy(item => item.Name).ToList();
         return NomenclaturesGroups.Cast<T>().ToList();
@@ -535,7 +535,7 @@ public class DataContextModel
                         WeightMin = Convert.ToDecimal(item[7]),
                         WeightNom = Convert.ToDecimal(item[8]),
                         PluBundle = pluBundle,
-                        Box = box,
+                        Box = box
                     });
                 }
             }
@@ -658,7 +658,7 @@ public class DataContextModel
     public T GetItemNotNullable<T>(object? value) where T : class, new() => DataAccess.GetItemNotNullable<T>(value);
 
     /// <summary>
-    /// List of models SqlTableBase.
+    /// List of tables models.
     /// </summary>
     /// <returns></returns>
     public List<SqlTableBase> GetTableModels() => new()
@@ -677,7 +677,7 @@ public class DataContextModel
         new DeviceTypeModel(),
         new LogModel(),
         new LogTypeModel(),
-        new NomenclatureGroupModel(),
+        new PluGroupModel(),
         new NomenclatureModel(),
         new NomenclaturesCharacteristicsFkModel(),
         new NomenclaturesCharacteristicsModel(),
@@ -704,11 +704,11 @@ public class DataContextModel
         new TemplateModel(),
         new TemplateResourceModel(),
         new VersionModel(),
-        new WorkShopModel(),
+        new WorkShopModel()
     };
 
     /// <summary>
-    /// List of types SqlTableBase.
+    /// List of tables types.
     /// </summary>
     /// <returns></returns>
     public List<Type> GetTableTypes() => new()
@@ -729,7 +729,7 @@ public class DataContextModel
         typeof(DeviceTypeModel),
         typeof(LogModel),
         typeof(LogTypeModel),
-        typeof(NomenclatureGroupModel),
+        typeof(PluGroupModel),
         typeof(NomenclatureModel),
         typeof(NomenclaturesCharacteristicsModel),
         typeof(NomenclaturesGroupFkModel),
@@ -753,7 +753,107 @@ public class DataContextModel
         typeof(TemplateModel),
         typeof(TemplateResourceModel),
         typeof(VersionModel),
-        typeof(WorkShopModel),
+        typeof(WorkShopModel)
+    };
+
+    /// <summary>
+    /// List of tables mapppings.
+    /// </summary>
+    /// <returns></returns>
+    public List<Type> GetTableMaps() => new()
+    {
+        typeof(AccessMap),
+        typeof(AppMap),
+        typeof(BarCodeMap),
+        typeof(BoxMap),
+        typeof(BrandMap),
+        typeof(BundleMap),
+        typeof(ClipMap),
+        typeof(ContragentMap),
+        typeof(DeviceMap),
+        typeof(DeviceScaleFkMap),
+        typeof(DeviceTypeFkMap),
+        typeof(DeviceTypeMap),
+        typeof(LogMap),
+        typeof(LogTypeMap),
+        typeof(PluGroupMap),
+        typeof(NomenclatureMap),
+        typeof(NomenclaturesCharacteristicsFkMap),
+        typeof(NomenclaturesCharacteristicsMap),
+        typeof(NomenclaturesGroupFkMap),
+        typeof(NomenclatureV2Map),
+        typeof(OrderMap),
+        typeof(OrderWeighingMap),
+        typeof(OrganizationMap),
+        typeof(PluBundleFkMap),
+        typeof(PluLabelMap),
+        typeof(PluMap),
+        typeof(PluScaleMap),
+        typeof(PluTemplateFkMap),
+        typeof(PluWeighingMap),
+        typeof(PrinterMap),
+        typeof(PrinterResourceMap),
+        typeof(PrinterTypeMap),
+        typeof(ProductionFacilityMap),
+        typeof(ProductSeriesMap),
+        typeof(ScaleMap),
+        typeof(ScaleScreenShotMap),
+        typeof(TaskMap),
+        typeof(TaskTypeMap),
+        typeof(TemplateMap),
+        typeof(TemplateResourceMap),
+        typeof(VersionMap),
+        typeof(WorkShopMap)
+    };
+
+    /// <summary>
+    /// List of tables validators.
+    /// </summary>
+    /// <returns></returns>
+    public List<Type> GetTableValidators() => new()
+    {
+        typeof(AccessValidator),
+        typeof(AppValidator),
+        typeof(BarCodeValidator),
+        typeof(BoxValidator),
+        typeof(BrandValidator),
+        typeof(BundleValidator),
+        typeof(ClipValidator),
+        typeof(ContragentValidator),
+        typeof(DeviceValidator),
+        typeof(DeviceScaleFkValidator),
+        typeof(DeviceTypeFkValidator),
+        typeof(DeviceTypeValidator),
+        typeof(LogValidator),
+        typeof(LogTypeValidator),
+        typeof(PluGroupValidator),
+        typeof(NomenclatureValidator),
+        typeof(NomenclaturesCharacteristicsFkValidator),
+        typeof(NomenclaturesCharacteristicsValidator),
+        typeof(NomenclaturesGroupFkValidator),
+        typeof(NomenclatureV2Validator),
+        typeof(OrderValidator),
+        typeof(OrderWeighingValidator),
+        typeof(OrganizationValidator),
+        typeof(PluBundleFkValidator),
+        typeof(PluLabelValidator),
+        typeof(PluValidator),
+        typeof(PluScaleValidator),
+        typeof(PluTemplateFkValidator),
+        typeof(PluWeighingValidator),
+        typeof(PrinterValidator),
+        typeof(PrinterResourceValidator),
+        typeof(PrinterTypeValidator),
+        typeof(ProductionFacilityValidator),
+        typeof(ProductSeriesValidator),
+        typeof(ScaleValidator),
+        typeof(ScaleScreenShotValidator),
+        typeof(TaskValidator),
+        typeof(TaskTypeValidator),
+        typeof(TemplateValidator),
+        typeof(TemplateResourceValidator),
+        typeof(VersionValidator),
+        typeof(WorkShopValidator)
     };
 
     public string GetTableModelName<T>() where T : class, new()
@@ -777,7 +877,7 @@ public class DataContextModel
             var cls when cls == typeof(DeviceTypeModel) => nameof(DeviceTypeModel),
             var cls when cls == typeof(LogModel) => nameof(LogModel),
             var cls when cls == typeof(LogTypeModel) => nameof(LogTypeModel),
-            var cls when cls == typeof(NomenclatureGroupModel) => nameof(NomenclatureGroupModel),
+            var cls when cls == typeof(PluGroupModel) => nameof(PluGroupModel),
             var cls when cls == typeof(NomenclatureModel) => nameof(NomenclatureModel),
             var cls when cls == typeof(NomenclaturesCharacteristicsModel) => nameof(NomenclaturesCharacteristicsModel),
             var cls when cls == typeof(NomenclaturesGroupFkModel) => nameof(NomenclaturesGroupFkModel),

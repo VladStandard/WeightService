@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Bundles;
 [TestFixture]
 internal class BundleContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_Content()
     {
-        DataCore.AssertSqlDbContentValidate<BundleModel>();
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<BundleModel>();
     }
 }

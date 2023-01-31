@@ -19,13 +19,13 @@ public enum DefaultSettingEnum
 public enum SilentUiEnum
 {
     True,
-    False,
+    False
 }
 
 public enum DirectionEnum
 {
     Left,
-    Right,
+    Right
 }
 
 public enum PageEnum
@@ -35,7 +35,7 @@ public enum PageEnum
     PinCode,
     Device,
     SqlSettings,
-    PluBundleFk,
+    PluBundleFk
 }
 
 public enum OrderStatusEnum
@@ -53,7 +53,7 @@ public enum WpfActivePageEnum
     ChangeLog,
     PinCode,
     Home,
-    Settings,
+    Settings
 }
 
 /// <summary>
@@ -90,7 +90,7 @@ public enum CmdShowEnum
     SW_SHOWMINNOACTIVE, // Отображает окно как свернутое окно. Активное окно остается активным.
     SW_SHOWNA, // Отображает окно в его текущем состоянии. Активное окно остается активным.
     SW_SHOWNOACTIVATE, // Отображает окно в его самом современном размере и позиции. Активное окно остается активным.
-    SW_SHOWNORMAL, //  Активизирует и отображает окно. Если окно свернуто или развернуто, Windows восстанавливает его в первоначальном размере и позиции.
+    SW_SHOWNORMAL //  Активизирует и отображает окно. Если окно свернуто или развернуто, Windows восстанавливает его в первоначальном размере и позиции.
                    // Прикладная программа должна установить этот флажок при отображении окна впервые.
 }
 
@@ -126,7 +126,7 @@ public enum ZebraActionEnum
     /// <summary>
     /// Загрузить картинки.
     /// </summary>
-    LoadImages,
+    LoadImages
 }
 
 /// <summary>
@@ -137,5 +137,5 @@ public enum ConStringLevelEnum
     Basic,
     Low,
     Middle,
-    Full,
+    Full
 }

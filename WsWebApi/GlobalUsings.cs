@@ -14,7 +14,6 @@ global using DataCore.Sql.Tables;
 global using DataCore.Sql.TableScaleModels.BarCodes;
 global using DataCore.Sql.TableScaleModels.Brands;
 global using DataCore.Sql.TableScaleModels.Nomenclatures;
-global using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 global using DataCore.Utils;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;

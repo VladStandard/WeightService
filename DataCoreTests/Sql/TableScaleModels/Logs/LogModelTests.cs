@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.Logs;
 [TestFixture]
 internal class LogModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<LogModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<LogModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<LogModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<LogModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<LogModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<LogModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Table_ToString()
     {
-        DataCore.TableBaseModelAssertToString<LogModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<LogModel>();
     }
 
     [Test]
     public void TableEqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<LogModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<LogModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<LogModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<LogModel>();
     }
 }

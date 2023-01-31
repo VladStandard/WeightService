@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.NomenclaturesV2;
 [TestFixture]
 internal class NomenclaturesV2ValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        NomenclatureV2Model item = DataCore.CreateNewSubstitute<NomenclatureV2Model>(false);
-        DataCore.AssertSqlValidate(item, false);
+        NomenclatureV2Model item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<NomenclatureV2Model>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        NomenclatureV2Model item = DataCore.CreateNewSubstitute<NomenclatureV2Model>(true);
-        DataCore.AssertSqlValidate(item, true);
+        NomenclatureV2Model item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<NomenclatureV2Model>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

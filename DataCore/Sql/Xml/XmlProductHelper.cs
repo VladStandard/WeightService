@@ -62,7 +62,7 @@ public class XmlProductHelper
                             Rate = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
                             Threshold = GetAttribute<int>(xmlChild, "Threshold"),
                             Okei = GetAttribute<string>(xmlChild, "OKEI") ?? string.Empty,
-                            Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty,
+                            Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty
                         };
                         entities.Add(item);
                     }
@@ -88,7 +88,7 @@ public class XmlProductHelper
                         XmlProductBarcodeModel? item = new()
                         {
                             Type = GetAttribute<string>(xmlChild, "Type") ?? string.Empty,
-                            Barcode = GetAttribute<string>(xmlChild, "Barcode") ?? string.Empty,
+                            Barcode = GetAttribute<string>(xmlChild, "Barcode") ?? string.Empty
                         };
                         entities.Add(item);
                     }

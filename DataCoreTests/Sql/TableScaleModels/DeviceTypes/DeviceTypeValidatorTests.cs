@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.DeviceTypes;
 [TestFixture]
 internal class DeviceTypeValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        DeviceTypeModel item = DataCore.CreateNewSubstitute<DeviceTypeModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        DeviceTypeModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        DeviceTypeModel item = DataCore.CreateNewSubstitute<DeviceTypeModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        DeviceTypeModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

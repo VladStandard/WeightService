@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using System;
 
 namespace DataCore.Sql.Fields;
 
@@ -104,8 +103,8 @@ public class SqlFieldIdentityModel : SqlFieldBase
 	{
 		SqlFieldIdentity.Id => Id.GetHashCode(),
 		SqlFieldIdentity.Uid => Uid.GetHashCode(),
-		_ => default,
-	};
+		_ => default
+    };
 
 	public override bool EqualsNew() => Equals(new());
 
@@ -142,15 +141,15 @@ public class SqlFieldIdentityModel : SqlFieldBase
 	{
 		SqlFieldIdentity.Id => Equals(Id, default(long)),
 		SqlFieldIdentity.Uid => Equals(Uid, Guid.Empty),
-		_ => default,
-	};
+		_ => default
+    };
 
 	public virtual bool IsExists => Name switch
 	{
 		SqlFieldIdentity.Id => !Equals(Id, default(long)),
 		SqlFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
-		_ => default,
-	};
+		_ => default
+    };
 
 	[Obsolete(@"Use IsNotExists")]
 	public virtual bool IsNew => IsNotExists;

@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleFkModels.NomenclaturesGroupFks;
 [TestFixture]
 internal class NomenclatureGroupFkSerializeTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Item_Serialize_Validate()
     {
-		DataCore.AssertSqlDbContentSerialize<NomenclaturesGroupFkModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentSerialize<NomenclaturesGroupFkModel>();
 	}
 }

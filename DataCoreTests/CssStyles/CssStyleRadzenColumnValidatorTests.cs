@@ -8,12 +8,6 @@ namespace DataCoreTests.CssStyles;
 [TestFixture]
 internal class CssStyleRadzenColumnValidatorTests
 {
-    #region Public and private fields, properties, constructor
-
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
     [Test]
@@ -23,11 +17,11 @@ internal class CssStyleRadzenColumnValidatorTests
         CssStyleRadzenColumnModel item = Substitute.For<CssStyleRadzenColumnModel>();
         // Act.
         // Assert.
-        DataCore.AssertValidate(item, false);
+        DataCoreTestsUtils.DataCore.AssertValidate(item, false);
         // Act.
         item.Width = "";
         // Assert.
-        DataCore.AssertValidate(item, false);
+        DataCoreTestsUtils.DataCore.AssertValidate(item, false);
     }
 
     [Test]
@@ -38,7 +32,7 @@ internal class CssStyleRadzenColumnValidatorTests
         // Act.
         item.Width = "10%";
         // Assert.
-        DataCore.AssertValidate(item, true);
+        DataCoreTestsUtils.DataCore.AssertValidate(item, true);
     }
 
     #endregion

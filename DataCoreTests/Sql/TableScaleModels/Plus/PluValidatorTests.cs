@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Plus;
 [TestFixture]
 internal class PluValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluModel item = DataCore.CreateNewSubstitute<PluModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        PluModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluModel item = DataCore.CreateNewSubstitute<PluModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        PluModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

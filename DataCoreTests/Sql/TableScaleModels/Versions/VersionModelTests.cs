@@ -8,34 +8,32 @@ namespace DataCoreTests.Sql.TableScaleModels.Versions;
 [TestFixture]
 internal class VersionModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
-        DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(SqlTableBase.Description));
-        DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
-        DataCore.AssertSqlPropertyCheckBool<VersionModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(SqlTableBase.Description));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<VersionModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<VersionModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<VersionModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<VersionModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<VersionModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<VersionModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<VersionModel>();
     }
 }

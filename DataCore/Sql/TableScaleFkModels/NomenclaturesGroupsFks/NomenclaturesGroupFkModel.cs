@@ -3,7 +3,7 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
+using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 
@@ -16,10 +16,10 @@ public class NomenclaturesGroupFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
-    private NomenclatureGroupModel _nomenclatureGroup;
-    [XmlElement] public virtual NomenclatureGroupModel NomenclatureGroup { get => _nomenclatureGroup; set => _nomenclatureGroup = value; }
-    private NomenclatureGroupModel _nNomenclatureGroupParent;
-    [XmlElement] public virtual NomenclatureGroupModel NomenclatureGroupParent { get => _nNomenclatureGroupParent; set => _nNomenclatureGroupParent = value; }
+    private PluGroupModel _nomenclatureGroup;
+    [XmlElement] public virtual PluGroupModel NomenclatureGroup { get => _nomenclatureGroup; set => _nomenclatureGroup = value; }
+    private PluGroupModel _nNomenclatureGroupParent;
+    [XmlElement] public virtual PluGroupModel NomenclatureGroupParent { get => _nNomenclatureGroupParent; set => _nNomenclatureGroupParent = value; }
 
     /// <summary>
     /// Constructor.
@@ -37,8 +37,8 @@ public class NomenclaturesGroupFkModel : SqlTableBase
     /// <param name="context"></param>
     protected NomenclaturesGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        _nomenclatureGroup = (NomenclatureGroupModel)info.GetValue(nameof(_nomenclatureGroup), typeof(NomenclatureGroupModel));
-        _nNomenclatureGroupParent = (NomenclatureGroupModel)info.GetValue(nameof(_nNomenclatureGroupParent), typeof(NomenclatureGroupModel));
+        _nomenclatureGroup = (PluGroupModel)info.GetValue(nameof(_nomenclatureGroup), typeof(PluGroupModel));
+        _nNomenclatureGroupParent = (PluGroupModel)info.GetValue(nameof(_nNomenclatureGroupParent), typeof(PluGroupModel));
     }
 
     #endregion

@@ -11,5 +11,5 @@ public enum FormatType
     Html,
     Xml,
     XmlUtf8,
-    XmlUtf16,
+    XmlUtf16
 }

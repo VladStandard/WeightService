@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Brands;
 [TestFixture]
 internal class BrandValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BrandModel item = DataCore.CreateNewSubstitute<BrandModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        BrandModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BrandModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BrandModel item = DataCore.CreateNewSubstitute<BrandModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        BrandModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BrandModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -36,7 +36,7 @@ public class DataSourceDicsHelper
             new("300 dpi tsc", "300 dpi tsc"),
             new("608 dpi", "608 dpi"),
             new("608 dpi tsc", "608 dpi tsc"),
-            new("zpl", "zpl"),
+            new("zpl", "zpl")
         };
 
     public List<TypeModel<AccessRightsEnum>> GetTemplateAccessRights(byte? accessRights = null)
@@ -62,19 +62,19 @@ public class DataSourceDicsHelper
     private List<TypeModel<Lang>> GetTemplateLanguagesEng() => new()
     {
         new($"{Lang.English}", Lang.English),
-        new($"{Lang.Russian}", Lang.Russian),
+        new($"{Lang.Russian}", Lang.Russian)
     };
 
     private List<TypeModel<Lang>> GetTemplateLanguagesRus() => new()
     {
         new("Английский", Lang.English),
-        new("Русский", Lang.Russian),
+        new("Русский", Lang.Russian)
     };
 
     public List<TypeModel<bool>> GetTemplateIsDebug() => new()
     {
         new("Enable", true),
-        new("Disable", false),
+        new("Disable", false)
     };
 
     #endregion

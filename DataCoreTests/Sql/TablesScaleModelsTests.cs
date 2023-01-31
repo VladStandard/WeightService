@@ -6,20 +6,14 @@ namespace DataCoreTests.Sql;
 [TestFixture]
 internal class TablesScaleModelsTests
 {
-	#region Public and private fields, properties, constructor
-
-	private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
-	#endregion
-
 	#region Public and private methods
 
 	[Test]
 	public void SqlTableModel_New_EqualsDefault()
 	{
-		DataCore.AssertAction(() =>
+		DataCoreTestsUtils.DataCore.AssertAction(() =>
 		{
-			List<SqlTableBase> sqlTables = DataCore.DataContext.GetTableModels();
+			List<SqlTableBase> sqlTables = DataCoreTestsUtils.DataCore.DataContext.GetTableModels();
 			foreach (SqlTableBase sqlTable in sqlTables)
 			{
 				TestContext.WriteLine(sqlTable.GetType());

@@ -78,13 +78,13 @@ public class WeighingSettingsModel
             {
                 PrintBrand.Zebra => LocaleCore.Print.NameMainZebra,
                 PrintBrand.TSC => LocaleCore.Print.NameMainTsc,
-                _ => LocaleCore.Print.DeviceName,
+                _ => LocaleCore.Print.DeviceName
             }
             : printBrand switch
             {
                 PrintBrand.Zebra => LocaleCore.Print.NameShippingZebra,
                 PrintBrand.TSC => LocaleCore.Print.NameShippingTsc,
-                _ => LocaleCore.Print.DeviceNameIsUnavailable,
+                _ => LocaleCore.Print.DeviceNameIsUnavailable
             };
     }
 

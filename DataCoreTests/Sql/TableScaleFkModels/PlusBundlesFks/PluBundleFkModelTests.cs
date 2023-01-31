@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleFkModels.PlusBundlesFks;
 [TestFixture]
 internal class PluBundleFkModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<PluBundleFkModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<PluBundleFkModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<PluBundleFkModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluBundleFkModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluBundleFkModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluBundleFkModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<PluBundleFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PluBundleFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<PluBundleFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluBundleFkModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<PluBundleFkModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PluBundleFkModel>();
     }
 }

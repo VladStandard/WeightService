@@ -87,7 +87,7 @@ public class AppVersionHelper
             AppVerStringFormatEnum.Use2 => $"{input:D}",
             AppVerStringFormatEnum.Use3 => $"{input:D}",
             AppVerStringFormatEnum.Use4 => $"{input:D}",
-            _ => $"{input:D}",
+            _ => $"{input:D}"
         };
     }
 

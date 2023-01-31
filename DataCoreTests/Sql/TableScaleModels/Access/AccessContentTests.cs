@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Access;
 [TestFixture]
 internal class AccessContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_Content()
     {
-        DataCore.AssertSqlDbContentValidate<AccessModel>();
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<AccessModel>();
     }
 }

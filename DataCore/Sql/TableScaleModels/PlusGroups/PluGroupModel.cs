@@ -4,14 +4,14 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.TableScaleModels.NomenclaturesGroups;
+namespace DataCore.Sql.TableScaleModels.PlusGroups;
 
 /// <summary>
-/// Table "NOMENCLATURES_GROUPS".
+/// Table "PLUS_GROUPS".
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(NomenclatureGroupModel)}")]
-public class NomenclatureGroupModel : SqlTableBase
+public class PluGroupModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -21,7 +21,7 @@ public class NomenclatureGroupModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureGroupModel() : base(SqlFieldIdentity.Uid)
+    public PluGroupModel() : base(SqlFieldIdentity.Uid)
     {
         IsGroup = false;
         Code = string.Empty;
@@ -32,7 +32,7 @@ public class NomenclatureGroupModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected NomenclatureGroupModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PluGroupModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsGroup = info.GetBoolean(nameof(IsGroup));
         Code = info.GetString(nameof(Code));
@@ -53,7 +53,7 @@ public class NomenclatureGroupModel : SqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((NomenclatureGroupModel)obj);
+        return Equals((PluGroupModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -67,7 +67,7 @@ public class NomenclatureGroupModel : SqlTableBase
 
     public override object Clone()
     {
-        NomenclatureGroupModel item = new();
+        PluGroupModel item = new();
         item.IsGroup = IsGroup;
         item.Code = Code;
         item.CloneSetup(base.CloneCast());
@@ -96,12 +96,12 @@ public class NomenclatureGroupModel : SqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(NomenclatureGroupModel item) =>
+    public virtual bool Equals(PluGroupModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(IsGroup, item.IsGroup) &&
         Equals(Code, item.Code);
 
-    public new virtual NomenclatureGroupModel CloneCast() => (NomenclatureGroupModel)Clone();
+    public new virtual PluGroupModel CloneCast() => (PluGroupModel)Clone();
 
     #endregion
 }

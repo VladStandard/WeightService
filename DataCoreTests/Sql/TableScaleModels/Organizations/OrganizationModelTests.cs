@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.Organizations;
 [TestFixture]
 internal class OrganizationModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<OrganizationModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<OrganizationModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<OrganizationModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<OrganizationModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<OrganizationModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<OrganizationModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<OrganizationModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<OrganizationModel>();
     }
 }

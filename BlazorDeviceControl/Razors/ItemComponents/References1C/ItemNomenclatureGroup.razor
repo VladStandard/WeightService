@@ -1,16 +1,16 @@
-﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.NomenclaturesGroups.NomenclatureGroupModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel>
 @page "/item/nomenclature_group"
 @page "/item/nomenclature_group/new"
 @page "/item/nomenclature_group/{IdentityUidStr}"
 @using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.NomenclaturesGroups
+@using DataCore.Sql.TableScaleModels.PlusGroups
 
-<RazorItemReload TItem=@NomenclatureGroupModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemNomenclatureGroup />
+<RazorItemReload TItem=@PluGroupModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemNomenclatureGroup />
 
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=@NomenclatureGroupModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <RazorItemTableHead TItem=@PluGroupModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
     <tbody>
-		<RazorItemTableBody TItem=@NomenclatureGroupModel ParentRazor=@(this) />
+		<RazorItemTableBody TItem=@PluGroupModel ParentRazor=@(this) />
         <tr>
             <td>@LocaleCore.Table.Name</td>
             <td>
@@ -33,5 +33,5 @@
     </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@NomenclatureGroupModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
-<RazorItemDates TItem="@NomenclatureGroupModel" ParentRazor=@(this) />
+<RazorItemActions TItem="@PluGroupModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorItemDates TItem="@PluGroupModel" ParentRazor=@(this) />

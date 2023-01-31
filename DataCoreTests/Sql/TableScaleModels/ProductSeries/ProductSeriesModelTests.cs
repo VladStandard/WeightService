@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.ProductSeries;
 [TestFixture]
 internal class ProductSeriesModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<ProductSeriesModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<ProductSeriesModel>();
     }
     
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<ProductSeriesModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ProductSeriesModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<ProductSeriesModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<ProductSeriesModel>();
     }
 }

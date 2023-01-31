@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.ScalesScreenshots;
 [TestFixture]
 internal class ScaleScreenShotValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ScaleScreenShotModel item = DataCore.CreateNewSubstitute<ScaleScreenShotModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        ScaleScreenShotModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<ScaleScreenShotModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        ScaleScreenShotModel item = DataCore.CreateNewSubstitute<ScaleScreenShotModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        ScaleScreenShotModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<ScaleScreenShotModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

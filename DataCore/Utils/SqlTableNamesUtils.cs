@@ -3,7 +3,7 @@
 
 namespace DataCore.Utils;
 
-public static partial class SqlTableNamesUtils
+public static class SqlTableNamesUtils
 {
     #region Public and private fields, properties, constructor
 
@@ -28,8 +28,8 @@ public static partial class SqlTableNamesUtils
     public static string Nomenclatures => "NOMENCLATURES";
     public static string NomenclaturesCharacteristics => "NOMENCLATURES_CHARACTERISTICS";
     public static string NomenclaturesCharacteristicsFks => "NOMENCLATURES_CHARACTERISTICS_FK";
-    public static string NomenclaturesGroups => "NOMENCLATURES_GROUPS";
-    public static string NomenclaturesGroupsFks => "NOMENCLATURES_GROUPS_FK";
+    public static string PlusGroups => "PLUS_GROUPS";
+    public static string PlusGroupsFks => "PLUS_GROUPS_FK";
     public static string Orders => "ORDERS";
     public static string OrdersWeighings => "ORDERS_WEIGHINGS";
     public static string Organizations => "ORGANIZATIONS";

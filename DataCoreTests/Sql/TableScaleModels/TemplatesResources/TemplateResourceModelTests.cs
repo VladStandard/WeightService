@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.TemplatesResources;
 [TestFixture]
 internal class TemplateResourceModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-   
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<TemplateResourceModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<TemplateResourceModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<TemplateResourceModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<TemplateResourceModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<TemplateResourceModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<TemplateResourceModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<TemplateResourceModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<TemplateResourceModel>();
     }
 }

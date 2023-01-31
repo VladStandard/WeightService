@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 [TestFixture]
 internal class NomenclatureCharacteristicsFkSerializeTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Item_Serialize_Validate()
     {
-		DataCore.AssertSqlDbContentSerialize<NomenclaturesCharacteristicsFkModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentSerialize<NomenclaturesCharacteristicsFkModel>();
 	}
 }

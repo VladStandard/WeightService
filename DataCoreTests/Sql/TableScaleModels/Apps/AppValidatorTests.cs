@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Apps;
 [TestFixture]
 internal class AppValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        AppModel item = DataCore.CreateNewSubstitute<AppModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        AppModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<AppModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        AppModel item = DataCore.CreateNewSubstitute<AppModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        AppModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<AppModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

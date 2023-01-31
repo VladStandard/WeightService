@@ -102,8 +102,8 @@ public sealed class AppHelper : BaseViewModel
 			AppVerStringFormatEnum.Use2 => $"{input:D2}",
 			AppVerStringFormatEnum.Use3 => $"{input:D3}",
 			AppVerStringFormatEnum.Use4 => $"{input:D4}",
-			_ => $"{input:D}",
-		};
+			_ => $"{input:D}"
+        };
 	}
 
 	//public void SetNewSize(Form form, FormStartPosition startPosition = FormStartPosition.CenterScreen)

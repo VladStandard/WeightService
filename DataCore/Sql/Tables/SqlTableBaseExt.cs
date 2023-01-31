@@ -63,8 +63,8 @@ public static class SqlTableBaseExt
 			VersionModel version => GetPropertyVersion(propertyName, version),
 			WorkShopModel workShop => GetPropertyWorkShop(propertyName, workShop),
 			// Must be at the end.
-			_ => GetPropertySqlTable<T>(propertyName, item),
-		};
+			_ => GetPropertySqlTable<T>(propertyName, item)
+        };
 	}
 
 	private static bool IsPropertyBase(string propertyName)
@@ -81,8 +81,8 @@ public static class SqlTableBaseExt
 			nameof(SqlTableBase.IsMarked) => true,
 			nameof(SqlTableBase.Name) => true,
 			nameof(SqlTableBase.Description) => true,
-			_ => false,
-		};
+			_ => false
+        };
 	}
 
 	private static string GetPropertySqlTable<T>(string propertyName, T? item) where T : ISqlTable

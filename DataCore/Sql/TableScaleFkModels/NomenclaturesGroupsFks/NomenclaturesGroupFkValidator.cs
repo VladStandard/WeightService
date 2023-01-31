@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
+using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 
@@ -19,10 +19,10 @@ public class NomenclaturesGroupFkValidator : SqlTableValidator<NomenclaturesGrou
         RuleFor(item => item.NomenclatureGroup)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new NomenclatureGroupValidator());
+            .SetValidator(new PluGroupValidator());
         RuleFor(item => item.NomenclatureGroupParent)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new NomenclatureGroupValidator());
+            .SetValidator(new PluGroupValidator());
     }
 }

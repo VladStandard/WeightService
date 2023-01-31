@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleFkModels.DeviceScaleFks;
 [TestFixture]
 internal class DeviceScaleFkContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
 	public void Model_Content_Validate()
 	{
-		DataCore.AssertSqlDbContentValidate<DeviceScaleFkModel>();
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<DeviceScaleFkModel>();
 	}
 }

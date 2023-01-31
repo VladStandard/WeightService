@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Orders;
 [TestFixture]
 internal class OrderValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        OrderModel item = DataCore.CreateNewSubstitute<OrderModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        OrderModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<OrderModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        OrderModel item = DataCore.CreateNewSubstitute<OrderModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        OrderModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<OrderModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

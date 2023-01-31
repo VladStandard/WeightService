@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.Organizations;
 [TestFixture]
 internal class OrganizationContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<OrganizationModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<OrganizationModel>();
 	}
 }

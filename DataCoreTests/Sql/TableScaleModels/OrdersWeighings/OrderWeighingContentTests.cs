@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.OrdersWeighings;
 [TestFixture]
 internal class OrdersWeighingContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<OrderWeighingModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<OrderWeighingModel>();
 	}
 }

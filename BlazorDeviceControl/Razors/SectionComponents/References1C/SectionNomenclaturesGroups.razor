@@ -1,15 +1,15 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.NomenclaturesGroups.NomenclatureGroupModel, SqlTableBase>
+﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel, SqlTableBase>
 @page "/section/nomenclatures_groups"
 @using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.NomenclaturesGroups
+@using DataCore.Sql.TableScaleModels.PlusGroups
 
-<RazorSectionReload TItem=@NomenclatureGroupModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclaturesGroups SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem=@PluGroupModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclaturesGroups SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
     Data=@SqlSectionCast 
-    TItem=@NomenclatureGroupModel 
+    TItem=@PluGroupModel 
     RowSelect=@(SqlItemSetAsync) 
     RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())
@@ -18,8 +18,8 @@
     AllowPaging=true  
     AllowSorting=true >
     <Columns >
-        <RazorSectionFieldIsMarked TItem=@NomenclatureGroupModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenDataGridColumn TItem=@NomenclatureGroupModel Title=@LocaleCore.Table.Name Width="45%" >
+        <RazorSectionFieldIsMarked TItem=@PluGroupModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
+        <RadzenDataGridColumn TItem=@PluGroupModel Title=@LocaleCore.Table.Name Width="45%" >
             <Template Context="itemCast" >
 	            <RadzenLink Style="width: 100%; margin-left: 0; "
                             Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclatureGroup}/{itemCast.IdentityValueUid}")
@@ -27,10 +27,10 @@
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn 
-            TItem=@NomenclatureGroupModel Property="Code" 
+            TItem=@PluGroupModel Property="Code" 
             Title=@LocaleCore.Table.Code
             Width="20%" />
-        <RadzenDataGridColumn TItem=@NomenclatureGroupModel 
+        <RadzenDataGridColumn TItem=@PluGroupModel 
             Title=@LocaleCore.Table.Group Width="30%" >
             <Template Context="itemCast" >
                 <RadzenText Text=@(DataAccess.GetItemNomenclatureGroupParentNotNullable(itemCast).Name)
@@ -40,4 +40,4 @@
     </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@NomenclatureGroupModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@PluGroupModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />

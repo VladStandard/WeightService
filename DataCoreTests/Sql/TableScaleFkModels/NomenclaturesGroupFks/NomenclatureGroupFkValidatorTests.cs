@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleFkModels.NomenclaturesGroupFks;
 [TestFixture]
 internal class NomenclatureGroupFkValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        NomenclaturesGroupFkModel item = DataCore.CreateNewSubstitute<NomenclaturesGroupFkModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        NomenclaturesGroupFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<NomenclaturesGroupFkModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        NomenclaturesGroupFkModel item = DataCore.CreateNewSubstitute<NomenclaturesGroupFkModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        NomenclaturesGroupFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<NomenclaturesGroupFkModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

@@ -8,31 +8,29 @@ namespace DataCoreTests.Sql.TableScaleModels.ProductionFacilities;
 [TestFixture]
 internal class ProductionFacilitieModelTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(SqlTableBase.CreateDt));
-        DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(SqlTableBase.ChangeDt));
-        DataCore.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCore.TableBaseModelAssertToString<ProductionFacilityModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<ProductionFacilityModel>();
     }
     
     [Test]
     public void Model_EqualsNew()
     {
-        DataCore.TableBaseModelAssertEqualsNew<ProductionFacilityModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ProductionFacilityModel>();
     }
     
     [Test]
     public void Model_Serialize()
     {
-        DataCore.TableBaseModelAssertSerialize<ProductionFacilityModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<ProductionFacilityModel>();
     }
 }

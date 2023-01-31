@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Organizations;
 [TestFixture]
 internal class OrganizationValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        OrganizationModel item = DataCore.CreateNewSubstitute<OrganizationModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        OrganizationModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<OrganizationModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        OrganizationModel item = DataCore.CreateNewSubstitute<OrganizationModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        OrganizationModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<OrganizationModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

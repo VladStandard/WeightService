@@ -6,30 +6,24 @@ namespace DataCoreTests.Sql.Fields;
 [TestFixture]
 internal class FieldsAssertEqualsNewTests
 {
-    #region Public and private fields, properties, constructor
-
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
     [Test]
     public void FieldBinaryModel_Assert_EqualsNew()
     {
-        DataCore.FieldBaseModelAssertEqualsNew<SqlFieldBinaryModel>();
+        DataCoreTestsUtils.DataCore.FieldBaseModelAssertEqualsNew<SqlFieldBinaryModel>();
     }
 
     [Test]
     public void FieldIdentityModel_Assert_EqualsNew()
     {
-        DataCore.FieldBaseModelAssertEqualsNew<SqlFieldIdentityModel>();
+        DataCoreTestsUtils.DataCore.FieldBaseModelAssertEqualsNew<SqlFieldIdentityModel>();
     }
 
     [Test]
     public void FieldMacAddressModel_Assert_EqualsNew()
     {
-        DataCore.FieldBaseModelAssertEqualsNew<SqlFieldMacAddressModel>();
+        DataCoreTestsUtils.DataCore.FieldBaseModelAssertEqualsNew<SqlFieldMacAddressModel>();
     }
 
     #endregion

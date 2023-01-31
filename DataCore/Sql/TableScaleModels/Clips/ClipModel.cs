@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleModels.Bundles;
 
 namespace DataCore.Sql.TableScaleModels.Clips;
 

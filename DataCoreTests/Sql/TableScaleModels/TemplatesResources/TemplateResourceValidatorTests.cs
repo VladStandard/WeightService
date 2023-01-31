@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.TemplatesResources;
 [TestFixture]
 internal class TemplateResourceValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        TemplateResourceModel item = DataCore.CreateNewSubstitute<TemplateResourceModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        TemplateResourceModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<TemplateResourceModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        TemplateResourceModel item = DataCore.CreateNewSubstitute<TemplateResourceModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        TemplateResourceModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<TemplateResourceModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

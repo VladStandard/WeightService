@@ -11,5 +11,6 @@ global using DataCore.Sql.Fields;
 global using DataCore.Sql.Models;
 global using DataCore.Sql.Tables;
 global using DataCore.Utils;
+global using DataCoreTests.Utils;
 global using NSubstitute;
 global using NUnit.Framework;

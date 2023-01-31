@@ -8,11 +8,9 @@ namespace DataCoreTests.Sql.TableScaleModels.BarCodes;
 [TestFixture]
 internal class BarCodeContentTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_Content()
     {
-        DataCore.AssertSqlDbContentValidate<BarCodeModel>();
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<BarCodeModel>();
     }
 }

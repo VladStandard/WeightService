@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.PluScales;
 [TestFixture]
 internal class PluScaleValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluScaleModel item = DataCore.CreateNewSubstitute<PluScaleModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        PluScaleModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluScaleModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluScaleModel item = DataCore.CreateNewSubstitute<PluScaleModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        PluScaleModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluScaleModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

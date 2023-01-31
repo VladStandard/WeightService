@@ -16,8 +16,8 @@ using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.LogsTypes;
-using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
@@ -42,7 +42,7 @@ public partial class DataAccessHelper
             new List<SqlFieldFilterModel>
             {
                 new(nameof(ProductSeriesModel.IsClose), SqlFieldComparerEnum.Equal, false),
-                new($"{nameof(ProductSeriesModel.Scale)}.{nameof(ScaleModel.IdentityValueId)}",  SqlFieldComparerEnum.Equal, scale.IdentityValueId),
+                new($"{nameof(ProductSeriesModel.Scale)}.{nameof(ScaleModel.IdentityValueId)}",  SqlFieldComparerEnum.Equal, scale.IdentityValueId)
             }, false, false);
         return GetItemNullable<ProductSeriesModel>(sqlCrudConfig);
     }
@@ -108,7 +108,7 @@ public partial class DataAccessHelper
             {
                 Name = appName,
                 CreateDt = DateTime.Now,
-                ChangeDt = DateTime.Now,
+                ChangeDt = DateTime.Now
             };
             Save(app);
         }
@@ -141,7 +141,7 @@ public partial class DataAccessHelper
                 ChangeDt = DateTime.Now,
                 LoginDt = DateTime.Now,
                 LogoutDt = DateTime.Now,
-                Ipv4 = NetUtils.GetLocalIpAddress(),
+                Ipv4 = NetUtils.GetLocalIpAddress()
             };
             Save(device);
         }
@@ -247,7 +247,7 @@ public partial class DataAccessHelper
             AccessRightsEnum.Read => LocaleCore.Strings.AccessRightsRead,
             AccessRightsEnum.Write => LocaleCore.Strings.AccessRightsWrite,
             AccessRightsEnum.Admin => LocaleCore.Strings.AccessRightsAdmin,
-            _ => LocaleCore.Strings.AccessRightsNone,
+            _ => LocaleCore.Strings.AccessRightsNone
         };
     }
 
@@ -268,16 +268,16 @@ public partial class DataAccessHelper
         return DataAccessHelper.Instance.GetItemNotNullable<ProductionFacilityModel>(sqlCrudConfig);
     }
 
-    public NomenclatureGroupModel? GetItemNomenclatureGroupParentNullable(NomenclatureGroupModel nomenclatureGroup)
+    public PluGroupModel? GetItemNomenclatureGroupParentNullable(PluGroupModel nomenclatureGroup)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
             $"{nameof(NomenclaturesGroupFkModel.NomenclatureGroup)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
             false, false);
-        NomenclatureGroupModel? result = GetItemNullable<NomenclaturesGroupFkModel>(sqlCrudConfig)?.NomenclatureGroupParent;
+        PluGroupModel? result = GetItemNullable<NomenclaturesGroupFkModel>(sqlCrudConfig)?.NomenclatureGroupParent;
         return result;
     }
 
-    public NomenclatureGroupModel GetItemNomenclatureGroupParentNotNullable(NomenclatureGroupModel nomenclatureGroup) => 
+    public PluGroupModel GetItemNomenclatureGroupParentNotNullable(PluGroupModel nomenclatureGroup) => 
         GetItemNomenclatureGroupParentNullable(nomenclatureGroup) ?? new();
 
     #endregion

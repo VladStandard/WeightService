@@ -59,8 +59,8 @@ public partial class DataAccessHelper
 			long id => new(new List<SqlFieldFilterModel> 
 				{ new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id) }, 
 				true, false, false,  false),
-			_ => null,
-		};
+			_ => null
+        };
 		return sqlCrudConfig is not null ? GetItemNullable<T>(sqlCrudConfig) : null;
 	}
 
@@ -88,8 +88,8 @@ public partial class DataAccessHelper
 		{
 			Guid uid => GetItemNullable<T>(uid),
 			long id => GetItemNullable<T>(id),
-			_ => new(),
-		};
+			_ => new()
+        };
 		return item ?? new();
 	}
 

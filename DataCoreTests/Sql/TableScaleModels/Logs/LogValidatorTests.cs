@@ -8,19 +8,17 @@ namespace DataCoreTests.Sql.TableScaleModels.Logs;
 [TestFixture]
 internal class LogValidatorTests
 {
-    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
-
     [Test]
     public void Model_Validate_IsFalse()
     {
-        LogModel item = DataCore.CreateNewSubstitute<LogModel>(false);
-        DataCore.AssertSqlValidate(item, false);
+        LogModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<LogModel>(false);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        LogModel item = DataCore.CreateNewSubstitute<LogModel>(true);
-        DataCore.AssertSqlValidate(item, true);
+        LogModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<LogModel>(true);
+        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }
