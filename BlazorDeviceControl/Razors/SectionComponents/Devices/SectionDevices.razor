@@ -6,13 +6,14 @@
 <RazorSectionReload TItem=@DeviceModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenDataGrid 
-	PagerHorizontalAlign=@HorizontalAlign.Justify 
-	Style="margin-top: 5px;" 
+    PagerHorizontalAlign=@HorizontalAlign.Justify 
+    Style="margin-top: 5px;" 
     Data=@SqlSectionCast 
-    TItem=@DeviceModel 
+    TItem=@DeviceModel
     RowSelect=@(SqlItemSetAsync)
     RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())
+    PagerPosition="@PagerPos"
     PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
     AllowPaging=true 
     AllowSorting=true >

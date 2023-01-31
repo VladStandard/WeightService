@@ -205,7 +205,7 @@ public partial class RazorComponentBase
     protected void SetRouteItemNavigate<TItem>(TItem? item) where TItem : SqlTableBase, new()
     {
         if (item is null) return;
-        string page = GetRouteItemPathShort(SqlItem);
+        string page = GetRouteItemPathShort(item);
         if (string.IsNullOrEmpty(page)) return;
 
         page = item.Identity.Name switch

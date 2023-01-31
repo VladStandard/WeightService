@@ -23,6 +23,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 
     #endregion
 
+    protected PagerPosition PagerPos = PagerPosition.TopAndBottom;
     protected List<TItem> SqlSectionCast
 	{
 		get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
@@ -46,10 +47,9 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
     }
 
     public RazorComponentSectionBase()
-	{
-		CssStyleRadzenColumn = new("5%");
-         // SqlItemFilterCast = new();
-		// SqlSectionFilterCast = new();
+    {
+        CssStyleRadzenColumn = new("5%");
+
         SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
 
         SqlCrudConfigSection.IsGuiShowItemsCount = true;
