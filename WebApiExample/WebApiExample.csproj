@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>f052c1e6-84de-494b-92b6-ee881fd2cadd</UserSecretsId>
-    <Version>0.8.270.0</Version>
+    <Version>0.8.280.0</Version>
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2023</Copyright>
