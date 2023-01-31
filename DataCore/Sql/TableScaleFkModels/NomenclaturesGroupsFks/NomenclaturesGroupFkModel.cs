@@ -11,21 +11,23 @@ namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 /// Table "NOMENCLATURES_GROUPS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(NomenclaturesGroupFkModel)}")]
+[DebuggerDisplay("{nameof(NomenclaturesGroupFkModel)} | ToString()")]
 public class NomenclaturesGroupFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
-    [XmlElement] public virtual NomenclatureGroupModel NomenclatureGroup { get; set; }
-    [XmlElement] public virtual NomenclatureGroupModel NomenclatureGroupParent { get; set; }
+    private NomenclatureGroupModel _nomenclatureGroup;
+    [XmlElement] public virtual NomenclatureGroupModel NomenclatureGroup { get => _nomenclatureGroup; set => _nomenclatureGroup = value; }
+    private NomenclatureGroupModel _nNomenclatureGroupParent;
+    [XmlElement] public virtual NomenclatureGroupModel NomenclatureGroupParent { get => _nNomenclatureGroupParent; set => _nNomenclatureGroupParent = value; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public NomenclaturesGroupFkModel() : base(SqlFieldIdentity.Uid)
     {
-        NomenclatureGroup = new();
-        NomenclatureGroupParent = new();
+        _nomenclatureGroup = new();
+        _nNomenclatureGroupParent = new();
     }
 
     /// <summary>
@@ -35,8 +37,8 @@ public class NomenclaturesGroupFkModel : SqlTableBase
     /// <param name="context"></param>
     protected NomenclaturesGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        NomenclatureGroup = (NomenclatureGroupModel)info.GetValue(nameof(NomenclatureGroup), typeof(NomenclatureGroupModel));
-        NomenclatureGroupParent = (NomenclatureGroupModel)info.GetValue(nameof(NomenclatureGroupParent), typeof(NomenclatureGroupModel));
+        _nomenclatureGroup = (NomenclatureGroupModel)info.GetValue(nameof(_nomenclatureGroup), typeof(NomenclatureGroupModel));
+        _nNomenclatureGroupParent = (NomenclatureGroupModel)info.GetValue(nameof(_nNomenclatureGroupParent), typeof(NomenclatureGroupModel));
     }
 
     #endregion

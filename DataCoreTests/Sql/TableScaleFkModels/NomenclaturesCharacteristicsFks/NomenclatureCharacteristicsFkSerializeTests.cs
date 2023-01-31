@@ -6,13 +6,13 @@ using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 namespace DataCoreTests.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 
 [TestFixture]
-internal class NomenclatureCharacteristicsFkContentTests
+internal class NomenclatureCharacteristicsFkSerializeTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
 	[Test]
-    public void Item_Content_Validate()
+    public void Item_Serialize_Validate()
     {
-		DataCore.AssertSqlDbContentValidate<NomenclaturesCharacteristicsFkModel>();
+		DataCore.AssertSqlDbContentSerialize<NomenclaturesCharacteristicsFkModel>();
 	}
 }

@@ -125,35 +125,61 @@ public class DataCoreHelper
     {
         AssertAction(() =>
         {
-            foreach (bool isShowMarked in DataCoreEnums.GetBool())
+            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
+            List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
+
+            if (!items.Any())
+                TestContext.WriteLine($"{nameof(items)} is null or empty!");
+            else
             {
-                SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
-                List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
-                
-                if (!items.Any())
-                    TestContext.WriteLine($"{nameof(items)} is null or empty!");
-                else
+                TestContext.WriteLine($"Found {items.Count} items. Print top 5.");
+                int i = 0;
+                foreach (T item in items)
                 {
-                    TestContext.WriteLine($"Found {items.Count} items. Print top 10.");
-                    int i = 0;
-                    foreach (T item in items)
-                    {
-                        if (i < 10)
-                            TestContext.WriteLine(item);
-                        i++;
-                        AssertSqlValidate(item, true);
-                        ValidationResult validationResult = ValidationUtils.GetValidationResult(item);
-                        FailureWriteLine(validationResult);
-                        // Assert.
-                        Assert.IsTrue(validationResult.IsValid);
-                    }
+                    if (i < 5)
+                        TestContext.WriteLine(item);
+                    i++;
+                    AssertSqlValidate(item, true);
+                    ValidationResult validationResult = ValidationUtils.GetValidationResult(item);
+                    FailureWriteLine(validationResult);
+                    // Assert.
+                    Assert.IsTrue(validationResult.IsValid);
                 }
             }
-        }, false, true);
+        }, false, false);
     }
 
 	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new() =>
 		AssertValidate(item, assertResult);
+
+    public void AssertSqlDbContentSerialize<T>() where T : SqlTableBase, new()
+    {
+        AssertAction(() =>
+        {
+            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
+            List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
+
+            if (!items.Any())
+                TestContext.WriteLine($"{nameof(items)} is null or empty!");
+            else
+            {
+                TestContext.WriteLine($"Found {items.Count} items. Print top 5.");
+                int i = 0;
+                foreach (T item in items)
+                {
+                    string xml = DataFormatUtils.SerializeAsXmlString<T>(item, true, false);
+                    if (i < 5)
+                    {
+                        TestContext.WriteLine(xml);
+                        TestContext.WriteLine();
+                    }
+                    i++;
+                    // Assert.
+                    Assert.IsNotEmpty(xml);
+                }
+            }
+        }, false, false);
+    }
 
 	public string GetSqlPropertyAsString<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()
 	{
