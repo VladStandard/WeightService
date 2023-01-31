@@ -12,6 +12,7 @@
     TItem=@WeithingFactSummaryModel 
     RowSelect=@(SqlItemSetAsync) 
     RowRender=@(args => RowRender(args))
+    PagerPosition="@PagerPos"
     PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
     AllowPaging=true
     AllowSorting=true >
