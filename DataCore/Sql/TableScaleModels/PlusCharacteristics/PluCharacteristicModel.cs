@@ -4,20 +4,20 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
+namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
 
 /// <summary>
 /// Table "NOMENCLATURES_CHARACTERISTICS".
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(NomenclaturesCharacteristicsModel)}")]
-public class NomenclaturesCharacteristicsModel : SqlTableBase
+public class PluCharacteristicModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual decimal AttachmentsCount { get; set; }
 
-    public NomenclaturesCharacteristicsModel() : base(SqlFieldIdentity.Uid)
+    public PluCharacteristicModel() : base(SqlFieldIdentity.Uid)
     {
         AttachmentsCount = 0;
     }
@@ -27,7 +27,7 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected NomenclaturesCharacteristicsModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PluCharacteristicModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         AttachmentsCount = info.GetDecimal(nameof(AttachmentsCount));
     }
@@ -46,7 +46,7 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((NomenclaturesCharacteristicsModel)obj);
+        return Equals((PluCharacteristicModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -59,7 +59,7 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
 
     public override object Clone()
     {
-        NomenclaturesCharacteristicsModel item = new();
+        PluCharacteristicModel item = new();
         item.AttachmentsCount = AttachmentsCount;
         item.CloneSetup(base.CloneCast());
         return item;
@@ -80,10 +80,10 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(NomenclaturesCharacteristicsModel item) =>
+    public virtual bool Equals(PluCharacteristicModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(AttachmentsCount, item.AttachmentsCount);
-    public new virtual NomenclaturesCharacteristicsModel CloneCast() => (NomenclaturesCharacteristicsModel)Clone();
+    public new virtual PluCharacteristicModel CloneCast() => (PluCharacteristicModel)Clone();
 
     #endregion
 }

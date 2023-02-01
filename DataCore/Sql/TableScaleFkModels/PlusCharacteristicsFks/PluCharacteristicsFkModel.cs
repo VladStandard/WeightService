@@ -3,30 +3,30 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleModels.Devices;
-using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 
-namespace DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+namespace DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 
 /// <summary>
-/// Table "DEVICES_TYPES_FK".
+/// Table "NOMENCLATURES_CHARACTERISTICS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(DeviceTypeFkModel)}")]
-public class DeviceTypeFkModel : SqlTableBase
+[DebuggerDisplay("{nameof(NomenclaturesCharacteristicsFkModel)}")]
+public class PluCharacteristicsFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual DeviceModel Device { get; set; }
-    [XmlElement] public virtual DeviceTypeModel Type { get; set; }
+    [XmlElement] public virtual PluModel Plu { get; set; }
+    [XmlElement] public virtual PluCharacteristicModel PluCharacteristic { get; set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public DeviceTypeFkModel() : base(SqlFieldIdentity.Uid)
+    public PluCharacteristicsFkModel() : base(SqlFieldIdentity.Uid)
     {
-        Device = new();
-        Type = new();
+        Plu = new();
+        PluCharacteristic = new();
     }
 
     /// <summary>
@@ -34,10 +34,10 @@ public class DeviceTypeFkModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected DeviceTypeFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PluCharacteristicsFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Device = (DeviceModel)info.GetValue(nameof(Device), typeof(DeviceModel));
-        Type = (DeviceTypeModel)info.GetValue(nameof(DeviceTypeModel), typeof(DeviceTypeModel));
+        Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
+        PluCharacteristic = (PluCharacteristicModel)info.GetValue(nameof(PluCharacteristic),  typeof(PluCharacteristicModel));
     }
 
     #endregion
@@ -50,15 +50,15 @@ public class DeviceTypeFkModel : SqlTableBase
     /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(Device)}: {Device}. " +
-        $"{nameof(Type)}: {Type}. ";
+        $"{nameof(PluCharacteristic)}: {PluCharacteristic}. " +
+        $"{nameof(Plu)}: {Plu}. ";
 
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((DeviceTypeFkModel)obj);
+        return Equals((PluCharacteristicsFkModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -66,15 +66,15 @@ public class DeviceTypeFkModel : SqlTableBase
     public override bool EqualsNew() => Equals(new());
 
     public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Device.EqualsDefault() &&
-        Type.EqualsDefault();
+        base.EqualsDefault() && 
+        Plu.EqualsDefault() &&
+        PluCharacteristic.EqualsDefault();
 
     public override object Clone()
     {
-        DeviceTypeFkModel item = new();
-        item.Device = Device.CloneCast();
-        item.Type = Type.CloneCast();
+        PluCharacteristicsFkModel item = new();
+        item.Plu = Plu.CloneCast();
+        item.PluCharacteristic = PluCharacteristic.CloneCast();
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -87,27 +87,27 @@ public class DeviceTypeFkModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Device), Device);
-        info.AddValue(nameof(Type), Type);
+        info.AddValue(nameof(Plu), Plu);
+        info.AddValue(nameof(PluCharacteristic), PluCharacteristic);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
-        Device.FillProperties();
-        Type.FillProperties();
+        Plu.FillProperties();
+        PluCharacteristic.FillProperties();
     }
 
     #endregion
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(DeviceTypeFkModel item) =>
+    public virtual bool Equals(PluCharacteristicsFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
-        Device.Equals(item.Device) &&
-        Type.Equals(item.Type);
+        Plu.Equals(item.Plu) &&
+        PluCharacteristic.Equals(item.PluCharacteristic);
 
-    public new virtual DeviceTypeFkModel CloneCast() => (DeviceTypeFkModel)Clone();
+    public new virtual PluCharacteristicsFkModel CloneCast() => (PluCharacteristicsFkModel)Clone();
 
     #endregion
 }

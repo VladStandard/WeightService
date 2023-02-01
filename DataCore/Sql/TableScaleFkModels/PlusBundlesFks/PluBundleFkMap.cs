@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Utils;
+
 namespace DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 
 /// <summary>
@@ -13,8 +15,8 @@ public class PluBundleFkMap : ClassMap<PluBundleFkModel>
     /// </summary>
     public PluBundleFkMap()
     {
-        Schema("db_scales");
-        Table("PLUS_BUNDLES_FK");
+        Schema(SqlSchemaNamesUtils.DbScales);
+        Table(SqlTableNamesUtils.PlusBundlesFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

@@ -3,11 +3,11 @@
 
 using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
+namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
 
-public class NomenclaturesCharacteristicsValidator : SqlTableValidator<NomenclaturesCharacteristicsModel>
+public class PluCharacteristicValidator : SqlTableValidator<PluCharacteristicModel>
 {
-    public NomenclaturesCharacteristicsValidator() : base(true, true)
+    public PluCharacteristicValidator() : base(true, true)
     {
         RuleFor(item => item.AttachmentsCount)
             .NotNull()

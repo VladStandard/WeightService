@@ -5,10 +5,10 @@ using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
+using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -24,11 +24,11 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
-using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
@@ -71,9 +71,9 @@ public class DataContextModel
     public List<NomenclatureModel> NomenclatureDeprecated { get; set; }
     public List<NomenclatureV2Model> NomenclaturesV2 { get; set; }
     public List<PluGroupModel> NomenclaturesGroups { get; set; }
-    public List<NomenclaturesGroupFkModel> NomenclaturesGroupsFk { get; set; }
-    public List<NomenclaturesCharacteristicsModel> NomenclaturesCharacteristics { get; set; }
-    public List<NomenclaturesCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; }
+    public List<PluGroupFkModel> NomenclaturesGroupsFk { get; set; }
+    public List<PluCharacteristicModel> NomenclaturesCharacteristics { get; set; }
+    public List<PluCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; }
     public List<OrderModel> Orders { get; set; }
     public List<OrderWeighingModel> OrderWeighings { get; set; }
     public List<OrganizationModel> Organizations { get; set; }
@@ -171,9 +171,9 @@ public class DataContextModel
         var cls when cls == typeof(LogTypeModel) => GetListNotNullableLogTypes<T>(sqlCrudConfig),
         var cls when cls == typeof(PluGroupModel) => GetListNotNullableNomenclatureGroups<T>(sqlCrudConfig),
         var cls when cls == typeof(NomenclatureModel) => GetListNotNullableNomenclatures<T>(sqlCrudConfig),
-        var cls when cls == typeof(NomenclaturesCharacteristicsFkModel) => GetListNotNullableNomenclatureCharacteristicFks<T>(sqlCrudConfig),
-        var cls when cls == typeof(NomenclaturesCharacteristicsModel) => GetListNotNullableNomenclatureCharacteristics<T>(sqlCrudConfig),
-        var cls when cls == typeof(NomenclaturesGroupFkModel) => GetListNotNullableNomenclatureGroupFks<T>(sqlCrudConfig),
+        var cls when cls == typeof(PluCharacteristicsFkModel) => GetListNotNullableNomenclatureCharacteristicFks<T>(sqlCrudConfig),
+        var cls when cls == typeof(PluCharacteristicModel) => GetListNotNullableNomenclatureCharacteristics<T>(sqlCrudConfig),
+        var cls when cls == typeof(PluGroupFkModel) => GetListNotNullableNomenclatureGroupFks<T>(sqlCrudConfig),
         var cls when cls == typeof(NomenclatureV2Model) => GetListNotNullableNomenclaturesV2<T>(sqlCrudConfig),
         var cls when cls == typeof(OrderModel) => GetListNotNullableOrders<T>(sqlCrudConfig),
         var cls when cls == typeof(OrderWeighingModel) => GetListNotNullableOrderWeighings<T>(sqlCrudConfig),
@@ -336,7 +336,7 @@ public class DataContextModel
 
     private List<T> GetListNotNullableNomenclatureCharacteristics<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
-        NomenclaturesCharacteristics = DataAccess.GetListNotNullable<NomenclaturesCharacteristicsModel>(sqlCrudConfig);
+        NomenclaturesCharacteristics = DataAccess.GetListNotNullable<PluCharacteristicModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && NomenclaturesCharacteristics.Count > 1)
             NomenclaturesCharacteristics = NomenclaturesCharacteristics.OrderBy(item => item.Name).ToList();
         return NomenclaturesCharacteristics.Cast<T>().ToList();
@@ -344,7 +344,7 @@ public class DataContextModel
 
     private List<T> GetListNotNullableNomenclatureCharacteristicFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
-        return DataAccess.GetListNotNullable<NomenclaturesCharacteristicsFkModel>(sqlCrudConfig).Cast<T>().ToList();
+        return DataAccess.GetListNotNullable<PluCharacteristicsFkModel>(sqlCrudConfig).Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullableNomenclatureGroups<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
@@ -357,7 +357,7 @@ public class DataContextModel
 
     private List<T> GetListNotNullableNomenclatureGroupFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
-        NomenclaturesGroupsFk = DataAccess.GetListNotNullable<NomenclaturesGroupFkModel>(sqlCrudConfig);
+        NomenclaturesGroupsFk = DataAccess.GetListNotNullable<PluGroupFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && NomenclaturesGroupsFk.Count > 1)
             NomenclaturesGroupsFk = NomenclaturesGroupsFk
                 .OrderBy(item => item.NomenclatureGroup.Name).ToList()
@@ -679,9 +679,9 @@ public class DataContextModel
         new LogTypeModel(),
         new PluGroupModel(),
         new NomenclatureModel(),
-        new NomenclaturesCharacteristicsFkModel(),
-        new NomenclaturesCharacteristicsModel(),
-        new NomenclaturesGroupFkModel(),
+        new PluCharacteristicsFkModel(),
+        new PluCharacteristicModel(),
+        new PluGroupFkModel(),
         new NomenclatureV2Model(),
         new OrderModel(),
         new OrderWeighingModel(),
@@ -716,7 +716,7 @@ public class DataContextModel
         typeof(BoxModel),
         typeof(BrandModel),
         typeof(ContragentModel),
-        typeof(NomenclaturesCharacteristicsFkModel),
+        typeof(PluCharacteristicsFkModel),
         typeof(OrderModel),
         typeof(PluBundleFkModel),
         typeof(AccessModel),
@@ -731,8 +731,8 @@ public class DataContextModel
         typeof(LogTypeModel),
         typeof(PluGroupModel),
         typeof(NomenclatureModel),
-        typeof(NomenclaturesCharacteristicsModel),
-        typeof(NomenclaturesGroupFkModel),
+        typeof(PluCharacteristicModel),
+        typeof(PluGroupFkModel),
         typeof(NomenclatureV2Model),
         typeof(OrderWeighingModel),
         typeof(OrganizationModel),
@@ -778,9 +778,9 @@ public class DataContextModel
         typeof(LogTypeMap),
         typeof(PluGroupMap),
         typeof(NomenclatureMap),
-        typeof(NomenclaturesCharacteristicsFkMap),
-        typeof(NomenclaturesCharacteristicsMap),
-        typeof(NomenclaturesGroupFkMap),
+        typeof(PluCharacteristicsFkMap),
+        typeof(PluCharacteristicMap),
+        typeof(PluGroupFkMap),
         typeof(NomenclatureV2Map),
         typeof(OrderMap),
         typeof(OrderWeighingMap),
@@ -828,9 +828,9 @@ public class DataContextModel
         typeof(LogTypeValidator),
         typeof(PluGroupValidator),
         typeof(NomenclatureValidator),
-        typeof(NomenclaturesCharacteristicsFkValidator),
-        typeof(NomenclaturesCharacteristicsValidator),
-        typeof(NomenclaturesGroupFkValidator),
+        typeof(PluCharacteristicsFkValidator),
+        typeof(PluCharacteristicValidator),
+        typeof(PluGroupFkValidator),
         typeof(NomenclatureV2Validator),
         typeof(OrderValidator),
         typeof(OrderWeighingValidator),
@@ -865,7 +865,7 @@ public class DataContextModel
             var cls when cls == typeof(BundleModel) => nameof(BundleModel),
             var cls when cls == typeof(ClipModel) => nameof(ClipModel),
             var cls when cls == typeof(ContragentModel) => nameof(ContragentModel),
-            var cls when cls == typeof(NomenclaturesCharacteristicsFkModel) => nameof(NomenclaturesCharacteristicsFkModel),
+            var cls when cls == typeof(PluCharacteristicsFkModel) => nameof(PluCharacteristicsFkModel),
             var cls when cls == typeof(OrderModel) => nameof(OrderModel),
             var cls when cls == typeof(PluBundleFkModel) => nameof(PluBundleFkModel),
             var cls when cls == typeof(AccessModel) => nameof(AccessModel),
@@ -879,8 +879,8 @@ public class DataContextModel
             var cls when cls == typeof(LogTypeModel) => nameof(LogTypeModel),
             var cls when cls == typeof(PluGroupModel) => nameof(PluGroupModel),
             var cls when cls == typeof(NomenclatureModel) => nameof(NomenclatureModel),
-            var cls when cls == typeof(NomenclaturesCharacteristicsModel) => nameof(NomenclaturesCharacteristicsModel),
-            var cls when cls == typeof(NomenclaturesGroupFkModel) => nameof(NomenclaturesGroupFkModel),
+            var cls when cls == typeof(PluCharacteristicModel) => nameof(PluCharacteristicModel),
+            var cls when cls == typeof(PluGroupFkModel) => nameof(PluGroupFkModel),
             var cls when cls == typeof(NomenclatureV2Model) => nameof(NomenclatureV2Model),
             var cls when cls == typeof(OrderWeighingModel) => nameof(OrderWeighingModel),
             var cls when cls == typeof(OrganizationModel) => nameof(OrganizationModel),

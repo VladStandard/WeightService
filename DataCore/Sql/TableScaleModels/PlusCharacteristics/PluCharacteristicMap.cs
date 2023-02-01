@@ -1,20 +1,22 @@
 ﻿//This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 //PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
+using DataCore.Sql.Core.Utils;
+
+namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
 
 /// <summary>
 /// Table map "NOMENCLATURES_CHARACTERISTICS".
 /// </summary>
-public class NomenclaturesCharacteristicsMap : ClassMap<NomenclaturesCharacteristicsModel>
+public class PluCharacteristicMap : ClassMap<PluCharacteristicModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclaturesCharacteristicsMap()
+    public PluCharacteristicMap()
     {
-        Schema("db_scales");
-        Table(SqlTableNamesUtils.NomenclaturesCharacteristics);
+        Schema(SqlSchemaNamesUtils.DbScales);
+        Table(SqlTableNamesUtils.PlusCharacteristics);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

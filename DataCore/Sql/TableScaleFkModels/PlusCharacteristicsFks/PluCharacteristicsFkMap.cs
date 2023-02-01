@@ -1,26 +1,28 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.Core.Utils;
+
+namespace DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 
 /// <summary>
-/// Table map "NOMENCLATURES_GROUPS_FK".
+/// Table map "NOMENCLATURES_CHARACTERISTICS_FK".
 /// </summary>
-public class NomenclaturesGroupFkMap : ClassMap<NomenclaturesGroupFkModel>
+public class PluCharacteristicsFkMap : ClassMap<PluCharacteristicsFkModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclaturesGroupFkMap()
+    public PluCharacteristicsFkMap()
     {
-        Schema("db_scales");
-        Table("NOMENCLATURES_GROUPS_FK");
+        Schema(SqlSchemaNamesUtils.DbScales);
+        Table(SqlTableNamesUtils.PlusCharacteristicsFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        References(x => x.NomenclatureGroup).Column("NG_UID").Not.Nullable();
-        References(x => x.NomenclatureGroupParent).Column("NGP_UID").Not.Nullable();
+        References(x => x.Plu).Column("PLU_UID").Not.Nullable();
+        References(x => x.PluCharacteristic).Column("PLU_CHARACTERISTICS_UID").Not.Nullable();
     }
 }

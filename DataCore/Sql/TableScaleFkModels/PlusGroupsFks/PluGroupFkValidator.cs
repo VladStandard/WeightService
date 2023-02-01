@@ -4,17 +4,17 @@
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 
-namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+namespace DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 
 /// <summary>
-/// Table validation "NOMENCLATURES_GROUPS_FK".
+/// Table validation "PLUS_GROUPS_FK".
 /// </summary>
-public class NomenclaturesGroupFkValidator : SqlTableValidator<NomenclaturesGroupFkModel>
+public class PluGroupFkValidator : SqlTableValidator<PluGroupFkModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclaturesGroupFkValidator() : base(true, true)
+    public PluGroupFkValidator() : base(true, true)
     {
         RuleFor(item => item.NomenclatureGroup)
             .NotEmpty()

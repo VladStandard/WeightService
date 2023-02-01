@@ -5,10 +5,10 @@ using DataCore.CssStyles;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
+using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -24,11 +24,11 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
-using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
@@ -86,8 +86,8 @@ public class ValidationUtils
             var cls when cls == typeof(NomenclatureModel) => new NomenclatureValidator(),
             var cls when cls == typeof(NomenclatureV2Model) => new NomenclatureV2Validator(),
             var cls when cls == typeof(PluGroupModel) => new PluGroupValidator(),
-            var cls when cls == typeof(NomenclaturesCharacteristicsModel) => new NomenclaturesCharacteristicsValidator(),
-            var cls when cls == typeof(NomenclaturesCharacteristicsFkModel) => new NomenclaturesCharacteristicsFkValidator(),
+            var cls when cls == typeof(PluCharacteristicModel) => new PluCharacteristicValidator(),
+            var cls when cls == typeof(PluCharacteristicsFkModel) => new PluCharacteristicsFkValidator(),
             var cls when cls == typeof(OrderModel) => new OrderValidator(),
             var cls when cls == typeof(OrderWeighingModel) => new OrderWeighingValidator(),
             var cls when cls == typeof(OrganizationModel) => new OrganizationValidator(),
@@ -132,10 +132,10 @@ public class ValidationUtils
             LogTypeModel logType => new LogTypeValidator().Validate(logType),
             NomenclatureModel nomenclature => new NomenclatureValidator().Validate(nomenclature),
             NomenclatureV2Model nomenclatureV2 => new NomenclatureV2Validator().Validate(nomenclatureV2),
-            NomenclaturesCharacteristicsModel nomenclaturesCharacteristics => new NomenclaturesCharacteristicsValidator().Validate(nomenclaturesCharacteristics),
-            NomenclaturesCharacteristicsFkModel nomenclatureCharacteristicsFk => new NomenclaturesCharacteristicsFkValidator().Validate(nomenclatureCharacteristicsFk),
+            PluCharacteristicModel nomenclaturesCharacteristics => new PluCharacteristicValidator().Validate(nomenclaturesCharacteristics),
+            PluCharacteristicsFkModel nomenclatureCharacteristicsFk => new PluCharacteristicsFkValidator().Validate(nomenclatureCharacteristicsFk),
             PluGroupModel nomenclatureGroup => new PluGroupValidator().Validate(nomenclatureGroup),
-            NomenclaturesGroupFkModel nomenclatureGroupFk => new NomenclaturesGroupFkValidator().Validate(nomenclatureGroupFk),
+            PluGroupFkModel nomenclatureGroupFk => new PluGroupFkValidator().Validate(nomenclatureGroupFk),
             OrderModel order => new OrderValidator().Validate(order),
             OrderWeighingModel orderWeighing => new OrderWeighingValidator().Validate(orderWeighing),
             OrganizationModel organization => new OrganizationValidator().Validate(organization),

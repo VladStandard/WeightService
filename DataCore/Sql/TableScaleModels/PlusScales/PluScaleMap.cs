@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Utils;
+
 namespace DataCore.Sql.TableScaleModels.PlusScales;
 
 /// <summary>
@@ -13,7 +15,7 @@ public class PluScaleMap : ClassMap<PluScaleModel>
     /// </summary>
     public PluScaleMap()
     {
-        Schema("db_scales");
+        Schema(SqlSchemaNamesUtils.DbScales);
         Table(SqlTableNamesUtils.PlusScales);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

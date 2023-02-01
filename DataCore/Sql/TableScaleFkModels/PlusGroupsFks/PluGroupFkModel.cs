@@ -5,14 +5,14 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 
-namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+namespace DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 
 /// <summary>
-/// Table "NOMENCLATURES_GROUPS_FK".
+/// Table "PLUS_GROUPS_FK".
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(NomenclaturesGroupFkModel)} | ToString()")]
-public class NomenclaturesGroupFkModel : SqlTableBase
+public class PluGroupFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
@@ -24,7 +24,7 @@ public class NomenclaturesGroupFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclaturesGroupFkModel() : base(SqlFieldIdentity.Uid)
+    public PluGroupFkModel() : base(SqlFieldIdentity.Uid)
     {
         _nomenclatureGroup = new();
         _nNomenclatureGroupParent = new();
@@ -35,7 +35,7 @@ public class NomenclaturesGroupFkModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected NomenclaturesGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PluGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         _nomenclatureGroup = (PluGroupModel)info.GetValue(nameof(_nomenclatureGroup), typeof(PluGroupModel));
         _nNomenclatureGroupParent = (PluGroupModel)info.GetValue(nameof(_nNomenclatureGroupParent), typeof(PluGroupModel));
@@ -59,7 +59,7 @@ public class NomenclaturesGroupFkModel : SqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((NomenclaturesGroupFkModel)obj);
+        return Equals((PluGroupFkModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -73,7 +73,7 @@ public class NomenclaturesGroupFkModel : SqlTableBase
 
     public override object Clone()
     {
-        NomenclaturesGroupFkModel item = new();
+        PluGroupFkModel item = new();
         item.NomenclatureGroup = NomenclatureGroup.CloneCast();
         item.NomenclatureGroupParent = NomenclatureGroupParent.CloneCast();
         item.CloneSetup(base.CloneCast());
@@ -103,12 +103,12 @@ public class NomenclaturesGroupFkModel : SqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(NomenclaturesGroupFkModel item) =>
+    public virtual bool Equals(PluGroupFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         NomenclatureGroup.Equals(item.NomenclatureGroup) &&
         NomenclatureGroupParent.Equals(item.NomenclatureGroupParent);
 
-    public new virtual NomenclaturesGroupFkModel CloneCast() => (NomenclaturesGroupFkModel)Clone();
+    public new virtual PluGroupFkModel CloneCast() => (PluGroupFkModel)Clone();
 
     #endregion
 }

@@ -3,27 +3,27 @@
 
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.Templates;
+using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 
-namespace DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+namespace DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 
 /// <summary>
-/// Table validation "PLUS_TEMPLATES_FK".
+/// Table validation "NOMENCLATURES_CHARACTERISTICS_FK".
 /// </summary>
-public class PluTemplateFkValidator : SqlTableValidator<PluTemplateFkModel>
+public class PluCharacteristicsFkValidator : SqlTableValidator<PluCharacteristicsFkModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluTemplateFkValidator() : base(true, true)
+    public PluCharacteristicsFkValidator() : base(true, true)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
             .SetValidator(new PluValidator());
-        RuleFor(item => item.Template)
+        RuleFor(item => item.PluCharacteristic)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new TemplateValidator());
+            .SetValidator(new PluCharacteristicValidator());
     }
 }
