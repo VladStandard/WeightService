@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace WsWebApi.Helpers;
@@ -27,34 +28,12 @@ public partial class ControllerHelper
 
     #region Public and private methods
 
-    public ContentResult GetContentResult(Task<ContentResult> task, string format,
+    public ContentResult GetContentResult(Func<ContentResult> action, string format,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
         {
-            task.Start();
-            return task.GetAwaiter().GetResult();
-        }
-        catch (Exception ex)
-        {
-            filePath = Path.GetFileName(filePath);
-            ServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
-            return DataFormatUtils.GetContentResult<ServiceExceptionModel>(serviceException, format, HttpStatusCode.OK);
-        }
-        finally
-        {
-            GC.Collect();
-        }
-    }
-
-    public delegate ContentResult GetContentResultDelegate();
-
-    public ContentResult GetContentResult(GetContentResultDelegate getContentResult, string format,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-    {
-        try
-        {
-            return getContentResult();
+            return action();
         }
         catch (Exception ex)
         {
@@ -251,13 +230,16 @@ public partial class ControllerHelper
         switch (item)
         {
             case BrandModel brand:
-                SetItemPropertyFromXmlAttributeForBrand(xmlNode, xmlPropertyName, brand);
-                break;
-            case PluGroupModel nomenclatureGroup:
-                SetItemPropertyFromXmlAttributeForNomenclatureGroup(xmlNode, xmlPropertyName, nomenclatureGroup);
+                SetItemPropertyFromXmlAttributeForBrand(xmlNode, brand, xmlPropertyName);
                 break;
             case PluModel plu:
-                SetItemPropertyFromXmlAttributeForPlu(xmlNode, xmlPropertyName, plu);
+                SetItemPropertyFromXmlAttributeForPlu(xmlNode, plu, xmlPropertyName);
+                break;
+            case PluGroupModel pluGroup:
+                SetItemPropertyFromXmlAttributeForPluGroup(xmlNode, pluGroup, xmlPropertyName);
+                break;
+            case PluCharacteristicModel pluCharacteristic:
+                SetItemPropertyFromXmlAttributeForPluCharacteristic(xmlNode, pluCharacteristic, xmlPropertyName);
                 break;
         }
     }
@@ -276,136 +258,121 @@ public partial class ControllerHelper
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-            case nameof(item.IdentityValueUid):
             case "IDENTITYVALUEUID":
-                item.IdentityValueUid = Guid.Empty;
-                if (Guid.TryParse(GetXmlAttributeValue(xmlNode, "Guid"), out Guid uid))
-                {
-                    item.IdentityValueUid = uid;
-                }
-                else
-                    SetItemParseResultException(item, xmlPropertyName);
+                item.IdentityValueUid = GetXmlAttributeGuid(xmlNode, item, "Guid");
                 break;
-            case nameof(item.IsMarked):
             case "ISMARKED":
-                item.IsMarked = false;
-                switch (GetXmlAttributeValue(xmlNode, xmlPropertyName).ToUpper())
-                {
-                    case "0":
-                    case "FALSE":
-                        item.IsMarked = false;
-                        break;
-                    case "1":
-                    case "TRUE":
-                        item.IsMarked = true;
-                        break;
-                    default:
-                        SetItemParseResultException(item, xmlPropertyName);
-                        break;
-                }
+                item.IsMarked = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
                 break;
-            case nameof(item.Name):
             case "NAME":
-                item.Name = GetXmlAttributeValue(xmlNode, xmlPropertyName);
-                if (string.IsNullOrEmpty(item.Name))
-                    SetItemParseResultException(item, xmlPropertyName);
+                item.Name = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
                 break;
-            case nameof(item.Description):
             case "DESCRIPTION":
-                item.Description = GetXmlAttributeValue(xmlNode, xmlPropertyName);
-                if (string.IsNullOrEmpty(item.Description))
-                    SetItemParseResultException(item, xmlPropertyName);
+                item.Description = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
                 break;
         }
     }
 
-    private void SetItemPropertyFromXmlAttributeForBrand(XmlNode xmlNode, string xmlPropertyName, BrandModel item)
+    private void SetItemPropertyFromXmlAttributeForBrand(XmlNode xmlNode, BrandModel item, string xmlPropertyName)
     {
-        switch (xmlPropertyName)
+        switch (xmlPropertyName.ToUpper())
         {
-            case nameof(item.Code):
-                item.Code = GetXmlAttributeValue(xmlNode, xmlPropertyName);
-                if (string.IsNullOrEmpty(item.Code))
-                    SetItemParseResultException(item, xmlPropertyName);
+            case "CODE":
+                item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
                 break;
         }
     }
 
-    private void SetItemPropertyFromXmlAttributeForNomenclatureGroup(XmlNode xmlNode, string xmlPropertyName,
-        PluGroupModel item)
+    private void SetItemPropertyFromXmlAttributeForPlu(XmlNode xmlNode, PluModel item, string xmlPropertyName)
     {
-        switch (xmlPropertyName)
+        switch (xmlPropertyName.ToUpper())
         {
-            case nameof(item.Code):
-                item.Code = GetXmlAttributeValue(xmlNode, xmlPropertyName);
-                if (string.IsNullOrEmpty(item.Code))
-                    SetItemParseResultException(item, xmlPropertyName);
+            case "ISGROUP":
+                item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
                 break;
-        }
-    }
-
-    private void SetItemPropertyFromXmlAttributeForPlu(XmlNode xmlNode, string xmlPropertyName, PluModel item)
-    {
-        switch (xmlPropertyName)
-        {
-            case nameof(item.FullName):
-                item.FullName = GetXmlAttributeValue(xmlNode, xmlPropertyName);
-                if (string.IsNullOrEmpty(item.FullName))
-                    SetItemParseResultException(item, xmlPropertyName);
+            case "FULLNAME":
+                item.FullName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
                 break;
-            case nameof(item.Code):
-                item.Code = GetXmlAttributeValue(xmlNode, xmlPropertyName);
-                if (string.IsNullOrEmpty(item.Code))
-                    SetItemParseResultException(item, xmlPropertyName);
+            case "CODE":
+                item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
                 break;
             case nameof(item.ShelfLifeDays):
-                if (ushort.TryParse(GetXmlAttributeValue(xmlNode, "ShelfLife"), out ushort shelfLifeDays))
-                    item.ShelfLifeDays = shelfLifeDays;
-                else
-                    SetItemParseResultException(item, "ShelfLife");
+                item.ShelfLifeDays = GetXmlAttributeUshort(xmlNode, item, "ShelfLife");
                 break;
-            case nameof(item.IsCheckWeight):
-                string sourceValue = GetXmlAttributeValue(xmlNode, "MeasurementType");
-                switch (sourceValue.ToUpper())
-                {
-                    case "КГ":
-                        item.IsCheckWeight = true;
-                        break;
-                    case "ШТ":
-                        item.IsCheckWeight = false;
-                        break;
-                    default:
-                        SetItemParseResultException(item, "MeasurementType");
-                        break;
-                }
+            case "ISCHECKWEIGHT":
+                item.IsCheckWeight = GetXmlAttributeBool(xmlNode, item, "MeasurementType", "ШТ", "КГ");
                 break;
-            case nameof(item.Number):
-                if (ushort.TryParse(GetXmlAttributeValue(xmlNode, "PluNumber"), out ushort number))
-                    item.Number = number;
-                else
-                    SetItemParseResultException(item, "PluNumber");
+            case "NUMBER":
+                item.Number = GetXmlAttributeUshort(xmlNode, item, "PluNumber");
                 break;
         }
     }
 
-    private string GetXmlAttributeValue(XmlNode? xmlNode, string nameAttribute)
+    private void SetItemPropertyFromXmlAttributeForPluGroup(XmlNode xmlNode, PluGroupModel item, string xmlPropertyName)
     {
-        string result = string.Empty;
-        if (xmlNode is null) return result;
-        if (xmlNode.Attributes is null) return result;
+        switch (xmlPropertyName.ToUpper())
+        {
+            case "ISGROUP":
+                item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
+                break;
+            case "CODE":
+                item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                break;
+            case "GROUPGUID":
+                item.GroupGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+        }
+    }
 
+    private void SetItemPropertyFromXmlAttributeForPluCharacteristic(XmlNode xmlNode, PluCharacteristicModel item, string xmlPropertyName)
+    {
+        switch (xmlPropertyName.ToUpper())
+        {
+            case "ATTACHMENTSCOUNT":
+                item.AttachmentsCount = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
+                break;
+        }
+    }
+
+    public string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName) where T : ISqlTable
+    {
+        if (xmlNode?.Attributes is null) return string.Empty;
         foreach (XmlAttribute? attribute in xmlNode.Attributes)
         {
             if (attribute is not null)
             {
-                if (attribute.Name.ToUpper().Equals(nameAttribute.ToUpper()))
-                {
+                if (attribute.Name.ToUpper().Equals(attributeName.ToUpper()))
                     return attribute.Value;
-                }
             }
         }
-        return result;
+        SetItemParseResultException(item, attributeName);
+        return string.Empty;
     }
+
+    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName, 
+        List<string> valuesFalse, List<string> valuesTrue) where T : ISqlTable
+    {
+        string value = GetXmlAttributeString(xmlNode, item, xmlPropertyName).ToUpper();
+        if (Enumerable.Contains(valuesFalse, value)) return false;
+        if (Enumerable.Contains(valuesTrue, value)) return true;
+        return default;
+    }
+
+    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
+        GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { "0", "FALSE" }, new() { "1", "TRUE" });
+
+    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName, 
+        string valueFalse, string valueTrue) where T : ISqlTable =>
+        GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { valueFalse }, new() { valueTrue });
+
+    public Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+        Guid.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out Guid uid) ? uid : Guid.Empty;
+
+    public ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+        ushort.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out ushort result) ? result : default;
+
+    public decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+        decimal.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out decimal result) ? result : default;
 
     private List<T> GetNodesListCore<T>(XElement xml, string nodeIdentity, Action<XmlNode, T> action) where T : ISqlTable, new()
     {
@@ -485,8 +452,9 @@ public partial class ControllerHelper
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isUpdateIdentity"></param>
+    /// <param name="isCounter"></param>
     /// <returns></returns>
-    private bool UpdateItemDb<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isUpdateIdentity) where T : ISqlTable
+    private bool UpdateItemDb<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isUpdateIdentity, bool isCounter) where T : ISqlTable
     {
         if (itemDb is null || !itemDb.IsNotNew) return false;
         if (isUpdateIdentity)
@@ -494,7 +462,10 @@ public partial class ControllerHelper
         itemDb.UpdateProperties(itemXml);
         (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
-            response.Successes.Add(new(itemXml.IdentityValueUid));
+        {
+            if (isCounter)
+                response.Successes.Add(new(itemXml.IdentityValueUid));
+        }
         else
             AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
         return true;
@@ -505,12 +476,16 @@ public partial class ControllerHelper
     /// </summary>
     /// <param name="response"></param>
     /// <param name="itemXml"></param>
-    private void SaveItemDb<T>(Response1cShortModel response, T itemXml) where T : ISqlTable
+    /// <param name="isCounter"></param>
+    private void SaveItemDb<T>(Response1cShortModel response, T itemXml, bool isCounter) where T : ISqlTable
     {
         (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
         // Add was success.
         if (dbSave.IsOk)
-            response.Successes.Add(new(itemXml.IdentityValueUid));
+        {
+            if (isCounter)
+                response.Successes.Add(new(itemXml.IdentityValueUid));
+        }
         else
             AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
     }

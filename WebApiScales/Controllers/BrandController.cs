@@ -30,7 +30,7 @@ public class BrandController : WebControllerBase
     [Produces("application/xml")]
     [HttpPost]
     [Route("api/send_brands/")]
-    public ContentResult SendBrandList([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
+    public ContentResult SendBrands([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime dtStamp = DateTime.Now;

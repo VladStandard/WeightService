@@ -16,11 +16,11 @@ public class PluGroupFkValidator : SqlTableValidator<PluGroupFkModel>
     /// </summary>
     public PluGroupFkValidator() : base(true, true)
     {
-        RuleFor(item => item.NomenclatureGroup)
+        RuleFor(item => item.PluGroup)
             .NotEmpty()
             .NotNull()
             .SetValidator(new PluGroupValidator());
-        RuleFor(item => item.NomenclatureGroupParent)
+        RuleFor(item => item.Parent)
             .NotEmpty()
             .NotNull()
             .SetValidator(new PluGroupValidator());

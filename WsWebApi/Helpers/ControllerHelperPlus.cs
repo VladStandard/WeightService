@@ -12,6 +12,7 @@ public partial class ControllerHelper
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsGroup));
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.FullName));
@@ -26,21 +27,24 @@ public partial class ControllerHelper
     {
         try
         {
-            // Find by Identity -> Update.
-            PluModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
-            if (UpdateItemDb(response, itemXml, itemDb, false)) return;
-
-            // Find by Code -> Update.
-            itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
-            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
-
-            // Find by Name -> Update.
-            itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Name));
-            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
-
-            // Not find -> Add.
+            // Add or update Foreign keys.
+            // Must be refactoring!
             itemXml.Nomenclature = DataAccessHelper.Instance.GetItemNewEmpty<NomenclatureModel>();
-            SaveItemDb(response, itemXml);
+
+            // Find by Identity -> Update exists.
+            PluModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
+            if (UpdateItemDb(response, itemXml, itemDb, false, true)) return;
+
+            // Find by Code -> Update exists.
+            itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
+            if (UpdateItemDb(response, itemXml, itemDb, true, true)) return;
+
+            // Not find -> Add new.
+            SaveItemDb(response, itemXml, true);
+
+            // Update db list.
+            if (!itemsDb.Select(x => x.IdentityValueUid).Contains(itemXml.IdentityValueUid))
+                itemsDb.Add(itemXml);
         }
         catch (Exception ex)
         {

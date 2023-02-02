@@ -72,8 +72,8 @@ public partial class DataAccessHelper
 				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
 			case PluGroupFkModel nomenclatureGroupFk:
-                nomenclatureGroupFk.NomenclatureGroup = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.NomenclatureGroup.IdentityValueUid);
-                nomenclatureGroupFk.NomenclatureGroupParent = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.NomenclatureGroupParent.IdentityValueUid);
+                nomenclatureGroupFk.PluGroup = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.PluGroup.IdentityValueUid);
+                nomenclatureGroupFk.Parent = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.Parent.IdentityValueUid);
 				break;
             case PluCharacteristicsFkModel pluCharacteristicsFk:
                 pluCharacteristicsFk.Plu = GetItemNotNullable<PluModel>(pluCharacteristicsFk.Plu.IdentityValueUid);

@@ -372,8 +372,8 @@ public class DataCoreHelper
                 nomenclatureCharacteristicFk.PluCharacteristic = CreateNewSubstitute<PluCharacteristicModel>(isNotDefault);
                 break;
             case PluGroupFkModel nomenclatureGroupFk:
-                nomenclatureGroupFk.NomenclatureGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
-                nomenclatureGroupFk.NomenclatureGroupParent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
+                nomenclatureGroupFk.PluGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
+                nomenclatureGroupFk.Parent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
                 break;
 			case OrderModel order:
 				order.Name = LocaleCore.Sql.SqlItemFieldName;

@@ -11,23 +11,23 @@ namespace DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 /// Table "PLUS_GROUPS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(NomenclaturesGroupFkModel)} | ToString()")]
+[DebuggerDisplay("{nameof(PluGroupFkModel)} | {ToString()}")]
 public class PluGroupFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
-    private PluGroupModel _nomenclatureGroup;
-    [XmlElement] public virtual PluGroupModel NomenclatureGroup { get => _nomenclatureGroup; set => _nomenclatureGroup = value; }
-    private PluGroupModel _nNomenclatureGroupParent;
-    [XmlElement] public virtual PluGroupModel NomenclatureGroupParent { get => _nNomenclatureGroupParent; set => _nNomenclatureGroupParent = value; }
+    private PluGroupModel _pluGroup;
+    [XmlElement] public virtual PluGroupModel PluGroup { get => _pluGroup; set => _pluGroup = value; }
+    private PluGroupModel _parent;
+    [XmlElement] public virtual PluGroupModel Parent { get => _parent; set => _parent = value; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public PluGroupFkModel() : base(SqlFieldIdentity.Uid)
     {
-        _nomenclatureGroup = new();
-        _nNomenclatureGroupParent = new();
+        _pluGroup = new();
+        _parent = new();
     }
 
     /// <summary>
@@ -37,8 +37,8 @@ public class PluGroupFkModel : SqlTableBase
     /// <param name="context"></param>
     protected PluGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        _nomenclatureGroup = (PluGroupModel)info.GetValue(nameof(_nomenclatureGroup), typeof(PluGroupModel));
-        _nNomenclatureGroupParent = (PluGroupModel)info.GetValue(nameof(_nNomenclatureGroupParent), typeof(PluGroupModel));
+        _pluGroup = (PluGroupModel)info.GetValue(nameof(_pluGroup), typeof(PluGroupModel));
+        _parent = (PluGroupModel)info.GetValue(nameof(_parent), typeof(PluGroupModel));
     }
 
     #endregion
@@ -51,8 +51,8 @@ public class PluGroupFkModel : SqlTableBase
     /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(NomenclatureGroup)}: {NomenclatureGroup}. " +
-        $"{nameof(NomenclatureGroupParent)}: {NomenclatureGroupParent}. ";
+        $"{nameof(PluGroup)}: {PluGroup}. " +
+        $"{nameof(Parent)}: {Parent}. ";
 
     public override bool Equals(object obj)
     {
@@ -68,14 +68,14 @@ public class PluGroupFkModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
-        NomenclatureGroup.EqualsDefault() &&
-        NomenclatureGroupParent.EqualsDefault();
+        PluGroup.EqualsDefault() &&
+        Parent.EqualsDefault();
 
     public override object Clone()
     {
         PluGroupFkModel item = new();
-        item.NomenclatureGroup = NomenclatureGroup.CloneCast();
-        item.NomenclatureGroupParent = NomenclatureGroupParent.CloneCast();
+        item.PluGroup = PluGroup.CloneCast();
+        item.Parent = Parent.CloneCast();
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -88,15 +88,15 @@ public class PluGroupFkModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(NomenclatureGroup), NomenclatureGroup);
-        info.AddValue(nameof(NomenclatureGroupParent), NomenclatureGroupParent);
+        info.AddValue(nameof(PluGroup), PluGroup);
+        info.AddValue(nameof(Parent), Parent);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
-        NomenclatureGroup.FillProperties();
-        NomenclatureGroupParent.FillProperties();
+        PluGroup.FillProperties();
+        Parent.FillProperties();
     }
 
     #endregion
@@ -105,8 +105,8 @@ public class PluGroupFkModel : SqlTableBase
 
     public virtual bool Equals(PluGroupFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
-        NomenclatureGroup.Equals(item.NomenclatureGroup) &&
-        NomenclatureGroupParent.Equals(item.NomenclatureGroupParent);
+        PluGroup.Equals(item.PluGroup) &&
+        Parent.Equals(item.Parent);
 
     public new virtual PluGroupFkModel CloneCast() => (PluGroupFkModel)Clone();
 

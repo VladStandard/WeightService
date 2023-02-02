@@ -11,6 +11,7 @@ namespace DataCore.Sql.Tables;
 /// DB table model.
 /// </summary>
 [Serializable]
+[DebuggerDisplay("{nameof(SqlTableBase)} | {Identity}")]
 public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
 {
 	#region Public and private fields, properties, constructor
@@ -20,9 +21,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
 	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
 	[XmlIgnore] public virtual bool IsExists => Identity.IsExists;
 	[XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
-	[Obsolete(@"Use IsNotExists")]
 	[XmlIgnore] public virtual bool IsNew => IsNotExists;
-    [Obsolete(@"Use IsExists")]
     [XmlIgnore] public virtual bool IsNotNew => IsExists;
 	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, SqlFieldIdentity.Id);
 	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, SqlFieldIdentity.Uid);

@@ -9,7 +9,7 @@ namespace WebApiScales.Controllers;
 /// <summary>
 /// Nomenclature Group controller.
 /// </summary>
-public class PluController : WebControllerBase
+public class PluCharacteristicController : WebControllerBase
 {
     #region Public and private fields and properties
 
@@ -17,7 +17,7 @@ public class PluController : WebControllerBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public PluController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public PluCharacteristicController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -29,8 +29,8 @@ public class PluController : WebControllerBase
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost]
-    [Route("api/send_nomenclatures/")]
-    public ContentResult SendPlus([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
+    [Route("api/send_nomenclatures_characteristics/")]
+    public ContentResult SendPluCharacteristics([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime dtStamp = DateTime.Now;
@@ -39,9 +39,10 @@ public class PluController : WebControllerBase
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
-                    .NewResponse1cIsNotFound(SessionFactory, version, format), format),
+                        .NewResponse1cIsNotFound(SessionFactory, version, format),
+                    format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cPlus(SessionFactory, xml, format), format)
+                .NewResponse1cPluCharacteristics(SessionFactory, xml, format), format)
         };
         ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, version).ConfigureAwait(false);
         return result;

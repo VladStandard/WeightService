@@ -8,7 +8,7 @@ using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 namespace DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 
 /// <summary>
-/// Table validation "NOMENCLATURES_CHARACTERISTICS_FK".
+/// Table validation "PLUS_CHARACTERISTICS_FK".
 /// </summary>
 public class PluCharacteristicsFkValidator : SqlTableValidator<PluCharacteristicsFkModel>
 {

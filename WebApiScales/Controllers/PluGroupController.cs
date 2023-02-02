@@ -9,7 +9,7 @@ namespace WebApiScales.Controllers;
 /// <summary>
 /// Nomenclature Group controller.
 /// </summary>
-public class NomenclatureGroupController : WebControllerBase
+public class PluGroupController : WebControllerBase
 {
     #region Public and private fields and properties
 
@@ -17,7 +17,7 @@ public class NomenclatureGroupController : WebControllerBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public NomenclatureGroupController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public PluGroupController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -30,7 +30,7 @@ public class NomenclatureGroupController : WebControllerBase
     [Produces("application/xml")]
     [HttpPost]
     [Route("api/send_nomenclatures_groups/")]
-    public ContentResult SendNomenclaturesGroupsList([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
+    public ContentResult SendPluGroups([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime dtStamp = DateTime.Now;
@@ -42,7 +42,7 @@ public class NomenclatureGroupController : WebControllerBase
                         .NewResponse1cIsNotFound(SessionFactory, version, format),
                     format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cNomenclatureGroups(SessionFactory, xml, format), format)
+                .NewResponse1cPluGroups(SessionFactory, xml, format), format)
         };
         ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, version).ConfigureAwait(false);
         return result;

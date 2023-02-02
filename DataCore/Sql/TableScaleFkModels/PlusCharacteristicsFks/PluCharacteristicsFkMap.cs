@@ -6,7 +6,7 @@ using DataCore.Sql.Core.Utils;
 namespace DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 
 /// <summary>
-/// Table map "NOMENCLATURES_CHARACTERISTICS_FK".
+/// Table map "PLUS_CHARACTERISTICS_FK".
 /// </summary>
 public class PluCharacteristicsFkMap : ClassMap<PluCharacteristicsFkModel>
 {

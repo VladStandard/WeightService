@@ -17,35 +17,24 @@ public partial class ControllerHelper
         });
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    private void AddResponse1cBrand(Response1cShortModel response, 
-        List<BrandModel> itemsDb, BrandModel itemXml)
+    private void AddResponse1cBrand(Response1cShortModel response, List<BrandModel> itemsDb, BrandModel itemXml)
     {
         try
         {
-            // Find by UID -> Update.
+            // Find by UID -> Update exists.
             BrandModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
-            if (UpdateItemDb(response, itemXml, itemDb, false)) return;
+            if (UpdateItemDb(response, itemXml, itemDb, false, true)) return;
 
-            // Find by Code -> Update.
+            // Find by Code -> Update exists.
             itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
-            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
-            //if (itemDb is not null && itemDb.IsNotNew)
-            //{
-            //    (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
-            //    // Delete was success. Duplicate field Code: {itemXml.Code}
-            //    if (!dbDelete.IsOk)
-            //    {
-            //        AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
-            //        return;
-            //    }
-            //}
+            if (UpdateItemDb(response, itemXml, itemDb, true, true)) return;
 
-            // Find by Name -> Update.
-            itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Name));
-            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
+            // Not find -> Add new.
+            SaveItemDb(response, itemXml, true);
 
-            // Not find -> Add.
-            SaveItemDb(response, itemXml);
+            // Update db list.
+            if (!itemsDb.Select(x => x.IdentityValueUid).Contains(itemXml.IdentityValueUid))
+                itemsDb.Add(itemXml);
         }
         catch (Exception ex)
         {

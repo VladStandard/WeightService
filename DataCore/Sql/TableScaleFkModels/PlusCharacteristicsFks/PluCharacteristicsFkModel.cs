@@ -9,10 +9,10 @@ using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 namespace DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 
 /// <summary>
-/// Table "NOMENCLATURES_CHARACTERISTICS_FK".
+/// Table "PLUS_CHARACTERISTICS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(NomenclaturesCharacteristicsFkModel)}")]
+[DebuggerDisplay("{nameof(PluCharacteristicsFkModel)}")]
 public class PluCharacteristicsFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

@@ -271,9 +271,9 @@ public partial class DataAccessHelper
     public PluGroupModel? GetItemNomenclatureGroupParentNullable(PluGroupModel nomenclatureGroup)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
-            $"{nameof(PluGroupFkModel.NomenclatureGroup)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
+            $"{nameof(PluGroupFkModel.PluGroup)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
             false, false);
-        PluGroupModel? result = GetItemNullable<PluGroupFkModel>(sqlCrudConfig)?.NomenclatureGroupParent;
+        PluGroupModel? result = GetItemNullable<PluGroupFkModel>(sqlCrudConfig)?.Parent;
         return result;
     }
 

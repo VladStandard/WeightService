@@ -9,7 +9,6 @@ using System.Runtime.CompilerServices;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
-using static WsWebApi.Models.WebUtils;
 
 namespace WebApiScales.Controllers;
 
