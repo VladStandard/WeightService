@@ -8,6 +8,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
+using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
@@ -46,7 +47,6 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
-using System;
 
 namespace DataCore.Sql.Core.Models;
 
@@ -697,16 +697,17 @@ public class DataContextModel
         new DeviceTypeModel(),
         new LogModel(),
         new LogTypeModel(),
-        new PluGroupModel(),
         new NomenclatureModel(),
-        new PluCharacteristicsFkModel(),
-        new PluCharacteristicModel(),
-        new PluGroupFkModel(),
         new NomenclatureV2Model(),
         new OrderModel(),
         new OrderWeighingModel(),
         new OrganizationModel(),
         new PluBundleFkModel(),
+        new PluCharacteristicModel(),
+        new PluCharacteristicsFkModel(),
+        new PluFkModel(),
+        new PluGroupFkModel(),
+        new PluGroupModel(),
         new PluLabelModel(),
         new PluModel(),
         new PluScaleModel(),
@@ -724,7 +725,7 @@ public class DataContextModel
         new TemplateModel(),
         new TemplateResourceModel(),
         new VersionModel(),
-        new WorkShopModel()
+        new WorkShopModel(),
     };
 
     /// <summary>
@@ -733,29 +734,30 @@ public class DataContextModel
     /// <returns></returns>
     public List<Type> GetTableTypes() => new()
     {
-        typeof(BoxModel),
-        typeof(BrandModel),
-        typeof(ContragentModel),
-        typeof(PluCharacteristicsFkModel),
-        typeof(OrderModel),
-        typeof(PluBundleFkModel),
         typeof(AccessModel),
         typeof(AppModel),
         typeof(BarCodeModel),
+        typeof(BoxModel),
+        typeof(BrandModel),
         typeof(BundleModel),
+        typeof(ContragentModel),
         typeof(DeviceModel),
         typeof(DeviceScaleFkModel),
         typeof(DeviceTypeFkModel),
         typeof(DeviceTypeModel),
         typeof(LogModel),
         typeof(LogTypeModel),
-        typeof(PluGroupModel),
         typeof(NomenclatureModel),
-        typeof(PluCharacteristicModel),
-        typeof(PluGroupFkModel),
         typeof(NomenclatureV2Model),
+        typeof(OrderModel),
         typeof(OrderWeighingModel),
         typeof(OrganizationModel),
+        typeof(PluBundleFkModel),
+        typeof(PluCharacteristicModel),
+        typeof(PluCharacteristicsFkModel),
+        typeof(PluFkModel),
+        typeof(PluGroupFkModel),
+        typeof(PluGroupModel),
         typeof(PluLabelModel),
         typeof(PluModel),
         typeof(PluScaleModel),
@@ -773,7 +775,7 @@ public class DataContextModel
         typeof(TemplateModel),
         typeof(TemplateResourceModel),
         typeof(VersionModel),
-        typeof(WorkShopModel)
+        typeof(WorkShopModel),
     };
 
     /// <summary>
@@ -796,16 +798,17 @@ public class DataContextModel
         typeof(DeviceTypeMap),
         typeof(LogMap),
         typeof(LogTypeMap),
-        typeof(PluGroupMap),
         typeof(NomenclatureMap),
-        typeof(PluCharacteristicsFkMap),
-        typeof(PluCharacteristicMap),
-        typeof(PluGroupFkMap),
         typeof(NomenclatureV2Map),
         typeof(OrderMap),
         typeof(OrderWeighingMap),
         typeof(OrganizationMap),
         typeof(PluBundleFkMap),
+        typeof(PluCharacteristicMap),
+        typeof(PluCharacteristicsFkMap),
+        typeof(PluFkMap),
+        typeof(PluGroupFkMap),
+        typeof(PluGroupMap),
         typeof(PluLabelMap),
         typeof(PluMap),
         typeof(PluScaleMap),
@@ -823,7 +826,7 @@ public class DataContextModel
         typeof(TemplateMap),
         typeof(TemplateResourceMap),
         typeof(VersionMap),
-        typeof(WorkShopMap)
+        typeof(WorkShopMap),
     };
 
     /// <summary>
@@ -840,70 +843,72 @@ public class DataContextModel
         typeof(BundleValidator),
         typeof(ClipValidator),
         typeof(ContragentValidator),
-        typeof(DeviceValidator),
         typeof(DeviceScaleFkValidator),
         typeof(DeviceTypeFkValidator),
         typeof(DeviceTypeValidator),
-        typeof(LogValidator),
+        typeof(DeviceValidator),
         typeof(LogTypeValidator),
-        typeof(PluGroupValidator),
-        typeof(NomenclatureValidator),
-        typeof(PluCharacteristicsFkValidator),
-        typeof(PluCharacteristicValidator),
-        typeof(PluGroupFkValidator),
+        typeof(LogValidator),
         typeof(NomenclatureV2Validator),
+        typeof(NomenclatureValidator),
         typeof(OrderValidator),
         typeof(OrderWeighingValidator),
         typeof(OrganizationValidator),
         typeof(PluBundleFkValidator),
+        typeof(PluCharacteristicsFkValidator),
+        typeof(PluCharacteristicValidator),
+        typeof(PluFkValidator),
+        typeof(PluGroupFkValidator),
+        typeof(PluGroupValidator),
         typeof(PluLabelValidator),
-        typeof(PluValidator),
         typeof(PluScaleValidator),
         typeof(PluTemplateFkValidator),
+        typeof(PluValidator),
         typeof(PluWeighingValidator),
-        typeof(PrinterValidator),
         typeof(PrinterResourceValidator),
         typeof(PrinterTypeValidator),
+        typeof(PrinterValidator),
         typeof(ProductionFacilityValidator),
         typeof(ProductSeriesValidator),
-        typeof(ScaleValidator),
         typeof(ScaleScreenShotValidator),
-        typeof(TaskValidator),
+        typeof(ScaleValidator),
         typeof(TaskTypeValidator),
-        typeof(TemplateValidator),
+        typeof(TaskValidator),
         typeof(TemplateResourceValidator),
+        typeof(TemplateValidator),
         typeof(VersionValidator),
-        typeof(WorkShopValidator)
+        typeof(WorkShopValidator),
     };
 
     public string GetTableModelName<T>() where T : SqlTableBase, new()
     {
         return typeof(T) switch
         {
+            var cls when cls == typeof(AccessModel) => nameof(AccessModel),
+            var cls when cls == typeof(AppModel) => nameof(AppModel),
+            var cls when cls == typeof(BarCodeModel) => nameof(BarCodeModel),
             var cls when cls == typeof(BoxModel) => nameof(BoxModel),
             var cls when cls == typeof(BrandModel) => nameof(BrandModel),
             var cls when cls == typeof(BundleModel) => nameof(BundleModel),
             var cls when cls == typeof(ClipModel) => nameof(ClipModel),
             var cls when cls == typeof(ContragentModel) => nameof(ContragentModel),
-            var cls when cls == typeof(PluCharacteristicsFkModel) => nameof(PluCharacteristicsFkModel),
-            var cls when cls == typeof(OrderModel) => nameof(OrderModel),
-            var cls when cls == typeof(PluBundleFkModel) => nameof(PluBundleFkModel),
-            var cls when cls == typeof(AccessModel) => nameof(AccessModel),
-            var cls when cls == typeof(AppModel) => nameof(AppModel),
-            var cls when cls == typeof(BarCodeModel) => nameof(BarCodeModel),
             var cls when cls == typeof(DeviceModel) => nameof(DeviceModel),
             var cls when cls == typeof(DeviceScaleFkModel) => nameof(DeviceScaleFkModel),
             var cls when cls == typeof(DeviceTypeFkModel) => nameof(DeviceTypeFkModel),
             var cls when cls == typeof(DeviceTypeModel) => nameof(DeviceTypeModel),
             var cls when cls == typeof(LogModel) => nameof(LogModel),
             var cls when cls == typeof(LogTypeModel) => nameof(LogTypeModel),
-            var cls when cls == typeof(PluGroupModel) => nameof(PluGroupModel),
             var cls when cls == typeof(NomenclatureModel) => nameof(NomenclatureModel),
-            var cls when cls == typeof(PluCharacteristicModel) => nameof(PluCharacteristicModel),
-            var cls when cls == typeof(PluGroupFkModel) => nameof(PluGroupFkModel),
             var cls when cls == typeof(NomenclatureV2Model) => nameof(NomenclatureV2Model),
+            var cls when cls == typeof(OrderModel) => nameof(OrderModel),
             var cls when cls == typeof(OrderWeighingModel) => nameof(OrderWeighingModel),
             var cls when cls == typeof(OrganizationModel) => nameof(OrganizationModel),
+            var cls when cls == typeof(PluBundleFkModel) => nameof(PluBundleFkModel),
+            var cls when cls == typeof(PluCharacteristicModel) => nameof(PluCharacteristicModel),
+            var cls when cls == typeof(PluCharacteristicsFkModel) => nameof(PluCharacteristicsFkModel),
+            var cls when cls == typeof(PluFkModel) => nameof(PluFkModel),
+            var cls when cls == typeof(PluGroupFkModel) => nameof(PluGroupFkModel),
+            var cls when cls == typeof(PluGroupModel) => nameof(PluGroupModel),
             var cls when cls == typeof(PluLabelModel) => nameof(PluLabelModel),
             var cls when cls == typeof(PluModel) => nameof(PluModel),
             var cls when cls == typeof(PluScaleModel) => nameof(PluScaleModel),

@@ -8,6 +8,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
+using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
@@ -135,7 +136,8 @@ public class ValidationUtils
             PluCharacteristicModel nomenclaturesCharacteristics => new PluCharacteristicValidator().Validate(nomenclaturesCharacteristics),
             PluCharacteristicsFkModel nomenclatureCharacteristicsFk => new PluCharacteristicsFkValidator().Validate(nomenclatureCharacteristicsFk),
             PluGroupModel nomenclatureGroup => new PluGroupValidator().Validate(nomenclatureGroup),
-            PluGroupFkModel nomenclatureGroupFk => new PluGroupFkValidator().Validate(nomenclatureGroupFk),
+            PluFkModel pluFk => new PluFkValidator().Validate(pluFk),
+            PluGroupFkModel pluGroupFk => new PluGroupFkValidator().Validate(pluGroupFk),
             OrderModel order => new OrderValidator().Validate(order),
             OrderWeighingModel orderWeighing => new OrderWeighingValidator().Validate(orderWeighing),
             OrganizationModel organization => new OrganizationValidator().Validate(organization),

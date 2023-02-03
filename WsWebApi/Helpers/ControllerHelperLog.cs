@@ -2,6 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DevExpress.Xpo.Logger.Transport;
+using Microsoft.Extensions.Hosting;
+using static System.Net.Mime.MediaTypeNames;
+using static WsWebApi.Models.WebUtils;
 
 namespace WsWebApi.Helpers;
 
@@ -23,25 +26,33 @@ public partial class ControllerHelper
     /// </summary>
     /// <param name="serviceLogType"></param>
     /// <param name="appName"></param>
+    /// <param name="query"></param>
     /// <param name="dtStamp"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    private async Task LogCore(ServiceLogType serviceLogType, string appName, DateTime dtStamp, string text)
+    private async Task LogCore(ServiceLogType serviceLogType, string appName, string query, DateTime dtStamp, string text)
     {
         string dtString = StringUtils.FormatDtEng(dtStamp, true).Replace(':', '.');
         // Get directory name.
         if (!Directory.Exists(RootDirectory)) return;
+        // Machine dir.
         string directory = RootDirectory + @$"{Environment.MachineName}";
+        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+        // App dir.
+        directory = Path.Combine(directory, appName);
+        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+        // Query dir.
+        if (query.StartsWith("api/")) query = query.Remove(0, 4);
+        directory = Path.Combine(directory, query);
         if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
         // Get file name.
-        string filePath = @$"{directory}\{appName}_{dtString}";
-        filePath += serviceLogType switch
+        string filePath = serviceLogType switch
         {
-            ServiceLogType.Request => ".request",
-            ServiceLogType.Response => ".response",
-            ServiceLogType.MetaData => ".metadata",
-            _ => ".txt"
+            ServiceLogType.Request => @$"{directory}\{dtString}_request.txt",
+            ServiceLogType.Response => @$"{directory}\{dtString}_response.txt",
+            ServiceLogType.MetaData => @$"{directory}\{dtString}_metadata.txt",
+            _ => @$"{directory}\{dtString}_default.txt"
         };
 
         // Store data into the log.
@@ -62,55 +73,66 @@ public partial class ControllerHelper
     /// Log the request.
     /// </summary>
     /// <param name="appName"></param>
+    /// <param name="query"></param>
     /// <param name="dtStamp"></param>
-    /// <param name="xml"></param>
+    /// <param name="request"></param>
     /// <param name="format"></param>
     /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
-    public async Task LogRequest(string appName, DateTime dtStamp, string xml, string format, string host, string version)
+    public async Task LogRequest(string appName, string query, DateTime dtStamp, string request, string format, string host, string version)
     {
-        await LogCore(ServiceLogType.Request, appName, dtStamp, xml).ConfigureAwait(false);
+        // Add meta data.
+        string metaDataText = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
+        metaDataText += $"{nameof(query)}: {host}/{query}" + Environment.NewLine;
+        metaDataText += $"{nameof(format)}: {format}" + Environment.NewLine;
+        metaDataText += $"{nameof(version)}: {version}" + Environment.NewLine;
+        metaDataText += $"Request data: {request.Length:### ### 000} B | {request.Length / 1024:### ###} KB" + Environment.NewLine;
+        metaDataText += "Request body:" + Environment.NewLine;
+        request = metaDataText + request;
 
-        string text = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
-        text += $"{nameof(format)}: {format}" + Environment.NewLine;
-        text += $"{nameof(host)}: {host}" + Environment.NewLine;
-        text += $"{nameof(version)}: {version}" + Environment.NewLine;
-        text += $"Request data: {nameof(xml)}.{nameof(string.Length)}: {xml.Length} B | {xml.Length / 1024} KB | {xml.Length / 1024 / 1024} MB" + Environment.NewLine;
-        await LogCore(ServiceLogType.MetaData, appName, dtStamp, text).ConfigureAwait(false);
+        await LogCore(ServiceLogType.Request, appName, query, dtStamp, request).ConfigureAwait(false);
     }
 
     /// <summary>
     /// Log the request.
     /// </summary>
     /// <param name="appName"></param>
+    /// <param name="query"></param>
     /// <param name="dtStamp"></param>
     /// <param name="xml"></param>
     /// <param name="format"></param>
+    /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
-    public async Task LogRequest(string appName, DateTime dtStamp, XElement xml, string format, string host, string version) =>
-        await LogRequest(appName, dtStamp, xml.ToString(), format, host, version).ConfigureAwait(false);
+    public async Task LogRequest(string appName, string query, DateTime dtStamp, XElement xml, string format, string host, string version) =>
+        await LogRequest(appName, query, dtStamp, xml.ToString(), format, host, version).ConfigureAwait(false);
 
     /// <summary>
     /// Log the response.
     /// </summary>
     /// <param name="appName"></param>
+    /// <param name="query"></param>
     /// <param name="dtStamp"></param>
     /// <param name="result"></param>
     /// <param name="format"></param>
+    /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task LogResponse(string appName, DateTime dtStamp, ContentResult result, string format, string version)
+    public async Task LogResponse(string appName, string query, DateTime dtStamp, ContentResult result, string format, 
+        string host, string version)
     {
-        await LogCore(ServiceLogType.Response, appName, dtStamp, result.Content).ConfigureAwait(false);
+        // Add meta data.
+        string metaDataText = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
+        metaDataText += $"{nameof(query)}: {host}/{query}" + Environment.NewLine;
+        metaDataText += $"{nameof(format)}: {format}" + Environment.NewLine;
+        metaDataText += $"{nameof(version)}: {version}" + Environment.NewLine;
+        metaDataText += $"Response data: {result.Content.Length:### ### 000} B | {result.Content.Length / 1024:### ###} KB" + Environment.NewLine;
+        metaDataText += "Response body:" + Environment.NewLine;
+        string response = metaDataText + result.Content;
 
-        string text = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
-        text += $"{nameof(format)}: {format}" + Environment.NewLine;
-        text += $"{nameof(version)}: {version}" + Environment.NewLine;
-        text += $"Response data: {nameof(result.Content)}.{nameof(string.Length)}: {result.Content.Length} B | {result.Content.Length / 1024} KB | {result.Content.Length / 1024 / 1024} MB" + Environment.NewLine;
-        await LogCore(ServiceLogType.MetaData, appName, dtStamp, text).ConfigureAwait(false);
+        await LogCore(ServiceLogType.Response, appName, query, dtStamp, response).ConfigureAwait(false);
     }
 
     #endregion

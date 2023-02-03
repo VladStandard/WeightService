@@ -30,6 +30,7 @@ public static class SqlTableNamesUtils
     public static string OrdersWeighings => "ORDERS_WEIGHINGS";
     public static string Organizations => "ORGANIZATIONS";
     public static string Plus => "PLUS";
+    public static string PlusFks => "PLUS_FK";
     public static string PlusBundlesFks => "PLUS_BUNDLES_FK";
     public static string PlusCharacteristics => "PLUS_CHARACTERISTICS";
     public static string PlusCharacteristicsFks => "PLUS_CHARACTERISTICS_FK";

@@ -41,8 +41,6 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
-using FluentNHibernate.Cfg;
-using NHibernate;
 
 namespace DataCoreTests.Sql.Core.Helpers;
 
