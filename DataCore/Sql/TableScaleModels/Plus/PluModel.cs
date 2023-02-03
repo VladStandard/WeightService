@@ -19,6 +19,7 @@ public class PluModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
+    [XmlElement] public virtual bool IsGroup { get; set; } = false;
     [XmlElement] public virtual ushort Number { get; set; }
     [XmlElement] public virtual string Code { get; set; }
     [XmlElement] public virtual string NumberFormat
@@ -51,6 +52,7 @@ public class PluModel : SqlTableBase
     /// </summary>
     public PluModel() : base(SqlFieldIdentity.Uid)
     {
+        IsGroup = default;
         Number = default;
         FullName = string.Empty;
         ShelfLifeDays = default;
@@ -69,6 +71,7 @@ public class PluModel : SqlTableBase
     /// <param name="context"></param>
     protected PluModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
+        IsGroup = info.GetBoolean(nameof(IsGroup));
         Number = info.GetUInt16(nameof(Number));
         FullName = info.GetString(nameof(FullName));
         ShelfLifeDays = info.GetUInt16(nameof(ShelfLifeDays));
@@ -86,6 +89,7 @@ public class PluModel : SqlTableBase
 
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{nameof(IsGroup)}: {IsGroup}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Code)}: {Code}. " +
         $"{nameof(Number)}: {Number}. ";
@@ -104,6 +108,7 @@ public class PluModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
+        Equals(IsGroup, default) &&
         Equals(Code, string.Empty) &&
         Equals(Number, default(ushort)) &&
         Equals(FullName, string.Empty) &&
@@ -117,6 +122,7 @@ public class PluModel : SqlTableBase
     public override object Clone()
     {
         PluModel item = new();
+        item.IsGroup = IsGroup;
         item.Code = Code;
         item.Number = Number;
         item.FullName = FullName;
@@ -133,6 +139,7 @@ public class PluModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(IsGroup), IsGroup);
         info.AddValue(nameof(Number), Number);
         info.AddValue(nameof(FullName), FullName);
         info.AddValue(nameof(ShelfLifeDays), ShelfLifeDays);
@@ -161,6 +168,7 @@ public class PluModel : SqlTableBase
 
     public virtual bool Equals(PluModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        Equals(IsGroup, item.IsGroup) &&
         Equals(Code, item.Code) &&
         Equals(Number, item.Number) &&
         Equals(FullName, item.FullName) &&
@@ -177,7 +185,8 @@ public class PluModel : SqlTableBase
     {
         base.UpdateProperties(item);
         if (item is not PluModel plu) return;
-        
+
+        IsGroup = plu.IsGroup;
         if (plu.Number > 0)
             Number = plu.Number;
         if (!string.IsNullOrEmpty(plu.Code))

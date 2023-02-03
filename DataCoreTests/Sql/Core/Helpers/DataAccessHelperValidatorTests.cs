@@ -3,9 +3,9 @@
 
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
+using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -19,11 +19,11 @@ using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
-using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
@@ -219,7 +219,7 @@ internal class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            NomenclaturesCharacteristicsFkValidator item = new();
+            PluCharacteristicsFkValidator item = new();
             TestContext.WriteLine(item);
         });
     }
@@ -229,7 +229,7 @@ internal class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            NomenclaturesCharacteristicsValidator item = new();
+            PluCharacteristicValidator item = new();
             TestContext.WriteLine(item);
         });
     }
@@ -239,7 +239,7 @@ internal class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            NomenclaturesGroupFkValidator item = new();
+            PluGroupFkValidator item = new();
             TestContext.WriteLine(item);
         });
     }

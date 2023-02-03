@@ -13,7 +13,7 @@ public class SqlTableEmptyMap : ClassMap<SqlTableEmptyModel>
     /// </summary>
     public SqlTableEmptyMap()
     {
-        //Schema("db_scales");
+        //Schema(SqlSchemaNamesUtils.DbScales);
         //Table("EMPTY");
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

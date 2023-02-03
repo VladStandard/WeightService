@@ -3,10 +3,10 @@
 
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
+using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -19,10 +19,10 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
-using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
@@ -71,13 +71,13 @@ public partial class DataAccessHelper
 				deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
 				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
-			case NomenclaturesGroupFkModel nomenclatureGroupFk:
-                nomenclatureGroupFk.NomenclatureGroup = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.NomenclatureGroup.IdentityValueUid);
-                nomenclatureGroupFk.NomenclatureGroupParent = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.NomenclatureGroupParent.IdentityValueUid);
+			case PluGroupFkModel nomenclatureGroupFk:
+                nomenclatureGroupFk.PluGroup = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.PluGroup.IdentityValueUid);
+                nomenclatureGroupFk.Parent = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.Parent.IdentityValueUid);
 				break;
-            case NomenclaturesCharacteristicsFkModel nomenclatureCharacteristicsFk:
-                nomenclatureCharacteristicsFk.Nomenclature = GetItemNotNullable<NomenclatureV2Model>(nomenclatureCharacteristicsFk.Nomenclature.IdentityValueUid);
-                nomenclatureCharacteristicsFk.NomenclaturesCharacteristics = GetItemNotNullable<NomenclaturesCharacteristicsModel>(nomenclatureCharacteristicsFk.NomenclaturesCharacteristics.IdentityValueUid);
+            case PluCharacteristicsFkModel pluCharacteristicsFk:
+                pluCharacteristicsFk.Plu = GetItemNotNullable<PluModel>(pluCharacteristicsFk.Plu.IdentityValueUid);
+                pluCharacteristicsFk.PluCharacteristic = GetItemNotNullable<PluCharacteristicModel>(pluCharacteristicsFk.PluCharacteristic.IdentityValueUid);
                 break;
             case OrderWeighingModel orderWeighing:
                 orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);

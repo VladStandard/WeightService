@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Utils;
+
 namespace DataCore.Sql.TableScaleModels.Nomenclatures;
 
 /// <summary>
@@ -14,7 +16,7 @@ public class NomenclatureMap : ClassMap<NomenclatureModel>
     /// </summary>
     public NomenclatureMap()
     {
-        Schema("db_scales");
+        Schema(SqlSchemaNamesUtils.DbScales);
         Table(SqlTableNamesUtils.NomenclaturesDeprecated);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();

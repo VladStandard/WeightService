@@ -18,7 +18,6 @@ public class PluNestingFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
     [XmlElement] public virtual BoxModel Box { get; set; }
-    //[XmlElement] public virtual PluModel Plu { get; set; }
     [XmlElement] public virtual PluBundleFkModel PluBundle { get; set; }
     [XmlElement] public virtual bool IsDefault { get; set; }
     [XmlElement] public virtual short BundleCount { get; set; }

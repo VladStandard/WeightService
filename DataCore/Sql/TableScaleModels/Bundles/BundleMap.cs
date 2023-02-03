@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Utils;
+
 namespace DataCore.Sql.TableScaleModels.Bundles;
 
 /// <summary>
@@ -13,7 +15,7 @@ public class BundleMap : ClassMap<BundleModel>
     /// </summary>
     public BundleMap()
     {
-        Schema("db_scales");
+        Schema(SqlSchemaNamesUtils.DbScales);
         Table(SqlTableNamesUtils.Bundles);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

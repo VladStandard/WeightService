@@ -8,8 +8,8 @@ using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -271,9 +271,9 @@ public partial class DataAccessHelper
     public PluGroupModel? GetItemNomenclatureGroupParentNullable(PluGroupModel nomenclatureGroup)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
-            $"{nameof(NomenclaturesGroupFkModel.NomenclatureGroup)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
+            $"{nameof(PluGroupFkModel.PluGroup)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
             false, false);
-        PluGroupModel? result = GetItemNullable<NomenclaturesGroupFkModel>(sqlCrudConfig)?.NomenclatureGroupParent;
+        PluGroupModel? result = GetItemNullable<PluGroupFkModel>(sqlCrudConfig)?.Parent;
         return result;
     }
 

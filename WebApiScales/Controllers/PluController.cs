@@ -30,7 +30,7 @@ public class PluController : WebControllerBase
     [Produces("application/xml")]
     [HttpPost]
     [Route("api/send_nomenclatures/")]
-    public ContentResult SendNomenclatures([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
+    public ContentResult SendPlus([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime dtStamp = DateTime.Now;

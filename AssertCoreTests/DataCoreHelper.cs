@@ -4,8 +4,6 @@
 using DataCore.Models;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
-using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -20,7 +18,6 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
-using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
@@ -46,8 +43,11 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Core.Models;
+using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
+using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleModels.Clips;
+using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace AssertCoreTests;
@@ -363,17 +363,17 @@ public class DataCoreHelper
                 nomenclatureGroup.Name = LocaleCore.Sql.SqlItemFieldName;
                 nomenclatureGroup.Code = LocaleCore.Sql.SqlItemFieldCode;
                 break;
-            case NomenclaturesCharacteristicsModel nomenclatureCharacteristic:
+            case PluCharacteristicModel nomenclatureCharacteristic:
                 nomenclatureCharacteristic.Name = LocaleCore.Sql.SqlItemFieldName;
                 nomenclatureCharacteristic.AttachmentsCount = 3;
                 break;
-            case NomenclaturesCharacteristicsFkModel nomenclatureCharacteristicFk:
-                nomenclatureCharacteristicFk.Nomenclature = CreateNewSubstitute<NomenclatureV2Model>(isNotDefault);
-                nomenclatureCharacteristicFk.NomenclaturesCharacteristics = CreateNewSubstitute<NomenclaturesCharacteristicsModel>(isNotDefault);
+            case PluCharacteristicsFkModel nomenclatureCharacteristicFk:
+                nomenclatureCharacteristicFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                nomenclatureCharacteristicFk.PluCharacteristic = CreateNewSubstitute<PluCharacteristicModel>(isNotDefault);
                 break;
-            case NomenclaturesGroupFkModel nomenclatureGroupFk:
-                nomenclatureGroupFk.NomenclatureGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
-                nomenclatureGroupFk.NomenclatureGroupParent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
+            case PluGroupFkModel nomenclatureGroupFk:
+                nomenclatureGroupFk.PluGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
+                nomenclatureGroupFk.Parent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
                 break;
 			case OrderModel order:
 				order.Name = LocaleCore.Sql.SqlItemFieldName;

@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Utils;
+
 namespace DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 
 /// <summary>
@@ -13,8 +15,8 @@ public class DeviceScaleFkMap : ClassMap<DeviceScaleFkModel>
     /// </summary>
     public DeviceScaleFkMap()
     {
-        Schema("db_scales");
-        Table("DEVICES_SCALES_FK");
+        Schema(SqlSchemaNamesUtils.DbScales);
+        Table(SqlTableNamesUtils.DevicesScalesFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

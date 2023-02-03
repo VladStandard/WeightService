@@ -10,13 +10,14 @@ namespace DataCore.Sql.TableScaleModels.PlusGroups;
 /// Table "PLUS_GROUPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(NomenclatureGroupModel)}")]
+[DebuggerDisplay("{nameof(PluGroupModel)} | {nameof(IsGroup)} = {IsGroup} | {Code}")]
 public class PluGroupModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual bool IsGroup { get; set; }
     [XmlElement] public virtual string Code { get; set; }
+    [XmlIgnore] public virtual Guid GroupGuid { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -25,6 +26,7 @@ public class PluGroupModel : SqlTableBase
     {
         IsGroup = false;
         Code = string.Empty;
+        GroupGuid = Guid.Empty;
     }
 
     /// <summary>
@@ -36,6 +38,8 @@ public class PluGroupModel : SqlTableBase
     {
         IsGroup = info.GetBoolean(nameof(IsGroup));
         Code = info.GetString(nameof(Code));
+        object groupGuid = info.GetValue(nameof(GroupGuid), typeof(Guid));
+        GroupGuid = groupGuid is Guid guid ? guid : Guid.Empty;
     }
 
     #endregion
@@ -63,13 +67,15 @@ public class PluGroupModel : SqlTableBase
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(IsGroup, false) &&
-        Equals(Code, string.Empty);
+        Equals(Code, string.Empty) &&
+        Equals(GroupGuid, Guid.Empty);
 
     public override object Clone()
     {
         PluGroupModel item = new();
         item.IsGroup = IsGroup;
         item.Code = Code;
+        item.GroupGuid = GroupGuid;
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -84,6 +90,7 @@ public class PluGroupModel : SqlTableBase
         base.GetObjectData(info, context);
         info.AddValue(nameof(IsGroup), IsGroup);
         info.AddValue(nameof(Code), Code);
+        info.AddValue(nameof(GroupGuid), GroupGuid);
     }
 
     public override void FillProperties()
@@ -99,7 +106,8 @@ public class PluGroupModel : SqlTableBase
     public virtual bool Equals(PluGroupModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(IsGroup, item.IsGroup) &&
-        Equals(Code, item.Code);
+        Equals(Code, item.Code) &&
+        Equals(GroupGuid, item.GroupGuid);
 
     public new virtual PluGroupModel CloneCast() => (PluGroupModel)Clone();
 

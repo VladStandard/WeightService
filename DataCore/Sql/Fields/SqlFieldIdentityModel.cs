@@ -9,6 +9,7 @@ namespace DataCore.Sql.Fields;
 /// DB field Identity model.
 /// </summary>
 [Serializable]
+[DebuggerDisplay("{GetValue()}")]
 public class SqlFieldIdentityModel : SqlFieldBase
 {
 	#region Public and private fields, properties, constructor
@@ -62,20 +63,21 @@ public class SqlFieldIdentityModel : SqlFieldBase
 
 	#region Public and private methods - override
 
-	public override string ToString()
-	{
-		string strIdentityValue = string.Empty;
-		switch (Name)
-		{
-			case SqlFieldIdentity.Id:
-				strIdentityValue = $"{nameof(Id)}: {Id}. ";
-				break;
-			case SqlFieldIdentity.Uid:
-				strIdentityValue = $"{nameof(Uid)}: {Uid}. ";
-				break;
-		}
-		return strIdentityValue;
-	}
+	public override string ToString() =>
+        Name switch
+        {
+            SqlFieldIdentity.Id => $"{nameof(Id)}: {Id}. ",
+            SqlFieldIdentity.Uid => $"{nameof(Uid)}: {Uid}. ",
+            _ => string.Empty
+        };
+
+	public string GetValue() =>
+        Name switch
+        {
+            SqlFieldIdentity.Id => $"{Id}",
+            SqlFieldIdentity.Uid => $"{Uid}",
+            _ => string.Empty
+        };
 
     public virtual string GetValueAsString() => Name switch
     {

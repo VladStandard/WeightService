@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Globalization;
+using DataCore.Sql.Core.Utils;
 
 namespace DataCore.Sql.TableScaleModels.Orders;
 
@@ -15,7 +16,7 @@ public class OrderMap : ClassMap<OrderModel>
     /// </summary>
     public OrderMap()
     {
-        Schema("db_scales");
+        Schema(SqlSchemaNamesUtils.DbScales);
         Table(SqlTableNamesUtils.Orders);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
