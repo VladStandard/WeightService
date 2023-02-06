@@ -10,7 +10,7 @@ public partial class ControllerHelper
 {
     #region Public and private methods
 
-    private List<PluGroupModel> GetPluGroupsList(XElement xml) =>
+    private List<PluGroupModel> GetXmlPluGroupsList(XElement xml) =>
         GetNodesListCore<PluGroupModel>(xml, "NomenclatureGroup", (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -110,7 +110,7 @@ public partial class ControllerHelper
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<PluGroupModel> itemsDb = DataContext.GetListNotNullable<PluGroupModel>(sqlCrudConfig);
             List<PluGroupFkModel> pluGroupsFksDb = DataContext.GetListNotNullable<PluGroupFkModel>(sqlCrudConfig);
-            List<PluGroupModel> itemsXml = GetPluGroupsList(xml);
+            List<PluGroupModel> itemsXml = GetXmlPluGroupsList(xml);
             foreach (PluGroupModel itemXml in itemsXml)
             {
                 switch (itemXml.ParseResult.Status)

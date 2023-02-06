@@ -22,7 +22,8 @@ public class PluGroupFkMap : ClassMap<PluGroupFkModel>
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        References(x => x.PluGroup).Column("PLU_UID").Not.Nullable();
+        References(x => x.Plu).Column("PLU_UID").Nullable();
+        References(x => x.PluGroup).Column("PLU_GROUP_UID").Not.Nullable();
         References(x => x.Parent).Column("PARENT_UID").Not.Nullable();
     }
 }

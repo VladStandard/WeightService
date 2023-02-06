@@ -3,6 +3,7 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
@@ -16,6 +17,8 @@ public class PluGroupFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
+    private PluModel _plu;
+    [XmlElement] public virtual PluModel Plu { get => _plu; set => _plu = value; }
     private PluGroupModel _pluGroup;
     [XmlElement] public virtual PluGroupModel PluGroup { get => _pluGroup; set => _pluGroup = value; }
     private PluGroupModel _parent;
@@ -26,6 +29,7 @@ public class PluGroupFkModel : SqlTableBase
     /// </summary>
     public PluGroupFkModel() : base(SqlFieldIdentity.Uid)
     {
+        _plu = new();
         _pluGroup = new();
         _parent = new();
     }
@@ -37,6 +41,7 @@ public class PluGroupFkModel : SqlTableBase
     /// <param name="context"></param>
     protected PluGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
+        _plu = (PluModel)info.GetValue(nameof(_plu), typeof(PluModel));
         _pluGroup = (PluGroupModel)info.GetValue(nameof(_pluGroup), typeof(PluGroupModel));
         _parent = (PluGroupModel)info.GetValue(nameof(_parent), typeof(PluGroupModel));
     }
@@ -51,6 +56,7 @@ public class PluGroupFkModel : SqlTableBase
     /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{nameof(Plu)}: {Plu}. " +
         $"{nameof(PluGroup)}: {PluGroup}. " +
         $"{nameof(Parent)}: {Parent}. ";
 
@@ -68,12 +74,14 @@ public class PluGroupFkModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
+        Plu.EqualsDefault() &&
         PluGroup.EqualsDefault() &&
         Parent.EqualsDefault();
 
     public override object Clone()
     {
         PluGroupFkModel item = new();
+        item.Plu = Plu.CloneCast();
         item.PluGroup = PluGroup.CloneCast();
         item.Parent = Parent.CloneCast();
         item.CloneSetup(base.CloneCast());
@@ -88,6 +96,7 @@ public class PluGroupFkModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(Plu), Plu);
         info.AddValue(nameof(PluGroup), PluGroup);
         info.AddValue(nameof(Parent), Parent);
     }
@@ -95,6 +104,7 @@ public class PluGroupFkModel : SqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
+        Plu.FillProperties();
         PluGroup.FillProperties();
         Parent.FillProperties();
     }
@@ -105,6 +115,7 @@ public class PluGroupFkModel : SqlTableBase
 
     public virtual bool Equals(PluGroupFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        Plu.Equals(item.Plu) &&
         PluGroup.Equals(item.PluGroup) &&
         Parent.Equals(item.Parent);
 
