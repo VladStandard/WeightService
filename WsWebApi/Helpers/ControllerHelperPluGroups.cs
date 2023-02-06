@@ -33,14 +33,14 @@ public partial class ControllerHelper
     {
         try
         {
-            if (Equals(itemXml.GroupGuid, Guid.Empty)) return;
+            if (Equals(itemXml.ParentGuid, Guid.Empty)) return;
 
-            PluGroupModel parent = new() { IdentityValueUid = itemXml.GroupGuid };
+            PluGroupModel parent = new() { IdentityValueUid = itemXml.ParentGuid };
             parent = DataContext.GetItemNotNullable<PluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
                 AddResponse1cException(response, itemXml.IdentityValueUid,
-                    new($"Parent PLU group for '{itemXml.GroupGuid}' is not found!"));
+                    new($"Parent PLU group for '{itemXml.ParentGuid}' is not found!"));
                 return;
             }
             PluGroupModel pluGroup = new() { IdentityValueUid = itemXml.IdentityValueUid };
@@ -48,7 +48,7 @@ public partial class ControllerHelper
             if (pluGroup.IsNew)
             {
                 AddResponse1cException(response, itemXml.IdentityValueUid,
-                    new($"PLU group for '{itemXml.GroupGuid}' is not found!"));
+                    new($"PLU group for '{itemXml.ParentGuid}' is not found!"));
                 return;
             }
             PluGroupFkModel itemGroupFk = new()

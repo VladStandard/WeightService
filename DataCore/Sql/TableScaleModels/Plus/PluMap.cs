@@ -22,6 +22,7 @@ public class PluMap : ClassMap<PluModel>
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(x => x.IsGroup).CustomSqlType("BIT").Column("IS_GROUP").Not.Nullable().Default("0");
         Map(x => x.Number).CustomSqlType("INT").Column("NUMBER").Not.Nullable();
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(150).Not.Nullable();
         Map(x => x.FullName).CustomSqlType("NVARCHAR").Column("FULL_NAME").Not.Nullable();

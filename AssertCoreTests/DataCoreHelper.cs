@@ -45,6 +45,7 @@ using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
+using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.PlusCharacteristics;
@@ -359,9 +360,9 @@ public class DataCoreHelper
                 nomenclatureV2.Code = LocaleCore.Sql.SqlItemFieldCode;
                 nomenclatureV2.MeasurementType = LocaleCore.Sql.SqlItemFieldMeasurementTypeKg;
                 break;
-			case PluGroupModel nomenclatureGroup:
-                nomenclatureGroup.Name = LocaleCore.Sql.SqlItemFieldName;
-                nomenclatureGroup.Code = LocaleCore.Sql.SqlItemFieldCode;
+			case PluGroupModel pluGroup:
+                pluGroup.Name = LocaleCore.Sql.SqlItemFieldName;
+                pluGroup.Code = LocaleCore.Sql.SqlItemFieldCode;
                 break;
             case PluCharacteristicModel nomenclatureCharacteristic:
                 nomenclatureCharacteristic.Name = LocaleCore.Sql.SqlItemFieldName;
@@ -371,9 +372,13 @@ public class DataCoreHelper
                 nomenclatureCharacteristicFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
                 nomenclatureCharacteristicFk.PluCharacteristic = CreateNewSubstitute<PluCharacteristicModel>(isNotDefault);
                 break;
-            case PluGroupFkModel nomenclatureGroupFk:
-                nomenclatureGroupFk.PluGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
-                nomenclatureGroupFk.Parent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
+            case PluFkModel pluFk:
+                pluFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluFk.Parent = CreateNewSubstitute<PluModel>(isNotDefault);
+                break;
+            case PluGroupFkModel pluGroupFk:
+                pluGroupFk.PluGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
+                pluGroupFk.Parent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
                 break;
 			case OrderModel order:
 				order.Name = LocaleCore.Sql.SqlItemFieldName;

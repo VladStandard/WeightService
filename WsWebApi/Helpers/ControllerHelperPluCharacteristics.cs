@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels.PlusCharacteristics;
-using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace WsWebApi.Helpers;
 
@@ -25,20 +24,16 @@ public partial class ControllerHelper
     {
         try
         {
-            //// Find by Identity -> Update exists.
-            //PluCharacteristicModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
-            //if (UpdateItemDb(response, itemXml, itemDb, false)) return;
+            // Find by Identity -> Update exists.
+            PluCharacteristicModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
+            if (UpdateItemDb(response, itemXml, itemDb, false, true)) return;
 
-            //// Find by Code -> Update exists.
-            //itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
-            //if (UpdateItemDb(response, itemXml, itemDb, true)) return;
+            // Not find -> Add new.
+            SaveItemDb(response, itemXml, true);
 
-            //// Not find -> Add new.
-            //SaveItemDb(response, itemXml);
-
-            //// Update db list.
-            //if (!itemsDb.Select(x => x.IdentityValueUid).Contains(itemXml.IdentityValueUid))
-            //    itemsDb.Add(itemXml);
+            // Update db list.
+            if (!itemsDb.Select(x => x.IdentityValueUid).Contains(itemXml.IdentityValueUid))
+                itemsDb.Add(itemXml);
         }
         catch (Exception ex)
         {

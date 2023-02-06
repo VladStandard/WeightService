@@ -34,7 +34,7 @@ public class BrandController : WebControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, xml, format, host, version).ConfigureAwait(false);
+        ControllerHelp.LogRequest(nameof(WebApiScales), "api/send_brands/", dtStamp, xml, format, host, version).ConfigureAwait(false);
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
@@ -43,7 +43,7 @@ public class BrandController : WebControllerBase
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
                 .NewResponse1cBrands(SessionFactory, xml, format), format)
         };
-        ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, version).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WebApiScales), "api/send_brands/", dtStamp, result, format, host, version).ConfigureAwait(false);
         return result;
     }
 

@@ -1,11 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
+using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
@@ -47,7 +49,7 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods
 
-	public void FillReferences<T>(T? item) where T : class, new()
+    private void FillReferences<T>(T? item) where T : SqlTableBase, new()
 	{
 		switch (item)
 		{
@@ -59,7 +61,7 @@ public partial class DataAccessHelper
 				log.Device = GetItemNullable<DeviceModel>(log.Device?.IdentityValueUid);
 				log.LogType = GetItemNotNullable<LogTypeModel>(log.LogType?.IdentityValueUid);
 				break;
-			// Scales.
+            // Scales.
 			case BarCodeModel barcode:
 				barcode.PluLabel = GetItemNotNullable<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
 				break;
@@ -71,21 +73,13 @@ public partial class DataAccessHelper
 				deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
 				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
-			case PluGroupFkModel nomenclatureGroupFk:
-                nomenclatureGroupFk.PluGroup = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.PluGroup.IdentityValueUid);
-                nomenclatureGroupFk.Parent = GetItemNotNullable<PluGroupModel>(nomenclatureGroupFk.Parent.IdentityValueUid);
-				break;
-            case PluCharacteristicsFkModel pluCharacteristicsFk:
-                pluCharacteristicsFk.Plu = GetItemNotNullable<PluModel>(pluCharacteristicsFk.Plu.IdentityValueUid);
-                pluCharacteristicsFk.PluCharacteristic = GetItemNotNullable<PluCharacteristicModel>(pluCharacteristicsFk.PluCharacteristic.IdentityValueUid);
-                break;
-            case OrderWeighingModel orderWeighing:
-                orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);
-                orderWeighing.PluWeighing = GetItemNotNullable<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
-				break;
-			case PluModel plu:
+            case PluModel plu:
                 plu.Nomenclature = GetItemNotNullable<NomenclatureModel>(plu.Nomenclature.IdentityValueId);
-				break;
+                break;
+            case PluFkModel pluFk:
+                pluFk.Plu = GetItemNotNullable<PluModel>(pluFk.Plu.IdentityValueUid);
+                pluFk.Parent = GetItemNotNullable<PluModel>(pluFk.Parent.IdentityValueUid);
+                break;
             case PluBundleFkModel pluBundle:
                 pluBundle.Bundle = GetItemNotNullable<BundleModel>(pluBundle.Bundle.IdentityValueUid);
                 pluBundle.Plu = GetItemNotNullable<PluModel>(pluBundle.Plu.IdentityValueUid);
@@ -95,25 +89,37 @@ public partial class DataAccessHelper
                 pluClip.Plu = GetItemNotNullable<PluModel>(pluClip.Plu.IdentityValueUid);
                 break;
             case PluLabelModel pluLabel:
-				pluLabel.PluWeighing = GetItemNullable<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
+                pluLabel.PluWeighing = GetItemNullable<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
                 pluLabel.PluScale = GetItemNotNullable<PluScaleModel>(pluLabel.PluScale.IdentityValueUid);
                 break;
-			case PluScaleModel pluScale:
+            case PluScaleModel pluScale:
                 pluScale.Plu = GetItemNotNullable<PluModel>(pluScale.Plu.IdentityValueUid);
                 pluScale.Scale = GetItemNotNullable<ScaleModel>(pluScale.Scale.IdentityValueId);
-				break;
-			case PluTemplateFkModel pluTemplateFk:
+                break;
+            case PluTemplateFkModel pluTemplateFk:
                 pluTemplateFk.Plu = GetItemNotNullable<PluModel>(pluTemplateFk.Plu.IdentityValueUid);
                 pluTemplateFk.Template = GetItemNotNullable<TemplateModel>(pluTemplateFk.Template.IdentityValueId);
-				break;
-			case PluWeighingModel pluWeighing:
+                break;
+            case PluWeighingModel pluWeighing:
                 pluWeighing.PluScale = GetItemNotNullable<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
-				pluWeighing.Series = GetItemNullable<ProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
-				break;
+                pluWeighing.Series = GetItemNullable<ProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
+                break;
             case PluNestingFkModel pluNestingFk:
                 pluNestingFk.PluBundle = GetItemNotNullable<PluBundleFkModel>(pluNestingFk.PluBundle.IdentityValueUid);
                 pluNestingFk.Box = GetItemNotNullable<BoxModel>(pluNestingFk.Box.IdentityValueUid);
                 break;
+            case PluGroupFkModel pluGroupFk:
+                pluGroupFk.PluGroup = GetItemNotNullable<PluGroupModel>(pluGroupFk.PluGroup.IdentityValueUid);
+                pluGroupFk.Parent = GetItemNotNullable<PluGroupModel>(pluGroupFk.Parent.IdentityValueUid);
+				break;
+            case PluCharacteristicsFkModel pluCharacteristicsFk:
+                pluCharacteristicsFk.Plu = GetItemNotNullable<PluModel>(pluCharacteristicsFk.Plu.IdentityValueUid);
+                pluCharacteristicsFk.PluCharacteristic = GetItemNotNullable<PluCharacteristicModel>(pluCharacteristicsFk.PluCharacteristic.IdentityValueUid);
+                break;
+            case OrderWeighingModel orderWeighing:
+                orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);
+                orderWeighing.PluWeighing = GetItemNotNullable<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
+				break;
             case PrinterModel printer:
                 printer.PrinterType = GetItemNotNullable<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
 				break;

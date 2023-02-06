@@ -319,7 +319,7 @@ public partial class ControllerHelper
                 item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
                 break;
             case "GROUPGUID":
-                item.GroupGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                item.ParentGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
         }
     }

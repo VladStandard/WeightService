@@ -44,7 +44,7 @@ public class TestControllerV3 : WebControllerBase
     public ContentResult GetInfo([FromQuery(Name = "format")] string format = "", [FromHeader(Name = "host")] string host = "")
     {
         DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WebApiScales), dtStamp, string.Empty, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogRequest(nameof(WebApiScales), "api/info/", dtStamp, string.Empty, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
@@ -69,7 +69,7 @@ public class TestControllerV3 : WebControllerBase
                     (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
                 .GetContentResult<ServiceInfoModel>(format, HttpStatusCode.OK);
         }, format);
-        ControllerHelp.LogResponse(nameof(WebApiScales), dtStamp, result, format, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WebApiScales), "api/info/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
