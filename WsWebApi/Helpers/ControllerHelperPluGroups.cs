@@ -51,9 +51,11 @@ public partial class ControllerHelper
                     new($"PLU group for '{itemXml.ParentGuid}' is not found!"));
                 return;
             }
+            
             PluGroupFkModel itemGroupFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
+                Plu = null,
                 PluGroup = pluGroup,
                 Parent = parent
             };

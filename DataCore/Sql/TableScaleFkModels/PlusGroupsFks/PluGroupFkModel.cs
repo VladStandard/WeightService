@@ -5,6 +5,7 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusGroups;
+using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 
@@ -17,8 +18,8 @@ public class PluGroupFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
-    private PluModel _plu;
-    [XmlElement] public virtual PluModel Plu { get => _plu; set => _plu = value; }
+    private PluModel? _plu;
+    [XmlElement] public virtual PluModel? Plu { get => _plu; set => _plu = value; }
     private PluGroupModel _pluGroup;
     [XmlElement] public virtual PluGroupModel PluGroup { get => _pluGroup; set => _pluGroup = value; }
     private PluGroupModel _parent;
@@ -29,7 +30,7 @@ public class PluGroupFkModel : SqlTableBase
     /// </summary>
     public PluGroupFkModel() : base(SqlFieldIdentity.Uid)
     {
-        _plu = new();
+        _plu = null;
         _pluGroup = new();
         _parent = new();
     }
@@ -74,14 +75,14 @@ public class PluGroupFkModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
-        Plu.EqualsDefault() &&
+        (Plu is null || Plu.EqualsDefault()) &&
         PluGroup.EqualsDefault() &&
         Parent.EqualsDefault();
 
     public override object Clone()
     {
         PluGroupFkModel item = new();
-        item.Plu = Plu.CloneCast();
+        item.Plu = Plu?.CloneCast();
         item.PluGroup = PluGroup.CloneCast();
         item.Parent = Parent.CloneCast();
         item.CloneSetup(base.CloneCast());
@@ -104,7 +105,7 @@ public class PluGroupFkModel : SqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Plu.FillProperties();
+        Plu?.FillProperties();
         PluGroup.FillProperties();
         Parent.FillProperties();
     }
@@ -115,7 +116,7 @@ public class PluGroupFkModel : SqlTableBase
 
     public virtual bool Equals(PluGroupFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
-        Plu.Equals(item.Plu) &&
+        (Plu is null && item.Plu is null || Plu is not null && item.Plu is not null && Plu.Equals(item.Plu)) &&
         PluGroup.Equals(item.PluGroup) &&
         Parent.Equals(item.Parent);
 
