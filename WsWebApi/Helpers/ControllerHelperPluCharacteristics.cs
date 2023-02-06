@@ -9,7 +9,7 @@ public partial class ControllerHelper
 {
     #region Public and private methods
 
-    private List<PluCharacteristicModel> GetPluCharacteristicsList(XElement xml) =>
+    private List<PluCharacteristicModel> GetXmlPluCharacteristicsList(XElement xml) =>
         GetNodesListCore<PluCharacteristicModel>(xml, "Characteristic", (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -47,7 +47,7 @@ public partial class ControllerHelper
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<PluCharacteristicModel> itemsDb = DataContext.GetListNotNullable<PluCharacteristicModel>(sqlCrudConfig);
-            List<PluCharacteristicModel> itemsXml = GetPluCharacteristicsList(xml);
+            List<PluCharacteristicModel> itemsXml = GetXmlPluCharacteristicsList(xml);
             foreach (PluCharacteristicModel itemXml in itemsXml)
             {
                 switch (itemXml.ParseResult.Status)

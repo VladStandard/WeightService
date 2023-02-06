@@ -7,7 +7,7 @@ public partial class ControllerHelper
 {
     #region Public and private methods
 
-    private List<BrandModel> GetBrandList(XElement xml) =>
+    private List<BrandModel> GetXmlBrandList(XElement xml) =>
         GetNodesListCore<BrandModel>(xml, "Brand", (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -48,7 +48,7 @@ public partial class ControllerHelper
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<BrandModel> itemsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
-            List<BrandModel> itemsXml = GetBrandList(request);
+            List<BrandModel> itemsXml = GetXmlBrandList(request);
             foreach (BrandModel itemXml in itemsXml)
             {
                 switch (itemXml.ParseResult.Status)

@@ -299,10 +299,11 @@ public partial class ControllerHelper
             case nameof(item.ShelfLifeDays):
                 item.ShelfLifeDays = GetXmlAttributeUshort(xmlNode, item, "ShelfLife");
                 break;
-            case "ISCHECKWEIGHT":
+            case "MEASUREMENTTYPE":
+                item.MeasurementType = GetXmlAttributeString(xmlNode, item, "MeasurementType");
                 item.IsCheckWeight = GetXmlAttributeBool(xmlNode, item, "MeasurementType", "ШТ", "КГ");
                 break;
-            case "NUMBER":
+            case "PLUNUMBER":
                 item.Number = GetXmlAttributeUshort(xmlNode, item, "PluNumber");
                 break;
         }

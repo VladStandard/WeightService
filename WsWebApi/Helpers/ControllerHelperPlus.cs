@@ -2,6 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusFks;
+using DataCore.Sql.TableScaleModels.Boxes;
+using DataCore.Sql.TableScaleModels.Bundles;
+using DataCore.Sql.TableScaleModels.Clips;
+using DevExpress.Data.Browsing;
 
 namespace WsWebApi.Helpers;
 
@@ -9,7 +13,7 @@ public partial class ControllerHelper
 {
     #region Public and private methods
 
-    private List<PluModel> GetPluList(XElement xml) =>
+    private List<PluModel> GetXmlPluList(XElement xml) =>
         GetNodesListCore<PluModel>(xml, "Nomenclature", (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -20,8 +24,8 @@ public partial class ControllerHelper
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.FullName));
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Description));
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsCheckWeight));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ShelfLifeDays));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Number));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "MeasurementType");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PluNumber");
         });
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -74,6 +78,29 @@ public partial class ControllerHelper
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    private void AddResponse1cBoxes(Response1cShortModel response, PluModel itemXml)
+    {
+        try
+        {
+            if (Equals(itemXml.BoxTypeGuid, Guid.Empty)) return;
+
+            // Find by Identity -> Save new or update exists.
+            BoxModel box = new() { IdentityValueUid = itemXml.BoxTypeGuid };
+            box = DataContext.GetItemNotNullable<BoxModel>(box.Identity);
+            box.Name = itemXml.BoxTypeName;
+            box.Weight = itemXml.BoxTypeWeight;
+            if (box.IsNew)
+                DataContext.DataAccess.Save(box);
+            else
+                DataContext.DataAccess.UpdateForce(box);
+        }
+        catch (Exception ex)
+        {
+            AddResponse1cException(response, itemXml.IdentityValueUid, ex);
+        }
+    }
+
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPlus(Response1cShortModel response, List<PluModel> itemsDb, PluModel itemXml)
     {
         try
@@ -110,14 +137,24 @@ public partial class ControllerHelper
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<PluModel> itemsDb = DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
             List<PluFkModel> pluFksDb = DataContext.GetListNotNullable<PluFkModel>(sqlCrudConfig);
-            List<PluModel> itemsXml = GetPluList(xml);
+            List<BoxModel> boxesDb = DataContext.GetListNotNullable<BoxModel>(sqlCrudConfig);
+            List<BundleModel> bundlesDb = DataContext.GetListNotNullable<BundleModel>(sqlCrudConfig);
+            List<ClipModel> clipsDb = DataContext.GetListNotNullable<ClipModel>(sqlCrudConfig);
+            List<PluModel> itemsXml = GetXmlPluList(xml);
             foreach (PluModel itemXml in itemsXml)
             {
+                AddResponse1cBoxes(response, itemXml);
+                //AddResponse1cBundles(response, pluFksDb, itemXml);
+                //AddResponse1cClips(response, pluFksDb, itemXml);
                 switch (itemXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
                         AddResponse1cPlus(response, itemsDb, itemXml);
                         AddResponse1cPlusFks(response, pluFksDb, itemXml);
+                        //AddResponse1cPlusBoxesFks(response, pluFksDb, itemXml);
+                        //AddResponse1cPlusBundlesFks(response, pluFksDb, itemXml);
+                        //AddResponse1cPlusNestingFks(response, pluFksDb, itemXml);
+                        //AddResponse1cPlusClipsFks(response, pluFksDb, itemXml);
                         break;
                     case ParseStatus.Error:
                         AddResponse1cException(response, itemXml.IdentityValueUid,

@@ -20,7 +20,6 @@ public class PluModel : SqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual bool IsGroup { get; set; } = false;
-    [XmlIgnore] public virtual Guid ParentGuid { get; set; }
     [XmlElement] public virtual ushort Number { get; set; }
     [XmlElement] public virtual string Code { get; set; }
     [XmlElement] public virtual string NumberFormat
@@ -47,6 +46,62 @@ public class PluModel : SqlTableBase
     [XmlElement] public virtual string Itf14 { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
     [XmlElement] public virtual NomenclatureModel Nomenclature { get; set; }
+    /// <summary>
+    /// Родитель.
+    /// </summary>
+    [XmlIgnore] public virtual Guid ParentGuid { get; set; }
+    /// <summary>
+    /// Группа 1 уровня.
+    /// </summary>
+    [XmlIgnore] public virtual Guid CategoryGuid { get; set; }
+    /// <summary>
+    /// Бренд.
+    /// </summary>
+    [XmlIgnore] public virtual Guid BrandGuid { get; set; }
+    /// <summary>
+    /// БазоваяЕдиницаИзмерения.
+    /// </summary>
+    [XmlIgnore] public virtual string MeasurementType { get; set; }
+    /// <summary>
+    /// НоменклатурнаяГруппа.
+    /// </summary>
+    [XmlIgnore] public virtual Guid GroupGuid { get; set; }
+    /// <summary>
+    /// ВидКоробки.
+    /// </summary>
+    [XmlIgnore] public virtual Guid BoxTypeGuid { get; set; }
+    /// <summary>
+    /// ИмяКоробки.
+    /// </summary>
+    [XmlIgnore] public virtual string BoxTypeName { get; set; }
+    /// <summary>
+    /// ВесКоробки.
+    /// </summary>
+    [XmlIgnore] public virtual decimal BoxTypeWeight { get; set; }
+    /// <summary>
+    /// ВидПакета.
+    /// </summary>
+    [XmlIgnore] public virtual Guid PackageTypeGuid { get; set; }
+    /// <summary>
+    /// ИмяПакета.
+    /// </summary>
+    [XmlIgnore] public virtual string PackageTypeName { get; set; }
+    /// <summary>
+    /// ВесПакета.
+    /// </summary>
+    [XmlIgnore] public virtual decimal PackageTypeWeight { get; set; }
+    /// <summary>
+    /// ВС_ВидКлипсы.
+    /// </summary>
+    [XmlIgnore] public virtual Guid ClipTypeGuid { get; set; }
+    /// <summary>
+    /// ИмяКлипсы.
+    /// </summary>
+    [XmlIgnore] public virtual string ClipTypeName { get; set; }
+    /// <summary>
+    /// ВесКлипсы.
+    /// </summary>
+    [XmlIgnore] public virtual decimal ClipTypeWeight { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -64,6 +119,10 @@ public class PluModel : SqlTableBase
         Code = string.Empty;
         IsCheckWeight = false;
         Nomenclature = new();
+        MeasurementType = string.Empty;
+        BoxTypeName = string.Empty;
+        PackageTypeName = string.Empty;
+        ClipTypeName = string.Empty;
     }
 
     /// <summary>
@@ -74,8 +133,6 @@ public class PluModel : SqlTableBase
     protected PluModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsGroup = info.GetBoolean(nameof(IsGroup));
-        object parentGroupGuid = info.GetValue(nameof(ParentGuid), typeof(Guid));
-        ParentGuid = parentGroupGuid is Guid guid ? guid : Guid.Empty;
         Number = info.GetUInt16(nameof(Number));
         FullName = info.GetString(nameof(FullName));
         ShelfLifeDays = info.GetUInt16(nameof(ShelfLifeDays));
@@ -85,6 +142,21 @@ public class PluModel : SqlTableBase
         Code = info.GetString(nameof(Code));
         IsCheckWeight = info.GetBoolean(nameof(IsCheckWeight));
         Nomenclature = (NomenclatureModel)info.GetValue(nameof(Nomenclature), typeof(NomenclatureModel));
+        object parentGroupGuid = info.GetValue(nameof(ParentGuid), typeof(Guid));
+        ParentGuid = parentGroupGuid is Guid parentGroupGuid2 ? parentGroupGuid2 : Guid.Empty;
+        MeasurementType = info.GetString(nameof(MeasurementType));
+        object boxTypeGuid = info.GetValue(nameof(BoxTypeGuid), typeof(Guid));
+        BoxTypeGuid = boxTypeGuid is Guid boxTypeGuid2 ? boxTypeGuid2 : Guid.Empty;
+        BoxTypeName = info.GetString(nameof(BoxTypeName));
+        BoxTypeWeight = info.GetDecimal(nameof(BoxTypeWeight));
+        object packageTypeGuid = info.GetValue(nameof(PackageTypeGuid), typeof(Guid));
+        PackageTypeGuid = packageTypeGuid is Guid packageTypeGuid2 ? packageTypeGuid2 : Guid.Empty;
+        PackageTypeName = info.GetString(nameof(PackageTypeName));
+        PackageTypeWeight = info.GetDecimal(nameof(PackageTypeWeight));
+        object clipTypeGuid = info.GetValue(nameof(ClipTypeGuid), typeof(Guid));
+        ClipTypeGuid = clipTypeGuid is Guid clipTypeGuid2 ? clipTypeGuid2 : Guid.Empty;
+        ClipTypeName = info.GetString(nameof(ClipTypeName));
+        ClipTypeWeight = info.GetDecimal(nameof(ClipTypeWeight));
     }
 
     #endregion
@@ -155,6 +227,17 @@ public class PluModel : SqlTableBase
         info.AddValue(nameof(Itf14), Itf14);
         info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
         info.AddValue(nameof(Nomenclature), Nomenclature);
+        info.AddValue(nameof(MeasurementType), MeasurementType);
+        info.AddValue(nameof(ParentGuid), ParentGuid);
+        info.AddValue(nameof(BoxTypeGuid), BoxTypeGuid);
+        info.AddValue(nameof(BoxTypeName), BoxTypeName);
+        info.AddValue(nameof(BoxTypeWeight), BoxTypeWeight);
+        info.AddValue(nameof(PackageTypeGuid), PackageTypeGuid);
+        info.AddValue(nameof(PackageTypeName), PackageTypeName);
+        info.AddValue(nameof(PackageTypeWeight), PackageTypeWeight);
+        info.AddValue(nameof(ClipTypeGuid), ClipTypeGuid);
+        info.AddValue(nameof(ClipTypeName), ClipTypeName);
+        info.AddValue(nameof(ClipTypeWeight), ClipTypeWeight);
     }
 
     public override void FillProperties()
