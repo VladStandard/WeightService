@@ -9,7 +9,9 @@
 
 <RazorSectionReload TItem=@LogQuickModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid 
+<RadzenDataGrid
+    @bind-Value="@SelectedRow"
+    CellContextMenu="@OnCellContextMenu"
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px; "
 	Data=@SqlSectionCast

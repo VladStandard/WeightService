@@ -12,7 +12,7 @@ public static class LocaleCore
     {
         get => _lang;
         set => Action.Lang = Buttons.Lang = Convert.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang = Print.Lang =
-            Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang = Ping.Lang = WebService.Lang = _lang = value;
+            Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang = Ping.Lang = WebService.Lang = ContextMenu.Lang = _lang = value;
     }
     public static LocaleAction Action { get; } = LocaleAction.Instance;
     public static LocaleButtons Buttons { get; } = LocaleButtons.Instance;
@@ -30,6 +30,7 @@ public static class LocaleCore
     public static LocaleValidator Validator { get; } = LocaleValidator.Instance;
     public static LocalePing Ping { get; } = LocalePing.Instance;
     public static LocaleWebService WebService { get; } = LocaleWebService.Instance;
+	public static LocaleContextMenu ContextMenu { get; } = LocaleContextMenu.Instance;
 
     #endregion
 

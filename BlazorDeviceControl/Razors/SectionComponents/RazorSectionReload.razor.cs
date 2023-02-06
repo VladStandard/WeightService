@@ -14,8 +14,7 @@ public partial class RazorSectionReload<TItem, TItemFilter> : RazorComponentSect
 	#endregion
 
 	#region Public and private methods
-
-	//
-
-    #endregion
+	
+	
+	#endregion
 }

@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using DataCore.CssStyles;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using BlazorCore.Settings;
+using BlazorCore.Utils;
 using Radzen;
+using Microsoft.JSInterop;
 
 namespace BlazorCore.Razors;
 
@@ -23,8 +25,16 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 
     #endregion
 
-    protected PagerPosition PagerPos = PagerPosition.TopAndBottom;
-    protected List<TItem> SqlSectionCast
+	protected PagerPosition PagerPos = PagerPosition.TopAndBottom;
+	public IList<TItem>? SelectedRow { get; set; }
+	protected List<TItemFilter> SqlSectionFilterCast { get; set; }
+	protected string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
+	protected TItemFilter SqlItemFilterCast
+	{
+		get => SqlItemFilter is null ? new() : (TItemFilter)SqlItemFilter;
+		set => SqlItemFilter = value;
+	}
+	protected List<TItem> SqlSectionCast
 	{
 		get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
 		set => SqlSection = !value.Any() ? null : new(value);
@@ -34,22 +44,11 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		get => SqlSectionOnTable is null ? new() : SqlSectionOnTable.Select(x => (TItem)x).ToList();
 		set => SqlSectionOnTable = !value.Any() ? null : new(value);
 	}
-	protected TItemFilter SqlItemFilterCast
-	{
-		get => SqlItemFilter is null ? new(): (TItemFilter)SqlItemFilter;
-		set => SqlItemFilter = value;
-	}
-	protected List<TItemFilter> SqlSectionFilterCast { get; set; }
-	protected string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
-	protected void AutoShowFilterOnlyTopSetup()
-    {
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = (SqlSectionCast.Count >= DataAccess.JsonSettings.Local.SelectTopRowsCount);
-    }
 
-    public RazorComponentSectionBase()
+	public RazorComponentSectionBase()
     {
-	    selected = new List<TItem>();
-		CssStyleRadzenColumn = new("5%");
+	    SelectedRow = new List<TItem>();
+	    CssStyleRadzenColumn = new("5%");
 		SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
 		SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
@@ -60,6 +59,23 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 
 	#endregion
 
+	protected void ClearSelection()
+	{
+		SqlItem = null;
+		SelectedRow = null;
+	}
+
+	protected override void OnChangeAdditional()
+	{
+		// TODO: fixed me, temp usage
+		ClearSelection();
+	}
+
+	protected void AutoShowFilterOnlyTopSetup()
+	{
+		SqlCrudConfigSection.IsGuiShowFilterOnlyTop = (SqlSectionCast.Count >= DataAccess.JsonSettings.Local.SelectTopRowsCount);
+	}
+
 	protected void RowRender<TItem>(RowRenderEventArgs<TItem> args) where TItem : SqlTableBase, new()
 	{
 		//if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
@@ -68,7 +84,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		//	args.Attributes.Add("class", UserSettings.GetColorAccessRights((AccessRightsEnum)access.Rights));
 		//}
 	}
-	
+
 	protected async Task RowClick(TItem item)
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -100,17 +116,19 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		});
 	}
 	
-    protected async Task SqlItemSetAsync<TItem>(TItem item) where TItem : SqlTableBase, new()
+    protected async Task SqlItemSetAsync(TItem item)
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+		
+		SelectedRow = new List<TItem>() { item };
 
 		RunActionsSafe(string.Empty, () =>
 		{
-			SqlItem = item;
+			SqlItem = SelectedRow.Last();
 		});
 	}
     
-	protected async Task SqlItemEditAsync<TItem>(TItem item) where TItem : SqlTableBase, new()
+	protected async Task SqlItemEditAsync(TItem item)
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -121,6 +139,53 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 			OnChangeAsync();
 		});
 	}
+
+	//TODO: insert into DataCore
+	protected void OnCellContextMenu(DataGridCellMouseEventArgs<TItem> args)
+	{
+		LocaleContextMenu locale = LocaleCore.ContextMenu;
+
+		SelectedRow = new List<TItem>() { args.Data };
+		SqlItem = args.Data;
+		List<ContextMenuItem> contextMenuItems = new()
+		{
+			new() { Text = locale.Open, Value = ContextMenuAction.Open },
+			new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
+		};
+		if (UserSettings?.AccessRightsIsWrite == true || UserSettings?.AccessRightsIsAdmin == true)
+		{
+			contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
+			contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
+		}
+		ContextMenuService?.Open(args, contextMenuItems, (e) => ParseContextMenuActions(e, args));
+	}
+	
+	protected void ParseContextMenuActions(MenuItemEventArgs e, DataGridCellMouseEventArgs<TItem> args) 
+	{
+		InvokeAsync(async () =>
+		{
+			switch ((ContextMenuAction)e.Value)
+			{
+				case ContextMenuAction.OpenNewTab:
+					 JsRuntime?.InvokeAsync<object>("open", GetRouteItemPathForLink(args.Data), "_blank");
+					break;
+				case ContextMenuAction.Open:
+					await SqlItemEditAsync(args.Data);
+					break;
+				case ContextMenuAction.Mark:
+					await SqlItemMarkAsync();
+					break;
+				case ContextMenuAction.Delete:
+					await SqlItemDeleteAsync();
+					break;
+			}
+			ContextMenuService?.Close();
+		});
+	}
+
+    #region DataGrid Config
+    
+    #endregion
 
 	#region Public and private methods
 

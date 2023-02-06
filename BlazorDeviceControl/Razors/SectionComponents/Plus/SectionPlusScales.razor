@@ -13,7 +13,9 @@
 <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
              Text=@LocaleCore.Action.ActionIsShowActivePlu />
 
-<RadzenDataGrid 
+<RadzenDataGrid
+    @bind-Value="@SelectedRow"
+    CellContextMenu="@OnCellContextMenu"
 	PagerHorizontalAlign=@HorizontalAlign.Justify
 	Style="margin-top: 5px;"
 	Data=@SqlSectionCast
