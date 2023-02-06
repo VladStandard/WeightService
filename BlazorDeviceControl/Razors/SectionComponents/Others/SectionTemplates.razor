@@ -8,7 +8,8 @@
 <RadzenDataGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;"
-	Data=@SqlSectionCast TItem=@TemplateModel 
+    Data=@SqlSectionCast 
+    TItem=@TemplateModel 
     RowSelect=@(SqlItemSetAsync) 
     RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())

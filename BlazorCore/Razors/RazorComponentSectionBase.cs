@@ -13,7 +13,7 @@ namespace BlazorCore.Razors;
 public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase 
 	where TItem : SqlTableBase, new() where TItemFilter : SqlTableBase, new() 
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
     #region Parameters
 
@@ -48,11 +48,10 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 
     public RazorComponentSectionBase()
     {
-        CssStyleRadzenColumn = new("5%");
-
-        SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
-
-        SqlCrudConfigSection.IsGuiShowItemsCount = true;
+	    selected = new List<TItem>();
+		CssStyleRadzenColumn = new("5%");
+		SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
+		SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
 
@@ -69,6 +68,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		//	args.Attributes.Add("class", UserSettings.GetColorAccessRights((AccessRightsEnum)access.Rights));
 		//}
 	}
+	
 	protected async Task RowClick(TItem item)
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -87,6 +87,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 			}
 		});
 	}
+
 	protected async Task SqlItemEditAsync()
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
@@ -98,7 +99,8 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 			OnChangeAsync();
 		});
 	}
-	protected async Task SqlItemSetAsync<TItem>(TItem item) where TItem : SqlTableBase, new()
+	
+    protected async Task SqlItemSetAsync<TItem>(TItem item) where TItem : SqlTableBase, new()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -107,6 +109,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 			SqlItem = item;
 		});
 	}
+    
 	protected async Task SqlItemEditAsync<TItem>(TItem item) where TItem : SqlTableBase, new()
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;

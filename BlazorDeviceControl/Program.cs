@@ -6,36 +6,40 @@ using Microsoft.AspNetCore.Authentication.Negotiate;
 using MudBlazor.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-// Add builder.Services to the container.
+
+#region Add
+
+// Add services to the container.
+builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
+builder.Services.AddAuthorization(options => options.FallbackPolicy = options.DefaultPolicy);
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddOptions();
+builder.Services.AddHttpClient();
+builder.Services.AddMudServices();
+builder.Services.AddBlazorDownloadFile();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddControllersWithViews();
+
+#endregion
+
+#region AddScoped
 // Inject.
 //builder.Services.AddSingleton<JsonSettingsBase>();
-builder.Services.AddScoped<Radzen.DialogService>();
-builder.Services.AddScoped<NotificationService>();
-builder.Services.AddScoped<TooltipService>();
-builder.Services.AddScoped<ContextMenuService>();
-builder.Services.AddMudServices();
-// Authentication & Authorization.
-builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
 //builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
-// Windows authentication may not be applied with Kestrel without this line
-builder.Services.AddAuthorization(options => options.FallbackPolicy = options.DefaultPolicy);
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
-builder.Services.AddHttpContextAccessor();
-// Other.
-builder.Services.AddControllersWithViews();
-builder.Services.AddBlazorDownloadFile();
+builder.Services.AddScoped<TooltipService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<ContextMenuService>();
+builder.Services.AddScoped<Radzen.DialogService>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddScoped<IFileDownload, FileDownload>();
-//
-builder.Services.AddOptions();
-builder.Services.AddAuthorizationCore();
-builder.Services.AddHttpClient();
-//builder.Services.AddScoped<IAuthorizationHandler>();
-// Registering services is done.
+
+#endregion
+
 WebApplication app = builder.Build();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -47,12 +51,14 @@ else
 {
     app.UseDeveloperExceptionPage();
 }
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
 // Authentication & Authorization after app.UseRouting().
-app.UseAuthentication();
-app.UseAuthorization();
+// app.UseAuthentication();
+// app.UseAuthorization();
 // Last step.
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");

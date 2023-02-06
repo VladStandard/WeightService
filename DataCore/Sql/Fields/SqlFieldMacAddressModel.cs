@@ -1,15 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core.Interfaces;
-
 namespace DataCore.Sql.Fields;
 
 /// <summary>
 /// MAC address.
 /// </summary>
 [Serializable]
-public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerializable
+public class SqlFieldMacAddressModel : SqlFieldBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -37,11 +35,8 @@ public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISe
             }
         }
     }
-
     [XmlIgnore] public string ValuePrettyLookSpace => GetValueAsString(' ');
-
     [XmlIgnore] public string ValuePrettyLookMinus => GetValueAsString('-');
-
     [XmlIgnore] public string ValuePrettyLookColon => GetValueAsString(':');
 
 	/// <summary>
