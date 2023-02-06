@@ -18,7 +18,9 @@ public partial class RazorComponentBase
 {
     #region Public and private methods - OnChange
 
-    protected void OnChange() => OnChangeParent(this);
+    protected virtual void OnChangeAdditional() {}
+
+	protected void OnChange() => OnChangeParent(this);
 
     protected void OnChangeAsync() => OnChangeParentAsync(this);
 
@@ -27,8 +29,10 @@ public partial class RazorComponentBase
 	    while (true)
 	    {
 		    if (razorPage is null) return;
-		    razorPage.StateHasChanged();
+		    razorPage.OnChangeAdditional();
+			razorPage.StateHasChanged();
 		    razorPage.OnParametersSet();
+            
 		    razorPage = razorPage.ParentRazor;
 	    }
     }
@@ -38,9 +42,11 @@ public partial class RazorComponentBase
 	    while (true)
 	    {
 		    if (razorPage is null) return;
-		    InvokeAsync(razorPage.StateHasChanged);
-            InvokeAsync(razorPage.OnParametersSet);
-		    razorPage = razorPage.ParentRazor;
+		    InvokeAsync(razorPage.OnChangeAdditional);
+			InvokeAsync(razorPage.StateHasChanged);
+		    InvokeAsync(razorPage.OnParametersSet);
+            
+			razorPage = razorPage.ParentRazor;
 	    }
     }
 

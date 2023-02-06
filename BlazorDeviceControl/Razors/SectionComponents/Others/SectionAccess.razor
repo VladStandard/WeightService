@@ -5,7 +5,9 @@
 
 <RazorSectionReload TItem=@AccessModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenDataGrid 
+<RadzenDataGrid
+    @bind-Value="@SelectedRow"
+    CellContextMenu="@OnCellContextMenu"
 	PagerHorizontalAlign=@HorizontalAlign.Justify
 	Style="margin-top: 5px; " 
     Data=@SqlSectionCast 

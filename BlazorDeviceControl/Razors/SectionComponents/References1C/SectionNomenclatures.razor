@@ -6,7 +6,9 @@
 <RazorSectionReload TItem=@NomenclatureModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenDataGrid 
-	PagerHorizontalAlign=@HorizontalAlign.Justify 
+    @bind-Value="@SelectedRow"
+    CellContextMenu="@OnCellContextMenu"
+    PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
     Data=@SqlSectionCast 
     TItem=@NomenclatureModel 

@@ -8,7 +8,9 @@
 
 <RazorSectionReload TItem=@PrinterResourceModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Resources SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenDataGrid 
+<RadzenDataGrid
+    @bind-Value="@SelectedRow"
+    CellContextMenu="@OnCellContextMenu"
 	PagerHorizontalAlign=@HorizontalAlign.Justify
     Style="margin-top: 5px;"
     Data=@SqlSectionCast 

@@ -92,12 +92,11 @@ public partial class RazorComponentBase : LayoutComponentBase
 	private void SetPropertiesFromParent()
 	{
 		if (ParentRazor is null) return;
-        if (ParentRazor.IdentityId is not null)
+		SqlItem = ParentRazor.SqlItem;
+		if (ParentRazor.IdentityId is not null)
 			IdentityId = ParentRazor.IdentityId;
 		if (ParentRazor.IdentityUid is not null)
 			IdentityUid = ParentRazor.IdentityUid;
-		if (ParentRazor.SqlItem is not null)
-			SqlItem = ParentRazor.SqlItem;
 		if (ParentRazor.SqlItemOnTable is not null)
 			SqlItemOnTable = ParentRazor.SqlItemOnTable;
 		if (ParentRazor.SqlSection is not null)
