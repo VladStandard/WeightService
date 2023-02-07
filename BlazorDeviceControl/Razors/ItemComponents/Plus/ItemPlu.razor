@@ -78,7 +78,7 @@
                 <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small 
                     Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlShelfLifeDays))) />
                 <RadzenNumeric Style="width: 88%; text-align: center; " 
-                    TValue="ushort" @bind-Value=@SqlItemCast.ShelfLifeDays />
+                    TValue="byte" @bind-Value=@SqlItemCast.ShelfLifeDays />
 			</td>
         </tr>
         @*<tr>
