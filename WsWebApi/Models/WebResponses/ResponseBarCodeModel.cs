@@ -32,7 +32,7 @@ public class ResponseBarCodeModel : SerializeBase, ICloneable, ISerializable // 
     /// <param name="context"></param>
     private ResponseBarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        IdentityValueUid = new Guid(info.GetString(WebConstants.Guid) ?? string.Empty);
+        IdentityValueUid = new(info.GetString(WebConstants.Guid) ?? string.Empty);
         CreateDt = info.GetDateTime(nameof(CreateDt));
         ChangeDt = info.GetDateTime(nameof(ChangeDt));
         IsMarked = info.GetBoolean(nameof(IsMarked));
@@ -42,7 +42,7 @@ public class ResponseBarCodeModel : SerializeBase, ICloneable, ISerializable // 
         ValueRight = info.GetString(nameof(ValueRight)) ?? string.Empty;
         TypeBottom = info.GetString(nameof(TypeBottom)) ?? string.Empty;
         ValueBottom = info.GetString(nameof(ValueBottom)) ?? string.Empty;
-        PluLabelGuid = new Guid(info.GetString(nameof(PluLabelGuid)) ?? string.Empty);
+        PluLabelGuid = new(info.GetString(nameof(PluLabelGuid)) ?? string.Empty);
     }
 
     #endregion

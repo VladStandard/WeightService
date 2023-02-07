@@ -11,7 +11,7 @@ public static class ComboBoxExtensions
 
         if (comboBox.InvokeRequired)
         {
-            comboBox.Invoke((Action)delegate
+            comboBox.Invoke(() =>
             {
                 SetEventWithItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
             });

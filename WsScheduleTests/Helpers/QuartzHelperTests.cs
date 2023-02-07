@@ -16,9 +16,9 @@ internal class QuartzHelperTests
 
     #endregion
 
-    internal static void Method([CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    private static void Method()
     {
-        TestContext.WriteLine($"{DateTime.Now}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}");
+        TestContext.WriteLine($"{DateTime.Now}");
     }
 
     [Test]
@@ -27,7 +27,7 @@ internal class QuartzHelperTests
         Assert.DoesNotThrow(() =>
         {
             TestContext.WriteLine("Open");
-            Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobName", "triggerName", "triggerGroup");
+            Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), Method, "jobName", "triggerName", "triggerGroup");
 
             Quartz.Close();
             TestContext.WriteLine("Close");
@@ -43,7 +43,7 @@ internal class QuartzHelperTests
     //    Assert.Throws<ArgumentException>(() =>
     //    {
     //        TestContext.WriteLine("Open");
-    //        Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobName", "triggerName", "triggerGroup");
+    //        Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), Method, "jobName", "triggerName", "triggerGroup");
 
     //        TestContext.WriteLine("Close");
     //        Quartz.Close();

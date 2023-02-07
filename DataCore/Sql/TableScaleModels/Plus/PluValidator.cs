@@ -20,7 +20,8 @@ public class PluValidator : SqlTableValidator<PluModel>
             .NotEmpty()
             .NotNull()
             .GreaterThanOrEqualTo((ushort)0_100)
-            .LessThanOrEqualTo((ushort)10_999);
+            .LessThanOrEqualTo((ushort)10_999)
+            .When(item => !item.IsGroup);
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
@@ -31,8 +32,8 @@ public class PluValidator : SqlTableValidator<PluModel>
             .NotNull();
         RuleFor(item => item.ShelfLifeDays)
             .NotNull()
-            .GreaterThanOrEqualTo((ushort)0)
-            .LessThanOrEqualTo((ushort)0_365);
+            .GreaterThanOrEqualTo(byte.MinValue)
+            .LessThanOrEqualTo(byte.MaxValue);
         RuleFor(item => item.Gtin)
             .NotNull();
         RuleFor(item => item.Ean13)

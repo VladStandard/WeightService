@@ -20,7 +20,6 @@ public class MemoryEntity
 	public int WaitCloseMiliSeconds { get; private set; }
 	public MemorySizeEntity MemorySize { get; private set; }
 	public string ExceptionMsg { get; private set; }
-	public delegate Task DelegateGuiRefresh();
 	public bool IsExecute { get; set; }
 
 	#endregion
@@ -39,7 +38,7 @@ public class MemoryEntity
 
 	#region Public and private methods
 
-	public void Open(DelegateGuiRefresh callRefresh, 
+	public void Open(Action actionRefresh, 
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		IsExecute = true;
@@ -50,7 +49,7 @@ public class MemoryEntity
 				MemorySize.Physical.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
 				MemorySize.Virtual.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
 
-				_ = (callRefresh?.Invoke().ConfigureAwait(false));
+				actionRefresh();
 				Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
 			}
 		}

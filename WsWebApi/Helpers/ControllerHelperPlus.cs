@@ -6,6 +6,7 @@ using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Clips;
 using DevExpress.Data.Browsing;
+using FluentValidation.Results;
 
 namespace WsWebApi.Helpers;
 
@@ -25,7 +26,16 @@ public partial class ControllerHelper
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Description));
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsCheckWeight));
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "MeasurementType");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ShelfLife");
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PluNumber");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BrandGuid");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BoxTypeGuid");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BoxTypeName");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BoxTypeWeight");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PackageTypeGuid");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PackageTypeName");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PackageTypeWeight");
         });
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -130,6 +140,34 @@ public partial class ControllerHelper
         }
     }
 
+    private List<string> GetPluPropertiesList() => new()
+    {
+        nameof(PluModel.BoxTypeGuid),
+        nameof(PluModel.BoxTypeName),
+        nameof(PluModel.BoxTypeWeight),
+        nameof(PluModel.BrandGuid),
+        nameof(PluModel.CategoryGuid),
+        nameof(PluModel.ClipTypeGuid),
+        nameof(PluModel.ClipTypeName),
+        nameof(PluModel.ClipTypeWeight),
+        nameof(PluModel.Code),
+        nameof(PluModel.Description),
+        nameof(PluModel.FullName),
+        nameof(PluModel.GroupGuid),
+        nameof(PluModel.IdentityValueUid),
+        nameof(PluModel.IsCheckWeight),
+        nameof(PluModel.IsGroup),
+        nameof(PluModel.IsMarked),
+        nameof(PluModel.MeasurementType),
+        nameof(PluModel.Name),
+        nameof(PluModel.Number),
+        nameof(PluModel.PackageTypeGuid),
+        nameof(PluModel.PackageTypeName),
+        nameof(PluModel.PackageTypeWeight),
+        nameof(PluModel.ParentGuid),
+        nameof(PluModel.ShelfLifeDays),
+    };
+
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public ContentResult NewResponse1cPlus(ISessionFactory sessionFactory, XElement xml, string format) =>
         NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
@@ -141,11 +179,26 @@ public partial class ControllerHelper
             List<BundleModel> bundlesDb = DataContext.GetListNotNullable<BundleModel>(sqlCrudConfig);
             List<ClipModel> clipsDb = DataContext.GetListNotNullable<ClipModel>(sqlCrudConfig);
             List<PluModel> itemsXml = GetXmlPluList(xml);
+            List<string> pluProperties = GetPluPropertiesList();
             foreach (PluModel itemXml in itemsXml)
             {
-                AddResponse1cBoxes(response, itemXml);
-                //AddResponse1cBundles(response, pluFksDb, itemXml);
-                //AddResponse1cClips(response, pluFksDb, itemXml);
+                PluValidator pluValidator = new();
+                ValidationResult validation = pluValidator.Validate(itemXml);
+                if (!validation.IsValid)
+                {
+                    foreach (ValidationFailure error in validation.Errors)
+                    {
+                        if (pluProperties.Contains(error.PropertyName) && 
+                            !itemXml.ParseResult.Exception.Contains(error.PropertyName))
+                            SetItemParseResultException(itemXml, error.PropertyName);
+                    }
+                }
+                else
+                {
+                    AddResponse1cBoxes(response, itemXml);
+                    //AddResponse1cBundles(response, pluFksDb, itemXml);
+                    //AddResponse1cClips(response, pluFksDb, itemXml);
+                }
                 switch (itemXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:

@@ -17,7 +17,7 @@
 //            if (frm is null)
 //                return;
 
-//            frm.FormClosing += delegate { Close(); };
+//            frm.FormClosing += Close;
 
 //            TextBox = textBox;
 //            Name = "TextBoxAppender";

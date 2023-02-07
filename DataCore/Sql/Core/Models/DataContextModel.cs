@@ -499,7 +499,7 @@ public class DataContextModel
                         pluBundle.Plu.Name = Convert.ToString(item[22]);
                         pluBundle.Plu.FullName = Convert.ToString(item[23]);
                         pluBundle.Plu.Description = Convert.ToString(item[24]);
-                        pluBundle.Plu.ShelfLifeDays = Convert.ToUInt16(item[25]);
+                        pluBundle.Plu.ShelfLifeDays = Convert.ToByte(item[25]);
                         pluBundle.Plu.Gtin = Convert.ToString(item[26]);
                         pluBundle.Plu.Ean13 = Convert.ToString(item[27]);
                         pluBundle.Plu.Itf14 = Convert.ToString(item[28]);

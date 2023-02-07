@@ -11,6 +11,6 @@
 - Data ORM: NHibernate, FluentNhibernate, FluentValidation
 - Hardware: Massa-K (Serial port), Zebra printer (TCP port), TSC printer (TCP port)
 - Design patterns: Singleton, Fabric, Disposable, MVVM, SAP
-- Technics: thread, action (delegate), async await (Task), generics (T), serialization (), inheritance (override)
+- Technics: thread, action, async await (Task), generics (T), serialization (), inheritance (override)
 - Data formats: XML, JSON
 - Unit test: NUnit, NUnit3TestAdapter

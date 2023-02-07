@@ -258,8 +258,7 @@ public partial class ControllerHelper
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-            case "IDENTITYVALUEUID":
-                item.IdentityValueUid = GetXmlAttributeGuid(xmlNode, item, "Guid");
+                item.IdentityValueUid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
             case "ISMARKED":
                 item.IsMarked = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
@@ -296,15 +295,54 @@ public partial class ControllerHelper
             case "CODE":
                 item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
                 break;
-            case nameof(item.ShelfLifeDays):
-                item.ShelfLifeDays = GetXmlAttributeUshort(xmlNode, item, "ShelfLife");
-                break;
             case "MEASUREMENTTYPE":
-                item.MeasurementType = GetXmlAttributeString(xmlNode, item, "MeasurementType");
-                item.IsCheckWeight = GetXmlAttributeBool(xmlNode, item, "MeasurementType", "ШТ", "КГ");
+                item.MeasurementType = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                item.IsCheckWeight = GetXmlAttributeBool(xmlNode, item, xmlPropertyName, "ШТ", "КГ");
                 break;
             case "PLUNUMBER":
-                item.Number = GetXmlAttributeUshort(xmlNode, item, "PluNumber");
+                item.Number = GetXmlAttributeUshort(xmlNode, item, xmlPropertyName);
+                break;
+            case "SHELFLIFE":
+                item.ShelfLifeDays = GetXmlAttributeByte(xmlNode, item, xmlPropertyName);
+                break;
+            case "PARENTGROUPGUID":
+                item.ParentGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+            case "GROUPGUID":
+                item.GroupGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+            case "CATEGORYGUID":
+                item.CategoryGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+            case "BRANDGUID":
+                item.BrandGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+            case "BOXTYPEGUID":
+                item.BoxTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+            case "BOXTYPENAME":
+                item.BoxTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                break;
+            case "BOXTYPEWEIGHT":
+                item.BoxTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
+                break;
+            case "CLIPTYPEGUID":
+                item.ClipTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+            case "CLIPTYPENAME":
+                item.ClipTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                break;
+            case "CLIPTYPEWEIGHT":
+                item.ClipTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
+                break;
+            case "PACKAGETYPEGUID":
+                item.PackageTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+            case "PACKAGETYPENAME":
+                item.PackageTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                break;
+            case "PACKAGETYPEWEIGHT":
+                item.PackageTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
                 break;
         }
     }
@@ -368,6 +406,9 @@ public partial class ControllerHelper
 
     public Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
         Guid.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out Guid uid) ? uid : Guid.Empty;
+
+    public byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+        byte.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out byte result) ? result : default;
 
     public ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
         ushort.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out ushort result) ? result : default;

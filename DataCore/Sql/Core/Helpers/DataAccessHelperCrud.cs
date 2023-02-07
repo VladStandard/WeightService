@@ -33,7 +33,7 @@ public partial class DataAccessHelper
         return criteria;
     }
 
-    private (bool IsOk, Exception? Exception) ExecuteCore(ExecCallback callback, bool isTransaction)
+    private (bool IsOk, Exception? Exception) ExecuteCore(Action<ISession> action, bool isTransaction)
     {
         ISession? session = null;
         Exception? exception = null;
@@ -44,7 +44,7 @@ public partial class DataAccessHelper
             session = SessionFactory.OpenSession();
             if (isTransaction)
                 transaction = session.BeginTransaction();
-            callback.Invoke(session);
+            action.Invoke(session);
             session.Flush();
             if (isTransaction)
                 transaction?.Commit();
@@ -76,9 +76,11 @@ public partial class DataAccessHelper
         return (true, null);
     }
 
-    private (bool IsOk, Exception? Exception) ExecuteTransaction(ExecCallback callback) => ExecuteCore(callback, true);
+    private (bool IsOk, Exception? Exception) ExecuteTransaction(Action<ISession> action) => 
+        ExecuteCore(action, true);
 
-    private (bool IsOk, Exception? Exception) ExecuteSelect(ExecCallback callback) => ExecuteCore(callback, false);
+    private (bool IsOk, Exception? Exception) ExecuteSelect(Action<ISession> action) => 
+        ExecuteCore(action, false);
 
     public bool IsConnected()
     {

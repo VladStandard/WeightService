@@ -68,7 +68,6 @@ public partial class DataAccessHelper
 
     private readonly object _locker = new();
 
-    public delegate void ExecCallback(ISession session);
     public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
 
     public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; private set; }
