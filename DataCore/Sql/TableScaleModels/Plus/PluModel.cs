@@ -20,7 +20,7 @@ public class PluModel : SqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual bool IsGroup { get; set; }
-    [XmlElement] public virtual ushort Number { get; set; }
+    [XmlElement] public virtual short Number { get; set; }
     [XmlElement] public virtual string Code { get; set; }
     [XmlElement] public virtual string NumberFormat
     {
@@ -45,7 +45,7 @@ public class PluModel : SqlTableBase
     [XmlElement] public virtual string Ean13 { get; set; }
     [XmlElement] public virtual string Itf14 { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
-    [XmlElement] public virtual NomenclatureModel Nomenclature { get; set; }
+    [XmlElement] public virtual NomenclatureModel? Nomenclature { get; set; }
     /// <summary>
     /// Родитель.
     /// </summary>
@@ -108,21 +108,30 @@ public class PluModel : SqlTableBase
     /// </summary>
     public PluModel() : base(SqlFieldIdentity.Uid)
     {
-        IsGroup = default;
-        ParentGuid = Guid.Empty;
-        Number = default;
-        FullName = string.Empty;
-        ShelfLifeDays = default;
-        Gtin = string.Empty;
-        Ean13 = string.Empty;
-        Itf14 = string.Empty;
-        Code = string.Empty;
-        IsCheckWeight = false;
-        Nomenclature = new();
-        MeasurementType = string.Empty;
+        BoxTypeGuid = Guid.Empty;
         BoxTypeName = string.Empty;
-        PackageTypeName = string.Empty;
+        BoxTypeWeight = default;
+        BrandGuid = Guid.Empty;
+        CategoryGuid = Guid.Empty;
+        ClipTypeGuid = Guid.Empty;
         ClipTypeName = string.Empty;
+        ClipTypeWeight = default;
+        Code = string.Empty;
+        Ean13 = string.Empty;
+        FullName = string.Empty;
+        GroupGuid = Guid.Empty;
+        Gtin = string.Empty;
+        IsCheckWeight = false;
+        IsGroup = default;
+        Itf14 = string.Empty;
+        MeasurementType = string.Empty;
+        Nomenclature = null;
+        Number = default;
+        PackageTypeGuid = Guid.Empty;
+        PackageTypeName = string.Empty;
+        PackageTypeWeight = default;
+        ParentGuid = Guid.Empty;
+        ShelfLifeDays = default;
     }
 
     /// <summary>
@@ -133,7 +142,7 @@ public class PluModel : SqlTableBase
     protected PluModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsGroup = info.GetBoolean(nameof(IsGroup));
-        Number = info.GetUInt16(nameof(Number));
+        Number = info.GetInt16(nameof(Number));
         FullName = info.GetString(nameof(FullName));
         ShelfLifeDays = info.GetByte(nameof(ShelfLifeDays));
         Gtin = info.GetString(nameof(Gtin));
@@ -144,19 +153,21 @@ public class PluModel : SqlTableBase
         Nomenclature = (NomenclatureModel)info.GetValue(nameof(Nomenclature), typeof(NomenclatureModel));
         object parentGroupGuid = info.GetValue(nameof(ParentGuid), typeof(Guid));
         ParentGuid = parentGroupGuid is Guid parentGroupGuid2 ? parentGroupGuid2 : Guid.Empty;
+        object groupGuid = info.GetValue(nameof(GroupGuid), typeof(Guid));
+        GroupGuid = groupGuid is Guid groupGuid2 ? groupGuid2 : Guid.Empty;
         MeasurementType = info.GetString(nameof(MeasurementType));
         object boxTypeGuid = info.GetValue(nameof(BoxTypeGuid), typeof(Guid));
         BoxTypeGuid = boxTypeGuid is Guid boxTypeGuid2 ? boxTypeGuid2 : Guid.Empty;
         BoxTypeName = info.GetString(nameof(BoxTypeName));
         BoxTypeWeight = info.GetDecimal(nameof(BoxTypeWeight));
-        object packageTypeGuid = info.GetValue(nameof(PackageTypeGuid), typeof(Guid));
-        PackageTypeGuid = packageTypeGuid is Guid packageTypeGuid2 ? packageTypeGuid2 : Guid.Empty;
-        PackageTypeName = info.GetString(nameof(PackageTypeName));
-        PackageTypeWeight = info.GetDecimal(nameof(PackageTypeWeight));
         object clipTypeGuid = info.GetValue(nameof(ClipTypeGuid), typeof(Guid));
         ClipTypeGuid = clipTypeGuid is Guid clipTypeGuid2 ? clipTypeGuid2 : Guid.Empty;
         ClipTypeName = info.GetString(nameof(ClipTypeName));
         ClipTypeWeight = info.GetDecimal(nameof(ClipTypeWeight));
+        object packageTypeGuid = info.GetValue(nameof(PackageTypeGuid), typeof(Guid));
+        PackageTypeGuid = packageTypeGuid is Guid packageTypeGuid2 ? packageTypeGuid2 : Guid.Empty;
+        PackageTypeName = info.GetString(nameof(PackageTypeName));
+        PackageTypeWeight = info.GetDecimal(nameof(PackageTypeWeight));
     }
 
     #endregion
@@ -186,6 +197,16 @@ public class PluModel : SqlTableBase
         base.EqualsDefault() &&
         Equals(IsGroup, default) &&
         Equals(ParentGuid, Guid.Empty) &&
+        Equals(GroupGuid, Guid.Empty) &&
+        Equals(BoxTypeGuid, Guid.Empty) &&
+        Equals(BoxTypeName, string.Empty) &&
+        Equals(BoxTypeWeight, default) &&
+        Equals(ClipTypeGuid, Guid.Empty) &&
+        Equals(ClipTypeName, string.Empty) &&
+        Equals(ClipTypeWeight, default) &&
+        Equals(PackageTypeGuid, Guid.Empty) &&
+        Equals(PackageTypeName, string.Empty) &&
+        Equals(PackageTypeWeight, default) &&
         Equals(Code, string.Empty) &&
         Equals(Number, default(ushort)) &&
         Equals(FullName, string.Empty) &&
@@ -194,13 +215,23 @@ public class PluModel : SqlTableBase
         Equals(Ean13, string.Empty) &&
         Equals(Itf14, string.Empty) &&
         Equals(IsCheckWeight, false) &&
-        Nomenclature.EqualsDefault();
+        (Nomenclature is null || Nomenclature.EqualsDefault());
 
     public override object Clone()
     {
         PluModel item = new();
         item.IsGroup = IsGroup;
         item.ParentGuid = ParentGuid;
+        item.GroupGuid = GroupGuid;
+        item.BoxTypeGuid = BoxTypeGuid;
+        item.BoxTypeName = BoxTypeName;
+        item.BoxTypeWeight = BoxTypeWeight;
+        item.ClipTypeGuid = ClipTypeGuid;
+        item.ClipTypeName = ClipTypeName;
+        item.ClipTypeWeight = ClipTypeWeight;
+        item.PackageTypeGuid = PackageTypeGuid;
+        item.PackageTypeName = PackageTypeName;
+        item.PackageTypeWeight = PackageTypeWeight;
         item.Code = Code;
         item.Number = Number;
         item.FullName = FullName;
@@ -209,7 +240,7 @@ public class PluModel : SqlTableBase
         item.Ean13 = Ean13;
         item.Itf14 = Itf14;
         item.IsCheckWeight = IsCheckWeight;
-        item.Nomenclature = Nomenclature.CloneCast();
+        item.Nomenclature = Nomenclature?.CloneCast();
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -219,6 +250,7 @@ public class PluModel : SqlTableBase
         base.GetObjectData(info, context);
         info.AddValue(nameof(IsGroup), IsGroup);
         info.AddValue(nameof(ParentGuid), ParentGuid);
+        info.AddValue(nameof(GroupGuid), GroupGuid);
         info.AddValue(nameof(Number), Number);
         info.AddValue(nameof(FullName), FullName);
         info.AddValue(nameof(ShelfLifeDays), ShelfLifeDays);
@@ -228,16 +260,15 @@ public class PluModel : SqlTableBase
         info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
         info.AddValue(nameof(Nomenclature), Nomenclature);
         info.AddValue(nameof(MeasurementType), MeasurementType);
-        info.AddValue(nameof(ParentGuid), ParentGuid);
         info.AddValue(nameof(BoxTypeGuid), BoxTypeGuid);
         info.AddValue(nameof(BoxTypeName), BoxTypeName);
         info.AddValue(nameof(BoxTypeWeight), BoxTypeWeight);
-        info.AddValue(nameof(PackageTypeGuid), PackageTypeGuid);
-        info.AddValue(nameof(PackageTypeName), PackageTypeName);
-        info.AddValue(nameof(PackageTypeWeight), PackageTypeWeight);
         info.AddValue(nameof(ClipTypeGuid), ClipTypeGuid);
         info.AddValue(nameof(ClipTypeName), ClipTypeName);
         info.AddValue(nameof(ClipTypeWeight), ClipTypeWeight);
+        info.AddValue(nameof(PackageTypeGuid), PackageTypeGuid);
+        info.AddValue(nameof(PackageTypeName), PackageTypeName);
+        info.AddValue(nameof(PackageTypeWeight), PackageTypeWeight);
     }
 
     public override void FillProperties()
@@ -249,7 +280,7 @@ public class PluModel : SqlTableBase
         Gtin = LocaleCore.Sql.SqlItemFieldGtin;
         Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
         Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
-        Nomenclature.FillProperties();
+        Nomenclature?.FillProperties();
     }
 
     #endregion
@@ -260,6 +291,16 @@ public class PluModel : SqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(IsGroup, item.IsGroup) &&
         Equals(ParentGuid, item.ParentGuid) &&
+        Equals(GroupGuid, item.GroupGuid) &&
+        Equals(BoxTypeGuid, item.BoxTypeGuid) &&
+        Equals(BoxTypeName, item.BoxTypeName) &&
+        Equals(BoxTypeWeight, item.BoxTypeWeight) &&
+        Equals(ClipTypeGuid, item.ClipTypeGuid) &&
+        Equals(ClipTypeName, item.ClipTypeName) &&
+        Equals(ClipTypeWeight, item.ClipTypeWeight) &&
+        Equals(PackageTypeGuid, item.PackageTypeGuid) &&
+        Equals(PackageTypeName, item.PackageTypeName) &&
+        Equals(PackageTypeWeight, item.PackageTypeWeight) &&
         Equals(Code, item.Code) &&
         Equals(Number, item.Number) &&
         Equals(FullName, item.FullName) &&
@@ -268,7 +309,8 @@ public class PluModel : SqlTableBase
         Equals(Ean13, item.Ean13) &&
         Equals(Itf14, item.Itf14) &&
         Equals(IsCheckWeight, item.IsCheckWeight) &&
-        Nomenclature.Equals(item.Nomenclature);
+        ((Nomenclature is not null && item.Nomenclature is not null && Nomenclature.Equals(item.Nomenclature)) ||
+         Nomenclature is null && item.Nomenclature is null);
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 
@@ -293,8 +335,30 @@ public class PluModel : SqlTableBase
         if (!string.IsNullOrEmpty(plu.Itf14))
             Itf14 = plu.Itf14;
         IsCheckWeight = plu.IsCheckWeight;
-        if (plu.Nomenclature.IsNotNew)
+        if (plu.Nomenclature is not null && plu.Nomenclature.IsNotNew)
             Nomenclature = plu.Nomenclature.CloneCast();
+        if (!Equals(plu.ParentGuid, Guid.Equals))
+            ParentGuid = plu.ParentGuid;
+        if (!Equals(plu.GroupGuid, Guid.Equals))
+            GroupGuid = plu.GroupGuid;
+        if (!Equals(plu.BoxTypeGuid, Guid.Equals))
+            BoxTypeGuid = plu.BoxTypeGuid;
+        if (!string.IsNullOrEmpty(plu.BoxTypeName))
+            BoxTypeName = plu.BoxTypeName;
+        if (plu.BoxTypeWeight > 0)
+            BoxTypeWeight = plu.BoxTypeWeight;
+        if (!Equals(plu.ClipTypeGuid, Guid.Equals))
+            ClipTypeGuid = plu.ClipTypeGuid;
+        if (!string.IsNullOrEmpty(plu.ClipTypeName))
+            ClipTypeName = plu.ClipTypeName;
+        if (plu.ClipTypeWeight > 0)
+            ClipTypeWeight = plu.ClipTypeWeight;
+        if (!Equals(plu.PackageTypeGuid, Guid.Equals))
+            PackageTypeGuid = plu.PackageTypeGuid;
+        if (!string.IsNullOrEmpty(plu.PackageTypeName))
+            PackageTypeName = plu.PackageTypeName;
+        if (plu.PackageTypeWeight > 0)
+            PackageTypeWeight = plu.PackageTypeWeight;
     }
 
     #endregion

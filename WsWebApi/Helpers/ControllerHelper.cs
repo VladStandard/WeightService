@@ -300,7 +300,7 @@ public partial class ControllerHelper
                 item.IsCheckWeight = GetXmlAttributeBool(xmlNode, item, xmlPropertyName, "ШТ", "КГ");
                 break;
             case "PLUNUMBER":
-                item.Number = GetXmlAttributeUshort(xmlNode, item, xmlPropertyName);
+                item.Number = GetXmlAttributeShort(xmlNode, item, xmlPropertyName);
                 break;
             case "SHELFLIFE":
                 item.ShelfLifeDays = GetXmlAttributeByte(xmlNode, item, xmlPropertyName);
@@ -413,6 +413,9 @@ public partial class ControllerHelper
     public ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
         ushort.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out ushort result) ? result : default;
 
+    public short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+        short.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out short result) ? result : default;
+
     public decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
         decimal.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out decimal result) ? result : default;
 
@@ -498,7 +501,7 @@ public partial class ControllerHelper
     /// <returns></returns>
     private bool UpdateItemDb<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isUpdateIdentity, bool isCounter) where T : ISqlTable
     {
-        if (itemDb is null || !itemDb.IsNotNew) return false;
+        if (itemDb is null || itemDb.IsNew) return false;
         if (isUpdateIdentity)
             itemDb.Identity = itemXml.Identity;
         itemDb.UpdateProperties(itemXml);

@@ -16,18 +16,6 @@ public class PluValidator : SqlTableValidator<PluModel>
     /// </summary>
     public PluValidator() : base(true, true)
     {
-        RuleFor(item => item.Number)
-            .NotEmpty()
-            .NotNull()
-            .GreaterThanOrEqualTo((ushort)0_100)
-            .LessThanOrEqualTo((ushort)10_999)
-            .When(item => !item.IsGroup);
-        RuleFor(item => item.Name)
-            .NotEmpty()
-            .NotNull();
-        RuleFor(item => item.FullName)
-            .NotEmpty()
-            .NotNull();
         RuleFor(item => item.Description)
             .NotNull();
         RuleFor(item => item.ShelfLifeDays)
@@ -46,5 +34,46 @@ public class PluValidator : SqlTableValidator<PluModel>
             .NotNull();
         RuleFor(item => item.Nomenclature)
             .SetValidator(new NomenclatureValidator());
+        RuleFor(item => item.Name)
+            .NotEmpty()
+            .NotNull();
+        // !IsGroup.
+        RuleFor(item => item.Number)
+            .NotEmpty()
+            .NotNull()
+            .GreaterThanOrEqualTo((short)0_100)
+            .LessThanOrEqualTo((short)10_999)
+            .When(item => !item.IsGroup);
+        RuleFor(item => item.FullName)
+            .NotNull()
+            .When(item => !item.IsGroup);
+        // IsGroup.
+        RuleFor(item => item.Number)
+            .NotNull()
+            .When(item => item.IsGroup);
+        RuleFor(item => item.FullName)
+            .NotNull()
+            .When(item => item.IsGroup);
     }
 }
+/*
+Вот все атрибуты, которые будут пустыми у групп
+ЗаписьXML.ЗаписатьАтрибут("FullName",             "");
+ЗаписьXML.ЗаписатьАтрибут("CategoryGuid",         "");
+ЗаписьXML.ЗаписатьАтрибут("BrandGuid",             "");
+ЗаписьXML.ЗаписатьАтрибут("MeasurementType",     "");
+ЗаписьXML.ЗаписатьАтрибут("GroupGuid",             "");
+ЗаписьXML.ЗаписатьАтрибут("AttachmentsCount",     "");
+ЗаписьXML.ЗаписатьАтрибут("BoxTypeGuid",         "");
+ЗаписьXML.ЗаписатьАтрибут("BoxTypeName",         "");
+ЗаписьXML.ЗаписатьАтрибут("BoxTypeWeight",         "");
+ЗаписьXML.ЗаписатьАтрибут("PackageTypeGuid",     "");
+ЗаписьXML.ЗаписатьАтрибут("PackageTypeName",     "");
+ЗаписьXML.ЗаписатьАтрибут("PackageTypeWeight",     "");
+ЗаписьXML.ЗаписатьАтрибут("ClipTypeGuid",         "");
+ЗаписьXML.ЗаписатьАтрибут("ClipTypeName",         "");
+ЗаписьXML.ЗаписатьАтрибут("ClipTypeWeight",     "");
+ЗаписьXML.ЗаписатьАтрибут("PluNumber",             "0");
+ЗаписьXML.ЗаписатьАтрибут("Description",         "");
+ЗаписьXML.ЗаписатьАтрибут("ShelfLife",             "");
+*/

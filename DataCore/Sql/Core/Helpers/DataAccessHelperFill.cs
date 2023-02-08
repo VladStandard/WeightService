@@ -74,7 +74,8 @@ public partial class DataAccessHelper
 				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
             case PluModel plu:
-                plu.Nomenclature = GetItemNotNullable<NomenclatureModel>(plu.Nomenclature.IdentityValueId);
+                if (plu.Nomenclature is not null)
+                    plu.Nomenclature = GetItemNullable<NomenclatureModel>(plu.Nomenclature.IdentityValueId);
                 break;
             case PluFkModel pluFk:
                 pluFk.Plu = GetItemNotNullable<PluModel>(pluFk.Plu.IdentityValueUid);

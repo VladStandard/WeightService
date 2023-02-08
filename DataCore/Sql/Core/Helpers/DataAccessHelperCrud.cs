@@ -45,6 +45,7 @@ public partial class DataAccessHelper
             if (isTransaction)
                 transaction = session.BeginTransaction();
             action.Invoke(session);
+            //if (isFlush)
             session.Flush();
             if (isTransaction)
                 transaction?.Commit();
@@ -77,6 +78,9 @@ public partial class DataAccessHelper
     }
 
     private (bool IsOk, Exception? Exception) ExecuteTransaction(Action<ISession> action) => 
+        ExecuteCore(action, true);
+
+    private (bool IsOk, Exception? Exception) ExecuteUpdate(Action<ISession> action) => 
         ExecuteCore(action, true);
 
     private (bool IsOk, Exception? Exception) ExecuteSelect(Action<ISession> action) => 
@@ -140,7 +144,7 @@ public partial class DataAccessHelper
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => { session.Save(item); });
+        return ExecuteTransaction(session => session.Save(item));
     }
 
     public async Task<(bool IsOk, Exception? Exception)> SaveAsync<T>(T? item) where T : ISqlTable
@@ -158,8 +162,8 @@ public partial class DataAccessHelper
         item.ChangeDt = DateTime.Now;
         object? id = identity?.GetValueAsObjectNullable();
         return id is null 
-            ? ExecuteTransaction(session => { session.Save(item); }) 
-            : ExecuteTransaction(session => { session.Save(item, id); });
+            ? ExecuteTransaction(session => session.Save(item)) 
+            : ExecuteTransaction(session => session.Save(item, id));
     }
 
     [Obsolete(@"Use SaveOrUpdate or UpdateForce")]
@@ -169,7 +173,7 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => { session.SaveOrUpdate(item); });
+        return ExecuteTransaction(session => session.SaveOrUpdate(item));
     }
 
     public (bool IsOk, Exception? Exception) SaveOrUpdate<T>(T? item) where T : ISqlTable
@@ -178,7 +182,7 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => { session.SaveOrUpdate(item); });
+        return ExecuteTransaction(session => session.SaveOrUpdate(item));
     }
 
     public (bool IsOk, Exception? Exception) UpdateForce<T>(T? item) where T : ISqlTable
@@ -187,14 +191,14 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => { session.Update(item); });
+        return ExecuteUpdate(session => session.Update(item));
     }
 
     public (bool IsOk, Exception? Exception) Delete<T>(T? item) where T : ISqlTable
     {
         if (item is null) return (false, null);
 
-        return ExecuteTransaction(session => { session.Delete(item); });
+        return ExecuteTransaction(session => session.Delete(item));
     }
 
     public (bool IsOk, Exception? Exception) Mark<T>(T? item) where T : ISqlTable
@@ -202,7 +206,7 @@ public partial class DataAccessHelper
         if (item is null) return (false, null);
 
         item.IsMarked = !item.IsMarked;
-        return ExecuteTransaction(session => { session.SaveOrUpdate(item); });
+        return ExecuteTransaction(session => session.SaveOrUpdate(item));
     }
 
     #endregion

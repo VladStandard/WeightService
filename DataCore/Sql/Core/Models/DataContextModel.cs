@@ -80,6 +80,7 @@ public class DataContextModel
     public List<OrganizationModel> Organizations { get; set; }
     public List<PluLabelModel> PluLabels { get; set; }
     public List<PluModel> Plus { get; set; }
+    public List<PluFkModel> PlusFks { get; set; }
     public List<PluBundleFkModel> PluBundleFks { get; set; }
     public List<PluClipFkModel> PluClipFks { get; set; }
     public List<PluScaleModel> PluScales { get; set; }
@@ -129,6 +130,7 @@ public class DataContextModel
         Organizations = new();
         PluLabels = new();
         Plus = new();
+        PlusFks = new();
         PluBundleFks = new();
         PluClipFks = new();
         PluScales = new();
@@ -183,6 +185,7 @@ public class DataContextModel
         var cls when cls == typeof(PluClipFkModel) => GetListNotNullablePluClipFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluLabelModel) => GetListNotNullablePluLabels<T>(sqlCrudConfig),
         var cls when cls == typeof(PluModel) => GetListNotNullablePlus<T>(sqlCrudConfig),
+        var cls when cls == typeof(PluFkModel) => GetListNotNullablePlusFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluNestingFkModel) => GetListNotNullablePluNestingFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluScaleModel) => GetListNotNullablePluScales<T>(sqlCrudConfig),
         var cls when cls == typeof(PluTemplateFkModel) => GetListNotNullablePluTemplateFks<T>(sqlCrudConfig),
@@ -406,6 +409,12 @@ public class DataContextModel
         return Plus.Cast<T>().ToList();
     }
 
+    private List<T> GetListNotNullablePlusFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    {
+        PlusFks = DataAccess.GetListNotNullable<PluFkModel>(sqlCrudConfig);
+        return PlusFks.Cast<T>().ToList();
+    }
+
     private List<T> GetListNotNullablePluBundleFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
     {
         PluBundleFks = DataAccess.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
@@ -495,7 +504,7 @@ public class DataContextModel
                         pluBundle.Plu.CreateDt = Convert.ToDateTime(item[18]);
                         pluBundle.Plu.ChangeDt = Convert.ToDateTime(item[19]);
                         pluBundle.Plu.IsMarked = Convert.ToBoolean(item[20]);
-                        pluBundle.Plu.Number = Convert.ToUInt16(item[21]);
+                        pluBundle.Plu.Number = Convert.ToInt16(item[21]);
                         pluBundle.Plu.Name = Convert.ToString(item[22]);
                         pluBundle.Plu.FullName = Convert.ToString(item[23]);
                         pluBundle.Plu.Description = Convert.ToString(item[24]);

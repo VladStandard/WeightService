@@ -50,7 +50,7 @@ public partial class ControllerHelper
             if (parent.IsNew)
             {
                 AddResponse1cException(response, itemXml.IdentityValueUid,
-                    new($"Parent PLU group for '{itemXml.ParentGuid}' is not found!"));
+                    new($"Parent PLU for '{itemXml.ParentGuid}' is not found!"));
                 return;
             }
             PluModel plu = new() { IdentityValueUid = itemXml.IdentityValueUid };
@@ -58,7 +58,7 @@ public partial class ControllerHelper
             if (plu.IsNew)
             {
                 AddResponse1cException(response, itemXml.IdentityValueUid,
-                    new($"PLU group for '{itemXml.ParentGuid}' is not found!"));
+                    new($"PLU for '{itemXml.ParentGuid}' is not found!"));
                 return;
             }
             PluFkModel itemFk = new()
@@ -70,8 +70,8 @@ public partial class ControllerHelper
 
             // Find by Identity -> Update exists.
             PluFkModel? itemDb = itemsDb.Find(x =>
-                x.Plu.IdentityValueUid.Equals(itemFk.Plu.IdentityValueUid) &&
-                x.Parent.IdentityValueUid.Equals(itemFk.Parent.IdentityValueUid));
+                Equals(x.Plu.IdentityValueUid, itemFk.Plu.IdentityValueUid) &&
+                Equals(x.Parent.IdentityValueUid, itemFk.Parent.IdentityValueUid));
             if (UpdateItemDb(response, itemFk, itemDb, false, false)) return;
 
             // Not find -> Add new.
@@ -117,7 +117,7 @@ public partial class ControllerHelper
         {
             // Add or update Foreign keys.
             // Must be refactoring!
-            itemXml.Nomenclature = DataAccessHelper.Instance.GetItemNewEmpty<NomenclatureModel>();
+            //itemXml.Nomenclature = DataAccessHelper.Instance.GetItemNewEmpty<NomenclatureModel>();
 
             // Find by Identity -> Update exists.
             PluModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
@@ -193,17 +193,14 @@ public partial class ControllerHelper
                             SetItemParseResultException(itemXml, error.PropertyName);
                     }
                 }
-                else
-                {
-                    AddResponse1cBoxes(response, itemXml);
-                    //AddResponse1cBundles(response, pluFksDb, itemXml);
-                    //AddResponse1cClips(response, pluFksDb, itemXml);
-                }
                 switch (itemXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
                         AddResponse1cPlus(response, itemsDb, itemXml);
                         AddResponse1cPlusFks(response, pluFksDb, itemXml);
+                        AddResponse1cBoxes(response, itemXml);
+                        //AddResponse1cBundles(response, pluFksDb, itemXml);
+                        //AddResponse1cClips(response, pluFksDb, itemXml);
                         //AddResponse1cPlusBoxesFks(response, pluFksDb, itemXml);
                         //AddResponse1cPlusBundlesFks(response, pluFksDb, itemXml);
                         //AddResponse1cPlusNestingFks(response, pluFksDb, itemXml);
