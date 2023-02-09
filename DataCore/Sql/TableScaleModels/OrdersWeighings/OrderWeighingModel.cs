@@ -69,9 +69,9 @@ public class OrderWeighingModel : SqlTableBase
     public override object Clone()
     {
         OrderWeighingModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Order = Order.CloneCast();
         item.PluWeighing = PluWeighing.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

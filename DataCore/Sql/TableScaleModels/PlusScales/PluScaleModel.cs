@@ -75,10 +75,10 @@ public class PluScaleModel : SqlTableBase
     public override object Clone()
     {
         PluScaleModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.IsActive = IsActive;
         item.Plu = Plu.CloneCast();
         item.Scale = Scale.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

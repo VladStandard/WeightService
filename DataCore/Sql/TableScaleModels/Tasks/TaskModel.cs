@@ -72,10 +72,10 @@ public class TaskModel : SqlTableBase
     public override object Clone()
     {
         TaskModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.TaskType = TaskType.CloneCast();
         item.Scale = Scale.CloneCast();
         item.Enabled = Enabled;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

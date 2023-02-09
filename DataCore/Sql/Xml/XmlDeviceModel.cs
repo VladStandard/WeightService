@@ -62,11 +62,9 @@ public class XmlDeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializabl
 
     public override object Clone()
     {
-        XmlDeviceModel item = new()
-        {
-            Scale = Scale.CloneCast()
-        };
+        XmlDeviceModel item = new();
         item.CloneSetup(base.CloneCast());
+        item.Scale = Scale.CloneCast();
         return item;
     }
 

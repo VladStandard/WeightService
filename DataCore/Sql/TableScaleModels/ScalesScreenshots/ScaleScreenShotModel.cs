@@ -69,9 +69,9 @@ public class ScaleScreenShotModel : SqlTableBase
     public override object Clone()
     {
         ScaleScreenShotModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Scale = Scale.CloneCast();
         item.ScreenShot = ScreenShot;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

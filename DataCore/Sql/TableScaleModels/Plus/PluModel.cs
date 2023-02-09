@@ -220,6 +220,7 @@ public class PluModel : SqlTableBase
     public override object Clone()
     {
         PluModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.IsGroup = IsGroup;
         item.ParentGuid = ParentGuid;
         item.GroupGuid = GroupGuid;
@@ -241,7 +242,6 @@ public class PluModel : SqlTableBase
         item.Itf14 = Itf14;
         item.IsCheckWeight = IsCheckWeight;
         item.Nomenclature = Nomenclature?.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

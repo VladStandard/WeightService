@@ -100,6 +100,7 @@ public class LogModel : SqlTableBase
     public override object Clone()
     {
         LogModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Device = Device?.CloneCast();
         item.App = App?.CloneCast();
         item.LogType = LogType?.CloneCast();
@@ -108,7 +109,6 @@ public class LogModel : SqlTableBase
         item.Line = Line;
         item.Member = Member;
         item.Message = Message;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

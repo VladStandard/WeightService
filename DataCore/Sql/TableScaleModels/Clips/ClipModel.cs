@@ -60,8 +60,8 @@ public class ClipModel : SqlTableBase
     public override object Clone()
     {
         ClipModel item = new();
-        item.Weight = Weight;
         item.CloneSetup(base.CloneCast());
+        item.Weight = Weight;
         return item;
     }
 

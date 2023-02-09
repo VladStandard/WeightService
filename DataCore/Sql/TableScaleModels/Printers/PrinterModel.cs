@@ -103,6 +103,7 @@ public class PrinterModel : SqlTableBase
     public override object Clone()
     {
         PrinterModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Ip = Ip;
         item.Port = Port;
         item.Password = Password;
@@ -112,7 +113,6 @@ public class PrinterModel : SqlTableBase
         item.DarknessLevel = DarknessLevel;
         item.HttpStatusCode = HttpStatusCode;
         item.HttpStatusException = HttpStatusException;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

@@ -73,9 +73,9 @@ public class DeviceScaleFkModel : SqlTableBase
     public override object Clone()
     {
         DeviceScaleFkModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Device = Device.CloneCast();
         item.Scale = Scale.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

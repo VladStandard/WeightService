@@ -80,6 +80,7 @@ public class LogQuickModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override object Clone()
 	{
 		LogQuickModel item = new();
+		item.CloneSetup(base.CloneCast());
 		item.Scale = Scale;
 		item.Host = Host;
 		item.App = App;
@@ -89,7 +90,6 @@ public class LogQuickModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		item.Member = Member;
 		item.Icon = Icon;
 		item.Message = Message;
-		item.CloneSetup(base.CloneCast());
 		return item;
 	}
 

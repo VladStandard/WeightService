@@ -60,8 +60,8 @@ public class BundleModel : SqlTableBase
     public override object Clone()
     {
         BundleModel item = new();
-        item.Weight = Weight;
         item.CloneSetup(base.CloneCast());
+        item.Weight = Weight;
         return item;
     }
 

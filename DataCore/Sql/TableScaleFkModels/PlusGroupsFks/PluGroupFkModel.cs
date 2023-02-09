@@ -5,7 +5,6 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusGroups;
-using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 
@@ -82,10 +81,10 @@ public class PluGroupFkModel : SqlTableBase
     public override object Clone()
     {
         PluGroupFkModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Plu = Plu?.CloneCast();
         item.PluGroup = PluGroup.CloneCast();
         item.Parent = Parent.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

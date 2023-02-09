@@ -87,12 +87,12 @@ public class NomenclatureV2Model : SqlTableBase
     public override object Clone()
     {
         NomenclatureV2Model item = new();
+        item.CloneSetup(base.CloneCast());
         item.IsGroup = IsGroup;
         item.FullName = FullName;
         item.Code = Code;
         item.AttachmentsCount = AttachmentsCount;
         item.ShelfLife = ShelfLife;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

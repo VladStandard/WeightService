@@ -79,10 +79,10 @@ public class NomenclatureModel : SqlTableBase
     public override object Clone()
     {
         NomenclatureModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Code = Code;
         item.Xml = Xml;
         item.Weighted = Weighted;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

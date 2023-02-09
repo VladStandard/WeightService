@@ -67,9 +67,9 @@ public class LogTypeModel : SqlTableBase
     public override object Clone()
     {
         LogTypeModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Number = Number;
         item.Icon = Icon;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

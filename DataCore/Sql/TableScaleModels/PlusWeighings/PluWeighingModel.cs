@@ -153,6 +153,7 @@ public class PluWeighingModel : SqlTableBase
     public override object Clone()
     {
         PluWeighingModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.PluScale = PluScale.CloneCast();
         item.Series = Series?.CloneCast();
         item.Kneading = Kneading;
@@ -160,7 +161,6 @@ public class PluWeighingModel : SqlTableBase
         item.NettoWeight = NettoWeight;
         item.WeightTare = WeightTare;
         item.RegNum = RegNum;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

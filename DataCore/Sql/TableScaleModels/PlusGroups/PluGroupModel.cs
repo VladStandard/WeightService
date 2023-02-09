@@ -73,10 +73,10 @@ public class PluGroupModel : SqlTableBase
     public override object Clone()
     {
         PluGroupModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.IsGroup = IsGroup;
         item.Code = Code;
         item.ParentGuid = ParentGuid;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

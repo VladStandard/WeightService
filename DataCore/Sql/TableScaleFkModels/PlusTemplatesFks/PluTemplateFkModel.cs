@@ -73,9 +73,9 @@ public class PluTemplateFkModel : SqlTableBase
     public override object Clone()
     {
         PluTemplateFkModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Plu = Plu.CloneCast();
         item.Template = Template.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

@@ -67,9 +67,9 @@ public class VersionModel : SqlTableBase
     public override object Clone()
     {
         VersionModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.ReleaseDt = ReleaseDt;
         item.Version = Version;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

@@ -74,9 +74,9 @@ public class PluBundleFkModel : SqlTableBase
     public override object Clone()
     {
         PluBundleFkModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Bundle = Bundle.CloneCast();
         item.Plu = Plu.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

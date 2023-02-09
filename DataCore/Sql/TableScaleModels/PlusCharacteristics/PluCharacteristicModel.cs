@@ -60,8 +60,8 @@ public class PluCharacteristicModel : SqlTableBase
     public override object Clone()
     {
         PluCharacteristicModel item = new();
-        item.AttachmentsCount = AttachmentsCount;
         item.CloneSetup(base.CloneCast());
+        item.AttachmentsCount = AttachmentsCount;
         return item;
     }
 

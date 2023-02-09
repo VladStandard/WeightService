@@ -64,8 +64,8 @@ public class WorkShopModel : SqlTableBase
     public override object Clone()
     {
         WorkShopModel item = new();
-        item.ProductionFacility = ProductionFacility.CloneCast();
         item.CloneSetup(base.CloneCast());
+        item.ProductionFacility = ProductionFacility.CloneCast();
         return item;
     }
 

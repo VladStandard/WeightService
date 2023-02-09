@@ -63,8 +63,8 @@ public class ProductionFacilityModel : SqlTableBase
     public override object Clone()
     {
         ProductionFacilityModel item = new();
-        item.Address = Address;
         item.CloneSetup(base.CloneCast());
+        item.Address = Address;
         return item;
     }
 

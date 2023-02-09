@@ -60,8 +60,8 @@ public class BoxModel : SqlTableBase
     public override object Clone()
     {
         BoxModel item = new();
-        item.Weight = Weight;
         item.CloneSetup(base.CloneCast());
+        item.Weight = Weight;
         return item;
     }
 

@@ -64,12 +64,12 @@ public class WeithingFactSummaryModel : SqlTableBase, ICloneable, ISqlDbBase, IS
     public override object Clone()
     {
         WeithingFactSummaryModel item = new();
+		item.CloneSetup(base.CloneCast());
         item.WeithingDate = WeithingDate;
         item.Count = Count;
         item.Scale = Scale;
         item.Host = Host;
         item.Printer = Printer;
-		item.CloneSetup(base.CloneCast());
 		return item;
     }
 
