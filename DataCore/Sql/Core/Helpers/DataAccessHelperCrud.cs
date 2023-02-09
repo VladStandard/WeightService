@@ -43,12 +43,20 @@ public partial class DataAccessHelper
         {
             session = SessionFactory.OpenSession();
             if (isTransaction)
+            {
                 transaction = session.BeginTransaction();
+                session.FlushMode = FlushMode.Commit;
+            }
+            else
+            {
+                session.FlushMode = FlushMode.Manual;
+            }
             action.Invoke(session);
             //if (isFlush)
             session.Flush();
             if (isTransaction)
                 transaction?.Commit();
+            session.Clear();
         }
         catch (Exception ex)
         {
@@ -77,22 +85,13 @@ public partial class DataAccessHelper
         return (true, null);
     }
 
-    private (bool IsOk, Exception? Exception) ExecuteTransaction(Action<ISession> action) => 
-        ExecuteCore(action, true);
-
-    private (bool IsOk, Exception? Exception) ExecuteUpdate(Action<ISession> action) => 
-        ExecuteCore(action, true);
-
-    private (bool IsOk, Exception? Exception) ExecuteSelect(Action<ISession> action) => 
-        ExecuteCore(action, false);
-
     public bool IsConnected()
     {
         bool result = false;
-        ExecuteSelect(session =>
+        ExecuteCore(session =>
         {
             result = session.IsConnected;
-        });
+        }, false);
         return result;
     }
 
@@ -119,7 +118,7 @@ public partial class DataAccessHelper
     public int ExecQueryNative(string query, Dictionary<string, object>? parameters)
     {
         int result = 0;
-        ExecuteTransaction(session =>
+        ExecuteCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query);
             if (sqlQuery is not null && parameters is not null)
@@ -133,7 +132,7 @@ public partial class DataAccessHelper
                 }
                 result = sqlQuery.ExecuteUpdate();
             }
-        });
+        }, true);
         return result;
     }
 
@@ -144,7 +143,7 @@ public partial class DataAccessHelper
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => session.Save(item));
+        return ExecuteCore(session => session.Save(item), true);
     }
 
     public async Task<(bool IsOk, Exception? Exception)> SaveAsync<T>(T? item) where T : ISqlTable
@@ -162,8 +161,8 @@ public partial class DataAccessHelper
         item.ChangeDt = DateTime.Now;
         object? id = identity?.GetValueAsObjectNullable();
         return id is null 
-            ? ExecuteTransaction(session => session.Save(item)) 
-            : ExecuteTransaction(session => session.Save(item, id));
+            ? ExecuteCore(session => session.Save(item), true) 
+            : ExecuteCore(session => session.Save(item, id), true);
     }
 
     [Obsolete(@"Use SaveOrUpdate or UpdateForce")]
@@ -173,7 +172,7 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => session.SaveOrUpdate(item));
+        return ExecuteCore(session => session.SaveOrUpdate(item), true);
     }
 
     public (bool IsOk, Exception? Exception) SaveOrUpdate<T>(T? item) where T : ISqlTable
@@ -182,7 +181,7 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => session.SaveOrUpdate(item));
+        return ExecuteCore(session => session.SaveOrUpdate(item), true);
     }
 
     public (bool IsOk, Exception? Exception) UpdateForce<T>(T? item) where T : ISqlTable
@@ -191,14 +190,15 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteUpdate(session => session.Update(item));
+        //return ExecuteUpdate(session => session.Update(item));
+        return ExecuteCore(session => session.Update(item), true);
     }
 
     public (bool IsOk, Exception? Exception) Delete<T>(T? item) where T : ISqlTable
     {
         if (item is null) return (false, null);
 
-        return ExecuteTransaction(session => session.Delete(item));
+        return ExecuteCore(session => session.Delete(item), true);
     }
 
     public (bool IsOk, Exception? Exception) Mark<T>(T? item) where T : ISqlTable
@@ -206,7 +206,7 @@ public partial class DataAccessHelper
         if (item is null) return (false, null);
 
         item.IsMarked = !item.IsMarked;
-        return ExecuteTransaction(session => session.SaveOrUpdate(item));
+        return ExecuteCore(session => session.SaveOrUpdate(item), true);
     }
 
     #endregion

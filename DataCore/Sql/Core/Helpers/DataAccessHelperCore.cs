@@ -22,10 +22,10 @@ public partial class DataAccessHelper
 	private T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T? item = null;
-		ExecuteSelect(session =>
-		{
+        ExecuteCore(session =>
+        {
 			item = GetItemCoreNullable<T>(session, sqlCrudConfig);
-		});
+		}, false);
 		FillReferences(item);
 		return item;
 	}
@@ -91,10 +91,10 @@ public partial class DataAccessHelper
 			return false;
 
 		bool result = false;
-		ExecuteSelect(session =>
-		{
+        ExecuteCore(session =>
+        {
 			result = session.Query<T>().Any(x => x.IsAny(item));
-		});
+		}, false);
 		return result;
 	}
 
@@ -102,10 +102,10 @@ public partial class DataAccessHelper
 	{
 		bool result = false;
 		sqlCrudConfig.ResultMaxCount = 1;
-		ExecuteSelect(session =>
-		{
+        ExecuteCore(session =>
+        {
 			result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Any();
-		});
+		}, false);
 		return result;
 	}
 
@@ -125,30 +125,30 @@ public partial class DataAccessHelper
 	public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T[]? items = null;
-		ExecuteSelect(session =>
-		{
+        ExecuteCore(session =>
+        {
 			items = GetArrayCore<T>(session, sqlCrudConfig);
 			if (sqlCrudConfig.IsFillReferences)
 			    foreach (T item in items)
 			    {
 				    FillReferences(item);
 			    }
-		});
+		}, false);
 		return items;
 	}
 
 	private T[]? GetArrayNullable<T>(string query) where T : SqlTableBase, new()
 	{
 		T[]? result = null;
-		ExecuteSelect(session =>
-		{
+        ExecuteCore(session =>
+        {
 			ISQLQuery? sqlQuery = GetSqlQuery(session, query);
 			if (sqlQuery is not null)
 			{
 				sqlQuery.AddEntity(typeof(T));
 				result = sqlQuery.List<T>().ToArray();
 			}
-		});
+		}, false);
 		return result;
 	}
 
@@ -159,8 +159,8 @@ public partial class DataAccessHelper
     private object[]? GetArrayObjectsNullable(string query, List<SqlParameter> parameters)
 	{
 		object[]? result = null;
-		ExecuteSelect(session =>
-		{
+        ExecuteCore(session =>
+        {
 			ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
 			if (sqlQuery is not null)
 			{
@@ -174,7 +174,7 @@ public partial class DataAccessHelper
 						result[i] = listEntities[i];
 				}
 			}
-		});
+		}, false);
 		return result;
 	}
 

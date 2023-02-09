@@ -45,14 +45,6 @@ public partial class ControllerHelper
         {
             if (Equals(itemXml.ParentGuid, Guid.Empty)) return;
 
-            PluModel parent = new() { IdentityValueUid = itemXml.ParentGuid };
-            parent = DataContext.GetItemNotNullable<PluModel>(parent.Identity);
-            if (parent.IsNew)
-            {
-                AddResponse1cException(response, itemXml.IdentityValueUid,
-                    new($"Parent PLU for '{itemXml.ParentGuid}' is not found!"));
-                return;
-            }
             PluModel plu = new() { IdentityValueUid = itemXml.IdentityValueUid };
             plu = DataContext.GetItemNotNullable<PluModel>(plu.Identity);
             if (plu.IsNew)
@@ -61,11 +53,31 @@ public partial class ControllerHelper
                     new($"PLU for '{itemXml.ParentGuid}' is not found!"));
                 return;
             }
+
+            PluModel parent = new() { IdentityValueUid = itemXml.ParentGuid };
+            parent = DataContext.GetItemNotNullable<PluModel>(parent.Identity);
+            if (parent.IsNew)
+            {
+                AddResponse1cException(response, itemXml.IdentityValueUid,
+                    new($"Parent PLU for '{itemXml.ParentGuid}' is not found!"));
+                return;
+            }
+            
+            PluModel? category = new() { IdentityValueUid = itemXml.CategoryGuid };
+            category = DataContext.GetItemNullable<PluModel>(category.Identity);
+            if (!itemXml.IsGroup && (category is null || category.IsNew))
+            {
+                AddResponse1cException(response, itemXml.IdentityValueUid,
+                    new($"Category PLU for '{itemXml.CategoryGuid}' is not found!"));
+                return;
+            }
+            
             PluFkModel itemFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
                 Plu = plu,
-                Parent = parent
+                Parent = parent,
+                Category = category
             };
 
             // Find by Identity -> Update exists.
@@ -115,10 +127,6 @@ public partial class ControllerHelper
     {
         try
         {
-            // Add or update Foreign keys.
-            // Must be refactoring!
-            //itemXml.Nomenclature = DataAccessHelper.Instance.GetItemNewEmpty<NomenclatureModel>();
-
             // Find by Identity -> Update exists.
             PluModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
             if (UpdateItemDb(response, itemXml, itemDb, false, true)) return;

@@ -20,8 +20,8 @@ public class PluFkModel : SqlTableBase
     [XmlElement] public virtual PluModel Plu { get => _plu; set => _plu = value; }
     private PluModel _parent;
     [XmlElement] public virtual PluModel Parent { get => _parent; set => _parent = value; }
-    private PluModel _category;
-    [XmlElement] public virtual PluModel Category { get => _category; set => _category = value; }
+    private PluModel? _category;
+    [XmlElement] public virtual PluModel? Category { get => _category; set => _category = value; }
 
     /// <summary>
     /// Constructor.
@@ -30,7 +30,7 @@ public class PluFkModel : SqlTableBase
     {
         _plu = new();
         _parent = new();
-        _category = new();
+        _category = null;
     }
 
     /// <summary>
@@ -56,8 +56,7 @@ public class PluFkModel : SqlTableBase
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Plu)}: {Plu}. " +
-        $"{nameof(Parent)}: {Parent}. " +
-        $"{nameof(Category)}: {Category}";
+        $"{nameof(Parent)}: {Parent}. ";
 
     public override bool Equals(object obj)
     {
@@ -75,7 +74,7 @@ public class PluFkModel : SqlTableBase
         base.EqualsDefault() &&
         Plu.EqualsDefault() &&
         Parent.EqualsDefault() &&
-        Category.EqualsDefault();
+        Category is null;
 
     public override object Clone()
     {
@@ -83,7 +82,7 @@ public class PluFkModel : SqlTableBase
         item.CloneSetup(base.CloneCast());
         item.Plu = Plu.CloneCast();
         item.Parent = Parent.CloneCast();
-        item.Category = Category.CloneCast();
+        item.Category = Category?.CloneCast();
         return item;
     }
 
@@ -105,7 +104,7 @@ public class PluFkModel : SqlTableBase
         base.FillProperties();
         Plu.FillProperties();
         Parent.FillProperties();
-        Category.FillProperties();
+        Category?.FillProperties();
     }
 
     #endregion
@@ -116,7 +115,7 @@ public class PluFkModel : SqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Plu.Equals(item.Plu) &&
         Parent.Equals(item.Parent) &&
-        Category.Equals(item.Category);
+        (Category is null && item.Category is null || Category is not null && item.Category is not null && Category.Equals(item.Category));
 
     public new virtual PluFkModel CloneCast() => (PluFkModel)Clone();
 

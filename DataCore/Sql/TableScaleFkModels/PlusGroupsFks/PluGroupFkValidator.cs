@@ -17,9 +17,9 @@ public class PluGroupFkValidator : SqlTableValidator<PluGroupFkModel>
     /// </summary>
     public PluGroupFkValidator() : base(true, true)
     {
-        RuleFor(item => item.Plu)
-            .SetValidator(new PluValidator())
-            .When(item => item.IsExists);
+        //RuleFor(item => item.Plu)
+        //    .SetValidator(new PluValidator())
+        //    .When(item => item.Plu is not null);
         RuleFor(item => item.PluGroup)
             .NotEmpty()
             .NotNull()
