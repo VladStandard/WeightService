@@ -68,4 +68,15 @@ SELECT [IIS].[GetRefShipmentsByDocDate] (:StartDate,:EndDate,:Offset,:RowCount)
     public static string GetSummary => @"
 SELECT [IIS].[fnGetSummaryList] (:StartDate, :EndDate)
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+    public static string UpdatePlu => @"
+IF EXISTS(SELECT 1 FROM [DB_SCALES].[PLUS] WHERE [UID] = :uid) BEGIN
+	IF (NOT EXISTS(SELECT 1 FROM [DB_SCALES].[PLUS_FK] WHERE [PLU_UID] = :uid) AND 
+	    NOT EXISTS(SELECT 1 FROM [DB_SCALES].[PLUS_FK] WHERE [PARENT_UID] = :uid) AND
+		NOT EXISTS(SELECT 1 FROM [DB_SCALES].[PLUS_TEMPLATES_FK] WHERE [PLU_UID] = :uid)) BEGIN
+		DELETE FROM [DB_SCALES].[PLUS] WHERE [UID] = :uid;
+	END;
+END;
+UPDATE [DB_SCALES].[PLUS] SET [UID] = :uid WHERE [CODE] = :code AND [NUMBER] = :number;
+        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 }

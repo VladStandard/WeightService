@@ -43,17 +43,11 @@ public partial class DataAccessHelper
         {
             session = SessionFactory.OpenSession();
             if (isTransaction)
-            {
                 transaction = session.BeginTransaction();
-                session.FlushMode = FlushMode.Commit;
-            }
-            else
-            {
-                session.FlushMode = FlushMode.Manual;
-            }
+            session.FlushMode = isTransaction ? FlushMode.Commit : FlushMode.Manual;
             action.Invoke(session);
-            //if (isFlush)
-            session.Flush();
+            if (isTransaction)
+                session.Flush();
             if (isTransaction)
                 transaction?.Commit();
             session.Clear();
@@ -63,7 +57,6 @@ public partial class DataAccessHelper
             if (isTransaction)
                 transaction?.Rollback();
             exception = ex;
-            //throw;
         }
         finally
         {
@@ -110,31 +103,29 @@ public partial class DataAccessHelper
         ISQLQuery sqlQuery = session.CreateSQLQuery(query);
         foreach (SqlParameter parameter in parameters)
         {
-            sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
+            if (parameter.Value is byte[] imagedata)
+                sqlQuery.SetParameter(parameter.ParameterName, imagedata);
+            else
+                sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
         }
         return sqlQuery;
     }
 
-    public int ExecQueryNative(string query, Dictionary<string, object>? parameters)
+    public (bool IsOk, Exception? Exception) ExecQueryNative(string query, List<SqlParameter> parameters)
     {
-        int result = 0;
-        ExecuteCore(session =>
+        if (string.IsNullOrEmpty(query)) return (false, null);
+        return ExecuteCore(session =>
         {
-            ISQLQuery? sqlQuery = GetSqlQuery(session, query);
-            if (sqlQuery is not null && parameters is not null)
+            ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
+            if (sqlQuery is not null)
             {
-                foreach (KeyValuePair<string, object> parameter in parameters)
-                {
-                    if (parameter.Value is byte[] imagedata)
-                        sqlQuery.SetParameter(parameter.Key, imagedata);
-                    else
-                        sqlQuery.SetParameter(parameter.Key, parameter.Value);
-                }
-                result = sqlQuery.ExecuteUpdate();
+                _ = sqlQuery.ExecuteUpdate();
             }
         }, true);
-        return result;
     }
+
+    public (bool IsOk, Exception? Exception) ExecQueryNative(string query, SqlParameter parameter) =>
+        ExecQueryNative(query, new List<SqlParameter> { parameter });
 
     public (bool IsOk, Exception? Exception) Save<T>(T? item) where T : ISqlTable
     {
@@ -190,7 +181,6 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        //return ExecuteUpdate(session => session.Update(item));
         return ExecuteCore(session => session.Update(item), true);
     }
 

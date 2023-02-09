@@ -5,7 +5,6 @@ using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Clips;
-using DevExpress.Data.Browsing;
 using FluentValidation.Results;
 
 namespace WsWebApi.Helpers;
@@ -62,7 +61,7 @@ public partial class ControllerHelper
                     new($"Parent PLU for '{itemXml.ParentGuid}' is not found!"));
                 return;
             }
-            
+
             PluModel? category = new() { IdentityValueUid = itemXml.CategoryGuid };
             category = DataContext.GetItemNullable<PluModel>(category.Identity);
             if (!itemXml.IsGroup && (category is null || category.IsNew))
@@ -71,7 +70,7 @@ public partial class ControllerHelper
                     new($"Category PLU for '{itemXml.CategoryGuid}' is not found!"));
                 return;
             }
-            
+
             PluFkModel itemFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
@@ -84,7 +83,7 @@ public partial class ControllerHelper
             PluFkModel? itemDb = itemsDb.Find(x =>
                 Equals(x.Plu.IdentityValueUid, itemFk.Plu.IdentityValueUid) &&
                 Equals(x.Parent.IdentityValueUid, itemFk.Parent.IdentityValueUid));
-            if (UpdateItemDb(response, itemFk, itemDb, false, false)) return;
+            if (UpdateItemDb(response, itemFk, itemDb, false)) return;
 
             // Not find -> Add new.
             SaveItemDb(response, itemFk, false);
@@ -128,12 +127,12 @@ public partial class ControllerHelper
         try
         {
             // Find by Identity -> Update exists.
-            PluModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
-            if (UpdateItemDb(response, itemXml, itemDb, false, true)) return;
+            PluModel? pluDb = itemsDb.Find(item => Equals(item.IdentityValueUid, itemXml.IdentityValueUid));
+            if (UpdateItemDb(response, itemXml, pluDb, true)) return;
 
             // Find by Code -> Update exists.
-            itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
-            if (UpdateItemDb(response, itemXml, itemDb, true, true)) return;
+            pluDb = itemsDb.Find(item => Equals(item.Number, itemXml.Number) && Equals(item.Code, itemXml.Code));
+            if (UpdateItemDbForPlu(response, itemXml, pluDb, true)) return;
 
             // Not find -> Add new.
             SaveItemDb(response, itemXml, true);
@@ -196,17 +195,18 @@ public partial class ControllerHelper
                 {
                     foreach (ValidationFailure error in validation.Errors)
                     {
-                        if (pluProperties.Contains(error.PropertyName) && 
+                        if (pluProperties.Contains(error.PropertyName) &&
                             !itemXml.ParseResult.Exception.Contains(error.PropertyName))
                             SetItemParseResultException(itemXml, error.PropertyName);
                     }
                 }
+                CheckPluNumber(itemXml, itemsDb);
                 switch (itemXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
                         AddResponse1cPlus(response, itemsDb, itemXml);
-                        AddResponse1cPlusFks(response, pluFksDb, itemXml);
-                        AddResponse1cBoxes(response, itemXml);
+                        //AddResponse1cPlusFks(response, pluFksDb, itemXml);
+                        //AddResponse1cBoxes(response, itemXml);
                         //AddResponse1cBundles(response, pluFksDb, itemXml);
                         //AddResponse1cClips(response, pluFksDb, itemXml);
                         //AddResponse1cPlusBoxesFks(response, pluFksDb, itemXml);
@@ -221,6 +221,20 @@ public partial class ControllerHelper
                 }
             }
         }, format, false);
+
+    private void CheckPluNumber(PluModel itemXml, List<PluModel> itemsDb)
+    {
+        if (itemXml.IsGroup) return;
+        if (itemsDb.Select(x => x.Number).Contains(itemXml.Number))
+        {
+            PluModel? pluDb = itemsDb.Find(x => Equals(x.Number, itemXml.Number) && !Equals(x.Code, itemXml.Code));
+            if (pluDb is not null)
+            {
+                itemXml.ParseResult.Status = ParseStatus.Error;
+                itemXml.ParseResult.Exception = $"Duplicate PluNumber '{itemXml.Number}' for other Nomenclature.Guid '{pluDb?.IdentityValueUid}'";
+            }
+        }
+    }
 
     #endregion
 }
