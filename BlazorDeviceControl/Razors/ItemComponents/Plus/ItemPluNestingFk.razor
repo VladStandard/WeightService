@@ -73,16 +73,16 @@
             </td>
             <td>
                 <RadzenLink Style="width: 100%; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, SqlItemCast.PluBundle.Bundle, SqlItemCast.PluBundle.Plu.Nomenclature.IdentityValueId)
-                            Text=@(SqlItemCast.PluBundle.Plu.Nomenclature.Name) />
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.PluBundle.Bundle, SqlItemCast.PluBundle.Plu.IdentityValueUid)
+                            Text=@(SqlItemCast.PluBundle.Plu.Name) />
             </td>
             <td>
                 <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.NomenclatureCode />
             </td>
             <td>
                 <RadzenLink Style="width: 100%; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, SqlItemCast.PluBundle.Bundle, SqlItemCast.PluBundle.Plu.Nomenclature.IdentityValueId)
-                            Text=@(SqlItemCast.PluBundle.Plu.Nomenclature.Code) />
+                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.PluBundle.Bundle, SqlItemCast.PluBundle.Plu.IdentityValueUid)
+                            Text=@(SqlItemCast.PluBundle.Plu.Code) />
             </td>
         </tr>
         @* Bundle *@

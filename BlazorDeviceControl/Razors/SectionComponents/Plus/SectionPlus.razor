@@ -21,10 +21,17 @@
     AllowSorting=true >
     <Columns>
 		<RazorSectionFieldIsMarked TItem=@PluModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
+		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
 		    RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
-		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
-			RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetNumber() />
+        <RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
+                           RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetNumber() />
+        <RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
+                           RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetCode() />
+        <RadzenDataGridColumn TItem=@PluModel TextAlign=@TextAlign.Center  Width="5%" Title=@LocaleCore.Table.Weighted>
+            <Template Context="itemCast" >
+                <RadzenCheckBox Disabled="true" ReadOnly="true" TValue="bool" @bind-Value=@itemCast.IsCheckWeight />
+            </Template>
+        </RadzenDataGridColumn>
 		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetShelfLifeDays() />
     </Columns>
