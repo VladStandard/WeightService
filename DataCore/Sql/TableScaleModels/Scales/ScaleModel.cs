@@ -132,6 +132,7 @@ public class ScaleModel : SqlTableBase
     public override object Clone()
     {
         ScaleModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.WorkShop = WorkShop?.CloneCast();
         item.PrinterMain = PrinterMain?.CloneCast();
         item.PrinterShipping = PrinterShipping?.CloneCast();
@@ -147,7 +148,6 @@ public class ScaleModel : SqlTableBase
         item.Number = Number;
         item.Counter = Counter;
         item.ScaleFactor = ScaleFactor;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

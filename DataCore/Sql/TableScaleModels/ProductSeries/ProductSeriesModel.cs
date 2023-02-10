@@ -77,11 +77,11 @@ public class ProductSeriesModel : SqlTableBase
     public override object Clone()
     {
         ProductSeriesModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Scale = Scale.CloneCast();
         item.IsClose = IsClose;
         item.Sscc = Sscc;
         item.Uid = Uid;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

@@ -37,7 +37,7 @@ public class Response1cRecordModel : SerializeBase
     {
         Uid = Guid.Empty;
         Message = ex.Message;
-        InnerMessage = ex.InnerException is not null ? ex.InnerException.Message : null;
+        InnerMessage = ex.InnerException?.Message;
     }
 
     /// <summary>
@@ -49,8 +49,8 @@ public class Response1cRecordModel : SerializeBase
     {
         object? uid = info.GetValue(nameof(Uid), typeof(Guid));
         Uid = uid is not null ? (Guid)uid : Guid.Empty;
-        Message = info.GetString(nameof(Message)) as string ?? string.Empty;
-        InnerMessage = info.GetString(nameof(InnerMessage)) as string ?? null;
+        Message = info.GetString(nameof(Message)) ?? string.Empty;
+        InnerMessage = info.GetString(nameof(InnerMessage)) ?? string.Empty;
     }
 
     #endregion

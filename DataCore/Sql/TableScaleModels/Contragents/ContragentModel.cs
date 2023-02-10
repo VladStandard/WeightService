@@ -76,11 +76,11 @@ public class ContragentModel : SqlTableBase
     public override object Clone()
     {
         ContragentModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.FullName = FullName;
         item.IdRRef = IdRRef;
         item.DwhId = DwhId;
         item.Xml = Xml;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

@@ -63,8 +63,8 @@ public class OrganizationModel : SqlTableBase
     public override object Clone()
     {
         OrganizationModel item = new();
-        item.Gln = Gln;
         item.CloneSetup(base.CloneCast());
+        item.Gln = Gln;
         return item;
     }
 

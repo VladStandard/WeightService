@@ -73,9 +73,9 @@ public class PluCharacteristicsFkModel : SqlTableBase
     public override object Clone()
     {
         PluCharacteristicsFkModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Plu = Plu.CloneCast();
         item.PluCharacteristic = PluCharacteristic.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

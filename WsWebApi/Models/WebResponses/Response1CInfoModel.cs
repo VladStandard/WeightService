@@ -28,7 +28,7 @@ public class Response1cInfoModel : SerializeBase
     /// <param name="context"></param>
     private Response1cInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Message = info.GetString(nameof(Message)) as string ?? string.Empty;
+        Message = info.GetString(nameof(Message)) ?? string.Empty;
     }
 
     #endregion

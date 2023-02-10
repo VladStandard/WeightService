@@ -51,23 +51,23 @@ public partial class ControllerHelper
     private ContentResult NewResponse1cCore<T>(ISessionFactory sessionFactory, Action<T> action,
         string format, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
-        using ISession session = sessionFactory.OpenSession();
-        using ITransaction transaction = session.BeginTransaction();
+        //using ISession session = sessionFactory.OpenSession();
+        //using ITransaction transaction = session.BeginTransaction();
         T response = new();
 
         try
         {
             action(response);
-            if (isTransaction)
-                transaction.Commit();
+            //if (isTransaction)
+            //    transaction.Commit();
         }
         catch (Exception ex)
         {
             httpStatusCode = HttpStatusCode.InternalServerError;
             if (response is Response1cModel response1c)
                 response1c.Errors.Add(new(ex));
-            if (isTransaction)
-                transaction.Rollback();
+            //if (isTransaction)
+            //    transaction.Rollback();
         }
 
         return DataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
@@ -488,52 +488,6 @@ public partial class ControllerHelper
         {
             response.Infos.Add(new($"Version {version} is not found!"));
         }, format, false, HttpStatusCode.NotFound);
-
-    /// <summary>
-    /// Update a record in the database.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="response"></param>
-    /// <param name="itemXml"></param>
-    /// <param name="itemDb"></param>
-    /// <param name="isUpdateIdentity"></param>
-    /// <param name="isCounter"></param>
-    /// <returns></returns>
-    private bool UpdateItemDb<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isUpdateIdentity, bool isCounter) where T : ISqlTable
-    {
-        if (itemDb is null || itemDb.IsNew) return false;
-        if (isUpdateIdentity)
-            itemDb.Identity = itemXml.Identity;
-        itemDb.UpdateProperties(itemXml);
-        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
-        if (dbUpdate.IsOk)
-        {
-            if (isCounter)
-                response.Successes.Add(new(itemXml.IdentityValueUid));
-        }
-        else
-            AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
-        return true;
-    }
-
-    /// <summary>
-    /// Save the record to the database.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="itemXml"></param>
-    /// <param name="isCounter"></param>
-    private void SaveItemDb<T>(Response1cShortModel response, T itemXml, bool isCounter) where T : ISqlTable
-    {
-        (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
-        // Add was success.
-        if (dbSave.IsOk)
-        {
-            if (isCounter)
-                response.Successes.Add(new(itemXml.IdentityValueUid));
-        }
-        else
-            AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
-    }
 
     #endregion
 }

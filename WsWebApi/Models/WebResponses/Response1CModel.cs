@@ -37,7 +37,7 @@ public class Response1cModel : SerializeBase
     }
 
     public Response1cModel(List<Response1cInfoModel> infos, List<Response1cRecordModel> successes,
-        List<Response1cRecordModel> errors, ResponseQueryModel? responseQuery, int count, List<BrandModel> brands) : this()
+        List<Response1cRecordModel> errors, ResponseQueryModel? responseQuery) : this()
     {
         Infos = infos;
         Successes = successes;

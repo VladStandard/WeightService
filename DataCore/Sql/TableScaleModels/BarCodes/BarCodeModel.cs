@@ -119,6 +119,7 @@ public class BarCodeModel : SqlTableBase
     public override object Clone()
     {
         BarCodeModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.TypeTop = TypeTop;
         item.ValueTop = ValueTop;
         item.TypeRight = TypeRight;
@@ -126,7 +127,6 @@ public class BarCodeModel : SqlTableBase
         item.TypeBottom = TypeBottom;
         item.ValueBottom = ValueBottom;
         item.PluLabel = PluLabel.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

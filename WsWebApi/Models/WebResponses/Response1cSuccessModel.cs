@@ -21,11 +21,6 @@ public class Response1cSuccessModel : SerializeBase
         Uid = uid;
     }
 
-    public Response1cSuccessModel(Exception ex)
-    {
-        Uid = Guid.Empty;
-    }
-
     /// <summary>
     /// Constructor.
     /// </summary>

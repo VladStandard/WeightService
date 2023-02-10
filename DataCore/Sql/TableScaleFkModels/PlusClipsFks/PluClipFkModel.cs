@@ -75,9 +75,9 @@ public class PluClipFkModel : SqlTableBase
     public override object Clone()
     {
         PluClipFkModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Clip = Clip.CloneCast();
         item.Plu = Plu.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

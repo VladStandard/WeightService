@@ -30,7 +30,7 @@ public class ResponseBarCodeModel : SerializeBase, ICloneable, ISerializable // 
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private ResponseBarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected ResponseBarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IdentityValueUid = new(info.GetString(WebConstants.Guid) ?? string.Empty);
         CreateDt = info.GetDateTime(nameof(CreateDt));

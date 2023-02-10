@@ -26,5 +26,6 @@ public class PluGroupMap : ClassMap<PluGroupModel>
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(128).Not.Nullable();
         Map(x => x.Description).CustomSqlType("NVARCHAR").Column("DESCRIPTION").Length(1024).Not.Nullable().Default("");
         Map(x => x.Code).CustomSqlType("NVARCHAR").Column("CODE").Length(128).Not.Nullable().Default("");
+        Map(x => x.Uid1C).CustomSqlType("UNIQUEIDENTIFIER").Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
     }
 }

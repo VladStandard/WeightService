@@ -44,18 +44,19 @@ public partial class DataAccessHelper
             session = SessionFactory.OpenSession();
             if (isTransaction)
                 transaction = session.BeginTransaction();
+            session.FlushMode = isTransaction ? FlushMode.Commit : FlushMode.Manual;
             action.Invoke(session);
-            //if (isFlush)
-            session.Flush();
+            if (isTransaction)
+                session.Flush();
             if (isTransaction)
                 transaction?.Commit();
+            session.Clear();
         }
         catch (Exception ex)
         {
             if (isTransaction)
                 transaction?.Rollback();
             exception = ex;
-            //throw;
         }
         finally
         {
@@ -77,22 +78,13 @@ public partial class DataAccessHelper
         return (true, null);
     }
 
-    private (bool IsOk, Exception? Exception) ExecuteTransaction(Action<ISession> action) => 
-        ExecuteCore(action, true);
-
-    private (bool IsOk, Exception? Exception) ExecuteUpdate(Action<ISession> action) => 
-        ExecuteCore(action, true);
-
-    private (bool IsOk, Exception? Exception) ExecuteSelect(Action<ISession> action) => 
-        ExecuteCore(action, false);
-
     public bool IsConnected()
     {
         bool result = false;
-        ExecuteSelect(session =>
+        ExecuteCore(session =>
         {
             result = session.IsConnected;
-        });
+        }, false);
         return result;
     }
 
@@ -111,31 +103,29 @@ public partial class DataAccessHelper
         ISQLQuery sqlQuery = session.CreateSQLQuery(query);
         foreach (SqlParameter parameter in parameters)
         {
-            sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
+            if (parameter.Value is byte[] imagedata)
+                sqlQuery.SetParameter(parameter.ParameterName, imagedata);
+            else
+                sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
         }
         return sqlQuery;
     }
 
-    public int ExecQueryNative(string query, Dictionary<string, object>? parameters)
+    public (bool IsOk, Exception? Exception) ExecQueryNative(string query, List<SqlParameter> parameters)
     {
-        int result = 0;
-        ExecuteTransaction(session =>
+        if (string.IsNullOrEmpty(query)) return (false, null);
+        return ExecuteCore(session =>
         {
-            ISQLQuery? sqlQuery = GetSqlQuery(session, query);
-            if (sqlQuery is not null && parameters is not null)
+            ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
+            if (sqlQuery is not null)
             {
-                foreach (KeyValuePair<string, object> parameter in parameters)
-                {
-                    if (parameter.Value is byte[] imagedata)
-                        sqlQuery.SetParameter(parameter.Key, imagedata);
-                    else
-                        sqlQuery.SetParameter(parameter.Key, parameter.Value);
-                }
-                result = sqlQuery.ExecuteUpdate();
+                _ = sqlQuery.ExecuteUpdate();
             }
-        });
-        return result;
+        }, true);
     }
+
+    public (bool IsOk, Exception? Exception) ExecQueryNative(string query, SqlParameter parameter) =>
+        ExecQueryNative(query, new List<SqlParameter> { parameter });
 
     public (bool IsOk, Exception? Exception) Save<T>(T? item) where T : ISqlTable
     {
@@ -144,7 +134,7 @@ public partial class DataAccessHelper
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => session.Save(item));
+        return ExecuteCore(session => session.Save(item), true);
     }
 
     public async Task<(bool IsOk, Exception? Exception)> SaveAsync<T>(T? item) where T : ISqlTable
@@ -162,8 +152,8 @@ public partial class DataAccessHelper
         item.ChangeDt = DateTime.Now;
         object? id = identity?.GetValueAsObjectNullable();
         return id is null 
-            ? ExecuteTransaction(session => session.Save(item)) 
-            : ExecuteTransaction(session => session.Save(item, id));
+            ? ExecuteCore(session => session.Save(item), true) 
+            : ExecuteCore(session => session.Save(item, id), true);
     }
 
     [Obsolete(@"Use SaveOrUpdate or UpdateForce")]
@@ -173,7 +163,7 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => session.SaveOrUpdate(item));
+        return ExecuteCore(session => session.SaveOrUpdate(item), true);
     }
 
     public (bool IsOk, Exception? Exception) SaveOrUpdate<T>(T? item) where T : ISqlTable
@@ -182,7 +172,7 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransaction(session => session.SaveOrUpdate(item));
+        return ExecuteCore(session => session.SaveOrUpdate(item), true);
     }
 
     public (bool IsOk, Exception? Exception) UpdateForce<T>(T? item) where T : ISqlTable
@@ -191,14 +181,14 @@ public partial class DataAccessHelper
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteUpdate(session => session.Update(item));
+        return ExecuteCore(session => session.Update(item), true);
     }
 
     public (bool IsOk, Exception? Exception) Delete<T>(T? item) where T : ISqlTable
     {
         if (item is null) return (false, null);
 
-        return ExecuteTransaction(session => session.Delete(item));
+        return ExecuteCore(session => session.Delete(item), true);
     }
 
     public (bool IsOk, Exception? Exception) Mark<T>(T? item) where T : ISqlTable
@@ -206,7 +196,7 @@ public partial class DataAccessHelper
         if (item is null) return (false, null);
 
         item.IsMarked = !item.IsMarked;
-        return ExecuteTransaction(session => session.SaveOrUpdate(item));
+        return ExecuteCore(session => session.SaveOrUpdate(item), true);
     }
 
     #endregion

@@ -82,11 +82,11 @@ public class TemplateModel : SqlTableBase
     public override object Clone()
     {
         TemplateModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.CategoryId = CategoryId;
         item.IdRRef = IdRRef;
         item.Title = Title;
         item.ImageData = ImageData.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

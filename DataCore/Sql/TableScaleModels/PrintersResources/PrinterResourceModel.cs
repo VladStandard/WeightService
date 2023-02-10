@@ -69,9 +69,9 @@ public class PrinterResourceModel : SqlTableBase
     public override object Clone()
     {
         PrinterResourceModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Printer = Printer.CloneCast();
         item.TemplateResource = TemplateResource.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

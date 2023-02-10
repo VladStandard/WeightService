@@ -68,8 +68,8 @@ public class BrandModel : SqlTableBase
     public override object Clone()
     {
         BrandModel item = new();
-        item.Code = Code;
         item.CloneSetup(base.CloneCast());
+        item.Code = Code;
         return item;
     }
 

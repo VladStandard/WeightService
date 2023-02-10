@@ -128,6 +128,7 @@ public class PluLabelModel : SqlTableBase
     public override object Clone()
     {
         PluLabelModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.IsMarked = IsMarked;
         item.PluWeighing = PluWeighing?.CloneCast();
         item.PluScale = PluScale.CloneCast();
@@ -135,7 +136,6 @@ public class PluLabelModel : SqlTableBase
         item.Xml = Xml;
         item.ProductDt = ProductDt;
         item.ExpirationDt = ExpirationDt;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

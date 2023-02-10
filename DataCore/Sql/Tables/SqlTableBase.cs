@@ -180,8 +180,10 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
         if (!item.ChangeDt.Equals(DateTime.MinValue))
             ChangeDt = item.ChangeDt;
 		IsMarked = item.IsMarked;
-        Name = item.Name;
-		Description = item.Description;
+		if (!string.IsNullOrEmpty(item.Name))
+            Name = item.Name;
+        if (!string.IsNullOrEmpty(item.Description))
+		    Description = item.Description;
         ParseResult = item.ParseResult.CloneCast();
     }
 

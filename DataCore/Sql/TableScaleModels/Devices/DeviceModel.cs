@@ -88,12 +88,12 @@ public class DeviceModel : SqlTableBase
     public override object Clone()
     {
         DeviceModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.LoginDt = LoginDt;
         item.LogoutDt = LogoutDt;
         item.PrettyName = PrettyName;
         item.Ipv4 = Ipv4;
         item.MacAddress = MacAddress.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

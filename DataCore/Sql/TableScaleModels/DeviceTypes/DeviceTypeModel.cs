@@ -66,8 +66,8 @@ public class DeviceTypeModel : SqlTableBase
     public override object Clone()
     {
         DeviceTypeModel item = new();
-        item.PrettyName = PrettyName;
         item.CloneSetup(base.CloneCast());
+        item.PrettyName = PrettyName;
         return item;
     }
 

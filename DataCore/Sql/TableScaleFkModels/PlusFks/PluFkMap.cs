@@ -24,5 +24,6 @@ public class PluFkMap : ClassMap<PluFkModel>
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         References(x => x.Plu).Column("PLU_UID").Not.Nullable();
         References(x => x.Parent).Column("PARENT_UID").Not.Nullable();
+        References(x => x.Category).Column("CATEGORY_UID").Nullable();
     }
 }

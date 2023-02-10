@@ -73,9 +73,9 @@ public class AccessModel : SqlTableBase
     public override object Clone()
     {
         AccessModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.LoginDt = LoginDt;
         item.Rights = Rights;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

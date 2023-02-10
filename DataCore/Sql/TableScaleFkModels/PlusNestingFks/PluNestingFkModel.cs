@@ -103,15 +103,14 @@ public class PluNestingFkModel : SqlTableBase
     public override object Clone()
     {
         PluNestingFkModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Box = Box.CloneCast();
-        //item.Plu = Plu.CloneCast();
         item.PluBundle = PluBundle.CloneCast();
         item.IsDefault = IsDefault;
         item.BundleCount = BundleCount;
         item.WeightMax = WeightMax;
         item.WeightMin = WeightMin;
         item.WeightNom = WeightNom;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

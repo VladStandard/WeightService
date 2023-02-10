@@ -82,12 +82,12 @@ public class OrderModel : SqlTableBase
     public override object Clone()
     {
         OrderModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.BeginDt = BeginDt;
         item.EndDt = EndDt;
         item.ProdDt = ProdDt;
         item.BoxCount = BoxCount;
         item.PalletCount = PalletCount;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 

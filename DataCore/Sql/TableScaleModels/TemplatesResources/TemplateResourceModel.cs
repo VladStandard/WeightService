@@ -74,10 +74,10 @@ public class TemplateResourceModel : SqlTableBase
     public override object Clone()
     {
         TemplateResourceModel item = new();
+        item.CloneSetup(base.CloneCast());
         item.Type = Type;
         item.IdRRef = IdRRef;
         item.ImageData = ImageData.CloneCast();
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 
