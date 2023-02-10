@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
@@ -491,7 +492,7 @@ public partial class ControllerHelper
         }, format, false, HttpStatusCode.NotFound);
 
     /// <summary>
-    /// Update a record in the database.
+    /// Update the record in the database.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
@@ -515,7 +516,7 @@ public partial class ControllerHelper
     }
 
     /// <summary>
-    /// Update the record to the database.
+    /// Update the record in the database.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
@@ -541,38 +542,69 @@ public partial class ControllerHelper
     }
 
     /// <summary>
-    /// Update the PLU record to the database.
-    /// Be carefull, good luck.
+    /// Update the PLU record in the database.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="itemXml"></param>
-    /// <param name="itemDb"></param>
+    /// <param name="pluXml"></param>
+    /// <param name="pluDb"></param>
     /// <param name="isCounter"></param>
-    private bool UpdateItemDbForPlu(Response1cShortModel response, PluModel itemXml, PluModel? itemDb, bool isCounter)
+    private bool UpdateItemDbForPlu(Response1cShortModel response, PluModel pluXml, PluModel? pluDb, bool isCounter)
     {
-        if (itemDb is null || itemDb.IsNew) return false;
-        itemDb.Identity = itemXml.Identity;
-        itemDb.UpdateProperties(itemXml);
-        // Native update.
+        if (pluDb is null || pluDb.IsNew) return false;
+        pluDb.Identity = pluXml.Identity;
+        pluDb.UpdateProperties(pluXml);
+        // Native update -> Be carefull, good luck.
         (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.ExecQueryNative(
             SqlQueries.UpdatePlu, new List<SqlParameter>
             {
-                new("uid", itemXml.IdentityValueUid),
-                new("code", itemDb.Code),
-                new("number", itemDb.Number),
+                new("uid", pluXml.IdentityValueUid),
+                new("code", pluDb.Code),
+                new("number", pluDb.Number),
             });
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(itemXml.IdentityValueUid));
+                response.Successes.Add(new(pluXml.IdentityValueUid));
         }
         else
         {
-            AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
+            AddResponse1cException(response, pluXml.IdentityValueUid, dbUpdate.Exception);
         }
         return dbUpdate.IsOk;
     }
 
+    /// <summary>
+    /// Update the PLU record in the database.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluXml"></param>
+    /// <param name="boxDb"></param>
+    /// <param name="isCounter"></param>
+    private bool UpdateItemDbForBox(Response1cShortModel response, PluModel pluXml, BoxModel? boxDb, bool isCounter)
+    {
+        if (boxDb is null || boxDb.IsNew) return false;
+        BoxModel boxXml = new() { IdentityValueUid = pluXml.BoxTypeGuid, Name = pluXml.BoxTypeName, Weight = pluXml.BoxTypeWeight };
+        boxDb.UpdateProperties(boxXml);
+        // Native update -> Be carefull, good luck.
+        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.ExecQueryNative(
+            SqlQueries.UpdatePlu, new List<SqlParameter>
+            {
+                new("uid", pluXml.IdentityValueUid),
+                new("code", boxDb.Code),
+                new("number", boxDb.Number),
+            });
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(pluXml.IdentityValueUid));
+        }
+        else
+        {
+            AddResponse1cException(response, pluXml.IdentityValueUid, dbUpdate.Exception);
+        }
+        return dbUpdate.IsOk;
+    }
+    
     /// <summary>
     /// Save the record to the database.
     /// </summary>

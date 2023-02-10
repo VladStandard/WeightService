@@ -62,13 +62,17 @@ public partial class ControllerHelper
                 return;
             }
 
-            PluModel? category = new() { IdentityValueUid = itemXml.CategoryGuid };
-            category = DataContext.GetItemNullable<PluModel>(category.Identity);
-            if (!itemXml.IsGroup && (category is null || category.IsNew))
+            PluModel? category = null;
+            if (!Equals(itemXml.CategoryGuid, Guid.Empty))
             {
-                AddResponse1cException(response, itemXml.IdentityValueUid,
-                    new($"Category PLU for '{itemXml.CategoryGuid}' is not found!"));
-                return;
+                category = new() { IdentityValueUid = itemXml.CategoryGuid };
+                category = DataContext.GetItemNullable<PluModel>(category.Identity);
+                if (category is null || category.IsNew || !category.IsGroup)
+                {
+                    AddResponse1cException(response, itemXml.IdentityValueUid,
+                        new($"Nomenclature with CategoryGuid '{itemXml.CategoryGuid}' is not found!"));
+                    return;
+                }
             }
 
             PluFkModel itemFk = new()
@@ -80,9 +84,10 @@ public partial class ControllerHelper
             };
 
             // Find by Identity -> Update exists.
-            PluFkModel? itemDb = itemsDb.Find(x =>
-                Equals(x.Plu.IdentityValueUid, itemFk.Plu.IdentityValueUid) &&
-                Equals(x.Parent.IdentityValueUid, itemFk.Parent.IdentityValueUid));
+            PluFkModel? itemDb = itemsDb.Find(item =>
+                Equals(item.Plu.IdentityValueUid, itemFk.Plu.IdentityValueUid) &&
+                Equals(item.Parent.IdentityValueUid, itemFk.Parent.IdentityValueUid) &&
+                Equals(item.Category?.IdentityValueUid, itemFk.Category?.IdentityValueUid));
             if (UpdateItemDb(response, itemFk, itemDb, false)) return;
 
             // Not find -> Add new.
@@ -99,17 +104,19 @@ public partial class ControllerHelper
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    private void AddResponse1cBoxes(Response1cShortModel response, PluModel itemXml)
+    private void AddResponse1cBoxes(Response1cShortModel response, List<BoxModel> boxesDb, PluModel pluXml)
     {
         try
         {
-            if (Equals(itemXml.BoxTypeGuid, Guid.Empty)) return;
+            if (Equals(pluXml.BoxTypeGuid, Guid.Empty)) return;
+
+            // Find by Identity -> Update exists.
+            BoxModel? boxDb = boxesDb.Find(item => Equals(item.IdentityValueUid, pluXml.BoxTypeGuid));
+            if (UpdateItemDbForBox(response, pluXml, boxDb, true)) return;
 
             // Find by Identity -> Save new or update exists.
-            BoxModel box = new() { IdentityValueUid = itemXml.BoxTypeGuid };
-            box = DataContext.GetItemNotNullable<BoxModel>(box.Identity);
-            box.Name = itemXml.BoxTypeName;
-            box.Weight = itemXml.BoxTypeWeight;
+            box.Name = pluXml.BoxTypeName;
+            box.Weight = pluXml.BoxTypeWeight;
             if (box.IsNew)
                 DataContext.DataAccess.Save(box);
             else
@@ -117,7 +124,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, itemXml.IdentityValueUid, ex);
+            AddResponse1cException(response, pluXml.IdentityValueUid, ex);
         }
     }
 
@@ -189,24 +196,14 @@ public partial class ControllerHelper
             List<string> pluProperties = GetPluPropertiesList();
             foreach (PluModel itemXml in itemsXml)
             {
-                PluValidator pluValidator = new();
-                ValidationResult validation = pluValidator.Validate(itemXml);
-                if (!validation.IsValid)
-                {
-                    foreach (ValidationFailure error in validation.Errors)
-                    {
-                        if (pluProperties.Contains(error.PropertyName) &&
-                            !itemXml.ParseResult.Exception.Contains(error.PropertyName))
-                            SetItemParseResultException(itemXml, error.PropertyName);
-                    }
-                }
-                CheckPluNumber(itemXml, itemsDb);
+                CheckPluValidator(itemXml, pluProperties);
+                CheckPluNumberDublicate(itemXml, itemsDb);
                 switch (itemXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
                         AddResponse1cPlus(response, itemsDb, itemXml);
-                        //AddResponse1cPlusFks(response, pluFksDb, itemXml);
-                        //AddResponse1cBoxes(response, itemXml);
+                        AddResponse1cPlusFks(response, pluFksDb, itemXml);
+                        AddResponse1cBoxes(response, boxesDb, itemXml);
                         //AddResponse1cBundles(response, pluFksDb, itemXml);
                         //AddResponse1cClips(response, pluFksDb, itemXml);
                         //AddResponse1cPlusBoxesFks(response, pluFksDb, itemXml);
@@ -222,7 +219,22 @@ public partial class ControllerHelper
             }
         }, format, false);
 
-    private void CheckPluNumber(PluModel itemXml, List<PluModel> itemsDb)
+    private void CheckPluValidator(PluModel itemXml, List<string> pluProperties)
+    {
+        PluValidator pluValidator = new();
+        ValidationResult validation = pluValidator.Validate(itemXml);
+        if (!validation.IsValid)
+        {
+            foreach (ValidationFailure error in validation.Errors)
+            {
+                if (pluProperties.Contains(error.PropertyName) &&
+                    !itemXml.ParseResult.Exception.Contains(error.PropertyName))
+                    SetItemParseResultException(itemXml, error.PropertyName);
+            }
+        }
+    }
+
+    private void CheckPluNumberDublicate(PluModel itemXml, List<PluModel> itemsDb)
     {
         if (itemXml.IsGroup) return;
         if (itemsDb.Select(x => x.Number).Contains(itemXml.Number))
@@ -231,7 +243,7 @@ public partial class ControllerHelper
             if (pluDb is not null)
             {
                 itemXml.ParseResult.Status = ParseStatus.Error;
-                itemXml.ParseResult.Exception = $"Duplicate PluNumber '{itemXml.Number}' for other Nomenclature.Guid '{pluDb?.IdentityValueUid}'";
+                itemXml.ParseResult.Exception = $"Dublicate PluNumber '{itemXml.Number}' for other Nomenclature.Guid '{pluDb?.IdentityValueUid}'";
             }
         }
     }
