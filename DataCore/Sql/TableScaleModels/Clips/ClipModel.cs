@@ -2,7 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleModels.Boxes;
+using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleModels.Clips;
 
@@ -10,16 +13,18 @@ namespace DataCore.Sql.TableScaleModels.Clips;
 /// Table "CLIPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(ClipValidator)} | {Name} | {Weight}")]
+[DebuggerDisplay("{nameof(ClipModel)} | {nameof(Uid1C)} = {Uid1C} | {Name} | {Weight}")]
 public class ClipModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual decimal Weight { get; set; }
+    [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
     public ClipModel() : base(SqlFieldIdentity.Uid)
     {
         Weight = 0;
+        Uid1C = Guid.Empty;
     }
 
     /// <summary>
@@ -30,6 +35,7 @@ public class ClipModel : SqlTableBase
     protected ClipModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Weight = info.GetDecimal(nameof(Weight));
+        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
 
     #endregion
@@ -55,13 +61,15 @@ public class ClipModel : SqlTableBase
 
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() &&
-        Equals(Weight, (decimal)0);
+        Equals(Weight, (decimal)0) &&
+        Equals(Uid1C, Guid.Empty);
 
     public override object Clone()
     {
         ClipModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Weight = Weight;
+        item.Uid1C = Uid1C;
         return item;
     }
 
@@ -74,6 +82,16 @@ public class ClipModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Weight), Weight);
+        info.AddValue(nameof(Uid1C), Uid1C);
+    }
+
+    public override void UpdateProperties(ISqlTable item)
+    {
+        base.UpdateProperties(item);
+        if (item is not PluModel plu) return;
+        Uid1C = plu.ClipTypeGuid;
+        Name = plu.ClipTypeName;
+        Weight = plu.ClipTypeWeight;
     }
 
     #endregion

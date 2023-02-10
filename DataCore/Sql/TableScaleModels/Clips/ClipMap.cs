@@ -24,5 +24,6 @@ public class ClipMap: ClassMap<ClipModel>
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Unique().Length(128).Not.Nullable().Default("");
         Map(x => x.Weight).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT").Not.Nullable();
+        Map(x => x.Uid1C).CustomSqlType("UNIQUEIDENTIFIER").Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
     }
 }

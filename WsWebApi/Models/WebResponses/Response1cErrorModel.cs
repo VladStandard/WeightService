@@ -41,7 +41,7 @@ public class Response1cErrorModel : SerializeBase
     {
         object? uid = info.GetValue(nameof(Uid), typeof(Guid));
         Uid = uid is not null ? (Guid)uid : Guid.Empty;
-        Message = info.GetString(nameof(Message)) as string ?? string.Empty;
+        Message = info.GetString(nameof(Message)) ?? string.Empty;
     }
 
     #endregion

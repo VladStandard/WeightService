@@ -11,6 +11,6 @@ public class PluCharacteristicValidator : SqlTableValidator<PluCharacteristicMod
     {
         RuleFor(item => item.AttachmentsCount)
             .NotNull()
-            .GreaterThan(0);
+            .GreaterThanOrEqualTo(0);
     }
 }

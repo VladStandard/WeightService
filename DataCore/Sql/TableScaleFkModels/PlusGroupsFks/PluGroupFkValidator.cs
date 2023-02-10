@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusGroupsFks;

@@ -30,7 +30,7 @@ public class ResponseBarCodeListModel : SerializeBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private ResponseBarCodeListModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected ResponseBarCodeListModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         object? barCodes = info.GetValue(nameof(ResponseBarCodes), typeof(List<ResponseBarCodeModel>));
         ResponseBarCodes = barCodes is not null ? (List<ResponseBarCodeModel>)barCodes : new();

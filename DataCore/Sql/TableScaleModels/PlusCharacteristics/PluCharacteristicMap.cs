@@ -23,7 +23,7 @@ public class PluCharacteristicMap : ClassMap<PluCharacteristicModel>
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(128).Not.Nullable().Default("");
-        //Map(x => x.AttachmentsCount).CustomSqlType("DECIMAL").Column("ATTACHMENTS_COUNT").Scale(10).Precision(3).Not.Nullable();
         Map(x => x.AttachmentsCount).CustomSqlType("DECIMAL").Column("ATTACHMENTS_COUNT").Not.Nullable();
+        Map(x => x.Uid1C).CustomSqlType("UNIQUEIDENTIFIER").Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
     }
 }

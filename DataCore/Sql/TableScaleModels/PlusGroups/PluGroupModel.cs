@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.PlusGroups;
 /// Table "PLUS_GROUPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluGroupModel)} | {nameof(IsGroup)} = {IsGroup} | {Code}")]
+[DebuggerDisplay("{nameof(PluGroupModel)} | {nameof(Uid1C)} = {Uid1C} | {nameof(IsGroup)} = {IsGroup} | {Code}")]
 public class PluGroupModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -18,6 +18,7 @@ public class PluGroupModel : SqlTableBase
     [XmlElement] public virtual bool IsGroup { get; set; }
     [XmlElement] public virtual string Code { get; set; }
     [XmlIgnore] public virtual Guid ParentGuid { get; set; }
+    [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -27,6 +28,7 @@ public class PluGroupModel : SqlTableBase
         IsGroup = false;
         Code = string.Empty;
         ParentGuid = Guid.Empty;
+        Uid1C = Guid.Empty;
     }
 
     /// <summary>
@@ -40,6 +42,7 @@ public class PluGroupModel : SqlTableBase
         Code = info.GetString(nameof(Code));
         object groupGuid = info.GetValue(nameof(ParentGuid), typeof(Guid));
         ParentGuid = groupGuid is Guid guid ? guid : Guid.Empty;
+        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
 
     #endregion
@@ -68,7 +71,8 @@ public class PluGroupModel : SqlTableBase
         base.EqualsDefault() &&
         Equals(IsGroup, false) &&
         Equals(Code, string.Empty) &&
-        Equals(ParentGuid, Guid.Empty);
+        Equals(ParentGuid, Guid.Empty) &&
+        Equals(Uid1C, Guid.Empty);
 
     public override object Clone()
     {
@@ -77,6 +81,7 @@ public class PluGroupModel : SqlTableBase
         item.IsGroup = IsGroup;
         item.Code = Code;
         item.ParentGuid = ParentGuid;
+        item.Uid1C = Uid1C;
         return item;
     }
 
@@ -91,6 +96,7 @@ public class PluGroupModel : SqlTableBase
         info.AddValue(nameof(IsGroup), IsGroup);
         info.AddValue(nameof(Code), Code);
         info.AddValue(nameof(ParentGuid), ParentGuid);
+        info.AddValue(nameof(Uid1C), Uid1C);
     }
 
     public override void FillProperties()

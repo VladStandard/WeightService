@@ -30,10 +30,10 @@ public partial class ControllerHelper
             if (UpdateItemDbWithNewUid(response, itemXml, itemDb, true)) return;
 
             // Not find -> Add new.
-            SaveItemDb(response, itemXml, true);
+            bool isSave = SaveItemDb(response, itemXml, true);
 
             // Update db list.
-            if (!itemsDb.Select(x => x.IdentityValueUid).Contains(itemXml.IdentityValueUid))
+            if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(itemXml.IdentityValueUid))
                 itemsDb.Add(itemXml);
         }
         catch (Exception ex)
