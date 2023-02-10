@@ -18,7 +18,6 @@ public partial class LocaleDeviceControl
     public string RouteItemHost => "/item/host";
     public string RouteItemLog => "/item/log";
     public string RouteItemLogType => "/item/logtype";
-    public string RouteItemNomenclature => "/item/nomenclature";
     public string RouteItemNomenclatureGroup => "/item/nomenclature_group";
     public string RouteItemOrder => "/item/order";
     public string RouteItemOrderWeighing => "/item/order_weighing";
@@ -59,7 +58,6 @@ public partial class LocaleDeviceControl
     public string RouteSectionLogsStops => "/section/logs_stops";
     public string RouteSectionLogsWarnings => "/section/logs_warnings";
     public string RouteSectionLogTypes => "/section/logtypes";
-    public string RouteSectionNomenclatures => "/section/nomenclatures";
     public string RouteSectionNomenclaturesGroups => "/section/nomenclatures_groups";
     public string RouteSectionOrders => "/section/orders";
     public string RouteSectionOrdersWeighings => "/section/ordersweighings";
