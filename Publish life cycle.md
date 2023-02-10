@@ -16,6 +16,7 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 - preview -> develop: `git switch develop && git merge preview && git bra && git st`
 - preview -> main:    `git switch main && git merge preview && git push all main && git switch preview && git bra && git st`
 - develop -> main:    `git switch main && git merge develop && git push all main && git switch develop && git bra && git st`
+- rollback merge:     `git merge --quit && git reset . && git checkout . && git clean -fd && cls && git bra && git st`
 
 ## Release/Preview ScalesUI routing
 Временное окно выпуска обновления ПО "Печать этикеток": 16.30 - 17.00.
