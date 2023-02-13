@@ -10,7 +10,7 @@
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
     <RazorItemTableHead TItem=BundleModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
     <tbody>
-		<RazorItemTableBody TItem=BundleModel />
+        <RazorItemTableBody TItem=BundleModel  ParentRazor=@(this) />
         <tr>
             <td>@LocaleCore.Table.Name</td>
             <td>

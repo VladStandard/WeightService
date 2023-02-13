@@ -110,6 +110,7 @@ public class LocaleTable
     public string Identity => Lang == Lang.English ? "Identity" : "Идентификатор";
     public string IdentityId => Lang == Lang.English ? "ID" : "ИД";
     public string IdentityUid => Lang == Lang.English ? "UID" : "УИД";
+    public string Uid1c => Lang == Lang.English ? "UID 1C" : "УИД 1C";
     public string IdRRef => Lang == Lang.English ? "ID 1C" : "ИД 1С";
     public string ImageData => Lang == Lang.English ? "Image data" : "Данные";
     public string ImageDataInfo => Lang == Lang.English ? "Info" : "Информация";
