@@ -77,7 +77,7 @@ public class BundleModel : SqlTableBase1c
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public new virtual void UpdateProperties(ISqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

@@ -314,7 +314,7 @@ public class PluModel : SqlTableBase1c
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 
-    public override void UpdateProperties(ISqlTable item)
+    public new virtual void UpdateProperties(ISqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

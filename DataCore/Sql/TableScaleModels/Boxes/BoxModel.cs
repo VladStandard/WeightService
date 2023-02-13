@@ -78,7 +78,7 @@ public class BoxModel : SqlTableBase1c
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public new void UpdateProperties(ISqlTable1c item)
+    public new virtual void UpdateProperties(ISqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

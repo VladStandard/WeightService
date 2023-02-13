@@ -96,7 +96,7 @@ public class SqlTableBase1c : SqlTableBase, ISqlTable1c
             base.CloneSetup(sqlTable);
     }
 
-    public void UpdateProperties(ISqlTable1c item)
+    public virtual void UpdateProperties(ISqlTable1c item)
     {
         base.UpdateProperties(item);
         Uid1C = item.Uid1C;

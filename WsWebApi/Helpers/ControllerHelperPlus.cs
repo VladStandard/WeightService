@@ -145,36 +145,65 @@ public partial class ControllerHelper
         return false;
     }
 
-    private bool GetPluFkParentDb(Response1cShortModel response, PluModel pluXml, out PluModel parent)
+    private bool GetPluBundleFkBundleDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, out BundleModel? bundle)
     {
-        parent = new() { IdentityValueUid = pluXml.ParentGuid };
-        parent = DataContext.GetItemNotNullable<PluModel>(parent.Identity);
-        if (parent.IsNew)
+        bundle = null;
+        if (!Equals(uid, Guid.Empty))
         {
-            AddResponse1cException(response, pluXml.IdentityValueUid,
-                new($"Parent PLU for '{pluXml.ParentGuid}' is not found!"));
-            return true;
+            bundle = new() { IdentityValueUid = uid };
+            //bundle = DataContext.GetItemNullable<PluModel>(plu.Identity);
+            //if (isCheckGroup)
+            //{
+            //    if (plu is null || plu.IsNew)
+            //    {
+            //        if (isCheckGroup && !plu.IsGroup)
+            //            AddResponse1cException(response, pluXml.IdentityValueUid, new($"{refName} with '{uid}' is not found!"));
+            //        return true;
+            //    }
+            //}
+            //else
+            //{
+            //    if (plu is null || plu.IsNew)
+            //    {
+            //        if (isCheckGroup && !plu.IsGroup)
+            //            AddResponse1cException(response, pluXml.IdentityValueUid, new($"{refName} with '{uid}' is not found!"));
+            //        return true;
+            //    }
+            //}
         }
         return false;
     }
 
-    private bool GetPluFkCategoryDb(Response1cShortModel response, PluModel pluXml, out PluModel? category)
-    {
-        category = null;
-        if (!Equals(pluXml.CategoryGuid, Guid.Empty))
-        {
-            category = new() { IdentityValueUid = pluXml.CategoryGuid };
-            category = DataContext.GetItemNullable<PluModel>(category.Identity);
-            if (category is null || category.IsNew || !category.IsGroup)
-            {
-                AddResponse1cException(response, pluXml.IdentityValueUid,
-                    new($"Nomenclature with CategoryGuid '{pluXml.CategoryGuid}' is not found!"));
-                return true;
-            }
-        }
+    //private bool GetPluFkParentDb(Response1cShortModel response, PluModel pluXml, out PluModel parent)
+    //{
+    //    parent = new() { IdentityValueUid = pluXml.ParentGuid };
+    //    parent = DataContext.GetItemNotNullable<PluModel>(parent.Identity);
+    //    if (parent.IsNew)
+    //    {
+    //        AddResponse1cException(response, pluXml.IdentityValueUid,
+    //            new($"Parent PLU for '{pluXml.ParentGuid}' is not found!"));
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
-        return false;
-    }
+    //private bool GetPluFkCategoryDb(Response1cShortModel response, PluModel pluXml, out PluModel? category)
+    //{
+    //    category = null;
+    //    if (!Equals(pluXml.CategoryGuid, Guid.Empty))
+    //    {
+    //        category = new() { IdentityValueUid = pluXml.CategoryGuid };
+    //        category = DataContext.GetItemNullable<PluModel>(category.Identity);
+    //        if (category is null || category.IsNew || !category.IsGroup)
+    //        {
+    //            AddResponse1cException(response, pluXml.IdentityValueUid,
+    //                new($"Nomenclature with CategoryGuid '{pluXml.CategoryGuid}' is not found!"));
+    //            return true;
+    //        }
+    //    }
+
+    //    return false;
+    //}
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPlusBoxes(Response1cShortModel response, List<BoxModel> boxesDb, PluModel pluXml)
@@ -239,6 +268,46 @@ public partial class ControllerHelper
             // Update db list.
             if (isSave && !bundlesDb.Select(x => x.IdentityValueUid).Contains(bundleDb.IdentityValueUid))
                 bundlesDb.Add(bundleDb);
+        }
+        catch (Exception ex)
+        {
+            AddResponse1cException(response, pluXml.IdentityValueUid, ex);
+        }
+    }
+
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    private void AddResponse1cPlusBundlesFks(Response1cShortModel response, List<PluBundleFkModel> pluBbundlesFksDb, PluModel pluXml)
+    {
+        try
+        {
+            if (Equals(pluXml.ParentGuid, Guid.Empty)) return;
+
+            //if (GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? plu)) return;
+            //if (GetPluFkPluDb(response, pluXml, pluXml.ParentGuid, "Parent PLU", true, out PluModel? parent)) return;
+            //if (GetPluFkPluDb(response, pluXml, pluXml.CategoryGuid, "Category PLU", true, out PluModel? category)) return;
+            //if (plu is null || parent is null) return;
+
+            //PluFkModel itemFk = new()
+            //{
+            //    IdentityValueUid = Guid.NewGuid(),
+            //    Plu = plu,
+            //    Parent = parent,
+            //    Category = category
+            //};
+
+            //// Find by Identity -> Update exists.
+            //PluFkModel? itemDb = pluFksDb.Find(item =>
+            //    Equals(item.Plu.IdentityValueUid, itemFk.Plu.IdentityValueUid) &&
+            //    Equals(item.Parent.IdentityValueUid, itemFk.Parent.IdentityValueUid) &&
+            //    Equals(item.Category?.IdentityValueUid, itemFk.Category?.IdentityValueUid));
+            //if (UpdateItemDb(response, itemFk, itemDb, false)) return;
+
+            //// Not find -> Add new.
+            //bool isSave = SaveItemDb(response, itemFk, false);
+
+            //// Update db list.
+            //if (isSave && !pluFksDb.Select(x => x.IdentityValueUid).Contains(itemFk.IdentityValueUid))
+            //    pluFksDb.Add(itemFk);
         }
         catch (Exception ex)
         {
@@ -337,8 +406,8 @@ public partial class ControllerHelper
                     AddResponse1cPlusBundles(response, bundlesDb, pluXml);
                 if (pluXml.ParseResult.Status == ParseStatus.Success)
                     AddResponse1cPlusClips(response, clipsDb, pluXml);
-                //if (pluXml.ParseResult.Status == ParseStatus.Success)
-                //    AddResponse1cPlusBundlesFks(response, pluBbundlesFksDb, pluXml);
+                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                    AddResponse1cPlusBundlesFks(response, pluBbundlesFksDb, pluXml);
                 //if (pluXml.ParseResult.Status == ParseStatus.Success)
                 //    AddResponse1cPlusClipsFks(response, pluFksDb, pluXml);
                 //if (pluXml.ParseResult.Status == ParseStatus.Success)

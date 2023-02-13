@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
@@ -73,6 +74,11 @@ public class PluCharacteristicModel : SqlTableBase1c
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(AttachmentsCount), AttachmentsCount);
+    }
+
+    public new virtual void UpdateProperties(ISqlTable1c item)
+    {
+        base.UpdateProperties(item);
     }
 
     #endregion

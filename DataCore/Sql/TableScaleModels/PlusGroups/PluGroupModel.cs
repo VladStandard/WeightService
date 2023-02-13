@@ -100,7 +100,7 @@ public class PluGroupModel : SqlTableBase1c
         Code = LocaleCore.Sql.SqlItemFieldCode;
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public new virtual void UpdateProperties(ISqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures_groups/.
