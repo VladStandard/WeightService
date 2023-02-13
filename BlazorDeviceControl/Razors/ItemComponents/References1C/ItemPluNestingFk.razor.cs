@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 
-namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
+namespace BlazorDeviceControl.Razors.ItemComponents.References1C;
 
 public partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel>
 {

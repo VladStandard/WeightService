@@ -3,7 +3,7 @@
 
 using DataCore.Sql.TableScaleModels.Boxes;
 
-namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
+namespace BlazorDeviceControl.Razors.ItemComponents.References1C;
 
 public partial class ItemBox : RazorComponentItemBase<BoxModel>
 {

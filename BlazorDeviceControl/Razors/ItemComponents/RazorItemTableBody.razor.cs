@@ -7,15 +7,18 @@ namespace BlazorDeviceControl.Razors.ItemComponents;
 
 public partial class RazorItemTableBody<TItem> : RazorComponentItemBase<TItem> where TItem : SqlTableBase, new()
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
+    
+    private bool IsSqlItem1c => SqlItemCast is SqlTableBase1c;
 
-	//
+    #endregion
 
-	#endregion
+    #region Public and private methods
 
-	#region Public and private methods
-
-	//
+    private string? Get1cGuid()
+    {
+        return IsSqlItem1c ? ((SqlTableBase1c?)SqlItem)?.Uid1C.ToString() : Guid.Empty.ToString();
+    }
 
 	#endregion
 }

@@ -7,8 +7,7 @@
     <a class="navbar-brand" href="">
         <RadzenLabel 
             Style="margin-top: -7px; text-align: center; width: 100%; font-size: 12px; background-color: transparent; "
-            Text=@LocaleCore.Strings.AppDevicesControlName
-        />
+            Text=@LocaleCore.Strings.AppDevicesControlName/>
     </a>
     <button class="navbar-toggler" @onclick=@ToggleNavMenu>
         <span class="navbar-toggler-icon"></span>
@@ -53,14 +52,6 @@
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                         Text=@LocaleCore.DeviceControl.SectionOrganizations Path=@LocaleCore.DeviceControl.RouteSectionOrganizations />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
-                        Text=@LocaleCore.DeviceControl.SectionBoxes Path=@LocaleCore.DeviceControl.RouteSectionBoxes />
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
-                        Text=@LocaleCore.DeviceControl.SectionBundles Path=@LocaleCore.DeviceControl.RouteSectionBundles />
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
-                        Text=@LocaleCore.DeviceControl.SectionPlusBundlesFk Path=@LocaleCore.DeviceControl.RouteSectionPlusBundlesFks />
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
-                        Text=@LocaleCore.DeviceControl.SectionPlusNestingFk Path=@LocaleCore.DeviceControl.RouteSectionPlusNestingFks />
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                         Text=@LocaleCore.DeviceControl.SectionTemplates Path=@LocaleCore.DeviceControl.RouteSectionTemplates />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                         Text=@LocaleCore.DeviceControl.SectionTemplateResources Path=@LocaleCore.DeviceControl.RouteSectionTemplateResources />
@@ -73,11 +64,18 @@
 			            Text=@LocaleCore.DeviceControl.SectionContragents Path=@LocaleCore.DeviceControl.RouteSectionContragents />
 			        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                         Text=@LocaleCore.DeviceControl.SectionNomenclaturesGroups Path=@LocaleCore.DeviceControl.RouteSectionNomenclaturesGroups />
-			        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
-			            Text=@LocaleCore.DeviceControl.SectionNomenclatures Path=@LocaleCore.DeviceControl.RouteSectionPlus/>
+                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+                        Text=@LocaleCore.DeviceControl.SectionNomenclatures Path=@LocaleCore.DeviceControl.RouteSectionPlus/>
+                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+                        Text=@LocaleCore.DeviceControl.SectionBoxes Path=@LocaleCore.DeviceControl.RouteSectionBoxes />
+                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+                        Text=@LocaleCore.DeviceControl.SectionBundles Path=@LocaleCore.DeviceControl.RouteSectionBundles />
+                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+                        Text=@LocaleCore.DeviceControl.SectionPlusBundlesFk Path=@LocaleCore.DeviceControl.RouteSectionPlusBundlesFks />
+                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+                        Text=@LocaleCore.DeviceControl.SectionPlusNestingFk Path=@LocaleCore.DeviceControl.RouteSectionPlusNestingFks />
 		        </RadzenPanelMenuItem>
 			}
-
             @if (UserSettings is not null && UserSettings.AccessRightsIsAdmin)
             {
                 @* Admin *@
