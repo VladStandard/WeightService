@@ -3,7 +3,9 @@
 
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.Plus;
 
@@ -98,6 +100,15 @@ public class PluClipFkModel : SqlTableBase
         base.FillProperties();
         Clip.FillProperties();
         Plu.FillProperties();
+    }
+
+    public override void UpdateProperties(ISqlTable item)
+    {
+        base.UpdateProperties(item);
+        // Get properties from /api/send_nomenclatures/.
+        if (item is not PluClipFkModel pluClipFk) return;
+        Plu = pluClipFk.Plu;
+        Clip = pluClipFk.Clip;
     }
 
     #endregion

@@ -2,7 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Plus;
 
@@ -97,6 +99,15 @@ public class PluBundleFkModel : SqlTableBase
         base.FillProperties();
         Bundle.FillProperties();
         Plu.FillProperties();
+    }
+
+    public override void UpdateProperties(ISqlTable item)
+    {
+        base.UpdateProperties(item);
+        // Get properties from /api/send_nomenclatures/.
+        if (item is not PluBundleFkModel pluBundleFk) return;
+        Plu = pluBundleFk.Plu;
+        Bundle = pluBundleFk.Bundle;
     }
 
     #endregion
