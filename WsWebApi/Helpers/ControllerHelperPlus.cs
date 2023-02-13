@@ -44,6 +44,13 @@ public partial class ControllerHelper
     {
         try
         {
+            // Check Uid1C.
+            if (Equals(pluXml.IdentityValueUid, Guid.Empty))
+            {
+                AddResponse1cException(response, pluXml.IdentityValueUid, "Empty GUID!", "");
+                return;
+            }
+
             // Find by Uid1C -> Update exists.
             PluModel? pluDb = plusDb.Find(item => Equals(item.Uid1C, pluXml.IdentityValueUid));
             if (UpdateItemDb(response, pluXml, pluDb, true)) return;
@@ -140,7 +147,12 @@ public partial class ControllerHelper
     {
         try
         {
-            if (Equals(pluXml.BoxTypeGuid, Guid.Empty)) return;
+            // Check Uid1C.
+            if (Equals(pluXml.BoxTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.BoxTypeName))
+            {
+                AddResponse1cException(response, pluXml.IdentityValueUid, $"Empty {nameof(pluXml.BoxTypeGuid)}!", "");
+                return;
+            }
 
             // Find by Uid1C -> Update exists.
             BoxModel? boxDb = boxesDb.Find(item => Equals(item.Uid1C, pluXml.BoxTypeGuid));
@@ -170,7 +182,12 @@ public partial class ControllerHelper
     {
         try
         {
-            if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
+            // Check Uid1C.
+            if (Equals(pluXml.PackageTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.PackageTypeName))
+            {
+                AddResponse1cException(response, pluXml.IdentityValueUid, $"Empty {nameof(pluXml.PackageTypeGuid)}!", "");
+                return;
+            }
 
             // Find by Uid1C -> Update exists.
             BundleModel? bundleDb = bundlesDb.Find(item => Equals(item.Uid1C, pluXml.PackageTypeGuid));
@@ -200,7 +217,12 @@ public partial class ControllerHelper
     {
         try
         {
-            if (Equals(pluXml.ClipTypeGuid, Guid.Empty)) return;
+            // Check Uid1C.
+            if (Equals(pluXml.ClipTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.ClipTypeName))
+            {
+                AddResponse1cException(response, pluXml.IdentityValueUid, $"Empty {nameof(pluXml.ClipTypeGuid)}!", "");
+                return;
+            }
 
             // Find by Uid1C -> Update exists.
             ClipModel? clipDb = clipsDb.Find(item => Equals(item.Uid1C, pluXml.ClipTypeGuid));
@@ -316,7 +338,7 @@ public partial class ControllerHelper
             if (pluDb is not null)
             {
                 pluXml.ParseResult.Status = ParseStatus.Error;
-                pluXml.ParseResult.Exception = $"Dublicate PluNumber '{pluXml.Number}' for other Nomenclature.Guid '{pluDb.IdentityValueUid}'";
+                pluXml.ParseResult.Exception = $"Dublicate PluNumber '{pluXml.Number}' with Code '{pluXml.Code}' for DB record with Code '{pluDb.Code}'";
             }
         }
     }

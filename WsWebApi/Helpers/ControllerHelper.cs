@@ -137,71 +137,71 @@ public partial class ControllerHelper
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    private void AddResponse1cItem<T>(Response1cShortModel response, IReadOnlyCollection<T> listDb, T itemXml) where T : ISqlTable
-    {
-        try
-        {
-            T? itemDb = listDb.FirstOrDefault(x => x.IsIdentityId
-                ? x.IdentityValueId.Equals(itemXml.IdentityValueId) : x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
+    //private void AddResponse1cItem<T>(Response1cShortModel response, IReadOnlyCollection<T> listDb, T itemXml) where T : ISqlTable
+    //{
+    //    try
+    //    {
+    //        T? itemDb = listDb.FirstOrDefault(x => x.IsIdentityId
+    //            ? x.IdentityValueId.Equals(itemXml.IdentityValueId) : x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
 
-            // Find by Identity -> Update.
-            if (itemDb is not null && itemDb.IsNotNew)
-            {
-                itemDb.UpdateProperties(itemXml);
-                (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.Update(itemDb);
-                if (dbUpdate.IsOk)
-                    response.Successes.Add(new(itemXml.IdentityValueUid));
-                else
-                    AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
-                return;
-            }
+    //        // Find by Identity -> Update.
+    //        if (itemDb is not null && itemDb.IsNotNew)
+    //        {
+    //            itemDb.UpdateProperties(itemXml);
+    //            (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.Update(itemDb);
+    //            if (dbUpdate.IsOk)
+    //                response.Successes.Add(new(itemXml.IdentityValueUid));
+    //            else
+    //                AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
+    //            return;
+    //        }
 
-            // Find by Code -> Update.
-            //itemDb = listDb.Where(x => x.Code.Equals(itemXml.Code)).FirstOrDefault();
-            string itemInputCode;
-            switch (typeof(T))
-            {
-                case var cls when cls == typeof(BrandModel):
-                    if (itemXml is BrandModel brandInput)
-                    {
-                        itemInputCode = brandInput.Code;
-                        BrandModel? itemCast = listDb.Cast<BrandModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
-                        if (itemCast is T itemT) itemDb = itemT;
-                    }
-                    break;
-                case var cls when cls == typeof(PluGroupModel):
-                    if (itemXml is PluGroupModel nomenclatureGroupInput)
-                    {
-                        itemInputCode = nomenclatureGroupInput.Code;
-                        PluGroupModel? itemCast = listDb.Cast<PluGroupModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
-                        if (itemCast is T itemT) itemDb = itemT;
-                    }
-                    break;
-            }
-            if (itemDb is not null && itemDb.IsNotNew)
-            {
-                (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
-                // Delete was success. Duplicate field Code: {itemInputCode}.
-                if (!dbDelete.IsOk)
-                {
-                    AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
-                    return;
-                }
-            }
+    //        // Find by Code -> Update.
+    //        //itemDb = listDb.Where(x => x.Code.Equals(itemXml.Code)).FirstOrDefault();
+    //        string itemInputCode;
+    //        switch (typeof(T))
+    //        {
+    //            case var cls when cls == typeof(BrandModel):
+    //                if (itemXml is BrandModel brandInput)
+    //                {
+    //                    itemInputCode = brandInput.Code;
+    //                    BrandModel? itemCast = listDb.Cast<BrandModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
+    //                    if (itemCast is T itemT) itemDb = itemT;
+    //                }
+    //                break;
+    //            case var cls when cls == typeof(PluGroupModel):
+    //                if (itemXml is PluGroupModel nomenclatureGroupInput)
+    //                {
+    //                    itemInputCode = nomenclatureGroupInput.Code;
+    //                    PluGroupModel? itemCast = listDb.Cast<PluGroupModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
+    //                    if (itemCast is T itemT) itemDb = itemT;
+    //                }
+    //                break;
+    //        }
+    //        if (itemDb is not null && itemDb.IsNotNew)
+    //        {
+    //            (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
+    //            // Delete was success. Duplicate field Code: {itemInputCode}.
+    //            if (!dbDelete.IsOk)
+    //            {
+    //                AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
+    //                return;
+    //            }
+    //        }
 
-            // Not find the duplicate field "Code".
-            (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
-            // Add was success.
-            if (dbSave.IsOk)
-                response.Successes.Add(new(itemXml.IdentityValueUid));
-            else
-                AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
-        }
-        catch (Exception ex)
-        {
-            AddResponse1cException(response, itemXml.IdentityValueUid, ex);
-        }
-    }
+    //        // Not find the duplicate field "Code".
+    //        (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
+    //        // Add was success.
+    //        if (dbSave.IsOk)
+    //            response.Successes.Add(new(itemXml.IdentityValueUid));
+    //        else
+    //            AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        AddResponse1cException(response, itemXml.IdentityValueUid, ex);
+    //    }
+    //}
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cException(Response1cShortModel response, Guid uid, string? exceptionMessage, string? innerExceptionMessage)

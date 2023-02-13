@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Core.Utils;
 using NHibernate;
@@ -151,6 +152,8 @@ public partial class DataAccessHelper
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
         object? id = identity?.GetValueAsObjectNullable();
+        if (Equals(identity?.Name, SqlFieldIdentity.Uid) && Equals(id, Guid.Empty))
+            id = Guid.NewGuid();
         return id is null 
             ? ExecuteCore(session => session.Save(item), true) 
             : ExecuteCore(session => session.Save(item, id), true);

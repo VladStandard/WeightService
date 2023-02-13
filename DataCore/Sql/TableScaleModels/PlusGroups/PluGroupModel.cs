@@ -2,7 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleModels.Brands;
 
 namespace DataCore.Sql.TableScaleModels.PlusGroups;
 
@@ -103,6 +105,15 @@ public class PluGroupModel : SqlTableBase
     {
         base.FillProperties();
         Code = LocaleCore.Sql.SqlItemFieldCode;
+    }
+
+    public override void UpdateProperties(ISqlTable item)
+    {
+        base.UpdateProperties(item);
+        // Get properties from /api/send_nomenclatures_groups/.
+        if (item is not PluGroupModel pluGroup) return;
+        Code = pluGroup.Code;
+        Uid1C = pluGroup.IdentityValueUid;
     }
 
     #endregion
