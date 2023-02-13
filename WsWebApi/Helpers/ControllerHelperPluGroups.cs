@@ -80,28 +80,32 @@ public partial class ControllerHelper
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    private void AddResponse1cPluGroups(Response1cShortModel response, List<PluGroupModel> itemsDb, PluGroupModel itemXml)
+    private void AddResponse1cPluGroups(Response1cShortModel response, List<PluGroupModel> pluGroupsDb, PluGroupModel pluGroupXml)
     {
         try
         {
-            // Find by Identity -> Update exists.
-            PluGroupModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
-            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
+            // Find by Uid1C -> Update exists.
+            PluGroupModel? pluGroupDb = pluGroupsDb.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
+            if (UpdateItemDb(response, pluGroupXml, pluGroupDb, true)) return;
 
             // Find by Code -> Update exists.
-            itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
-            if (UpdateItemDbWithNewUid(response, itemXml, itemDb, true)) return;
+            pluGroupDb = pluGroupsDb.Find(item => Equals(item.Code, pluGroupXml.Code));
+            if (UpdateItemDb(response, pluGroupXml, pluGroupDb, true)) return;
+
+            // Find by Name -> Update exists.
+            pluGroupDb = pluGroupsDb.Find(item => Equals(item.Name, pluGroupXml.Name));
+            if (UpdateItemDb(response, pluGroupXml, pluGroupDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, itemXml, true);
+            bool isSave = SaveItemDb(response, pluGroupXml, true);
 
             // Update db list.
-            if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(itemXml.IdentityValueUid))
-                itemsDb.Add(itemXml);
+            if (pluGroupDb is not null && isSave && !pluGroupsDb.Select(x => x.IdentityValueUid).Contains(pluGroupDb.IdentityValueUid))
+                pluGroupsDb.Add(pluGroupDb);
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, itemXml.IdentityValueUid, ex);
+            AddResponse1cException(response, pluGroupXml.IdentityValueUid, ex);
         }
     }
 

@@ -87,6 +87,7 @@ public class BundleModel : SqlTableBase
     public override void UpdateProperties(ISqlTable item)
     {
         base.UpdateProperties(item);
+        // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) return;
         Uid1C = plu.PackageTypeGuid;
         Name = plu.PackageTypeName;

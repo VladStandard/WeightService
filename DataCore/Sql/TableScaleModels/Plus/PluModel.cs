@@ -323,9 +323,9 @@ public class PluModel : SqlTableBase
 
     public override void UpdateProperties(ISqlTable item)
     {
-        if (item is not PluModel plu) return;
-        
         base.UpdateProperties(item);
+        // Get properties from /api/send_nomenclatures/.
+        if (item is not PluModel plu) return;
         IsGroup = plu.IsGroup;
         if (plu.Number > 0)
             Number = plu.Number;

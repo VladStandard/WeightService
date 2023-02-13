@@ -17,28 +17,32 @@ public partial class ControllerHelper
         });
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    private void AddResponse1cBrand(Response1cShortModel response, List<BrandModel> itemsDb, BrandModel itemXml)
+    private void AddResponse1cBrand(Response1cShortModel response, List<BrandModel> brandsDb, BrandModel brandXml)
     {
         try
         {
-            // Find by UID -> Update exists.
-            BrandModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
-            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
+            // Find by Uid1C -> Update exists.
+            BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1C, brandXml.IdentityValueUid));
+            if (UpdateItemDb(response, brandXml, brandDb, true)) return;
 
             // Find by Code -> Update exists.
-            itemDb = itemsDb.Find(x => x.Code.Equals(itemXml.Code));
-            if (UpdateItemDbWithNewUid(response, itemXml, itemDb, true)) return;
+            brandDb = brandsDb.Find(item => Equals(item.Code, brandXml.Code));
+            if (UpdateItemDb(response, brandXml, brandDb, true)) return;
+
+            // Find by Name -> Update exists.
+            brandDb = brandsDb.Find(item => Equals(item.Name, brandXml.Name));
+            if (UpdateItemDb(response, brandXml, brandDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, itemXml, true);
+            bool isSave = SaveItemDb(response, brandXml, true);
 
             // Update db list.
-            if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(itemXml.IdentityValueUid))
-                itemsDb.Add(itemXml);
+            if (brandDb is not null && isSave && !brandsDb.Select(x => x.IdentityValueUid).Contains(brandDb.IdentityValueUid))
+                brandsDb.Add(brandDb);
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, itemXml.IdentityValueUid, ex);
+            AddResponse1cException(response, brandXml.IdentityValueUid, ex);
         }
     }
 

@@ -87,6 +87,7 @@ public class BoxModel : SqlTableBase
     public override void UpdateProperties(ISqlTable item)
     {
         base.UpdateProperties(item);
+        // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) return;
         Uid1C = plu.BoxTypeGuid;
         Name = plu.BoxTypeName;

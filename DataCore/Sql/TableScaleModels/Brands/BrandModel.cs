@@ -2,7 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleModels.Brands;
 
@@ -11,12 +13,13 @@ namespace DataCore.Sql.TableScaleModels.Brands;
 /// </summary>
 [Serializable]
 [XmlRoot("Brand", Namespace = "", IsNullable = false)]
-[DebuggerDisplay("{nameof(BrandModel)} | {Code} | {Name}")]
+[DebuggerDisplay("{nameof(BrandModel)} | {nameof(Uid1C)} = {Uid1C} | {Code} | {Name}")]
 public class BrandModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlAttribute] public virtual string Code { get; set; }
+    [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -24,6 +27,7 @@ public class BrandModel : SqlTableBase
     public BrandModel() : base(SqlFieldIdentity.Uid)
     {
         Code = string.Empty;
+        Uid1C = Guid.Empty;
     }
 
     /// <summary>
@@ -34,6 +38,7 @@ public class BrandModel : SqlTableBase
     protected BrandModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Code = info.GetString(nameof(Code));
+        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
 
     #endregion
@@ -63,13 +68,15 @@ public class BrandModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
-        Equals(Code, string.Empty);
+        Equals(Code, string.Empty) &&
+        Equals(Uid1C, Guid.Empty);
 
     public override object Clone()
     {
         BrandModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Code = Code;
+        item.Uid1C = Uid1C;
         return item;
     }
 
@@ -82,6 +89,7 @@ public class BrandModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Code), Code);
+        info.AddValue(nameof(Uid1C), Uid1C);
     }
 
     public override void FillProperties()
@@ -100,10 +108,13 @@ public class BrandModel : SqlTableBase
 
     public new virtual BrandModel CloneCast() => (BrandModel)Clone();
 
-    public virtual void UpdateProperties(BrandModel brand)
+    public override void UpdateProperties(ISqlTable item)
     {
-        base.UpdateProperties(brand);
+        base.UpdateProperties(item);
+        // Get properties from /api/send_brands/.
+        if (item is not BrandModel brand) return;
         Code = brand.Code;
+        Uid1C = brand.IdentityValueUid;
     }
 
     #endregion

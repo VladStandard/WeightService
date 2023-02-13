@@ -81,32 +81,6 @@ public partial class ControllerHelper
     }
 
     /// <summary>
-    /// Update the record in the database.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="response"></param>
-    /// <param name="itemXml"></param>
-    /// <param name="itemDb"></param>
-    /// <param name="isCounter"></param>
-    private bool UpdateItemDbWithNewUid<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isCounter) where T : ISqlTable
-    {
-        if (itemDb is null || itemDb.IsNew) return false;
-        itemDb.Identity = itemXml.Identity;
-        itemDb.UpdateProperties(itemXml);
-        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
-        if (dbUpdate.IsOk)
-        {
-            if (isCounter)
-                response.Successes.Add(new(itemXml.IdentityValueUid));
-        }
-        else
-        {
-            AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
-        }
-        return dbUpdate.IsOk;
-    }
-
-    /// <summary>
     /// Update the PLU record in the database.
     /// </summary>
     /// <param name="response"></param>
