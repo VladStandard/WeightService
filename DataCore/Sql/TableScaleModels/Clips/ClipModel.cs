@@ -4,7 +4,6 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleModels.Clips;
@@ -14,17 +13,15 @@ namespace DataCore.Sql.TableScaleModels.Clips;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(ClipModel)} | {nameof(Uid1C)} = {Uid1C} | {Name} | {Weight}")]
-public class ClipModel : SqlTableBase
+public class ClipModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual decimal Weight { get; set; }
-    [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
     public ClipModel() : base(SqlFieldIdentity.Uid)
     {
         Weight = 0;
-        Uid1C = Guid.Empty;
     }
 
     /// <summary>
@@ -35,7 +32,6 @@ public class ClipModel : SqlTableBase
     protected ClipModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Weight = info.GetDecimal(nameof(Weight));
-        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
 
     #endregion
@@ -60,16 +56,13 @@ public class ClipModel : SqlTableBase
     public override bool EqualsNew() => Equals(new());
 
     public new virtual bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(Weight, (decimal)0) &&
-        Equals(Uid1C, Guid.Empty);
+        base.EqualsDefault() && Equals(Weight, (decimal)0);
 
     public override object Clone()
     {
         ClipModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Weight = Weight;
-        item.Uid1C = Uid1C;
         return item;
     }
 
@@ -82,7 +75,6 @@ public class ClipModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Weight), Weight);
-        info.AddValue(nameof(Uid1C), Uid1C);
     }
 
     public override void UpdateProperties(ISqlTable item)

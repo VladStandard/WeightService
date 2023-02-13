@@ -15,7 +15,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluModel)} | {nameof(Uid1C)} = {Uid1C} | {Name} | {nameof(Number)} = {Number} | {nameof(Code)} = {Code}")]
-public class PluModel : SqlTableBase
+public class PluModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
@@ -102,7 +102,6 @@ public class PluModel : SqlTableBase
     /// ВесКлипсы.
     /// </summary>
     [XmlIgnore] public virtual decimal ClipTypeWeight { get; set; }
-    [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -133,7 +132,6 @@ public class PluModel : SqlTableBase
         PackageTypeWeight = default;
         ParentGuid = Guid.Empty;
         ShelfLifeDays = default;
-        Uid1C = Guid.Empty;
     }
 
     /// <summary>
@@ -170,7 +168,6 @@ public class PluModel : SqlTableBase
         PackageTypeGuid = packageTypeGuid is Guid packageTypeGuid2 ? packageTypeGuid2 : Guid.Empty;
         PackageTypeName = info.GetString(nameof(PackageTypeName));
         PackageTypeWeight = info.GetDecimal(nameof(PackageTypeWeight));
-        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
 
     #endregion
@@ -218,8 +215,7 @@ public class PluModel : SqlTableBase
         Equals(Ean13, string.Empty) &&
         Equals(Itf14, string.Empty) &&
         Equals(IsCheckWeight, false) &&
-        (Nomenclature is null || Nomenclature.EqualsDefault()) &&
-        Equals(Uid1C, Guid.Empty);
+        (Nomenclature is null || Nomenclature.EqualsDefault());
 
     public override object Clone()
     {
@@ -246,7 +242,6 @@ public class PluModel : SqlTableBase
         item.Itf14 = Itf14;
         item.IsCheckWeight = IsCheckWeight;
         item.Nomenclature = Nomenclature?.CloneCast();
-        item.Uid1C = Uid1C;
         return item;
     }
 
@@ -274,7 +269,6 @@ public class PluModel : SqlTableBase
         info.AddValue(nameof(PackageTypeGuid), PackageTypeGuid);
         info.AddValue(nameof(PackageTypeName), PackageTypeName);
         info.AddValue(nameof(PackageTypeWeight), PackageTypeWeight);
-        info.AddValue(nameof(Uid1C), Uid1C);
     }
 
     public override void FillProperties()
@@ -316,8 +310,7 @@ public class PluModel : SqlTableBase
         Equals(Itf14, item.Itf14) &&
         Equals(IsCheckWeight, item.IsCheckWeight) &&
         ((Nomenclature is not null && item.Nomenclature is not null && Nomenclature.Equals(item.Nomenclature)) ||
-         Nomenclature is null && item.Nomenclature is null) &&
-        Equals(Uid1C, item.Uid1C);
+         Nomenclature is null && item.Nomenclature is null);
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 

@@ -13,17 +13,15 @@ namespace DataCore.Sql.TableScaleModels.Bundles;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(BundleModel)} | {nameof(Uid1C)} = {Uid1C} |  {Name} | {Weight}")]
-public class BundleModel : SqlTableBase
+public class BundleModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual decimal Weight { get; set; }
-    [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
     public BundleModel() : base(SqlFieldIdentity.Uid)
     {
        Weight = 0;
-       Uid1C = Guid.Empty;
     }
 
     /// <summary>
@@ -34,7 +32,6 @@ public class BundleModel : SqlTableBase
     protected BundleModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Weight = info.GetDecimal(nameof(Weight));
-        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
 
     #endregion
@@ -59,16 +56,13 @@ public class BundleModel : SqlTableBase
     public override bool EqualsNew() => Equals(new());
 
     public new virtual bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(Weight, (decimal)0) &&
-        Equals(Uid1C, Guid.Empty);
+        base.EqualsDefault() && Equals(Weight, (decimal)0);
 
     public override object Clone()
     {
         BundleModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Weight = Weight;
-        item.Uid1C = Uid1C;
         return item;
     }
 
@@ -81,7 +75,6 @@ public class BundleModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Weight), Weight);
-        info.AddValue(nameof(Uid1C), Uid1C);
     }
 
     public override void UpdateProperties(ISqlTable item)

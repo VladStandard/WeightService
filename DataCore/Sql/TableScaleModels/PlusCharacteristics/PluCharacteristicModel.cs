@@ -11,17 +11,15 @@ namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluCharacteristicModel)} | {nameof(Uid1C)} = {Uid1C} | {AttachmentsCount}")]
-public class PluCharacteristicModel : SqlTableBase
+public class PluCharacteristicModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual decimal AttachmentsCount { get; set; }
-    [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
     public PluCharacteristicModel() : base(SqlFieldIdentity.Uid)
     {
         AttachmentsCount = 0;
-        Uid1C = Guid.Empty;
     }
 
     /// <summary>
@@ -32,7 +30,6 @@ public class PluCharacteristicModel : SqlTableBase
     protected PluCharacteristicModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         AttachmentsCount = info.GetDecimal(nameof(AttachmentsCount));
-        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
 
     #endregion
@@ -57,16 +54,13 @@ public class PluCharacteristicModel : SqlTableBase
     public override bool EqualsNew() => Equals(new());
 
     public new virtual bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(AttachmentsCount, (decimal)0) &&
-        Equals(Uid1C, Guid.Empty);
+        base.EqualsDefault() && Equals(AttachmentsCount, (decimal)0);
 
     public override object Clone()
     {
         PluCharacteristicModel item = new();
         item.CloneSetup(base.CloneCast());
         item.AttachmentsCount = AttachmentsCount;
-        item.Uid1C = Uid1C;
         return item;
     }
 
@@ -79,7 +73,6 @@ public class PluCharacteristicModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(AttachmentsCount), AttachmentsCount);
-        info.AddValue(nameof(Uid1C), Uid1C);
     }
 
     #endregion

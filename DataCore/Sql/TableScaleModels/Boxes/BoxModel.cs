@@ -13,17 +13,15 @@ namespace DataCore.Sql.TableScaleModels.Boxes;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(BoxModel)} | {nameof(Uid1C)} = {Uid1C} | {Name} | {Weight}")]
-public class BoxModel : SqlTableBase
+public class BoxModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual decimal Weight { get; set; }
-    [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
     public BoxModel() : base(SqlFieldIdentity.Uid)
     {
         Weight = 0;
-        Uid1C = Guid.Empty;
     }
 
     /// <summary>
@@ -34,7 +32,6 @@ public class BoxModel : SqlTableBase
     protected BoxModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Weight = info.GetDecimal(nameof(Weight));
-        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
 
     #endregion
@@ -60,15 +57,13 @@ public class BoxModel : SqlTableBase
 
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() &&
-        Equals(Weight, (decimal)0) &&
-        Equals(Uid1C, Guid.Empty);
+        Equals(Weight, (decimal)0);
 
     public override object Clone()
     {
         BoxModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Weight = Weight;
-        item.Uid1C = Uid1C;
         return item;
     }
 
@@ -81,10 +76,9 @@ public class BoxModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Weight), Weight);
-        info.AddValue(nameof(Uid1C), Uid1C);
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public new void UpdateProperties(ISqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
@@ -100,8 +94,7 @@ public class BoxModel : SqlTableBase
 
     public virtual bool Equals(BoxModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(Weight, item.Weight) &&
-        Equals(Uid1C, item.Uid1C);
+        Equals(Weight, item.Weight);
 
     public new virtual BoxModel CloneCast() => (BoxModel)Clone();
 
