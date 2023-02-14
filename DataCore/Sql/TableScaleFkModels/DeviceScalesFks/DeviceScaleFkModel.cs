@@ -2,7 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.Scales;
 
@@ -96,6 +98,15 @@ public class DeviceScaleFkModel : SqlTableBase
         base.FillProperties();
         Device.FillProperties();
         Scale.FillProperties();
+    }
+
+    public override void UpdateProperties(ISqlTable item)
+    {
+        base.UpdateProperties(item);
+        // Get properties from /api/send_nomenclatures/.
+        if (item is not DeviceScaleFkModel deviceScaleFk) return;
+        Device = deviceScaleFk.Device;
+        Scale = deviceScaleFk.Scale;
     }
 
     #endregion

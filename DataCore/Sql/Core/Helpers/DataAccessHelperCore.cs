@@ -19,7 +19,7 @@ public partial class DataAccessHelper
 		return criteria.UniqueResult<T>();
 	}
 
-	private T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T? item = null;
         ExecuteCore(session =>
