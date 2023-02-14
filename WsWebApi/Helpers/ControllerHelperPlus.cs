@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Boxes;
@@ -116,18 +117,28 @@ public partial class ControllerHelper
         }
     }
 
-    private bool GetPluFkPluDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, bool isCheckGroup, out PluModel? plu)
+    /// <summary>
+    /// Get PLU for PLU from DB.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluXml"></param>
+    /// <param name="uid"></param>
+    /// <param name="refName"></param>
+    /// <param name="isCheckGroup"></param>
+    /// <param name="itemDb"></param>
+    /// <returns></returns>
+    private bool GetPluFkPluDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, bool isCheckGroup, out PluModel? itemDb)
     {
-        plu = null;
+        itemDb = null;
         if (!Equals(uid, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new(nameof(SqlTableBase1c.Uid1C), SqlFieldComparerEnum.Equal, uid) }, 
                 true, false, false, false);
-            plu = DataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
+            itemDb = DataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (!isCheckGroup)
             {
-                if (plu is null || plu.IsNew)
+                if (itemDb is null || itemDb.IsNew)
                 {
                     AddResponse1cException(response, pluXml.IdentityValueUid, new($"{refName} with '{uid}' is not found!"));
                     return false;
@@ -135,7 +146,7 @@ public partial class ControllerHelper
                 return true;
             }
             // isCheckGroup.
-            if (plu is null || plu.IsNew || !plu.IsGroup)
+            if (itemDb is null || itemDb.IsNew || !itemDb.IsGroup)
             {
                 AddResponse1cException(response, pluXml.IdentityValueUid, new($"{refName} with '{uid}' is not found!"));
                 return false;
@@ -145,16 +156,53 @@ public partial class ControllerHelper
         return false;
     }
 
-    private bool GetPluBundleFkBundleDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, out BundleModel? bundle)
+    /// <summary>
+    /// Get bundle for PLU from DB.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluXml"></param>
+    /// <param name="uid"></param>
+    /// <param name="refName"></param>
+    /// <param name="itemDb"></param>
+    /// <returns></returns>
+    private bool GetPluBundleFkBundleDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, out BundleModel? itemDb)
     {
-        bundle = null;
+        itemDb = null;
         if (!Equals(uid, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new(nameof(SqlTableBase1c.Uid1C), SqlFieldComparerEnum.Equal, uid) },
                 true, false, false, false);
-            bundle = DataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
-            if (bundle is null || bundle.IsNew)
+            itemDb = DataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
+            if (itemDb is null || itemDb.IsNew)
+            {
+                AddResponse1cException(response, pluXml.IdentityValueUid, new($"{refName} with '{uid}' is not found!"));
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Get clip for PLU from DB.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluXml"></param>
+    /// <param name="uid"></param>
+    /// <param name="refName"></param>
+    /// <param name="itemDb"></param>
+    /// <returns></returns>
+    private bool GetPluClipFkClipDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, out ClipModel? itemDb)
+    {
+        itemDb = null;
+        if (!Equals(uid, Guid.Empty))
+        {
+            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
+                    { new(nameof(SqlTableBase1c.Uid1C), SqlFieldComparerEnum.Equal, uid) },
+                true, false, false, false);
+            itemDb = DataContext.DataAccess.GetItemNullable<ClipModel>(sqlCrudConfig);
+            if (itemDb is null || itemDb.IsNew)
             {
                 AddResponse1cException(response, pluXml.IdentityValueUid, new($"{refName} with '{uid}' is not found!"));
                 return false;
@@ -235,7 +283,7 @@ public partial class ControllerHelper
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    private void AddResponse1cPlusBundlesFks(Response1cShortModel response, List<PluBundleFkModel> pluBbundlesFksDb, PluModel pluXml)
+    private void AddResponse1cPlusBundlesFks(Response1cShortModel response, List<PluBundleFkModel> pluBundlesFksDb, PluModel pluXml)
     {
         try
         {
@@ -252,18 +300,16 @@ public partial class ControllerHelper
                 Bundle = bundle
             };
 
-            // Find by Identity -> Update exists.
-            PluBundleFkModel? pluBundleFkDb = pluBbundlesFksDb.Find(item =>
-                Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C) &&
-                Equals(item.Bundle.Uid1C, pluBundleFk.Bundle.Uid1C));
+            // Find by Identity -> Update exists | UQ_BUNDLES_FK.
+            PluBundleFkModel? pluBundleFkDb = pluBundlesFksDb.Find(item => Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C));
             if (UpdateItemDb(response, pluBundleFk, pluBundleFkDb, false)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluBundleFk, false);
 
             // Update db list.
-            if (isSave && !pluBbundlesFksDb.Select(x => x.IdentityValueUid).Contains(pluBundleFk.IdentityValueUid))
-                pluBbundlesFksDb.Add(pluBundleFk);
+            if (isSave && !pluBundlesFksDb.Select(x => x.IdentityValueUid).Contains(pluBundleFk.IdentityValueUid))
+                pluBundlesFksDb.Add(pluBundleFk);
         }
         catch (Exception ex)
         {
@@ -299,6 +345,41 @@ public partial class ControllerHelper
             // Update db list.
             if (isSave && !clipsDb.Select(x => x.IdentityValueUid).Contains(clipDb.IdentityValueUid))
                 clipsDb.Add(clipDb);
+        }
+        catch (Exception ex)
+        {
+            AddResponse1cException(response, pluXml.IdentityValueUid, ex);
+        }
+    }
+
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    private void AddResponse1cPlusClipsFks(Response1cShortModel response, List<PluClipFkModel> pluClipsFksDb, PluModel pluXml)
+    {
+        try
+        {
+            if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
+
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? plu)) return;
+            if (!GetPluClipFkClipDb(response, pluXml, pluXml.ClipTypeGuid, "Clip", out ClipModel? clip)) return;
+            if (plu is null || clip is null) return;
+
+            PluClipFkModel pluClipFk = new()
+            {
+                IdentityValueUid = Guid.NewGuid(),
+                Plu = plu,
+                Clip = clip
+            };
+
+            // Find by Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
+            PluClipFkModel? pluClipFkDb = pluClipsFksDb.Find(item => Equals(item.Plu.Uid1C, pluClipFk.Plu.Uid1C));
+            if (UpdateItemDb(response, pluClipFk, pluClipFkDb, false)) return;
+
+            // Not find -> Add new.
+            bool isSave = SaveItemDb(response, pluClipFk, false);
+
+            // Update db list.
+            if (isSave && !pluClipsFksDb.Select(x => x.IdentityValueUid).Contains(pluClipFk.IdentityValueUid))
+                pluClipsFksDb.Add(pluClipFk);
         }
         catch (Exception ex)
         {
@@ -344,8 +425,9 @@ public partial class ControllerHelper
             List<PluFkModel> pluFksDb = DataContext.GetListNotNullable<PluFkModel>(sqlCrudConfig);
             List<BoxModel> boxesDb = DataContext.GetListNotNullable<BoxModel>(sqlCrudConfig);
             List<BundleModel> bundlesDb = DataContext.GetListNotNullable<BundleModel>(sqlCrudConfig);
-            List<PluBundleFkModel> pluBbundlesFksDb = DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
+            List<PluBundleFkModel> pluBundlesFksDb = DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
             List<ClipModel> clipsDb = DataContext.GetListNotNullable<ClipModel>(sqlCrudConfig);
+            List<PluClipFkModel> pluClipsFksDb = DataContext.GetListNotNullable<PluClipFkModel>(sqlCrudConfig);
             List<PluNestingFkModel> pluNestingFksDb = DataContext.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
             List<PluModel> plusXml = GetXmlPluList(xml);
             foreach (PluModel pluXml in plusXml)
@@ -363,9 +445,9 @@ public partial class ControllerHelper
                 if (pluXml.ParseResult.Status == ParseStatus.Success)
                     AddResponse1cPlusClips(response, clipsDb, pluXml);
                 if (pluXml.ParseResult.Status == ParseStatus.Success)
-                    AddResponse1cPlusBundlesFks(response, pluBbundlesFksDb, pluXml);
-                //if (pluXml.ParseResult.Status == ParseStatus.Success)
-                //    AddResponse1cPlusClipsFks(response, pluFksDb, pluXml);
+                    AddResponse1cPlusBundlesFks(response, pluBundlesFksDb, pluXml);
+                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                    AddResponse1cPlusClipsFks(response, pluClipsFksDb, pluXml);
                 //if (pluXml.ParseResult.Status == ParseStatus.Success)
                 //    AddResponse1cPlusNestingFks(response, pluNestingFksDb, pluXml);
                 if (pluXml.ParseResult.Status == ParseStatus.Error)
