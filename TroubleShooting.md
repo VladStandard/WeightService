@@ -55,3 +55,9 @@ ESET -> Setup -> Network Protection -> Network attack protection -> IDS rules:
 Remote IP address: 192.168.4.159, 192.168.4.164, 192.168.7.41
 ARP Cache Poisoning attack | In | Any profile | No Block | Notify | No Log
 Unexpected protocol data | In | Any profile | No Block | Notify | No Log
+
+## Blazor apps
+Приложение перестало запускаться.
+1. Проверить страницы на дубликат адреса: `@page "/url"`
+2. Проверить DataCoreTests на ошибки. Модели
+3. Проверить модели данных DataCore на наличие не виртуальных свойств и методов.
