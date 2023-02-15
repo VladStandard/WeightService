@@ -7,9 +7,9 @@
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2023</Copyright>
     <Platforms>AnyCPU;x64</Platforms>
-    <AssemblyVersion>0.8.340.0</AssemblyVersion>
-    <FileVersion>0.8.340.0</FileVersion>
-    <Version>0.8.340.0</Version>
+    <AssemblyVersion>0.8.350.0</AssemblyVersion>
+    <FileVersion>0.8.350.0</FileVersion>
+    <Version>0.8.350.0</Version>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
