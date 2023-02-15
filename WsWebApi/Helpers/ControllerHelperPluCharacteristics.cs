@@ -20,24 +20,25 @@ public partial class ControllerHelper
         });
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    private void AddResponse1cPluCharacteristics(Response1cShortModel response, List<PluCharacteristicModel> itemsDb, PluCharacteristicModel itemXml)
+    private void AddResponse1cPluCharacteristics(Response1cShortModel response, List<PluCharacteristicModel> itemsDb, 
+        PluCharacteristicModel pluCharacteristicXml)
     {
         try
         {
             // Find by Identity -> Update exists.
-            PluCharacteristicModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
-            if (UpdateItemDb(response, itemXml, itemDb, true)) return;
+            PluCharacteristicModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
+            if (UpdateItemDb(response, pluCharacteristicXml.Uid1C, pluCharacteristicXml, itemDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, itemXml, true);
+            bool isSave = SaveItemDb(response, pluCharacteristicXml, true);
 
             // Update db list.
-            if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(itemXml.IdentityValueUid))
-                itemsDb.Add(itemXml);
+            if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(pluCharacteristicXml.IdentityValueUid))
+                itemsDb.Add(pluCharacteristicXml);
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, itemXml.IdentityValueUid, ex);
+            AddResponse1cException(response, pluCharacteristicXml.Uid1C, ex);
         }
     }
 
@@ -56,8 +57,7 @@ public partial class ControllerHelper
                         AddResponse1cPluCharacteristics(response, itemsDb, itemXml);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1cException(response, itemXml.IdentityValueUid,
-                            itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
+                        AddResponse1cException(response, itemXml.Uid1C, itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
                         break;
                 }
             }

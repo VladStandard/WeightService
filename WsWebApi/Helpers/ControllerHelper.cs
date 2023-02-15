@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
+using System.ServiceModel.Channels;
 
 namespace WsWebApi.Helpers;
 
@@ -51,23 +52,19 @@ public partial class ControllerHelper
     private ContentResult NewResponse1cCore<T>(ISessionFactory sessionFactory, Action<T> action,
         string format, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
-        //using ISession session = sessionFactory.OpenSession();
-        //using ITransaction transaction = session.BeginTransaction();
         T response = new();
 
         try
         {
             action(response);
-            //if (isTransaction)
-            //    transaction.Commit();
         }
         catch (Exception ex)
         {
             httpStatusCode = HttpStatusCode.InternalServerError;
             if (response is Response1cModel response1c)
+            {
                 response1c.Errors.Add(new(ex));
-            //if (isTransaction)
-            //    transaction.Rollback();
+            }
         }
 
         return DataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
@@ -208,7 +205,13 @@ public partial class ControllerHelper
     {
         Response1cErrorModel responseRecord = new(uid,
             !string.IsNullOrEmpty(innerExceptionMessage) ? innerExceptionMessage : exceptionMessage ?? string.Empty);
-        response.Errors.Add(responseRecord);
+        if (response.Errors.Select(item => item.Uid).Contains(uid))
+        {
+            if (response.Errors.Find(item => Equals(item.Uid, uid)) is { } error)
+                error.Message += $" | {responseRecord}";
+        }
+        else
+            response.Errors.Add(responseRecord);
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -217,7 +220,13 @@ public partial class ControllerHelper
         Response1cErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception ?? string.Empty);
         if (!string.IsNullOrEmpty(brand.ParseResult.InnerException))
             responseRecord.Message += " | " + brand.ParseResult.InnerException;
-        response.Errors.Add(responseRecord);
+        if (response.Errors.Select(item => item.Uid).Contains(brand.Uid1C))
+        {
+            if (response.Errors.Find(item => Equals(item.Uid, brand.Uid1C)) is { } error)
+                error.Message += $" | {responseRecord}";
+        }
+        else
+            response.Errors.Add(responseRecord);
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -276,6 +285,9 @@ public partial class ControllerHelper
     {
         switch (xmlPropertyName.ToUpper())
         {
+            case "GUID":
+                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
             case "CODE":
                 item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
                 break;
@@ -286,6 +298,9 @@ public partial class ControllerHelper
     {
         switch (xmlPropertyName.ToUpper())
         {
+            case "GUID":
+                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
             case "ISGROUP":
                 item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
                 break;
@@ -344,6 +359,9 @@ public partial class ControllerHelper
             case "PACKAGETYPEWEIGHT":
                 item.PackageTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
                 break;
+            case "ATTACHMENTSCOUNT":
+                item.AttachmentsCount = GetXmlAttributeShort(xmlNode, item, xmlPropertyName);
+                break;
         }
     }
 
@@ -351,6 +369,9 @@ public partial class ControllerHelper
     {
         switch (xmlPropertyName.ToUpper())
         {
+            case "GUID":
+                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
             case "ISGROUP":
                 item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
                 break;
@@ -367,6 +388,9 @@ public partial class ControllerHelper
     {
         switch (xmlPropertyName.ToUpper())
         {
+            case "GUID":
+                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
             case "ATTACHMENTSCOUNT":
                 item.AttachmentsCount = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
                 break;

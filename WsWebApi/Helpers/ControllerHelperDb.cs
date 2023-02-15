@@ -16,11 +16,12 @@ public partial class ControllerHelper
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
+    /// <param name="importUid"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    private bool UpdateItemDb<T>(Response1cShortModel response, T itemXml, T? itemDb, bool isCounter) where T : ISqlTable
+    private bool UpdateItemDb<T>(Response1cShortModel response, Guid importUid, T itemXml, T? itemDb, bool isCounter) where T : ISqlTable
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -28,10 +29,10 @@ public partial class ControllerHelper
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(itemXml.IdentityValueUid));
+                response.Successes.Add(new(importUid));
         }
         else
-            AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
+            AddResponse1cException(response, importUid, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -43,10 +44,10 @@ public partial class ControllerHelper
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(pluXml.IdentityValueUid));
+                response.Successes.Add(new(pluXml.Uid1C));
         }
         else
-            AddResponse1cException(response, pluXml.IdentityValueUid, dbUpdate.Exception);
+            AddResponse1cException(response, pluXml.Uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -58,10 +59,10 @@ public partial class ControllerHelper
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(pluXml.IdentityValueUid));
+                response.Successes.Add(new(pluXml.Uid1C));
         }
         else
-            AddResponse1cException(response, pluXml.IdentityValueUid, dbUpdate.Exception);
+            AddResponse1cException(response, pluXml.Uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -73,10 +74,10 @@ public partial class ControllerHelper
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(pluXml.IdentityValueUid));
+                response.Successes.Add(new(pluXml.Uid1C));
         }
         else
-            AddResponse1cException(response, pluXml.IdentityValueUid, dbUpdate.Exception);
+            AddResponse1cException(response, pluXml.Uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 

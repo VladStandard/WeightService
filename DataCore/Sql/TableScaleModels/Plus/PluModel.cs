@@ -102,6 +102,10 @@ public class PluModel : SqlTableBase1c
     /// ВесКлипсы.
     /// </summary>
     [XmlIgnore] public virtual decimal ClipTypeWeight { get; set; }
+    /// <summary>
+    /// Кол-во вложений.
+    /// </summary>
+    [XmlElement] public virtual short AttachmentsCount { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -132,6 +136,7 @@ public class PluModel : SqlTableBase1c
         PackageTypeWeight = default;
         ParentGuid = Guid.Empty;
         ShelfLifeDays = default;
+        AttachmentsCount = default;
     }
 
     /// <summary>
@@ -168,6 +173,7 @@ public class PluModel : SqlTableBase1c
         PackageTypeGuid = packageTypeGuid is Guid packageTypeGuid2 ? packageTypeGuid2 : Guid.Empty;
         PackageTypeName = info.GetString(nameof(PackageTypeName));
         PackageTypeWeight = info.GetDecimal(nameof(PackageTypeWeight));
+        AttachmentsCount = info.GetInt16(nameof(AttachmentsCount));
     }
 
     #endregion
@@ -208,14 +214,15 @@ public class PluModel : SqlTableBase1c
         Equals(PackageTypeName, string.Empty) &&
         Equals(PackageTypeWeight, default) &&
         Equals(Code, string.Empty) &&
-        Equals(Number, default(ushort)) &&
+        Equals(Number, default(short)) &&
         Equals(FullName, string.Empty) &&
         Equals(ShelfLifeDays, default(byte)) &&
         Equals(Gtin, string.Empty) &&
         Equals(Ean13, string.Empty) &&
         Equals(Itf14, string.Empty) &&
         Equals(IsCheckWeight, false) &&
-        (Nomenclature is null || Nomenclature.EqualsDefault());
+        //(Nomenclature is null || Nomenclature.EqualsDefault()) &&
+        Equals(AttachmentsCount, default(short));
 
     public override object Clone()
     {
@@ -242,6 +249,7 @@ public class PluModel : SqlTableBase1c
         item.Itf14 = Itf14;
         item.IsCheckWeight = IsCheckWeight;
         item.Nomenclature = Nomenclature?.CloneCast();
+        item.AttachmentsCount = AttachmentsCount;
         return item;
     }
 
@@ -269,6 +277,7 @@ public class PluModel : SqlTableBase1c
         info.AddValue(nameof(PackageTypeGuid), PackageTypeGuid);
         info.AddValue(nameof(PackageTypeName), PackageTypeName);
         info.AddValue(nameof(PackageTypeWeight), PackageTypeWeight);
+        info.AddValue(nameof(AttachmentsCount), AttachmentsCount);
     }
 
     public override void FillProperties()
@@ -310,7 +319,8 @@ public class PluModel : SqlTableBase1c
         Equals(Itf14, item.Itf14) &&
         Equals(IsCheckWeight, item.IsCheckWeight) &&
         ((Nomenclature is not null && item.Nomenclature is not null && Nomenclature.Equals(item.Nomenclature)) ||
-         Nomenclature is null && item.Nomenclature is null);
+         Nomenclature is null && item.Nomenclature is null) &&
+        Equals(AttachmentsCount, item.AttachmentsCount);
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 
@@ -360,6 +370,8 @@ public class PluModel : SqlTableBase1c
         if (plu.PackageTypeWeight > 0)
             PackageTypeWeight = plu.PackageTypeWeight;
         Uid1C = plu.IdentityValueUid;
+        if (plu.AttachmentsCount > 0)
+            AttachmentsCount = plu.AttachmentsCount;
     }
 
     #endregion
