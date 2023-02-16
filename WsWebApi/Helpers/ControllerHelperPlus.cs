@@ -448,12 +448,6 @@ public partial class ControllerHelper
                     Equals(item.PluBundle.Plu.Uid1c, pluNestingFk.PluBundle.Plu.Uid1c) && 
                     Equals(item.PluBundle.Bundle.Uid1c, pluNestingFk.PluBundle.Bundle.Uid1c) && 
                     Equals(item.BundleCount, pluXml.AttachmentsCount));
-            //PluNestingFkModel? pluNestingFkDb = pluNestingFksDb.Find(item =>
-            //    Equals(item.Box.Uid1C, pluNestingFk.Box.Uid1C) &&
-            //    Equals(item.PluBundle.Plu.Uid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
-            //    Equals(item.PluBundle.Bundle.Uid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
-            //    Equals(item.BundleCount, pluXml.AttachmentsCount)
-            //    );
             if (UpdateItemDb(response, pluXml.Uid1c, pluNestingFk, pluNestingFkDb, false)) return;
 
             // Not find -> Add new.
