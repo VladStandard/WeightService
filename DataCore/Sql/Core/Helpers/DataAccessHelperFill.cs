@@ -4,6 +4,7 @@
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
@@ -14,6 +15,7 @@ using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Boxes;
+using DataCore.Sql.TableScaleModels.Brands;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.Devices;
@@ -81,9 +83,13 @@ public partial class DataAccessHelper
                 pluFk.Plu = GetItemNotNullable<PluModel>(pluFk.Plu.IdentityValueUid);
                 pluFk.Parent = GetItemNotNullable<PluModel>(pluFk.Parent.IdentityValueUid);
                 break;
+            case PluBrandFkModel pluBrandFk:
+                pluBrandFk.Plu = GetItemNotNullable<PluModel>(pluBrandFk.Plu.IdentityValueUid);
+                pluBrandFk.Brand = GetItemNotNullable<BrandModel>(pluBrandFk.Brand.IdentityValueUid);
+                break;
             case PluBundleFkModel pluBundle:
-                pluBundle.Bundle = GetItemNotNullable<BundleModel>(pluBundle.Bundle.IdentityValueUid);
                 pluBundle.Plu = GetItemNotNullable<PluModel>(pluBundle.Plu.IdentityValueUid);
+                pluBundle.Bundle = GetItemNotNullable<BundleModel>(pluBundle.Bundle.IdentityValueUid);
                 break;
             case PluClipFkModel pluClip:
                 pluClip.Clip = GetItemNotNullable<ClipModel>(pluClip.Clip.IdentityValueUid);

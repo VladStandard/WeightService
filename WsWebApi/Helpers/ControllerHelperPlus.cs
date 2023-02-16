@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleFkModels.PlusFks;
@@ -9,6 +10,7 @@ using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Clips;
 using FluentValidation.Results;
+// ReSharper disable InconsistentNaming
 
 namespace WsWebApi.Helpers;
 
@@ -46,7 +48,6 @@ public partial class ControllerHelper
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.AttachmentsCount));
         });
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPlus(Response1cShortModel response, List<PluModel> plusDb, PluModel pluXml)
     {
         try
@@ -83,7 +84,6 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPlusFks(Response1cShortModel response, List<PluFkModel> pluFksDb, PluModel pluXml)
     {
         try
@@ -191,6 +191,34 @@ public partial class ControllerHelper
     }
 
     /// <summary>
+    /// Get brand for PLU from DB.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluXml"></param>
+    /// <param name="uid"></param>
+    /// <param name="refName"></param>
+    /// <param name="itemDb"></param>
+    /// <returns></returns>
+    private bool GetPluBrandFkBrandDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, out BrandModel? itemDb)
+    {
+        itemDb = null;
+        if (!Equals(uid, Guid.Empty))
+        {
+            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
+                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
+                true, false, false, false);
+            itemDb = DataContext.DataAccess.GetItemNullable<BrandModel>(sqlCrudConfig);
+            if (itemDb is null || itemDb.IsNew)
+            {
+                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
     /// Get clip for PLU from DB.
     /// </summary>
     /// <param name="response"></param>
@@ -246,7 +274,6 @@ public partial class ControllerHelper
         return false;
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPlusBoxes(Response1cShortModel response, List<BoxModel> boxesDb, PluModel pluXml)
     {
         try
@@ -281,7 +308,7 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
+
     private void AddResponse1cPlusBundles(Response1cShortModel response, List<BundleModel> bundlesDb, PluModel pluXml)
     {
         try
@@ -316,7 +343,6 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private PluBundleFkModel AddResponse1cPlusBundlesFks(Response1cShortModel response, List<PluBundleFkModel> pluBundlesFksDb, PluModel pluXml)
     {
         PluBundleFkModel pluBundleFk = new();
@@ -354,7 +380,62 @@ public partial class ControllerHelper
         return pluBundleFk;
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    //private void AddResponse1cPlusBrands(Response1cShortModel response, List<BrandModel> brandsDb, PluModel pluXml)
+    //{
+    //    try
+    //    {
+    //        // Check Uid1C.
+    //        if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
+
+    //        // Find by Uid1C -> Update exists.
+    //        BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1c, pluXml.BrandGuid));
+    //        if (UpdateBrandDb(response, pluXml, brandDb, false)) return;
+
+    //        // Find by Name -> Update exists.
+    //        brandDb = brandsDb.Find(item => Equals(item.Name, pluXml.BrandGuid));
+    //        if (UpdateBrandDb(response, pluXml, brandDb, false)) return;
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        AddResponse1cException(response, pluXml.Uid1c, ex);
+    //    }
+    //}
+
+    private void AddResponse1cPlusBrandsFks(Response1cShortModel response, List<PluBrandFkModel> pluBrandsFksDb, PluModel pluXml)
+    {
+        try
+        {
+            if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
+
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? pluDb)) return;
+            if (!GetPluBrandFkBrandDb(response, pluXml, pluXml.BrandGuid, "Brand", out BrandModel? brandDb)) return;
+            if (pluDb is null || brandDb is null) return;
+
+            PluBrandFkModel pluBrandFk = new()
+            {
+                IdentityValueUid = Guid.NewGuid(),
+                Plu = pluDb,
+                Brand = brandDb
+            };
+
+            // Find by Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
+            PluBrandFkModel? pluBrandFkDb = pluBrandsFksDb.Find(item => Equals(item.Plu.Uid1c, pluBrandFk.Plu.Uid1c));
+            if (UpdateItemDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
+
+            // Not find -> Add new.
+            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluBrandFk, false);
+
+            // Update db list.
+            if (isSave && !pluBrandsFksDb.Select(x => x.IdentityValueUid).Contains(pluBrandFk.IdentityValueUid))
+                pluBrandsFksDb.Add(pluBrandFk);
+        }
+        catch (Exception ex)
+        {
+            AddResponse1cException(response, pluXml.Uid1c, ex);
+        }
+    }
+
     private void AddResponse1cPlusClips(Response1cShortModel response, List<ClipModel> clipsDb, PluModel pluXml)
     {
         try
@@ -389,7 +470,6 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPlusClipsFks(Response1cShortModel response, List<PluClipFkModel> pluClipsFksDb, PluModel pluXml)
     {
         try
@@ -424,7 +504,6 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPlusNestingFks(Response1cShortModel response, PluBundleFkModel pluBundleFk,
         List<PluNestingFkModel> pluNestingFksDb, PluModel pluXml)
     {
@@ -492,7 +571,6 @@ public partial class ControllerHelper
         nameof(PluModel.ShelfLifeDays),
     };
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public ContentResult NewResponse1cPlus(ISessionFactory sessionFactory, XElement xml, string format) =>
         NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
         {
@@ -503,6 +581,8 @@ public partial class ControllerHelper
             List<BoxModel> boxesDb = DataContext.GetListNotNullable<BoxModel>(sqlCrudConfig);
             List<BundleModel> bundlesDb = DataContext.GetListNotNullable<BundleModel>(sqlCrudConfig);
             List<PluBundleFkModel> pluBundlesFksDb = DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
+            List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
+            List<PluBrandFkModel> pluBrandsFksDb = DataContext.GetListNotNullable<PluBrandFkModel>(sqlCrudConfig);
             List<ClipModel> clipsDb = DataContext.GetListNotNullable<ClipModel>(sqlCrudConfig);
             List<PluClipFkModel> pluClipsFksDb = DataContext.GetListNotNullable<PluClipFkModel>(sqlCrudConfig);
             List<PluNestingFkModel> pluNestingFksDb = DataContext.GetListNotNullable<PluNestingFkModel>(
@@ -520,10 +600,15 @@ public partial class ControllerHelper
                     AddResponse1cPlusBoxes(response, boxesDb, pluXml);
                 if (pluXml.ParseResult.Status == ParseStatus.Success)
                     AddResponse1cPlusBundles(response, bundlesDb, pluXml);
+                //if (pluXml.ParseResult.Status == ParseStatus.Success)
+                //    AddResponse1cPlusBrands(response, brandsDb, pluXml);
+                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                    AddResponse1cPlusBrandsFks(response, pluBrandsFksDb, pluXml);
                 if (pluXml.ParseResult.Status == ParseStatus.Success)
                     AddResponse1cPlusClips(response, clipsDb, pluXml);
                 if (pluXml.ParseResult.Status == ParseStatus.Success)
                     AddResponse1cPlusClipsFks(response, pluClipsFksDb, pluXml);
+
                 if (pluXml.ParseResult.Status == ParseStatus.Success)
                 {
                     PluBundleFkModel pluBundleFk = AddResponse1cPlusBundlesFks(response, pluBundlesFksDb, pluXml);

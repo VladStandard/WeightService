@@ -51,6 +51,21 @@ public partial class ControllerHelper
         return dbUpdate.IsOk;
     }
 
+    private bool UpdateBrandDb(Response1cShortModel response, BrandModel brandXml, BrandModel? brandDb, bool isCounter)
+    {
+        if (brandDb is null || brandDb.IsNew) return false;
+        brandDb.UpdateProperties(brandXml);
+        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(brandDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(brandXml.Uid1c));
+        }
+        else
+            AddResponse1cException(response, brandXml.Uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
+
     private bool UpdateBundleDb(Response1cShortModel response, PluModel pluXml, BundleModel? bundleDb, bool isCounter)
     {
         if (bundleDb is null || bundleDb.IsNew) return false;

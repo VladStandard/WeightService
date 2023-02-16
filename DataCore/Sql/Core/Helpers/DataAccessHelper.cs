@@ -6,6 +6,7 @@
 using DataCore.Files;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
@@ -186,6 +187,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluBrandFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluBundleFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluCharacteristicMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluCharacteristicsFkMap>());

@@ -5,6 +5,7 @@ using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
@@ -47,6 +48,8 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
+using PluBundleFkValidator = DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluBundleFkValidator;
+
 // ReSharper disable InconsistentNaming
 
 namespace DataCore.Sql.Core.Models;
@@ -82,6 +85,7 @@ public class DataContextModel
     public List<PluLabelModel> PluLabels { get; set; }
     public List<PluModel> Plus { get; set; }
     public List<PluFkModel> PlusFks { get; set; }
+    public List<PluBrandFkModel> PluBrandFks { get; set; }
     public List<PluBundleFkModel> PluBundleFks { get; set; }
     public List<PluClipFkModel> PluClipFks { get; set; }
     public List<PluScaleModel> PluScales { get; set; }
@@ -132,6 +136,7 @@ public class DataContextModel
         PluLabels = new();
         Plus = new();
         PlusFks = new();
+        PluBrandFks = new();
         PluBundleFks = new();
         PluClipFks = new();
         PluScales = new();
@@ -178,6 +183,7 @@ public class DataContextModel
         var cls when cls == typeof(OrderModel) => GetListNotNullableOrders<T>(sqlCrudConfig),
         var cls when cls == typeof(OrderWeighingModel) => GetListNotNullableOrderWeighings<T>(sqlCrudConfig),
         var cls when cls == typeof(OrganizationModel) => GetListNotNullableOrganizations<T>(sqlCrudConfig),
+        var cls when cls == typeof(PluBrandFkModel) => GetListNotNullablePluBrandFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluBundleFkModel) => GetListNotNullablePluBundleFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluCharacteristicModel) => GetListNotNullableNomenclatureCharacteristics<T>(sqlCrudConfig),
         var cls when cls == typeof(PluCharacteristicsFkModel) => GetListNotNullableNomenclatureCharacteristicFks<T>(sqlCrudConfig),
@@ -414,6 +420,23 @@ public class DataContextModel
     {
         PlusFks = DataAccess.GetListNotNullable<PluFkModel>(sqlCrudConfig);
         return PlusFks.Cast<T>().ToList();
+    }
+
+    private List<T> GetListNotNullablePluBrandFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    {
+        PluBrandFks = DataAccess.GetListNotNullable<PluBrandFkModel>(sqlCrudConfig);
+        if (PluBrandFks.Count > 0)
+        {
+            PluBrandFkModel bundleFk = PluBrandFks.First();
+            if (bundleFk.Plu.IsNew)
+                bundleFk.Plu = DataAccess.GetItemNewEmpty<PluModel>();
+            if (bundleFk.Brand.IsNew)
+                bundleFk.Brand = DataAccess.GetItemNewEmpty<BrandModel>();
+        }
+
+        if (sqlCrudConfig.IsResultOrder && PluBrandFks.Count > 1)
+            PluBrandFks = PluBrandFks.OrderBy(item => item.Brand.Name).ToList();
+        return PluBrandFks.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullablePluBundleFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
@@ -831,6 +854,7 @@ public class DataContextModel
         typeof(OrderMap),
         typeof(OrderWeighingMap),
         typeof(OrganizationMap),
+        typeof(PluBrandFkMap),
         typeof(PluBundleFkMap),
         typeof(PluCharacteristicMap),
         typeof(PluCharacteristicsFkMap),

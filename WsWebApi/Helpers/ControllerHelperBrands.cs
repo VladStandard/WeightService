@@ -23,15 +23,15 @@ public partial class ControllerHelper
         {
             // Find by Uid1C -> Update exists.
             BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1c, brandXml.IdentityValueUid));
-            if (UpdateItemDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
+            if (UpdateBrandDb(response, brandXml, brandDb, true)) return;
 
             // Find by Code -> Update exists.
             brandDb = brandsDb.Find(item => Equals(item.Code, brandXml.Code));
-            if (UpdateItemDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
+            if (UpdateBrandDb(response, brandXml, brandDb, true)) return;
 
             // Find by Name -> Update exists.
             brandDb = brandsDb.Find(item => Equals(item.Name, brandXml.Name));
-            if (UpdateItemDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
+            if (UpdateBrandDb(response, brandXml, brandDb, true)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, brandXml.Uid1c, brandXml, true);
