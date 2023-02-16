@@ -77,16 +77,16 @@ public class JsonSettingsHelper
 #else
         FileNameRelease;
 #endif
-    public string FileNameDebug => "appsettings.Debug.json";
-    public string FileNameRelease => "appsettings.Release.json";
+    private string FileNameDebug => "appsettings.Debug.json";
+    private string FileNameRelease => "appsettings.Release.json";
     public string ExceptionFileName(string localDir) => Path.Combine(localDir, $"{FileName}.log");
-    public const string BlazorSubDir6 =
+    private const string BlazorSubDir6 =
 #if DEBUG
 	    @"bin\x64\Debug\net6.0\";
 #else
         @"bin\x64\Release\net6.0\";
 #endif
-    public const string BlazorSubDir7 =
+    private const string BlazorSubDir7 =
 #if DEBUG
 	    @"bin\x64\Debug\net7.0\";
 #else
@@ -110,7 +110,7 @@ public class JsonSettingsHelper
             AppVersion.Setup(Assembly.GetExecutingAssembly());
             FileLogger.Setup(localDir, appName);
             string subDir = Path.Combine(localDir, BlazorSubDir7);
-			if (!Directory.Exists(subDir))
+			if (Directory.Exists(subDir))
 			{
 				// Local folder.
 				FileLogger.Setup(subDir, appName);
