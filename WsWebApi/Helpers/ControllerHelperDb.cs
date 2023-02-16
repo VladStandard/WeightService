@@ -44,10 +44,10 @@ public partial class ControllerHelper
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(pluXml.Uid1C));
+                response.Successes.Add(new(pluXml.Uid1c));
         }
         else
-            AddResponse1cException(response, pluXml.Uid1C, dbUpdate.Exception);
+            AddResponse1cException(response, pluXml.Uid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -59,10 +59,10 @@ public partial class ControllerHelper
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(pluXml.Uid1C));
+                response.Successes.Add(new(pluXml.Uid1c));
         }
         else
-            AddResponse1cException(response, pluXml.Uid1C, dbUpdate.Exception);
+            AddResponse1cException(response, pluXml.Uid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -74,10 +74,10 @@ public partial class ControllerHelper
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(pluXml.Uid1C));
+                response.Successes.Add(new(pluXml.Uid1c));
         }
         else
-            AddResponse1cException(response, pluXml.Uid1C, dbUpdate.Exception);
+            AddResponse1cException(response, pluXml.Uid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -117,20 +117,21 @@ public partial class ControllerHelper
     /// Save the record to the database.
     /// </summary>
     /// <param name="response"></param>
+    /// <param name="importUid"></param>
     /// <param name="item"></param>
     /// <param name="isCounter"></param>
-    private bool SaveItemDb<T>(Response1cShortModel response, T item, bool isCounter) where T : ISqlTable
+    private bool SaveItemDb<T>(Response1cShortModel response, Guid importUid, T item, bool isCounter) where T : ISqlTable
     {
         (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(item, item.Identity);
         // Add was success.
         if (dbSave.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(item.IdentityValueUid));
+                response.Successes.Add(new(importUid));
         }
         else
         {
-            AddResponse1cException(response, item.IdentityValueUid, dbSave.Exception);
+            AddResponse1cException(response, importUid, dbSave.Exception);
         }
         return dbSave.IsOk;
     }

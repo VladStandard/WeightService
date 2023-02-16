@@ -34,6 +34,6 @@ public class PluMap : ClassMap<PluModel>
         Map(x => x.IsCheckWeight).CustomSqlType("BIT").Column("IS_CHECK_WEIGHT").Not.Nullable().Default("1");
         Map(x => x.Code).CustomSqlType("NVARCHAR").Column("CODE").Length(30).Not.Nullable();
         References(x => x.Nomenclature).Column("NOMENCLATURE_ID").Nullable();
-        Map(x => x.Uid1C).CustomSqlType("UNIQUEIDENTIFIER").Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
+        Map(x => x.Uid1c).CustomSqlType("UNIQUEIDENTIFIER").Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
     }
 }

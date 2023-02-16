@@ -17,7 +17,7 @@ public partial class RazorItemTableBody<TItem> : RazorComponentItemBase<TItem> w
 
     private string? Get1cGuid()
     {
-        return IsSqlItem1c ? ((SqlTableBase1c?)SqlItem)?.Uid1C.ToString() : Guid.Empty.ToString();
+        return IsSqlItem1c ? ((SqlTableBase1c?)SqlItem)?.Uid1c.ToString() : Guid.Empty.ToString();
     }
 
 	#endregion

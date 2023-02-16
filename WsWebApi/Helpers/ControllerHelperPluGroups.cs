@@ -29,7 +29,8 @@ public partial class ControllerHelper
         });
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    private void AddResponse1cPluGroupsFks(Response1cShortModel response, List<PluGroupFkModel> itemsDb, PluGroupModel pluGroupXml)
+    private void AddResponse1cPluGroupsFks(Response1cShortModel response, List<PluGroupFkModel> itemsDb, 
+        PluGroupModel pluGroupXml)
     {
         try
         {
@@ -39,14 +40,14 @@ public partial class ControllerHelper
             parent = DataContext.GetItemNotNullable<PluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
-                AddResponse1cException(response, pluGroupXml.Uid1C, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' is not found!"));
+                AddResponse1cException(response, pluGroupXml.Uid1c, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' is not found!"));
                 return;
             }
             PluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
             pluGroup = DataContext.GetItemNotNullable<PluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
             {
-                AddResponse1cException(response, pluGroupXml.Uid1C, new($"PLU group for '{pluGroupXml.ParentGuid}' is not found!"));
+                AddResponse1cException(response, pluGroupXml.Uid1c, new($"PLU group for '{pluGroupXml.ParentGuid}' is not found!"));
                 return;
             }
             
@@ -62,10 +63,10 @@ public partial class ControllerHelper
             PluGroupFkModel? itemDb = itemsDb.Find(x => 
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
-            if (UpdateItemDb(response, pluGroupXml.Uid1C, itemGroupFk, itemDb, false)) return;
+            if (UpdateItemDb(response, pluGroupXml.Uid1c, itemGroupFk, itemDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, itemGroupFk, false);
+            bool isSave = SaveItemDb(response, pluGroupXml.Uid1c, itemGroupFk, false);
 
             // Update db list.
             if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(itemGroupFk.IdentityValueUid))
@@ -73,7 +74,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluGroupXml.Uid1C, ex);
+            AddResponse1cException(response, pluGroupXml.Uid1c, ex);
         }
     }
 
@@ -83,19 +84,19 @@ public partial class ControllerHelper
         try
         {
             // Find by Uid1C -> Update exists.
-            PluGroupModel? pluGroupDb = pluGroupsDb.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
-            if (UpdateItemDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
+            PluGroupModel? pluGroupDb = pluGroupsDb.Find(item => Equals(item.Uid1c, pluGroupXml.IdentityValueUid));
+            if (UpdateItemDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Find by Code -> Update exists.
             pluGroupDb = pluGroupsDb.Find(item => Equals(item.Code, pluGroupXml.Code));
-            if (UpdateItemDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
+            if (UpdateItemDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Find by Name -> Update exists.
             pluGroupDb = pluGroupsDb.Find(item => Equals(item.Name, pluGroupXml.Name));
-            if (UpdateItemDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
+            if (UpdateItemDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluGroupXml, true);
+            bool isSave = SaveItemDb(response, pluGroupXml.Uid1c, pluGroupXml, true);
 
             // Update db list.
             if (pluGroupDb is not null && isSave && !pluGroupsDb.Select(x => x.IdentityValueUid).Contains(pluGroupDb.IdentityValueUid))
@@ -103,7 +104,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluGroupXml.Uid1C, ex);
+            AddResponse1cException(response, pluGroupXml.Uid1c, ex);
         }
     }
 
@@ -124,7 +125,7 @@ public partial class ControllerHelper
                         AddResponse1cPluGroupsFks(response, pluGroupsFksDb, itemXml);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1cException(response, itemXml.Uid1C, itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
+                        AddResponse1cException(response, itemXml.Uid1c, itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
                         break;
                 }
             }

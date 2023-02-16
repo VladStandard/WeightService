@@ -6,7 +6,7 @@ namespace DataCore.Sql.Core.Interfaces;
 // ReSharper disable once InconsistentNaming
 public interface ISqlTable1c : ISqlTable
 {
-   public Guid Uid1C { get; set; }
+   public Guid Uid1c { get; set; }
 
    public void UpdateProperties(ISqlTable1c item);
 }

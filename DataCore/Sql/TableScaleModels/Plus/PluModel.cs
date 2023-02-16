@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 /// Table "PLUS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluModel)} | {nameof(Uid1C)} = {Uid1C} | {Name} | {nameof(Number)} = {Number} | {nameof(Code)} = {Code}")]
+[DebuggerDisplay("{nameof(PluModel)} | {nameof(Uid1C)} = {Uid1c} | {Name} | {Number} | {Code}")]
 public class PluModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -369,7 +369,7 @@ public class PluModel : SqlTableBase1c
             PackageTypeName = plu.PackageTypeName;
         if (plu.PackageTypeWeight > 0)
             PackageTypeWeight = plu.PackageTypeWeight;
-        Uid1C = plu.IdentityValueUid;
+        Uid1c = plu.IdentityValueUid;
         if (plu.AttachmentsCount > 0)
             AttachmentsCount = plu.AttachmentsCount;
     }

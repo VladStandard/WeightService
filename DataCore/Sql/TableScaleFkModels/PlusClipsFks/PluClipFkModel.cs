@@ -5,7 +5,6 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.Plus;
 

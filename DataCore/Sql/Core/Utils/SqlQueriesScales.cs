@@ -11,10 +11,10 @@ public static partial class SqlQueries
         {
             public static class PluNestingFks
             {
-                public static readonly string GetList = @"
+                public static string GetList(bool isSetPluUid) => @$"
 -- PLUS_NESTING_FK SELECT AS OBJECTS
 SELECT 
-	-- [DB_SCALES].[PLUS_NESTING_FK]
+	-- [DB_SCALES].[PLUS_NESTING_FK] | 0 - 10
 	 [PNFK].[UID]
 	,[PNFK].[CREATE_DT]
 	,[PNFK].[CHANGE_DT]
@@ -26,14 +26,14 @@ SELECT
 	,[PNFK].[WEIGHT_NOM]
 	,[PNFK].[PLU_BUNDLE_FK]
 	,[PNFK].[BOX_UID]
-	-- [DB_SCALES].[PLUS_BUNDLES_FK]
+	-- [DB_SCALES].[PLUS_BUNDLES_FK] | 11 - 16
 	,[PBFK].[UID] [PLU_BUNDLE_FK_UID]
 	,[PBFK].[CREATE_DT] [PLU_BUNDLE_FK_CREATE_DT]
 	,[PBFK].[CHANGE_DT] [PLU_BUNDLE_FK_CHANGE_DT]
 	,[PBFK].[IS_MARKED] [PLU_BUNDLE_FK_IS_MARKED]
 	,[PBFK].[PLU_UID] [PLU_BUNDLE_FK_PLU_UID]
 	,[PBFK].[BUNDLE_UID] [PLU_BUNDLE_FK_BUNDLE_UID]
-	-- [DB_SCALES].[PLUS]
+	-- [DB_SCALES].[PLUS] | 17 - 30
 	,[P].[UID] [PLU_UID]
 	,[P].[CREATE_DT][PLU_CREATE_DT]
 	,[P].[CHANGE_DT] [PLU_CHANGE_DT]
@@ -48,26 +48,30 @@ SELECT
 	,[P].[ITF14] [PLU_ITF14]
 	,[P].[IS_CHECK_WEIGHT] [PLU_IS_CHECK_WEIGHT]
 	,[P].[NOMENCLATURE_ID] [PLU_NOMENCLATURE_ID]
-	-- [DB_SCALES].[BUNDLES]
+	-- [DB_SCALES].[BUNDLES] | 31 - 36
 	,[BU].[UID] [BUNDLE_UID]
 	,[BU].[CREATE_DT] [BUNDLE_CREATE_DT]
 	,[BU].[CHANGE_DT] [BUNDLE_CHANGE_DT]
 	,[BU].[IS_MARKED] [BUNDLE_IS_MARKED]
 	,[BU].[NAME] [BUNDLE_NAME]
 	,[BU].[WEIGHT] [BUNDLE_WEIGHT]
-	-- [DB_SCALES].[BOXES]
+	-- [DB_SCALES].[BOXES] | 37 - 42
 	,[B].[UID] [BOX_UID]
 	,[B].[CREATE_DT] [BOX_CREATE_DT]
 	,[B].[CHANGE_DT] [BOX_CHANGE_DT]
 	,[B].[IS_MARKED] [BOX_IS_MARKED]
 	,[B].[NAME] [BOX_NAME]
 	,[B].[WEIGHT] [BOX_WEIGHT]
+	-- UID_1C | 43 - 45
+	,[P].[UID_1C] [PLU_UID_1C]
+	,[B].[UID_1C] [BOX_UID_1C]
+	,[BU].[UID_1C] [BUNDLE_UID_1C]
 FROM [DB_SCALES].[PLUS_NESTING_FK] [PNFK]
 LEFT JOIN [DB_SCALES].[PLUS_BUNDLES_FK] [PBFK] ON [PNFK].[PLU_BUNDLE_FK] = [PBFK].[UID]
 LEFT JOIN [DB_SCALES].[PLUS] [P] ON [PBFK].[PLU_UID] = [P].[UID]
 LEFT JOIN [DB_SCALES].[BUNDLES] [BU] ON [PBFK].[BUNDLE_UID] = [BU].[UID]
 LEFT JOIN [DB_SCALES].[BOXES] [B] ON [PNFK].[BOX_UID] = [B].[UID]
-WHERE [P].[UID] = :P_UID
+{(isSetPluUid ? "WHERE [P].[UID] = :P_UID" : "")}
 ORDER BY [P].[NUMBER];
                 ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             }

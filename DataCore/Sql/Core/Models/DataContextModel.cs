@@ -47,6 +47,7 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
+// ReSharper disable InconsistentNaming
 
 namespace DataCore.Sql.Core.Models;
 
@@ -486,11 +487,12 @@ public class DataContextModel
         object[] objects = DataAccess.GetArrayObjectsNotNullable(sqlCrudConfig);
         foreach (object obj in objects)
         {
-            if (obj is object[] { Length: 43 } item)
+            if (obj is object[] { Length: 46 } item)
             {
                 if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                 {
                     PluBundleFkModel pluBundle = new();
+                    // -- [DB_SCALES].[PLUS_BUNDLES_FK] | 11 - 16
                     if (Guid.TryParse(Convert.ToString(item[11]), out Guid pluBundleUid))
                     {
                         pluBundle.IdentityValueUid = pluBundleUid;
@@ -498,6 +500,8 @@ public class DataContextModel
                         pluBundle.ChangeDt = Convert.ToDateTime(item[13]);
                         pluBundle.IsMarked = Convert.ToBoolean(item[14]);
                     }
+
+                    // -- [DB_SCALES].[PLUS] | 17 - 30
                     if (Guid.TryParse(Convert.ToString(item[17]), out Guid pluUid))
                     {
                         pluBundle.Plu.IdentityValueUid = pluUid;
@@ -514,6 +518,8 @@ public class DataContextModel
                         pluBundle.Plu.Itf14 = Convert.ToString(item[28]);
                         pluBundle.Plu.IsCheckWeight = Convert.ToBoolean(item[29]);
                     }
+
+                    // -- [DB_SCALES].[BUNDLES] | 31 - 36
                     if (Guid.TryParse(Convert.ToString(item[31]), out Guid bundleUid))
                     {
                         pluBundle.Bundle.IdentityValueUid = bundleUid;
@@ -523,7 +529,9 @@ public class DataContextModel
                         pluBundle.Bundle.Name = Convert.ToString(item[35]);
                         pluBundle.Bundle.Weight = Convert.ToDecimal(item[36]);
                     }
+
                     BoxModel box = new();
+                    // -- [DB_SCALES].[BOXES] | 37 - 42
                     if (Guid.TryParse(Convert.ToString(item[37]), out Guid boxUid))
                     {
                         box.IdentityValueUid = boxUid;
@@ -533,6 +541,15 @@ public class DataContextModel
                         box.Name = Convert.ToString(item[41]);
                         box.Weight = Convert.ToDecimal(item[42]);
                     }
+
+                    // -- UID_1C | 43 - 45
+                    if (Guid.TryParse(Convert.ToString(item[43]), out Guid pluUid1c))
+                        pluBundle.Plu.Uid1c = pluUid1c;
+                    if (Guid.TryParse(Convert.ToString(item[44]), out Guid boxUid1c))
+                        box.Uid1c = boxUid1c;
+                    if (Guid.TryParse(Convert.ToString(item[45]), out Guid bundleUid1c))
+                        pluBundle.Bundle.Uid1c = bundleUid1c;
+                    // All.
                     PluNestingFks.Add(new()
                     {
                         IdentityValueUid = uid,
@@ -549,6 +566,8 @@ public class DataContextModel
                     });
                 }
             }
+            else
+                throw new Exception($"Exception length in {nameof(GetListNotNullablePluNestingFks)} for native query!");
         }
         return PluNestingFks.Cast<T>().ToList();
     }

@@ -4,7 +4,6 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.PlusFks;
 
 namespace DataCore.Sql.TableScaleModels.PlusGroups;
 
@@ -12,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.PlusGroups;
 /// Table "PLUS_GROUPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluGroupModel)} | {nameof(Uid1C)} = {Uid1C} | {nameof(IsGroup)} = {IsGroup} | {Code}")]
+[DebuggerDisplay("{nameof(PluGroupModel)} | {nameof(Uid1C)} = {Uid1c} | {nameof(IsGroup)} = {IsGroup} | {Code}")]
 public class PluGroupModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -107,7 +106,7 @@ public class PluGroupModel : SqlTableBase1c
         // Get properties from /api/send_nomenclatures_groups/.
         if (item is not PluGroupModel pluGroup) return;
         Code = pluGroup.Code;
-        Uid1C = pluGroup.IdentityValueUid;
+        Uid1c = pluGroup.IdentityValueUid;
     }
 
     #endregion

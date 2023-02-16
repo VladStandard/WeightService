@@ -75,6 +75,12 @@ public class SqlCrudConfigModel : ICloneable
         IsResultAddFieldEmpty = isResultAddFieldEmpty;
     }
 
+    public SqlCrudConfigModel(string query, bool isResultAddFieldEmpty) :
+        this(query, new List<SqlParameter>())
+    {
+        IsResultAddFieldEmpty = isResultAddFieldEmpty;
+    }
+
 	public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders,
 		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0) : this()
     {

@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
 /// Table "NOMENCLATURES_CHARACTERISTICS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluCharacteristicModel)} | {nameof(Uid1C)} = {Uid1C} | {AttachmentsCount}")]
+[DebuggerDisplay("{nameof(PluCharacteristicModel)} | {nameof(Uid1C)} = {Uid1c} | {AttachmentsCount}")]
 public class PluCharacteristicModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor

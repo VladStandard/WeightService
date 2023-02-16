@@ -4,7 +4,6 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.Scales;
 

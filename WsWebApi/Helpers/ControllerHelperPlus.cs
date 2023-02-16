@@ -54,24 +54,24 @@ public partial class ControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.IdentityValueUid, Guid.Empty))
             {
-                AddResponse1cException(response, pluXml.Uid1C, "Empty GUID!", "");
+                AddResponse1cException(response, pluXml.Uid1c, "Empty GUID!", "");
                 return;
             }
 
             // Find by Uid1C -> Update exists.
-            PluModel? pluDb = plusDb.Find(item => Equals(item.Uid1C, pluXml.IdentityValueUid));
-            if (UpdateItemDb(response, pluXml.Uid1C, pluXml, pluDb, true)) return;
+            PluModel? pluDb = plusDb.Find(item => Equals(item.Uid1c, pluXml.IdentityValueUid));
+            if (UpdateItemDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
 
             // Find by Code -> Update exists.
             pluDb = plusDb.Find(item => Equals(item.Code, pluXml.Code));
-            if (UpdateItemDb(response, pluXml.Uid1C, pluXml, pluDb, true)) return;
+            if (UpdateItemDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
 
             // Find by Number -> Update exists.
             pluDb = plusDb.Find(item => Equals(item.Number, pluXml.Number));
-            if (UpdateItemDb(response, pluXml.Uid1C, pluXml, pluDb, true)) return;
+            if (UpdateItemDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluXml, true);
+            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluXml, true);
 
             // Update db list.
             if (pluDb is not null && isSave && !plusDb.Select(x => x.IdentityValueUid).Contains(pluDb.IdentityValueUid))
@@ -79,7 +79,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluXml.Uid1C, ex);
+            AddResponse1cException(response, pluXml.Uid1c, ex);
         }
     }
 
@@ -105,13 +105,13 @@ public partial class ControllerHelper
 
             // Find by Identity -> Update exists.
             PluFkModel? pluFkDb = pluFksDb.Find(item =>
-                Equals(item.Plu.Uid1C, pluFk.Plu.Uid1C) &&
-                Equals(item.Parent.Uid1C, pluFk.Parent.Uid1C) &&
-                Equals(item.Category?.Uid1C, pluFk.Category?.Uid1C));
-            if (UpdateItemDb(response, pluXml.Uid1C, pluFk, pluFkDb, false)) return;
+                Equals(item.Plu.Uid1c, pluFk.Plu.Uid1c) &&
+                Equals(item.Parent.Uid1c, pluFk.Parent.Uid1c) &&
+                Equals(item.Category?.Uid1c, pluFk.Category?.Uid1c));
+            if (UpdateItemDb(response, pluXml.Uid1c, pluFk, pluFkDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluFk, false);
+            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluFk, false);
 
             // Update db list.
             if (isSave && !pluFksDb.Select(x => x.IdentityValueUid).Contains(pluFk.IdentityValueUid))
@@ -119,7 +119,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluXml.Uid1C, ex);
+            AddResponse1cException(response, pluXml.Uid1c, ex);
         }
     }
 
@@ -139,14 +139,14 @@ public partial class ControllerHelper
         if (!Equals(uid, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new(nameof(SqlTableBase1c.Uid1C), SqlFieldComparerEnum.Equal, uid) },
+                { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (!isCheckGroup)
             {
                 if (itemDb is null || itemDb.IsNew)
                 {
-                    AddResponse1cException(response, pluXml.Uid1C, new($"{refName} with '{uid}' is not found!"));
+                    AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
                     return false;
                 }
                 return true;
@@ -154,7 +154,7 @@ public partial class ControllerHelper
             // isCheckGroup.
             if (itemDb is null || itemDb.IsNew || !itemDb.IsGroup)
             {
-                AddResponse1cException(response, pluXml.Uid1C, new($"{refName} with '{uid}' is not found!"));
+                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
                 return false;
             }
             return true;
@@ -177,12 +177,12 @@ public partial class ControllerHelper
         if (!Equals(uid, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1C), SqlFieldComparerEnum.Equal, uid) },
+                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
-                AddResponse1cException(response, pluXml.Uid1C, new($"{refName} with '{uid}' is not found!"));
+                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
                 return false;
             }
             return true;
@@ -205,12 +205,12 @@ public partial class ControllerHelper
         if (!Equals(uid, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1C), SqlFieldComparerEnum.Equal, uid) },
+                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<ClipModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
-                AddResponse1cException(response, pluXml.Uid1C, new($"{refName} with '{uid}' is not found!"));
+                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
                 return false;
             }
             return true;
@@ -233,12 +233,12 @@ public partial class ControllerHelper
         if (!Equals(uid, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1C), SqlFieldComparerEnum.Equal, uid) },
+                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<BoxModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
-                AddResponse1cException(response, pluXml.Uid1C, new($"{refName} with '{uid}' is not found!"));
+                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
                 return false;
             }
             return true;
@@ -254,12 +254,12 @@ public partial class ControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.BoxTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.BoxTypeName))
             {
-                AddResponse1cException(response, pluXml.Uid1C, $"Empty {nameof(pluXml.BoxTypeGuid)}!", "");
+                AddResponse1cException(response, pluXml.Uid1c, $"Empty {nameof(pluXml.BoxTypeGuid)}!", "");
                 return;
             }
 
             // Find by Uid1C -> Update exists.
-            BoxModel? boxDb = boxesDb.Find(item => Equals(item.Uid1C, pluXml.BoxTypeGuid));
+            BoxModel? boxDb = boxesDb.Find(item => Equals(item.Uid1c, pluXml.BoxTypeGuid));
             if (UpdateBoxDb(response, pluXml, boxDb, false)) return;
 
             // Find by Name -> Update exists.
@@ -269,7 +269,7 @@ public partial class ControllerHelper
             // Not find -> Add new.
             boxDb = new();
             boxDb.UpdateProperties(pluXml);
-            bool isSave = SaveItemDb(response, boxDb, false);
+            bool isSave = SaveItemDb(response, pluXml.Uid1c, boxDb, false);
 
             // Update db list.
             if (isSave && !boxesDb.Select(x => x.IdentityValueUid).Contains(boxDb.IdentityValueUid))
@@ -277,7 +277,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluXml.Uid1C, ex);
+            AddResponse1cException(response, pluXml.Uid1c, ex);
         }
     }
 
@@ -289,12 +289,12 @@ public partial class ControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.PackageTypeName))
             {
-                AddResponse1cException(response, pluXml.Uid1C, $"Empty {nameof(pluXml.PackageTypeGuid)}!", "");
+                AddResponse1cException(response, pluXml.Uid1c, $"Empty {nameof(pluXml.PackageTypeGuid)}!", "");
                 return;
             }
 
             // Find by Uid1C -> Update exists.
-            BundleModel? bundleDb = bundlesDb.Find(item => Equals(item.Uid1C, pluXml.PackageTypeGuid));
+            BundleModel? bundleDb = bundlesDb.Find(item => Equals(item.Uid1c, pluXml.PackageTypeGuid));
             if (UpdateBundleDb(response, pluXml, bundleDb, false)) return;
 
             // Find by Name -> Update exists.
@@ -304,7 +304,7 @@ public partial class ControllerHelper
             // Not find -> Add new.
             bundleDb = new();
             bundleDb.UpdateProperties(pluXml);
-            bool isSave = SaveItemDb(response, bundleDb, false);
+            bool isSave = SaveItemDb(response, pluXml.Uid1c, bundleDb, false);
 
             // Update db list.
             if (isSave && !bundlesDb.Select(x => x.IdentityValueUid).Contains(bundleDb.IdentityValueUid))
@@ -312,7 +312,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluXml.Uid1C, ex);
+            AddResponse1cException(response, pluXml.Uid1c, ex);
         }
     }
 
@@ -336,12 +336,12 @@ public partial class ControllerHelper
             };
 
             // Find by Identity -> Update exists | UQ_BUNDLES_FK.
-            PluBundleFkModel? pluBundleFkDb = pluBundlesFksDb.Find(item => Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C));
+            PluBundleFkModel? pluBundleFkDb = pluBundlesFksDb.Find(item => Equals(item.Plu.Uid1c, pluBundleFk.Plu.Uid1c));
             if (pluBundleFkDb is not null)
-                if (UpdateItemDb(response, pluXml.Uid1C, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
+                if (UpdateItemDb(response, pluXml.Uid1c, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluBundleFk, false);
+            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluBundleFk, false);
 
             // Update db list.
             if (isSave && !pluBundlesFksDb.Select(x => x.IdentityValueUid).Contains(pluBundleFk.IdentityValueUid))
@@ -349,7 +349,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluXml.Uid1C, ex);
+            AddResponse1cException(response, pluXml.Uid1c, ex);
         }
         return pluBundleFk;
     }
@@ -362,12 +362,12 @@ public partial class ControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.ClipTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.ClipTypeName))
             {
-                AddResponse1cException(response, pluXml.Uid1C, $"Empty {nameof(pluXml.ClipTypeGuid)}!", "");
+                AddResponse1cException(response, pluXml.Uid1c, $"Empty {nameof(pluXml.ClipTypeGuid)}!", "");
                 return;
             }
 
             // Find by Uid1C -> Update exists.
-            ClipModel? clipDb = clipsDb.Find(item => Equals(item.Uid1C, pluXml.ClipTypeGuid));
+            ClipModel? clipDb = clipsDb.Find(item => Equals(item.Uid1c, pluXml.ClipTypeGuid));
             if (UpdateClipDb(response, pluXml, clipDb, false)) return;
 
             // Find by Name -> Update exists.
@@ -377,7 +377,7 @@ public partial class ControllerHelper
             // Not find -> Add new.
             clipDb = new();
             clipDb.UpdateProperties(pluXml);
-            bool isSave = SaveItemDb(response, clipDb, false);
+            bool isSave = SaveItemDb(response, pluXml.Uid1c, clipDb, false);
 
             // Update db list.
             if (isSave && !clipsDb.Select(x => x.IdentityValueUid).Contains(clipDb.IdentityValueUid))
@@ -385,7 +385,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluXml.Uid1C, ex);
+            AddResponse1cException(response, pluXml.Uid1c, ex);
         }
     }
 
@@ -408,11 +408,11 @@ public partial class ControllerHelper
             };
 
             // Find by Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
-            PluClipFkModel? pluClipFkDb = pluClipsFksDb.Find(item => Equals(item.Plu.Uid1C, pluClipFk.Plu.Uid1C));
-            if (UpdateItemDb(response, pluXml.Uid1C, pluClipFk, pluClipFkDb, false)) return;
+            PluClipFkModel? pluClipFkDb = pluClipsFksDb.Find(item => Equals(item.Plu.Uid1c, pluClipFk.Plu.Uid1c));
+            if (UpdateItemDb(response, pluXml.Uid1c, pluClipFk, pluClipFkDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluClipFk, false);
+            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluClipFk, false);
 
             // Update db list.
             if (isSave && !pluClipsFksDb.Select(x => x.IdentityValueUid).Contains(pluClipFk.IdentityValueUid))
@@ -420,7 +420,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluXml.Uid1C, ex);
+            AddResponse1cException(response, pluXml.Uid1c, ex);
         }
     }
 
@@ -438,21 +438,26 @@ public partial class ControllerHelper
             PluNestingFkModel pluNestingFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
+                PluBundle = pluBundleFk,
                 Box = box,
-                PluBundle = pluBundleFk
             };
 
             // Find by Identity -> Update exists | UQ_PLUS_NESTING_FK.
-            PluNestingFkModel? pluNestingFkDb = pluNestingFksDb.Find(item => 
-                Equals(item.Box.Uid1C, pluNestingFk.Box.Uid1C) &&
-                Equals(item.PluBundle.Plu.Uid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
-                Equals(item.PluBundle.Bundle.Uid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
-                Equals(item.BundleCount, pluXml.AttachmentsCount)
-                );
-            if (UpdateItemDb(response, pluXml.Uid1C, pluNestingFk, pluNestingFkDb, false)) return;
+            PluNestingFkModel? pluNestingFkDb = pluNestingFksDb.FirstOrDefault(item => 
+                    Equals(item.Box.Uid1c, pluNestingFk.Box.Uid1c) && 
+                    Equals(item.PluBundle.Plu.Uid1c, pluNestingFk.PluBundle.Plu.Uid1c) && 
+                    Equals(item.PluBundle.Bundle.Uid1c, pluNestingFk.PluBundle.Bundle.Uid1c) && 
+                    Equals(item.BundleCount, pluXml.AttachmentsCount));
+            //PluNestingFkModel? pluNestingFkDb = pluNestingFksDb.Find(item =>
+            //    Equals(item.Box.Uid1C, pluNestingFk.Box.Uid1C) &&
+            //    Equals(item.PluBundle.Plu.Uid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
+            //    Equals(item.PluBundle.Bundle.Uid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
+            //    Equals(item.BundleCount, pluXml.AttachmentsCount)
+            //    );
+            if (UpdateItemDb(response, pluXml.Uid1c, pluNestingFk, pluNestingFkDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluNestingFk, false);
+            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluNestingFk, false);
 
             // Update db list.
             if (isSave && !pluNestingFksDb.Select(x => x.IdentityValueUid).Contains(pluNestingFk.IdentityValueUid))
@@ -460,7 +465,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluXml.Uid1C, ex);
+            AddResponse1cException(response, pluXml.Uid1c, ex);
         }
     }
 
@@ -505,7 +510,8 @@ public partial class ControllerHelper
             List<PluBundleFkModel> pluBundlesFksDb = DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
             List<ClipModel> clipsDb = DataContext.GetListNotNullable<ClipModel>(sqlCrudConfig);
             List<PluClipFkModel> pluClipsFksDb = DataContext.GetListNotNullable<PluClipFkModel>(sqlCrudConfig);
-            List<PluNestingFkModel> pluNestingFksDb = DataContext.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
+            List<PluNestingFkModel> pluNestingFksDb = DataContext.GetListNotNullable<PluNestingFkModel>(
+                new(DataCore.Sql.Core.Utils.SqlQueries.DbScales.Tables.PluNestingFks.GetList(false), false));
             List<PluModel> plusXml = GetXmlPluList(xml);
             foreach (PluModel pluXml in plusXml)
             {
@@ -530,7 +536,7 @@ public partial class ControllerHelper
                         AddResponse1cPlusNestingFks(response, pluBundleFk, pluNestingFksDb, pluXml);
                 }
                 if (pluXml.ParseResult.Status == ParseStatus.Error)
-                    AddResponse1cException(response, pluXml.Uid1C, pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
+                    AddResponse1cException(response, pluXml.Uid1c, pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
             }
         }, format, false);
 

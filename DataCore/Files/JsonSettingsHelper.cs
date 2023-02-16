@@ -49,22 +49,22 @@ public class JsonSettingsHelper
         private set => _remote = value;
     }
 
-    private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
-	public FileLoggerHelper FileLogger { get; private set; } = FileLoggerHelper.Instance;
+    private AppVersionHelper AppVersion => AppVersionHelper.Instance;
+    private FileLoggerHelper FileLogger => FileLoggerHelper.Instance;
 	private string _remoteDir;
 	private string RemoteDir
     {
 	    get
 	    {
-		    if (!string.IsNullOrEmpty(_remoteDir) && Directory.Exists(_remoteDir))
+		    if (!string.IsNullOrEmpty(_remoteDir) && Path.GetDirectoryName(_remoteDir) is not null)
 			    return _remoteDir;
 		    string tempDir = @"\\palych\Install\VSSoft\appsettings\";
-		    if (Directory.Exists(tempDir))
+		    if (Path.GetDirectoryName(tempDir) is not null)
 			    _remoteDir = tempDir;
 		    else
 		    {
 			    tempDir = @"h:\Install\VSSoft\appsettings\";
-			    if (Directory.Exists(tempDir))
+			    if (Path.GetDirectoryName(tempDir) is not null)
 				    _remoteDir = tempDir;
 		    }
 		    return _remoteDir;
@@ -110,7 +110,7 @@ public class JsonSettingsHelper
             AppVersion.Setup(Assembly.GetExecutingAssembly());
             FileLogger.Setup(localDir, appName);
             string subDir = Path.Combine(localDir, BlazorSubDir7);
-			if (Directory.Exists(subDir))
+			if (Path.GetDirectoryName(subDir) is not null)
 			{
 				// Local folder.
 				FileLogger.Setup(subDir, appName);
@@ -220,12 +220,12 @@ public class JsonSettingsHelper
 
 	private void CheckUpdates(string localDir)
 	{
-		if (!Directory.Exists(RemoteDir))
+		if (Path.GetDirectoryName(RemoteDir) is null)
 		{
 			throw new(LocaleCore.System.JsonSettingsRemoteFolderNotFound);
 		}
 		string remoteFile = Path.Combine(RemoteDir, FileName);
-		if (!File.Exists(remoteFile))
+		if (Path.GetDirectoryName(RemoteDir) is null)
 		{
 			throw new(LocaleCore.System.JsonSettingsRemoteFileNotFound);
 		}

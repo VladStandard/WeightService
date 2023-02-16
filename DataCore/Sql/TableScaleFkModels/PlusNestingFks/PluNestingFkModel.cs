@@ -6,9 +6,7 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
-using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleModels.Boxes;
-using static DataCore.Sql.Core.Utils.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 

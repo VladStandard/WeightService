@@ -4,10 +4,8 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
-using NHibernate.SqlCommand;
 
 namespace DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 

@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Boxes;
 /// Table "BOXES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(BoxModel)} | {nameof(Uid1C)} = {Uid1C} | {Name} | {Weight}")]
+[DebuggerDisplay("{nameof(BoxModel)} | {nameof(Uid1C)} = {Uid1c} | {Name} | {Weight}")]
 public class BoxModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -83,7 +83,7 @@ public class BoxModel : SqlTableBase1c
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) return;
-        Uid1C = plu.BoxTypeGuid;
+        Uid1c = plu.BoxTypeGuid;
         Name = plu.BoxTypeName;
         Weight = plu.BoxTypeWeight;
     }

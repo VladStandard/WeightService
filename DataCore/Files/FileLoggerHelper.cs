@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Helpers;
+using System.IO;
 
 namespace DataCore.Files;
 
@@ -21,7 +22,7 @@ public class FileLoggerHelper
 
     public void Setup(string dir, string file)
     {
-        if (!Directory.Exists(dir) || string.IsNullOrEmpty(file)) return;
+        if (Path.GetDirectoryName(dir) is null || string.IsNullOrEmpty(file)) return;
         LogFileName = Path.Combine(dir, $"{file}.txt");
         StoreMessage($"Debug mode: {DebugHelper.Instance.IsDebug}");
     }

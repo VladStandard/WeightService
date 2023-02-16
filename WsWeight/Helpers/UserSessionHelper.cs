@@ -884,7 +884,7 @@ public class UserSessionHelper : BaseViewModel
         else
         {
             SqlCrudConfigModel sqlCrudConfig = new(
-                SqlQueries.DbScales.Tables.PluNestingFks.GetList, new SqlParameter("P_UID", plu.IdentityValueUid), true);
+                SqlQueries.DbScales.Tables.PluNestingFks.GetList(true), new("P_UID", plu.IdentityValueUid), true);
             PluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
         }
     }

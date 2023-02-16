@@ -39,9 +39,11 @@ public class SettingsHelperTests
 		bool actual = Settings.SetupAndCheckDirs(@"c:\Program Files (x86)\VladimirStandardCorp\ScalesUI", SilentUiEnum.True,
 			Lang.Russian);
 		Assert.AreEqual(
-			Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\"), actual);
+            Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\") is not null,
+            actual);
 
-		if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\"))
+		if (Path.GetDirectoryName(Environment.GetFolderPath(
+                Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\") is not null)
 		{
 			TestContext.WriteLine("DirMain: " + Settings.DirMain);
 			Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\", Settings.DirMain);

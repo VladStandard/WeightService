@@ -27,10 +27,10 @@ public partial class ControllerHelper
         {
             // Find by Identity -> Update exists.
             PluCharacteristicModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
-            if (UpdateItemDb(response, pluCharacteristicXml.Uid1C, pluCharacteristicXml, itemDb, true)) return;
+            if (UpdateItemDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicXml, itemDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluCharacteristicXml, true);
+            bool isSave = SaveItemDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicXml, true);
 
             // Update db list.
             if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(pluCharacteristicXml.IdentityValueUid))
@@ -38,7 +38,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluCharacteristicXml.Uid1C, ex);
+            AddResponse1cException(response, pluCharacteristicXml.Uid1c, ex);
         }
     }
 
@@ -57,7 +57,7 @@ public partial class ControllerHelper
                         AddResponse1cPluCharacteristics(response, itemsDb, itemXml);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1cException(response, itemXml.Uid1C, itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
+                        AddResponse1cException(response, itemXml.Uid1c, itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
                         break;
                 }
             }

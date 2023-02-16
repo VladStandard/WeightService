@@ -4,7 +4,6 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.Templates;
 

@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Brands;
 /// </summary>
 [Serializable]
 [XmlRoot("Brand", Namespace = "", IsNullable = false)]
-[DebuggerDisplay("{nameof(BrandModel)} | {nameof(Uid1C)} = {Uid1C} | {Code} | {Name}")]
+[DebuggerDisplay("{nameof(BrandModel)} | {nameof(Uid1C)} = {Uid1c} | {Code} | {Name}")]
 public class BrandModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -106,7 +106,7 @@ public class BrandModel : SqlTableBase1c
         // Get properties from /api/send_brands/.
         if (item is not BrandModel brand) return;
         Code = brand.Code;
-        Uid1C = brand.IdentityValueUid;
+        Uid1c = brand.IdentityValueUid;
     }
 
     #endregion

@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Clips;
 /// Table "CLIPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(ClipModel)} | {nameof(Uid1C)} = {Uid1C} | {Name} | {Weight}")]
+[DebuggerDisplay("{nameof(ClipModel)} | {nameof(Uid1C)} = {Uid1c} | {Name} | {Weight}")]
 public class ClipModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -82,7 +82,7 @@ public class ClipModel : SqlTableBase1c
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) return;
-        Uid1C = plu.ClipTypeGuid;
+        Uid1c = plu.ClipTypeGuid;
         Name = plu.ClipTypeName;
         Weight = plu.ClipTypeWeight;
     }

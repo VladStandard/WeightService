@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Bundles;
 /// Table "BUNDLES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(BundleModel)} | {nameof(Uid1C)} = {Uid1C} |  {Name} | {Weight}")]
+[DebuggerDisplay("{nameof(BundleModel)} | {nameof(Uid1C)} = {Uid1c} |  {Name} | {Weight}")]
 public class BundleModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -82,7 +82,7 @@ public class BundleModel : SqlTableBase1c
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) return;
-        Uid1C = plu.PackageTypeGuid;
+        Uid1c = plu.PackageTypeGuid;
         Name = plu.PackageTypeName;
         Weight = plu.PackageTypeWeight;
     }

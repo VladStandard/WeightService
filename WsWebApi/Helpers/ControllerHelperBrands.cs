@@ -22,19 +22,19 @@ public partial class ControllerHelper
         try
         {
             // Find by Uid1C -> Update exists.
-            BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1C, brandXml.IdentityValueUid));
-            if (UpdateItemDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
+            BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1c, brandXml.IdentityValueUid));
+            if (UpdateItemDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
             // Find by Code -> Update exists.
             brandDb = brandsDb.Find(item => Equals(item.Code, brandXml.Code));
-            if (UpdateItemDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
+            if (UpdateItemDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
             // Find by Name -> Update exists.
             brandDb = brandsDb.Find(item => Equals(item.Name, brandXml.Name));
-            if (UpdateItemDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
+            if (UpdateItemDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, brandXml, true);
+            bool isSave = SaveItemDb(response, brandXml.Uid1c, brandXml, true);
 
             // Update db list.
             if (brandDb is not null && isSave && !brandsDb.Select(x => x.IdentityValueUid).Contains(brandDb.IdentityValueUid))
@@ -42,7 +42,7 @@ public partial class ControllerHelper
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, brandXml.Uid1C, ex);
+            AddResponse1cException(response, brandXml.Uid1c, ex);
         }
     }
 

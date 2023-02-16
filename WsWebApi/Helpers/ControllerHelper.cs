@@ -220,9 +220,9 @@ public partial class ControllerHelper
         Response1cErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception ?? string.Empty);
         if (!string.IsNullOrEmpty(brand.ParseResult.InnerException))
             responseRecord.Message += " | " + brand.ParseResult.InnerException;
-        if (response.Errors.Select(item => item.Uid).Contains(brand.Uid1C))
+        if (response.Errors.Select(item => item.Uid).Contains(brand.Uid1c))
         {
-            if (response.Errors.Find(item => Equals(item.Uid, brand.Uid1C)) is { } error)
+            if (response.Errors.Find(item => Equals(item.Uid, brand.Uid1c)) is { } error)
                 error.Message += $" | {responseRecord}";
         }
         else
@@ -286,7 +286,7 @@ public partial class ControllerHelper
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                item.Uid1c = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
             case "CODE":
                 item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
@@ -299,7 +299,7 @@ public partial class ControllerHelper
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                item.Uid1c = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
             case "ISGROUP":
                 item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
@@ -370,7 +370,7 @@ public partial class ControllerHelper
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                item.Uid1c = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
             case "ISGROUP":
                 item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
@@ -389,7 +389,7 @@ public partial class ControllerHelper
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                item.Uid1c = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
             case "ATTACHMENTSCOUNT":
                 item.AttachmentsCount = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
