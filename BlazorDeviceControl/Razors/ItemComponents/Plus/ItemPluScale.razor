@@ -2,7 +2,6 @@
 @page "/item/plu_scale"
 @page "/item/plu_scale/new"
 @page "/item/plu_scale/{IdentityUidStr}"
-@using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using DataCore.Sql.TableScaleModels.Plus
 @using DataCore.Sql.TableScaleModels.PlusScales
@@ -18,7 +17,7 @@
 		<tr>
 			<td>@LocaleCore.Table.IsActive</td>
 			<td>
-				<RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsActive/>
+				<RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsActive />
 			</td>
 		</tr>
 		<tr>
@@ -26,7 +25,7 @@
 				<RadzenLink 
 					Style="width: 100%; margin-left: 0;"
 							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.IdentityValueId)
-				    Text=@LocaleCore.Table.Scale/>
+				    Text=@LocaleCore.Table.Scale />
 			</td>
 			<td>
 				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense

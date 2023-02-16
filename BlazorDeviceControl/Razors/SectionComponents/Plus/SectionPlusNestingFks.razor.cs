@@ -5,15 +5,16 @@ using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
-
+        
 public partial class SectionPlusNestingFks : RazorComponentSectionBase<PluNestingFkModel, PluModel>
 {
     #region Public and private fields, properties, constructor
 
     public SectionPlusNestingFks() : base()
     {
-        SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
-        ButtonSettings = new(true, true, true, true, true, true, false);
+        ButtonSettings = new(true, true, true,
+            true, true, true, false);
+        SqlCrudConfigSection.NativeQuery = SqlQueries.DbScales.Tables.PluNestingFks.GetList(true);
     }
 
     #endregion
@@ -26,8 +27,11 @@ public partial class SectionPlusNestingFks : RazorComponentSectionBase<PluNestin
         {
             () =>
             {
-	            SqlCrudConfigSection.AddFilters(nameof(PluBundleFkModel.Plu), ParentRazor?.SqlItem);
-				SqlSectionCast = DataContext.GetListNotNullable<PluNestingFkModel>(SqlCrudConfigSection);
+                SqlCrudConfigSection.NativeParameters = new()
+                {
+                    new("P_UID", SqlItem?.IdentityValueUid),
+                };
+                SqlSectionCast = DataContext.GetListNotNullable<PluNestingFkModel>(SqlCrudConfigSection);
                 AutoShowFilterOnlyTopSetup();
             }
         });

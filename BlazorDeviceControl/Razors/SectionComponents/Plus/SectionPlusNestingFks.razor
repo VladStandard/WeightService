@@ -1,8 +1,8 @@
 ﻿@inherits RazorComponentSectionBase<PluNestingFkModel, PluModel>
 @page "/section/plus_nesting_fks"
-@using BlazorCore.Razors
 @using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 @using DataCore.Sql.TableScaleModels.Plus
+@using BlazorCore.Razors
 
 <RazorSectionReload TItem=@PluNestingFkModel TItemFilter=@PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusNestingFk SqlCrudConfigSection="@SqlCrudConfigSection" />
 
@@ -22,7 +22,7 @@
 		<RazorSectionFieldIsMarked TItem=PluNestingFkModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
 		<RadzenDataGridColumn TItem=PluNestingFkModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Weighted>
 		    <Template Context="itemCast">
-			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.PluBundle.Plu.IsCheckWeight/>
+			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.PluBundle.Plu.IsCheckWeight />
 		    </Template>
 	    </RadzenDataGridColumn>
 		<RadzenDataGridColumn TItem=PluNestingFkModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluNumber>
