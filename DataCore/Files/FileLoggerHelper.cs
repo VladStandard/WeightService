@@ -22,7 +22,7 @@ public class FileLoggerHelper
 
     public void Setup(string dir, string file)
     {
-        if (Path.GetDirectoryName(dir) is null || string.IsNullOrEmpty(file)) return;
+        if (!Directory.Exists(dir) || string.IsNullOrEmpty(file)) return;
         LogFileName = Path.Combine(dir, $"{file}.txt");
         StoreMessage($"Debug mode: {DebugHelper.Instance.IsDebug}");
     }
