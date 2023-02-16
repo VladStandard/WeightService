@@ -3,7 +3,7 @@
 
 using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
-using System.ServiceModel.Channels;
+// ReSharper disable InconsistentNaming
 
 namespace WsWebApi.Helpers;
 
@@ -48,7 +48,6 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private ContentResult NewResponse1cCore<T>(ISessionFactory sessionFactory, Action<T> action,
         string format, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
@@ -70,7 +69,6 @@ public partial class ControllerHelper
         return DataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public ContentResult NewResponse1cFromQuery(ISessionFactory sessionFactory, string query,
         SqlParameter? sqlParameter, string format, bool isTransaction)
     {
@@ -112,95 +110,13 @@ public partial class ControllerHelper
         }, format, isTransaction);
     }
 
-    [Obsolete(@"Deprecated method")]
-    public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end, string format, bool isTransaction)
-    {
-        return NewResponse1cCore<Response1cModel>(sessionFactory, response =>
-        {
-
-            List<SqlFieldFilterModel> sqlFilters = new()
-            {
-                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, start),
-                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, end),
-            };
-
-            SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
-            List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
-
-            // ResponseBarCodeModels barCodes = new(barcodesDb);
-            // response.SerializeAsXmlString<BarCodeModel>(false);
-
-        }, format, isTransaction);
-    }
-
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    //private void AddResponse1cItem<T>(Response1cShortModel response, IReadOnlyCollection<T> listDb, T itemXml) where T : ISqlTable
-    //{
-    //    try
-    //    {
-    //        T? itemDb = listDb.FirstOrDefault(x => x.IsIdentityId
-    //            ? x.IdentityValueId.Equals(itemXml.IdentityValueId) : x.IdentityValueUid.Equals(itemXml.IdentityValueUid));
-
-    //        // Find by Identity -> Update.
-    //        if (itemDb is not null && itemDb.IsNotNew)
-    //        {
-    //            itemDb.UpdateProperties(itemXml);
-    //            (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.Update(itemDb);
-    //            if (dbUpdate.IsOk)
-    //                response.Successes.Add(new(itemXml.IdentityValueUid));
-    //            else
-    //                AddResponse1cException(response, itemXml.IdentityValueUid, dbUpdate.Exception);
-    //            return;
-    //        }
-
-    //        // Find by Code -> Update.
-    //        //itemDb = listDb.Where(x => x.Code.Equals(itemXml.Code)).FirstOrDefault();
-    //        string itemInputCode;
-    //        switch (typeof(T))
-    //        {
-    //            case var cls when cls == typeof(BrandModel):
-    //                if (itemXml is BrandModel brandInput)
-    //                {
-    //                    itemInputCode = brandInput.Code;
-    //                    BrandModel? itemCast = listDb.Cast<BrandModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
-    //                    if (itemCast is T itemT) itemDb = itemT;
-    //                }
-    //                break;
-    //            case var cls when cls == typeof(PluGroupModel):
-    //                if (itemXml is PluGroupModel nomenclatureGroupInput)
-    //                {
-    //                    itemInputCode = nomenclatureGroupInput.Code;
-    //                    PluGroupModel? itemCast = listDb.Cast<PluGroupModel>().FirstOrDefault(x => x.Code.Equals(itemInputCode));
-    //                    if (itemCast is T itemT) itemDb = itemT;
-    //                }
-    //                break;
-    //        }
-    //        if (itemDb is not null && itemDb.IsNotNew)
-    //        {
-    //            (bool IsOk, Exception? Exception) dbDelete = DataContext.DataAccess.Delete(itemDb);
-    //            // Delete was success. Duplicate field Code: {itemInputCode}.
-    //            if (!dbDelete.IsOk)
-    //            {
-    //                AddResponse1cException(response, itemDb.IdentityValueUid, dbDelete.Exception);
-    //                return;
-    //            }
-    //        }
-
-    //        // Not find the duplicate field "Code".
-    //        (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(itemXml, itemXml.Identity);
-    //        // Add was success.
-    //        if (dbSave.IsOk)
-    //            response.Successes.Add(new(itemXml.IdentityValueUid));
-    //        else
-    //            AddResponse1cException(response, itemXml.IdentityValueUid, dbSave.Exception);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        AddResponse1cException(response, itemXml.IdentityValueUid, ex);
-    //    }
-    //}
-
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    /// <summary>
+    /// Add error for response.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="uid"></param>
+    /// <param name="exceptionMessage"></param>
+    /// <param name="innerExceptionMessage"></param>
     private void AddResponse1cException(Response1cShortModel response, Guid uid, string? exceptionMessage, string? innerExceptionMessage)
     {
         Response1cErrorModel responseRecord = new(uid,
@@ -212,9 +128,33 @@ public partial class ControllerHelper
         }
         else
             response.Errors.Add(responseRecord);
+
+        RemoveResponse1cErrorFromSuccess(response, responseRecord);
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    /// <summary>
+    /// Remove error from success for resposne.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="responseRecord"></param>
+    private static void RemoveResponse1cErrorFromSuccess(Response1cShortModel response, Response1cErrorModel responseRecord)
+    {
+        bool isFind;
+        do
+        {
+            isFind = false;
+            foreach (Response1cSuccessModel success in response.Successes)
+            {
+                if (Equals(success.Uid, responseRecord.Uid))
+                {
+                    response.Successes.Remove(success);
+                    isFind = true;
+                    break;
+                }
+            }
+        } while (isFind);
+    }
+
     private void AddResponse1cException(Response1cShortModel response, BrandModel brand)
     {
         Response1cErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception ?? string.Empty);
@@ -229,7 +169,6 @@ public partial class ControllerHelper
             response.Errors.Add(responseRecord);
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cException(Response1cShortModel response, Guid uid, Exception? ex) =>
         AddResponse1cException(response, uid, ex?.Message, ex?.InnerException?.Message);
 
@@ -412,7 +351,7 @@ public partial class ControllerHelper
         return string.Empty;
     }
 
-    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName, 
+    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
         List<string> valuesFalse, List<string> valuesTrue) where T : ISqlTable
     {
         string value = GetXmlAttributeString(xmlNode, item, xmlPropertyName).ToUpper();
@@ -424,23 +363,23 @@ public partial class ControllerHelper
     public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { "0", "FALSE" }, new() { "1", "TRUE" });
 
-    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName, 
+    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
         string valueFalse, string valueTrue) where T : ISqlTable =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { valueFalse }, new() { valueTrue });
 
-    public Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+    public Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         Guid.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out Guid uid) ? uid : Guid.Empty;
 
-    public byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+    public byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         byte.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out byte result) ? result : default;
 
-    public ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+    public ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         ushort.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out ushort result) ? result : default;
 
-    public short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+    public short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         short.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out short result) ? result : default;
 
-    public decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable => 
+    public decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         decimal.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out decimal result) ? result : default;
 
     private List<T> GetNodesListCore<T>(XElement xml, string nodeIdentity, Action<XmlNode, T> action) where T : ISqlTable, new()
@@ -506,7 +445,6 @@ public partial class ControllerHelper
     /// <param name="version"></param>
     /// <param name="format"></param>
     /// <returns></returns>
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public ContentResult NewResponse1cIsNotFound(ISessionFactory sessionFactory, string version, string format) =>
         NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {

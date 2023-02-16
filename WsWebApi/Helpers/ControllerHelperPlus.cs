@@ -90,17 +90,17 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.ParentGuid, Guid.Empty)) return;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? plu)) return;
-            if (!GetPluFkPluDb(response, pluXml, pluXml.ParentGuid, "Parent PLU", true, out PluModel? parent)) return;
-            if (!GetPluFkPluDb(response, pluXml, pluXml.CategoryGuid, "Category PLU", true, out PluModel? category)) return;
-            if (plu is null || parent is null) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? pluDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.ParentGuid, "Parent PLU", true, out PluModel? parentDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.CategoryGuid, "Category PLU", true, out PluModel? categoryDb)) return;
+            if (pluDb is null || parentDb is null) return;
 
             PluFkModel pluFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
-                Plu = plu,
-                Parent = parent,
-                Category = category
+                Plu = pluDb,
+                Parent = parentDb,
+                Category = categoryDb
             };
 
             // Find by Identity -> Update exists.
@@ -324,15 +324,15 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return pluBundleFk;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? plu)) return pluBundleFk;
-            if (!GetPluBundleFkBundleDb(response, pluXml, pluXml.PackageTypeGuid, "Bundle", out BundleModel? bundle)) return pluBundleFk;
-            if (plu is null || bundle is null) return pluBundleFk;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? pluDb)) return pluBundleFk;
+            if (!GetPluBundleFkBundleDb(response, pluXml, pluXml.PackageTypeGuid, "Bundle", out BundleModel? bundleDb)) return pluBundleFk;
+            if (pluDb is null || bundleDb is null) return pluBundleFk;
 
             pluBundleFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
-                Plu = plu,
-                Bundle = bundle
+                Plu = pluDb,
+                Bundle = bundleDb,
             };
 
             // Find by Identity -> Update exists | UQ_BUNDLES_FK.
@@ -396,15 +396,15 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? plu)) return;
-            if (!GetPluClipFkClipDb(response, pluXml, pluXml.ClipTypeGuid, "Clip", out ClipModel? clip)) return;
-            if (plu is null || clip is null) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? pluDb)) return;
+            if (!GetPluClipFkClipDb(response, pluXml, pluXml.ClipTypeGuid, "Clip", out ClipModel? clipDb)) return;
+            if (pluDb is null || clipDb is null) return;
 
             PluClipFkModel pluClipFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
-                Plu = plu,
-                Clip = clip
+                Plu = pluDb,
+                Clip = clipDb
             };
 
             // Find by Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
@@ -432,14 +432,15 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
 
-            if (!GetPluNestingFkBoxDb(response, pluXml, pluXml.BoxTypeGuid, "Box", out BoxModel? box)) return;
-            if (box is null) return;
+            if (!GetPluNestingFkBoxDb(response, pluXml, pluXml.BoxTypeGuid, "Box", out BoxModel? boxDb)) return;
+            if (boxDb is null) return;
 
             PluNestingFkModel pluNestingFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
                 PluBundle = pluBundleFk,
-                Box = box,
+                Box = boxDb,
+                BundleCount = pluXml.AttachmentsCount,
             };
 
             // Find by Identity -> Update exists | UQ_PLUS_NESTING_FK.
@@ -448,12 +449,6 @@ public partial class ControllerHelper
                     Equals(item.PluBundle.Plu.Uid1c, pluNestingFk.PluBundle.Plu.Uid1c) && 
                     Equals(item.PluBundle.Bundle.Uid1c, pluNestingFk.PluBundle.Bundle.Uid1c) && 
                     Equals(item.BundleCount, pluXml.AttachmentsCount));
-            //PluNestingFkModel? pluNestingFkDb = pluNestingFksDb.Find(item =>
-            //    Equals(item.Box.Uid1C, pluNestingFk.Box.Uid1C) &&
-            //    Equals(item.PluBundle.Plu.Uid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
-            //    Equals(item.PluBundle.Bundle.Uid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
-            //    Equals(item.BundleCount, pluXml.AttachmentsCount)
-            //    );
             if (UpdateItemDb(response, pluXml.Uid1c, pluNestingFk, pluNestingFkDb, false)) return;
 
             // Not find -> Add new.

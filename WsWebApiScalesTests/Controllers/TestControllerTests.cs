@@ -7,7 +7,7 @@ using WsWebApi.Models.WebRequests;
 using WsWebApi.Utils;
 using WsWebApiTests.Utils;
 
-namespace WebApiScalesTests.Controllers;
+namespace WsWebApiScalesTests.Controllers;
 
 [TestFixture]
 internal class TestControllerTests

@@ -18,7 +18,7 @@ DEV1C\DVLP (10.0.204.20)		1C-PROD
 Предварительное тестирование	\\palych\Install\VSSoft\Scales-2-Preview\
 Рабочий релиз					\\palych\Install\VSSoft\Scales-3-Release\
 
-## Веб-сервис "Обмен с весовыми постами" / WebApiScales
+## Веб-сервис "Обмен с весовыми постами" / WsWebApiScales
 ✓ IIS-DEV (10.0.204.17)
 Предварительное тестирование	https://scales-dev-preview.kolbasa-vs.local:443/
 Рабочее тестирование			https://scales-dev.kolbasa-vs.local:443/

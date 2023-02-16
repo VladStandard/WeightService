@@ -25,6 +25,9 @@ public partial class ControllerHelper
     {
         try
         {
+            AddResponse1cException(response, pluCharacteristicXml.Uid1c, new Exception("Under construct!"));
+            return;
+
             // Find by Identity -> Update exists.
             PluCharacteristicModel? itemDb = itemsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
             if (UpdateItemDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicXml, itemDb, true)) return;

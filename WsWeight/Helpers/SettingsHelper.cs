@@ -137,7 +137,7 @@ public class SettingsHelper
         DirManuals = string.Empty;
         DirMain = installDir + (installDir.EndsWith(@"\") ? "" : @"\");
 
-        if (Path.GetDirectoryName(DirMain) is null)
+        if (!Directory.Exists(DirMain))
         {
             string message = language == Lang.English ? $@"Directory '{DirMain}' not exists!" : $@"Каталог '{DirMain}' не существует!";
             Console.WriteLine(message);
@@ -185,7 +185,7 @@ public class SettingsHelper
     /// <param name="files"></param>
     public void DirCreateAndMoveFiles(string dir, Collection<string> files)
     {
-        if (Path.GetDirectoryName(dir) is null)
+        if (!Directory.Exists(dir))
         {
             Directory.CreateDirectory(dir);
             Console.WriteLine(@"Directory created.");
@@ -287,7 +287,7 @@ public class SettingsHelper
     /// <param name="dir"></param>
     private void DirClear(string dir)
     {
-        if (Path.GetDirectoryName(dir) is not null)
+        if (Directory.Exists(dir))
         {
             foreach (string dirIn in Directory.GetDirectories(dir))
             {

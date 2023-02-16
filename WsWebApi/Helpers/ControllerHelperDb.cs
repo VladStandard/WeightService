@@ -130,9 +130,7 @@ public partial class ControllerHelper
                 response.Successes.Add(new(importUid));
         }
         else
-        {
             AddResponse1cException(response, importUid, dbSave.Exception);
-        }
         return dbSave.IsOk;
     }
 

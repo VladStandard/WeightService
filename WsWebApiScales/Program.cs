@@ -14,7 +14,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 //});
 
 // NHibernate & JsonSettings & DataAccess.
-JsonSettingsHelper.Instance.SetupWebApp(builder.Environment.ContentRootPath, nameof(WebApiScales));
+JsonSettingsHelper.Instance.SetupWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales));
 builder.Services.AddSingleton(DataAccessHelper.Instance.SessionFactory);
 builder.Services.AddScoped(factory => DataAccessHelper.Instance.SessionFactory.OpenSession());
 //ISessionFactory GetSessionFactory(string? connectionString)
@@ -39,13 +39,8 @@ builder.Services.AddMvc(options =>
     options.RespectBrowserAcceptHeader = true;
     options.ReturnHttpNotAcceptable = true;
     options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
-    //options.FormatterMappings.SetMediaTypeMappingForFormat("string", MediaTypeHeaderValue.Parse("text/plain"));
     options.FormatterMappings.SetMediaTypeMappingForFormat("string", MediaTypeHeaderValue.Parse("application/xml"));
-    //options.FormatterMappings.SetMediaTypeMappingForFormat("XDocument", MediaTypeHeaderValue.Parse("application/xml"));
-    //options.FormatterMappings.SetMediaTypeMappingForFormat("config", MediaTypeHeaderValue.Parse("application/xml"));
-    //options.FormatterMappings.SetMediaTypeMappingForFormat("js", MediaTypeHeaderValue.Parse("application/json"));
 }).AddXmlSerializerFormatters();
-//GlobalConfiguration.Configuration.Formatters.XmlFormatter.UseXmlSerializer = true;
 
 builder.Services.AddControllers();
 builder.Services.AddControllers(options =>

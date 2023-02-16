@@ -4,12 +4,12 @@
 using WsStorage.Enums;
 using WsWebApi.Controllers;
 
-namespace WebApiScales.Controllers;
+namespace WsWebApiScales.Controllers;
 
 /// <summary>
-/// Nomenclature Group controller.
+/// Brand controller.
 /// </summary>
-public class PluGroupController : WebControllerBase
+public class BrandController : WebControllerBase
 {
     #region Public and private fields and properties
 
@@ -17,7 +17,7 @@ public class PluGroupController : WebControllerBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public PluGroupController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public BrandController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -29,22 +29,21 @@ public class PluGroupController : WebControllerBase
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost]
-    [Route("api/send_nomenclatures_groups/")]
-    public ContentResult SendPluGroups([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
+    [Route("api/send_brands/")]
+    public ContentResult SendBrands([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WebApiScales), "api/send_nomenclatures_groups/", dtStamp, xml, format, host, version).ConfigureAwait(false);
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_brands/", dtStamp, xml, format, host, version).ConfigureAwait(false);
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
-                        .NewResponse1cIsNotFound(SessionFactory, version, format),
-                    format),
+                    .NewResponse1cIsNotFound(SessionFactory, version, format), format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cPluGroups(SessionFactory, xml, format), format)
+                .NewResponse1cBrands(SessionFactory, xml, format), format)
         };
-        ControllerHelp.LogResponse(nameof(WebApiScales), "api/send_nomenclatures_groups/", dtStamp, result, format, host, version).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_brands/", dtStamp, result, format, host, version).ConfigureAwait(false);
         return result;
     }
 

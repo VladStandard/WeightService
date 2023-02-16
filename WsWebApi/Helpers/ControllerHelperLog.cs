@@ -29,17 +29,17 @@ public partial class ControllerHelper
     {
         string dtString = StringUtils.FormatDtEng(dtStamp, true).Replace(':', '.');
         // Get directory name.
-        if (Path.GetDirectoryName(RootDirectory) is null) return;
+        if (!Directory.Exists(RootDirectory)) return;
         // Machine dir.
         string directory = RootDirectory + @$"{Environment.MachineName}";
-        if (Path.GetDirectoryName(directory) is null) Directory.CreateDirectory(directory);
+        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
         // App dir.
         directory = Path.Combine(directory, appName);
-        if (Path.GetDirectoryName(directory) is null) Directory.CreateDirectory(directory);
+        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
         // Query dir.
         if (query.StartsWith("api/")) query = query.Remove(0, 4);
         directory = Path.Combine(directory, query);
-        if (Path.GetDirectoryName(directory) is null) Directory.CreateDirectory(directory);
+        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
         // Get file name.
         string filePath = serviceLogType switch
