@@ -4,6 +4,7 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
 
@@ -17,10 +18,16 @@ public class PluCharacteristicModel : SqlTableBase1c
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual decimal AttachmentsCount { get; set; }
+    /// <summary>
+    /// GUID номенклатуры.
+    /// </summary>
+    [XmlIgnore] public virtual Guid NomenclatureGuid{ get; set; }
+
 
     public PluCharacteristicModel() : base(SqlFieldIdentity.Uid)
     {
         AttachmentsCount = 0;
+        NomenclatureGuid = Guid.Empty;
     }
 
     /// <summary>
@@ -31,6 +38,8 @@ public class PluCharacteristicModel : SqlTableBase1c
     protected PluCharacteristicModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         AttachmentsCount = info.GetDecimal(nameof(AttachmentsCount));
+        object nomenclatureGuid = info.GetValue(nameof(NomenclatureGuid), typeof(Guid));
+        NomenclatureGuid = nomenclatureGuid is Guid nomenclatureGuid2 ? nomenclatureGuid2 : Guid.Empty;
     }
 
     #endregion
@@ -55,13 +64,15 @@ public class PluCharacteristicModel : SqlTableBase1c
     public override bool EqualsNew() => Equals(new());
 
     public new virtual bool EqualsDefault() =>
-        base.EqualsDefault() && Equals(AttachmentsCount, (decimal)0);
+        base.EqualsDefault() && Equals(AttachmentsCount, (decimal)0) &&
+        Equals(NomenclatureGuid, Guid.Empty);
 
     public override object Clone()
     {
         PluCharacteristicModel item = new();
         item.CloneSetup(base.CloneCast());
         item.AttachmentsCount = AttachmentsCount;
+        item.NomenclatureGuid = NomenclatureGuid;
         return item;
     }
 
@@ -74,11 +85,7 @@ public class PluCharacteristicModel : SqlTableBase1c
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(AttachmentsCount), AttachmentsCount);
-    }
-
-    public override void UpdateProperties(ISqlTable1c item)
-    {
-        base.UpdateProperties(item);
+        info.AddValue(nameof(NomenclatureGuid), NomenclatureGuid);
     }
 
     #endregion
@@ -87,8 +94,22 @@ public class PluCharacteristicModel : SqlTableBase1c
 
     public virtual bool Equals(PluCharacteristicModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(AttachmentsCount, item.AttachmentsCount);
+        Equals(AttachmentsCount, item.AttachmentsCount) &&
+        Equals(NomenclatureGuid, item.NomenclatureGuid);
+    
     public new virtual PluCharacteristicModel CloneCast() => (PluCharacteristicModel)Clone();
+
+    public override void UpdateProperties(ISqlTable1c item)
+    {
+        base.UpdateProperties(item);
+        // Get properties from /api/send_nomenclatures/.
+        if (item is not PluCharacteristicModel pluCharacteristic) return;
+        Uid1c = pluCharacteristic.IdentityValueUid;
+        if (!Equals(pluCharacteristic.NomenclatureGuid, Guid.Equals))
+            NomenclatureGuid = pluCharacteristic.NomenclatureGuid;
+        if (pluCharacteristic.AttachmentsCount > 0)
+            AttachmentsCount = pluCharacteristic.AttachmentsCount;
+    }
 
     #endregion
 }

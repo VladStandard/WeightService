@@ -330,6 +330,9 @@ public partial class ControllerHelper
             case "GUID":
                 item.Uid1c = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
+            case "NOMENCLATUREGUID":
+                item.NomenclatureGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
             case "ATTACHMENTSCOUNT":
                 item.AttachmentsCount = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
                 break;

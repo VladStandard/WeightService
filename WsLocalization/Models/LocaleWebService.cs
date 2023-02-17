@@ -21,11 +21,12 @@ public class LocaleWebService
     public string Dublicate => Lang == Lang.English ? "Dublicate" : "Дубликат";
     public string FieldBrand => Lang == Lang.English ? "Brand" : "Бренд";
     public string FieldBundle => Lang == Lang.English ? "Bundle" : "Пакет";
-    public string FieldCharacteristic => Lang == Lang.English ? "Characteristic" : "Характеристика";
     public string FieldClip => Lang == Lang.English ? "Clip" : "Клипса";
     public string FieldCode => Lang == Lang.English ? "code" : "код";
     public string FieldGroup => Lang == Lang.English ? "Group" : "Группа";
     public string FieldGroup1Level => Lang == Lang.English ? "Level 1 group" : "Группа 1 уровня";
+    public string FieldGuid => Lang == Lang.English ? "GUID" : "ГУИД";
+    public string FieldNomenclatureCharacteristic => Lang == Lang.English ? "Nomeclature characteristic" : "Номенклатурная характеристика";
     public string FieldNomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";
     public string FieldNomenclatureGroup => Lang == Lang.English ? "Nomenclature group" : "Номенклатурная группа";
     public string FieldNomenclatureParent => Lang == Lang.English ? "Parent nomenclature" : "Родительская номенклатура";

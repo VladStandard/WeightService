@@ -9,6 +9,7 @@ using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Clips;
+using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using FluentValidation.Results;
 // ReSharper disable InconsistentNaming
 
@@ -55,7 +56,8 @@ public partial class ControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.IdentityValueUid, Guid.Empty))
             {
-                AddResponse1cException(response, pluXml.Uid1c, "Empty GUID!", "");
+                AddResponse1cException(response, pluXml.Uid1c, 
+                    $"{LocaleCore.WebService.IsEmpty} {LocaleCore.WebService.FieldGuid}!", "");
                 return;
             }
 
@@ -90,9 +92,9 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.ParentGuid, Guid.Empty)) return;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
-            if (!GetPluFkPluDb(response, pluXml, pluXml.ParentGuid, LocaleCore.WebService.FieldGroup, true, out PluModel? parentDb)) return;
-            if (!GetPluFkPluDb(response, pluXml, pluXml.CategoryGuid, LocaleCore.WebService.FieldGroup1Level, true, out PluModel? categoryDb)) return;
+            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
+            if (!GetPluDb(response, pluXml.ParentGuid, pluXml.Uid1c, LocaleCore.WebService.FieldGroup, true, out PluModel? parentDb)) return;
+            if (!GetPluDb(response, pluXml.CategoryGuid, pluXml.Uid1c, LocaleCore.WebService.FieldGroup1Level, true, out PluModel? categoryDb)) return;
             if (pluDb is null || parentDb is null) return;
 
             PluFkModel pluFk = new()
@@ -123,162 +125,6 @@ public partial class ControllerHelper
         }
     }
 
-    /// <summary>
-    /// Get PLU for PLU from DB.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="pluXml"></param>
-    /// <param name="uid"></param>
-    /// <param name="refName"></param>
-    /// <param name="isCheckGroup"></param>
-    /// <param name="itemDb"></param>
-    /// <returns></returns>
-    private bool GetPluFkPluDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, bool isCheckGroup, out PluModel? itemDb)
-    {
-        itemDb = null;
-        if (!Equals(uid, Guid.Empty))
-        {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
-                true, false, false, false);
-            itemDb = DataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
-            if (!isCheckGroup)
-            {
-                if (itemDb is null || itemDb.IsNew)
-                {
-                    AddResponse1cException(response, pluXml.Uid1c, 
-                        new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
-                    return false;
-                }
-                return true;
-            }
-            // isCheckGroup.
-            if (itemDb is null || itemDb.IsNew || !itemDb.IsGroup)
-            {
-                AddResponse1cException(response, pluXml.Uid1c, 
-                    new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Get bundle for PLU from DB.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="pluXml"></param>
-    /// <param name="uid"></param>
-    /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
-    /// <returns></returns>
-    private bool GetPluBundleFkBundleDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, out BundleModel? itemDb)
-    {
-        itemDb = null;
-        if (!Equals(uid, Guid.Empty))
-        {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
-                true, false, false, false);
-            itemDb = DataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
-            if (itemDb is null || itemDb.IsNew)
-            {
-                AddResponse1cException(response, pluXml.Uid1c, 
-                    new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Get brand for PLU from DB.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="pluXml"></param>
-    /// <param name="uid"></param>
-    /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
-    /// <returns></returns>
-    private bool GetPluBrandFkBrandDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, out BrandModel? itemDb)
-    {
-        itemDb = null;
-        if (!Equals(uid, Guid.Empty))
-        {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
-                true, false, false, false);
-            itemDb = DataContext.DataAccess.GetItemNullable<BrandModel>(sqlCrudConfig);
-            if (itemDb is null || itemDb.IsNew)
-            {
-                AddResponse1cException(response, pluXml.Uid1c, 
-                    new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Get clip for PLU from DB.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="pluXml"></param>
-    /// <param name="uid"></param>
-    /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
-    /// <returns></returns>
-    private bool GetPluClipFkClipDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, out ClipModel? itemDb)
-    {
-        itemDb = null;
-        if (!Equals(uid, Guid.Empty))
-        {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
-                true, false, false, false);
-            itemDb = DataContext.DataAccess.GetItemNullable<ClipModel>(sqlCrudConfig);
-            if (itemDb is null || itemDb.IsNew)
-            {
-                AddResponse1cException(response, pluXml.Uid1c, 
-                    new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Get box for PLU from DB.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="pluXml"></param>
-    /// <param name="uid"></param>
-    /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
-    /// <returns></returns>
-    private bool GetPluNestingFkBoxDb(Response1cShortModel response, PluModel pluXml, Guid uid, string refName, out BoxModel? itemDb)
-    {
-        itemDb = null;
-        if (!Equals(uid, Guid.Empty))
-        {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid) },
-                true, false, false, false);
-            itemDb = DataContext.DataAccess.GetItemNullable<BoxModel>(sqlCrudConfig);
-            if (itemDb is null || itemDb.IsNew)
-            {
-                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
     private void AddResponse1cPlusBoxes(Response1cShortModel response, List<BoxModel> boxesDb, PluModel pluXml)
     {
         try
@@ -286,7 +132,8 @@ public partial class ControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.BoxTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.BoxTypeName))
             {
-                AddResponse1cException(response, pluXml.Uid1c, $"Empty {nameof(pluXml.BoxTypeGuid)}!", "");
+                AddResponse1cException(response, pluXml.Uid1c, 
+                    $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.BoxTypeGuid)}!", "");
                 return;
             }
 
@@ -313,7 +160,6 @@ public partial class ControllerHelper
         }
     }
 
-
     private void AddResponse1cPlusBundles(Response1cShortModel response, List<BundleModel> bundlesDb, PluModel pluXml)
     {
         try
@@ -321,7 +167,8 @@ public partial class ControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.PackageTypeName))
             {
-                AddResponse1cException(response, pluXml.Uid1c, $"Empty {nameof(pluXml.PackageTypeGuid)}!", "");
+                AddResponse1cException(response, pluXml.Uid1c, 
+                    $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.PackageTypeGuid)}!", "");
                 return;
             }
 
@@ -355,8 +202,8 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return pluBundleFk;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return pluBundleFk;
-            if (!GetPluBundleFkBundleDb(response, pluXml, pluXml.PackageTypeGuid, LocaleCore.WebService.FieldBundle, out BundleModel? bundleDb)) return pluBundleFk;
+            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return pluBundleFk;
+            if (!GetBundleDb(response, pluXml.PackageTypeGuid, pluXml.Uid1c, LocaleCore.WebService.FieldBundle, out BundleModel? bundleDb)) return pluBundleFk;
             if (pluDb is null || bundleDb is null) return pluBundleFk;
 
             pluBundleFk = new()
@@ -385,36 +232,14 @@ public partial class ControllerHelper
         return pluBundleFk;
     }
 
-    //private void AddResponse1cPlusBrands(Response1cShortModel response, List<BrandModel> brandsDb, PluModel pluXml)
-    //{
-    //    try
-    //    {
-    //        // Check Uid1C.
-    //        if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
-
-    //        // Find by Uid1C -> Update exists.
-    //        BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1c, pluXml.BrandGuid));
-    //        if (UpdateBrandDb(response, pluXml, brandDb, false)) return;
-
-    //        // Find by Name -> Update exists.
-    //        brandDb = brandsDb.Find(item => Equals(item.Name, pluXml.BrandGuid));
-    //        if (UpdateBrandDb(response, pluXml, brandDb, false)) return;
-
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        AddResponse1cException(response, pluXml.Uid1c, ex);
-    //    }
-    //}
-
     private void AddResponse1cPlusBrandsFks(Response1cShortModel response, List<PluBrandFkModel> pluBrandsFksDb, PluModel pluXml)
     {
         try
         {
             if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
-            if (!GetPluBrandFkBrandDb(response, pluXml, pluXml.BrandGuid, LocaleCore.WebService.FieldBrand, out BrandModel? brandDb)) return;
+            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
+            if (!GetBrandDb(response, pluXml.BrandGuid, pluXml.Uid1c, LocaleCore.WebService.FieldBrand, out BrandModel? brandDb)) return;
             if (pluDb is null || brandDb is null) return;
 
             PluBrandFkModel pluBrandFk = new()
@@ -448,7 +273,8 @@ public partial class ControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.ClipTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.ClipTypeName))
             {
-                AddResponse1cException(response, pluXml.Uid1c, $"Empty {nameof(pluXml.ClipTypeGuid)}!", "");
+                AddResponse1cException(response, pluXml.Uid1c, 
+                    $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.ClipTypeGuid)}!", "");
                 return;
             }
 
@@ -481,8 +307,8 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
-            if (!GetPluClipFkClipDb(response, pluXml, pluXml.ClipTypeGuid, LocaleCore.WebService.FieldClip, out ClipModel? clipDb)) return;
+            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
+            if (!GetClipDb(response, pluXml.ClipTypeGuid, pluXml.Uid1c, LocaleCore.WebService.FieldClip, out ClipModel? clipDb)) return;
             if (pluDb is null || clipDb is null) return;
 
             PluClipFkModel pluClipFk = new()
@@ -516,7 +342,7 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
 
-            if (!GetPluNestingFkBoxDb(response, pluXml, pluXml.BoxTypeGuid, "Box", out BoxModel? boxDb)) return;
+            if (!GetBoxDb(response, pluXml.BoxTypeGuid, pluXml.Uid1c, "Box", out BoxModel? boxDb)) return;
             if (boxDb is null) return;
 
             PluNestingFkModel pluNestingFk = new()
@@ -528,10 +354,10 @@ public partial class ControllerHelper
             };
 
             // Find by Identity -> Update exists | UQ_PLUS_NESTING_FK.
-            PluNestingFkModel? pluNestingFkDb = pluNestingFksDb.FirstOrDefault(item => 
-                    Equals(item.Box.Uid1c, pluNestingFk.Box.Uid1c) && 
-                    Equals(item.PluBundle.Plu.Uid1c, pluNestingFk.PluBundle.Plu.Uid1c) && 
-                    Equals(item.PluBundle.Bundle.Uid1c, pluNestingFk.PluBundle.Bundle.Uid1c) && 
+            PluNestingFkModel? pluNestingFkDb = pluNestingFksDb.FirstOrDefault(item =>
+                    Equals(item.Box.Uid1c, pluNestingFk.Box.Uid1c) &&
+                    Equals(item.PluBundle.Plu.Uid1c, pluNestingFk.PluBundle.Plu.Uid1c) &&
+                    Equals(item.PluBundle.Bundle.Uid1c, pluNestingFk.PluBundle.Bundle.Uid1c) &&
                     Equals(item.BundleCount, pluXml.AttachmentsCount));
             if (UpdateItemDb(response, pluXml.Uid1c, pluNestingFk, pluNestingFkDb, false)) return;
 
@@ -621,7 +447,8 @@ public partial class ControllerHelper
                         AddResponse1cPlusNestingFks(response, pluBundleFk, pluNestingFksDb, pluXml);
                 }
                 if (pluXml.ParseResult.Status == ParseStatus.Error)
-                    AddResponse1cException(response, pluXml.Uid1c, pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
+                    AddResponse1cException(response, pluXml.Uid1c, 
+                        pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
             }
         }, format, false);
 
@@ -649,7 +476,7 @@ public partial class ControllerHelper
             if (pluDb is not null)
             {
                 pluXml.ParseResult.Status = ParseStatus.Error;
-                pluXml.ParseResult.Exception = 
+                pluXml.ParseResult.Exception =
                     $"{LocaleCore.WebService.Dublicate} {LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
                     $"{LocaleCore.WebService.With} {LocaleCore.WebService.FieldCode} '{pluXml.Code}' {LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} Code '{pluDb.Code}'";
             }
