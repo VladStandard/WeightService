@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Models;
+
 namespace WsStorageCoreTests.Core;
 
 [TestFixture]
@@ -50,7 +52,7 @@ internal class DataAccessTests
 	        List<DeviceTypeModel> deviceTypes = DataCoreTestsUtils.DataAccess.GetListDevicesTypes(true, false, false);
 	        foreach (DeviceTypeModel deviceType in deviceTypes)
 	        {
-		        Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
+		        Assert.That(GetDeviceTypesEnums().Contains(deviceType.Name), Is.EqualTo(true));
 	        }
         }, false);
     }
@@ -64,7 +66,7 @@ internal class DataAccessTests
 	        foreach (DeviceTypeModel deviceType1 in deviceTypes)
 	        {
 		        DeviceTypeModel deviceType2 = DataCoreTestsUtils.DataAccess.GetItemDeviceTypeNotNullable(deviceType1.Name);
-		        Assert.AreEqual(deviceType1, deviceType2);
+		        Assert.That(deviceType2, Is.EqualTo(deviceType1));
 	        }
         }, false);
     }

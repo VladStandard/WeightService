@@ -76,7 +76,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		SqlCrudConfigSection.IsGuiShowFilterOnlyTop = (SqlSectionCast.Count >= DataAccess.JsonSettings.Local.SelectTopRowsCount);
 	}
 
-	protected void RowRender<TItem>(RowRenderEventArgs<TItem> args) where TItem : SqlTableBase, new()
+	protected void RowRender(RowRenderEventArgs<TItem> args)
 	{
 		//if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		//if (args.Data is AccessModel access)
@@ -167,7 +167,9 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 			switch ((ContextMenuAction)e.Value)
 			{
 				case ContextMenuAction.OpenNewTab:
-					 JsRuntime?.InvokeAsync<object>("open", GetRouteItemPathForLink(args.Data), "_blank");
+					if (JsRuntime != null)
+						await JsRuntime.InvokeAsync<object>("open", 
+							GetRouteItemPathForLink(args.Data), "_blank");
 					break;
 				case ContextMenuAction.Open:
 					await SqlItemEditAsync(args.Data);

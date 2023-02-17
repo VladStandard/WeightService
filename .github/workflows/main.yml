@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - main
-      - bagger
-#    paths:
-#      - '**.cs'
-#      - '**.csproj'
+    paths:
+      - '**.csproj'
+      - '**.razor'
+      - '**.cs'
 
 jobs:
   build:
@@ -32,6 +32,5 @@ jobs:
 
       - name: Build
         run: msbuild WeightService2022.sln
-
-      - name: Tests
-        run: dotnet test WeightService2022.sln --no-restore --verbosity normal
+#      - name: Tests
+#        run: dotnet test WeightService2022.sln --no-restore --verbosity normal

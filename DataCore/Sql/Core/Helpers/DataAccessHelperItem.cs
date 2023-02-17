@@ -110,13 +110,12 @@ public partial class DataAccessHelper
                 CreateDt = DateTime.Now,
                 ChangeDt = DateTime.Now
             };
-            Save(app);
         }
         else
         {
             app.ChangeDt = DateTime.Now;
-            Update(app);
         }
+        SaveOrUpdate(app);
         return app;
     }
 
@@ -143,14 +142,14 @@ public partial class DataAccessHelper
                 LogoutDt = DateTime.Now,
                 Ipv4 = NetUtils.GetLocalIpAddress()
             };
-            Save(device);
         }
         else
         {
             device.ChangeDt = DateTime.Now;
             device.LoginDt = DateTime.Now;
-            Update(device);
+         
         }
+        SaveOrUpdate(device);
         return device;
     }
 

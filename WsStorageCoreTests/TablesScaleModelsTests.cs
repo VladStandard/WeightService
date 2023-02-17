@@ -15,22 +15,23 @@ internal class TablesScaleModelsTests
 		{
 			List<SqlTableBase> sqlTables = DataCoreTestsUtils.DataCore.DataContext.GetTableModels();
             List<(string, bool, bool)> asserts = new();
-			foreach (SqlTableBase sqlTable in sqlTables)
+
+            foreach (SqlTableBase sqlTable in sqlTables)
+	            asserts.Add((sqlTable.GetType().Name, sqlTable.EqualsNew(), sqlTable.EqualsDefault()));
+            
+			foreach ((string, bool, bool) assert in asserts)
             {
-                asserts.Add((sqlTable.GetType().Name, sqlTable.EqualsNew(), sqlTable.EqualsDefault()));
-				
-			}
-            foreach ((string, bool, bool) assert in asserts)
-            {
-                TestContext.WriteLine(((!assert.Item2 || !assert.Item3) ? "[x] " : "[✓] ") +
+                TestContext.WriteLine(
+                    ((!assert.Item2 || !assert.Item3) ? "[x] " : "[✓] ") +
                     $"{assert.Item1}\t|\t" +
                     $"{nameof(SqlTableBase.EqualsNew)} = {assert.Item2}\t|\t" +
                     $"{nameof(SqlTableBase.EqualsDefault)} = {assert.Item3}");
             }
+
             foreach ((string, bool, bool) assert in asserts)
             {
-                Assert.AreEqual(true, assert.Item2);
-                Assert.AreEqual(true, assert.Item3);
+                Assert.That(assert.Item2, Is.EqualTo(true));
+                Assert.That(assert.Item3, Is.EqualTo(true));
             }
 		}, false);
 	}

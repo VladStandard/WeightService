@@ -14,7 +14,6 @@ using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
-using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
@@ -67,7 +66,6 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogQuickModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogTypeModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<NomenclatureModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrderModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrderWeighingModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrganizationModel>();
@@ -106,7 +104,6 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogQuickModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogTypeModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<NomenclatureModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrderModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrderWeighingModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrganizationModel>();

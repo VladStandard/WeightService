@@ -25,7 +25,6 @@ public class PluModel : SqlTableBase1c
     [XmlElement] public virtual string NumberFormat
     {
         get => $"{Number:000}";
-        // This code need for print labels.
         set => _ = value;
     }
     [XmlElement] public virtual string FullName { get; set; }
@@ -199,20 +198,20 @@ public class PluModel : SqlTableBase1c
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault() =>
+    public override bool EqualsDefault()=>
         base.EqualsDefault() &&
-        Equals(IsGroup, default) &&
+        Equals(IsGroup, default(bool)) &&
         Equals(ParentGuid, Guid.Empty) &&
         Equals(GroupGuid, Guid.Empty) &&
         Equals(BoxTypeGuid, Guid.Empty) &&
         Equals(BoxTypeName, string.Empty) &&
-        Equals(BoxTypeWeight, default) &&
+        Equals(BoxTypeWeight, default(decimal)) &&
         Equals(ClipTypeGuid, Guid.Empty) &&
         Equals(ClipTypeName, string.Empty) &&
-        Equals(ClipTypeWeight, default) &&
+        Equals(ClipTypeWeight, default(decimal)) &&
         Equals(PackageTypeGuid, Guid.Empty) &&
         Equals(PackageTypeName, string.Empty) &&
-        Equals(PackageTypeWeight, default) &&
+        Equals(PackageTypeWeight, default(decimal)) &&
         Equals(Code, string.Empty) &&
         Equals(Number, default(short)) &&
         Equals(FullName, string.Empty) &&
@@ -221,7 +220,6 @@ public class PluModel : SqlTableBase1c
         Equals(Ean13, string.Empty) &&
         Equals(Itf14, string.Empty) &&
         Equals(IsCheckWeight, false) &&
-        //(Nomenclature is null || Nomenclature.EqualsDefault()) &&
         Equals(AttachmentsCount, default(short));
 
     public override object Clone()
@@ -353,18 +351,18 @@ public class PluModel : SqlTableBase1c
             GroupGuid = plu.GroupGuid;
         if (!Equals(plu.BoxTypeGuid, Guid.Equals))
             BoxTypeGuid = plu.BoxTypeGuid;
+        if (!Equals(plu.ClipTypeGuid, Guid.Equals))
+            ClipTypeGuid = plu.ClipTypeGuid;
+        if (!Equals(plu.PackageTypeGuid, Guid.Equals))
+            PackageTypeGuid = plu.PackageTypeGuid;
         if (!string.IsNullOrEmpty(plu.BoxTypeName))
             BoxTypeName = plu.BoxTypeName;
         if (plu.BoxTypeWeight > 0)
             BoxTypeWeight = plu.BoxTypeWeight;
-        if (!Equals(plu.ClipTypeGuid, Guid.Equals))
-            ClipTypeGuid = plu.ClipTypeGuid;
         if (!string.IsNullOrEmpty(plu.ClipTypeName))
             ClipTypeName = plu.ClipTypeName;
         if (plu.ClipTypeWeight > 0)
             ClipTypeWeight = plu.ClipTypeWeight;
-        if (!Equals(plu.PackageTypeGuid, Guid.Equals))
-            PackageTypeGuid = plu.PackageTypeGuid;
         if (!string.IsNullOrEmpty(plu.PackageTypeName))
             PackageTypeName = plu.PackageTypeName;
         if (plu.PackageTypeWeight > 0)

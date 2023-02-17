@@ -11,6 +11,7 @@ public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<PluG
 	#region Public and private fields, properties, constructor
 
     private List<PluGroupModel> AllData { get; set; }
+    
     #endregion
 
 	#region Public and private methods
@@ -31,9 +32,7 @@ public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<PluG
                 {
                     var  temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();
                     if (temp.Any())
-                    {
                         pluGroup.ParentGuid = temp.First().Parent.IdentityValueUid;
-                    }
                 }
 
                 SqlSectionCast = AllData.Where(e=> e.ParentGuid == Guid.Empty).ToList();

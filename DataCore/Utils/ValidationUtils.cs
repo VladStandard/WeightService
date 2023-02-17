@@ -5,6 +5,7 @@ using DataCore.CssStyles;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
@@ -143,6 +144,7 @@ public class ValidationUtils
             OrganizationModel organization => new OrganizationValidator().Validate(organization),
             PluLabelModel pluLabel => new PluLabelValidator().Validate(pluLabel),
             PluBundleFkModel pluBundle => new PluBundleFkValidator().Validate(pluBundle),
+            PluBrandFkModel pluBrandFk => new PluBrandFkValidator().Validate(pluBrandFk),
             PluClipFkModel pluClip => new PluClipFkValidator().Validate(pluClip),
             PluModel plu => new PluValidator().Validate(plu),
             PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),

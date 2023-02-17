@@ -215,7 +215,7 @@ public class BarCodeController : WebControllerBase
         ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/top_v2/", dtStamp, barcodeTop, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
             ControllerHelp.NewResponse1cFromQuery(SessionFactory, SqlQueriesBarcodes.FindTop,
-                new("VALUE_TOP", new BarcodeTopModel().DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()),
+                new("VALUE_TOP", DataFormatUtils.DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()),
                 format, false), format);
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/top_v2/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
