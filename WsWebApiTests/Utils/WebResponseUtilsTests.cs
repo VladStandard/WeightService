@@ -63,7 +63,6 @@ public static class WebResponseUtilsTests
                 }
                 else if (request.Parameters.Contains(WebRequestUtils.GetQueryParameterFormatXml()))
                 {
-                    serviceInfo = new ServiceInfoModel().DeserializeFromXml<ServiceInfoModel>(response.Content);
                     serviceInfo = DataFormatUtils.DeserializeFromXml<ServiceInfoModel>(response.Content);
                     Assert.IsTrue(serviceInfo is not null);
                 }
