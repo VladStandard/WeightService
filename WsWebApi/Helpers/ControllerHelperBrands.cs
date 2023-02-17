@@ -8,7 +8,7 @@ public partial class ControllerHelper
     #region Public and private methods
 
     private List<BrandModel> GetXmlBrandList(XElement xml) =>
-        GetNodesListCore<BrandModel>(xml, "Brand", (xmlNode, itemXml) =>
+        GetNodesListCore<BrandModel>(xml, LocaleCore.WebService.XmlItemBrand, (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));

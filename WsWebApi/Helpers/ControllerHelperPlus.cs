@@ -24,7 +24,7 @@ public partial class ControllerHelper
     /// <param name="xml"></param>
     /// <returns></returns>
     private List<PluModel> GetXmlPluList(XElement xml) =>
-        GetNodesListCore<PluModel>(xml, "Nomenclature", (xmlNode, itemXml) =>
+        GetNodesListCore<PluModel>(xml, LocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
@@ -61,15 +61,15 @@ public partial class ControllerHelper
 
             // Find by Uid1C -> Update exists.
             PluModel? pluDb = plusDb.Find(item => Equals(item.Uid1c, pluXml.IdentityValueUid));
-            if (UpdateItemDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
+            if (UpdateItem1cDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
 
             // Find by Code -> Update exists.
             pluDb = plusDb.Find(item => Equals(item.Code, pluXml.Code));
-            if (UpdateItemDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
+            if (UpdateItem1cDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
 
             // Find by Number -> Update exists.
             pluDb = plusDb.Find(item => Equals(item.Number, pluXml.Number));
-            if (UpdateItemDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
+            if (UpdateItem1cDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluXml.Uid1c, pluXml, true);
@@ -90,9 +90,9 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.ParentGuid, Guid.Empty)) return;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "Nomenclature", false, out PluModel? pluDb)) return;
-            if (!GetPluFkPluDb(response, pluXml, pluXml.ParentGuid, "Parent Nomenclature", true, out PluModel? parentDb)) return;
-            if (!GetPluFkPluDb(response, pluXml, pluXml.CategoryGuid, "Category Nomenclature", true, out PluModel? categoryDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.ParentGuid, LocaleCore.WebService.FieldGroup, true, out PluModel? parentDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.CategoryGuid, LocaleCore.WebService.FieldGroup1Level, true, out PluModel? categoryDb)) return;
             if (pluDb is null || parentDb is null) return;
 
             PluFkModel pluFk = new()
@@ -146,7 +146,8 @@ public partial class ControllerHelper
             {
                 if (itemDb is null || itemDb.IsNew)
                 {
-                    AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
+                    AddResponse1cException(response, pluXml.Uid1c, 
+                        new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
                     return false;
                 }
                 return true;
@@ -154,7 +155,8 @@ public partial class ControllerHelper
             // isCheckGroup.
             if (itemDb is null || itemDb.IsNew || !itemDb.IsGroup)
             {
-                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
+                AddResponse1cException(response, pluXml.Uid1c, 
+                    new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -182,7 +184,8 @@ public partial class ControllerHelper
             itemDb = DataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
-                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
+                AddResponse1cException(response, pluXml.Uid1c, 
+                    new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -210,7 +213,8 @@ public partial class ControllerHelper
             itemDb = DataContext.DataAccess.GetItemNullable<BrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
-                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
+                AddResponse1cException(response, pluXml.Uid1c, 
+                    new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -238,7 +242,8 @@ public partial class ControllerHelper
             itemDb = DataContext.DataAccess.GetItemNullable<ClipModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
-                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
+                AddResponse1cException(response, pluXml.Uid1c, 
+                    new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -266,7 +271,7 @@ public partial class ControllerHelper
             itemDb = DataContext.DataAccess.GetItemNullable<BoxModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
-                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} with '{uid}' is not found!"));
+                AddResponse1cException(response, pluXml.Uid1c, new($"{refName} {LocaleCore.WebService.With} '{uid}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -409,7 +414,7 @@ public partial class ControllerHelper
             if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
 
             if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
-            if (!GetPluBrandFkBrandDb(response, pluXml, pluXml.BrandGuid, "Brand", out BrandModel? brandDb)) return;
+            if (!GetPluBrandFkBrandDb(response, pluXml, pluXml.BrandGuid, LocaleCore.WebService.FieldBrand, out BrandModel? brandDb)) return;
             if (pluDb is null || brandDb is null) return;
 
             PluBrandFkModel pluBrandFk = new()
@@ -477,7 +482,7 @@ public partial class ControllerHelper
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
 
             if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
-            if (!GetPluClipFkClipDb(response, pluXml, pluXml.ClipTypeGuid, "Clip", out ClipModel? clipDb)) return;
+            if (!GetPluClipFkClipDb(response, pluXml, pluXml.ClipTypeGuid, LocaleCore.WebService.FieldClip, out ClipModel? clipDb)) return;
             if (pluDb is null || clipDb is null) return;
 
             PluClipFkModel pluClipFk = new()
@@ -644,7 +649,9 @@ public partial class ControllerHelper
             if (pluDb is not null)
             {
                 pluXml.ParseResult.Status = ParseStatus.Error;
-                pluXml.ParseResult.Exception = $"Dublicate PluNumber '{pluXml.Number}' with Code '{pluXml.Code}' for DB record with Code '{pluDb.Code}'";
+                pluXml.ParseResult.Exception = 
+                    $"{LocaleCore.WebService.Dublicate} {LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
+                    $"{LocaleCore.WebService.With} {LocaleCore.WebService.FieldCode} '{pluXml.Code}' {LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} Code '{pluDb.Code}'";
             }
         }
     }

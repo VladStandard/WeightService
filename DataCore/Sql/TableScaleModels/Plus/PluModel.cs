@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 /// Table "PLUS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluModel)} | {nameof(Uid1C)} = {Uid1c} | {Name} | {Number} | {Code}")]
+[DebuggerDisplay("{nameof(PluModel)} | {nameof(Uid1c)} = {Uid1c} | {Name} | {Number} | {Code}")]
 public class PluModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -324,7 +324,7 @@ public class PluModel : SqlTableBase1c
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 
-    public new virtual void UpdateProperties(ISqlTable1c item)
+    public override void UpdateProperties(ISqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

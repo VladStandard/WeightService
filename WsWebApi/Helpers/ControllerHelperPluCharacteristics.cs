@@ -10,7 +10,7 @@ public partial class ControllerHelper
     #region Public and private methods
 
     private List<PluCharacteristicModel> GetXmlPluCharacteristicsList(XElement xml) =>
-        GetNodesListCore<PluCharacteristicModel>(xml, "Characteristic", (xmlNode, itemXml) =>
+        GetNodesListCore<PluCharacteristicModel>(xml, LocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));

@@ -18,10 +18,30 @@ public class LocaleWebService
 
     #region Public and private fields, properties, constructor
 
-    public string IsEmpty => Lang == Lang.English ? "is empty value" : "пустое значение";
-    public string IsStatusSuccess => Lang == Lang.English ? "Done successfully" : "Выполнено успешно";
+    public string Dublicate => Lang == Lang.English ? "Dublicate" : "Дубликат";
+    public string FieldBrand => Lang == Lang.English ? "Brand" : "Бренд";
+    public string FieldBundle => Lang == Lang.English ? "Bundle" : "Пакет";
+    public string FieldCharacteristic => Lang == Lang.English ? "Characteristic" : "Характеристика";
+    public string FieldClip => Lang == Lang.English ? "Clip" : "Клипса";
+    public string FieldCode => Lang == Lang.English ? "code" : "код";
+    public string FieldGroup => Lang == Lang.English ? "Group" : "Группа";
+    public string FieldGroup1Level => Lang == Lang.English ? "Level 1 group" : "Группа 1 уровня";
     public string FieldNomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";
-    public string FieldBundle  => Lang == Lang.English ? "Bundle" : "Пакет";
+    public string FieldNomenclatureGroup => Lang == Lang.English ? "Nomenclature group" : "Номенклатурная группа";
+    public string FieldNomenclatureParent => Lang == Lang.English ? "Parent nomenclature" : "Родительская номенклатура";
+    public string FieldPluNumber => Lang == Lang.English ? "PLU number" : "Номер ПЛУ";
+    public string ForDbRecord => Lang == Lang.English ? "for DB record" : "для записи БД";
+    public string IsEmpty => Lang == Lang.English ? "is empty value" : "пустое значение";
+    public string IsFound => Lang == Lang.English ? "is found" : "найдено";
+    public string IsNotFound => Lang == Lang.English ? "is not found" : "не найдено";
+    public string IsNotIdent => Lang == Lang.English ? "is not ident" : "не определено";
+    public string IsStatusSuccess => Lang == Lang.English ? "Done successfully" : "Выполнено успешно";
+    public string Node => Lang == Lang.English ? "node" : "узел";
+    public string With => Lang == Lang.English ? "with" : "с";
+    public string XmlItemBrand => "Brand";
+    public string XmlItemCharacteristic => "Characteristic";
+    public string XmlItemNomenclature => "Nomenclature";
+    public string XmlItemNomenclatureGroup => "NomenclatureGroup";
 
     #endregion
 }

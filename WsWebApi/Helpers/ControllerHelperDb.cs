@@ -36,6 +36,31 @@ public partial class ControllerHelper
         return dbUpdate.IsOk;
     }
 
+    /// <summary>
+    /// Update the record in the database.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="response"></param>
+    /// <param name="importUid"></param>
+    /// <param name="itemXml"></param>
+    /// <param name="itemDb"></param>
+    /// <param name="isCounter"></param>
+    /// <returns></returns>
+    private bool UpdateItem1cDb<T>(Response1cShortModel response, Guid importUid, T itemXml, T? itemDb, bool isCounter) where T : ISqlTable1c
+    {
+        if (itemDb is null || itemDb.IsNew) return false;
+        itemDb.UpdateProperties(itemXml);
+        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(importUid));
+        }
+        else
+            AddResponse1cException(response, importUid, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
+
     private bool UpdateBoxDb(Response1cShortModel response, PluModel pluXml, BoxModel? boxDb, bool isCounter)
     {
         if (boxDb is null || boxDb.IsNew) return false;

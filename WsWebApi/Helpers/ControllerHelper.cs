@@ -336,7 +336,7 @@ public partial class ControllerHelper
         }
     }
 
-    public string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName) where T : ISqlTable
+    private string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName) where T : ISqlTable
     {
         if (xmlNode?.Attributes is null) return string.Empty;
         foreach (XmlAttribute? attribute in xmlNode.Attributes)
@@ -351,7 +351,7 @@ public partial class ControllerHelper
         return string.Empty;
     }
 
-    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
+    private bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
         List<string> valuesFalse, List<string> valuesTrue) where T : ISqlTable
     {
         string value = GetXmlAttributeString(xmlNode, item, xmlPropertyName).ToUpper();
@@ -360,26 +360,26 @@ public partial class ControllerHelper
         return default;
     }
 
-    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
+    private bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { "0", "FALSE" }, new() { "1", "TRUE" });
 
-    public bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
+    private bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
         string valueFalse, string valueTrue) where T : ISqlTable =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { valueFalse }, new() { valueTrue });
 
-    public Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
+    private Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         Guid.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out Guid uid) ? uid : Guid.Empty;
 
-    public byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
+    private byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         byte.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out byte result) ? result : default;
 
     public ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         ushort.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out ushort result) ? result : default;
 
-    public short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
+    private short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         short.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out short result) ? result : default;
 
-    public decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
+    private decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : ISqlTable =>
         decimal.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out decimal result) ? result : default;
 
     private List<T> GetNodesListCore<T>(XElement xml, string nodeIdentity, Action<XmlNode, T> action) where T : ISqlTable, new()
@@ -413,7 +413,8 @@ public partial class ControllerHelper
             else
             {
                 itemXml.ParseResult.Status = ParseStatus.Error;
-                itemXml.ParseResult.Exception = $"The node `{nodeIdentity}` with `{xmlNode.Name}` is not ident!";
+                itemXml.ParseResult.Exception = 
+                    $"{LocaleCore.WebService.Node} `{nodeIdentity}` {LocaleCore.WebService.With} `{xmlNode.Name}` {LocaleCore.WebService.IsNotIdent}!";
             }
             itemsXml.Add(itemXml);
         }
@@ -448,7 +449,7 @@ public partial class ControllerHelper
     public ContentResult NewResponse1cIsNotFound(ISessionFactory sessionFactory, string version, string format) =>
         NewResponse1cCore<Response1cModel>(sessionFactory, response =>
         {
-            response.Infos.Add(new($"Version {version} is not found!"));
+            response.Infos.Add(new($"Version {version} {LocaleCore.WebService.IsNotFound}!"));
         }, format, false, HttpStatusCode.NotFound);
 
     #endregion

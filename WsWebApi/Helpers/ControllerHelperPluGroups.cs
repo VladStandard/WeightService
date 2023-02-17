@@ -11,7 +11,7 @@ public partial class ControllerHelper
     #region Public and private methods
 
     private List<PluGroupModel> GetXmlPluGroupsList(XElement xml) =>
-        GetNodesListCore<PluGroupModel>(xml, "NomenclatureGroup", (xmlNode, itemXml) =>
+        GetNodesListCore<PluGroupModel>(xml, LocaleCore.WebService.XmlItemNomenclatureGroup, (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
@@ -40,14 +40,14 @@ public partial class ControllerHelper
             parent = DataContext.GetItemNotNullable<PluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
-                AddResponse1cException(response, pluGroupXml.Uid1c, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' is not found!"));
+                AddResponse1cException(response, pluGroupXml.Uid1c, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
                 return;
             }
             PluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
             pluGroup = DataContext.GetItemNotNullable<PluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
             {
-                AddResponse1cException(response, pluGroupXml.Uid1c, new($"PLU group for '{pluGroupXml.ParentGuid}' is not found!"));
+                AddResponse1cException(response, pluGroupXml.Uid1c, new($"PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
                 return;
             }
             

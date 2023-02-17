@@ -10,7 +10,7 @@ namespace DataCore.Sql.Tables;
 /// DB table model.
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(SqlTableBase1c)} | {nameof(Uid1C)} = {Uid1c}")]
+[DebuggerDisplay("{nameof(SqlTableBase1c)} | {nameof(Uid1c)} = {Uid1c}")]
 // ReSharper disable once InconsistentNaming
 public class SqlTableBase1c : SqlTableBase, ISqlTable1c
 {
