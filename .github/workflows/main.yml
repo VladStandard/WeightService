@@ -5,9 +5,10 @@ on:
     branches:
       - main
       - bagger
-#    paths:
-#      - '**.cs'
-#      - '**.csproj'
+    paths:
+      - '**.csproj'
+      - '**.razor'
+      - '**.cs'
 
 jobs:
   build:
