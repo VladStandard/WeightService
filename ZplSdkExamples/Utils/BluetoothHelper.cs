@@ -3,19 +3,18 @@
 
 using System;
 
-namespace ZplSdkExamples.Utils
-{
-    internal class BluetoothHelper
-    {
+namespace ZplSdkExamples.Utils;
 
-        public static bool IsBluetoothSupported()
+internal class BluetoothHelper
+{
+
+    public static bool IsBluetoothSupported()
+    {
+        OperatingSystem osVersion = Environment.OSVersion;
+        if (osVersion.Version.Major >= 10)
         {
-            OperatingSystem osVersion = Environment.OSVersion;
-            if (osVersion.Version.Major >= 10)
-            {
-                return true;
-            }
-            return false;
+            return true;
         }
+        return false;
     }
 }

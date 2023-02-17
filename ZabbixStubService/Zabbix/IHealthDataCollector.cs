@@ -5,13 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ZabbixStubService.Zabbix
+namespace ZabbixStubService.Zabbix;
+
+public interface IHealthDataCollector
 {
-    public interface IHealthDataCollector
-    {
-        Dictionary<string, string> Dict { get; set; }
-        DateTime StartDateTime { get; }
-        int RequestCount { get; }
-        StringBuilder Response();
-    }
+    Dictionary<string, string> Dict { get; set; }
+    DateTime StartDateTime { get; }
+    int RequestCount { get; }
+    StringBuilder Response();
 }

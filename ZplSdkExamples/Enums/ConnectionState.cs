@@ -1,13 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace ZplSdkExamples.Enums
+namespace ZplSdkExamples.Enums;
+
+public enum ConnectionState
 {
-    public enum ConnectionState
-    {
-        Success,
-        Error,
-        Progress,
-        Info
-    }
+    Success,
+    Error,
+    Progress,
+    Info
 }

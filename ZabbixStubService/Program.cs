@@ -4,18 +4,17 @@
 using System.ServiceProcess;
 // ReSharper disable IdentifierTypo
 
-namespace ZabbixStubService
+namespace ZabbixStubService;
+
+internal static class Program
 {
-    internal static class Program
+    private static void Main()
     {
-        private static void Main()
+        ServiceBase[] ServicesToRun;
+        ServicesToRun = new ServiceBase[]
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
-            {
-                new ZabbixStubService()
-            };
-            ServiceBase.Run(ServicesToRun);
-        }
+            new ZabbixStubService()
+        };
+        ServiceBase.Run(ServicesToRun);
     }
 }

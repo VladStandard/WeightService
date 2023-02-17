@@ -3,33 +3,32 @@
 
 using System.ComponentModel;
 
-namespace ZplSdkExamples.Enums
+namespace ZplSdkExamples.Enums;
+
+public enum DiscoveryMethod
 {
-    public enum DiscoveryMethod
-    {
 
-        [Description("Local Broadcast")]
-        LocalBroadcast,
+    [Description("Local Broadcast")]
+    LocalBroadcast,
 
-        [Description("Directed Broadcast")]
-        DirectedBroadcast,
+    [Description("Directed Broadcast")]
+    DirectedBroadcast,
 
-        [Description("Multicast Broadcast")]
-        MulticastBroadcast,
+    [Description("Multicast Broadcast")]
+    MulticastBroadcast,
 
-        [Description("Subnet Search")]
-        SubnetSearch,
+    [Description("Subnet Search")]
+    SubnetSearch,
 
-        [Description("Zebra USB Drivers")]
-        ZebraUsbDrivers,
+    [Description("Zebra USB Drivers")]
+    ZebraUsbDrivers,
 
-        [Description("USB Direct")]
-        UsbDirect,
+    [Description("USB Direct")]
+    UsbDirect,
 
-        [Description("Find Printers Near Me")]
-        FindPrintersNearMe,
+    [Description("Find Printers Near Me")]
+    FindPrintersNearMe,
 
-        [Description("Find all Bluetooth Devices")]
-        Bluetooth
-    }
+    [Description("Find all Bluetooth Devices")]
+    Bluetooth
 }

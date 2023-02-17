@@ -4,77 +4,76 @@
 using System;
 using System.Threading;
 
-namespace ZabbixStubService.Zabbix
+namespace ZabbixStubService.Zabbix;
+
+public class FakeCheckThreadByLog
 {
-    public class FakeCheckThreadByLog
+    #region Private fields and properties
+
+    private Thread _listenerThread;
+    private readonly object _locker = new();
+    private CancellationToken _token;
+    private readonly int _threadTimeOut;
+    private readonly Action _reloadValuesFunc = null;
+
+    #endregion
+
+    #region Constructor and destructor
+
+    public FakeCheckThreadByLog(Action reloadValuesFunc, CancellationToken token, int threadTimeOut)
     {
-        #region Private fields and properties
+        _reloadValuesFunc = reloadValuesFunc;
+        _token = token;
+        _threadTimeOut = threadTimeOut;
+    }
 
-        private Thread _listenerThread;
-        private readonly object _locker = new();
-        private CancellationToken _token;
-        private readonly int _threadTimeOut;
-        private readonly Action _reloadValuesFunc = null;
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public FakeCheckThreadByLog(Action reloadValuesFunc, CancellationToken token, int threadTimeOut)
+    ~FakeCheckThreadByLog()
+    {
+        try
         {
-            _reloadValuesFunc = reloadValuesFunc;
-            _token = token;
-            _threadTimeOut = threadTimeOut;
-        }
-
-        ~FakeCheckThreadByLog()
-        {
-            try
+            if (_listenerThread != null && _listenerThread.IsAlive)
             {
-                if (_listenerThread != null && _listenerThread.IsAlive)
-                {
-                    _token.ThrowIfCancellationRequested();
-                    Thread.Sleep(1000);
-                    _listenerThread.Join(1000);
-                    _listenerThread.Abort();
-                    _listenerThread = null;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                _token.ThrowIfCancellationRequested();
+                Thread.Sleep(1000);
+                _listenerThread.Join(1000);
+                _listenerThread.Abort();
+                _listenerThread = null;
             }
         }
-
-        #endregion
-
-        #region Public and private methods
-
-        public void Start()
+        catch (Exception)
         {
-            try
-            {
-                _listenerThread = new Thread(t =>
-                {
-                    while (_token != null && !_token.IsCancellationRequested)
+            throw;
+        }
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    public void Start()
+    {
+        try
+        {
+            _listenerThread = new Thread(t =>
                     {
-                        lock (_locker)
+                        while (_token != null && !_token.IsCancellationRequested)
                         {
-                            _reloadValuesFunc();
-                            Thread.Sleep(_threadTimeOut);
+                            lock (_locker)
+                            {
+                                _reloadValuesFunc();
+                                Thread.Sleep(_threadTimeOut);
+                            }
                         }
                     }
-                }
                 )
                 { IsBackground = true };
-                _listenerThread.Start();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _listenerThread.Start();
         }
-
-        #endregion
+        catch (Exception)
+        {
+            throw;
+        }
     }
+
+    #endregion
 }

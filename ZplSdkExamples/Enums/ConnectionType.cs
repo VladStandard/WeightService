@@ -3,21 +3,20 @@
 
 using System.ComponentModel;
 
-namespace ZplSdkExamples.Enums
+namespace ZplSdkExamples.Enums;
+
+public enum ConnectionType
 {
-    public enum ConnectionType
-    {
 
-        [Description("Network")]
-        Network,
+    [Description("Network")]
+    Network,
 
-        [Description("USB")]
-        USB,
+    [Description("USB")]
+    USB,
 
-        [Description("USB Direct")]
-        UsbDirect,
+    [Description("USB Direct")]
+    UsbDirect,
 
-        [Description("Bluetooth")]
-        Bluetooth
-    }
+    [Description("Bluetooth")]
+    Bluetooth
 }

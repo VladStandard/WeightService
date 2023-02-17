@@ -3,13 +3,12 @@
 
 // ReSharper disable IdentifierTypo
 
-namespace ZabbixStubService.Zabbix
+namespace ZabbixStubService.Zabbix;
+
+public enum EnumCheckHttpAccess
 {
-    public enum EnumCheckHttpAccess
-    {
-        Status,
-        SqlCon,
-        Zebra,
-        Massa,
-    }
+    Status,
+    SqlCon,
+    Zebra,
+    Massa,
 }

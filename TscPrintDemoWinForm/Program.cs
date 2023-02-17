@@ -4,16 +4,15 @@
 using System;
 using System.Windows.Forms;
 
-namespace TscPrintDemoWinForm
+namespace TscPrintDemoWinForm;
+
+internal static class Program
 {
-    internal static class Program
+    [STAThread]
+    internal static void Main()
     {
-        [STAThread]
-        internal static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
-        }
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new FormMain());
     }
 }

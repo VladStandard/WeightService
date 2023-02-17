@@ -2,49 +2,48 @@
 using ZplSdkExamples.Models;
 using ZplSdkExamples.Utils;
 
-namespace ZplSdkExamples.ViewModels
+namespace ZplSdkExamples.ViewModels;
+
+public class ConnectionBuilderViewModel : IDemoViewModel
 {
-    public class ConnectionBuilderViewModel : IDemoViewModel
+
+    private string logData;
+
+    private readonly ObservableCollection<string> _connectionPrefixes = new() {
+        ConnectionPrefix.None,
+        ConnectionPrefix.TcpMulti,
+        ConnectionPrefix.Tcp,
+        ConnectionPrefix.TcpStatus,
+        ConnectionPrefix.Usb,
+        ConnectionPrefix.UsbDirect
+    };
+
+    public string LogData
     {
-
-        private string logData;
-
-        private readonly ObservableCollection<string> _connectionPrefixes = new() {
-                ConnectionPrefix.None,
-                ConnectionPrefix.TcpMulti,
-                ConnectionPrefix.Tcp,
-                ConnectionPrefix.TcpStatus,
-                ConnectionPrefix.Usb,
-                ConnectionPrefix.UsbDirect
-            };
-
-        public string LogData
+        get => logData;
+        set
         {
-            get => logData;
-            set
+            if (logData != value)
             {
-                if (logData != value)
-                {
-                    logData = value;
-                    OnPropertyChanged();
-                }
+                logData = value;
+                OnPropertyChanged();
             }
         }
+    }
 
-        public ObservableCollection<string> ConnectionPrefixes
-        {
-            get => _connectionPrefixes;
-        }
+    public ObservableCollection<string> ConnectionPrefixes
+    {
+        get => _connectionPrefixes;
+    }
 
-        public ConnectionBuilderViewModel()
+    public ConnectionBuilderViewModel()
+    {
+        Name = "Connection Builder";
+        logData = "Log:\n\n";
+        if (BluetoothHelper.IsBluetoothSupported())
         {
-            Name = "Connection Builder";
-            logData = "Log:\n\n";
-            if (BluetoothHelper.IsBluetoothSupported())
-            {
-                _connectionPrefixes.Add(ConnectionPrefix.Bluetooth);
-                _connectionPrefixes.Add(ConnectionPrefix.BluetoothMulti);
-            }
+            _connectionPrefixes.Add(ConnectionPrefix.Bluetooth);
+            _connectionPrefixes.Add(ConnectionPrefix.BluetoothMulti);
         }
     }
 }

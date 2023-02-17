@@ -4,19 +4,17 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ZplSdkExamples.ViewModels
+namespace ZplSdkExamples.ViewModels;
+
+public class IDemoViewModel : INotifyPropertyChanged
 {
 
-    public class IDemoViewModel : INotifyPropertyChanged
+    public string Name { get; set; }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public void OnPropertyChanged([CallerMemberName] string memberName = null)
     {
-
-        public string Name { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName] string memberName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
-        }
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
     }
 }

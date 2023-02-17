@@ -12,65 +12,64 @@ using System.Xml;
 using System.Xml.Linq;
 using terra.Common;
 
-namespace terra.Controllers
+namespace terra.Controllers;
+
+public class SummaryController : ApiController
 {
-    public class SummaryController : ApiController
+
+    private readonly ErrorContainer errors = new();
+
+    private HttpResponseMessage GetResponse(XDocument doc)
+    {
+        XDocument xdoc = XDocument.Parse(doc.ToString());
+        HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+        response.Content = new StringContent(xdoc.ToString(), Encoding.UTF8, "application/xml");
+        return response;
+    }
+
+
+    // GET: api/Summary/?StartDate=2020-04-20T00:00:00&EndDate=2020-04-21T00:00:00
+    public HttpResponseMessage Get(DateTime StartDate, DateTime EndDate)
     {
 
-        private readonly ErrorContainer errors = new();
+        errors.Clear();
+        XDocument doc = new(new XElement("response"));
 
-        private HttpResponseMessage GetResponse(XDocument doc)
+        using SqlConnection conn = SqlHelper.GetConnection();
+        List<SqlParameter> sqlParameters = new()
         {
-            XDocument xdoc = XDocument.Parse(doc.ToString());
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(xdoc.ToString(), Encoding.UTF8, "application/xml");
-            return response;
-        }
-
-
-        // GET: api/Summary/?StartDate=2020-04-20T00:00:00&EndDate=2020-04-21T00:00:00
-        public HttpResponseMessage Get(DateTime StartDate, DateTime EndDate)
+            new SqlParameter($"@StartDate", StartDate),
+            new SqlParameter($"@EndDate", EndDate)
+        };
+        using SqlCommand cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetSummaryList] (@StartDate, @EndDate)", conn, sqlParameters);
+        try
         {
-
-            errors.Clear();
-            XDocument doc = new(new XElement("response"));
-
-            using SqlConnection conn = SqlHelper.GetConnection();
-            List<SqlParameter> sqlParameters = new()
+            using (XmlReader xmlReader = cmd.ExecuteXmlReader())
             {
-                new SqlParameter($"@StartDate", StartDate),
-                new SqlParameter($"@EndDate", EndDate)
-            };
-            using SqlCommand cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetSummaryList] (@StartDate, @EndDate)", conn, sqlParameters);
-            try
-            {
-                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+
+                if (xmlReader.MoveToContent() != XmlNodeType.None)
                 {
-
-                    if (xmlReader.MoveToContent() != XmlNodeType.None)
-                    {
-                        XElement someElement = XElement.Load(xmlReader.ReadSubtree());
-                        doc.Root.Add(someElement);
-                    }
-                    else
-                    {
-                        errors.Add("No objects.");
-                    }
-
+                    XElement someElement = XElement.Load(xmlReader.ReadSubtree());
+                    doc.Root.Add(someElement);
+                }
+                else
+                {
+                    errors.Add("No objects.");
                 }
 
-                doc.Root.Add(errors.GetXElement());
-                return GetResponse(doc);
-
-            }
-            catch (Exception ex)
-            {
-                errors.Add(ex.Message);
-                doc.Root.Add(errors.GetXElement());
-                return GetResponse(doc);
             }
 
+            doc.Root.Add(errors.GetXElement());
+            return GetResponse(doc);
+
+        }
+        catch (Exception ex)
+        {
+            errors.Add(ex.Message);
+            doc.Root.Add(errors.GetXElement());
+            return GetResponse(doc);
         }
 
     }
+
 }

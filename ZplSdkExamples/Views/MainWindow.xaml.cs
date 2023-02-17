@@ -18,253 +18,252 @@ using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 // ReSharper disable StringLiteralTypo
 // ReSharper disable IdentifierTypo
 
-namespace ZplSdkExamples.Views
+namespace ZplSdkExamples.Views;
+
+public partial class MainWindow
 {
-    public partial class MainWindow
+    #region Private fields and properties
+
+    private readonly ConnectionBuilderViewModel _viewModel;
+    private Connection _connection;
+    private LogHelper Log { get; set; } = LogHelper.Instance;
+    private HealthDataCollectorDummy _healthDataCollector;
+    private CancellationTokenSource _cancelTokenSource;
+    private CancellationToken _token;
+    private FakeCheckThreadByLog _fakeCheckThreadByLog;
+    //private CancellationTokenSource _cancelTokenSourceHttpListener;
+    private CancellationToken _tokenHttpListener;
+    private ZabbixHttpListener _zabbixHttpListener;
+
+    #endregion
+
+    #region Constructor and destructor
+
+    public MainWindow()
     {
-        #region Private fields and properties
+        InitializeComponent();
+        _viewModel = DataContext as ConnectionBuilderViewModel;
+    }
 
-        private readonly ConnectionBuilderViewModel _viewModel;
-        private Connection _connection;
-        private LogHelper Log { get; set; } = LogHelper.Instance;
-        private HealthDataCollectorDummy _healthDataCollector;
-        private CancellationTokenSource _cancelTokenSource;
-        private CancellationToken _token;
-        private FakeCheckThreadByLog _fakeCheckThreadByLog;
-        //private CancellationTokenSource _cancelTokenSourceHttpListener;
-        private CancellationToken _tokenHttpListener;
-        private ZabbixHttpListener _zabbixHttpListener;
+    #endregion
 
-        #endregion
+    #region Private methods
 
-        #region Constructor and destructor
+    private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        Log.Setup(logData);
+    }
 
-        public MainWindow()
+    private void MainWindow_OnClosed(object sender, EventArgs e)
+    {
+        ButtonStopHttpListener_OnClick(sender, null);
+    }
+
+    private void TestConnectionString()
+    {
+        try
         {
-            InitializeComponent();
-            _viewModel = DataContext as ConnectionBuilderViewModel;
-        }
+            ClearProgress();
+            _connection = ZebraConnectionBuilder.Build(GetConnectionStringForSdk());
+            PublishProgress("Connection string evaluated as class type " + _connection.GetType().Name);
+            _connection.Open();
 
-        #endregion
+            PublishProgress("Connection opened successfully");
 
-        #region Private methods
-
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            Log.Setup(logData);
-        }
-
-        private void MainWindow_OnClosed(object sender, EventArgs e)
-        {
-            ButtonStopHttpListener_OnClick(sender, null);
-        }
-
-        private void TestConnectionString()
-        {
-            try
+            if (IsAttemptingStatusConnection())
             {
-                ClearProgress();
-                _connection = ZebraConnectionBuilder.Build(GetConnectionStringForSdk());
-                PublishProgress("Connection string evaluated as class type " + _connection.GetType().Name);
-                _connection.Open();
+                ZebraPrinterLinkOs printer = ZebraPrinterFactory.GetLinkOsPrinter(_connection);
+                PublishProgress("Created a printer, attempting to retrieve status");
 
-                PublishProgress("Connection opened successfully");
-
-                if (IsAttemptingStatusConnection())
-                {
-                    ZebraPrinterLinkOs printer = ZebraPrinterFactory.GetLinkOsPrinter(_connection);
-                    PublishProgress("Created a printer, attempting to retrieve status");
-
-                    ZebraPrinterStatus status = printer.GetCurrentStatus();
-                    PublishProgress("Is printer ready to print? " + status.isReadyToPrint);
-                }
-                else
-                {
-                    ZebraPrinter printer = ZebraPrinterFactory.GetInstance(_connection);
-                    PublishProgress("Created a printer, attempting to print a config label");
-                    printer.PrintConfigurationLabel();
-                }
-
-                PublishProgress("Closing connection");
+                ZebraPrinterStatus status = printer.GetCurrentStatus();
+                PublishProgress("Is printer ready to print? " + status.isReadyToPrint);
             }
-            catch (ConnectionException)
+            else
             {
-                MessageBoxCreator.ShowError("Connection could not be opened", "Error");
+                ZebraPrinter printer = ZebraPrinterFactory.GetInstance(_connection);
+                PublishProgress("Created a printer, attempting to print a config label");
+                printer.PrintConfigurationLabel();
             }
-            catch (ZebraPrinterLanguageUnknownException)
+
+            PublishProgress("Closing connection");
+        }
+        catch (ConnectionException)
+        {
+            MessageBoxCreator.ShowError("Connection could not be opened", "Error");
+        }
+        catch (ZebraPrinterLanguageUnknownException)
+        {
+            MessageBoxCreator.ShowError("Could not create printer", "Error");
+        }
+        finally
+        {
+            if (_connection != null)
             {
-                MessageBoxCreator.ShowError("Could not create printer", "Error");
-            }
-            finally
-            {
-                if (_connection != null)
+                try
                 {
-                    try
-                    {
-                        _connection.Close();
-                    }
-                    catch (ConnectionException) { }
-                    finally
-                    {
-                        _connection = null;
-                        SetTestButtonState(true);
-                    }
+                    _connection.Close();
                 }
-                else
+                catch (ConnectionException) { }
+                finally
                 {
+                    _connection = null;
                     SetTestButtonState(true);
                 }
             }
-        }
-
-        private void SetTestButtonState(bool state)
-        {
-            Application.Current.Dispatcher.Invoke(() =>
+            else
             {
-                testConnectionStringButton.IsEnabled = state;
-            });
-        }
-
-        private void ClearProgress()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                logData.Text = "Log:\nTesting string: " + GetConnectionStringForSdk() + "\n";
-            });
-        }
-
-        private string GetConnectionStringForSdk()
-        {
-            string finalConnectionString = "";
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                string selectedPrefix = "";
-                if (connectionPrefixDropdown.SelectedIndex > 0)
-                {
-                    selectedPrefix = connectionPrefixDropdown.SelectedValue + ":";
-                }
-
-                string userSuppliedDescriptionString = usbDriverIpAddress.Text;
-                finalConnectionString = selectedPrefix + userSuppliedDescriptionString;
-            });
-            return finalConnectionString;
-        }
-
-        private bool IsAttemptingStatusConnection()
-        {
-            return _connection.GetType().Name.Contains("Status");
-        }
-
-        private void PublishProgress(string progress)
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                logData.Text = logData.Text + progress + Environment.NewLine;
-            });
-        }
-
-        private void ConnectionPrefixDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            connectionString.Text = GetConnectionStringForSdk();
-            SetAddressTextBlock();
-        }
-
-        private void SetAddressTextBlock()
-        {
-            AddressTextBlock.Text = connectionPrefixDropdown.SelectedValue switch
-            {
-                ConnectionPrefix.Tcp or ConnectionPrefix.TcpMulti or ConnectionPrefix.TcpStatus => "IP Address:",
-                ConnectionPrefix.Bluetooth or ConnectionPrefix.BluetoothMulti => "BT Address:",
-                ConnectionPrefix.Usb => "USB Driver:",
-                ConnectionPrefix.UsbDirect => "Symbolic Name:",
-                _ => "Address:",
-            };
-            ;
-        }
-
-        private void TestConnectionStringButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                _viewModel.LogData = "Log:\n\n";
-                SetTestButtonState(false);
-
-                TestConnectionString();
-            }
-            catch (Exception ex)
-            {
-                MessageBoxCreator.ShowError(ex.Message, "Connection Builder Error");
+                SetTestButtonState(true);
             }
         }
-
-        private void UsbDriverIpAddress_KeyUp(object sender, KeyEventArgs e)
-        {
-            connectionString.Text = GetConnectionStringForSdk();
-        }
-
-        /// <summary>
-        /// Start ZabbixHttpListener.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonStartHttpListener_OnClick(object sender, RoutedEventArgs e)
-        {
-            Log.Info("OnStart.");
-
-            try
-            {
-                Log.Info("new HealthDataCollectorDummy()");
-                _healthDataCollector = new HealthDataCollectorDummy();
-                _healthDataCollector.LoadValues();
-
-                Log.Info("new FakeCheckThreadByLog");
-                _cancelTokenSource = new CancellationTokenSource();
-                _token = _cancelTokenSource.Token;
-
-                _fakeCheckThreadByLog = new FakeCheckThreadByLog(_healthDataCollector.LoadValues, _token, 2500);
-                _fakeCheckThreadByLog.Start();
-
-                Log.Info("new ZabbixHttpListener");
-                Log.Info("http://localhost:18086/status");
-                //_cancelTokenSourceHttpListener = new CancellationTokenSource();
-                _tokenHttpListener = _cancelTokenSource.Token;
-
-                //_zabbixHttpListener = new ZabbixHttpListener(_healthDataCollector.ResponseBuilderFunc, _tokenHttpListener, 10);
-                _zabbixHttpListener = new ZabbixHttpListener();
-                _zabbixHttpListener.Start();
-
-                Log.Info("fakeCheckThreadByLog.StartED.");
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Stop ZabbixHttpListener.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonStopHttpListener_OnClick(object sender, RoutedEventArgs e)
-        {
-            Log.Info("fakeCheckThreadByLog.Stop()");
-            try
-            {
-                _zabbixHttpListener?.Stop();
-                _token.ThrowIfCancellationRequested();
-                _tokenHttpListener.ThrowIfCancellationRequested();
-                _fakeCheckThreadByLog.Start();
-                //zabbixHttpListener.Stop();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-            }
-
-            Log.Info("In OnStop.");
-        }
-
-        #endregion
     }
+
+    private void SetTestButtonState(bool state)
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            testConnectionStringButton.IsEnabled = state;
+        });
+    }
+
+    private void ClearProgress()
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            logData.Text = "Log:\nTesting string: " + GetConnectionStringForSdk() + "\n";
+        });
+    }
+
+    private string GetConnectionStringForSdk()
+    {
+        string finalConnectionString = "";
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            string selectedPrefix = "";
+            if (connectionPrefixDropdown.SelectedIndex > 0)
+            {
+                selectedPrefix = connectionPrefixDropdown.SelectedValue + ":";
+            }
+
+            string userSuppliedDescriptionString = usbDriverIpAddress.Text;
+            finalConnectionString = selectedPrefix + userSuppliedDescriptionString;
+        });
+        return finalConnectionString;
+    }
+
+    private bool IsAttemptingStatusConnection()
+    {
+        return _connection.GetType().Name.Contains("Status");
+    }
+
+    private void PublishProgress(string progress)
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            logData.Text = logData.Text + progress + Environment.NewLine;
+        });
+    }
+
+    private void ConnectionPrefixDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        connectionString.Text = GetConnectionStringForSdk();
+        SetAddressTextBlock();
+    }
+
+    private void SetAddressTextBlock()
+    {
+        AddressTextBlock.Text = connectionPrefixDropdown.SelectedValue switch
+        {
+            ConnectionPrefix.Tcp or ConnectionPrefix.TcpMulti or ConnectionPrefix.TcpStatus => "IP Address:",
+            ConnectionPrefix.Bluetooth or ConnectionPrefix.BluetoothMulti => "BT Address:",
+            ConnectionPrefix.Usb => "USB Driver:",
+            ConnectionPrefix.UsbDirect => "Symbolic Name:",
+            _ => "Address:",
+        };
+        ;
+    }
+
+    private void TestConnectionStringButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _viewModel.LogData = "Log:\n\n";
+            SetTestButtonState(false);
+
+            TestConnectionString();
+        }
+        catch (Exception ex)
+        {
+            MessageBoxCreator.ShowError(ex.Message, "Connection Builder Error");
+        }
+    }
+
+    private void UsbDriverIpAddress_KeyUp(object sender, KeyEventArgs e)
+    {
+        connectionString.Text = GetConnectionStringForSdk();
+    }
+
+    /// <summary>
+    /// Start ZabbixHttpListener.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ButtonStartHttpListener_OnClick(object sender, RoutedEventArgs e)
+    {
+        Log.Info("OnStart.");
+
+        try
+        {
+            Log.Info("new HealthDataCollectorDummy()");
+            _healthDataCollector = new HealthDataCollectorDummy();
+            _healthDataCollector.LoadValues();
+
+            Log.Info("new FakeCheckThreadByLog");
+            _cancelTokenSource = new CancellationTokenSource();
+            _token = _cancelTokenSource.Token;
+
+            _fakeCheckThreadByLog = new FakeCheckThreadByLog(_healthDataCollector.LoadValues, _token, 2500);
+            _fakeCheckThreadByLog.Start();
+
+            Log.Info("new ZabbixHttpListener");
+            Log.Info("http://localhost:18086/status");
+            //_cancelTokenSourceHttpListener = new CancellationTokenSource();
+            _tokenHttpListener = _cancelTokenSource.Token;
+
+            //_zabbixHttpListener = new ZabbixHttpListener(_healthDataCollector.ResponseBuilderFunc, _tokenHttpListener, 10);
+            _zabbixHttpListener = new ZabbixHttpListener();
+            _zabbixHttpListener.Start();
+
+            Log.Info("fakeCheckThreadByLog.StartED.");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex.Message);
+        }
+    }
+
+    /// <summary>
+    /// Stop ZabbixHttpListener.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ButtonStopHttpListener_OnClick(object sender, RoutedEventArgs e)
+    {
+        Log.Info("fakeCheckThreadByLog.Stop()");
+        try
+        {
+            _zabbixHttpListener?.Stop();
+            _token.ThrowIfCancellationRequested();
+            _tokenHttpListener.ThrowIfCancellationRequested();
+            _fakeCheckThreadByLog.Start();
+            //zabbixHttpListener.Stop();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex.Message);
+        }
+
+        Log.Info("In OnStop.");
+    }
+
+    #endregion
 }

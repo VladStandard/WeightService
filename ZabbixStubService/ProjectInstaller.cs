@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel;
 
-namespace ZabbixStubService
+namespace ZabbixStubService;
+
+[RunInstaller(true)]
+public partial class ProjectInstaller : System.Configuration.Install.Installer
 {
-    [RunInstaller(true)]
-    public partial class ProjectInstaller : System.Configuration.Install.Installer
+    public ProjectInstaller()
     {
-        public ProjectInstaller()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

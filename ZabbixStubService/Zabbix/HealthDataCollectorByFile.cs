@@ -7,77 +7,76 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-namespace ZabbixStubService.Zabbix
+namespace ZabbixStubService.Zabbix;
+
+public class HealthDataCollectorByFile : IHealthDataCollector
 {
-    public class HealthDataCollectorByFile : IHealthDataCollector
+    #region Public and private fields and properties
+
+    public Dictionary<string, string> Dict { get; set; }
+    public DateTime StartDateTime { get; }
+    public int RequestCount { get; private set; }
+    public string SettingFileName { get; set; }
+
+    #endregion
+
+    #region Constructor and destructor
+
+    public HealthDataCollectorByFile(Dictionary<string, string> dict)
     {
-        #region Public and private fields and properties
+        Dict = dict;
+        StartDateTime = DateTime.Now;
+        RequestCount = 0;
+    }
 
-        public Dictionary<string, string> Dict { get; set; }
-        public DateTime StartDateTime { get; }
-        public int RequestCount { get; private set; }
-        public string SettingFileName { get; set; }
+    #endregion
 
-        #endregion
+    #region Public and private methods
 
-        #region Constructor and destructor
+    [Obsolete(@"Используй ResponseStatus")]
+    public string ResponseBuilderFunc()
+    {
+        return Response().ToString();
+    }
 
-        public HealthDataCollectorByFile(Dictionary<string, string> dict)
+    public StringBuilder Response()
+    {
+        StringBuilder result = new();
+        foreach (KeyValuePair<string, string> v in Dict)
         {
-            Dict = dict;
-            StartDateTime = DateTime.Now;
-            RequestCount = 0;
+            result.AppendLine($"{v.Key}={v.Value}");
         }
+        result.AppendLine($"CurrentTime={DateTime.Now.ToString(CultureInfo.InvariantCulture)};");
+        TimeSpan interval = DateTime.Now - StartDateTime;
+        result.AppendLine($"TimePassed={interval.ToString()};");
+        result.AppendLine($"RequestCount={++RequestCount};");
+        return result;
+    }
 
-        #endregion
-
-        #region Public and private methods
-
-        [Obsolete(@"Используй ResponseStatus")]
-        public string ResponseBuilderFunc()
+    public void LoadValues()
+    {
+        Dict.Clear();
+        if (File.Exists(SettingFileName))
         {
-            return Response().ToString();
-        }
-
-        public StringBuilder Response()
-        {
-            StringBuilder result = new();
-            foreach (KeyValuePair<string, string> v in Dict)
+            string[] settingdata = File.ReadAllLines(SettingFileName);
+            for (int i = 0; i < settingdata.Length; i++)
             {
-                result.AppendLine($"{v.Key}={v.Value}");
-            }
-            result.AppendLine($"CurrentTime={DateTime.Now.ToString(CultureInfo.InvariantCulture)};");
-            TimeSpan interval = DateTime.Now - StartDateTime;
-            result.AppendLine($"TimePassed={interval.ToString()};");
-            result.AppendLine($"RequestCount={++RequestCount};");
-            return result;
-        }
-
-        public void LoadValues()
-        {
-            Dict.Clear();
-            if (File.Exists(SettingFileName))
-            {
-                string[] settingdata = File.ReadAllLines(SettingFileName);
-                for (int i = 0; i < settingdata.Length; i++)
+                string setting = settingdata[i];
+                int sidx = setting.IndexOf("=");
+                if (sidx >= 0)
                 {
-                    string setting = settingdata[i];
-                    int sidx = setting.IndexOf("=");
-                    if (sidx >= 0)
-                    {
-                        string skey = setting.Substring(0, sidx);
-                        string svalue = setting.Substring(sidx + 1);
-                        //if (Dict.ContainsKey(skey))
-                        //{
-                        //    Dict.Remove(skey);
-                        //}
-                        Dict.Add(skey, svalue);
+                    string skey = setting.Substring(0, sidx);
+                    string svalue = setting.Substring(sidx + 1);
+                    //if (Dict.ContainsKey(skey))
+                    //{
+                    //    Dict.Remove(skey);
+                    //}
+                    Dict.Add(skey, svalue);
 
-                    }
                 }
             }
         }
-
-        #endregion
     }
+
+    #endregion
 }

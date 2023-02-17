@@ -4,86 +4,85 @@
 using System;
 using System.Threading;
 
-namespace ZabbixStubService.Zabbix
+namespace ZabbixStubService.Zabbix;
+
+public class ThreadChecker
 {
-    public class ThreadChecker
+    #region Private fields and properties
+
+    private Thread _thread;
+    private readonly object _locker;
+    private CancellationToken _token;
+    private readonly int _threadTimeOut;
+    public event EventHandler EventReloadValues;
+
+    #endregion
+
+    #region Constructor and destructor
+
+    public ThreadChecker(CancellationToken token, int threadTimeOut)
     {
-        #region Private fields and properties
+        _locker = new object();
+        _token = token;
+        _threadTimeOut = threadTimeOut;
+        // Запуск.
+        Start();
+    }
 
-        private Thread _thread;
-        private readonly object _locker;
-        private CancellationToken _token;
-        private readonly int _threadTimeOut;
-        public event EventHandler EventReloadValues;
+    ~ThreadChecker()
+    {
+        Stop();
+    }
 
-        #endregion
+    #endregion
 
-        #region Constructor and destructor
+    #region Public and private methods
 
-        public ThreadChecker(CancellationToken token, int threadTimeOut)
+    public void Start()
+    {
+        if (_thread != null)
+            return;
+        try
         {
-            _locker = new object();
-            _token = token;
-            _threadTimeOut = threadTimeOut;
-            // Запуск.
-            Start();
-        }
-
-        ~ThreadChecker()
-        {
-            Stop();
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        public void Start()
-        {
-            if (_thread != null)
-                return;
-            try
-            {
-                _thread = new Thread(t =>
-                {
-                    while (_token != null && !_token.IsCancellationRequested)
+            _thread = new Thread(t =>
                     {
-                        lock (_locker)
+                        while (_token != null && !_token.IsCancellationRequested)
                         {
-                            EventReloadValues?.Invoke(this, new EventArgs());
-                            Thread.Sleep(_threadTimeOut);
+                            lock (_locker)
+                            {
+                                EventReloadValues?.Invoke(this, new EventArgs());
+                                Thread.Sleep(_threadTimeOut);
+                            }
                         }
                     }
-                }
                 )
                 { IsBackground = true };
-                _thread.Start();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _thread.Start();
         }
-
-        public void Stop()
+        catch (Exception)
         {
-            try
+            throw;
+        }
+    }
+
+    public void Stop()
+    {
+        try
+        {
+            if (_thread != null && _thread.IsAlive)
             {
-                if (_thread != null && _thread.IsAlive)
-                {
-                    _token.ThrowIfCancellationRequested();
-                    Thread.Sleep(1000);
-                    _thread.Join(1000);
-                    _thread.Abort();
-                    _thread = null;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                _token.ThrowIfCancellationRequested();
+                Thread.Sleep(1000);
+                _thread.Join(1000);
+                _thread.Abort();
+                _thread = null;
             }
         }
-
-        #endregion
+        catch (Exception)
+        {
+            throw;
+        }
     }
+
+    #endregion
 }

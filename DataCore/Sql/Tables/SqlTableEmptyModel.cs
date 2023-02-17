@@ -20,6 +20,16 @@ public class SqlTableEmptyModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
         //
     }
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    private SqlTableEmptyModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+        //
+    }
+
 	#endregion
 
 	#region Public and private methods - override
