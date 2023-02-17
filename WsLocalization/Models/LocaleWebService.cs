@@ -3,7 +3,7 @@
 
 namespace WsLocalization.Models;
 
-public partial class LocaleWebService
+public class LocaleWebService
 {
     #region Design pattern "Lazy Singleton"
 
@@ -20,6 +20,8 @@ public partial class LocaleWebService
 
     public string IsEmpty => Lang == Lang.English ? "is empty value" : "пустое значение";
     public string IsStatusSuccess => Lang == Lang.English ? "Done successfully" : "Выполнено успешно";
+    public string FieldNomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";
+    public string FieldBundle  => Lang == Lang.English ? "Bundle" : "Пакет";
 
     #endregion
 }

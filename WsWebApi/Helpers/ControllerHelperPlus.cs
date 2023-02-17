@@ -90,9 +90,9 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.ParentGuid, Guid.Empty)) return;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? pluDb)) return;
-            if (!GetPluFkPluDb(response, pluXml, pluXml.ParentGuid, "Parent PLU", true, out PluModel? parentDb)) return;
-            if (!GetPluFkPluDb(response, pluXml, pluXml.CategoryGuid, "Category PLU", true, out PluModel? categoryDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "Nomenclature", false, out PluModel? pluDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.ParentGuid, "Parent Nomenclature", true, out PluModel? parentDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.CategoryGuid, "Category Nomenclature", true, out PluModel? categoryDb)) return;
             if (pluDb is null || parentDb is null) return;
 
             PluFkModel pluFk = new()
@@ -350,8 +350,8 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return pluBundleFk;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? pluDb)) return pluBundleFk;
-            if (!GetPluBundleFkBundleDb(response, pluXml, pluXml.PackageTypeGuid, "Bundle", out BundleModel? bundleDb)) return pluBundleFk;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return pluBundleFk;
+            if (!GetPluBundleFkBundleDb(response, pluXml, pluXml.PackageTypeGuid, LocaleCore.WebService.FieldBundle, out BundleModel? bundleDb)) return pluBundleFk;
             if (pluDb is null || bundleDb is null) return pluBundleFk;
 
             pluBundleFk = new()
@@ -408,7 +408,7 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? pluDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
             if (!GetPluBrandFkBrandDb(response, pluXml, pluXml.BrandGuid, "Brand", out BrandModel? brandDb)) return;
             if (pluDb is null || brandDb is null) return;
 
@@ -476,7 +476,7 @@ public partial class ControllerHelper
         {
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
 
-            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, "PLU", false, out PluModel? pluDb)) return;
+            if (!GetPluFkPluDb(response, pluXml, pluXml.IdentityValueUid, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
             if (!GetPluClipFkClipDb(response, pluXml, pluXml.ClipTypeGuid, "Clip", out ClipModel? clipDb)) return;
             if (pluDb is null || clipDb is null) return;
 
