@@ -30,6 +30,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - #WS-T-812 Тесты. Разделить тесты для БД и для моделей
 - #WS-T-813 Документация. Дизайн интеграции
 - #WS-T-819 Фреймворк. Добавить модель, маппинг таблицы связей ПЛУ и брендов
+- #WS-T-698 Вывод вложенности у плу (Daniil)
+- #WS-T-814 Настройка GutHub workflow (Daniil)
+- #WS-T-817 добавлена PLUS_BRANDS_FK в SQL (Daniil)
 
 ## [0.8.300] - 2023-02-03
 ### Описание обновления:
