@@ -20,9 +20,6 @@ public static class PluController
 
         List<PluTemplateFkModel> pluTemplateFks = DataContext.GetListNotNullable<PluTemplateFkModel>(sqlCrudConfig);
         
-        if (pluTemplateFks.Count == 0)
-            return false;
-
-        return true;
+        return pluTemplateFks.Count != 0;
     }
 }

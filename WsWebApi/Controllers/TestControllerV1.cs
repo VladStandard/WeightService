@@ -70,22 +70,22 @@ public class TestControllerV1 : WebControllerBase
         return ControllerHelp.GetContentResult(() =>
         {
             switch (version)
-            {
+            {      
                 case 1:
                     string response1 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV1);
-                    return new SqlSimpleV1Model().DeserializeFromXml<SqlSimpleV1Model>(response1)
+                    return DataFormatUtils.DeserializeFromXml<SqlSimpleV1Model>(response1)
                         .GetContentResult<SqlSimpleV1Model>(formatString, HttpStatusCode.OK);
                 case 2:
                     string response2 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV2);
-                    return new SqlSimpleV2Model().DeserializeFromXml<SqlSimpleV2Model>(response2)
+                    return DataFormatUtils.DeserializeFromXml<SqlSimpleV2Model>(response2)
                         .GetContentResult<SqlSimpleV2Model>(formatString, HttpStatusCode.OK);
                 case 3:
                     string response3 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV3);
-                    return new SqlSimpleV3Model().DeserializeFromXml<SqlSimpleV3Model>(response3)
+                    return DataFormatUtils.DeserializeFromXml<SqlSimpleV3Model>(response3)
                         .GetContentResult<SqlSimpleV3Model>(formatString, HttpStatusCode.OK);
                 case 4:
                     string response4 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV4);
-                    return new SqlSimpleV4Model().DeserializeFromXml<SqlSimpleV4Model>(response4)
+                    return DataFormatUtils.DeserializeFromXml<SqlSimpleV4Model>(response4)
                         .GetContentResult<SqlSimpleV4Model>(formatString, HttpStatusCode.OK);
             }
 

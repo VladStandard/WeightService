@@ -30,7 +30,7 @@ public class SqlSimpleV3Model : SerializeBase
         {
             foreach (SqlSimpleV1Model item in Simples)
             {
-                result += item.SerializeAsText() + Environment.NewLine;
+                result += DataFormatUtils.SerializeAsText<string>(item) + Environment.NewLine;
             }
         }
         return result;

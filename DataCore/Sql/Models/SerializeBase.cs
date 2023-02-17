@@ -47,7 +47,7 @@ public class SerializeBase : ISerializable
 
     [Obsolete(@"Use DataFormatUtils")]
     public virtual T DeserializeFromXml<T>(string xml) => DataFormatUtils.DeserializeFromXml<T>(xml);
-
+    
     [Obsolete(@"Use DataFormatUtils")]
     public virtual ContentResult GetContentResult<T>(string formatString, HttpStatusCode statusCode) => DataFormatUtils.GetContentResult<T>(this, formatString, statusCode);
 

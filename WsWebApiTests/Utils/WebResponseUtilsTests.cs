@@ -30,7 +30,7 @@ public static class WebResponseUtilsTests
                 }
                 else if (request.Parameters.Contains(WebRequestUtils.GetQueryParameterFormatXml()))
                 {
-                    serviceException = new ServiceExceptionModel().DeserializeFromXml<ServiceExceptionModel>(response.Content);
+                    serviceException =  DataFormatUtils.DeserializeFromXml<ServiceExceptionModel>(response.Content); 
                     Assert.IsTrue(serviceException is not null);
                 }
                 if (serviceException is not null)

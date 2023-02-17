@@ -214,13 +214,12 @@ public static class SqlTableBaseExt
 	}
 
     private static string GetPropertyPluBundleFk(string propertyName, PluBundleFkModel pluBundleFk)
-	{
-		return propertyName switch
-		{
-			//nameof(PluBundleFkModel.WeightTare) => pluBundleFk.WeightTare.ToString(CultureInfo.InvariantCulture),
-			//_ => LocaleCore.Table.FieldNotFound
-		};
-	}
+    {
+	    return propertyName switch
+	    {
+		    _ => LocaleCore.Table.FieldNotFound
+	    };
+    }
 
 	private static string GetPropertyPlu(string propertyName, PluModel plu)
 	{

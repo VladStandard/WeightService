@@ -351,18 +351,18 @@ public class PluModel : SqlTableBase1c
             GroupGuid = plu.GroupGuid;
         if (!Equals(plu.BoxTypeGuid, Guid.Equals))
             BoxTypeGuid = plu.BoxTypeGuid;
+        if (!Equals(plu.ClipTypeGuid, Guid.Equals))
+            ClipTypeGuid = plu.ClipTypeGuid;
+        if (!Equals(plu.PackageTypeGuid, Guid.Equals))
+            PackageTypeGuid = plu.PackageTypeGuid;
         if (!string.IsNullOrEmpty(plu.BoxTypeName))
             BoxTypeName = plu.BoxTypeName;
         if (plu.BoxTypeWeight > 0)
             BoxTypeWeight = plu.BoxTypeWeight;
-        if (!Equals(plu.ClipTypeGuid, Guid.Equals))
-            ClipTypeGuid = plu.ClipTypeGuid;
         if (!string.IsNullOrEmpty(plu.ClipTypeName))
             ClipTypeName = plu.ClipTypeName;
         if (plu.ClipTypeWeight > 0)
             ClipTypeWeight = plu.ClipTypeWeight;
-        if (!Equals(plu.PackageTypeGuid, Guid.Equals))
-            PackageTypeGuid = plu.PackageTypeGuid;
         if (!string.IsNullOrEmpty(plu.PackageTypeName))
             PackageTypeName = plu.PackageTypeName;
         if (plu.PackageTypeWeight > 0)

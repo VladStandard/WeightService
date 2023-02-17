@@ -30,8 +30,8 @@ internal class TablesScaleModelsTests
 
             foreach ((string, bool, bool) assert in asserts)
             {
-                Assert.AreEqual(true, assert.Item2);
-                Assert.AreEqual(true, assert.Item3);
+                Assert.That(assert.Item2, Is.EqualTo(true));
+                Assert.That(assert.Item3, Is.EqualTo(true));
             }
 		}, false);
 	}
