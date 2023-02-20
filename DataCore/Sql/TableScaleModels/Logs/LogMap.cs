@@ -26,7 +26,6 @@ public class LogMap : ClassMap<LogModel>
         Map(x => x.Line).CustomSqlType("INT").Column("LINE").Not.Nullable();
         Map(x => x.Member).CustomSqlType("NVARCHAR").Column("MEMBER").Length(40).Not.Nullable();
         Map(x => x.Message).CustomSqlType("NVARCHAR").Column("MESSAGE").Length(1024).Not.Nullable();
-        //References(x => x.Host).Column("HOST_ID").Nullable();
         References(x => x.Device).Column("DEVICE_UID").Nullable();
         References(x => x.App).Column("APP_UID").Nullable();
         References(x => x.LogType).Column("LOG_TYPE_UID").Nullable();

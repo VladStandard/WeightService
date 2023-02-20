@@ -50,6 +50,8 @@ using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
+using DataCore.Sql.TableScaleModels.LogsWebs;
+using NSubstitute;
 
 namespace AssertCoreTests;
 
@@ -265,10 +267,7 @@ public class DataCoreHelper
 		fieldIdentity.Id.Returns(-1);
 
 		T item = Substitute.For<T>();
-		if (!isNotDefault)
-		{
-			return item;
-		}
+		if (!isNotDefault) return item;
 
 		item.Identity.Returns(fieldIdentity);
 		item.CreateDt.Returns(DateTime.Now);
@@ -276,97 +275,107 @@ public class DataCoreHelper
 		item.IsMarked.Returns(false);
 		item.Description.Returns(LocaleCore.Sql.SqlItemFieldDescription);
 
-
 		switch (item)
 		{
 			case AccessModel access:
-				access.Name = LocaleCore.Sql.SqlItemFieldName;
-				access.Rights = (byte)AccessRightsEnum.None;
-				access.LoginDt = DateTime.Now;
+				access.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+				access.Rights.Returns((byte)AccessRightsEnum.None);
+				access.LoginDt.Returns(DateTime.Now);
 				break;
 			case AppModel app:
-				app.Name = LocaleCore.Sql.SqlItemFieldName;
+				app.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
 			case BarCodeModel barCode:
-				barCode.TypeTop = BarcodeTypeEnum.Default.ToString();
-				barCode.ValueTop = LocaleCore.Sql.SqlItemFieldValue;
-				barCode.TypeRight = BarcodeTypeEnum.Default.ToString();
-				barCode.ValueRight = LocaleCore.Sql.SqlItemFieldValue;
-				barCode.TypeBottom = BarcodeTypeEnum.Default.ToString();
-				barCode.ValueBottom = LocaleCore.Sql.SqlItemFieldValue;
+				barCode.TypeTop.Returns(BarcodeTypeEnum.Default.ToString());
+				barCode.ValueTop.Returns(LocaleCore.Sql.SqlItemFieldValue);
+				barCode.TypeRight.Returns(BarcodeTypeEnum.Default.ToString());
+				barCode.ValueRight.Returns(LocaleCore.Sql.SqlItemFieldValue);
+				barCode.TypeBottom.Returns(BarcodeTypeEnum.Default.ToString());
+				barCode.ValueBottom.Returns(LocaleCore.Sql.SqlItemFieldValue);
 				break;
             case BoxModel box:
-                box.Name = LocaleCore.Sql.SqlItemFieldName;
-                box.Weight = 3;
+                box.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                box.Weight.Returns(3);
                 break;
             case BrandModel brand:
-                brand.Name = LocaleCore.Sql.SqlItemFieldName;
-                brand.Code = LocaleCore.Sql.SqlItemFieldCode;
+                brand.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                brand.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
 				break;
 			case BundleModel bundle:
-                bundle.Name = LocaleCore.Sql.SqlItemFieldName;
-                bundle.Weight = 3;
+                bundle.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                bundle.Weight.Returns(3);
                 break;
             case ClipModel clip:
-                clip.Name = LocaleCore.Sql.SqlItemFieldName;
-                clip.Weight = 2;
+                clip.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                clip.Weight.Returns(2);
                 break;
             case ContragentModel contragent:
-				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
+				contragent.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
 			case DeviceModel device:
-                device.LoginDt = DateTime.Now;
-				device.LogoutDt = DateTime.Now;
-				device.Name = LocaleCore.Sql.SqlItemFieldName;
-				device.PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
-				device.Ipv4 = LocaleCore.Sql.SqlItemFieldIp;
-				device.MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
+                device.LoginDt.Returns(DateTime.Now);
+				device.LogoutDt.Returns(DateTime.Now);
+				device.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+				device.PrettyName.Returns(LocaleCore.Sql.SqlItemFieldPrettyName);
+				device.Ipv4.Returns(LocaleCore.Sql.SqlItemFieldIp);
+				device.MacAddressValue.Returns(LocaleCore.Sql.SqlItemFieldMac);
 				break;
 			case DeviceTypeModel deviceType:
-                //device.FillProperties();
-                deviceType.Name = LocaleCore.Sql.SqlItemFieldName;
-				deviceType.PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
+                deviceType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+				deviceType.PrettyName.Returns(LocaleCore.Sql.SqlItemFieldPrettyName);
 				break;
 			case DeviceTypeFkModel deviceTypeFk:
-                //deviceTypeFk.FillProperties();
                 deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				deviceTypeFk.Type = CreateNewSubstitute<DeviceTypeModel>(isNotDefault);
 				break;
 			case DeviceScaleFkModel deviceScaleFk:
-                //deviceScaleFk.FillProperties();
                 deviceScaleFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				deviceScaleFk.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case LogModel log:
-				log.Version = LocaleCore.Sql.SqlItemFieldVersion;
-				log.File = LocaleCore.Sql.SqlItemFieldFile;
-				log.Line = 1;
-				log.Member = LocaleCore.Sql.SqlItemFieldMember;
-				log.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
-				log.Message = LocaleCore.Sql.SqlItemFieldMessage;
+				log.Version.Returns(LocaleCore.Sql.SqlItemFieldVersion);
+				log.File.Returns(LocaleCore.Sql.SqlItemFieldFile);
+				log.Line.Returns(1);
+				log.Member.Returns(LocaleCore.Sql.SqlItemFieldMember);
+                log.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
+                log.Message.Returns(LocaleCore.Sql.SqlItemFieldMessage);
 				break;
 			case LogTypeModel logType:
-				logType.Icon = LocaleCore.Sql.SqlItemFieldIcon;
+				logType.Icon.Returns(LocaleCore.Sql.SqlItemFieldIcon);
 				break;
+            case LogWebModel logWeb:
+                logWeb.StampDt.Returns(DateTime.Now);
+                logWeb.Version.Returns(LocaleCore.Sql.SqlItemFieldVersion);
+                logWeb.File.Returns(LocaleCore.Sql.SqlItemFieldFile);
+                logWeb.Line.Returns(1);
+                logWeb.Member.Returns(LocaleCore.Sql.SqlItemFieldMember);
+                //logWeb.Direction.Returns(null);
+                logWeb.Url.Returns(LocaleCore.Sql.SqlItemFieldUrl);
+                logWeb.Params.Returns(string.Empty);
+                logWeb.Headers.Returns(string.Empty);
+                logWeb.CountAll.Returns(2);
+                logWeb.CountSuccess.Returns(1);
+                logWeb.CountErrors.Returns(1);
+                break;
 			case NomenclatureModel nomenclature:
-				nomenclature.Name = LocaleCore.Sql.SqlItemFieldName;
-				nomenclature.Code = LocaleCore.Sql.SqlItemFieldCode;
-				nomenclature.Xml = LocaleCore.Sql.SqlItemFieldProductXml;
-				nomenclature.Weighted = false;
+				nomenclature.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+				nomenclature.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
+				nomenclature.Xml.Returns(LocaleCore.Sql.SqlItemFieldProductXml);
+				nomenclature.Weighted.Returns(false);
 				break;
 			case NomenclatureV2Model nomenclatureV2:
-                nomenclatureV2.Name = LocaleCore.Sql.SqlItemFieldName;
-                nomenclatureV2.FullName = LocaleCore.Sql.SqlItemFieldFullName;
-                nomenclatureV2.Code = LocaleCore.Sql.SqlItemFieldCode;
-                nomenclatureV2.MeasurementType = LocaleCore.Sql.SqlItemFieldMeasurementTypeKg;
+                nomenclatureV2.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                nomenclatureV2.FullName.Returns(LocaleCore.Sql.SqlItemFieldFullName);
+                nomenclatureV2.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
+                nomenclatureV2.MeasurementType.Returns(LocaleCore.Sql.SqlItemFieldMeasurementTypeKg);
                 break;
 			case PluGroupModel pluGroup:
-                pluGroup.Name = LocaleCore.Sql.SqlItemFieldName;
-                pluGroup.Code = LocaleCore.Sql.SqlItemFieldCode;
+                pluGroup.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                pluGroup.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
                 break;
             case PluCharacteristicModel nomenclatureCharacteristic:
-                nomenclatureCharacteristic.Name = LocaleCore.Sql.SqlItemFieldName;
-                nomenclatureCharacteristic.AttachmentsCount = 3;
+                nomenclatureCharacteristic.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                nomenclatureCharacteristic.AttachmentsCount.Returns(3);
                 break;
             case PluCharacteristicsFkModel nomenclatureCharacteristicFk:
                 nomenclatureCharacteristicFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
@@ -381,26 +390,26 @@ public class DataCoreHelper
                 pluGroupFk.Parent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
                 break;
 			case OrderModel order:
-				order.Name = LocaleCore.Sql.SqlItemFieldName;
-				order.BoxCount = 1;
-				order.PalletCount = 1;
+				order.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+				order.BoxCount.Returns(1);
+				order.PalletCount.Returns(1);
 				break;
 			case OrderWeighingModel orderWeighing:
 				orderWeighing.Order = CreateNewSubstitute<OrderModel>(isNotDefault);
 				orderWeighing.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
 				break;
 			case OrganizationModel organization:
-				organization.Name = LocaleCore.Sql.SqlItemFieldName;
-				organization.Gln = 1;
+				organization.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+				organization.Gln.Returns(1);
 				break;
             case PluModel plu:
-				plu.Name = LocaleCore.Sql.SqlItemFieldName;
-				plu.Number = 100;
-				plu.FullName = LocaleCore.Sql.SqlItemFieldFullName;
-				plu.Gtin = LocaleCore.Sql.SqlItemFieldGtin;
-				plu.Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
-				plu.Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
-                plu.Code = LocaleCore.Sql.SqlItemFieldCode;
+				plu.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+				plu.Number.Returns((short)100);
+				plu.FullName.Returns(LocaleCore.Sql.SqlItemFieldFullName);
+				plu.Gtin.Returns(LocaleCore.Sql.SqlItemFieldGtin);
+				plu.Ean13.Returns(LocaleCore.Sql.SqlItemFieldEan13);
+				plu.Itf14.Returns(LocaleCore.Sql.SqlItemFieldItf14);
+                plu.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
                 plu.Nomenclature = CreateNewSubstitute<NomenclatureModel>(isNotDefault);
                 break;
 			case PluBundleFkModel pluBundle:
@@ -412,14 +421,14 @@ public class DataCoreHelper
                 pluClips.Clip = CreateNewSubstitute<ClipModel>(isNotDefault);
                 break;
             case PluLabelModel pluLabel:
-				pluLabel.Zpl = LocaleCore.Sql.SqlItemFieldZpl;
+				pluLabel.Zpl.Returns(LocaleCore.Sql.SqlItemFieldZpl);
 				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
 				pluLabel.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
-				pluLabel.ProductDt = DateTime.Now;
-				pluLabel.ExpirationDt = DateTime.Now;
+				pluLabel.ProductDt.Returns(DateTime.Now);
+				pluLabel.ExpirationDt.Returns(DateTime.Now);
 				break;
 			case PluScaleModel pluScale:
-				pluScale.IsActive = true;
+				pluScale.IsActive.Returns(true);
 				pluScale.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
 				pluScale.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
@@ -428,22 +437,22 @@ public class DataCoreHelper
                 pluTemplateFk.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				break;
 			case PluWeighingModel pluWeighing:
-				pluWeighing.Sscc = LocaleCore.Sql.SqlItemFieldSscc;
-				pluWeighing.NettoWeight = 1.1M;
-				pluWeighing.WeightTare = 0.25M;
-				pluWeighing.RegNum = 1;
-				pluWeighing.Kneading = 1;
+				pluWeighing.Sscc.Returns(LocaleCore.Sql.SqlItemFieldSscc);
+				pluWeighing.NettoWeight.Returns(1.1M);
+				pluWeighing.WeightTare.Returns(0.25M);
+				pluWeighing.RegNum.Returns(1);
+				pluWeighing.Kneading.Returns((short)1);
 				pluWeighing.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
 				pluWeighing.Series = CreateNewSubstitute<ProductSeriesModel>(isNotDefault);
 				break;
             case PluNestingFkModel pluNestingFk:
-                pluNestingFk.IsDefault = false;
+                pluNestingFk.IsDefault.Returns(false);
 				pluNestingFk.PluBundle = CreateNewSubstitute<PluBundleFkModel>(isNotDefault);
                 pluNestingFk.Box = CreateNewSubstitute<BoxModel>(isNotDefault);
-                pluNestingFk.BundleCount = 0;
+                pluNestingFk.BundleCount.Returns((short)0);
                 break;
             case PrinterModel printer:
-				printer.DarknessLevel = 1;
+				printer.DarknessLevel.Returns((short)1);
 				printer.PrinterType = CreateNewSubstitute<PrinterTypeModel>(isNotDefault);
 				break;
 			case PrinterResourceModel printerResource:
@@ -451,46 +460,46 @@ public class DataCoreHelper
 				printerResource.TemplateResource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
 				break;
 			case PrinterTypeModel printerType:
-				printerType.Name = LocaleCore.Sql.SqlItemFieldName;
+				printerType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
 			case ProductionFacilityModel productionFacility:
-				productionFacility.Name = LocaleCore.Sql.SqlItemFieldName;
-				productionFacility.Address = LocaleCore.Sql.SqlItemFieldAddress;
+				productionFacility.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+				productionFacility.Address.Returns(LocaleCore.Sql.SqlItemFieldAddress);
 				break;
 			case ProductSeriesModel productSeries:
-				productSeries.Sscc = LocaleCore.Sql.SqlItemFieldSscc;
-				productSeries.IsClose = false;
+				productSeries.Sscc.Returns(LocaleCore.Sql.SqlItemFieldSscc);
+				productSeries.IsClose.Returns(false);
 				productSeries.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case ScaleModel scale:
                 scale.WorkShop = CreateNewSubstitute<WorkShopModel>(isNotDefault);
 				scale.PrinterMain = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				scale.PrinterShipping = CreateNewSubstitute<PrinterModel>(isNotDefault);
-                scale.Number = 10000;
+                scale.Number.Returns(10000);
                 break;
 			case ScaleScreenShotModel scaleScreenShot:
 				scaleScreenShot.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
-				scaleScreenShot.ScreenShot = new byte[] { 0x00 };
+				scaleScreenShot.ScreenShot.Returns(new byte[] { 0x00 });
 				break;
 			case TaskModel task:
 				task.TaskType = CreateNewSubstitute<TaskTypeModel>(isNotDefault);
 				task.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case TaskTypeModel taskType:
-				taskType.Name = LocaleCore.Sql.SqlItemFieldName;
+				taskType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
 			case TemplateModel template:
-				template.Title = LocaleCore.Sql.SqlItemFieldTitle;
+				template.Title.Returns(LocaleCore.Sql.SqlItemFieldTitle);
 				break;
 			case TemplateResourceModel templateResource:
-				templateResource.Name = LocaleCore.Sql.SqlItemFieldName;
+				templateResource.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
 			case VersionModel version:
-				version.Version = 1;
-				version.ReleaseDt = DateTime.Now;
+				version.Version.Returns((short)1);
+				version.ReleaseDt.Returns(DateTime.Now);
 				break;
 			case WorkShopModel workShop:
-				workShop.Name = LocaleCore.Sql.SqlItemFieldName;
+				workShop.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				workShop.ProductionFacility = CreateNewSubstitute<ProductionFacilityModel>(isNotDefault);
 				break;
 		}

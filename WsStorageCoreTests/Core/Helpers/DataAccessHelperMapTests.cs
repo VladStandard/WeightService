@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
+using DataCore.Sql.TableScaleModels.LogsWebs;
 
 namespace WsStorageCoreTests.Core.Helpers;
 
@@ -178,6 +179,16 @@ internal class DataAccessHelperMapTests
         Assert.DoesNotThrow(() =>
         {
             LogTypeMap item = new();
+            TestContext.WriteLine(item);
+        });
+    }
+
+    [Test]
+    public void DataAccess_LogWebMap_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            LogWebMap item = new();
             TestContext.WriteLine(item);
         });
     }

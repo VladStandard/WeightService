@@ -4,6 +4,7 @@
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Clips;
+// ReSharper disable InconsistentNaming
 
 namespace WsWebApi.Helpers;
 

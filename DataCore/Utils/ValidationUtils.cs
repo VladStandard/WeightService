@@ -25,6 +25,7 @@ using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
+using DataCore.Sql.TableScaleModels.LogsWebs;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
@@ -85,6 +86,7 @@ public class ValidationUtils
             var cls when cls == typeof(DeviceTypeModel) => new DeviceTypeValidator(),
             var cls when cls == typeof(LogModel) => new LogValidator(),
             var cls when cls == typeof(LogTypeModel) => new LogTypeValidator(),
+            var cls when cls == typeof(LogWebModel) => new LogWebValidator(),
             var cls when cls == typeof(NomenclatureModel) => new NomenclatureValidator(),
             var cls when cls == typeof(NomenclatureV2Model) => new NomenclatureV2Validator(),
             var cls when cls == typeof(PluGroupModel) => new PluGroupValidator(),
@@ -132,6 +134,7 @@ public class ValidationUtils
             ContragentModel contragent => new ContragentValidator().Validate(contragent),
             LogModel log => new LogValidator().Validate(log),
             LogTypeModel logType => new LogTypeValidator().Validate(logType),
+            LogWebModel logWeb => new LogWebValidator().Validate(logWeb),
             NomenclatureModel nomenclature => new NomenclatureValidator().Validate(nomenclature),
             NomenclatureV2Model nomenclatureV2 => new NomenclatureV2Validator().Validate(nomenclatureV2),
             PluCharacteristicModel nomenclaturesCharacteristics => new PluCharacteristicValidator().Validate(nomenclaturesCharacteristics),

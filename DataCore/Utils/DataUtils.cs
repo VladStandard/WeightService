@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace DataCore.Utils;
 
-public static partial class DataUtils
+public static class DataUtils
 {
     public static bool ByteEquals(byte[] a1, byte[] a2)
     {

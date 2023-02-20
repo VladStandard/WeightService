@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels.Logs;
 
 /// <summary>
-/// Table validation "Hosts".
+/// Table validation "LOGS".
 /// </summary>
 public class LogValidator : SqlTableValidator<LogModel>
 {

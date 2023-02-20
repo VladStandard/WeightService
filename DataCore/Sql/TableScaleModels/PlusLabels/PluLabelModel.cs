@@ -133,7 +133,11 @@ public class PluLabelModel : SqlTableBase
         item.PluWeighing = PluWeighing?.CloneCast();
         item.PluScale = PluScale.CloneCast();
         item.Zpl = Zpl;
-        item.Xml = Xml;
+        if (Xml is { })
+        {
+            XmlDocument xml = DataFormatUtils.DeserializeFromXml<XmlDocument>(Xml.OuterXml, Encoding.UTF8);
+            item.Xml = xml;
+        }
         item.ProductDt = ProductDt;
         item.ExpirationDt = ExpirationDt;
         return item;

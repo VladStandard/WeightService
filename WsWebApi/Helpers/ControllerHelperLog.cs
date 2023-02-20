@@ -17,15 +17,15 @@ public partial class ControllerHelper
     #region Public and private methods
 
     /// <summary>
-    /// Log the request.
+    /// Log the request into the file.
     /// </summary>
     /// <param name="serviceLogType"></param>
     /// <param name="appName"></param>
-    /// <param name="query"></param>
+    /// <param name="api"></param>
     /// <param name="dtStamp"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    private async Task LogCore(ServiceLogType serviceLogType, string appName, string query, DateTime dtStamp, string text)
+    private async Task LogToFileCore(ServiceLogType serviceLogType, string appName, string api, DateTime dtStamp, string text)
     {
         string dtString = StringUtils.FormatDtEng(dtStamp, true).Replace(':', '.');
         // Get directory name.
@@ -36,9 +36,9 @@ public partial class ControllerHelper
         // App dir.
         directory = Path.Combine(directory, appName);
         if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
-        // Query dir.
-        if (query.StartsWith("api/")) query = query.Remove(0, 4);
-        directory = Path.Combine(directory, query);
+        // API dir.
+        if (api.StartsWith("api/")) api = api.Remove(0, 4);
+        directory = Path.Combine(directory, api);
         if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
         // Get file name.
@@ -65,6 +65,36 @@ public partial class ControllerHelper
     }
 
     /// <summary>
+    /// Log the request into the DB.
+    /// </summary>
+    /// <param name="serviceLogType"></param>
+    /// <param name="appName"></param>
+    /// <param name="api"></param>
+    /// <param name="dtStamp"></param>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    private void LogToDbCore(ServiceLogType serviceLogType, string appName, string api, DateTime dtStamp, string text)
+    {
+        // Get file name.
+        text = serviceLogType switch
+        {
+            ServiceLogType.Request => $"{LocaleCore.WebService.LogTypeRequest}: {api}" + Environment.NewLine +
+                                      $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine +
+                                      text,
+            ServiceLogType.Response => $"{LocaleCore.WebService.LogTypeResponse}: {api}" + Environment.NewLine +
+                                       $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine +
+                                       text,
+            ServiceLogType.MetaData => $"{LocaleCore.WebService.LogTypeMetaData}: {api}" + Environment.NewLine +
+                                       $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine +
+                                       text,
+            _ => $"{LocaleCore.WebService.LogTypeRequest}: {api}" + Environment.NewLine +
+                 $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine +
+                 text,
+        };
+        DataContext.DataAccess.LogInformation(text, "", appName);
+    }
+
+    /// <summary>
     /// Log the request.
     /// </summary>
     /// <param name="appName"></param>
@@ -86,7 +116,8 @@ public partial class ControllerHelper
         metaDataText += "Request body:" + Environment.NewLine;
         request = metaDataText + request;
 
-        await LogCore(ServiceLogType.Request, appName, query, dtStamp, request).ConfigureAwait(false);
+        await LogToFileCore(ServiceLogType.Request, appName, query, dtStamp, request).ConfigureAwait(false);
+        LogToDbCore(ServiceLogType.Request, appName, query, dtStamp, request);
     }
 
     /// <summary>
@@ -127,7 +158,8 @@ public partial class ControllerHelper
         metaDataText += "Response body:" + Environment.NewLine;
         string response = metaDataText + result.Content;
 
-        await LogCore(ServiceLogType.Response, appName, query, dtStamp, response).ConfigureAwait(false);
+        await LogToFileCore(ServiceLogType.Response, appName, query, dtStamp, response).ConfigureAwait(false);
+        LogToDbCore(ServiceLogType.Response, appName, query, dtStamp, response);
     }
 
     #endregion

@@ -25,6 +25,7 @@ using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
+using DataCore.Sql.TableScaleModels.LogsWebs;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
@@ -73,6 +74,7 @@ public class DataContextModel
     public List<DeviceScaleFkModel> DeviceScaleFks { get; set; }
     public List<LogModel> Logs { get; set; }
     public List<LogTypeModel> LogTypes { get; set; }
+    public List<LogWebModel> LogsWebs { get; set; }
     public List<NomenclatureModel> NomenclatureDeprecated { get; set; }
     public List<NomenclatureV2Model> NomenclaturesV2 { get; set; }
     public List<PluGroupModel> NomenclaturesGroups { get; set; }
@@ -124,6 +126,7 @@ public class DataContextModel
         DeviceScaleFks = new();
         Logs = new();
         LogTypes = new();
+        LogsWebs = new();
         NomenclatureDeprecated = new();
         NomenclaturesV2 = new();
         NomenclaturesGroups = new();
@@ -178,6 +181,7 @@ public class DataContextModel
         var cls when cls == typeof(DeviceTypeModel) => GetListNotNullableDeviceTypes<T>(sqlCrudConfig),
         var cls when cls == typeof(LogModel) => GetListNotNullableLogs<T>(sqlCrudConfig),
         var cls when cls == typeof(LogTypeModel) => GetListNotNullableLogTypes<T>(sqlCrudConfig),
+        var cls when cls == typeof(LogWebModel) => GetListNotNullableLogsWebs<T>(sqlCrudConfig),
         var cls when cls == typeof(NomenclatureModel) => GetListNotNullableNomenclatures<T>(sqlCrudConfig),
         var cls when cls == typeof(NomenclatureV2Model) => GetListNotNullableNomenclaturesV2<T>(sqlCrudConfig),
         var cls when cls == typeof(OrderModel) => GetListNotNullableOrders<T>(sqlCrudConfig),
@@ -327,6 +331,14 @@ public class DataContextModel
         if (sqlCrudConfig.IsResultOrder && LogTypes.Count > 1)
             LogTypes = LogTypes.OrderBy(item => item.Name).ToList();
         return LogTypes.Cast<T>().ToList();
+    }
+
+    private List<T> GetListNotNullableLogsWebs<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    {
+        LogsWebs = DataAccess.GetListNotNullable<LogWebModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && LogsWebs.Count > 1)
+            LogsWebs = LogsWebs.OrderBy(item => item.Name).ToList();
+        return LogsWebs.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullableNomenclatures<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
@@ -748,6 +760,7 @@ public class DataContextModel
         new DeviceTypeModel(),
         new LogModel(),
         new LogTypeModel(),
+        new LogWebModel(),
         new NomenclatureModel(),
         new NomenclatureV2Model(),
         new OrderModel(),
@@ -798,6 +811,7 @@ public class DataContextModel
         typeof(DeviceTypeModel),
         typeof(LogModel),
         typeof(LogTypeModel),
+        typeof(LogWebModel),
         typeof(NomenclatureModel),
         typeof(NomenclatureV2Model),
         typeof(OrderModel),
@@ -849,6 +863,7 @@ public class DataContextModel
         typeof(DeviceTypeMap),
         typeof(LogMap),
         typeof(LogTypeMap),
+        typeof(LogWebMap),
         typeof(NomenclatureMap),
         typeof(NomenclatureV2Map),
         typeof(OrderMap),
@@ -899,8 +914,9 @@ public class DataContextModel
         typeof(DeviceTypeFkValidator),
         typeof(DeviceTypeValidator),
         typeof(DeviceValidator),
-        typeof(LogTypeValidator),
         typeof(LogValidator),
+        typeof(LogTypeValidator),
+        typeof(LogWebValidator),
         typeof(NomenclatureV2Validator),
         typeof(NomenclatureValidator),
         typeof(OrderValidator),
@@ -950,6 +966,7 @@ public class DataContextModel
             var cls when cls == typeof(DeviceTypeModel) => nameof(DeviceTypeModel),
             var cls when cls == typeof(LogModel) => nameof(LogModel),
             var cls when cls == typeof(LogTypeModel) => nameof(LogTypeModel),
+            var cls when cls == typeof(LogWebModel) => nameof(LogWebModel),
             var cls when cls == typeof(NomenclatureModel) => nameof(NomenclatureModel),
             var cls when cls == typeof(NomenclatureV2Model) => nameof(NomenclatureV2Model),
             var cls when cls == typeof(OrderModel) => nameof(OrderModel),
