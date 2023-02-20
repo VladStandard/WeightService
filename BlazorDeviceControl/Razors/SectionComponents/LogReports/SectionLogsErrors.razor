@@ -1,5 +1,4 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Logs.LogModel, DataCore.Sql.TableScaleModels.LogsTypes.LogTypeModel>
+﻿@inherits RazorComponentSectionBase<LogModel, LogTypeModel>
 @page "/section/logs_errors"
-@using BlazorCore.Razors
 
-<SectionLogs ParentRazor=@(this) />
+<SectionLogs ParentRazor="@(this)"/>

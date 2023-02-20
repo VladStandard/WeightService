@@ -2,22 +2,17 @@
 
 @typeparam TItem
 @inherits RazorComponentSectionBase<TItem, SqlTableBase>
-@using BlazorCore.Razors
-@using MudBlazor
-@using Radzen
-@using Radzen.Blazor
-@using BlazorDeviceControl.Razors.SystemComponents
 
 @if (SqlCrudConfigSection.IsResultShowMarked)
 {
-	<RadzenDataGridColumn TItem=@TItem
-			TextAlign=@TextAlign.Center Width=@(CssStyleRadzenColumn.Width) SortProperty="IsMarked"
-			Title=@LocaleCore.Table.IsMarkedShort >
-		<Template Context="item">
-			@if (item.IsMarked)
-			{
-				<RadzenIcon IconStyle=@IconStyle.Primary Icon="delete" />
-			}
-		</Template>
-	</RadzenDataGridColumn>
+  <RadzenDataGridColumn TItem=@TItem
+                        TextAlign=@TextAlign.Center Width=@(CssStyleRadzenColumn.Width) SortProperty="IsMarked"
+                        Title=@LocaleCore.Table.IsMarkedShort>
+    <Template Context="item">
+      @if (item.IsMarked)
+      {
+        <RadzenIcon IconStyle=@IconStyle.Primary Icon="delete"/>
+      }
+    </Template>
+  </RadzenDataGridColumn>
 }

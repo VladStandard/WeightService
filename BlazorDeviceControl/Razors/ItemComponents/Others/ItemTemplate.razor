@@ -1,50 +1,49 @@
-﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Templates.TemplateModel>
+﻿@using DataCore.Sql.TableScaleModels.Templates
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Templates.TemplateModel>
 @page "/item/template"
 @page "/item/template/new"
 @page "/item/template/{IdentityId:long}"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Templates
 
-<RazorItemReload TItem=@TemplateModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemTemplate />
+<RazorItemReload TItem="@TemplateModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemTemplate"/>
 
-<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-	<RazorItemTableHead TItem=@TemplateModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
-	<tbody>
-		<RazorItemTableBody TItem=@TemplateModel ParentRazor=@(this) />
-		<tr>
-			<td>@LocaleCore.Table.Title</td>
-			<td>
-				<RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Title/>
-			</td>
-			<td>@LocaleCore.Table.CategoryName</td>
-			<td>
-				@if (TemplateCategories is null)
-				{
-					<RadzenTextBox Style="width: 100%;" ReadOnly=true Value=""/>
-					<RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px"/>
-				}
-				else
-				{
-					<RadzenDropDown 
-						Style="width: 100%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-					    AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-					    Data=@TemplateCategories PageSize=@DataAccess.JsonSettings.Local.ItemRowsCount TextProperty="Name"
-					    ValueProperty="Value" Value=@SqlItemCast.CategoryId
-					    Change=@(args => OnChangeItem(SqlItemCast, nameof(SqlItemCast.CategoryId), args))/>
-				}
-			</td>
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.ImageData</td>
-			<td colspan=3>
-				<RadzenTextArea 
-					Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
-					Rows=20
-					@bind-Value=@(SqlItemCast.ImageDataValueUnicode) />
-			</td>
-		</tr>
-	</tbody>
+<MudSimpleTable Style="overflow-x: auto;" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead TItem="@TemplateModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@TemplateModel" ParentRazor="@(this)"/>
+  <tr>
+    <td>@LocaleCore.Table.Title</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Title"/>
+    </td>
+    <td>@LocaleCore.Table.CategoryName</td>
+    <td>
+      @if (TemplateCategories is null)
+      {
+        <RadzenTextBox Style="width: 100%;" ReadOnly=true Value=""/>
+        <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px"/>
+      }
+      else
+      {
+        <RadzenDropDown
+          Style="width: 100%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
+          AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+          Data=@TemplateCategories PageSize=@DataAccess.JsonSettings.Local.ItemRowsCount TextProperty="Name"
+          ValueProperty="Value" Value=@SqlItemCast.CategoryId
+          Change=@(args => OnChangeItem(SqlItemCast, nameof(SqlItemCast.CategoryId), args))/>
+      }
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.ImageData</td>
+    <td colspan="3">
+      <RadzenTextArea
+        Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+        Rows="20"
+        @bind-Value="@(SqlItemCast.ImageDataValueUnicode)"/>
+    </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@TemplateModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
-<RazorItemDates TItem="@TemplateModel" ParentRazor=@(this) />
+<RazorItemActions TItem="@TemplateModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemDates TItem="@TemplateModel" ParentRazor="@(this)"/>

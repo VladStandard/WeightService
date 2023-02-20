@@ -1,28 +1,27 @@
-﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Bundles.BundleModel>
+﻿@using DataCore.Sql.TableScaleModels.Bundles
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Bundles.BundleModel>
 @page "/item/bundle"
 @page "/item/bundle/new"
 @page "/item/bundle/{IdentityUidStr}"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Bundles
 
-<RazorItemReload TItem=BundleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBundle />
+<RazorItemReload TItem="BundleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemBundle"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=BundleModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
-    <tbody>
-        <RazorItemTableBody TItem=BundleModel  ParentRazor=@(this) />
-        <tr>
-            <td>@LocaleCore.Table.Name</td>
-            <td>
-                <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
-			</td>
-			<td>@LocaleCore.Table.Weight</td>
-			<td>
-				<RadzenNumeric Style="width: 100%; " TValue="decimal" @bind-Value=@SqlItemCast.Weight />
-			</td>
-		</tr>
-    </tbody>
+<MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead TItem="BundleModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="BundleModel" ParentRazor="@(this)"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@LocaleCore.Table.Weight</td>
+    <td>
+      <RadzenNumeric Style="width: 100%; " TValue="decimal" @bind-Value="@SqlItemCast.Weight"/>
+    </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@BundleModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
-<RazorItemDates TItem="@BundleModel" ParentRazor=@(this) />
+<RazorItemActions TItem="@BundleModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemDates TItem="@BundleModel" ParentRazor="@(this)"/>

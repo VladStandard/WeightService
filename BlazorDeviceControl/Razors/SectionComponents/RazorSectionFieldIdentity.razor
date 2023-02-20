@@ -1,22 +1,17 @@
 ﻿@typeparam TItem
 @inherits RazorComponentSectionBase<TItem, SqlTableBase>
 @page "/section/field_identity"
-@using BlazorCore.Razors
-@using MudBlazor
-@using Radzen
-@using Radzen.Blazor
-@using BlazorDeviceControl.Razors.SystemComponents
 
-<RadzenGridColumn TItem=@TItem TextAlign=@TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@(GetColumnIdentityName<TItem>())>
-	<Template Context="item">
-		@if (CssStyleRadzenColumn.IsShowLink)
-		{
-			<RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString()
-				Path=@(GetRouteItemPath(item)) />
-		}
-		else
-		{
-			<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString() />
-		}
-	</Template>
+<RadzenGridColumn TItem="@TItem" TextAlign="@TextAlign.Center" Width="@(CssStyleRadzenColumn.Width)" Title="@(GetColumnIdentityName<TItem>())">
+  <Template Context="item">
+    @if (CssStyleRadzenColumn.IsShowLink)
+    {
+      <RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString()
+                  Path=@(GetRouteItemPath(item))/>
+    }
+    else
+    {
+      <RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString()/>
+    }
+  </Template>
 </RadzenGridColumn>

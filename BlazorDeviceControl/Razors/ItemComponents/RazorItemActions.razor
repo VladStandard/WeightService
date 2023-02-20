@@ -1,49 +1,41 @@
 ﻿@typeparam TItem
 @inherits RazorComponentItemBase<TItem>
 @page "/item/actions"
-@using BlazorCore.Razors
-@using BlazorCore.Utils
-@using MudBlazor
-@using Radzen
-@using Radzen.Blazor
-@using BlazorDeviceControl.Razors.SystemComponents
 
 <MudSimpleTable Style="margin-top: 5px;" Dense="true" Bordered="false" FixedHeader="false">
-	<thead>
-		<tr>
-			<th style="color: blue; font-weight: normal; width: 50%;"></th>
-			<th style="color: blue; font-weight: normal; width: 50%;"></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			@if (SqlItem is not null && ButtonSettings is not null && UserSettings is not null)
-			{
-				<td>
-					@if (ButtonSettings.IsShowSave && UserSettings.AccessRightsIsWrite)
-					{
-						<RadzenButton 
-                            class="RadzenButtonLong"
-							Click=@(_ => SqlItemSaveAsync())
-							ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
-							Style="width: 100%; "
-							Text=@LocaleCore.DeviceControl.TableActionSave 
-						/>
-					}
-				</td>
-				<td>
-					@if (ButtonSettings.IsShowCancel && UserSettings.AccessRightsIsRead)
-					{
-						<RadzenButton 
-                            class="RadzenButtonLong"
-							Click=@(_ => SqlItemCancelAsync())
-							ButtonStyle=@ButtonStyle.Secondary Size=@ButtonSize.Small
-							Style="width: 100%; "
-							Text=@LocaleCore.DeviceControl.TableActionCancel 
-						/>
-					}
-				</td>
-			}
-		</tr>
-	</tbody>
+  <thead>
+  <tr>
+    <th style="color: blue; font-weight: normal; width: 50%;"></th>
+    <th style="color: blue; font-weight: normal; width: 50%;"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    @if (SqlItem is not null && ButtonSettings is not null && UserSettings is not null)
+    {
+      <td>
+        @if (ButtonSettings.IsShowSave && UserSettings.AccessRightsIsWrite)
+        {
+          <RadzenButton
+            class="RadzenButtonLong"
+            Click=@(_ => SqlItemSaveAsync())
+            ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
+            Style="width: 100%; "
+            Text=@LocaleCore.DeviceControl.TableActionSave/>
+        }
+      </td>
+      <td>
+        @if (ButtonSettings.IsShowCancel && UserSettings.AccessRightsIsRead)
+        {
+          <RadzenButton
+            class="RadzenButtonLong"
+            Click=@(_ => SqlItemCancelAsync())
+            ButtonStyle=@ButtonStyle.Secondary Size=@ButtonSize.Small
+            Style="width: 100%; "
+            Text=@LocaleCore.DeviceControl.TableActionCancel/>
+        }
+      </td>
+    }
+  </tr>
+  </tbody>
 </MudSimpleTable>

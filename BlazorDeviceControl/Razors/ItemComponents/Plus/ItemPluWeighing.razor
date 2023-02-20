@@ -1,82 +1,81 @@
-﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusWeighings.PluWeighingModel>
+﻿@using DataCore.Sql.TableScaleModels.PlusWeighings
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusWeighings.PluWeighingModel>
 @page "/item/plu_weighing"
 @page "/item/plu_weighing/new"
 @page "/item/plu_weighing/{IdentityUidStr}"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.PlusWeighings
 
 
-<RazorItemReload TItem=@PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluWeighing />
+<RazorItemReload TItem="@PluWeighingModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluWeighing"/>
 
-<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-	<RazorItemTableHead TItem=@PluWeighingModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
-	<tbody>
-		<RazorItemTableBody TItem=@PluWeighingModel ParentRazor=@(this) />
-		<tr>
-			<td>@LocaleCore.Table.Scale</td>
-			<td>
-				<RadzenTextBox 
-					Style="width: 100%; text-align: left; background-color: lightgray;"
-				    ReadOnly=true @bind-Value=@SqlItemCast.PluScale.Scale.Description />
-			</td>
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.PluNumber</td>
-			<td>
-				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray;"
-					ReadOnly=true Value=@SqlItemCast.PluScale.Plu.Number.ToString() />
-			</td>
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.Plu</td>
-			<td>
-				<RadzenTextBox 
-					Style="width: 100%; text-align: left; background-color: lightgray;"
-				    ReadOnly=true Value=@SqlItemCast.PluScale.Plu.Name />
-			</td>
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.WeightNetto</td>
-			<td>
-				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray;"
-				    ReadOnly=true Value=@SqlItemCast.NettoWeight.ToString(CultureInfo.InvariantCulture) />
-			</td>
-			<td>@LocaleCore.Table.BundleFkWeightTare</td>
-			<td>
-				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray;"
-				    ReadOnly=true Value=@SqlItemCast.WeightTare.ToString(CultureInfo.InvariantCulture) />
-			</td>
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.RegNum</td>
-			<td >
-				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray;"
-				    ReadOnly=true Value=@SqlItemCast.RegNum.ToString() />
-			</td>
-			<td>@LocaleCore.Table.IsKneading</td>
-			<td>
-				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray;"
-				    ReadOnly=true Value=@SqlItemCast.Kneading.ToString() />
-			</td>
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.Sscc</td>
-			<td >
-				@if (SqlItemCast.Series is not null)
-				{
-					<RadzenTextBox
-						Style="width: 100%; text-align: center; background-color: lightgray;"
-						ReadOnly=true Value=@SqlItemCast.Series.Sscc />
-				}
-			</td>
-		</tr>
-	</tbody>
+<MudSimpleTable Style="overflow-x: auto;" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead TItem="@PluWeighingModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@PluWeighingModel" ParentRazor="@(this)"/>
+  <tr>
+    <td>@LocaleCore.Table.Scale</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: left; background-color: lightgray;"
+        ReadOnly="true" @bind-Value="@SqlItemCast.PluScale.Scale.Description"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.PluNumber</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: center; background-color: lightgray;"
+        ReadOnly="true" Value="@SqlItemCast.PluScale.Plu.Number.ToString()"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Plu</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: left; background-color: lightgray;"
+        ReadOnly="true" Value="@SqlItemCast.PluScale.Plu.Name"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.WeightNetto</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: center; background-color: lightgray;"
+        ReadOnly="true" Value="@SqlItemCast.NettoWeight.ToString(CultureInfo.InvariantCulture)"/>
+    </td>
+    <td>@LocaleCore.Table.BundleFkWeightTare</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: center; background-color: lightgray;"
+        ReadOnly="true" Value="@SqlItemCast.WeightTare.ToString(CultureInfo.InvariantCulture)"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.RegNum</td>
+    <td >
+      <RadzenTextBox
+        Style="width: 100%; text-align: center; background-color: lightgray;"
+        ReadOnly="true" Value="@SqlItemCast.RegNum.ToString()"/>
+    </td>
+    <td>@LocaleCore.Table.IsKneading</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: center; background-color: lightgray;"
+        ReadOnly="true" Value="@SqlItemCast.Kneading.ToString()"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Sscc</td>
+    <td >
+      @if (SqlItemCast.Series is not null)
+      {
+        <RadzenTextBox
+          Style="width: 100%; text-align: center; background-color: lightgray;"
+          ReadOnly=true Value=@SqlItemCast.Series.Sscc/>
+      }
+    </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@PluWeighingModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
-<RazorItemDates TItem="@PluWeighingModel" ParentRazor=@(this) />
+<RazorItemActions TItem="@PluWeighingModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemDates TItem="@PluWeighingModel" ParentRazor="@(this)"/>

@@ -1,31 +1,30 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Boxes.BoxModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.Boxes
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Boxes.BoxModel, SqlTableBase>
 @page "/section/boxes"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Boxes
 
-<RazorSectionReload TItem=@BoxModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBoxes SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@BoxModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBoxes" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-	PagerHorizontalAlign=@HorizontalAlign.Justify 
-	Style="margin-top: 5px;" 
-    Data=@SqlSectionCast 
-    TItem=@BoxModel 
-    RowSelect=@(SqlItemSetAsync) 
-    RowRender=@(args => RowRender(args))
-	RowDoubleClick=@(_ => SqlItemEditAsync())
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
-    PagerPosition="@PagerPos"
-    AllowPaging=true 
-    AllowSorting=true >
-    <Columns>
-        <RazorSectionFieldIsMarked TItem=@BoxModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RazorSectionField TItem=@BoxModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Box.GetName() />
-        <RazorSectionField TItem=@BoxModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Box.GetWeight() />
-    </Columns>
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Style="margin-top: 5px;"
+  Data="@SqlSectionCast"
+  TItem="@BoxModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  PagerPosition="@PagerPos"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns>
+    <RazorSectionFieldIsMarked TItem="@BoxModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionField TItem="@BoxModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("75%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Box.GetName()"/>
+    <RazorSectionField TItem="@BoxModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Box.GetWeight()"/>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@BoxModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@BoxModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

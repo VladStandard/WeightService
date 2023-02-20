@@ -1,43 +1,42 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.PlusGroups
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel, SqlTableBase>
 @page "/section/nomenclatures_groups"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.PlusGroups;
 
-<RazorSectionReload TItem=@PluGroupModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclaturesGroups
-                    SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@PluGroupModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionNomenclaturesGroups"
+                    SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-	PagerHorizontalAlign=@HorizontalAlign.Justify 
-	Style="margin-top: 5px;" 
-    Data="@SqlSectionCast" 
-    TItem="@PluGroupModel" 
-    RowSelect=@(SqlItemSetAsync) 
-    RowRender="@RowRender"
-    LoadChildData="@LoadChildData"
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
-    AllowPaging=true  
-    AllowSorting=true >
-    <Columns >
-        <RazorSectionFieldIsMarked TItem=@PluGroupModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenDataGridColumn TItem="@PluGroupModel" Title="@LocaleCore.Table.Name" Width="45%" >
-            <Template Context="itemCast" >
-	            <RadzenLink Style="width: 100%; margin-left: 0; "
-                            Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclatureGroup}/{itemCast.IdentityValueUid}")
-	                        Text=@itemCast.Name />
-            </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="@PluGroupModel" Title="@LocaleCore.Table.Code" Width="20%" Property="Code" />
-        <RadzenDataGridColumn TItem="@PluGroupModel" Title="@LocaleCore.Table.Group" Width="30%" >
-            <Template Context="itemCast" >
-                <RadzenText Text=@(DataAccess.GetItemNomenclatureGroupParentNotNullable(itemCast).Name)
-                    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Left />
-            </Template>
-        </RadzenDataGridColumn>
-    </Columns>
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Style="margin-top: 5px;"
+  Data="@SqlSectionCast"
+  TItem="@PluGroupModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@RowRender"
+  LoadChildData="@LoadChildData"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns >
+    <RazorSectionFieldIsMarked TItem="@PluGroupModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RadzenDataGridColumn TItem="@PluGroupModel" Title="@LocaleCore.Table.Name" Width="45%">
+      <Template Context="itemCast">
+        <RadzenLink Style="width: 100%; margin-left: 0; "
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclatureGroup}/{itemCast.IdentityValueUid}")
+                    Text="@itemCast.Name"/>
+      </Template>
+    </RadzenDataGridColumn>
+    <RadzenDataGridColumn TItem="@PluGroupModel" Title="@LocaleCore.Table.Code" Width="20%" Property="Code"/>
+    <RadzenDataGridColumn TItem="@PluGroupModel" Title="@LocaleCore.Table.Group" Width="30%">
+      <Template Context="itemCast">
+        <RadzenText Text="@(DataAccess.GetItemNomenclatureGroupParentNotNullable(itemCast).Name)"
+                    TextStyle="@TextStyle.Body2" TextAlign="@TextAlign.Left"/>
+      </Template>
+    </RadzenDataGridColumn>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@PluGroupModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@PluGroupModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

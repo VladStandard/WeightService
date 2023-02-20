@@ -1,49 +1,47 @@
-﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PrintersResources.PrinterResourceModel>
+﻿@using DataCore.Sql.TableScaleModels.PrintersResources
+@using DataCore.Sql.TableScaleModels.TemplatesResources
+@using DataCore.Sql.TableScaleModels.Printers
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PrintersResources.PrinterResourceModel>
 @page "/item/printer_resource"
 @page "/item/printer_resource/new"
 @page "/item/printer_resource/{IdentityId:long}"
-@using static BlazorCore.Utils.BlazorCoreUtuls
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Printers
-@using DataCore.Sql.TableScaleModels.PrintersResources
-@using DataCore.Sql.TableScaleModels.TemplatesResources
 
-<RazorItemReload TItem=@PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resource />
+<RazorItemReload TItem="@PrinterResourceModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Resource"/>
 
-<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-	<RazorItemTableHead TItem=@PrinterResourceModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
-	<tbody>
-		<RazorItemTableBody TItem=@PrinterResourceModel ParentRazor=@(this) />
-		<tr>
-			<td>@LocaleCore.Print.Name</td>
-			<td>
-				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
-                    @bind-Value=@SqlItemCast.Printer>
-					@foreach (PrinterModel item in DataContext.Printers)
-					{
-						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
-					}
-				</MudSelect>
-			</td>
-			<td>@LocaleCore.Table.Resource</td>
-			<td>
-				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
-                    @bind-Value=@SqlItemCast.TemplateResource>
-					@foreach (TemplateResourceModel item in DataContext.TemplateResources)
-					{
-						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
-					}
-				</MudSelect>
-			</td>
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.Description</td>
-			<td colspan=3>
-				<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Description/>
-			</td>
-		</tr>
-	</tbody>
+<MudSimpleTable Style="overflow-x: auto;" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead TItem="@PrinterResourceModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@PrinterResourceModel" ParentRazor="@(this)"/>
+  <tr>
+    <td>@LocaleCore.Print.Name</td>
+    <td>
+      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
+                 @bind-Value="@SqlItemCast.Printer">
+        @foreach (PrinterModel item in DataContext.Printers)
+        {
+          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+        }
+      </MudSelect>
+    </td>
+    <td>@LocaleCore.Table.Resource</td>
+    <td>
+      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
+                 @bind-Value="@SqlItemCast.TemplateResource">
+        @foreach (TemplateResourceModel item in DataContext.TemplateResources)
+        {
+          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+        }
+      </MudSelect>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Description</td>
+    <td colspan="3">
+      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Description"/>
+    </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@PrinterResourceModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
-<RazorItemDates TItem="@PrinterResourceModel" ParentRazor=@(this) />
+<RazorItemActions TItem="@PrinterResourceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemDates TItem="@PrinterResourceModel" ParentRazor="@(this)"/>

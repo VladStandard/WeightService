@@ -1,31 +1,30 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.ProductionFacilities.ProductionFacilityModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.ProductionFacilities
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.ProductionFacilities.ProductionFacilityModel, SqlTableBase>
 @page "/section/production_facilities"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.ProductionFacilities
 
-<RazorSectionReload TItem=@ProductionFacilityModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionProductionFacilities SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@ProductionFacilityModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionProductionFacilities" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid 
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-    PagerHorizontalAlign=@HorizontalAlign.Justify 
-	Style="margin-top: 5px;" 
-    Data=@SqlSectionCast 
-    TItem=@ProductionFacilityModel 
-    RowSelect=@(SqlItemSetAsync) 
-    RowRender=@(args => RowRender(args))
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
-    AllowPaging=true  
-    AllowSorting=true >
-    <Columns >
-        <RazorSectionFieldIsMarked TItem=@ProductionFacilityModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
-        <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("70%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.ProductionFacility.GetAddress() />
-    </Columns>
+<RadzenDataGrid
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Style="margin-top: 5px;"
+  Data="@SqlSectionCast"
+  TItem="@ProductionFacilityModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns >
+    <RazorSectionFieldIsMarked TItem="@ProductionFacilityModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionField TItem="@ProductionFacilityModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("25%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
+    <RazorSectionField TItem="@ProductionFacilityModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("70%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.ProductionFacility.GetAddress()"/>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@ProductionFacilityModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@ProductionFacilityModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

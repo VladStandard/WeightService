@@ -1,32 +1,31 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Access.AccessModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.Access
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Access.AccessModel, SqlTableBase>
 @page "/section/access"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Access
 
-<RazorSectionReload TItem=@AccessModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@AccessModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Strings.AccessRights" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-	PagerHorizontalAlign=@HorizontalAlign.Justify
-	Style="margin-top: 5px; " 
-    Data=@SqlSectionCast 
-    TItem=@AccessModel 
-    RowSelect=@(SqlItemSetAsync)
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
-    AllowPaging=true 
-    AllowSorting=true >
-    <Columns>
-		<RazorSectionFieldIsMarked TItem=@AccessModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-			RazorFieldConfig=@RazorFieldConfigUtils.Access.GetLoginDt() />
-		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
-		 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName(LocaleCore.Table.User) />
-		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
-			RazorFieldConfig=@RazorFieldConfigUtils.Access.GetRights() />
-    </Columns>
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Style="margin-top: 5px; "
+  Data="@SqlSectionCast"
+  TItem="@AccessModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns>
+    <RazorSectionFieldIsMarked TItem="@AccessModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionField TItem="@AccessModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Access.GetLoginDt()"/>
+    <RazorSectionField TItem="@AccessModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("50%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName(LocaleCore.Table.User)"/>
+    <RazorSectionField TItem="@AccessModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("25%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Access.GetRights()"/>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@AccessModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@AccessModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

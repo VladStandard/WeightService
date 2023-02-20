@@ -1,13 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Reflection;
+
 namespace BlazorDeviceControl.Razors.SystemComponents;
 
 public partial class SystemAppInfo : RazorComponentBase
 {
 	#region Public and private fields, properties, constructor
 
-	private string VerApp => AssemblyUtuls.GetAppVersion(global::System.Reflection.Assembly.GetExecutingAssembly());
+	private string VerApp => AssemblyUtuls.GetAppVersion(Assembly.GetExecutingAssembly());
 	private string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
 	private string VerLibDataCore => AssemblyUtuls.GetLibVersion();
 	private List<TypeModel<bool>> TemplateIsDebug { get; set; } = new();
