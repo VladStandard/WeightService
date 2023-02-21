@@ -6,7 +6,7 @@ using BlazorCore.Settings;
 
 namespace BlazorCore.Utils;
 
-public static class BlazorCoreUtuls
+public static class BlazorCoreUtils
 {
     #region Public and private methods
 

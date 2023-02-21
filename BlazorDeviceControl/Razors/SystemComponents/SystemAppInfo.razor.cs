@@ -10,7 +10,7 @@ public partial class SystemAppInfo : RazorComponentBase
 	#region Public and private fields, properties, constructor
 
 	private string VerApp => AssemblyUtuls.GetAppVersion(Assembly.GetExecutingAssembly());
-	private string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
+	private string VerLibBlazorCore => BlazorCoreUtils.GetLibVersion();
 	private string VerLibDataCore => AssemblyUtuls.GetLibVersion();
 	private List<TypeModel<bool>> TemplateIsDebug { get; set; } = new();
 	private uint DbCurSize { get; set; }

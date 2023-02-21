@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.730] - 2022-05-25
 ### Changed
-- WS-T-187. Устройства с пустыми полями
+- WS-T-187. РЈСЃС‚СЂРѕР№СЃС‚РІР° СЃ РїСѓСЃС‚С‹РјРё РїРѕР»СЏРјРё
 
 ## [0.6.120] - 2022-02-03
 ### Changed

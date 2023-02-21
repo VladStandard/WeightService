@@ -13,11 +13,11 @@ public class ErrorModel : PageModel
     #region Public and private fields, properties, constructor
 
     public string RequestId { get; set; }
+
     public ErrorModel()
     {
         RequestId = string.Empty;
     }
-
 
     #endregion
 }
