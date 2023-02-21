@@ -1,56 +1,45 @@
-﻿@typeparam TItem
-@inherits RazorComponentItemBase<TItem>
-@page "/item/dates"
-@using BlazorCore.Razors
-@using MudBlazor
-@using Radzen
-@using Radzen.Blazor
-@using BlazorDeviceControl.Razors.SystemComponents
+﻿@inherits LayoutComponentBase
 
-
-<MudSimpleTable Style="margin-top: 5px;" Dense=true Bordered=false FixedHeader=false>
-	<thead>
-		<tr>
-			<th style="color: blue; font-weight: normal; width: 25%;"></th>
-			<th style="color: blue; font-weight: normal; width: 25%;"></th>
-			<th style="color: blue; font-weight: normal; width: 25%;"></th>
-			<th style="color: blue; font-weight: normal; width: 25%;"></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			@if (SqlItem is not null)
-			{
-				<td>
-					@if (!string.IsNullOrEmpty(CreateDt))
-					{
-						<RadzenText Text=@LocaleCore.Table.CreateDt
-							TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center />
-					}
-				</td>
-				<td>
-					@if (!string.IsNullOrEmpty(CreateDt))
-					{
-						<RadzenText 
-							Text=@CreateDt
-							TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center />
-					}
-				</td>
-				<td>
-					@if (!string.IsNullOrEmpty(ChangeDt))
-					{
-						<RadzenText Text=@LocaleCore.Table.ChangeDt
-							TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center />
-					}
-				</td>
-				<td>
-					@if (!string.IsNullOrEmpty(ChangeDt))
-					{
-						<RadzenText Text=@ChangeDt
-							TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center />
-					}
-				</td>
-			}
-		</tr>
-	</tbody>
+<MudSimpleTable Style="margin-top: 5px;" Dense="true" Bordered="false" FixedHeader="false">
+  <thead>
+  <tr>
+    <th style="color: blue; font-weight: normal; width: 25%;"></th>
+    <th style="color: blue; font-weight: normal; width: 25%;"></th>
+    <th style="color: blue; font-weight: normal; width: 25%;"></th>
+    <th style="color: blue; font-weight: normal; width: 25%;"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      @if (!string.IsNullOrEmpty(CreateDt))
+      {
+        <RadzenText Text=@LocaleCore.Table.CreateDt
+                    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
+      }
+      </td>
+      <td>
+        @if (!string.IsNullOrEmpty(CreateDt))
+        {
+          <RadzenText
+            Text=@CreateDt
+            TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
+        }
+      </td>
+      <td>
+        @if (!string.IsNullOrEmpty(ChangeDt))
+        {
+          <RadzenText Text=@LocaleCore.Table.ChangeDt
+                      TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
+        }
+      </td>
+      <td>
+        @if (!string.IsNullOrEmpty(ChangeDt))
+        {
+          <RadzenText Text=@ChangeDt
+                      TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
+        }
+      </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>

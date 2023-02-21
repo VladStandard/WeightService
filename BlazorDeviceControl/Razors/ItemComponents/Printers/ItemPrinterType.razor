@@ -1,24 +1,23 @@
-﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PrintersTypes.PrinterTypeModel>
+﻿@using DataCore.Sql.TableScaleModels.PrintersTypes
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PrintersTypes.PrinterTypeModel>
 @page "/item/printer_type"
 @page "/item/printer_type/new"
 @page "/item/printer_type/{IdentityId:long}"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.PrintersTypes
 
-<RazorItemReload TItem=@PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Type />
+<RazorItemReload TItem="@PrinterTypeModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Type"/>
 
-<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-	<RazorItemTableHead TItem=@PrinterTypeModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
-	<tbody>
-		<RazorItemTableBody TItem=@PrinterTypeModel ParentRazor=@(this) />
-		<tr>
-			<td>@LocaleCore.Table.Name</td>
-			<td colspan=3>
-				<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name/>
-			</td>
-		</tr>
-	</tbody>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@PrinterTypeModel" ParentRazor="@(this)"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td colspan="3">
+      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
+    </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@PrinterTypeModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
-<RazorItemDates TItem="@PrinterTypeModel" ParentRazor=@(this) />
+<RazorItemActions TItem="@PrinterTypeModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

@@ -1,38 +1,37 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Devices.DeviceModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.Devices
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Devices.DeviceModel, SqlTableBase>
 @page "/section/devices"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Devices
 
-<RazorSectionReload TItem=@DeviceModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@DeviceModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionHosts" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid 
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-    PagerHorizontalAlign=@HorizontalAlign.Justify 
-    Style="margin-top: 5px;" 
-    Data=@SqlSectionCast 
-    TItem=@DeviceModel
-    RowSelect=@(SqlItemSetAsync)
-    RowRender=@(args => RowRender(args))
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
-    AllowPaging=true 
-    AllowSorting=true >
-    <Columns>
-        <RazorSectionFieldIsMarked TItem=@DeviceModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RadzenDataGrid
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Data="@SqlSectionCast"
+  TItem="@DeviceModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns>
+    <RazorSectionFieldIsMarked TItem="@DeviceModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-        <RazorSectionField TItem=@DeviceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetLoginDt() />
-        <RazorSectionField TItem=@DeviceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
-        <RazorSectionField TItem=@DeviceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetTypePrettyName() />
-        <RazorSectionField TItem=@DeviceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetIpv4() />
-        <RazorSectionField TItem=@DeviceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetMacAddress() />
-    </Columns>
+    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("15%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Device.GetLoginDt()"/>
+    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
+    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Device.GetTypePrettyName()"/>
+    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Device.GetIpv4()"/>
+    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Device.GetMacAddress()"/>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@DeviceModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@DeviceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

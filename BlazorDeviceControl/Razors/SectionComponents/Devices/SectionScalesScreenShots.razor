@@ -1,48 +1,47 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.ScalesScreenshots.ScaleScreenShotModel, DataCore.Sql.TableScaleModels.Scales.ScaleModel>
-@page "/section/scales_screenshots"
-@using BlazorCore.Razors
+﻿@using DataCore.Sql.TableScaleModels.ScalesScreenshots
 @using DataCore.Sql.TableScaleModels.Scales
-@using DataCore.Sql.TableScaleModels.ScalesScreenshots
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.ScalesScreenshots.ScaleScreenShotModel, DataCore.Sql.TableScaleModels.Scales.ScaleModel>
+@page "/section/scales_screenshots"
 
-<RazorSectionReload TItem=@ScaleScreenShotModel TItemFilter=@ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScreenShots SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@ScaleScreenShotModel" TItemFilter="@ScaleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionScreenShots" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid 
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-    PagerHorizontalAlign=@HorizontalAlign.Justify
-	Style="margin-top: 5px;"
-    Data=@SqlSectionCast 
-    TItem=@ScaleScreenShotModel
-	RowSelect=@(SqlItemSetAsync) 
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
-    AllowPaging=true  
-    AllowSorting=true >
-    <Columns>
-	    <RazorSectionFieldIsMarked TItem=@ScaleScreenShotModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-	    <RadzenDataGridColumn TItem=@ScaleScreenShotModel Width="12%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.ChangeDt>
-    		<Template Context="itemCast">
-    			<RadzenLink TextStyle=@TextStyle.Body2
-    				Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true, true)) 
-    				Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
-    		</Template>
-	    </RadzenDataGridColumn>
-	    <RadzenDataGridColumn TItem=@ScaleScreenShotModel Width="40%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Scale>
-    		<Template Context="itemCast">
-    			<RadzenLink TextStyle=@TextStyle.Body2
-    				Text=@itemCast.Scale.Description
-	                Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
-    		</Template>
-	    </RadzenDataGridColumn>
-	    <RadzenDataGridColumn TItem=@ScaleScreenShotModel Width="43%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.ScreenShot>
-    		<Template Context="itemCast">
-    			<RadzenLink TextStyle=@TextStyle.Body2
-	                Text=@($"{DataUtils.GetBytesLength(itemCast.ScreenShot, false)}") 
-	                Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
-    		</Template>
-	    </RadzenDataGridColumn>
-    </Columns>
+<RadzenDataGrid
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Data="@SqlSectionCast"
+  TItem="@ScaleScreenShotModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns>
+    <RazorSectionFieldIsMarked TItem="@ScaleScreenShotModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="12%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.ChangeDt">
+      <Template Context="itemCast">
+        <RadzenLink TextStyle="@TextStyle.Body2"
+                    Text="@(StringUtils.FormatDtRus(itemCast.ChangeDt, true, true))"
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
+      </Template>
+    </RadzenDataGridColumn>
+    <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="40%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Scale">
+      <Template Context="itemCast">
+        <RadzenLink TextStyle="@TextStyle.Body2"
+                    Text="@itemCast.Scale.Description"
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
+      </Template>
+    </RadzenDataGridColumn>
+    <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="43%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.ScreenShot">
+      <Template Context="itemCast">
+        <RadzenLink TextStyle="@TextStyle.Body2"
+                    Text=@($"{DataUtils.GetBytesLength(itemCast.ScreenShot, false)}")
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
+      </Template>
+    </RadzenDataGridColumn>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@ScaleScreenShotModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@ScaleScreenShotModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

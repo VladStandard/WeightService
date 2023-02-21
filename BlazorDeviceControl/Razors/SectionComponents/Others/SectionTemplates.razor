@@ -1,43 +1,42 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Templates.TemplateModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.Templates
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Templates.TemplateModel, SqlTableBase>
 @page "/section/templates"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Templates
 
-<RazorSectionReload TItem=@TemplateModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplates SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@TemplateModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionTemplates" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-	PagerHorizontalAlign=@HorizontalAlign.Justify 
-	Style="margin-top: 5px;"
-    Data=@SqlSectionCast 
-    TItem=@TemplateModel 
-    RowSelect=@(SqlItemSetAsync) 
-    RowRender=@(args => RowRender(args))
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-	PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
-    AllowPaging=true 
-    AllowSorting=true >
-    <Columns>
-        <RazorSectionFieldIsMarked TItem=@TemplateModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RazorSectionFieldIdentity TItem=@TemplateModel ParentRazor=@(this) />
-        <RadzenDataGridColumn 
-            TItem=@TemplateModel Property="CategoryId" TextAlign=@TextAlign.Center
-            Title=@LocaleCore.Table.CategoryName Width="15%" />
-        <RadzenDataGridColumn 
-            TItem=@TemplateModel Title=@LocaleCore.Table.Title Width="60%" SortProperty="Title" >
-            <Template Context="itemCast" >
-                <RadzenLink Style="width: 100%; margin-left: 0; "
-                            Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{itemCast.IdentityValueId}")
-                    Text=@itemCast.Title />
-            </Template>
-        </RadzenDataGridColumn>
-        <RadzenGridColumn 
-            TItem=@TemplateModel Property="ImageData.Info"
-            Title=@LocaleCore.Table.ImageDataInfo 
-            Type="string" Width="25%" />
-    </Columns>
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Data="@SqlSectionCast"
+  TItem="@TemplateModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns>
+    <RazorSectionFieldIsMarked TItem="@TemplateModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionFieldIdentity TItem="@TemplateModel" ParentRazor="@(this)"/>
+    <RadzenDataGridColumn
+      TItem="@TemplateModel" Property="CategoryId" TextAlign="@TextAlign.Center"
+      Title="@LocaleCore.Table.CategoryName" Width="15%"/>
+    <RadzenDataGridColumn
+      TItem="@TemplateModel" Title="@LocaleCore.Table.Title" Width="60%" SortProperty="Title">
+      <Template Context="itemCast">
+        <RadzenLink Style="width: 100%; margin-left: 0; "
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{itemCast.IdentityValueId}")
+                    Text="@itemCast.Title"/>
+      </Template>
+    </RadzenDataGridColumn>
+    <RadzenGridColumn
+      TItem="@TemplateModel" Property="ImageData.Info"
+      Title="@LocaleCore.Table.ImageDataInfo"
+      Type="string" Width="25%"/>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@TemplateModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@TemplateModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

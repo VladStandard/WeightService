@@ -1,85 +1,83 @@
-﻿@inherits RazorComponentItemBase<PluBundleFkModel>
+﻿@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
+@using DataCore.Sql.TableScaleModels.Bundles
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel>
 @page "/item/plu_bundle_fk"
 @page "/item/plu_bundle_fk/new"
 @page "/item/plu_bundle_fk/{IdentityUidStr}"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
-@using DataCore.Sql.TableScaleModels.Bundles;
-@using DataCore.Sql.TableScaleModels.Plus;
 
 
-<RazorItemReload TItem=@PluBundleFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluBundleFk />
+<RazorItemReload TItem="@PluBundleFkModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluBundleFk"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=@PluBundleFkModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
-    <tbody>
-        <RazorItemTableBody TItem=@PluBundleFkModel ParentRazor=@(this) />
-        @* Plu & Number *@
-        <tr>
-            <td>
-                <RadzenLink Style="width: 100%; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, Plu, Plu.IdentityValueUid)
-                            Text=@LocaleCore.Table.Plu />
-            </td>
-            <td colspan=3>
-                <MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
-                @bind-Value=@Plu>
-                    @foreach (PluModel item in DataContext.Plus)
-                    {
-                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-                    }
-                </MudSelect>
-            </td>
-        </tr>
-        @* Plu *@
-        <tr>
-            <td>
-                <RadzenLink Style="width: 100%; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)
-                            Text=@LocaleCore.Table.Plu />
-            </td>
-            <td>
-                <RadzenLink Style="width: 100%; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)
-                            Text=@($"{Plu.Number}") />
-            </td>
-            <td colspan=2>
-                <RadzenLink Style="width: 100%; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)
-                            Text=@Plu.Name />
-            </td>
-        </tr>
-        @* Nomenclature *@
-        <tr>
-            <td>
-                <RadzenLabel Style="width: 100%; " Text=@LocaleCore.Table.NomenclatureCode />
-            </td>
-            <td>
-                <RadzenLink Style="width: 100%; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Bundle, SqlItemCast.Plu.IdentityValueUid)
-                            Text=@(SqlItemCast.Plu.Code) />
-            </td>
-        </tr>
-        @* Bundle *@
-        <tr>
-            <td>
-                <RadzenLink Style="width: 100%; margin-left: 0;"
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBundle, SqlItemCast.Bundle, SqlItemCast.Bundle.IdentityValueUid)
-                            Text=@LocaleCore.Table.Bundle />
-            </td>
-            <td colspan=3>
-                <MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
-                @bind-Value=@Bundle>
-                    @foreach (BundleModel item in DataContext.Bundles)
-                    {
-                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-                    }
-                </MudSelect>
-            </td>
-        </tr>
-    </tbody>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@PluBundleFkModel" ParentRazor="@(this)"/>
+  @* Plu & Number *@
+  <tr>
+    <td>
+      <RadzenLink Style="width: 100%; "
+                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, Plu, Plu.IdentityValueUid)"
+                  Text="@LocaleCore.Table.Plu"/>
+    </td>
+    <td colspan="3">
+      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
+                 @bind-Value="@Plu">
+        @foreach (PluModel item in DataContext.Plus)
+        {
+          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+        }
+      </MudSelect>
+    </td>
+  </tr>
+  @* Plu *@
+  <tr>
+    <td>
+      <RadzenLink Style="width: 100%; "
+                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)"
+                  Text="@LocaleCore.Table.Plu"/>
+    </td>
+    <td>
+      <RadzenLink Style="width: 100%; "
+                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)"
+                  Text=@($"{Plu.Number}") />
+    </td>
+    <td colspan="2">
+      <RadzenLink Style="width: 100%; "
+                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)"
+                  Text="@Plu.Name"/>
+    </td>
+  </tr>
+  @* Nomenclature *@
+  <tr>
+    <td>
+      <RadzenLabel Style="width: 100%; " Text="@LocaleCore.Table.NomenclatureCode"/>
+    </td>
+    <td>
+      <RadzenLink Style="width: 100%; "
+                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Bundle, SqlItemCast.Plu.IdentityValueUid)"
+                  Text="@(SqlItemCast.Plu.Code)"/>
+    </td>
+  </tr>
+  @* Bundle *@
+  <tr>
+    <td>
+      <RadzenLink Style="width: 100%; margin-left: 0;"
+                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBundle, SqlItemCast.Bundle, SqlItemCast.Bundle.IdentityValueUid)"
+                  Text="@LocaleCore.Table.Bundle"/>
+    </td>
+    <td colspan="3">
+      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
+                 @bind-Value="@Bundle">
+        @foreach (BundleModel item in DataContext.Bundles)
+        {
+          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+        }
+      </MudSelect>
+    </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@PluBundleFkModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorItemActions TItem="@PluBundleFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
 
-<RazorItemDates TItem="@PluBundleFkModel" ParentRazor=@(this) />
+<RazorItemDates SqlItem="@SqlItem"/>

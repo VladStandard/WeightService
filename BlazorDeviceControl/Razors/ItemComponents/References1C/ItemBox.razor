@@ -1,32 +1,31 @@
-﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Boxes.BoxModel>
+﻿@using DataCore.Sql.TableScaleModels.Boxes
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Boxes.BoxModel>
 @page "/item/box"
 @page "/item/box/new"
 @page "/item/box/{IdentityUidStr}"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Boxes
 
-<RazorItemReload TItem=BoxModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBox />
+<RazorItemReload TItem="BoxModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemBox"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=BoxModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
-    <tbody>
-		<RazorItemTableBody TItem=BoxModel ParentRazor=@(this) />
-        <tr>
-            <td>@LocaleCore.Table.Name</td>
-            <td>
-                <RadzenTextBox 
-					Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
-			</td>
-			<td>@LocaleCore.Table.Weight</td>
-			<td>
-				<RadzenNumeric 
-					Style="width: 100%; " 
-				    TValue="decimal" @bind-Value=@SqlItemCast.Weight />
-			</td>
-		</tr>
-    </tbody>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="BoxModel" ParentRazor="@(this)"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@LocaleCore.Table.Weight</td>
+    <td>
+      <RadzenNumeric
+        Style="width: 100%; "
+        TValue="decimal" @bind-Value="@SqlItemCast.Weight"/>
+    </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@BoxModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorItemActions TItem="@BoxModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
 
-<RazorItemDates TItem="@BoxModel" ParentRazor=@(this) />
+<RazorItemDates SqlItem="@SqlItem"/>

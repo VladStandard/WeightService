@@ -1,37 +1,36 @@
-﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel>
+﻿@using DataCore.Sql.TableScaleModels.PlusGroups
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel>
 @page "/item/nomenclature_group"
 @page "/item/nomenclature_group/new"
 @page "/item/nomenclature_group/{IdentityUidStr}"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.PlusGroups
 
-<RazorItemReload TItem=@PluGroupModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemNomenclatureGroup />
+<RazorItemReload TItem="@PluGroupModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=@PluGroupModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
-    <tbody>
-        <RazorItemTableBody TItem=@PluGroupModel ParentRazor=@(this) />
-        <tr>
-            <td>@LocaleCore.Table.Name</td>
-            <td>
-                <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Name />
-			</td>
-            <td>@LocaleCore.Table.Code</td>
-            <td>
-                <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Code />
-			</td>
-        </tr>
-        <tr >
-            <td>@LocaleCore.Table.Parent</td>
-            <td >
-                <RadzenLink 
-                    Style="width: 100%; "
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclatureGroup}/{DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).IdentityValueUid}")
-                    Text=@(DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).Name) />
-            </td>
-        </tr>
-    </tbody>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@PluGroupModel" ParentRazor="@(this)"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@LocaleCore.Table.Code</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Code"/>
+    </td>
+  </tr>
+  <tr >
+    <td>@LocaleCore.Table.Parent</td>
+    <td >
+      <RadzenLink
+        Style="width: 100%; "
+        Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclatureGroup}/{DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).IdentityValueUid}")
+        Text="@(DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).Name)"/>
+    </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@PluGroupModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
-<RazorItemDates TItem="@PluGroupModel" ParentRazor=@(this) />
+<RazorItemActions TItem="@PluGroupModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

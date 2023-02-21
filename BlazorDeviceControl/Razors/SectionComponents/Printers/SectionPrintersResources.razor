@@ -1,36 +1,32 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PrintersResources.PrinterResourceModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.PrintersResources
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PrintersResources.PrinterResourceModel, SqlTableBase>
 @page "/section/printers_resources"
-@using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.SystemComponents
-@using DataCore.Sql.TableScaleModels.Printers
-@using DataCore.Sql.TableScaleModels.PrintersResources
-@using DataCore.Sql.TableScaleModels.TemplatesResources
 
-<RazorSectionReload TItem=@PrinterResourceModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Resources SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@PrinterResourceModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Print.Resources" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-	PagerHorizontalAlign=@HorizontalAlign.Justify
-    Style="margin-top: 5px;"
-    Data=@SqlSectionCast 
-    TItem=@PrinterResourceModel
-    RowSelect=@(SqlItemSetAsync) 
-    RowRender=@(args => RowRender(args))
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
-    AllowPaging=true
-    AllowSorting=true >
-    <Columns>
-        <RazorSectionFieldIsMarked TItem=@PrinterResourceModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("32%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
-        <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("32%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter() />
-        <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("31%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetName() />
-    </Columns>
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Data="@SqlSectionCast"
+  TItem="@PrinterResourceModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns>
+    <RazorSectionFieldIsMarked TItem="@PrinterResourceModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionField TItem="@PrinterResourceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("32%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription()"/>
+    <RazorSectionField TItem="@PrinterResourceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("32%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.PrinterResource.GetPrinter()"/>
+    <RazorSectionField TItem="@PrinterResourceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("31%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.PrinterResource.GetName()"/>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@PrinterResourceModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@PrinterResourceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

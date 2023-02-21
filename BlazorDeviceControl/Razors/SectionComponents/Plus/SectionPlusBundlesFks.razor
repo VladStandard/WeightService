@@ -1,53 +1,51 @@
-﻿@inherits RazorComponentSectionBase<PluBundleFkModel, PluModel>
+﻿@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel, PluModel>
 @page "/section/plus_bundles_fks"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
-@using DataCore.Sql.TableScaleModels.Plus
 
-<RazorSectionReload TItem=@PluBundleFkModel TItemFilter=@PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusBundlesFk SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@PluBundleFkModel" TItemFilter="@PluModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusBundlesFk" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-	Style="margin-top: 5px;"
-    Data=@SqlSectionCast 
-    TItem=@PluBundleFkModel
-    RowSelect=@(SqlItemSetAsync) 
-    RowRender=@(args => RowRender(args))
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
-    AllowPaging=true
-    AllowSorting=true >
-    <Columns>
-		<RazorSectionFieldIsMarked TItem=PluBundleFkModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-		<RadzenDataGridColumn TItem=PluBundleFkModel Width="7%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Weighted>
-		    <Template Context="itemCast">
-			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.Plu.IsCheckWeight/>
-		    </Template>
-	    </RadzenDataGridColumn>
-		<RadzenDataGridColumn TItem=PluBundleFkModel Width="7%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluNumber>
-			<Template Context="itemCast">
-				<RadzenLink 
-					Text=@itemCast.Plu.Number.ToString()
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
-			</Template>
-		</RadzenDataGridColumn>
-		<RadzenDataGridColumn TItem=PluBundleFkModel Width="23%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
-			<Template Context="itemCast">
-				<RadzenLink 
-					Text=@itemCast.Plu.Name
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
-			</Template>
-		</RadzenDataGridColumn>
-		<RadzenDataGridColumn TItem=PluBundleFkModel Width="15%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Bundle>
-			<Template Context="itemCast">
-				<RadzenLink 
-					Text=@itemCast.Bundle.Name
-	                Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
-			</Template>
-		</RadzenDataGridColumn>
-    </Columns>
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  Data="@SqlSectionCast"
+  TItem="@PluBundleFkModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns>
+    <RazorSectionFieldIsMarked TItem="PluBundleFkModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RadzenDataGridColumn TItem="PluBundleFkModel" Width="7%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.Weighted">
+      <Template Context="itemCast">
+        <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
+      </Template>
+    </RadzenDataGridColumn>
+    <RadzenDataGridColumn TItem="PluBundleFkModel" Width="7%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.PluNumber">
+      <Template Context="itemCast">
+        <RadzenLink
+          Text="@itemCast.Plu.Number.ToString()"
+          Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
+      </Template>
+    </RadzenDataGridColumn>
+    <RadzenDataGridColumn TItem="PluBundleFkModel" Width="23%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Plu">
+      <Template Context="itemCast">
+        <RadzenLink
+          Text="@itemCast.Plu.Name"
+          Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
+      </Template>
+    </RadzenDataGridColumn>
+    <RadzenDataGridColumn TItem="PluBundleFkModel" Width="15%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Bundle">
+      <Template Context="itemCast">
+        <RadzenLink
+          Text="@itemCast.Bundle.Name"
+          Path=@($"{LocaleCore.DeviceControl.RouteItemPluBundleFk}/{itemCast.IdentityValueUid}") />
+      </Template>
+    </RadzenDataGridColumn>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@PluBundleFkModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@PluBundleFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

@@ -1,74 +1,66 @@
 ﻿@typeparam TItem
 @inherits RazorComponentSectionBase<TItem, SqlTableBase>
-@page "/section/actions"
-@using BlazorCore.Razors
-@using BlazorCore.Utils
-@using DataCore.Sql.Core
-@using MudBlazor
-@using Radzen
-@using Radzen.Blazor
-@using BlazorDeviceControl.Razors.SystemComponents
 
-<MudPaper Width="100%" Height="32px; " Square=false Color=Color.Transparent >
-	<div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-		@if (ButtonSettings is not null && UserSettings is not null)
-		{
-	        @if (UserSettings.AccessRightsIsAdmin)
-	        {
-				@if (ButtonSettings.IsShowCopy)
-				{
-				    <RadzenButton
-                        class="RadzenButtonLong"
-				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
-				        Text=@LocaleCore.DeviceControl.TableActionCopy />
-				}
-	        }
-	        @if (UserSettings.AccessRightsIsWrite)
-	        {
-		        @if (ButtonSettings.IsShowNew)
-		        {
-			        <RadzenButton 
-                        class="RadzenButtonLong"
-				        Click=@(_ => SqlItemNewAsync<TItem>())
-				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="add_circle_outline"
-				        Text=@LocaleCore.DeviceControl.TableActionAdd />
-		        }
-		        @if (ButtonSettings.IsShowSave)
-				{
-				    <RadzenButton 
-                        class="RadzenButtonLong"
-				        Click=@(_ => SqlItemsSaveAsync())
-		                ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
-						Text=@LocaleCore.DeviceControl.TableActionSave />
-				}
-		        @if (ButtonSettings.IsShowEdit)
-		        {
-			        <RadzenButton 
-                        class="RadzenButtonLong"
-				        Click=@(_ => SqlItemEditAsync())
-				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
-		                Text=@LocaleCore.DeviceControl.TableActionEdit />
-		        }
-		        @if (ButtonSettings.IsShowMark)
-		        {
-			        <RadzenButton 
-                        class="RadzenButtonLong"
-				        Click=@(_ => SqlItemMarkAsync())
-		                ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
-		                Text=@LocaleCore.DeviceControl.TableActionMark />
-		        }
-	        }
-			@if (UserSettings.AccessRightsIsAdmin)
-			{
-				@if (ButtonSettings.IsShowDelete)
-				{
-					<RadzenButton 
-                        class="RadzenButtonLong"
-				        Click=@(_ => SqlItemDeleteAsync())
-		                ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
-		                Text=@LocaleCore.DeviceControl.TableActionDelete />
-				}
-			}
-		}
-    </div>
+<MudPaper Width="100%" Height="32px; " Square="false" Color="Color.Transparent">
+  <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; ">
+    @if (ButtonSettings is not null && UserSettings is not null)
+    {
+      @if (UserSettings.AccessRightsIsAdmin)
+      {
+        @if (ButtonSettings.IsShowCopy)
+        {
+          <RadzenButton
+            class="RadzenButtonLong"
+            ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
+            Text=@LocaleCore.DeviceControl.TableActionCopy/>
+        }
+      }
+      @if (UserSettings.AccessRightsIsWrite)
+      {
+        @if (ButtonSettings.IsShowNew)
+        {
+          <RadzenButton
+            class="RadzenButtonLong"
+            Click=@(_ => SqlItemNewAsync<TItem>())
+            ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="add_circle_outline"
+            Text=@LocaleCore.DeviceControl.TableActionAdd/>
+        }
+        @if (ButtonSettings.IsShowSave)
+        {
+          <RadzenButton
+            class="RadzenButtonLong"
+            Click=@(_ => SqlItemsSaveAsync())
+            ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
+            Text=@LocaleCore.DeviceControl.TableActionSave/>
+        }
+        @if (ButtonSettings.IsShowEdit)
+        {
+          <RadzenButton
+            class="RadzenButtonLong"
+            Click=@(_ => SqlItemEditAsync())
+            ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
+            Text=@LocaleCore.DeviceControl.TableActionEdit/>
+        }
+        @if (ButtonSettings.IsShowMark)
+        {
+          <RadzenButton
+            class="RadzenButtonLong"
+            Click=@(_ => SqlItemMarkAsync())
+            ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
+            Text=@LocaleCore.DeviceControl.TableActionMark/>
+        }
+      }
+      @if (UserSettings.AccessRightsIsAdmin)
+      {
+        @if (ButtonSettings.IsShowDelete)
+        {
+          <RadzenButton
+            class="RadzenButtonLong"
+            Click=@(_ => SqlItemDeleteAsync())
+            ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
+            Text=@LocaleCore.DeviceControl.TableActionDelete/>
+        }
+      }
+    }
+  </div>
 </MudPaper>

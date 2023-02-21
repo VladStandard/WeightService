@@ -42,6 +42,7 @@
     <EmbeddedResource Remove="Upload\**" />
     <None Remove="Data\**" />
     <None Remove="Upload\**" />
+    <None Remove="Temp.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\Images\" />

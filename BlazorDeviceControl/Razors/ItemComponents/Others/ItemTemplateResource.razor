@@ -1,46 +1,45 @@
-﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel>
+﻿@using DataCore.Sql.TableScaleModels.TemplatesResources
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel>
 @page "/item/template_resource"
 @page "/item/template_resource/new"
 @page "/item/template_resource/{IdentityId:long}"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.TemplatesResources
 
-<RazorItemReload TItem=@TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemTemplateResource />
+<RazorItemReload TItem="@TemplateResourceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemTemplateResource"/>
 
-<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-	<RazorItemTableHead TItem=@TemplateResourceModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
-	<tbody>
-		<RazorItemTableBody TItem=@TemplateResourceModel ParentRazor=@(this) />
-		<tr>
-			<td>@LocaleCore.Table.Name</td>
-			<td>
-				<RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Name/>
-			</td>
-			<td>@LocaleCore.Table.Description</td>
-			<td>
-				<RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Description/>
-			</td>
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.Type</td>
-			<td>
-				<RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Type/> 
-			</td>
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.ImageData</td>
-			<td colspan=3>
-				<RadzenTextArea 
-					Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
-					Rows=25
-					@bind-Value=@(SqlItemCast.ImageData.ValueUnicode) />
-			</td>
-		</tr>
-	</tbody>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@TemplateResourceModel" ParentRazor="@(this)"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@LocaleCore.Table.Description</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Description"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Type</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Type"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.ImageData</td>
+    <td colspan="3">
+      <RadzenTextArea
+        Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+        Rows="25"
+        @bind-Value="@(SqlItemCast.ImageData.ValueUnicode)"/>
+    </td>
+  </tr>
+  </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem="@TemplateResourceModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
-<RazorItemDates TItem="@TemplateResourceModel" ParentRazor=@(this) />
+<RazorItemActions TItem="@TemplateResourceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>
 
 @*
 <RadzenLabel Style="width: 97%;" Text=@FileInfo />
@@ -62,7 +61,7 @@ else
 {
 <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                 AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                Data=@ResourceTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount TextProperty="Name" 
+                Data=@ResourceTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount TextProperty="Name"
                 ValueProperty="Value"
                 Value=@TemplateResourcesItem.Type Change=@(args => OnItemValueChange(args, "ResourceTypes")) />
 }

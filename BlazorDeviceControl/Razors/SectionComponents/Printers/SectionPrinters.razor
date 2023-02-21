@@ -1,42 +1,42 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Printers.PrinterModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.Printers
+@using System.Net
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Printers.PrinterModel, SqlTableBase>
 @page "/section/printers"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Printers
 
-<RazorSectionReload TItem=@PrinterModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Names SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@PrinterModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Print.Names" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-	PagerHorizontalAlign=@HorizontalAlign.Justify
-    Style="margin-top: 5px;"
-	Data=@SqlSectionCast TItem=@PrinterModel 
-    RowSelect=@(SqlItemSetAsync)
-    RowRender=@(args => RowRender(args))
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
-    AllowPaging=true
-    AllowSorting=true >
-    <Columns>
-        <RazorSectionFieldIsMarked TItem=@PrinterModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
-        <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType() />
-        <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetIp() />
-        <RadzenGridColumn TItem=@PrinterModel TextAlign=@TextAlign.Center
-            Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="10%" >
-            <Template Context="item" >
-                <RadzenIcon 
-	                IconStyle=@IconStyle.Primary
-	                Icon=@(item.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
-            </Template>
-        </RadzenGridColumn>
-        <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetMacAddress() />
-    </Columns>
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Data="@SqlSectionCast" TItem="@PrinterModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns>
+    <RazorSectionFieldIsMarked TItem="@PrinterModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionField TItem="@PrinterModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
+    <RazorSectionField TItem="@PrinterModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Printer.GetPrinterType()"/>
+    <RazorSectionField TItem="@PrinterModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Printer.GetIp()"/>
+    <RadzenGridColumn TItem="@PrinterModel" TextAlign="@TextAlign.Center"
+                      Title="@LocaleCore.Table.HttpStatusCode" Type="string" Width="10%">
+      <Template Context="item">
+        <RadzenIcon
+          IconStyle="@IconStyle.Primary"
+          Icon=@(item.HttpStatusCode == HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null") />
+      </Template>
+    </RadzenGridColumn>
+    <RazorSectionField TItem="@PrinterModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Printer.GetMacAddress()"/>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@PrinterModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@PrinterModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

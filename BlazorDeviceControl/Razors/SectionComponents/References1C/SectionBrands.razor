@@ -1,48 +1,47 @@
-﻿ @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Brands.BrandModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.Brands
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Brands.BrandModel, SqlTableBase>
 @page "/section/brands"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Brands
 
-<RazorSectionReload TItem=@BrandModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBrands SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@BrandModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBrands" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
- <RadzenDataGrid
-     @bind-Value="@SelectedRow"
-     CellContextMenu="@OnCellContextMenu"
-	PagerHorizontalAlign=@HorizontalAlign.Justify 
-	Style="margin-top: 5px;" 
-    Data=@SqlSectionCast 
-    TItem=@BrandModel 
-    RowSelect=@(SqlItemSetAsync)
-    RowRender=@(args => RowRender(args))
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-    PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
-    AllowPaging=true 
-    AllowSorting=true >
-    <Columns >
-        <RazorSectionFieldIsMarked TItem=@BrandModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenDataGridColumn TItem=@BrandModel Title=@LocaleCore.Table.ChangeDt Width="12%">
-	        <Template Context="itemCast" >
-		        <RadzenLink 
-					Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
-					Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true)) />
-	        </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem=@BrandModel Title=@LocaleCore.Table.Name Width="42%">
-	        <Template Context="itemCast" >
-		        <RadzenLink 
-					Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
-			        Text=@itemCast.Name />
-	        </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem=@BrandModel Title=@LocaleCore.Table.Code Width="41%">
-	        <Template Context="itemCast" >
-		        <RadzenLink 
-					Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
-			        Text=@itemCast.Code />
-	        </Template>
-        </RadzenDataGridColumn>
-    </Columns>
+<RadzenDataGrid
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Data="@SqlSectionCast"
+  TItem="@BrandModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns >
+    <RazorSectionFieldIsMarked TItem="@BrandModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.ChangeDt" Width="12%">
+      <Template Context="itemCast">
+        <RadzenLink
+          Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
+          Text="@(StringUtils.FormatDtRus(itemCast.ChangeDt, true))"/>
+      </Template>
+    </RadzenDataGridColumn>
+    <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.Name" Width="42%">
+      <Template Context="itemCast">
+        <RadzenLink
+          Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
+          Text="@itemCast.Name"/>
+      </Template>
+    </RadzenDataGridColumn>
+    <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.Code" Width="41%">
+      <Template Context="itemCast">
+        <RadzenLink
+          Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
+          Text="@itemCast.Code"/>
+      </Template>
+    </RadzenDataGridColumn>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem=@BrandModel ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@BrandModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

@@ -1,60 +1,54 @@
 ﻿@typeparam TItem
 @inherits RazorComponentItemBase<TItem>
 @page "/item/table_body"
-@using BlazorCore.Razors
-@using MudBlazor
-@using Radzen
-@using Radzen.Blazor
-@using BlazorDeviceControl.Razors.SystemComponents
 
 
 @if (SqlItem is not null)
 {
-        <tr>
-            <td>
-            @switch (SqlItem.Identity.Name)
-            {
-                case SqlFieldIdentity.Id:
-                    @LocaleCore.Table.Id
-                    ;
-                    break;
-                case SqlFieldIdentity.Uid:
-                    @LocaleCore.Table.Uid;
-                    break;
-            }
-            @if (IsSqlItem1c)
-            {
-                <br>
-                @LocaleCore.Table.Uid1c
-            }
+  <tr>
+    <td>
+      @switch (SqlItem.Identity.Name)
+      {
+        case SqlFieldIdentity.Id:
+          @LocaleCore.Table.Id;
+          break;
+        case SqlFieldIdentity.Uid:
+          @LocaleCore.Table.Uid;
+          break;
+      }
+      @if (IsSqlItem1c)
+      {
+        <br>
+        @LocaleCore.Table.Uid1c
+      }
 
-            </td>
-            <td>
-            @switch (SqlItem.Identity.Name)
-            {
-                case SqlFieldIdentity.Id:
-                    <RadzenTextBox 
-                        Style="width: 100%; text-align: center; background-color: lightgray;"
-                        ReadOnly=true Value=@SqlItem.IdentityValueId.ToString() />
-                    break;
-                case SqlFieldIdentity.Uid:
-                    <RadzenTextBox 
-                        Style="width: 100%; text-align: center; background-color: lightgray;"
-                        ReadOnly=true Value=@SqlItem.IdentityValueUid.ToString() />
-                    break;
-            }
-            @if (IsSqlItem1c)
-            {
-                <RadzenTextBox
-                    Style="width: 100%; text-align: center; background-color: lightgray;"
-                    ReadOnly=true Value=@Get1cGuid()/>
-            }
-            </td>
-            <td>
-                @LocaleCore.Table.IsMarked
-            </td>
-            <td>
-                <RadzenCheckBox TValue="bool" @bind-Value=@SqlItem.IsMarked/>
-            </td>
-        </tr>
+    </td>
+    <td>
+      @switch (SqlItem.Identity.Name)
+      {
+        case SqlFieldIdentity.Id:
+          <RadzenTextBox
+            Style="width: 100%; text-align: center; background-color: lightgray;"
+            ReadOnly=true Value=@SqlItem.IdentityValueId.ToString()/>
+          break;
+        case SqlFieldIdentity.Uid:
+          <RadzenTextBox
+            Style="width: 100%; text-align: center; background-color: lightgray;"
+            ReadOnly=true Value=@SqlItem.IdentityValueUid.ToString()/>
+          break;
+      }
+      @if (IsSqlItem1c)
+      {
+        <RadzenTextBox
+          Style="width: 100%; text-align: center; background-color: lightgray;"
+          ReadOnly=true Value=@Get1cGuid()/>
+      }
+    </td>
+    <td>
+      @LocaleCore.Table.IsMarked
+    </td>
+    <td>
+      <RadzenCheckBox TValue="bool" @bind-Value=@SqlItem.IsMarked />
+    </td>
+  </tr>
 }

@@ -1,31 +1,30 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Bundles.BundleModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.Bundles
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Bundles.BundleModel, SqlTableBase>
 @page "/section/bundles"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Bundles
 
-<RazorSectionReload TItem=@BundleModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBundles SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@BundleModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBundles" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid 
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-    PagerHorizontalAlign=@HorizontalAlign.Justify 
-	Style="margin-top: 5px;" 
-    Data=@SqlSectionCast 
-    TItem=@BundleModel 
-    RowSelect=@(SqlItemSetAsync)
-    RowRender=@(args => RowRender(args))
-    RowDoubleClick=@(_ => SqlItemEditAsync())
-    PagerPosition="@PagerPos"
-	PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount
-    AllowPaging=true 
-    AllowSorting=true >
-    <Columns>
-        <RazorSectionFieldIsMarked TItem=@BundleModel ParentRazor=@(this) SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RazorSectionField TItem=@BundleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Bundle.GetName() />
-        <RazorSectionField TItem=@BundleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Bundle.GetWeight() />
-    </Columns>
+<RadzenDataGrid
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Data="@SqlSectionCast"
+  TItem="@BundleModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns>
+    <RazorSectionFieldIsMarked TItem="@BundleModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionField TItem="@BundleModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("75%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Bundle.GetName()"/>
+    <RazorSectionField TItem="@BundleModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Bundle.GetWeight()"/>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@BundleModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@BundleModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

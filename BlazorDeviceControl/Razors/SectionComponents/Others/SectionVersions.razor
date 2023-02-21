@@ -1,31 +1,30 @@
-﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Versions.VersionModel, SqlTableBase>
+﻿@using DataCore.Sql.TableScaleModels.Versions
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Versions.VersionModel, SqlTableBase>
 @page "/section/versions"
-@using BlazorCore.Razors
-@using DataCore.Sql.TableScaleModels.Versions
 
-<RazorSectionReload TItem=@VersionModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@VersionModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Strings.VersionsDb" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
-    @bind-Value="@SelectedRow"
-    CellContextMenu="@OnCellContextMenu"
-	PagerHorizontalAlign=@HorizontalAlign.Justify 
-	Style="margin-top: 5px; " 
-	Data=@SqlSectionCast
-    TItem=@VersionModel 
-    RowSelect=@(SqlItemSetAsync)
-    RowRender=@(args => RowRender(args))
-    PagerPosition="@PagerPos"
-	PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount 
-    AllowPaging=true
-    AllowSorting=true >
-    <Columns >
-        <RazorSectionField TItem=@VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
-            RazorFieldConfig=@RazorFieldConfigUtils.Version.GetReleaseDt() />
-        <RazorSectionField TItem=@VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
-            RazorFieldConfig=@RazorFieldConfigUtils.Version.GetVersion() />
-        <RazorSectionField TItem=@VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("80%"))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
-    </Columns>
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  CellContextMenu="@OnCellContextMenu"
+  PagerHorizontalAlign="@HorizontalAlign.Justify"
+  Data="@SqlSectionCast"
+  TItem="@VersionModel"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  PagerPosition="@PagerPos"
+  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  AllowPaging="true"
+  AllowSorting="true">
+  <Columns >
+    <RazorSectionField TItem="@VersionModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("10%"))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Version.GetReleaseDt()"/>
+    <RazorSectionField TItem="@VersionModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("10%"))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Version.GetVersion()"/>
+    <RazorSectionField TItem="@VersionModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("80%"))
+                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription()"/>
+  </Columns>
 </RadzenDataGrid>
 
-<RazorSectionActions TItem="@VersionModel" ButtonSettings="@ButtonSettings" ParentRazor=@(this) />
+<RazorSectionActions TItem="@VersionModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

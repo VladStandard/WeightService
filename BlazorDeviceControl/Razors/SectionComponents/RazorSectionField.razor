@@ -1,34 +1,26 @@
 ﻿@typeparam TItem
 @inherits RazorComponentSectionBase<TItem, SqlTableBase>
-@page "/section/field"
-@using BlazorCore.Razors
-@using MudBlazor
-@using Radzen
-@using Radzen.Blazor
-@using BlazorDeviceControl.Razors.SystemComponents
 
-<RadzenDataGridColumn TItem=@TItem TextAlign=@RazorFieldConfig.TextAlign Width=@(CssStyleRadzenColumn.Width) Title=@RazorFieldConfig.Title>
-	<Template Context="item">
-		@switch (RazorFieldConfig.Type)
-		{
-			case "bool":
-				<RadzenCheckBox Disabled=true TValue="bool" Value=@item.GetPropertyAsBool(nameof(RazorFieldConfig.Name)) />
-				break;
-			default:
-				@if (CssStyleRadzenColumn.IsShowLink)
-				{
-				    <RadzenLink
-                        Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
-                            Path=@GetRouteItemPathForLink(item)
-                    />
-				}
-				else
-				{
-					<RadzenText
-                        Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
-                    />
-				}
-				break;
-		}
-	</Template>
+<RadzenDataGridColumn TItem="@TItem" TextAlign="@RazorFieldConfig.TextAlign" Width="@(CssStyleRadzenColumn.Width)" Title="@RazorFieldConfig.Title">
+  <Template Context="item">
+    @switch (RazorFieldConfig.Type)
+    {
+      case "bool":
+        <RadzenCheckBox Disabled=true TValue="bool" Value=@item.GetPropertyAsBool(nameof(RazorFieldConfig.Name))/>
+        break;
+      default:
+        @if (CssStyleRadzenColumn.IsShowLink)
+        {
+          <RadzenLink
+            Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
+            Path=@GetRouteItemPathForLink(item)/>
+        }
+        else
+        {
+          <RadzenText
+            Text=@item.GetPropertyAsString(RazorFieldConfig.Name)/>
+        }
+        break;
+    }
+  </Template>
 </RadzenDataGridColumn>

@@ -22,14 +22,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gif", "Gif", "{E92E8921-572
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fonts", "Fonts", "{F5635B3B-1E4F-448E-861F-43305D58C8D1}"
 	ProjectSection(SolutionItems) = preProject
-		Resources\Fonts\arial.ttf = Resources\Fonts\arial.ttf
-		Resources\Fonts\arialbd.ttf = Resources\Fonts\arialbd.ttf
-		Resources\Fonts\arialbi.ttf = Resources\Fonts\arialbi.ttf
-		Resources\Fonts\ariali.ttf = Resources\Fonts\ariali.ttf
-		Resources\Fonts\cour.ttf = Resources\Fonts\cour.ttf
-		Resources\Fonts\courbd.ttf = Resources\Fonts\courbd.ttf
-		Resources\Fonts\courbi.ttf = Resources\Fonts\courbi.ttf
-		Resources\Fonts\couri.ttf = Resources\Fonts\couri.ttf
+		Resources\TTF\ARIAL.TTF = Resources\TTF\ARIAL.TTF
+		Resources\TTF\ARIALBD.TTF = Resources\TTF\ARIALBD.TTF
+		Resources\TTF\ARIALBI.TTF = Resources\TTF\ARIALBI.TTF
+		Resources\TTF\ARIALI.TTF = Resources\TTF\ARIALI.TTF
+		Resources\TTF\CASCADIACODE.TTF = Resources\TTF\CASCADIACODE.TTF
+		Resources\TTF\COUR.TTF = Resources\TTF\COUR.TTF
+		Resources\TTF\COURB.TTF = Resources\TTF\COURB.TTF
+		Resources\TTF\COURBD.TTF = Resources\TTF\COURBD.TTF
+		Resources\TTF\COURBI.TTF = Resources\TTF\COURBI.TTF
+		Resources\TTF\COURI.TTF = Resources\TTF\COURI.TTF
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}"
