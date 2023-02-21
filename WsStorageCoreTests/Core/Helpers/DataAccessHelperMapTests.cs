@@ -1,6 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleModels.LogsWebs;
 
@@ -20,7 +21,7 @@ internal class DataAccessHelperMapTests
                 throw new ArgumentNullException(nameof(DataCoreTestsUtils.DataAccess.SqlConfiguration));
 
             FluentConfiguration fluentConfiguration = Fluently.Configure().Database(DataCoreTestsUtils.DataAccess.SqlConfiguration);
-            DataCoreTestsUtils.DataAccess.AddConfigurationMappings(fluentConfiguration);
+            DataAccessHelper.AddConfigurationMappings(fluentConfiguration);
             fluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
             ISessionFactory sessionFactory = fluentConfiguration.BuildSessionFactory();
             sessionFactory.OpenSession();

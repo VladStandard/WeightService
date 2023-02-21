@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Helpers;
@@ -127,8 +127,8 @@ public class JsonSettingsHelper
 			}
 
             DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDebug);
-            //DataAccessHelper.Instance.SetupLog("", appName);
-            DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted, "", appName);
+            DataAccessHelper.Instance.SetupLog(appName);
+            DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted, appName);
 		}
 		catch (Exception ex)
 		{
@@ -168,7 +168,7 @@ public class JsonSettingsHelper
 			}
 
             DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDebug);
-			DataAccessHelper.Instance.SetupLog("", appName);
+			DataAccessHelper.Instance.SetupLog(appName);
         }
 		catch (Exception ex)
 		{

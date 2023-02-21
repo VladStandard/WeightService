@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Enums;
@@ -69,8 +69,7 @@ public partial class MainForm : Form
         UserSession.DataAccess.LogInformation(
             $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
             $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
-            $"{nameof(LocaleData.Program.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-            UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
+            $"{nameof(LocaleData.Program.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.");
     }
 
     private void PreLoadControls()
@@ -189,8 +188,7 @@ public partial class MainForm : Form
                 UserSession.StopwatchMain.Stop();
                 UserSession.DataAccess.LogInformation(
                     LocaleData.Program.IsClosed + Environment.NewLine +
-                    $"{LocaleData.Program.Elapsed}: {UserSession.StopwatchMain.Elapsed}.",
-                    UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
+                    $"{LocaleData.Program.Elapsed}: {UserSession.StopwatchMain.Elapsed}.");
             }
         );
     }

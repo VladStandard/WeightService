@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -99,7 +99,7 @@ public class UserSessionHelper : BaseViewModel
         {
             _pluScale = value;
             if (value.IsNotNew)
-                DataAccess.LogInformationFast($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
+                DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
             PluginPrintMain.LabelPrintedCount = 1;
             PluginPrintShipping.LabelPrintedCount = 1;
             SetPluNestingFks(value.Plu);

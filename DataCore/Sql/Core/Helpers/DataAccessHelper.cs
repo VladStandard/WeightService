@@ -1,9 +1,10 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using DataCore.Files;
+using DataCore.Settings.Helpers;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
@@ -110,9 +111,12 @@ public partial class DataAccessHelper
 	    }
 	    private set => _sessionFactory = value;
     }
+    private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
+    private static AppModel App { get; set; } = new();
+    private static DeviceModel Device { get; set; } = new();
 
-	// Be careful. If there are errors in the mapping, this line will make an Exception!
-	private void SetFluentConfiguration()
+    // Be careful. If there are errors in the mapping, this line will make an Exception!
+    private void SetFluentConfiguration()
     {
         if (SqlConfiguration is null)
             throw new ArgumentNullException(nameof(SqlConfiguration));
@@ -144,15 +148,6 @@ public partial class DataAccessHelper
 
 	#region Public and private methods
 
-	// This code have exception: 
-	// SqlException: A connection was successfully established with the server, but then an error occurred during the login process. 
-	// (provider: SSL Provider, error: 0 - The certificate chain was issued by an authority that is not trusted.)
-	//private MsSqlConfiguration GetConnection() => CoreSettings.Trusted
-	//    ? MsSqlConfiguration.MsSql2012.ConnectionString(c => c
-	//        .Server(CoreSettings.Server).Database(CoreSettings.Db).TrustedConnection())
-	//    : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
-	//        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
-
 	private string GetConnectionString() =>
 		JsonSettings.IsRemote
         ? $"Data Source={JsonSettings.Remote.Sql.DataSource}; " +
@@ -168,7 +163,7 @@ public partial class DataAccessHelper
           (JsonSettings.Local.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Local.Sql.UserId}; Password={JsonSettings.Local.Sql.Password}; ") +
           $"TrustServerCertificate={JsonSettings.Local.Sql.TrustServerCertificate}; ";
 
-    public void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
+    public static void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());

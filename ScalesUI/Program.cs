@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Helpers;
@@ -35,7 +35,7 @@ internal static class Program
             {
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(UserSessionHelper.Instance.DeviceName);
                 WpfUtils.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
-                DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
+                DataAccess.LogError(new Exception(message));
                 System.Windows.Forms.Application.Exit();
                 return;
             }
@@ -46,14 +46,13 @@ internal static class Program
             {
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
                 WpfUtils.ShowNewRegistration(message);
-                DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
+                DataAccess.LogError(new Exception(message));
                 System.Windows.Forms.Application.Exit();
             }
             else
             {
                 DataAccess.LogInformation(
-                    LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description),
-                    UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
+                    LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description));
                 // Run app.
                 System.Windows.Forms.Application.Run(new MainForm());
             }

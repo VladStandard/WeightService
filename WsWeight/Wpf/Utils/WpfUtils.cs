@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Runtime.CompilerServices;
@@ -90,17 +90,17 @@ public static class WpfUtils
         switch (logType)
         {
             case LogTypeEnum.Error:
-                DataAccess.LogErrorFast(message, filePath, lineNumber, memberName);
+                DataAccess.LogError(message, filePath, lineNumber, memberName);
                 break;
             case LogTypeEnum.Question:
-                DataAccess.LogQuestionFast(message);
+                DataAccess.LogQuestion(message);
                 break;
             case LogTypeEnum.Warning:
-                DataAccess.LogWarningFast(message);
+                DataAccess.LogWarning(message);
                 break;
             case LogTypeEnum.None:
             case LogTypeEnum.Information:
-                DataAccess.LogInformationFast(message);
+                DataAccess.LogInformation(message);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
@@ -148,7 +148,7 @@ public static class WpfUtils
         bool isDbLog, bool isShowWindow, string filePath, int lineNumber, string memberName)
     {
         if (isDbLog)
-            DataAccess.LogError(ex, UserSessionHelper.Instance.DeviceScaleFk.Device.Name, string.Empty, filePath, lineNumber, memberName);
+            DataAccess.LogError(ex, filePath, lineNumber, memberName);
 
         if (isShowWindow)
         {

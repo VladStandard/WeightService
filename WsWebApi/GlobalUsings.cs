@@ -4,7 +4,6 @@
 // Global using directives
 
 global using DataCore.Enums;
-global using DataCore.Models;
 global using DataCore.Settings.Helpers;
 global using DataCore.Sql.Core.Enums;
 global using DataCore.Sql.Core.Models;
@@ -13,7 +12,6 @@ global using DataCore.Sql.Models;
 global using DataCore.Sql.Tables;
 global using DataCore.Sql.TableScaleModels.BarCodes;
 global using DataCore.Sql.TableScaleModels.Brands;
-global using DataCore.Sql.TableScaleModels.Nomenclatures;
 global using DataCore.Utils;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
@@ -33,14 +31,11 @@ global using System.Text;
 global using System.Xml.Linq;
 global using System.Xml.Serialization;
 global using System.Xml;
-global using DataCore.Sql.Core.Helpers;
 global using DataCore.Sql.Core.Interfaces;
 global using DataCore.Sql.TableScaleModels.Plus;
 global using WsLocalization.Models;
 global using WsStorage.Enums;
-global using WsStorage.Models;
 global using WsStorage.Utils;
-global using WsWebApi.Enums;
 global using WsWebApi.Models.WebResponses;
 global using WsWebApi.Models;
 global using WsWebApi.Utils;

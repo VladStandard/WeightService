@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Utils;
@@ -30,9 +30,9 @@ public class LogWebMap : ClassMap<LogWebModel>
         Map(x => x.Url).CustomSqlType("NVARCHAR").Column("URL").Length(512).Not.Nullable();
         Map(x => x.Params).CustomSqlType("NVARCHAR").Column("PARAMS").Length(1024).Not.Nullable();
         Map(x => x.Headers).CustomSqlType("NVARCHAR").Column("HEADERS").Length(1024).Not.Nullable();
-        Map(x => x.Type).CustomSqlType("TINYINT").Column("TYPE").Not.Nullable();
-        Map(x => x.Xml).CustomSqlType("XML").Column("XML").Nullable();
-        Map(x => x.Data).CustomSqlType("NVARCHAR").Column("DATA").Not.Nullable();
+        Map(x => x.DataType).CustomSqlType("TINYINT").Column("DATA_TYPE").Not.Nullable();
+        Map(x => x.DataXml).CustomSqlType("XML").Column("DATA_XML").Nullable();
+        Map(x => x.DataString).CustomSqlType("NVARCHAR").Column("DATA_STRING").Not.Nullable();
         Map(x => x.CountAll).CustomSqlType("INT").Column("COUNT_ALL").Not.Nullable();
         Map(x => x.CountSuccess).CustomSqlType("INT").Column("COUNT_SUCCESS").Not.Nullable();
         Map(x => x.CountErrors).CustomSqlType("INT").Column("COUNT_ERROR").Not.Nullable();

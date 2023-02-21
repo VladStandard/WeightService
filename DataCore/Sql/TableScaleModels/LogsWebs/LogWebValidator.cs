@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
@@ -39,9 +39,9 @@ public class LogWebValidator : SqlTableValidator<LogWebModel>
             .NotNull();
         RuleFor(item => item.Headers)
             .NotNull();
-        RuleFor(item => item.Type)
+        RuleFor(item => item.DataType)
             .NotNull();
-        RuleFor(item => item.Data)
+        RuleFor(item => item.DataString)
             .NotNull();
         RuleFor(item => item.CountAll)
             .NotEmpty()

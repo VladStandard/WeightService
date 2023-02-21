@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -24,9 +24,9 @@ public class LogWebModel : SqlTableBase
     [XmlElement] public virtual string Url { get; set; }
     [XmlElement] public virtual string Params { get; set; }
     [XmlElement] public virtual string Headers { get; set; }
-    [XmlElement] public virtual byte Type { get; set; }
-    [XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
-    [XmlElement] public virtual string Data { get; set; }
+    [XmlElement] public virtual byte DataType { get; set; }
+    [XmlElement(IsNullable = true)] public virtual XmlDocument? DataXml { get; set; }
+    [XmlElement] public virtual string DataString { get; set; }
     [XmlElement] public virtual int CountAll { get; set; }
     [XmlElement] public virtual int CountSuccess { get; set; }
     [XmlElement] public virtual int CountErrors { get; set; }
@@ -44,10 +44,10 @@ public class LogWebModel : SqlTableBase
         Url = string.Empty;
         Params = string.Empty;
         Headers = string.Empty;
-        Type = default;
-        Xml = null;
-        Data = string.Empty;
-        Type = default;
+        DataType = default;
+        DataXml = null;
+        DataString = string.Empty;
+        DataType = default;
         CountAll = default;
         CountSuccess = default;
         CountErrors = default;
@@ -68,9 +68,9 @@ public class LogWebModel : SqlTableBase
         Url = info.GetString(nameof(Url));
         Params = info.GetString(nameof(Params));
         Headers = info.GetString(nameof(Headers));
-        Xml = (XmlDocument)info.GetValue(nameof(Xml), typeof(XmlDocument));
-        Data = info.GetString(nameof(Data));
-        Type = info.GetByte(nameof(Type));
+        DataXml = (XmlDocument)info.GetValue(nameof(DataXml), typeof(XmlDocument));
+        DataString = info.GetString(nameof(DataString));
+        DataType = info.GetByte(nameof(DataType));
         CountAll = info.GetInt32(nameof(CountAll));
         CountSuccess = info.GetInt32(nameof(CountSuccess));
         CountAll = info.GetInt32(nameof(CountErrors));
@@ -112,9 +112,9 @@ public class LogWebModel : SqlTableBase
         Equals(Url, string.Empty) &&
         Equals(Params, string.Empty) &&
         Equals(Headers, string.Empty) &&
-        (Xml is null) &&
-        Equals(Data, string.Empty) &&
-        Equals(Type, default) &&
+        (DataXml is null) &&
+        Equals(DataString, string.Empty) &&
+        Equals(DataType, default) &&
         Equals(CountAll, default) &&
         Equals(CountSuccess, default) &&
         Equals(CountErrors, default);
@@ -132,13 +132,13 @@ public class LogWebModel : SqlTableBase
         item.Url = Url;
         item.Params = Params;
         item.Headers = Headers;
-        if (Xml is { })
+        if (DataXml is { })
         {
-            XmlDocument xml = DataFormatUtils.DeserializeFromXml<XmlDocument>(Xml.OuterXml, Encoding.UTF8);
-            item.Xml = xml;
+            XmlDocument xml = DataFormatUtils.DeserializeFromXml<XmlDocument>(DataXml.OuterXml, Encoding.UTF8);
+            item.DataXml = xml;
         }
-        item.Data = Data;
-        item.Type = Type;
+        item.DataString = DataString;
+        item.DataType = DataType;
         item.CountAll = CountAll;
         item.CountSuccess = CountSuccess;
         item.CountErrors = CountErrors;
@@ -162,9 +162,9 @@ public class LogWebModel : SqlTableBase
         info.AddValue(nameof(Url), Url);
         info.AddValue(nameof(Params), Params);
         info.AddValue(nameof(Headers), Headers);
-        info.AddValue(nameof(Xml), Xml);
-        info.AddValue(nameof(Data), Data);
-        info.AddValue(nameof(Type), Type);
+        info.AddValue(nameof(DataXml), DataXml);
+        info.AddValue(nameof(DataString), DataString);
+        info.AddValue(nameof(DataType), DataType);
         info.AddValue(nameof(CountAll), CountAll);
         info.AddValue(nameof(CountSuccess), CountSuccess);
         info.AddValue(nameof(CountErrors), CountErrors);
@@ -172,8 +172,8 @@ public class LogWebModel : SqlTableBase
 
     public override void ClearNullProperties()
     {
-        if (Xml is not null)
-            Xml = null;
+        if (DataXml is not null)
+            DataXml = null;
     }
 
     public override void FillProperties()
@@ -202,9 +202,9 @@ public class LogWebModel : SqlTableBase
         Equals(Url, item.Url) &&
         Equals(Params, item.Params) &&
         Equals(Headers, item.Headers) &&
-        Equals(Xml, item.Xml) &&
-        Equals(Data, item.Data) &&
-        Equals(Type, item.Type) &&
+        Equals(DataXml, item.DataXml) &&
+        Equals(DataString, item.DataString) &&
+        Equals(DataType, item.DataType) &&
         Equals(CountAll, item.CountAll) &&
         Equals(CountSuccess, item.CountSuccess) &&
         Equals(CountErrors, item.CountErrors);

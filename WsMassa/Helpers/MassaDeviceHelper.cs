@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsMassa.Helpers;
@@ -101,7 +101,7 @@ public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
     private void PortExceptionCallback(Exception ex)
 	{
 		IsExceptionResult = true;
-		DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(MassaDeviceHelper));
+		DataAccessHelper.Instance.LogError(ex);
 	}
 
 	#endregion

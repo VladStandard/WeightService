@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsWebApi.Helpers;
@@ -25,7 +25,7 @@ public partial class ControllerHelper
     /// <param name="dtStamp"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    private async Task LogToFileCore(ServiceLogType serviceLogType, string appName, string api, DateTime dtStamp, string text)
+    private async Task LogToFileCore(ServiceLogDirection serviceLogType, string appName, string api, DateTime dtStamp, string text)
     {
         string dtString = StringUtils.FormatDtEng(dtStamp, true).Replace(':', '.');
         // Get directory name.
@@ -44,9 +44,9 @@ public partial class ControllerHelper
         // Get file name.
         string filePath = serviceLogType switch
         {
-            ServiceLogType.Request => @$"{directory}\{dtString}_request.txt",
-            ServiceLogType.Response => @$"{directory}\{dtString}_response.txt",
-            ServiceLogType.MetaData => @$"{directory}\{dtString}_metadata.txt",
+            ServiceLogDirection.Request => @$"{directory}\{dtString}_request.txt",
+            ServiceLogDirection.Response => @$"{directory}\{dtString}_response.txt",
+            ServiceLogDirection.MetaData => @$"{directory}\{dtString}_metadata.txt",
             _ => @$"{directory}\{dtString}_default.txt"
         };
 
@@ -67,31 +67,30 @@ public partial class ControllerHelper
     /// <summary>
     /// Log the request into the DB.
     /// </summary>
-    /// <param name="serviceLogType"></param>
+    /// <param name="logDirection"></param>
     /// <param name="appName"></param>
     /// <param name="api"></param>
     /// <param name="dtStamp"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    private void LogToDbCore(ServiceLogType serviceLogType, string appName, string api, DateTime dtStamp, string text)
+    private void LogToDbCore(ServiceLogDirection logDirection, string appName, string api, DateTime dtStamp, string text)
     {
         // Get file name.
-        text = serviceLogType switch
+        text = logDirection switch
         {
-            ServiceLogType.Request => $"{LocaleCore.WebService.LogTypeRequest}: {api}" + Environment.NewLine +
-                                      $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine +
-                                      text,
-            ServiceLogType.Response => $"{LocaleCore.WebService.LogTypeResponse}: {api}" + Environment.NewLine +
-                                       $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine +
-                                       text,
-            ServiceLogType.MetaData => $"{LocaleCore.WebService.LogTypeMetaData}: {api}" + Environment.NewLine +
-                                       $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine +
-                                       text,
+            ServiceLogDirection.Request => 
+                $"{LocaleCore.WebService.LogTypeRequest}: {api}" + Environment.NewLine +
+                $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine + text,
+            ServiceLogDirection.Response => 
+                $"{LocaleCore.WebService.LogTypeResponse}: {api}" + Environment.NewLine +
+                $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine + text,
+            ServiceLogDirection.MetaData => 
+                $"{LocaleCore.WebService.LogTypeMetaData}: {api}" + Environment.NewLine +
+                $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine + text,
             _ => $"{LocaleCore.WebService.LogTypeRequest}: {api}" + Environment.NewLine +
-                 $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine +
-                 text,
+                 $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine + text,
         };
-        DataContext.DataAccess.LogInformation(text, "", appName);
+        DataContext.DataAccess.LogWebInformation(text, logDirection);
     }
 
     /// <summary>
@@ -116,8 +115,8 @@ public partial class ControllerHelper
         metaDataText += "Request body:" + Environment.NewLine;
         request = metaDataText + request;
 
-        await LogToFileCore(ServiceLogType.Request, appName, query, dtStamp, request).ConfigureAwait(false);
-        LogToDbCore(ServiceLogType.Request, appName, query, dtStamp, request);
+        await LogToFileCore(ServiceLogDirection.Request, appName, query, dtStamp, request).ConfigureAwait(false);
+        LogToDbCore(ServiceLogDirection.Request, appName, query, dtStamp, request);
     }
 
     /// <summary>
@@ -158,8 +157,8 @@ public partial class ControllerHelper
         metaDataText += "Response body:" + Environment.NewLine;
         string response = metaDataText + result.Content;
 
-        await LogToFileCore(ServiceLogType.Response, appName, query, dtStamp, response).ConfigureAwait(false);
-        LogToDbCore(ServiceLogType.Response, appName, query, dtStamp, response);
+        await LogToFileCore(ServiceLogDirection.Response, appName, query, dtStamp, response).ConfigureAwait(false);
+        LogToDbCore(ServiceLogDirection.Response, appName, query, dtStamp, response);
     }
 
     #endregion

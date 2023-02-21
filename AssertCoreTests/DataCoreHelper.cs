@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
@@ -354,8 +354,8 @@ public class DataCoreHelper
                 logWeb.Url.Returns(LocaleCore.Sql.SqlItemFieldUrl);
                 logWeb.Params.Returns(string.Empty);
                 logWeb.Headers.Returns(string.Empty);
-                logWeb.Data.Returns(string.Empty);
-                logWeb.Type.Returns((byte)0);
+                logWeb.DataString.Returns(string.Empty);
+                logWeb.DataType.Returns((byte)0);
                 logWeb.CountAll.Returns(2);
                 logWeb.CountSuccess.Returns(1);
                 logWeb.CountErrors.Returns(1);
