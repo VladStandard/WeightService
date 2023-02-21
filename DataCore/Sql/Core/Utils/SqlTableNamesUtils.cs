@@ -23,6 +23,7 @@ public static class SqlTableNamesUtils
     public static string Labels => "Labels";
     public static string Logs => "LOGS";
     public static string LogsTypes => "LOG_TYPES";
+    public static string LogWebFks => "LOGS_WEBS_FK";
     public static string NestingFks => "NESTING_FK";
     public static string Nomenclatures => "NOMENCLATURES";
     public static string NomenclaturesDeprecated => "Nomenclature";
@@ -30,12 +31,12 @@ public static class SqlTableNamesUtils
     public static string OrdersWeighings => "ORDERS_WEIGHINGS";
     public static string Organizations => "ORGANIZATIONS";
     public static string Plus => "PLUS";
-    public static string PlusFks => "PLUS_FK";
     public static string PlusBrandsFks => "PLUS_BRANDS_FK";
     public static string PlusBundlesFks => "PLUS_BUNDLES_FK";
     public static string PlusCharacteristics => "PLUS_CHARACTERISTICS";
     public static string PlusCharacteristicsFks => "PLUS_CHARACTERISTICS_FK";
     public static string PlusClipsFks => "PLUS_CLIPS_FK";
+    public static string PlusFks => "PLUS_FK";
     public static string PlusGroups => "PLUS_GROUPS";
     public static string PlusGroupsFks => "PLUS_GROUPS_FK";
     public static string PlusLabels => "PLUS_LABELS";

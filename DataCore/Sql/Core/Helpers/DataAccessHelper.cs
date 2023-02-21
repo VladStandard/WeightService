@@ -6,6 +6,7 @@
 using DataCore.Files;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
@@ -184,6 +185,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());

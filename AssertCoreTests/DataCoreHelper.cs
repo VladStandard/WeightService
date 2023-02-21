@@ -52,6 +52,7 @@ using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.LogsWebs;
 using NSubstitute;
+using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 
 namespace AssertCoreTests;
 
@@ -359,6 +360,12 @@ public class DataCoreHelper
                 logWeb.CountSuccess.Returns(1);
                 logWeb.CountErrors.Returns(1);
                 break;
+			case LogWebFkModel logWebFk:
+                logWebFk.LogWeb = CreateNewSubstitute<LogWebModel>(isNotDefault);
+                logWebFk.App = CreateNewSubstitute<AppModel>(isNotDefault);
+                logWebFk.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
+                logWebFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
+				break;
 			case PluGroupModel pluGroup:
                 pluGroup.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 pluGroup.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);

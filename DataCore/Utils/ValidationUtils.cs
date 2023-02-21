@@ -5,6 +5,7 @@ using DataCore.CssStyles;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
@@ -87,6 +88,7 @@ public class ValidationUtils
             var cls when cls == typeof(LogModel) => new LogValidator(),
             var cls when cls == typeof(LogTypeModel) => new LogTypeValidator(),
             var cls when cls == typeof(LogWebModel) => new LogWebValidator(),
+            var cls when cls == typeof(LogWebFkModel) => new LogWebFkValidator(),
             var cls when cls == typeof(NomenclatureModel) => new NomenclatureValidator(),
             var cls when cls == typeof(PluGroupModel) => new PluGroupValidator(),
             var cls when cls == typeof(PluCharacteristicModel) => new PluCharacteristicValidator(),
@@ -134,6 +136,7 @@ public class ValidationUtils
             LogModel log => new LogValidator().Validate(log),
             LogTypeModel logType => new LogTypeValidator().Validate(logType),
             LogWebModel logWeb => new LogWebValidator().Validate(logWeb),
+            LogWebFkModel logWebFk => new LogWebFkValidator().Validate(logWebFk),
             NomenclatureModel nomenclature => new NomenclatureValidator().Validate(nomenclature),
             PluCharacteristicModel nomenclaturesCharacteristics => new PluCharacteristicValidator().Validate(nomenclaturesCharacteristics),
             PluCharacteristicsFkModel nomenclatureCharacteristicsFk => new PluCharacteristicsFkValidator().Validate(nomenclatureCharacteristicsFk),

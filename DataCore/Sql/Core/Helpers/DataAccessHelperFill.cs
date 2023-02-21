@@ -4,6 +4,7 @@
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
@@ -22,6 +23,7 @@ using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
+using DataCore.Sql.TableScaleModels.LogsWebs;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
@@ -75,6 +77,12 @@ public partial class DataAccessHelper
 				deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
 				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
+            case LogWebFkModel logWebFk:
+                logWebFk.LogWeb = GetItemNotNullable<LogWebModel>(logWebFk.LogWeb.IdentityValueUid);
+                logWebFk.App = GetItemNotNullable<AppModel>(logWebFk.App.IdentityValueUid);
+                logWebFk.LogType = GetItemNotNullable<LogTypeModel>(logWebFk.LogType.IdentityValueUid);
+                logWebFk.Device = GetItemNotNullable<DeviceModel>(logWebFk.Device.IdentityValueUid);
+                break;
             case PluModel plu:
                 if (plu.Nomenclature is not null)
                     plu.Nomenclature = GetItemNullable<NomenclatureModel>(plu.Nomenclature.IdentityValueId);

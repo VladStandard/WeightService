@@ -5,6 +5,7 @@ using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
@@ -75,6 +76,7 @@ public class DataContextModel
     public List<LogModel> Logs { get; set; }
     public List<LogTypeModel> LogTypes { get; set; }
     public List<LogWebModel> LogsWebs { get; set; }
+    public List<LogWebFkModel> LogsWebsFks { get; set; }
     public List<NomenclatureModel> NomenclatureDeprecated { get; set; }
     public List<PluGroupModel> NomenclaturesGroups { get; set; }
     public List<PluGroupFkModel> NomenclaturesGroupsFk { get; set; }
@@ -126,6 +128,7 @@ public class DataContextModel
         Logs = new();
         LogTypes = new();
         LogsWebs = new();
+        LogsWebsFks = new();
         NomenclatureDeprecated = new();
         NomenclaturesGroups = new();
         NomenclaturesGroupsFk = new();
@@ -180,6 +183,7 @@ public class DataContextModel
         var cls when cls == typeof(LogModel) => GetListNotNullableLogs<T>(sqlCrudConfig),
         var cls when cls == typeof(LogTypeModel) => GetListNotNullableLogTypes<T>(sqlCrudConfig),
         var cls when cls == typeof(LogWebModel) => GetListNotNullableLogsWebs<T>(sqlCrudConfig),
+        var cls when cls == typeof(LogWebFkModel) => GetListNotNullableLogsWebsFks<T>(sqlCrudConfig),
         var cls when cls == typeof(NomenclatureModel) => GetListNotNullableNomenclatures<T>(sqlCrudConfig),
         var cls when cls == typeof(OrderModel) => GetListNotNullableOrders<T>(sqlCrudConfig),
         var cls when cls == typeof(OrderWeighingModel) => GetListNotNullableOrderWeighings<T>(sqlCrudConfig),
@@ -336,6 +340,14 @@ public class DataContextModel
         if (sqlCrudConfig.IsResultOrder && LogsWebs.Count > 1)
             LogsWebs = LogsWebs.OrderBy(item => item.Name).ToList();
         return LogsWebs.Cast<T>().ToList();
+    }
+
+    private List<T> GetListNotNullableLogsWebsFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    {
+        LogsWebsFks = DataAccess.GetListNotNullable<LogWebFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && LogsWebsFks.Count > 1)
+            LogsWebsFks = LogsWebsFks.OrderBy(item => item.Name).ToList();
+        return LogsWebsFks.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullableNomenclatures<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
@@ -750,6 +762,7 @@ public class DataContextModel
         new LogModel(),
         new LogTypeModel(),
         new LogWebModel(),
+        new LogWebFkModel(),
         new NomenclatureModel(),
         new OrderModel(),
         new OrderWeighingModel(),
@@ -800,6 +813,7 @@ public class DataContextModel
         typeof(LogModel),
         typeof(LogTypeModel),
         typeof(LogWebModel),
+        typeof(LogWebFkModel),
         typeof(NomenclatureModel),
         typeof(OrderModel),
         typeof(OrderWeighingModel),
@@ -851,6 +865,7 @@ public class DataContextModel
         typeof(LogMap),
         typeof(LogTypeMap),
         typeof(LogWebMap),
+        typeof(LogWebFkMap),
         typeof(NomenclatureMap),
         typeof(OrderMap),
         typeof(OrderWeighingMap),
@@ -903,6 +918,7 @@ public class DataContextModel
         typeof(LogValidator),
         typeof(LogTypeValidator),
         typeof(LogWebValidator),
+        typeof(LogWebFkValidator),
         typeof(NomenclatureValidator),
         typeof(OrderValidator),
         typeof(OrderWeighingValidator),
@@ -952,6 +968,7 @@ public class DataContextModel
             var cls when cls == typeof(LogModel) => nameof(LogModel),
             var cls when cls == typeof(LogTypeModel) => nameof(LogTypeModel),
             var cls when cls == typeof(LogWebModel) => nameof(LogWebModel),
+            var cls when cls == typeof(LogWebFkModel) => nameof(LogWebFkModel),
             var cls when cls == typeof(NomenclatureModel) => nameof(NomenclatureModel),
             var cls when cls == typeof(OrderModel) => nameof(OrderModel),
             var cls when cls == typeof(OrderWeighingModel) => nameof(OrderWeighingModel),

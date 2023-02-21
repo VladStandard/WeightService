@@ -194,6 +194,16 @@ internal class DataAccessHelperMapTests
     }
 
     [Test]
+    public void DataAccess_LogWebFkMap_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            LogWebFkMap item = new();
+            TestContext.WriteLine(item);
+        });
+    }
+
+    [Test]
     public void DataAccess_PluGroupMap_DoesNotThrow()
     {
         Assert.DoesNotThrow(() =>

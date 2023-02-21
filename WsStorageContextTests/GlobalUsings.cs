@@ -3,6 +3,7 @@
 global using AssertCoreTests;
 global using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 global using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+global using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 global using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 global using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 global using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
