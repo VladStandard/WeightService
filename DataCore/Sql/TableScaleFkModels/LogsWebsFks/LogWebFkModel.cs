@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
-using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.LogsTypes;

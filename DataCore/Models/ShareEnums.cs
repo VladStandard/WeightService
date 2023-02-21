@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Models;
@@ -14,9 +14,8 @@ public enum AccessRightsEnum
     Admin = 3
 }
 
-// https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxicon?view=net-5.0
-// SELECT * FROM [SCALES].[db_scales].[LOG_TYPES]
-// https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+// https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxicon
+[Obsolete(@"Use DataCore.Enums.LogType")]
 public enum LogTypeEnum
 {
     None = 0,
@@ -25,9 +24,6 @@ public enum LogTypeEnum
     Question = 3,
     Warning = 4,
     Information = 5
-    //Trace,
-    //Debug,
-    //Fatal,
 }
 
 public enum AppVerStringFormatEnum

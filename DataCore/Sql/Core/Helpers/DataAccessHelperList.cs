@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Utils;
-using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;

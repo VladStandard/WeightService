@@ -3,7 +3,6 @@
 
 using DataCore.Models;
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels.Access;
 

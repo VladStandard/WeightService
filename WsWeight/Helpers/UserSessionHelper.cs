@@ -384,7 +384,7 @@ public class UserSessionHelper : BaseViewModel
         if (PluNestingFk.IsNew && PluNestingFks.Count > 1)
         {
             WpfUtils.ShowNewOperationControl(owner,
-                LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning,
+                LocaleCore.Scales.PluPackageNotSelect, true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
         }
@@ -401,7 +401,7 @@ public class UserSessionHelper : BaseViewModel
         if (PluScale.IsNew)
         {
             WpfUtils.ShowNewOperationControl(owner,
-                LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
+                LocaleCore.Scales.PluNotSelect, true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
         }
@@ -427,7 +427,7 @@ public class UserSessionHelper : BaseViewModel
         {
             WpfUtils.ShowNewOperationControl(owner,
                 LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
-                true, LogTypeEnum.Warning,
+                true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
         }
@@ -445,7 +445,7 @@ public class UserSessionHelper : BaseViewModel
         {
             WpfUtils.ShowNewOperationControl(owner,
                 LocaleCore.Scales.PluGtinIsNotSet,
-                true, LogTypeEnum.Warning,
+                true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
         }
@@ -464,7 +464,7 @@ public class UserSessionHelper : BaseViewModel
             WpfUtils.ShowNewOperationControl(owner, isMain
                 ? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
                 : LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
-                true, LogTypeEnum.Warning,
+                true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
         }
@@ -485,7 +485,7 @@ public class UserSessionHelper : BaseViewModel
             WpfUtils.ShowNewOperationControl(owner, isMain
                 ? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
                 : LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
-                true, LogTypeEnum.Warning,
+                true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
         }
@@ -504,7 +504,7 @@ public class UserSessionHelper : BaseViewModel
 
         if (PluginMassa.WeightNet <= 0)
         {
-            WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightIsZero, true, LogTypeEnum.Warning,
+            WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightIsZero, true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
         }
@@ -513,7 +513,7 @@ public class UserSessionHelper : BaseViewModel
             decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
             if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
             {
-                WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
+                WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight), true, LogType.Warning,
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -534,7 +534,7 @@ public class UserSessionHelper : BaseViewModel
         if (weight > LocaleCore.Scales.MassaThresholdValue)
         {
             DialogResult result = WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
-                true, LogTypeEnum.Warning,
+                true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return result == DialogResult.Cancel;
         }
@@ -560,7 +560,7 @@ public class UserSessionHelper : BaseViewModel
                         LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IsNew ? 0 : PluNestingFk.WeightMax,
                         PluScale.IsNew ? 0 : PluNestingFk.WeightNom,
                         PluScale.IsNew ? 0 : PluNestingFk.WeightMin),
-                        true, LogTypeEnum.Warning,
+                        true, LogType.Warning,
                         new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -585,7 +585,7 @@ public class UserSessionHelper : BaseViewModel
         {
             WpfUtils.ShowNewOperationControl(owner,
                 LocaleCore.Scales.PluTemplateNotSet,
-                true, LogTypeEnum.Warning,
+                true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return;
         }
@@ -709,7 +709,7 @@ public class UserSessionHelper : BaseViewModel
 
         DialogResult dialogResult = WpfUtils.ShowNewOperationControl(owner,
             LocaleCore.Print.QuestionUseFakeData,
-            true, LogTypeEnum.Question,
+            true, LogType.Question,
             new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
         if (dialogResult is DialogResult.Yes)
         {
@@ -742,7 +742,7 @@ public class UserSessionHelper : BaseViewModel
             if (Debug.IsDebug)
             {
                 DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
-                    LocaleCore.Print.QuestionPrintSendCmd, true, LogTypeEnum.Question,
+                    LocaleCore.Print.QuestionPrintSendCmd, true, LogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (dialogResult != DialogResult.Yes)
                     return;

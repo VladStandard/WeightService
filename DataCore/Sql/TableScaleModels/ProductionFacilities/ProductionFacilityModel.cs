@@ -3,7 +3,6 @@
 // ReSharper disable MissingXmlDoc
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels.ProductionFacilities;
 

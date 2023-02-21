@@ -3,7 +3,6 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels.Scales;
 
 namespace DataCore.Sql.TableScaleModels.ScalesScreenshots;

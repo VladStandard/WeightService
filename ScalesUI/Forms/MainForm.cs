@@ -582,7 +582,7 @@ public partial class MainForm : Form
             {
                 DialogResult result = WpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionCloseApp}?",
-                    true, LogTypeEnum.Question,
+                    true, LogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 FinallyAction();
                 if (result is not DialogResult.Yes)
@@ -663,7 +663,7 @@ public partial class MainForm : Form
             {
                 DialogResult result = WpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
-                    true, LogTypeEnum.Question,
+                    true, LogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result is not DialogResult.Yes)
                     return;
@@ -679,7 +679,7 @@ public partial class MainForm : Form
                 {
                     WpfUtils.ShowNewOperationControl(this,
                         LocaleCore.Scales.ProgramNotFound(
-                            LocaleData.Paths.ScalesTerminal), true, LogTypeEnum.Warning,
+                            LocaleData.Paths.ScalesTerminal), true, LogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                 }
             }, FinallyAction);
@@ -692,19 +692,19 @@ public partial class MainForm : Form
                 if (!UserSession.PluScale.Plu.IsCheckWeight)
                 {
                     WpfUtils.ShowNewOperationControl(this,
-                        LocaleCore.Scales.PluNotSelectWeight, true, LogTypeEnum.Warning,
+                        LocaleCore.Scales.PluNotSelectWeight, true, LogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
                 }
                 if (!UserSession.PluginMassa.MassaDevice.IsOpenPort)
                 {
-                    WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogTypeEnum.Warning,
+                    WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
                 }
 
                 DialogResult result = WpfUtils.ShowNewOperationControl(this,
-                    LocaleCore.Scales.QuestionPerformOperation, true, LogTypeEnum.Question,
+                    LocaleCore.Scales.QuestionPerformOperation, true, LogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result is not DialogResult.Yes)
                     return;
@@ -795,7 +795,7 @@ public partial class MainForm : Form
                 if (UserSession.PluScale.IsNew)
                 {
                     WpfUtils.ShowNewOperationControl(this,
-                        LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
+                        LocaleCore.Scales.PluNotSelect, true, LogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
                 }

@@ -90,7 +90,7 @@ public partial class ControllerHelper
             _ => $"{LocaleCore.WebService.LogTypeRequest}: {api}" + Environment.NewLine +
                  $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine + text,
         };
-        DataContext.DataAccess.LogWebInformation(text, logDirection);
+        //DataContext.DataAccess.LogWebInformation(text, logDirection);
     }
 
     /// <summary>

@@ -1,11 +1,10 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Utils;
-using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -220,7 +219,7 @@ public partial class DataAccessHelper
     public DeviceScaleFkModel GetItemDeviceScaleFkNotNullable(ScaleModel scale) =>
         GetItemDeviceScaleFkNullable(scale) ?? new();
 
-    public LogTypeModel? GetItemLogTypeNullable(LogTypeEnum logType)
+    public LogTypeModel? GetItemLogTypeNullable(LogType logType)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
             { new(nameof(LogTypeModel.Number), SqlFieldComparerEnum.Equal, (byte)logType) },
@@ -228,7 +227,7 @@ public partial class DataAccessHelper
         return GetItemNullable<LogTypeModel>(sqlCrudConfig);
     }
 
-    public LogTypeModel GetItemLogTypeNotNullable(LogTypeEnum logType) => 
+    public LogTypeModel GetItemLogTypeNotNullable(LogType logType) => 
         GetItemLogTypeNullable(logType) ?? new();
 
     public List<LogTypeModel> GetListLogTypesNotNullable()

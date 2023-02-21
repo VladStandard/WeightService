@@ -69,7 +69,7 @@ public static class WpfUtils
     /// <param name="visibility"></param>
     /// <returns></returns>
     public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog,
-        LogTypeEnum logType, VisibilitySettingsModel visibility)
+        LogType logType, VisibilitySettingsModel visibility)
     {
         if (isLog)
             ShowNewOperationControlLogType(message, logType);
@@ -77,29 +77,29 @@ public static class WpfUtils
     }
 
     public static DialogResult ShowNewOperationControl(string message, bool isLog,
-        LogTypeEnum logType, VisibilitySettingsModel visibility)
+        LogType logType, VisibilitySettingsModel visibility)
     {
         if (isLog)
             ShowNewOperationControlLogType(message, logType);
         return ShowNew(null, LocaleCore.Scales.OperationControl, message, visibility);
     }
 
-    private static void ShowNewOperationControlLogType(string message, LogTypeEnum logType,
+    private static void ShowNewOperationControlLogType(string message, LogType logType,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         switch (logType)
         {
-            case LogTypeEnum.Error:
+            case LogType.Error:
                 DataAccess.LogError(message, filePath, lineNumber, memberName);
                 break;
-            case LogTypeEnum.Question:
+            case LogType.Question:
                 DataAccess.LogQuestion(message);
                 break;
-            case LogTypeEnum.Warning:
+            case LogType.Warning:
                 DataAccess.LogWarning(message);
                 break;
-            case LogTypeEnum.None:
-            case LogTypeEnum.Information:
+            case LogType.None:
+            case LogType.Information:
                 DataAccess.LogInformation(message);
                 break;
             default:
@@ -114,7 +114,7 @@ public static class WpfUtils
         {
             DialogResult result = ShowNewOperationControl(
                 LocaleCore.Scales.HostNotFound(deviceName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
-                false, LogTypeEnum.Information,
+                false, LogType.Information,
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
             if (result == DialogResult.Yes)
             {

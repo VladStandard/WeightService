@@ -51,7 +51,6 @@ using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.LogsWebs;
-using NSubstitute;
 using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 
 namespace AssertCoreTests;
@@ -71,8 +70,7 @@ public class DataCoreHelper
 
 	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 	public DataContextModel DataContext { get; } = new();
-	public SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
-	public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
+    public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
 
 	#endregion
 
