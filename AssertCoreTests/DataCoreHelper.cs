@@ -363,12 +363,6 @@ public class DataCoreHelper
 				nomenclature.Xml.Returns(LocaleCore.Sql.SqlItemFieldProductXml);
 				nomenclature.Weighted.Returns(false);
 				break;
-			case NomenclatureV2Model nomenclatureV2:
-                nomenclatureV2.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-                nomenclatureV2.FullName.Returns(LocaleCore.Sql.SqlItemFieldFullName);
-                nomenclatureV2.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
-                nomenclatureV2.MeasurementType.Returns(LocaleCore.Sql.SqlItemFieldMeasurementTypeKg);
-                break;
 			case PluGroupModel pluGroup:
                 pluGroup.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 pluGroup.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);

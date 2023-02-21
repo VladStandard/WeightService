@@ -76,7 +76,6 @@ public class DataContextModel
     public List<LogTypeModel> LogTypes { get; set; }
     public List<LogWebModel> LogsWebs { get; set; }
     public List<NomenclatureModel> NomenclatureDeprecated { get; set; }
-    public List<NomenclatureV2Model> NomenclaturesV2 { get; set; }
     public List<PluGroupModel> NomenclaturesGroups { get; set; }
     public List<PluGroupFkModel> NomenclaturesGroupsFk { get; set; }
     public List<PluCharacteristicModel> NomenclaturesCharacteristics { get; set; }
@@ -128,7 +127,6 @@ public class DataContextModel
         LogTypes = new();
         LogsWebs = new();
         NomenclatureDeprecated = new();
-        NomenclaturesV2 = new();
         NomenclaturesGroups = new();
         NomenclaturesGroupsFk = new();
         NomenclaturesCharacteristics = new();
@@ -183,7 +181,6 @@ public class DataContextModel
         var cls when cls == typeof(LogTypeModel) => GetListNotNullableLogTypes<T>(sqlCrudConfig),
         var cls when cls == typeof(LogWebModel) => GetListNotNullableLogsWebs<T>(sqlCrudConfig),
         var cls when cls == typeof(NomenclatureModel) => GetListNotNullableNomenclatures<T>(sqlCrudConfig),
-        var cls when cls == typeof(NomenclatureV2Model) => GetListNotNullableNomenclaturesV2<T>(sqlCrudConfig),
         var cls when cls == typeof(OrderModel) => GetListNotNullableOrders<T>(sqlCrudConfig),
         var cls when cls == typeof(OrderWeighingModel) => GetListNotNullableOrderWeighings<T>(sqlCrudConfig),
         var cls when cls == typeof(OrganizationModel) => GetListNotNullableOrganizations<T>(sqlCrudConfig),
@@ -347,14 +344,6 @@ public class DataContextModel
         if (sqlCrudConfig.IsResultOrder && NomenclatureDeprecated.Count > 1)
             NomenclatureDeprecated = NomenclatureDeprecated.OrderBy(item => item.Name).ToList();
         return NomenclatureDeprecated.Cast<T>().ToList();
-    }
-
-    private List<T> GetListNotNullableNomenclaturesV2<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
-    {
-        NomenclaturesV2 = DataAccess.GetListNotNullable<NomenclatureV2Model>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && NomenclaturesV2.Count > 1)
-            NomenclaturesV2 = NomenclaturesV2.OrderBy(item => item.Name).ToList();
-        return NomenclaturesV2.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullableNomenclatureCharacteristics<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
@@ -762,7 +751,6 @@ public class DataContextModel
         new LogTypeModel(),
         new LogWebModel(),
         new NomenclatureModel(),
-        new NomenclatureV2Model(),
         new OrderModel(),
         new OrderWeighingModel(),
         new OrganizationModel(),
@@ -813,7 +801,6 @@ public class DataContextModel
         typeof(LogTypeModel),
         typeof(LogWebModel),
         typeof(NomenclatureModel),
-        typeof(NomenclatureV2Model),
         typeof(OrderModel),
         typeof(OrderWeighingModel),
         typeof(OrganizationModel),
@@ -865,7 +852,6 @@ public class DataContextModel
         typeof(LogTypeMap),
         typeof(LogWebMap),
         typeof(NomenclatureMap),
-        typeof(NomenclatureV2Map),
         typeof(OrderMap),
         typeof(OrderWeighingMap),
         typeof(OrganizationMap),
@@ -917,7 +903,6 @@ public class DataContextModel
         typeof(LogValidator),
         typeof(LogTypeValidator),
         typeof(LogWebValidator),
-        typeof(NomenclatureV2Validator),
         typeof(NomenclatureValidator),
         typeof(OrderValidator),
         typeof(OrderWeighingValidator),
@@ -968,7 +953,6 @@ public class DataContextModel
             var cls when cls == typeof(LogTypeModel) => nameof(LogTypeModel),
             var cls when cls == typeof(LogWebModel) => nameof(LogWebModel),
             var cls when cls == typeof(NomenclatureModel) => nameof(NomenclatureModel),
-            var cls when cls == typeof(NomenclatureV2Model) => nameof(NomenclatureV2Model),
             var cls when cls == typeof(OrderModel) => nameof(OrderModel),
             var cls when cls == typeof(OrderWeighingModel) => nameof(OrderWeighingModel),
             var cls when cls == typeof(OrganizationModel) => nameof(OrganizationModel),
