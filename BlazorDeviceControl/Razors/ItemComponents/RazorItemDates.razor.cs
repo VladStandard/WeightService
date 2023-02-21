@@ -3,37 +3,16 @@
 
 namespace BlazorDeviceControl.Razors.ItemComponents;
 
-public partial class RazorItemDates<TItem> : RazorComponentItemBase<TItem> where TItem : SqlTableBase, new()
+public partial class RazorItemDates : LayoutComponentBase
 {
 	#region Public and private fields, properties, constructor
-
-	private string CreateDt { get; set; }
-	private string ChangeDt { get; set; }
-
-	public RazorItemDates()
-	{
-		CreateDt = string.Empty;
-		ChangeDt = string.Empty;
-	}
-
+    [Parameter] public SqlTableBase SqlItem { get; set; }
+	private string CreateDt =>  StringUtils.FormatDtRus(SqlItem.CreateDt, true);
+	private string ChangeDt => StringUtils.FormatDtRus(SqlItem.ChangeDt, true);
+    
 	#endregion
 
 	#region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				if (SqlItem is not null)
-				{
-					CreateDt = StringUtils.FormatDtRus(SqlItem.CreateDt, true);
-					ChangeDt = StringUtils.FormatDtRus(SqlItem.ChangeDt, true);
-				}
-			}
-		});
-	}
-
-	#endregion
+    #endregion
 }

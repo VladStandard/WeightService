@@ -5,10 +5,10 @@
 <RazorSectionReload TItem="@WeithingFactSummaryModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
+  class="DataGridSection"
   @bind-Value="@SelectedRow"
   CellContextMenu="@OnCellContextMenu"
   PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Style="margin-top: 5px;"
   Data="@SqlSectionCast"
   TItem="@WeithingFactSummaryModel"
   RowSelect="@(SqlItemSetAsync)"

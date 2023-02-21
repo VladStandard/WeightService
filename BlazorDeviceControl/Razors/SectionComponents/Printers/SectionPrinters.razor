@@ -6,10 +6,10 @@
 <RazorSectionReload TItem="@PrinterModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Print.Names" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
+  class="DataGridSection"
   @bind-Value="@SelectedRow"
   CellContextMenu="@OnCellContextMenu"
   PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Style="margin-top: 5px;"
   Data="@SqlSectionCast" TItem="@PrinterModel"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"

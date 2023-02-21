@@ -5,9 +5,9 @@
 <RazorSectionReload TItem="@PluBundleFkModel" TItemFilter="@PluModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusBundlesFk" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
+  class="DataGridSection"
   @bind-Value="@SelectedRow"
   CellContextMenu="@OnCellContextMenu"
-  Style="margin-top: 5px;"
   Data="@SqlSectionCast"
   TItem="@PluBundleFkModel"
   RowSelect="@(SqlItemSetAsync)"

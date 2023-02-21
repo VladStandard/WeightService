@@ -9,8 +9,8 @@
 
 <RazorItemReload TItem="@PluNestingFkModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluNestingFk"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="@PluNestingFkModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody TItem="@PluNestingFkModel" ParentRazor="@(this)"/>
   <tr>
@@ -166,4 +166,4 @@
 
 <RazorItemActions TItem="@PluNestingFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
 
-<RazorItemDates TItem="@PluNestingFkModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

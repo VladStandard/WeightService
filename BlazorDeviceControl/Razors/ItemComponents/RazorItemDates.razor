@@ -1,6 +1,4 @@
-﻿@typeparam TItem
-@inherits RazorComponentItemBase<TItem>
-@page "/item/dates"
+﻿@inherits LayoutComponentBase
 
 <MudSimpleTable Style="margin-top: 5px;" Dense="true" Bordered="false" FixedHeader="false">
   <thead>
@@ -13,14 +11,12 @@
   </thead>
   <tbody>
   <tr>
-    @if (SqlItem is not null)
-    {
-      <td>
-        @if (!string.IsNullOrEmpty(CreateDt))
-        {
-          <RadzenText Text=@LocaleCore.Table.CreateDt
-                      TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
-        }
+    <td>
+      @if (!string.IsNullOrEmpty(CreateDt))
+      {
+        <RadzenText Text=@LocaleCore.Table.CreateDt
+                    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
+      }
       </td>
       <td>
         @if (!string.IsNullOrEmpty(CreateDt))
@@ -44,7 +40,6 @@
                       TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
         }
       </td>
-    }
   </tr>
   </tbody>
 </MudSimpleTable>

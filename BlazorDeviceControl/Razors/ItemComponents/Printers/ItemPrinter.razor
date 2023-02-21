@@ -9,8 +9,8 @@
 
 <RazorItemReload TItem="@PrinterModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Name"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="@PrinterModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
   <tbody>
   <RazorItemTableBody TItem="@PrinterModel" ParentRazor="@(this)"/>
   <tr>
@@ -105,4 +105,4 @@
 <SectionPrintersResources ParentRazor="@(this)"/>
 
 <RazorItemActions TItem="@PrinterModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
-<RazorItemDates TItem="@PrinterModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

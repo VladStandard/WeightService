@@ -5,10 +5,10 @@
 <RazorSectionReload TItem="@AccessModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Strings.AccessRights" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
+  class="DataGridSection"
   @bind-Value="@SelectedRow"
   CellContextMenu="@OnCellContextMenu"
   PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Style="margin-top: 5px; "
   Data="@SqlSectionCast"
   TItem="@AccessModel"
   RowSelect="@(SqlItemSetAsync)"

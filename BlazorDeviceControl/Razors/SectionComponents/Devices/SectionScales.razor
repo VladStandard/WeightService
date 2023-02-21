@@ -6,10 +6,10 @@
 <RazorSectionReload TItem="@ScaleModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionScales" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
+  class="DataGridSection"
   @bind-Value="@SelectedRow"
   CellContextMenu="@OnCellContextMenu"
   PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Style="margin-top: 5px;"
   Data="@SqlSectionCast"
   TItem="@ScaleModel"
   RowSelect="@(SqlItemSetAsync)"
@@ -35,7 +35,7 @@
                 {
                     @if (device.IsNew)
                     {
-                        <RadzenText 
+                        <RadzenText
                             Style="margin-top: 10px; "
                             Text=@LocaleCore.Table.FieldEmpty
                             TextStyle=@TextStyle.Body2
@@ -43,7 +43,7 @@
                     }
                     else
                     {
-                        <RadzenLink 
+                        <RadzenLink
                             Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{device.IdentityValueUid}")
                             Text=@(device.Name) />
                     }

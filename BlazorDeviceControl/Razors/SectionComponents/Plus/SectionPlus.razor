@@ -4,10 +4,10 @@
 <RazorSectionReload TItem="@PluModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlus" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
+  class="DataGridSection"
   @bind-Value="@SelectedRow"
   CellContextMenu="@OnCellContextMenu"
   PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Style="margin-top: 5px;"
   Data="@SqlSectionCast"
   TItem="@PluModel"
   RowSelect="@(SqlItemSetAsync)"

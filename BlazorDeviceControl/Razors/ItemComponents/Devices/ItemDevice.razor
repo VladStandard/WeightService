@@ -7,8 +7,8 @@
 
 <RazorItemReload TItem="@DeviceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemHost"/>
 
-<MudSimpleTable Style="overflow-x: auto;" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="@DeviceModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
   <RazorItemTableBody TItem="@DeviceModel" ParentRazor="@(this)"/>
   <tr>
@@ -133,4 +133,4 @@
 </MudSimpleTable>
 
 <RazorItemActions TItem="@DeviceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
-<RazorItemDates TItem="@DeviceModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

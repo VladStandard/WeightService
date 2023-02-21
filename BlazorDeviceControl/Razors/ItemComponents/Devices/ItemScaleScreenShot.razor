@@ -6,8 +6,8 @@
 
 <RazorItemReload TItem="@ScaleScreenShotModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemScreenShot"/>
 
-<MudSimpleTable Style="overflow-x: auto;" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="@ScaleScreenShotModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
   <RazorItemTableBody TItem="@ScaleScreenShotModel" ParentRazor="@(this)"/>
   <tr>
@@ -47,4 +47,4 @@
 </MudSimpleTable>
 
 <RazorItemActions TItem="@ScaleScreenShotModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
-<RazorItemDates TItem="@ScaleScreenShotModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

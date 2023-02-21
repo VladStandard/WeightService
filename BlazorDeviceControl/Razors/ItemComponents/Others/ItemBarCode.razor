@@ -7,8 +7,8 @@
 
 <RazorItemReload TItem="@BarCodeModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="@BarCodeModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody TItem="@BarCodeModel" ParentRazor="@(this)"/>
   <tr>
@@ -110,7 +110,7 @@
     <td>
       @*@if (SqlItemCast.PluLabel.PluWeighing?.PluScale.Scale.Host is not null)
                 {
-	                <RadzenLink 
+	                <RadzenLink
 		                Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.IdentityValueId}")
                         Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Host.Name) />
                 }*@
@@ -139,4 +139,4 @@
 </MudSimpleTable>
 
 <RazorItemActions TItem="@BarCodeModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
-<RazorItemDates TItem="@BarCodeModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

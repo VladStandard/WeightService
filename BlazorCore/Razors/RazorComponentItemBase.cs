@@ -25,12 +25,10 @@ public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : Sq
 
     [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
     [Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
-	[Parameter] public CssStyleTableBodyModel CssTableStyleBody { get; set; }
-
+    
     public RazorComponentItemBase()
 	{
         CssTableStyleHead = new();
-		CssTableStyleBody = new();
         ButtonSettings = new(false, false, false, false, false, true, true);
     }
 

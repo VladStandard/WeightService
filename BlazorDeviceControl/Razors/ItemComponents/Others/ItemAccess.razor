@@ -6,8 +6,8 @@
 
 <RazorItemReload TItem="@AccessModel" ParentRazor="@(this)" Title="@LocaleCore.Strings.AccessRights"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="@AccessModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody TItem="@AccessModel" ParentRazor="@(this)"/>
   <tr>
@@ -46,4 +46,4 @@
 </MudSimpleTable>
 
 <RazorItemActions TItem="@AccessModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
-<RazorItemDates TItem="@AccessModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

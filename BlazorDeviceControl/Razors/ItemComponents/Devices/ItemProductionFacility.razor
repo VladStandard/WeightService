@@ -6,8 +6,8 @@
 
 <RazorItemReload TItem="@ProductionFacilityModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemProductionFacility"/>
 
-<MudSimpleTable Style="overflow-x: auto;" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="@ProductionFacilityModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody TItem="@ProductionFacilityModel" ParentRazor="@(this)"/>
   <tr>
@@ -29,4 +29,4 @@
 </MudSimpleTable>
 
 <RazorItemActions TItem="@ProductionFacilityModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
-<RazorItemDates TItem="@ProductionFacilityModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

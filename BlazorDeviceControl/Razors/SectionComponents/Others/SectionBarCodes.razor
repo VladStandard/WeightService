@@ -5,10 +5,10 @@
 <RazorSectionReload TItem="@BarCodeModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBarCodeTypes" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
+  class="DataGridSection"
   @bind-Value="@SelectedRow"
   CellContextMenu="@OnCellContextMenu"
   PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Style="margin-top: 5px;"
   Data="@SqlSectionCast"
   TItem="@BarCodeModel"
   RowSelect="@(SqlItemSetAsync)"
@@ -18,7 +18,7 @@
   PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
   AllowPaging="true"
   AllowSorting="true">
-  <Columns >
+  <Columns>
     <RazorSectionFieldIsMarked TItem="@BarCodeModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@BarCodeModel" Title="@LocaleCore.Table.ChangeDt" Width="12%">
       <Template Context="itemCast">

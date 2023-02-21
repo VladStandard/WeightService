@@ -12,10 +12,10 @@
              Text="@LocaleCore.Action.ActionIsShowActivePlu"/>
 
 <RadzenDataGrid
+  class="DataGridSection"
   @bind-Value="@SelectedRow"
   CellContextMenu="@OnCellContextMenu"
   PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Style="margin-top: 5px;"
   Data="@SqlSectionCast"
   TItem="@PluScaleModel"
   RowSelect="@(RowClick)"

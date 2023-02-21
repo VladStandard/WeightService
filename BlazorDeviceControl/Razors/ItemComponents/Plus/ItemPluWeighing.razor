@@ -7,8 +7,8 @@
 
 <RazorItemReload TItem="@PluWeighingModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluWeighing"/>
 
-<MudSimpleTable Style="overflow-x: auto;" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="@PluWeighingModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody TItem="@PluWeighingModel" ParentRazor="@(this)"/>
   <tr>
@@ -78,4 +78,4 @@
 </MudSimpleTable>
 
 <RazorItemActions TItem="@PluWeighingModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
-<RazorItemDates TItem="@PluWeighingModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

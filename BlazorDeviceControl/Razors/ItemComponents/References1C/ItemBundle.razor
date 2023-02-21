@@ -6,8 +6,8 @@
 
 <RazorItemReload TItem="BundleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemBundle"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="BundleModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody TItem="BundleModel" ParentRazor="@(this)"/>
   <tr>
@@ -24,4 +24,4 @@
 </MudSimpleTable>
 
 <RazorItemActions TItem="@BundleModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
-<RazorItemDates TItem="@BundleModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

@@ -8,8 +8,8 @@
 
 <RazorItemReload TItem="@PluBundleFkModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluBundleFk"/>
 
-<MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead TItem="@PluBundleFkModel" ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody TItem="@PluBundleFkModel" ParentRazor="@(this)"/>
   @* Plu & Number *@
@@ -80,4 +80,4 @@
 
 <RazorItemActions TItem="@PluBundleFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
 
-<RazorItemDates TItem="@PluBundleFkModel" ParentRazor="@(this)"/>
+<RazorItemDates SqlItem="@SqlItem"/>

@@ -5,9 +5,9 @@
 <RazorSectionReload TItem="@PluNestingFkModel" TItemFilter="@PluModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusNestingFk" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
+  class="DataGridSection"
   @bind-Value="@SelectedRow"
   CellContextMenu="@OnCellContextMenu"
-  Style="margin-top: 5px;"
   Data="@SqlSectionCast" TItem="@PluNestingFkModel"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"

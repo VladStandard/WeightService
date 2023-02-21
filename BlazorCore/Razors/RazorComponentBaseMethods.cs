@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Settings;
-using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -64,7 +63,6 @@ public partial class RazorComponentBase
 			DeviceTypeFkModel => LocaleCore.DeviceControl.ItemDeviceTypeFk,
 			DeviceTypeModel => LocaleCore.DeviceControl.ItemDeviceType,
 			LogModel => LocaleCore.Strings.ItemLog,
-			NomenclatureModel => LocaleCore.DeviceControl.ItemNomenclature,
             PluGroupModel => LocaleCore.DeviceControl.ItemNomenclatureGroup,
             OrderModel => LocaleCore.DeviceControl.ItemOrder,
 			OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,

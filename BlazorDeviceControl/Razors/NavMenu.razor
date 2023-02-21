@@ -17,7 +17,7 @@
     <RadzenPanelMenu class="@GetCssName.RadzenPanelMenu(BlazorAppSettings)">
       @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
       {
-                @* Devices *@
+        @* Devices *@
         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionScales>
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                                Text=@LocaleCore.DeviceControl.SectionAutomatedWorkplaceShort Path=@LocaleCore.DeviceControl.RouteSectionScales/>
@@ -34,7 +34,7 @@
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                                Text=@LocaleCore.DeviceControl.SectionResources Path=@LocaleCore.DeviceControl.RouteSectionPrinterResources/>
         </RadzenPanelMenuItem>
-                @* Operations *@
+        @* Operations *@
         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionOperations>
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                                Text=@LocaleCore.DeviceControl.SectionWeithingFactsAggregationShort Path=@LocaleCore.DeviceControl.RouteSectionPlusWeighingsAggregation/>
@@ -45,7 +45,7 @@
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                                Text=@LocaleCore.DeviceControl.SectionBarCodesShort Path=@LocaleCore.DeviceControl.RouteSectionBarCodes/>
         </RadzenPanelMenuItem>
-                @* References *@
+        @* References *@
         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionReferences>
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                                Text=@LocaleCore.DeviceControl.SectionOrganizations Path=@LocaleCore.DeviceControl.RouteSectionOrganizations/>
@@ -54,7 +54,7 @@
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                                Text=@LocaleCore.DeviceControl.SectionTemplateResources Path=@LocaleCore.DeviceControl.RouteSectionTemplateResources/>
         </RadzenPanelMenuItem>
-                @* References 1C *@
+        @* References 1C *@
         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionReferences1C>
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                                Text=@LocaleCore.DeviceControl.SectionBrands Path=@LocaleCore.DeviceControl.RouteSectionBrands/>
@@ -76,7 +76,7 @@
       }
       @if (UserSettings is not null && UserSettings.AccessRightsIsAdmin)
       {
-                @* Admin *@
+        @* Admin *@
         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionAdministering>
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="people"
                                Text=@LocaleCore.System.Users
@@ -86,7 +86,7 @@
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                                Text=@LocaleCore.DeviceControl.SectionPlusScales Path=@LocaleCore.DeviceControl.RouteSectionPlusScales/>
         </RadzenPanelMenuItem>
-	            @* Reports *@
+	      @* Reports *@
         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.Menu.MenuReports>
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
                                Text=@LocaleCore.System.SystemLogsAll Path=@LocaleCore.DeviceControl.RouteSectionLogs/>
