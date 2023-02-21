@@ -349,20 +349,16 @@ public class DataCoreHelper
                 logWeb.File.Returns(LocaleCore.Sql.SqlItemFieldFile);
                 logWeb.Line.Returns(1);
                 logWeb.Member.Returns(LocaleCore.Sql.SqlItemFieldMember);
-                //logWeb.Direction.Returns(null);
+                logWeb.Direction.Returns((byte)0);
                 logWeb.Url.Returns(LocaleCore.Sql.SqlItemFieldUrl);
                 logWeb.Params.Returns(string.Empty);
                 logWeb.Headers.Returns(string.Empty);
+                logWeb.Data.Returns(string.Empty);
+                logWeb.Type.Returns((byte)0);
                 logWeb.CountAll.Returns(2);
                 logWeb.CountSuccess.Returns(1);
                 logWeb.CountErrors.Returns(1);
                 break;
-			case NomenclatureModel nomenclature:
-				nomenclature.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-				nomenclature.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
-				nomenclature.Xml.Returns(LocaleCore.Sql.SqlItemFieldProductXml);
-				nomenclature.Weighted.Returns(false);
-				break;
 			case PluGroupModel pluGroup:
                 pluGroup.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 pluGroup.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);

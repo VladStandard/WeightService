@@ -20,11 +20,13 @@ public class LogWebModel : SqlTableBase
     [XmlElement] public virtual string File { get; set; }
     [XmlElement] public virtual int Line { get; set; }
     [XmlElement] public virtual string Member { get; set; }
-    [XmlElement(IsNullable = true)] public virtual bool? Direction { get; set; }
+    [XmlElement] public virtual byte Direction { get; set; }
     [XmlElement] public virtual string Url { get; set; }
-    [XmlElement(IsNullable = true)] public virtual string? Params { get; set; }
-    [XmlElement(IsNullable = true)] public virtual string? Headers { get; set; }
+    [XmlElement] public virtual string Params { get; set; }
+    [XmlElement] public virtual string Headers { get; set; }
+    [XmlElement] public virtual byte Type { get; set; }
     [XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
+    [XmlElement] public virtual string Data { get; set; }
     [XmlElement] public virtual int CountAll { get; set; }
     [XmlElement] public virtual int CountSuccess { get; set; }
     [XmlElement] public virtual int CountErrors { get; set; }
@@ -38,11 +40,14 @@ public class LogWebModel : SqlTableBase
         File = string.Empty;
         Line = 0;
         Member = string.Empty;
-        Direction = null;
+        Direction = default;
         Url = string.Empty;
         Params = string.Empty;
         Headers = string.Empty;
+        Type = default;
         Xml = null;
+        Data = string.Empty;
+        Type = default;
         CountAll = default;
         CountSuccess = default;
         CountErrors = default;
@@ -59,11 +64,13 @@ public class LogWebModel : SqlTableBase
         File = info.GetString(nameof(File));
         Line = info.GetInt32(nameof(Line));
         Member = info.GetString(nameof(Member));
-        Direction = info.GetBoolean(nameof(Direction));
+        Direction = info.GetByte(nameof(Direction));
         Url = info.GetString(nameof(Url));
         Params = info.GetString(nameof(Params));
         Headers = info.GetString(nameof(Headers));
         Xml = (XmlDocument)info.GetValue(nameof(Xml), typeof(XmlDocument));
+        Data = info.GetString(nameof(Data));
+        Type = info.GetByte(nameof(Type));
         CountAll = info.GetInt32(nameof(CountAll));
         CountSuccess = info.GetInt32(nameof(CountSuccess));
         CountAll = info.GetInt32(nameof(CountErrors));
@@ -101,11 +108,13 @@ public class LogWebModel : SqlTableBase
         Equals(File, string.Empty) &&
         Equals(Line, 0) &&
         Equals(Member, string.Empty) &&
-        Equals(Direction, null) &&
+        Equals(Direction, default) &&
         Equals(Url, string.Empty) &&
-        Equals(Params, null) &&
-        Equals(Headers, null) &&
+        Equals(Params, string.Empty) &&
+        Equals(Headers, string.Empty) &&
         (Xml is null) &&
+        Equals(Data, string.Empty) &&
+        Equals(Type, default) &&
         Equals(CountAll, default) &&
         Equals(CountSuccess, default) &&
         Equals(CountErrors, default);
@@ -128,6 +137,8 @@ public class LogWebModel : SqlTableBase
             XmlDocument xml = DataFormatUtils.DeserializeFromXml<XmlDocument>(Xml.OuterXml, Encoding.UTF8);
             item.Xml = xml;
         }
+        item.Data = Data;
+        item.Type = Type;
         item.CountAll = CountAll;
         item.CountSuccess = CountSuccess;
         item.CountErrors = CountErrors;
@@ -152,6 +163,8 @@ public class LogWebModel : SqlTableBase
         info.AddValue(nameof(Params), Params);
         info.AddValue(nameof(Headers), Headers);
         info.AddValue(nameof(Xml), Xml);
+        info.AddValue(nameof(Data), Data);
+        info.AddValue(nameof(Type), Type);
         info.AddValue(nameof(CountAll), CountAll);
         info.AddValue(nameof(CountSuccess), CountSuccess);
         info.AddValue(nameof(CountErrors), CountErrors);
@@ -159,12 +172,6 @@ public class LogWebModel : SqlTableBase
 
     public override void ClearNullProperties()
     {
-        if (Direction is not null)
-            Direction = null;
-        if (Params is not null)
-            Params = null;
-        if (Headers is not null)
-            Headers = null;
         if (Xml is not null)
             Xml = null;
     }
@@ -192,7 +199,15 @@ public class LogWebModel : SqlTableBase
         Equals(Line, item.Line) &&
         Equals(Member, item.Member) &&
         Equals(Direction, item.Direction) &&
-        (Url is null && item.Url is null || Url is not null && item.Url is not null && Equals(Url, item.Url));
+        Equals(Url, item.Url) &&
+        Equals(Params, item.Params) &&
+        Equals(Headers, item.Headers) &&
+        Equals(Xml, item.Xml) &&
+        Equals(Data, item.Data) &&
+        Equals(Type, item.Type) &&
+        Equals(CountAll, item.CountAll) &&
+        Equals(CountSuccess, item.CountSuccess) &&
+        Equals(CountErrors, item.CountErrors);
 
     public new virtual LogWebModel CloneCast() => (LogWebModel)Clone();
 

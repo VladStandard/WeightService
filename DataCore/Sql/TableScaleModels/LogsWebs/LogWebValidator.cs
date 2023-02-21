@@ -30,12 +30,18 @@ public class LogWebValidator : SqlTableValidator<LogWebModel>
         RuleFor(item => item.Member)
             .NotEmpty()
             .NotNull();
+        RuleFor(item => item.Direction)
+            .NotNull();
         RuleFor(item => item.Url)
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.Params)
             .NotNull();
         RuleFor(item => item.Headers)
+            .NotNull();
+        RuleFor(item => item.Type)
+            .NotNull();
+        RuleFor(item => item.Data)
             .NotNull();
         RuleFor(item => item.CountAll)
             .NotEmpty()
