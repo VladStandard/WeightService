@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorage.Enums;
@@ -39,9 +39,9 @@ public class BrandController : WebControllerBase
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
-                    .NewResponse1cIsNotFound(SessionFactory, version, format), format),
+                    .NewResponse1cIsNotFound(version, format), format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cBrands(SessionFactory, xml, format), format)
+                .NewResponse1cBrands(xml, format), format)
         };
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_brands/", dtStamp, result, format, host, version).ConfigureAwait(false);
         return result;

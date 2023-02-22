@@ -8,31 +8,34 @@ namespace DataCore.Sql.Core.Helpers;
 
 public partial class DataAccessHelper
 {
-	#region Public and private methods
+    #region Public and private methods
 
-    private void LogWebCore(ServiceLogDirection logDirection, string url, string parameters, string headers,
-        byte dataType, XmlDocument dataXml, string dataString, int countAll, int countSuccess, int countErrors,
-        LogType logType, string filePath, int lineNumber, string memberName)
+    public void LogWeb(DateTime stampDt, ServiceLogDirection logDirection, string url, string parameters, string headers, 
+        FormatType formatType, string dataString, int countAll, int countSuccess, int countErrors, LogType logType) =>
+        LogWeb(stampDt, logDirection, url, parameters, headers, (byte)formatType, dataString,
+            countAll, countSuccess, countErrors, logType);
+
+    public void LogWeb(DateTime stampDt, ServiceLogDirection logDirection, string url, string parameters, string headers, 
+        string format, string dataString, int countAll, int countSuccess, int countErrors, LogType logType) =>
+        LogWeb(stampDt, logDirection, url, parameters, headers, (byte)DataFormatUtils.GetFormatType(format), dataString,
+            countAll, countSuccess, countErrors, logType);
+
+    private void LogWeb(DateTime stampDt, ServiceLogDirection logDirection, string url, string parameters, string headers,
+        byte formatType, string dataString, int countAll, int countSuccess, int countErrors, LogType logType)
     {
-        StringUtils.SetStringValueTrim(ref filePath, 64, true);
-        StringUtils.SetStringValueTrim(ref memberName, 64);
         LogTypeModel? logTypeItem = GetItemLogTypeNullable(logType);
 
         LogWebModel log = new()
         {
             CreateDt = DateTime.Now,
-            //StampDt = stampDt,
+            StampDt = stampDt,
             IsMarked = false,
             Version = AppVersion.Version,
-            File = filePath,
-            Line = lineNumber,
-            Member = memberName,
             Direction = (byte)logDirection,
             Url = url,
             Params = parameters,
             Headers = headers,
-            DataType = dataType,
-            DataXml = dataXml,
+            DataType = formatType,
             DataString = dataString,
             CountAll = countAll,
             CountSuccess = countSuccess,
@@ -41,19 +44,5 @@ public partial class DataAccessHelper
         SaveAsync(log).ConfigureAwait(false);
     }
 
-    public void LogWebError(ServiceLogDirection logDirection, string url, string parameters, string headers,
-        byte dataType, XmlDocument dataXml, string dataString, int countAll, int countSuccess, int countErrors,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") => 
-        LogWebCore(logDirection, url, parameters, headers,
-            dataType, dataXml, dataString, countAll, countSuccess, countErrors,
-            LogType.Error, filePath, lineNumber, memberName);
-	
-    public void LogWebInformation(ServiceLogDirection logDirection, string url, string parameters, string headers,
-        byte dataType, XmlDocument dataXml, string dataString, int countAll, int countSuccess, int countErrors,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") => 
-        LogWebCore(logDirection, url, parameters, headers,
-            dataType, dataXml, dataString, countAll, countSuccess, countErrors,
-            LogType.Information, filePath, lineNumber, memberName);
-	
-	#endregion
+    #endregion
 }

@@ -421,10 +421,10 @@ public static class DataFormatUtils
         _ => throw DataUtils.GetArgumentException(nameof(formatType))
     };
 
-    public static ContentResult GetContentResult<T>(ISerializable item, string formatString, HttpStatusCode statusCode) =>
-        GetContentResult<T>(item, GetFormatType(formatString), statusCode);
+    public static ContentResult GetContentResult<T>(ISerializable item, string format, HttpStatusCode statusCode) =>
+        GetContentResult<T>(item, GetFormatType(format), statusCode);
 
-    public static FormatType GetFormatType(string formatType) => formatType.ToUpper() switch
+    public static FormatType GetFormatType(string format) => format.ToUpper() switch
     {
         "TEXT" => FormatType.Text,
         "JAVASCRIPT" => FormatType.JavaScript,
@@ -432,7 +432,7 @@ public static class DataFormatUtils
         "HTML" => FormatType.Html,
         "XML" or "" or "XMLUTF8" => FormatType.Xml,
         "XMLUTF16" => FormatType.XmlUtf16,
-        _ => throw DataUtils.GetArgumentException(nameof(formatType))
+        _ => throw DataUtils.GetArgumentException(nameof(format))
     };
 
     public static IDictionary<string, object> ObjectToDictionary<T>(T item)

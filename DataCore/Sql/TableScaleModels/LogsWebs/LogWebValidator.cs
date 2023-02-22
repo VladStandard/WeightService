@@ -19,15 +19,6 @@ public class LogWebValidator : SqlTableValidator<LogWebModel>
             .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
         RuleFor(item => item.Version)
             .NotNull();
-        RuleFor(item => item.File)
-            .NotEmpty()
-            .NotNull();
-        RuleFor(item => item.Line)
-            .NotEmpty()
-            .NotNull();
-        RuleFor(item => item.Member)
-            .NotEmpty()
-            .NotNull();
         RuleFor(item => item.Direction)
             .NotNull();
         RuleFor(item => item.Url)

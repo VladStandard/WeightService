@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorage.Enums;
@@ -39,10 +39,10 @@ public class PluGroupController : WebControllerBase
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
-                        .NewResponse1cIsNotFound(SessionFactory, version, format),
+                        .NewResponse1cIsNotFound(version, format),
                     format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cPluGroups(SessionFactory, xml, format), format)
+                .NewResponse1cPluGroups(xml, format), format)
         };
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_nomenclatures_groups/", dtStamp, result, format, host, version).ConfigureAwait(false);
         return result;

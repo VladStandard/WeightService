@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Authorization;
@@ -31,25 +31,25 @@ public class SummaryControllerV2 : WebControllerBase
     [HttpGet]
     [Route("api/v2/summary/")]
     public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
-        [FromQuery(Name = "format")] string formatString = "") =>
-        GetSummaryCore(SqlQueriesV2.GetSummary, startDate, endDate, formatString);
+        [FromQuery(Name = "format")] string format = "") =>
+        GetSummaryCore(SqlQueriesV2.GetSummary, startDate, endDate, format);
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/v2/summary_preview/")]
     public ContentResult GetSummaryPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
-        [FromQuery(Name = "format")] string formatString = "") =>
-        GetSummaryCore(SqlQueriesV2.GetSummaryPreview, startDate, endDate, formatString);
+        [FromQuery(Name = "format")] string format = "") =>
+        GetSummaryCore(SqlQueriesV2.GetSummaryPreview, startDate, endDate, format);
 
-    private ContentResult GetSummaryCore(string url, DateTime startDate, DateTime endDate, string formatString) => 
+    private ContentResult GetSummaryCore(string url, DateTime startDate, DateTime endDate, string format) => 
         ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url,
                 WebUtils.Sql.GetParameters(startDate, endDate));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Summary} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
-        }, formatString);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
+        }, format);
 
     #endregion
 }

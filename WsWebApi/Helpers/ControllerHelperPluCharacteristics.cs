@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
@@ -21,7 +21,6 @@ public partial class ControllerHelper
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "NomenclatureGuid");
         });
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPluCharacteristics(Response1cShortModel response, List<PluCharacteristicModel> pluCharacteristicsDb, 
         PluCharacteristicModel pluCharacteristicXml)
     {
@@ -83,9 +82,8 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public ContentResult NewResponse1cPluCharacteristics(ISessionFactory sessionFactory, XElement xml, string format) =>
-        NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
+    public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format) =>
+        NewResponse1cCore<Response1cShortModel>(response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<PluCharacteristicModel> pluCharacteristicsDb = DataContext.GetListNotNullable<PluCharacteristicModel>(sqlCrudConfig);
@@ -101,7 +99,7 @@ public partial class ControllerHelper
                     AddResponse1cException(response, pluCharacteristicXml.Uid1c, 
                         pluCharacteristicXml.ParseResult.Exception, pluCharacteristicXml.ParseResult.InnerException);
             }
-        }, format, false);
+        }, format);
 
     #endregion
 }

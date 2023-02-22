@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels.PlusCharacteristics;
@@ -48,8 +48,8 @@ public partial class ControllerHelper
         }
     }
 
-    private ContentResult NewResponse1cCore<T>(ISessionFactory sessionFactory, Action<T> action,
-        string format, bool isTransaction, HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
+    private ContentResult NewResponse1cCore<T>(Action<T> action, string format, HttpStatusCode httpStatusCode = HttpStatusCode.OK) 
+        where T : SerializeBase, new()
     {
         T response = new();
 
@@ -69,10 +69,8 @@ public partial class ControllerHelper
         return DataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
     }
 
-    public ContentResult NewResponse1cFromQuery(ISessionFactory sessionFactory, string query,
-        SqlParameter? sqlParameter, string format, bool isTransaction)
-    {
-        return NewResponse1cCore<Response1cModel>(sessionFactory, response =>
+    public ContentResult NewResponse1cFromQuery(string query, SqlParameter? sqlParameter, string format) =>
+        NewResponse1cCore<Response1cModel>(response =>
         {
             if (!string.IsNullOrEmpty(query))
             {
@@ -107,8 +105,7 @@ public partial class ControllerHelper
             }
             else
                 response.Infos.Add(new("Empty query. Try to make some select from any table."));
-        }, format, isTransaction);
-    }
+        }, format);
 
     /// <summary>
     /// Add error for response.
@@ -424,9 +421,9 @@ public partial class ControllerHelper
         return itemsXml;
     }
 
-    public ContentResult NewResponseBarCodes(ISessionFactory sessionFactory, DateTime dtStart, DateTime dtEnd, string format)
+    public ContentResult NewResponseBarCodes(DateTime dtStart, DateTime dtEnd, string format)
     {
-        return NewResponse1cCore<ResponseBarCodeListModel>(sessionFactory, response =>
+        return NewResponse1cCore<ResponseBarCodeListModel>(response =>
         {
             List<SqlFieldFilterModel> sqlFilters = new()
             {
@@ -439,21 +436,20 @@ public partial class ControllerHelper
             response.StartDate = dtStart;
             response.EndDate = dtEnd;
             response.Count = response.ResponseBarCodes.Count;
-        }, format, false);
+        }, format);
     }
 
     /// <summary>
     /// New response 1C.
     /// </summary>
-    /// <param name="sessionFactory"></param>
     /// <param name="version"></param>
     /// <param name="format"></param>
     /// <returns></returns>
-    public ContentResult NewResponse1cIsNotFound(ISessionFactory sessionFactory, string version, string format) =>
-        NewResponse1cCore<Response1cModel>(sessionFactory, response =>
+    public ContentResult NewResponse1cIsNotFound(string version, string format) =>
+        NewResponse1cCore<Response1cModel>(response =>
         {
             response.Infos.Add(new($"Version {version} {LocaleCore.WebService.IsNotFound}!"));
-        }, format, false, HttpStatusCode.NotFound);
+        }, format, HttpStatusCode.NotFound);
 
     #endregion
 }

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Utils;
@@ -114,7 +114,7 @@ public class BarCodeController : WebControllerBase
         ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/get_barcodes/", dtStamp, $"{nameof(dtStart)}: {dtStart} & {nameof(dtEnd)}: {dtEnd}", 
             format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponseBarCodes(SessionFactory, dtStart, dtEnd, format), format);
+            ControllerHelp.NewResponseBarCodes(dtStart, dtEnd, format), format);
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/get_barcodes/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
@@ -128,7 +128,7 @@ public class BarCodeController : WebControllerBase
         DateTime dtStamp = DateTime.Now;
         ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_test/", dtStamp, string.Empty, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SessionFactory, string.Empty, null, format, false), format);
+            ControllerHelp.NewResponse1cFromQuery(string.Empty, null, format), format);
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_test/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
@@ -143,7 +143,7 @@ public class BarCodeController : WebControllerBase
         DateTime dtStamp = DateTime.Now;
         ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_query", dtStamp, query, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SessionFactory, query, null, format, false), format);
+            ControllerHelp.NewResponse1cFromQuery(query, null, format), format);
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_query", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
@@ -161,8 +161,7 @@ public class BarCodeController : WebControllerBase
             DataFormatUtils.GetContent<BarcodeBottomModel>(barcodeBottom, DataCore.Enums.FormatType.XmlUtf8, true),
             format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SessionFactory,
-                SqlQueriesBarcodes.FindBottom, new("VALUE_BOTTOM", barcodeBottom.GetValue()), format, false), format);
+            ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindBottom, new("VALUE_BOTTOM", barcodeBottom.GetValue()), format), format);
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/bottom/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
@@ -180,8 +179,7 @@ public class BarCodeController : WebControllerBase
             DataFormatUtils.GetContent<BarcodeRightModel>(barcodeRight, DataCore.Enums.FormatType.XmlUtf8, true), 
             format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SessionFactory, SqlQueriesBarcodes.FindRight,
-                new("VALUE_RIGHT", barcodeRight.GetValue()), format, false), format);
+            ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindRight, new("VALUE_RIGHT", barcodeRight.GetValue()), format), format);
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/right/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
@@ -198,8 +196,7 @@ public class BarCodeController : WebControllerBase
             DataFormatUtils.GetContent<BarcodeTopModel>(barcodeTop, DataCore.Enums.FormatType.XmlUtf8, true), 
             format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SessionFactory, SqlQueriesBarcodes.FindTop,
-                new("VALUE_TOP", barcodeTop.GetValue()), format, false), format);
+            ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindTop, new("VALUE_TOP", barcodeTop.GetValue()), format), format);
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/top/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
@@ -214,9 +211,8 @@ public class BarCodeController : WebControllerBase
         DateTime dtStamp = DateTime.Now;
         ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/top_v2/", dtStamp, barcodeTop, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SessionFactory, SqlQueriesBarcodes.FindTop,
-                new("VALUE_TOP", DataFormatUtils.DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()),
-                format, false), format);
+            ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindTop,
+                new("VALUE_TOP", DataFormatUtils.DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()), format), format);
         ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/top_v2/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Authorization;
@@ -31,7 +31,7 @@ public class SummaryController : WebControllerBase
     [HttpGet]
     [Route("api/summary/")]
     public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
-        [FromQuery(Name = "format")] string formatString = "")
+        [FromQuery(Name = "format")] string format = "")
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -39,8 +39,8 @@ public class SummaryController : WebControllerBase
                 WebUtils.Sql.GetParameters(startDate, endDate));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Summary} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
-        }, formatString);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
+        }, format);
     }
 
     #endregion
