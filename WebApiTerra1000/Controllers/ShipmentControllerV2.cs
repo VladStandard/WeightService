@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Authorization;
@@ -32,16 +32,16 @@ public class ShipmentControllerV2 : WebControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("api/v2/shipment/")]
-    public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string formatString = "") => 
-        GetShipmentWork(SqlQueriesV2.GetShipment, id, formatString);
+    public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
+        GetShipmentWork(SqlQueriesV2.GetShipment, id, format);
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/v2/shipment_preview/")]
-    public ContentResult GetShipmentPreview([FromQuery] long id, [FromQuery(Name = "format")] string formatString = "") => 
-        GetShipmentWork(SqlQueriesV2.GetShipmentPreview, id, formatString);
+    public ContentResult GetShipmentPreview([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
+        GetShipmentWork(SqlQueriesV2.GetShipmentPreview, id, format);
 
-    private ContentResult GetShipmentWork(string url, long id, string formatString)
+    private ContentResult GetShipmentWork(string url, long id, string format)
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -72,26 +72,26 @@ public class ShipmentControllerV2 : WebControllerBase
                 }
             }
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
-        }, formatString);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
+        }, format);
     }
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/v2/shipments/")]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
-        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "") =>
-        GetShipmentsCore(SqlQueriesV2.GetShipments, startDate, endDate, offset, rowCount, formatString);
+        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
+        GetShipmentsCore(SqlQueriesV2.GetShipments, startDate, endDate, offset, rowCount, format);
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/v2/shipments_preview/")]
     public ContentResult GetShipmentsPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
-        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "") =>
-        GetShipmentsCore(SqlQueriesV2.GetShipmentsPreview, startDate, endDate, offset, rowCount, formatString);
+        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
+        GetShipmentsCore(SqlQueriesV2.GetShipmentsPreview, startDate, endDate, offset, rowCount, format);
 
     private ContentResult GetShipmentsCore(string url, DateTime startDate, DateTime endDate, 
-        int offset = 0, int rowCount = 10, string formatString = "")
+        int offset = 0, int rowCount = 10, string format = "")
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -123,8 +123,8 @@ public class ShipmentControllerV2 : WebControllerBase
                 }
             }
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc.ToString(), HttpStatusCode.OK);
-        }, formatString);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc.ToString(), HttpStatusCode.OK);
+        }, format);
     }
 
     #endregion

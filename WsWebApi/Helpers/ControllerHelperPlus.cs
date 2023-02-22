@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
@@ -402,8 +402,8 @@ public partial class ControllerHelper
         nameof(PluModel.ShelfLifeDays),
     };
 
-    public ContentResult NewResponse1cPlus(ISessionFactory sessionFactory, XElement xml, string format) =>
-        NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
+    public ContentResult NewResponse1cPlus(XElement xml, string format) =>
+        NewResponse1cCore<Response1cShortModel>(response =>
         {
             string[] pluProperties = GetPluPropertiesArray();
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
@@ -412,7 +412,7 @@ public partial class ControllerHelper
             List<BoxModel> boxesDb = DataContext.GetListNotNullable<BoxModel>(sqlCrudConfig);
             List<BundleModel> bundlesDb = DataContext.GetListNotNullable<BundleModel>(sqlCrudConfig);
             List<PluBundleFkModel> pluBundlesFksDb = DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
-            List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
+            //List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
             List<PluBrandFkModel> pluBrandsFksDb = DataContext.GetListNotNullable<PluBrandFkModel>(sqlCrudConfig);
             List<ClipModel> clipsDb = DataContext.GetListNotNullable<ClipModel>(sqlCrudConfig);
             List<PluClipFkModel> pluClipsFksDb = DataContext.GetListNotNullable<PluClipFkModel>(sqlCrudConfig);
@@ -450,7 +450,7 @@ public partial class ControllerHelper
                     AddResponse1cException(response, pluXml.Uid1c, 
                         pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
             }
-        }, format, false);
+        }, format);
 
     private void CheckPluValidator(PluModel itemXml, string[] pluProperties)
     {

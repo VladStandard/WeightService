@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +32,7 @@ public class ShipmentController : WebControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("api/shipment/")]
-    public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string formatString = "")
+    public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -63,8 +63,8 @@ public class ShipmentController : WebControllerBase
                 }
             }
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
-        }, formatString);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
+        }, format);
     }
 
     [AllowAnonymous]
@@ -72,7 +72,7 @@ public class ShipmentController : WebControllerBase
     [Route("api/shipmentsbydocdate/")]
     [Route("api/shipments/")]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
-        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "")
+        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -104,8 +104,8 @@ public class ShipmentController : WebControllerBase
                 }
             }
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc.ToString(), HttpStatusCode.OK);
-        }, formatString);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc.ToString(), HttpStatusCode.OK);
+        }, format);
     }
 
     #endregion

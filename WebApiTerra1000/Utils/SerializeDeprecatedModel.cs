@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Enums;
@@ -26,17 +26,17 @@ public class SerializeDeprecatedModel<T> where T : new()
         _ => throw GetArgumentException(nameof(formatType)),
     };
 
-    private static string GetContentType(string formatString) => GetContentType(DataUtils.GetFormatType(formatString));
+    private static string GetContentType(string format) => GetContentType(DataUtils.GetFormatType(format));
 
-    private static ContentResult ContentResultCore(string formatString, object content, HttpStatusCode statusCode) => new()
+    private static ContentResult ContentResultCore(string format, object content, HttpStatusCode statusCode) => new()
     {
-        ContentType = GetContentType(formatString),
+        ContentType = GetContentType(format),
         StatusCode = (int)statusCode,
         Content = content as string ?? content.ToString()
     };
 
-    public static ContentResult GetContentResult(string formatString, object content, HttpStatusCode statusCode) =>
-        ContentResultCore(formatString, content, statusCode);
+    public static ContentResult GetContentResult(string format, object content, HttpStatusCode statusCode) =>
+        ContentResultCore(format, content, statusCode);
 
     #endregion
 }

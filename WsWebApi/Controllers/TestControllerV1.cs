@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsWebApi.Controllers;
@@ -26,7 +26,7 @@ public class TestControllerV1 : WebControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("api/v1/info/")]
-    public ContentResult GetInfo([FromQuery(Name = "format")] string formatString = "") =>
+    public ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
         ControllerHelp.GetContentResult(() =>
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
@@ -48,24 +48,24 @@ public class TestControllerV1 : WebControllerBase
                 session.Connection.Database,
                 (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576,
                 (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
-            .GetContentResult<ServiceInfoModel>(formatString, HttpStatusCode.OK);
-        }, formatString);
+            .GetContentResult<ServiceInfoModel>(format, HttpStatusCode.OK);
+        }, format);
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/v1/exception/")]
-    public ContentResult GetException([FromQuery(Name = "format")] string formatString = "") =>
+    public ContentResult GetException([FromQuery(Name = "format")] string format = "") =>
         ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetException);
 
-            return new SqlSimpleV1Model(response).GetContentResult<SqlSimpleV1Model>(formatString, HttpStatusCode.OK);
-        }, formatString);
+            return new SqlSimpleV1Model(response).GetContentResult<SqlSimpleV1Model>(format, HttpStatusCode.OK);
+        }, format);
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/v1/simple/")]
-    public ContentResult GetSimple([FromQuery(Name = "format")] string formatString = "", int version = 0)
+    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", int version = 0)
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -74,24 +74,24 @@ public class TestControllerV1 : WebControllerBase
                 case 1:
                     string response1 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV1);
                     return DataFormatUtils.DeserializeFromXml<SqlSimpleV1Model>(response1)
-                        .GetContentResult<SqlSimpleV1Model>(formatString, HttpStatusCode.OK);
+                        .GetContentResult<SqlSimpleV1Model>(format, HttpStatusCode.OK);
                 case 2:
                     string response2 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV2);
                     return DataFormatUtils.DeserializeFromXml<SqlSimpleV2Model>(response2)
-                        .GetContentResult<SqlSimpleV2Model>(formatString, HttpStatusCode.OK);
+                        .GetContentResult<SqlSimpleV2Model>(format, HttpStatusCode.OK);
                 case 3:
                     string response3 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV3);
                     return DataFormatUtils.DeserializeFromXml<SqlSimpleV3Model>(response3)
-                        .GetContentResult<SqlSimpleV3Model>(formatString, HttpStatusCode.OK);
+                        .GetContentResult<SqlSimpleV3Model>(format, HttpStatusCode.OK);
                 case 4:
                     string response4 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV4);
                     return DataFormatUtils.DeserializeFromXml<SqlSimpleV4Model>(response4)
-                        .GetContentResult<SqlSimpleV4Model>(formatString, HttpStatusCode.OK);
+                        .GetContentResult<SqlSimpleV4Model>(format, HttpStatusCode.OK);
             }
 
             return new SqlSimpleV1Model("Simple method from C Sharp")
-                .GetContentResult<SqlSimpleV1Model>(formatString, HttpStatusCode.OK);
-        }, formatString);
+                .GetContentResult<SqlSimpleV1Model>(format, HttpStatusCode.OK);
+        }, format);
     }
 
     #endregion

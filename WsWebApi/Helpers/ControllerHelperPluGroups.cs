@@ -1,8 +1,9 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleModels.PlusGroups;
+// ReSharper disable InconsistentNaming
 
 namespace WsWebApi.Helpers;
 
@@ -28,7 +29,6 @@ public partial class ControllerHelper
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
         });
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPluGroupsFks(Response1cShortModel response, List<PluGroupFkModel> itemsDb, 
         PluGroupModel pluGroupXml)
     {
@@ -78,7 +78,6 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cPluGroups(Response1cShortModel response, List<PluGroupModel> pluGroupsDb, PluGroupModel pluGroupXml)
     {
         try
@@ -108,9 +107,8 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public ContentResult NewResponse1cPluGroups(ISessionFactory sessionFactory, XElement xml, string format) =>
-        NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
+    public ContentResult NewResponse1cPluGroups(XElement xml, string format) =>
+        NewResponse1cCore<Response1cShortModel>(response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<PluGroupModel> itemsDb = DataContext.GetListNotNullable<PluGroupModel>(sqlCrudConfig);
@@ -129,7 +127,7 @@ public partial class ControllerHelper
                         break;
                 }
             }
-        }, format, false);
+        }, format);
 
     #endregion
 }

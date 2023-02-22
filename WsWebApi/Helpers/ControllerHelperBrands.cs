@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsWebApi.Helpers;
@@ -47,8 +47,8 @@ public partial class ControllerHelper
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public ContentResult NewResponse1cBrands(ISessionFactory sessionFactory, XElement request, string formatString) =>
-        NewResponse1cCore<Response1cShortModel>(sessionFactory, response =>
+    public ContentResult NewResponse1cBrands(XElement request, string formatString) =>
+        NewResponse1cCore<Response1cShortModel>(response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<BrandModel> itemsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
@@ -65,7 +65,7 @@ public partial class ControllerHelper
                         break;
                 }
             }
-        }, formatString, false);
+        }, formatString);
 
     #endregion
 }

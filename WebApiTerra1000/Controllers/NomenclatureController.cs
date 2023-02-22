@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Authorization;
@@ -31,7 +31,7 @@ public class NomenclatureController : WebControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("api/nomenclature/")]
-    public ContentResult GetNomenclature([FromQuery] string code, [FromQuery] long id, [FromQuery(Name = "format")] string formatString = "")
+    public ContentResult GetNomenclature([FromQuery] string code, [FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -40,15 +40,15 @@ public class NomenclatureController : WebControllerBase
                 : WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromCode, new SqlParameter("code", code));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
-        }, formatString);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
+        }, format);
     }
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/nomenclatures/")]
     public ContentResult GetNomenclatures([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
-        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "")
+        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -56,15 +56,15 @@ public class NomenclatureController : WebControllerBase
                 WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
-        }, formatString);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
+        }, format);
     }
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/nomenclaturescosts/")]
     public ContentResult GetNomenclaturesCosts([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
-        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "")
+        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -72,8 +72,8 @@ public class NomenclatureController : WebControllerBase
                 WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
-        }, formatString);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
+        }, format);
     }
 
     #endregion

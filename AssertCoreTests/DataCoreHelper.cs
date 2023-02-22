@@ -345,9 +345,6 @@ public class DataCoreHelper
             case LogWebModel logWeb:
                 logWeb.StampDt.Returns(DateTime.Now);
                 logWeb.Version.Returns(LocaleCore.Sql.SqlItemFieldVersion);
-                logWeb.File.Returns(LocaleCore.Sql.SqlItemFieldFile);
-                logWeb.Line.Returns(1);
-                logWeb.Member.Returns(LocaleCore.Sql.SqlItemFieldMember);
                 logWeb.Direction.Returns((byte)0);
                 logWeb.Url.Returns(LocaleCore.Sql.SqlItemFieldUrl);
                 logWeb.Params.Returns(string.Empty);
