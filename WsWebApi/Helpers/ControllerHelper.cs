@@ -86,7 +86,7 @@ public partial class ControllerHelper
 
                 IList? list = sqlQuery.List();
                 object?[] result = new object?[list.Count];
-                if (list.Count == 1 && list[0] is object[] records)
+                if (list is [object[] records])
                 {
                     result = records;
                 }
@@ -419,6 +419,41 @@ public partial class ControllerHelper
             itemsXml.Add(itemXml);
         }
         return itemsXml;
+    }
+
+    private int GetAttributeValueAsInt(string xml, string nodeIdentity)
+    {
+        if (GetAttributeValue(xml, nodeIdentity) is { } value)
+        {
+            if (int.TryParse(value, out int iValue))
+                return iValue;
+        }
+        return default;
+    }
+
+    private string? GetAttributeValue(string xml, string nodeIdentity)
+    {
+        XmlDocument xmlDocument = new();
+        xmlDocument.LoadXml(xml);
+        if (xmlDocument.DocumentElement is null) return string.Empty;
+
+        //XmlNodeList xmlNodes = .ChildNodes;
+        //if (xmlNodes.Count <= 0) return string.Empty;
+        foreach (XmlAttribute xmlAttribute in xmlDocument.DocumentElement.Attributes)
+        {
+            if (xmlAttribute.Name.Equals(nodeIdentity, StringComparison.InvariantCultureIgnoreCase))
+            {
+                try
+                {
+                    return xmlAttribute.Value ?? string.Empty;
+                }
+                catch (Exception)
+                {
+                    //
+                }
+            }
+        }
+        return string.Empty;
     }
 
     public ContentResult NewResponseBarCodes(DateTime dtStart, DateTime dtEnd, string format)

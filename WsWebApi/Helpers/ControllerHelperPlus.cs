@@ -9,7 +9,6 @@ using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Clips;
-using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using FluentValidation.Results;
 // ReSharper disable InconsistentNaming
 

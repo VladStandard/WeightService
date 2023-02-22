@@ -12,17 +12,17 @@ public partial class DataAccessHelper
     #region Public and private methods
 
     public void LogWebService(DateTime stampDt, ServiceLogDirection logDirection, string url, string parameters, string headers, 
-        FormatType formatType, string dataString, int countAll, int countSuccess, int countErrors, LogType logType) =>
-        LogWebService(stampDt, logDirection, url, parameters, headers, (byte)formatType, dataString,
-            countAll, countSuccess, countErrors, logType);
+        FormatType formatType, string dataString, LogType logType, int countAll, int countSuccess, int countErrors) =>
+        LogWebService(stampDt, logDirection, url, parameters, headers, (byte)formatType, dataString, logType,
+            countAll, countSuccess, countErrors);
 
     public void LogWebService(DateTime stampDt, ServiceLogDirection logDirection, string url, string parameters, string headers, 
-        string format, string dataString, int countAll, int countSuccess, int countErrors, LogType logType) =>
-        LogWebService(stampDt, logDirection, url, parameters, headers, (byte)DataFormatUtils.GetFormatType(format), dataString,
-            countAll, countSuccess, countErrors, logType);
+        string format, string dataString, LogType logType, int countAll, int countSuccess, int countErrors) =>
+        LogWebService(stampDt, logDirection, url, parameters, headers, (byte)DataFormatUtils.GetFormatType(format), dataString, logType,
+            countAll, countSuccess, countErrors);
 
     private void LogWebService(DateTime stampDt, ServiceLogDirection logDirection, string url, string parameters, string headers,
-        byte formatType, string dataString, int countAll, int countSuccess, int countErrors, LogType logType)
+        byte formatType, string dataString, LogType logType, int countAll, int countSuccess, int countErrors)
     {
         LogWebModel logWeb = new()
         {

@@ -1,17 +1,11 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
-using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
-using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
-using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
-using DataCore.Sql.TableScaleFkModels.PlusFks;
-using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.PlusCharacteristics;
-using FluentValidation.Results;
+
 // ReSharper disable InconsistentNaming
 
 namespace WsWebApi.Helpers;

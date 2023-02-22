@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+// ReSharper disable InconsistentNaming
+
 namespace WsWebApi.Helpers;
 
 /// <summary>
@@ -77,9 +79,13 @@ public partial class ControllerHelper
     /// <returns></returns>
     public async Task LogRequest(string appName, string url, DateTime dtStamp, string request, string format, string host, string version)
     {
+        // Parse counts.
+        int countAll = GetAttributeValueAsInt(request, "Count");
+
         // Log into DB.
         DataContext.DataAccess.LogWebService(DateTime.Now, ServiceLogDirection.Request, $"{host}/{url}", "", "",
-            format, request, 0, 0, 0, LogType.Information);
+            format, request, LogType.Information, 
+            countAll, 0, 0);
         
         // Add meta data.
         string metaDataText = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
@@ -123,9 +129,14 @@ public partial class ControllerHelper
     public async Task LogResponse(string appName, string url, DateTime dtStamp, ContentResult contentResult, string format, 
         string host, string version)
     {
+        // Parse counts.
+        int countSuccess = GetAttributeValueAsInt(contentResult.Content,  nameof(Response1cShortModel.SuccessesCount));
+        int countErrors = GetAttributeValueAsInt(contentResult.Content,  nameof(Response1cShortModel.ErrorsCount));
+        
         // Log into DB.
         DataContext.DataAccess.LogWebService(DateTime.Now, ServiceLogDirection.Response, $"{host}/{url}", "", "",
-            format, contentResult.Content, 0, 0, 0, LogType.Information);
+            format, contentResult.Content, LogType.Information,
+            0, countSuccess, countErrors);
         
         // Add meta data.
         string metaDataText = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
