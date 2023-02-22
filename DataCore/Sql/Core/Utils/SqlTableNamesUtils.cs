@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Sql.Core.Utils;
@@ -23,6 +23,7 @@ public static class SqlTableNamesUtils
     public static string Labels => "Labels";
     public static string Logs => "LOGS";
     public static string LogsTypes => "LOG_TYPES";
+    public static string LogsWebs => "LOGS_WEBS";
     public static string LogWebFks => "LOGS_WEBS_FK";
     public static string NestingFks => "NESTING_FK";
     public static string Nomenclatures => "NOMENCLATURES";
