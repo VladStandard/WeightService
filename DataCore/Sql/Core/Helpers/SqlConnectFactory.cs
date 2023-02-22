@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Sql.Core.Helpers;
@@ -49,13 +49,13 @@ public class SqlConnectFactory
         return result == null ? default : (T)result;
     }
 
-    public T? GetValueAsNullable<T>(SqlDataReader reader, string fieldName)
-    {
-        object value = reader[fieldName];
-        Type t = typeof(T);
-        t = Nullable.GetUnderlyingType(t) ?? t;
-        return value == null || DBNull.Value.Equals(value) ? default : (T)Convert.ChangeType(value, t);
-    }
+    //public T? GetValueAsNullable<T>(SqlDataReader reader, string fieldName)
+    //{
+    //    object value = reader[fieldName];
+    //    Type t = typeof(T);
+    //    t = Nullable.GetUnderlyingType(t) ?? t;
+    //    return value == null || DBNull.Value.Equals(value) ? default : (T)Convert.ChangeType(value, t);
+    //}
 
     public string GetValueAsString(SqlDataReader reader, string fieldName)
     {
@@ -64,6 +64,8 @@ public class SqlConnectFactory
         t = Nullable.GetUnderlyingType(t) ?? t;
         return value == null || DBNull.Value.Equals(value) ? string.Empty : (string)Convert.ChangeType(value, t);
     }
+
+    #endregion
 
     #region Public and private methods - Wrappers execute
 
@@ -92,88 +94,86 @@ public class SqlConnectFactory
         con.Close();
     }
 
-    public T? ExecuteReader<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) =>
-        ExecuteReader(query, new[] { parameter }, func);
+    //public T? ExecuteReader<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) =>
+    //    ExecuteReader(query, new[] { parameter }, func);
 
-    private T? ExecuteReader<T>(string query, SqlParameter[] parameters, Func<SqlDataReader, T> func)
-    {
-        T? result = default;
-        using SqlConnection con = GetConnection();
-        con.Open();
-        using (SqlCommand cmd = new(query))
-        {
-            cmd.Connection = con;
-            cmd.Parameters.Clear();
-            if (parameters.Length > 0)
-                cmd.Parameters.AddRange(parameters);
-            //cmd.CommandType = CommandType.TableDirect;
-            using SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.HasRows)
-            {
-                result = func.Invoke(reader);
-            }
-            reader.Close();
-        }
-        con.Close();
-        return result;
-    }
+    //private T? ExecuteReader<T>(string query, SqlParameter[] parameters, Func<SqlDataReader, T> func)
+    //{
+    //    T? result = default;
+    //    using SqlConnection con = GetConnection();
+    //    con.Open();
+    //    using (SqlCommand cmd = new(query))
+    //    {
+    //        cmd.Connection = con;
+    //        cmd.Parameters.Clear();
+    //        if (parameters.Length > 0)
+    //            cmd.Parameters.AddRange(parameters);
+    //        //cmd.CommandType = CommandType.TableDirect;
+    //        using SqlDataReader reader = cmd.ExecuteReader();
+    //        if (reader.HasRows)
+    //        {
+    //            result = func.Invoke(reader);
+    //        }
+    //        reader.Close();
+    //    }
+    //    con.Close();
+    //    return result;
+    //}
 
-    public T ExecuteReaderForItem<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) where T : new() =>
-        ExecuteReaderForItem(query, new[] { parameter }, func);
+    //public T ExecuteReaderForItem<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) where T : new() =>
+    //    ExecuteReaderForItem(query, new[] { parameter }, func);
 
-    private T ExecuteReaderForItem<T>(string query, SqlParameter[] parameters, Func<SqlDataReader, T> func) where T : new()
-    {
-        lock (_locker)
-        {
-            T result = new();
-            using SqlConnection con = GetConnection();
-            con.Open();
-            using (SqlCommand cmd = new(query))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                if (parameters.Length > 0)
-                    cmd.Parameters.AddRange(parameters);
-                //cmd.CommandType = CommandType.TableDirect;
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    result = func(reader) ?? new T();
-                }
-                reader.Close();
-            }
-            con.Close();
-            return result;
-        }
-    }
+    //private T ExecuteReaderForItem<T>(string query, SqlParameter[] parameters, Func<SqlDataReader, T> func) where T : new()
+    //{
+    //    lock (_locker)
+    //    {
+    //        T result = new();
+    //        using SqlConnection con = GetConnection();
+    //        con.Open();
+    //        using (SqlCommand cmd = new(query))
+    //        {
+    //            cmd.Connection = con;
+    //            cmd.Parameters.Clear();
+    //            if (parameters.Length > 0)
+    //                cmd.Parameters.AddRange(parameters);
+    //            //cmd.CommandType = CommandType.TableDirect;
+    //            using SqlDataReader reader = cmd.ExecuteReader();
+    //            if (reader.HasRows)
+    //            {
+    //                result = func(reader) ?? new T();
+    //            }
+    //            reader.Close();
+    //        }
+    //        con.Close();
+    //        return result;
+    //    }
+    //}
 
-    public void ExecuteNonQuery(string query, SqlParameter parameter)
-    {
-        ExecuteNonQuery(query, new[] { parameter });
-    }
+    //public void ExecuteNonQuery(string query, SqlParameter parameter)
+    //{
+    //    ExecuteNonQuery(query, new[] { parameter });
+    //}
 
-    public int ExecuteNonQuery(string query, SqlParameter[] parameters)
-    {
-        lock (_locker)
-        {
-            int result = 0;
-            using SqlConnection con = GetConnection();
-            con.Open();
-            using (SqlCommand cmd = new(query))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                if (parameters.Length > 0)
-                    cmd.Parameters.AddRange(parameters);
-                //cmd.CommandType = CommandType.StoredProcedure;
-                result = cmd.ExecuteNonQuery();
-            }
-            con.Close();
-            return result;
-        }
-    }
-
-    #endregion
+    //public int ExecuteNonQuery(string query, SqlParameter[] parameters)
+    //{
+    //    lock (_locker)
+    //    {
+    //        int result = 0;
+    //        using SqlConnection con = GetConnection();
+    //        con.Open();
+    //        using (SqlCommand cmd = new(query))
+    //        {
+    //            cmd.Connection = con;
+    //            cmd.Parameters.Clear();
+    //            if (parameters.Length > 0)
+    //                cmd.Parameters.AddRange(parameters);
+    //            //cmd.CommandType = CommandType.StoredProcedure;
+    //            result = cmd.ExecuteNonQuery();
+    //        }
+    //        con.Close();
+    //        return result;
+    //    }
+    //}
 
     #endregion
 }

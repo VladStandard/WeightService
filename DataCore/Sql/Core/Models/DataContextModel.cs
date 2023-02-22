@@ -1,5 +1,6 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable InconsistentNaming
 
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
@@ -50,8 +51,6 @@ using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using PluBundleFkValidator = DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluBundleFkValidator;
-
-// ReSharper disable InconsistentNaming
 
 namespace DataCore.Sql.Core.Models;
 

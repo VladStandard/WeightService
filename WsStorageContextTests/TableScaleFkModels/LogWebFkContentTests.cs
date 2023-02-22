@@ -9,6 +9,6 @@ internal class LogWebFkContentTests
 	[Test]
     public void Item_Content_Validate()
     {
-		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<LogWebFkModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<LogWebFkModel>(true);
 	}
 }

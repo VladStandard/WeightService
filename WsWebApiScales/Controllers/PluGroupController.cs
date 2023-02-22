@@ -33,8 +33,8 @@ public class PluGroupController : WebControllerBase
     public ContentResult SendPluGroups([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_nomenclatures_groups/", dtStamp, xml, format, host, version).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_nomenclatures_groups/", stampDt, xml, format, host, version).ConfigureAwait(false);
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
@@ -44,7 +44,7 @@ public class PluGroupController : WebControllerBase
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
                 .NewResponse1cPluGroups(xml, format), format)
         };
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_nomenclatures_groups/", dtStamp, result, format, host, version).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_nomenclatures_groups/", stampDt, result, format, host, version).ConfigureAwait(false);
         return result;
     }
 

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Diagnostics;
@@ -43,8 +43,8 @@ public class TestControllerV3 : WebControllerBase
     [Route("api/v3/info/")]
     public ContentResult GetInfo([FromQuery(Name = "format")] string format = "", [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/info/", dtStamp, string.Empty, format, host, string.Empty).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/info/", stampDt, string.Empty, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
@@ -69,7 +69,7 @@ public class TestControllerV3 : WebControllerBase
                     (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
                 .GetContentResult<ServiceInfoModel>(format, HttpStatusCode.OK);
         }, format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/info/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/info/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 

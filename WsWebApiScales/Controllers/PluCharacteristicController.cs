@@ -33,8 +33,8 @@ public class PluCharacteristicController : WebControllerBase
     public ContentResult SendPluCharacteristics([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_nomenclatures_characteristics/", dtStamp, xml, format, host, version).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_nomenclatures_characteristics/", stampDt, xml, format, host, version).ConfigureAwait(false);
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
@@ -44,7 +44,7 @@ public class PluCharacteristicController : WebControllerBase
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
                 .NewResponse1cPluCharacteristics(xml, format), format)
         };
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_nomenclatures_characteristics/", dtStamp, result, format, host, version).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_nomenclatures_characteristics/", stampDt, result, format, host, version).ConfigureAwait(false);
         return result;
     }
 

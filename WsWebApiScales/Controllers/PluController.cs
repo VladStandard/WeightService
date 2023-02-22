@@ -33,8 +33,8 @@ public class PluController : WebControllerBase
     public ContentResult SendPlus([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_nomenclatures/", dtStamp, xml, format, host, version).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_nomenclatures/", stampDt, xml, format, host, version).ConfigureAwait(false);
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
@@ -43,7 +43,7 @@ public class PluController : WebControllerBase
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
                 .NewResponse1cPlus(xml, format), format)
         };
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_nomenclatures/", dtStamp, result, format, host, version).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_nomenclatures/", stampDt, result, format, host, version).ConfigureAwait(false);
         return result;
     }
 

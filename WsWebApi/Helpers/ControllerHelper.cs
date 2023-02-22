@@ -69,14 +69,14 @@ public partial class ControllerHelper
         return DataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
     }
 
-    public ContentResult NewResponse1cFromQuery(string query, SqlParameter? sqlParameter, string format) =>
+    public ContentResult NewResponse1cFromQuery(string url, SqlParameter? sqlParameter, string format) =>
         NewResponse1cCore<Response1cModel>(response =>
         {
-            if (!string.IsNullOrEmpty(query))
+            if (!string.IsNullOrEmpty(url))
             {
                 if (response.ResponseQuery is not null)
-                    response.ResponseQuery.Query = query;
-                ISQLQuery sqlQuery = DataContext.Session.CreateSQLQuery(query);
+                    response.ResponseQuery.Query = url;
+                ISQLQuery sqlQuery = DataContext.Session.CreateSQLQuery(url);
                 if (sqlParameter is not null)
                 {
                     if (response.ResponseQuery is not null)

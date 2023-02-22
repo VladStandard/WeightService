@@ -123,11 +123,11 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlDbContentValidate<T>() where T : SqlTableBase, new()
+	public void AssertSqlDbContentValidate<T>(bool isShowMarked = false) where T : SqlTableBase, new()
     {
         AssertAction(() =>
         {
-            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
+            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
             List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
 
             if (!items.Any())
