@@ -1,45 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
-<MudSimpleTable Style="margin-top: 5px;" Dense="true" Bordered="false" FixedHeader="false">
-  <thead>
-  <tr>
-    <th style="color: blue; font-weight: normal; width: 25%;"></th>
-    <th style="color: blue; font-weight: normal; width: 25%;"></th>
-    <th style="color: blue; font-weight: normal; width: 25%;"></th>
-    <th style="color: blue; font-weight: normal; width: 25%;"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>
-      @if (!string.IsNullOrEmpty(CreateDt))
-      {
-        <RadzenText Text=@LocaleCore.Table.CreateDt
-                    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
-      }
-      </td>
-      <td>
-        @if (!string.IsNullOrEmpty(CreateDt))
-        {
-          <RadzenText
-            Text=@CreateDt
-            TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
-        }
-      </td>
-      <td>
-        @if (!string.IsNullOrEmpty(ChangeDt))
-        {
-          <RadzenText Text=@LocaleCore.Table.ChangeDt
-                      TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
-        }
-      </td>
-      <td>
-        @if (!string.IsNullOrEmpty(ChangeDt))
-        {
-          <RadzenText Text=@ChangeDt
-                      TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center/>
-        }
-      </td>
-  </tr>
-  </tbody>
-</MudSimpleTable>
+@if (!string.IsNullOrEmpty(CreateDt) && !string.IsNullOrEmpty(ChangeDt))
+{
+  <MudPaper Outlined="true" Class="my-1">
+    <MudToolBar Dense="true" DisableGutters="true" Class="my-n2">
+      <MudSpacer/>
+      <MudText Typo="Typo.body2">@LocaleCore.Table.CreateDt</MudText>
+      <MudSpacer/>
+      <MudText Typo="Typo.body2">@CreateDt</MudText>
+      <MudSpacer/>
+      <MudText Typo="Typo.body2">@LocaleCore.Table.ChangeDt</MudText>
+      <MudSpacer/>
+      <MudText Typo="Typo.body2">@ChangeDt</MudText>
+      <MudSpacer/>
+    </MudToolBar>
+  </MudPaper>
+}

@@ -20,7 +20,7 @@
           <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop
                           Change=@(_ => OnChangeAsync())
                           Style="margin-top: -3px; margin-left: 20px; "/>
-          <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; "
+          <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px;"
                        Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(DataAccess.JsonSettings.Local.SelectTopRowsCount)/>
         }
         @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
@@ -30,15 +30,32 @@
                           Style="margin-top: -3px; margin-left: 20px; "/>
           <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked/>
         }
-        <RadzenButton
-          Icon="refresh" ButtonStyle="@ButtonStyle.Primary"
-          Style="margin-top: -3px; margin-left: 20px; width: 60px; " Size="@ButtonSize.Small"
-          Disabled="@(!DataAccess.IsConnected())" Click="@(_ => OnChangeAsync())"/>
-
-        @if (SqlCrudConfigSection.IsGuiShowItemsCount)
+      <RadzenButton
+        Icon="refresh"
+        ButtonStyle="@ButtonStyle.Primary"
+        Style="margin-top: -3px; margin-left: 20px; width: 60px;"
+        Size="@ButtonSize.Small"
+        Disabled="@(!DataAccess.IsConnected())"
+        Click="@(_ => OnChangeAsync())"/>
+      @if (ButtonSettings is not null && UserSettings is not null)
+      {
+        @if (UserSettings.AccessRightsIsWrite && ButtonSettings.IsShowNew)
         {
-          <RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@SqlListCountResult />
+            @*       class="RadzenButtonLong" *@
+            @*       ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber" *@
+            @*       Text=@LocaleCore.DeviceControl.TableActionCopy/> *@
+          <RadzenButton
+            Icon="add_circle_outline"
+            ButtonStyle=@ButtonStyle.Primary
+            Style="margin-top: -3px; margin-left: 20px; width: 60px;"
+            Size=@ButtonSize.Small
+            Click=@(_ => SqlItemNewAsync<TItem>())/>
         }
+      }
+      @if (SqlCrudConfigSection.IsGuiShowItemsCount)
+      {
+        <RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@SqlListCountResult />
+      }
       </td>
       @if (SqlCrudConfigSection.IsGuiShowFilterAdditional)
       {

@@ -15,6 +15,7 @@
   RowRender="@(args => RowRender(args))"
   PagerPosition="@PagerPos"
   PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  ShowPagingSummary="true"
   AllowPaging="true"
   AllowSorting="true">
   <Columns>
@@ -58,5 +59,3 @@
 
   </Columns>
 </RadzenDataGrid>
-
-<RazorSectionActions TItem="@WeithingFactSummaryModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
