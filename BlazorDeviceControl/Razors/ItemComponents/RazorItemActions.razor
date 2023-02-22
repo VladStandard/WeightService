@@ -2,40 +2,30 @@
 @inherits RazorComponentItemBase<TItem>
 @page "/item/actions"
 
-<MudSimpleTable Style="margin-top: 5px;" Dense="true" Bordered="false" FixedHeader="false">
-  <thead>
-  <tr>
-    <th style="color: blue; font-weight: normal; width: 50%;"></th>
-    <th style="color: blue; font-weight: normal; width: 50%;"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    @if (SqlItem is not null && ButtonSettings is not null && UserSettings is not null)
-    {
-      <td>
-        @if (ButtonSettings.IsShowSave && UserSettings.AccessRightsIsWrite)
-        {
-          <RadzenButton
-            class="RadzenButtonLong"
-            Click=@(_ => SqlItemSaveAsync())
-            ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
-            Style="width: 100%; "
-            Text=@LocaleCore.DeviceControl.TableActionSave/>
-        }
-      </td>
-      <td>
-        @if (ButtonSettings.IsShowCancel && UserSettings.AccessRightsIsRead)
-        {
-          <RadzenButton
-            class="RadzenButtonLong"
-            Click=@(_ => SqlItemCancelAsync())
-            ButtonStyle=@ButtonStyle.Secondary Size=@ButtonSize.Small
-            Style="width: 100%; "
-            Text=@LocaleCore.DeviceControl.TableActionCancel/>
-        }
-      </td>
-    }
-  </tr>
-  </tbody>
-</MudSimpleTable>
+@if (SqlItem is not null && ButtonSettings is not null && UserSettings is not null)
+{
+  <MudPaper Outlined="true" Class="mb-2">
+    <MudToolBar Dense="true" DisableGutters="true">
+      @if (ButtonSettings.IsShowSave && UserSettings.AccessRightsIsWrite)
+      {
+        <RadzenButton
+          class="RadzenButtonLong"
+          Click=@(_ => SqlItemSaveAsync())
+          ButtonStyle=@ButtonStyle.Primary
+          Size=@ButtonSize.Small
+          Style="width: 50%; "
+          Text=@LocaleCore.DeviceControl.TableActionSave/>
+        <MudSpacer/>
+      }
+      @if (ButtonSettings.IsShowCancel && UserSettings.AccessRightsIsRead)
+      {
+        <RadzenButton
+          class="RadzenButtonLong"
+          Click=@(_ => SqlItemCancelAsync())
+          ButtonStyle=@ButtonStyle.Secondary Size=@ButtonSize.Small
+          Style="width: 50%; "
+          Text=@LocaleCore.DeviceControl.TableActionCancel/>
+      }
+    </MudToolBar>
+  </MudPaper>
+}

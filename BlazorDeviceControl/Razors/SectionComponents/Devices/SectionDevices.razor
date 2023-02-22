@@ -16,6 +16,7 @@
   RowDoubleClick="@(_ => SqlItemEditAsync())"
   PagerPosition="@PagerPos"
   PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
+  ShowPagingSummary="true"
   AllowPaging="true"
   AllowSorting="true">
   <Columns>
@@ -33,5 +34,3 @@
                        RazorFieldConfig="@RazorFieldConfigUtils.Device.GetMacAddress()"/>
   </Columns>
 </RadzenDataGrid>
-
-<RazorSectionActions TItem="@DeviceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
