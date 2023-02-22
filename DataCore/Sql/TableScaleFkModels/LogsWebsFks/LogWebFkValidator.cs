@@ -16,7 +16,7 @@ public class LogWebFkValidator : SqlTableValidator<LogWebFkModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogWebFkValidator() : base(true, true)
+    public LogWebFkValidator() : base(false, false)
     {
         RuleFor(item => item.LogWeb)
             .NotEmpty()

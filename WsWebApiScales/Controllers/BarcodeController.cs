@@ -43,11 +43,11 @@ public class BarCodeController : WebControllerBase
     public ContentResult GetBarcodeTop([FromQuery] string barcode, bool useCrc = false,
         [FromQuery(Name = "format")] string format = "", [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/get_barcode/top/", dtStamp, barcode, format, host, string.Empty).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/get_barcode/top/", stampDt, barcode, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            new BarcodeTopModel(barcode, useCrc).GetContentResult<BarcodeTopModel>(format, HttpStatusCode.OK), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/get_barcode/top/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+            DataFormatUtils.GetContentResult<BarcodeTopModel>(new BarcodeTopModel(barcode, useCrc), format, HttpStatusCode.OK), format);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/get_barcode/top/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
@@ -65,11 +65,11 @@ public class BarCodeController : WebControllerBase
     public ContentResult GetBarcodeBottom([FromQuery] string barcode, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/get_barcode/bottom/", dtStamp, barcode, format, host, string.Empty).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/get_barcode/bottom/", stampDt, barcode, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            new BarcodeBottomModel(barcode).GetContentResult<BarcodeBottomModel>(format, HttpStatusCode.OK), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/get_barcode/bottom/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+            DataFormatUtils.GetContentResult<BarcodeBottomModel>(new BarcodeBottomModel(barcode), format, HttpStatusCode.OK), format);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/get_barcode/bottom/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
@@ -87,11 +87,11 @@ public class BarCodeController : WebControllerBase
     public ContentResult GetBarcodeRight([FromQuery] string barcode, [FromQuery(Name = "format")] string format = "", 
         [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/get_barcode/right/", dtStamp, barcode, format, host, string.Empty).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/get_barcode/right/", stampDt, barcode, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            new BarcodeRightModel(barcode).GetContentResult<BarcodeRightModel>(format, HttpStatusCode.OK), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/get_barcode/right/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+            DataFormatUtils.GetContentResult<BarcodeRightModel>(new BarcodeRightModel(barcode), format, HttpStatusCode.OK), format);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/get_barcode/right/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
@@ -110,12 +110,12 @@ public class BarCodeController : WebControllerBase
     public ContentResult GetResponseBarCodes([FromQuery(Name = "StartDate")] DateTime dtStart, [FromQuery(Name = "EndDate")] DateTime dtEnd,
         [FromQuery(Name = "format")] string format = "", [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/get_barcodes/", dtStamp, $"{nameof(dtStart)}: {dtStart} & {nameof(dtEnd)}: {dtEnd}", 
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/get_barcodes/", stampDt, $"{nameof(dtStart)}: {dtStart} & {nameof(dtEnd)}: {dtEnd}", 
             format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
             ControllerHelp.NewResponseBarCodes(dtStart, dtEnd, format), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/get_barcodes/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/get_barcodes/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
@@ -125,11 +125,11 @@ public class BarCodeController : WebControllerBase
     [Route("api/v3/send_test/")]
     public ContentResult SendTest([FromQuery(Name = "format")] string format = "", [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_test/", dtStamp, string.Empty, format, host, string.Empty).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_test/", stampDt, string.Empty, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
             ControllerHelp.NewResponse1cFromQuery(string.Empty, null, format), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_test/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_test/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
@@ -140,11 +140,11 @@ public class BarCodeController : WebControllerBase
     public ContentResult SendSqlquery([FromBody] string query, [FromQuery(Name = "format")] string format = "", 
         [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_query", dtStamp, query, format, host, string.Empty).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_query", stampDt, query, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
             ControllerHelp.NewResponse1cFromQuery(query, null, format), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_query", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_query", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
@@ -156,13 +156,13 @@ public class BarCodeController : WebControllerBase
     public ContentResult SendBarcodeBottom([FromBody] BarcodeBottomModel barcodeBottom, [FromQuery(Name = "format")] string format = "", 
         [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/bottom/", dtStamp,
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/bottom/", stampDt,
             DataFormatUtils.GetContent<BarcodeBottomModel>(barcodeBottom, DataCore.Enums.FormatType.XmlUtf8, true),
             format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
             ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindBottom, new("VALUE_BOTTOM", barcodeBottom.GetValue()), format), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/bottom/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/bottom/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
@@ -174,13 +174,13 @@ public class BarCodeController : WebControllerBase
     public ContentResult SendBarcodeRight([FromBody] BarcodeRightModel barcodeRight, [FromQuery(Name = "format")] string format = "", 
         [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/right/", dtStamp, 
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/right/", stampDt, 
             DataFormatUtils.GetContent<BarcodeRightModel>(barcodeRight, DataCore.Enums.FormatType.XmlUtf8, true), 
             format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
             ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindRight, new("VALUE_RIGHT", barcodeRight.GetValue()), format), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/right/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/right/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
@@ -191,13 +191,13 @@ public class BarCodeController : WebControllerBase
     public ContentResult SendBarcodeTop([FromBody] BarcodeTopModel barcodeTop, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/top/", dtStamp,
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/top/", stampDt,
             DataFormatUtils.GetContent<BarcodeTopModel>(barcodeTop, DataCore.Enums.FormatType.XmlUtf8, true), 
             format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
             ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindTop, new("VALUE_TOP", barcodeTop.GetValue()), format), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/top/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/top/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 
@@ -208,12 +208,12 @@ public class BarCodeController : WebControllerBase
     public ContentResult SendBarcodeTopV2([FromBody] string barcodeTop, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "")
     {
-        DateTime dtStamp = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/top_v2/", dtStamp, barcodeTop, format, host, string.Empty).ConfigureAwait(false);
+        DateTime stampDt = DateTime.Now;
+        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_barcode/top_v2/", stampDt, barcodeTop, format, host, string.Empty).ConfigureAwait(false);
         ContentResult result = ControllerHelp.GetContentResult(() =>
             ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindTop,
                 new("VALUE_TOP", DataFormatUtils.DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()), format), format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/top_v2/", dtStamp, result, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_barcode/top_v2/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
         return result;
     }
 

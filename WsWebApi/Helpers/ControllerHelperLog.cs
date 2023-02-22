@@ -68,48 +68,51 @@ public partial class ControllerHelper
     /// Log the request.
     /// </summary>
     /// <param name="appName"></param>
-    /// <param name="query"></param>
+    /// <param name="url"></param>
     /// <param name="dtStamp"></param>
     /// <param name="request"></param>
     /// <param name="format"></param>
     /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
-    public async Task LogRequest(string appName, string query, DateTime dtStamp, string request, string format, string host, string version)
+    public async Task LogRequest(string appName, string url, DateTime dtStamp, string request, string format, string host, string version)
     {
+        // Log into DB.
+        DataContext.DataAccess.LogWebService(DateTime.Now, ServiceLogDirection.Request, $"{host}/{url}", "", "",
+            format, request, 0, 0, 0, LogType.Information);
+        
         // Add meta data.
         string metaDataText = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
-        metaDataText += $"{nameof(query)}: {host}/{query}" + Environment.NewLine;
+        metaDataText += $"{nameof(url)}: {host}/{url}" + Environment.NewLine;
         metaDataText += $"{nameof(format)}: {format}" + Environment.NewLine;
         metaDataText += $"{nameof(version)}: {version}" + Environment.NewLine;
         metaDataText += $"Request data: {request.Length:### ### 000} B | {request.Length / 1024:### ###} KB" + Environment.NewLine;
         metaDataText += "Request body:" + Environment.NewLine;
-        request = metaDataText + request;
 
-        await LogToFileCore(ServiceLogDirection.Request, appName, query, dtStamp, request).ConfigureAwait(false);
-        DataContext.DataAccess.LogWeb(DateTime.Now, ServiceLogDirection.Request, $"{host}/{query}", "", "",
-            format, request, 0, 0, 0, LogType.Information);
+        // Log into FS.
+        request = metaDataText + request;
+        await LogToFileCore(ServiceLogDirection.Request, appName, url, dtStamp, request).ConfigureAwait(false);
     }
 
     /// <summary>
     /// Log the request.
     /// </summary>
     /// <param name="appName"></param>
-    /// <param name="query"></param>
+    /// <param name="url"></param>
     /// <param name="dtStamp"></param>
     /// <param name="xml"></param>
     /// <param name="format"></param>
     /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
-    public async Task LogRequest(string appName, string query, DateTime dtStamp, XElement xml, string format, string host, string version) =>
-        await LogRequest(appName, query, dtStamp, xml.ToString(), format, host, version).ConfigureAwait(false);
+    public async Task LogRequest(string appName, string url, DateTime dtStamp, XElement xml, string format, string host, string version) =>
+        await LogRequest(appName, url, dtStamp, xml.ToString(), format, host, version).ConfigureAwait(false);
 
     /// <summary>
     /// Log the response.
     /// </summary>
     /// <param name="appName"></param>
-    /// <param name="query"></param>
+    /// <param name="url"></param>
     /// <param name="dtStamp"></param>
     /// <param name="contentResult"></param>
     /// <param name="format"></param>
@@ -117,21 +120,24 @@ public partial class ControllerHelper
     /// <param name="version"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task LogResponse(string appName, string query, DateTime dtStamp, ContentResult contentResult, string format, 
+    public async Task LogResponse(string appName, string url, DateTime dtStamp, ContentResult contentResult, string format, 
         string host, string version)
     {
+        // Log into DB.
+        DataContext.DataAccess.LogWebService(DateTime.Now, ServiceLogDirection.Response, $"{host}/{url}", "", "",
+            format, contentResult.Content, 0, 0, 0, LogType.Information);
+        
         // Add meta data.
         string metaDataText = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
-        metaDataText += $"{nameof(query)}: " + Environment.NewLine;
+        metaDataText += $"{nameof(url)}: " + Environment.NewLine;
         metaDataText += $"{nameof(format)}: {format}" + Environment.NewLine;
         metaDataText += $"{nameof(version)}: {version}" + Environment.NewLine;
         metaDataText += $"Response data: {contentResult.Content.Length:### ### 000} B | {contentResult.Content.Length / 1024:### ###} KB" + Environment.NewLine;
         metaDataText += "Response body:" + Environment.NewLine;
-        string response = metaDataText + contentResult.Content;
 
-        await LogToFileCore(ServiceLogDirection.Response, appName, query, dtStamp, response).ConfigureAwait(false);
-        DataContext.DataAccess.LogWeb(DateTime.Now, ServiceLogDirection.Response, $"{host}/{query}", "", "",
-            format, contentResult.Content, 0, 0, 0, LogType.Information);
+        // Log into FS.
+        string response = metaDataText + contentResult.Content;
+        await LogToFileCore(ServiceLogDirection.Response, appName, url, dtStamp, response).ConfigureAwait(false);
     }
 
     #endregion

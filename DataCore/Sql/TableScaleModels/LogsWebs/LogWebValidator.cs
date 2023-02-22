@@ -33,15 +33,12 @@ public class LogWebValidator : SqlTableValidator<LogWebModel>
         RuleFor(item => item.DataString)
             .NotNull();
         RuleFor(item => item.CountAll)
-            .NotEmpty()
             .NotNull()
             .GreaterThanOrEqualTo(0);
         RuleFor(item => item.CountSuccess)
-            .NotEmpty()
             .NotNull()
             .GreaterThanOrEqualTo(0);
         RuleFor(item => item.CountErrors)
-            .NotEmpty()
             .NotNull()
             .GreaterThanOrEqualTo(0);
     }

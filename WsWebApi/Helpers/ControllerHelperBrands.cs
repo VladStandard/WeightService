@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+// ReSharper disable InconsistentNaming
 namespace WsWebApi.Helpers;
 
 public partial class ControllerHelper
@@ -16,7 +17,6 @@ public partial class ControllerHelper
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
         });
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     private void AddResponse1cBrand(Response1cShortModel response, List<BrandModel> brandsDb, BrandModel brandXml)
     {
         try
@@ -46,7 +46,6 @@ public partial class ControllerHelper
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public ContentResult NewResponse1cBrands(XElement request, string formatString) =>
         NewResponse1cCore<Response1cShortModel>(response =>
         {
