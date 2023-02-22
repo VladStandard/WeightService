@@ -73,7 +73,7 @@ public partial class ControllerHelper
     /// <param name="dtStamp"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    private void LogToDbCore(ServiceLogDirection logDirection, string appName, string api, DateTime dtStamp, string text)
+    private void LogToDbCore(ServiceLogDirection logDirection, string api, DateTime dtStamp, string text)
     {
         // Get file name.
         text = logDirection switch
@@ -90,7 +90,9 @@ public partial class ControllerHelper
             _ => $"{LocaleCore.WebService.LogTypeRequest}: {api}" + Environment.NewLine +
                  $"{LocaleCore.WebService.DtStamp}: {dtStamp}" + Environment.NewLine + text,
         };
-        //DataContext.DataAccess.LogWebInformation(text, logDirection);
+        DataContext.DataAccess.LogWebInformation(ServiceLogDirection logDirection, string url, string parameters, string headers,
+            byte dataType, XmlDocument dataXml, string dataString, int countAll, int countSuccess, int countErrors,
+            );
     }
 
     /// <summary>
