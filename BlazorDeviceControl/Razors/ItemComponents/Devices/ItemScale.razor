@@ -3,6 +3,7 @@
 @using DataCore.Sql.TableScaleModels.Devices
 @using DataCore.Sql.TableScaleModels.Printers
 @using BlazorDeviceControl.Razors.SectionComponents.Plus
+@using BlazorDeviceControl.Razors.CustomComponents;
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Scales.ScaleModel>
 @page "/item/scale"
 @page "/item/scale/new"
@@ -21,13 +22,12 @@
     </td>
     <td>@LocaleCore.Table.DeviceComPort</td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.DeviceComPort">
+      <MudSelectLocal @bind-Value="@SqlItemCast.DeviceComPort">
         @foreach (TypeModel<string> item in ComPorts)
         {
           <MudSelectItem Value=@item.Value>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   <tr>
@@ -37,19 +37,16 @@
                   Text="@LocaleCore.Table.Host"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@Device">
+      <MudSelectLocal @bind-Value="@Device">
         @foreach (DeviceModel item in DataContext.Devices)
         {
           <MudSelectItem Value=@item>@item.Name | @item.Ipv4 </MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>@LocaleCore.Table.DeviceReceiveTimeout</td>
     <td>
-      <RadzenNumeric
-        Style="width: 100%; text-align: center;"
-        Disabled="false" TValue="short?" @bind-Value="@SqlItemCast.DeviceReceiveTimeout"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.DeviceReceiveTimeout" />
     </td>
   </tr>
   <tr>
@@ -59,18 +56,16 @@
                   Text="@LocaleCore.Print.NameMain"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.PrinterMain">
+      <MudSelectLocal @bind-Value="@SqlItemCast.PrinterMain">
         @foreach (PrinterModel item in DataContext.Printers)
         {
           <MudSelectItem Value=@item>@item.Name | @item.Ip </MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>@LocaleCore.Table.DeviceSendTimeout</td>
     <td>
-      <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="false"
-                     TValue="short?" @bind-Value="@SqlItemCast.DeviceSendTimeout"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.DeviceSendTimeout"/>
     </td>
   </tr>
   <tr>
@@ -81,13 +76,12 @@
         Text="@LocaleCore.Print.NameShipping"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.PrinterShipping">
+      <MudSelectLocal @bind-Value="@SqlItemCast.PrinterShipping">
         @foreach (PrinterModel item in DataContext.Printers)
         {
           <MudSelectItem Value=@item>@item.Name | @item.Ip </MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>@LocaleCore.Table.IsShipping</td>
     <td>
@@ -97,9 +91,7 @@
   <tr>
     <td>@LocaleCore.Table.IsShippingLength</td>
     <td>
-      <RadzenNumeric
-        Style="width: 100%; text-align: center;" Disabled="false"
-        TValue="byte" @bind-Value="@SqlItemCast.ShippingLength"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.ShippingLength"/>
     </td>
     <td>@LocaleCore.Table.IsKneading</td>
     <td>
@@ -127,38 +119,6 @@
       <RadzenCheckBox Disabled="false" @bind-Value="@SqlItemCast.IsOrder"/>
     </td>
   </tr>
-  @*		<tr>
-			<td>
-				<RadzenLink
-					Style="width: 100%; "
-					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.TemplateDefault, SqlItemCast.TemplateDefault?.IdentityValueId)
-				    Text=@LocaleCore.Table.TemplateDefault/>
-			</td>
-			<td>
-				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
-	                @bind-Value=@SqlItemCast.TemplateDefault>
-					@foreach (TemplateModel item in DataContext.Templates)
-					{
-						<MudSelectItem Value=@item>@item.Title</MudSelectItem>
-					}
-				</MudSelect>
-			</td>
-			<td>
-				<RadzenLink
-					Style="width: 100%; "
-					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.TemplateSeries, SqlItemCast.TemplateSeries?.IdentityValueId)
-				    Text=@LocaleCore.Table.TemplateSeries/>
-			</td>
-			<td>
-				<MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
-					@bind-Value=@SqlItemCast.TemplateSeries>
-					@foreach (TemplateModel item in DataContext.Templates)
-					{
-						<MudSelectItem Value=@item>@item.Title</MudSelectItem>
-					}
-				</MudSelect>
-			</td>
-		</tr>*@
   <tr>
     <td>
       <RadzenLink
@@ -167,13 +127,12 @@
         Text="@LocaleCore.Table.WorkShopName"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.WorkShop">
+      <MudSelectLocal @bind-Value="@SqlItemCast.WorkShop">
         @foreach (WorkShopModel item in DataContext.WorkShops)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>
       <RadzenLink
@@ -190,9 +149,7 @@
   <tr>
     <td>@LocaleCore.Table.ScaleFactor</td>
     <td>
-      <RadzenNumeric
-        Style="width: 100%; text-align: center;" Disabled="false"
-        TValue="int?" @bind-Value="@SqlItemCast.ScaleFactor"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.ScaleFactor"/>
     </td>
     <td>@LocaleCore.Table.Counter</td>
     <td>

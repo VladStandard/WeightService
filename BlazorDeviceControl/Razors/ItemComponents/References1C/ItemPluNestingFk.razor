@@ -1,11 +1,11 @@
 ﻿@using DataCore.Sql.TableScaleFkModels.PlusNestingFks
 @using DataCore.Sql.TableScaleModels.Boxes
 @using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleFkModels.PlusNestingFks.PluNestingFkModel>
 @page "/item/plu_nesting_fk"
 @page "/item/plu_nesting_fk/new"
 @page "/item/plu_nesting_fk/{IdentityUidStr}"
-
 
 <RazorItemReload TItem="@PluNestingFkModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluNestingFk"/>
 
@@ -37,13 +37,12 @@
                   Text="@LocaleCore.Table.PluBundleFk"/>
     </td>
     <td colspan="3">
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@PluBundleFk">
+      <MudSelectLocal @bind-Value="@PluBundleFk">
         @foreach (PluBundleFkModel item in DataContext.PluBundleFks)
         {
           <MudSelectItem Value=@item>@($"{item.Plu.Name} | {item.Plu.Number} | {item.Bundle.Name}")</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   @* Plu *@
@@ -109,13 +108,12 @@
                   Text="@LocaleCore.Table.Box"/>
     </td>
     <td colspan="3">
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@Box">
+      <MudSelectLocal @bind-Value="@Box">
         @foreach (BoxModel item in DataContext.Boxes)
         {
           <MudSelectItem Value=@item>@($"{item.Name} | {item.Weight}")</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   @* Box *@
@@ -134,15 +132,13 @@
       <RadzenLabel Style="width: 100%; " Text="@LocaleCore.Table.NestingCount"/>
     </td>
     <td>
-      <RadzenNumeric Style="width: 100%; text-align: center; "
-                     TValue="short" @bind-Value="@SqlItemCast.BundleCount"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.BundleCount"/>
     </td>
     <td>
       <RadzenLabel Style="width: 100%; " Text="@LocaleCore.Table.WeightNominal"/>
     </td>
     <td>
-      <RadzenNumeric Style="width: 100%; text-align: center; "
-                     TValue="decimal" @bind-Value="@SqlItemCast.WeightNom"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.WeightNom"/>
     </td>
   </tr>
   <tr>

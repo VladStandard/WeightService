@@ -1,22 +1,18 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusLabels
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusLabels.PluLabelModel, SqlTableBase>
 @page "/section/plus_labels"
 
 <RazorSectionReload TItem="@PluLabelModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionLabels" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
+  TItem="@PluLabelModel"
+  Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast" TItem="@PluLabelModel"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns >
     <RazorSectionFieldIsMarked TItem="@PluLabelModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@PluLabelModel" Width="12%" Title="@LocaleCore.Table.ChangeDt" TextAlign="@TextAlign.Center">
@@ -67,4 +63,4 @@
       </Template>
     </RadzenDataGridColumn>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

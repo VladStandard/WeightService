@@ -1,4 +1,5 @@
 ﻿@using BlazorDeviceControl.Razors.ItemComponents
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentBase
 @page "/system/identity"
 
@@ -47,13 +48,12 @@
     else
     {
       <td>
-        <MudSelect Class="MudSelect" Variant=@Variant.Outlined Margin=@Margin.Dense
-					@bind-Value=@LocaleCore.Lang>
+        <MudSelectLocal @bind-Value=@LocaleCore.Lang>
           @foreach (Lang lang in Langs)
           {
             <MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>
           }
-        </MudSelect>
+        </MudSelectLocal>
       </td>
     }
   </tr>

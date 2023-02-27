@@ -1,5 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
 @using DataCore.Sql.TableScaleModels.Bundles
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel>
 @page "/item/plu_bundle_fk"
 @page "/item/plu_bundle_fk/new"
@@ -20,13 +21,12 @@
                   Text="@LocaleCore.Table.Plu"/>
     </td>
     <td colspan="3">
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@Plu">
+      <MudSelectLocal @bind-Value="@Plu">
         @foreach (PluModel item in DataContext.Plus)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   @* Plu *@
@@ -66,13 +66,12 @@
                   Text="@LocaleCore.Table.Bundle"/>
     </td>
     <td colspan="3">
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@Bundle">
+      <MudSelectLocal @bind-Value="@Bundle">
         @foreach (BundleModel item in DataContext.Bundles)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   </tbody>

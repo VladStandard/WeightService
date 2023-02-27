@@ -1,6 +1,7 @@
 ﻿@using DataCore.Sql.TableScaleModels.PrintersResources
 @using DataCore.Sql.TableScaleModels.TemplatesResources
 @using DataCore.Sql.TableScaleModels.Printers
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PrintersResources.PrinterResourceModel>
 @page "/item/printer_resource"
 @page "/item/printer_resource/new"
@@ -15,23 +16,21 @@
   <tr>
     <td>@LocaleCore.Print.Name</td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.Printer">
+      <MudSelectLocal @bind-Value="@SqlItemCast.Printer">
         @foreach (PrinterModel item in DataContext.Printers)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>@LocaleCore.Table.Resource</td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.TemplateResource">
+      <MudSelectLocal @bind-Value="@SqlItemCast.TemplateResource">
         @foreach (TemplateResourceModel item in DataContext.TemplateResources)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   <tr>

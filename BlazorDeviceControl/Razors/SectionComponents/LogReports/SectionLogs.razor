@@ -1,23 +1,18 @@
 ﻿@using DataCore.Sql.Xml
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.Xml.LogQuickModel, SqlTableBase>
 @page "/section/logs"
 
 <RazorSectionReload TItem="@LogQuickModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.System.SystemLogs" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@LogQuickModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <RazorSectionFieldIsMarked TItem="@LogQuickModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RazorSectionField TItem="@LogQuickModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("14%", true))
@@ -35,4 +30,4 @@
     <RazorSectionField TItem="@LogQuickModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("30%", true))
                        RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetMessage()"/>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

@@ -1,23 +1,18 @@
 ﻿@using DataCore.Sql.TableScaleModels.BarCodes
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.BarCodes.BarCodeModel, SqlTableBase>
 @page "/section/barcodes"
 
 <RazorSectionReload TItem="@BarCodeModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBarCodeTypes" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@BarCodeModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <RazorSectionFieldIsMarked TItem="@BarCodeModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@BarCodeModel" Title="@LocaleCore.Table.ChangeDt" Width="12%">
@@ -51,4 +46,4 @@
       </Template>
     </RadzenDataGridColumn>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

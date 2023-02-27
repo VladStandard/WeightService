@@ -1,23 +1,18 @@
 ﻿@using DataCore.Sql.TableScaleModels.TemplatesResources
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel, SqlTableBase>
 @page "/section/templates_resources"
 
 <RazorSectionReload TItem="@TemplateResourceModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionTemplateResources" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@TemplateResourceModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns >
     <RazorSectionFieldIsMarked TItem="@TemplateResourceModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RazorSectionFieldIdentity TItem="@TemplateResourceModel" ParentRazor="@(this)"/>
@@ -42,4 +37,4 @@
       Title="@LocaleCore.Table.ImageDataInfo"
       Type="string" Width="25%"/>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

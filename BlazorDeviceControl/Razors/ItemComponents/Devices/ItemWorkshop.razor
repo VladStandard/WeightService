@@ -1,5 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.WorkShops
 @using DataCore.Sql.TableScaleModels.ProductionFacilities
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel>
 @page "/item/workshop"
 @page "/item/workshop/new"
@@ -26,13 +27,12 @@
                   Text="@LocaleCore.Table.ProductionFacility"/>
     </td>
     <td colspan="3">
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.ProductionFacility">
+      <MudSelectLocal @bind-Value="@SqlItemCast.ProductionFacility">
         @foreach (ProductionFacilityModel item in DataContext.ProductionFacilities)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   </tbody>

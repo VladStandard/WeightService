@@ -1,22 +1,18 @@
 ﻿@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel, PluModel>
 @page "/section/plus_bundles_fks"
 
 <RazorSectionReload TItem="@PluBundleFkModel" TItemFilter="@PluModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusBundlesFk" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  Data="@SqlSectionCast"
   TItem="@PluBundleFkModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <RazorSectionFieldIsMarked TItem="PluBundleFkModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="PluBundleFkModel" Width="7%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.Weighted">
@@ -46,4 +42,4 @@
       </Template>
     </RadzenDataGridColumn>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

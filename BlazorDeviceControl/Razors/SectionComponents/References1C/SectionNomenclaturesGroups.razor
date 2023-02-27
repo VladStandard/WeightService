@@ -1,25 +1,20 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusGroups
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel, SqlTableBase>
 @page "/section/nomenclatures_groups"
 
 <RazorSectionReload TItem="@PluGroupModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionNomenclaturesGroups"
                     SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@PluGroupModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@RowRender"
   LoadChildData="@LoadChildData"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns >
     <RazorSectionFieldIsMarked TItem="@PluGroupModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@PluGroupModel" Title="@LocaleCore.Table.Name" Width="45%">
@@ -37,4 +32,4 @@
       </Template>
     </RadzenDataGridColumn>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

@@ -24,9 +24,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
     [Parameter]  public ButtonSettingsModel? ButtonSettings { get; set; }
 
     #endregion
-
-	protected PagerPosition PagerPos = PagerPosition.TopAndBottom;
-	public IList<TItem>? SelectedRow { get; set; }
+    public IList<TItem>? SelectedRow { get; set; }
 	protected List<TItemFilter> SqlSectionFilterCast { get; set; }
 	protected string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
 	protected TItemFilter SqlItemFilterCast

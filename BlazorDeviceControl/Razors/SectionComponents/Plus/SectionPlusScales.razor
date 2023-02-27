@@ -1,5 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusScales
 @using DataCore.Sql.TableScaleModels.Scales
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusScales.PluScaleModel, DataCore.Sql.TableScaleModels.Scales.ScaleModel>
 @page "/section/plus_scales"
 
@@ -11,20 +12,14 @@
 <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; "
              Text="@LocaleCore.Action.ActionIsShowActivePlu"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@PluScaleModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(RowClick)"
   RowRender="@(RowRender)"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <RazorSectionFieldIsMarked TItem="@PluScaleModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@PluScaleModel" Width="45%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Plu">
@@ -64,4 +59,4 @@
       </Template>
     </RadzenDataGridColumn>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

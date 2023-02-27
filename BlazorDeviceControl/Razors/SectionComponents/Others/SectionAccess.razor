@@ -1,22 +1,17 @@
 ﻿@using DataCore.Sql.TableScaleModels.Access
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Access.AccessModel, SqlTableBase>
 @page "/section/access"
 
 <RazorSectionReload TItem="@AccessModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Strings.AccessRights" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@AccessModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <RazorSectionFieldIsMarked TItem="@AccessModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RazorSectionField TItem="@AccessModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
@@ -26,4 +21,4 @@
     <RazorSectionField TItem="@AccessModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("25%", true))
                        RazorFieldConfig="@RazorFieldConfigUtils.Access.GetRights()"/>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

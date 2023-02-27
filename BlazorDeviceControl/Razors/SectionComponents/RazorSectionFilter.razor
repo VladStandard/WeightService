@@ -1,13 +1,10 @@
 ﻿@typeparam TItem
 @typeparam TItemFilter
 @using DataCore.Sql.TableScaleModels.Scales
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<TItem, TItemFilter>
 
-<MudSelect
-  Variant="@Variant.Outlined" Margin="@Margin.Dense"
-  Class="MudSelect"
-  Style="margin-top: -3px; margin-left: 2px; margin-right: 2px; margin-bottom: 2px; font-size: 10px;"
-  @bind-Value="@SqlItemFilterCast">
+<MudSelectLocal Style="margin: -3px 2px 2px; font-size: 10px;" @bind-Value="@SqlItemFilterCast">
   @switch (typeof(TItemFilter))
   {
     case var cls when cls == typeof(PluModel):
@@ -29,4 +26,4 @@
       }
       break;
   }
-</MudSelect>
+</MudSelectLocal>
