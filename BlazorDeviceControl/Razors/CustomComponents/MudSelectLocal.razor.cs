@@ -8,7 +8,7 @@ public class MudSelectLocal<T> : MudSelect<T>
     public MudSelectLocal()
     {
         Margin = Margin.Dense;
-        this.Variant =  MudBlazor.Variant.Outlined;
+        Variant =  MudBlazor.Variant.Outlined;
         AnchorOrigin = Origin.BottomCenter;
         Class = "MudSelect";
     }

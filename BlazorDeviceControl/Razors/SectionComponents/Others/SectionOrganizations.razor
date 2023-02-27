@@ -1,28 +1,23 @@
 ﻿@using DataCore.Sql.TableScaleModels.Organizations
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Organizations.OrganizationModel, SqlTableBase>
 @page "/section/organizations"
 
 <RazorSectionReload TItem="@OrganizationModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionOrganizations" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@OrganizationModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
-  <Columns >
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
+  <Columns>
     <RazorSectionFieldIsMarked TItem="@OrganizationModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RazorSectionField TItem="@OrganizationModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("75%", true))
                        RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
     <RazorSectionField TItem="@OrganizationModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%"))
                        RazorFieldConfig="@RazorFieldConfigUtils.Organization.GetGln()"/>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

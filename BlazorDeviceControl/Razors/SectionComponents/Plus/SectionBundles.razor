@@ -1,23 +1,18 @@
 ﻿@using DataCore.Sql.TableScaleModels.Bundles
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Bundles.BundleModel, SqlTableBase>
 @page "/section/bundles"
 
 <RazorSectionReload TItem="@BundleModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBundles" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@BundleModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <RazorSectionFieldIsMarked TItem="@BundleModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RazorSectionField TItem="@BundleModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("75%", true))
@@ -25,4 +20,4 @@
     <RazorSectionField TItem="@BundleModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
                        RazorFieldConfig="@RazorFieldConfigUtils.Bundle.GetWeight()"/>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

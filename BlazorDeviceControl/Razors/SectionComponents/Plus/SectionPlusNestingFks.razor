@@ -1,21 +1,18 @@
 ﻿@using DataCore.Sql.TableScaleFkModels.PlusNestingFks
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusNestingFks.PluNestingFkModel, PluModel>
 @page "/section/plus_nesting_fks"
 
 <RazorSectionReload TItem="@PluNestingFkModel" TItemFilter="@PluModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusNestingFk" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
+  TItem="@PluNestingFkModel"
+  Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  Data="@SqlSectionCast" TItem="@PluNestingFkModel"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <RazorSectionFieldIsMarked TItem="PluNestingFkModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="PluNestingFkModel" Width="5%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.Weighted">
@@ -65,4 +62,4 @@
       </Template>
     </RadzenDataGridColumn>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

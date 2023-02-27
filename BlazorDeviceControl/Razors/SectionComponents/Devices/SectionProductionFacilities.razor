@@ -1,23 +1,18 @@
 ﻿@using DataCore.Sql.TableScaleModels.ProductionFacilities
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.ProductionFacilities.ProductionFacilityModel, SqlTableBase>
 @page "/section/production_facilities"
 
 <RazorSectionReload TItem="@ProductionFacilityModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionProductionFacilities" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@ProductionFacilityModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns >
     <RazorSectionFieldIsMarked TItem="@ProductionFacilityModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RazorSectionField TItem="@ProductionFacilityModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("25%", true))
@@ -25,4 +20,4 @@
     <RazorSectionField TItem="@ProductionFacilityModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("70%", true))
                        RazorFieldConfig="@RazorFieldConfigUtils.ProductionFacility.GetAddress()"/>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

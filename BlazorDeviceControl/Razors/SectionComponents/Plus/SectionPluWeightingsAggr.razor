@@ -1,23 +1,17 @@
 ﻿@using DataCore.Sql.Xml
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.Xml.WeithingFactSummaryModel, SqlTableBase>
 @page "/section/plus_weighings_aggr"
 
 <RazorSectionReload TItem="@WeithingFactSummaryModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@WeithingFactSummaryModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
-  RowRender="@(args => RowRender(args))"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  ShowPagingSummary="true"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowRender="@(args => RowRender(args))">
   <Columns>
     <RazorSectionFieldIsMarked TItem="@WeithingFactSummaryModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn
@@ -58,4 +52,4 @@
     </RadzenDataGridColumn>
 
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

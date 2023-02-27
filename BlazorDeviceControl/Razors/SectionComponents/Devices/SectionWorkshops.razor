@@ -1,23 +1,18 @@
 ﻿@using DataCore.Sql.TableScaleModels.WorkShops
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel, SqlTableBase>
 @page "/section/workshops"
 
 <RazorSectionReload TItem="@WorkShopModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionWorkShops" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@WorkShopModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns >
     <RazorSectionFieldIsMarked TItem="@WorkShopModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RazorSectionField TItem="@WorkShopModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("40%", true))
@@ -25,4 +20,4 @@
     <RazorSectionField TItem="@WorkShopModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("40%", true))
                        RazorFieldConfig="@RazorFieldConfigUtils.WorkShop.GetProductionFacility()"/>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

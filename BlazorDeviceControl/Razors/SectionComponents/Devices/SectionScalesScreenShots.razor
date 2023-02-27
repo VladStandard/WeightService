@@ -1,23 +1,18 @@
 ﻿@using DataCore.Sql.TableScaleModels.ScalesScreenshots
 @using DataCore.Sql.TableScaleModels.Scales
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.ScalesScreenshots.ScaleScreenShotModel, DataCore.Sql.TableScaleModels.Scales.ScaleModel>
 @page "/section/scales_screenshots"
 
 <RazorSectionReload TItem="@ScaleScreenShotModel" TItemFilter="@ScaleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionScreenShots" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
-  class="DataGridSection"
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast"
   TItem="@ScaleScreenShotModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <RazorSectionFieldIsMarked TItem="@ScaleScreenShotModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="12%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.ChangeDt">
@@ -42,4 +37,4 @@
       </Template>
     </RadzenDataGridColumn>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>

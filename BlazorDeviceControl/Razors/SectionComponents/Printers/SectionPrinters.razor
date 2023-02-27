@@ -1,23 +1,20 @@
 ﻿@using DataCore.Sql.TableScaleModels.Printers
+@using BlazorDeviceControl.Razors.CustomComponents
 @using System.Net
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Printers.PrinterModel, SqlTableBase>
 @page "/section/printers"
 
 <RazorSectionReload TItem="@PrinterModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Print.Names" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RadzenDataGrid
+<RadzenDataGridLocal
   class="DataGridSection"
   @bind-Value="@SelectedRow"
+  TItem="@PrinterModel"
+  Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  PagerHorizontalAlign="@HorizontalAlign.Justify"
-  Data="@SqlSectionCast" TItem="@PrinterModel"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())"
-  PagerPosition="@PagerPos"
-  PageSize="@DataAccess.JsonSettings.Local.SectionRowsCount"
-  AllowPaging="true"
-  AllowSorting="true">
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <RazorSectionFieldIsMarked TItem="@PrinterModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RazorSectionField TItem="@PrinterModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
@@ -37,4 +34,4 @@
     <RazorSectionField TItem="@PrinterModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
                        RazorFieldConfig="@RazorFieldConfigUtils.Printer.GetMacAddress()"/>
   </Columns>
-</RadzenDataGrid>
+</RadzenDataGridLocal>
