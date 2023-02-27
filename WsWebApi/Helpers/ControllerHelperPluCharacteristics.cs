@@ -60,13 +60,13 @@ public partial class ControllerHelper
             {
                 IdentityValueUid = Guid.NewGuid(),
                 Plu = pluDb,
-                PluCharacteristic = pluCharacteristicDb,
+                Characteristic = pluCharacteristicDb,
             };
 
             // Find by Identity -> Update exists.
             PluCharacteristicsFkModel? pluCharacteristicFkDb = pluCharacteristicsFksDb.Find(item =>
                 Equals(item.Plu.Uid1c, pluCharacteristicsFk.Plu.Uid1c) &&
-                Equals(item.PluCharacteristic.Uid1c, pluCharacteristicsFk.PluCharacteristic.Uid1c));
+                Equals(item.Characteristic.Uid1c, pluCharacteristicsFk.Characteristic.Uid1c));
             if (UpdateItemDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, pluCharacteristicFkDb, false)) return;
 
             // Not find -> Add new.
