@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+// ReSharper disable InconsistentNaming
+
 namespace WsWebApi.Helpers;
 
 /// <summary>
@@ -22,12 +24,12 @@ public partial class ControllerHelper
     /// <param name="serviceLogType"></param>
     /// <param name="appName"></param>
     /// <param name="api"></param>
-    /// <param name="dtStamp"></param>
+    /// <param name="stampDt"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    private async Task LogToFileCore(ServiceLogDirection serviceLogType, string appName, string api, DateTime dtStamp, string text)
+    private static async Task LogToFileCore(ServiceLogDirection serviceLogType, string appName, string api, DateTime stampDt, string text)
     {
-        string dtString = StringUtils.FormatDtEng(dtStamp, true).Replace(':', '.');
+        string dtString = StringUtils.FormatDtEng(stampDt, true).Replace(':', '.');
         // Get directory name.
         if (!Directory.Exists(RootDirectory)) return;
         // Machine dir.
@@ -65,80 +67,65 @@ public partial class ControllerHelper
     }
 
     /// <summary>
-    /// Log the request.
+    /// Log request and response.
     /// </summary>
     /// <param name="appName"></param>
     /// <param name="url"></param>
-    /// <param name="dtStamp"></param>
-    /// <param name="request"></param>
+    /// <param name="requestStampDt"></param>
+    /// <param name="requestData"></param>
+    /// <param name="responseData"></param>
     /// <param name="format"></param>
     /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
-    public async Task LogRequest(string appName, string url, DateTime dtStamp, string request, string format, string host, string version)
+    public async Task LogWebServiceFk(string appName, string url, DateTime requestStampDt, string requestData,
+        string responseData, string format, string host, string version)
     {
+        DateTime responseStampDt = DateTime.Now;
+        // Parse counts.
+        int countAll = GetAttributeValueAsInt(requestData, "Count");
+        int countSuccess = GetAttributeValueAsInt(responseData, nameof(Response1cShortModel.SuccessesCount));
+        int countErrors = GetAttributeValueAsInt(responseData, nameof(Response1cShortModel.ErrorsCount));
+
         // Log into DB.
-        DataContext.DataAccess.LogWebService(DateTime.Now, ServiceLogDirection.Request, $"{host}/{url}", "", "",
-            format, request, 0, 0, 0, LogType.Information);
-        
+        DataContext.DataAccess.LogWebService(requestStampDt, requestData, responseStampDt, responseData, LogType.Information,
+            $"{host}/{url}", "", "", format, countAll, countSuccess, countErrors);
+
         // Add meta data.
-        string metaDataText = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
-        metaDataText += $"{nameof(url)}: {host}/{url}" + Environment.NewLine;
-        metaDataText += $"{nameof(format)}: {format}" + Environment.NewLine;
-        metaDataText += $"{nameof(version)}: {version}" + Environment.NewLine;
-        metaDataText += $"Request data: {request.Length:### ### 000} B | {request.Length / 1024:### ###} KB" + Environment.NewLine;
-        metaDataText += "Request body:" + Environment.NewLine;
+        string metaDataRequest = $"DateTime stamp: {requestStampDt}" + Environment.NewLine;
+        metaDataRequest += $"{nameof(url)}: {host}/{url}" + Environment.NewLine;
+        metaDataRequest += $"{nameof(format)}: {format}" + Environment.NewLine;
+        metaDataRequest += $"{nameof(version)}: {version}" + Environment.NewLine;
+        metaDataRequest += $"Request data: {requestData.Length:### ### 000} B | {requestData.Length / 1024:### ###} KB" + Environment.NewLine;
+        metaDataRequest += "Request body:" + Environment.NewLine;
+        string metaDataResponse = $"DateTime stamp: {responseStampDt}" + Environment.NewLine;
+        metaDataResponse += $"{nameof(url)}: " + Environment.NewLine;
+        metaDataResponse += $"{nameof(format)}: {format}" + Environment.NewLine;
+        metaDataResponse += $"{nameof(version)}: {version}" + Environment.NewLine;
+        metaDataResponse += $"Response data: {responseData.Length:### ### 000} B | {responseData.Length / 1024:### ###} KB" + Environment.NewLine;
+        metaDataResponse += "Response body:" + Environment.NewLine;
 
         // Log into FS.
-        request = metaDataText + request;
-        await LogToFileCore(ServiceLogDirection.Request, appName, url, dtStamp, request).ConfigureAwait(false);
+        await LogToFileCore(ServiceLogDirection.Request, appName, url, requestStampDt, metaDataRequest + requestData).ConfigureAwait(false);
+        await LogToFileCore(ServiceLogDirection.Response, appName, url, responseStampDt, metaDataResponse + responseData).ConfigureAwait(false);
     }
 
     /// <summary>
-    /// Log the request.
+    /// Log request and response.
     /// </summary>
     /// <param name="appName"></param>
     /// <param name="url"></param>
-    /// <param name="dtStamp"></param>
-    /// <param name="xml"></param>
+    /// <param name="requestStampDt"></param>
+    /// <param name="requestXml"></param>
+    /// <param name="responseData"></param>
     /// <param name="format"></param>
     /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
-    public async Task LogRequest(string appName, string url, DateTime dtStamp, XElement xml, string format, string host, string version) =>
-        await LogRequest(appName, url, dtStamp, xml.ToString(), format, host, version).ConfigureAwait(false);
-
-    /// <summary>
-    /// Log the response.
-    /// </summary>
-    /// <param name="appName"></param>
-    /// <param name="url"></param>
-    /// <param name="dtStamp"></param>
-    /// <param name="contentResult"></param>
-    /// <param name="format"></param>
-    /// <param name="host"></param>
-    /// <param name="version"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public async Task LogResponse(string appName, string url, DateTime dtStamp, ContentResult contentResult, string format, 
-        string host, string version)
-    {
-        // Log into DB.
-        DataContext.DataAccess.LogWebService(DateTime.Now, ServiceLogDirection.Response, $"{host}/{url}", "", "",
-            format, contentResult.Content, 0, 0, 0, LogType.Information);
-        
-        // Add meta data.
-        string metaDataText = $"DateTime stamp: {DateTime.Now}" + Environment.NewLine;
-        metaDataText += $"{nameof(url)}: " + Environment.NewLine;
-        metaDataText += $"{nameof(format)}: {format}" + Environment.NewLine;
-        metaDataText += $"{nameof(version)}: {version}" + Environment.NewLine;
-        metaDataText += $"Response data: {contentResult.Content.Length:### ### 000} B | {contentResult.Content.Length / 1024:### ###} KB" + Environment.NewLine;
-        metaDataText += "Response body:" + Environment.NewLine;
-
-        // Log into FS.
-        string response = metaDataText + contentResult.Content;
-        await LogToFileCore(ServiceLogDirection.Response, appName, url, dtStamp, response).ConfigureAwait(false);
-    }
+    public async Task LogWebServiceFk(string appName, string url, DateTime requestStampDt, XElement requestXml,
+        string responseData, string format, string host, string version) =>
+        await LogWebServiceFk(appName, url, requestStampDt, requestXml.ToString(), responseData,
+            format, host, version).ConfigureAwait(false);
 
     #endregion
 }

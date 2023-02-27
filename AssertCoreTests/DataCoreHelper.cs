@@ -356,7 +356,9 @@ public class DataCoreHelper
                 logWeb.CountErrors.Returns(1);
                 break;
 			case LogWebFkModel logWebFk:
-                logWebFk.LogWeb = CreateNewSubstitute<LogWebModel>(isNotDefault);
+                logWebFk.LogWebRequest = CreateNewSubstitute<LogWebModel>(isNotDefault);
+                logWebFk.LogWebResponse = CreateNewSubstitute<LogWebModel>(isNotDefault);
+                logWebFk.LogWebResponse.Direction.Returns((byte)1);
                 logWebFk.App = CreateNewSubstitute<AppModel>(isNotDefault);
                 logWebFk.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
                 logWebFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);

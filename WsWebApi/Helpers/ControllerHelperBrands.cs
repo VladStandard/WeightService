@@ -46,12 +46,12 @@ public partial class ControllerHelper
         }
     }
 
-    public ContentResult NewResponse1cBrands(XElement request, string formatString) =>
+    public ContentResult NewResponse1cBrands(XElement xml, string formatString) =>
         NewResponse1cCore<Response1cShortModel>(response =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<BrandModel> itemsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
-            List<BrandModel> itemsXml = GetXmlBrandList(request);
+            List<BrandModel> itemsXml = GetXmlBrandList(xml);
             foreach (BrandModel itemXml in itemsXml)
             {
                 switch (itemXml.ParseResult.Status)
