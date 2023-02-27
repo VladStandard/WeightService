@@ -1,7 +1,7 @@
 ﻿@typeparam TItem
 @inherits RazorComponentSectionBase<TItem, SqlTableBase>
 
-@if (SqlCrudConfigSection.IsResultShowMarked)
+@if (SqlCrudConfigSection is { IsGuiShowFilterMarked: true, IsResultShowMarked: true })
 {
   <RadzenDataGridColumn TItem=@TItem
                         TextAlign=@TextAlign.Center Width=@(CssStyleRadzenColumn.Width) SortProperty="IsMarked"

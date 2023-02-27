@@ -1,6 +1,7 @@
-﻿@using DataCore.Sql.TableScaleModels.Printers
+﻿@using System.Net
+@using DataCore.Sql.TableScaleModels.Printers
 @using DataCore.Sql.TableScaleModels.PrintersTypes
-@using System.Net
+@using BlazorDeviceControl.Razors.CustomComponents
 @using BlazorDeviceControl.Razors.SectionComponents.Printers
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Printers.PrinterModel>
 @page "/item/printer"
@@ -39,13 +40,12 @@
                   Text="@LocaleCore.Print.Type"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.PrinterType">
+      <MudSelectLocal @bind-Value="@SqlItemCast.PrinterType">
         @foreach (PrinterTypeModel item in DataContext.PrinterTypes)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   <tr>

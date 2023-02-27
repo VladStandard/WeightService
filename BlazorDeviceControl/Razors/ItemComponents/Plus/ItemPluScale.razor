@@ -1,5 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusScales
 @using DataCore.Sql.TableScaleModels.Scales
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusScales.PluScaleModel>
 @page "/item/plu_scale"
 @page "/item/plu_scale/new"
@@ -26,13 +27,12 @@
         Text="@LocaleCore.Table.Scale"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Scale">
+      <MudSelectLocal ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Scale">
         @foreach (ScaleModel item in DataContext.Scales)
         {
           <MudSelectItem Value=@item>@item.Description</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>
       <RadzenLink Style="width: 100%; margin-left: 0;"
@@ -40,13 +40,12 @@
                   Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Plu">
+      <MudSelectLocal ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Plu">
         @foreach (PluModel item in DataContext.Plus)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   </tbody>

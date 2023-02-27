@@ -1,5 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.Devices
 @using DataCore.Sql.TableScaleModels.DeviceTypes
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Devices.DeviceModel>
 @page "/item/device"
 @page "/item/device/new"
@@ -91,13 +92,12 @@
       }
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@DeviceType">
+      <MudSelectLocal @bind-Value="@DeviceType">
         @foreach (DeviceTypeModel item in DataContext.DeviceTypes)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td colspan="2">
       @if (DeviceTypeFk.IsNotNew)

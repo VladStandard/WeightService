@@ -3,6 +3,7 @@
 @using DataCore.Sql.TableScaleModels.Devices
 @using DataCore.Sql.TableScaleModels.Printers
 @using BlazorDeviceControl.Razors.SectionComponents.Plus
+@using BlazorDeviceControl.Razors.CustomComponents;
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Scales.ScaleModel>
 @page "/item/scale"
 @page "/item/scale/new"
@@ -21,13 +22,12 @@
     </td>
     <td>@LocaleCore.Table.DeviceComPort</td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.DeviceComPort">
+      <MudSelectLocal @bind-Value="@SqlItemCast.DeviceComPort">
         @foreach (TypeModel<string> item in ComPorts)
         {
           <MudSelectItem Value=@item.Value>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   <tr>
@@ -37,13 +37,12 @@
                   Text="@LocaleCore.Table.Host"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@Device">
+      <MudSelectLocal @bind-Value="@Device">
         @foreach (DeviceModel item in DataContext.Devices)
         {
           <MudSelectItem Value=@item>@item.Name | @item.Ipv4 </MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>@LocaleCore.Table.DeviceReceiveTimeout</td>
     <td>
@@ -59,13 +58,12 @@
                   Text="@LocaleCore.Print.NameMain"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.PrinterMain">
+      <MudSelectLocal @bind-Value="@SqlItemCast.PrinterMain">
         @foreach (PrinterModel item in DataContext.Printers)
         {
           <MudSelectItem Value=@item>@item.Name | @item.Ip </MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>@LocaleCore.Table.DeviceSendTimeout</td>
     <td>
@@ -81,13 +79,12 @@
         Text="@LocaleCore.Print.NameShipping"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.PrinterShipping">
+      <MudSelectLocal @bind-Value="@SqlItemCast.PrinterShipping">
         @foreach (PrinterModel item in DataContext.Printers)
         {
           <MudSelectItem Value=@item>@item.Name | @item.Ip </MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>@LocaleCore.Table.IsShipping</td>
     <td>
@@ -167,13 +164,12 @@
         Text="@LocaleCore.Table.WorkShopName"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@SqlItemCast.WorkShop">
+      <MudSelectLocal @bind-Value="@SqlItemCast.WorkShop">
         @foreach (WorkShopModel item in DataContext.WorkShops)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
     <td>
       <RadzenLink

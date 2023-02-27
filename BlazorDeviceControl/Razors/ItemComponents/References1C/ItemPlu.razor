@@ -1,4 +1,5 @@
 ﻿@using DataCore.Sql.TableScaleModels.Templates
+@using BlazorDeviceControl.Razors.CustomComponents
 @using BlazorDeviceControl.Razors.SectionComponents.Plus
 @inherits RazorComponentItemBase<PluModel>
 @page "/item/plu"
@@ -34,13 +35,12 @@
                   Text="@LocaleCore.Table.Template"/>
     </td>
     <td>
-      <MudSelect Class="MudSelect" Variant="@Variant.Outlined" Margin="@Margin.Dense"
-                 @bind-Value="@Template">
+      <MudSelectLocal @bind-Value="@Template">
         @foreach (TemplateModel item in DataContext.Templates)
         {
           <MudSelectItem Value=@item>@item.Title</MudSelectItem>
         }
-      </MudSelect>
+      </MudSelectLocal>
     </td>
   </tr>
   <tr>
