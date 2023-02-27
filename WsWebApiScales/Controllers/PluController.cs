@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalization.Models;
 using WsStorage.Enums;
 using WsWebApi.Controllers;
 
@@ -33,8 +34,7 @@ public class PluController : WebControllerBase
     public ContentResult SendPlus([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
-        DateTime stampDt = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/send_nomenclatures/", stampDt, xml, format, host, version).ConfigureAwait(false);
+        DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
@@ -43,7 +43,8 @@ public class PluController : WebControllerBase
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
                 .NewResponse1cPlus(xml, format), format)
         };
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/send_nomenclatures/", stampDt, result, format, host, version).ConfigureAwait(false);
+        ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), LocaleCore.WebService.UrlSendNomenclatures,
+            requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }
 

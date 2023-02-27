@@ -423,7 +423,7 @@ public partial class ControllerHelper
 
     private int GetAttributeValueAsInt(string xml, string nodeIdentity)
     {
-        if (GetAttributeValue(xml, nodeIdentity) is { } value)
+        if (!string.IsNullOrEmpty(xml) && GetAttributeValue(xml, nodeIdentity) is { } value)
         {
             if (int.TryParse(value, out int iValue))
                 return iValue;
@@ -431,27 +431,31 @@ public partial class ControllerHelper
         return default;
     }
 
-    private string? GetAttributeValue(string xml, string nodeIdentity)
+    private string GetAttributeValue(string xml, string nodeIdentity)
     {
-        XmlDocument xmlDocument = new();
-        xmlDocument.LoadXml(xml);
-        if (xmlDocument.DocumentElement is null) return string.Empty;
-
-        //XmlNodeList xmlNodes = .ChildNodes;
-        //if (xmlNodes.Count <= 0) return string.Empty;
-        foreach (XmlAttribute xmlAttribute in xmlDocument.DocumentElement.Attributes)
+        try
         {
-            if (xmlAttribute.Name.Equals(nodeIdentity, StringComparison.InvariantCultureIgnoreCase))
-            {
-                try
+            XmlDocument xmlDocument = new();
+            xmlDocument.LoadXml(xml);
+            if (xmlDocument.DocumentElement is not null)
+                foreach (XmlAttribute xmlAttribute in xmlDocument.DocumentElement.Attributes)
                 {
-                    return xmlAttribute.Value ?? string.Empty;
+                    if (xmlAttribute.Name.Equals(nodeIdentity, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        try
+                        {
+                            return xmlAttribute.Value ?? string.Empty;
+                        }
+                        catch (Exception)
+                        {
+                            //
+                        }
+                    }
                 }
-                catch (Exception)
-                {
-                    //
-                }
-            }
+        }
+        catch (Exception)
+        {
+            //
         }
         return string.Empty;
     }

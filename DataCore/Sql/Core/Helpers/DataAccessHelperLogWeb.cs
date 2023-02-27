@@ -11,41 +11,64 @@ public partial class DataAccessHelper
 {
     #region Public and private methods
 
-    public void LogWebService(DateTime stampDt, ServiceLogDirection logDirection, string url, string parameters, string headers, 
-        FormatType formatType, string dataString, LogType logType, int countAll, int countSuccess, int countErrors) =>
-        LogWebService(stampDt, logDirection, url, parameters, headers, (byte)formatType, dataString, logType,
-            countAll, countSuccess, countErrors);
+    public void LogWebService(DateTime requestStampDt, string requestDataString,
+        DateTime responseStampDt, string responseDataString, LogType logType, 
+        string url, string parameters, string headers, FormatType formatType, int countAll, int countSuccess, int countErrors) =>
+        LogWebService(requestStampDt, requestDataString, responseStampDt, responseDataString, logType,
+            url, parameters, headers, (byte)formatType, countAll, countSuccess, countErrors);
 
-    public void LogWebService(DateTime stampDt, ServiceLogDirection logDirection, string url, string parameters, string headers, 
-        string format, string dataString, LogType logType, int countAll, int countSuccess, int countErrors) =>
-        LogWebService(stampDt, logDirection, url, parameters, headers, (byte)DataFormatUtils.GetFormatType(format), dataString, logType,
-            countAll, countSuccess, countErrors);
+    public void LogWebService(DateTime requestStampDt, string requestDataString,
+        DateTime responseStampDt, string responseDataString, LogType logType,
+        string url, string parameters, string headers, string format, int countAll, int countSuccess, int countErrors) =>
+        LogWebService(requestStampDt, requestDataString, responseStampDt, responseDataString, logType,
+            url, parameters, headers, (byte)DataFormatUtils.GetFormatType(format), countAll, countSuccess, countErrors);
 
-    private void LogWebService(DateTime stampDt, ServiceLogDirection logDirection, string url, string parameters, string headers,
-        byte formatType, string dataString, LogType logType, int countAll, int countSuccess, int countErrors)
+    private void LogWebService(DateTime requestStampDt, string requestDataString, 
+        DateTime responseStampDt, string responseDataString, LogType logType,
+        string url, string parameters, string headers,
+        byte formatType, int countAll, int countSuccess, int countErrors)
     {
-        LogWebModel logWeb = new()
+        LogWebModel logWebRequest = new()
         {
             CreateDt = DateTime.Now,
-            StampDt = stampDt,
+            StampDt = requestStampDt,
             IsMarked = false,
             Version = AppVersion.Version,
-            Direction = (byte)logDirection,
+            Direction = (byte)ServiceLogDirection.Request,
             Url = url,
             Params = parameters,
             Headers = headers,
             DataType = formatType,
-            DataString = dataString,
+            DataString = requestDataString,
             CountAll = countAll,
             CountSuccess = countSuccess,
             CountErrors = countErrors,
         };
-        SaveAsync(logWeb).ConfigureAwait(false);
+        Save(logWebRequest);
+
+        LogWebModel logWebResponse = new()
+        {
+            CreateDt = DateTime.Now,
+            StampDt = responseStampDt,
+            IsMarked = false,
+            Version = AppVersion.Version,
+            Direction = (byte)ServiceLogDirection.Response,
+            Url = url,
+            Params = parameters,
+            Headers = headers,
+            DataType = formatType,
+            DataString = responseDataString,
+            CountAll = countAll,
+            CountSuccess = countSuccess,
+            CountErrors = countErrors,
+        };
+        Save(logWebResponse);
 
         LogTypeModel logTypeItem = GetItemLogTypeNotNullable(logType);
         LogWebFkModel logWebFk = new()
         {
-            LogWeb = logWeb,
+            LogWebRequest = logWebRequest,
+            LogWebResponse = logWebResponse,
             App = App,
             LogType = logTypeItem,
             Device = Device,

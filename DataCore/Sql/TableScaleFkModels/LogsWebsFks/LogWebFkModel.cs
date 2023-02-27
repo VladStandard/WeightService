@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -19,8 +19,10 @@ public class LogWebFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
-    private LogWebModel _logWeb;
-    [XmlElement] public virtual LogWebModel LogWeb { get => _logWeb; set => _logWeb = value; }
+    private LogWebModel _logWebRequest;
+    [XmlElement] public virtual LogWebModel LogWebRequest { get => _logWebRequest; set => _logWebRequest = value; }
+    private LogWebModel _logWebResponse;
+    [XmlElement] public virtual LogWebModel LogWebResponse { get => _logWebResponse; set => _logWebResponse = value; }
     private AppModel _app;
     [XmlElement] public virtual AppModel App { get => _app; set => _app = value; }
     private LogTypeModel _logType;
@@ -33,7 +35,8 @@ public class LogWebFkModel : SqlTableBase
     /// </summary>
     public LogWebFkModel() : base(SqlFieldIdentity.Uid)
     {
-        _logWeb = new();
+        _logWebRequest = new();
+        _logWebResponse = new();
         _app = new();
         _logType = new();
         _device = new();
@@ -46,7 +49,8 @@ public class LogWebFkModel : SqlTableBase
     /// <param name="context"></param>
     protected LogWebFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        _logWeb = (LogWebModel)info.GetValue(nameof(LogWeb), typeof(LogWebModel));
+        _logWebRequest = (LogWebModel)info.GetValue(nameof(LogWebRequest), typeof(LogWebModel));
+        _logWebResponse = (LogWebModel)info.GetValue(nameof(LogWebResponse), typeof(LogWebModel));
         _app = (AppModel)info.GetValue(nameof(App), typeof(AppModel));
         _logType = (LogTypeModel)info.GetValue(nameof(LogType), typeof(LogTypeModel));
         _device = (DeviceModel)info.GetValue(nameof(DeviceModel), typeof(DeviceModel));
@@ -62,7 +66,8 @@ public class LogWebFkModel : SqlTableBase
     /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(LogWeb)}: {LogWeb}. " +
+        $"{nameof(LogWebRequest)}: {LogWebRequest}. " +
+        $"{nameof(LogWebResponse)}: {LogWebResponse}. " +
         $"{nameof(App)}: {App}. " +
         $"{nameof(LogType)}: {LogType}. " +
         $"{nameof(Device)}: {Device}";
@@ -81,7 +86,8 @@ public class LogWebFkModel : SqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
-        LogWeb.EqualsDefault() &&
+        LogWebRequest.EqualsDefault() &&
+        LogWebResponse.EqualsDefault() &&
         App.EqualsDefault() &&
         LogType.EqualsDefault() &&
         Device.EqualsDefault();
@@ -90,7 +96,8 @@ public class LogWebFkModel : SqlTableBase
     {
         LogWebFkModel item = new();
         item.CloneSetup(base.CloneCast());
-        item.LogWeb = LogWeb.CloneCast();
+        item.LogWebRequest = LogWebRequest.CloneCast();
+        item.LogWebResponse = LogWebResponse.CloneCast();
         item.App = App.CloneCast();
         item.LogType = LogType.CloneCast();
         item.Device = Device.CloneCast();
@@ -105,7 +112,8 @@ public class LogWebFkModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(LogWeb), LogWeb);
+        info.AddValue(nameof(LogWebRequest), LogWebRequest);
+        info.AddValue(nameof(LogWebResponse), LogWebResponse);
         info.AddValue(nameof(App), App);
         info.AddValue(nameof(LogType), LogType);
         info.AddValue(nameof(Device), Device);
@@ -114,7 +122,8 @@ public class LogWebFkModel : SqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        LogWeb.FillProperties();
+        LogWebRequest.FillProperties();
+        LogWebResponse.FillProperties();
         App.FillProperties();
         LogType.FillProperties();
         Device.FillProperties();
@@ -125,7 +134,8 @@ public class LogWebFkModel : SqlTableBase
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
         if (item is not LogWebFkModel logWebFk) return;
-        LogWeb = logWebFk.LogWeb;
+        LogWebRequest = logWebFk.LogWebRequest;
+        LogWebResponse = logWebFk.LogWebResponse;
         App = logWebFk.App;
         LogType = logWebFk.LogType;
         Device = logWebFk.Device;
@@ -137,7 +147,8 @@ public class LogWebFkModel : SqlTableBase
 
     public virtual bool Equals(LogWebFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
-        LogWeb.Equals(item.LogWeb) &&
+        LogWebRequest.Equals(item.LogWebRequest) &&
+        LogWebResponse.Equals(item.LogWebResponse) &&
         App.Equals(item.App) &&
         LogType.Equals(item.LogType) &&
         Device.Equals(item.Device);

@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using DataCore.Utils;
+using WsLocalization.Models;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
@@ -36,15 +37,16 @@ public class TestControllerV3 : WebControllerBase
     /// Get info.
     /// </summary>
     /// <param name="format"></param>
+    /// <param name="host"></param>
+    /// <param name="version"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
     [Route("api/info/")]
-    [Route("api/v3/info/")]
-    public ContentResult GetInfo([FromQuery(Name = "format")] string format = "", [FromHeader(Name = "host")] string host = "")
+    public ContentResult GetInfo([FromQuery(Name = "format")] string format = "",
+        [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
-        DateTime stampDt = DateTime.Now;
-        ControllerHelp.LogRequest(nameof(WsWebApiScales), "api/info/", stampDt, string.Empty, format, host, string.Empty).ConfigureAwait(false);
+        DateTime requestStampDt = DateTime.Now;
         ContentResult result = ControllerHelp.GetContentResult(() =>
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
@@ -69,15 +71,16 @@ public class TestControllerV3 : WebControllerBase
                     (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
                 .GetContentResult<ServiceInfoModel>(format, HttpStatusCode.OK);
         }, format);
-        ControllerHelp.LogResponse(nameof(WsWebApiScales), "api/info/", stampDt, result, format, host, string.Empty).ConfigureAwait(false);
+        ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), LocaleCore.WebService.UrlApiInfo,
+            requestStampDt, string.Empty, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }
 
     [AllowAnonymous]
     [HttpGet]
     [Route("api/exception/")]
-    [Route("api/v3/exception/")]
     public ContentResult GetException([FromQuery(Name = "format")] string format = "",
+        [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "",
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         ControllerHelp.GetContentResult(() => 
             new ServiceExceptionModel(filePath, lineNumber, memberName, "Test Exception!", "Test inner exception!")
@@ -86,8 +89,8 @@ public class TestControllerV3 : WebControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("api/simple/")]
-    [Route("api/v3/simple/")]
-    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "") =>
+    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "",
+        [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "") =>
         new TestControllerV2(SessionFactory).GetSimple(format);
 
     #endregion
