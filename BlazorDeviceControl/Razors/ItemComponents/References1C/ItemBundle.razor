@@ -1,4 +1,5 @@
 ﻿@using DataCore.Sql.TableScaleModels.Bundles
+@using BlazorDeviceControl.Razors.CustomComponents;
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Bundles.BundleModel>
 @page "/item/bundle"
 @page "/item/bundle/new"
@@ -17,7 +18,7 @@
     </td>
     <td>@LocaleCore.Table.Weight</td>
     <td>
-      <RadzenNumeric Style="width: 100%; " TValue="decimal" @bind-Value="@SqlItemCast.Weight"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.Weight"/>
     </td>
   </tr>
   </tbody>

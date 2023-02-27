@@ -132,15 +132,13 @@
       <RadzenLabel Style="width: 100%; " Text="@LocaleCore.Table.NestingCount"/>
     </td>
     <td>
-      <RadzenNumeric Style="width: 100%; text-align: center; "
-                     TValue="short" @bind-Value="@SqlItemCast.BundleCount"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.BundleCount"/>
     </td>
     <td>
       <RadzenLabel Style="width: 100%; " Text="@LocaleCore.Table.WeightNominal"/>
     </td>
     <td>
-      <RadzenNumeric Style="width: 100%; text-align: center; "
-                     TValue="decimal" @bind-Value="@SqlItemCast.WeightNom"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.WeightNom"/>
     </td>
   </tr>
   <tr>

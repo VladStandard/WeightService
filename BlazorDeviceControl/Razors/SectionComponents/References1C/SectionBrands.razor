@@ -13,7 +13,7 @@
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
-  <Columns >
+  <Columns>
     <RazorSectionFieldIsMarked TItem="@BrandModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.ChangeDt" Width="12%">
       <Template Context="itemCast">

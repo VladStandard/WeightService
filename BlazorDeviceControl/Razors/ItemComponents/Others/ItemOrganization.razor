@@ -1,4 +1,5 @@
 ﻿@using DataCore.Sql.TableScaleModels.Organizations
+@using BlazorDeviceControl.Razors.CustomComponents;
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Organizations.OrganizationModel>
 @page "/item/organization"
 @page "/item/organization/new"
@@ -25,8 +26,7 @@
   <tr>
     <td>@LocaleCore.Table.Gln</td>
     <td colspan="3">
-      <RadzenNumeric Style="width: 100%; text-align: center; "
-                     TValue="int" @bind-Value="@SqlItemCast.Gln"/>
+      <MudNumericLocal  @bind-Value="@SqlItemCast.Gln"/>
     </td>
   </tr>
   </tbody>

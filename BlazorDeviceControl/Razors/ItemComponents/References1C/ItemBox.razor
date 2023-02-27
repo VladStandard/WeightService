@@ -1,4 +1,5 @@
 ﻿@using DataCore.Sql.TableScaleModels.Boxes
+@using BlazorDeviceControl.Razors.CustomComponents;
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Boxes.BoxModel>
 @page "/item/box"
 @page "/item/box/new"
@@ -14,13 +15,11 @@
     <td>@LocaleCore.Table.Name</td>
     <td>
       <RadzenTextBox
-        Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
+        Style="width: 100%;" @bind-Value="@SqlItemCast.Name"/>
     </td>
     <td>@LocaleCore.Table.Weight</td>
     <td>
-      <RadzenNumeric
-        Style="width: 100%; "
-        TValue="decimal" @bind-Value="@SqlItemCast.Weight"/>
+      <MudNumericLocal @bind-Value="@SqlItemCast.Weight"/>
     </td>
   </tr>
   </tbody>
