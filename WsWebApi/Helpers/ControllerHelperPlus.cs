@@ -69,7 +69,7 @@ public partial class ControllerHelper
             if (UpdateItem1cDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
 
             // Find by Number -> Update exists.
-            pluDb = plusDb.Find(item => Equals(item.Number, pluXml.Number));
+            pluDb = plusDb.Find(item => Equals(item.Number, pluXml.Number) && !Equals(item.Number, (short)0));
             if (UpdateItem1cDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
 
             // Not find -> Add new.
@@ -420,8 +420,12 @@ public partial class ControllerHelper
             List<PluModel> plusXml = GetXmlPluList(xml);
             foreach (PluModel pluXml in plusXml)
             {
-                CheckPluValidator(pluXml, pluProperties);
-                CheckPluDublicate(pluXml, plusDb);
+                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                    CheckPluNumberForNonGroup(pluXml, plusDb);
+                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                    CheckPluValidator(pluXml, pluProperties);
+                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                    CheckPluDublicateForNonGroup(pluXml, plusDb);
                 if (pluXml.ParseResult.Status == ParseStatus.Success)
                     AddResponse1cPlus(response, plusDb, pluXml);
                 if (pluXml.ParseResult.Status == ParseStatus.Success)
@@ -466,7 +470,19 @@ public partial class ControllerHelper
         }
     }
 
-    private void CheckPluDublicate(PluModel pluXml, List<PluModel> plusDb)
+    private void CheckPluNumberForNonGroup(PluModel pluXml, List<PluModel> plusDb)
+    {
+        if (pluXml.IsGroup) return;
+        if (Equals(pluXml.Number, (short)0))
+        {
+            pluXml.ParseResult.Status = ParseStatus.Error;
+            pluXml.ParseResult.Exception =
+                $"{LocaleCore.WebService.FieldPluNumber} = '{pluXml.Number}' " +
+                $"{LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} Code '{pluXml.Code}'";
+        }
+    }
+
+    private void CheckPluDublicateForNonGroup(PluModel pluXml, List<PluModel> plusDb)
     {
         if (pluXml.IsGroup) return;
         if (plusDb.Select(x => x.Number).Contains(pluXml.Number))

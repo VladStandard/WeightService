@@ -37,11 +37,8 @@ public class PluController : WebControllerBase
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
-            AcceptVersion.V2 =>
-                ControllerHelp.GetContentResult(() => ControllerHelp
-                    .NewResponse1cIsNotFound(version, format), format),
-            _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cPlus(xml, format), format)
+            AcceptVersion.V2 => ControllerHelp.GetContentResult(() => ControllerHelp.NewResponse1cIsNotFound(version, format), format),
+            _ => ControllerHelp.GetContentResult(() => ControllerHelp.NewResponse1cPlus(xml, format), format)
         };
         ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), LocaleCore.WebService.UrlSendNomenclatures,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
