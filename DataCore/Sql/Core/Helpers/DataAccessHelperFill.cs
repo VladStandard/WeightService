@@ -129,7 +129,7 @@ public partial class DataAccessHelper
 				break;
             case PluCharacteristicsFkModel pluCharacteristicsFk:
                 pluCharacteristicsFk.Plu = GetItemNotNullable<PluModel>(pluCharacteristicsFk.Plu.IdentityValueUid);
-                pluCharacteristicsFk.PluCharacteristic = GetItemNotNullable<PluCharacteristicModel>(pluCharacteristicsFk.PluCharacteristic.IdentityValueUid);
+                pluCharacteristicsFk.Characteristic = GetItemNotNullable<PluCharacteristicModel>(pluCharacteristicsFk.Characteristic.IdentityValueUid);
                 break;
             case OrderWeighingModel orderWeighing:
                 orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);

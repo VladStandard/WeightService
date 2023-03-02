@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
@@ -327,7 +327,7 @@ public class PluModel : SqlTableBase1c
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) return;
         IsGroup = plu.IsGroup;
-        if (plu.Number > 0)
+        if (IsGroup || plu.Number > 0)
             Number = plu.Number;
         if (!string.IsNullOrEmpty(plu.Code))
             Code = plu.Code;

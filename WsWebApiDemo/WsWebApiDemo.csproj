@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.8.400.0</Version>
+    <Version>0.8.430.0</Version>
     <LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>

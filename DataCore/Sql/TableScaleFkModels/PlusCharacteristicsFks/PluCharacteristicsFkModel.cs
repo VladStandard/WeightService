@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -18,7 +18,7 @@ public class PluCharacteristicsFkModel : SqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual PluModel Plu { get; set; }
-    [XmlElement] public virtual PluCharacteristicModel PluCharacteristic { get; set; }
+    [XmlElement] public virtual PluCharacteristicModel Characteristic { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -26,7 +26,7 @@ public class PluCharacteristicsFkModel : SqlTableBase
     public PluCharacteristicsFkModel() : base(SqlFieldIdentity.Uid)
     {
         Plu = new();
-        PluCharacteristic = new();
+        Characteristic = new();
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public class PluCharacteristicsFkModel : SqlTableBase
     protected PluCharacteristicsFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
-        PluCharacteristic = (PluCharacteristicModel)info.GetValue(nameof(PluCharacteristic),  typeof(PluCharacteristicModel));
+        Characteristic = (PluCharacteristicModel)info.GetValue(nameof(Characteristic),  typeof(PluCharacteristicModel));
     }
 
     #endregion
@@ -50,7 +50,7 @@ public class PluCharacteristicsFkModel : SqlTableBase
     /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(PluCharacteristic)}: {PluCharacteristic}. " +
+        $"{nameof(Characteristic)}: {Characteristic}. " +
         $"{nameof(Plu)}: {Plu}. ";
 
     public override bool Equals(object obj)
@@ -68,14 +68,14 @@ public class PluCharacteristicsFkModel : SqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() && 
         Plu.EqualsDefault() &&
-        PluCharacteristic.EqualsDefault();
+        Characteristic.EqualsDefault();
 
     public override object Clone()
     {
         PluCharacteristicsFkModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Plu = Plu.CloneCast();
-        item.PluCharacteristic = PluCharacteristic.CloneCast();
+        item.Characteristic = Characteristic.CloneCast();
         return item;
     }
 
@@ -88,14 +88,14 @@ public class PluCharacteristicsFkModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Plu), Plu);
-        info.AddValue(nameof(PluCharacteristic), PluCharacteristic);
+        info.AddValue(nameof(Characteristic), Characteristic);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
         Plu.FillProperties();
-        PluCharacteristic.FillProperties();
+        Characteristic.FillProperties();
     }
 
     public override void UpdateProperties(ISqlTable item)
@@ -104,7 +104,7 @@ public class PluCharacteristicsFkModel : SqlTableBase
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluCharacteristicsFkModel pluCharacteristicsFk) return;
         Plu = pluCharacteristicsFk.Plu;
-        PluCharacteristic = pluCharacteristicsFk.PluCharacteristic;
+        Characteristic = pluCharacteristicsFk.Characteristic;
     }
 
     #endregion
@@ -114,7 +114,7 @@ public class PluCharacteristicsFkModel : SqlTableBase
     public virtual bool Equals(PluCharacteristicsFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Plu.Equals(item.Plu) &&
-        PluCharacteristic.Equals(item.PluCharacteristic);
+        Characteristic.Equals(item.Characteristic);
 
     public new virtual PluCharacteristicsFkModel CloneCast() => (PluCharacteristicsFkModel)Clone();
 

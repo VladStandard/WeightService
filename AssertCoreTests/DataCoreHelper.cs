@@ -373,7 +373,7 @@ public class DataCoreHelper
                 break;
             case PluCharacteristicsFkModel nomenclatureCharacteristicFk:
                 nomenclatureCharacteristicFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
-                nomenclatureCharacteristicFk.PluCharacteristic = CreateNewSubstitute<PluCharacteristicModel>(isNotDefault);
+                nomenclatureCharacteristicFk.Characteristic = CreateNewSubstitute<PluCharacteristicModel>(isNotDefault);
                 break;
             case PluFkModel pluFk:
                 pluFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
