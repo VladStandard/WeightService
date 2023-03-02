@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
@@ -6,7 +6,7 @@ using DataCore.Sql.TableScaleModels.ProductionFacilities;
 namespace DataCore.Sql.TableScaleModels.WorkShops;
 
 /// <summary>
-/// Table validation "___".
+/// Table validation "WorkShop".
 /// </summary>
 public class WorkShopValidator : SqlTableValidator<WorkShopModel>
 {

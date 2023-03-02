@@ -4,6 +4,7 @@
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
@@ -22,7 +23,6 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
@@ -75,7 +75,7 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<PluScaleModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<PluWeighingModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<PrinterModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<PrinterResourceModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<PrinterResourceFkModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<PrinterTypeModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<ProductionFacilityModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<ProductSeriesModel>();
@@ -113,7 +113,7 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<PluScaleModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<PluWeighingModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<PrinterModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<PrinterResourceModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<PrinterResourceFkModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<PrinterTypeModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<ProductionFacilityModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<ProductSeriesModel>();

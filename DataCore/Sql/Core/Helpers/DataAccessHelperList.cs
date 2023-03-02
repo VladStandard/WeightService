@@ -6,11 +6,11 @@ using DataCore.Sql.Core.Utils;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.Scales;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
@@ -154,13 +154,13 @@ public partial class DataAccessHelper
     }
 
     [Obsolete(@"Use DataContext")]
-    public List<PrinterResourceModel> GetListPrinterResources(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
+    public List<PrinterResourceFkModel> GetListPrinterResources(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
     {
-        List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PrinterResourceModel.Printer), itemFilter?.IdentityValueId);
+        List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters,
             new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc),
             isShowMarked, isShowOnlyTop);
-        return GetListNotNullable<PrinterResourceModel>(sqlCrudConfig);
+        return GetListNotNullable<PrinterResourceFkModel>(sqlCrudConfig);
     }
 
     [Obsolete(@"Use DataContext")]

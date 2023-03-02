@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
+
 namespace WsStorageCoreTests.Core.Helpers;
 
 [TestFixture]
@@ -306,7 +308,7 @@ internal class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterResourceValidator item = new();
+            PrinterResourceFkValidator item = new();
             TestContext.WriteLine(item);
         });
     }

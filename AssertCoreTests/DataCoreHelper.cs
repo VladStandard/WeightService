@@ -26,7 +26,6 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
@@ -52,6 +51,7 @@ using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.LogsWebs;
 using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
 namespace AssertCoreTests;
 
@@ -449,7 +449,7 @@ public class DataCoreHelper
 				printer.DarknessLevel.Returns((short)1);
 				printer.PrinterType = CreateNewSubstitute<PrinterTypeModel>(isNotDefault);
 				break;
-			case PrinterResourceModel printerResource:
+			case PrinterResourceFkModel printerResource:
 				printerResource.Printer = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				printerResource.TemplateResource = CreateNewSubstitute<TemplateResourceDeprecatedModel>(isNotDefault);
 				break;

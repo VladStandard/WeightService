@@ -5,6 +5,7 @@ using BlazorCore.Razors;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Boxes;
@@ -15,7 +16,6 @@ using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.Scales;
@@ -166,8 +166,8 @@ public static class RazorFieldConfigUtils
 
 	public static class PrinterResource
 	{
-		public static RazorFieldConfigModel GetName() => new(new PrinterResourceModel(), $"{nameof(PrinterResourceModel.TemplateResource)}.{nameof(TemplateResourceDeprecatedModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
-		public static RazorFieldConfigModel GetPrinter() => new(new PrinterModel(), $"{nameof(PrinterResourceModel.Printer)}.{nameof(PrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
+		public static RazorFieldConfigModel GetName() => new(new PrinterResourceFkModel(), $"{nameof(PrinterResourceFkModel.TemplateResource)}.{nameof(TemplateResourceDeprecatedModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
+		public static RazorFieldConfigModel GetPrinter() => new(new PrinterModel(), $"{nameof(PrinterResourceFkModel.Printer)}.{nameof(PrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
 	}
 
 	public static class ProductionFacility

@@ -1,18 +1,18 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.TableScaleModels.Printers;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 
-namespace DataCore.Sql.TableScaleModels.PrintersResources;
+namespace DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
 /// <summary>
 /// Table "ZebraPrinterResourceRef".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PrinterResourceModel)}")]
-public class PrinterResourceModel : SqlTableBase
+[DebuggerDisplay("{nameof(PrinterResourceFkModel)}")]
+public class PrinterResourceFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -22,7 +22,7 @@ public class PrinterResourceModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PrinterResourceModel() : base(SqlFieldIdentity.Id)
+    public PrinterResourceFkModel() : base(SqlFieldIdentity.Id)
     {
         Printer = new();
         TemplateResource = new();
@@ -33,7 +33,7 @@ public class PrinterResourceModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected PrinterResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PrinterResourceFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Printer = (PrinterModel)info.GetValue(nameof(Printer), typeof(PrinterModel));
         TemplateResource = (TemplateResourceDeprecatedModel)info.GetValue(nameof(TemplateResource), typeof(TemplateResourceDeprecatedModel));
@@ -53,7 +53,7 @@ public class PrinterResourceModel : SqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((PrinterResourceModel)obj);
+        return Equals((PrinterResourceFkModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -67,7 +67,7 @@ public class PrinterResourceModel : SqlTableBase
 
     public override object Clone()
     {
-        PrinterResourceModel item = new();
+        PrinterResourceFkModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Printer = Printer.CloneCast();
         item.TemplateResource = TemplateResource.CloneCast();
@@ -97,12 +97,12 @@ public class PrinterResourceModel : SqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(PrinterResourceModel item) =>
+    public virtual bool Equals(PrinterResourceFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Printer.Equals(item.Printer) &&
         TemplateResource.Equals(item.TemplateResource);
 
-    public new virtual PrinterResourceModel CloneCast() => (PrinterResourceModel)Clone();
+    public new virtual PrinterResourceFkModel CloneCast() => (PrinterResourceFkModel)Clone();
 
     #endregion
 }

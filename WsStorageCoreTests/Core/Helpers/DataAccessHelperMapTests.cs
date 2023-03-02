@@ -3,6 +3,7 @@
 
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.LogsWebs;
 
 namespace WsStorageCoreTests.Core.Helpers;
@@ -359,7 +360,7 @@ internal class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterResourceMap item = new();
+            PrinterResourceFkMap item = new();
             TestContext.WriteLine(item);
         });
     }

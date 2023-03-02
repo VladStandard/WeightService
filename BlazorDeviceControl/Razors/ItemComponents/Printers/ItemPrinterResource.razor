@@ -1,18 +1,18 @@
-﻿@using DataCore.Sql.TableScaleModels.PrintersResources
 @using DataCore.Sql.TableScaleModels.TemplatesResources
 @using DataCore.Sql.TableScaleModels.Printers
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PrintersResources.PrinterResourceModel>
+@using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleFkModels.PrintersResourcesFks.PrinterResourceFkModel>
 @page "/item/printer_resource"
 @page "/item/printer_resource/new"
 @page "/item/printer_resource/{IdentityId:long}"
 
-<RazorItemReload TItem="@PrinterResourceModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Resource"/>
+<RazorItemReload TItem="@PrinterResourceFkModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Resource"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PrinterResourceModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PrinterResourceFkModel" ParentRazor="@(this)"/>
   <tr>
     <td>@LocaleCore.Print.Name</td>
     <td>
@@ -43,4 +43,4 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PrinterResourceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions TItem="@PrinterResourceFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>

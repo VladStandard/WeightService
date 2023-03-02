@@ -1,20 +1,20 @@
-﻿@using DataCore.Sql.TableScaleModels.PrintersResources
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PrintersResources.PrinterResourceModel, SqlTableBase>
+@using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PrintersResourcesFks.PrinterResourceFkModel, SqlTableBase>
 @page "/section/printers_resources"
 
-<RazorSectionReload TItem="@PrinterResourceModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Print.Resources" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@PrinterResourceFkModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Print.Resources" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@PrinterResourceModel"
+  TItem="@PrinterResourceFkModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <TItemContent TItem="@PrinterResourceModel">
+    <TItemContent TItem="@PrinterResourceFkModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription()" Width="32%" />
       <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.PrinterResource.GetPrinter()" Width="32%" />

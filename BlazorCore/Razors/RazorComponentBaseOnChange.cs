@@ -2,9 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.Scales;
@@ -62,7 +62,7 @@ public partial class RazorComponentBase
                 case PrinterModel printer:
                     OnChangeItemPrinter(printer, filterName, value);
                     break;
-                case PrinterResourceModel printerResource:
+                case PrinterResourceFkModel printerResource:
                     OnChangeItemPrinterResource(printerResource, filterName, value);
                     break;
                 case ScaleModel scale:
@@ -95,7 +95,7 @@ public partial class RazorComponentBase
         }
     }
 
-    private void OnChangeItemPrinterResource(PrinterResourceModel item, string filterName, object? value)
+    private void OnChangeItemPrinterResource(PrinterResourceFkModel item, string filterName, object? value)
     {
         if (filterName == nameof(item.Printer) && value is long printerId)
         {

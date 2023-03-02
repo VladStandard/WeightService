@@ -18,7 +18,6 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
@@ -36,6 +35,7 @@ using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.PlusGroups;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
 namespace BlazorCore.Razors;
 
@@ -73,7 +73,7 @@ public partial class RazorComponentBase
 			PluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
 			PluWeighingModel => LocaleCore.DeviceControl.ItemPluWeighing,
 			PrinterModel => LocaleCore.Print.Name,
-			PrinterResourceModel => LocaleCore.Print.Resources,
+			PrinterResourceFkModel => LocaleCore.Print.Resources,
 			PrinterTypeModel => LocaleCore.Print.Types,
 			ProductionFacilityModel => LocaleCore.DeviceControl.ItemProductionFacility,
 			ProductSeriesModel => LocaleCore.DeviceControl.ItemProductSeries,
@@ -116,7 +116,7 @@ public partial class RazorComponentBase
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
 			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeighings,
 			PrinterModel => LocaleCore.Print.Name,
-			PrinterResourceModel => LocaleCore.Print.Resources,
+			PrinterResourceFkModel => LocaleCore.Print.Resources,
 			PrinterTypeModel => LocaleCore.Print.Types,
 			ProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
 			ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,

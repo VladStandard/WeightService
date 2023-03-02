@@ -1,11 +1,11 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleModels.PrintersResources;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Printers;
 
-public partial class SectionPrintersResources : RazorComponentSectionBase<PrinterResourceModel, SqlTableBase>
+public partial class SectionPrintersResources : RazorComponentSectionBase<PrinterResourceFkModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 
@@ -19,8 +19,8 @@ public partial class SectionPrintersResources : RazorComponentSectionBase<Printe
         {
             () =>
             {
-	            SqlCrudConfigSection.AddFilters(nameof(PrinterResourceModel.Printer), ParentRazor ?.SqlItem);
-				SqlSectionCast = DataContext.GetListNotNullable<PrinterResourceModel>(SqlCrudConfigSection);
+	            SqlCrudConfigSection.AddFilters(nameof(PrinterResourceFkModel.Printer), ParentRazor ?.SqlItem);
+				SqlSectionCast = DataContext.GetListNotNullable<PrinterResourceFkModel>(SqlCrudConfigSection);
                 AutoShowFilterOnlyTopSetup();
             }
         });

@@ -5,6 +5,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
@@ -24,7 +25,6 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
@@ -132,7 +132,7 @@ public partial class RazorComponentBase
         PluScaleModel => LocaleCore.DeviceControl.RouteItemPluScale,
         PluWeighingModel => LocaleCore.DeviceControl.RouteItemPluWeighing,
         PrinterModel => LocaleCore.DeviceControl.RouteItemPrinter,
-        PrinterResourceModel => LocaleCore.DeviceControl.RouteItemPrinterResource,
+        PrinterResourceFkModel => LocaleCore.DeviceControl.RouteItemPrinterResource,
         PrinterTypeModel => LocaleCore.DeviceControl.RouteItemPrinterType,
         ProductionFacilityModel => LocaleCore.DeviceControl.RouteItemProductionFacility,
         ProductSeriesModel => LocaleCore.DeviceControl.RouteItemProductSerie,
@@ -175,7 +175,7 @@ public partial class RazorComponentBase
             PluScaleModel => LocaleCore.DeviceControl.RouteSectionScales,
             PluWeighingModel => LocaleCore.DeviceControl.RouteSectionPlusWeighings,
             PrinterModel => LocaleCore.DeviceControl.RouteSectionPrinters,
-            PrinterResourceModel => LocaleCore.DeviceControl.RouteSectionPrinterResources,
+            PrinterResourceFkModel => LocaleCore.DeviceControl.RouteSectionPrinterResources,
             PrinterTypeModel => LocaleCore.DeviceControl.RouteSectionPrinterTypes,
             ProductionFacilityModel => LocaleCore.DeviceControl.RouteSectionProductionFacilities,
             ProductSeriesModel => LocaleCore.DeviceControl.RouteSectionProductSeries,

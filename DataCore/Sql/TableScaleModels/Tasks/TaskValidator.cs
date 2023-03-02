@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels.Scales;
@@ -7,7 +7,7 @@ using DataCore.Sql.TableScaleModels.TasksTypes;
 namespace DataCore.Sql.TableScaleModels.Tasks;
 
 /// <summary>
-/// Table validation "___".
+/// Table validation "TASKS".
 /// </summary>
 public class TaskValidator : SqlTableValidator<TaskModel>
 {

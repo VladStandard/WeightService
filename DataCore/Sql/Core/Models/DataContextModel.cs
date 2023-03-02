@@ -14,6 +14,7 @@ using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
@@ -38,7 +39,6 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
@@ -94,7 +94,7 @@ public class DataContextModel
     public List<PluWeighingModel> PluWeighings { get; set; }
     public List<PluNestingFkModel> PluNestingFks { get; set; }
     public List<PrinterModel> Printers { get; set; }
-    public List<PrinterResourceModel> PrinterResources { get; set; }
+    public List<PrinterResourceFkModel> PrinterResources { get; set; }
     public List<PrinterTypeModel> PrinterTypes { get; set; }
     public List<ProductionFacilityModel> ProductionFacilities { get; set; }
     public List<ProductSeriesModel> ProductSeries { get; set; }
@@ -201,7 +201,7 @@ public class DataContextModel
         var cls when cls == typeof(PluTemplateFkModel) => GetListNotNullablePluTemplateFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluWeighingModel) => GetListNotNullablePluWeighings<T>(sqlCrudConfig),
         var cls when cls == typeof(PrinterModel) => GetListNotNullablePrinters<T>(sqlCrudConfig),
-        var cls when cls == typeof(PrinterResourceModel) => GetListNotNullablePrinterResources<T>(sqlCrudConfig),
+        var cls when cls == typeof(PrinterResourceFkModel) => GetListNotNullablePrinterResources<T>(sqlCrudConfig),
         var cls when cls == typeof(PrinterTypeModel) => GetListNotNullablePrinterTypes<T>(sqlCrudConfig),
         var cls when cls == typeof(ProductionFacilityModel) => GetListNotNullableProductionFacilities<T>(sqlCrudConfig),
         var cls when cls == typeof(ProductSeriesModel) => GetListNotNullableProductSeries<T>(sqlCrudConfig),
@@ -616,7 +616,7 @@ public class DataContextModel
 
     private List<T> GetListNotNullablePrinterResources<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
     {
-        PrinterResources = DataAccess.GetListNotNullable<PrinterResourceModel>(sqlCrudConfig);
+        PrinterResources = DataAccess.GetListNotNullable<PrinterResourceFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PrinterResources.Count > 1)
             PrinterResources = PrinterResources
                 .OrderBy(item => item.Printer.Name).ToList()
@@ -777,7 +777,7 @@ public class DataContextModel
         new PluTemplateFkModel(),
         new PluWeighingModel(),
         new PrinterModel(),
-        new PrinterResourceModel(),
+        new PrinterResourceFkModel(),
         new PrinterTypeModel(),
         new ProductionFacilityModel(),
         new ProductSeriesModel(),
@@ -828,7 +828,7 @@ public class DataContextModel
         typeof(PluTemplateFkModel),
         typeof(PluWeighingModel),
         typeof(PrinterModel),
-        typeof(PrinterResourceModel),
+        typeof(PrinterResourceFkModel),
         typeof(PrinterTypeModel),
         typeof(ProductionFacilityModel),
         typeof(ProductSeriesModel),
@@ -881,7 +881,7 @@ public class DataContextModel
         typeof(PluTemplateFkMap),
         typeof(PluWeighingMap),
         typeof(PrinterMap),
-        typeof(PrinterResourceMap),
+        typeof(PrinterResourceFkMap),
         typeof(PrinterTypeMap),
         typeof(ProductionFacilityMap),
         typeof(ProductSeriesMap),
@@ -932,7 +932,7 @@ public class DataContextModel
         typeof(PluTemplateFkValidator),
         typeof(PluValidator),
         typeof(PluWeighingValidator),
-        typeof(PrinterResourceValidator),
+        typeof(PrinterResourceFkValidator),
         typeof(PrinterTypeValidator),
         typeof(PrinterValidator),
         typeof(ProductionFacilityValidator),
@@ -983,7 +983,7 @@ public class DataContextModel
             var cls when cls == typeof(PluTemplateFkModel) => nameof(PluTemplateFkModel),
             var cls when cls == typeof(PluWeighingModel) => nameof(PluWeighingModel),
             var cls when cls == typeof(PrinterModel) => nameof(PrinterModel),
-            var cls when cls == typeof(PrinterResourceModel) => nameof(PrinterResourceModel),
+            var cls when cls == typeof(PrinterResourceFkModel) => nameof(PrinterResourceFkModel),
             var cls when cls == typeof(PrinterTypeModel) => nameof(PrinterTypeModel),
             var cls when cls == typeof(ProductionFacilityModel) => nameof(ProductionFacilityModel),
             var cls when cls == typeof(ProductSeriesModel) => nameof(ProductSeriesModel),

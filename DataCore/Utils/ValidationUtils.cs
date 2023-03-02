@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.CssStyles;
@@ -13,6 +13,7 @@ using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
@@ -37,7 +38,6 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
@@ -53,10 +53,8 @@ using FluentValidation.Results;
 
 namespace DataCore.Utils;
 
-public class ValidationUtils
-{
-    private static void SetValidationFailureLog(ValidationResult result, ref string detailAddition)
-    {
+public class ValidationUtils {
+    private static void SetValidationFailureLog(ValidationResult result, ref string detailAddition) {
         switch (result.IsValid)
         {
             case false:
@@ -102,7 +100,7 @@ public class ValidationUtils
             var cls when cls == typeof(PluScaleModel) => new PluScaleValidator(),
             var cls when cls == typeof(PluWeighingModel) => new PluWeighingValidator(),
             var cls when cls == typeof(PrinterModel) => new PrinterValidator(),
-            var cls when cls == typeof(PrinterResourceModel) => new PrinterResourceValidator(),
+            var cls when cls == typeof(PrinterResourceFkModel) => new PrinterResourceFkValidator(),
             var cls when cls == typeof(PrinterTypeModel) => new PrinterTypeValidator(),
             var cls when cls == typeof(ProductionFacilityModel) => new ProductionFacilityValidator(),
             var cls when cls == typeof(ProductSeriesModel) => new ProductSeriesValidator(),
@@ -155,7 +153,7 @@ public class ValidationUtils
             PluNestingFkModel nestingFk => new PluNestingFkValidator().Validate(nestingFk),
             PluWeighingModel pluWeighing => new PluWeighingValidator().Validate(pluWeighing),
             PrinterModel printer => new PrinterValidator().Validate(printer),
-            PrinterResourceModel printerResource => new PrinterResourceValidator().Validate(printerResource),
+            PrinterResourceFkModel printerResource => new PrinterResourceFkValidator().Validate(printerResource),
             PrinterTypeModel printerType => new PrinterTypeValidator().Validate(printerType),
             ProductionFacilityModel productionFacility => new ProductionFacilityValidator().Validate(productionFacility),
             ProductSeriesModel productSeries => new ProductSeriesValidator().Validate(productSeries),
@@ -174,8 +172,7 @@ public class ValidationUtils
             _ => throw new NullReferenceException(nameof(item))
         };
 
-    public static bool IsValidation<T>(T? item, ref string detailAddition) where T : class, new()
-    {
+    public static bool IsValidation<T>(T? item, ref string detailAddition) where T : class, new() {
         if (item is null)
         {
             detailAddition = $"{nameof(item)} is null!";

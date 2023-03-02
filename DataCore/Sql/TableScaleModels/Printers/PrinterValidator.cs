@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels.PrintersTypes;
@@ -6,7 +6,7 @@ using DataCore.Sql.TableScaleModels.PrintersTypes;
 namespace DataCore.Sql.TableScaleModels.Printers;
 
 /// <summary>
-/// Table validation "___".
+/// Table validation "ZebraPrinter".
 /// </summary>
 public class PrinterValidator : SqlTableValidator<PrinterModel>
 {

@@ -1,19 +1,19 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Utils;
 
-namespace DataCore.Sql.TableScaleModels.PrintersResources;
+namespace DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
 /// <summary>
 /// Table map "ZebraPrinterResourceRef".
 /// </summary>
-public class PrinterResourceMap : ClassMap<PrinterResourceModel>
+public class PrinterResourceFkMap : ClassMap<PrinterResourceFkModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PrinterResourceMap()
+    public PrinterResourceFkMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
         Table(SqlTableNamesUtils.PrintersResourcesFks);

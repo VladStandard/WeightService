@@ -11,7 +11,6 @@ using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.Scales;
@@ -25,6 +24,7 @@ using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
 namespace DataCore.Sql.Tables;
 
@@ -56,7 +56,7 @@ public static class SqlTableBaseExt
 			PluModel plu => GetPropertyPlu(propertyName, plu),
 			PluScaleModel pluScale => GetPropertyPluScale(propertyName, pluScale),
 			PrinterModel printer => GetPropertyPrinter(propertyName, printer),
-			PrinterResourceModel printerResource => GetPropertyPrinterResource(propertyName, printerResource),
+			PrinterResourceFkModel printerResource => GetPropertyPrinterResource(propertyName, printerResource),
 			PrinterTypeModel printerType => GetPropertyPrinterType(propertyName, printerType),
 			ProductionFacilityModel productionFacility => GetPropertyProductionFacility(propertyName, productionFacility),
 			ScaleModel scale => GetPropertyScale(propertyName, scale),
@@ -252,12 +252,12 @@ public static class SqlTableBaseExt
 		};
 	}
 
-	private static string GetPropertyPrinterResource(string propertyName, PrinterResourceModel printerResource)
+	private static string GetPropertyPrinterResource(string propertyName, PrinterResourceFkModel printerResource)
 	{
 		return propertyName switch
 		{
-			$"{nameof(PrinterResourceModel.Printer)}.{nameof(PrinterModel.Name)}" => printerResource.Printer.Name,
-			$"{nameof(PrinterResourceModel.TemplateResource)}.{nameof(TemplateResourceDeprecatedModel.Name)}" => printerResource.TemplateResource
+			$"{nameof(PrinterResourceFkModel.Printer)}.{nameof(PrinterModel.Name)}" => printerResource.Printer.Name,
+			$"{nameof(PrinterResourceFkModel.TemplateResource)}.{nameof(TemplateResourceDeprecatedModel.Name)}" => printerResource.TemplateResource
 				.Name,
 			_ => LocaleCore.Table.FieldNotFound
 		};

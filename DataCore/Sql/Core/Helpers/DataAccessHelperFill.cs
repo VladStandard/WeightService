@@ -12,6 +12,7 @@ using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Boxes;
@@ -33,7 +34,6 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.PrintersResources;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
@@ -138,7 +138,7 @@ public partial class DataAccessHelper
             case PrinterModel printer:
                 printer.PrinterType = GetItemNotNullable<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
 				break;
-			case PrinterResourceModel printerResource:
+			case PrinterResourceFkModel printerResource:
                 printerResource.Printer = GetItemNotNullable<PrinterModel>(printerResource.Printer.IdentityValueId);
                 printerResource.TemplateResource = GetItemNotNullable<TemplateResourceDeprecatedModel>(printerResource.TemplateResource.IdentityValueId);
 				if (string.IsNullOrEmpty(printerResource.TemplateResource.Description))
