@@ -20,8 +20,8 @@ public class LocaleContextMenu
 
 	public string Open => Lang == Lang.English ? "Open" : "Открыть";
 	public string OpenNewTab => Lang == Lang.English ? "Open in a new tab" : "Открыть в новом окне";
-	public string Delete => Lang == Lang.English ? "Delete" : "Удалить";
-	public string Mark => Lang == Lang.English ? "Mark" : "Скрыть";
+	public string Delete => Lang == Lang.English ? "Delete" : "Удалить навсегда";
+	public string Mark => Lang == Lang.English ? "Mark" : "Пометить на удаление";
 
 	#endregion
 }

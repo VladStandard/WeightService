@@ -3,13 +3,15 @@
 
 namespace BlazorDeviceControl.Razors.SectionComponents;
 
-public partial class RazorSectionField<TItem> : RazorComponentSectionBase<TItem, SqlTableBase> where TItem : SqlTableBase, new()
+public partial class RazorSectionField<TItem> where TItem : SqlTableBase, new()
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	public RazorSectionField()
-	{
-		CssStyleRadzenColumn.Width = "12%";
+    [Parameter] public string Width { get; set; }
+
+    public RazorSectionField()
+    {
+        Width = "20%";
 	}
 
 	#endregion

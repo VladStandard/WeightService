@@ -1,5 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.TemplatesResources
 @using BlazorDeviceControl.Razors.CustomComponents
+@using DataCore.Sql.TableScaleModels.TemplatesResources
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceDeprecatedModel, SqlTableBase>
 @page "/section/templates_resources"
 
@@ -13,28 +14,11 @@
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
-  <Columns >
-    <RazorSectionFieldIsMarked TItem="@TemplateResourceDeprecatedModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RazorSectionFieldIdentity TItem="@TemplateResourceDeprecatedModel" ParentRazor="@(this)"/>
-
-    <RadzenGridColumn
-      TItem="@TemplateResourceDeprecatedModel" Property="Type" TextAlign="@TextAlign.Center"
-      Title="@LocaleCore.Table.Type"
-      Type="string" Width="10%"/>
-    <RadzenGridColumn
-      TItem="@TemplateResourceDeprecatedModel" Title="@LocaleCore.Table.Name" Width="25%" SortProperty="Name">
-      <Template Context="itemCast">
-        <RadzenLink Style="width: 100%; margin-left: 0; "
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemTemplateResource}/{itemCast.IdentityValueId}")
-                    Text="@itemCast.Name"/>
-      </Template>
-    </RadzenGridColumn>
-    <RazorSectionField
-      TItem="@TemplateResourceDeprecatedModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("40%", true))
-      RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription()"/>
-    <RadzenGridColumn
-      TItem="@TemplateResourceDeprecatedModel" Property="ImageData.Info"
-      Title="@LocaleCore.Table.ImageDataInfo"
-      Type="string" Width="25%"/>
+  <Columns>
+    <TItemContent TItem="@TemplateResourceModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription()" Width="40%" />
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

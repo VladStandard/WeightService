@@ -1,16 +1,15 @@
 ﻿@typeparam TItem
 @inherits RazorComponentSectionBase<TItem, SqlTableBase>
 
-<RadzenGridColumn TItem="@TItem" TextAlign="@TextAlign.Center" Width="@(CssStyleRadzenColumn.Width)" Title="@(GetColumnIdentityName<TItem>())">
+<RadzenGridColumn TItem="@TItem" TextAlign="@TextAlign.Center" Width="@Width" Title="@(GetColumnIdentityName<TItem>())">
   <Template Context="item">
-    @if (CssStyleRadzenColumn.IsShowLink)
-    {
-      <RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString()
-                  Path=@(GetRouteItemPath(item))/>
-    }
-    else
-    {
-      <RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString()/>
-    }
+    @* @if (CssStyleRadzenColumn.IsShowLink) *@
+    @* { *@
+      <RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString() Path=@(GetRouteItemPath(item)) />
+    @* } *@
+    @* else *@
+    @* { *@
+    @*   <RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString()/> *@
+    @* } *@
   </Template>
 </RadzenGridColumn>

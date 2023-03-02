@@ -14,7 +14,7 @@
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="PluNestingFkModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionFieldIsMarked TItem="PluNestingFkModel" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="PluNestingFkModel" Width="5%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.Weighted">
       <Template Context="itemCast">
         <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.PluBundle.Plu.IsCheckWeight"/>

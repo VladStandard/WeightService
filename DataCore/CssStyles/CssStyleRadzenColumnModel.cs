@@ -16,7 +16,7 @@ public class CssStyleRadzenColumnModel : CssStyleBase
 	public CssStyleRadzenColumnModel()
 	{
 		Width = string.Empty;
-		IsShowLink = false;
+		IsShowLink = true;
 	}
 
 	/// <summary>

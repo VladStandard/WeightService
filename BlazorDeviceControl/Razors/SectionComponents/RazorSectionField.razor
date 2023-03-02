@@ -1,7 +1,11 @@
 ﻿@typeparam TItem
 @inherits RazorComponentSectionBase<TItem, SqlTableBase>
 
-<RadzenDataGridColumn TItem="@TItem" TextAlign="@RazorFieldConfig.TextAlign" Width="@(CssStyleRadzenColumn.Width)" Title="@RazorFieldConfig.Title">
+<RadzenDataGridColumn
+  TItem="@TItem"
+  Title="@RazorFieldConfig.Title"
+  Width="@Width"
+  TextAlign="@RazorFieldConfig.TextAlign" >
   <Template Context="item">
     @switch (RazorFieldConfig.Type)
     {
@@ -9,17 +13,9 @@
         <RadzenCheckBox Disabled=true TValue="bool" Value=@item.GetPropertyAsBool(nameof(RazorFieldConfig.Name))/>
         break;
       default:
-        @if (CssStyleRadzenColumn.IsShowLink)
-        {
-          <RadzenLink
-            Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
-            Path=@GetRouteItemPathForLink(item)/>
-        }
-        else
-        {
-          <RadzenText
-            Text=@item.GetPropertyAsString(RazorFieldConfig.Name)/>
-        }
+        <RadzenLink
+          Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
+          Path=@GetRouteItemPathForLink(item)/>
         break;
     }
   </Template>

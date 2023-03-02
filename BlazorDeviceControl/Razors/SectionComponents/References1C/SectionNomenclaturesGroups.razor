@@ -16,7 +16,7 @@
   LoadChildData="@LoadChildData"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns >
-    <RazorSectionFieldIsMarked TItem="@PluGroupModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionFieldIsMarked TItem="@PluGroupModel" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@PluGroupModel" Title="@LocaleCore.Table.Name" Width="45%">
       <Template Context="itemCast">
         <RadzenLink Style="width: 100%; margin-left: 0; "

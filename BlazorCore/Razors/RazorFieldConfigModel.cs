@@ -18,13 +18,13 @@ public class RazorFieldConfigModel
 
 	public RazorFieldConfigModel()
 	{
-		LinkUrl = string.Empty;
-		SqlTable = new SqlTableEmptyModel();
-		Name = string.Empty;
+        Type = "string";
+        Name = string.Empty;
+        Title = string.Empty;
+        LinkUrl = string.Empty;
 		TextAlign = TextAlign.Center;
-		Title = string.Empty;
-		Type = "string";
-	}
+        SqlTable = new SqlTableEmptyModel();
+    }
 
 	public RazorFieldConfigModel(string name, TextAlign textAlign, string title, string type) : this()
 	{

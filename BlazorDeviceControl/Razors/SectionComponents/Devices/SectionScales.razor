@@ -8,41 +8,18 @@
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@ScaleModel"
-  CellContextMenu="@OnCellContextMenu"
   Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@ScaleModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RazorSectionField TItem="@ScaleModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("30%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription(LocaleCore.Table.Arm)"/>
-    <RazorSectionField TItem="@ScaleModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Scale.GetNumber()"/>
-    <RazorSectionField TItem="@ScaleModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("35%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Scale.GetWorkShop()"/>
-    <RazorSectionField TItem="@ScaleModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("35%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Scale.GetPrinterMain()"/>
-    @*<RadzenGridColumn TItem=@ScaleModel Width="15%" Title=@LocaleCore.Table.Device TextAlign=@TextAlign.Left>
-            <Template Context="itemCast">
-                @if (DataAccess.GetItemDeviceScaleFkNotNullable(itemCast).Device is DeviceModel device)
-                {
-                    @if (device.IsNew)
-                    {
-                        <RadzenText
-                            Style="margin-top: 10px; "
-                            Text=@LocaleCore.Table.FieldEmpty
-                            TextStyle=@TextStyle.Body2
-                            TextAlign=@TextAlign.Left />
-                    }
-                    else
-                    {
-                        <RadzenLink
-                            Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{device.IdentityValueUid}")
-                            Text=@(device.Name) />
-                    }
-                }
-            </Template>
-        </RadzenGridColumn>*@
+    <TItemContent TItem="@ScaleModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription(LocaleCore.Table.Arm)"  Width="30%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Scale.GetNumber()" Width="20%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Scale.GetWorkShop()" Width="35%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Scale.GetPrinterMain()" Width="35%" />
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

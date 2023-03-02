@@ -14,17 +14,13 @@
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@DeviceModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-
-    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("15%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Device.GetLoginDt()"/>
-    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
-    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Device.GetTypePrettyName()"/>
-    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Device.GetIpv4()"/>
-    <RazorSectionField TItem="@DeviceModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Device.GetMacAddress()"/>
+    <TItemContent TItem="@DeviceModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetLoginDt()" Width="15%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetTypePrettyName()" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetIpv4()" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetMacAddress()" />
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

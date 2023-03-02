@@ -21,7 +21,7 @@
   RowRender="@(RowRender)"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@PluScaleModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionFieldIsMarked TItem="@PluScaleModel" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@PluScaleModel" Width="45%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Plu">
       <Template Context="itemCast">
         <RadzenLink
