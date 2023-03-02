@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 /// Table "ZebraPrinterResourceRef".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PrinterResourceFkModel)}")]
+[DebuggerDisplay("{nameof(PrinterResourceFkModel)} {Printer.Name}")]
 public class PrinterResourceFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

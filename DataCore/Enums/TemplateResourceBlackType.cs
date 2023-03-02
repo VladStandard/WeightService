@@ -5,5 +5,6 @@ namespace DataCore.Enums;
 
 public enum TemplateResourceBlackType
 {
+    Grf,
     Ttf,
 }
