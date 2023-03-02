@@ -14,7 +14,7 @@
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns >
-    <RazorSectionFieldIsMarked TItem="@PluLabelModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionFieldIsMarked TItem="@PluLabelModel" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@PluLabelModel" Width="12%" Title="@LocaleCore.Table.ChangeDt" TextAlign="@TextAlign.Center">
       <Template Context="itemCast">
         <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.IdentityValueUid}")

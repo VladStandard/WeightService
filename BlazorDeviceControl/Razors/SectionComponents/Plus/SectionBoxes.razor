@@ -14,10 +14,10 @@
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@BoxModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RazorSectionField TItem="@BoxModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("75%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Box.GetName()"/>
-    <RazorSectionField TItem="@BoxModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Box.GetWeight()"/>
+    <TItemContent TItem="@BoxModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Box.GetName()" Width="75%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Box.GetWeight()" />
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

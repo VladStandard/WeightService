@@ -13,12 +13,11 @@
   RowSelect="@(SqlItemSetAsync)"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@AccessModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RazorSectionField TItem="@AccessModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("20%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Access.GetLoginDt()"/>
-    <RazorSectionField TItem="@AccessModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("50%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName(LocaleCore.Table.User)"/>
-    <RazorSectionField TItem="@AccessModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("25%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Access.GetRights()"/>
+    <TItemContent TItem="@AccessModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Access.GetLoginDt()" Width="50%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName(LocaleCore.Table.User)" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Access.GetRights()" Width="25%" />
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

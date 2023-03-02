@@ -13,11 +13,11 @@
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
-  <Columns >
-    <RazorSectionFieldIsMarked TItem="@WorkShopModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RazorSectionField TItem="@WorkShopModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("40%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
-    <RazorSectionField TItem="@WorkShopModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("40%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.WorkShop.GetProductionFacility()"/>
+  <Columns>
+    <TItemContent TItem="@WorkShopModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="40%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.WorkShop.GetProductionFacility()" Width="40%" />
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

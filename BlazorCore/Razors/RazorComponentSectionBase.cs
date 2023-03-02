@@ -18,12 +18,12 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 	#region Public and private fields, properties, constructor
 
     #region Parameters
-
-    [Parameter] public CssStyleRadzenColumnModel CssStyleRadzenColumn { get; set; }
+    
     [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter]  public ButtonSettingsModel? ButtonSettings { get; set; }
-
+    
     #endregion
+    
     public IList<TItem>? SelectedRow { get; set; }
 	protected List<TItemFilter> SqlSectionFilterCast { get; set; }
 	protected string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
@@ -46,8 +46,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 	public RazorComponentSectionBase()
     {
 	    SelectedRow = new List<TItem>();
-	    CssStyleRadzenColumn = new("5%");
-		SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
+        SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
 		SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;

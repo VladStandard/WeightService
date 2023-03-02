@@ -14,7 +14,7 @@
   RowSelect="@(SqlItemSetAsync)"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@ScaleScreenShotModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+    <RazorSectionFieldIsMarked TItem="@ScaleScreenShotModel" SqlCrudConfigSection="@SqlCrudConfigSection"/>
     <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="12%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.ChangeDt">
       <Template Context="itemCast">
         <RadzenLink TextStyle="@TextStyle.Body2"

@@ -14,8 +14,9 @@
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@PrinterTypeModel" ParentRazor="@(this)" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RazorSectionField TItem="@PrinterTypeModel" ParentRazor="@(this)" CssStyleRadzenColumn=@(new("95%", true))
-                       RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
+    <TItemContent TItem="@PrinterTypeModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="95%" />
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

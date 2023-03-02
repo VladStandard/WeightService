@@ -9,11 +9,6 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
 {
     #region Public and private fields, properties, constructor
 
-    public SectionTemplateResources() : base()
-    {
-        CssStyleRadzenColumn.Width = "40%";
-    }
-
     #endregion
 
     #region Public and private methods

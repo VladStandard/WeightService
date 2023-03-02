@@ -41,8 +41,8 @@ public static class SqlTableBaseExt
 		{
 			return GetPropertySqlTable<T>(propertyName, item);
 		}
-		return item switch
-		{
+        return item switch
+        {
 			AccessModel access => GetPropertyAccess(propertyName, access),
 			DeviceModel device => GetPropertyDevice(propertyName, device),
 			DeviceTypeModel deviceType => GetPropertyDeviceType(propertyName, deviceType),
@@ -62,8 +62,7 @@ public static class SqlTableBaseExt
 			ScaleModel scale => GetPropertyScale(propertyName, scale),
 			VersionModel version => GetPropertyVersion(propertyName, version),
 			WorkShopModel workShop => GetPropertyWorkShop(propertyName, workShop),
-			// Must be at the end.
-			_ => GetPropertySqlTable<T>(propertyName, item)
+            _ => GetPropertySqlTable<T>(propertyName, item)
         };
 	}
 

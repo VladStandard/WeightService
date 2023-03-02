@@ -7,14 +7,14 @@ public partial class RazorSectionFieldIdentity<TItem> : RazorComponentSectionBas
 {
 	#region Public and private fields, properties, constructor
 
+    public string Width { get; set; }
 	public RazorSectionFieldIdentity()
-	{
-		CssStyleRadzenColumn.IsShowLink = true;
-		CssStyleRadzenColumn.Width = new TItem().Identity.Name switch
+    {
+        Width = new TItem().Identity.Name switch
 		{
 			SqlFieldIdentity.Id => "5%",
 			SqlFieldIdentity.Uid => "20%",
-			_ => CssStyleRadzenColumn.Width
+			_ => "12%"
 		};
 	}
 

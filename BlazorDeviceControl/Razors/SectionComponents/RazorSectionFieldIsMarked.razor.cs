@@ -6,10 +6,12 @@ namespace BlazorDeviceControl.Razors.SectionComponents;
 public partial class RazorSectionFieldIsMarked<TItem> : RazorComponentSectionBase<TItem, SqlTableBase> where TItem : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
-
+    
+    public string Width { get; set; }
+    
 	public RazorSectionFieldIsMarked()
 	{
-		CssStyleRadzenColumn.Width = "5%";
+        Width = "5%";
 	}
 
 	#endregion
