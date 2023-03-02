@@ -3,7 +3,7 @@
 @inherits RazorComponentSectionBase<DataCore.Sql.Xml.LogQuickModel, SqlTableBase>
 @page "/section/logs"
 
-<RazorSectionReload TItem="@LogQuickModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.System.SystemLogs" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@LogQuickModel" ButtonSettings="@ButtonSettings" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.System.SystemLogs" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

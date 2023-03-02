@@ -2,71 +2,53 @@
 @typeparam TItemFilter
 @inherits RazorComponentSectionBase<TItem, TItemFilter>
 
-<MudPaper Width="100%" Height="32px" Style="margin-bottom: 30px;" Square="false">
-  <MudSimpleTable Style="overflow-x: auto; margin-top: -10px; " Dense="true" Bordered="false" FixedHeader="false">
-    <thead>
-    <tr>
-      <th style="color:blue; font-weight: normal; width: 60%; "></th>
-      <th style="color:blue; font-weight: normal; width: 10%; "></th>
-      <th style="color:blue; font-weight: normal; width: 30%; "></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td colspan="@(SqlCrudConfigSection.IsGuiShowFilterAdditional ? 1 : 3)">
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text="@Title"/>
-        @if (SqlCrudConfigSection.IsGuiShowFilterOnlyTop)
-        {
-          <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop
-                          Change=@(_ => OnChangeAsync())
-                          Style="margin-top: -3px; margin-left: 20px; "/>
-          <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px;"
-                       Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(DataAccess.JsonSettings.Local.SelectTopRowsCount)/>
-        }
-        @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
-        {
-          <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowMarked
-                          Change=@(_ => OnChangeAsync())
-                          Style="margin-top: -3px; margin-left: 20px; "/>
-          <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked/>
-        }
+<MudPaper Outlined="true" Class="mb-2">
+  <MudToolBar Dense="true">
+    <RadzenLabel Style="font-size: 15px;" Text="@Title"/>
+      @if (SqlCrudConfigSection.IsGuiShowFilterOnlyTop)
+      {
+      <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop
+                        Style="margin-left: 20px"
+                      Change=@(_ => OnChangeAsync()) />
+        <RadzenLabel Style="font-size: 13px; margin-left: 5px"
+                     Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(DataAccess.JsonSettings.Local.SelectTopRowsCount) />
+      }
+      @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
+      {
+        <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowMarked
+                        Style="margin-left: 20px "
+                        Change=@(_ => OnChangeAsync()) />
+        <RadzenLabel Style="font-size: 13px; margin-left: 5px" Text=@LocaleCore.Action.ActionIsShowMarked />
+      }
       <RadzenButton
         Icon="refresh"
         ButtonStyle="@ButtonStyle.Primary"
-        Style="margin-top: -3px; margin-left: 20px; width: 60px;"
+        Style="margin-left: 20px; width: 60px;"
         Size="@ButtonSize.Small"
         Disabled="@(!DataAccess.IsConnected())"
-        Click="@(_ => OnChangeAsync())"/>
+        Click="@(_ => OnChangeAsync())" />
       @if (ButtonSettings is not null && UserSettings is not null)
       {
         @if (UserSettings.AccessRightsIsWrite && ButtonSettings.IsShowNew)
         {
-            @*       class="RadzenButtonLong" *@
-            @*       ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber" *@
-            @*       Text=@LocaleCore.DeviceControl.TableActionCopy/> *@
           <RadzenButton
             Icon="add_circle_outline"
             ButtonStyle=@ButtonStyle.Primary
-            Style="margin-top: -3px; margin-left: 20px; width: 60px;"
+            Style="margin-left: 15px; width: 60px;"
             Size=@ButtonSize.Small
-            Click=@(_ => SqlItemNewAsync<TItem>())/>
+            Click=@(_ => SqlItemNewAsync<TItem>()) />
         }
       }
       @if (SqlCrudConfigSection.IsGuiShowItemsCount)
       {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@SqlListCountResult />
+        <RadzenLabel Style="margin-left: 20px; font-size: 13px; " Text=@SqlListCountResult />
       }
-      </td>
+      <MudSpacer/>
+      <MudSpacer/>
       @if (SqlCrudConfigSection.IsGuiShowFilterAdditional)
       {
-        <td>
-          <RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; " Text=@RazorFieldConfig.Title />
-        </td>
-        <td>
-          <RazorSectionFilter TItem=@TItem TItemFilter=@TItemFilter ParentRazor=@(this) />
-        </td>
+        @* <RadzenLabel Style="font-size: 11px; text-align: center; height: 100%; " Text=@RazorFieldConfig.Title /> *@
+        <RazorSectionFilter TItem=@TItem TItemFilter=@TItemFilter ParentRazor=@(this) />
       }
-    </tr>
-    </tbody>
-  </MudSimpleTable>
+  </MudToolBar>
 </MudPaper>
