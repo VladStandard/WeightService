@@ -449,7 +449,7 @@ internal class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TemplateResourceMap item = new();
+            TemplateResourceDeprecatedMap item = new();
             TestContext.WriteLine(item);
         });
     }

@@ -9,14 +9,14 @@ internal class TemplateResourceValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        TemplateResourceModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<TemplateResourceModel>(false);
+        TemplateResourceDeprecatedModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<TemplateResourceDeprecatedModel>(false);
         DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        TemplateResourceModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<TemplateResourceModel>(true);
+        TemplateResourceDeprecatedModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<TemplateResourceDeprecatedModel>(true);
         DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

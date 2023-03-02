@@ -1,15 +1,15 @@
 ﻿@using DataCore.Sql.TableScaleModels.TemplatesResources
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel>
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceDeprecatedModel>
 @page "/item/template_resource"
 @page "/item/template_resource/new"
 @page "/item/template_resource/{IdentityId:long}"
 
-<RazorItemReload TItem="@TemplateResourceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemTemplateResource"/>
+<RazorItemReload TItem="@TemplateResourceDeprecatedModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemTemplateResource"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@TemplateResourceModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@TemplateResourceDeprecatedModel" ParentRazor="@(this)"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
@@ -39,7 +39,7 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@TemplateResourceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions TItem="@TemplateResourceDeprecatedModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
 
 @*
 <RadzenLabel Style="width: 97%;" Text=@FileInfo />

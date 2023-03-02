@@ -6,25 +6,27 @@ using DataCore.Sql.Core.Enums;
 namespace DataCore.Sql.TableScaleModels.TemplatesResources;
 
 /// <summary>
-/// Table "TEMPLATES_RESOURCES".
+/// Table "TemplateResources".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(TemplateResourceModel)} | {Name}")]
-public class TemplateResourceModel : SqlTableBase
+[DebuggerDisplay("{nameof(TemplateResourceModel)}")]
+public class TemplateResourceDeprecatedModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual string Type { get; set; }
-    [XmlElement] public virtual SqlFieldBinaryModel Data { get; set; }
-    [XmlIgnore] public virtual byte[] DataValue { get => Data.Value; set => Data.Value = value; }
+    [XmlElement] public virtual SqlFieldBinaryModel ImageData { get; set; }
+    [XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
+    [XmlElement] public virtual Guid IdRRef { get; set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TemplateResourceModel() : base(SqlFieldIdentity.Uid)
+    public TemplateResourceDeprecatedModel() : base(SqlFieldIdentity.Id)
     {
         Type = string.Empty;
-        Data = new();
+        ImageData = new();
+        IdRRef = Guid.Empty;
     }
 
     /// <summary>
@@ -32,10 +34,11 @@ public class TemplateResourceModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected TemplateResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected TemplateResourceDeprecatedModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Type = info.GetString(nameof(Type));
-        Data = (SqlFieldBinaryModel)info.GetValue(nameof(Data), typeof(SqlFieldBinaryModel));
+        ImageData = (SqlFieldBinaryModel)info.GetValue(nameof(ImageData), typeof(SqlFieldBinaryModel));
+        IdRRef = (Guid)info.GetValue(nameof(IdRRef), typeof(Guid));
     }
 
     #endregion
@@ -45,14 +48,16 @@ public class TemplateResourceModel : SqlTableBase
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Type)}: {Type}. ";
+        $"{nameof(Type)}: {Type}. " +
+        $"{nameof(ImageData)}: {ImageData}. " +
+        $"{nameof(IdRRef)}: {IdRRef}. ";
 
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((TemplateResourceModel)obj);
+        return Equals((TemplateResourceDeprecatedModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -62,14 +67,16 @@ public class TemplateResourceModel : SqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(Type, string.Empty) &&
-        Data.Equals(new());
+        ImageData.Equals(new()) &&
+        Equals(IdRRef, Guid.Empty);
 
     public override object Clone()
     {
-        TemplateResourceModel item = new();
+        TemplateResourceDeprecatedModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Type = Type;
-        item.Data = Data.CloneCast();
+        item.IdRRef = IdRRef;
+        item.ImageData = ImageData.CloneCast();
         return item;
     }
 
@@ -82,26 +89,28 @@ public class TemplateResourceModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Type), Type);
-        info.AddValue(nameof(Data), Data);
+        info.AddValue(nameof(ImageData), ImageData);
+        info.AddValue(nameof(IdRRef), IdRRef);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
         Description = LocaleCore.Sql.SqlItemFieldDescription;
-        Data.FillProperties();
+        ImageData.FillProperties();
     }
 
     #endregion
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(TemplateResourceModel item) =>
+    public virtual bool Equals(TemplateResourceDeprecatedModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Type, item.Type) &&
-        Data.Equals(item.Data);
+        Equals(IdRRef, item.IdRRef) &&
+        ImageData.Equals(item.ImageData);
 
-    public new virtual TemplateResourceModel CloneCast() => (TemplateResourceModel)Clone();
+    public new virtual TemplateResourceDeprecatedModel CloneCast() => (TemplateResourceDeprecatedModel)Clone();
 
     #endregion
 }

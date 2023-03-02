@@ -6,7 +6,7 @@ using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 
-public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResourceModel>
+public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResourceDeprecatedModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -25,7 +25,7 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
         {
             () =>
             {
-                SqlItemCast = DataContext.GetItemNotNullable<TemplateResourceModel>(IdentityId);
+                SqlItemCast = DataContext.GetItemNotNullable<TemplateResourceDeprecatedModel>(IdentityId);
                 //if (IdentityId is not null && TableAction == DbTableAction.New)
                 //    SqlItemCast.IdentityValueId = (long)IdentityId;
             }

@@ -103,7 +103,7 @@ public partial class RazorComponentBase
         }
         if (filterName == nameof(item.TemplateResource) && value is long resourceId)
         {
-            item.TemplateResource = DataContext.GetItemNotNullable<TemplateResourceModel>(resourceId);
+            item.TemplateResource = DataContext.GetItemNotNullable<TemplateResourceDeprecatedModel>(resourceId);
         }
     }
 

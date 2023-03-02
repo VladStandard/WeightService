@@ -141,7 +141,7 @@ public partial class RazorComponentBase
         TaskModel => LocaleCore.DeviceControl.RouteItemTaskModule,
         TaskTypeModel => LocaleCore.DeviceControl.RouteItemTaskTypeModule,
         TemplateModel => LocaleCore.DeviceControl.RouteItemTemplate,
-        TemplateResourceModel => LocaleCore.DeviceControl.RouteItemTemplateResource,
+        TemplateResourceDeprecatedModel => LocaleCore.DeviceControl.RouteItemTemplateResource,
         VersionModel => LocaleCore.DeviceControl.RouteItemVersion,
         WorkShopModel => LocaleCore.DeviceControl.RouteItemWorkShop,
         _ => string.Empty
@@ -184,7 +184,7 @@ public partial class RazorComponentBase
             TaskModel => LocaleCore.DeviceControl.RouteSectionTaskModules,
             TaskTypeModel => LocaleCore.DeviceControl.RouteSectionTaskTypeModules,
             TemplateModel => LocaleCore.DeviceControl.RouteSectionTemplates,
-            TemplateResourceModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
+            TemplateResourceDeprecatedModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
             VersionModel => LocaleCore.DeviceControl.RouteSectionVersions,
             WorkShopModel => LocaleCore.DeviceControl.RouteSectionWorkShops,
             _ => string.Empty

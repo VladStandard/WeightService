@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Others;
 
-public partial class SectionTemplateResources : RazorComponentSectionBase<TemplateResourceModel, SqlTableBase>
+public partial class SectionTemplateResources : RazorComponentSectionBase<TemplateResourceDeprecatedModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 
@@ -24,7 +24,7 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNullable<TemplateResourceModel>(SqlCrudConfigSection);
+	            SqlSectionCast = DataContext.GetListNotNullable<TemplateResourceDeprecatedModel>(SqlCrudConfigSection);
                 AutoShowFilterOnlyTopSetup();
             }
         });

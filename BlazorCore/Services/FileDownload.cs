@@ -13,7 +13,7 @@ public class FileDownload : IFileDownload
     //    _environment = environment;
     //}
 
-    public async Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceModel? item)
+    public async Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceDeprecatedModel? item)
     {
         if (item == null || item.ImageData.Value.Length == 0)
             return;

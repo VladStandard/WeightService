@@ -140,7 +140,7 @@ public partial class DataAccessHelper
 				break;
 			case PrinterResourceModel printerResource:
                 printerResource.Printer = GetItemNotNullable<PrinterModel>(printerResource.Printer.IdentityValueId);
-                printerResource.TemplateResource = GetItemNotNullable<TemplateResourceModel>(printerResource.TemplateResource.IdentityValueId);
+                printerResource.TemplateResource = GetItemNotNullable<TemplateResourceDeprecatedModel>(printerResource.TemplateResource.IdentityValueId);
 				if (string.IsNullOrEmpty(printerResource.TemplateResource.Description))
 					printerResource.TemplateResource.Description = printerResource.TemplateResource.Name;
 				break;

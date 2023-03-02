@@ -159,7 +159,7 @@ public static class RazorFieldConfigUtils
 
 	public static class PrinterResource
 	{
-		public static RazorFieldConfigModel GetName() => new(new PrinterResourceModel(), $"{nameof(PrinterResourceModel.TemplateResource)}.{nameof(TemplateResourceModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
+		public static RazorFieldConfigModel GetName() => new(new PrinterResourceModel(), $"{nameof(PrinterResourceModel.TemplateResource)}.{nameof(TemplateResourceDeprecatedModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
 		public static RazorFieldConfigModel GetPrinter() => new(new PrinterModel(), $"{nameof(PrinterResourceModel.Printer)}.{nameof(PrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
 	}
 

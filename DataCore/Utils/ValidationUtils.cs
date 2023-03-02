@@ -110,7 +110,7 @@ public class ValidationUtils
             var cls when cls == typeof(TaskModel) => new TaskValidator(),
             var cls when cls == typeof(TaskTypeModel) => new TaskTypeValidator(),
             var cls when cls == typeof(TemplateModel) => new TemplateValidator(),
-            var cls when cls == typeof(TemplateResourceModel) => new TemplateResourceValidator(),
+            var cls when cls == typeof(TemplateResourceDeprecatedModel) => new TemplateResourceDeprecatedValidator(),
             var cls when cls == typeof(VersionModel) => new VersionValidator(),
             var cls when cls == typeof(WorkShopModel) => new WorkShopValidator(),
             _ => throw new NotImplementedException()
@@ -164,7 +164,7 @@ public class ValidationUtils
             TaskModel task => new TaskValidator().Validate(task),
             TaskTypeModel taskType => new TaskTypeValidator().Validate(taskType),
             TemplateModel template => new TemplateValidator().Validate(template),
-            TemplateResourceModel templateResource => new TemplateResourceValidator().Validate(templateResource),
+            TemplateResourceDeprecatedModel templateResource => new TemplateResourceDeprecatedValidator().Validate(templateResource),
             VersionModel version => new VersionValidator().Validate(version),
             WorkShopModel workShop => new WorkShopValidator().Validate(workShop),
             DeviceModel device => new DeviceValidator().Validate(device),

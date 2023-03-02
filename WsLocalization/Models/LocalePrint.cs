@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLocalization.Models;
@@ -77,6 +77,7 @@ public class LocalePrint
     public string PrintPluginExt => Lang == Lang.English ? "Printer extension" : "Расширение принтера";
     public string QuestionUseFakeData => Lang == Lang.English ? "Use fake data?" : "Использовать фейк данные?";
     public string QuestionPrint => Lang == Lang.English ? "Continue printing?" : "Продолжить печать?";
+    public string QuestionPrintCheckAccess => Lang == Lang.English ? "Check printer access?" : "Проверить доступ к принтеру?";
     public string QuestionPrintSendCmd => Lang == Lang.English ? "Send cmd to the print?" : "Отправить команду на печать?";
     public string Resource => Lang == Lang.English ? "Printer resource" : "Ресурс принтера";
     public string Resources => Lang == Lang.English ? "Printer resources" : "Ресурсы принтера";
@@ -98,6 +99,7 @@ public class LocalePrint
     public string StatusIsReceiveBufferFull => Lang == Lang.English ? "Receive buffer full" : "Буфер приема заполнен";
     public string StatusIsRibbonOut => Lang == Lang.English ? "Ribbon out" : "Лента на выходе";
     public string StatusIsUnavailable => Lang == Lang.English ? "Status is unavailable" : "Статус не доступен";
+    public string Template => Lang == Lang.English ? "Template" : "Шаблон";
     public string TemplateResource => Lang == Lang.English ? "Template resource" : "Ресурс шаблона";
     public string Type => Lang == Lang.English ? "Printer type" : "Тип принтера";
     public string Types => Lang == Lang.English ? "Printer types" : "Типы принтеров";

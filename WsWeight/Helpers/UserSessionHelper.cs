@@ -571,12 +571,9 @@ public class UserSessionHelper : BaseViewModel
     public void PrintLabel(IWin32Window owner, bool isClearBuffer)
     {
         if (Scale is { IsOrder: true })
-        {
             throw new("Order under construct!");
-            //Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
-        }
 
-        // #WS-T-710
+        // #WS-T-710 Печать этикеток. Исправление счётчика этикеток
         //PluScale = DataAccess.GetItemNotNullable<PluScaleModel>(PluScale.IdentityValueUid);
         PluScale.Scale = Scale;
         TemplateModel template = DataAccess.GetItemTemplateNotNullable(PluScale);
@@ -589,18 +586,16 @@ public class UserSessionHelper : BaseViewModel
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return;
         }
+        
         // Temlate is exists!
-        else
+        switch (PluScale.Plu.IsCheckWeight)
         {
-            switch (PluScale.Plu.IsCheckWeight)
-            {
-                case true:
-                    PrintLabelCore(template, isClearBuffer);
-                    break;
-                default:
-                    PrintLabelCount(template, isClearBuffer);
-                    break;
-            }
+            case true:
+                PrintLabelCore(template, isClearBuffer);
+                break;
+            default:
+                PrintLabelCount(template, isClearBuffer);
+                break;
         }
 
         PluWeighing = new();

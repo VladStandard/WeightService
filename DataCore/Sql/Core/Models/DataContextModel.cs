@@ -103,7 +103,7 @@ public class DataContextModel
     public List<TaskModel> Tasks { get; set; }
     public List<TaskTypeModel> TaskTypes { get; set; }
     public List<TemplateModel> Templates { get; set; }
-    public List<TemplateResourceModel> TemplateResources { get; set; }
+    public List<TemplateResourceDeprecatedModel> TemplateResources { get; set; }
     public List<VersionModel> Versions { get; set; }
     public List<WorkShopModel> WorkShops { get; set; }
 
@@ -210,7 +210,7 @@ public class DataContextModel
         var cls when cls == typeof(TaskModel) => GetListNotNullableTasks<T>(sqlCrudConfig),
         var cls when cls == typeof(TaskTypeModel) => GetListNotNullableTaskTypes<T>(sqlCrudConfig),
         var cls when cls == typeof(TemplateModel) => GetListNotNullableTemplates<T>(sqlCrudConfig),
-        var cls when cls == typeof(TemplateResourceModel) => GetListNotNullableTemplateResources<T>(sqlCrudConfig),
+        var cls when cls == typeof(TemplateResourceDeprecatedModel) => GetListNotNullableTemplateResources<T>(sqlCrudConfig),
         var cls when cls == typeof(VersionModel) => GetListNotNullableVersions<T>(sqlCrudConfig),
         var cls when cls == typeof(WorkShopModel) => GetListNotNullableWorkShops<T>(sqlCrudConfig),
         _ => new()
@@ -690,7 +690,7 @@ public class DataContextModel
 
     private List<T> GetListNotNullableTemplateResources<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
     {
-        TemplateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
+        TemplateResources = DataAccess.GetListNotNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && TemplateResources.Count > 1)
             TemplateResources = TemplateResources.OrderBy(item => item.Name).ToList();
         return TemplateResources.Cast<T>().ToList();
@@ -786,7 +786,7 @@ public class DataContextModel
         new TaskModel(),
         new TaskTypeModel(),
         new TemplateModel(),
-        new TemplateResourceModel(),
+        new TemplateResourceDeprecatedModel(),
         new VersionModel(),
         new WorkShopModel(),
     };
@@ -837,7 +837,7 @@ public class DataContextModel
         typeof(TaskModel),
         typeof(TaskTypeModel),
         typeof(TemplateModel),
-        typeof(TemplateResourceModel),
+        typeof(TemplateResourceDeprecatedModel),
         typeof(VersionModel),
         typeof(WorkShopModel),
     };
@@ -890,7 +890,7 @@ public class DataContextModel
         typeof(TaskMap),
         typeof(TaskTypeMap),
         typeof(TemplateMap),
-        typeof(TemplateResourceMap),
+        typeof(TemplateResourceDeprecatedMap),
         typeof(VersionMap),
         typeof(WorkShopMap),
     };
@@ -941,7 +941,7 @@ public class DataContextModel
         typeof(ScaleValidator),
         typeof(TaskTypeValidator),
         typeof(TaskValidator),
-        typeof(TemplateResourceValidator),
+        typeof(TemplateResourceDeprecatedValidator),
         typeof(TemplateValidator),
         typeof(VersionValidator),
         typeof(WorkShopValidator),
@@ -992,7 +992,7 @@ public class DataContextModel
             var cls when cls == typeof(TaskModel) => nameof(TaskModel),
             var cls when cls == typeof(TaskTypeModel) => nameof(TaskTypeModel),
             var cls when cls == typeof(TemplateModel) => nameof(TemplateModel),
-            var cls when cls == typeof(TemplateResourceModel) => nameof(TemplateResourceModel),
+            var cls when cls == typeof(TemplateResourceDeprecatedModel) => nameof(TemplateResourceDeprecatedModel),
             var cls when cls == typeof(VersionModel) => nameof(VersionModel),
             var cls when cls == typeof(WorkShopModel) => nameof(WorkShopModel),
             _ => string.Empty

@@ -83,7 +83,7 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<TaskModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<TaskTypeModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<TemplateModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<TemplateResourceModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<TemplateResourceDeprecatedModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<VersionModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<WorkShopModel>();
 	}
@@ -121,7 +121,7 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<TaskModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<TaskTypeModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<TemplateModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<TemplateResourceModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<TemplateResourceDeprecatedModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<VersionModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<WorkShopModel>();
 	}

@@ -172,11 +172,11 @@ public partial class DataAccessHelper
     }
 
     [Obsolete(@"Use DataContext")]
-    public List<TemplateResourceModel> GetListTemplateResources(bool isShowMarked, bool isShowOnlyTop)
+    public List<TemplateResourceDeprecatedModel> GetListTemplateResources(bool isShowMarked, bool isShowOnlyTop)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(TemplateResourceModel.Type), SqlFieldOrderEnum.Asc), isShowMarked, isShowOnlyTop);
-        List<TemplateResourceModel> result = GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
+            new SqlFieldOrderModel(nameof(TemplateResourceDeprecatedModel.Type), SqlFieldOrderEnum.Asc), isShowMarked, isShowOnlyTop);
+        List<TemplateResourceDeprecatedModel> result = GetListNotNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
         result = result.OrderBy(x => x.Name).ToList();
         result = result.OrderBy(x => x.Type).ToList();
         return result;

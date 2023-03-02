@@ -138,12 +138,12 @@ public static class DataFormatUtils
 		if (string.IsNullOrEmpty(result))
 			return result;
 
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceModel.Type), "ZPL"), 
-			new SqlFieldOrderModel(nameof(TemplateResourceModel.Name), SqlFieldOrderEnum.Asc), false, false);
-		TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceDeprecatedModel.Type), "ZPL"), 
+			new SqlFieldOrderModel(nameof(TemplateResourceDeprecatedModel.Name), SqlFieldOrderEnum.Asc), false, false);
+		TemplateResourceDeprecatedModel[]? templateReources = DataAccessHelper.Instance.GetArrayNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
 		if (templateReources is not null)
 		{
-			foreach (TemplateResourceModel resource in templateReources.ToList())
+			foreach (TemplateResourceDeprecatedModel resource in templateReources.ToList())
 			{
 				string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.ImageData.ValueUnicode);
 				result = result.Replace($"[{resource.Name}]", resourceHex);

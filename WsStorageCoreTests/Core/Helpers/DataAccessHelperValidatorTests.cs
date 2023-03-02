@@ -396,7 +396,7 @@ internal class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TemplateResourceValidator item = new();
+            TemplateResourceDeprecatedValidator item = new();
             TestContext.WriteLine(item);
         });
     }

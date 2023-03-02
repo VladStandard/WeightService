@@ -123,6 +123,10 @@ public partial class MainForm : Form
         UserSession.PluginMassa.Execute();
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaExt, Debug.IsDebug);
 
+        // Template.
+        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTemplateTitle, true);
+        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTemplateValue, true);
+
         // PrintMain.
         if (UserSession.Scale.PrinterMain is not null)
         {
@@ -155,8 +159,8 @@ public partial class MainForm : Form
             new(0_250, 0_250), new(0_250, 0_250), 
             new(0_250, 0_250), fieldPlu, fieldSscc, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
-        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {UserSessionHelper.Instance.PublishDescription}.");
-        MDSoft.WinFormsUtils.InvokeControl.SetBackColor(fieldTitle, UserSessionHelper.Instance.PublishType == PublishType.Unknown ? Color.IndianRed : Color.Transparent);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {UserSession.PublishDescription}.");
+        MDSoft.WinFormsUtils.InvokeControl.SetBackColor(fieldTitle, UserSession.PublishType == PublishType.Unknown ? Color.IndianRed : Color.Transparent);
     }
 
     private void ReturnBackExit()
@@ -211,6 +215,8 @@ public partial class MainForm : Form
         fieldPrintMainExt.Font = FontsSettings.FontLabelsGray;
         fieldPrintShippingExt.Font = FontsSettings.FontLabelsGray;
         fieldMemory.Font = FontsSettings.FontLabelsGray;
+        fieldTemplateTitle.Font = FontsSettings.FontLabelsGray;
+        fieldTemplateValue.Font = FontsSettings.FontLabelsGray;
 
         labelNettoWeight.Font = FontsSettings.FontLabelsBlack;
         labelPackageWeight.Font = FontsSettings.FontLabelsBlack;
@@ -523,6 +529,7 @@ public partial class MainForm : Form
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelPackageWeight, LocaleCore.Scales.FieldWeightTare);
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
         MDSoft.WinFormsUtils.InvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTemplateTitle, $"{LocaleCore.Print.Template}");
     }
 
     private void LoadLocalizationDynamic(Lang lang)
@@ -535,9 +542,11 @@ public partial class MainForm : Form
             ? LocaleCore.Table.FieldPackageIsNotSelected
             : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPackageWeight,
-            UserSessionHelper.Instance.PluScale.IsNotNew
-                ? $"{UserSessionHelper.Instance.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
+            UserSession.PluScale.IsNotNew
+                ? $"{UserSession.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
+        TemplateModel template = UserSession.DataAccess.GetItemTemplateNotNullable(UserSession.PluScale);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTemplateValue, template.Title);
     }
 
     #endregion
@@ -827,13 +836,24 @@ public partial class MainForm : Form
                 if (!UserSession.CheckWeightThresholds(this)) return;
 
                 // Check printers connections.
-                if (!UserSession.CheckPrintIsConnect(this, UserSession.PluginPrintMain, true)) return;
-                if (UserSession.Scale.IsShipping)
-                    if (!UserSession.CheckPrintIsConnect(this, UserSession.PluginPrintShipping, false)) return;
-                // Check printers statuses.
-                if (!UserSession.CheckPrintStatusReady(this, UserSession.PluginPrintMain, true)) return;
-                if (UserSession.Scale.IsShipping)
-                    if (!UserSession.CheckPrintStatusReady(this, UserSession.PluginPrintShipping, false)) return;
+                bool isSkipPrintCheckAccess = false;
+                if (Debug.IsDebug)
+                {
+                    DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
+                        LocaleCore.Print.QuestionPrintCheckAccess, true, LogType.Question,
+                        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                    isSkipPrintCheckAccess = dialogResult != DialogResult.Yes;
+                }
+                if (!isSkipPrintCheckAccess)
+                {
+                    if (!UserSession.CheckPrintIsConnect(this, UserSession.PluginPrintMain, true)) return;
+                    if (UserSession.Scale.IsShipping)
+                        if (!UserSession.CheckPrintIsConnect(this, UserSession.PluginPrintShipping, false)) return;
+                    // Check printers statuses.
+                    if (!UserSession.CheckPrintStatusReady(this, UserSession.PluginPrintMain, true)) return;
+                    if (UserSession.Scale.IsShipping)
+                        if (!UserSession.CheckPrintStatusReady(this, UserSession.PluginPrintShipping, false)) return;
+                }
 
                 UserSession.PrintLabel(this, false);
             },

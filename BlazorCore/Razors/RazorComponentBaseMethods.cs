@@ -80,7 +80,7 @@ public partial class RazorComponentBase
 			ScaleModel => LocaleCore.DeviceControl.ItemScale,
 			ScaleScreenShotModel => LocaleCore.DeviceControl.ItemScreenShot,
 			TemplateModel => LocaleCore.DeviceControl.ItemTemplate,
-			TemplateResourceModel => LocaleCore.DeviceControl.ItemTemplateResource,
+			TemplateResourceDeprecatedModel => LocaleCore.DeviceControl.ItemTemplateResource,
 			WorkShopModel => LocaleCore.DeviceControl.ItemWorkShop,
 			_ => result
 		};
@@ -121,7 +121,7 @@ public partial class RazorComponentBase
 			ProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
 			ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
 			ScaleModel => LocaleCore.DeviceControl.SectionScales,
-			TemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
+			TemplateResourceDeprecatedModel => LocaleCore.DeviceControl.SectionTemplateResources,
 			WorkShopModel => LocaleCore.DeviceControl.SectionWorkShops,
 			_ => result
 		};
@@ -437,8 +437,8 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(false, false);
-			List<TemplateResourceModel> templateResources = DataContext.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
-			foreach (TemplateResourceModel templateResource in templateResources)
+			List<TemplateResourceDeprecatedModel> templateResources = DataContext.GetListNotNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
+			foreach (TemplateResourceDeprecatedModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains("TTF"))
 				{
@@ -464,8 +464,8 @@ public partial class RazorComponentBase
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
                 new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), false, false);
-			List<TemplateResourceModel> templateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
-			foreach (TemplateResourceModel templateResource in templateResources)
+			List<TemplateResourceDeprecatedModel> templateResources = DataAccess.GetListNotNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
+			foreach (TemplateResourceDeprecatedModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains(fileType))
 				{

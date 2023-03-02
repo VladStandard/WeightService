@@ -4,22 +4,19 @@
 namespace DataCore.Sql.TableScaleModels.TemplatesResources;
 
 /// <summary>
-/// Table validation "TEMPLATES_RESOURCES".
+/// Table validation "TemplateResources".
 /// </summary>
-public class TemplateResourceValidator : SqlTableValidator<TemplateResourceModel>
+public class TemplateResourceDeprecatedValidator : SqlTableValidator<TemplateResourceDeprecatedModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TemplateResourceValidator() : base(true, true)
+    public TemplateResourceDeprecatedValidator() : base(true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => item.Type)
-            .NotEmpty()
-            .NotNull();
-        RuleFor(item => item.DataValue)
+        RuleFor(item => item.Description)
             .NotEmpty()
             .NotNull();
     }

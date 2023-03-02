@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -9,13 +9,12 @@ namespace DataCore.Sql.TableScaleModels.Templates;
 /// Table "Templates".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(TemplateModel)}")]
+[DebuggerDisplay("{nameof(TemplateModel)} | {Title}")]
 public class TemplateModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual string CategoryId { get; set; }
-    [XmlElement] public virtual Guid IdRRef { get; set; }
     [XmlElement] public virtual string Title { get; set; }
     [XmlIgnore] public virtual SqlFieldBinaryModel ImageData { get; set; }
     [XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value ?? Array.Empty<byte>(); set => ImageData.Value = value; }
@@ -29,7 +28,6 @@ public class TemplateModel : SqlTableBase
     public TemplateModel() : base(SqlFieldIdentity.Id)
     {
         CategoryId = string.Empty;
-        IdRRef = Guid.Empty;
         Title = string.Empty;
         ImageData = new();
         //ImageDataValue = Array.Empty<byte>();
@@ -44,7 +42,6 @@ public class TemplateModel : SqlTableBase
     protected TemplateModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         CategoryId = info.GetString(nameof(CategoryId));
-        IdRRef = Guid.Parse(info.GetString(nameof(IdRRef)));
         Title = info.GetString(nameof(Title));
         ImageData = (SqlFieldBinaryModel)info.GetValue(nameof(ImageData), typeof(SqlFieldBinaryModel));
     }
@@ -74,7 +71,6 @@ public class TemplateModel : SqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(CategoryId, string.Empty) &&
-        Equals(IdRRef, Guid.Empty) &&
         Equals(Title, string.Empty) &&
         ImageData.EqualsDefault();
 
@@ -83,7 +79,6 @@ public class TemplateModel : SqlTableBase
         TemplateModel item = new();
         item.CloneSetup(base.CloneCast());
         item.CategoryId = CategoryId;
-        item.IdRRef = IdRRef;
         item.Title = Title;
         item.ImageData = ImageData.CloneCast();
         return item;
@@ -98,7 +93,6 @@ public class TemplateModel : SqlTableBase
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(CategoryId), CategoryId);
-        info.AddValue(nameof(IdRRef), IdRRef);
         info.AddValue(nameof(Title), Title);
         info.AddValue(nameof(ImageData), ImageData);
     }
@@ -117,7 +111,6 @@ public class TemplateModel : SqlTableBase
     public virtual bool Equals(TemplateModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(CategoryId, item.CategoryId) &&
-        Equals(IdRRef, item.IdRRef) &&
         Equals(Title, item.Title) &&
         ImageData.Equals(item.ImageData);
 

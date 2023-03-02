@@ -26,6 +26,6 @@ public class PrinterResourceValidator : SqlTableValidator<PrinterResourceModel>
         RuleFor(item => item.TemplateResource)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new TemplateResourceValidator());
+            .SetValidator(new TemplateResourceDeprecatedValidator());
     }
 }

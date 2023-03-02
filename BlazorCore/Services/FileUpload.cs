@@ -38,7 +38,7 @@ public class FileUpload : IFileUpload
         ms.WriteTo(file);
     }
 
-    public async Task UploadAsync(TemplateResourceModel? item, Stream stream)
+    public async Task UploadAsync(TemplateResourceDeprecatedModel? item, Stream stream)
     {
         if (item == null)
             return;

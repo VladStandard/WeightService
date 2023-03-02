@@ -3,9 +3,9 @@
 
 namespace DataCore.Enums;
 
-public enum ServiceLogDirection
+public enum TemplateResourceType
 {
-    Request,
-    Response,
-    MetaData,
+    Grf,
+    Ttf,
+    Zpl,
 }

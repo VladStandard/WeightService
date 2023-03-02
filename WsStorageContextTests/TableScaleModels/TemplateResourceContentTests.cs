@@ -9,6 +9,6 @@ internal class TemplateResourceContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<TemplateResourceModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<TemplateResourceDeprecatedModel>();
 	}
 }

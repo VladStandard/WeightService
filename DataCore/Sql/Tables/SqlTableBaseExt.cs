@@ -258,7 +258,7 @@ public static class SqlTableBaseExt
 		return propertyName switch
 		{
 			$"{nameof(PrinterResourceModel.Printer)}.{nameof(PrinterModel.Name)}" => printerResource.Printer.Name,
-			$"{nameof(PrinterResourceModel.TemplateResource)}.{nameof(TemplateResourceModel.Name)}" => printerResource.TemplateResource
+			$"{nameof(PrinterResourceModel.TemplateResource)}.{nameof(TemplateResourceDeprecatedModel.Name)}" => printerResource.TemplateResource
 				.Name,
 			_ => LocaleCore.Table.FieldNotFound
 		};
