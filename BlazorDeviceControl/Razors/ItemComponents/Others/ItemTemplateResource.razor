@@ -26,43 +26,21 @@
       <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Type"/>
     </td>
   </tr>
-  <tr>
-    <td>@LocaleCore.Table.ImageData</td>
-    <td colspan="3">
-      <RadzenTextArea
-        Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
-        Rows="25"
-        @bind-Value="@(SqlItemCast.ImageData.ValueUnicode)"/>
-    </td>
-  </tr>
+  @if (SqlItemCast.Type != "TTF")
+  {
+    <tr>
+      <td>@LocaleCore.Table.ImageData</td>
+      <td colspan="3">
+        <RadzenTextArea
+          Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+          Rows="25"
+          @bind-Value="@(SqlItemCast.ImageData.ValueUnicode)"/>
+      </td>
+    </tr>
+  }
   </tbody>
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
 <RazorItemActions TItem="@TemplateResourceDeprecatedModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
 
-@*
-<RadzenLabel Style="width: 97%;" Text=@FileInfo />
-<RadzenLabel Style="width: 97%;" Text=@FileComplete />
-<RadzenLabel Style="width: 27%; " Text=@LocaleCore.Strings.FileUpload />
-<Microsoft.AspNetCore.Components.Forms.InputFile style="width: 50%; " OnChange=@OnFileUpload />
-<RadzenLabel Style="width: 27%; " Text=@LocaleCore.Strings.FileDownload />
-<RadzenButton Style="width: 50%; height: 30px; text-align: center; "
-Size=@ButtonSize.Small
-            Click=@OnFileDownload Text=@LocaleCore.Strings.FileDownload />
-<RadzenLabel Style="width: 27%;" Text=@LocaleCore.TableField.Type />
-@if (ResourceTypes is null)
-{
-<RadzenTextBox Style="width: 70%;" Disabled=false ReadOnly=true TValue="string" Value="" />
-<RadzenProgressBar Value=@ProgressValue Unit=@FileInfo
-                    ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-}
-else
-{
-<RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                Data=@ResourceTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount TextProperty="Name"
-                ValueProperty="Value"
-                Value=@TemplateResourcesItem.Type Change=@(args => OnItemValueChange(args, "ResourceTypes")) />
-}
-*@
