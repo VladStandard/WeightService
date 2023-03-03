@@ -189,7 +189,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplateResources", "Templa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E045-41F4-9460-CC519B8D7DBF}"
 	ProjectSection(SolutionItems) = preProject
+		Resources\Templates\TSC\TSC 60x150 300dpi вес v1.xml = Resources\Templates\TSC\TSC 60x150 300dpi вес v1.xml
+		Resources\Templates\TSC\TSC 60x150 300dpi вес v1 example.txt = Resources\Templates\TSC\TSC 60x150 300dpi вес v1 example.txt
 		Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml
+		Resources\Templates\TSC\TSC 60x150 300dpi шт v1 example.txt = Resources\Templates\TSC\TSC 60x150 300dpi шт v1 example.txt
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml
@@ -1158,7 +1161,7 @@ Global
 		{C42E467B-DA02-4FCB-B802-6FD26610B375} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 	EndGlobalSection
 EndGlobal

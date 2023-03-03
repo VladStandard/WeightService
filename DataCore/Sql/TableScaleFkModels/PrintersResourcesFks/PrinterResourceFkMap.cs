@@ -22,7 +22,6 @@ public class PrinterResourceFkMap : ClassMap<PrinterResourceFkModel>
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
-        Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150).Nullable();
         References(x => x.Printer).Column("PrinterID").Not.Nullable();
         References(x => x.TemplateResource).Column("ResourceID").Not.Nullable();
     }

@@ -16,9 +16,6 @@ public class PrinterResourceFkValidator : SqlTableValidator<PrinterResourceFkMod
     /// </summary>
     public PrinterResourceFkValidator() : base(false, false)
     {
-        RuleFor(item => item.Description)
-            .NotEmpty()
-            .NotNull();
         RuleFor(item => item.Printer)
             .NotEmpty()
             .NotNull()
