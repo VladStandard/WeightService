@@ -3,8 +3,6 @@
 
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using DataCore.CssStyles;
-using DataCore.Sql.TableScaleModels.PlusScales;
 using BlazorCore.Settings;
 using BlazorCore.Utils;
 using Radzen;
@@ -26,8 +24,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
     
     public IList<TItem>? SelectedRow { get; set; }
 	protected List<TItemFilter> SqlSectionFilterCast { get; set; }
-	protected string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
-	protected TItemFilter SqlItemFilterCast
+    protected TItemFilter SqlItemFilterCast
 	{
 		get => SqlItemFilter is null ? new() : (TItemFilter)SqlItemFilter;
 		set => SqlItemFilter = value;
@@ -37,13 +34,8 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
 		set => SqlSection = !value.Any() ? null : new(value);
 	}
-	protected List<TItem> SqlSectionChangedCast
-	{
-		get => SqlSectionOnTable is null ? new() : SqlSectionOnTable.Select(x => (TItem)x).ToList();
-		set => SqlSectionOnTable = !value.Any() ? null : new(value);
-	}
-
-	public RazorComponentSectionBase()
+    
+    public RazorComponentSectionBase()
     {
 	    SelectedRow = new List<TItem>();
         SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
@@ -81,27 +73,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		//	args.Attributes.Add("class", UserSettings.GetColorAccessRights((AccessRightsEnum)access.Rights));
 		//}
 	}
-
-	protected async Task RowClick(TItem item)
-	{
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-		await SqlItemSetAsync(item);
-
-		RunActionsSafe(string.Empty, () =>
-		{
-			SqlItemOnTable = item;
-			switch (typeof(TItem))
-			{
-				case var cls when cls == typeof(PluScaleModel):
-					if (SqlItemOnTable is PluScaleModel pluScale)
-						AddSqlItemOnTable(pluScale);
-					break;
-			}
-		});
-	}
-
-	protected async Task SqlItemEditAsync()
+    protected async Task SqlItemEditAsync()
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -109,8 +81,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		RunActionsSafe(string.Empty, () =>
 		{
 			SetRouteItemNavigate(SqlItem);
-			OnChangeAsync();
-		});
+        });
 	}
 	
     protected async Task SqlItemSetAsync(TItem item)
@@ -118,12 +89,8 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 		
 		SelectedRow = new List<TItem>() { item };
-
-		RunActionsSafe(string.Empty, () =>
-		{
-			SqlItem = SelectedRow.Last();
-		});
-	}
+        SqlItem = SelectedRow.Last();
+    }
     
 	protected async Task SqlItemEditAsync(TItem item)
 	{

@@ -44,12 +44,13 @@ public partial class RazorComponentBase
 		    if (razorPage is null) return;
 		    InvokeAsync(razorPage.OnChangeAdditional);
 			InvokeAsync(razorPage.StateHasChanged);
-		    InvokeAsync(razorPage.OnParametersSet);
+            InvokeAsync(razorPage.OnParametersSet);
             
 			razorPage = razorPage.ParentRazor;
 	    }
     }
 
+    // TODO: FIX OnChangeItem
     protected void OnChangeItem(SqlTableBase? item, string filterName, object? value)
     {
         RunActionsSafe(LocaleCore.Table.TableEdit, () =>

@@ -352,18 +352,7 @@ public partial class RazorComponentBase
         }
     }
 
-    protected async Task SqlItemsSaveAsync()
-	{
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
-		{
-			SqlItemsSave(SqlSectionOnTable);
-			OnChangeAsync();
-		});
-	}
-
-	protected async Task SqlItemNewAsync<TItem>() where TItem : SqlTableBase, new()
+    protected async Task SqlItemNewAsync<TItem>() where TItem : SqlTableBase, new()
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);

@@ -9,12 +9,11 @@ namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResourceDeprecatedModel>
 {
     #region Public and private fields, properties, constructor
-
+    
     [Inject] private IFileUpload? FileUpload { get; set; }
     [Inject] private IFileDownload? FileDownload { get; set; }
     [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }
-
-
+    
     #endregion
 
     #region Public and private methods

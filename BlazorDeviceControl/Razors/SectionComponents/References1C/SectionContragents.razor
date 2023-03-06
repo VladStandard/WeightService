@@ -13,17 +13,19 @@
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
-  <Columns >
-    <RazorSectionFieldIsMarked TItem="@ContragentModel" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RadzenDataGridColumn TItem="@ContragentModel" Title="@LocaleCore.Table.Name" Width="50%">
-      <Template Context="itemCast">
-        <RadzenLink Style="width: 100%; margin-left: 0; "
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.IdentityValueUid}")
-                    Text="@itemCast.Name"/>
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@ContragentModel" Property="FullName" TextAlign="@TextAlign.Left"
-      Title="@LocaleCore.Table.FullName"
-      Width="50%"/>
+  <Columns>
+    <TItemContent TItem="@ContragentModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn TItem="@ContragentModel" Title="@LocaleCore.Table.Name" Width="50%">
+        <Template Context="itemCast">
+          <RadzenLink Style="width: 100%; margin-left: 0; "
+                      Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.IdentityValueUid}")
+                      Text="@itemCast.Name"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@ContragentModel" Property="FullName" TextAlign="@TextAlign.Left"
+                            Title="@LocaleCore.Table.FullName"
+                            Width="50%"/>
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

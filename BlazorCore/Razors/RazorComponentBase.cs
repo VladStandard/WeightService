@@ -63,26 +63,19 @@ public partial class RazorComponentBase : LayoutComponentBase
     #endregion
 
     public SqlTableBase? SqlItem { get; set; }
-	protected SqlTableBase? SqlItemOnTable { get; set; }
-	public SqlTableBase? SqlItemFilter { get; set; }
+    public SqlTableBase? SqlItemFilter { get; set; }
 	public List<SqlTableBase>? SqlSection { get; set; }
-	public List<SqlTableBase>? SqlSectionOnTable { get; set; }
-	public List<SqlTableBase>? SqlLinkedItems { get; set; }
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+    public List<SqlTableBase>? SqlLinkedItems { get; set; }
+    
 	public RazorComponentBase()
 	{
         UserSettings = null;
         Title = string.Empty;
 
 		SqlItem = null;
-		SqlItemOnTable = null;
-		SqlItemFilter = null;
+        SqlItemFilter = null;
 		SqlSection = null;
-		SqlSectionOnTable = null;
-		SqlLinkedItems = null;
+        SqlLinkedItems = null;
 
 		RazorFieldConfig = new();
 		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem(true);
@@ -97,13 +90,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 			IdentityId = ParentRazor.IdentityId;
 		if (ParentRazor.IdentityUid is not null)
 			IdentityUid = ParentRazor.IdentityUid;
-		if (ParentRazor.SqlItemOnTable is not null)
-			SqlItemOnTable = ParentRazor.SqlItemOnTable;
-		if (ParentRazor.SqlSection is not null)
+        if (ParentRazor.SqlSection is not null)
 			SqlSection = ParentRazor.SqlSection;
-		if (ParentRazor.SqlSectionOnTable is not null)
-			SqlSectionOnTable = ParentRazor.SqlSectionOnTable;
-		if (ParentRazor.SqlLinkedItems is not null)
+        if (ParentRazor.SqlLinkedItems is not null)
 			SqlLinkedItems = ParentRazor.SqlLinkedItems;
 
         SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
@@ -124,20 +113,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		UserSettings = new(userName, (AccessRightsEnum)access.Rights);
     }
-
-    /// <summary>
-	/// Add item to items table list.
-	/// </summary>
-	/// <param name="item"></param>
-	protected void AddSqlItemOnTable(SqlTableBase? item)
-	{
-		SqlSectionOnTable ??= new();
-		if (item is not null)
-		{
-			if (!SqlSectionOnTable.Any(i => i.Identity.Equals(item.Identity)))
-				SqlSectionOnTable.Add(item);
-		}
-	}
-
+    
     #endregion
 }

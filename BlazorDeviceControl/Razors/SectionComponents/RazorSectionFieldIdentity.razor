@@ -3,13 +3,6 @@
 
 <RadzenGridColumn TItem="@TItem" TextAlign="@TextAlign.Center" Width="@Width" Title="@(GetColumnIdentityName<TItem>())">
   <Template Context="item">
-    @* @if (CssStyleRadzenColumn.IsShowLink) *@
-    @* { *@
-      <RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString() Path=@(GetRouteItemPath(item)) />
-    @* } *@
-    @* else *@
-    @* { *@
-    @*   <RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString()/> *@
-    @* } *@
+    <RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString() Path=@(GetRouteItemPath(item)) />
   </Template>
 </RadzenGridColumn>

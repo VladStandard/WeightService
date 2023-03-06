@@ -3,9 +3,11 @@
 
 namespace BlazorDeviceControl.Razors.SectionComponents;
 
-public partial class RazorSectionFieldIsMarked<TItem> : RazorComponentSectionBase<TItem, SqlTableBase> where TItem : SqlTableBase, new()
+public partial class RazorSectionFieldIsMarked<TItem> : LayoutComponentBase where TItem : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
+    
+    [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
     
     public string Width { get; set; }
     

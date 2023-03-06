@@ -1,5 +1,5 @@
 ﻿@typeparam TItem
-@inherits RazorComponentSectionBase<TItem, SqlTableBase>
+@inherits LayoutComponentBase
 
 <RadzenDataGridColumn
   TItem="@TItem"
@@ -13,9 +13,8 @@
         <RadzenCheckBox Disabled=true TValue="bool" Value=@item.GetPropertyAsBool(nameof(RazorFieldConfig.Name))/>
         break;
       default:
-        <RadzenLink
-          Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
-          Path=@GetRouteItemPathForLink(item)/>
+        <RadzenText
+          Text=@item.GetPropertyAsString(RazorFieldConfig.Name) />
         break;
     }
   </Template>
