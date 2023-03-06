@@ -1,6 +1,5 @@
 ﻿@using DataCore.Sql.TableScaleModels.TemplatesResources
 @using BlazorDeviceControl.Razors.CustomComponents
-@using DataCore.Sql.TableScaleModels.TemplatesResources
 @inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceDeprecatedModel, SqlTableBase>
 @page "/section/templates_resources"
 
@@ -15,7 +14,7 @@
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <TItemContent TItem="@TemplateResourceModel">
+    <TItemContent TItem="@TemplateResourceDeprecatedModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" />
       <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription()" Width="40%" />
