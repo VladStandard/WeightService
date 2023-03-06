@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLocalization.Models;
@@ -11,8 +11,9 @@ public static class LocaleCore
     public static Lang Lang
     {
         get => _lang;
-        set => Action.Lang = Buttons.Lang = Convert.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang = Print.Lang =
-            Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang = Ping.Lang = WebService.Lang = ContextMenu.Lang = _lang = value;
+        set => Action.Lang = Buttons.Lang = Convert.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang = 
+            Print.Lang = Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang = Ping.Lang = 
+            WebService.Lang = ContextMenu.Lang = _lang = value;
     }
     public static LocaleAction Action { get; } = LocaleAction.Instance;
     public static LocaleButtons Buttons { get; } = LocaleButtons.Instance;

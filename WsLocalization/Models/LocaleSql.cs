@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLocalization.Models;
@@ -46,6 +46,7 @@ public class LocaleSql
     public string SqlItemFieldPrettyName => Lang == Lang.English ? "pretty name" : "Красивое наименование";
     public string SqlItemFieldProductXml => Lang == Lang.English ? "\"<Product Category=\\\"Meat\\\" > </Product>\"" : "\"<Product Category=\\\"Сосиски\\\" > </Product>\"";
     public string SqlItemFieldSscc => Lang == Lang.English ? "SSCC code" : "SSCC код";
+    public string SqlItemFieldTemplateResourceType => "ZPL";
     public string SqlItemFieldTitle => Lang == Lang.English ? "Title" : "Заголовок";
     public string SqlItemFieldUrl => "https://{{local}}/api/info/";
     public string SqlItemFieldValue => Lang == Lang.English ? "Value" : "Значение";

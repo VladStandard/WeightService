@@ -1,40 +1,36 @@
-﻿@using DataCore.Sql.TableScaleModels.TemplatesResources
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceDeprecatedModel>
+@using DataCore.Enums;
+@using DataCore.Sql.TableScaleModels.TemplatesResources
+@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel>
 @page "/item/template_resource"
 @page "/item/template_resource/new"
-@page "/item/template_resource/{IdentityId:long}"
+@page "/item/template_resource/{IdentityUidStr}"
 
-<RazorItemReload TItem="@TemplateResourceDeprecatedModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemTemplateResource"/>
+<RazorItemReload TItem="@TemplateResourceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemTemplateResource"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@TemplateResourceDeprecatedModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@TemplateResourceModel" ParentRazor="@(this)"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
       <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Name"/>
     </td>
-    <td>@LocaleCore.Table.Description</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Description"/>
-    </td>
-  </tr>
-  <tr>
     <td>@LocaleCore.Table.Type</td>
     <td>
       <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Type"/>
     </td>
   </tr>
-  @if (SqlItemCast.Type != "TTF")
+
+  @if (IsNotBlackType(SqlItemCast.Type))
   {
     <tr>
       <td>@LocaleCore.Table.ImageData</td>
       <td colspan="3">
         <RadzenTextArea
           Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
-          Rows="25"
-          @bind-Value="@(SqlItemCast.ImageData.ValueUnicode)"/>
+          Rows="18"
+          @bind-Value="@(SqlItemCast.Data.ValueUnicode)"/>
       </td>
     </tr>
   }
@@ -42,5 +38,5 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@TemplateResourceDeprecatedModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions TItem="@TemplateResourceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
 

@@ -1,12 +1,14 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Settings;
+using DataCore.Enums;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
+using System;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 
-public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResourceDeprecatedModel>
+public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResourceModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -25,7 +27,7 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
         {
             () =>
             {
-                SqlItemCast = DataContext.GetItemNotNullable<TemplateResourceDeprecatedModel>(IdentityId);
+                SqlItemCast = DataContext.GetItemNotNullable<TemplateResourceModel>(IdentityUid);
                 //if (IdentityId is not null && TableAction == DbTableAction.New)
                 //    SqlItemCast.IdentityValueId = (long)IdentityId;
             }
@@ -60,6 +62,16 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
             FileDownload.DownloadAsync(DownloadFileService, SqlItemCast);
 
         InvokeAsync(StateHasChanged);
+    }
+
+    private bool IsNotBlackType(string type)
+    {
+        foreach (TemplateResourceBlackType value in Enum.GetValues(typeof(TemplateResourceBlackType)))
+        {
+            if (type.Equals(value.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                return false;
+        }
+        return true;
     }
 
     #endregion

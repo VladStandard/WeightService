@@ -1,23 +1,23 @@
-﻿@using DataCore.Sql.TableScaleModels.TemplatesResources
+@using DataCore.Sql.TableScaleModels.TemplatesResources
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceDeprecatedModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel, SqlTableBase>
 @page "/section/templates_resources"
 
-<RazorSectionReload TItem="@TemplateResourceDeprecatedModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionTemplateResources" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@TemplateResourceModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionTemplateResources" SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenDataGridLocal
-  @bind-Value="@SelectedRow"
-  TItem="@TemplateResourceDeprecatedModel"
-  Data="@SqlSectionCast"
-  CellContextMenu="@OnCellContextMenu"
-  RowSelect="@(SqlItemSetAsync)"
-  RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())">
-  <Columns>
-    <TItemContent TItem="@TemplateResourceDeprecatedModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription()" Width="40%" />
-    </TItemContent>
-  </Columns>
+<RadzenDataGridLocal @bind-Value="@SelectedRow"
+                     TItem="@TemplateResourceModel"
+                     Data="@SqlSectionCast"
+                     CellContextMenu="@OnCellContextMenu"
+                     RowSelect="@(SqlItemSetAsync)"
+                     RowRender="@(args => RowRender(args))"
+                     RowDoubleClick="@(_ => SqlItemEditAsync())">
+    <Columns>
+        <TItemContent TItem="@TemplateResourceModel">
+            <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+            <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataType()" Width="20%" />
+            <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="55%" />
+            <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataSize()" Width="20%" />
+        </TItemContent>
+    </Columns>
 </RadzenDataGridLocal>

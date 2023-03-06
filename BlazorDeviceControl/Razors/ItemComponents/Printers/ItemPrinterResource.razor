@@ -26,7 +26,7 @@
     <td>@LocaleCore.Table.Resource</td>
     <td>
       <MudSelectLocal @bind-Value="@SqlItemCast.TemplateResource">
-        @foreach (TemplateResourceDeprecatedModel item in DataContext.TemplateResources)
+        @foreach (TemplateResourceModel item in DataContext.TemplateResources)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }

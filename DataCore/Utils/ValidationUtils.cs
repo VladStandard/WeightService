@@ -53,8 +53,13 @@ using FluentValidation.Results;
 
 namespace DataCore.Utils;
 
-public class ValidationUtils {
-    private static void SetValidationFailureLog(ValidationResult result, ref string detailAddition) {
+public class ValidationUtils
+{
+
+    #region Public and private methods
+
+    private static void SetValidationFailureLog(ValidationResult result, ref string detailAddition)
+    {
         switch (result.IsValid)
         {
             case false:
@@ -108,7 +113,7 @@ public class ValidationUtils {
             var cls when cls == typeof(TaskModel) => new TaskValidator(),
             var cls when cls == typeof(TaskTypeModel) => new TaskTypeValidator(),
             var cls when cls == typeof(TemplateModel) => new TemplateValidator(),
-            var cls when cls == typeof(TemplateResourceDeprecatedModel) => new TemplateResourceDeprecatedValidator(),
+            var cls when cls == typeof(TemplateResourceModel) => new TemplateResourceValidator(),
             var cls when cls == typeof(VersionModel) => new VersionValidator(),
             var cls when cls == typeof(WorkShopModel) => new WorkShopValidator(),
             _ => throw new NotImplementedException()
@@ -162,7 +167,7 @@ public class ValidationUtils {
             TaskModel task => new TaskValidator().Validate(task),
             TaskTypeModel taskType => new TaskTypeValidator().Validate(taskType),
             TemplateModel template => new TemplateValidator().Validate(template),
-            TemplateResourceDeprecatedModel templateResource => new TemplateResourceDeprecatedValidator().Validate(templateResource),
+            TemplateResourceModel templateResource => new TemplateResourceValidator().Validate(templateResource),
             VersionModel version => new VersionValidator().Validate(version),
             WorkShopModel workShop => new WorkShopValidator().Validate(workShop),
             DeviceModel device => new DeviceValidator().Validate(device),
@@ -172,7 +177,8 @@ public class ValidationUtils {
             _ => throw new NullReferenceException(nameof(item))
         };
 
-    public static bool IsValidation<T>(T? item, ref string detailAddition) where T : class, new() {
+    public static bool IsValidation<T>(T? item, ref string detailAddition) where T : class, new()
+    {
         if (item is null)
         {
             detailAddition = $"{nameof(item)} is null!";
@@ -188,4 +194,6 @@ public class ValidationUtils {
 
         return true;
     }
+
+    #endregion
 }

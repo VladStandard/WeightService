@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
@@ -141,7 +141,7 @@ public partial class RazorComponentBase
         TaskModel => LocaleCore.DeviceControl.RouteItemTaskModule,
         TaskTypeModel => LocaleCore.DeviceControl.RouteItemTaskTypeModule,
         TemplateModel => LocaleCore.DeviceControl.RouteItemTemplate,
-        TemplateResourceDeprecatedModel => LocaleCore.DeviceControl.RouteItemTemplateResource,
+        TemplateResourceModel => LocaleCore.DeviceControl.RouteItemTemplateResource,
         VersionModel => LocaleCore.DeviceControl.RouteItemVersion,
         WorkShopModel => LocaleCore.DeviceControl.RouteItemWorkShop,
         _ => string.Empty
@@ -184,7 +184,7 @@ public partial class RazorComponentBase
             TaskModel => LocaleCore.DeviceControl.RouteSectionTaskModules,
             TaskTypeModel => LocaleCore.DeviceControl.RouteSectionTaskTypeModules,
             TemplateModel => LocaleCore.DeviceControl.RouteSectionTemplates,
-            TemplateResourceDeprecatedModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
+            TemplateResourceModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
             VersionModel => LocaleCore.DeviceControl.RouteSectionVersions,
             WorkShopModel => LocaleCore.DeviceControl.RouteSectionWorkShops,
             _ => string.Empty

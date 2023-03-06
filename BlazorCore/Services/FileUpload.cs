@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Helpers;
@@ -38,14 +38,14 @@ public class FileUpload : IFileUpload
         ms.WriteTo(file);
     }
 
-    public async Task UploadAsync(TemplateResourceDeprecatedModel? item, Stream stream)
+    public async Task UploadAsync(TemplateResourceModel? item, Stream stream)
     {
         if (item == null)
             return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        item.ImageData = new() { Value = DataUtils.GetBytes(stream, true) };
-        DataAccess.Update(item);
+        item.Data = new() { Value = DataUtils.GetBytes(stream, true) };
+        DataAccess.UpdateForce(item);
     }
 }

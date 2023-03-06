@@ -138,14 +138,14 @@ public static class DataFormatUtils
 		if (string.IsNullOrEmpty(result))
 			return result;
 
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceDeprecatedModel.Type), "ZPL"), 
-			new SqlFieldOrderModel(nameof(TemplateResourceDeprecatedModel.Name), SqlFieldOrderEnum.Asc), false, false);
-		TemplateResourceDeprecatedModel[]? templateReources = DataAccessHelper.Instance.GetArrayNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
-		if (templateReources is not null)
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceModel.Type), "ZPL"), 
+			new SqlFieldOrderModel(nameof(TemplateResourceModel.Name), SqlFieldOrderEnum.Asc), false, false);
+		TemplateResourceModel[]? templateResources = DataAccessHelper.Instance.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
+		if (templateResources is not null)
 		{
-			foreach (TemplateResourceDeprecatedModel resource in templateReources.ToList())
+			foreach (TemplateResourceModel resource in templateResources.ToList())
 			{
-				string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.ImageData.ValueUnicode);
+				string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
 				result = result.Replace($"[{resource.Name}]", resourceHex);
 			}
 		}
@@ -179,12 +179,7 @@ public static class DataFormatUtils
 	{
 		tscDriver.Cmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(tscDriver.TextPrepare);
 		if (isUsePicReplace)
-		{
 			tscDriver.Cmd = PrintCmdReplaceZplResources(tscDriver.Cmd);
-			//Cmd = Cmd.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
-			//Cmd = Cmd.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
-			//Cmd = Cmd.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);
-		}
 	}
 
 	public static string XmlMerge(string xmlParent, string xmlChild)

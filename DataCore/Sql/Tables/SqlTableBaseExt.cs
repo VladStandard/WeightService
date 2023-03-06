@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
@@ -60,6 +60,7 @@ public static class SqlTableBaseExt
 			PrinterTypeModel printerType => GetPropertyPrinterType(propertyName, printerType),
 			ProductionFacilityModel productionFacility => GetPropertyProductionFacility(propertyName, productionFacility),
 			ScaleModel scale => GetPropertyScale(propertyName, scale),
+			TemplateResourceModel templateResource => GetPropertyTemplateResource(propertyName, templateResource),
 			VersionModel version => GetPropertyVersion(propertyName, version),
 			WorkShopModel workShop => GetPropertyWorkShop(propertyName, workShop),
             _ => GetPropertySqlTable<T>(propertyName, item)
@@ -102,217 +103,172 @@ public static class SqlTableBaseExt
 		};
 	}
 
-	private static string GetPropertyAccess(string propertyName, AccessModel access)
-	{
-		return propertyName switch
-		{
-			nameof(AccessModel.LoginDt) => StringUtils.FormatDtRus(access.LoginDt, true),
-			nameof(AccessModel.Rights) => DataAccessHelper.Instance.GetAccessRightsDescription(access.Rights),
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-	private static string GetPropertyDevice(string propertyName, DeviceModel device)
-	{
-		return propertyName switch
-		{
-			nameof(DeviceModel.LoginDt) => StringUtils.FormatDtRus(device.LoginDt, true),
-			nameof(DeviceModel.LogoutDt) => StringUtils.FormatDtRus(device.LogoutDt, true),
-			nameof(DeviceModel.PrettyName) => device.PrettyName,
-			nameof(DeviceModel.Ipv4) => device.Ipv4,
-			nameof(DeviceModel.MacAddress) => device.MacAddress.ValuePrettyLookMinus,
-			$"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}" => DataAccessHelper.Instance.GetItemDeviceTypeFkNotNullable(device).Type.PrettyName,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-	private static string GetPropertyDeviceType(string propertyName, DeviceTypeModel deviceType)
-	{
-		return propertyName switch
-		{
-			nameof(DeviceTypeModel.PrettyName) => deviceType.PrettyName,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-	private static string GetPropertyDeviceTypeFk(string propertyName, DeviceTypeFkModel deviceTypeFk)
-	{
-		return propertyName switch
-		{
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.LoginDt)}" => StringUtils.FormatDtRus(
-				deviceTypeFk.Device.LoginDt, true, true),
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}" => StringUtils.FormatDtRus(
-				deviceTypeFk.Device.LogoutDt, true, true),
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.Name)}" => deviceTypeFk.Device.Name,
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.PrettyName)}" => deviceTypeFk.Device.PrettyName,
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.Ipv4)}" => deviceTypeFk.Device.Ipv4,
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.MacAddress)}" => deviceTypeFk.Device.MacAddress
-				.ValuePrettyLookMinus,
-			$"{nameof(DeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.Name)}" => deviceTypeFk.Type.Name,
-			$"{nameof(DeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.PrettyName)}" => deviceTypeFk.Type
-				.PrettyName,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-	private static string GetPropertyDeviceScaleFk(string propertyName, DeviceScaleFkModel deviceScaleFk)
-	{
-		return propertyName switch
-		{
-			$"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.Ipv4)}" => deviceScaleFk.Device.Ipv4,
-			$"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.LoginDt)}" => StringUtils.FormatDtRus(deviceScaleFk.Device.LoginDt, true, true),
-			$"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}" => StringUtils.FormatDtRus(deviceScaleFk.Device.LogoutDt, true, true),
-			$"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.MacAddress)}" => deviceScaleFk.Device.MacAddress.ValuePrettyLookMinus,
-			$"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.Name)}" => deviceScaleFk.Device.Name,
-			$"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.PrettyName)}" => deviceScaleFk.Device.PrettyName,
-			$"{nameof(DeviceScaleFkModel.Scale)}.{nameof(ScaleModel.Description)}" => deviceScaleFk.Scale.Description,
-			$"{nameof(DeviceScaleFkModel.Scale)}.{nameof(ScaleModel.Name)}" => deviceScaleFk.Scale.Name,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-	private static string GetPropertyLogQuick(string propertyName, LogQuickModel logQuick)
-	{
-		return propertyName switch
-		{
-			nameof(Xml.LogQuickModel.App) => logQuick.App,
-			nameof(Xml.LogQuickModel.Host) => logQuick.Host,
-			nameof(Xml.LogQuickModel.Icon) => logQuick.Icon,
-			nameof(Xml.LogQuickModel.Message) => logQuick.Message,
-			nameof(Xml.LogQuickModel.Scale) => logQuick.Scale,
-			nameof(Xml.LogQuickModel.Version) => logQuick.Version,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-	private static string GetPropertyOrganization(string propertyName, OrganizationModel organization)
-	{
-		return propertyName switch
-		{
-			nameof(OrganizationModel.Gln) => organization.Gln.ToString(),
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-	private static string GetPropertyBox(string propertyName, BoxModel box)
-	{
-		return propertyName switch
-		{
-			nameof(BoxModel.Weight) => box.Weight.ToString(CultureInfo.InvariantCulture),
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-	private static string GetPropertyBundle(string propertyName, BundleModel bundle)
-	{
-		return propertyName switch
-		{
-			nameof(BundleModel.Weight) => bundle.Weight.ToString(CultureInfo.InvariantCulture),
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
-
-    private static string GetPropertyPluBundleFk(string propertyName, PluBundleFkModel pluBundleFk)
+    private static string GetPropertyAccess(string propertyName, AccessModel access) => propertyName switch
     {
-	    return propertyName switch
-	    {
-		    _ => LocaleCore.Table.FieldNotFound
-	    };
-    }
+        nameof(AccessModel.LoginDt) => StringUtils.FormatDtRus(access.LoginDt, true),
+        nameof(AccessModel.Rights) => DataAccessHelper.Instance.GetAccessRightsDescription(access.Rights),
+        _ => LocaleCore.Table.FieldNotFound
+    };
 
-	private static string GetPropertyPlu(string propertyName, PluModel plu)
+    private static string GetPropertyDevice(string propertyName, DeviceModel device) => propertyName switch
+    {
+        nameof(DeviceModel.LoginDt) => StringUtils.FormatDtRus(device.LoginDt, true),
+        nameof(DeviceModel.LogoutDt) => StringUtils.FormatDtRus(device.LogoutDt, true),
+        nameof(DeviceModel.PrettyName) => device.PrettyName,
+        nameof(DeviceModel.Ipv4) => device.Ipv4,
+        nameof(DeviceModel.MacAddress) => device.MacAddress.ValuePrettyLookMinus,
+        $"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}" => DataAccessHelper.Instance.GetItemDeviceTypeFkNotNullable(device).Type.PrettyName,
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    private static string GetPropertyDeviceType(string propertyName, DeviceTypeModel deviceType) => propertyName switch
+    {
+        nameof(DeviceTypeModel.PrettyName) => deviceType.PrettyName,
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    private static string GetPropertyDeviceTypeFk(string propertyName, DeviceTypeFkModel deviceTypeFk) => propertyName switch
+    {
+        $"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.LoginDt)}" => StringUtils.FormatDtRus(
+            deviceTypeFk.Device.LoginDt, true, true),
+        $"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}" => StringUtils.FormatDtRus(
+            deviceTypeFk.Device.LogoutDt, true, true),
+        $"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.Name)}" => deviceTypeFk.Device.Name,
+        $"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.PrettyName)}" => deviceTypeFk.Device.PrettyName,
+        $"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.Ipv4)}" => deviceTypeFk.Device.Ipv4,
+        $"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.MacAddress)}" => deviceTypeFk.Device.MacAddress
+            .ValuePrettyLookMinus,
+        $"{nameof(DeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.Name)}" => deviceTypeFk.Type.Name,
+        $"{nameof(DeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.PrettyName)}" => deviceTypeFk.Type
+            .PrettyName,
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    private static string GetPropertyDeviceScaleFk(string propertyName, DeviceScaleFkModel deviceScaleFk) => propertyName switch
+    {
+        $"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.Ipv4)}" => deviceScaleFk.Device.Ipv4,
+        $"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.LoginDt)}" => StringUtils.FormatDtRus(deviceScaleFk.Device.LoginDt, true, true),
+        $"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}" => StringUtils.FormatDtRus(deviceScaleFk.Device.LogoutDt, true, true),
+        $"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.MacAddress)}" => deviceScaleFk.Device.MacAddress.ValuePrettyLookMinus,
+        $"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.Name)}" => deviceScaleFk.Device.Name,
+        $"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.PrettyName)}" => deviceScaleFk.Device.PrettyName,
+        $"{nameof(DeviceScaleFkModel.Scale)}.{nameof(ScaleModel.Description)}" => deviceScaleFk.Scale.Description,
+        $"{nameof(DeviceScaleFkModel.Scale)}.{nameof(ScaleModel.Name)}" => deviceScaleFk.Scale.Name,
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    private static string GetPropertyLogQuick(string propertyName, LogQuickModel logQuick) => propertyName switch
+    {
+        nameof(Xml.LogQuickModel.App) => logQuick.App,
+        nameof(Xml.LogQuickModel.Host) => logQuick.Host,
+        nameof(Xml.LogQuickModel.Icon) => logQuick.Icon,
+        nameof(Xml.LogQuickModel.Message) => logQuick.Message,
+        nameof(Xml.LogQuickModel.Scale) => logQuick.Scale,
+        nameof(Xml.LogQuickModel.Version) => logQuick.Version,
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    private static string GetPropertyOrganization(string propertyName, OrganizationModel organization) => propertyName switch
+    {
+        nameof(OrganizationModel.Gln) => organization.Gln.ToString(CultureInfo.InvariantCulture),
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    private static string GetPropertyBox(string propertyName, BoxModel box) => propertyName switch
+    {
+        nameof(BoxModel.Weight) => box.Weight.ToString(CultureInfo.InvariantCulture),
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    private static string GetPropertyBundle(string propertyName, BundleModel bundle) => propertyName switch
+    {
+        nameof(BundleModel.Weight) => bundle.Weight.ToString(CultureInfo.InvariantCulture),
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    private static string GetPropertyPluBundleFk(string propertyName, PluBundleFkModel pluBundleFk) => propertyName switch
+    {
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    private static string GetPropertyPlu(string propertyName, PluModel plu)
 	{
 		return propertyName switch
 		{
-			nameof(PluModel.Number) => plu.Number.ToString(),
-			nameof(PluModel.ShelfLifeDays) => plu.ShelfLifeDays.ToString(),
+			nameof(PluModel.Number) => plu.Number.ToString(CultureInfo.InvariantCulture),
+			nameof(PluModel.ShelfLifeDays) => plu.ShelfLifeDays.ToString(CultureInfo.InvariantCulture),
 			nameof(PluModel.Code) => plu.Code,
 			_ => LocaleCore.Table.FieldNotFound
 		}; ;
 	}
 
-	private static string GetPropertyPluScale(string propertyName, PluScaleModel pluScale)
-	{
-		return propertyName switch
-		{
-			$"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.Name)}" => pluScale.Plu.Name,
-			$"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.FullName)}" => pluScale.Plu.FullName,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
+    private static string GetPropertyPluScale(string propertyName, PluScaleModel pluScale) => propertyName switch
+    {
+        $"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.Name)}" => pluScale.Plu.Name,
+        $"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.FullName)}" => pluScale.Plu.FullName,
+        _ => LocaleCore.Table.FieldNotFound
+    };
 
-	private static string GetPropertyPrinter(string propertyName, PrinterModel printer)
-	{
-		return propertyName switch
-		{
-			nameof(PrinterModel.Ip) => printer.Ip,
-			nameof(PrinterModel.MacAddress) => printer.MacAddress.ValuePrettyLookMinus,
-			$"{nameof(PrinterModel.PrinterType)}.{nameof(PrinterTypeModel.Name)}" => printer.PrinterType.Name,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
+    private static string GetPropertyPrinter(string propertyName, PrinterModel printer) => propertyName switch
+    {
+        nameof(PrinterModel.Ip) => printer.Ip,
+        nameof(PrinterModel.MacAddress) => printer.MacAddress.ValuePrettyLookMinus,
+        $"{nameof(PrinterModel.PrinterType)}.{nameof(PrinterTypeModel.Name)}" => printer.PrinterType.Name,
+        _ => LocaleCore.Table.FieldNotFound
+    };
 
-	private static string GetPropertyPrinterResource(string propertyName, PrinterResourceFkModel printerResource)
-	{
-		return propertyName switch
-		{
-			$"{nameof(PrinterResourceFkModel.Printer)}.{nameof(PrinterModel.Name)}" => printerResource.Printer.Name,
-			$"{nameof(PrinterResourceFkModel.TemplateResource)}.{nameof(TemplateResourceDeprecatedModel.Name)}" => printerResource.TemplateResource
-				.Name,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
+    private static string GetPropertyPrinterResource(string propertyName, PrinterResourceFkModel printerResource) => propertyName switch
+    {
+        $"{nameof(PrinterResourceFkModel.Printer)}.{nameof(PrinterModel.Name)}" => printerResource.Printer.Name,
+        $"{nameof(PrinterResourceFkModel.TemplateResource)}.{nameof(TemplateResourceModel.Name)}" => printerResource.TemplateResource
+            .Name,
+        _ => LocaleCore.Table.FieldNotFound
+    };
 
-	private static string GetPropertyPrinterType(string propertyName, PrinterTypeModel printerType)
-	{
-		return propertyName switch
-		{
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
+    private static string GetPropertyPrinterType(string propertyName, PrinterTypeModel printerType) => propertyName switch
+    {
+        _ => LocaleCore.Table.FieldNotFound
+    };
 
-	private static string GetPropertyProductionFacility(string propertyName, ProductionFacilityModel productionFacility)
-	{
-		return propertyName switch
-		{
-			nameof(ProductionFacilityModel.Address) => productionFacility.Address,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
+    private static string GetPropertyProductionFacility(string propertyName, ProductionFacilityModel productionFacility) => propertyName switch
+    {
+        nameof(ProductionFacilityModel.Address) => productionFacility.Address,
+        _ => LocaleCore.Table.FieldNotFound
+    };
 
-	private static string GetPropertyScale(string propertyName, ScaleModel scale)
-	{
-		return propertyName switch
-		{
-			nameof(ScaleModel.Description) => scale.Description,
-			nameof(ScaleModel.Number) => scale.Number.ToString(),
-			$"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}" => scale.PrinterMain is not null ? scale.PrinterMain.Name : LocaleCore.Table.FieldEmpty,
-			$"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}" => scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldEmpty,
-			$"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}" => scale.WorkShop is not null ? scale.WorkShop.Name : LocaleCore.Table.FieldEmpty,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
+    private static string GetPropertyScale(string propertyName, ScaleModel scale) => propertyName switch
+    {
+        nameof(ScaleModel.Description) => scale.Description,
+        nameof(ScaleModel.Number) => scale.Number.ToString(CultureInfo.InvariantCulture),
+        $"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}" => scale.PrinterMain is not null ? scale.PrinterMain.Name : LocaleCore.Table.FieldEmpty,
+        $"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}" => scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldEmpty,
+        $"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}" => scale.WorkShop is not null ? scale.WorkShop.Name : LocaleCore.Table.FieldEmpty,
+        _ => LocaleCore.Table.FieldNotFound
+    };
 
-	private static string GetPropertyVersion(string propertyName, VersionModel version)
-	{
-		return propertyName switch
-		{
-			nameof(version.ReleaseDt) => StringUtils.FormatDtRus(version.ReleaseDt, false, false),
-			nameof(version.Version) => version.Version.ToString(),
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
+    private static string GetPropertyTemplateResource(string propertyName, TemplateResourceModel templateResource) => propertyName switch
+    {
+        nameof(TemplateResourceModel.Type) => templateResource.Type,
+        nameof(LocaleCore.Table.Size) => templateResource.DataValue.Length > 1024
+            ? $"{templateResource.DataValue.Length / 1024:### ##0} {LocaleCore.Strings.DataSizeKBytes}"
+            : $"{templateResource.DataValue.Length:##0} {LocaleCore.Strings.DataSizeBytes}",
+        _ => LocaleCore.Table.FieldNotFound
+    };
 
-	private static string GetPropertyWorkShop(string propertyName, WorkShopModel workShop)
-	{
-		return propertyName switch
-		{
-			$"{nameof(WorkShopModel.ProductionFacility)}.{nameof(ProductionFacilityModel.Name)}" => workShop.ProductionFacility.Name,
-			_ => LocaleCore.Table.FieldNotFound
-		};
-	}
+    private static string GetPropertyVersion(string propertyName, VersionModel version) => propertyName switch
+    {
+        nameof(version.ReleaseDt) => StringUtils.FormatDtRus(version.ReleaseDt, false, false),
+        nameof(version.Version) => version.Version.ToString(CultureInfo.InvariantCulture),
+        _ => LocaleCore.Table.FieldNotFound
+    };
 
-	public static bool GetPropertyAsBool<T>(this T? item, string propertyName) where T : ISqlTable
+    private static string GetPropertyWorkShop(string propertyName, WorkShopModel workShop) => propertyName switch
+    {
+        $"{nameof(WorkShopModel.ProductionFacility)}.{nameof(ProductionFacilityModel.Name)}" => workShop.ProductionFacility.Name,
+        _ => LocaleCore.Table.FieldNotFound
+    };
+
+    public static bool GetPropertyAsBool<T>(this T? item, string propertyName) where T : ISqlTable
     {
 		object? value = GetPropertyAsObject(item, propertyName);
 		if (value is bool isValue)

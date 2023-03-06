@@ -17,7 +17,7 @@ public class PrinterResourceFkModel : SqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual PrinterModel Printer { get; set; }
-    [XmlElement] public virtual TemplateResourceDeprecatedModel TemplateResource { get; set; }
+    [XmlElement] public virtual TemplateResourceModel TemplateResource { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -36,7 +36,7 @@ public class PrinterResourceFkModel : SqlTableBase
     protected PrinterResourceFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Printer = (PrinterModel)info.GetValue(nameof(Printer), typeof(PrinterModel));
-        TemplateResource = (TemplateResourceDeprecatedModel)info.GetValue(nameof(TemplateResource), typeof(TemplateResourceDeprecatedModel));
+        TemplateResource = (TemplateResourceModel)info.GetValue(nameof(TemplateResource), typeof(TemplateResourceModel));
     }
 
     #endregion

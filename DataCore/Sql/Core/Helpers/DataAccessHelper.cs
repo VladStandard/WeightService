@@ -209,7 +209,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateResourceDeprecatedMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<VersionMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WorkShopMap>());
     }

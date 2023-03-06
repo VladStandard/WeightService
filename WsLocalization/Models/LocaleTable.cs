@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLocalization.Models;
@@ -49,7 +49,6 @@ public class LocaleTable
     public string ContragentId => Lang == Lang.English ? "Contragent ID" : "ИД контрагента";
     public string Count => Lang == Lang.English ? "Count" : "Кол-во";
     public string Counter => Lang == Lang.English ? "Counter" : "Счётчик";
-    public string LabelCounter => Lang == Lang.English ? "Label counter" : "Счётчик этикеток";
     public string CreateDt => Lang == Lang.English ? "Created" : "Создано";
     public string Date => Lang == Lang.English ? "Date" : "Дата";
     public string DayOfWeek => Lang == Lang.English ? "Weekday" : "День недели";
@@ -110,7 +109,6 @@ public class LocaleTable
     public string Identity => Lang == Lang.English ? "Identity" : "Идентификатор";
     public string IdentityId => Lang == Lang.English ? "ID" : "ИД";
     public string IdentityUid => Lang == Lang.English ? "UID" : "УИД";
-    public string Uid1c => Lang == Lang.English ? "UID 1C" : "УИД 1C";
     public string IdRRef => Lang == Lang.English ? "ID 1C" : "ИД 1С";
     public string ImageData => Lang == Lang.English ? "Image data" : "Данные";
     public string ImageDataInfo => Lang == Lang.English ? "Info" : "Информация";
@@ -127,6 +125,7 @@ public class LocaleTable
     public string IsShippingShort => Lang == Lang.English ? "Shipping" : "Трансп.";
     public string Itf14 => "ITF14";
     public string Label => Lang == Lang.English ? "Label" : "Этикетка";
+    public string LabelCounter => Lang == Lang.English ? "Label counter" : "Счётчик этикеток";
     public string LabelTemplate => Lang == Lang.English ? "Label template" : "Шаблон этикетки";
     public string Level => Lang == Lang.English ? "Level" : "Уровень";
     public string Line => Lang == Lang.English ? "Line" : "Линия";
@@ -179,11 +178,12 @@ public class LocaleTable
     public string ScreenShot => Lang == Lang.English ? "Screenshot" : "Скриншот";
     public string ShelfLifeDays => Lang == Lang.English ? "Shelf life, days" : "Срок годности, суток";
     public string ShelfLifeDaysShort => Lang == Lang.English ? "Life" : "Срок";
+    public string Size => Lang == Lang.English ? "Size" : "Размер";
     public string Sscc => Lang == Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
     public string State => Lang == Lang.English ? "Status" : "Статус";
     public string Status => Lang == Lang.English ? "Status" : "Статус";
     public string Storage => Lang == Lang.English ? "Storage" : "Склад";
-    public string TableCalc => Lang == Lang.English ? "Calc" : "Расчитать";
+    public string TableCalc => Lang == Lang.English ? "Calculate" : "Рассчитать";
     public string TableCancel => Lang == Lang.English ? "Close record" : "Закрыть запись";
     public string TableClear => Lang == Lang.English ? "Deactivate active record" : "Деактивировать активную запись";
     public string TableCopy => Lang == Lang.English ? "Cope record" : "Копировать запись";
@@ -217,6 +217,7 @@ public class LocaleTable
     public string TypeRight => Lang == Lang.English ? "Right's type" : "Правый тип";
     public string TypeTop => Lang == Lang.English ? "Top's type" : "Верхний тип";
     public string Uid => Lang == Lang.English ? "UID" : "УИД";
+    public string Uid1c => Lang == Lang.English ? "UID 1C" : "УИД 1C";
     public string UpperWeightThreshold => Lang == Lang.English ? "Upper value of the box weight, kg" : "Верхнее значение веса короба, кг";
     public string User => Lang == Lang.English ? "User" : "Пользователь";
     public string Value => Lang == Lang.English ? "Value" : "Значение";
@@ -228,12 +229,12 @@ public class LocaleTable
     public string Weighing => Lang == Lang.English ? "Weighing" : "Взвешивание";
     public string Weight => Lang == Lang.English ? "Weight" : "Вес";
     public string Weighted => Lang == Lang.English ? "Weighted" : "Весовая";
-    public string WeightTare => Lang == Lang.English ? "Tare weight" : "Вес тары";
     public string WeightMaximal => Lang == Lang.English ? "Maximal weight" : "Максимальный вес";
     public string WeightMinimal => Lang == Lang.English ? "Minimal weight" : "Минимальный вес";
     public string WeightNetto => Lang == Lang.English ? "Net weight" : "Вес нетто";
     public string WeightNominal => Lang == Lang.English ? "Nominal weight" : "Номинальный вес";
     public string WeightShort => Lang == Lang.English ? "Weight" : "Вес";
+    public string WeightTare => Lang == Lang.English ? "Tare weight" : "Вес тары";
     public string WeithingDt => Lang == Lang.English ? "Weighing date" : "Дата взвешивания";
     public string WorkShop => Lang == Lang.English ? "Workshop" : "Цех";
     public string WorkShopId => Lang == Lang.English ? "Workshop ID" : "ИД цеха";

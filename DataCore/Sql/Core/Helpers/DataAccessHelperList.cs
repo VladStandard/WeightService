@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -171,16 +171,16 @@ public partial class DataAccessHelper
         return GetListNotNullable<PrinterTypeModel>(sqlCrudConfig);
     }
 
-    [Obsolete(@"Use DataContext")]
-    public List<TemplateResourceDeprecatedModel> GetListTemplateResources(bool isShowMarked, bool isShowOnlyTop)
-    {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(TemplateResourceDeprecatedModel.Type), SqlFieldOrderEnum.Asc), isShowMarked, isShowOnlyTop);
-        List<TemplateResourceDeprecatedModel> result = GetListNotNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
-        result = result.OrderBy(x => x.Name).ToList();
-        result = result.OrderBy(x => x.Type).ToList();
-        return result;
-    }
+    //[Obsolete(@"Use DataContext")]
+    //public List<TemplateResourceDeprecatedModel> GetListTemplateResources(bool isShowMarked, bool isShowOnlyTop)
+    //{
+    //    SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+    //        new SqlFieldOrderModel(nameof(TemplateResourceDeprecatedModel.Type), SqlFieldOrderEnum.Asc), isShowMarked, isShowOnlyTop);
+    //    List<TemplateResourceDeprecatedModel> result = GetListNotNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
+    //    result = result.OrderBy(x => x.Name).ToList();
+    //    result = result.OrderBy(x => x.Type).ToList();
+    //    return result;
+    //}
 
     #endregion
 }

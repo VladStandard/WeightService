@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Settings;
@@ -80,7 +80,7 @@ public partial class RazorComponentBase
 			ScaleModel => LocaleCore.DeviceControl.ItemScale,
 			ScaleScreenShotModel => LocaleCore.DeviceControl.ItemScreenShot,
 			TemplateModel => LocaleCore.DeviceControl.ItemTemplate,
-			TemplateResourceDeprecatedModel => LocaleCore.DeviceControl.ItemTemplateResource,
+			TemplateResourceModel => LocaleCore.DeviceControl.ItemTemplateResource,
 			WorkShopModel => LocaleCore.DeviceControl.ItemWorkShop,
 			_ => result
 		};
@@ -121,7 +121,7 @@ public partial class RazorComponentBase
 			ProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
 			ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
 			ScaleModel => LocaleCore.DeviceControl.SectionScales,
-			TemplateResourceDeprecatedModel => LocaleCore.DeviceControl.SectionTemplateResources,
+			TemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
 			WorkShopModel => LocaleCore.DeviceControl.SectionWorkShops,
 			_ => result
 		};
@@ -437,8 +437,8 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(false, false);
-			List<TemplateResourceDeprecatedModel> templateResources = DataContext.GetListNotNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
-			foreach (TemplateResourceDeprecatedModel templateResource in templateResources)
+			List<TemplateResourceModel> templateResources = DataContext.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
+			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains("TTF"))
 				{
@@ -464,16 +464,16 @@ public partial class RazorComponentBase
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
                 new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), false, false);
-			List<TemplateResourceDeprecatedModel> templateResources = DataAccess.GetListNotNullable<TemplateResourceDeprecatedModel>(sqlCrudConfig);
-			foreach (TemplateResourceDeprecatedModel templateResource in templateResources)
+			List<TemplateResourceModel> templateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
+			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains(fileType))
 				{
 					TcpClient client = ZplUtils.TcpClientSendData(printer.Ip, printer.Port,
 						new()
 						{
-							new($"^XA^MNN^LL500~DYE:{templateResource.Name}.TTF,B,T,{templateResource.ImageData.Value.Length},,"),
-							new(templateResource.ImageData.Value),
+							new($"^XA^MNN^LL500~DYE:{templateResource.Name}.TTF,B,T,{templateResource.DataValue.Length},,"),
+							new(templateResource.DataValue),
 							new($"^XZ")
 						});
 				}

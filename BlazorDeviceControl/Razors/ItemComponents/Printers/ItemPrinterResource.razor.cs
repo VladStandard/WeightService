@@ -32,7 +32,7 @@ public partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourc
 					SqlItemCast = SqlItemNew<PrinterResourceFkModel>();
 				}
 				DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigList);
-				DataContext.GetListNotNullable<TemplateResourceDeprecatedModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<TemplateResourceModel>(SqlCrudConfigList);
             }
 		});
 	}

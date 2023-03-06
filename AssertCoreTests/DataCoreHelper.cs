@@ -451,7 +451,7 @@ public class DataCoreHelper
 				break;
 			case PrinterResourceFkModel printerResource:
 				printerResource.Printer = CreateNewSubstitute<PrinterModel>(isNotDefault);
-				printerResource.TemplateResource = CreateNewSubstitute<TemplateResourceDeprecatedModel>(isNotDefault);
+				printerResource.TemplateResource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
 				break;
 			case PrinterTypeModel printerType:
 				printerType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
@@ -485,9 +485,11 @@ public class DataCoreHelper
 			case TemplateModel template:
 				template.Title.Returns(LocaleCore.Sql.SqlItemFieldTitle);
 				break;
-			case TemplateResourceDeprecatedModel templateResource:
-				templateResource.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-				break;
+			case TemplateResourceModel templateResource:
+                templateResource.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                templateResource.Type.Returns(LocaleCore.Sql.SqlItemFieldTemplateResourceType);
+                templateResource.DataValue.Returns(new byte[] { 0x00 } );
+                break;
 			case VersionModel version:
 				version.Version.Returns((short)1);
 				version.ReleaseDt.Returns(DateTime.Now);

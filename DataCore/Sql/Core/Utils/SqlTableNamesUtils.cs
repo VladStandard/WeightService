@@ -55,7 +55,7 @@ public static class SqlTableNamesUtils
     public static string Tasks => "TASKS";
     public static string TasksTypes => "TASKS_TYPES";
     public static string Templates => "Templates";
-    public static string TemplatesResources => "TemplateResources";
+    public static string TemplatesResources => "TEMPLATES_RESOURCES";
     public static string Versions => "VERSIONS";
     public static string WeithingFacts => "WeithingFact";
     public static string WorkShops => "WorkShop";

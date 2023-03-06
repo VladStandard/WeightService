@@ -23,6 +23,6 @@ public class PrinterResourceFkValidator : SqlTableValidator<PrinterResourceFkMod
         RuleFor(item => item.TemplateResource)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new TemplateResourceDeprecatedValidator());
+            .SetValidator(new TemplateResourceValidator());
     }
 }
