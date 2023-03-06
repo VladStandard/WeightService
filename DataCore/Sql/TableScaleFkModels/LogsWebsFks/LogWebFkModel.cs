@@ -65,12 +65,9 @@ public class LogWebFkModel : SqlTableBase
     /// </summary>
     /// <returns></returns>
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(LogWebRequest)}: {LogWebRequest}. " +
-        $"{nameof(LogWebResponse)}: {LogWebResponse}. " +
-        $"{nameof(App)}: {App}. " +
-        $"{nameof(LogType)}: {LogType}. " +
-        $"{nameof(Device)}: {Device}";
+        $"{LogWebRequest.CountAll} | " +
+        $"{LogWebResponse.CountSuccess} | " +
+        $"{LogWebResponse.CountErrors}";
 
     public override bool Equals(object obj)
     {
