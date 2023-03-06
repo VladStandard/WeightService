@@ -692,7 +692,7 @@ public class DataContextModel
     {
         TemplateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && TemplateResources.Count > 1)
-            TemplateResources = TemplateResources.OrderBy(item => item.Type).OrderBy(item => item.Name).ToList();
+            TemplateResources = TemplateResources.OrderBy(item => item.Name).OrderBy(item => item.Type).ToList();
         return TemplateResources.Cast<T>().ToList();
     }
 
