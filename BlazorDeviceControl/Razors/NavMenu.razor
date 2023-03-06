@@ -4,15 +4,12 @@
 <div class="top-row pl-4 navbar navbar-dark">
   <a class="navbar-brand" href="">
     <RadzenLabel
-      Style="margin-top: -7px; text-align: center; width: 100%; font-size: 12px; background-color: transparent; "
+      Style="margin-top: -7px; text-align: center; width: 100%; font-size: 12px;"
       Text="@LocaleCore.Strings.AppDevicesControlName"/>
   </a>
-  <button class="navbar-toggler" @onclick="@ToggleNavMenu">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 </div>
 
-<div class="@GetCssName.NavMenu(CollapseNavMenu) "@onclick="@ToggleNavMenu">
+<div class="@GetCssName.NavMenu(CollapseNavMenu)" @onclick="@ToggleNavMenu">
   <ul class="nav flex-column">
     <RadzenPanelMenu class="@GetCssName.RadzenPanelMenu(BlazorAppSettings)">
       @if (UserSettings is not null && UserSettings.AccessRightsIsRead)

@@ -7,15 +7,14 @@
     <RadzenLabel Style="font-size: 15px;" Text="@Title"/>
       @if (SqlCrudConfigSection.IsGuiShowFilterOnlyTop)
       {
-      <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop
-                        Style="margin-left: 20px"
+      <RadzenCheckBox TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop Style="margin-left: 20px"
                       Change=@(_ => OnChangeAsync()) />
         <RadzenLabel Style="font-size: 13px; margin-left: 5px"
                      Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(DataAccess.JsonSettings.Local.SelectTopRowsCount) />
       }
       @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
       {
-        <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowMarked
+        <RadzenCheckBox TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowMarked
                         Style="margin-left: 20px "
                         Change=@(_ => OnChangeAsync()) />
         <RadzenLabel Style="font-size: 13px; margin-left: 5px" Text=@LocaleCore.Action.ActionIsShowMarked />
@@ -47,7 +46,6 @@
       <MudSpacer/>
       @if (SqlCrudConfigSection.IsGuiShowFilterAdditional)
       {
-        @* <RadzenLabel Style="font-size: 11px; text-align: center; height: 100%; " Text=@RazorFieldConfig.Title /> *@
         <RazorSectionFilter TItem=@TItem TItemFilter=@TItemFilter ParentRazor=@(this) />
       }
   </MudToolBar>

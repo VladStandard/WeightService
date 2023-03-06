@@ -13,38 +13,40 @@
   RowSelect="@(SqlItemSetAsync)"
   RowRender="@(args => RowRender(args))">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@WeithingFactSummaryModel" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="15%"
-      Title="@LocaleCore.Table.WeithingDt">
-      <Template Context="itemCast">
-        <RadzenText
-          TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
-          Text="@(StringUtils.FormatDtRus(itemCast.WeithingDate, true))"/>
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="15%"
-      Title="@LocaleCore.Table.DayOfWeek">
-      <Template Context="itemCast">
-        <RadzenText
-          TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
-          Text="@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek)"/>
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="15%"
-      Title="@LocaleCore.Table.Count">
-      <Template Context="itemCast">
-        <RadzenText
-          TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
-          Text="@itemCast.Count.ToString()"/>
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="55%"
-      Title="@LocaleCore.Table.Scale">
-      <Template Context="itemCast">
-        <RadzenText
-          TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
-          Text="@itemCast.Scale"/>
-      </Template>
-    </RadzenDataGridColumn>
+    <TItemContent TItem="@WeithingFactSummaryModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="15%"
+                            Title="@LocaleCore.Table.WeithingDt">
+        <Template Context="itemCast">
+          <RadzenText
+            TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
+            Text="@(StringUtils.FormatDtRus(itemCast.WeithingDate, true))"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="15%"
+                            Title="@LocaleCore.Table.DayOfWeek">
+        <Template Context="itemCast">
+          <RadzenText
+            TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
+            Text="@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek)"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="15%"
+                            Title="@LocaleCore.Table.Count">
+        <Template Context="itemCast">
+          <RadzenText
+            TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
+            Text="@itemCast.Count.ToString()"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="55%"
+                            Title="@LocaleCore.Table.Scale">
+        <Template Context="itemCast">
+          <RadzenText
+            TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
+            Text="@itemCast.Scale"/>
+        </Template>
+      </RadzenDataGridColumn>
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

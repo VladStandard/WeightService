@@ -14,27 +14,23 @@
   RowSelect="@(SqlItemSetAsync)"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@ScaleScreenShotModel" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="12%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.ChangeDt">
-      <Template Context="itemCast">
-        <RadzenLink TextStyle="@TextStyle.Body2"
-                    Text="@(StringUtils.FormatDtRus(itemCast.ChangeDt, true, true))"
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="40%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Scale">
-      <Template Context="itemCast">
-        <RadzenLink TextStyle="@TextStyle.Body2"
-                    Text="@itemCast.Scale.Description"
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="43%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.ScreenShot">
+    <TItemContent TItem="@ScaleScreenShotModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetCreateDt()" Width="12%" />
+      <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="40%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Scale">
+        <Template Context="itemCast">
+          <RadzenLink TextStyle="@TextStyle.Body2"
+                      Text="@itemCast.Scale.Description"
+                      Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@ScaleScreenShotModel" Width="43%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.ScreenShot">
       <Template Context="itemCast">
         <RadzenLink TextStyle="@TextStyle.Body2"
                     Text=@($"{DataUtils.GetBytesLength(itemCast.ScreenShot, false)}")
                     Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
       </Template>
     </RadzenDataGridColumn>
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

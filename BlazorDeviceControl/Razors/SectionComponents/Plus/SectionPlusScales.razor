@@ -9,54 +9,55 @@
 <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@HideNoneActivePlu"
                 Change="@(_ => OnChangeAsync())"
                 Style="margin-top: -3px; margin-left: 20px; "/>
-<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; "
-             Text="@LocaleCore.Action.ActionIsShowActivePlu"/>
+<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text="@LocaleCore.Action.ActionIsShowActivePlu"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@PluScaleModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@(RowClick)"
+  RowSelect="@(SqlItemSetAsync)"
   RowRender="@(RowRender)"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
-    <RazorSectionFieldIsMarked TItem="@PluScaleModel" SqlCrudConfigSection="@SqlCrudConfigSection"/>
-    <RadzenDataGridColumn TItem="@PluScaleModel" Width="45%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Plu">
-      <Template Context="itemCast">
-        <RadzenLink
-          Text="@itemCast.Plu.Name"
-          Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.IdentityValueUid}") />
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.NumberShort">
-      <Template Context="itemCast">
-        <RadzenLink
-          Text="@itemCast.Plu.Number.ToString()"
-          Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.IdentityValueUid}") />
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.Active">
-      <Template Context="itemCast">
-        <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive"/>
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.WeightShort">
-      <Template Context="itemCast">
-        <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.ShelfLifeDaysShort">
-      <Template Context="itemCast">
-        <RadzenLabel Style="white-space: pre-wrap;" Text="@itemCast.Plu.ShelfLifeDays.ToString()"/>
-      </Template>
-    </RadzenDataGridColumn>
-    <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.PluPackage">
-      <Template Context="itemCast">
-        <RadzenLabel
-          Style="white-space: pre-wrap;"
-          Text="@(GetPluPackagesCount(itemCast.Plu))"/>
-      </Template>
-    </RadzenDataGridColumn>
+    <TItemContent TItem="@PluScaleModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn TItem="@PluScaleModel" Width="45%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Plu">
+        <Template Context="itemCast">
+          <RadzenLink
+            Text="@itemCast.Plu.Name"
+            Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.IdentityValueUid}") />
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.NumberShort">
+        <Template Context="itemCast">
+          <RadzenLink
+            Text="@itemCast.Plu.Number.ToString()"
+            Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.IdentityValueUid}") />
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.Active">
+        <Template Context="itemCast">
+          <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.WeightShort">
+        <Template Context="itemCast">
+          <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.ShelfLifeDaysShort">
+        <Template Context="itemCast">
+          <RadzenLabel Style="white-space: pre-wrap;" Text="@itemCast.Plu.ShelfLifeDays.ToString()"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@PluScaleModel" Width="10%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.PluPackage">
+        <Template Context="itemCast">
+          <RadzenLabel
+            Style="white-space: pre-wrap;"
+            Text="@(GetPluPackagesCount(itemCast.Plu))"/>
+        </Template>
+      </RadzenDataGridColumn>
+    </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

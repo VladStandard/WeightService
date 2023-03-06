@@ -16,13 +16,7 @@ public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : Sq
 		get => SqlItem is null ? new() : (TItem)SqlItem;
 		set => SqlItem = value;
 	}
-
-	protected TItem SqlItemChangedCast
-	{
-		get => SqlItem is null ? new() : (TItem)SqlItem;
-		set => SqlItemOnTable = value;
-	}
-
+    
     [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
     [Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
     

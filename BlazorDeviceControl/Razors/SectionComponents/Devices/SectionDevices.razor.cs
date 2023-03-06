@@ -15,11 +15,11 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, Sql
 
     protected override void OnParametersSet()
     {
-		RunActionsParametersSet(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNullable<DeviceModel>(SqlCrudConfigSection);
+                SqlSectionCast = DataContext.GetListNotNullable<DeviceModel>(SqlCrudConfigSection);
                 AutoShowFilterOnlyTopSetup();
             }
         });

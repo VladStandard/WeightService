@@ -7,8 +7,9 @@ public partial class RazorSectionReload<TItem, TItemFilter> : RazorComponentSect
 	where TItem : SqlTableBase, new() where TItemFilter : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
-
-
+    
+    private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
+    
 	#endregion
 
 	#region Public and private methods

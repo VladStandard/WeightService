@@ -1,4 +1,5 @@
 ﻿@using DataCore.Sql.TableScaleModels.Templates
+@using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Templates.TemplateModel>
 @page "/item/template"
 @page "/item/template/new"
@@ -24,12 +25,12 @@
       }
       else
       {
-        <RadzenDropDown
-          Style="width: 100%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-          AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-          Data=@TemplateCategories PageSize=@DataAccess.JsonSettings.Local.ItemRowsCount TextProperty="Name"
-          ValueProperty="Value" Value=@SqlItemCast.CategoryId
-          Change=@(args => OnChangeItem(SqlItemCast, nameof(SqlItemCast.CategoryId), args))/>
+        <MudSelectLocal @bind-Value="@SqlItemCast.CategoryId">
+          @foreach (TypeModel<string> category in TemplateCategories)
+          {
+            <MudSelectItem Value=@category.Value>@category.Name</MudSelectItem>
+          }
+        </MudSelectLocal>
       }
     </td>
   </tr>

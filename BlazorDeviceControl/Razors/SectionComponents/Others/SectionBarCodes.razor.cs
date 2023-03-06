@@ -14,7 +14,7 @@ public partial class SectionBarCodes : RazorComponentSectionBase<BarCodeModel, S
         ButtonSettings = new(false, true, true, true, false, false, false);
     }
 
-	#endregion
+    #endregion
 
 	#region Public and private methods
 
