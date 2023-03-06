@@ -344,7 +344,7 @@ public class DataContextModel
     {
         LogsWebsFks = DataAccess.GetListNotNullable<LogWebFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && LogsWebsFks.Count > 1)
-            LogsWebsFks = LogsWebsFks.OrderBy(item => item.Name).ToList();
+            LogsWebsFks = LogsWebsFks.OrderByDescending(item => item.LogWebRequest.CreateDt).ToList();
         return LogsWebsFks.Cast<T>().ToList();
     }
 
