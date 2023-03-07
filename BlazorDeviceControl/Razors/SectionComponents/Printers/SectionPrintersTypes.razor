@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleModels.PrintersTypes
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PrintersTypes.PrinterTypeModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PrintersTypes.PrinterTypeModel>
 @page "/section/printer_types"
 
-<RazorSectionReload TItem="@PrinterTypeModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Print.Types" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@PrinterTypeModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Types" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

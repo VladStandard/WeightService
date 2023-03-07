@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.Xml
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.Xml.WeithingFactSummaryModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.Xml.WeithingFactSummaryModel>
 @page "/section/plus_weighings_aggr"
 
-<RazorSectionReload TItem="@WeithingFactSummaryModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@WeithingFactSummaryModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

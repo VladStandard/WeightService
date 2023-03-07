@@ -1,7 +1,7 @@
 ﻿using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 namespace BlazorDeviceControl.Razors.SectionComponents.LogReports;
 
-public partial class SectionWebServiceLogs : RazorComponentSectionBase<LogWebFkModel, SqlTableBase>
+public partial class SectionWebServiceLogs : RazorComponentSectionBase<LogWebFkModel>
 {
     public SectionWebServiceLogs() : base()
     {

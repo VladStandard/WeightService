@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.SectionComponents.LogReports;
   
-public partial class SectionLogsNone : RazorComponentSectionBase<LogModel, LogTypeModel>
+public partial class SectionLogsNone : RazorComponentSectionBase<LogModel>
 {
 	#region Public and private fields, properties, constructor
 

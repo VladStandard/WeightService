@@ -1,29 +1,29 @@
-﻿@typeparam TItem
-@typeparam TItemFilter
-@using DataCore.Sql.TableScaleModels.Scales
-@using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<TItem, TItemFilter>
-
-<MudSelectLocal Style="margin: -3px 2px 2px; font-size: 10px;" @bind-Value="@SqlItemFilterCast">
-  @switch (typeof(TItemFilter))
-  {
-    case var cls when cls == typeof(PluModel):
-      @foreach (TItemFilter sqlItem in SqlSectionFilterCast)
-      {
-        @if (sqlItem is PluModel plu)
-        {
-          <MudSelectItem Value=@plu>@plu.Name</MudSelectItem>
-        }
-      }
-      break;
-    case var cls when cls == typeof(ScaleModel):
-      @foreach (TItemFilter sqlItem in SqlSectionFilterCast)
-      {
-        @if (sqlItem is ScaleModel scale)
-        {
-          <MudSelectItem Value=@scale>@scale.Description</MudSelectItem>
-        }
-      }
-      break;
-  }
-</MudSelectLocal>
+﻿@* @typeparam TItem *@
+@* @typeparam TItemFilter *@
+@* @using DataCore.Sql.TableScaleModels.Scales *@
+@* @using BlazorDeviceControl.Razors.CustomComponents *@
+@* @inherits RazorComponentSectionBase<TItem, TItemFilter> *@
+@* *@
+@* <MudSelectLocal Style="margin: -3px 2px 2px; font-size: 10px;" @bind-Value="@SqlItemFilterCast"> *@
+@*   @switch (typeof(TItemFilter)) *@
+@*   { *@
+@*     case var cls when cls == typeof(PluModel): *@
+@*       @foreach (TItemFilter sqlItem in SqlSectionFilterCast) *@
+@*       { *@
+@*         @if (sqlItem is PluModel plu) *@
+@*         { *@
+@*           <MudSelectItem Value=@plu>@plu.Name</MudSelectItem> *@
+@*         } *@
+@*       } *@
+@*       break; *@
+@*     case var cls when cls == typeof(ScaleModel): *@
+@*       @foreach (TItemFilter sqlItem in SqlSectionFilterCast) *@
+@*       { *@
+@*         @if (sqlItem is ScaleModel scale) *@
+@*         { *@
+@*           <MudSelectItem Value=@scale>@scale.Description</MudSelectItem> *@
+@*         } *@
+@*       } *@
+@*       break; *@
+@*   } *@
+@* </MudSelectLocal> *@

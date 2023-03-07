@@ -3,8 +3,8 @@
 
 namespace BlazorDeviceControl.Razors.SectionComponents;
 
-public partial class RazorSectionReload<TItem, TItemFilter> : RazorComponentSectionBase<TItem, TItemFilter>
-	where TItem : SqlTableBase, new() where TItemFilter : SqlTableBase, new()
+public partial class RazorSectionReload<TItem> : RazorComponentSectionBase<TItem>
+	where TItem : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
     

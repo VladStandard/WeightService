@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleModels.Access
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Access.AccessModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Access.AccessModel>
 @page "/section/access"
 
-<RazorSectionReload TItem="@AccessModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Strings.AccessRights" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@AccessModel" ParentRazor="@(this)" Title="@LocaleCore.Strings.AccessRights" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

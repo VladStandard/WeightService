@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleModels.WorkShops
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel>
 @page "/section/workshops"
 
-<RazorSectionReload TItem="@WorkShopModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionWorkShops" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@WorkShopModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionWorkShops" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

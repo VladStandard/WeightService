@@ -1,6 +1,5 @@
 ﻿@typeparam TItem
-@typeparam TItemFilter
-@inherits RazorComponentSectionBase<TItem, TItemFilter>
+@inherits RazorComponentSectionBase<TItem>
 
 <MudPaper Outlined="true" Class="mb-2">
   <MudToolBar Dense="true">
@@ -41,12 +40,6 @@
       @if (SqlCrudConfigSection.IsGuiShowItemsCount)
       {
         <RadzenLabel Style="margin-left: 20px; font-size: 13px; " Text=@SqlListCountResult />
-      }
-      <MudSpacer/>
-      <MudSpacer/>
-      @if (SqlCrudConfigSection.IsGuiShowFilterAdditional)
-      {
-        <RazorSectionFilter TItem=@TItem TItemFilter=@TItemFilter ParentRazor=@(this) />
       }
   </MudToolBar>
 </MudPaper>

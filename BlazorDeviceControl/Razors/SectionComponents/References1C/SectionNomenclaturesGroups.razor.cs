@@ -6,7 +6,7 @@ using DataCore.Sql.TableScaleModels.PlusGroups;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.References1C;
 
-public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<PluGroupModel, SqlTableBase> 
+public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<PluGroupModel> 
 {
 	#region Public and private fields, properties, constructor
 

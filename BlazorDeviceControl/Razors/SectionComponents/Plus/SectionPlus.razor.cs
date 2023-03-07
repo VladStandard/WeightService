@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
-public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableBase>
+public partial class SectionPlus : RazorComponentSectionBase<PluModel>
 {
 	#region Public and private fields, properties, constructor
 

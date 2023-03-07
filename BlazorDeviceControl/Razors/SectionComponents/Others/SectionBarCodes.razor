@@ -1,9 +1,7 @@
 ﻿@using DataCore.Sql.TableScaleModels.BarCodes
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.BarCodes.BarCodeModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.BarCodes.BarCodeModel>
 @page "/section/barcodes"
-
-<RazorSectionReload TItem="@BarCodeModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBarCodeTypes" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

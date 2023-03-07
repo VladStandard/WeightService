@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel, PluModel>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel>
 @page "/section/plus_bundles_fks"
 
-<RazorSectionReload TItem="@PluBundleFkModel" TItemFilter="@PluModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusBundlesFk" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@PluBundleFkModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusBundlesFk" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

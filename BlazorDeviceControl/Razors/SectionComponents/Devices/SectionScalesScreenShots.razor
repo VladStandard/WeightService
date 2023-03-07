@@ -1,10 +1,10 @@
 ﻿@using DataCore.Sql.TableScaleModels.ScalesScreenshots
 @using DataCore.Sql.TableScaleModels.Scales
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.ScalesScreenshots.ScaleScreenShotModel, DataCore.Sql.TableScaleModels.Scales.ScaleModel>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.ScalesScreenshots.ScaleScreenShotModel>
 @page "/section/scales_screenshots"
 
-<RazorSectionReload TItem="@ScaleScreenShotModel" TItemFilter="@ScaleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionScreenShots" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@ScaleScreenShotModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionScreenShots" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

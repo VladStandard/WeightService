@@ -1,9 +1,9 @@
 @using DataCore.Sql.TableScaleModels.TemplatesResources
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel>
 @page "/section/templates_resources"
 
-<RazorSectionReload TItem="@TemplateResourceModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionTemplateResources" SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload TItem="@TemplateResourceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionTemplateResources" SqlCrudConfigSection="@SqlCrudConfigSection" />
 
 <RadzenDataGridLocal @bind-Value="@SelectedRow"
                      TItem="@TemplateResourceModel"

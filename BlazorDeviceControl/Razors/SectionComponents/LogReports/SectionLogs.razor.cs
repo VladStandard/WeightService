@@ -5,7 +5,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.LogReports;
 
-public partial class SectionLogs : RazorComponentSectionBase<LogQuickModel, SqlTableBase>
+public partial class SectionLogs : RazorComponentSectionBase<LogQuickModel>
 {
     #region Public and private fields, properties, constructor
 

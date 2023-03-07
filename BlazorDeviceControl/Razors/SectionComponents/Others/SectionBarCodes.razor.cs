@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.BarCodes;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Others;
 
-public partial class SectionBarCodes : RazorComponentSectionBase<BarCodeModel, SqlTableBase>
+public partial class SectionBarCodes : RazorComponentSectionBase<BarCodeModel>
 {
 	#region Public and private fields, properties, constructor
 

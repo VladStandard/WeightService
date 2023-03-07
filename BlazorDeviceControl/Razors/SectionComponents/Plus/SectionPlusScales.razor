@@ -1,10 +1,10 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusScales
 @using DataCore.Sql.TableScaleModels.Scales
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusScales.PluScaleModel, DataCore.Sql.TableScaleModels.Scales.ScaleModel>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusScales.PluScaleModel>
 @page "/section/plus_scales"
 
-<RazorSectionReload TItem="@PluScaleModel" TItemFilter="@ScaleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusScales" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@PluScaleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusScales" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@HideNoneActivePlu"
                 Change="@(_ => OnChangeAsync())"

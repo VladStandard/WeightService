@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Access;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Others;
 
-public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlTableBase>
+public partial class SectionAccess : RazorComponentSectionBase<AccessModel>
 {
     #region Public and private fields, properties, constructor
 

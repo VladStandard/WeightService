@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleModels.Devices
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Devices.DeviceModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Devices.DeviceModel>
 @page "/section/devices"
 
-<RazorSectionReload TItem="@DeviceModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionHosts" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@DeviceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionHosts" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"
