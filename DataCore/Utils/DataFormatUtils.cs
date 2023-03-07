@@ -127,39 +127,47 @@ public static class DataFormatUtils
 		return SpecialCharacters.Contains(value);
 	}
 
-	/// <summary>
-	/// Replace zpl-resources.
-	/// </summary>
-	/// <param name="value"></param>
-	/// <returns></returns>
-	public static string PrintCmdReplaceZplResources(string value)
+    private static List<TemplateResourceModel> _templateResources = new();
+
+    /// <summary>
+    /// Replace zpl-resources.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static string PrintCmdReplaceZplResources(string value)
 	{
 		string result = value;
-		if (string.IsNullOrEmpty(result))
-			return result;
+		if (string.IsNullOrEmpty(result)) return result;
 
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceModel.Type), "ZPL"), 
-			new SqlFieldOrderModel(nameof(TemplateResourceModel.Name), SqlFieldOrderEnum.Asc), false, false);
-		TemplateResourceModel[]? templateResources = DataAccessHelper.Instance.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
-		if (templateResources is not null)
+        SetTemplatesResources();
+		foreach (TemplateResourceModel resource in _templateResources)
 		{
-			foreach (TemplateResourceModel resource in templateResources.ToList())
-			{
-				string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
-				result = result.Replace($"[{resource.Name}]", resourceHex);
-			}
+            if (result.Contains($"[{resource.Name}]"))
+            {
+			    string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
+			    result = result.Replace($"[{resource.Name}]", resourceHex);
+            }
 		}
-		//result = PrintCmdReplaceArea(result);
 		return result;
 	}
 
-	/// <summary>
-	/// Replace area-resource.
-	/// </summary>
-	/// <param name="area"></param>
-	/// <param name="value"></param>
-	/// <returns></returns>
-	public static string PrintCmdReplaceArea(ProductionFacilityModel? area, string value)
+    private static void SetTemplatesResources()
+    {
+        if (_templateResources.Any()) return;
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceModel.Type), "ZPL"),
+            new SqlFieldOrderModel(nameof(TemplateResourceModel.Name), SqlFieldOrderEnum.Asc), false, false);
+        TemplateResourceModel[]? templateResources = DataAccessHelper.Instance.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
+        if (templateResources is not null)
+            _templateResources = templateResources.ToList();
+    }
+
+    /// <summary>
+    /// Replace area-resource.
+    /// </summary>
+    /// <param name="area"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static string PrintCmdReplaceArea(ProductionFacilityModel? area, string value)
 	{
 		string result = value;
 		if (string.IsNullOrEmpty(result))
