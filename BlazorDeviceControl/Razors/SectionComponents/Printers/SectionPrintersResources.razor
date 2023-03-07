@@ -10,13 +10,12 @@
   TItem="@PrinterResourceFkModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@(SqlItemSetAsync)"
+  RowSelect="@SqlItemSetAsync"
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <TItemContent TItem="@PrinterResourceFkModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      @* <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetDescription()" Width="32%" /> *@
       <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.PrinterResource.GetPrinter()" Width="32%" />
       <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.PrinterResource.GetName()" Width="31%" />
     </TItemContent>

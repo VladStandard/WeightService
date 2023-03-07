@@ -1,0 +1,27 @@
+﻿@using DataCore.Sql.Xml
+@using BlazorDeviceControl.Razors.CustomComponents
+@inherits RazorComponentSectionBase<DataCore.Sql.Xml.LogQuickModel>
+
+<RazorSectionReload TItem="@LogQuickModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)" Title="@LocaleCore.System.SystemLogs" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@LogQuickModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
+  <Columns>
+    <TItemContent TItem="@LogQuickModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetCreateDt()" Width="14%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetScale()" Width="17%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetDevice()" Width="13%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetApp()" Width="13%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetVersion()" Width="6%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetIcon()" Width="7%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetMessage()" Width="30%" />
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

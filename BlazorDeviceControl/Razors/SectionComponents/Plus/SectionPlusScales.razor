@@ -16,7 +16,7 @@
   TItem="@PluScaleModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@(SqlItemSetAsync)"
+  RowSelect="@SqlItemSetAsync"
   RowRender="@(RowRender)"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>

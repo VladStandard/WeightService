@@ -5,19 +5,20 @@
 
 <RazorSectionReload TItem="@TemplateResourceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionTemplateResources" SqlCrudConfigSection="@SqlCrudConfigSection" />
 
-<RadzenDataGridLocal @bind-Value="@SelectedRow"
-                     TItem="@TemplateResourceModel"
-                     Data="@SqlSectionCast"
-                     CellContextMenu="@OnCellContextMenu"
-                     RowSelect="@(SqlItemSetAsync)"
-                     RowRender="@(args => RowRender(args))"
-                     RowDoubleClick="@(_ => SqlItemEditAsync())">
-    <Columns>
-        <TItemContent TItem="@TemplateResourceModel">
-            <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
-            <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataType()" Width="20%" />
-            <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="55%" />
-            <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataSize()" Width="20%" />
-        </TItemContent>
-    </Columns>
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@TemplateResourceModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
+  <Columns>
+      <TItemContent TItem="@TemplateResourceModel">
+          <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+          <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataType()" Width="20%" />
+          <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="55%" />
+          <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataSize()" Width="20%" />
+      </TItemContent>
+  </Columns>
 </RadzenDataGridLocal>

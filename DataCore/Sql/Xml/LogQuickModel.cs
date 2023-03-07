@@ -2,12 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
 
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class LogQuickModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class LogQuickModel : SqlTableBase
 {
 	#region Public and private fields, properties, constructor
 

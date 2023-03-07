@@ -11,7 +11,7 @@
   TItem="@PluGroupModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@(SqlItemSetAsync)"
+  RowSelect="@SqlItemSetAsync"
   RowRender="@RowRender"
   LoadChildData="@LoadChildData"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
