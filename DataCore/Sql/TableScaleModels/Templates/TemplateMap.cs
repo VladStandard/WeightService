@@ -24,6 +24,6 @@ public class TemplateMap : ClassMap<TemplateModel>
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
         Map(x => x.CategoryId).CustomSqlType("NVARCHAR").Column("CategoryID").Length(150).Not.Nullable();
         Map(x => x.Title).CustomSqlType("NVARCHAR").Column("Title").Length(250).Nullable();
-        Map(x => x.ImageDataValue).CustomSqlType("VARBINARY(MAX)").Column("ImageData").Nullable().Length(int.MaxValue);
+        Map(x => x.ImageDataValue).CustomSqlType("VARBINARY(MAX)").Column("ImageData").Nullable();
     }
 }

@@ -1,4 +1,4 @@
-﻿@using DataCore.Sql.TableScaleModels.Templates
+@using DataCore.Sql.TableScaleModels.Templates
 @using BlazorDeviceControl.Razors.CustomComponents
 @inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Templates.TemplateModel>
 @page "/item/template"
@@ -39,7 +39,7 @@
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
-        Rows="20"
+        Rows="18"
         @bind-Value="@(SqlItemCast.ImageDataValueUnicode)"/>
     </td>
   </tr>

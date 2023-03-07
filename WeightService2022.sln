@@ -175,16 +175,33 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTerra1000Tests", "Web
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplateResources", "TemplateResources", "{5121B4E0-3103-4872-AB23-0E5909BA356D}"
 	ProjectSection(SolutionItems) = preProject
+		Resources\TemplateResources\EAC 300DPMM 60X60 COMPRESSED.ZPL = Resources\TemplateResources\EAC 300DPMM 60X60 COMPRESSED.ZPL
+		Resources\TemplateResources\DEGREES_06_300DPMM_64X64.ZPL = Resources\TemplateResources\DEGREES_06_300DPMM_64X64.ZPL
+		Resources\TemplateResources\DEGREES_06_300DPMM_64X64_COMPRESSED.ZPL = Resources\TemplateResources\DEGREES_06_300DPMM_64X64_COMPRESSED.ZPL
+		Resources\TemplateResources\EAC 300DPMM 60X60.ZPL = Resources\TemplateResources\EAC 300DPMM 60X60.ZPL
 		Resources\TemplateResources\EAC_94x115_000.bmp = Resources\TemplateResources\EAC_94x115_000.bmp
 		Resources\TemplateResources\EAC_94x115_000.zpl = Resources\TemplateResources\EAC_94x115_000.zpl
 		Resources\TemplateResources\EAC_94x115_000_V2.zpl = Resources\TemplateResources\EAC_94x115_000_V2.zpl
+		Resources\TemplateResources\FISH 115X94.ZPL = Resources\TemplateResources\FISH 115X94.ZPL
 		Resources\TemplateResources\FISH_1_94x115_000.zpl = Resources\TemplateResources\FISH_1_94x115_000.zpl
 		Resources\TemplateResources\FISH_2_94x115_000.bmp = Resources\TemplateResources\FISH_2_94x115_000.bmp
 		Resources\TemplateResources\FISH_2_94x115_000.zpl = Resources\TemplateResources\FISH_2_94x115_000.zpl
 		Resources\TemplateResources\FISH_2_94x115_000_V2.zpl = Resources\TemplateResources\FISH_2_94x115_000_V2.zpl
+		Resources\TemplateResources\GLASS_WITH_FORK_203DPMM_78X78.ZPL = Resources\TemplateResources\GLASS_WITH_FORK_203DPMM_78X78.ZPL
+		Resources\TemplateResources\GLASS_WITH_FORK_203DPMM_78X78_COMPRESSED.ZPL = Resources\TemplateResources\GLASS_WITH_FORK_203DPMM_78X78_COMPRESSED.ZPL
+		Resources\TemplateResources\GLASS_WITH_FORK_300DPMM_64X64.ZPL = Resources\TemplateResources\GLASS_WITH_FORK_300DPMM_64X64.ZPL
+		Resources\TemplateResources\GLASS_WITH_FORK_300DPMM_64X64_COMPRESSED.ZPL = Resources\TemplateResources\GLASS_WITH_FORK_300DPMM_64X64_COMPRESSED.ZPL
+		Resources\TemplateResources\GS1-128.ZPL = Resources\TemplateResources\GS1-128.ZPL
+		Resources\TemplateResources\RECYCLING_300DPMM_64X64.ZPL = Resources\TemplateResources\RECYCLING_300DPMM_64X64.ZPL
+		Resources\TemplateResources\RECYCLING_300DPMM_64X64_COMPRESSED.ZPL = Resources\TemplateResources\RECYCLING_300DPMM_64X64_COMPRESSED.ZPL
+		Resources\TemplateResources\SOON_TO_BE_SPOILED_96DPMM_64X79.ZPL = Resources\TemplateResources\SOON_TO_BE_SPOILED_96DPMM_64X79.ZPL
+		Resources\TemplateResources\SOON_TO_BE_SPOILED_96DPMM_64X79_COMPRESSED.ZPL = Resources\TemplateResources\SOON_TO_BE_SPOILED_96DPMM_64X79_COMPRESSED.ZPL
 		Resources\TemplateResources\TEMP_6_94x115_000.PNG = Resources\TemplateResources\TEMP_6_94x115_000.PNG
 		Resources\TemplateResources\TEMP_6_94x115_000.zpl = Resources\TemplateResources\TEMP_6_94x115_000.zpl
 		Resources\TemplateResources\TEMP_6_94x115_000_V2.zpl = Resources\TemplateResources\TEMP_6_94x115_000_V2.zpl
+		Resources\TemplateResources\TEST.NLBL = Resources\TemplateResources\TEST.NLBL
+		Resources\TemplateResources\TEST.ZPL = Resources\TemplateResources\TEST.ZPL
+		Resources\TemplateResources\ЧУДО-ПЕЧКА ТЕСТ.NLBL = Resources\TemplateResources\ЧУДО-ПЕЧКА ТЕСТ.NLBL
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E045-41F4-9460-CC519B8D7DBF}"
@@ -259,27 +276,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zebra", "Zebra", "{3183F5C1
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssertCoreTests", "AssertCoreTests\AssertCoreTests.csproj", "{B17D45C6-F53D-4904-BDF3-4C8F3346BE33}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZPL", "ZPL", "{D6246DA8-3A49-4683-97B8-C62C333C4CB2}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\ZPL\06_DEGREES_300DPMM_64X64.ZPL = Resources\ZPL\06_DEGREES_300DPMM_64X64.ZPL
-		Resources\ZPL\06_DEGREES_300DPMM_64X64_COMPRESSED.ZPL = Resources\ZPL\06_DEGREES_300DPMM_64X64_COMPRESSED.ZPL
-		Resources\ZPL\EAC 300DPMM 60X60 COMPRESSED.ZPL = Resources\ZPL\EAC 300DPMM 60X60 COMPRESSED.ZPL
-		Resources\ZPL\EAC 300DPMM 60X60.ZPL = Resources\ZPL\EAC 300DPMM 60X60.ZPL
-		Resources\ZPL\FISH 115X94.ZPL = Resources\ZPL\FISH 115X94.ZPL
-		Resources\ZPL\GLASS_WITH_FORK_203DPMM_78X78.ZPL = Resources\ZPL\GLASS_WITH_FORK_203DPMM_78X78.ZPL
-		Resources\ZPL\GLASS_WITH_FORK_203DPMM_78X78_COMPRESSED.ZPL = Resources\ZPL\GLASS_WITH_FORK_203DPMM_78X78_COMPRESSED.ZPL
-		Resources\ZPL\GLASS_WITH_FORK_300DPMM_64X64.ZPL = Resources\ZPL\GLASS_WITH_FORK_300DPMM_64X64.ZPL
-		Resources\ZPL\GLASS_WITH_FORK_300DPMM_64X64_COMPRESSED.ZPL = Resources\ZPL\GLASS_WITH_FORK_300DPMM_64X64_COMPRESSED.ZPL
-		Resources\ZPL\GS1-128.zpl = Resources\ZPL\GS1-128.zpl
-		Resources\ZPL\RECYCLING_300DPMM_64X64.ZPL = Resources\ZPL\RECYCLING_300DPMM_64X64.ZPL
-		Resources\ZPL\RECYCLING_300DPMM_64X64_COMPRESSED.ZPL = Resources\ZPL\RECYCLING_300DPMM_64X64_COMPRESSED.ZPL
-		Resources\ZPL\SOON_TO_BE_SPOILED_96DPMM_64X79.ZPL = Resources\ZPL\SOON_TO_BE_SPOILED_96DPMM_64X79.ZPL
-		Resources\ZPL\SOON_TO_BE_SPOILED_96DPMM_64X79_COMPRESSED.ZPL = Resources\ZPL\SOON_TO_BE_SPOILED_96DPMM_64X79_COMPRESSED.ZPL
-		Resources\ZPL\TEST.NLBL = Resources\ZPL\TEST.NLBL
-		Resources\ZPL\TEST.ZPL = Resources\ZPL\TEST.ZPL
-		Resources\ZPL\ЧУДО-ПЕЧКА ТЕСТ.NLBL = Resources\ZPL\ЧУДО-ПЕЧКА ТЕСТ.NLBL
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsLocalization", "WsLocalization\WsLocalization.csproj", "{F494C3D7-E4C9-4D2B-926F-66835260F4B5}"
 EndProject
@@ -1147,7 +1143,6 @@ Global
 		{717736E0-79C1-4E56-AB8D-C075B0A781FC} = {F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}
 		{3183F5C1-144A-43CA-86BF-B7B528F6A94F} = {F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}
 		{B17D45C6-F53D-4904-BDF3-4C8F3346BE33} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
-		{D6246DA8-3A49-4683-97B8-C62C333C4CB2} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
 		{F494C3D7-E4C9-4D2B-926F-66835260F4B5} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 		{D1197800-5CD2-4EE1-BF86-71A87B384ECF} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 		{F3D2DF86-E35B-458E-9D6D-A4437943802D} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
@@ -1168,7 +1163,7 @@ Global
 		{C42E467B-DA02-4FCB-B802-6FD26610B375} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
