@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.Xml
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.Xml.LogQuickModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.Xml.LogQuickModel>
 @page "/section/logs"
 
-<RazorSectionReload TItem="@LogQuickModel" ButtonSettings="@ButtonSettings" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.System.SystemLogs" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@LogQuickModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)" Title="@LocaleCore.System.SystemLogs" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleFkModels.PlusNestingFks
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusNestingFks.PluNestingFkModel, PluModel>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusNestingFks.PluNestingFkModel>
 @page "/section/plus_nesting_fks"
 
-<RazorSectionReload TItem="@PluNestingFkModel" TItemFilter="@PluModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusNestingFk" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@PluNestingFkModel" Title="@LocaleCore.DeviceControl.SectionPlusNestingFk" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

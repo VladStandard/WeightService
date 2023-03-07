@@ -1,9 +1,9 @@
 @using BlazorDeviceControl.Razors.CustomComponents
 @using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PrintersResourcesFks.PrinterResourceFkModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PrintersResourcesFks.PrinterResourceFkModel>
 @page "/section/printers_resources"
 
-<RazorSectionReload TItem="@PrinterResourceFkModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Print.Resources" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@PrinterResourceFkModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Resources" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

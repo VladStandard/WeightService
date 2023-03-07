@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleModels.Brands
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Brands.BrandModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Brands.BrandModel>
 @page "/section/brands"
 
-<RazorSectionReload TItem="@BrandModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBrands" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@BrandModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBrands" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

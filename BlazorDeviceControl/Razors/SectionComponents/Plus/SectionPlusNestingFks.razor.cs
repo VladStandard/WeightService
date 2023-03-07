@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
         
-public partial class SectionPlusNestingFks : RazorComponentSectionBase<PluNestingFkModel, PluModel>
+public partial class SectionPlusNestingFks : RazorComponentSectionBase<PluNestingFkModel>
 {
     #region Public and private fields, properties, constructor
 

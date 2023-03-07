@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Others;
 
-public partial class SectionTemplateResources : RazorComponentSectionBase<TemplateResourceModel, SqlTableBase>
+public partial class SectionTemplateResources : RazorComponentSectionBase<TemplateResourceModel>
 {
     #region Public and private fields, properties, constructor
 

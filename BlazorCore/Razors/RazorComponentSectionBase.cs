@@ -10,8 +10,8 @@ using Microsoft.JSInterop;
 
 namespace BlazorCore.Razors;
 
-public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase 
-	where TItem : SqlTableBase, new() where TItemFilter : SqlTableBase, new() 
+public class RazorComponentSectionBase<TItem> : RazorComponentBase 
+	where TItem : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 
@@ -23,13 +23,7 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
     #endregion
     
     public IList<TItem>? SelectedRow { get; set; }
-	protected List<TItemFilter> SqlSectionFilterCast { get; set; }
-    protected TItemFilter SqlItemFilterCast
-	{
-		get => SqlItemFilter is null ? new() : (TItemFilter)SqlItemFilter;
-		set => SqlItemFilter = value;
-	}
-	protected List<TItem> SqlSectionCast
+    protected List<TItem> SqlSectionCast
 	{
 		get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
 		set => SqlSection = !value.Any() ? null : new(value);

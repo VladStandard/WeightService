@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusWeighings
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusWeighings.PluWeighingModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusWeighings.PluWeighingModel>
 @page "/section/plu_weighings"
 
-<RazorSectionReload TItem="@PluWeighingModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusWeighings" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@PluWeighingModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusWeighings" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

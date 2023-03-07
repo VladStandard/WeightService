@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Contragents;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.References1C;
 
-public partial class SectionContragents : RazorComponentSectionBase<ContragentModel, SqlTableBase>
+public partial class SectionContragents : RazorComponentSectionBase<ContragentModel>
 {
     #region Public and private fields, properties, constructor
 

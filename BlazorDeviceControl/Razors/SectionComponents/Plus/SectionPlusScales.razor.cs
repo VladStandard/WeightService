@@ -7,7 +7,7 @@ using DataCore.Sql.TableScaleModels.Scales;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
-public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel, ScaleModel>
+public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel>
 {
 	#region Public and private fields, properties, constructor
 

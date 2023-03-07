@@ -1,10 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleFkModels.LogsWebsFks
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<LogWebFkModel, SqlTableBase>
+@inherits RazorComponentSectionBase<LogWebFkModel>
 @page "/section/logs/web_service_fk"
 
-<RazorSectionReload TItem="@LogWebFkModel" ButtonSettings="@ButtonSettings"
-                    TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.WebService.Name" sqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@LogWebFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)" Title="@LocaleCore.WebService.Name" sqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGrid
   @bind-Value="@SelectedRow"

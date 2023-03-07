@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleModels.Contragents
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Contragents.ContragentModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Contragents.ContragentModel>
 @page "/section/contragents"
 
-<RazorSectionReload TItem="@ContragentModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionContragents" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@ContragentModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionContragents" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

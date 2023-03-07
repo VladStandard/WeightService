@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusGroups
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel>
 @page "/section/nomenclatures_groups"
 
-<RazorSectionReload TItem="@PluGroupModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionNomenclaturesGroups"
+<RazorSectionReload TItem="@PluGroupModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionNomenclaturesGroups"
                     SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal

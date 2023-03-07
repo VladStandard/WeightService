@@ -1,9 +1,9 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusLabels
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusLabels.PluLabelModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusLabels.PluLabelModel>
 @page "/section/plus_labels"
 
-<RazorSectionReload TItem="@PluLabelModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionLabels" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@PluLabelModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionLabels" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

@@ -1,10 +1,10 @@
 ﻿@using DataCore.Sql.TableScaleModels.Printers
 @using BlazorDeviceControl.Razors.CustomComponents
 @using System.Net
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Printers.PrinterModel, SqlTableBase>
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Printers.PrinterModel>
 @page "/section/printers"
 
-<RazorSectionReload TItem="@PrinterModel" TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.Print.Names" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload TItem="@PrinterModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Names" SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <RadzenDataGridLocal
   class="DataGridSection"

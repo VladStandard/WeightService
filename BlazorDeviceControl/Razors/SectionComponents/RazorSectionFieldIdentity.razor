@@ -1,5 +1,5 @@
 ﻿@typeparam TItem
-@inherits RazorComponentSectionBase<TItem, SqlTableBase>
+@inherits RazorComponentSectionBase<TItem>
 
 <RadzenGridColumn TItem="@TItem" TextAlign="@TextAlign.Center" Width="@Width" Title="@(GetColumnIdentityName<TItem>())">
   <Template Context="item">

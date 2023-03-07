@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Devices;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Devices;
 
-public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, SqlTableBase>
+public partial class SectionDevices : RazorComponentSectionBase<DeviceModel>
 {
     #region Public and private fields, properties, constructor
 
