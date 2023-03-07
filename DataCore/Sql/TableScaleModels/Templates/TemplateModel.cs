@@ -9,18 +9,14 @@ namespace DataCore.Sql.TableScaleModels.Templates;
 /// Table "Templates".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(TemplateModel)} | {Title}")]
+[DebuggerDisplay("{nameof(TemplateModel)} | {Title} | {CategoryId}")]
 public class TemplateModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual string CategoryId { get; set; }
     [XmlElement] public virtual string Title { get; set; }
-    [XmlIgnore] public virtual SqlFieldBinaryModel ImageData { get; set; }
-    [XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value ?? Array.Empty<byte>(); set => ImageData.Value = value; }
-    [XmlElement]
-    public virtual string ImageDataValueUnicode
-    { get => Encoding.Unicode.GetString(ImageDataValue); set => ImageDataValue = Encoding.Unicode.GetBytes(value); }
+    [XmlElement] public virtual string Data { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -29,9 +25,7 @@ public class TemplateModel : SqlTableBase
     {
         CategoryId = string.Empty;
         Title = string.Empty;
-        ImageData = new();
-        //ImageDataValue = Array.Empty<byte>();
-        ImageDataValueUnicode = string.Empty;
+        Data = string.Empty;
     }
 
     /// <summary>
@@ -43,7 +37,7 @@ public class TemplateModel : SqlTableBase
     {
         CategoryId = info.GetString(nameof(CategoryId));
         Title = info.GetString(nameof(Title));
-        ImageData = (SqlFieldBinaryModel)info.GetValue(nameof(ImageData), typeof(SqlFieldBinaryModel));
+        Data = info.GetString(nameof(Data));
     }
 
     #endregion
@@ -53,8 +47,7 @@ public class TemplateModel : SqlTableBase
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(CategoryId)}: {CategoryId}. " +
-        $"{nameof(Title)}: {Title}. " +
-        $"{nameof(ImageData)}: {ImageData}. ";
+        $"{nameof(Title)}: {Title}";
 
     public override bool Equals(object obj)
     {
@@ -72,7 +65,7 @@ public class TemplateModel : SqlTableBase
         base.EqualsDefault() &&
         Equals(CategoryId, string.Empty) &&
         Equals(Title, string.Empty) &&
-        ImageData.EqualsDefault();
+        Equals(Data, string.Empty);
 
     public override object Clone()
     {
@@ -80,7 +73,7 @@ public class TemplateModel : SqlTableBase
         item.CloneSetup(base.CloneCast());
         item.CategoryId = CategoryId;
         item.Title = Title;
-        item.ImageData = ImageData.CloneCast();
+        item.Data = Data;
         return item;
     }
 
@@ -94,14 +87,14 @@ public class TemplateModel : SqlTableBase
         base.GetObjectData(info, context);
         info.AddValue(nameof(CategoryId), CategoryId);
         info.AddValue(nameof(Title), Title);
-        info.AddValue(nameof(ImageData), ImageData);
+        info.AddValue(nameof(Data), Data);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
         Title = LocaleCore.Sql.SqlItemFieldTitle;
-        ImageData.FillProperties();
+        Data = LocaleCore.Sql.SqlItemFieldTemplateData;
     }
 
     #endregion
@@ -112,7 +105,7 @@ public class TemplateModel : SqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(CategoryId, item.CategoryId) &&
         Equals(Title, item.Title) &&
-        ImageData.Equals(item.ImageData);
+        Equals(Data, item.Data);
 
     public new virtual TemplateModel CloneCast() => (TemplateModel)Clone();
 

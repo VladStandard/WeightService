@@ -46,6 +46,7 @@ public class LocaleSql
     public string SqlItemFieldPrettyName => Lang == Lang.English ? "pretty name" : "Красивое наименование";
     public string SqlItemFieldProductXml => Lang == Lang.English ? "\"<Product Category=\\\"Meat\\\" > </Product>\"" : "\"<Product Category=\\\"Сосиски\\\" > </Product>\"";
     public string SqlItemFieldSscc => Lang == Lang.English ? "SSCC code" : "SSCC код";
+    public string SqlItemFieldTemplateData => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
     public string SqlItemFieldTemplateResourceType => "ZPL";
     public string SqlItemFieldTitle => Lang == Lang.English ? "Title" : "Заголовок";
     public string SqlItemFieldUrl => "https://{{local}}/api/info/";

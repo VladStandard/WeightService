@@ -587,7 +587,7 @@ public class UserSessionHelper : BaseViewModel
             return;
         }
         
-        // Temlate is exists!
+        // Template is exists!
         switch (PluScale.Plu.IsCheckWeight)
         {
             case true:
@@ -655,12 +655,11 @@ public class UserSessionHelper : BaseViewModel
         //}
 
         // Шаблон с указанием кол-ва и не весовой продукт.
-        if (template.ImageData.ValueUnicode.Contains("^PQ1") && !PluScale.Plu.IsCheckWeight)
+        if (template.Data.Contains("^PQ1") && !PluScale.Plu.IsCheckWeight)
         {
             // Изменить кол-во этикеток.
             if (WeighingSettings.LabelsCountMain > 1)
-                template.ImageData.ValueUnicode = template.ImageData.ValueUnicode.Replace(
-                    "^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
+                template.Data = template.Data.Replace("^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
             // Печать этикетки.
             PrintLabelCore(template, isClearBuffer);
         }
@@ -782,7 +781,7 @@ public class UserSessionHelper : BaseViewModel
         XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = DataFormatUtils.SerializeAsXmlDocument<PluLabelModel>(pluLabel, true, true);
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
-        pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
+        pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
         pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
         pluLabel.Zpl = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
