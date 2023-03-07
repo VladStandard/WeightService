@@ -116,7 +116,8 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 			new() { Text = locale.Open, Value = ContextMenuAction.Open },
 			new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
 		};
-		if (UserSettings?.AccessRightsIsWrite == true || UserSettings?.AccessRightsIsAdmin == true)
+		if ((UserSettings?.AccessRightsIsWrite == true || UserSettings?.AccessRightsIsAdmin == true) &&
+            (ButtonSettings?.IsShowDelete == true || ButtonSettings?.IsShowMark == true))
 		{
 			contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
 			contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });

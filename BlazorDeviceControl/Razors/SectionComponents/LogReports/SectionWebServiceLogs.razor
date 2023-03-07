@@ -1,0 +1,52 @@
+﻿@using DataCore.Sql.TableScaleFkModels.LogsWebsFks
+@using BlazorDeviceControl.Razors.CustomComponents
+@inherits RazorComponentSectionBase<LogWebFkModel, SqlTableBase>
+@page "/section/logs/web_service_fk"
+
+<RazorSectionReload TItem="@LogWebFkModel" ButtonSettings="@ButtonSettings"
+                    TItemFilter="@SqlTableBase" ParentRazor="@(this)" Title="@LocaleCore.WebService.Name" sqlCrudConfigSection="@SqlCrudConfigSection"/>
+
+<RadzenDataGrid
+  @bind-Value="@SelectedRow"
+  TItem="@LogWebFkModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@(SqlItemSetAsync)"
+  RowRender="@(args => RowRender(args))"
+  RowDoubleClick="@(_ => SqlItemEditAsync())">
+  <Columns>
+    <TItemContent TItem="@LogWebFkModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="15%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.CreateDt">
+        <Template Context="itemCast">
+          <RadzenText TextStyle="@TextStyle.Body2" Text="@(StringUtils.FormatDtRus(itemCast.LogWebRequest.CreateDt, true, true))"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="10%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Device">
+        <Template Context="itemCast">
+          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.Device.Name"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="15%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.App">
+        <Template Context="itemCast">
+          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.App.Name"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="15%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.LogType">
+        <Template Context="itemCast">
+          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.LogType.Icon"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="40%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.RequestUrl">
+        <Template Context="itemCast">
+          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.LogWebRequest.Url"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="15%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Request">
+        <Template Context="itemCast">
+          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.ToString()"/>
+        </Template>
+      </RadzenDataGridColumn>
+    </TItemContent>
+  </Columns>
+</RadzenDataGrid>

@@ -17,7 +17,8 @@ public class LocaleWebService
     public Lang Lang { get; set; } = Lang.Russian;
 
     #region Public and private fields, properties, constructor
-
+    
+    public string Name => Lang == Lang.English ? "WebService 1C" : "ВебСервис 1С";
     public string DtStamp => Lang == Lang.English ? "Date time stamp" : "Отметка времени даты";
     public string Dublicate => Lang == Lang.English ? "Dublicate" : "Дубликат";
     public string FieldBrand => Lang == Lang.English ? "Brand" : "Бренд";
