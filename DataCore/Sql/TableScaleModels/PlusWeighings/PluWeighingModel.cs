@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
@@ -68,6 +68,13 @@ public class PluWeighingModel : SqlTableBase
     public virtual string NettoWeightKgFormat2Dot3Rus
     {
         get => $"{NettoWeight:#0.000}".Replace('.', ',');
+        // This code need for print labels.
+        set => _ = value;
+    }
+    [XmlElement]
+    public virtual string NettoWeightKgFormat2Dot3RusKg
+    {
+        get => $"{NettoWeight:#0.000} {LocaleCore.Scales.WeightUnitKg}".Replace('.', ',');
         // This code need for print labels.
         set => _ = value;
     }

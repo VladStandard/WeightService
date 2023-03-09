@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
@@ -22,47 +22,37 @@ public class PluLabelModel : SqlTableBase
     [XmlElement] public virtual string Zpl { get; set; }
     [XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
     [XmlElement] public virtual DateTime ProductDt { get; set; }
-
-    [XmlElement]
-    public virtual string ProductDtFormat
+    [XmlElement] public virtual string ProductDtFormat
     {
         get => $"{ProductDt:dd.MM.yyyy}";
         // This code need for print labels.
         set => _ = value;
     }
-
-    [XmlElement]
-    public virtual string LotNumberFormat
+    [XmlElement] public virtual string LotNumberFormat
     {
         get => $"{ProductDt:yyMM}";
         // This code need for print labels.
         set => _ = value;
     }
-
-    [XmlElement]
-    public virtual string ProductDateBarCodeFormat
+    [XmlElement] public virtual string ProductDateBarCodeFormat
     {
         get => $"{ProductDt:yyMMdd}";
         // This code need for print labels.
         set => _ = value;
     }
-
-    [XmlElement]
-    public virtual string ProductTimeBarCodeFormat
+    [XmlElement] public virtual string ProductTimeBarCodeFormat
     {
         get => $"{ProductDt:HHmmss}";
         // This code need for print labels.
         set => _ = value;
     }
-    [XmlElement]
-    public virtual DateTime ExpirationDt
+    [XmlElement] public virtual DateTime ExpirationDt
     {
         get => PluScale.IsNew ? DateTime.MinValue : ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
         // This code need for print labels.
         set => _ = value;
     }
-    [XmlElement]
-    public virtual string ExpirationDtFormat
+    [XmlElement] public virtual string ExpirationDtFormat
     {
         get => $"{ExpirationDt:dd.MM.yyyy}";
         // This code need for print labels.

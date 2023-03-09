@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
@@ -167,81 +167,117 @@ public static class ZplUtils
 		return sbText.ToString();
 	}
 
-	public static string ConvertStringToHex(string zplInput)
+	public static string ConvertStringToHex(string zpl, List<string> blocks = null)
 	{
-		if (string.IsNullOrEmpty(zplInput)) return string.Empty;
+		if (string.IsNullOrEmpty(zpl)) return string.Empty;
 
 		StringBuilder result = new();
 		Dictionary<char, string> unicodeCharacterList = new();
 		// Search substring [^FH^FD].
-		int isFieldData = 0;
+		int position = 0;
 		bool isDataStart = false;
 		bool isDataEnd = false;
-		foreach (char ch in zplInput)
-		{
-			if (isFieldData == 6)
-			{
-				byte[] bytes = Encoding.UTF8.GetBytes(ch.ToString());
-				string hexCode = string.Empty;
-				foreach (byte b in bytes)
-				{
-					hexCode += $"_{BitConverter.ToString(new byte[] { b }).ToUpper()}";
-				}
+        char startBlock = '[';
+        char endBlock = ']';
+        bool isSkipChars = false;
+        int zplCounter = 0;
+        foreach (char ch in zpl)
+        {
+            zplCounter++;
+            // Patch for blocks as [RESOURCE]
+            if (blocks is { })
+            {
+                string zplBlock;
+                foreach (string block in blocks)
+                {
+                    if (Equals(ch, startBlock))
+                    {
+                        if (zpl.Length > zplCounter - 1 + block.Length)
+                        {
+                            zplBlock = zpl.Substring(zplCounter - 1, block.Length + 2);
+                            if (zplBlock == $"[{block}]")
+                            {
+                                isSkipChars = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (Equals(ch, endBlock))
+                {
+                    isSkipChars = false;
+                    zplBlock = string.Empty;
+                }
+                if (isSkipChars)
+                {
+                    result.Append(ch);
+                    continue;
+                }
+            }
 
-				unicodeCharacterList[ch] = hexCode;
-			}
-			else
-			{
-				unicodeCharacterList[ch] = ch.ToString();
-			}
+            if (position == 6)
+            {
+                position = 0;
+                byte[] bytes = Encoding.UTF8.GetBytes(ch.ToString());
+                string hexCode = string.Empty;
+                foreach (byte b in bytes)
+                {
+                    hexCode += $"_{BitConverter.ToString(new byte[] { b }).ToUpper()}";
+                }
+                unicodeCharacterList[ch] = hexCode;
+            }
+            else
+            {
+                unicodeCharacterList[ch] = ch.ToString();
+            }
 
-			// Calc isFieldData. ^FH^FD
-			if (isFieldData == 0 && ch == '^')
-				isFieldData = 1;
-			if (isFieldData == 1 && ch == 'F')
-				isFieldData = 2;
-			if (isFieldData == 2 && ch == 'H')
-				isFieldData = 3;
-			if (isFieldData == 3 && ch == '^')
-				isFieldData = 4;
-			if (isFieldData == 4 && ch == 'F')
-				isFieldData = 5;
-			if (isFieldData == 5 && ch == 'D')
-				isFieldData = 6;
+            // Calculate isFieldData. ^FH^FD
+            if (position == 0 && ch == '^')
+                position = 1;
+            if (position == 1 && ch == 'F')
+                position = 2;
+            if (position == 2 && ch == 'H')
+                position = 3;
+            if (position == 3 && ch == '^')
+                position = 4;
+            if (position == 4 && ch == 'F')
+                position = 5;
+            if (position == 5 && ch == 'D')
+                position = 6;
 
-			// Reset isFieldData. ^FS
-			if (isFieldData == 6 && ch == '^')
-				isFieldData = 7;
-			if (isFieldData == 7 && ch == 'F')
-				isFieldData = 8;
-			if (isFieldData == 8 && ch == 'S')
-			{
-				isFieldData = 0;
-				isDataStart = false;
-				isDataEnd = false;
-			}
-			if (isFieldData < 7)
-			{
-				result.Append(unicodeCharacterList[ch]);
-				if (isFieldData == 6 && !isDataStart)
-				{
-					isDataStart = true;
-					result.Append(Environment.NewLine);
-				}
-			}
-			else
-			{
-				if (isFieldData == 7 && !isDataEnd)
-				{
-					isDataEnd = true;
-					result.Append(Environment.NewLine);
-					result.Append("^");
-				}
-				else
-					result.Append(unicodeCharacterList[ch]);
-			}
-		}
-		return result.ToString();
+            // Reset isFieldData. ^FS
+            if (position == 6 && ch == '^')
+                position = 7;
+            if (position == 7 && ch == 'F')
+                position = 8;
+            if (position == 8 && ch == 'S')
+            {
+                position = 0;
+                isDataStart = false;
+                isDataEnd = false;
+            }
+            if (position < 7)
+            {
+                result.Append(unicodeCharacterList[ch]);
+                if (position == 6 && !isDataStart)
+                {
+                    isDataStart = true;
+                    result.Append(Environment.NewLine);
+                }
+            }
+            else
+            {
+                if (position == 7 && !isDataEnd)
+                {
+                    isDataEnd = true;
+                    result.Append(Environment.NewLine);
+                    result.Append("^");
+                }
+                else
+                    result.Append(unicodeCharacterList[ch]);
+            }
+        }
+        return result.ToString();
 	}
 
 	public static string InterplayToPrinter(string ip, int port, string[] zplCommand, out string exceptionMessage,

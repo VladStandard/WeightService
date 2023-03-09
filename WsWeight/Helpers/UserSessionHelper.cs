@@ -18,6 +18,7 @@ using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Templates;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Utils;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
@@ -783,7 +784,8 @@ public class UserSessionHelper : BaseViewModel
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
         pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
-        pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
+        pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl,
+            DataFormatUtils.LoadTemplatesResourcesNames(false));
         pluLabel.Zpl = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
 
         // Merge.
