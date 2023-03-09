@@ -51,13 +51,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionContragents => "/section/contragents";
     public string RouteSectionDevicesScalesFk => "/section/devices_scales_fks";
     public string RouteSectionLogs => "/section/logs";
-    public string RouteSectionLogsWebService => "/section/logs/web_service_fk";
-    public string RouteSectionLogsErrors => "/section/logs_errors";
-    public string RouteSectionLogsInformations => "/section/logs_informations";
-    public string RouteSectionLogsNones => "/section/logs_nones";
-    public string RouteSectionLogsQuestions => "/section/logs_questions";
-    public string RouteSectionLogsStops => "/section/logs_stops";
-    public string RouteSectionLogsWarnings => "/section/logs_warnings";
+    public string RouteSectionLogsWebService => "/section/logs_web_service_fk";
     public string RouteSectionLogTypes => "/section/logtypes";
     public string RouteSectionNomenclaturesGroups => "/section/nomenclatures_groups";
     public string RouteSectionOrders => "/section/orders";

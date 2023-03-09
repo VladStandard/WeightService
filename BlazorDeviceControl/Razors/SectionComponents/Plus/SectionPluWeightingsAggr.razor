@@ -10,7 +10,7 @@
   TItem="@WeithingFactSummaryModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@(SqlItemSetAsync)"
+  RowSelect="@SqlItemSetAsync"
   RowRender="@(args => RowRender(args))">
   <Columns>
     <TItemContent TItem="@WeithingFactSummaryModel">

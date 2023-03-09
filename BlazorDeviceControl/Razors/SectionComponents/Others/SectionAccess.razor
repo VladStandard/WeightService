@@ -10,7 +10,7 @@
   TItem="@AccessModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@(SqlItemSetAsync)"
+  RowSelect="@SqlItemSetAsync"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
     <TItemContent TItem="@AccessModel">

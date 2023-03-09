@@ -8,7 +8,7 @@
   TItem="@PluModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@(SqlItemSetAsync)"
+  RowSelect="@SqlItemSetAsync"
   RowRender="@(args => RowRender(args))"
   RowDoubleClick="@(_ => SqlItemEditAsync())">
   <Columns>
