@@ -12,7 +12,7 @@
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSetAsync"
-  RowDoubleClick="@(_ => SqlItemEditAsync())">
+  RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@ScaleScreenShotModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>

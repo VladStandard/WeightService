@@ -11,8 +11,8 @@
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSetAsync"
-  RowRender="@(args => RowRender(args))"
-  RowDoubleClick="@(_ => SqlItemEditAsync())">
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PrinterTypeModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>

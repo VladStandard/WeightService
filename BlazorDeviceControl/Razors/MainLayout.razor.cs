@@ -28,5 +28,5 @@ public partial class MainLayout : RazorComponentBase
 		});
 	}
 
-	#endregion
+    #endregion
 }
