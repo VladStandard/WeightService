@@ -11,7 +11,7 @@
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSetAsync"
-  RowRender="@(args => RowRender(args))">
+  RowRender="@RowRender">
   <Columns>
     <TItemContent TItem="@VersionModel">
       <RazorSectionField Width="10%" RazorFieldConfig="@RazorFieldConfigUtils.Version.GetReleaseDt()"/>

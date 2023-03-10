@@ -18,7 +18,7 @@
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSetAsync"
   RowRender="@(RowRender)"
-  RowDoubleClick="@(_ => SqlItemEditAsync())">
+  RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PluScaleModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>

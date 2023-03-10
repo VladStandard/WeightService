@@ -14,7 +14,7 @@
   RowSelect="@SqlItemSetAsync"
   RowRender="@RowRender"
   LoadChildData="@LoadChildData"
-  RowDoubleClick="@(_ => SqlItemEditAsync())">
+  RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PluGroupModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
