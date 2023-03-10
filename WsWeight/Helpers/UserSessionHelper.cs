@@ -772,24 +772,15 @@ public class UserSessionHelper : BaseViewModel
     /// <returns></returns>
     private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
     {
-        PluLabelModel pluLabel = new()
-        {
-            PluWeighing = PluWeighing,
-            PluScale = PluScale,
-            ProductDt = ProductDate,
-        };
+        PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
 
         XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = DataFormatUtils.SerializeAsXmlDocument<PluLabelModel>(pluLabel, true, true);
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
         pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
-        pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl,
-            DataFormatUtils.LoadTemplatesResourcesNames(false));
+        pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
         pluLabel.Zpl = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
-
-        // Merge.
-        //pluLabel.Zpl = zplArea + Environment.NewLine + pluLabel.Zpl;
 
         // Save.
         DataAccess.Save(pluLabel);
