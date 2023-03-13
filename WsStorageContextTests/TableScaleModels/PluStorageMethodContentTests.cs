@@ -11,6 +11,6 @@ internal class PluStorageMethodContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<PlusStorageMethodModel>();
+		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<PluStorageMethodModel>();
 	}
 }

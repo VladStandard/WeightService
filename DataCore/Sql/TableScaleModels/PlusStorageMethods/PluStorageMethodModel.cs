@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.PlusStorageMethods;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PlusStorageMethodModel)} | {IsMarked} | {Name} | {MinTemp} | {MaxTemp}")]
-public class PlusStorageMethodModel : SqlTableBase
+public class PluStorageMethodModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -21,7 +21,7 @@ public class PlusStorageMethodModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PlusStorageMethodModel() : base(SqlFieldIdentity.Uid)
+    public PluStorageMethodModel() : base(SqlFieldIdentity.Uid)
     {
         MinTemp = default;
         MaxTemp = default;
@@ -32,7 +32,7 @@ public class PlusStorageMethodModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected PlusStorageMethodModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PluStorageMethodModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         MinTemp = info.GetInt16(nameof(MinTemp));
         MaxTemp = info.GetInt16(nameof(MaxTemp));
@@ -53,7 +53,7 @@ public class PlusStorageMethodModel : SqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((PlusStorageMethodModel)obj);
+        return Equals((PluStorageMethodModel)obj);
     }
 
     public override int GetHashCode() => IdentityValueUid.GetHashCode();
@@ -67,7 +67,7 @@ public class PlusStorageMethodModel : SqlTableBase
 
     public override object Clone()
     {
-        PlusStorageMethodModel item = new();
+        PluStorageMethodModel item = new();
         item.CloneSetup(base.CloneCast());
         item.MinTemp = MinTemp;
         item.MaxTemp = MaxTemp;
@@ -85,12 +85,12 @@ public class PlusStorageMethodModel : SqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(PlusStorageMethodModel item) =>
+    public virtual bool Equals(PluStorageMethodModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(MinTemp, item.MinTemp) &&
         Equals(MaxTemp, item.MaxTemp);
 
-    public new virtual PlusStorageMethodModel CloneCast() => (PlusStorageMethodModel)Clone();
+    public new virtual PluStorageMethodModel CloneCast() => (PluStorageMethodModel)Clone();
 
     #endregion
 }

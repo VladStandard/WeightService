@@ -12,6 +12,7 @@ using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -104,7 +105,7 @@ public class ValidationUtils
             var cls when cls == typeof(PluModel) => new PluValidator(),
             var cls when cls == typeof(PluNestingFkModel) => new PluNestingFkValidator(),
             var cls when cls == typeof(PluScaleModel) => new PluScaleValidator(),
-            var cls when cls == typeof(PlusStorageMethodModel) => new PlusStorageMethodValidator(),
+            var cls when cls == typeof(PluStorageMethodModel) => new PluStorageMethodValidator(),
             var cls when cls == typeof(PluWeighingModel) => new PluWeighingValidator(),
             var cls when cls == typeof(PrinterModel) => new PrinterValidator(),
             var cls when cls == typeof(PrinterResourceFkModel) => new PrinterResourceFkValidator(),
@@ -161,7 +162,8 @@ public class ValidationUtils
             PluModel plu => new PluValidator().Validate(plu),
             PluNestingFkModel nestingFk => new PluNestingFkValidator().Validate(nestingFk),
             PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),
-            PlusStorageMethodModel plusStorageMethod => new PlusStorageMethodValidator().Validate(plusStorageMethod),
+            PluStorageMethodModel plusStorageMethod => new PluStorageMethodValidator().Validate(plusStorageMethod),
+            PluStorageMethodFkModel plusStorageMethodFk => new PluStorageMethodFkValidator().Validate(plusStorageMethodFk),
             PluTemplateFkModel pluTemplate => new PluTemplateFkValidator().Validate(pluTemplate),
             PluWeighingModel pluWeighing => new PluWeighingValidator().Validate(pluWeighing),
             PrinterModel printer => new PrinterValidator().Validate(printer),

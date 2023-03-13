@@ -9,26 +9,26 @@ internal class PluStorageMethodModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PlusStorageMethodModel>(nameof(SqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PlusStorageMethodModel>(nameof(SqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PlusStorageMethodModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluStorageMethodModel>(nameof(SqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluStorageMethodModel>(nameof(SqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluStorageMethodModel>(nameof(SqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PlusStorageMethodModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PluStorageMethodModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PlusStorageMethodModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluStorageMethodModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PlusStorageMethodModel>();
+        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PluStorageMethodModel>();
     }
 }

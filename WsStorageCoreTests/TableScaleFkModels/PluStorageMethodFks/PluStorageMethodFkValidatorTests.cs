@@ -1,22 +1,24 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCoreTests.TableScaleModels.PluStorageMethods;
+using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
+
+namespace WsStorageCoreTests.TableScaleFkModels.PluStorageMethodFks;
 
 [TestFixture]
-internal class PluStorageMethodValidatorTests
+internal class PluStorageMethodFkValidatorTests
 {
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluStorageMethodModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluStorageMethodModel>(false);
+        PluStorageMethodFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluStorageMethodFkModel>(false);
         DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluStorageMethodModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluStorageMethodModel>(true);
+        PluStorageMethodFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluStorageMethodFkModel>(true);
         DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

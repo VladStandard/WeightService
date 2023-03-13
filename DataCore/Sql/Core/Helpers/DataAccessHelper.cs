@@ -15,6 +15,7 @@ using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -167,10 +168,6 @@ public partial class DataAccessHelper
     public static void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceScaleFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BoxMap>());
@@ -178,10 +175,14 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BundleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ClipMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceScaleFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
@@ -191,14 +192,15 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluCharacteristicMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluCharacteristicsFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluClipFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluGroupFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluGroupMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluLabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluNestingFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PlusStorageMethodMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluTemplateFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterMap>());

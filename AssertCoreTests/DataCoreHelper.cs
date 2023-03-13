@@ -53,6 +53,7 @@ using DataCore.Sql.TableScaleModels.LogsWebs;
 using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.PlusStorageMethods;
+using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 
 namespace AssertCoreTests;
 
@@ -427,10 +428,14 @@ public class DataCoreHelper
 				pluScale.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
 				pluScale.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
-            case PlusStorageMethodModel plusStorageMethod:
+            case PluStorageMethodModel plusStorageMethod:
                 plusStorageMethod.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 plusStorageMethod.MinTemp.Returns((short)0);
                 plusStorageMethod.MaxTemp.Returns((short)0);
+                break;
+            case PluStorageMethodFkModel pluStorageMethodFk:
+                pluStorageMethodFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluStorageMethodFk.Method = CreateNewSubstitute<PluStorageMethodModel>(isNotDefault);
                 break;
 			case PluTemplateFkModel pluTemplateFk:
                 pluTemplateFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
