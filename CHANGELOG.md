@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.8.500] - 2023-03-13
 ### Описание обновления:
-- 
+- #WS-T-863 Тесты. Исправление ошибок тестов WsStorageCoreTests
 
 ## [0.8.490] - 2023-03-10
 ### Описание обновления:
