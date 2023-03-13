@@ -36,6 +36,7 @@ global using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 global using DataCore.Sql.TableScaleModels.PlusGroups;
 global using DataCore.Sql.TableScaleModels.PlusLabels;
 global using DataCore.Sql.TableScaleModels.PlusScales;
+global using DataCore.Sql.TableScaleModels.PlusStorageMethods;
 global using DataCore.Sql.TableScaleModels.PlusWeighings;
 global using DataCore.Sql.TableScaleModels.Printers;
 global using DataCore.Sql.TableScaleModels.PrintersTypes;

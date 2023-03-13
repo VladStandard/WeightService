@@ -37,6 +37,7 @@ using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.PlusStorageMethods;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
@@ -90,6 +91,7 @@ public class DataContextModel
     public List<PluBundleFkModel> PluBundleFks { get; set; }
     public List<PluClipFkModel> PluClipFks { get; set; }
     public List<PluScaleModel> PluScales { get; set; }
+    public List<PlusStorageMethodModel> PluStorageMethods { get; set; }
     public List<PluTemplateFkModel> PluTemplateFks { get; set; }
     public List<PluWeighingModel> PluWeighings { get; set; }
     public List<PluNestingFkModel> PluNestingFks { get; set; }
@@ -142,6 +144,7 @@ public class DataContextModel
         PluBundleFks = new();
         PluClipFks = new();
         PluScales = new();
+        PluStorageMethods = new();
         PluTemplateFks = new();
         PluWeighings = new();
         PluNestingFks = new();
@@ -198,6 +201,7 @@ public class DataContextModel
         var cls when cls == typeof(PluModel) => GetListNotNullablePlus<T>(sqlCrudConfig),
         var cls when cls == typeof(PluNestingFkModel) => GetListNotNullablePluNestingFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluScaleModel) => GetListNotNullablePluScales<T>(sqlCrudConfig),
+        var cls when cls == typeof(PlusStorageMethodModel) => GetListNotNullablePluStorageMethods<T>(sqlCrudConfig),
         var cls when cls == typeof(PluTemplateFkModel) => GetListNotNullablePluTemplateFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluWeighingModel) => GetListNotNullablePluWeighings<T>(sqlCrudConfig),
         var cls when cls == typeof(PrinterModel) => GetListNotNullablePrinters<T>(sqlCrudConfig),
@@ -491,6 +495,15 @@ public class DataContextModel
             PluScales = PluScales
                 .OrderBy(item => item.Plu.Number).ToList();
         return PluScales.Cast<T>().ToList();
+    }
+
+    private List<T> GetListNotNullablePluStorageMethods<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    {
+        PluStorageMethods = DataAccess.GetListNotNullable<PlusStorageMethodModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && PluStorageMethods.Count > 1)
+            PluStorageMethods = PluStorageMethods
+                .OrderBy(item => item.Name).ToList();
+        return PluStorageMethods.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullablePluTemplateFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()

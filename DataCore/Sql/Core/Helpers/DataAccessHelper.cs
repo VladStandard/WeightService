@@ -39,6 +39,7 @@ using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.PlusStorageMethods;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
@@ -197,6 +198,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluNestingFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PlusStorageMethodMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluTemplateFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterMap>());

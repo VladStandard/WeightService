@@ -43,6 +43,7 @@ public static class SqlTableNamesUtils
     public static string PlusLabels => "PLUS_LABELS";
     public static string PlusNestingFks => "PLUS_NESTING_FK";
     public static string PlusScales => "PLUS_SCALES";
+    public static string PlusStorageMethods => "PLUS_STORAGE_METHODS";
     public static string PlusTemplatesFks => "PLUS_TEMPLATES_FK";
     public static string PlusWeighings => "PLUS_WEIGHINGS";
     public static string Printers => "ZebraPrinter";
