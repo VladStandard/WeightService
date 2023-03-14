@@ -1,6 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.WorkShops
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel>
+@inherits RazorComponentSectionBase<WorkShopModel>
 @page "/section/workshops"
 
 <RazorSectionReload TItem="@WorkShopModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionWorkShops" SqlCrudConfigSection="@SqlCrudConfigSection"/>

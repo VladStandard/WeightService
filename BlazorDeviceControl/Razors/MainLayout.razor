@@ -22,8 +22,11 @@
         <RadzenMenu Style="margin-left: -20px; margin-top: 0; align-content: center; background-color: transparent; ">
           @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
           {
-            <RadzenMenuItem Icon="people" Style="background-color: transparent;"
-                            Text=@($"{UserSettings.UserName}") Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}")/>
+            <RadzenMenuItem
+              Icon="people"
+              Style="background-color: transparent;"
+              Text=@($"{UserSettings.UserName}")
+              Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}")/>
           }
         </RadzenMenu>
       </div>

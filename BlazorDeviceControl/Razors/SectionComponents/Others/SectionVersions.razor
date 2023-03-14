@@ -1,6 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.Versions
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Versions.VersionModel>
+@inherits RazorComponentSectionBase<VersionModel>
 @page "/section/versions"
 
 <RazorSectionReload TItem="@VersionModel" ParentRazor="@(this)" Title="@LocaleCore.Strings.VersionsDb" SqlCrudConfigSection="@SqlCrudConfigSection"/>

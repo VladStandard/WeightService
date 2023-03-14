@@ -1,6 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusLabels
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusLabels.PluLabelModel>
+@inherits RazorComponentSectionBase<PluLabelModel>
 @page "/section/plus_labels"
 
 <RazorSectionReload TItem="@PluLabelModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionLabels" SqlCrudConfigSection="@SqlCrudConfigSection"/>

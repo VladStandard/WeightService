@@ -1,6 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.Access
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Access.AccessModel>
+@inherits RazorComponentSectionBase<AccessModel>
 @page "/section/access"
 
 <RazorSectionReload TItem="@AccessModel" ParentRazor="@(this)" Title="@LocaleCore.Strings.AccessRights" SqlCrudConfigSection="@SqlCrudConfigSection"/>

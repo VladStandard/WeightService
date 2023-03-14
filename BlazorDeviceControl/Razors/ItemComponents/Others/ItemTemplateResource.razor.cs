@@ -1,11 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorDownloadFile;
 using BlazorCore.Settings;
 using DataCore.Enums;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
-using System;
-
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 
 public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResourceModel>

@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Bundles;
+using DataCore.Sql.TableScaleModels.Plus;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.References1C;
 
