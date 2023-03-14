@@ -19,17 +19,10 @@ public partial class SectionScalesScreenShots : RazorComponentSectionBase<ScaleS
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlSectionCast()
     {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-	            SqlCrudConfigSection.AddFilters(nameof(ScaleScreenShotModel.Scale), ParentRazor?.SqlItem);
-				SqlSectionCast = DataContext.GetListNotNullable<ScaleScreenShotModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
+        SqlCrudConfigSection.AddFilters(nameof(ScaleScreenShotModel.Scale), SqlItem);
+        base.SetSqlSectionCast();
     }
 
     #endregion

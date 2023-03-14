@@ -13,17 +13,5 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel>
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlSectionCast = DataContext.GetListNotNullable<DeviceModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
-
     #endregion
 }

@@ -3,7 +3,15 @@
 @inherits RazorComponentSectionBase<PluModel>
 @page "/section/plus"
 
-<RazorSectionReload TItem="@PluModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlus" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@PluModel"
+  Title="@LocaleCore.DeviceControl.SectionPlus"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@PluModel"

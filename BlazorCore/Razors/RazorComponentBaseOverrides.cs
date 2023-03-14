@@ -7,16 +7,5 @@ public partial class RazorComponentBase
 {
 	#region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                //
-            }
-        });
-    }
-
     #endregion
 }

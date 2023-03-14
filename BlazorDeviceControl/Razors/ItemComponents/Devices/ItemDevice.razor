@@ -1,17 +1,17 @@
 ﻿@using DataCore.Sql.TableScaleModels.Devices
 @using DataCore.Sql.TableScaleModels.DeviceTypes
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Devices.DeviceModel>
+@inherits RazorComponentItemBase<DeviceModel>
 @page "/item/device"
 @page "/item/device/new"
 @page "/item/device/{IdentityUidStr}"
 
-<RazorItemReload TItem="@DeviceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemHost"/>
+<RazorItemReload TItem="@DeviceModel" Title="@LocaleCore.DeviceControl.ItemHost" />
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@DeviceModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@DeviceModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.LoginDt</td>
     <td>
@@ -133,4 +133,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@DeviceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@DeviceModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

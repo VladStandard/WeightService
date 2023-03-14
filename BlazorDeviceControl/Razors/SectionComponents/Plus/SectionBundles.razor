@@ -3,7 +3,14 @@
 @inherits RazorComponentSectionBase<BundleModel>
 @page "/section/bundles"
 
-<RazorSectionReload TItem="@BundleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBundles" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@BundleModel"
+  Title="@LocaleCore.DeviceControl.SectionBundles"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

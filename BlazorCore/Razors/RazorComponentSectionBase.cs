@@ -10,64 +10,74 @@ using Microsoft.JSInterop;
 
 namespace BlazorCore.Razors;
 
-public class RazorComponentSectionBase<TItem> : RazorComponentBase 
-	where TItem : SqlTableBase, new()
+public class RazorComponentSectionBase<TItem> : RazorComponentBase
+    where TItem : SqlTableBase, new()
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
     #region Parameters
-    
+
     [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
-    [Parameter]  public ButtonSettingsModel? ButtonSettings { get; set; }
+    
+    [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
+
+    protected bool IsSqlSectionGet = false;
     
     #endregion
-    
+
     public IList<TItem>? SelectedRow { get; set; }
+
     protected List<TItem> SqlSectionCast
-	{
-		get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
-		set => SqlSection = !value.Any() ? null : new(value);
-	}
-    
+    {
+        get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
+        set => SqlSection = !value.Any() ? null : new(value);
+    }
+
     public RazorComponentSectionBase()
     {
-	    SelectedRow = new List<TItem>();
+        SelectedRow = new List<TItem>();
         SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+        SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
 
         ButtonSettings = new(true, true, true, true, true, false, false);
     }
 
-	#endregion
+    #endregion
+    
+    protected void AutoShowFilterOnlyTopSetup()
+    {
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop =
+            (SqlSectionCast.Count >= DataAccess.JsonSettings.Local.SelectTopRowsCount);
+    }
 
-	protected void ClearSelection()
-	{
-		SqlItem = null;
-		SelectedRow = null;
-	}
+    protected void RowRender(RowRenderEventArgs<TItem> args)
+    {
+        //if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+        //if (args.Data is AccessModel access)
+        //{
+        //	args.Attributes.Add("class", UserSettings.GetColorAccessRights((AccessRightsEnum)access.Rights));
+        //}
+    }
 
-	protected override void OnChangeAdditional()
-	{
-		// TODO: fixed me, temp usage
-		ClearSelection();
-	}
-
-	protected void AutoShowFilterOnlyTopSetup()
-	{
-		SqlCrudConfigSection.IsGuiShowFilterOnlyTop = (SqlSectionCast.Count >= DataAccess.JsonSettings.Local.SelectTopRowsCount);
-	}
-
-	protected void RowRender(RowRenderEventArgs<TItem> args)
-	{
-		//if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
-		//if (args.Data is AccessModel access)
-		//{
-		//	args.Attributes.Add("class", UserSettings.GetColorAccessRights((AccessRightsEnum)access.Rights));
-		//}
-	}
     protected async Task SqlItemEditAsync()
+    {
+        if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+        RunActionsSafe(string.Empty, () => { SetRouteItemNavigate(SqlItem); });
+    }
+
+    protected async Task SqlItemSetAsync(TItem item)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+        SelectedRow = new List<TItem>() { item };
+        SqlItem = SelectedRow.Last();
+    }
+    
+    protected async Task SqlItemEditAsync(TItem item)
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -76,26 +86,6 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
 		{
 			SetRouteItemNavigate(SqlItem);
         });
-	}
-	
-    protected async Task SqlItemSetAsync(TItem item)
-	{
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-		
-		SelectedRow = new List<TItem>() { item };
-        SqlItem = SelectedRow.Last();
-    }
-    
-	protected async Task SqlItemEditAsync(TItem item)
-	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-		RunActionsSafe(string.Empty, () =>
-		{
-			SetRouteItemNavigate(SqlItem);
-			OnChangeAsync();
-		});
 	}
 
 	//TODO: insert into DataCore
@@ -143,11 +133,33 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
 			ContextMenuService?.Close();
 		});
 	}
-
-    #region DataGrid Config
     
-    #endregion
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            return;
+        }
+        GetSectionData();
+    }
+    
+    protected void GetSectionData()
+    {
+        RunActionsSafe(string.Empty, SetSqlSectionCast);
+        AutoShowFilterOnlyTopSetup();
+        SqlItem = null;
+        SelectedRow = null;
+        IsSqlSectionGet = true;
+        StateHasChanged();
+    }
 
+    protected virtual void SetSqlSectionCast()
+    {
+        SqlSectionCast = DataContext.GetListNotNullable<TItem>(SqlCrudConfigSection);
+    }
+    
+    
 	#region Public and private methods
 
 	#endregion

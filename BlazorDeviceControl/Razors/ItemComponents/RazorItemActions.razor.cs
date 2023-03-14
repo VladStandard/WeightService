@@ -10,8 +10,10 @@ public partial class RazorItemActions<TItem> : RazorComponentItemBase<TItem> whe
 {
 	#region Public and private fields, properties, constructor
 
-	//
-
+    [Parameter] public EventCallback OnItemSave { get; set; }
+    
+    [Parameter] public EventCallback OnItemCancel { get; set; }
+    
 	#endregion
 
 	#region Public and private methods

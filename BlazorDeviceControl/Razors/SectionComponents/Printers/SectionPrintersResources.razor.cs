@@ -13,17 +13,10 @@ public partial class SectionPrintersResources : RazorComponentSectionBase<Printe
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlSectionCast()
     {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-	            SqlCrudConfigSection.AddFilters(nameof(PrinterResourceFkModel.Printer), ParentRazor ?.SqlItem);
-				SqlSectionCast = DataContext.GetListNotNullable<PrinterResourceFkModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
+        SqlCrudConfigSection.AddFilters(nameof(PrinterResourceFkModel.Printer), SqlItem);
+        base.SetSqlSectionCast();
     }
 
     #endregion

@@ -12,18 +12,6 @@ public partial class SectionContragents : RazorComponentSectionBase<ContragentMo
     #endregion
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlSectionCast = DataContext.GetListNotNullable<ContragentModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
-
+    
     #endregion
 }

@@ -1,16 +1,15 @@
-@using DataCore.Enums;
 @using DataCore.Sql.TableScaleModels.TemplatesResources
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel>
+@inherits RazorComponentItemBase<TemplateResourceModel>
 @page "/item/template_resource"
 @page "/item/template_resource/new"
 @page "/item/template_resource/{IdentityUidStr}"
 
-<RazorItemReload TItem="@TemplateResourceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemTemplateResource"/>
+<RazorItemReload TItem="@TemplateResourceModel" Title="@LocaleCore.DeviceControl.ItemTemplateResource"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@TemplateResourceModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@TemplateResourceModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
@@ -38,5 +37,12 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@TemplateResourceModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@TemplateResourceModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+
 

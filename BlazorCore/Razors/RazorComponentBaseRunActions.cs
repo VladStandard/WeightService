@@ -19,7 +19,6 @@ public partial class RazorComponentBase
 
     protected void RunActionsParametersSet(List<Action> actionsParametersSet)
     {
-        SetPropertiesFromParent();
         RunActionsSafe(string.Empty, actionsParametersSet);
     }
 

@@ -20,20 +20,13 @@ public partial class SectionPlusNestingFks : RazorComponentSectionBase<PluNestin
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlSectionCast()
     {
-        RunActionsParametersSet(new()
+        SqlCrudConfigSection.NativeParameters = new()
         {
-            () =>
-            {
-                SqlCrudConfigSection.NativeParameters = new()
-                {
-                    new("P_UID", SqlItem?.IdentityValueUid),
-                };
-                SqlSectionCast = DataContext.GetListNotNullable<PluNestingFkModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
+            new("P_UID", SqlItem?.IdentityValueUid),
+        };
+        base.SetSqlSectionCast();
     }
 
     #endregion

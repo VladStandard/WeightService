@@ -8,12 +8,12 @@
 @page "/item/plu_bundle_fk/{IdentityUidStr}"
 
 
-<RazorItemReload TItem="@PluBundleFkModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluBundleFk"/>
+<RazorItemReload TItem="@PluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluBundleFkModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PluBundleFkModel" SqlItem="@SqlItem"/>
   @* Plu & Number *@
   <tr>
     <td>
@@ -79,4 +79,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PluBundleFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@PluBundleFkModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+

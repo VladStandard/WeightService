@@ -18,17 +18,5 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel>
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlSectionCast = DataContext.GetListNotNullable<AccessModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-		});
-    }
-
     #endregion
 }

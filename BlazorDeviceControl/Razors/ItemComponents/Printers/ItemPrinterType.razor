@@ -1,15 +1,15 @@
 ﻿@using DataCore.Sql.TableScaleModels.PrintersTypes
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PrintersTypes.PrinterTypeModel>
+@inherits RazorComponentItemBase<PrinterTypeModel>
 @page "/item/printer_type"
 @page "/item/printer_type/new"
 @page "/item/printer_type/{IdentityId:long}"
 
-<RazorItemReload TItem="@PrinterTypeModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Type"/>
+<RazorItemReload TItem="@PrinterTypeModel" Title="@LocaleCore.Print.Type"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PrinterTypeModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PrinterTypeModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td colspan="3">
@@ -20,4 +20,9 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PrinterTypeModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@PrinterTypeModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

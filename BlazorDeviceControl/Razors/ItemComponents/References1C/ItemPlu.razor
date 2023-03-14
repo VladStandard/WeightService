@@ -7,13 +7,13 @@
 @page "/item/plu/new"
 @page "/item/plu/{IdentityUidStr}"
 
-<RazorItemReload TItem="@PluModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPlu"/>
+<RazorItemReload TItem="@PluModel" Title="@LocaleCore.DeviceControl.ItemPlu"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
 
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PluModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.PluNumber</td>
     <td>
@@ -93,6 +93,11 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PluModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@PluModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+/>
 
-<SectionPlusNestingFks ParentRazor="@(this)"/>
+<SectionPlusNestingFks SqlItem="@SqlItem" />

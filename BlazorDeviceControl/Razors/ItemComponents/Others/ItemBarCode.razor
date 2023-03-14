@@ -1,16 +1,16 @@
 ﻿@using DataCore.Sql.TableScaleModels.BarCodes
 @using DataCore.Enums
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.BarCodes.BarCodeModel>
+@inherits RazorComponentItemBase<BarCodeModel>
 @page "/item/barcode"
 @page "/item/barcode/new"
 @page "/item/barcode/{IdentityUidStr}"
 
-<RazorItemReload TItem="@BarCodeModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
+<RazorItemReload TItem="@BarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@BarCodeModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@BarCodeModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.TypeTop</td>
     <td>
@@ -139,4 +139,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@BarCodeModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@BarCodeModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

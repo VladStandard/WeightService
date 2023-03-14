@@ -8,12 +8,12 @@
 @page "/item/plu_scale/{IdentityUidStr}"
 
 
-<RazorItemReload TItem="@PluScaleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluScale"/>
+<RazorItemReload TItem="@PluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluScaleModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PluScaleModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.IsActive</td>
     <td>
@@ -53,4 +53,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PluScaleModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@PluScaleModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

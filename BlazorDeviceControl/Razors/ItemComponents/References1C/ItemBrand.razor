@@ -1,15 +1,15 @@
 ﻿@using DataCore.Sql.TableScaleModels.Brands
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Brands.BrandModel>
+@inherits RazorComponentItemBase<BrandModel>
 @page "/item/brand"
 @page "/item/brand/new"
 @page "/item/brand/{IdentityUidStr}"
 
-<RazorItemReload TItem="@BrandModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
+<RazorItemReload TItem="@BrandModel" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@BrandModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@BrandModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
@@ -28,4 +28,11 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@BrandModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@BrandModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+

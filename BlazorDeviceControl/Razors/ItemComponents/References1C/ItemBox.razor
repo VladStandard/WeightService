@@ -1,16 +1,16 @@
 ﻿@using DataCore.Sql.TableScaleModels.Boxes
 @using BlazorDeviceControl.Razors.CustomComponents;
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Boxes.BoxModel>
+@inherits RazorComponentItemBase<BoxModel>
 @page "/item/box"
 @page "/item/box/new"
 @page "/item/box/{IdentityUidStr}"
 
-<RazorItemReload TItem="BoxModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemBox"/>
+<RazorItemReload TItem="BoxModel" Title="@LocaleCore.DeviceControl.ItemBox"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="BoxModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="BoxModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
@@ -26,4 +26,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@BoxModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@BoxModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

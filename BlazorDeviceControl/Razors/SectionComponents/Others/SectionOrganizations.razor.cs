@@ -13,17 +13,5 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-	            SqlSectionCast = DataContext.GetListNotNullable<OrganizationModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
-
     #endregion
 }

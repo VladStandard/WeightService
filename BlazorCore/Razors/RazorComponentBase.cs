@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Radzen;
 using System.Collections.Generic;
+using System.ComponentModel;
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Models;
 
@@ -55,14 +56,13 @@ public partial class RazorComponentBase : LayoutComponentBase
     [Parameter] public Guid? IdentityUid { get; set; }
     [Parameter] public long? IdentityId { get; set; }
     [Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
-    [Parameter] public RazorComponentBase? ParentRazor { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public SqlCrudConfigModel SqlCrudConfigItem { get; set; }
     [Parameter] public SqlCrudConfigModel SqlCrudConfigList { get; set; }
 
     #endregion
 
-    public SqlTableBase? SqlItem { get; set; }
+    [Parameter] public SqlTableBase? SqlItem { get; set; }
     public SqlTableBase? SqlItemFilter { get; set; }
 	public List<SqlTableBase>? SqlSection { get; set; }
     public List<SqlTableBase>? SqlLinkedItems { get; set; }
@@ -81,23 +81,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem(true);
         SqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
 	}
-
-	private void SetPropertiesFromParent()
-	{
-		if (ParentRazor is null) return;
-		SqlItem = ParentRazor.SqlItem;
-		if (ParentRazor.IdentityId is not null)
-			IdentityId = ParentRazor.IdentityId;
-		if (ParentRazor.IdentityUid is not null)
-			IdentityUid = ParentRazor.IdentityUid;
-        if (ParentRazor.SqlSection is not null)
-			SqlSection = ParentRazor.SqlSection;
-        if (ParentRazor.SqlLinkedItems is not null)
-			SqlLinkedItems = ParentRazor.SqlLinkedItems;
-
-        SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
-    }
-
+    
 	protected async void SetUserSettings()
 	{
 		var auth = await AuthenticationStateTask;

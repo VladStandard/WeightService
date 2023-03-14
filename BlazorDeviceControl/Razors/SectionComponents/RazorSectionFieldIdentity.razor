@@ -1,8 +1,0 @@
-﻿@typeparam TItem
-@inherits RazorComponentSectionBase<TItem>
-
-<RadzenGridColumn TItem="@TItem" TextAlign="@TextAlign.Center" Width="@Width" Title="@(GetColumnIdentityName<TItem>())">
-  <Template Context="item">
-    <RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString() Path=@(GetRouteItemPath(item)) />
-  </Template>
-</RadzenGridColumn>

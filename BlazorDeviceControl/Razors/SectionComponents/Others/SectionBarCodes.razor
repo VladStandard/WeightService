@@ -3,7 +3,22 @@
 @inherits RazorComponentSectionBase<BarCodeModel>
 @page "/section/barcodes"
 
-<RadzenDataGridLocal
+<RazorSectionReload
+  TItem="@BarCodeModel"
+  Title="@LocaleCore.DeviceControl.SectionBarCodes"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+@if (IsSqlSectionGet == false)
+{
+  <Preloader />
+}
+else
+{
+  <RadzenDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@BarCodeModel"
   Data="@SqlSectionCast"
@@ -17,7 +32,7 @@
       <RadzenDataGridColumn TItem="@BarCodeModel" Title="@LocaleCore.Table.ChangeDt" Width="12%">
         <Template Context="itemCast">
           <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
-                      Text="@(StringUtils.FormatDtRus(itemCast.ChangeDt, true))"/>
+                      Text="@(StringUtils.FormatDtRus(itemCast.ChangeDt, true))" />
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn TItem="@BarCodeModel" Title="@LocaleCore.Table.ValueTop" Width="28%">
@@ -46,4 +61,5 @@
       </RadzenDataGridColumn>
     </TItemContent>
   </Columns>
-</RadzenDataGridLocal>
+  </RadzenDataGridLocal>
+}

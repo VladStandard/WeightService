@@ -3,7 +3,14 @@
 @inherits RazorComponentSectionBase<PrinterResourceFkModel>
 @page "/section/printers_resources"
 
-<RazorSectionReload TItem="@PrinterResourceFkModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Resources" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@PrinterResourceFkModel"
+  Title="@LocaleCore.Print.Resources"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

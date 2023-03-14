@@ -19,17 +19,10 @@ public partial class SectionPlusBundlesFks : RazorComponentSectionBase<PluBundle
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlSectionCast()
     {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-	            SqlCrudConfigSection.AddFilters(nameof(PluBundleFkModel.Plu), ParentRazor?.SqlItem);
-				SqlSectionCast = DataContext.GetListNotNullable<PluBundleFkModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
+        SqlCrudConfigSection.AddFilters(nameof(PluBundleFkModel.Plu), SqlItem);
+        base.SetSqlSectionCast();
     }
 
     #endregion

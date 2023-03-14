@@ -1,15 +1,15 @@
 ﻿@using DataCore.Sql.TableScaleModels.Contragents
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Contragents.ContragentModel>
+@inherits RazorComponentItemBase<ContragentModel>
 @page "/item/contragent"
 @page "/item/contragent/new"
 @page "/item/contragent/{IdentityUidStr}"
 
-<RazorItemReload TItem="@ContragentModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemContragent"/>
+<RazorItemReload TItem="@ContragentModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead ParentRazor="@(this)" CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@ContragentModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@ContragentModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td colspan="3">
@@ -47,5 +47,11 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@ContragentModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@ContragentModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+
 

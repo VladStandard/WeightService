@@ -12,18 +12,6 @@ public partial class SectionBundles : RazorComponentSectionBase<BundleModel>
     #endregion
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlSectionCast = DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
-
+    
     #endregion
 }

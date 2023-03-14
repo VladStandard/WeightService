@@ -18,17 +18,5 @@ public partial class SectionBarCodes : RazorComponentSectionBase<BarCodeModel>
 
 	#region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				SqlSectionCast = DataContext.GetListNotNullable<BarCodeModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-		});
-	}
-
-	#endregion
+    #endregion
 }

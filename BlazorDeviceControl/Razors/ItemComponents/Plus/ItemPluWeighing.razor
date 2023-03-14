@@ -1,16 +1,16 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusWeighings
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusWeighings.PluWeighingModel>
+@inherits RazorComponentItemBase<PluWeighingModel>
 @page "/item/plu_weighing"
 @page "/item/plu_weighing/new"
 @page "/item/plu_weighing/{IdentityUidStr}"
 
 
-<RazorItemReload TItem="@PluWeighingModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluWeighing"/>
+<RazorItemReload TItem="@PluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluWeighingModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PluWeighingModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Scale</td>
     <td>
@@ -78,4 +78,9 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PluWeighingModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@PluWeighingModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

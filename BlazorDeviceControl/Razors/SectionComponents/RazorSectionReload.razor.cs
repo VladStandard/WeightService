@@ -8,12 +8,18 @@ public partial class RazorSectionReload<TItem> : RazorComponentSectionBase<TItem
 {
 	#region Public and private fields, properties, constructor
     
-    private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
+    private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
+    [Parameter] public EventCallback OnSectionUpdate { get; set; }
+    [Parameter] public int SectionCount { get; set; }
     
 	#endregion
 
 	#region Public and private methods
-	
-	
-	#endregion
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        
+    }
+
+    #endregion
 }

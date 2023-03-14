@@ -8,23 +8,10 @@ namespace BlazorDeviceControl.Razors.SectionComponents.Printers;
 public partial class SectionPrinters : RazorComponentSectionBase<PrinterModel>
 {
     #region Public and private fields, properties, constructor
-
-
+    
     #endregion
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-	            SqlSectionCast = DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
 
     #endregion
 }

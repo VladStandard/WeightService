@@ -1,16 +1,16 @@
 ﻿@using DataCore.Sql.TableScaleModels.Access
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Access.AccessModel>
+@inherits RazorComponentItemBase<AccessModel>
 @page "/item/access"
 @page "/item/access/new"
 @page "/item/access/{IdentityUidStr}"
 
-<RazorItemReload TItem="@AccessModel" ParentRazor="@(this)" Title="@LocaleCore.Strings.AccessRights"/>
+<RazorItemReload TItem="@AccessModel" Title="@LocaleCore.Strings.AccessRights"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@AccessModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@AccessModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.LoginDt</td>
     <td>
@@ -40,4 +40,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@AccessModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@AccessModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

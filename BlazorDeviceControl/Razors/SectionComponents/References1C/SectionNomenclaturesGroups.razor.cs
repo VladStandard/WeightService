@@ -16,29 +16,22 @@ public partial class SectionNomenclaturesGroups : RazorComponentSectionBase<PluG
 
 	#region Public and private methods
 
-	protected override void OnParametersSet()
+    protected override void SetSqlSectionCast()
     {
-	    RunActionsParametersSet(new()
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigSection.CloneCast();
+        //sqlCrudConfig.AddFilters(new SqlFieldFilterModel($"{nameof(PluGroupFkModel.IsGroup)}", false));
+        //sqlCrudConfig.SetOrders(new(nameof(SqlTableBase.Name), SqlFieldOrderEnum.Asc));
+        sqlCrudConfig.IsResultOrder = true;
+        var pluGroupsFk = DataContext.GetListNotNullable<PluGroupFkModel>(new SqlCrudConfigModel());
+        AllData = DataContext.GetListNotNullable<PluGroupModel>(sqlCrudConfig);
+        foreach (PluGroupModel pluGroup in AllData)
         {
-            () =>
-            {
-                SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigSection.CloneCast();
-                //sqlCrudConfig.AddFilters(new SqlFieldFilterModel($"{nameof(PluGroupFkModel.IsGroup)}", false));
-                //sqlCrudConfig.SetOrders(new(nameof(SqlTableBase.Name), SqlFieldOrderEnum.Asc));
-                sqlCrudConfig.IsResultOrder = true;
-                var pluGroupsFk = DataContext.GetListNotNullable<PluGroupFkModel>(new SqlCrudConfigModel());
-                AllData = DataContext.GetListNotNullable<PluGroupModel>(sqlCrudConfig);
-                foreach (PluGroupModel pluGroup in AllData)
-                {
-                    var  temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();
-                    if (temp.Any())
-                        pluGroup.ParentGuid = temp.First().Parent.IdentityValueUid;
-                }
+            var  temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();
+            if (temp.Any())
+                pluGroup.ParentGuid = temp.First().Parent.IdentityValueUid;
+        }
 
-                SqlSectionCast = AllData.Where(e=> e.ParentGuid == Guid.Empty).ToList();
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
+        SqlSectionCast = AllData.Where(e=> e.ParentGuid == Guid.Empty).ToList();
     }
 
     void RowRender(RowRenderEventArgs<PluGroupModel> args)

@@ -3,7 +3,14 @@
 @inherits RazorComponentSectionBase<DeviceModel>
 @page "/section/devices"
 
-<RazorSectionReload TItem="@DeviceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionHosts" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@DeviceModel"
+  Title="@LocaleCore.DeviceControl.SectionHosts"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

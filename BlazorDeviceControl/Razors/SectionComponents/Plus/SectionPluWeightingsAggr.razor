@@ -3,7 +3,14 @@
 @inherits RazorComponentSectionBase<WeithingFactSummaryModel>
 @page "/section/plus_weighings_aggr"
 
-<RazorSectionReload TItem="@WeithingFactSummaryModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@WeithingFactSummaryModel"
+  Title="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

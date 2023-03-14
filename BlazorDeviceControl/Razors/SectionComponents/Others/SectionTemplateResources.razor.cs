@@ -9,23 +9,9 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
 {
     #region Public and private fields, properties, constructor
 
-    //
-
     #endregion
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlSectionCast = DataContext.GetListNotNullable<TemplateResourceModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
 
     #endregion
 }

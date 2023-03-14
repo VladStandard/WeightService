@@ -2,17 +2,17 @@
 @using DataCore.Sql.TableScaleModels.Boxes
 @using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleFkModels.PlusNestingFks.PluNestingFkModel>
+@inherits RazorComponentItemBase<PluNestingFkModel>
 @page "/item/plu_nesting_fk"
 @page "/item/plu_nesting_fk/new"
 @page "/item/plu_nesting_fk/{IdentityUidStr}"
 
-<RazorItemReload TItem="@PluNestingFkModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemPluNestingFk"/>
+<RazorItemReload TItem="@PluNestingFkModel" Title="@LocaleCore.DeviceControl.ItemPluNestingFk"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluNestingFkModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PluNestingFkModel" SqlItem="@SqlItem"/>
   <tr>
     <td>
       @LocaleCore.Table.Name
@@ -161,4 +161,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PluNestingFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@PluNestingFkModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+

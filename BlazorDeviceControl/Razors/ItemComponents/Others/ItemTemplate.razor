@@ -1,16 +1,16 @@
 @using DataCore.Sql.TableScaleModels.Templates
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Templates.TemplateModel>
+@inherits RazorComponentItemBase<TemplateModel>
 @page "/item/template"
 @page "/item/template/new"
 @page "/item/template/{IdentityId:long}"
 
-<RazorItemReload TItem="@TemplateModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemTemplate"/>
+<RazorItemReload TItem="@TemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@TemplateModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@TemplateModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Title</td>
     <td>
@@ -47,4 +47,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@TemplateModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@TemplateModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+

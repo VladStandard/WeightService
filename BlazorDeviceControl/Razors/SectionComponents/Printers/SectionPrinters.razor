@@ -4,7 +4,14 @@
 @inherits RazorComponentSectionBase<PrinterModel>
 @page "/section/printers"
 
-<RazorSectionReload TItem="@PrinterModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Names" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@PrinterModel"
+  Title="@LocaleCore.Print.Names"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
 
 <RadzenDataGridLocal
   class="DataGridSection"
