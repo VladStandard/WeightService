@@ -18,9 +18,7 @@ using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Templates;
-using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Utils;
-using Microsoft.Data.SqlClient;
 using MvvmHelpers;
 using System.Windows;
 using System.Xml;
@@ -43,7 +41,6 @@ public class UserSessionHelper : BaseViewModel
 
     #region Public and private fields and properties
 
-    private SqlConnectFactory SqlConnect => SqlConnectFactory.Instance;
     public DataAccessHelper DataAccess => DataAccessHelper.Instance;
     public DataContextModel DataContext { get; } = new();
     public DebugHelper Debug => DebugHelper.Instance;
@@ -358,19 +355,19 @@ public class UserSessionHelper : BaseViewModel
         switch (direction)
         {
             case DirectionEnum.Left:
-                {
-                    ProductDate = ProductDate.AddDays(-1);
-                    if (ProductDate < ProductDateMinValue)
-                        ProductDate = ProductDateMinValue;
-                    break;
-                }
+            {
+                ProductDate = ProductDate.AddDays(-1);
+                if (ProductDate < ProductDateMinValue)
+                    ProductDate = ProductDateMinValue;
+                break;
+            }
             case DirectionEnum.Right:
-                {
-                    ProductDate = ProductDate.AddDays(1);
-                    if (ProductDate > ProductDateMaxValue)
-                        ProductDate = ProductDateMaxValue;
-                    break;
-                }
+            {
+                ProductDate = ProductDate.AddDays(1);
+                if (ProductDate > ProductDateMaxValue)
+                    ProductDate = ProductDateMaxValue;
+                break;
+            }
         }
     }
 
@@ -587,7 +584,7 @@ public class UserSessionHelper : BaseViewModel
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return;
         }
-        
+
         // Template is exists!
         switch (PluScale.Plu.IsCheckWeight)
         {
@@ -824,16 +821,18 @@ public class UserSessionHelper : BaseViewModel
         }
     }
 
-    private string GetSqlInstanceString()
+    public string GetSqlInstanceString()
     {
         string result = string.Empty;
-        SqlConnect.ExecuteReader(SqlQueries.DbSystem.Properties.GetInstance, (reader) =>
+        object[] objects = DataAccess.GetArrayObjectsNotNullable(SqlQueries.DbSystem.Properties.GetInstance);
+        foreach (object obj in objects)
         {
-            if (reader.Read())
+            if (obj is object[] { Length: 1 } item)
             {
-                result = SqlConnect.GetValueAsString(reader, "InstanceName");
+                result = Convert.ToString(item[0]);
+                break;
             }
-        });
+        }
         return result;
     }
 

@@ -3,7 +3,7 @@
 
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 
-namespace DataCoreTests.Helpers;
+namespace DataCoreTests.Utils;
 
 [TestFixture]
 public class DataFormatUtilsTests

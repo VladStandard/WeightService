@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Helpers;
@@ -11,7 +11,7 @@ public class AppHelperTests
 {
     #region Private fields and properties
 
-    private AppHelper App { get; set; } = AppHelper.Instance;
+    private AppHelper App => AppHelper.Instance;
 
     #endregion
 
