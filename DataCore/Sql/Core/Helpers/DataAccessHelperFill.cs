@@ -85,10 +85,6 @@ public partial class DataAccessHelper
                 logWebFk.LogType = GetItemNotNullable<LogTypeModel>(logWebFk.LogType.IdentityValueUid);
                 logWebFk.Device = GetItemNotNullable<DeviceModel>(logWebFk.Device.IdentityValueUid);
                 break;
-            case PluModel plu:
-                if (plu.Nomenclature is not null)
-                    plu.Nomenclature = GetItemNullable<NomenclatureModel>(plu.Nomenclature.IdentityValueId);
-                break;
             case PluFkModel pluFk:
                 pluFk.Plu = GetItemNotNullable<PluModel>(pluFk.Plu.IdentityValueUid);
                 pluFk.Parent = GetItemNotNullable<PluModel>(pluFk.Parent.IdentityValueUid);
