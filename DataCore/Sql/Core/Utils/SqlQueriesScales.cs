@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Sql.Core.Utils;
@@ -47,22 +47,21 @@ SELECT
 	,[P].[EAN13] [PLU_EAN13]
 	,[P].[ITF14] [PLU_ITF14]
 	,[P].[IS_CHECK_WEIGHT] [PLU_IS_CHECK_WEIGHT]
-	,[P].[NOMENCLATURE_ID] [PLU_NOMENCLATURE_ID]
-	-- [DB_SCALES].[BUNDLES] | 31 - 36
+	-- [DB_SCALES].[BUNDLES] | 30 - 35
 	,[BU].[UID] [BUNDLE_UID]
 	,[BU].[CREATE_DT] [BUNDLE_CREATE_DT]
 	,[BU].[CHANGE_DT] [BUNDLE_CHANGE_DT]
 	,[BU].[IS_MARKED] [BUNDLE_IS_MARKED]
 	,[BU].[NAME] [BUNDLE_NAME]
 	,[BU].[WEIGHT] [BUNDLE_WEIGHT]
-	-- [DB_SCALES].[BOXES] | 37 - 42
+	-- [DB_SCALES].[BOXES] | 36 - 41
 	,[B].[UID] [BOX_UID]
 	,[B].[CREATE_DT] [BOX_CREATE_DT]
 	,[B].[CHANGE_DT] [BOX_CHANGE_DT]
 	,[B].[IS_MARKED] [BOX_IS_MARKED]
 	,[B].[NAME] [BOX_NAME]
 	,[B].[WEIGHT] [BOX_WEIGHT]
-	-- UID_1C | 43 - 45
+	-- UID_1C | 42 - 44
 	,[P].[UID_1C] [PLU_UID_1C]
 	,[B].[UID_1C] [BOX_UID_1C]
 	,[BU].[UID_1C] [BUNDLE_UID_1C]

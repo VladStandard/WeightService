@@ -535,7 +535,7 @@ public class DataContextModel
         object[] objects = DataAccess.GetArrayObjectsNotNullable(sqlCrudConfig);
         foreach (object obj in objects)
         {
-            if (obj is object[] { Length: 46 } item)
+            if (obj is object[] { Length: 45 } item)
             {
                 if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                 {
@@ -567,35 +567,35 @@ public class DataContextModel
                         pluBundle.Plu.IsCheckWeight = Convert.ToBoolean(item[29]);
                     }
 
-                    // -- [DB_SCALES].[BUNDLES] | 31 - 36
-                    if (Guid.TryParse(Convert.ToString(item[31]), out Guid bundleUid))
+                    // -- [DB_SCALES].[BUNDLES] | 30 - 35
+                    if (Guid.TryParse(Convert.ToString(item[30]), out Guid bundleUid))
                     {
                         pluBundle.Bundle.IdentityValueUid = bundleUid;
-                        pluBundle.Bundle.CreateDt = Convert.ToDateTime(item[32]);
-                        pluBundle.Bundle.ChangeDt = Convert.ToDateTime(item[33]);
-                        pluBundle.Bundle.IsMarked = Convert.ToBoolean(item[34]);
-                        pluBundle.Bundle.Name = Convert.ToString(item[35]);
-                        pluBundle.Bundle.Weight = Convert.ToDecimal(item[36]);
+                        pluBundle.Bundle.CreateDt = Convert.ToDateTime(item[31]);
+                        pluBundle.Bundle.ChangeDt = Convert.ToDateTime(item[32]);
+                        pluBundle.Bundle.IsMarked = Convert.ToBoolean(item[33]);
+                        pluBundle.Bundle.Name = Convert.ToString(item[34]);
+                        pluBundle.Bundle.Weight = Convert.ToDecimal(item[35]);
                     }
 
                     BoxModel box = new();
-                    // -- [DB_SCALES].[BOXES] | 37 - 42
-                    if (Guid.TryParse(Convert.ToString(item[37]), out Guid boxUid))
+                    // -- [DB_SCALES].[BOXES] | 36 - 41
+                    if (Guid.TryParse(Convert.ToString(item[36]), out Guid boxUid))
                     {
                         box.IdentityValueUid = boxUid;
-                        box.CreateDt = Convert.ToDateTime(item[38]);
-                        box.ChangeDt = Convert.ToDateTime(item[39]);
-                        box.IsMarked = Convert.ToBoolean(item[40]);
-                        box.Name = Convert.ToString(item[41]);
-                        box.Weight = Convert.ToDecimal(item[42]);
+                        box.CreateDt = Convert.ToDateTime(item[37]);
+                        box.ChangeDt = Convert.ToDateTime(item[38]);
+                        box.IsMarked = Convert.ToBoolean(item[39]);
+                        box.Name = Convert.ToString(item[40]);
+                        box.Weight = Convert.ToDecimal(item[41]);
                     }
 
-                    // -- UID_1C | 43 - 45
-                    if (Guid.TryParse(Convert.ToString(item[43]), out Guid pluUid1c))
+                    // -- UID_1C | 42 - 44
+                    if (Guid.TryParse(Convert.ToString(item[42]), out Guid pluUid1c))
                         pluBundle.Plu.Uid1c = pluUid1c;
-                    if (Guid.TryParse(Convert.ToString(item[44]), out Guid boxUid1c))
+                    if (Guid.TryParse(Convert.ToString(item[43]), out Guid boxUid1c))
                         box.Uid1c = boxUid1c;
-                    if (Guid.TryParse(Convert.ToString(item[45]), out Guid bundleUid1c))
+                    if (Guid.TryParse(Convert.ToString(item[44]), out Guid bundleUid1c))
                         pluBundle.Bundle.Uid1c = bundleUid1c;
                     // All.
                     PluNestingFks.Add(new()
