@@ -14,7 +14,7 @@ public class PluStorageMethodFkValidator : SqlTableValidator<PluStorageMethodFkM
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluStorageMethodFkValidator() : base(true, true)
+    public PluStorageMethodFkValidator() : base(false, false)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()

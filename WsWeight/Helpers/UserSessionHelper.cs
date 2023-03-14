@@ -223,17 +223,6 @@ public class UserSessionHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    private string _sqlInstance;
-    [XmlElement]
-    private string SqlInstance
-    {
-        get => _sqlInstance;
-        set
-        {
-            _sqlInstance = value;
-            OnPropertyChanged();
-        }
-    }
 
     private DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
     private DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
@@ -269,7 +258,6 @@ public class UserSessionHelper : BaseViewModel
         _scales = new();
         PluScales = new();
         // Strings
-        _sqlInstance = string.Empty;
         _publishDescription = string.Empty;
         // Others.
         _weighingSettings = new();
@@ -798,42 +786,21 @@ public class UserSessionHelper : BaseViewModel
     {
         PublishType = PublishType.Unknown;
         PublishDescription = "Неизвестный сервер";
-        SqlInstance = GetSqlInstanceString();
-        SetSqlPublishFromInstance();
-    }
-
-    private void SetSqlPublishFromInstance()
-    {
-        switch (SqlInstance)
+        if (DataAccess.IsSqlServerDevelop)
         {
-            case "INS1":
-                PublishType = PublishType.Debug;
-                PublishDescription = LocaleCore.Sql.SqlServerTest;
-                break;
-            case "SQL2019":
-                PublishType = PublishType.Develop;
-                PublishDescription = LocaleCore.Sql.SqlServerDev;
-                break;
-            case "LUTON":
-                PublishType = PublishType.Release;
-                PublishDescription = LocaleCore.Sql.SqlServerProd;
-                break;
+            PublishType = PublishType.Develop;
+            PublishDescription = LocaleCore.Sql.SqlServerTest;
         }
-    }
-
-    public string GetSqlInstanceString()
-    {
-        string result = string.Empty;
-        object[] objects = DataAccess.GetArrayObjectsNotNullable(SqlQueries.DbSystem.Properties.GetInstance);
-        foreach (object obj in objects)
+        else if (DataAccess.IsSqlServerRelease)
         {
-            if (obj is object[] { Length: 1 } item)
-            {
-                result = Convert.ToString(item[0]);
-                break;
-            }
+            PublishType = PublishType.Release;
+            PublishDescription = LocaleCore.Sql.SqlServerProd;
         }
-        return result;
+        else if (DataAccess.IsSqlServerDevelopMorozov)
+        {
+            PublishType = PublishType.DevelopMorozov;
+            PublishDescription = LocaleCore.Sql.SqlServerDev;
+        }
     }
 
     public void SetPluScales()

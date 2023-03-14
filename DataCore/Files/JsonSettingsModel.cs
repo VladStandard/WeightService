@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Files;
@@ -59,18 +59,14 @@ public class JsonSettingsModel : ISerializable
 
 	#region Public and private methods
 
-	public override string ToString()
-	{
-		return 
-			Sql +
-			$"{nameof(SectionRowsCount)}: {SectionRowsCount}. " +
-			$"{nameof(ItemRowsCount)}: {ItemRowsCount}. " +
-			$"{nameof(SelectTopRowsCount)}: {SelectTopRowsCount}. " +
-			$"{nameof(Version)}: {Version}. " +
-			$"{nameof(AllowedHosts)}: {AllowedHosts}. ";
-	}
+	public override string ToString() => Sql +
+        $"{nameof(SectionRowsCount)}: {SectionRowsCount}. " +
+        $"{nameof(ItemRowsCount)}: {ItemRowsCount}. " +
+        $"{nameof(SelectTopRowsCount)}: {SelectTopRowsCount}. " +
+        $"{nameof(Version)}: {Version}. " +
+        $"{nameof(AllowedHosts)}: {AllowedHosts}. ";
 
-	/// <summary>
+    /// <summary>
 	/// Check properties.
 	/// </summary>
 	/// <param name="isGenerateException"></param>

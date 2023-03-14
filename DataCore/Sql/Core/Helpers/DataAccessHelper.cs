@@ -140,6 +140,13 @@ public partial class DataAccessHelper
         }
     }
 
+    public bool IsSqlServerRelease => JsonSettings.Local.Sql is { DataSource: { } } &&
+        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerRelease);
+    public bool IsSqlServerDevelop => JsonSettings.Local.Sql is { DataSource: { } } &&
+        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDevelop);
+    public bool IsSqlServerDevelopMorozov => JsonSettings.Local.Sql is { DataSource: { } } &&
+        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDevelopMorozov);
+
     ~DataAccessHelper()
     {
 	    SessionFactory.Close();

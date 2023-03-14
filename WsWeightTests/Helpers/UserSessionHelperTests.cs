@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using DataCore.Sql.TableScaleModels.Apps;
+using DataCore.Sql.TableScaleModels.Devices;
 
 namespace WsWeightTests.Helpers;
 
@@ -18,6 +19,16 @@ public class UserSessionHelperTests
         {
             List<AppModel> apps = UserSession.DataContext.GetListNotNullable<AppModel>(new());
             Assert.Greater(apps.Count, 0);
+        }, false);
+    }
+    
+    [Test]
+    public void UserSession_DataAccess_Greater()
+    {
+        DataCoreTestsUtils.DataCore.AssertAction(() =>
+        {
+            List<DeviceModel> devices = UserSession.DataAccess.GetListDevices(true, true, true);
+            Assert.Greater(devices.Count, 0);
         }, false);
     }
 }
