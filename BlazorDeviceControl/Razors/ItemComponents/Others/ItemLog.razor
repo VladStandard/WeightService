@@ -4,12 +4,12 @@
 @page "/item/log/new"
 @page "/item/log/{IdentityUidStr}"
 
-<RazorItemReload TItem="LogModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemLog"/>
+<RazorItemReload TItem="LogModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="LogModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="LogModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Arm</td>
     <td>
@@ -88,4 +88,11 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@LogModel" ParentRazor="@(this)" ButtonSettings="@ButtonSettings"/>
+
+<RazorItemActions
+  TItem="@LogModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+

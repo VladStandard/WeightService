@@ -9,23 +9,14 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel>
 {
     #region Public and private fields, properties, constructor
 
+    public SectionScales() : base()
+    {
+        SqlCrudConfigSection.AddOrders(new(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
+    }
 
     #endregion
 
-    #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlCrudConfigSection.AddOrders(new(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
-                SqlSectionCast = DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
+    #region Public and private
 
     #endregion
 }

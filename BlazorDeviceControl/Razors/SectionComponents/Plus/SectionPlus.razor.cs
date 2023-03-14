@@ -20,17 +20,5 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel>
 
 	#region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				SqlSectionCast = DataContext.GetListNotNullable<PluModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-		});
-	}
-
-	#endregion
+    #endregion
 }

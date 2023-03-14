@@ -3,7 +3,14 @@
 @inherits RazorComponentSectionBase<TemplateResourceModel>
 @page "/section/templates_resources"
 
-<RazorSectionReload TItem="@TemplateResourceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionTemplateResources" SqlCrudConfigSection="@SqlCrudConfigSection" />
+<RazorSectionReload
+  TItem="@TemplateResourceModel"
+  Title="@LocaleCore.DeviceControl.SectionTemplateResources"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

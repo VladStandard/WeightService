@@ -17,18 +17,6 @@ public partial class SectionPluWeightings : RazorComponentSectionBase<PluWeighin
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				SqlSectionCast = DataContext.GetListNotNullable<PluWeighingModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-		});
-	}
-
+    
 	#endregion
 }

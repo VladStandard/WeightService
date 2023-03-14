@@ -3,7 +3,14 @@
 @inherits RazorComponentSectionBase<LogWebFkModel>
 @page "/section/logs_web_service_fk"
 
-<RazorSectionReload TItem="@LogWebFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)" Title="@LocaleCore.WebService.Name" sqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@LogWebFkModel"
+  Title="@LocaleCore.WebService.Name"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
 
 <RadzenDataGrid
   @bind-Value="@SelectedRow"

@@ -2,17 +2,17 @@
 @using DataCore.Sql.TableScaleModels.Printers
 @using BlazorDeviceControl.Razors.CustomComponents
 @using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleFkModels.PrintersResourcesFks.PrinterResourceFkModel>
+@inherits RazorComponentItemBase<PrinterResourceFkModel>
 @page "/item/printer_resource"
 @page "/item/printer_resource/new"
 @page "/item/printer_resource/{IdentityId:long}"
 
-<RazorItemReload TItem="@PrinterResourceFkModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Resource"/>
+<RazorItemReload TItem="@PrinterResourceFkModel" Title="@LocaleCore.Print.Resource"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PrinterResourceFkModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PrinterResourceFkModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Print.Name</td>
     <td>
@@ -43,4 +43,9 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PrinterResourceFkModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@PrinterResourceFkModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

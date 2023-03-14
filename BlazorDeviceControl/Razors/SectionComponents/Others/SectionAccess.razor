@@ -3,7 +3,14 @@
 @inherits RazorComponentSectionBase<AccessModel>
 @page "/section/access"
 
-<RazorSectionReload TItem="@AccessModel" ParentRazor="@(this)" Title="@LocaleCore.Strings.AccessRights" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@AccessModel"
+  Title="@LocaleCore.Strings.AccessRights"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

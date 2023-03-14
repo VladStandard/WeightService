@@ -3,8 +3,12 @@
 
 @if (SqlCrudConfigSection is { IsGuiShowFilterMarked: true, IsResultShowMarked: true })
 {
-  <RadzenDataGridColumn TItem=@TItem TextAlign=@TextAlign.Center Width=@Width SortProperty="IsMarked"
-                        Title=@LocaleCore.Table.IsMarkedShort>
+  <RadzenDataGridColumn
+    TItem=@TItem
+    TextAlign=@TextAlign.Center
+    Width=@Width
+    SortProperty="IsMarked"
+    Title=@LocaleCore.Table.IsMarkedShort>
     <Template Context="item">
       @if (item.IsMarked)
       {

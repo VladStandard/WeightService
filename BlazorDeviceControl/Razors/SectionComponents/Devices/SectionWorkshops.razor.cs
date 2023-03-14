@@ -13,17 +13,5 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel>
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-	            SqlSectionCast = DataContext.GetListNotNullable<WorkShopModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
-
     #endregion
 }

@@ -1,8 +1,7 @@
 ﻿@typeparam TItem
 @inherits RazorComponentItemBase<TItem>
-@page "/item/actions"
 
-@if (SqlItem is not null && ButtonSettings is not null && UserSettings is not null)
+@if (ButtonSettings is not null && UserSettings is not null)
 {
   <MudPaper Outlined="true" Class="mb-2">
     <MudToolBar Dense="true" DisableGutters="true">
@@ -10,7 +9,7 @@
       {
         <RadzenButton
           class="RadzenButtonLong"
-          Click=@(_ => SqlItemSaveAsync())
+          Click=@OnItemSave
           ButtonStyle=@ButtonStyle.Primary
           Size=@ButtonSize.Small
           Style="width: 50%; "
@@ -21,7 +20,7 @@
       {
         <RadzenButton
           class="RadzenButtonLong"
-          Click=@(_ => SqlItemCancelAsync())
+          Click=@OnItemCancel
           ButtonStyle=@ButtonStyle.Secondary Size=@ButtonSize.Small
           Style="width: 50%; "
           Text=@LocaleCore.DeviceControl.TableActionCancel/>

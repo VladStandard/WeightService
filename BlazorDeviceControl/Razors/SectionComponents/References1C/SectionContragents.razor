@@ -3,7 +3,14 @@
 @inherits RazorComponentSectionBase<ContragentModel>
 @page "/section/contragents"
 
-<RazorSectionReload TItem="@ContragentModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionContragents" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@ContragentModel"
+  Title="@LocaleCore.DeviceControl.SectionContragents"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"
@@ -20,7 +27,7 @@
         <Template Context="itemCast">
           <RadzenLink Style="width: 100%; margin-left: 0; "
                       Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.IdentityValueUid}")
-                      Text="@itemCast.Name"/>
+                      Text="@itemCast.Name" />
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn TItem="@ContragentModel" Property="FullName" TextAlign="@TextAlign.Left"

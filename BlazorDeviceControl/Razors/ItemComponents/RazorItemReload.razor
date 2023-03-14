@@ -9,7 +9,7 @@
       Style="margin-right: 1%; width: 60px;"
       Size="@ButtonSize.Small"
       Disabled=@(!DataAccess.IsConnected())
-      Click="@(_ => OnChange())" />
+      Click="OnItemUpdate" />
     <MudText><b>@Title</b></MudText>
   </MudToolBar>
 </MudPaper>

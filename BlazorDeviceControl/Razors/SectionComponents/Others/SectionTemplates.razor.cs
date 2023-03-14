@@ -13,17 +13,5 @@ public partial class SectionTemplates : RazorComponentSectionBase<TemplateModel>
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlSectionCast = DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
-
     #endregion
 }

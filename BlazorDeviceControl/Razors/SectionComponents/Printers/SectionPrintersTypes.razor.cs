@@ -13,17 +13,5 @@ public partial class SectionPrintersTypes : RazorComponentSectionBase<PrinterTyp
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-	            SqlSectionCast = DataContext.GetListNotNullable<PrinterTypeModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
-
     #endregion
 }

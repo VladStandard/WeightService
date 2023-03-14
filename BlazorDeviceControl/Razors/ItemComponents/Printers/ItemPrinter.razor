@@ -3,17 +3,17 @@
 @using DataCore.Sql.TableScaleModels.PrintersTypes
 @using BlazorDeviceControl.Razors.CustomComponents
 @using BlazorDeviceControl.Razors.SectionComponents.Printers
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Printers.PrinterModel>
+@inherits RazorComponentItemBase<PrinterModel>
 @page "/item/printer"
 @page "/item/printer/new"
 @page "/item/printer/{IdentityId:long}"
 
-<RazorItemReload TItem="@PrinterModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Name"/>
+<RazorItemReload TItem="@PrinterModel" Title="@LocaleCore.Print.Name"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PrinterModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PrinterModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
@@ -104,6 +104,12 @@
 <br style="margin-top: 10px; "/>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PrinterModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
 
-<SectionPrintersResources ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@PrinterModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+
+<SectionPrintersResources SqlItem="@SqlItem" />

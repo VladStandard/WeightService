@@ -1,15 +1,15 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusLabels
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusLabels.PluLabelModel>
+@inherits RazorComponentItemBase<PluLabelModel>
 @page "/item/plu_label"
 @page "/item/plu_label/new"
 @page "/item/plu_label/{IdentityUidStr}"
 
-<RazorItemReload TItem="@PluLabelModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemLabel"/>
+<RazorItemReload TItem="@PluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluLabelModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PluLabelModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.ProductDt</td>
     <td>
@@ -102,4 +102,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PluLabelModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@PluLabelModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

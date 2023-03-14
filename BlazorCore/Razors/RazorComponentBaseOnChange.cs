@@ -17,39 +17,7 @@ namespace BlazorCore.Razors;
 public partial class RazorComponentBase
 {
     #region Public and private methods - OnChange
-
-    protected virtual void OnChangeAdditional() {}
-
-	protected void OnChange() => OnChangeParent(this);
-
-    protected void OnChangeAsync() => OnChangeParentAsync(this);
-
-    private void OnChangeParent(RazorComponentBase? razorPage)
-    {
-	    while (true)
-	    {
-		    if (razorPage is null) return;
-		    razorPage.OnChangeAdditional();
-			razorPage.StateHasChanged();
-		    razorPage.OnParametersSet();
-            
-		    razorPage = razorPage.ParentRazor;
-	    }
-    }
-
-    private void OnChangeParentAsync(RazorComponentBase? razorPage)
-    {
-	    while (true)
-	    {
-		    if (razorPage is null) return;
-		    InvokeAsync(razorPage.OnChangeAdditional);
-			InvokeAsync(razorPage.StateHasChanged);
-            InvokeAsync(razorPage.OnParametersSet);
-            
-			razorPage = razorPage.ParentRazor;
-	    }
-    }
-
+    
     // TODO: FIX OnChangeItem
     protected void OnChangeItem(SqlTableBase? item, string filterName, object? value)
     {
@@ -77,7 +45,6 @@ public partial class RazorComponentBase
                     break;
             }
         });
-        OnChange();
     }
 
     private void OnChangeItemAccess(AccessModel item, string filterName, object? value)

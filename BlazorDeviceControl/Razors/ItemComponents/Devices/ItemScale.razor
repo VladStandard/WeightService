@@ -4,17 +4,17 @@
 @using DataCore.Sql.TableScaleModels.Printers
 @using BlazorDeviceControl.Razors.SectionComponents.Plus
 @using BlazorDeviceControl.Razors.CustomComponents;
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Scales.ScaleModel>
+@inherits RazorComponentItemBase<ScaleModel>
 @page "/item/scale"
 @page "/item/scale/new"
 @page "/item/scale/{IdentityId:long}"
 
-<RazorItemReload TItem="@ScaleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemScale"/>
+<RazorItemReload TItem="@ScaleModel" Title="@LocaleCore.DeviceControl.ItemScale"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@ScaleModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@ScaleModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Description</td>
     <td>
@@ -168,6 +168,11 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem" />
-<RazorItemActions TItem="@ScaleModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@ScaleModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
 
-<SectionPlusScales ParentRazor="@(this)"/>
+<SectionPlusScales SqlItem="@SqlItem" />

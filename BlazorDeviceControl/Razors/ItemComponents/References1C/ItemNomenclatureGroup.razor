@@ -1,15 +1,15 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusGroups
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusGroups.PluGroupModel>
+@inherits RazorComponentItemBase<PluGroupModel>
 @page "/item/nomenclature_group"
 @page "/item/nomenclature_group/new"
 @page "/item/nomenclature_group/{IdentityUidStr}"
 
-<RazorItemReload TItem="@PluGroupModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup"/>
+<RazorItemReload TItem="@PluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluGroupModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@PluGroupModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
@@ -33,4 +33,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@PluGroupModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@PluGroupModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

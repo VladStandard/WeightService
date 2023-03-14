@@ -169,12 +169,7 @@ public partial class RazorComponentBase
 	protected async Task SqlItemCancelAsync()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-		RunActionsSafe(LocaleCore.Table.TableCancel, () =>
-		{
-			SetRouteSectionNavigate();
-			OnChangeAsync();
-		});
+        RunActionsSafe(LocaleCore.Table.TableCancel, SetRouteSectionNavigate);
 	}
 
 	protected TItem SqlItemNewEmpty<TItem>() where TItem : SqlTableBase, new()
@@ -248,7 +243,6 @@ public partial class RazorComponentBase
                     break;
             }
             SetRouteSectionNavigate();
-            OnChangeAsync();
         });
     }
 
@@ -395,8 +389,7 @@ public partial class RazorComponentBase
 		
 		RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
 		{
-			DataAccess.Mark(SqlItem);
-			OnChangeAsync();
+			DataAccess.Mark(SqlItem); ;
 		});
 	}
 
@@ -414,8 +407,7 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
 		{
 			DataAccess.Delete(SqlItem);
-			OnChangeAsync();
-		});
+        });
 	}
 
 	protected async Task SqlItemPrinterResourcesClear(PrinterModel printer)
@@ -440,8 +432,7 @@ public partial class RazorComponentBase
 						});
 				}
 			}
-			OnChangeAsync();
-		});
+        });
 	}
 
 	protected async Task SqlItemPrinterResourcesLoad(PrinterModel printer, string fileType)
@@ -467,8 +458,7 @@ public partial class RazorComponentBase
 						});
 				}
 			}
-			OnChangeAsync();
-		});
+        });
 	}
 
 	#endregion

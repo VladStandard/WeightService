@@ -1,15 +1,15 @@
 ﻿@using DataCore.Sql.TableScaleModels.ScalesScreenshots
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.ScalesScreenshots.ScaleScreenShotModel>
+@inherits RazorComponentItemBase<ScaleScreenShotModel>
 @page "/item/scale_screenshot"
 @page "/item/scale_screenshot/new"
 @page "/item/scale_screenshot/{IdentityUidStr}"
 
-<RazorItemReload TItem="@ScaleScreenShotModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemScreenShot"/>
+<RazorItemReload TItem="@ScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@ScaleScreenShotModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@ScaleScreenShotModel" SqlItem="@SqlItem"/>
   <tr>
     <td>
       <RadzenLabel
@@ -47,5 +47,12 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@ScaleScreenShotModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@ScaleScreenShotModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+
 

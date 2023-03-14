@@ -6,14 +6,12 @@ namespace BlazorDeviceControl.Razors.ItemComponents;
 public partial class RazorItemReload<TItem> : RazorComponentItemBase<TItem> where TItem : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
-
-	//
+    
+    [Parameter] public EventCallback OnItemUpdate { get; set; }
 
 	#endregion
 
 	#region Public and private methods
-
-	//
-
+    
 	#endregion
 }

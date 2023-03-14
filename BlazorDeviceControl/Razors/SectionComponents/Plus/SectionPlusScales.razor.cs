@@ -11,8 +11,7 @@ namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel>
 {
 	#region Public and private fields, properties, constructor
-
-	public bool HideNoneActivePlu { get; set; }
+    public bool HideNoneActivePlu { get; set; }
     public SectionPlusScales() : base()
     {
         HideNoneActivePlu = true;
@@ -25,25 +24,17 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 
 	#region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-                if (HideNoneActivePlu)
-                    SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
-				else
-                    SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
+    protected override void SetSqlSectionCast()
+    {
+        if (HideNoneActivePlu)
+            SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
+        else
+            SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
+        SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), SqlItem);
+        base.SetSqlSectionCast();
+    }
 
-                SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), ParentRazor?.SqlItem);
-                SqlSectionCast = DataContext.GetListNotNullable<PluScaleModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-		});
-	}
-
-	private string GetPluPackagesCount(PluModel plu)
+    private string GetPluPackagesCount(PluModel plu)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu));
 		return DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();

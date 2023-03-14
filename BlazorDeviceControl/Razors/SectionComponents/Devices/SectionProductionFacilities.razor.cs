@@ -15,18 +15,6 @@ public partial class SectionProductionFacilities : RazorComponentSectionBase<Pro
     #endregion
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-	            SqlSectionCast = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
-
+    
     #endregion
 }

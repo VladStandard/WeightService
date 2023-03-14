@@ -3,6 +3,9 @@ namespace BlazorDeviceControl.Razors.SectionComponents.LogReports;
 
 public partial class SectionWebServiceLogs : RazorComponentSectionBase<LogWebFkModel>
 {
+
+    #region Public and private fields, properties, constructor
+    
     public SectionWebServiceLogs() : base()
     {
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
@@ -11,15 +14,9 @@ public partial class SectionWebServiceLogs : RazorComponentSectionBase<LogWebFkM
         ButtonSettings = new(false, false,  false, false, false, false, false);
     }
     
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlSectionCast = DataContext.GetListNotNullable<LogWebFkModel>(SqlCrudConfigSection);
-                AutoShowFilterOnlyTopSetup();
-            }
-        });
-    }
+    #endregion
+
+    #region Public and private methods
+
+    #endregion
 }

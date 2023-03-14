@@ -215,17 +215,6 @@ public partial class RazorComponentBase
         NavigationManager?.NavigateTo(page);
     }
 
-    private void SetRouteItemNavigateUsingJsRuntime(string page)
-    {
-        _ = Task.Run(async () =>
-        {
-            if (IdentityUid is not null && IdentityUid != Guid.Empty && JsRuntime is not null)
-                await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityUid}", "_blank").ConfigureAwait(false);
-            else if (IdentityId is not null && JsRuntime is not null)
-                await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityId}", "_blank").ConfigureAwait(false);
-        }).ConfigureAwait(true);
-    }
-
     public void SetRouteSectionNavigateToRoot()
     {
         NavigationManager?.NavigateTo(LocaleCore.DeviceControl.RouteSystemRoot);

@@ -1,17 +1,17 @@
 ﻿@using DataCore.Sql.TableScaleModels.WorkShops
 @using DataCore.Sql.TableScaleModels.ProductionFacilities
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel>
+@inherits RazorComponentItemBase<WorkShopModel>
 @page "/item/workshop"
 @page "/item/workshop/new"
 @page "/item/workshop/{IdentityId:long}"
 
-<RazorItemReload TItem="@WorkShopModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemWorkshop"/>
+<RazorItemReload TItem="@WorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@WorkShopModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="@WorkShopModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td colspan="3">
@@ -39,4 +39,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@WorkShopModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+
+<RazorItemActions
+  TItem="@WorkShopModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@(_ => SqlItemSaveAsync())"
+  OnItemCancel="@(_ => SqlItemCancelAsync())"
+  />

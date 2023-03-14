@@ -4,7 +4,14 @@
 @page "/section/production_facilities"
 
 
-<RazorSectionReload TItem="@ProductionFacilityModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionProductionFacilities" SqlCrudConfigSection="@SqlCrudConfigSection"/>
+<RazorSectionReload
+  TItem="@ProductionFacilityModel"
+  Title="@LocaleCore.DeviceControl.SectionProductionFacilities"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
 
 <RadzenDataGridLocal
   @bind-Value="@SelectedRow"

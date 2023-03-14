@@ -1,16 +1,16 @@
 ﻿@using DataCore.Sql.TableScaleModels.Bundles
 @using BlazorDeviceControl.Razors.CustomComponents;
-@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Bundles.BundleModel>
+@inherits RazorComponentItemBase<BundleModel>
 @page "/item/bundle"
 @page "/item/bundle/new"
 @page "/item/bundle/{IdentityUidStr}"
 
-<RazorItemReload TItem="BundleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.ItemBundle"/>
+<RazorItemReload TItem="BundleModel" Title="@LocaleCore.DeviceControl.ItemBundle"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="BundleModel" ParentRazor="@(this)"/>
+  <RazorItemTableBody TItem="BundleModel" SqlItem="@SqlItem"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
@@ -25,5 +25,10 @@
 </MudSimpleTable>
 
 <RazorItemDates SqlItem="@SqlItem"/>
-<RazorItemActions TItem="@BundleModel" ButtonSettings="@ButtonSettings" ParentRazor="@(this)"/>
+<RazorItemActions
+  TItem="@BundleModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
 
