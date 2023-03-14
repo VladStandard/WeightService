@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsWeightTests.Helpers;
@@ -6,8 +6,8 @@ namespace WsWeightTests.Helpers;
 [TestFixture]
 public class XmlHelperTests
 {
-    private XmlHelper Xml { get; set; } = XmlHelper.Instance;
-    private SettingsHelper Settings { get; set; } = SettingsHelper.Instance;
+    private XmlHelper Xml => XmlHelper.Instance;
+    private SettingsHelper Settings => SettingsHelper.Instance;
     private const string TestFile = @"c:\Program Files\Common Files\microsoft shared\ink\Content.xml";
 
     [Test]

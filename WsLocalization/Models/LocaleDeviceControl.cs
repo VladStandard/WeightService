@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLocalization.Models;
@@ -129,8 +129,9 @@ public partial class LocaleDeviceControl
     public string SectionWeithingFactsAggregation => Lang == Lang.English ? "Aggregation weithings" : "Взвешивания";
     public string SectionWeithingFactsAggregationShort => Lang == Lang.English ? "Aggr. weithings" : "Агр. взвешивания";
     public string SectionWorkShops => Lang == Lang.English ? "Workshops" : "Цеха";
-    public string SqlServerDebug => "CREATIO";
-    public string SqlServerRelease => "PALYCH";
+    public string SqlServerDevelop => "CREATIO";        // CREATIO\INS1
+    public string SqlServerDevelopMorozov => "SQL2019"; // SQL2019\SQL2019
+    public string SqlServerRelease => "PALYCH";         // PALYCH\LUTON
     public string Table => Lang == Lang.English ? "Table" : "Таблица";
     public string TableActionAdd => Lang == Lang.English ? "Add" : "Добавить";
     public string TableActionCancel => Lang == Lang.English ? "Cancel" : "Отмена";

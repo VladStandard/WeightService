@@ -14,7 +14,6 @@ using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.Scales;
 using DataCore.Sql.TableScaleModels.ScalesScreenshots;
-using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace DataCore.Sql.Core.Helpers;
 

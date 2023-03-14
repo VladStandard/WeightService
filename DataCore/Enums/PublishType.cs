@@ -7,6 +7,6 @@ public enum PublishType
 {
     Unknown,
     Develop,
-    Debug,
+    DevelopMorozov,
     Release
 }

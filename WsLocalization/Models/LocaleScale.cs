@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLocalization.Models;
@@ -102,6 +102,7 @@ public class LocaleScale
     public string Message => Lang == Lang.English ? "Message" : "Сообщение";
     public string Method => Lang == Lang.English ? "Method" : "Метод";
     public string OperationControl => Lang == Lang.English ? "Control of operations" : "Контроль операций";
+    public string PackagedInModifiedAtmosphere => Lang == Lang.English ? "Packaged in modified atmosphere" : "Упаковано в модифицированной атмосфере";
     public string Plu => Lang == Lang.English ? "PLU" : "ПЛУ";
     public string PluCode => Lang == Lang.English ? "Code" : "Код";
     public string PluCodeNotSet => Lang == Lang.English ? "Code is not set" : "Код не задан";

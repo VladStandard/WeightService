@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Diagnostics;
@@ -27,32 +27,32 @@ public static class BlazorCoreUtils
     {
         public static string Sidebar(BlazorAppSettingsHelper appSettings)
         {
-            if (appSettings.IsSqlServerRelease)
+            if (appSettings.DataAccess.IsSqlServerRelease)
                 return "SidebarRelease";
-            if (appSettings.IsSqlServerDebug)
+            if (appSettings.DataAccess.IsSqlServerDevelop)
                 return "SidebarDebug";
             return "SidebarDefault";
         }
         public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
         public static string RadzenPanelMenu(BlazorAppSettingsHelper appSettings)
         {
-            if (appSettings.IsSqlServerRelease)
+            if (appSettings.DataAccess.IsSqlServerRelease)
                 return "RadzenPanelMenuRelease";
-            return appSettings.IsSqlServerDebug 
+            return appSettings.DataAccess.IsSqlServerDevelop 
 	            ? "RadzenPanelMenuDebug" : "RadzenPanelMenuDefault";
         }
         public static string RadzenPanelMenuItem(BlazorAppSettingsHelper appSettings)
         {
-            if (appSettings.IsSqlServerRelease)
+            if (appSettings.DataAccess.IsSqlServerRelease)
                 return "RadzenPanelMenuItemRelease";
-            return appSettings.IsSqlServerDebug 
+            return appSettings.DataAccess.IsSqlServerDevelop 
 	            ? "RadzenPanelMenuItemDebug" : "RadzenPanelMenuItemDefault";
         }
         public static string RadzenPanelMenuSubItem(BlazorAppSettingsHelper appSettings)
         {
-            if (appSettings.IsSqlServerRelease)
+            if (appSettings.DataAccess.IsSqlServerRelease)
                 return "RadzenPanelMenuSubItemRelease";
-            return appSettings.IsSqlServerDebug 
+            return appSettings.DataAccess.IsSqlServerDevelop 
 	            ? "RadzenPanelMenuSubItemDebug" : "RadzenPanelMenuSubItemDefault";
         }
     }

@@ -1,6 +1,8 @@
 // Global using directives
 
+global using System;
 global using System.Collections.ObjectModel;
+global using System.IO;
 global using DataCore.Helpers;
 global using DataCore.Models;
 global using DataCore.Utils;

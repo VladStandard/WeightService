@@ -132,34 +132,40 @@ public static class DataFormatUtils
     /// <summary>
     /// Replace zpl-resources.
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="zpl"></param>
     /// <returns></returns>
-    public static string PrintCmdReplaceZplResources(string value)
+    public static string PrintCmdReplaceZplResources(string zpl)
 	{
-		string result = value;
-		if (string.IsNullOrEmpty(result)) return result;
-
-        SetTemplatesResources();
+		if (string.IsNullOrEmpty(zpl))
+            throw new ArgumentException("Value must be fill!", nameof(zpl));
+		
+        LoadTemplatesResources(false);
 		foreach (TemplateResourceModel resource in _templateResources)
 		{
-            if (result.Contains($"[{resource.Name}]"))
+            if (zpl.Contains($"[{resource.Name}]"))
             {
 			    string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
-			    result = result.Replace($"[{resource.Name}]", resourceHex);
+                zpl = zpl.Replace($"[{resource.Name}]", resourceHex);
             }
 		}
-		return result;
+		return zpl;
 	}
 
-    private static void SetTemplatesResources()
+    public static List<TemplateResourceModel> LoadTemplatesResources(bool isForceUpdate)
     {
-        if (_templateResources.Any()) return;
+        if (!isForceUpdate && _templateResources.Any()) return _templateResources;
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceModel.Type), "ZPL"),
             new SqlFieldOrderModel(nameof(TemplateResourceModel.Name), SqlFieldOrderEnum.Asc), false, false);
         TemplateResourceModel[]? templateResources = DataAccessHelper.Instance.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
         if (templateResources is not null)
             _templateResources = templateResources.ToList();
+        else
+            _templateResources = new();
+        return _templateResources;
     }
+
+    public static List<string> LoadTemplatesResourcesNames(bool isForceUpdate) =>
+        LoadTemplatesResources(isForceUpdate).Select(item => item.Name).ToList();
 
     /// <summary>
     /// Replace area-resource.

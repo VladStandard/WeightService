@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsWeightTests.Zpl;
@@ -261,7 +261,7 @@ public class ZplUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TestContext.WriteLine(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSample1));
+            TestContext.WriteLine(ZplUtils.ConvertStringToHex(ZplSamples.GetSample1));
         });
     }
 
@@ -270,7 +270,7 @@ public class ZplUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TestContext.WriteLine(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSample2));
+            TestContext.WriteLine(ZplUtils.ConvertStringToHex(ZplSamples.GetSample2));
         });
     }
 
@@ -279,7 +279,7 @@ public class ZplUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TestContext.WriteLine(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSample3));
+            TestContext.WriteLine(ZplUtils.ConvertStringToHex(ZplSamples.GetSample3));
         });
     }
 
@@ -288,10 +288,7 @@ public class ZplUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            var zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSampleFull);
-            //zpl = zpl.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
-            //zpl = zpl.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
-            //zpl = zpl.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);
+            string zpl = ZplUtils.ConvertStringToHex(ZplSamples.GetSampleFull);
             TestContext.WriteLine(zpl);
         });
     }

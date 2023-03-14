@@ -88,15 +88,15 @@ public class LogWebModel : SqlTableBase
         base.EqualsDefault() &&
         Equals(StampDt, DateTime.MinValue) &&
         Equals(Version, string.Empty) &&
-        Equals(Direction, default) &&
+        Equals(Direction, default(byte)) &&
         Equals(Url, string.Empty) &&
         Equals(Params, string.Empty) &&
         Equals(Headers, string.Empty) &&
-        Equals(DataType, default) &&
+        Equals(DataType, default(byte)) &&
         Equals(DataString, string.Empty) &&
-        Equals(CountAll, default) &&
-        Equals(CountSuccess, default) &&
-        Equals(CountErrors, default);
+        Equals(CountAll, default(int)) &&
+        Equals(CountSuccess, default(int)) &&
+        Equals(CountErrors, default(int));
 
     public override object Clone()
     {

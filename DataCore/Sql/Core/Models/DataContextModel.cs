@@ -13,6 +13,7 @@ using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleFkModels.PlusFks;
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -37,6 +38,7 @@ using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.PlusStorageMethods;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
@@ -58,53 +60,55 @@ public class DataContextModel
 {
     #region Public and private fields, properties, constructor
 
-    public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-    public List<AccessModel> Accesses { get; set; }
-    public List<AppModel> Apps { get; set; }
-    public List<BarCodeModel> BarCodes { get; set; }
+    public DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    private List<AccessModel> Accesses { get; set; }
+    private List<AppModel> Apps { get; set; }
+    private List<BarCodeModel> BarCodes { get; set; }
     public List<BoxModel> Boxes { get; set; }
-    public List<BrandModel> Brands { get; set; }
+    private List<BrandModel> Brands { get; set; }
     public List<BundleModel> Bundles { get; set; }
-    public List<ClipModel> Clips { get; set; }
-    public List<ContragentModel> Contragents { get; set; }
+    private List<ClipModel> Clips { get; set; }
+    private List<ContragentModel> Contragents { get; set; }
     public List<DeviceModel> Devices { get; set; }
     public List<DeviceTypeModel> DeviceTypes { get; set; }
-    public List<DeviceTypeFkModel> DeviceTypeFks { get; set; }
-    public List<DeviceScaleFkModel> DeviceScaleFks { get; set; }
-    public List<LogModel> Logs { get; set; }
-    public List<LogTypeModel> LogTypes { get; set; }
-    public List<LogWebModel> LogsWebs { get; set; }
-    public List<LogWebFkModel> LogsWebsFks { get; set; }
-    public List<NomenclatureModel> NomenclatureDeprecated { get; set; }
-    public List<PluGroupModel> NomenclaturesGroups { get; set; }
-    public List<PluGroupFkModel> NomenclaturesGroupsFk { get; set; }
-    public List<PluCharacteristicModel> NomenclaturesCharacteristics { get; set; }
-    public List<PluCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; }
-    public List<OrderModel> Orders { get; set; }
-    public List<OrderWeighingModel> OrderWeighings { get; set; }
-    public List<OrganizationModel> Organizations { get; set; }
-    public List<PluLabelModel> PluLabels { get; set; }
+    private List<DeviceTypeFkModel> DeviceTypeFks { get; set; }
+    private List<DeviceScaleFkModel> DeviceScaleFks { get; set; }
+    private List<LogModel> Logs { get; set; }
+    private List<LogTypeModel> LogTypes { get; set; }
+    private List<LogWebModel> LogsWebs { get; set; }
+    private List<LogWebFkModel> LogsWebsFks { get; set; }
+    private List<NomenclatureModel> NomenclatureDeprecated { get; set; }
+    private List<PluGroupModel> NomenclaturesGroups { get; set; }
+    private List<PluGroupFkModel> NomenclaturesGroupsFk { get; set; }
+    private List<PluCharacteristicModel> NomenclaturesCharacteristics { get; set; }
+    private List<PluCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; }
+    private List<OrderModel> Orders { get; set; }
+    private List<OrderWeighingModel> OrderWeighings { get; set; }
+    private List<OrganizationModel> Organizations { get; set; }
+    private List<PluLabelModel> PluLabels { get; set; }
     public List<PluModel> Plus { get; set; }
-    public List<PluFkModel> PlusFks { get; set; }
-    public List<PluBrandFkModel> PluBrandFks { get; set; }
+    private List<PluFkModel> PlusFks { get; set; }
+    private List<PluBrandFkModel> PluBrandFks { get; set; }
     public List<PluBundleFkModel> PluBundleFks { get; set; }
-    public List<PluClipFkModel> PluClipFks { get; set; }
-    public List<PluScaleModel> PluScales { get; set; }
-    public List<PluTemplateFkModel> PluTemplateFks { get; set; }
-    public List<PluWeighingModel> PluWeighings { get; set; }
-    public List<PluNestingFkModel> PluNestingFks { get; set; }
+    private List<PluClipFkModel> PluClipFks { get; set; }
+    private List<PluScaleModel> PluScales { get; set; }
+    private List<PluStorageMethodModel> PluStorageMethods { get; set; }
+    private List<PluStorageMethodFkModel> PluStorageMethodsFks { get; set; }
+    private List<PluTemplateFkModel> PluTemplateFks { get; set; }
+    private List<PluWeighingModel> PluWeighings { get; set; }
+    private List<PluNestingFkModel> PluNestingFks { get; set; }
     public List<PrinterModel> Printers { get; set; }
-    public List<PrinterResourceFkModel> PrinterResources { get; set; }
+    private List<PrinterResourceFkModel> PrinterResources { get; set; }
     public List<PrinterTypeModel> PrinterTypes { get; set; }
     public List<ProductionFacilityModel> ProductionFacilities { get; set; }
-    public List<ProductSeriesModel> ProductSeries { get; set; }
+    private List<ProductSeriesModel> ProductSeries { get; set; }
     public List<ScaleModel> Scales { get; set; }
-    public List<ScaleScreenShotModel> ScaleScreenShots { get; set; }
-    public List<TaskModel> Tasks { get; set; }
-    public List<TaskTypeModel> TaskTypes { get; set; }
+    private List<ScaleScreenShotModel> ScaleScreenShots { get; set; }
+    private List<TaskModel> Tasks { get; set; }
+    private List<TaskTypeModel> TaskTypes { get; set; }
     public List<TemplateModel> Templates { get; set; }
     public List<TemplateResourceModel> TemplateResources { get; set; }
-    public List<VersionModel> Versions { get; set; }
+    private List<VersionModel> Versions { get; set; }
     public List<WorkShopModel> WorkShops { get; set; }
 
     public NHibernate.ISession Session => DataAccess.SessionFactory.GetCurrentSession();
@@ -142,6 +146,8 @@ public class DataContextModel
         PluBundleFks = new();
         PluClipFks = new();
         PluScales = new();
+        PluStorageMethods = new();
+        PluStorageMethodsFks = new();
         PluTemplateFks = new();
         PluWeighings = new();
         PluNestingFks = new();
@@ -198,6 +204,8 @@ public class DataContextModel
         var cls when cls == typeof(PluModel) => GetListNotNullablePlus<T>(sqlCrudConfig),
         var cls when cls == typeof(PluNestingFkModel) => GetListNotNullablePluNestingFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluScaleModel) => GetListNotNullablePluScales<T>(sqlCrudConfig),
+        var cls when cls == typeof(PluStorageMethodModel) => GetListNotNullablePluStorageMethods<T>(sqlCrudConfig),
+        var cls when cls == typeof(PluStorageMethodFkModel) => GetListNotNullablePluStorageMethodsFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluTemplateFkModel) => GetListNotNullablePluTemplateFks<T>(sqlCrudConfig),
         var cls when cls == typeof(PluWeighingModel) => GetListNotNullablePluWeighings<T>(sqlCrudConfig),
         var cls when cls == typeof(PrinterModel) => GetListNotNullablePrinters<T>(sqlCrudConfig),
@@ -491,6 +499,24 @@ public class DataContextModel
             PluScales = PluScales
                 .OrderBy(item => item.Plu.Number).ToList();
         return PluScales.Cast<T>().ToList();
+    }
+
+    private List<T> GetListNotNullablePluStorageMethods<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    {
+        PluStorageMethods = DataAccess.GetListNotNullable<PluStorageMethodModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && PluStorageMethods.Count > 1)
+            PluStorageMethods = PluStorageMethods
+                .OrderBy(item => item.Name).ToList();
+        return PluStorageMethods.Cast<T>().ToList();
+    }
+
+    private List<T> GetListNotNullablePluStorageMethodsFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    {
+        PluStorageMethodsFks = DataAccess.GetListNotNullable<PluStorageMethodFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && PluStorageMethodsFks.Count > 1)
+            PluStorageMethodsFks = PluStorageMethodsFks
+                .OrderBy(item => item.Name).ToList();
+        return PluStorageMethodsFks.Cast<T>().ToList();
     }
 
     private List<T> GetListNotNullablePluTemplateFks<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()

@@ -4,7 +4,6 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
-using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.Xml;
 
 namespace DataCore.Sql.TableScaleModels.Plus;
@@ -43,7 +42,6 @@ public class PluModel : SqlTableBase1c
     [XmlElement] public virtual string Ean13 { get; set; }
     [XmlElement] public virtual string Itf14 { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
-    [XmlElement] public virtual NomenclatureModel? Nomenclature { get; set; }
     /// <summary>
     /// Родитель.
     /// </summary>
@@ -127,7 +125,6 @@ public class PluModel : SqlTableBase1c
         IsGroup = default;
         Itf14 = string.Empty;
         MeasurementType = string.Empty;
-        Nomenclature = null;
         Number = default;
         PackageTypeGuid = Guid.Empty;
         PackageTypeName = string.Empty;
@@ -153,7 +150,6 @@ public class PluModel : SqlTableBase1c
         Itf14 = info.GetString(nameof(Itf14));
         Code = info.GetString(nameof(Code));
         IsCheckWeight = info.GetBoolean(nameof(IsCheckWeight));
-        Nomenclature = (NomenclatureModel)info.GetValue(nameof(Nomenclature), typeof(NomenclatureModel));
         object parentGroupGuid = info.GetValue(nameof(ParentGuid), typeof(Guid));
         ParentGuid = parentGroupGuid is Guid parentGroupGuid2 ? parentGroupGuid2 : Guid.Empty;
         object groupGuid = info.GetValue(nameof(GroupGuid), typeof(Guid));
@@ -245,7 +241,6 @@ public class PluModel : SqlTableBase1c
         item.Ean13 = Ean13;
         item.Itf14 = Itf14;
         item.IsCheckWeight = IsCheckWeight;
-        item.Nomenclature = Nomenclature?.CloneCast();
         item.AttachmentsCount = AttachmentsCount;
         return item;
     }
@@ -263,7 +258,6 @@ public class PluModel : SqlTableBase1c
         info.AddValue(nameof(Ean13), Ean13);
         info.AddValue(nameof(Itf14), Itf14);
         info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
-        info.AddValue(nameof(Nomenclature), Nomenclature);
         info.AddValue(nameof(MeasurementType), MeasurementType);
         info.AddValue(nameof(BoxTypeGuid), BoxTypeGuid);
         info.AddValue(nameof(BoxTypeName), BoxTypeName);
@@ -286,7 +280,6 @@ public class PluModel : SqlTableBase1c
         Gtin = LocaleCore.Sql.SqlItemFieldGtin;
         Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
         Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
-        Nomenclature?.FillProperties();
     }
 
     #endregion
@@ -315,8 +308,6 @@ public class PluModel : SqlTableBase1c
         Equals(Ean13, item.Ean13) &&
         Equals(Itf14, item.Itf14) &&
         Equals(IsCheckWeight, item.IsCheckWeight) &&
-        ((Nomenclature is not null && item.Nomenclature is not null && Nomenclature.Equals(item.Nomenclature)) ||
-         Nomenclature is null && item.Nomenclature is null) &&
         Equals(AttachmentsCount, item.AttachmentsCount);
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
@@ -342,8 +333,6 @@ public class PluModel : SqlTableBase1c
         if (!string.IsNullOrEmpty(plu.Itf14))
             Itf14 = plu.Itf14;
         IsCheckWeight = plu.IsCheckWeight;
-        if (plu.Nomenclature is not null && plu.Nomenclature.IsNotNew)
-            Nomenclature = plu.Nomenclature.CloneCast();
         if (!Equals(plu.ParentGuid, Guid.Equals))
             ParentGuid = plu.ParentGuid;
         if (!Equals(plu.GroupGuid, Guid.Equals))

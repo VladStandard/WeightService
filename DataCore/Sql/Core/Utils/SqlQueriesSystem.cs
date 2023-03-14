@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Sql.Core.Utils;
@@ -10,7 +10,7 @@ public static partial class SqlQueries
 		public static class Properties
 		{
 			public static string GetInstance => @"
-SELECT SERVERPROPERTY('INSTANCENAME') [INSTANCENAME]
+SELECT COALESCE(SERVERPROPERTY('INSTANCENAME'), 'EMPTY') [INSTANCENAME]
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 			public static string GetDbSpace => @"

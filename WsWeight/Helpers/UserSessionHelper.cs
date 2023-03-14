@@ -19,7 +19,6 @@ using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Utils;
-using Microsoft.Data.SqlClient;
 using MvvmHelpers;
 using System.Windows;
 using System.Xml;
@@ -42,7 +41,6 @@ public class UserSessionHelper : BaseViewModel
 
     #region Public and private fields and properties
 
-    private SqlConnectFactory SqlConnect => SqlConnectFactory.Instance;
     public DataAccessHelper DataAccess => DataAccessHelper.Instance;
     public DataContextModel DataContext { get; } = new();
     public DebugHelper Debug => DebugHelper.Instance;
@@ -225,17 +223,6 @@ public class UserSessionHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    private string _sqlInstance;
-    [XmlElement]
-    private string SqlInstance
-    {
-        get => _sqlInstance;
-        set
-        {
-            _sqlInstance = value;
-            OnPropertyChanged();
-        }
-    }
 
     private DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
     private DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
@@ -271,7 +258,6 @@ public class UserSessionHelper : BaseViewModel
         _scales = new();
         PluScales = new();
         // Strings
-        _sqlInstance = string.Empty;
         _publishDescription = string.Empty;
         // Others.
         _weighingSettings = new();
@@ -357,19 +343,19 @@ public class UserSessionHelper : BaseViewModel
         switch (direction)
         {
             case DirectionEnum.Left:
-                {
-                    ProductDate = ProductDate.AddDays(-1);
-                    if (ProductDate < ProductDateMinValue)
-                        ProductDate = ProductDateMinValue;
-                    break;
-                }
+            {
+                ProductDate = ProductDate.AddDays(-1);
+                if (ProductDate < ProductDateMinValue)
+                    ProductDate = ProductDateMinValue;
+                break;
+            }
             case DirectionEnum.Right:
-                {
-                    ProductDate = ProductDate.AddDays(1);
-                    if (ProductDate > ProductDateMaxValue)
-                        ProductDate = ProductDateMaxValue;
-                    break;
-                }
+            {
+                ProductDate = ProductDate.AddDays(1);
+                if (ProductDate > ProductDateMaxValue)
+                    ProductDate = ProductDateMaxValue;
+                break;
+            }
         }
     }
 
@@ -586,7 +572,7 @@ public class UserSessionHelper : BaseViewModel
                 new() { ButtonCancelVisibility = Visibility.Visible });
             return;
         }
-        
+
         // Template is exists!
         switch (PluScale.Plu.IsCheckWeight)
         {
@@ -771,12 +757,7 @@ public class UserSessionHelper : BaseViewModel
     /// <returns></returns>
     private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
     {
-        PluLabelModel pluLabel = new()
-        {
-            PluWeighing = PluWeighing,
-            PluScale = PluScale,
-            ProductDt = ProductDate,
-        };
+        PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
 
         XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = DataFormatUtils.SerializeAsXmlDocument<PluLabelModel>(pluLabel, true, true);
@@ -785,9 +766,6 @@ public class UserSessionHelper : BaseViewModel
         pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
         pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
         pluLabel.Zpl = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
-
-        // Merge.
-        //pluLabel.Zpl = zplArea + Environment.NewLine + pluLabel.Zpl;
 
         // Save.
         DataAccess.Save(pluLabel);
@@ -808,40 +786,21 @@ public class UserSessionHelper : BaseViewModel
     {
         PublishType = PublishType.Unknown;
         PublishDescription = "Неизвестный сервер";
-        SqlInstance = GetSqlInstanceString();
-        SetSqlPublishFromInstance();
-    }
-
-    private void SetSqlPublishFromInstance()
-    {
-        switch (SqlInstance)
+        if (DataAccess.IsSqlServerDevelop)
         {
-            case "INS1":
-                PublishType = PublishType.Debug;
-                PublishDescription = LocaleCore.Sql.SqlServerTest;
-                break;
-            case "SQL2019":
-                PublishType = PublishType.Develop;
-                PublishDescription = LocaleCore.Sql.SqlServerDev;
-                break;
-            case "LUTON":
-                PublishType = PublishType.Release;
-                PublishDescription = LocaleCore.Sql.SqlServerProd;
-                break;
+            PublishType = PublishType.Develop;
+            PublishDescription = LocaleCore.Sql.SqlServerTest;
         }
-    }
-
-    private string GetSqlInstanceString()
-    {
-        string result = string.Empty;
-        SqlConnect.ExecuteReader(SqlQueries.DbSystem.Properties.GetInstance, (reader) =>
+        else if (DataAccess.IsSqlServerRelease)
         {
-            if (reader.Read())
-            {
-                result = SqlConnect.GetValueAsString(reader, "InstanceName");
-            }
-        });
-        return result;
+            PublishType = PublishType.Release;
+            PublishDescription = LocaleCore.Sql.SqlServerProd;
+        }
+        else if (DataAccess.IsSqlServerDevelopMorozov)
+        {
+            PublishType = PublishType.DevelopMorozov;
+            PublishDescription = LocaleCore.Sql.SqlServerDev;
+        }
     }
 
     public void SetPluScales()

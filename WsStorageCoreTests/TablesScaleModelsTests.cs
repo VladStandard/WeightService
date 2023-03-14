@@ -1,5 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using DataCore.Sql.TableScaleModels.LogsWebs;
 
 namespace WsStorageCoreTests;
 
@@ -11,9 +13,9 @@ internal class TablesScaleModelsTests
 	[Test]
 	public void SqlTableModel_New_EqualsDefault()
 	{
-		DataCoreTestsUtils.DataCore.AssertAction(() =>
-		{
-			List<SqlTableBase> sqlTables = DataCoreTestsUtils.DataCore.DataContext.GetTableModels();
+        Assert.DoesNotThrow(() =>
+        {
+            List<SqlTableBase> sqlTables = DataCoreTestsUtils.DataCore.DataContext.GetTableModels();
             List<(string, bool, bool)> asserts = new();
 
             foreach (SqlTableBase sqlTable in sqlTables)
@@ -33,7 +35,7 @@ internal class TablesScaleModelsTests
                 Assert.That(assert.Item2, Is.EqualTo(true));
                 Assert.That(assert.Item3, Is.EqualTo(true));
             }
-		}, false);
+		});
 	}
 	
 	#endregion

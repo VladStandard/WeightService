@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -136,26 +136,38 @@ public partial class DataAccessHelper
 		return items;
 	}
 
-	private T[]? GetArrayNullable<T>(string query) where T : SqlTableBase, new()
+    public T[]? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : SqlTableBase, new()
 	{
 		T[]? result = null;
         ExecuteCore(session =>
         {
-			ISQLQuery? sqlQuery = GetSqlQuery(session, query);
+			ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
 			if (sqlQuery is not null)
 			{
-				sqlQuery.AddEntity(typeof(T));
+				//sqlQuery.AddEntity(typeof(T));
 				result = sqlQuery.List<T>().ToArray();
 			}
 		}, false);
 		return result;
 	}
 
-	[Obsolete(@"Use GetArrayObjectsNullable(string query, List<SqlParameter> parameters)")]
-	private object[]? GetArrayObjectsNullable(string query) => 
-        GetArrayObjectsNullable(query, new());
+    public T? GetNativeItemNullable<T>(string query, List<SqlParameter> parameters)
+	{
+		T? result = default;
+        ExecuteCore(session =>
+        {
+			ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
+			if (sqlQuery is not null)
+			{
+				//sqlQuery.AddEntity(typeof(T));
+                IList<T>? list = sqlQuery.List<T>();
+				result = list.First();
+			}
+		}, false);
+		return result;
+	}
 
-    private object[]? GetArrayObjectsNullable(string query, List<SqlParameter> parameters)
+    private object[]? GetNativeArrayObjectsNullable(string query, List<SqlParameter> parameters)
 	{
 		object[]? result = null;
         ExecuteCore(session =>
@@ -177,15 +189,14 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	[Obsolete(@"Use GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters)")]
 	public object[] GetArrayObjectsNotNullable(string query) =>
         GetArrayObjectsNotNullable(query, new());
 
 	public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) => 
-		GetArrayObjectsNullable(query, parameters) ?? Array.Empty<object>();
+		GetNativeArrayObjectsNullable(query, parameters) ?? Array.Empty<object>();
 
 	public object[] GetArrayObjectsNotNullable(SqlCrudConfigModel sqlCrudConfig) => 
-		GetArrayObjectsNullable(sqlCrudConfig.NativeQuery, sqlCrudConfig.NativeParameters) ?? Array.Empty<object>();
+		GetNativeArrayObjectsNullable(sqlCrudConfig.NativeQuery, sqlCrudConfig.NativeParameters) ?? Array.Empty<object>();
 
 	#endregion
 

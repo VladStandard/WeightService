@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
@@ -32,10 +32,6 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
         : $"{LocaleCore.Memory.Memory}: - MB";
     public uint MemoryFillSize => Memory.MemorySize.PhysicalTotal == null || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
         ? 0 : (uint)(Memory.MemorySize.PhysicalAllocated.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes);
-    public bool IsSqlServerRelease => DataAccess.JsonSettings.Local.Sql is { DataSource: { } } &&
-        DataAccess.JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-    public bool IsSqlServerDebug => DataAccess.JsonSettings.Local.Sql is { DataSource: { } } &&
-        DataAccess.JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
     #endregion
 
