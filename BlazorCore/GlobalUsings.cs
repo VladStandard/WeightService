@@ -11,7 +11,6 @@ global using DataCore.Sql.Fields;
 global using DataCore.Sql.Models;
 global using DataCore.Sql.Tables;
 global using DataCore.Sql.TableScaleModels.Contragents;
-global using DataCore.Sql.TableScaleModels.Nomenclatures;
 global using DataCore.Utils;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Http;

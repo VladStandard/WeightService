@@ -1,7 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleModels.Nomenclatures;
+using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.Xml;
 
@@ -338,111 +338,111 @@ public class XmlProductHelper
 		return (T)Convert.ChangeType(string.Empty, typeof(string));
 	}
 
-	public string GetXmlName(NomenclatureModel nomenclature, string name)
-    {
-	    XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-	    if (!xmlProduct.EqualsNew())
-	    {
-		    return GetXmlValue<string>(xmlProduct, "GoodsName");
-	    }
-	    return name;
-    }
+	//public string GetXmlName(PluModel plu, string name)
+ //   {
+	//    XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//    if (!xmlProduct.EqualsNew())
+	//    {
+	//	    return GetXmlValue<string>(xmlProduct, "GoodsName");
+	//    }
+	//    return name;
+ //   }
 
-	public string GetXmlFullName(NomenclatureModel nomenclature, string fullName)
-	{
-		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-		if (!xmlProduct.EqualsNew())
-		{
-			return GetXmlValue<string>(xmlProduct, "GoodsFullName");
-		}
-		return fullName;
-	}
+	//public string GetXmlFullName(PluModel plu, string fullName)
+	//{
+	//	XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//	if (!xmlProduct.EqualsNew())
+	//	{
+	//		return GetXmlValue<string>(xmlProduct, "GoodsFullName");
+	//	}
+	//	return fullName;
+	//}
 
-	public string GetXmlDescription(NomenclatureModel nomenclature, string description)
-	{
-		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-		if (!xmlProduct.EqualsNew())
-		{
-			return GetXmlValue<string>(xmlProduct, "GoodsDescription");
-		}
-		return description;
-	}
+	//public string GetXmlDescription(PluModel plu, string description)
+	//{
+	//	XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//	if (!xmlProduct.EqualsNew())
+	//	{
+	//		return GetXmlValue<string>(xmlProduct, "GoodsDescription");
+	//	}
+	//	return description;
+	//}
 
-	public byte GetXmlShelfLifeDays(NomenclatureModel nomenclature, byte shelfLifeDays)
-	{
-		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-		if (!xmlProduct.EqualsNew())
-		{
-			string strProductShelfLife = GetXmlValue<string>(xmlProduct, "ProductShelfLife");
-			string[] arr = strProductShelfLife.Split(' ');
-			if (arr.Length > 1)
-			{
-				if (byte.TryParse(arr[0], out byte productShelfLife2))
-					return productShelfLife2;
-			}
-			if (byte.TryParse(strProductShelfLife, out byte productShelfLife1))
-				return productShelfLife1;
-		}
-		return shelfLifeDays;
-	}
+	//public byte GetXmlShelfLifeDays(PluModel plu, byte shelfLifeDays)
+	//{
+	//	XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//	if (!xmlProduct.EqualsNew())
+	//	{
+	//		string strProductShelfLife = GetXmlValue<string>(xmlProduct, "ProductShelfLife");
+	//		string[] arr = strProductShelfLife.Split(' ');
+	//		if (arr.Length > 1)
+	//		{
+	//			if (byte.TryParse(arr[0], out byte productShelfLife2))
+	//				return productShelfLife2;
+	//		}
+	//		if (byte.TryParse(strProductShelfLife, out byte productShelfLife1))
+	//			return productShelfLife1;
+	//	}
+	//	return shelfLifeDays;
+	//}
 
-	public string GetXmlGtin(NomenclatureModel nomenclature, string gtin)
-	{
-		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-		if (!xmlProduct.EqualsNew())
-		{
-			return GetXmlValue<string>(xmlProduct, "GTIN");
-		}
-		return gtin;
-	}
+	//public string GetXmlGtin(PluModel plu, string gtin)
+	//{
+	//	XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//	if (!xmlProduct.EqualsNew())
+	//	{
+	//		return GetXmlValue<string>(xmlProduct, "GTIN");
+	//	}
+	//	return gtin;
+	//}
 
-	public string GetXmlEan13(NomenclatureModel nomenclature, string ean13)
-	{
-		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-		if (!xmlProduct.EqualsNew())
-		{
-			return GetXmlValue<string>(xmlProduct, "EAN13");
-		}
-		return ean13;
-	}
+	//public string GetXmlEan13(PluModel plu, string ean13)
+	//{
+	//	XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//	if (!xmlProduct.EqualsNew())
+	//	{
+	//		return GetXmlValue<string>(xmlProduct, "EAN13");
+	//	}
+	//	return ean13;
+	//}
 
-	public string GetXmlItf14(NomenclatureModel nomenclature, string itf14)
-	{
-		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-		if (!xmlProduct.EqualsNew())
-		{
-			return GetXmlValue<string>(xmlProduct, "ITF14");
-		}
-		return itf14;
-	}
+	//public string GetXmlItf14(PluModel plu, string itf14)
+	//{
+	//	XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//	if (!xmlProduct.EqualsNew())
+	//	{
+	//		return GetXmlValue<string>(xmlProduct, "ITF14");
+	//	}
+	//	return itf14;
+	//}
 
-	public int GetXmlBundleCount(NomenclatureModel nomenclature, int boxQuantly)
-	{
-		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-		if (!xmlProduct.EqualsNew())
-		{
-			return GetXmlValue<int>(xmlProduct, "GoodsBoxQuantly");
-		}
-		return boxQuantly;
-	}
+	//public int GetXmlBundleCount(PluModel plu, int boxQuantly)
+	//{
+	//	XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//	if (!xmlProduct.EqualsNew())
+	//	{
+	//		return GetXmlValue<int>(xmlProduct, "GoodsBoxQuantly");
+	//	}
+	//	return boxQuantly;
+	//}
 
-	public decimal GetXmlWeightTare(NomenclatureModel nomenclature, decimal weightTare)
-	{
-		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-		if (!xmlProduct.EqualsNew())
-		{
-			return GetXmlValue<decimal>(xmlProduct, "GoodsWeightTare");
-		}
-		return weightTare;
-	}
+	//public decimal GetXmlWeightTare(PluModel plu, decimal weightTare)
+	//{
+	//	XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//	if (!xmlProduct.EqualsNew())
+	//	{
+	//		return GetXmlValue<decimal>(xmlProduct, "GoodsWeightTare");
+	//	}
+	//	return weightTare;
+	//}
 
 	/// <summary>
 	/// Вес коробки.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodWeightBox(NomenclatureModel nomenclature, XmlProductModel xmlProduct)
+	public decimal CalcGoodWeightBox(PluModel plu, XmlProductModel xmlProduct)
 	{
-		if (!xmlProduct.EqualsNew() && !nomenclature.EqualsNew())
+		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
 			decimal? weightBoxSource = xmlProduct.Boxes
 				.OrderByDescending(x => x.Heft)
@@ -458,9 +458,9 @@ public class XmlProductHelper
 	/// Вес пакета.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodWeightPack(NomenclatureModel nomenclature, XmlProductModel xmlProduct)
+	public decimal CalcGoodWeightPack(PluModel plu, XmlProductModel xmlProduct)
 	{
-		if (!xmlProduct.EqualsNew() && !nomenclature.EqualsNew())
+		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
 			decimal? weightPackSource = xmlProduct.Packs
 				.OrderByDescending(x => x.Heft)
@@ -476,9 +476,9 @@ public class XmlProductHelper
 	/// Кол-во вложений.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodRateUnit(NomenclatureModel nomenclature, XmlProductModel xmlProduct)
+	public decimal CalcGoodRateUnit(PluModel plu, XmlProductModel xmlProduct)
 	{
-		if (!xmlProduct.EqualsNew() && !nomenclature.EqualsNew())
+		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
 			decimal? rateUnitSource = xmlProduct.Units
 				.OrderByDescending(x => x.Rate)
@@ -490,26 +490,26 @@ public class XmlProductHelper
 		return 0M;
 	}
 
-	public decimal CalcGoodsWeightTare(NomenclatureModel nomenclature)
-	{
-		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
-		if (!xmlProduct.EqualsNew() && !nomenclature.EqualsNew())
-		{
-			// Вес коробки.
-			decimal weightBox = CalcGoodWeightBox(nomenclature, xmlProduct);
-			// Вес пакета.
-			decimal weightPack = CalcGoodWeightPack(nomenclature, xmlProduct);
-			// Кол-во вложений.
-			decimal rateUnit = CalcGoodRateUnit(nomenclature, xmlProduct);
-			// Вес клипсы.
-			decimal weightClip = 0M;
-			// Вес тары = вес коробки + (вес пакета * кол. вложений) + (вес клипсы * кол. вложений * 2).
-			decimal result = weightBox + weightPack * rateUnit + weightClip * rateUnit * 2;
-			if (decimal.TryParse($"{result:F3}", out decimal resultF3))
-				return resultF3;
-		}
-		return 0M;
-	}
+	//public decimal CalcGoodsWeightTare(PluModel plu)
+	//{
+	//	XmlProductModel xmlProduct = GetXmlProduct(plu.Xml);
+	//	if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
+	//	{
+	//		// Вес коробки.
+	//		decimal weightBox = CalcGoodWeightBox(plu, xmlProduct);
+	//		// Вес пакета.
+	//		decimal weightPack = CalcGoodWeightPack(plu, xmlProduct);
+	//		// Кол-во вложений.
+	//		decimal rateUnit = CalcGoodRateUnit(plu, xmlProduct);
+	//		// Вес клипсы.
+	//		decimal weightClip = 0M;
+	//		// Вес тары = вес коробки + (вес пакета * кол. вложений) + (вес клипсы * кол. вложений * 2).
+	//		decimal result = weightBox + weightPack * rateUnit + weightClip * rateUnit * 2;
+	//		if (decimal.TryParse($"{result:F3}", out decimal resultF3))
+	//			return resultF3;
+	//	}
+	//	return 0M;
+	//}
 
 	public bool GtinCheck(string gtin)
 	{

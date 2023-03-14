@@ -106,7 +106,6 @@ public partial class RazorComponentBase
 			DeviceTypeFkModel => LocaleCore.DeviceControl.SectionDevicesTypesFk,
 			DeviceTypeModel => LocaleCore.DeviceControl.SectionDevicesTypes,
 			LogModel => LocaleCore.Strings.SectionLog,
-			NomenclatureModel => LocaleCore.DeviceControl.SectionNomenclatures,
 			OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
 			OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
 			PluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,

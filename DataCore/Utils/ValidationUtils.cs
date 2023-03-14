@@ -28,7 +28,6 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.LogsWebs;
-using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
@@ -92,7 +91,6 @@ public class ValidationUtils
             var cls when cls == typeof(LogTypeModel) => new LogTypeValidator(),
             var cls when cls == typeof(LogWebFkModel) => new LogWebFkValidator(),
             var cls when cls == typeof(LogWebModel) => new LogWebValidator(),
-            var cls when cls == typeof(NomenclatureModel) => new NomenclatureValidator(),
             var cls when cls == typeof(OrderModel) => new OrderValidator(),
             var cls when cls == typeof(OrderWeighingModel) => new OrderWeighingValidator(),
             var cls when cls == typeof(OrganizationModel) => new OrganizationValidator(),
@@ -146,7 +144,6 @@ public class ValidationUtils
             LogTypeModel logType => new LogTypeValidator().Validate(logType),
             LogWebFkModel logWebFk => new LogWebFkValidator().Validate(logWebFk),
             LogWebModel logWeb => new LogWebValidator().Validate(logWeb),
-            NomenclatureModel nomenclature => new NomenclatureValidator().Validate(nomenclature),
             OrderModel order => new OrderValidator().Validate(order),
             OrderWeighingModel orderWeighing => new OrderWeighingValidator().Validate(orderWeighing),
             OrganizationModel organization => new OrganizationValidator().Validate(organization),

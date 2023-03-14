@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Collections.Generic;
@@ -64,60 +64,6 @@ public class ChartBase
 					result[i] = new(item.Key, item.Count());
 					i++;
 				}
-				break;
-		}
-		return result;
-	}
-
-	public ChartCountModel[] GetNomenclaturesChartEntities(string field)
-	{
-		ChartCountModel[] result = Array.Empty<ChartCountModel>();
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Asc), 
-            false, false);
-		NomenclatureModel[]? nomenclatures = BlazorAppSettings.DataAccess.GetArrayNullable<NomenclatureModel>(sqlCrudConfig);
-		int i = 0;
-		switch (field)
-		{
-			case nameof(SqlTableBase.CreateDt):
-				List<ChartCountModel> entitiesDateCreated = new();
-				if (nomenclatures?.Any() == true)
-				{
-					foreach (NomenclatureModel item in nomenclatures)
-					{
-						if (item.CreateDt != default)
-							entitiesDateCreated.Add(new(item.CreateDt.Date, 1));
-						i++;
-					}
-				}
-				IGrouping<DateTime, ChartCountModel>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(item => item.Date).ToArray();
-				result = new ChartCountModel[entitiesGroupCreated.Length];
-				i = 0;
-				foreach (IGrouping<DateTime, ChartCountModel> item in entitiesGroupCreated)
-				{
-					result[i] = new(item.Key, item.Count());
-					i++;
-				}
-				break;
-			case nameof(SqlTableBase.ChangeDt):
-				List<ChartCountModel> entitiesDateModified = new();
-                if (nomenclatures != null)
-                    foreach (NomenclatureModel item in nomenclatures)
-                    {
-                        if (item.ChangeDt != default)
-                            entitiesDateModified.Add(new(item.ChangeDt.Date, 1));
-                        i++;
-                    }
-
-                IGrouping<DateTime, ChartCountModel>[] entitiesModied = entitiesDateModified.GroupBy(item => item.Date).ToArray();
-				result = new ChartCountModel[entitiesModied.Length];
-				i = 0;
-				foreach (IGrouping<DateTime, ChartCountModel> item in entitiesModied)
-				{
-					result[i] = new(item.Key, item.Count());
-					i++;
-				}
-
 				break;
 		}
 		return result;

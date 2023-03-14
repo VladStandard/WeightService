@@ -31,7 +31,6 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.LogsWebs;
-using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
@@ -190,7 +189,6 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
