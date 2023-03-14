@@ -1,6 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.Brands
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Brands.BrandModel>
+@inherits RazorComponentSectionBase<BrandModel>
 @page "/section/brands"
 
 <RazorSectionReload TItem="@BrandModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBrands" SqlCrudConfigSection="@SqlCrudConfigSection"/>

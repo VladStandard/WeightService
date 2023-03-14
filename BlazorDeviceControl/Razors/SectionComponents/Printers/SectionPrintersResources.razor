@@ -1,6 +1,6 @@
 @using BlazorDeviceControl.Razors.CustomComponents
 @using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PrintersResourcesFks.PrinterResourceFkModel>
+@inherits RazorComponentSectionBase<PrinterResourceFkModel>
 @page "/section/printers_resources"
 
 <RazorSectionReload TItem="@PrinterResourceFkModel" ParentRazor="@(this)" Title="@LocaleCore.Print.Resources" SqlCrudConfigSection="@SqlCrudConfigSection"/>

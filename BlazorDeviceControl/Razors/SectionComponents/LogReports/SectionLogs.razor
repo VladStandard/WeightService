@@ -1,7 +1,7 @@
 ﻿@using DataCore.Sql.Xml
 @using BlazorDeviceControl.Razors.CustomComponents
-@using DataCore.Enums
-@inherits RazorComponentSectionBase<DataCore.Sql.Xml.LogQuickModel>
+@using DataCore.Sql.TableScaleModels.LogsTypes
+@inherits RazorComponentSectionBase<LogQuickModel>
 @page "/section/logs"
 
 <MudSelectLocal @bind-Value="@CurrentType">

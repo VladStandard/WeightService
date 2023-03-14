@@ -1,6 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.Bundles
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Bundles.BundleModel>
+@inherits RazorComponentSectionBase<BundleModel>
 @page "/section/bundles"
 
 <RazorSectionReload TItem="@BundleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionBundles" SqlCrudConfigSection="@SqlCrudConfigSection"/>

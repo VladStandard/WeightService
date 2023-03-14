@@ -1,6 +1,6 @@
 @using DataCore.Sql.TableScaleModels.TemplatesResources
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.TemplatesResources.TemplateResourceModel>
+@inherits RazorComponentSectionBase<TemplateResourceModel>
 @page "/section/templates_resources"
 
 <RazorSectionReload TItem="@TemplateResourceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionTemplateResources" SqlCrudConfigSection="@SqlCrudConfigSection" />

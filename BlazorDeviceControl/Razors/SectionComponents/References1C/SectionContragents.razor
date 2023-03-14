@@ -1,6 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.Contragents
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Contragents.ContragentModel>
+@inherits RazorComponentSectionBase<ContragentModel>
 @page "/section/contragents"
 
 <RazorSectionReload TItem="@ContragentModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionContragents" SqlCrudConfigSection="@SqlCrudConfigSection"/>

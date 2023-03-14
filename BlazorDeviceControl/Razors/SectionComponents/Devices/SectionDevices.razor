@@ -1,6 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.Devices
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Devices.DeviceModel>
+@inherits RazorComponentSectionBase<DeviceModel>
 @page "/section/devices"
 
 <RazorSectionReload TItem="@DeviceModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionHosts" SqlCrudConfigSection="@SqlCrudConfigSection"/>

@@ -1,7 +1,7 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusScales
 @using DataCore.Sql.TableScaleModels.Scales
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusScales.PluScaleModel>
+@inherits RazorComponentSectionBase<PluScaleModel>
 @page "/section/plus_scales"
 
 <RazorSectionReload TItem="@PluScaleModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionPlusScales" SqlCrudConfigSection="@SqlCrudConfigSection"/>

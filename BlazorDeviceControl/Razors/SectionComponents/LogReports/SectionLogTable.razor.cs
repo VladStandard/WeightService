@@ -1,4 +1,5 @@
-﻿using DataCore.Sql.Xml;
+﻿using DataCore.Sql.TableScaleModels.LogsTypes;
+using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.LogReports;
 

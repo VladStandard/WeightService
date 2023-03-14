@@ -1,6 +1,6 @@
 ﻿@using DataCore.Sql.TableScaleModels.Organizations
 @using BlazorDeviceControl.Razors.CustomComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.Organizations.OrganizationModel>
+@inherits RazorComponentSectionBase<OrganizationModel>
 @page "/section/organizations"
 
 <RazorSectionReload TItem="@OrganizationModel" ParentRazor="@(this)" Title="@LocaleCore.DeviceControl.SectionOrganizations" SqlCrudConfigSection="@SqlCrudConfigSection"/>
