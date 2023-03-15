@@ -73,7 +73,7 @@ public class JsonSettingsHelper
 
     private string FileName =>
 #if DEBUG
-	    FileNameDebug;
+	    FileNameDevelop;
 #else
         FileNameRelease;
 #endif

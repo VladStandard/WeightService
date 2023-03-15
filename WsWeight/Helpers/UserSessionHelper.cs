@@ -10,6 +10,7 @@ using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
+using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Devices;
@@ -110,6 +111,7 @@ public class UserSessionHelper : BaseViewModel
     public readonly ushort PageRowCount = 5;
     public int PageNumber { get; set; }
     public List<PluScaleModel> PluScales { get; private set; }
+    public List<PluStorageMethodFkModel> PluStorageMethodFks { get; private set; }
 
     private PluNestingFkModel _pluNestingFk;
 
@@ -810,6 +812,12 @@ public class UserSessionHelper : BaseViewModel
         sqlCrudConfig.AddOrders(new(nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc));
         sqlCrudConfig.IsResultOrder = true;
         PluScales = DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
+    }
+
+    public void SetPluStorageMethodsFks()
+    {
+        SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false);
+        PluStorageMethodFks = DataContext.UpdatePluStorageMethodFks(sqlCrudConfig);
     }
 
     public List<PluScaleModel> GetCurrentPlus()
