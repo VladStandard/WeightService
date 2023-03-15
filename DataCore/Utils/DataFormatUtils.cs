@@ -13,7 +13,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Unicode;
 using System.Xml.Xsl;
 using DataCore.Sql.Core.Helpers;
+using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
+using DataCore.Sql.TableScaleModels.PlusLabels;
 
 namespace DataCore.Utils;
 
@@ -130,11 +132,12 @@ public static class DataFormatUtils
     private static List<TemplateResourceModel> _templateResources = new();
 
     /// <summary>
-    /// Replace zpl-resources.
+    /// Replace zpl-resources from table `TEMPLATES_RESOURCES`.
     /// </summary>
     /// <param name="zpl"></param>
+    /// <param name="actionReplaceStorageMethod"></param>
     /// <returns></returns>
-    public static string PrintCmdReplaceZplResources(string zpl)
+    public static string PrintCmdReplaceZplResources(string zpl, Action<string> actionReplaceStorageMethod)
 	{
 		if (string.IsNullOrEmpty(zpl))
             throw new ArgumentException("Value must be fill!", nameof(zpl));
@@ -148,7 +151,11 @@ public static class DataFormatUtils
                 zpl = zpl.Replace($"[{resource.Name}]", resourceHex);
             }
 		}
-		return zpl;
+
+        // Patch for table `PLUS_STORAGE_METHODS_FK`.
+        actionReplaceStorageMethod(zpl);
+
+        return zpl;
 	}
 
     public static List<TemplateResourceModel> LoadTemplatesResources(bool isForceUpdate)
@@ -193,7 +200,7 @@ public static class DataFormatUtils
 	{
 		tscDriver.Cmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(tscDriver.TextPrepare);
 		if (isUsePicReplace)
-			tscDriver.Cmd = PrintCmdReplaceZplResources(tscDriver.Cmd);
+			tscDriver.Cmd = PrintCmdReplaceZplResources(tscDriver.Cmd, _ => { });
 	}
 
 	public static string XmlMerge(string xmlParent, string xmlChild)

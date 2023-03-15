@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusStorageMethods;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 
@@ -24,5 +25,9 @@ public class PluStorageMethodFkValidator : SqlTableValidator<PluStorageMethodFkM
             .NotEmpty()
             .NotNull()
             .SetValidator(new PluStorageMethodValidator());
+        RuleFor(item => item.Resource)
+            .NotEmpty()
+            .NotNull()
+            .SetValidator(new TemplateResourceValidator());
     }
 }

@@ -5,6 +5,7 @@
 using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusStorageMethods;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace DataCore.Sql.Core.Models;
 
@@ -29,6 +30,18 @@ public partial class DataContextModel
     {
         PluStorageMethodFkModel pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
         return pluStorageMethodFk.IsExists ? pluStorageMethodFk.Method : new();
+    }
+
+    /// <summary>
+    /// Get item PluStorageMethod by Plu.
+    /// Use UpdatePluStorageMethodFks for force update.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <returns></returns>
+    public TemplateResourceModel GetPluStorageResource(PluModel plu)
+    {
+        PluStorageMethodFkModel pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        return pluStorageMethodFk.IsExists ? pluStorageMethodFk.Resource : new();
     }
 
     #endregion

@@ -24,6 +24,7 @@ using MvvmHelpers;
 using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
 using WsWeight.Plugins.Helpers;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
 
@@ -767,7 +768,17 @@ public class UserSessionHelper : BaseViewModel
         pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
         pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
-        pluLabel.Zpl = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
+        _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, zpl =>
+        {
+            // Patch for using table `PLUS_STORAGE_METHODS_FK`.
+            if (PluStorageMethodFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
+            {
+                TemplateResourceModel resource = DataContext.GetPluStorageResource(pluLabel.PluScale.Plu);
+                string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
+                zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
+            }
+            pluLabel.Zpl = zpl;
+        });
 
         // Save.
         DataAccess.Save(pluLabel);
