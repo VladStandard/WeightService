@@ -89,7 +89,7 @@ public class DataCoreHelper
 
 	public void SetupDebug(bool isShowSql)
 	{
-		JsonSettings.SetupTestsDebug(Directory.GetCurrentDirectory(),
+		JsonSettings.SetupTestsDevelop(Directory.GetCurrentDirectory(),
 			NetUtils.GetLocalDeviceName(true), nameof(WsWeightTests), isShowSql);
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);

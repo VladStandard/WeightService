@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
 using DataCore.Models;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -77,9 +78,17 @@ public class DataCoreHelper
 
 	#region Public and private methods
 
-	public void SetupDebug(bool isShowSql)
+	public void SetupDevelop(bool isShowSql)
 	{
-		JsonSettings.SetupTestsDebug(Directory.GetCurrentDirectory(),
+		JsonSettings.SetupTestsDevelop(Directory.GetCurrentDirectory(),
+			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
+		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+	}
+
+	public void SetupDevelopMorozov(bool isShowSql)
+	{
+		JsonSettings.SetupTestsDevelopMorozov(Directory.GetCurrentDirectory(),
 			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
@@ -93,20 +102,29 @@ public class DataCoreHelper
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
 
-	public void AssertAction(Action action, bool isShowSql, bool isSkipDbRelease = false)
+	public void AssertAction(Action action, bool isShowSql, List<PublishType> publishTypes)
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			if (!isSkipDbRelease)
-			{
-				SetupRelease(isShowSql);
-				action.Invoke();
-				TestContext.WriteLine();
-			}
-
-			SetupDebug(isShowSql);
-			action.Invoke();
-		});
+            if (publishTypes.Contains(PublishType.DevelopMorozov))
+            {
+                SetupDevelop(isShowSql);
+                action.Invoke();
+                TestContext.WriteLine();
+            }
+            if (publishTypes.Contains(PublishType.Develop))
+            {
+                SetupDevelop(isShowSql);
+                action.Invoke();
+                TestContext.WriteLine();
+            }
+            if (publishTypes.Contains(PublishType.Release))
+            {
+                SetupRelease(isShowSql);
+                action.Invoke();
+                TestContext.WriteLine();
+            }
+        });
 	}
 
 	public void FailureWriteLine(ValidationResult result)
@@ -149,7 +167,7 @@ public class DataCoreHelper
                     Assert.IsTrue(validationResult.IsValid);
                 }
             }
-        }, false, false);
+        }, false, new() { PublishType.Develop, PublishType.Release });
     }
 
 	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new() =>
@@ -181,7 +199,7 @@ public class DataCoreHelper
                     Assert.IsNotEmpty(xml);
                 }
             }
-        }, false, false);
+        }, false, new() { PublishType.Develop, PublishType.Release });
     }
 
 	public string GetSqlPropertyAsString<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()

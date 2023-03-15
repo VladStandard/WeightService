@@ -77,7 +77,8 @@ public class JsonSettingsHelper
 #else
         FileNameRelease;
 #endif
-    private string FileNameDebug => "appsettings.Debug.json";
+    private string FileNameDevelop => "appsettings.Debug.json";
+    private string FileNameDevelopMorozov => "appsettings.DevelopMorozov.json";
     private string FileNameRelease => "appsettings.Release.json";
     public string ExceptionFileName(string localDir) => Path.Combine(localDir, $"{FileName}.log");
     private const string BlazorSubDir6 =
@@ -147,8 +148,11 @@ public class JsonSettingsHelper
 		DataAccessHelper.Instance.SetupLog(deviceName, appName);
 	}
 
-	public void SetupTestsDebug(string localDir, string deviceName, string appName, bool isShowSql) =>
-		SetupTests(localDir, deviceName, appName, FileNameDebug, isShowSql);
+	public void SetupTestsDevelop(string localDir, string deviceName, string appName, bool isShowSql) =>
+		SetupTests(localDir, deviceName, appName, FileNameDevelop, isShowSql);
+
+	public void SetupTestsDevelopMorozov(string localDir, string deviceName, string appName, bool isShowSql) =>
+		SetupTests(localDir, deviceName, appName, FileNameDevelopMorozov, isShowSql);
 
 	public void SetupTestsRelease(string localDir, string deviceName, string appName, bool isShowSql) =>
 		SetupTests(localDir, deviceName, appName, FileNameRelease, isShowSql);

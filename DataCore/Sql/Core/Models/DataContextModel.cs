@@ -55,7 +55,7 @@ using PluBundleFkValidator = DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluB
 
 namespace DataCore.Sql.Core.Models;
 
-public class DataContextModel
+public partial class DataContextModel
 {
     #region Public and private fields, properties, constructor
 

@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
@@ -29,7 +30,7 @@ internal class DataAccessHelperMapTests
             sessionFactory.Close();
             sessionFactory.Dispose();
 
-        }, false);
+        }, false, new() { PublishType.Develop, PublishType.Release });
     }
 
     [Test]

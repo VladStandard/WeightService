@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace DataCoreTests.Utils;
@@ -21,7 +22,7 @@ public class DataFormatUtilsTests
             {
                 TestContext.WriteLine(templateResource);
             }
-        }, false);
+        }, false, new() { PublishType.Develop, PublishType.Release });
     }
 
     #endregion

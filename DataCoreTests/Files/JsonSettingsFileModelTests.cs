@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
+
 namespace DataCoreTests.Files;
 
 public class JsonSettingsFileModelTests
@@ -12,9 +14,9 @@ public class JsonSettingsFileModelTests
     {
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
-			//
-		}, false);
-	}
+            //
+        }, false, new() { PublishType.Develop, PublishType.Release });
+    }
 
     #endregion
 }

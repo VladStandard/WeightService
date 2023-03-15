@@ -52,7 +52,7 @@ internal class RazorComponentBaseTests
 	[Test]
 	public void Model_GetRoutePathItem_IsNotEmpty()
 	{
-		BlazorCore.DataCore.SetupDebug(false);
+		BlazorCore.DataCore.SetupDevelop(false);
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<AccessModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<AppModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<BarCodeModel>();

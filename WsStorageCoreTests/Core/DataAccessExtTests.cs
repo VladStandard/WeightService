@@ -1,5 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using DataCore.Enums;
 
 namespace WsStorageCoreTests.Core;
 
@@ -30,8 +32,8 @@ internal class DataAccessExtTests
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}
 			}
-		}, false);
-	}
+        }, false, new() { PublishType.Develop, PublishType.Release });
+    }
 
 	[Test]
 	public void DataAccess_GetListPluBundlesFks_CountExists()
@@ -55,8 +57,8 @@ internal class DataAccessExtTests
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}
 			}
-		}, false);
-	}
+        }, false, new() { PublishType.Develop, PublishType.Release });
+    }
 
 	#endregion
 }

@@ -1,6 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
 using DataCore.Sql.Core.Models;
 
 namespace WsStorageCoreTests.Core;
@@ -19,8 +20,8 @@ internal class DataAccessTests
 			{
 				List<DeviceTypeFkModel> deviceTypeFks = DataCoreTestsUtils.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-		}, false);
-	}
+        }, false, new() { PublishType.Develop, PublishType.Release });
+    }
 
 	[Test]
 	public void GetBusyHosts_Exec_DoesNotThrow()
@@ -31,8 +32,8 @@ internal class DataAccessTests
 			{
 				List<DeviceTypeFkModel> deviceTypeFks = DataCoreTestsUtils.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-		}, false);
-	}
+        }, false, new() { PublishType.Develop, PublishType.Release });
+    }
 
     private IEnumerable<string> GetDeviceTypesEnums() => 
 		new List<string>() {
@@ -54,7 +55,7 @@ internal class DataAccessTests
 	        {
 		        Assert.That(GetDeviceTypesEnums().Contains(deviceType.Name), Is.EqualTo(true));
 	        }
-        }, false);
+        }, false, new() { PublishType.Develop, PublishType.Release });
     }
 
     [Test]
@@ -68,7 +69,7 @@ internal class DataAccessTests
 		        DeviceTypeModel deviceType2 = DataCoreTestsUtils.DataAccess.GetItemDeviceTypeNotNullable(deviceType1.Name);
 		        Assert.That(deviceType2, Is.EqualTo(deviceType1));
 	        }
-        }, false);
+        }, false, new() { PublishType.Develop, PublishType.Release });
     }
 
     [Test]
@@ -82,7 +83,7 @@ internal class DataAccessTests
 		        TestContext.WriteLine(device);
 		        //Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
 	        }
-        }, false);
+        }, false, new() { PublishType.Develop, PublishType.Release });
     }
 
     [Test]
@@ -97,7 +98,7 @@ internal class DataAccessTests
 		        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
 		        TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
 	        }
-        }, false);
+        }, false, new() { PublishType.Develop, PublishType.Release });
     }
 
     [Test]
@@ -119,7 +120,7 @@ internal class DataAccessTests
 			        }
 		        }
 	        }
-        }, false);
+        }, false, new() { PublishType.Develop, PublishType.Release });
     }
 
     #endregion
