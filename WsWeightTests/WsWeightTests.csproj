@@ -7,7 +7,7 @@
 
     <LangVersion>latest</LangVersion>
 
-    <Version>0.8.510.0</Version>
+    <Version>0.8.520.0</Version>
 
     <Nullable>enable</Nullable>
   </PropertyGroup>
