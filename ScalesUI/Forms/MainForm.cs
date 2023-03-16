@@ -160,7 +160,7 @@ public partial class MainForm : Form
             new(0_250, 0_250), fieldPlu, fieldSscc, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {UserSession.PublishDescription}.");
-        MDSoft.WinFormsUtils.InvokeControl.SetBackColor(fieldTitle, UserSession.PublishType == PublishType.Unknown ? Color.IndianRed : Color.Transparent);
+        MDSoft.WinFormsUtils.InvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }
 
     private void ReturnBackExit()

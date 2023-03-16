@@ -204,7 +204,7 @@ public class UserSessionHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    private PublishType _publishType = PublishType.Unknown;
+    private PublishType _publishType = PublishType.DevelopVs;
     [XmlElement]
     public PublishType PublishType
     {
@@ -800,22 +800,35 @@ public class UserSessionHelper : BaseViewModel
 
     private void SetSqlPublish()
     {
-        PublishType = PublishType.Unknown;
-        PublishDescription = "Неизвестный сервер";
-        if (DataAccess.IsSqlServerDevelop)
+        if (DataAccess.IsSqlServerDevelopAleksandrov)
         {
-            PublishType = PublishType.Develop;
-            PublishDescription = LocaleCore.Sql.SqlServerTest;
-        }
-        else if (DataAccess.IsSqlServerRelease)
-        {
-            PublishType = PublishType.Release;
-            PublishDescription = LocaleCore.Sql.SqlServerProd;
+            PublishType = PublishType.DevelopAleksandrov;
+            PublishDescription = LocaleCore.Sql.SqlServerDev;
         }
         else if (DataAccess.IsSqlServerDevelopMorozov)
         {
             PublishType = PublishType.DevelopMorozov;
             PublishDescription = LocaleCore.Sql.SqlServerDev;
+        }
+        else if (DataAccess.IsSqlServerDevelopVs)
+        {
+            PublishType = PublishType.DevelopVs;
+            PublishDescription = LocaleCore.Sql.SqlServerDev;
+        }
+        else if (DataAccess.IsSqlServerReleaseAleksandrov)
+        {
+            PublishType = PublishType.ReleaseAleksandrov;
+            PublishDescription = LocaleCore.Sql.SqlServerProd;
+        }
+        else if (DataAccess.IsSqlServerReleaseMorozov)
+        {
+            PublishType = PublishType.ReleaseMorozov;
+            PublishDescription = LocaleCore.Sql.SqlServerProd;
+        }
+        else if (DataAccess.IsSqlServerReleaseVs)
+        {
+            PublishType = PublishType.ReleaseVs;
+            PublishDescription = LocaleCore.Sql.SqlServerProd;
         }
     }
 

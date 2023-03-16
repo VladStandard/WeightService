@@ -5,9 +5,10 @@
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <FileVersion>0.8.530.0</FileVersion>
     <AssemblyVersion>0.8.530.0</AssemblyVersion>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>latest</LangVersion>
     <Version>0.8.530.0</Version>
+    <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="wwwroot\background.png" />

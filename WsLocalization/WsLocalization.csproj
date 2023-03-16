@@ -3,9 +3,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<Platforms>AnyCPU;x64</Platforms>
+	<Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>latest</LangVersion>
     <Version>0.8.530.0</Version>
+    <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Utils\" />

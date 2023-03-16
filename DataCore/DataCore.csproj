@@ -1,12 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>enable</Nullable>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <AssemblyVersion>0.8.530.0</AssemblyVersion>
     <FileVersion>0.8.530.0</FileVersion>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>latest</LangVersion>
+    <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Resources\exit_1.png" />
@@ -47,20 +48,40 @@
     <ProjectReference Include="..\WsLocalization\WsLocalization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="appsettings.Debug.json">
-      <DependentUpon>appsettings.json</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </None>
+      <None Update="appsettings.DevelopAleksandrov.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+      <None Update="appsettings.DevelopMorozov.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+      <None Update="appsettings.DevelopVS.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
-    <None Update="appsettings.Release.json">
-      <DependentUpon>appsettings.json</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </None>
+      <None Update="appsettings.ReleaseAleksandrov.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+      <None Update="appsettings.ReleaseMorozov.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+      <None Update="appsettings.ReleaseVS.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ZplTemplates\" />

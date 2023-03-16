@@ -27,7 +27,7 @@ dhvsm01 (10.0.24.248)
     SQL:     CREATIO\INS1 + SCALES
     DB:      SCALES
     RDP:     mstsc /v:iis-dev
-    CONFIG:  appsettings.Debug.json -> appsettings.json
+    CONFIG:  appsettings.Develop*.json -> appsettings.json
     IIS:     creatio:5009 + device-test
   Release:   PALYCH (10.0.204.24):  https://device-control.kolbasa-vs.local/
              PALYCH (10.0.204.24):  https://device-control-prod.kolbasa-vs.local/
@@ -35,7 +35,7 @@ dhvsm01 (10.0.24.248)
     SQL:     PALYCH\LUTON
     DB:      ScalesDB
     RDP:     mstsc /v:palych
-    CONFIG:  appsettings.Release.json -> appsettings.json
+    CONFIG:  appsettings.Release*.json -> appsettings.json
     IIS:     palych + device-control
 
 ## BlazorResourcesVs

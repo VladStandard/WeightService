@@ -6,8 +6,9 @@
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2023</Copyright>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>latest</LangVersion>
+    <Configurations>DevelopVS;ReleaseVS;ReleaseMorozov;DevelopMorozov;DevelopAleksandrov;ReleaseAleksandrov</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />

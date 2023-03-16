@@ -27,32 +27,32 @@ public static class BlazorCoreUtils
     {
         public static string Sidebar(BlazorAppSettingsHelper appSettings)
         {
-            if (appSettings.DataAccess.IsSqlServerRelease)
+            if (appSettings.DataAccess.IsSqlServerReleaseVs)
                 return "SidebarRelease";
-            if (appSettings.DataAccess.IsSqlServerDevelop)
+            if (appSettings.DataAccess.IsSqlServerDevelopVs)
                 return "SidebarDebug";
             return "SidebarDefault";
         }
         public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
         public static string RadzenPanelMenu(BlazorAppSettingsHelper appSettings)
         {
-            if (appSettings.DataAccess.IsSqlServerRelease)
+            if (appSettings.DataAccess.IsSqlServerReleaseVs)
                 return "RadzenPanelMenuRelease";
-            return appSettings.DataAccess.IsSqlServerDevelop 
+            return appSettings.DataAccess.IsSqlServerDevelopVs 
 	            ? "RadzenPanelMenuDebug" : "RadzenPanelMenuDefault";
         }
         public static string RadzenPanelMenuItem(BlazorAppSettingsHelper appSettings)
         {
-            if (appSettings.DataAccess.IsSqlServerRelease)
+            if (appSettings.DataAccess.IsSqlServerReleaseVs)
                 return "RadzenPanelMenuItemRelease";
-            return appSettings.DataAccess.IsSqlServerDevelop 
+            return appSettings.DataAccess.IsSqlServerDevelopVs 
 	            ? "RadzenPanelMenuItemDebug" : "RadzenPanelMenuItemDefault";
         }
         public static string RadzenPanelMenuSubItem(BlazorAppSettingsHelper appSettings)
         {
-            if (appSettings.DataAccess.IsSqlServerRelease)
+            if (appSettings.DataAccess.IsSqlServerReleaseVs)
                 return "RadzenPanelMenuSubItemRelease";
-            return appSettings.DataAccess.IsSqlServerDevelop 
+            return appSettings.DataAccess.IsSqlServerDevelopVs 
 	            ? "RadzenPanelMenuSubItemDebug" : "RadzenPanelMenuSubItemDefault";
         }
     }

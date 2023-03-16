@@ -5,10 +5,11 @@
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2023</Copyright>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU;x64;x86</Platforms>
     <FileVersion>0.8.530.0</FileVersion>
     <AssemblyVersion>0.8.530.0</AssemblyVersion>
     <LangVersion>latest</LangVersion>
+    <Configurations>DevelopVS;ReleaseMorozov;ReleaseVS;DevelopMorozov;DevelopAleksandrov;ReleaseAleksandrov</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />

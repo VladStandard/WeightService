@@ -18,9 +18,9 @@ jobs:
       - name: Checkout to the repository
         uses: actions/checkout@v3
 
-      - name: setup-msbuild
-        uses: microsoft/setup-msbuild@v1
-
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+  
       - name: Setup Nuget Cache
         uses: actions/cache@v3
         with:
@@ -28,11 +28,12 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
+      
       - name: Install dependencies
         run: nuget restore WeightService2022.sln
 
-      - name: Build
-        run: msbuild WeightService2022.sln
+      - name: Build app for release
+        run: msbuild WeightService2022.sln -t:rebuild -verbosity:diag -property:Configuration=ReleaseX64
       
       - name: Tests
         run: | #dotnet test WeightService2022.sln --no-restore --verbosity normal

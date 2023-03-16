@@ -112,13 +112,13 @@ public class DataCoreHelper
                 action.Invoke();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(PublishType.Develop))
+            if (publishTypes.Contains(PublishType.DevelopVs))
             {
                 SetupDevelop(isShowSql);
                 action.Invoke();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(PublishType.Release))
+            if (publishTypes.Contains(PublishType.ReleaseVs))
             {
                 SetupRelease(isShowSql);
                 action.Invoke();
@@ -167,7 +167,7 @@ public class DataCoreHelper
                     Assert.IsTrue(validationResult.IsValid);
                 }
             }
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
 	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new() =>
@@ -199,7 +199,7 @@ public class DataCoreHelper
                     Assert.IsNotEmpty(xml);
                 }
             }
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
 	public string GetSqlPropertyAsString<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()
