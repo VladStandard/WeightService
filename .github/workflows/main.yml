@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - preview
     paths:
       - '**.csproj'
       - '**.razor'
@@ -32,5 +33,15 @@ jobs:
 
       - name: Build
         run: msbuild WeightService2022.sln
-#      - name: Tests
-#        run: dotnet test WeightService2022.sln --no-restore --verbosity normal
+      
+      - name: Tests
+        run: | #dotnet test WeightService2022.sln --no-restore --verbosity normal
+            dotnet test BlazorCoreTests/BlazorCoreTests.csproj --no-restore --verbosity normal
+            dotnet test BlazorDeviceControlTests/BlazorDeviceControlTests.csproj --no-restore --verbosity normal
+            #dotnet test DataCoreTests/DataCoreTests.csproj --no-restore --verbosity normal
+            #dotnet test WebApiTerra1000Tests/WebApiTerra1000Tests.csproj --no-restore --verbosity normal
+            dotnet test WsScheduleTests/WsScheduleTests.csproj --no-restore --verbosity normal
+            #dotnet test WsStorageContextTests/WsStorageContextTests.csproj --no-restore --verbosity normal
+            #dotnet test WsStorageCoreTests/WsStorageCoreTests.csproj --no-restore --verbosity normal
+            #dotnet test WsWebApiScalesTests/WsWebApiScalesTests.csproj --no-restore --verbosity normal
+            #dotnet test WsWeightTests/WsWeightTests.csproj --no-restore --verbosity normal
