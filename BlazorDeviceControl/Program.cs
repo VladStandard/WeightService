@@ -4,13 +4,14 @@
 using BlazorDownloadFile;
 using DataCore.Files;
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 #region Add
 
-// Add services to the container.
+
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
 builder.Services.AddAuthorization(options => options.FallbackPolicy = options.DefaultPolicy);
 
@@ -24,18 +25,21 @@ builder.Services.AddBlazorDownloadFile();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 
+
 #endregion
 
 #region AddScoped
-// Inject.
-//builder.Services.AddSingleton<JsonSettingsBase>();
-//builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+
+
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+builder.Services.AddScoped<IUserRightsService, UserRightsService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<Radzen.DialogService>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddScoped<IFileDownload, FileDownload>();
+
 
 #endregion
 
@@ -57,10 +61,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-// Authentication & Authorization after app.UseRouting().
-// app.UseAuthentication();
-// app.UseAuthorization();
-// Last step.
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 JsonSettingsHelper.Instance.SetupWebApp(app.Environment.ContentRootPath, nameof(BlazorDeviceControl));

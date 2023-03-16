@@ -1,0 +1,34 @@
+﻿@using DataCore.Sql.TableScaleModels.Devices
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<DeviceModel>
+@page "/section/devices"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorSectionReload
+  TItem="@DeviceModel"
+  Title="@LocaleCore.DeviceControl.SectionHosts"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
+
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@DeviceModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@DeviceModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetLoginDt()" Width="15%"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetTypePrettyName()"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetIpv4()"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetMacAddress()"/>
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

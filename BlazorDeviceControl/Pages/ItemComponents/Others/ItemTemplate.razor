@@ -1,0 +1,57 @@
+@using DataCore.Sql.TableScaleModels.Templates
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentItemBase<TemplateModel>
+@page "/item/template"
+@page "/item/template/new"
+@page "/item/template/{IdentityId:long}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorItemReload TItem="@TemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@TemplateModel" SqlItem="@SqlItem"/>
+  <tr>
+    <td>@LocaleCore.Table.Title</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Title"/>
+    </td>
+    <td>@LocaleCore.Table.CategoryName</td>
+    <td>
+      @if (TemplateCategories is null)
+      {
+        <RadzenTextBox Style="width: 100%;" ReadOnly=true Value=""/>
+        <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px"/>
+      }
+      else
+      {
+        <MudSelectLocal @bind-Value="@SqlItemCast.CategoryId">
+          @foreach (TypeModel<string> category in TemplateCategories)
+          {
+            <MudSelectItem Value=@category.Value>@category.Name</MudSelectItem>
+          }
+        </MudSelectLocal>
+      }
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.ImageData</td>
+    <td colspan="3">
+      <RadzenTextArea
+        Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+        Rows="18"
+        @bind-Value="@(SqlItemCast.Data)"/>
+    </td>
+  </tr>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemDates SqlItem="@SqlItem"/>
+<RazorItemActions
+  TItem="@TemplateModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+

@@ -1,0 +1,29 @@
+﻿@using DataCore.Sql.TableScaleModels.PrintersTypes
+@inherits RazorComponentItemBase<PrinterTypeModel>
+@page "/item/printer_type"
+@page "/item/printer_type/new"
+@page "/item/printer_type/{IdentityId:long}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorItemReload TItem="@PrinterTypeModel" Title="@LocaleCore.Print.Type"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@PrinterTypeModel" SqlItem="@SqlItem"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td colspan="3">
+      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
+    </td>
+  </tr>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemDates SqlItem="@SqlItem"/>
+<RazorItemActions
+  TItem="@PrinterTypeModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

@@ -28,6 +28,7 @@ using DataCore.Sql.TableScaleModels.WorkShops;
 using Radzen;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using BlazorCore.Utils;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -347,10 +348,9 @@ public partial class RazorComponentBase
 
     protected async Task SqlItemNewAsync<TItem>() where TItem : SqlTableBase, new()
 	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-		RunActionsWithQeustion(LocaleCore.Table.TableNew, GetQuestionAdd(), () =>
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        RunActionsWithQeustion(LocaleCore.Table.TableNew, GetQuestionAdd(), () =>
 		{
 			SqlItem = SqlItemNew<TItem>();
 			SetRouteItemNavigate(SqlItem);
@@ -359,7 +359,7 @@ public partial class RazorComponentBase
 
 	protected async Task SqlItemCopyAsync()
 	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		if (SqlItem is null)
@@ -377,7 +377,7 @@ public partial class RazorComponentBase
 
     protected async Task SqlItemMarkAsync()
 	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		if (SqlItem is null)
@@ -394,7 +394,7 @@ public partial class RazorComponentBase
 
 	protected async Task SqlItemDeleteAsync()
 	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		if (SqlItem is null)
@@ -411,7 +411,7 @@ public partial class RazorComponentBase
 
 	protected async Task SqlItemPrinterResourcesClear(PrinterModel printer)
 	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
@@ -436,7 +436,7 @@ public partial class RazorComponentBase
 
 	protected async Task SqlItemPrinterResourcesLoad(PrinterModel printer, string fileType)
 	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesLoadTtf, GetQuestionAdd(), () =>

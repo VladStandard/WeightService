@@ -1,0 +1,38 @@
+﻿@using DataCore.Sql.TableScaleModels.Plus
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<PluModel>
+@page "/section/plus"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorSectionReload
+  TItem="@PluModel"
+  Title="@LocaleCore.DeviceControl.SectionPlus"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@PluModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@PluModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="25%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Plu.GetNumber()" Width="15%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Plu.GetCode()" Width="15%" />
+      <RadzenDataGridColumn TextAlign="@TextAlign.Center" Width="5%" Title="@LocaleCore.Table.Weighted">
+        <Template Context="itemCast">
+          <RadzenCheckBox Disabled="true" ReadOnly="true" TValue="bool" @bind-Value="@itemCast.IsCheckWeight"/>
+        </Template>
+      </RadzenDataGridColumn>
+     <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Plu.GetShelfLifeDays()" Width="10%" />
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

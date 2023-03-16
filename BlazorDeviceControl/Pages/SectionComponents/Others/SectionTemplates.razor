@@ -1,0 +1,40 @@
+﻿@using DataCore.Sql.TableScaleModels.Templates
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<TemplateModel>
+@page "/section/templates"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorSectionReload
+  TItem="@TemplateModel"
+  Title="@LocaleCore.DeviceControl.SectionTemplates"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
+
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@TemplateModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@TemplateModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn TItem="@TemplateModel" Property="CategoryId" TextAlign="@TextAlign.Center"
+                              Title="@LocaleCore.Table.CategoryName" Width="15%"/>
+      <RadzenDataGridColumn TItem="@TemplateModel" Title="@LocaleCore.Table.Title" Width="60%" SortProperty="Title">
+        <Template Context="itemCast">
+          <RadzenLink Style="width: 100%; margin-left: 0; "
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{itemCast.IdentityValueId}")
+                        Text="@itemCast.Title" />
+          </Template>
+        </RadzenDataGridColumn>
+      <RadzenGridColumn TItem="@TemplateModel" Property="ImageData.Info" Title="@LocaleCore.Table.ImageDataInfo"
+                        Type="string" Width="25%"/>
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

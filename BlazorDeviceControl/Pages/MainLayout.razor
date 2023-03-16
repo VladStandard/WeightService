@@ -1,0 +1,33 @@
+﻿@inherits RazorComponentBase
+
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<RadzenDialog/>
+<RadzenTooltip/>
+<RadzenContextMenu/>
+<RadzenNotification/>
+
+<div class="page">
+  <div class="@BlazorCoreUtils.GetCssName.Sidebar(BlazorAppSettings)">
+    <NavMenu/>
+  </div>
+
+  <div class="main">
+    <div class="top-row px-4 auth">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <RadzenMenu Style="margin-left: -20px; margin-top: 0; align-content: center; background-color: transparent; ">
+          <RadzenMenuItem
+              Icon="people"
+              Style="background-color: transparent;"
+              Text=@($"{User?.Identity?.Name}")
+              Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
+        </RadzenMenu>
+      </div>
+    </div>
+    <div class="content px-4" style="margin: -15px -15px -15px -25px;background-color: transparent; ">
+      @Body
+    </div>
+  </div>
+</div>

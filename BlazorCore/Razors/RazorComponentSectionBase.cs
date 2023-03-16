@@ -63,7 +63,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
 
     protected async Task SqlItemEditAsync()
     {
-        if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
         RunActionsSafe(string.Empty, () => { SetRouteItemNavigate(SqlItem); });
@@ -79,8 +79,8 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
     
     protected async Task SqlItemEditAsync(TItem item)
 	{
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		RunActionsSafe(string.Empty, () =>
 		{
@@ -100,13 +100,19 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
 			new() { Text = locale.Open, Value = ContextMenuAction.Open },
 			new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
 		};
-		if ((UserSettings?.AccessRightsIsWrite == true || UserSettings?.AccessRightsIsAdmin == true) &&
-            (ButtonSettings?.IsShowDelete == true || ButtonSettings?.IsShowMark == true))
-		{
-			contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
-			contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
-		}
-		ContextMenuService?.Open(args, contextMenuItems, (e) => ParseContextMenuActions(e, args));
+        if (User?.IsInRole(UserAccessStr.Write) == true)
+        {
+            if (ButtonSettings?.IsShowMark == true)
+            {
+                contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
+            }
+            if (ButtonSettings?.IsShowDelete == true)
+            {
+                contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
+            }
+            return;
+        }
+        ContextMenuService?.Open(args, contextMenuItems, (e) => ParseContextMenuActions(e, args));
 	}
 	
 	protected void ParseContextMenuActions(MenuItemEventArgs e, DataGridCellMouseEventArgs<TItem> args) 

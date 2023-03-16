@@ -1,0 +1,49 @@
+﻿@using DataCore.Sql.TableScaleModels.WorkShops
+@using DataCore.Sql.TableScaleModels.ProductionFacilities
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentItemBase<WorkShopModel>
+@page "/item/workshop"
+@page "/item/workshop/new"
+@page "/item/workshop/{IdentityId:long}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorItemReload TItem="@WorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@WorkShopModel" SqlItem="@SqlItem"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td colspan="3">
+      <RadzenTextBox Style="width: 100%; text-align: left;"
+                     Disabled="false" ReadOnly="false"
+                     TValue="string" @bind-Value="@SqlItemCast.Name"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <RadzenLink Style="width: 100%; margin-left: 0; "
+                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, SqlItemCast.ProductionFacility, SqlItemCast.ProductionFacility.IdentityValueId)"
+                  Text="@LocaleCore.Table.ProductionFacility"/>
+    </td>
+    <td colspan="3">
+      <MudSelectLocal @bind-Value="@SqlItemCast.ProductionFacility">
+        @foreach (ProductionFacilityModel item in DataContext.ProductionFacilities)
+        {
+          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+        }
+      </MudSelectLocal>
+    </td>
+  </tr>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemDates SqlItem="@SqlItem"/>
+
+<RazorItemActions
+  TItem="@WorkShopModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

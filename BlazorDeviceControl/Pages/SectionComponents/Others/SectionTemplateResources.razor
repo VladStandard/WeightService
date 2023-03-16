@@ -1,0 +1,32 @@
+@using DataCore.Sql.TableScaleModels.TemplatesResources
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<TemplateResourceModel>
+@page "/section/templates_resources"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorSectionReload
+  TItem="@TemplateResourceModel"
+  Title="@LocaleCore.DeviceControl.SectionTemplateResources"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
+
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@TemplateResourceModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+      <TItemContent TItem="@TemplateResourceModel">
+          <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+          <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataType()" Width="20%" />
+          <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="55%" />
+          <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataSize()" Width="20%" />
+      </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

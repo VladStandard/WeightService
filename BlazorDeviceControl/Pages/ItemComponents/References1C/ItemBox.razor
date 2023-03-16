@@ -1,0 +1,36 @@
+﻿@using DataCore.Sql.TableScaleModels.Boxes
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentItemBase<BoxModel>
+@page "/item/box"
+@page "/item/box/new"
+@page "/item/box/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorItemReload TItem="BoxModel" Title="@LocaleCore.DeviceControl.ItemBox"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="BoxModel" SqlItem="@SqlItem"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%;" @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@LocaleCore.Table.Weight</td>
+    <td>
+      <MudNumericLocal @bind-Value="@SqlItemCast.Weight"/>
+    </td>
+  </tr>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemDates SqlItem="@SqlItem"/>
+
+<RazorItemActions
+  TItem="@BoxModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

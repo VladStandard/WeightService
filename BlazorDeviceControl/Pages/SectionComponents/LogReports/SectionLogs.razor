@@ -1,0 +1,16 @@
+﻿@using DataCore.Sql.Xml
+@using DataCore.Sql.TableScaleModels.LogsTypes
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<LogQuickModel>
+@page "/section/logs"
+@attribute [Authorize(Roles = UserAccessStr.Admin)]
+
+<MudSelectLocal @bind-Value="@CurrentType">
+  <MudSelectItem Value=@LogTypeNew>All</MudSelectItem>
+  @foreach (LogTypeModel logType in LogTypes)
+  {
+    <MudSelectItem Value=@logType>@logType.Icon</MudSelectItem>
+  }
+</MudSelectLocal>
+
+<SectionLogTable CurrentType="@CurrentType"/>

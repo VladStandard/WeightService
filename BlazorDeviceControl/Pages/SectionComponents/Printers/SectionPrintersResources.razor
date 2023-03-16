@@ -1,0 +1,31 @@
+@using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<PrinterResourceFkModel>
+@page "/section/printers_resources"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorSectionReload
+  TItem="@PrinterResourceFkModel"
+  Title="@LocaleCore.Print.Resources"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@PrinterResourceFkModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@PrinterResourceFkModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.PrinterResource.GetPrinter()" Width="32%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.PrinterResource.GetName()" Width="31%" />
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

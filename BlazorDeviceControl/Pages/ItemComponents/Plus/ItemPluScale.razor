@@ -1,0 +1,62 @@
+﻿@using DataCore.Sql.TableScaleModels.Plus
+@using DataCore.Sql.TableScaleModels.Scales
+@using DataCore.Sql.TableScaleModels.PlusScales
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentItemBase<PluScaleModel>
+@page "/item/plu_scale"
+@page "/item/plu_scale/new"
+@page "/item/plu_scale/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorItemReload TItem="@PluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@PluScaleModel" SqlItem="@SqlItem"/>
+  <tr>
+    <td>@LocaleCore.Table.IsActive</td>
+    <td>
+      <RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsActive"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <RadzenLink
+        Style="width: 100%; margin-left: 0;"
+        Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.IdentityValueId)"
+        Text="@LocaleCore.Table.Scale"/>
+    </td>
+    <td>
+      <MudSelectLocal ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Scale">
+        @foreach (ScaleModel item in DataContext.Scales)
+        {
+          <MudSelectItem Value=@item>@item.Description</MudSelectItem>
+        }
+      </MudSelectLocal>
+    </td>
+    <td>
+      <RadzenLink Style="width: 100%; margin-left: 0;"
+                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)"
+                  Text="@LocaleCore.Table.Plu"/>
+    </td>
+    <td>
+      <MudSelectLocal ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Plu">
+        @foreach (PluModel item in DataContext.Plus)
+        {
+          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+        }
+      </MudSelectLocal>
+    </td>
+  </tr>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemDates SqlItem="@SqlItem"/>
+
+<RazorItemActions
+  TItem="@PluScaleModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

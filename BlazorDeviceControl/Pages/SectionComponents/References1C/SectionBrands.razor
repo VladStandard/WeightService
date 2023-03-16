@@ -1,0 +1,50 @@
+﻿@using DataCore.Sql.TableScaleModels.Brands
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<BrandModel>
+@page "/section/brands"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorSectionReload
+  TItem="@BrandModel"
+  Title="@LocaleCore.DeviceControl.SectionBrands"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@BrandModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@BrandModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.ChangeDt" Width="12%">
+        <Template Context="itemCast">
+          <RadzenLink
+            Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
+            Text="@(StringUtils.FormatDtRus(itemCast.ChangeDt, true))"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.Name" Width="42%">
+        <Template Context="itemCast">
+          <RadzenLink
+            Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
+            Text="@itemCast.Name"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.Code" Width="41%">
+        <Template Context="itemCast">
+          <RadzenLink
+            Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
+            Text="@itemCast.Code"/>
+        </Template>
+      </RadzenDataGridColumn>
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

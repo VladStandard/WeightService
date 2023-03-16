@@ -1,0 +1,31 @@
+﻿@using DataCore.Sql.TableScaleModels.Bundles
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<BundleModel>
+@page "/section/bundles"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorSectionReload
+  TItem="@BundleModel"
+  Title="@LocaleCore.DeviceControl.SectionBundles"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@BundleModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@BundleModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Bundle.GetName()" Width="75%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Bundle.GetWeight()" />
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

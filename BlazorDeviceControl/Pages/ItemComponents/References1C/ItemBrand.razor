@@ -1,0 +1,39 @@
+﻿@using DataCore.Sql.TableScaleModels.Brands
+@inherits RazorComponentItemBase<BrandModel>
+@page "/item/brand"
+@page "/item/brand/new"
+@page "/item/brand/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorItemReload TItem="@BrandModel" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody TItem="@BrandModel" SqlItem="@SqlItem"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: left; background-color: transparent; "
+        ReadOnly="false" @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@LocaleCore.Table.Code</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: left; "
+        ReadOnly="false" @bind-Value="@SqlItemCast.Code"/>
+    </td>
+  </tr>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemDates SqlItem="@SqlItem"/>
+
+<RazorItemActions
+  TItem="@BrandModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+

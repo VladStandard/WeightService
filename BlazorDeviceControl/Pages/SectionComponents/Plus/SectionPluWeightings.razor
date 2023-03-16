@@ -1,0 +1,81 @@
+﻿@using DataCore.Sql.TableScaleModels.PlusWeighings
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<PluWeighingModel>
+@page "/section/plu_weighings"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorSectionReload
+  TItem="@PluWeighingModel"
+  Title="@LocaleCore.DeviceControl.SectionPlusWeighings"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+@if (IsSqlSectionGet == false)
+{
+  <Preloader />
+}
+else
+{
+  <RadzenDataGridLocal
+    @bind-Value="@SelectedRow"
+    TItem="@PluWeighingModel"
+    Data="@SqlSectionCast"
+    CellContextMenu="@OnCellContextMenu"
+    RowSelect="@SqlItemSetAsync"
+    RowRender="@RowRender"
+    RowDoubleClick="@SqlItemEditAsync">
+    <Columns>
+      <TItemContent TItem="@PluWeighingModel">
+        <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+        <RadzenDataGridColumn TItem="@PluWeighingModel" Width="12%" Title="@LocaleCore.Table.ChangeDt" TextAlign="@TextAlign.Center">
+          <Template Context="itemCast">
+            <RadzenLink
+              Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.IdentityValueUid}")
+              Text="@(StringUtils.FormatDtRus(itemCast.ChangeDt, true))"/>
+          </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="@PluWeighingModel" Width="22%" Title="@LocaleCore.Table.Scale" TextAlign="@TextAlign.Left">
+          <Template Context="itemCast">
+            <RadzenLink
+              Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.IdentityValueUid}")
+              Text="@(itemCast.PluScale.Scale.Description)"/>
+          </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="@PluWeighingModel" Width="13%" Title="@LocaleCore.Table.Host" TextAlign="@TextAlign.Left">
+          <Template Context="itemCast">
+            @if (DataAccess.GetItemDeviceNullable(itemCast.PluScale.Scale) is { } device)
+            {
+              <RadzenLink
+                Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.IdentityValueUid}")
+                Text=@device.Name/>
+            }
+          </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="@PluWeighingModel" Width="18%" Title="@LocaleCore.Table.Plu" TextAlign="@TextAlign.Left">
+          <Template Context="itemCast">
+            <RadzenLink
+              Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.IdentityValueUid}")
+              Text="@(itemCast.PluScale.Plu.Name)"/>
+          </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="@PluWeighingModel" Width="10%" Title="@LocaleCore.Table.BundleFkWeightTare" TextAlign="@TextAlign.Center">
+          <Template Context="itemCast">
+            <RadzenText
+              TextStyle="@TextStyle.Body2"
+              Text="@itemCast.WeightTare.ToString(CultureInfo.InvariantCulture)"/>
+          </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="@PluWeighingModel" Width="10%" Title="@LocaleCore.Table.WeightNetto" TextAlign="@TextAlign.Center">
+          <Template Context="itemCast">
+            <RadzenText
+              TextStyle="@TextStyle.Body2"
+              Text="@itemCast.NettoWeight.ToString(CultureInfo.InvariantCulture)"/>
+          </Template>
+        </RadzenDataGridColumn>
+      </TItemContent>
+    </Columns>
+  </RadzenDataGridLocal>
+}

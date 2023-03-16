@@ -1,0 +1,222 @@
+﻿@using BlazorDeviceControl.Pages.ItemComponents
+@inherits RazorComponentBase
+@page "/system/appinfo"
+@attribute [Authorize(Roles = UserAccessStr.Admin)]
+
+<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
+<MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
+<RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTabelHeadStyleInfo()"/>
+<tbody>
+<tr>
+  <td>@LocaleCore.Strings.VerApp</td>
+  <td colspan="2">
+    @if (string.IsNullOrEmpty(VerApp))
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <MudElement Class="ma-0">@VerApp</MudElement>
+    }
+  </td>
+</tr>
+<tr>
+  <td>@LocaleCore.Strings.VerLibBlazorAndDataCore</td>
+  <td>
+    @if (string.IsNullOrEmpty(VerLibDataCore))
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <MudElement Class="ma-0">@VerLibBlazorCore</MudElement>
+    }
+  </td>
+  <td>
+    @if (string.IsNullOrEmpty(VerLibDataCore))
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <MudElement Class="ma-0">@VerLibDataCore</MudElement>
+    }
+  </td>
+</tr>
+<tr>
+  <td>@LocaleCore.Strings.HostName</td>
+  <td colspan="2">
+    @if (string.IsNullOrEmpty(Environment.MachineName))
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <MudElement Class="ma-0">@Environment.MachineName</MudElement>
+    }
+  </td>
+</tr>
+<tr>
+  <td>@LocaleCore.Sql.SqlServer</td>
+  <td colspan="2">
+    @if (string.IsNullOrEmpty(DataAccess.JsonSettings.Local.Sql.DataSource))
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.Sql.DataSource</MudElement>
+    }
+  </td>
+</tr>
+<tr>
+  <td>
+    @LocaleCore.Sql.SqlDb
+  </td>
+  <td colspan="2">
+    @if (string.IsNullOrEmpty(DataAccess.JsonSettings.Local.Sql.InitialCatalog))
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.Sql.InitialCatalog</MudElement>
+    }
+  </td>
+</tr>
+<tr>
+  <td>
+    @if (DataAccess.JsonSettings.Local.Sql.PersistSecurityInfo)
+    {
+      @LocaleCore.System.SystemWindowsUser
+    }
+    else
+    {
+      @LocaleCore.Sql.SqlUser
+    }
+  </td>
+  <td colspan="2">
+    @if (string.IsNullOrEmpty(DataAccess.JsonSettings.Local.Sql.UserId))
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.Sql.UserId</MudElement>
+    }
+  </td>
+</tr>
+<tr>
+  <td>@LocaleCore.Strings.DbAndMemory</td>
+  <td >
+    @if (DbCurSize == 0)
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <MudElement Class="ma-0">@DbCurSizeAsString</MudElement>
+    }
+  </td>
+  <td>
+    <MudElement Class="ma-0">@BlazorAppSettings.MemoryInfo</MudElement>
+  </td>
+</tr>
+<tr>
+  <td>@LocaleCore.Strings.DbAndMemoryProgressBar</td>
+  <td>
+    @if (DbCurSize == 0)
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <RadzenProgressBar class="RadzenProgressBar" Value=@DbFillSize ShowValue="true"/>
+    }
+  </td>
+  <td>
+    <RadzenProgressBar class="RadzenProgressBar" Value="@BlazorAppSettings.MemoryFillSize" ShowValue="true"/>
+  </td>
+</tr>
+<tr style="height: 200px; ">
+  <td>@LocaleCore.Strings.DbAndMemoryGauge</td>
+  <td>
+    @if (DbFillSize == 0)
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <RadzenRadialGauge Style="width: 250px; height: 250px;">
+        <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step=1024 Min=0 Max=@DbMaxSize
+                                TickPosition=@GaugeTickPosition.Inside>
+          <RadzenRadialGaugeScalePointer Length=0.7 ShowValue=true Value=@DbCurSize>
+            <Template Context="pointer">
+              <h4>
+                @pointer.Value<sup>MB</sup>
+              </h4>
+            </Template>
+          </RadzenRadialGaugeScalePointer>
+          <RadzenRadialGaugeScaleRange From="0" To="75" Fill="green"/>
+          <RadzenRadialGaugeScaleRange From="75" To="90" Fill="orange"/>
+          <RadzenRadialGaugeScaleRange From="90" To="100" Fill="red"/>
+        </RadzenRadialGaugeScale>
+      </RadzenRadialGauge>
+    }
+  </td>
+  <td>
+    @if (BlazorAppSettings.Memory.MemorySize.PhysicalTotal is null)
+    {
+      <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
+    }
+    else
+    {
+      <RadzenRadialGauge Style="width: 250px; height: 250px; ">
+        <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step=1024 Min=0
+                                Max=@BlazorAppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes
+                                TickPosition=@GaugeTickPosition.Inside>
+          <RadzenRadialGaugeScalePointer Length=0.7 ShowValue=true
+                                         Value=@BlazorAppSettings.Memory.MemorySize.PhysicalAllocated.MegaBytes>
+            <Template Context="pointer">
+              <h4>
+                @pointer.Value<sup>MB</sup>
+              </h4>
+            </Template>
+          </RadzenRadialGaugeScalePointer>
+          <RadzenRadialGaugeScaleRange From="0" To="75" Fill="green"/>
+          <RadzenRadialGaugeScaleRange From="75" To="90" Fill="orange"/>
+          <RadzenRadialGaugeScaleRange From="90" To="100" Fill="red"/>
+        </RadzenRadialGaugeScale>
+      </RadzenRadialGauge>
+    }
+  </td>
+</tr>
+<tr>
+  <td>@LocaleCore.Settings.SectionAndItemRowsCount</td>
+  <td>
+    <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.SectionRowsCount</MudElement>
+  </td>
+  <td>
+    <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.ItemRowsCount</MudElement>
+  </td>
+</tr>
+<tr>
+  <td>@LocaleCore.Settings.SelectTopRowsCount</td>
+  <td colspan="2">
+    <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.SelectTopRowsCount</MudElement>
+  </td>
+</tr>
+<tr>
+  <td>@LocaleCore.Settings.Version</td>
+  <td colspan="2">
+    <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.Version</MudElement>
+  </td>
+</tr>
+<tr>
+  <td>@LocaleCore.Settings.AllowedHosts</td>
+  <td colspan="2">
+    <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.AllowedHosts</MudElement>
+  </td>
+</tr>
+</tbody>
+</MudSimpleTable>

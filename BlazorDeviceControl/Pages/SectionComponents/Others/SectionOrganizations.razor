@@ -1,0 +1,31 @@
+﻿@using DataCore.Sql.TableScaleModels.Organizations
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<OrganizationModel>
+@page "/section/organizations"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+
+<RazorSectionReload
+  TItem="@OrganizationModel"
+  Title="@LocaleCore.DeviceControl.SectionOrganizations"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@OrganizationModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSetAsync"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@OrganizationModel">
+      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="75%" />
+      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Organization.GetGln()" />
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

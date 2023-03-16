@@ -1,0 +1,49 @@
+﻿@typeparam TItem
+@inherits RazorComponentSectionBase<TItem>
+
+<MudPaper Outlined="true" Class="mb-2">
+  <MudToolBar Dense="true">
+    <RadzenLabel Style="font-size: 15px;" Text="@Title"/>
+      @if (SqlCrudConfigSection.IsGuiShowFilterOnlyTop)
+      {
+      <RadzenCheckBox TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop Style="margin-left: 20px"
+                      Change=@OnSectionUpdate />
+        <RadzenLabel Style="font-size: 13px; margin-left: 5px"
+                     Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(DataAccess.JsonSettings.Local.SelectTopRowsCount) />
+      }
+      @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
+      {
+        <RadzenCheckBox TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowMarked
+                        Style="margin-left: 20px "
+                        Change=@OnSectionUpdate  />
+        <RadzenLabel Style="font-size: 13px; margin-left: 5px" Text=@LocaleCore.Action.ActionIsShowMarked />
+      }
+    <RadzenButton
+        id="button_loader"
+        Icon="refresh"
+        ButtonStyle="@ButtonStyle.Primary"
+        Style="margin-left: 20px; width: 60px;"
+        Size="@ButtonSize.Small"
+        Disabled="@(!DataAccess.IsConnected())"
+        Click="@OnSectionUpdate" />
+      @if (ButtonSettings is not null)
+      {
+        @if (ButtonSettings.IsShowNew)
+        {
+          <AuthorizeView Roles="@UserAccessStr.Write">
+            <RadzenButton
+              Icon="add_circle_outline"
+              ButtonStyle=@ButtonStyle.Primary
+              Style="margin-left: 15px; width: 60px;"
+              Size=@ButtonSize.Small
+              Click="@(_ => SqlItemNewAsync<TItem>())"
+              />
+          </AuthorizeView>
+        }
+      }
+      @if (SqlCrudConfigSection.IsGuiShowItemsCount)
+      {
+        <RadzenLabel Style="margin-left: 20px; font-size: 13px; " Text=@SqlListCountResult />
+      }
+  </MudToolBar>
+</MudPaper>
