@@ -768,7 +768,16 @@ public class UserSessionHelper : BaseViewModel
         pluLabel.Zpl = DataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = DataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
         pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
-        _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, zpl =>
+        _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
+
+        // Save.
+        DataAccess.Save(pluLabel);
+
+        return pluLabel;
+    }
+
+    private Action<string> ActionReplaceStorageMethod(PluLabelModel pluLabel) =>
+        zpl =>
         {
             // Patch for using table `PLUS_STORAGE_METHODS_FK`.
             if (PluStorageMethodFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
@@ -778,13 +787,7 @@ public class UserSessionHelper : BaseViewModel
                 zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
             }
             pluLabel.Zpl = zpl;
-        });
-
-        // Save.
-        DataAccess.Save(pluLabel);
-
-        return pluLabel;
-    }
+        };
 
     private void CreateAndSaveBarCodes(PluLabelModel pluLabel)
     {
