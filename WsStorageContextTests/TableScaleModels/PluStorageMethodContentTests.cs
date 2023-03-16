@@ -29,9 +29,14 @@ internal class PluStorageMethodContentTests
             List<PluModel> plus = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 
-            foreach (PluStorageMethodModel pluStorageMethod in plus.Select(plu => DataCoreTestsUtils.DataCore.DataContext.GetPluStorageMethod(plu)))
+            foreach (PluStorageMethodModel method in plus.Select(plu => DataCoreTestsUtils.DataCore.DataContext.GetPluStorageMethod(plu)))
             {
-                DataCoreTestsUtils.DataCore.AssertSqlValidate(pluStorageMethod, true);
+                DataCoreTestsUtils.DataCore.AssertSqlValidate(method, true);
+            }
+
+            foreach (TemplateResourceModel resource in plus.Select(plu => DataCoreTestsUtils.DataCore.DataContext.GetPluStorageResource(plu)))
+            {
+                DataCoreTestsUtils.DataCore.AssertSqlValidate(resource, true);
             }
 
         }, false, new() { PublishType.Release, PublishType.Develop });

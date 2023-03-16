@@ -5,6 +5,7 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusStorageMethods;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 
@@ -12,13 +13,14 @@ namespace DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 /// Table "PLUS_STORAGE_METHODS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluStorageMethodFkModel)}")]
+[DebuggerDisplay("{nameof(PluStorageMethodFkModel)} | {Plu.Name} | {Method.Name} | {Resource.Name}")]
 public class PluStorageMethodFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual PluModel Plu { get; set; }
     [XmlElement] public virtual PluStorageMethodModel Method { get; set; }
+    [XmlElement] public virtual TemplateResourceModel Resource { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -27,6 +29,7 @@ public class PluStorageMethodFkModel : SqlTableBase
     {
         Plu = new();
         Method = new();
+        Resource = new();
     }
 
     /// <summary>
@@ -38,6 +41,7 @@ public class PluStorageMethodFkModel : SqlTableBase
     {
         Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
         Method = (PluStorageMethodModel)info.GetValue(nameof(Method),  typeof(PluStorageMethodModel));
+        Resource = (TemplateResourceModel)info.GetValue(nameof(Resource),  typeof(TemplateResourceModel));
     }
 
     #endregion
@@ -49,8 +53,9 @@ public class PluStorageMethodFkModel : SqlTableBase
     /// </summary>
     /// <returns></returns>
     public override string ToString() =>
+        $"{nameof(Plu)}: {Plu}. " + 
         $"{nameof(Method)}: {Method}. " +
-        $"{nameof(Plu)}: {Plu}. ";
+        $"{nameof(Resource)}: {Resource}";
 
     public override bool Equals(object obj)
     {
@@ -67,7 +72,8 @@ public class PluStorageMethodFkModel : SqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() && 
         Plu.EqualsDefault() &&
-        Method.EqualsDefault();
+        Method.EqualsDefault() &&
+        Resource.EqualsDefault();
 
     public override object Clone()
     {
@@ -75,6 +81,7 @@ public class PluStorageMethodFkModel : SqlTableBase
         item.CloneSetup(base.CloneCast());
         item.Plu = Plu.CloneCast();
         item.Method = Method.CloneCast();
+        item.Resource = Resource.CloneCast();
         return item;
     }
 
@@ -88,6 +95,7 @@ public class PluStorageMethodFkModel : SqlTableBase
         base.GetObjectData(info, context);
         info.AddValue(nameof(Plu), Plu);
         info.AddValue(nameof(Method), Method);
+        info.AddValue(nameof(Resource), Resource);
     }
 
     public override void FillProperties()
@@ -95,6 +103,7 @@ public class PluStorageMethodFkModel : SqlTableBase
         base.FillProperties();
         Plu.FillProperties();
         Method.FillProperties();
+        Resource.FillProperties();
     }
 
     public override void UpdateProperties(ISqlTable item)
@@ -104,6 +113,7 @@ public class PluStorageMethodFkModel : SqlTableBase
         if (item is not PluStorageMethodFkModel pluStorageMethodFk) return;
         Plu = pluStorageMethodFk.Plu;
         Method = pluStorageMethodFk.Method;
+        Resource = pluStorageMethodFk.Resource;
     }
 
     #endregion
@@ -113,7 +123,8 @@ public class PluStorageMethodFkModel : SqlTableBase
     public virtual bool Equals(PluStorageMethodFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Plu.Equals(item.Plu) &&
-        Method.Equals(item.Method);
+        Method.Equals(item.Method) &&
+        Resource.Equals(item.Resource);
 
     public new virtual PluStorageMethodFkModel CloneCast() => (PluStorageMethodFkModel)Clone();
 

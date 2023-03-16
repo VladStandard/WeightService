@@ -21,5 +21,6 @@ public class PluStorageMethodFkMap : ClassMap<PluStorageMethodFkModel>
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         References(x => x.Plu).Column("PLU_UID").Not.Nullable();
         References(x => x.Method).Column("METHOD_UID").Not.Nullable();
+        References(x => x.Resource).Column("RESOURCE_UID").Not.Nullable();
     }
 }
