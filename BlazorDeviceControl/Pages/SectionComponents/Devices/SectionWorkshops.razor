@@ -18,14 +18,14 @@
   TItem="@WorkShopModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="RowRender"
   RowDoubleClick="SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@WorkShopModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="40%"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.WorkShop.GetProductionFacility()" Width="40%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="40%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ProductionFacility" Property="ProductionFacility.Name" Width="40%" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

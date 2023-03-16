@@ -8,8 +8,8 @@ namespace BlazorDeviceControl.Pages.SectionComponents.Plus;
 public partial class SectionPlusLabels : RazorComponentSectionBase<PluLabelModel>
 {
 	#region Public and private fields, properties, constructor
-
-	public SectionPlusLabels() :base()
+    
+    public SectionPlusLabels() :base()
 	{
         ButtonSettings = new(false, true, false, true, false, false, false);
     }

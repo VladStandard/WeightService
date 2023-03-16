@@ -20,23 +20,16 @@
   TItem="@PrinterModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PrinterModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Printer.GetPrinterType()"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Printer.GetIp()"/>
-      <RadzenGridColumn TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.HttpStatusCode" Type="string" Width="10%">
-        <Template Context="item">
-          <RadzenIcon
-            IconStyle="@IconStyle.Primary"
-            Icon=@(item.HttpStatusCode == HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null") />
-        </Template>
-      </RadzenGridColumn>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Printer.GetMacAddress()"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Print.Type" Property="PrinterType.Name" Width="20%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Print.Ip" Property="Ip" Width="20%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Print.Mac" Property="MacAddress.ValuePrettyLookMinus" Width="20%" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

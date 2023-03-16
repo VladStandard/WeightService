@@ -18,21 +18,21 @@
   TItem="@PluModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PluModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="25%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Plu.GetNumber()" Width="15%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Plu.GetCode()" Width="15%" />
-      <RadzenDataGridColumn TextAlign="@TextAlign.Center" Width="5%" Title="@LocaleCore.Table.Weighted">
-        <Template Context="itemCast">
-          <RadzenCheckBox Disabled="true" ReadOnly="true" TValue="bool" @bind-Value="@itemCast.IsCheckWeight"/>
-        </Template>
-      </RadzenDataGridColumn>
-     <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Plu.GetShelfLifeDays()" Width="10%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" SortProperty="IsCheckWeight" Width="5%">
+              <Template Context="itemCast">
+                <RadzenCheckBox Disabled="true" ReadOnly="true" TValue="bool" @bind-Value="@itemCast.IsCheckWeight"/>
+              </Template>
+            </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="25%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Code" Property="Code" Width="15%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ShelfLifeDaysShort" Property="ShelfLifeDays" Width="10%" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

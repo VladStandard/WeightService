@@ -16,19 +16,19 @@
   TItem="@LogQuickModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@LogQuickModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetCreateDt()" Width="14%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetScale()" Width="17%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetDevice()" Width="13%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetApp()" Width="13%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetVersion()" Width="6%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetIcon()" Width="7%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.LogQuick.GetMessage()" Width="30%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="14%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale" Width="17%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="13%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App" Width="13%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="6%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Icon" Property="Icon" Width="7%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Message" Property="Message" Width="30%" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

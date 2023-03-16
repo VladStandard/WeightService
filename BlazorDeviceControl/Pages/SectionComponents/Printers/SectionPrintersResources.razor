@@ -18,14 +18,14 @@
   TItem="@PrinterResourceFkModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PrinterResourceFkModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.PrinterResource.GetPrinter()" Width="32%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.PrinterResource.GetName()" Width="31%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Printer.Name" Width="32%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Print.TemplateResource" Property="TemplateResource.Name" Width="32%" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

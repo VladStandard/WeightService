@@ -69,10 +69,8 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
         RunActionsSafe(string.Empty, () => { SetRouteItemNavigate(SqlItem); });
     }
 
-    protected async Task SqlItemSetAsync(TItem item)
+    protected void SqlItemSet(TItem item)
     {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
         SelectedRow = new List<TItem>() { item };
         SqlItem = SelectedRow.Last();
     }
@@ -103,14 +101,9 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
         if (User?.IsInRole(UserAccessStr.Write) == true)
         {
             if (ButtonSettings?.IsShowMark == true)
-            {
                 contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
-            }
             if (ButtonSettings?.IsShowDelete == true)
-            {
                 contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
-            }
-            return;
         }
         ContextMenuService?.Open(args, contextMenuItems, (e) => ParseContextMenuActions(e, args));
 	}

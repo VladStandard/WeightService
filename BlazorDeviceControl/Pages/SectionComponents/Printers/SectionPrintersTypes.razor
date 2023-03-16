@@ -18,13 +18,13 @@
   TItem="@PrinterTypeModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PrinterTypeModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="95%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

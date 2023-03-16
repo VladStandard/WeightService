@@ -18,42 +18,18 @@
   TItem="@LogWebFkModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@LogWebFkModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="15%" TextAlign="@TextAlign.Center" Title="@LocaleCore.Table.CreateDt">
-        <Template Context="itemCast">
-          <RadzenText TextStyle="@TextStyle.Body2" Text="@(StringUtils.FormatDtRus(itemCast.LogWebRequest.CreateDt, true, true))"/>
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="10%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Device">
-        <Template Context="itemCast">
-          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.Device.Name"/>
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="15%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.App">
-        <Template Context="itemCast">
-          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.App.Name"/>
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="15%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.LogType">
-        <Template Context="itemCast">
-          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.LogType.Icon"/>
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="40%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.RequestUrl">
-        <Template Context="itemCast">
-          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.LogWebRequest.Url"/>
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@LogWebFkModel" Width="15%" TextAlign="@TextAlign.Left" Title="@LocaleCore.Table.Request">
-        <Template Context="itemCast">
-          <RadzenText TextStyle="@TextStyle.Body2" Text="@itemCast.ToString()"/>
-        </Template>
-      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="LogWebRequest.CreateDt" Width="15%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Device.Name" Width="10%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App.Name" Width="15%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="LogType.Icon" Width="15%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.RequestUrl" Property="LogWebRequest.Url" Width="40%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Request"  Property="ToString()" Width="15%" />
     </TItemContent>
   </Columns>
 </RadzenDataGrid>

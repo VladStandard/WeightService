@@ -18,14 +18,14 @@
   TItem="@ProductionFacilityModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@ProductionFacilityModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="25%"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.ProductionFacility.GetAddress()" Width="70%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Address" Property="Address" Width="70%" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

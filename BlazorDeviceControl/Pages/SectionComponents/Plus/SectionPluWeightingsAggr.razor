@@ -18,43 +18,20 @@
   TItem="@WeithingFactSummaryModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender">
   <Columns>
     <TItemContent TItem="@WeithingFactSummaryModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="15%"
-                            Title="@LocaleCore.Table.WeithingDt">
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WeithingDt" Property="WeithingDate" Width="15%" />
+      <RadzenDataGridColumn TItem="WeithingFactSummaryModel" Title="@LocaleCore.Table.DayOfWeek"
+                            SortProperty="WeithingDate.DayOfWeek"Width="15%">
         <Template Context="itemCast">
-          <RadzenText
-            TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
-            Text="@(StringUtils.FormatDtRus(itemCast.WeithingDate, true))"/>
+          <RadzenText Text="@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek)"/>
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="15%"
-                            Title="@LocaleCore.Table.DayOfWeek">
-        <Template Context="itemCast">
-          <RadzenText
-            TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
-            Text="@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek)"/>
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="15%"
-                            Title="@LocaleCore.Table.Count">
-        <Template Context="itemCast">
-          <RadzenText
-            TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
-            Text="@itemCast.Count.ToString()"/>
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@WeithingFactSummaryModel" Width="55%"
-                            Title="@LocaleCore.Table.Scale">
-        <Template Context="itemCast">
-          <RadzenText
-            TextAlign="@TextAlign.Center" TextStyle="@TextStyle.Body2"
-            Text="@itemCast.Scale"/>
-        </Template>
-      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="Count" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale" Width="55%"/>
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

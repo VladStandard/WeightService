@@ -18,14 +18,14 @@
   TItem="@OrganizationModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@OrganizationModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="75%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Organization.GetGln()" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Gln" Property="Gln" Width="25%" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

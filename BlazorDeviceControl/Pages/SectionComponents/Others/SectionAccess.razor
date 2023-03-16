@@ -18,14 +18,18 @@
   TItem="@AccessModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@AccessModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Access.GetLoginDt()" Width="50%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName(LocaleCore.Table.User)" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Access.GetRights()" Width="25%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="30%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.User" Property="Name" Width="30%"/>
+      <RadzenDataGridColumn TItem="@AccessModel" Title="@LocaleCore.Table.AccessLevel" SortProperty="Rights" Width="30%">
+         <Template Context="itemCast">
+            <RadzenText Text="@DataAccess.GetAccessRightsDescription(itemCast.Rights)" />
+         </Template>
+      </RadzenDataGridColumn>
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

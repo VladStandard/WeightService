@@ -13,5 +13,12 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
 
     #region Public and private methods
 
+    private string ConvertBytes(TemplateResourceModel templateResource)
+    {
+        return templateResource.DataValue.Length > 1024
+            ? $"{templateResource.DataValue.Length / 1024:### ##0} {LocaleCore.Strings.DataSizeKBytes}"
+            : $"{templateResource.DataValue.Length:##0} {LocaleCore.Strings.DataSizeBytes}";
+    }
+
     #endregion
 }

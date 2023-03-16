@@ -18,15 +18,19 @@
   TItem="@TemplateResourceModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
       <TItemContent TItem="@TemplateResourceModel">
-          <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
-          <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataType()" Width="20%" />
-          <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()" Width="55%" />
-          <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.TemplateResource.GetDataSize()" Width="20%" />
+        <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+        <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Property="Type" Width="20%" />
+        <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="55%" />
+        <RadzenDataGridColumn Title="@LocaleCore.Table.Size" SortProperty="DataValue.Length" Width="20%">
+            <Template Context="itemCast">
+              <RadzenText Text="@ConvertBytes(itemCast)" />
+            </Template>
+        </RadzenDataGridColumn>
       </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

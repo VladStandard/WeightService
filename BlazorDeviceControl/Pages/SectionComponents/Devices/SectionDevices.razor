@@ -18,17 +18,21 @@
   TItem="@DeviceModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@DeviceModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetLoginDt()" Width="15%"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Base.GetName()"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetTypePrettyName()"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetIpv4()"/>
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Device.GetMacAddress()"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Width="20%" Sortable="false">
+        <Template Context="itemCast">
+          <RadzenText Text="@GetDevicePrettyName(itemCast)" />
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceIp" Property="Ipv4" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceMac" Property="MacAddress.ValuePrettyLookMinus" Width="20%"/>
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

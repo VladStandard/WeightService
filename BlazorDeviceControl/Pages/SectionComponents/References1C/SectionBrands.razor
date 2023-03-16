@@ -18,33 +18,15 @@
   TItem="@BrandModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@BrandModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.ChangeDt" Width="12%">
-        <Template Context="itemCast">
-          <RadzenLink
-            Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
-            Text="@(StringUtils.FormatDtRus(itemCast.ChangeDt, true))"/>
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.Name" Width="42%">
-        <Template Context="itemCast">
-          <RadzenLink
-            Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
-            Text="@itemCast.Name"/>
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn TItem="@BrandModel" Title="@LocaleCore.Table.Code" Width="41%">
-        <Template Context="itemCast">
-          <RadzenLink
-            Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
-            Text="@itemCast.Code"/>
-        </Template>
-      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ChangeDt" Property="ChangeDt" Width="33%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="43%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Code" Property="Code" Width="33%" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

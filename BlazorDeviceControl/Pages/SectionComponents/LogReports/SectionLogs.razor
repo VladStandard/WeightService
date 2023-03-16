@@ -6,7 +6,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 
 <MudSelectLocal @bind-Value="@CurrentType">
-  <MudSelectItem Value=@LogTypeNew>All</MudSelectItem>
+  <MudSelectItem Value="@LogTypeNew">All</MudSelectItem>
   @foreach (LogTypeModel logType in LogTypes)
   {
     <MudSelectItem Value=@logType>@logType.Icon</MudSelectItem>

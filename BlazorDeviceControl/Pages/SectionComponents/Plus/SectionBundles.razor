@@ -18,14 +18,14 @@
   TItem="@BundleModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSetAsync"
+  RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@BundleModel">
       <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Bundle.GetName()" Width="75%" />
-      <RazorSectionField RazorFieldConfig="@RazorFieldConfigUtils.Bundle.GetWeight()" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.BundleWeight" Property="Weight" />
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

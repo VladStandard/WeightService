@@ -25,5 +25,8 @@ public partial class SectionScalesScreenShots : RazorComponentSectionBase<ScaleS
         base.SetSqlSectionCast();
     }
 
+    private string GetByteLength(ScaleScreenShotModel screenshot) =>
+        DataUtils.GetBytesLength(screenshot.ScreenShot, false);
+    
     #endregion
 }
