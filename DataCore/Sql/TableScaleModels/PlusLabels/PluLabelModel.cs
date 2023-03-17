@@ -3,6 +3,7 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 
@@ -58,7 +59,7 @@ public class PluLabelModel : SqlTableBase
         // This code need for print labels.
         set => _ = value;
     }
-
+    
     /// <summary>
     /// Constructor.
     /// </summary>

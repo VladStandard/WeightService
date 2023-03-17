@@ -87,13 +87,9 @@ public static class DataFormatUtils
 		return xml;
 	}
 
-	public static string XmlReplaceNextLine(string xml)
-	{
-		xml = xml.Replace("|", "\\&");
-		return xml;
-	}
+	public static string XmlReplaceNextLine(string xml) => xml.Replace("|", "\\&");
 
-	public static string XsltTransformation(string xslInput, string? xmlInput)
+    public static string XsltTransformation(string xslInput, string? xmlInput)
 	{
 		if (xmlInput is null || string.IsNullOrEmpty(xmlInput)) return xslInput;
 

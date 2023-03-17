@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - #WS-T-882 GitHub Actions. Настройка тестов
 - #WS-T-884 Решение. Настройка конфигураций
 - #WS-T-886 Решение. Отладка конфигураций
+- #WS-T-853 Шаблоны. Корректировка шаблона TSC 60x150 300dpi шт
 
 ## [0.8.490] - 2023-03-10
 ### Описание обновления:

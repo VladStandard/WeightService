@@ -140,6 +140,7 @@ public class LocaleTable
     public string NameFull => Lang == Lang.English ? "Full name" : "Полное наименование";
     public string Nesting => Lang == Lang.English ? "Nesting" : "Вложенность";
     public string NestingCount => Lang == Lang.English ? "Nesting count" : "Кол-во вложений";
+    public string NestingMeasurement => Lang == Lang.English ? "pc" : "шт";
     public string Nomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";
     public string NomenclatureCode => Lang == Lang.English ? "Nomenclature code" : "Код номенклатуры";
     public string NomenclatureId => Lang == Lang.English ? "Nomenclature ID" : "ID номенклатуры";
