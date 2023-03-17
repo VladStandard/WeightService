@@ -42,7 +42,7 @@ public class TestControllerV2 : WebControllerBase
             sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
             string response = sqlQuery.UniqueResult<string>();
             transaction.Commit();
-            ServiceInfoModel serviceInfo = new(
+            ServiceInfoModel serviceInfo = new(Environment.MachineName,
                 AppVersion.App,
                 AppVersion.Version,
                 StringUtils.FormatDtEng(DateTime.Now, true),

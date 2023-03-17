@@ -307,7 +307,7 @@ public static class DataFormatUtils
 		try
 		{
 			XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-			using var stringWriter = isUtf16 ? new StringWriter() : new StringWriterUtf8Model();
+			using StringWriter stringWriter = isUtf16 ? new StringWriter() : new StringWriterUtf8Model();
 			switch (isAddEmptyNamespace)
 			{
 				case true:
@@ -336,7 +336,7 @@ public static class DataFormatUtils
 	{
 		XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(string) })[0];
 
-		using var stringWriter = isUtf16 ? new StringWriter() : new StringWriterUtf8Model();
+		using StringWriter stringWriter = isUtf16 ? new StringWriter() : new StringWriterUtf8Model();
 
 		switch (isAddEmptyNamespace)
 		{

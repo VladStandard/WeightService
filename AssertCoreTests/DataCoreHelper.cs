@@ -78,9 +78,9 @@ public class DataCoreHelper
 
 	#region Public and private methods
 
-	public void SetupDevelop(bool isShowSql)
+	public void SetupDevelopAleksandrov(bool isShowSql)
 	{
-		JsonSettings.SetupTestsDevelop(Directory.GetCurrentDirectory(),
+		JsonSettings.SetupTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
 			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
@@ -94,33 +94,75 @@ public class DataCoreHelper
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
 
-	private void SetupRelease(bool isShowSql)
-	{
-		DataAccess.JsonSettings.SetupTestsRelease(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
-		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
-	}
+    public void SetupDevelopVs(bool isShowSql)
+    {
+        JsonSettings.SetupTestsDevelopVs(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
+
+    private void SetupReleaseAleksandrov(bool isShowSql)
+    {
+        DataAccess.JsonSettings.SetupTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
+
+    private void SetupReleaseMorozov(bool isShowSql)
+    {
+        DataAccess.JsonSettings.SetupTestsReleaseMorozov(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
+
+    private void SetupReleaseVs(bool isShowSql)
+    {
+        DataAccess.JsonSettings.SetupTestsReleaseVs(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
 
 	public void AssertAction(Action action, bool isShowSql, List<PublishType> publishTypes)
 	{
 		Assert.DoesNotThrow(() =>
 		{
+            if (publishTypes.Contains(PublishType.DevelopAleksandrov))
+            {
+                SetupDevelopAleksandrov(isShowSql);
+                action.Invoke();
+                TestContext.WriteLine();
+            }
             if (publishTypes.Contains(PublishType.DevelopMorozov))
             {
-                SetupDevelop(isShowSql);
+                SetupDevelopMorozov(isShowSql);
                 action.Invoke();
                 TestContext.WriteLine();
             }
             if (publishTypes.Contains(PublishType.DevelopVs))
             {
-                SetupDevelop(isShowSql);
+                SetupDevelopVs(isShowSql);
+                action.Invoke();
+                TestContext.WriteLine();
+            }
+            if (publishTypes.Contains(PublishType.ReleaseAleksandrov))
+            {
+                SetupReleaseAleksandrov(isShowSql);
+                action.Invoke();
+                TestContext.WriteLine();
+            }
+            if (publishTypes.Contains(PublishType.ReleaseMorozov))
+            {
+                SetupReleaseMorozov(isShowSql);
                 action.Invoke();
                 TestContext.WriteLine();
             }
             if (publishTypes.Contains(PublishType.ReleaseVs))
             {
-                SetupRelease(isShowSql);
+                SetupReleaseVs(isShowSql);
                 action.Invoke();
                 TestContext.WriteLine();
             }

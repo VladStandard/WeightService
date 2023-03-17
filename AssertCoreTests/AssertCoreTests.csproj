@@ -1,27 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <Version>0.8.530.0</Version>
+    <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="NSubstitute" Version="4.4.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
     <ProjectReference Include="..\WsLocalization\WsLocalization.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Using Include="WsLocalization.Models" />
   </ItemGroup>
-
 </Project>

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsWebApi.Models;
@@ -8,6 +8,7 @@ public class ServiceInfoModel : SerializeBase
 {
     #region Public and private fields and properties
 
+    public string Server { get; set; } = string.Empty;
     public string App { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string WinCurrentDate { get; set; } = string.Empty;
@@ -15,7 +16,7 @@ public class ServiceInfoModel : SerializeBase
     public string ConnectionString { get; set; } = string.Empty;
     public int ConnectTimeout { get; set; } = 0;
     public string DataSource { get; set; } = string.Empty;
-    public string ServerVersion { get; set; } = string.Empty;
+    public string SqlServerVersion { get; set; } = string.Empty;
     public string Database { get; set; } = string.Empty;
     public ulong PhysicalMegaBytes { get; set; } = 0;
     public ulong VirtualMegaBytes { get; set; } = 0;
@@ -23,7 +24,8 @@ public class ServiceInfoModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="description"></param>
+    /// <param name="server"></param>
+    /// <param name="app"></param>
     /// <param name="version"></param>
     /// <param name="winCurrentDate"></param>
     /// <param name="sqlCurrentDate"></param>
@@ -34,17 +36,18 @@ public class ServiceInfoModel : SerializeBase
     /// <param name="database"></param>
     /// <param name="physicalMegaBytes"></param>
     /// <param name="virtualMegaBytes"></param>
-    public ServiceInfoModel(string description, string version, string winCurrentDate, string sqlCurrentDate, string connectionString,
+    public ServiceInfoModel(string server, string app, string version, string winCurrentDate, string sqlCurrentDate, string connectionString,
         int connectTimeout, string dataSource, string serverVersion, string database, ulong physicalMegaBytes, ulong virtualMegaBytes)
     {
-        App = description;
+        Server = server;
+        App = app;
         Version = version;
         WinCurrentDate = winCurrentDate;
         SqlCurrentDate = sqlCurrentDate;
         ConnectionString = connectionString;
         ConnectTimeout = connectTimeout;
         DataSource = dataSource;
-        ServerVersion = serverVersion;
+        SqlServerVersion = serverVersion;
         Database = database;
         PhysicalMegaBytes = physicalMegaBytes;
         VirtualMegaBytes = virtualMegaBytes;
@@ -65,6 +68,7 @@ public class ServiceInfoModel : SerializeBase
     public override string ToString()
     {
         return
+            @$"{nameof(Server)}: {Server}. " + Environment.NewLine +
             @$"{nameof(App)}: {App}. " + Environment.NewLine +
             @$"{nameof(Version)}: {Version}. " + Environment.NewLine +
             @$"{nameof(WinCurrentDate)}: {WinCurrentDate}. " + Environment.NewLine +
@@ -72,7 +76,7 @@ public class ServiceInfoModel : SerializeBase
             @$"{nameof(ConnectionString)}: {ConnectionString}. " + Environment.NewLine +
             @$"{nameof(ConnectTimeout)}: {ConnectTimeout}. " + Environment.NewLine +
             @$"{nameof(DataSource)}: {DataSource}. " + Environment.NewLine +
-            @$"{nameof(ServerVersion)}: {ServerVersion}. " + Environment.NewLine +
+            @$"{nameof(SqlServerVersion)}: {SqlServerVersion}. " + Environment.NewLine +
             @$"{nameof(Database)}: {Database}. " + Environment.NewLine +
             @$"{nameof(PhysicalMegaBytes)}: {PhysicalMegaBytes}. " + Environment.NewLine +
             @$"{nameof(VirtualMegaBytes)}: {VirtualMegaBytes}. ";
@@ -86,6 +90,7 @@ public class ServiceInfoModel : SerializeBase
     public new void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(Server), Server);
         info.AddValue(nameof(App), App);
         info.AddValue(nameof(Version), Version);
         info.AddValue(nameof(WinCurrentDate), WinCurrentDate);
@@ -93,7 +98,7 @@ public class ServiceInfoModel : SerializeBase
         info.AddValue(nameof(ConnectionString), ConnectionString);
         info.AddValue(nameof(ConnectTimeout), ConnectTimeout);
         info.AddValue(nameof(DataSource), DataSource);
-        info.AddValue(nameof(ServerVersion), ServerVersion);
+        info.AddValue(nameof(SqlServerVersion), SqlServerVersion);
         info.AddValue(nameof(Database), Database);
         info.AddValue(nameof(PhysicalMegaBytes), PhysicalMegaBytes);
         info.AddValue(nameof(VirtualMegaBytes), VirtualMegaBytes);

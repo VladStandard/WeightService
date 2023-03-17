@@ -38,7 +38,7 @@ public class TestControllerV1 : WebControllerBase
             string response = sqlQuery.UniqueResult<string>();
             transaction.Commit();
 
-            return new ServiceInfoModel(AppVersion.App, AppVersion.Version,
+            return new ServiceInfoModel(Environment.MachineName, AppVersion.App, AppVersion.Version,
                 DateTime.Now.ToString(CultureInfo.InvariantCulture),
                 response.ToString(CultureInfo.InvariantCulture),
                 session.Connection.ConnectionString.ToString(),

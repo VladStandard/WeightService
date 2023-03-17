@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -9,22 +8,17 @@
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
-
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="DevExpress.Xpo" Version="22.2.4" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Using Include="NHibernate" />
   </ItemGroup>
-
 </Project>

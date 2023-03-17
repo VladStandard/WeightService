@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
@@ -40,8 +40,8 @@ public class XmlHelper
 		if (value is not null)
 		{
 			if (string.IsNullOrEmpty(value))
-				throw new ArgumentException(@"Value is not correct!");
-		}
+                throw new ArgumentException("Value must be fill!", nameof(value));
+        }
 	}
 
 	/// <summary>

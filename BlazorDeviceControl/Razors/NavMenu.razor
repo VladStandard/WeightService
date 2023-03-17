@@ -1,5 +1,6 @@
-﻿@inherits RazorComponentBase
+@inherits RazorComponentBase
 @using static BlazorCoreUtils
+@using DataCore.Helpers
 
 <div class="top-row pl-4 navbar navbar-dark">
   <a class="navbar-brand" href="">
@@ -104,7 +105,7 @@
         </RadzenPanelMenuItem>
       }
       @* Develop *@
-      @if (UserSettings is not null && UserSettings.AccessRightsIsAdmin && IsDebug)
+      @if (UserSettings is not null && UserSettings.AccessRightsIsAdmin && DebugHelper.Instance.IsDebug)
       {
         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev>
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="Mud"
