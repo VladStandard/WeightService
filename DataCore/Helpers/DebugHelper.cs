@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Helpers;
@@ -16,17 +16,12 @@ public class DebugHelper
 
 	#region Public and private methods
 
-	public bool IsDebug
-	{
-		get
-		{
+	public bool IsDebug =>
 #if DEBUG
-			return true;
+		true;
 #else
-                return false;
+        false;
 #endif
-		}
-	}
 
 	#endregion
 }

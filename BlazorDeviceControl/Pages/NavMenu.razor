@@ -1,5 +1,6 @@
 ﻿@inherits RazorComponentBase
 @using static BlazorCoreUtils
+@using DataCore.Helpers
 
 <div class="top-row pl-4 navbar navbar-dark">
   <a class="navbar-brand" href="">
@@ -97,7 +98,7 @@
                                Text=@LocaleCore.WebService.Name Path=@LocaleCore.DeviceControl.RouteSectionLogsWebService />
           @* Develop *@
         </RadzenPanelMenuItem>
-        @if (IsDebug)
+        @if (DebugHelper.Instance.IsDebug)
         {
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev>
             <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="Mud"

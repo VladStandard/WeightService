@@ -22,7 +22,7 @@ public class DataFormatUtilsTests
             {
                 TestContext.WriteLine(templateResource);
             }
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
     #endregion

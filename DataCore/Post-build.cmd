@@ -23,10 +23,14 @@ exit /b %ErrorLevel%
 
 :isConnectGood <host>
 echo --- [v] The host [%~1] is online ---
-xcopy "appsettings.Debug.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
-echo --- [v] xcopy "appsettings.Debug.json" is complete ---
-xcopy "appsettings.Release.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
-echo --- [v] xcopy "appsettings.Release.json" is complete ---
+xcopy "appsettings.DevelopAleksandrov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
+xcopy "appsettings.DevelopMorozov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
+xcopy "appsettings.DevelopVS.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
+echo --- [v] xcopy "appsettings.Develop*.json" is complete ---
+xcopy "appsettings.ReleaseAleksandrov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
+xcopy "appsettings.ReleaseMorozov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
+xcopy "appsettings.ReleaseVS.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
+echo --- [v] xcopy "appsettings.Release*.json" is complete ---
 
 :isConnectBad <host>
 echo --- [x] The host [%~1] is offline ---

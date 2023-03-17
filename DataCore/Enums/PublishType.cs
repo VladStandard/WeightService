@@ -5,8 +5,10 @@ namespace DataCore.Enums;
 
 public enum PublishType
 {
-    Unknown,
-    Develop,
+    DevelopVs,
+    DevelopAleksandrov,
     DevelopMorozov,
-    Release
+    ReleaseVs,
+    ReleaseAleksandrov,
+    ReleaseMorozov,
 }

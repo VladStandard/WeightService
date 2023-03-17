@@ -139,12 +139,24 @@ public partial class DataAccessHelper
         }
     }
 
-    public bool IsSqlServerRelease => JsonSettings.Local.Sql is { DataSource: { } } &&
-        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerRelease);
-    public bool IsSqlServerDevelop => JsonSettings.Local.Sql is { DataSource: { } } &&
-        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDevelop);
-    public bool IsSqlServerDevelopMorozov => JsonSettings.Local.Sql is { DataSource: { } } &&
+    public bool IsSqlServerDevelopAleksandrov => 
+        JsonSettings.Local.Sql is { DataSource: { } } && 
+        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDevelopAleksandrov);
+    public bool IsSqlServerDevelopMorozov => 
+        JsonSettings.Local.Sql is { DataSource: { } } &&
         JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDevelopMorozov);
+    public bool IsSqlServerDevelopVs =>
+        JsonSettings.Local.Sql is { DataSource: { } } &&
+        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDevelopVs);
+    public bool IsSqlServerReleaseAleksandrov =>
+        JsonSettings.Local.Sql is { DataSource: { } } &&
+        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerReleaseAleksandrov);
+    public bool IsSqlServerReleaseMorozov =>
+        JsonSettings.Local.Sql is { DataSource: { } } &&
+        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerReleaseMorozov);
+    public bool IsSqlServerReleaseVs =>
+        JsonSettings.Local.Sql is { DataSource: { } } &&
+        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerReleaseVs);
 
     ~DataAccessHelper()
     {

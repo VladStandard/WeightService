@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Collections.ObjectModel;
@@ -87,28 +87,14 @@ public class SettingsHelper
     /// <summary>
     /// Исходный каталог ПО.
     /// </summary>
-    public string DirSource
-    {
-        get
-        {
-#if DEBUG
-            return @"..\ScalesUI2\bin\Debug\";
-#else
-                return @"..\ScalesUI2\bin\Release\";
-#endif
-        }
-    }
+    public string DirSource => DebugHelper.Instance.IsDebug ? @"..\ScalesUI2\bin\Debug\" : @"..\ScalesUI2\bin\Release\";
 
     /// <summary>
     /// Файл библиотеки ядра весовой платформы.
     /// </summary>
     /// <returns></returns>
-    public string ScalesCoreDll =>
-#if DEBUG
-        @"..\ScalesCore\bin\Debug\ScalesCore.dll";
-#else
-            @"..\ScalesCore\bin\Release\ScalesCore.dll";
-#endif
+    public string ScalesCoreDll => DebugHelper.Instance.IsDebug 
+        ? @"..\ScalesCore\bin\Debug\ScalesCore.dll" : @"..\ScalesCore\bin\Release\ScalesCore.dll";
 
     /// <summary>
     /// Windows menu.

@@ -83,25 +83,57 @@ public class DataCoreHelper
 	public DataContextModel DataContext { get; } = new();
     public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	public void SetupDebug(bool isShowSql)
-	{
-		JsonSettings.SetupTestsDevelop(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalDeviceName(true), nameof(WsWeightTests), isShowSql);
-		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
-	}
+    public void SetupDevelopAleksandrov(bool isShowSql)
+    {
+        JsonSettings.SetupTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(WsWeightTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
 
-	private void SetupRelease(bool isShowSql)
-	{
-		DataAccess.JsonSettings.SetupTestsRelease(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalDeviceName(true), nameof(WsWeightTests), isShowSql);
-		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
-	}
+    public void SetupDevelopMorozov(bool isShowSql)
+    {
+        JsonSettings.SetupTestsDevelopMorozov(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(WsWeightTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
+
+    public void SetupDevelopVs(bool isShowSql)
+    {
+        JsonSettings.SetupTestsDevelopVs(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(WsWeightTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
+
+    private void SetupReleaseAleksandrov(bool isShowSql)
+    {
+        DataAccess.JsonSettings.SetupTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(WsWeightTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
+
+    private void SetupReleaseMorozov(bool isShowSql)
+    {
+        DataAccess.JsonSettings.SetupTestsReleaseMorozov(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(WsWeightTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
+
+    private void SetupReleaseVs(bool isShowSql)
+    {
+        DataAccess.JsonSettings.SetupTestsReleaseVs(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalDeviceName(true), nameof(WsWeightTests), isShowSql);
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+    }
 
 	public void AssertAction(Action action, bool isShowSql, bool isSkipDbRelease = false)
 	{
@@ -109,12 +141,12 @@ public class DataCoreHelper
 		{
 			if (!isSkipDbRelease)
 			{
-				SetupRelease(isShowSql);
+				SetupReleaseVs(isShowSql);
 				action.Invoke();
 				TestContext.WriteLine();
 			}
 
-			SetupDebug(isShowSql);
+			SetupDevelopVs(isShowSql);
 			action.Invoke();
 		});
 	}

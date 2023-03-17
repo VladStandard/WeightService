@@ -11,7 +11,7 @@ internal static class Program
 
     private static AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private static DataAccessHelper DataAccess => DataAccessHelper.Instance;
-    
+
     #endregion
 
     #region Public and private methods

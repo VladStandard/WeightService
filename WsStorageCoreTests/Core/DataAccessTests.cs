@@ -20,7 +20,7 @@ internal class DataAccessTests
 			{
 				List<DeviceTypeFkModel> deviceTypeFks = DataCoreTestsUtils.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
 	[Test]
@@ -32,7 +32,7 @@ internal class DataAccessTests
 			{
 				List<DeviceTypeFkModel> deviceTypeFks = DataCoreTestsUtils.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
     private IEnumerable<string> GetDeviceTypesEnums() => 
@@ -55,7 +55,7 @@ internal class DataAccessTests
 	        {
 		        Assert.That(GetDeviceTypesEnums().Contains(deviceType.Name), Is.EqualTo(true));
 	        }
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
     [Test]
@@ -69,7 +69,7 @@ internal class DataAccessTests
 		        DeviceTypeModel deviceType2 = DataCoreTestsUtils.DataAccess.GetItemDeviceTypeNotNullable(deviceType1.Name);
 		        Assert.That(deviceType2, Is.EqualTo(deviceType1));
 	        }
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
     [Test]
@@ -83,7 +83,7 @@ internal class DataAccessTests
 		        TestContext.WriteLine(device);
 		        //Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
 	        }
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
     [Test]
@@ -98,7 +98,7 @@ internal class DataAccessTests
 		        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
 		        TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
 	        }
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
     [Test]
@@ -120,7 +120,7 @@ internal class DataAccessTests
 			        }
 		        }
 	        }
-        }, false, new() { PublishType.Develop, PublishType.Release });
+        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
     }
 
     #endregion

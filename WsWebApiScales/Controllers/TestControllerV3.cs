@@ -57,12 +57,12 @@ public class TestControllerV3 : WebControllerBase
             sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
             string response = sqlQuery.UniqueResult<string>();
             transaction.Commit();
-            return new ServiceInfoModel(
+            return new ServiceInfoModel(Environment.MachineName,
                     AppVersion.App,
                     AppVersion.Version,
                     StringUtils.FormatDtEng(DateTime.Now, true),
                     response.ToString(CultureInfo.InvariantCulture),
-                    session.Connection.ConnectionString.ToString(),
+                    session.Connection.ConnectionString,
                     session.Connection.ConnectionTimeout,
                     session.Connection.DataSource,
                     session.Connection.ServerVersion,

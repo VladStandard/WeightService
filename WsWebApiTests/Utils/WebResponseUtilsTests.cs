@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Net;
@@ -68,6 +68,7 @@ public static class WebResponseUtilsTests
                 }
                 if (serviceInfo is not null)
                 {
+                    Assert.IsNotEmpty(serviceInfo.Server);
                     Assert.IsNotEmpty(serviceInfo.App);
                     Assert.IsTrue(serviceInfo.App.StartsWith("WebApi", StringComparison.InvariantCultureIgnoreCase));
                     Assert.IsNotEmpty(serviceInfo.App);
@@ -77,7 +78,7 @@ public static class WebResponseUtilsTests
                     Assert.IsNotEmpty(serviceInfo.ConnectionString);
                     Assert.Greater(serviceInfo.ConnectTimeout, 0);
                     Assert.IsNotEmpty(serviceInfo.DataSource);
-                    Assert.IsNotEmpty(serviceInfo.ServerVersion);
+                    Assert.IsNotEmpty(serviceInfo.SqlServerVersion);
                     Assert.IsNotEmpty(serviceInfo.Database);
                     Assert.Greater(serviceInfo.PhysicalMegaBytes, 0);
                     Assert.Greater(serviceInfo.VirtualMegaBytes, 0);
