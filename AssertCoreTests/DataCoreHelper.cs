@@ -51,10 +51,10 @@ using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleModels.LogsWebs;
 using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
+using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.PlusStorageMethods;
 using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
-
 namespace AssertCoreTests;
 
 public class DataCoreHelper
@@ -319,7 +319,169 @@ public class DataCoreHelper
 		}
 	}
 
-	public T CreateNewSubstitute<T>(bool isNotDefault) where T : SqlTableBase, new()
+    public void AssertGetList<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    {
+        AssertAction(() =>
+        {
+            List<T> items = new();
+            switch (typeof(T))
+            {
+                case var cls when cls == typeof(AccessModel):
+                    items = DataContext.GetListNotNullableAccesses(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(AppModel):
+                    items = DataContext.GetListNotNullableApps(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(BarCodeModel):
+                    items = DataContext.GetListNotNullableBarCodes(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(BoxModel):
+                    items = DataContext.GetListNotNullableBoxes(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(BrandModel):
+                    items = DataContext.GetListNotNullableBrands(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(BundleModel):
+                    items = DataContext.GetListNotNullableBundles(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(ClipModel):
+                    items = DataContext.GetListNotNullableClips(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(ContragentModel):
+                    items = DataContext.GetListNotNullableContragents(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(DeviceModel):
+                    items = DataContext.GetListNotNullableDevices(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(DeviceScaleFkModel):
+                    items = DataContext.GetListNotNullableDeviceScalesFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(DeviceTypeModel):
+                    items = DataContext.GetListNotNullableDeviceTypes(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(DeviceTypeFkModel):
+                    items = DataContext.GetListNotNullableDeviceTypesFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(LogTypeModel):
+                    items = DataContext.GetListNotNullableLogsTypes(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(LogModel):
+                    items = DataContext.GetListNotNullableLogs(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(LogWebModel):
+                    items = DataContext.GetListNotNullableLogsWebs(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(LogWebFkModel):
+                    items = DataContext.GetListNotNullableLogsWebsFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(OrderModel):
+                    items = DataContext.GetListNotNullableOrders(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(OrderWeighingModel):
+                    items = DataContext.GetListNotNullableOrdersWeighings(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(OrganizationModel):
+                    items = DataContext.GetListNotNullableOrganizations(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluModel):
+                    items = DataContext.GetListNotNullablePlus(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluBrandFkModel):
+                    items = DataContext.GetListNotNullablePlusBrandsFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluBundleFkModel):
+                    items = DataContext.GetListNotNullablePlusBundlesFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluCharacteristicModel):
+                    items = DataContext.GetListNotNullablePlusCharacteristics(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluCharacteristicsFkModel):
+                    items = DataContext.GetListNotNullablePlusCharacteristicsFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluCharacteristicsFkModel):
+                    items = DataContext.GetListNotNullablePlusCharacteristicsFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluClipFkModel):
+                    items = DataContext.GetListNotNullablePlusClipsFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluFkModel):
+                    items = DataContext.GetListNotNullablePlusFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluGroupModel):
+                    items = DataContext.GetListNotNullablePlusGroups(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluGroupFkModel):
+                    items = DataContext.GetListNotNullablePlusGroupFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluLabelModel):
+                    items = DataContext.GetListNotNullablePluLabels(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluNestingFkModel):
+                    items = DataContext.GetListNotNullablePlusNestingFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluScaleModel):
+                    items = DataContext.GetListNotNullablePlusScales(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluStorageMethodModel):
+                    items = DataContext.GetListNotNullablePlusStoragesMethods(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluStorageMethodFkModel):
+                    items = DataContext.GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluTemplateFkModel):
+                    items = DataContext.GetListNotNullablePlusTemplatesFks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PluWeighingModel):
+                    items = DataContext.GetListNotNullablePlusWeighings(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(ProductionFacilityModel):
+                    items = DataContext.GetListNotNullableProductionFacilities(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(ProductSeriesModel):
+                    items = DataContext.GetListNotNullableProductSeries(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(ScaleModel):
+                    items = DataContext.GetListNotNullableScales(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(ScaleScreenShotModel):
+                    items = DataContext.GetListNotNullableScaleScreenShots(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(TaskModel):
+                    items = DataContext.GetListNotNullableTasks(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(TaskTypeModel):
+                    items = DataContext.GetListNotNullableTasksTypes(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(TemplateModel):
+                    items = DataContext.GetListNotNullableTemplates(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(TemplateResourceModel):
+                    items = DataContext.GetListNotNullableTemplateResources(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(WorkShopModel):
+                    items = DataContext.GetListNotNullableWorkShops(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PrinterModel):
+                    items = DataContext.GetListNotNullablePrinters(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PrinterResourceFkModel):
+                    items = DataContext.GetListNotNullablePrintersResources(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+                case var cls when cls == typeof(PrinterTypeModel):
+                    items = DataContext.GetListNotNullablePrintersTypes(sqlCrudConfig).Cast<T>().ToList();
+                    break;
+            }
+            foreach (T item in items)
+            {
+                TestContext.WriteLine(item);
+                Assert.IsNotEmpty(item.ToString());
+                ValidationResult validationResult = ValidationUtils.GetValidationResult(item);
+                Assert.IsTrue(validationResult.IsValid);
+            }
+        }, false, new() { PublishType.ReleaseVs, PublishType.DevelopVs });
+    }
+	
+    public T CreateNewSubstitute<T>(bool isNotDefault) where T : SqlTableBase, new()
 	{
 		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(SqlFieldIdentity.Empty);
 		fieldIdentity.Name.Returns(SqlFieldIdentity.Test);
@@ -486,14 +648,15 @@ public class DataCoreHelper
 				pluScale.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
 				pluScale.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
-            case PluStorageMethodModel plusStorageMethod:
-                plusStorageMethod.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-                plusStorageMethod.MinTemp.Returns((short)0);
-                plusStorageMethod.MaxTemp.Returns((short)0);
+            case PluStorageMethodModel pluStorageMethod:
+                pluStorageMethod.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                pluStorageMethod.MinTemp.Returns((short)0);
+                pluStorageMethod.MaxTemp.Returns((short)0);
                 break;
             case PluStorageMethodFkModel pluStorageMethodFk:
                 pluStorageMethodFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
                 pluStorageMethodFk.Method = CreateNewSubstitute<PluStorageMethodModel>(isNotDefault);
+                pluStorageMethodFk.Resource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
                 break;
 			case PluTemplateFkModel pluTemplateFk:
                 pluTemplateFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);

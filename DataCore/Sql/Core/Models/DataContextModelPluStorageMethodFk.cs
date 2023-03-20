@@ -11,14 +11,14 @@ namespace DataCore.Sql.Core.Models;
 
 public partial class DataContextModel
 {
-    #region Public and private methods - PLU
+    #region Public and private methods - PluStorageMethodFk
 
     /// <summary>
     /// Force update list PluStorageMethodFks.
     /// </summary>
     /// <param name="sqlCrudConfig"></param>
     public List<PluStorageMethodFkModel> UpdatePluStorageMethodFks(SqlCrudConfigModel sqlCrudConfig) => 
-        PluStorageMethodsFks = GetListNotNullablePluStorageMethodsFks<PluStorageMethodFkModel>(sqlCrudConfig);
+        PluStorageMethodsFks = GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig);
 
     /// <summary>
     /// Get item PluStorageMethod by Plu.

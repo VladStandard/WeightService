@@ -767,7 +767,7 @@ public class UserSessionHelper : BaseViewModel
         XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
-        PluLabelContextModel pluLabelContext = new(pluLabel.PluScale);
+        PluLabelContextModel pluLabelContext = new(DataContext, pluLabel, PluNestingFk, pluLabel.PluScale, ProductionFacility);
         XmlDocument xmlLabelContext = DataFormatUtils.SerializeAsXmlDocument<PluLabelContextModel>(pluLabelContext, true, true);
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
 

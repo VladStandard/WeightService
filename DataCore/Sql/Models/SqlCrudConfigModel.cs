@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Files;
@@ -10,7 +10,6 @@ public class SqlCrudConfigModel : ICloneable
 {
 	#region Public and private fields, properties, constructor
 
-    private JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
     public string NativeQuery { get; set; }
     public bool IsFillReferences { get; set; }
     public List<SqlParameter> NativeParameters { get; set; }
@@ -37,9 +36,14 @@ public class SqlCrudConfigModel : ICloneable
 	public int ResultMaxCount
 	{
 		get => _resultMaxCount;
-		set => _resultMaxCount = value == 1 ? 1
-			: IsResultShowOnlyTop ? JsonSettings.Local.SelectTopRowsCount : value;
-	}
+        //private set => _resultMaxCount = value == 1 ? 1 : IsResultShowOnlyTop ? JsonSettings.Local.SelectTopRowsCount : value;
+        private set => _resultMaxCount = value;
+}
+
+    public void SetResultMaxCount(int value, int jsonSelectTopRowsCount = 0)
+    {
+        ResultMaxCount = IsResultShowOnlyTop ? jsonSelectTopRowsCount : value;
+    }
 
     public SqlCrudConfigModel()
     {

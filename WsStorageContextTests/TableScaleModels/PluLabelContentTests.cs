@@ -6,9 +6,9 @@ namespace WsStorageContextTests.TableScaleModels;
 [TestFixture]
 internal class PluLabelContentTests
 {
-	[Test]
+    [Test]
     public void Model_Content_Validate()
     {
-		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<PluLabelModel>();
-	}
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<PluLabelModel>();
+    }
 }

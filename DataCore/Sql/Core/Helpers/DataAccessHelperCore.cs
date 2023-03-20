@@ -13,7 +13,7 @@ public partial class DataAccessHelper
 
 	private T? GetItemCoreNullable<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
-		sqlCrudConfig.ResultMaxCount = 1;
+		sqlCrudConfig.SetResultMaxCount(1);
 		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
 		return criteria.UniqueResult<T>();
 	}
@@ -100,7 +100,7 @@ public partial class DataAccessHelper
 	public bool IsItemExists<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		bool result = false;
-		sqlCrudConfig.ResultMaxCount = 1;
+		sqlCrudConfig.SetResultMaxCount(1);
         ExecuteCore(session =>
         {
 			result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Any();
