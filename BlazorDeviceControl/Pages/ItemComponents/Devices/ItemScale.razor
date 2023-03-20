@@ -2,8 +2,8 @@
 @using DataCore.Sql.TableScaleModels.WorkShops
 @using DataCore.Sql.TableScaleModels.Devices
 @using DataCore.Sql.TableScaleModels.Printers
-@using BlazorDeviceControl.Pages.SectionComponents.Plus
 @using BlazorDeviceControl.Pages.CustomComponents
+@using BlazorDeviceControl.Pages.SectionComponents.Admins
 @inherits RazorComponentItemBase<ScaleModel>
 @page "/item/scale"
 @page "/item/scale/new"
@@ -176,4 +176,4 @@
   OnItemCancel="@SqlItemCancelAsync"
   />
 
-<SectionPlusScales SqlItem="@SqlItem" />
+<SectionPlusScales Scale="@SqlItemCast" />

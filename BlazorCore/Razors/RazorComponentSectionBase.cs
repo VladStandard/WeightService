@@ -10,8 +10,7 @@ using Microsoft.JSInterop;
 
 namespace BlazorCore.Razors;
 
-public class RazorComponentSectionBase<TItem> : RazorComponentBase
-    where TItem : SqlTableBase, new()
+public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem : SqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 
@@ -33,9 +32,12 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
         set => SqlSection = !value.Any() ? null : new(value);
     }
 
+    protected List<TItem> SqlSectionSave { get; set; }
+
     public RazorComponentSectionBase()
     {
         SelectedRow = new List<TItem>();
+        SqlSectionSave = new List<TItem>();
         SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
         SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
@@ -135,8 +137,6 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
     {
         RunActionsSafe(string.Empty, SetSqlSectionCast);
         AutoShowFilterOnlyTopSetup();
-        SqlItem = null;
-        SelectedRow = null;
         IsSqlSectionGet = true;
         StateHasChanged();
     }
@@ -145,9 +145,28 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
     {
         SqlSectionCast = DataContext.GetListNotNullable<TItem>(SqlCrudConfigSection);
     }
-    
-    
-	#region Public and private methods
 
-	#endregion
+    protected virtual void SetSqlSectionSave(TItem model)
+    {
+        RunActionsSafe(string.Empty, () =>
+        {
+            if (!SqlSectionSave.Any(item => Equals(item.IdentityValueUid, model.IdentityValueUid)))
+                SqlSectionSave.Add(model);
+        });
+    }
+
+    protected virtual async Task OnSqlSectionSaveAsync()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
+        {
+            foreach (TItem item in SqlSectionSave)
+                DataAccess.UpdateForce(item);
+            SqlSectionSave.Clear();
+        });
+    }
+    
+    #region Public and private methods
+
+    #endregion
 }

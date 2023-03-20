@@ -5,7 +5,7 @@
 @page "/section/plus_scales"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@PluScaleModel"
   Title="@LocaleCore.DeviceControl.SectionPlusScales"
   OnSectionUpdate="@GetSectionData"
@@ -20,7 +20,7 @@
 }
 else
 {
-  <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@HideNoneActivePlu" Change="SetSqlSectionCast"
+  <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@HideNoneActivePlu" Change="GetSectionData"
                   Style="margin-top: -3px; margin-left: 20px; "/>
   <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text="@LocaleCore.Action.ActionIsShowActivePlu"/>
 
@@ -30,22 +30,23 @@ else
     Data="@SqlSectionCast"
     CellContextMenu="@OnCellContextMenu"
     RowSelect="@SqlItemSet"
-    RowRender="@(RowRender)"
+    RowRender="@RowRender"
     RowDoubleClick="@SqlItemEditAsync">
     <Columns>
       <TItemContent TItem="@PluScaleModel">
-        <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="30%" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale.Description" Width="15%" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.NumberShort" Property="Plu.Number" Width="10%" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.Active" SortProperty="IsActive" Width="10%" >
           <Template Context="itemCast">
-            <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive"/>
+            <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive"
+                            Change=@(() => @SetSqlSectionSave(itemCast)) />
           </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Title="@LocaleCore.Table.WeightShort" SortProperty="Plu.IsCheckWeight" Width="10%">
           <Template Context="itemCast">
-            <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
+            <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight" />
           </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Title="@LocaleCore.Table.ShelfLifeDaysShort" Property="Plu.ShelfLifeDays" Width="10%" />
@@ -57,4 +58,7 @@ else
       </TItemContent>
     </Columns>
   </RadzenDataGridLocal>
+
+  <SectionActions OnSectionSave="@OnSqlSectionSaveAsync" ButtonSettings="@ButtonSettings"/>
 }
+
