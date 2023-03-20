@@ -148,6 +148,8 @@ public class SqlCrudConfigModel : ICloneable
 
     public void AddFilters(string className, SqlTableBase? item) => AddFilters(GetFilters(className, item));
 
+    public void ClearFilters() => Filters.Clear();
+
     #endregion
 
     #region Remove Filter

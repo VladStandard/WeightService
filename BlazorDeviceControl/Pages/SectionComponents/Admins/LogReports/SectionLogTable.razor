@@ -2,7 +2,7 @@
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentSectionBase<LogQuickModel>
 
-<RazorSectionReload
+<SectionReload
   TItem="@LogQuickModel"
   ButtonSettings="@ButtonSettings"
   OnSectionUpdate="@GetSectionData"
@@ -21,7 +21,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@LogQuickModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="14%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale" Width="17%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="13%" />

@@ -4,7 +4,7 @@
 @page "/section/scales"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@ScaleModel"
   Title="@LocaleCore.DeviceControl.SectionScales"
   OnSectionUpdate="@GetSectionData"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@ScaleModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Arm" Property="Description" Width="30%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.WorkShop" Property="WorkShop.Name" Width="35%"/>

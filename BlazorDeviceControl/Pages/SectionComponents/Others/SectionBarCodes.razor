@@ -4,7 +4,7 @@
 @page "/section/barcodes"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@BarCodeModel"
   Title="@LocaleCore.DeviceControl.SectionBarCodes"
   OnSectionUpdate="@GetSectionData"
@@ -29,7 +29,7 @@ else
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@BarCodeModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueTop" Property="ValueTop" Width="28%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueRight" Property="ValueRight" Width="15%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueBottom" Property="ValueBottom" Width="28%" />

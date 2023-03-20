@@ -4,7 +4,7 @@
 @page "/section/templates"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@TemplateModel"
   Title="@LocaleCore.DeviceControl.SectionTemplates"
   OnSectionUpdate="@GetSectionData"
@@ -23,10 +23,14 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@TemplateModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CategoryName" Property="CategoryId" Width="15%" />
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CategoryName" Property="CategoryId" Width="10%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Title" Property="Title" Width="60%" />
-      <RadzenGridColumn Title="@LocaleCore.Table.ImageDataInfo" Property="ImageData.Info" Width="25%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Size" SortProperty="Data.Length" Width="30%">
+          <Template Context="itemCast">
+            <RadzenText Text="@ConvertBytes(itemCast)" />
+          </Template>
+      </RadzenDataGridColumn>
     </TItemContent>
   </Columns>
 </RadzenDataGridLocal>

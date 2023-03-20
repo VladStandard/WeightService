@@ -3,7 +3,7 @@
 
 using System.Reflection;
 
-namespace BlazorDeviceControl.Pages.SystemComponents;
+namespace BlazorDeviceControl.Pages.SectionComponents.Admins;
 
 public partial class SystemAppInfo : RazorComponentBase
 {

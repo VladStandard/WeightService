@@ -4,7 +4,7 @@
 @page "/section/plu_weighings"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@PluWeighingModel"
   Title="@LocaleCore.DeviceControl.SectionPlusWeighings"
   OnSectionUpdate="@GetSectionData"
@@ -29,7 +29,7 @@ else
     RowDoubleClick="@SqlItemEditAsync">
     <Columns>
       <TItemContent TItem="@PluWeighingModel">
-        <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="PluScale.Scale.Description" Width="22%" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.Host" Sortable="false" Width="13%">

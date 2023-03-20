@@ -4,7 +4,7 @@
 @page "/section/printers_resources"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@PrinterResourceFkModel"
   Title="@LocaleCore.Print.Resources"
   OnSectionUpdate="@GetSectionData"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PrinterResourceFkModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Printer.Name" Width="32%" />
       <RadzenDataGridColumn Title="@LocaleCore.Print.TemplateResource" Property="TemplateResource.Name" Width="32%" />
     </TItemContent>

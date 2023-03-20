@@ -4,7 +4,7 @@
 @page "/section/versions"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@VersionModel"
   Title="@LocaleCore.Strings.VersionsDb"
   OnSectionUpdate="@GetSectionData"

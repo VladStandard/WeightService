@@ -44,7 +44,7 @@ public partial class RazorComponentBase
 {
 	#region Public and private methods
 
-	private string GetQuestionAdd()
+	protected string GetQuestionAdd()
     {
         return LocaleCore.Dialog.DialogQuestion + Environment.NewLine;
     }

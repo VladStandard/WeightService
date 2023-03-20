@@ -4,7 +4,7 @@
 @page "/section/logs_web_service_fk"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@LogWebFkModel"
   Title="@LocaleCore.WebService.Name"
   OnSectionUpdate="@GetSectionData"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@LogWebFkModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="LogWebRequest.CreateDt" Width="15%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Device.Name" Width="10%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App.Name" Width="15%" />

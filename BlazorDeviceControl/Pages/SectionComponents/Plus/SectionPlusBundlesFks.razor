@@ -4,7 +4,7 @@
 @page "/section/plus_bundles_fks"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@PluBundleFkModel"
   Title="@LocaleCore.DeviceControl.SectionPlusBundlesFk"
   OnSectionUpdate="@GetSectionData"
@@ -29,7 +29,7 @@ else
     RowDoubleClick="@SqlItemEditAsync">
     <Columns>
       <TItemContent TItem="@PluBundleFkModel">
-        <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn TItem="PluBundleFkModel" Title="@LocaleCore.Table.Weighted"
                               SortProperty="Plu.IsCheckWeight" Width="7%">
           <Template Context="itemCast">

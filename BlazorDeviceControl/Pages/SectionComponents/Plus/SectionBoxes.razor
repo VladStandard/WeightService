@@ -4,7 +4,7 @@
 @page "/section/boxes"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@BoxModel"
   Title="@LocaleCore.DeviceControl.SectionBoxes"
   OnSectionUpdate="@GetSectionData"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@BoxModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.BoxWeight" Property="Weight" />
     </TItemContent>

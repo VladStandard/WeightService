@@ -4,7 +4,7 @@
 @page "/section/plus_labels"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@PluLabelModel"
   Title="@LocaleCore.DeviceControl.SectionLabels"
   OnSectionUpdate="@GetSectionData"
@@ -29,7 +29,7 @@ else
     RowDoubleClick="@SqlItemEditAsync">
     <Columns>
       <TItemContent TItem="@PluLabelModel">
-        <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.ChangeDt" Property="ChangeDt" Width="12%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDt" Width="12%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.ExpirationDt" Property="ExpirationDt" Width="12%"/>

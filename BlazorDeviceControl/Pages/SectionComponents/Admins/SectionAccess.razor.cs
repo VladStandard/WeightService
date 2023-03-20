@@ -3,7 +3,7 @@
 
 using DataCore.Sql.TableScaleModels.Access;
 
-namespace BlazorDeviceControl.Pages.SectionComponents.Others;
+namespace BlazorDeviceControl.Pages.SectionComponents.Admins;
 
 public partial class SectionAccess : RazorComponentSectionBase<AccessModel>
 {

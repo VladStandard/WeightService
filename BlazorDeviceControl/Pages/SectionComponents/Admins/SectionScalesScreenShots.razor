@@ -4,7 +4,7 @@
 @page "/section/scales_screenshots"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@ScaleScreenShotModel"
   Title="@LocaleCore.DeviceControl.SectionScreenShots"
   OnSectionUpdate="@GetSectionData"
@@ -28,7 +28,7 @@ else
     RowDoubleClick="@SqlItemEditAsync">
     <Columns>
       <TItemContent TItem="@ScaleScreenShotModel">
-        <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale.Description" Width="40%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.ScreenShot" Width="43%" Sortable="false">

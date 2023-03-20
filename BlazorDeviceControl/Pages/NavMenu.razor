@@ -74,21 +74,25 @@
        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.Menu.MenuHelp>
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"
                                Text=@LocaleCore.System.UserInfo Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"
-                               Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"
-                               Text=@LocaleCore.System.SystemInfo Path=@LocaleCore.DeviceControl.RouteSystemAppInfo />
-        </RadzenPanelMenuItem>
+       </RadzenPanelMenuItem>
       </AuthorizeView>
       <AuthorizeView Roles="@UserAccessStr.Admin">
         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionAdministering>
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="people"
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+                               Icon="people"
                                Text=@LocaleCore.System.Users
                                Path=@LocaleCore.DeviceControl.RouteSectionAccess />
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
-                               Text=@LocaleCore.DeviceControl.SectionScreenShots Path=@LocaleCore.DeviceControl.RouteSectionScalesScreenShots />
+                               Text=@LocaleCore.DeviceControl.SectionScreenShots
+                               Path=@LocaleCore.DeviceControl.RouteSectionScalesScreenShots />
           <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
                                Text=@LocaleCore.DeviceControl.SectionPlusScales Path=@LocaleCore.DeviceControl.RouteSectionPlusScales />
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+                               Icon="info"
+                               Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+                               Icon="info"
+                               Text=@LocaleCore.System.SystemInfo Path=@LocaleCore.DeviceControl.RouteSystemAppInfo />
         </RadzenPanelMenuItem>
         @* Reports *@
         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.Menu.MenuReports>

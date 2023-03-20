@@ -63,9 +63,8 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
 
     protected async Task SqlItemEditAsync()
     {
-        if (User?.IsInRole(UserAccessStr.Write) == false) return;
+        if (User?.IsInRole(UserAccessStr.Read) == false) return;
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
         RunActionsSafe(string.Empty, () => { SetRouteItemNavigate(SqlItem); });
     }
 
@@ -74,19 +73,8 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
         SelectedRow = new List<TItem>() { item };
         SqlItem = SelectedRow.Last();
     }
-    
-    protected async Task SqlItemEditAsync(TItem item)
-	{
-        if (User?.IsInRole(UserAccessStr.Write) == false) return;
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsSafe(string.Empty, () =>
-		{
-			SetRouteItemNavigate(SqlItem);
-        });
-	}
-
-	//TODO: insert into DataCore
+    //TODO: insert into DataCore
 	protected void OnCellContextMenu(DataGridCellMouseEventArgs<TItem> args)
 	{
 		LocaleContextMenu locale = LocaleCore.ContextMenu;
@@ -120,7 +108,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase
 							GetRouteItemPathForLink(args.Data), "_blank");
 					break;
 				case ContextMenuAction.Open:
-					await SqlItemEditAsync(args.Data);
+					await SqlItemEditAsync();
 					break;
 				case ContextMenuAction.Mark:
 					await SqlItemMarkAsync();

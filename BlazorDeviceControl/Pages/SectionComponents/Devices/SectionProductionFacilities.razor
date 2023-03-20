@@ -4,7 +4,7 @@
 @page "/section/production_facilities"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@ProductionFacilityModel"
   Title="@LocaleCore.DeviceControl.SectionProductionFacilities"
   OnSectionUpdate="@GetSectionData"
@@ -23,7 +23,7 @@
   RowDoubleClick="SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@ProductionFacilityModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Address" Property="Address" Width="70%" />
     </TItemContent>

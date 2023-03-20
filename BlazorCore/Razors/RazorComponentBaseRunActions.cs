@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using BlazorCore.Settings;
-using DataCore.Protocols;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 
@@ -73,7 +72,7 @@ public partial class RazorComponentBase
         DataAccess.LogError(ex);
     }
 
-    private void RunActionsWithQeustion(string title, string questionAdd, Action action)
+    protected void RunActionsWithQeustion(string title, string questionAdd, Action action)
     {
         try
         {

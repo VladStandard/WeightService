@@ -4,7 +4,7 @@
 @page "/section/organizations"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@OrganizationModel"
   Title="@LocaleCore.DeviceControl.SectionOrganizations"
   OnSectionUpdate="@GetSectionData"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@OrganizationModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Gln" Property="Gln" Width="25%" />
     </TItemContent>

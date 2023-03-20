@@ -4,7 +4,7 @@
 @page "/section/plus_weighings_aggr"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@WeithingFactSummaryModel"
   Title="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation"
   OnSectionUpdate="@GetSectionData"
@@ -22,7 +22,7 @@
   RowRender="@RowRender">
   <Columns>
     <TItemContent TItem="@WeithingFactSummaryModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.WeithingDt" Property="WeithingDate" Width="15%" />
       <RadzenDataGridColumn TItem="WeithingFactSummaryModel" Title="@LocaleCore.Table.DayOfWeek"
                             SortProperty="WeithingDate.DayOfWeek"Width="15%">

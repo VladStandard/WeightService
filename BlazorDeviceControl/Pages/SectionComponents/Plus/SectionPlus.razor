@@ -4,7 +4,7 @@
 @page "/section/plus"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@PluModel"
   Title="@LocaleCore.DeviceControl.SectionPlus"
   OnSectionUpdate="@GetSectionData"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PluModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" SortProperty="IsCheckWeight" Width="5%">
               <Template Context="itemCast">

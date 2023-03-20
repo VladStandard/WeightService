@@ -1,0 +1,13 @@
+﻿@inherits LayoutComponentBase
+
+<AuthorizeView Roles="@UserAccessStr.Write">
+  @if (ButtonSettings.IsShowSave)
+  {
+    <RadzenButton
+      class="RadzenButtonLong"
+      Click="@OnSectionSave"
+      ButtonStyle=@ButtonStyle.Primary
+      Size=@ButtonSize.Small
+      Text=@LocaleCore.DeviceControl.TableActionSave />
+  }
+</AuthorizeView>

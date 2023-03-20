@@ -4,7 +4,7 @@
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.Xml;
 
-namespace BlazorDeviceControl.Pages.SectionComponents.LogReports;
+namespace BlazorDeviceControl.Pages.SectionComponents.Admins.LogReports;
 
 public partial class SectionLogs : RazorComponentSectionBase<LogQuickModel>
 {

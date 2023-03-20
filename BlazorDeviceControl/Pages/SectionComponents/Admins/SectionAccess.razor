@@ -4,7 +4,7 @@
 @page "/section/access"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@AccessModel"
   Title="@LocaleCore.Strings.AccessRights"
   OnSectionUpdate="@GetSectionData"
@@ -22,7 +22,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@AccessModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="30%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.User" Property="Name" Width="30%"/>
       <RadzenDataGridColumn TItem="@AccessModel" Title="@LocaleCore.Table.AccessLevel" SortProperty="Rights" Width="30%">

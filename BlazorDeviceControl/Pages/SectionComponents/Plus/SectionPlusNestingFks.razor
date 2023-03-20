@@ -4,7 +4,7 @@
 @page "/section/plus_nesting_fks"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 
-<RazorSectionReload
+<SectionReload
   TItem="@PluNestingFkModel"
   Title="@LocaleCore.DeviceControl.SectionPlusNestingFk"
   OnSectionUpdate="@GetSectionData"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PluNestingFkModel">
-      <RazorSectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" SortProperty="PluBundle.Plu.IsCheckWeight" Width="5%">
         <Template Context="itemCast">
           <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.PluBundle.Plu.IsCheckWeight"/>
