@@ -12,7 +12,9 @@ public class JsonSettingsModel : ISerializable
 	public int SectionRowsCount { get; set; }
 	public int ItemRowsCount { get; set; }
 	public int SelectTopRowsCount { get; set; }
-	public ushort Version { get; set; }
+    public int MaxCount => SelectTopRowsCount;
+
+    public ushort Version { get; set; }
 	public string AllowedHosts { get; set; }
 	[NonSerialized] private string _connectionString;
 	public string ConnectionString { get => _connectionString; set => _connectionString = value; }

@@ -11,19 +11,13 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods - GetItem
 
-	private T? GetItemCoreNullable<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
-	{
-		sqlCrudConfig.SetResultMaxCount(1);
-		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-		return criteria.UniqueResult<T>();
-	}
-
 	public T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T? item = null;
         ExecuteCore(session =>
         {
-			item = GetItemCoreNullable<T>(session, sqlCrudConfig);
+            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
+            item = criteria.UniqueResult<T>();
 		}, false);
 		FillReferences(item);
 		return item;
@@ -100,11 +94,13 @@ public partial class DataAccessHelper
 	public bool IsItemExists<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		bool result = false;
-		sqlCrudConfig.SetResultMaxCount(1);
         ExecuteCore(session =>
         {
-			result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Any();
-		}, false);
+            int saveCount = JsonSettings.Local.SelectTopRowsCount;
+            JsonSettings.Local.SelectTopRowsCount = 1;
+            result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Any();
+            JsonSettings.Local.SelectTopRowsCount = saveCount;
+        }, false);
 		return result;
 	}
 
@@ -115,18 +111,13 @@ public partial class DataAccessHelper
 
     #region Public and private methods - GetArray
 
-    private T[] GetArrayCore<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
-	{
-		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-		return criteria.List<T>().ToArray();
-	}
-
 	public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T[]? items = null;
         ExecuteCore(session =>
         {
-			items = GetArrayCore<T>(session, sqlCrudConfig);
+            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
+            items = criteria.List<T>().ToArray();
 			if (sqlCrudConfig.IsFillReferences)
 			    foreach (T item in items)
 			    {

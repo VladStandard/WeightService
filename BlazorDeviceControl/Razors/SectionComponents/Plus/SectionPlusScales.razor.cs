@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -36,8 +36,9 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 
     private string GetPluPackagesCount(PluModel plu)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu));
-		return DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu),
+            false, true, false, false);
+        return DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}
 
 	#endregion

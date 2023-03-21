@@ -31,7 +31,8 @@ public partial class DataAccessHelper
 
     public AccessModel? GetItemAccessNullable(string? userName)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), userName, false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+            nameof(SqlTableBase.Name), userName, false, false);
         return GetItemNullable<AccessModel>(sqlCrudConfig);
     }
 
@@ -99,7 +100,8 @@ public partial class DataAccessHelper
 
     private AppModel GetItemAppOrCreateNew(string appName)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), appName, false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+            nameof(SqlTableBase.Name), appName, false, false);
         AppModel app = GetItemNotNullable<AppModel>(sqlCrudConfig);
         if (app.IsNew)
         {
@@ -120,7 +122,8 @@ public partial class DataAccessHelper
 
     public AppModel? GetItemAppNullable(string appName)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), appName, false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+            nameof(SqlTableBase.Name), appName, false, false);
         return GetItemNullable<AppModel>(sqlCrudConfig);
     }
 
@@ -164,7 +167,8 @@ public partial class DataAccessHelper
 
     private DeviceModel? GetItemDeviceNullable(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), name, false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+            nameof(SqlTableBase.Name), name, false, false);
         return GetItemNullable<DeviceModel>(sqlCrudConfig);
     }
 

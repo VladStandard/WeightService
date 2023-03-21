@@ -840,7 +840,8 @@ public class UserSessionHelper : BaseViewModel
 
     public void SetPluScales()
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(Scale, nameof(PluScaleModel.Scale), false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(Scale, nameof(PluScaleModel.Scale), 
+            false, false, false, false);
         sqlCrudConfig.AddFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), true));
         sqlCrudConfig.AddOrders(new(nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc));
         sqlCrudConfig.IsResultOrder = true;
