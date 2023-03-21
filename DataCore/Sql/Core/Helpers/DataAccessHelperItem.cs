@@ -41,8 +41,8 @@ public partial class DataAccessHelper
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
             new List<SqlFieldFilterModel>
             {
-                new(nameof(ProductSeriesModel.IsClose), SqlFieldComparerEnum.Equal, false),
-                new($"{nameof(ProductSeriesModel.Scale)}.{nameof(ScaleModel.IdentityValueId)}",  SqlFieldComparerEnum.Equal, scale.IdentityValueId)
+                new() { Name = nameof(ProductSeriesModel.IsClose), Value = false },
+                new() { Name = $"{nameof(ProductSeriesModel.Scale)}.{nameof(ScaleModel.IdentityValueId)}", Value = scale.IdentityValueId }
             }, false, false);
         return GetItemNullable<ProductSeriesModel>(sqlCrudConfig);
     }
@@ -226,7 +226,7 @@ public partial class DataAccessHelper
     public LogTypeModel? GetItemLogTypeNullable(LogType logType)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-            { new(nameof(LogTypeModel.Number), SqlFieldComparerEnum.Equal, (byte)logType) },
+            { new() { Name = nameof(LogTypeModel.Number), Value = (byte)logType } },
             true, true, false, false);
         return GetItemNullable<LogTypeModel>(sqlCrudConfig);
     }
@@ -238,7 +238,7 @@ public partial class DataAccessHelper
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(),
             false, false, false, true);
-        sqlCrudConfig.AddOrders(new(nameof(LogTypeModel.Number), SqlFieldOrderEnum.Asc));
+        sqlCrudConfig.AddOrders(new() { Name = nameof(LogTypeModel.Number), Direction = SqlOrderDirection.Asc });
         return GetListNotNullable<LogTypeModel>(sqlCrudConfig);
     }
 

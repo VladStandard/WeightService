@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels.Scales;
@@ -11,7 +11,7 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel>
 
     public SectionScales() : base()
     {
-        SqlCrudConfigSection.AddOrders(new(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
+        SqlCrudConfigSection.AddOrders(new() { Name = nameof(ScaleModel.Description), Direction = SqlOrderDirection.Asc });
     }
 
     #endregion

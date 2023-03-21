@@ -27,9 +27,9 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
     protected override void SetSqlSectionCast()
     {
         if (HideNoneActivePlu)
-            SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
+            SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
         else
-            SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
+            SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
         SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), SqlItem);
         base.SetSqlSectionCast();
     }

@@ -442,7 +442,7 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesLoadTtf, GetQuestionAdd(), () =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-                new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), false, false);
+                new SqlFieldOrderModel { Name = nameof(SqlTableBase.Description), Direction = SqlOrderDirection.Asc}, false, false);
 			List<TemplateResourceModel> templateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{

@@ -319,7 +319,8 @@ public class DataCoreHelper
 		}
 	}
 
-    public void AssertGetList<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    public void AssertGetList<T>(SqlCrudConfigModel sqlCrudConfig, List<PublishType> publishTypes, bool isGreater = true) 
+        where T : SqlTableBase, new()
     {
         AssertAction(() =>
         {
@@ -471,14 +472,16 @@ public class DataCoreHelper
                     items = DataContext.GetListNotNullablePrintersTypes(sqlCrudConfig).Cast<T>().ToList();
                     break;
             }
+            TestContext.WriteLine($"{nameof(items.Count)}: {items.Count}");
+            if (isGreater)
+                Assert.Greater(items.Count, 0);
             foreach (T item in items)
             {
-                TestContext.WriteLine(item);
                 Assert.IsNotEmpty(item.ToString());
                 ValidationResult validationResult = ValidationUtils.GetValidationResult(item);
                 Assert.IsTrue(validationResult.IsValid);
             }
-        }, false, new() { PublishType.ReleaseVs, PublishType.DevelopVs });
+        }, false, publishTypes);
     }
 	
     public T CreateNewSubstitute<T>(bool isNotDefault) where T : SqlTableBase, new()

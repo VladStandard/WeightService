@@ -116,6 +116,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CHANGELOG.md = CHANGELOG.md
 		ConnectionString.txt = ConnectionString.txt
 		Converts.md = Converts.md
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		IsExternalInit.cs = IsExternalInit.cs
 		LICENSE.md = LICENSE.md
 		Publish life cycle.md = Publish life cycle.md
 		Publish resources.md = Publish resources.md
@@ -1948,7 +1951,7 @@ Global
 		{4302BE0E-6DC3-445A-A958-4D91E4F5D335} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

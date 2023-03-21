@@ -285,11 +285,11 @@ public class UserSessionHelper : BaseViewModel
         SetScale(scaleId, productionFacilityName);
 
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
-        sqlCrudConfig.AddOrders(new(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc));
+        sqlCrudConfig.AddOrders(new() { Name = nameof(ScaleModel.Description), Direction = SqlOrderDirection.Asc });
         Scales = DataContext.GetListNotNullable<ScaleModel>(sqlCrudConfig);
 
         sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
-        sqlCrudConfig.AddOrders(new(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc));
+        sqlCrudConfig.AddOrders(new() { Name = nameof(ProductionFacilityModel.Name), Direction =  SqlOrderDirection.Asc });
         ProductionFacilities = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
     }
 
@@ -842,8 +842,8 @@ public class UserSessionHelper : BaseViewModel
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(Scale, nameof(PluScaleModel.Scale), 
             false, false, false, false);
-        sqlCrudConfig.AddFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), true));
-        sqlCrudConfig.AddOrders(new(nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc));
+        sqlCrudConfig.AddFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
+        sqlCrudConfig.AddOrders(new() { Name = nameof(PluScaleModel.Plu), Direction = SqlOrderDirection.Asc });
         sqlCrudConfig.IsResultOrder = true;
         PluScales = DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
     }

@@ -27,11 +27,9 @@ public partial class DataAccessHelper
 	{
 		SqlCrudConfigModel? sqlCrudConfig = value switch
 		{
-			Guid uid => new(new List<SqlFieldFilterModel>
-				{ new(nameof(SqlTableBase.IdentityValueUid), SqlFieldComparerEnum.Equal, uid) }, 
+			Guid uid => new(new List<SqlFieldFilterModel>{ new() { Name = nameof(SqlTableBase.IdentityValueUid), Value = uid } }, 
 				true, false, false,  false),
-			long id => new(new List<SqlFieldFilterModel> 
-				{ new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id) }, 
+			long id => new(new List<SqlFieldFilterModel> { new() { Name = nameof(SqlTableBase.IdentityValueId), Value = id } }, 
 				true, false, false,  false),
 			_ => null
         };
@@ -197,9 +195,7 @@ public partial class DataAccessHelper
 	{
         List<T> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
-		{
             result.Add(GetItemNewEmpty<T>());
-		}
 
         List<T> list = new();
 		T[]? items = GetArrayNullable<T>(sqlCrudConfig);

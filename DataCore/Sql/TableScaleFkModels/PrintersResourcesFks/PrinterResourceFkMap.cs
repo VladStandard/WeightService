@@ -23,6 +23,6 @@ public class PrinterResourceFkMap : ClassMap<PrinterResourceFkModel>
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         References(x => x.Printer).Column("PrinterID").Not.Nullable();
-        References(x => x.TemplateResource).Column("ResourceID").Not.Nullable();
+        References(x => x.TemplateResource).Column("RESOURCE_UID").Not.Nullable();
     }
 }

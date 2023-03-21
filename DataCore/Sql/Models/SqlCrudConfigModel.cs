@@ -5,6 +5,9 @@ using DataCore.Sql.Core.Enums;
 
 namespace DataCore.Sql.Models;
 
+/// <summary>
+/// SQL config for CRUD operations.
+/// </summary>
 public class SqlCrudConfigModel : ICloneable
 {
     #region Public and private fields, properties, constructor
@@ -107,18 +110,20 @@ public class SqlCrudConfigModel : ICloneable
             : GetFiltersIdentity(className, item.Identity.Name == SqlFieldIdentity.Uid ? item.IdentityValueUid : item.IdentityValueId);
 
     public static List<SqlFieldFilterModel> GetFilters(string className, object? value) =>
-        new() { new(className, SqlFieldComparerEnum.Equal, value) };
+        new() { new() { Name = className, Value = value } };
 
     public static List<SqlFieldFilterModel> GetFiltersIdentity(string className, object? value) =>
         value switch
         {
-            Guid uid => new() { new($"{className}.{nameof(SqlTableBase.IdentityValueUid)}", SqlFieldComparerEnum.Equal, uid) },
-            long id => new() { new($"{className}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, id) },
+            Guid uid => new() { 
+                new() { Name = $"{className}.{nameof(SqlTableBase.IdentityValueUid)}", Value = uid } },
+            long id => new() {
+                new() { Name = $"{className}.{nameof(SqlTableBase.IdentityValueId)}", Value = id } },
             _ => new()
         };
 
     private List<SqlFieldFilterModel> GetFiltersIsResultShowMarked(bool isShowMarked) =>
-        new() { new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, isShowMarked) };
+        new() { new() { Name = nameof(SqlTableBase.IsMarked), Value = isShowMarked } };
 
     public void AddFilters(List<SqlFieldFilterModel> filters)
     {
@@ -135,7 +140,7 @@ public class SqlCrudConfigModel : ICloneable
         }
     }
 
-    public void AddFilters(SqlFieldFilterModel filter) => AddFilters(new List<SqlFieldFilterModel>() { filter });
+    public void AddFilters(SqlFieldFilterModel filter) => AddFilters(new List<SqlFieldFilterModel> { filter });
 
     public void AddFilters(string className, SqlTableBase? item) => AddFilters(GetFilters(className, item));
 
@@ -154,7 +159,7 @@ public class SqlCrudConfigModel : ICloneable
         }
     }
 
-    public void RemoveFilters(SqlFieldFilterModel filter) => RemoveFilters(new List<SqlFieldFilterModel>() { filter });
+    public void RemoveFilters(SqlFieldFilterModel filter) => RemoveFilters(new List<SqlFieldFilterModel> { filter });
 
     public void RemoveFilters(string className, SqlTableBase? item) => RemoveFilters(GetFilters(className, item));
 
@@ -173,7 +178,7 @@ public class SqlCrudConfigModel : ICloneable
             }
     }
 
-    public void AddOrders(SqlFieldOrderModel order) => AddOrders(new List<SqlFieldOrderModel>() { order });
+    public void AddOrders(SqlFieldOrderModel order) => AddOrders(new List<SqlFieldOrderModel> { order });
 
     private void RemoveOrders(List<SqlFieldOrderModel> orders)
     {
@@ -194,7 +199,7 @@ public class SqlCrudConfigModel : ICloneable
         }
     }
 
-    public void RemoveOrders(SqlFieldOrderModel order) => RemoveOrders(new List<SqlFieldOrderModel>() { order });
+    public void RemoveOrders(SqlFieldOrderModel order) => RemoveOrders(new List<SqlFieldOrderModel> { order });
 
     public object Clone()
     {

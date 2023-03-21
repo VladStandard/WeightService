@@ -16,7 +16,7 @@ public partial class DataAccessHelper
     private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
-        if (JsonSettings.Local.MaxCount > 0 && sqlCrudConfig.IsResultShowOnlyTop || JsonSettings.Local.MaxCount == 1)
+        if ((JsonSettings.Local.MaxCount > 0 && sqlCrudConfig.IsResultShowOnlyTop) || JsonSettings.Local.MaxCount == 1)
             criteria.SetMaxResults(JsonSettings.Local.MaxCount);
         if (sqlCrudConfig.Filters.Any())
             criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
