@@ -5,6 +5,9 @@ namespace DataCore.Utils;
 
 public static class StringUtils
 {
+    public static string FormatDtLongStr => "{0:dd/MM/yy H:mm:ss}";
+    public static string FormatDtDefaultStr => "{0:dd/MM/yy H:mm}";
+    public static string FormatDtShortStr => "{0:dd/MM/yy}";
     public static string FormatDtRus(DateTime dt, bool isShowSeconds) =>
 	    isShowSeconds
 		    ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"

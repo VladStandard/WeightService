@@ -166,7 +166,6 @@
     </ItemGroup>
     <ItemGroup>
       <AdditionalFiles Include="Pages\SectionComponents\Admins\LogReports\SectionLogs.razor" />
-      <AdditionalFiles Include="Pages\SectionComponents\Admins\LogReports\SectionLogTable.razor" />
       <AdditionalFiles Include="Pages\SectionComponents\Admins\LogReports\SectionWebServiceLogs.razor" />
     </ItemGroup>
     <ItemGroup>

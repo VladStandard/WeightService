@@ -24,7 +24,8 @@
   <Columns>
     <TItemContent TItem="@LogWebFkModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="LogWebRequest.CreateDt" Width="15%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="LogWebRequest.CreateDt" Width="15%"
+                            FormatString="@StringUtils.FormatDtLongStr" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Device.Name" Width="10%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App.Name" Width="15%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="LogType.Icon" Width="15%" />

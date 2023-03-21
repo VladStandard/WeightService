@@ -24,7 +24,8 @@
   <Columns>
     <TItemContent TItem="@BrandModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ChangeDt" Property="ChangeDt" Width="33%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ChangeDt" Property="ChangeDt" Width="33%"
+                            FormatString="@StringUtils.FormatDtDefaultStr" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="43%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Code" Property="Code" Width="33%" />
     </TItemContent>

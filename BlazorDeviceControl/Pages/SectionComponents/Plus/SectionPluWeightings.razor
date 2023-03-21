@@ -30,7 +30,8 @@ else
     <Columns>
       <TItemContent TItem="@PluWeighingModel">
         <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"/>
+        <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
+                            FormatString="@StringUtils.FormatDtDefaultStr" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="PluScale.Scale.Description" Width="22%" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.Host" Sortable="false" Width="13%">
           <Template Context="itemCast">

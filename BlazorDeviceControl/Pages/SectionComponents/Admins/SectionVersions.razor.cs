@@ -3,7 +3,7 @@
 
 using DataCore.Sql.TableScaleModels.Versions;
 
-namespace BlazorDeviceControl.Pages.SectionComponents.Others;
+namespace BlazorDeviceControl.Pages.SectionComponents.Admins;
 
 public partial class SectionVersions : RazorComponentSectionBase<VersionModel>
 {

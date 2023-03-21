@@ -235,7 +235,7 @@ public class LocaleTable
     public string WeightNominal => Lang == Lang.English ? "Nominal weight" : "Номинальный вес";
     public string WeightShort => Lang == Lang.English ? "Weight" : "Вес";
     public string WeightTare => Lang == Lang.English ? "Tare weight" : "Вес тары";
-    public string WeithingDt => Lang == Lang.English ? "Weighing date" : "Дата взвешивания";
+    public string WeighDt => Lang == Lang.English ? "Weighing date" : "Дата взвешивания";
     public string WorkShop => Lang == Lang.English ? "Workshop" : "Цех";
     public string WorkShopId => Lang == Lang.English ? "Workshop ID" : "ИД цеха";
     public string WorkShopName => Lang == Lang.English ? "Workshop" : "Цех";
