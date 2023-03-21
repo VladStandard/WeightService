@@ -110,7 +110,7 @@ public partial class LocaleDeviceControl
     public string SectionPlusBundlesFk => Lang == Lang.English ? "PLU & bundles" : "Пакеты ПЛУ";
     public string SectionPlusNestingFk => Lang == Lang.English ? "PLU's nesting" : "Вложенности ПЛУ";
     public string SectionPlusScales => Lang == Lang.English ? "PLU & devices" : "ПЛУ и устройства";
-    public string SectionPlusWeighings => Lang == Lang.English ? "Plus weighings" : "Взвешивания ПЛУ";
+    public string SectionPlusWeightings => Lang == Lang.English ? "Plus Weightings" : "Взвешивания ПЛУ";
     public string SectionProductionFacilities => Lang == Lang.English ? "Production facilities" : "Производственные площадки";
     public string SectionProductionFacilitiesShort => Lang == Lang.English ? "Facilities" : "Площадки";
     public string SectionProductSeries => Lang == Lang.English ? "Product series" : "Серии продуктов";

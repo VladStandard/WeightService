@@ -1,5 +1,4 @@
 ﻿@using DataCore.Sql.TableScaleModels.PlusScales
-@using DataCore.Sql.TableScaleModels.Scales
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentSectionBase<PluScaleModel>
 @page "/section/plus_scales"
@@ -41,7 +40,7 @@ else
         <RadzenDataGridColumn Title="@LocaleCore.Table.Active" SortProperty="IsActive" Width="10%" >
           <Template Context="itemCast">
             <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive"
-                            Change=@(() => @SetSqlSectionSave(itemCast)) />
+                            Change=@(_ => @SetSqlSectionSave(itemCast)) />
           </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Title="@LocaleCore.Table.WeightShort" SortProperty="Plu.IsCheckWeight" Width="10%">

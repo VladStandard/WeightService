@@ -114,7 +114,7 @@ public partial class RazorComponentBase
 			PluModel => LocaleCore.DeviceControl.SectionPlus,
 			PluNestingFkModel => LocaleCore.DeviceControl.SectionPlusNestingFk,
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
-			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeighings,
+			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeightings,
 			PrinterModel => LocaleCore.Print.Name,
 			PrinterResourceFkModel => LocaleCore.Print.Resources,
 			PrinterTypeModel => LocaleCore.Print.Types,
