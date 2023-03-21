@@ -8,6 +8,6 @@
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Quartz" Version="3.5.0" />
+    <PackageReference Include="Quartz" Version="3.6.2" />
   </ItemGroup>
 </Project>

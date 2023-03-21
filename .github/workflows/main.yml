@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - preview
+      - bagger
     paths:
       - '**.csproj'
       - '**.razor'
