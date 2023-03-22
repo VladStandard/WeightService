@@ -74,7 +74,16 @@ public class JsonSettingsHelper
     private string FileNameReleaseAleksandrov => "appsettings.ReleaseAleksandrov.json";
     private string FileNameReleaseMorozov => "appsettings.ReleaseMorozov.json";
     private string FileNameReleaseVs => "appsettings.ReleaseVS.json";
-    private string JsonFileName => DebugHelper.Instance.IsDebug ? FileNameDevelopVs : FileNameReleaseVs;
+    private string JsonFileName =>
+        DebugHelper.Instance.Config switch {
+            Configuration.DevelopAleksandrov => FileNameDevelopAleksandrov,
+            Configuration.DevelopMorozov => FileNameDevelopMorozov,
+            Configuration.DevelopVS => FileNameDevelopVs,
+            Configuration.ReleaseAleksandrov => FileNameReleaseAleksandrov,
+            Configuration.ReleaseMorozov => FileNameReleaseMorozov,
+            Configuration.ReleaseVS => FileNameReleaseVs,
+            _ => FileNameDevelopVs,
+        };
     private string BlazorSubDir => DebugHelper.Instance.IsDebug ? @"bin\x64\Debug\net7.0\" : @"bin\x64\Release\net7.0\";
 
     public JsonSettingsHelper()
@@ -218,7 +227,19 @@ public class JsonSettingsHelper
 
 	private void CheckUpdates(string localDir, string fileName)
 	{
-		if (!Directory.Exists(RemoteDir))
+        switch (DebugHelper.Instance.Config)
+        {
+            case Configuration.DevelopAleksandrov:
+            case Configuration.DevelopMorozov:
+            case Configuration.ReleaseAleksandrov:
+            case Configuration.ReleaseMorozov:
+                return;
+            case Configuration.DevelopVS:
+            case Configuration.ReleaseVS:
+                break;
+        }
+
+        if (!Directory.Exists(RemoteDir))
 		{
 			throw new(LocaleCore.System.JsonSettingsRemoteFolderNotFound);
 		}

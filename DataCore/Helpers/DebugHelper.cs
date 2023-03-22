@@ -23,5 +23,22 @@ public class DebugHelper
         false;
 #endif
 
-	#endregion
+    public Configuration Config =>
+#if DEVELOPALEKSANDROV
+        Configuration.DevelopAleksandrov;
+#elif DEVELOPMOROZOV
+        Configuration.DevelopMorozov;
+#elif DEVELOPVS
+        Configuration.DevelopVS;
+#elif RELEASEALEKSANDROV
+        Configuration.ReleaseAleksandrov;
+#elif RELEASEMOROZOV
+        Configuration.ReleaseMorozov;
+#elif RELEASEVS
+        Configuration.ReleaseVS;
+#else
+        Configuration.DevelopVS;
+#endif
+
+    #endregion
 }

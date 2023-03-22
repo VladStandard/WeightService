@@ -117,6 +117,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMorozov|AnyCPU'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMorozov|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMorozov|x86'" />
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="Post-build.cmd" />
   </Target>

@@ -3,6 +3,60 @@
     <PropertyGroup>
         <Deterministic>true</Deterministic>
     </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopAleksandrov|AnyCPU' ">
+        <DefineConstants>DEBUG;TRACE;DEVELOP_ALEKSANDROV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x64' ">
+        <DefineConstants>DEBUG;TRACE;DEVELOP_ALEKSANDROV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x86' ">
+        <DefineConstants>DEBUG;TRACE;DEVELOP_ALEKSANDROV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopMorozov|AnyCPU' ">
+        <DefineConstants>DEBUG;TRACE;DEVELOP_MOROZOV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopMorozov|x64' ">
+        <DefineConstants>DEBUG;TRACE;DEVELOP_MOROZOV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopMorozov|x86' ">
+        <DefineConstants>DEBUG;TRACE;DEVELOP_MOROZOV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopVS|AnyCPU' ">
+        <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopVS|x64' ">
+        <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopVS|x86' ">
+        <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|AnyCPU' ">
+        <DefineConstants>DEBUG;TRACE;RELEASE_ALEKSANDROV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x64' ">
+        <DefineConstants>DEBUG;TRACE;RELEASE_ALEKSANDROV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x86' ">
+        <DefineConstants>DEBUG;TRACE;RELEASE_ALEKSANDROV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMorozov|AnyCPU' ">
+        <DefineConstants>DEBUG;TRACE;RELEASE_MOROZOV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMorozov|x64' ">
+        <DefineConstants>DEBUG;TRACE;RELEASE_MOROZOV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMorozov|x86' ">
+        <DefineConstants>DEBUG;TRACE;RELEASE_MOROZOV</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|AnyCPU' ">
+        <DefineConstants>DEBUG;TRACE;RELEASE_VS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|x64' ">
+        <DefineConstants>DEBUG;TRACE;RELEASE_VS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|x86' ">
+        <DefineConstants>DEBUG;TRACE;RELEASE_VS</DefineConstants>
+    </PropertyGroup>
     <ItemGroup>
         <Compile Include="..\IsExternalInit.cs" Visible="false" />
     </ItemGroup>

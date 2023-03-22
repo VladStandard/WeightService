@@ -18,6 +18,12 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 - ✓ develop -> main:    `git switch main && git merge develop && git push all main && git switch develop && git bra && git st`
 - x rollback merge:     `git merge --quit && git reset . && git checkout . && git clean -fd && cls && git bra && git st`
 
+## Rollback commits
+git reset HEAD~X
+make changes
+git stad && git cism "Updated ..."
+git push all develop --force
+
 ## Release/Preview ScalesUI routing
 Временное окно выпуска обновления ПО "Печать этикеток": 16.30 - 17.00.
 ПО "Печать этикеток" обновлена до версии v0.x.yyy.
