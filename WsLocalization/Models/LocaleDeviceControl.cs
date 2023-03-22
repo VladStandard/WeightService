@@ -130,10 +130,8 @@ public partial class LocaleDeviceControl
     public string SectionWeithingFactsAggregationShort => Lang == Lang.English ? "Aggr. weithings" : "Агр. взвешивания";
     public string SectionWorkShops => Lang == Lang.English ? "Workshops" : "Цеха";
     public string SqlServerDevelopAleksandrov => "LOCALHOST";
-    public string SqlServerDevelopMorozov => "SQL2019"; // SQL2019\SQL2019
     public string SqlServerDevelopVs => "CREATIO"; // CREATIO\INS1
     public string SqlServerReleaseAleksandrov => "LOCALHOST"; // PALYCH\LUTON
-    public string SqlServerReleaseMorozov => "SQL2019"; // PALYCH\LUTON
     public string SqlServerReleaseVs => "PALYCH"; // PALYCH\LUTON
     public string Table => Lang == Lang.English ? "Table" : "Таблица";
     public string TableActionAdd => Lang == Lang.English ? "Add" : "Добавить";

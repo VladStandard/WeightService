@@ -18,181 +18,181 @@ internal class GetListTests
 {
     private static SqlCrudConfigModel SqlCrudConfig => new(false, true, false, true);
     private static SqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true);
-    private static List<PublishType> PublishTypes => new() { PublishType.ReleaseVs, PublishType.DevelopVs };
-    private static List<PublishType> PublishTypesDev = new() { PublishType.DevelopVs };
+    private static List<Configuration> Configurations => new() { Configuration.ReleaseVS, Configuration.DevelopVS };
+    private static List<Configuration> ConfigurationsDev = new() { Configuration.DevelopVS };
 
     [Test]
     public void DataContext_AssertGetList_AccessModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<AccessModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<AccessModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_AppModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<AppModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<AppModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_BarCodeModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<BarCodeModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<BarCodeModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_BoxModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<BoxModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<BoxModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_BrandModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<BrandModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<BrandModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_BundleModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<BundleModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<BundleModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ClipModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<ClipModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<ClipModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ContragentModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<ContragentModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<ContragentModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_DeviceModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<DeviceModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<DeviceModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_DeviceScaleFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<DeviceScaleFkModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<DeviceScaleFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_DeviceTypeModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<DeviceTypeModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<DeviceTypeModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_DeviceTypeFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<DeviceTypeFkModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<DeviceTypeFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_LogTypeModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<LogTypeModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<LogTypeModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_LogModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<LogModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<LogModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_LogWebModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<LogWebModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<LogWebModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_LogWebFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<LogWebFkModel>(SqlCrudConfigFk, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<LogWebFkModel>(SqlCrudConfigFk, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_OrderModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<OrderModel>(SqlCrudConfig, PublishTypes, false);
+        DataCoreTestsUtils.DataCore.AssertGetList<OrderModel>(SqlCrudConfig, Configurations, false);
     }
 
     [Test]
     public void DataContext_AssertGetList_OrderWeighingModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<OrderWeighingModel>(SqlCrudConfig, PublishTypes, false);
+        DataCoreTestsUtils.DataCore.AssertGetList<OrderWeighingModel>(SqlCrudConfig, Configurations, false);
     }
 
     [Test]
     public void DataContext_AssertGetList_OrganizationModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<OrganizationModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<OrganizationModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluBrandFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluBrandFkModel>(SqlCrudConfig, PublishTypesDev);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluBrandFkModel>(SqlCrudConfig, ConfigurationsDev);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluBundleFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluBundleFkModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluBundleFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluCharacteristicModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluCharacteristicModel>(SqlCrudConfig, PublishTypesDev);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluCharacteristicModel>(SqlCrudConfig, ConfigurationsDev);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluCharacteristicsFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluCharacteristicsFkModel>(SqlCrudConfig, PublishTypesDev);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluCharacteristicsFkModel>(SqlCrudConfig, ConfigurationsDev);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluClipFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluClipFkModel>(SqlCrudConfig, PublishTypes, false);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluClipFkModel>(SqlCrudConfig, Configurations, false);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluFkModel>(SqlCrudConfig, PublishTypes, false);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluFkModel>(SqlCrudConfig, Configurations, false);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluGroupModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluGroupModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluGroupModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluGroupFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluGroupFkModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluGroupFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluLabelModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluLabelModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluLabelModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -201,108 +201,108 @@ internal class GetListTests
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
         sqlCrudConfig.NativeQuery = SqlQueries.DbScales.Tables.PluNestingFks.GetList(true);
         sqlCrudConfig.NativeParameters = new() { new("P_UID", new Guid("5B24E604-C550-43C9-91DD-74989A5E9D6C")), };
-        DataCoreTestsUtils.DataCore.AssertGetList<PluNestingFkModel>(sqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluNestingFkModel>(sqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluScaleModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluScaleModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluScaleModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluStorageMethodModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluStorageMethodModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluStorageMethodModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluStorageMethodFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluStorageMethodFkModel>(SqlCrudConfigFk, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluStorageMethodFkModel>(SqlCrudConfigFk, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluTemplateFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluTemplateFkModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluTemplateFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluWeighingModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PluWeighingModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PluWeighingModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ProductionFacilityModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<ProductionFacilityModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<ProductionFacilityModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ProductSeriesModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<ProductSeriesModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<ProductSeriesModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ScaleModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<ScaleModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<ScaleModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ScaleScreenShotModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<ScaleScreenShotModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<ScaleScreenShotModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_TaskModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<TaskModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<TaskModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_TaskTypeModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<TaskTypeModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<TaskTypeModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_TemplateModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<TemplateModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<TemplateModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_TemplateResourceModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<TemplateResourceModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<TemplateResourceModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_WorkShopModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<WorkShopModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<WorkShopModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PrinterModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PrinterModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PrinterModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PrinterResourceFkModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PrinterResourceFkModel>(SqlCrudConfigFk, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PrinterResourceFkModel>(SqlCrudConfigFk, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PrinterTypeModel()
     {
-        DataCoreTestsUtils.DataCore.AssertGetList<PrinterTypeModel>(SqlCrudConfig, PublishTypes);
+        DataCoreTestsUtils.DataCore.AssertGetList<PrinterTypeModel>(SqlCrudConfig, Configurations);
     }
 }

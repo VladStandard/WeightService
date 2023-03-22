@@ -53,7 +53,7 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods
 
-    private void FillReferences<T>(T? item) where T : SqlTableBase, new()
+    private void FillReferences<T>(T? item, bool isFillReferences) where T : SqlTableBase, new()
 	{
 		switch (item)
 		{
@@ -129,9 +129,19 @@ public partial class DataAccessHelper
                 pluCharacteristicsFk.Characteristic = GetItemNotNullable<PluCharacteristicModel>(pluCharacteristicsFk.Characteristic.IdentityValueUid);
                 break;
             case PluStorageMethodFkModel pluStorageMethod:
-                pluStorageMethod.Plu = GetItemNotNullable<PluModel>(pluStorageMethod.Plu.IdentityValueUid);
-                pluStorageMethod.Method = GetItemNotNullable<PluStorageMethodModel>(pluStorageMethod.Method.IdentityValueUid);
-                pluStorageMethod.Resource = GetItemNotNullable<TemplateResourceModel>(pluStorageMethod.Resource.IdentityValueUid);
+                if (isFillReferences)
+                {
+                    pluStorageMethod.Plu = GetItemNotNullable<PluModel>(pluStorageMethod.Plu.IdentityValueUid);
+                    pluStorageMethod.Method = GetItemNotNullable<PluStorageMethodModel>(pluStorageMethod.Method.IdentityValueUid);
+                    pluStorageMethod.Resource = GetItemNotNullable<TemplateResourceModel>(pluStorageMethod.Resource.IdentityValueUid);
+                }
+                else
+                {
+                    //pluStorageMethod.FillProperties();
+                    pluStorageMethod.Plu = new();
+                    pluStorageMethod.Method = new();
+                    pluStorageMethod.Resource = new();
+                }
                 break;
             case OrderWeighingModel orderWeighing:
                 orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);

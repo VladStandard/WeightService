@@ -44,5 +44,17 @@ public partial class DataContextModel
         return pluStorageMethodFk.IsExists ? pluStorageMethodFk.Resource : new();
     }
 
+    /// <summary>
+    /// Get item PluStorageMethodFk by Plu.
+    /// Use UpdatePluStorageMethodFks for force update.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <returns></returns>
+    public PluStorageMethodFkModel GetPluStorageMethodFk(PluModel plu)
+    {
+        PluStorageMethodFkModel pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        return pluStorageMethodFk.IsExists ? pluStorageMethodFk : new();
+    }
+
     #endregion
 }

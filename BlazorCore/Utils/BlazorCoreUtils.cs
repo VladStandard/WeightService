@@ -3,6 +3,8 @@
 
 using System.Diagnostics;
 using BlazorCore.Settings;
+using DataCore.Enums;
+using DataCore.Helpers;
 
 namespace BlazorCore.Utils;
 
@@ -25,36 +27,52 @@ public static class BlazorCoreUtils
 
     public static class GetCssName
     {
-        public static string Sidebar(BlazorAppSettingsHelper appSettings)
-        {
-            if (appSettings.DataAccess.IsSqlServerReleaseVs)
-                return "SidebarRelease";
-            if (appSettings.DataAccess.IsSqlServerDevelopVs)
-                return "SidebarDebug";
-            return "SidebarDefault";
-        }
+        public static string Sidebar(BlazorAppSettingsHelper appSettings) =>
+            DebugHelper.Instance.Config switch
+            {
+                Configuration.DevelopAleksandrov => "SidebarDebug",
+                Configuration.DevelopMorozov => "SidebarDebug",
+                Configuration.DevelopVS => "SidebarDebug",
+                Configuration.ReleaseAleksandrov => "SidebarRelease",
+                Configuration.ReleaseMorozov => "SidebarRelease",
+                Configuration.ReleaseVS => "SidebarRelease",
+                _ => "SidebarDefault"
+            };
         public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
-        public static string RadzenPanelMenu(BlazorAppSettingsHelper appSettings)
-        {
-            if (appSettings.DataAccess.IsSqlServerReleaseVs)
-                return "RadzenPanelMenuRelease";
-            return appSettings.DataAccess.IsSqlServerDevelopVs 
-	            ? "RadzenPanelMenuDebug" : "RadzenPanelMenuDefault";
-        }
-        public static string RadzenPanelMenuItem(BlazorAppSettingsHelper appSettings)
-        {
-            if (appSettings.DataAccess.IsSqlServerReleaseVs)
-                return "RadzenPanelMenuItemRelease";
-            return appSettings.DataAccess.IsSqlServerDevelopVs 
-	            ? "RadzenPanelMenuItemDebug" : "RadzenPanelMenuItemDefault";
-        }
-        public static string RadzenPanelMenuSubItem(BlazorAppSettingsHelper appSettings)
-        {
-            if (appSettings.DataAccess.IsSqlServerReleaseVs)
-                return "RadzenPanelMenuSubItemRelease";
-            return appSettings.DataAccess.IsSqlServerDevelopVs 
-	            ? "RadzenPanelMenuSubItemDebug" : "RadzenPanelMenuSubItemDefault";
-        }
+        public static string RadzenPanelMenu(BlazorAppSettingsHelper appSettings) =>
+            DebugHelper.Instance.Config switch
+            {
+                Configuration.DevelopAleksandrov => "RadzenPanelMenuDebug",
+                Configuration.DevelopMorozov => "RadzenPanelMenuDebug",
+                Configuration.DevelopVS => "RadzenPanelMenuDebug",
+                Configuration.ReleaseAleksandrov => "RadzenPanelMenuRelease",
+                Configuration.ReleaseMorozov => "RadzenPanelMenuRelease",
+                Configuration.ReleaseVS => "RadzenPanelMenuRelease",
+                _ => "RadzenPanelMenuDefault"
+            };
+
+        public static string RadzenPanelMenuItem(BlazorAppSettingsHelper appSettings) =>
+            DebugHelper.Instance.Config switch
+            {
+                Configuration.DevelopAleksandrov => "RadzenPanelMenuItemDebug",
+                Configuration.DevelopMorozov => "RadzenPanelMenuItemDebug",
+                Configuration.DevelopVS => "RadzenPanelMenuItemDebug",
+                Configuration.ReleaseAleksandrov => "RadzenPanelMenuItemRelease",
+                Configuration.ReleaseMorozov => "RadzenPanelMenuItemRelease",
+                Configuration.ReleaseVS => "RadzenPanelMenuItemRelease",
+                _ => "RadzenPanelMenuItemDefault"
+            };
+        public static string RadzenPanelMenuSubItem(BlazorAppSettingsHelper appSettings) =>
+            DebugHelper.Instance.Config switch
+            {
+                Configuration.DevelopAleksandrov => "RadzenPanelMenuSubItemDebug",
+                Configuration.DevelopMorozov => "RadzenPanelMenuSubItemDebug",
+                Configuration.DevelopVS => "RadzenPanelMenuSubItemDebug",
+                Configuration.ReleaseAleksandrov => "RadzenPanelMenuSubItemRelease",
+                Configuration.ReleaseMorozov => "RadzenPanelMenuSubItemRelease",
+                Configuration.ReleaseVS => "RadzenPanelMenuSubItemRelease",
+                _ => "RadzenPanelMenuSubItemDefault"
+            };
     }
 
     #endregion

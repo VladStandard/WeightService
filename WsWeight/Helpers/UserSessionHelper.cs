@@ -27,6 +27,7 @@ using System.Xml.Serialization;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using WsWeight.Plugins.Helpers;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
+using NHibernate.Dialect.Function;
 
 namespace WsWeight.Helpers;
 
@@ -103,6 +104,7 @@ public class UserSessionHelper : BaseViewModel
             PluginPrintMain.LabelPrintedCount = 1;
             PluginPrintShipping.LabelPrintedCount = 1;
             SetPluNestingFks(value.Plu);
+            SetPluStorageMethodFks(value.Plu);
             OnPropertyChanged();
         }
     }
@@ -122,7 +124,7 @@ public class UserSessionHelper : BaseViewModel
         get => _pluNestingFk;
         set
         {
-            _pluNestingFk = value ?? DataAccess.GetItemNewEmpty<PluNestingFkModel>();
+            _pluNestingFk = value;// ?? DataAccess.GetItemNewEmpty<PluNestingFkModel>();
             OnPropertyChanged();
         }
     }
@@ -143,6 +145,8 @@ public class UserSessionHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
+    
+    [XmlElement] public PluStorageMethodFkModel PluStorageMethodFk { get; set; }
 
     private DeviceScaleFkModel _deviceScaleFk;
     [XmlElement]
@@ -204,17 +208,6 @@ public class UserSessionHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    private PublishType _publishType = PublishType.DevelopVs;
-    [XmlElement]
-    public PublishType PublishType
-    {
-        get => _publishType;
-        set
-        {
-            _publishType = value;
-            OnPropertyChanged();
-        }
-    }
     private string _publishDescription;
     [XmlElement]
     public string PublishDescription
@@ -254,12 +247,14 @@ public class UserSessionHelper : BaseViewModel
         _deviceScaleFk = DataAccess.GetItemNewEmpty<DeviceScaleFkModel>();
         _productionFacility = DataAccess.GetItemNewEmpty<ProductionFacilityModel>();
         _scale = DataAccess.GetItemNewEmpty<ScaleModel>();
+        PluStorageMethodFk = DataAccess.GetItemNewEmpty<PluStorageMethodFkModel>();
         // Lists.
         _pluNestingFks = new();
         _productionFacilities = new();
         _productSeries = new();
         _scales = new();
         PluScales = new();
+        PluStorageMethodFks = new();
         // Strings
         _publishDescription = string.Empty;
         // Others.
@@ -804,39 +799,17 @@ public class UserSessionHelper : BaseViewModel
         DataAccess.Save(barCode);
     }
 
-    private void SetSqlPublish()
-    {
-        if (DataAccess.IsSqlServerDevelopAleksandrov)
+    private void SetSqlPublish() =>
+        PublishDescription = Debug.Config switch
         {
-            PublishType = PublishType.DevelopAleksandrov;
-            PublishDescription = LocaleCore.Sql.SqlServerDev;
-        }
-        else if (DataAccess.IsSqlServerDevelopMorozov)
-        {
-            PublishType = PublishType.DevelopMorozov;
-            PublishDescription = LocaleCore.Sql.SqlServerDev;
-        }
-        else if (DataAccess.IsSqlServerDevelopVs)
-        {
-            PublishType = PublishType.DevelopVs;
-            PublishDescription = LocaleCore.Sql.SqlServerDev;
-        }
-        else if (DataAccess.IsSqlServerReleaseAleksandrov)
-        {
-            PublishType = PublishType.ReleaseAleksandrov;
-            PublishDescription = LocaleCore.Sql.SqlServerProd;
-        }
-        else if (DataAccess.IsSqlServerReleaseMorozov)
-        {
-            PublishType = PublishType.ReleaseMorozov;
-            PublishDescription = LocaleCore.Sql.SqlServerProd;
-        }
-        else if (DataAccess.IsSqlServerReleaseVs)
-        {
-            PublishType = PublishType.ReleaseVs;
-            PublishDescription = LocaleCore.Sql.SqlServerProd;
-        }
-    }
+            Configuration.DevelopAleksandrov => LocaleCore.Sql.SqlServerDevelopAleksandrov,
+            Configuration.DevelopMorozov => LocaleCore.Sql.SqlServerDevelopMorozov,
+            Configuration.DevelopVS => LocaleCore.Sql.SqlServerVS,
+            Configuration.ReleaseAleksandrov => LocaleCore.Sql.SqlServerReleaseAleksandrov,
+            Configuration.ReleaseMorozov => LocaleCore.Sql.SqlServerReleaseMorozov,
+            Configuration.ReleaseVS => LocaleCore.Sql.SqlServerReleaseVS,
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
     public void SetPluScales()
     {
@@ -850,7 +823,7 @@ public class UserSessionHelper : BaseViewModel
 
     public void SetPluStorageMethodsFks()
     {
-        SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false) { IsFillReferences = false };
+        SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false);// { IsFillReferences = false };
         PluStorageMethodFks = DataContext.UpdatePluStorageMethodFks(sqlCrudConfig);
     }
 
@@ -882,6 +855,14 @@ public class UserSessionHelper : BaseViewModel
                 SqlQueries.DbScales.Tables.PluNestingFks.GetList(true), new("P_UID", plu.IdentityValueUid), true);
             PluNestingFks = DataContext.GetListNotNullable<PluNestingFkModel>(sqlCrudConfig);
         }
+    }
+
+    private void SetPluStorageMethodFks(PluModel plu)
+    {
+        if (plu.IsNotExists) return;
+        PluStorageMethodFk = DataContext.GetPluStorageMethodFk(plu);
+        if (PluStorageMethodFk.IsNotExists)
+            PluStorageMethodFk.FillProperties();
     }
 
     #endregion

@@ -39,6 +39,6 @@ internal class PluStorageMethodContentTests
                 DataCoreTestsUtils.DataCore.AssertSqlValidate(resource, true);
             }
 
-        }, false, new() { PublishType.ReleaseVs, PublishType.DevelopVs });
+        }, false, new() { Configuration.ReleaseVS, Configuration.DevelopVS });
 	}
 }

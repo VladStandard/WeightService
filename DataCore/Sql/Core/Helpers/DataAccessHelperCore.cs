@@ -19,7 +19,7 @@ public partial class DataAccessHelper
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             item = criteria.UniqueResult<T>();
 		}, false);
-		FillReferences(item);
+        FillReferences(item, sqlCrudConfig.IsFillReferences);
 		return item;
 	}
 
@@ -116,11 +116,10 @@ public partial class DataAccessHelper
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             items = criteria.List<T>().ToArray();
-			if (sqlCrudConfig.IsFillReferences)
-			    foreach (T item in items)
-			    {
-				    FillReferences(item);
-			    }
+			foreach (T item in items)
+			{
+				FillReferences(item, sqlCrudConfig.IsFillReferences);
+			}
 		}, false);
 		return items;
 	}

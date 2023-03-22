@@ -30,7 +30,7 @@ internal class DataAccessHelperMapTests
             sessionFactory.Close();
             sessionFactory.Dispose();
 
-        }, false, new() { PublishType.DevelopVs, PublishType.ReleaseVs });
+        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
     }
 
     [Test]

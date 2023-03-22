@@ -83,10 +83,15 @@ public partial class MainForm : Form
         NavigationControl.Parent = this;
         NavigationControl.Dock = DockStyle.Fill;
         WaitControl = new();
-        PluControl = new();
-        PluControl.RefreshAction();
-        KneadingControl = new();
-        KneadingControl.RefreshAction();
+        
+        _ = Task.Run(async () => {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            PluControl = new();
+            PluControl.RefreshAction();
+            KneadingControl = new();
+            KneadingControl.RefreshAction();
+        }).ConfigureAwait(false);
+        
         // Buttons.
         SetButtonsSettings();
         // Form properties: resolution, position, fonts.

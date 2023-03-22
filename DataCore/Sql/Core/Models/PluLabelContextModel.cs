@@ -120,6 +120,60 @@ public class PluLabelContextModel : SerializeBase
         // This code need for print labels.
         set => _ = value;
     }
+    [XmlElement]
+    public virtual string ScaleNumber
+    {
+        get => $"{PluScale.Scale.Number:00000}";
+        // This code need for print labels.
+        set => _ = value;
+    }
+    [XmlElement]
+    public virtual string ScaleCounter
+    {
+        get => $"{PluScale.Scale.Counter:00000000}";
+        // This code need for print labels.
+        set => _ = value;
+    }
+    [XmlElement]
+    public virtual string BarCodeTop
+    {
+        get => $"298{ScaleNumber}{ScaleCounter}";
+        /*
+<!-- Константа [3 симв] -->
+<xsl:text>298</xsl:text>
+<!-- Номер АРМ [5 симв] -->
+<xsl:value-of select="$pluContext_ScaleNumber"/>
+<!-- Счётчик [8 симв] -->
+<xsl:value-of select="$ScaleCounter"/>
+<!-- Дата [6 симв] -->
+<xsl:value-of select="$pluLabel_ProductDateBarCodeFormat" />
+<!-- Время [6 симв] -->
+<xsl:value-of select="$pluLabel_ProductTimeBarCodeFormat" />
+<!-- ПЛУ [3 симв] -->
+<xsl:value-of select="$pluContext_PluNumber"/>
+<!-- Вес [5 симв] -->
+<xsl:value-of select="$pluWeighing_NettoWeightKgFormat2"/>
+<xsl:value-of select="$pluWeighing_NettoWeightGrFormat3"/>
+<!-- Номер замеса [3 симв] -->
+<xsl:value-of select="$pluWeighing_KneadingFormat"/>
+*/
+        // This code need for print labels.
+        set => _ = value;
+    }
+    [XmlElement]
+    public virtual string BarCodeRight
+    {
+        get => $"";
+        // This code need for print labels.
+        set => _ = value;
+    }
+    [XmlElement]
+    public virtual string BarCodeBottom
+    {
+        get => $"";
+        // This code need for print labels.
+        set => _ = value;
+    }
 
     /// <summary>
     /// Constructor.

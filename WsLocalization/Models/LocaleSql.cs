@@ -55,8 +55,14 @@ public class LocaleSql
     public string SqlItemFieldZpl => Lang == Lang.English ? "ZPL" : "ЗПЛ";
     public string SqlItemIsNotSelect => Lang == Lang.English ? "Record is not select" : "Запись не выбрана";
     public string SqlServer => Lang == Lang.English ? "SQL-server" : "SQL-сервер";
-    public string SqlServerDev => Lang == Lang.English ? "Development server" : "Сервер разработки";
-    public string SqlServerProd => Lang == Lang.English ? "Product server" : "Продуктовый сервер";
+    public string SqlServerDevelopAleksandrov => Lang == Lang.English ? "Development server | Aleksandrov" : "Сервер разработки | Александров";
+    public string SqlServerDevelopMorozov => Lang == Lang.English ? "Development server | Morozov" : "Сервер разработки | Морозов";
+    // ReSharper disable once InconsistentNaming
+    public string SqlServerVS => Lang == Lang.English ? "Development server" : "Сервер разработки";
+    // ReSharper disable once InconsistentNaming
+    public string SqlServerReleaseVS => Lang == Lang.English ? "Product server" : "Продуктовый сервер";
+    public string SqlServerReleaseAleksandrov => Lang == Lang.English ? "Product server | Aleksandrov" : "Продуктовый сервер | Александров";
+    public string SqlServerReleaseMorozov => Lang == Lang.English ? "Product server | Morozov" : "Продуктовый сервер | Морозов";
     public string SqlServerTest => Lang == Lang.English ? "Test server" : "Тестовый сервер";
     public string SqlUser => Lang == Lang.English ? "SQL-user" : "SQL-пользователь";
     public string StatusClosed => Lang == Lang.English ? @"Connecting to SQL server is close." : "Закрыто подключение к SQL-серверу.";
