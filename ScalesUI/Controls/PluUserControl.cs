@@ -14,14 +14,14 @@ public partial class PluUserControl : UserControlBase
         InitializeComponent();
 
         PreviousScaleId = 0;
-        RefreshAction = PluUserControl_Refresh;
     }
 
     #endregion
 
     #region Public and private methods
 
-    private void PluUserControl_Refresh()
+
+    public override void RefreshAction()
     {
         ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {

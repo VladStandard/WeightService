@@ -850,7 +850,7 @@ public class UserSessionHelper : BaseViewModel
 
     public void SetPluStorageMethodsFks()
     {
-        SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false);
+        SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false) { IsFillReferences = false };
         PluStorageMethodFks = DataContext.UpdatePluStorageMethodFks(sqlCrudConfig);
     }
 

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace ScalesUI.Controls;
@@ -10,7 +10,6 @@ public class UserControlBase : UserControl
     internal FontsSettingsHelper FontsSettings => FontsSettingsHelper.Instance;
     internal UserSessionHelper UserSession => UserSessionHelper.Instance;
     internal Action ReturnBackAction { get; set; }
-    internal Action RefreshAction { get; set; }
     internal DialogResult Result { get; set; }
     internal string Message { get; set; }
 
@@ -18,10 +17,12 @@ public class UserControlBase : UserControl
     {
         Result = DialogResult.None;
         ReturnBackAction = () => { };
-        RefreshAction = () => { };
+        //RefreshAction = () => { };
     }
 
     #endregion
+
+    #region Public and private methods
 
     private void InitializeComponent()
     {
@@ -33,4 +34,8 @@ public class UserControlBase : UserControl
         Name = "UserControlBase";
         ResumeLayout(false);
     }
+
+    public virtual void RefreshAction() { }
+
+    #endregion
 }

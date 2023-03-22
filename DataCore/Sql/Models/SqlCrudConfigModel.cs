@@ -13,7 +13,7 @@ public class SqlCrudConfigModel : ICloneable
     #region Public and private fields, properties, constructor
 
     public string NativeQuery { get; set; }
-    public bool IsFillReferences { get; }
+    public bool IsFillReferences { get; set; }
     public List<SqlParameter> NativeParameters { get; set; }
     public List<SqlFieldFilterModel> Filters { get; private set; }
     public List<SqlFieldOrderModel> Orders { get; private set; }
@@ -37,7 +37,7 @@ public class SqlCrudConfigModel : ICloneable
         }
     }
     public bool IsResultShowOnlyTop { get; set; }
-
+    
     public SqlCrudConfigModel()
     {
         NativeQuery = string.Empty;
