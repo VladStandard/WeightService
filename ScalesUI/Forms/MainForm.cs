@@ -3,7 +3,6 @@
 
 using DataCore.Enums;
 using MDSoft.BarcodePrintUtils.Wmi.Models;
-using System;
 
 namespace ScalesUI.Forms;
 
@@ -84,13 +83,13 @@ public partial class MainForm : Form
         NavigationControl.Dock = DockStyle.Fill;
         WaitControl = new();
         
-        _ = Task.Run(async () => {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        //_ = Task.Run(async () => {
+        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             PluControl = new();
             PluControl.RefreshAction();
             KneadingControl = new();
             KneadingControl.RefreshAction();
-        }).ConfigureAwait(false);
+        //}).ConfigureAwait(false);
         
         // Buttons.
         SetButtonsSettings();

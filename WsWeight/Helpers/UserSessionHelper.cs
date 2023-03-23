@@ -27,7 +27,6 @@ using System.Xml.Serialization;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using WsWeight.Plugins.Helpers;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
-using NHibernate.Dialect.Function;
 
 namespace WsWeight.Helpers;
 
@@ -762,7 +761,7 @@ public class UserSessionHelper : BaseViewModel
         XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
-        PluLabelContextModel pluLabelContext = new(DataContext, pluLabel, PluNestingFk, pluLabel.PluScale, ProductionFacility);
+        PluLabelContextModel pluLabelContext = new(DataContext, pluLabel, PluNestingFk, pluLabel.PluScale, ProductionFacility, PluWeighing);
         XmlDocument xmlLabelContext = DataFormatUtils.SerializeAsXmlDocument<PluLabelContextModel>(pluLabelContext, true, true);
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
 
