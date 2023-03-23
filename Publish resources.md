@@ -1,21 +1,75 @@
 # Publish resources
 
 ## Шаблон рассылки обновления
-Коллеги, выпустил обновление веб-приложения "Управление устройствами" v.0.x.xxx.
-Прошу протестировать. Замечания слать на почту.
-Для тестирования использовать следующие ссылки:
-- предварительная версия веб-приложения для тестирования	https://device-control-dev-preview.kolbasa-vs.local/
-- стабильная версия веб-приложения для тестирования			https://device-control-dev.kolbasa-vs.local/
-Для рабочей эксплуатации использовать следующие ссылки:
-- предварительная версия веб-приложения для работы			https://device-control-prod-preview.kolbasa-vs.local/
-- стабильная версия веб-приложения для работы				https://device-control.kolbasa-vs.local/
+Коллеги, произведено обновление весовой платформы.
+- АРМ фасовщика "Печать этикеток" v.0.x.xxx.
+- Веб-приложение "Управление устройствами" v.0.x.xxx доступно по ссылке: https://device-control.kolbasa-vs.local/
+Замечания и пожелания приветствуются, слать можно на почту (morozov_dv@kolbasa-vs.ru), либо в Discord (DamianMorozov#1034).
 
-## Шаблон рассылки обновления
-Коллеги, выпустил обновление веб-приложения DeviceControl v.0.x.xxx.
-Прошу протестировать. Замечания слать на почту.
-Для тестирования использовать следующие ссылки:
-https://device-control-dev-preview.kolbasa-vs.local/   ## тестовая среда
-https://device-control-prod-preview.kolbasa-vs.local/  ## рабочая среда
+## Ссылки
+Предварительная версия веб-приложения для тестирования  https://device-control-dev-preview.kolbasa-vs.local/
+Стабильная версия веб-приложения для тестирования		https://device-control-dev.kolbasa-vs.local/
+Предварительная версия веб-приложения для работы		https://device-control-prod-preview.kolbasa-vs.local/
+Стабильная версия веб-приложения для работы				https://device-control.kolbasa-vs.local/
+
+## ScalesUI
+  DevelopVS: switch to DevelopVS
+    Fodler:  \\palych\Install\VSSoft\Scales-2-Preview\
+    SQL:     CREATIO\INS1 + SCALES
+  ReleaseVS: switch to RelaseVS
+    Folder:  \\palych\Install\VSSoft\Scales-3-Release\
+    SQL:     PALYCH\LUTON + ScalesDB
+
+## WsWebApiScales
+  DevelopVS: switch to DevelopVS
+    SCALES-DEV-PREVIEW
+        Server: IIS-DEV
+        Site path: WEB-API-SCALES-DEV-PREVIEW
+            ✓ Passive mode
+        User name: <userName>
+        Password: <password>
+        Destination URL
+        Configuration: DevelopVS - x64
+        Target Framework: net7.0
+        Deployment Mode: Fremawork-dependent
+        Target Runtime: Portable
+        File Publish Options
+            ✓ Delete all existing files prior to publish
+        Databases DefaultConnection
+            ✓ Use this connection string at runtime
+            Server=CREATIO\INS1;Database=SCALES;Uid=scale01;Password=scale01;Timeout=900;TrustServerCertificate=true;
+    SCALES-DEV
+        Server: IIS-DEV
+        Site path: WEB-API-SCALES-DEV
+            ✓ Passive mode
+        User name: <userName>
+        Password: <password>
+        Destination URL
+        Configuration: DevelopVS - x64
+        Target Framework: net7.0
+        Deployment Mode: Fremawork-dependent
+        Target Runtime: Portable
+        File Publish Options
+            ✓ Delete all existing files prior to publish
+        Databases DefaultConnection
+            ✓ Use this connection string at runtime
+            Server=CREATIO\INS1;Database=SCALES;Uid=scale01;Password=scale01;Timeout=900;TrustServerCertificate=true;
+  ReleaseVS: switch to RelaseVS
+    Server: IIS-DEV
+    Site path: WEB-API-SCALES-DEV-PREVIEW
+        ✓ Passive mode
+    User name: <userName>
+    Password: <password>
+    Destination URL
+    Configuration: DevelopVS - x64
+    Target Framework: net7.0
+    Deployment Mode: Fremawork-dependent
+    Target Runtime: Portable
+    File Publish Options
+        ✓ Delete all existing files prior to publish
+    Databases DefaultConnection
+        ✓ Use this connection string at runtime
+        Server=CREATIO\INS1;Database=SCALES;Uid=scale01;Password=scale01;Timeout=900;TrustServerCertificate=true;
 
 ## Hyper-V
 dhvsm01 (10.0.24.248)
@@ -51,25 +105,6 @@ dhvsm01 (10.0.24.248)
     RDP:     mstsc /v:palych
     CONFIG:  appsettings.Release*.json -> appsettings.json
     IIS:     palych + resources-vs
-
-## ScalesUI
-  Debug:     switch to Debug
-    Fodler:  \\palych\Install\MSI\ScalesUIv3-Debug\
-    SQL:     CREATIO\INS1 + SCALES
-  Release:   switch to Relase
-    Folder:  \\palych\Install\MSI\ScalesUI-Chudo\
-    Folder:  \\palych\Install\MSI\ScalesUI-Release\
-    SQL:     PALYCH\LUTON + ScalesDB
-
-## MdmControl
-  Debug:     ftp://mdm-test:5007 -> https://mdm-test.kolbasa-vs.local/
-    SQL:     CREATIO\INS1 + VSDWH
-    RDP:     mstsc /v:creatio
-    CONFIG:  appsettings.Develop*.json -> appsettings.json
-  Release:   ftp://mdm-dwh:5005  -> https://mdm-dwh.kolbasa-vs.local/
-    SQL:     SQLSRSP01\LEEDS + VSDWH
-    RDP:     mstsc /v:isexcd01
-    CONFIG:  appsettings.Release.json -> appsettings.json
 
 ## Terra T1000 | WebApiTerra1000
   Debug => T1000-DEV & T1000-DEV-PREVIEW:

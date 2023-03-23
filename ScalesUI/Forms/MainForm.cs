@@ -94,7 +94,19 @@ public partial class MainForm : Form
         // Buttons.
         SetButtonsSettings();
         // Form properties: resolution, position, fonts.
-        this.SwitchResolution(Debug.IsDebug ? Resolution.Value1366x768 : Resolution.FullScreen);
+        switch (Debug.Config)
+        {
+            case Configuration.DevelopAleksandrov:
+            case Configuration.DevelopMorozov:
+            case Configuration.DevelopVS:
+                this.SwitchResolution(Resolution.Value1366x768);
+                break;
+            case Configuration.ReleaseAleksandrov:
+            case Configuration.ReleaseMorozov:
+            case Configuration.ReleaseVS:
+                this.SwitchResolution(Resolution.FullScreen);
+                break;
+        }
         CenterToScreen();
         LoadFonts();
     }

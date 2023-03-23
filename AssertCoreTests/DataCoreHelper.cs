@@ -511,11 +511,11 @@ public class DataCoreHelper
 				app.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
 			case BarCodeModel barCode:
-				barCode.TypeTop.Returns(BarcodeTypeEnum.Default.ToString());
+				barCode.TypeTop.Returns(BarcodeType.Default.ToString());
 				barCode.ValueTop.Returns(LocaleCore.Sql.SqlItemFieldValue);
-				barCode.TypeRight.Returns(BarcodeTypeEnum.Default.ToString());
+				barCode.TypeRight.Returns(BarcodeType.Default.ToString());
 				barCode.ValueRight.Returns(LocaleCore.Sql.SqlItemFieldValue);
-				barCode.TypeBottom.Returns(BarcodeTypeEnum.Default.ToString());
+				barCode.TypeBottom.Returns(BarcodeType.Default.ToString());
 				barCode.ValueBottom.Returns(LocaleCore.Sql.SqlItemFieldValue);
 				break;
             case BoxModel box:

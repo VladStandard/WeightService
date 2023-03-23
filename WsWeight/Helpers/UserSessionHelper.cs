@@ -24,6 +24,7 @@ using MvvmHelpers;
 using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
+using DataCore.Sql.Helpers;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using WsWeight.Plugins.Helpers;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
@@ -43,6 +44,7 @@ public class UserSessionHelper : BaseViewModel
 
     #region Public and private fields and properties
 
+    private BarCodeHelper BarCode => BarCodeHelper.Instance;
     public DataAccessHelper DataAccess => DataAccessHelper.Instance;
     public DataContextModel DataContext { get; } = new();
     public DebugHelper Debug => DebugHelper.Instance;
@@ -704,8 +706,8 @@ public class UserSessionHelper : BaseViewModel
     {
         try
         {
-            PluLabelModel pluLabel = CreateAndSavePluLabel(template);
-            CreateAndSaveBarCodes(pluLabel);
+            (PluLabelModel PluLabel, PluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
+            CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
 
             // Print.
             if (isClearBuffer)
@@ -726,7 +728,7 @@ public class UserSessionHelper : BaseViewModel
             }
 
             // Send cmd to the print.
-            PluginPrintMain.SendCmd(pluLabel);
+            PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
         }
         catch (Exception ex)
         {
@@ -748,11 +750,11 @@ public class UserSessionHelper : BaseViewModel
     }
 
     /// <summary>
-    /// Create and save PLU label.
+    /// Create PluLabel from Template.
     /// </summary>
     /// <param name="template"></param>
     /// <returns></returns>
-    private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
+    private (PluLabelModel, PluLabelContextModel) CreateAndSavePluLabel(TemplateModel template)
     {
         PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
 
@@ -773,7 +775,7 @@ public class UserSessionHelper : BaseViewModel
         // Save.
         DataAccess.Save(pluLabel);
 
-        return pluLabel;
+        return (pluLabel, pluLabelContext);
     }
 
     private Action<string> ActionReplaceStorageMethod(PluLabelModel pluLabel) =>
@@ -789,12 +791,17 @@ public class UserSessionHelper : BaseViewModel
             pluLabel.Zpl = zpl;
         };
 
-    private void CreateAndSaveBarCodes(PluLabelModel pluLabel)
+    /// <summary>
+    /// Create BarCode from PluLabel.
+    /// </summary>
+    /// <param name="pluLabel"></param>
+    /// <param name="pluLabelContext"></param>
+    private void CreateAndSaveBarCodes(PluLabelModel pluLabel, PluLabelContextModel pluLabelContext)
     {
-        BarCodeModel barCode = new() { PluLabel = pluLabel };
-        barCode.SetBarCodeTop(pluLabel);
-        barCode.SetBarCodeRight(pluLabel);
-        barCode.SetBarCodeBottom(pluLabel);
+        BarCodeModel barCode = new(pluLabel);
+        BarCode.SetBarCodeTop(barCode, pluLabelContext);
+        BarCode.SetBarCodeRight(barCode, pluLabelContext);
+        BarCode.SetBarCodeBottom(barCode, pluLabelContext);
         DataAccess.Save(barCode);
     }
 
