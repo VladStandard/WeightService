@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.Organizations
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<OrganizationModel>
-@page "/section/organizations"
+﻿@page "/section/organizations"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<OrganizationModel>
+@using DataCore.Sql.TableScaleModels.Organizations
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@OrganizationModel"

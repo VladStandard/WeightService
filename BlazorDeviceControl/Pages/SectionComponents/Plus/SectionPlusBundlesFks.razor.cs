@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 
 namespace BlazorDeviceControl.Pages.SectionComponents.Plus;
 
-public partial class SectionPlusBundlesFks : RazorComponentSectionBase<PluBundleFkModel>
+public sealed partial class SectionPlusBundlesFks : RazorComponentSectionBase<PluBundleFkModel>
 {
     #region Public and private fields, properties, constructor
 

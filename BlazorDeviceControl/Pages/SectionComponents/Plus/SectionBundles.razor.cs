@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Bundles;
 
 namespace BlazorDeviceControl.Pages.SectionComponents.Plus;
 
-public partial class SectionBundles : RazorComponentSectionBase<BundleModel>
+public sealed partial class SectionBundles : RazorComponentSectionBase<BundleModel>
 {
     #region Public and private fields, properties, constructor
 

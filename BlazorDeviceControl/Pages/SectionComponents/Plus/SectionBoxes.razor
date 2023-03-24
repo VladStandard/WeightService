@@ -1,8 +1,9 @@
-﻿@using DataCore.Sql.TableScaleModels.Boxes
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<BoxModel>
-@page "/section/boxes"
+﻿@page "/section/boxes"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<BoxModel>
+@using DataCore.Sql.TableScaleModels.Boxes
+@using BlazorDeviceControl.Pages.CustomComponents
+
 
 <SectionReload
   TItem="@BoxModel"

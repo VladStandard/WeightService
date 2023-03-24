@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.Bundles
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<BundleModel>
-@page "/section/bundles"
+﻿@page "/section/bundles"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<BundleModel>
+@using DataCore.Sql.TableScaleModels.Bundles
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@BundleModel"

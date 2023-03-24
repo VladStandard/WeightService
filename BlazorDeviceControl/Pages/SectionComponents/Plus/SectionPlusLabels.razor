@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.PlusLabels
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<PluLabelModel>
-@page "/section/plus_labels"
+﻿@page "/section/plus_labels"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<PluLabelModel>
+@using DataCore.Sql.TableScaleModels.PlusLabels
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@PluLabelModel"

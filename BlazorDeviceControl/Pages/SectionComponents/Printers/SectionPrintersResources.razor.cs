@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
 namespace BlazorDeviceControl.Pages.SectionComponents.Printers;
 
-public partial class SectionPrintersResources : RazorComponentSectionBase<PrinterResourceFkModel>
+public sealed partial class SectionPrintersResources : RazorComponentSectionBase<PrinterResourceFkModel>
 {
     #region Public and private fields, properties, constructor
 

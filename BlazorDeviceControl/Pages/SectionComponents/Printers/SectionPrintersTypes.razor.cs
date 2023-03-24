@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.PrintersTypes;
 
 namespace BlazorDeviceControl.Pages.SectionComponents.Printers;
 
-public partial class SectionPrintersTypes : RazorComponentSectionBase<PrinterTypeModel>
+public sealed partial class SectionPrintersTypes : RazorComponentSectionBase<PrinterTypeModel>
 {
     #region Public and private fields, properties, constructor
 

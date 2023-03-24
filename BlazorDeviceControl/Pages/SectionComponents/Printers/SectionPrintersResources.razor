@@ -1,8 +1,8 @@
-@using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<PrinterResourceFkModel>
 @page "/section/printers_resources"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<PrinterResourceFkModel>
+@using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@PrinterResourceFkModel"

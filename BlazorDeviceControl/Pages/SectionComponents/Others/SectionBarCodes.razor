@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.BarCodes
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<BarCodeModel>
-@page "/section/barcodes"
+﻿@page "/section/barcodes"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<BarCodeModel>
+@using DataCore.Sql.TableScaleModels.BarCodes
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@BarCodeModel"
@@ -30,7 +30,7 @@ else
   <Columns>
     <TItemContent TItem="@BarCodeModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Label" SortProperty="CreateDt" Width="12%"
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="PluLabel.CreateDt" Width="12%"
                           FormatString="@StringUtils.FormatDtDefaultStr" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueTop" Property="ValueTop" Width="28%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueRight" Property="ValueRight" Width="15%" />

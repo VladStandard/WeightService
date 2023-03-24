@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.Contragents
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<ContragentModel>
-@page "/section/contragents"
+﻿@page "/section/contragents"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<ContragentModel>
+@using DataCore.Sql.TableScaleModels.Contragents
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@ContragentModel"

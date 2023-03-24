@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.Xml
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WeithingFactSummaryModel>
-@page "/section/plus_weighings_aggr"
+﻿@page "/section/plus_weighings_aggr"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<WeithingFactSummaryModel>
+@using DataCore.Sql.Xml
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@WeithingFactSummaryModel"

@@ -2,7 +2,7 @@
 
 namespace BlazorDeviceControl.Pages.SectionComponents.Admins.LogReports;
 
-public partial class SectionWebServiceLogs : RazorComponentSectionBase<LogWebFkModel>
+public sealed partial class SectionWebServiceLogs : RazorComponentSectionBase<LogWebFkModel>
 {
 
     #region Public and private fields, properties, constructor

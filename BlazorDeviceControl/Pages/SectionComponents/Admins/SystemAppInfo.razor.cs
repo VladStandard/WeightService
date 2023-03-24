@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace BlazorDeviceControl.Pages.SectionComponents.Admins;
 
-public partial class SystemAppInfo : RazorComponentBase
+public sealed partial class SystemAppInfo : RazorComponentBase
 {
 	#region Public and private fields, properties, constructor
 

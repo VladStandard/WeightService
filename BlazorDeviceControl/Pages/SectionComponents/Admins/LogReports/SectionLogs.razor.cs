@@ -6,7 +6,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Pages.SectionComponents.Admins.LogReports;
 
-public partial class SectionLogs : RazorComponentSectionBase<LogQuickModel>
+public sealed partial class SectionLogs : RazorComponentSectionBase<LogQuickModel>
 {
     private static LogTypeModel LogTypeNew => new();
     private LogTypeModel CurrentType { get; set; }

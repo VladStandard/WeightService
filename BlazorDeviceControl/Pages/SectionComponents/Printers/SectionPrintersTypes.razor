@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.PrintersTypes
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<PrinterTypeModel>
-@page "/section/printer_types"
+﻿@page "/section/printer_types"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<PrinterTypeModel>
+@using DataCore.Sql.TableScaleModels.PrintersTypes
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@PrinterTypeModel"

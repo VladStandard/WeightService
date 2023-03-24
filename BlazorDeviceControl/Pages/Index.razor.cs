@@ -5,5 +5,5 @@ namespace BlazorDeviceControl.Pages;
 
 public partial class Index : RazorComponentBase
 {
-	//
+    //
 }

@@ -1,7 +1,7 @@
-﻿@using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentBase
-@page "/system/appinfo"
+﻿@page "/system/appinfo"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
+@inherits RazorComponentBase
+@using BlazorDeviceControl.Pages.ItemComponents
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">

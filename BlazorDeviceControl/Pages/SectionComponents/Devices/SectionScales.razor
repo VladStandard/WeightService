@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.Scales
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<ScaleModel>
-@page "/section/scales"
+﻿@page "/section/scales"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<ScaleModel>
+@using DataCore.Sql.TableScaleModels.Scales
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@ScaleModel"

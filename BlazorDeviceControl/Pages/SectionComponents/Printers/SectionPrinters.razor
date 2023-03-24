@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.Printers
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<PrinterModel>
-@page "/section/printers"
+﻿@page "/section/printers"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<PrinterModel>
+@using DataCore.Sql.TableScaleModels.Printers
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@PrinterModel"

@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.PlusGroups
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<PluGroupModel>
-@page "/section/nomenclatures_groups"
+﻿@page "/section/nomenclatures_groups"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<PluGroupModel>
+@using DataCore.Sql.TableScaleModels.PlusGroups
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@PluGroupModel"

@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Versions;
 
 namespace BlazorDeviceControl.Pages.SectionComponents.Admins;
 
-public partial class SectionVersions : RazorComponentSectionBase<VersionModel>
+public sealed partial class SectionVersions : RazorComponentSectionBase<VersionModel>
 {
     #region Public and private fields, properties, constructor
 

@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.WorkShops
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WorkShopModel>
-@page "/section/workshops"
+﻿@page "/section/workshops"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<WorkShopModel>
+@using DataCore.Sql.TableScaleModels.WorkShops
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@WorkShopModel"

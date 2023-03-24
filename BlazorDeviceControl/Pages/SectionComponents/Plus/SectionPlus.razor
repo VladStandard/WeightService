@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleModels.Plus
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<PluModel>
-@page "/section/plus"
+﻿@page "/section/plus"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<PluModel>
+@using DataCore.Sql.TableScaleModels.Plus
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@PluModel"

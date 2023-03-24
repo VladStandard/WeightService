@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Pages.SectionComponents.Devices;
 /// <summary>
 /// Section ProductionFacilities.
 /// </summary>
-public partial class SectionProductionFacilities : RazorComponentSectionBase<ProductionFacilityModel>
+public sealed partial class SectionProductionFacilities : RazorComponentSectionBase<ProductionFacilityModel>
 {
     #region Public and private fields, properties, constructor
 

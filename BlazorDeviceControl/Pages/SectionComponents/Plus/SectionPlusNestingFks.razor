@@ -1,8 +1,8 @@
-﻿@using DataCore.Sql.TableScaleFkModels.PlusNestingFks
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<PluNestingFkModel>
-@page "/section/plus_nesting_fks"
+﻿@page "/section/plus_nesting_fks"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<PluNestingFkModel>
+@using DataCore.Sql.TableScaleFkModels.PlusNestingFks
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
   TItem="@PluNestingFkModel"
