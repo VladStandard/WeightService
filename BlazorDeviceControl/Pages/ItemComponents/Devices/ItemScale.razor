@@ -41,7 +41,7 @@
       <MudSelectLocal @bind-Value="@Device">
         @foreach (DeviceModel item in DataContext.Devices)
         {
-          <MudSelectItem Value=@item>@item.Name | @item.Ipv4 </MudSelectItem>
+          <MudSelectItem Value=@item>@item.Name | @item.Ipv4</MudSelectItem>
         }
       </MudSelectLocal>
     </td>
@@ -176,4 +176,7 @@
   OnItemCancel="@SqlItemCancelAsync"
   />
 
-<SectionPlusScales Scale="@SqlItemCast" />
+@if (SqlItem != null)
+{
+  <SectionPlusScales Scale="@SqlItemCast" />
+}

@@ -101,4 +101,9 @@
   OnItemCancel="@SqlItemCancelAsync"
 />
 
-<SectionPlusNestingFks SqlItem="@SqlItem" />
+@if (SqlItem != null)
+{
+  <SectionPlusNestingFks SqlItem="@SqlItem" />
+}
+
+

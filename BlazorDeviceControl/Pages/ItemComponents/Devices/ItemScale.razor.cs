@@ -43,11 +43,11 @@ public sealed partial class ItemScale : RazorComponentItemBase<ScaleModel>
 		{
 			() =>
 			{
-				DataContext.GetListNotNullable<DeviceModel>(SqlCrudConfigList);
-				DataContext.GetListNotNullable<DeviceTypeModel>(SqlCrudConfigList);
-				DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigList);
-				DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigList);
-				DataContext.GetListNotNullable<WorkShopModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<DeviceModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<DeviceTypeModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<WorkShopModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
 
 				SqlItemCast = DataContext.GetItemNotNullable<ScaleModel>(IdentityId);
 				SqlItemCast.PrinterMain ??= DataAccess.GetItemNewEmpty<PrinterModel>();

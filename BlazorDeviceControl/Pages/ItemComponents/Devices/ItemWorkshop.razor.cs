@@ -25,7 +25,7 @@ public sealed partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 				SqlItemCast = DataContext.GetItemNotNullable<WorkShopModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
-				DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
             }
 		});
 	}

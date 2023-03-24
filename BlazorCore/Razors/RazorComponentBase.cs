@@ -15,10 +15,10 @@ namespace BlazorCore.Razors;
 
 public partial class RazorComponentBase : LayoutComponentBase
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
     #region Inject
-    
+
     [Inject] protected DialogService? DialogService { get; set; }
     [Inject] protected IJSRuntime? JsRuntime { get; set; }
     [Inject] protected NavigationManager? NavigationManager { get; set; }
@@ -29,14 +29,14 @@ public partial class RazorComponentBase : LayoutComponentBase
     [Inject] protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
     #endregion
-    
+
     #region Constants
 
     public DataAccessHelper DataAccess => DataAccessHelper.Instance;
     public HttpContext? HttpContext => HttpContextAccess?.HttpContext;
     protected BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
     public DataContextModel DataContext { get; } = new();
-    
+
     #endregion
 
     #region Parameters
@@ -44,16 +44,22 @@ public partial class RazorComponentBase : LayoutComponentBase
     [Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
     [Parameter] public Guid? IdentityUid { get; set; }
     [Parameter] public long? IdentityId { get; set; }
-    [Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+
+    [Parameter]
+    public string IdentityUidStr
+    {
+        get => IdentityUid?.ToString() ?? Guid.Empty.ToString();
+        set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
+    }
+
     [Parameter] public string Title { get; set; }
     [Parameter] public SqlCrudConfigModel SqlCrudConfigItem { get; set; }
-    [Parameter] public SqlCrudConfigModel SqlCrudConfigList { get; set; }
 
     #endregion
 
     [Parameter] public SqlTableBase? SqlItem { get; set; }
     public SqlTableBase? SqlItemFilter { get; set; }
-	public List<SqlTableBase>? SqlSection { get; set; }
+    public List<SqlTableBase>? SqlSection { get; set; }
     public List<SqlTableBase>? SqlLinkedItems { get; set; }
     public ClaimsPrincipal? User { get; set; }
     
@@ -68,8 +74,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		RazorFieldConfig = new();
 		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem(true);
-        SqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
-	}
+    }
 
     #endregion
 

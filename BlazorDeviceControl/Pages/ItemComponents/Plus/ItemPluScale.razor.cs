@@ -16,7 +16,7 @@ public sealed partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
     #endregion
 
     #region Public and private methods
-
+    
     protected override void OnParametersSet()
     {
         RunActionsParametersSet(new()
@@ -25,11 +25,9 @@ public sealed partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
             {
                 SqlItemCast = DataContext.GetItemNotNullable<PluScaleModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                {
                     SqlItemCast = SqlItemNew<PluScaleModel>();
-                }
-                DataContext.GetListNotNullable<PluModel>(SqlCrudConfigList);
-	            DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigList);
+                DataContext.GetListNotNullable<PluModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+	            DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
             }
         });
     }

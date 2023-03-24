@@ -33,7 +33,7 @@ public sealed partial class SectionPlusScales : RazorComponentSectionBase<PluSca
             SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
         else
             SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
-        SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), SqlItem);
+        SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), Scale);
         base.SetSqlSectionCast();
     }
 

@@ -31,8 +31,8 @@ public sealed partial class ItemPluNestingFk : RazorComponentItemBase<PluNesting
         RunActionsParametersSetJustOne(
             () =>
             {
-                DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigList);
-                DataContext.GetListNotNullable<PluBundleFkModel>(SqlCrudConfigList);
+                DataContext.GetListNotNullable<BoxModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+                DataContext.GetListNotNullable<PluBundleFkModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
 
                 SqlItemCast = DataAccess.GetItemNotNullable<PluNestingFkModel>(IdentityUid);
 

@@ -38,7 +38,7 @@ public sealed partial class ItemPlu : RazorComponentItemBase<PluModel>
                 SqlItemCast = DataContext.GetItemNullableByUid<PluModel>(IdentityUid) 
                               ?? SqlItemNew <PluModel>();
                 
-                DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigList);
+                DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
 
                 PluTemplateFk = DataAccess.GetItemPluTemplateFkNotNullable(SqlItemCast);
                 Template = PluTemplateFk.Template.IsNotNew ? PluTemplateFk.Template : DataAccess.GetItemNewEmpty<TemplateModel>();
