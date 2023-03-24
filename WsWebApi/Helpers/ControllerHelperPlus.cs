@@ -9,7 +9,9 @@ using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Clips;
+using DevExpress.Internal;
 using FluentValidation.Results;
+using NHibernate.Util;
 // ReSharper disable InconsistentNaming
 
 namespace WsWebApi.Helpers;
@@ -304,7 +306,7 @@ public partial class ControllerHelper
     {
         try
         {
-            if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
+            if (Equals(pluXml.ClipTypeGuid, Guid.Empty)) return;
 
             if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
             if (!GetClipDb(response, pluXml.ClipTypeGuid, pluXml.Uid1c, LocaleCore.WebService.FieldClip, out ClipModel? clipDb)) return;
@@ -339,7 +341,16 @@ public partial class ControllerHelper
     {
         try
         {
-            if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
+            //if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
+            if (pluBundleFk.IsNotExists)
+            {
+                List<PluBundleFkModel> pluBundleFks =  DataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
+                if (pluBundleFks.Any())
+                {
+                    pluBundleFk = pluBundleFks.Find(item => Equals(item.Plu.Number, pluXml.Number)) ?? new();
+                }
+            }
+            if (pluBundleFk.IsNotExists) return;
 
             if (!GetBoxDb(response, pluXml.BoxTypeGuid, pluXml.Uid1c, "Box", out BoxModel? boxDb)) return;
             if (boxDb is null) return;
