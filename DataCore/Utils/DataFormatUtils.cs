@@ -13,9 +13,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Unicode;
 using System.Xml.Xsl;
 using DataCore.Sql.Core.Helpers;
-using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
-using DataCore.Sql.TableScaleModels.PlusLabels;
 
 namespace DataCore.Utils;
 
@@ -87,13 +85,9 @@ public static class DataFormatUtils
 		return xml;
 	}
 
-	public static string XmlReplaceNextLine(string xml)
-	{
-		xml = xml.Replace("|", "\\&");
-		return xml;
-	}
+	public static string XmlReplaceNextLine(string xml) => xml.Replace("|", "\\&");
 
-	public static string XsltTransformation(string xslInput, string? xmlInput)
+    public static string XsltTransformation(string xslInput, string? xmlInput)
 	{
 		if (xmlInput is null || string.IsNullOrEmpty(xmlInput)) return xslInput;
 
@@ -162,13 +156,9 @@ public static class DataFormatUtils
     {
         if (!isForceUpdate && _templateResources.Any()) return _templateResources;
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceModel.Type), "ZPL"),
-            new SqlFieldOrderModel(nameof(TemplateResourceModel.Name), SqlFieldOrderEnum.Asc), false, false);
+            new SqlFieldOrderModel() { Name = nameof(TemplateResourceModel.Name), Direction =  SqlOrderDirection.Asc }, false, false);
         TemplateResourceModel[]? templateResources = DataAccessHelper.Instance.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
-        if (templateResources is not null)
-            _templateResources = templateResources.ToList();
-        else
-            _templateResources = new();
-        return _templateResources;
+        return _templateResources = templateResources is not null ? templateResources.ToList() : new();
     }
 
     public static List<string> LoadTemplatesResourcesNames(bool isForceUpdate) =>

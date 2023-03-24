@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace ScalesUI.Controls;
@@ -20,15 +20,15 @@ public partial class KneadingUserControl : UserControlBase
         SaveProductDate = UserSession.ProductDate;
         SaveKneading = UserSession.WeighingSettings.Kneading;
         SavePalletSize = UserSession.WeighingSettings.LabelsCountMain;
-        RefreshAction = KneadingUserControl_Refresh;
     }
 
     #endregion
 
     #region Public and private methods
 
-    private void KneadingUserControl_Refresh()
+    public override void RefreshAction()
     {
+        base.RefreshAction();
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
         {
             if (!UserSession.PluScale.IdentityValueUid.Equals(PreviousPluScaleUid))

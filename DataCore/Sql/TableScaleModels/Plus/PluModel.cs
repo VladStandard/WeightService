@@ -4,7 +4,6 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
-using DataCore.Sql.Xml;
 
 namespace DataCore.Sql.TableScaleModels.Plus;
 
@@ -20,25 +19,9 @@ public class PluModel : SqlTableBase1c
     [XmlElement] public virtual bool IsGroup { get; set; }
     [XmlElement] public virtual short Number { get; set; }
     [XmlElement] public virtual string Code { get; set; }
-    [XmlElement] public virtual string NumberFormat
-    {
-        get => $"{Number:000}";
-        set => _ = value;
-    }
     [XmlElement] public virtual string FullName { get; set; }
     [XmlElement] public virtual byte ShelfLifeDays { get; set; }
     [XmlElement] public virtual string Gtin { get; set; }
-    [XmlElement] public virtual string Gtin14Format
-    {
-        get => Gtin.Length switch
-            {
-                13 => BarcodeHelper.Instance.GetGtinWithCheckDigit(Gtin[..13]),
-                14 => Gtin,
-                _ => "ERROR"
-            };
-        // This code need for print labels.
-        set => _ = value;
-    }
     [XmlElement] public virtual string Ean13 { get; set; }
     [XmlElement] public virtual string Itf14 { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
@@ -193,7 +176,7 @@ public class PluModel : SqlTableBase1c
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()=>
+    public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(IsGroup, default(bool)) &&
         Equals(ParentGuid, Guid.Empty) &&
@@ -333,15 +316,15 @@ public class PluModel : SqlTableBase1c
         if (!string.IsNullOrEmpty(plu.Itf14))
             Itf14 = plu.Itf14;
         IsCheckWeight = plu.IsCheckWeight;
-        if (!Equals(plu.ParentGuid, Guid.Equals))
+        if (!Equals(plu.ParentGuid, Guid.Empty))
             ParentGuid = plu.ParentGuid;
-        if (!Equals(plu.GroupGuid, Guid.Equals))
+        if (!Equals(plu.GroupGuid, Guid.Empty))
             GroupGuid = plu.GroupGuid;
-        if (!Equals(plu.BoxTypeGuid, Guid.Equals))
+        if (!Equals(plu.BoxTypeGuid, Guid.Empty))
             BoxTypeGuid = plu.BoxTypeGuid;
-        if (!Equals(plu.ClipTypeGuid, Guid.Equals))
+        if (!Equals(plu.ClipTypeGuid, Guid.Empty))
             ClipTypeGuid = plu.ClipTypeGuid;
-        if (!Equals(plu.PackageTypeGuid, Guid.Equals))
+        if (!Equals(plu.PackageTypeGuid, Guid.Empty))
             PackageTypeGuid = plu.PackageTypeGuid;
         if (!string.IsNullOrEmpty(plu.BoxTypeName))
             BoxTypeName = plu.BoxTypeName;

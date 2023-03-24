@@ -3,12 +3,12 @@
 
 namespace DataCore.Enums;
 
-public enum PublishType
+public enum Configuration
 {
-    DevelopVs,
     DevelopAleksandrov,
     DevelopMorozov,
-    ReleaseVs,
+    DevelopVS,
     ReleaseAleksandrov,
     ReleaseMorozov,
+    ReleaseVS,
 }

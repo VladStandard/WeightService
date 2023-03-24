@@ -2,11 +2,11 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <IsPackable>false</IsPackable>
-        <Version>0.8.540.0</Version>
+        <Version>0.9.11.0</Version>
         <Product>WeightService</Product>
         <Copyright>Copyright © 2020 - 2023</Copyright>
-        <AssemblyVersion>0.8.540.0</AssemblyVersion>
-        <FileVersion>0.8.540.0</FileVersion>
+        <AssemblyVersion>0.9.11.0</AssemblyVersion>
+        <FileVersion>0.9.11.0</FileVersion>
         <AssemblyName>DeviceControlBlazorTests</AssemblyName>
         <RootNamespace>DeviceControlBlazorTests</RootNamespace>
         <NeutralLanguage>en</NeutralLanguage>
@@ -16,10 +16,10 @@
 		<Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="bunit" Version="1.13.5" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+        <PackageReference Include="bunit" Version="1.18.4" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
         <PackageReference Include="NUnit" Version="3.13.3" />
-        <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\AssertCoreTests\AssertCoreTests.csproj" />

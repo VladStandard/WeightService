@@ -31,7 +31,7 @@ public partial class ControllerHelper
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid1c) },
+                { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (!isCheckGroup)
@@ -72,7 +72,7 @@ public partial class ControllerHelper
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid1c) },
+                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -102,7 +102,7 @@ public partial class ControllerHelper
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid1c) },
+                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<BrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -132,7 +132,7 @@ public partial class ControllerHelper
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid1c) },
+                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<ClipModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -161,8 +161,8 @@ public partial class ControllerHelper
         itemDb = null;
         if (!Equals(uid1c, Guid.Empty))
         {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid1c) },
+            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel> 
+                { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<BoxModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -192,7 +192,7 @@ public partial class ControllerHelper
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid1c) },
+                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -222,7 +222,7 @@ public partial class ControllerHelper
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new(nameof(SqlTableBase1c.Uid1c), SqlFieldComparerEnum.Equal, uid1c) },
+                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false);
             itemDb = DataContext.DataAccess.GetItemNullable<PluCharacteristicModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)

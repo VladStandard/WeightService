@@ -82,14 +82,31 @@ public partial class MainForm : Form
         NavigationControl.Parent = this;
         NavigationControl.Dock = DockStyle.Fill;
         WaitControl = new();
-        PluControl = new();
-        PluControl.RefreshAction();
-        KneadingControl = new();
-        KneadingControl.RefreshAction();
+        
+        //_ = Task.Run(async () => {
+        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            PluControl = new();
+            PluControl.RefreshAction();
+            KneadingControl = new();
+            KneadingControl.RefreshAction();
+        //}).ConfigureAwait(false);
+        
         // Buttons.
         SetButtonsSettings();
         // Form properties: resolution, position, fonts.
-        this.SwitchResolution(Debug.IsDebug ? Resolution.Value1366x768 : Resolution.FullScreen);
+        switch (Debug.Config)
+        {
+            case Configuration.DevelopAleksandrov:
+            case Configuration.DevelopMorozov:
+            case Configuration.DevelopVS:
+                this.SwitchResolution(Resolution.Value1366x768);
+                break;
+            case Configuration.ReleaseAleksandrov:
+            case Configuration.ReleaseMorozov:
+            case Configuration.ReleaseVS:
+                this.SwitchResolution(Resolution.FullScreen);
+                break;
+        }
         CenterToScreen();
         LoadFonts();
     }
@@ -114,13 +131,19 @@ public partial class MainForm : Form
         // Memory.
         UserSession.PluginMemory.Init(new(1_000, 0_250), new(0_250, 0_250),
             new(0_250, 0_250), fieldMemory, fieldMemoryExt);
-        UserSession.PluginMemory.Execute();
+        _ = Task.Run(async () => {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            UserSession.PluginMemory.Execute();
+        }).ConfigureAwait(false);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryExt, Debug.IsDebug);
 
         // Massa.
         UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100), 
             new(0_050, 0_100), fieldNettoWeight, fieldMassa, fieldMassaExt);
-        UserSession.PluginMassa.Execute();
+        _ = Task.Run(async () => {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            UserSession.PluginMassa.Execute();
+        }).ConfigureAwait(false);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaExt, Debug.IsDebug);
 
         // Template.
@@ -135,7 +158,10 @@ public partial class MainForm : Form
                 UserSession.PrintBrandMain, UserSession.Scale.PrinterMain, fieldPrintMain, fieldPrintMainExt, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintMain, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDebug);
-            UserSession.PluginPrintMain.Execute();
+            _ = Task.Run(async () => {
+                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                UserSession.PluginPrintMain.Execute();
+            }).ConfigureAwait(false);
             UserSession.PluginPrintMain.SetOdometorUserLabel(1);
         }
 
@@ -149,7 +175,10 @@ public partial class MainForm : Form
                     UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping, fieldPrintShipping, fieldPrintShippingExt, false);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintShipping, true);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDebug);
-                UserSession.PluginPrintShipping.Execute();
+                _ = Task.Run(async () => {
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                    UserSession.PluginPrintShipping.Execute();
+                }).ConfigureAwait(false);
                 UserSession.PluginPrintShipping.SetOdometorUserLabel(1);
             }
         }
@@ -158,7 +187,10 @@ public partial class MainForm : Form
         UserSession.PluginLabels.Init(
             new(0_250, 0_250), new(0_250, 0_250), 
             new(0_250, 0_250), fieldPlu, fieldSscc, fieldProductDate, fieldKneading);
-        UserSession.PluginLabels.Execute();
+        _ = Task.Run(async () => {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            UserSession.PluginLabels.Execute();
+        }).ConfigureAwait(false);
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {UserSession.PublishDescription}.");
         MDSoft.WinFormsUtils.InvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }

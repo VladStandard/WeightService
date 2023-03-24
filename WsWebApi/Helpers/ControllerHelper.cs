@@ -466,8 +466,8 @@ public partial class ControllerHelper
         {
             List<SqlFieldFilterModel> sqlFilters = new()
             {
-                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, dtStart),
-                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, dtEnd),
+                new() { Name = nameof(BarCodeModel.CreateDt), Comparer = SqlFieldComparerEnum.MoreOrEqual, Value = dtStart },
+                new() { Name = nameof(BarCodeModel.CreateDt), Comparer = SqlFieldComparerEnum.LessOrEqual, Value = dtEnd },
             };
             SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
             List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);

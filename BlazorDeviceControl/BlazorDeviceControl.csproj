@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Version>0.8.540.0</Version>
+        <Version>0.9.11.0</Version>
         <Authors>Владимирский стандарт</Authors>
         <Company>Владимирский стандарт</Company>
         <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
@@ -12,8 +12,8 @@
         <AssemblyName>BlazorDeviceControl</AssemblyName>
         <RootNamespace>BlazorDeviceControl</RootNamespace>
         <NeutralLanguage>ru-RU</NeutralLanguage>
-        <FileVersion>0.8.540.0</FileVersion>
-        <AssemblyVersion>0.8.540.0</AssemblyVersion>
+        <FileVersion>0.9.11.0</FileVersion>
+        <AssemblyVersion>0.9.11.0</AssemblyVersion>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<Platforms>AnyCPU;x64;x86</Platforms>
@@ -41,21 +41,21 @@
         <PackageReference Include="BlazorInputFile" Version="0.2.0" />
         <PackageReference Include="FluentNHibernate" Version="3.1.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.4" />
         <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.0" />
-        <PackageReference Include="Microsoft.Identity.Web" Version="1.25.5" />
-        <PackageReference Include="MudBlazor" Version="6.1.8" />
+        <PackageReference Include="Microsoft.Identity.Web" Version="2.5.0" />
+        <PackageReference Include="MudBlazor" Version="6.2.0" />
         <PackageReference Include="NetBarcode" Version="2.0.0-beta.1" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="NHibernate" Version="5.3.14" />
-        <PackageReference Include="Radzen.Blazor" Version="4.6.5" />
-        <PackageReference Include="RestSharp" Version="108.0.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="NHibernate" Version="5.4.1" />
+        <PackageReference Include="Radzen.Blazor" Version="4.7.13" />
+        <PackageReference Include="RestSharp" Version="109.0.1" />
     </ItemGroup>
     <ItemGroup>
         <SupportedPlatform Include="browser" />

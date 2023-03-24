@@ -120,7 +120,7 @@ public partial class DataAccessHelper
     public List<PluLabelModel> GetListPluLabels(bool isShowMarked, bool isShowOnlyTop)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
-        sqlCrudConfig.Orders.Add(new(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));
+        sqlCrudConfig.Orders.Add(new() { Name = nameof(PluWeighingModel.ChangeDt), Direction = SqlOrderDirection.Desc });
         return GetListNotNullable<PluLabelModel>(sqlCrudConfig);
     }
 
@@ -144,7 +144,7 @@ public partial class DataAccessHelper
         List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
 
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters,
-            new SqlFieldOrderModel(nameof(PluBundleFkModel.Plu), SqlFieldOrderEnum.Asc),
+            new SqlFieldOrderModel { Name = nameof(PluBundleFkModel.Plu), Direction = SqlOrderDirection.Asc },
             isShowMarked, isShowOnlyTop);
         result.AddRange(GetListNotNullable<PluBundleFkModel>(sqlCrudConfig));
         result = result.OrderBy(x => x.Bundle.Name).ToList();
@@ -157,7 +157,7 @@ public partial class DataAccessHelper
     {
         List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters,
-            new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc),
+            new SqlFieldOrderModel { Name = nameof(SqlTableBase.Description), Direction = SqlOrderDirection.Asc },
             isShowMarked, isShowOnlyTop);
         return GetListNotNullable<PrinterResourceFkModel>(sqlCrudConfig);
     }
@@ -166,7 +166,7 @@ public partial class DataAccessHelper
     public List<PrinterTypeModel> GetListPrinterTypes(bool isShowMarked, bool isShowOnlyTop)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(PrinterTypeModel.Name), SqlFieldOrderEnum.Asc), isShowMarked, isShowOnlyTop);
+            new SqlFieldOrderModel{ Name = nameof(PrinterTypeModel.Name), Direction = SqlOrderDirection.Asc }, isShowMarked, isShowOnlyTop);
         return GetListNotNullable<PrinterTypeModel>(sqlCrudConfig);
     }
 

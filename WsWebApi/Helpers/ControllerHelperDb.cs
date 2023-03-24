@@ -27,7 +27,7 @@ public partial class ControllerHelper
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -53,7 +53,7 @@ public partial class ControllerHelper
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = DataContext.DataAccess.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -68,7 +68,7 @@ public partial class ControllerHelper
     {
         if (boxDb is null || boxDb.IsNew) return false;
         boxDb.UpdateProperties(pluXml);
-        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(boxDb);
+        SqlCrudResultModel dbUpdate = DataContext.DataAccess.UpdateForce(boxDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -83,7 +83,7 @@ public partial class ControllerHelper
     {
         if (brandDb is null || brandDb.IsNew) return false;
         brandDb.UpdateProperties(brandXml);
-        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(brandDb);
+        SqlCrudResultModel dbUpdate = DataContext.DataAccess.UpdateForce(brandDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -98,7 +98,7 @@ public partial class ControllerHelper
     {
         if (bundleDb is null || bundleDb.IsNew) return false;
         bundleDb.UpdateProperties(pluXml);
-        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(bundleDb);
+        SqlCrudResultModel dbUpdate = DataContext.DataAccess.UpdateForce(bundleDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -113,7 +113,7 @@ public partial class ControllerHelper
     {
         if (clipDb is null || clipDb.IsNew) return false;
         clipDb.UpdateProperties(pluXml);
-        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.UpdateForce(clipDb);
+        SqlCrudResultModel dbUpdate = DataContext.DataAccess.UpdateForce(clipDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -137,7 +137,7 @@ public partial class ControllerHelper
         pluDb.Identity = pluXml.Identity;
         pluDb.UpdateProperties(pluXml);
         // Native update -> Be careful, good luck.
-        (bool IsOk, Exception? Exception) dbUpdate = DataContext.DataAccess.ExecQueryNative(
+        SqlCrudResultModel dbUpdate = DataContext.DataAccess.ExecQueryNative(
             SqlQueries.UpdatePlu, new List<SqlParameter>
             {
                 new("uid", pluXml.IdentityValueUid),
@@ -165,7 +165,7 @@ public partial class ControllerHelper
     /// <param name="isCounter"></param>
     private bool SaveItemDb<T>(Response1cShortModel response, Guid importUid, T item, bool isCounter) where T : ISqlTable
     {
-        (bool IsOk, Exception? Exception) dbSave = DataContext.DataAccess.Save(item, item.Identity);
+        SqlCrudResultModel dbSave = DataContext.DataAccess.Save(item, item.Identity);
         // Add was success.
         if (dbSave.IsOk)
         {

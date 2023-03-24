@@ -28,18 +28,19 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 
     protected override void SetSqlSectionCast()
     {
-        SqlCrudConfigSection.ClearFilters();
         if (HideNoneActivePlu)
-            SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
-        SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), Scale);
-        SqlSectionCast.Clear();
+            SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
+        else
+            SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
+        SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), SqlItem);
         base.SetSqlSectionCast();
     }
-    
+
     private string GetPluPackagesCount(PluModel plu)
 	{
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu));
-		return DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu),
+            false, true, false, false);
+        return DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}
 
     protected override async Task OnSqlSectionSaveAsync()

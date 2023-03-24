@@ -1,26 +1,11 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.TableScaleModels.PlusLabels;
+using System;
 
 namespace DataCore.Sql.TableScaleModels.BarCodes;
-
-public enum BarcodeTypeEnum
-{
-    Default,
-    Codabar,
-    Code11,
-    Code128,
-    Code128A,
-    Code128B,
-    Code128C,
-    Code39,
-    Code39E,
-    Code93,
-    EAN13,
-    EAN8
-}
 
 /// <summary>
 /// Table "BARCODES".
@@ -40,14 +25,7 @@ public class BarCodeModel : SqlTableBase
     [XmlElement] public virtual string ValueRight { get; set; }
     [XmlElement] public virtual string TypeBottom { get; set; }
     [XmlElement] public virtual string ValueBottom { get; set; }
-    [XmlElement] public virtual PluLabelModel PluLabel { get; set; }
-    [XmlIgnore] private protected virtual string TemplateBarCodeTop => "^BY3  ^B2R,120,Y,N,Y";
-    [XmlIgnore] private protected virtual string TemplateFd => "^FD";
-    [XmlIgnore] private protected virtual string TemplateFs => "^FS";
-    [XmlIgnore] private protected virtual string TypeBarCodeTop => "Interleaved 2 of 5 Bar Code";
-    [XmlIgnore] private protected virtual string TemplateBarCodeRight => "^BY4  ^BCN,90,Y,Y,N";
-    [XmlIgnore] private protected virtual string TypeBarCodeGs128 => "GS1-128";
-    [XmlIgnore] private protected virtual string TemplateBarCodeBottom => "^BY4  ^BCR,120,N,N,D";
+    [XmlIgnore] public virtual PluLabelModel PluLabel { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -63,12 +41,21 @@ public class BarCodeModel : SqlTableBase
         PluLabel = new();
     }
 
-	/// <summary>
-	/// Constructor for serialization.
-	/// </summary>
-	/// <param name="info"></param>
-	/// <param name="context"></param>
-	protected BarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    /// <summary>
+    /// Constructor with parameters.
+    /// </summary>
+    /// <param name="pluLabel"></param>
+    public BarCodeModel(PluLabelModel pluLabel) : this()
+    {
+        PluLabel = pluLabel;
+    }
+
+    /// <summary>
+    /// Constructor for serialization.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    protected BarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         TypeTop = info.GetString(nameof(TypeTop));
         ValueTop = info.GetString(nameof(ValueTop));
@@ -150,11 +137,11 @@ public class BarCodeModel : SqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        TypeTop = BarcodeTypeEnum.Default.ToString();
+        TypeTop = BarcodeType.Default.ToString();
         ValueTop = LocaleCore.Sql.SqlItemFieldValue;
-        TypeRight = BarcodeTypeEnum.Default.ToString();
+        TypeRight = BarcodeType.Default.ToString();
         ValueRight = LocaleCore.Sql.SqlItemFieldValue;
-        TypeBottom = BarcodeTypeEnum.Default.ToString();
+        TypeBottom = BarcodeType.Default.ToString();
         ValueBottom = LocaleCore.Sql.SqlItemFieldValue;
         PluLabel.FillProperties();
     }
@@ -164,7 +151,7 @@ public class BarCodeModel : SqlTableBase
     #region Public and private methods - virtual
 
     public virtual bool Equals(BarCodeModel item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(TypeTop, item.TypeTop) &&
         Equals(ValueTop, item.ValueTop) &&
         Equals(TypeRight, item.TypeRight) &&
@@ -174,71 +161,6 @@ public class BarCodeModel : SqlTableBase
         PluLabel.Equals(item.PluLabel);
 
     public new virtual BarCodeModel CloneCast() => (BarCodeModel)Clone();
-
-    public virtual void SetBarCodeTop(PluLabelModel pluLabel)
-    {
-        /*
-        ^FO745,20  ^BY3  ^B2R,120,Y,N,Y  ^FD  298987650000006722101713525011300335001
-        ^FS
-        */
-        string value = SetBarCodeInside(pluLabel, TemplateBarCodeTop);
-        if (!string.IsNullOrEmpty(value))
-        {
-            TypeTop = TypeBarCodeTop;
-            ValueTop = value;
-        }
-    }
-
-    public virtual void SetBarCodeRight(PluLabelModel pluLabel)
-    {
-        /*
-        ^FO225,1060  ^BY4  ^BCN,90,Y,Y,N  ^FD>;2999876500000067
-        ^FS 
-        */
-        string value = SetBarCodeInside(pluLabel, TemplateBarCodeRight);
-        if (!string.IsNullOrEmpty(value))
-        {
-            TypeRight = TypeBarCodeGs128;
-            ValueRight = value;
-        }
-    }
-
-    public virtual void SetBarCodeBottom(PluLabelModel pluLabel)
-    {
-        /*
-        ^FO70,20  ^BY4  ^BCR,120,N,N,D  ^FD>;0112600076000000310300033511221017102210
-        ^FS
-        */
-        string value = SetBarCodeInside(pluLabel, TemplateBarCodeBottom);
-        if (!string.IsNullOrEmpty(value))
-        {
-            TypeBottom = TypeBarCodeGs128;
-            ValueBottom = value;
-        }
-    }
-
-    public virtual string SetBarCodeInside(PluLabelModel pluLabel, string template)
-    {
-        string value = string.Empty;
-        if (pluLabel.Zpl.Contains(template)) //-V3095
-        {
-            string zpl = pluLabel.Zpl;
-            if (string.IsNullOrEmpty(zpl)) return value;
-            if (string.IsNullOrEmpty(template)) return value;
-            if (string.IsNullOrEmpty(TemplateFd)) return value;
-            if (!zpl.Contains(TemplateFd)) return value;
-
-            int start = zpl.IndexOf(template, StringComparison.Ordinal) + template.Length;
-            zpl = zpl.Substring(start, pluLabel.Zpl.Length - start);
-            zpl = zpl.Split('\n')[0];
-            start = zpl.IndexOf(TemplateFd, StringComparison.Ordinal) + TemplateFd.Length;
-            zpl = zpl.Substring(start, zpl.Length - start);
-            value = zpl
-                .TrimStart('\r', ' ', '\n', '\t', '>', ';')
-                .TrimEnd('\r', ' ', '\n', '\t', '>', ';');
-        }
-        return value;
-    }
 
     #endregion
 }

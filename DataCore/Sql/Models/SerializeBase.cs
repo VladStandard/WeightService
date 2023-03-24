@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Mvc;
@@ -43,13 +43,8 @@ public class SerializeBase : ISerializable
     #region Public and private methods - Obsolete
 
     [Obsolete(@"Use DataFormatUtils")]
-    public virtual string SerializeAsText() => DataFormatUtils.SerializeAsText<string>(this);
-
-    [Obsolete(@"Use DataFormatUtils")]
-    public virtual T DeserializeFromXml<T>(string xml) => DataFormatUtils.DeserializeFromXml<T>(xml);
-    
-    [Obsolete(@"Use DataFormatUtils")]
-    public virtual ContentResult GetContentResult<T>(string formatString, HttpStatusCode statusCode) => DataFormatUtils.GetContentResult<T>(this, formatString, statusCode);
+    public virtual ContentResult GetContentResult<T>(string formatString, HttpStatusCode statusCode) => 
+        DataFormatUtils.GetContentResult<T>(this, formatString, statusCode);
 
     #endregion
 }

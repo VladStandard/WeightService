@@ -11,21 +11,15 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods - GetItem
 
-	private T? GetItemCoreNullable<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
-	{
-		sqlCrudConfig.ResultMaxCount = 1;
-		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-		return criteria.UniqueResult<T>();
-	}
-
 	public T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T? item = null;
         ExecuteCore(session =>
         {
-			item = GetItemCoreNullable<T>(session, sqlCrudConfig);
+            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
+            item = criteria.UniqueResult<T>();
 		}, false);
-		FillReferences(item);
+        FillReferences(item, sqlCrudConfig.IsFillReferences);
 		return item;
 	}
 
@@ -33,11 +27,9 @@ public partial class DataAccessHelper
 	{
 		SqlCrudConfigModel? sqlCrudConfig = value switch
 		{
-			Guid uid => new(new List<SqlFieldFilterModel>
-				{ new(nameof(SqlTableBase.IdentityValueUid), SqlFieldComparerEnum.Equal, uid) }, 
+			Guid uid => new(new List<SqlFieldFilterModel>{ new() { Name = nameof(SqlTableBase.IdentityValueUid), Value = uid } }, 
 				true, false, false,  false),
-			long id => new(new List<SqlFieldFilterModel> 
-				{ new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id) }, 
+			long id => new(new List<SqlFieldFilterModel> { new() { Name = nameof(SqlTableBase.IdentityValueId), Value = id } }, 
 				true, false, false,  false),
 			_ => null
         };
@@ -100,11 +92,13 @@ public partial class DataAccessHelper
 	public bool IsItemExists<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		bool result = false;
-		sqlCrudConfig.ResultMaxCount = 1;
         ExecuteCore(session =>
         {
-			result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Any();
-		}, false);
+            int saveCount = JsonSettings.Local.SelectTopRowsCount;
+            JsonSettings.Local.SelectTopRowsCount = 1;
+            result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Any();
+            JsonSettings.Local.SelectTopRowsCount = saveCount;
+        }, false);
 		return result;
 	}
 
@@ -115,23 +109,17 @@ public partial class DataAccessHelper
 
     #region Public and private methods - GetArray
 
-    private T[] GetArrayCore<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
-	{
-		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-		return criteria.List<T>().ToArray();
-	}
-
 	public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T[]? items = null;
         ExecuteCore(session =>
         {
-			items = GetArrayCore<T>(session, sqlCrudConfig);
-			if (sqlCrudConfig.IsFillReferences)
-			    foreach (T item in items)
-			    {
-				    FillReferences(item);
-			    }
+            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
+            items = criteria.List<T>().ToArray();
+			foreach (T item in items)
+			{
+				FillReferences(item, sqlCrudConfig.IsFillReferences);
+			}
 		}, false);
 		return items;
 	}
@@ -206,9 +194,7 @@ public partial class DataAccessHelper
 	{
         List<T> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
-		{
             result.Add(GetItemNewEmpty<T>());
-		}
 
         List<T> list = new();
 		T[]? items = GetArrayNullable<T>(sqlCrudConfig);

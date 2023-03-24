@@ -11,14 +11,14 @@ namespace DataCore.Sql.Core.Models;
 
 public partial class DataContextModel
 {
-    #region Public and private methods - PLU
+    #region Public and private methods - PluStorageMethodFk
 
     /// <summary>
     /// Force update list PluStorageMethodFks.
     /// </summary>
     /// <param name="sqlCrudConfig"></param>
     public List<PluStorageMethodFkModel> UpdatePluStorageMethodFks(SqlCrudConfigModel sqlCrudConfig) => 
-        PluStorageMethodsFks = GetListNotNullablePluStorageMethodsFks<PluStorageMethodFkModel>(sqlCrudConfig);
+        PluStorageMethodsFks = GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig);
 
     /// <summary>
     /// Get item PluStorageMethod by Plu.
@@ -42,6 +42,18 @@ public partial class DataContextModel
     {
         PluStorageMethodFkModel pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
         return pluStorageMethodFk.IsExists ? pluStorageMethodFk.Resource : new();
+    }
+
+    /// <summary>
+    /// Get item PluStorageMethodFk by Plu.
+    /// Use UpdatePluStorageMethodFks for force update.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <returns></returns>
+    public PluStorageMethodFkModel GetPluStorageMethodFk(PluModel plu)
+    {
+        PluStorageMethodFkModel pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        return pluStorageMethodFk.IsExists ? pluStorageMethodFk : new();
     }
 
     #endregion

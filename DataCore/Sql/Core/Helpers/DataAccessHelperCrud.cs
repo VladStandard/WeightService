@@ -16,13 +16,8 @@ public partial class DataAccessHelper
     private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
-        if (sqlCrudConfig.ResultMaxCount > 0)
-        {
-            if (sqlCrudConfig.IsResultShowOnlyTop)
-                criteria.SetMaxResults(sqlCrudConfig.ResultMaxCount);
-            else if (sqlCrudConfig.ResultMaxCount == 1)
-                criteria.SetMaxResults(sqlCrudConfig.ResultMaxCount);
-        }
+        if ((JsonSettings.Local.MaxCount > 0 && sqlCrudConfig.IsResultShowOnlyTop) || JsonSettings.Local.MaxCount == 1)
+            criteria.SetMaxResults(JsonSettings.Local.MaxCount);
         if (sqlCrudConfig.Filters.Any())
             criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
         if (sqlCrudConfig.Orders.Any())
@@ -34,7 +29,7 @@ public partial class DataAccessHelper
         return criteria;
     }
 
-    private (bool IsOk, Exception? Exception) ExecuteCore(Action<ISession> action, bool isTransaction)
+    private SqlCrudResultModel ExecuteCore(Action<ISession> action, bool isTransaction)
     {
         ISession? session = null;
         Exception? exception = null;
@@ -74,9 +69,9 @@ public partial class DataAccessHelper
         if (exception is not null)
         {
             LogError(exception);
-            return (false, exception);
+            return new() { IsOk = false, Exception = exception };
         }
-        return (true, null);
+        return new() { IsOk = true, Exception = null };
     }
 
     public bool IsConnected()
@@ -87,14 +82,6 @@ public partial class DataAccessHelper
             result = session.IsConnected;
         }, false);
         return result;
-    }
-
-    [Obsolete(@"Use GetSqlQuery(ISession session, string query, List<SqlParameter> parameters)")]
-    private ISQLQuery? GetSqlQuery(ISession session, string query)
-    {
-        if (string.IsNullOrEmpty(query)) return null;
-
-        return session.CreateSQLQuery(query);
     }
 
     private ISQLQuery? GetSqlQuery(ISession session, string query, List<SqlParameter> parameters)
@@ -112,9 +99,9 @@ public partial class DataAccessHelper
         return sqlQuery;
     }
 
-    public (bool IsOk, Exception? Exception) ExecQueryNative(string query, List<SqlParameter> parameters)
+    public SqlCrudResultModel ExecQueryNative(string query, List<SqlParameter> parameters)
     {
-        if (string.IsNullOrEmpty(query)) return (false, null);
+        if (string.IsNullOrEmpty(query)) return new() { IsOk = false, Exception = null };
         return ExecuteCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
@@ -125,12 +112,12 @@ public partial class DataAccessHelper
         }, true);
     }
 
-    public (bool IsOk, Exception? Exception) ExecQueryNative(string query, SqlParameter parameter) =>
+    public SqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         ExecQueryNative(query, new List<SqlParameter> { parameter });
 
-    public (bool IsOk, Exception? Exception) Save<T>(T? item) where T : ISqlTable
+    public SqlCrudResultModel Save<T>(T? item) where T : ISqlTable
     {
-        if (item is null) return (false, null);
+        if (item is null) return new() { IsOk = false, Exception = null };
 
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
@@ -138,15 +125,15 @@ public partial class DataAccessHelper
         return ExecuteCore(session => session.Save(item), true);
     }
 
-    public async Task<(bool IsOk, Exception? Exception)> SaveAsync<T>(T? item) where T : ISqlTable
+    public async Task<SqlCrudResultModel> SaveAsync<T>(T? item) where T : ISqlTable
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         return Save(item);
     }
 
-    public (bool IsOk, Exception? Exception) Save<T>(T? item, SqlFieldIdentityModel? identity) where T : ISqlTable
+    public SqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : ISqlTable
     {
-        if (item is null) return (false, null);
+        if (item is null) return new() { IsOk = false, Exception = null };
 
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
@@ -159,44 +146,34 @@ public partial class DataAccessHelper
             : ExecuteCore(session => session.Save(item, id), true);
     }
 
-    [Obsolete(@"Use SaveOrUpdate or UpdateForce")]
-    public (bool IsOk, Exception? Exception) Update<T>(T? item) where T : ISqlTable
+    public SqlCrudResultModel SaveOrUpdate<T>(T? item) where T : ISqlTable
     {
-        if (item is null) return (false, null);
+        if (item is null) return new() { IsOk = false, Exception = null};
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
         return ExecuteCore(session => session.SaveOrUpdate(item), true);
     }
 
-    public (bool IsOk, Exception? Exception) SaveOrUpdate<T>(T? item) where T : ISqlTable
+    public SqlCrudResultModel UpdateForce<T>(T? item) where T : ISqlTable
     {
-        if (item is null) return (false, null);
-
-        item.ClearNullProperties();
-        item.ChangeDt = DateTime.Now;
-        return ExecuteCore(session => session.SaveOrUpdate(item), true);
-    }
-
-    public (bool IsOk, Exception? Exception) UpdateForce<T>(T? item) where T : ISqlTable
-    {
-        if (item is null) return (false, null);
+        if (item is null) return new() { IsOk = false, Exception = null };
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
         return ExecuteCore(session => session.Update(item), true);
     }
 
-    public (bool IsOk, Exception? Exception) Delete<T>(T? item) where T : ISqlTable
+    public SqlCrudResultModel Delete<T>(T? item) where T : ISqlTable
     {
-        if (item is null) return (false, null);
+        if (item is null) return new() { IsOk = false, Exception = null };
 
         return ExecuteCore(session => session.Delete(item), true);
     }
 
-    public (bool IsOk, Exception? Exception) Mark<T>(T? item) where T : ISqlTable
+    public SqlCrudResultModel Mark<T>(T? item) where T : ISqlTable
     {
-        if (item is null) return (false, null);
+        if (item is null) return new() { IsOk = false, Exception = null };
 
         item.IsMarked = !item.IsMarked;
         return ExecuteCore(session => session.SaveOrUpdate(item), true);

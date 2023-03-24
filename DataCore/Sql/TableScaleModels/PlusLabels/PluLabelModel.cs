@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.PlusLabels;
 /// Table "PLUS_LABELS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluLabelModel)} | Plu.Number = {PluScale.Plu.Number}")]
+[DebuggerDisplay("{nameof(PluLabelModel)} | {ProductDt} | {PluScale.Plu.Number}")]
 public class PluLabelModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -22,39 +22,9 @@ public class PluLabelModel : SqlTableBase
     [XmlElement] public virtual string Zpl { get; set; }
     [XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
     [XmlElement] public virtual DateTime ProductDt { get; set; }
-    [XmlElement] public virtual string ProductDtFormat
-    {
-        get => $"{ProductDt:dd.MM.yyyy}";
-        // This code need for print labels.
-        set => _ = value;
-    }
-    [XmlElement] public virtual string LotNumberFormat
-    {
-        get => $"{ProductDt:yyMM}";
-        // This code need for print labels.
-        set => _ = value;
-    }
-    [XmlElement] public virtual string ProductDateBarCodeFormat
-    {
-        get => $"{ProductDt:yyMMdd}";
-        // This code need for print labels.
-        set => _ = value;
-    }
-    [XmlElement] public virtual string ProductTimeBarCodeFormat
-    {
-        get => $"{ProductDt:HHmmss}";
-        // This code need for print labels.
-        set => _ = value;
-    }
     [XmlElement] public virtual DateTime ExpirationDt
     {
         get => PluScale.IsNew ? DateTime.MinValue : ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
-        // This code need for print labels.
-        set => _ = value;
-    }
-    [XmlElement] public virtual string ExpirationDtFormat
-    {
-        get => $"{ExpirationDt:dd.MM.yyyy}";
         // This code need for print labels.
         set => _ = value;
     }
@@ -92,7 +62,10 @@ public class PluLabelModel : SqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(Zpl)}: {Zpl.Length}. " + $"{nameof(Xml)}: {(Xml is null ? 0 : Xml.OuterXml.Length)}. ";
+        $"{nameof(ProductDt)}: {ProductDt}. " +
+        $"{nameof(PluScale.Plu.Number)}: {PluScale.Plu.Number}. " +
+        $"{nameof(Zpl)}: {Zpl.Length}. " + 
+        $"{nameof(Xml)}: {(Xml is null ? 0 : Xml.OuterXml.Length)}. ";
 
     public override bool Equals(object obj)
     {

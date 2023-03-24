@@ -139,25 +139,6 @@ public partial class DataAccessHelper
         }
     }
 
-    public bool IsSqlServerDevelopAleksandrov => 
-        JsonSettings.Local.Sql is { DataSource: { } } && 
-        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDevelopAleksandrov);
-    public bool IsSqlServerDevelopMorozov => 
-        JsonSettings.Local.Sql is { DataSource: { } } &&
-        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDevelopMorozov);
-    public bool IsSqlServerDevelopVs =>
-        JsonSettings.Local.Sql is { DataSource: { } } &&
-        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDevelopVs);
-    public bool IsSqlServerReleaseAleksandrov =>
-        JsonSettings.Local.Sql is { DataSource: { } } &&
-        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerReleaseAleksandrov);
-    public bool IsSqlServerReleaseMorozov =>
-        JsonSettings.Local.Sql is { DataSource: { } } &&
-        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerReleaseMorozov);
-    public bool IsSqlServerReleaseVs =>
-        JsonSettings.Local.Sql is { DataSource: { } } &&
-        JsonSettings.Local.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerReleaseVs);
-
     ~DataAccessHelper()
     {
 	    SessionFactory.Close();
