@@ -24,6 +24,7 @@ public partial class ControllerHelper
     #region Public and private fields, properties, constructor
 
     private DataContextModel DataContext { get; } = new();
+    private SqlCrudConfigModel SqlCrudConfig => new(new List<SqlFieldFilterModel>(), true, false, false, true);
 
     #endregion
 
@@ -469,7 +470,8 @@ public partial class ControllerHelper
                 new() { Name = nameof(BarCodeModel.CreateDt), Comparer = SqlFieldComparerEnum.MoreOrEqual, Value = dtStart },
                 new() { Name = nameof(BarCodeModel.CreateDt), Comparer = SqlFieldComparerEnum.LessOrEqual, Value = dtEnd },
             };
-            SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
+            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
+            sqlCrudConfig.AddFilters(sqlFilters);
             List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
             response.ResponseBarCodes = WebResponseUtils.CastBarCodes(barcodesDb);
             response.StartDate = dtStart;

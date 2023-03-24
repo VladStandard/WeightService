@@ -405,17 +405,16 @@ public partial class ControllerHelper
         NewResponse1cCore<Response1cShortModel>(response =>
         {
             string[] pluProperties = GetPluPropertiesArray();
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-            List<PluModel> plusDb = DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
-            List<PluFkModel> pluFksDb = DataContext.GetListNotNullable<PluFkModel>(sqlCrudConfig);
-            List<BoxModel> boxesDb = DataContext.GetListNotNullable<BoxModel>(sqlCrudConfig);
-            List<BundleModel> bundlesDb = DataContext.GetListNotNullable<BundleModel>(sqlCrudConfig);
-            List<PluBundleFkModel> pluBundlesFksDb = DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
-            //List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
-            List<PluBrandFkModel> pluBrandsFksDb = DataContext.GetListNotNullable<PluBrandFkModel>(sqlCrudConfig);
-            List<ClipModel> clipsDb = DataContext.GetListNotNullable<ClipModel>(sqlCrudConfig);
-            List<PluClipFkModel> pluClipsFksDb = DataContext.GetListNotNullable<PluClipFkModel>(sqlCrudConfig);
-            List<PluNestingFkModel> pluNestingFksDb = DataContext.GetListNotNullable<PluNestingFkModel>(
+            List<PluModel> plusDb = DataContext.GetListNotNullablePlus(SqlCrudConfig);
+            List<PluFkModel> pluFksDb = DataContext.GetListNotNullablePlusFks(SqlCrudConfig);
+            List<BoxModel> boxesDb = DataContext.GetListNotNullableBoxes(SqlCrudConfig);
+            List<BundleModel> bundlesDb = DataContext.GetListNotNullableBundles(SqlCrudConfig);
+            List<PluBundleFkModel> pluBundlesFksDb = DataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
+            //List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(SqlCrudConfig);
+            List<PluBrandFkModel> pluBrandsFksDb = DataContext.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
+            List<ClipModel> clipsDb = DataContext.GetListNotNullableClips(SqlCrudConfig);
+            List<PluClipFkModel> pluClipsFksDb = DataContext.GetListNotNullablePlusClipsFks(SqlCrudConfig);
+            List<PluNestingFkModel> pluNestingFksDb = DataContext.GetListNotNullablePlusNestingFks(
                 new(DataCore.Sql.Core.Utils.SqlQueries.DbScales.Tables.PluNestingFks.GetList(false), false));
             List<PluModel> plusXml = GetXmlPluList(xml);
             foreach (PluModel pluXml in plusXml)

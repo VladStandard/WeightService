@@ -110,9 +110,8 @@ public partial class ControllerHelper
     public ContentResult NewResponse1cPluGroups(XElement xml, string format) =>
         NewResponse1cCore<Response1cShortModel>(response =>
         {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-            List<PluGroupModel> itemsDb = DataContext.GetListNotNullable<PluGroupModel>(sqlCrudConfig);
-            List<PluGroupFkModel> pluGroupsFksDb = DataContext.GetListNotNullable<PluGroupFkModel>(sqlCrudConfig);
+            List<PluGroupModel> itemsDb = DataContext.GetListNotNullable<PluGroupModel>(SqlCrudConfig);
+            List<PluGroupFkModel> pluGroupsFksDb = DataContext.GetListNotNullable<PluGroupFkModel>(SqlCrudConfig);
             List<PluGroupModel> itemsXml = GetXmlPluGroupsList(xml);
             foreach (PluGroupModel itemXml in itemsXml)
             {

@@ -49,8 +49,7 @@ public partial class ControllerHelper
     public ContentResult NewResponse1cBrands(XElement xml, string formatString) =>
         NewResponse1cCore<Response1cShortModel>(response =>
         {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-            List<BrandModel> itemsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
+            List<BrandModel> itemsDb = DataContext.GetListNotNullable<BrandModel>(SqlCrudConfig);
             List<BrandModel> itemsXml = GetXmlBrandList(xml);
             foreach (BrandModel itemXml in itemsXml)
             {
