@@ -341,7 +341,6 @@ public partial class ControllerHelper
     {
         try
         {
-            //if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return;
             if (pluBundleFk.IsNotExists)
             {
                 List<PluBundleFkModel> pluBundleFks =  DataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
@@ -361,6 +360,7 @@ public partial class ControllerHelper
                 PluBundle = pluBundleFk,
                 Box = boxDb,
                 BundleCount = pluXml.AttachmentsCount,
+                IsDefault = true,
             };
 
             // Find by Identity -> Update exists | UQ_PLUS_NESTING_FK.
