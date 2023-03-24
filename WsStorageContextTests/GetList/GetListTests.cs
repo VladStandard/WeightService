@@ -18,7 +18,7 @@ internal class GetListTests
     private static SqlCrudConfigModel SqlCrudConfig => new(false, true, false, true);
     private static SqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true);
     private static List<Configuration> Configurations => new() { Configuration.ReleaseVS, Configuration.DevelopVS };
-    private static List<Configuration> ConfigurationsDev = new() { Configuration.DevelopVS };
+    private static readonly List<Configuration> ConfigurationsDev = new() { Configuration.DevelopVS };
 
     [Test]
     public void DataContext_AssertGetList_AccessModel()

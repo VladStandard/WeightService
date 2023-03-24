@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Version>0.9.11.0</Version>
+    <Version>0.9.30.0</Version>
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2023</Copyright>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <FileVersion>0.9.11.0</FileVersion>
-    <AssemblyVersion>0.9.11.0</AssemblyVersion>
+    <FileVersion>0.9.30.0</FileVersion>
+    <AssemblyVersion>0.9.30.0</AssemblyVersion>
     <LangVersion>latest</LangVersion>
     <Configurations>DevelopVS;ReleaseMorozov;ReleaseVS;DevelopMorozov;DevelopAleksandrov;ReleaseAleksandrov</Configurations>
   </PropertyGroup>

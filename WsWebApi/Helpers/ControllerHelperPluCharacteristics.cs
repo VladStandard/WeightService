@@ -85,9 +85,8 @@ public partial class ControllerHelper
     public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format) =>
         NewResponse1cCore<Response1cShortModel>(response =>
         {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-            List<PluCharacteristicModel> pluCharacteristicsDb = DataContext.GetListNotNullable<PluCharacteristicModel>(sqlCrudConfig);
-            List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = DataContext.GetListNotNullable<PluCharacteristicsFkModel>(sqlCrudConfig);
+            List<PluCharacteristicModel> pluCharacteristicsDb = DataContext.GetListNotNullable<PluCharacteristicModel>(SqlCrudConfig);
+            List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = DataContext.GetListNotNullable<PluCharacteristicsFkModel>(SqlCrudConfig);
             List<PluCharacteristicModel> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (PluCharacteristicModel pluCharacteristicXml in pluCharacteristicsXml)
             {
