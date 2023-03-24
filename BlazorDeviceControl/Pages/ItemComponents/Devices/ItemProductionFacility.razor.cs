@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.ProductionFacilities;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Devices;
 
-public partial class ItemProductionFacility : RazorComponentItemBase<ProductionFacilityModel>
+public sealed partial class ItemProductionFacility : RazorComponentItemBase<ProductionFacilityModel>
 {
 	#region Public and private fields, properties, constructor
 

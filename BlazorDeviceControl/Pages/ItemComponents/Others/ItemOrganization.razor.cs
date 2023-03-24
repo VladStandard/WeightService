@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Organizations;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Others;
 
-public partial class ItemOrganization : RazorComponentItemBase<OrganizationModel>
+public sealed partial class ItemOrganization : RazorComponentItemBase<OrganizationModel>
 {
 	#region Public and private fields, properties, constructor
 

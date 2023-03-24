@@ -1,11 +1,11 @@
-﻿@using DataCore.Sql.TableScaleModels.Devices
-@using DataCore.Sql.TableScaleModels.DeviceTypes
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentItemBase<DeviceModel>
-@page "/item/device"
+﻿@page "/item/device"
 @page "/item/device/new"
 @page "/item/device/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<DeviceModel>
+@using DataCore.Sql.TableScaleModels.Devices
+@using DataCore.Sql.TableScaleModels.DeviceTypes
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <RazorItemReload TItem="@DeviceModel" Title="@LocaleCore.DeviceControl.ItemHost" />
 

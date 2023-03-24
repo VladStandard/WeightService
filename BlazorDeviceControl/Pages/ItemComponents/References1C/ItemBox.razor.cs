@@ -5,7 +5,7 @@
 
  namespace BlazorDeviceControl.Pages.ItemComponents.References1C;
 
-public partial class ItemBox : RazorComponentItemBase<BoxModel>
+public sealed partial class ItemBox : RazorComponentItemBase<BoxModel>
 {
     #region Public and private fields, properties, constructor
 

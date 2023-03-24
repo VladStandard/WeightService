@@ -10,7 +10,7 @@ namespace BlazorDeviceControl.Pages.ItemComponents.Printers;
 /// <summary>
 /// Item PrinterResource page.
 /// </summary>
-public partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourceFkModel>
+public sealed partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourceFkModel>
 {
 	#region Public and private fields, properties, constructor
 

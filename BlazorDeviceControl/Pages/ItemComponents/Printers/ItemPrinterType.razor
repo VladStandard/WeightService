@@ -1,9 +1,9 @@
-﻿@using DataCore.Sql.TableScaleModels.PrintersTypes
-@inherits RazorComponentItemBase<PrinterTypeModel>
-@page "/item/printer_type"
+﻿@page "/item/printer_type"
 @page "/item/printer_type/new"
 @page "/item/printer_type/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<PrinterTypeModel>
+@using DataCore.Sql.TableScaleModels.PrintersTypes
 
 <RazorItemReload TItem="@PrinterTypeModel" Title="@LocaleCore.Print.Type"/>
 

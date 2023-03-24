@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Templates;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Others;
 
-public partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
+public sealed partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 {
 	#region Public and private fields, properties, constructor
 

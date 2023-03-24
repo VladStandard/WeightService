@@ -1,10 +1,10 @@
-﻿@using DataCore.Sql.TableScaleModels.Organizations
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentItemBase<OrganizationModel>
-@page "/item/organization"
+﻿@page "/item/organization"
 @page "/item/organization/new"
 @page "/item/organization/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<OrganizationModel>
+@using DataCore.Sql.TableScaleModels.Organizations
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <RazorItemReload TItem="OrganizationModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
 

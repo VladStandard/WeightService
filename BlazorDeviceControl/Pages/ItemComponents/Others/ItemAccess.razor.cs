@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Access;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Others;
 
-public partial class ItemAccess : RazorComponentItemBase<AccessModel>
+public sealed partial class ItemAccess : RazorComponentItemBase<AccessModel>
 {
 	#region Public and private fields, properties, constructor
 

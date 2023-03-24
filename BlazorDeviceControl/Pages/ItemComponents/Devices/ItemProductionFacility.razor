@@ -1,9 +1,9 @@
-﻿@using DataCore.Sql.TableScaleModels.ProductionFacilities
-@inherits RazorComponentItemBase<ProductionFacilityModel>
-@page "/item/production_facility"
+﻿@page "/item/production_facility"
 @page "/item/production_facility/new"
 @page "/item/production_facility/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<ProductionFacilityModel>
+@using DataCore.Sql.TableScaleModels.ProductionFacilities
 
 <RazorItemReload TItem="@ProductionFacilityModel" Title="@LocaleCore.DeviceControl.ItemProductionFacility"/>
 

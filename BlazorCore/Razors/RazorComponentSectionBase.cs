@@ -17,7 +17,6 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     #region Parameters
 
     [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
-    
     [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
 
     protected bool IsSqlSectionGet = false;

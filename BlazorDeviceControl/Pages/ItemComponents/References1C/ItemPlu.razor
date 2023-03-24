@@ -1,12 +1,12 @@
-﻿@using DataCore.Sql.TableScaleModels.Plus
-@using DataCore.Sql.TableScaleModels.Templates
-@using BlazorDeviceControl.Pages.CustomComponents
-@using BlazorDeviceControl.Pages.SectionComponents.Plus
-@inherits RazorComponentItemBase<PluModel>
-@page "/item/plu"
+﻿@page "/item/plu"
 @page "/item/plu/new"
 @page "/item/plu/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<PluModel>
+@using DataCore.Sql.TableScaleModels.Plus
+@using DataCore.Sql.TableScaleModels.Templates
+@using BlazorDeviceControl.Pages.CustomComponents
+@using BlazorDeviceControl.Pages.SectionComponents.Plus
 
 <RazorItemReload TItem="@PluModel" Title="@LocaleCore.DeviceControl.ItemPlu"/>
 

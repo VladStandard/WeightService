@@ -1,9 +1,9 @@
-﻿@using DataCore.Sql.TableScaleModels.Logs
-@inherits RazorComponentItemBase<LogModel>
-@page "/item/log"
+﻿@page "/item/log"
 @page "/item/log/new"
 @page "/item/log/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<LogModel>
+@using DataCore.Sql.TableScaleModels.Logs
 
 <RazorItemReload TItem="LogModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
 

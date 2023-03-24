@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Bundles;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.References1C;
 
-public partial class ItemBundle : RazorComponentItemBase<BundleModel>
+public sealed partial class ItemBundle : RazorComponentItemBase<BundleModel>
 {
     #region Public and private fields, properties, constructor
 

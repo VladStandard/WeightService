@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Plus;
 
-public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
+public sealed partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
 {
     #region Public and private fields, properties, constructor
 

@@ -7,7 +7,7 @@ using DataCore.Sql.TableScaleModels.Scales;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Plus;
 
-public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
+public sealed partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
 {
     #region Public and private fields, properties, constructor
 

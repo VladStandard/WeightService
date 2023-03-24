@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.Logs;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Others;
 
-public partial class ItemLog : RazorComponentItemBase<LogModel>
+public sealed partial class ItemLog : RazorComponentItemBase<LogModel>
 {
 	#region Public and private fields, properties, constructor
 

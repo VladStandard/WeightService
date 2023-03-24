@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Security.Claims;
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Core.Enums;
@@ -256,6 +257,15 @@ public partial class DataAccessHelper
     public string GetAccessRightsDescription(byte accessRights) =>
         GetAccessRightsDescription((AccessRightsEnum)accessRights);
 
+    public string GetAccessRightsDescription(ClaimsPrincipal? user)
+    {
+        if (user == null)
+            return string.Empty;
+        string right = user.Claims.Where(c => c.Type == ClaimTypes.Role).
+            Select(c => c.Value).OrderByDescending(int.Parse).First();
+        return GetAccessRightsDescription((AccessRightsEnum)(int.Parse(right)));
+    }
+    
     public ScaleModel GetScaleNotNullable(long id)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(

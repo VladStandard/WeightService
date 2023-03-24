@@ -7,7 +7,7 @@ using DataCore.Sql.TableScaleModels.Boxes;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.References1C;
 
-public partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel>
+public sealed partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel>
 {
     #region Public and private fields, properties, constructor
 

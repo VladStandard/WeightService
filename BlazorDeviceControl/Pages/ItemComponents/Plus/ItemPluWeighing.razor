@@ -1,9 +1,9 @@
-﻿@using DataCore.Sql.TableScaleModels.PlusWeighings
-@inherits RazorComponentItemBase<PluWeighingModel>
-@page "/item/plu_weighing"
+﻿@page "/item/plu_weighing"
 @page "/item/plu_weighing/new"
 @page "/item/plu_weighing/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<PluWeighingModel>
+@using DataCore.Sql.TableScaleModels.PlusWeighings
 
 <RazorItemReload TItem="@PluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing"/>
 

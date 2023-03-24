@@ -1,14 +1,14 @@
-﻿@using DataCore.Sql.TableScaleModels.Scales
+﻿@page "/item/scale"
+@page "/item/scale/new"
+@page "/item/scale/{IdentityId:long}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<ScaleModel>
+@using DataCore.Sql.TableScaleModels.Scales
 @using DataCore.Sql.TableScaleModels.WorkShops
 @using DataCore.Sql.TableScaleModels.Devices
 @using DataCore.Sql.TableScaleModels.Printers
 @using BlazorDeviceControl.Pages.CustomComponents
 @using BlazorDeviceControl.Pages.SectionComponents.Admins
-@inherits RazorComponentItemBase<ScaleModel>
-@page "/item/scale"
-@page "/item/scale/new"
-@page "/item/scale/{IdentityId:long}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
 
 <RazorItemReload TItem="@ScaleModel" Title="@LocaleCore.DeviceControl.ItemScale"/>
 

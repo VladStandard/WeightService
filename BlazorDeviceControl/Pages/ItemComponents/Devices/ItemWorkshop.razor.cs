@@ -6,7 +6,7 @@ using DataCore.Sql.TableScaleModels.WorkShops;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Devices;
 
-public partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
+public sealed partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 {
 	#region Public and private fields, properties, constructor
 

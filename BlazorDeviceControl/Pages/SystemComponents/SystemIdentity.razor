@@ -3,56 +3,34 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
 
-
-<div>
-  <br/>
-  <RadzenLabel Style="margin-left: 0; margin-top: 2%; " Text="@(HttpIdDescription)"/>
-  <br/>
-  <RadzenLabel Style="margin-left: 0; margin-top: 2%; " Text="@(IpAddressDescription)"/>
-  <br/>
-</div>
-
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.UserSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25 })"/>
   <tbody>
   <tr>
     <td>@LocaleCore.Strings.AuthorizingUserName</td>
-    @if (string.IsNullOrEmpty(User?.Identity?.Name))
-    {
-      <td>
-        <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true /></td>
-    }
-    else
-    {
-      <td>
-        <MudElement Class="ma-0">@User.Identity.Name</MudElement>
-      </td>
-    }
+    <td>@User?.Identity?.Name</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Strings.AuthorizingApAddress.</td>
+    <td>@IpAddress</td>
   </tr>
   <tr>
     <td>@LocaleCore.Strings.AccessRights</td>
     <td>
-      @* <MudElement Class="ma-0">@DataAccess.GetAccessRightsDescription(UserSettings?.AccessRights)</MudElement> *@
+      <MudElement Class="ma-0">@DataAccess.GetAccessRightsDescription(User)</MudElement>
     </td>
   </tr>
   <tr>
     <td>@LocaleCore.Strings.Language</td>
-    @if (TemplateLanguages is null)
-    {
-      <td><RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true /></td>
-    }
-    else
-    {
-      <td>
-        <MudSelectLocal @bind-Value=@LocaleCore.Lang>
-          @foreach (Lang lang in Langs)
-          {
-            <MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>
-          }
-        </MudSelectLocal>
-      </td>
-    }
+    <td>
+    <MudSelectLocal @bind-Value="@LocaleCore.Lang">
+      @foreach (Lang lang in Langs)
+      {
+        <MudSelectItem Value=@lang>@lang</MudSelectItem>
+      }
+    </MudSelectLocal>
+    </td>
   </tr>
   </tbody>
 </MudSimpleTable>

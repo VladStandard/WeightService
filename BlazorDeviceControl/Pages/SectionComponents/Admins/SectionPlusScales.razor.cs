@@ -11,6 +11,7 @@ namespace BlazorDeviceControl.Pages.SectionComponents.Admins;
 public sealed partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel>
 {
 	#region Public and private fields, properties, constructor
+    
     [Parameter] public ScaleModel Scale { get; set; }
     public bool HideNoneActivePlu { get; set; }
     

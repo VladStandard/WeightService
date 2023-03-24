@@ -1,9 +1,9 @@
-﻿@using DataCore.Sql.TableScaleModels.Contragents
-@inherits RazorComponentItemBase<ContragentModel>
-@page "/item/contragent"
+﻿@page "/item/contragent"
 @page "/item/contragent/new"
 @page "/item/contragent/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<ContragentModel>
+@using DataCore.Sql.TableScaleModels.Contragents
 
 <RazorItemReload TItem="@ContragentModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
 

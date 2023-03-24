@@ -7,7 +7,7 @@ using DataCore.Sql.TableScaleModels.Templates;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.References1C;
 
-public partial class ItemPlu : RazorComponentItemBase<PluModel>
+public sealed partial class ItemPlu : RazorComponentItemBase<PluModel>
 {
     #region Public and private fields, properties, constructor
 

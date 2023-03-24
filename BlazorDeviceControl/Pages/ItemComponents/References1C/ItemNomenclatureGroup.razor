@@ -1,9 +1,9 @@
-﻿@using DataCore.Sql.TableScaleModels.PlusGroups
-@inherits RazorComponentItemBase<PluGroupModel>
-@page "/item/nomenclature_group"
+﻿@page "/item/nomenclature_group"
 @page "/item/nomenclature_group/new"
 @page "/item/nomenclature_group/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<PluGroupModel>
+@using DataCore.Sql.TableScaleModels.PlusGroups
 
 <RazorItemReload TItem="@PluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup"/>
 

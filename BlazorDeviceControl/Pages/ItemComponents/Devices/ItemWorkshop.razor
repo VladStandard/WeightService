@@ -1,11 +1,11 @@
-﻿@using DataCore.Sql.TableScaleModels.WorkShops
-@using DataCore.Sql.TableScaleModels.ProductionFacilities
-@using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentItemBase<WorkShopModel>
-@page "/item/workshop"
+﻿@page "/item/workshop"
 @page "/item/workshop/new"
 @page "/item/workshop/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<WorkShopModel>
+@using DataCore.Sql.TableScaleModels.WorkShops
+@using DataCore.Sql.TableScaleModels.ProductionFacilities
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <RazorItemReload TItem="@WorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop"/>
 

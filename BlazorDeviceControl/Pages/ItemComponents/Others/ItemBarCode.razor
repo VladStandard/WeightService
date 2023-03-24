@@ -1,10 +1,10 @@
-﻿@using DataCore.Sql.TableScaleModels.BarCodes
-@using DataCore.Enums
-@inherits RazorComponentItemBase<BarCodeModel>
-@page "/item/barcode"
+﻿@page "/item/barcode"
 @page "/item/barcode/new"
 @page "/item/barcode/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<BarCodeModel>
+@using DataCore.Sql.TableScaleModels.BarCodes
+@using DataCore.Enums
 
 <RazorItemReload TItem="@BarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
 

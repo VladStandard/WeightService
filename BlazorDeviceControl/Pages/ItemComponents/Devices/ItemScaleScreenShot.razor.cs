@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Devices;
 
-public partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleScreenShotModel>
+public sealed partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleScreenShotModel>
 {
     #region Public and private fields, properties, constructor
 

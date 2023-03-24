@@ -1,9 +1,9 @@
-﻿@using DataCore.Sql.TableScaleModels.PlusLabels
-@inherits RazorComponentItemBase<PluLabelModel>
-@page "/item/plu_label"
+﻿@page "/item/plu_label"
 @page "/item/plu_label/new"
 @page "/item/plu_label/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<PluLabelModel>
+@using DataCore.Sql.TableScaleModels.PlusLabels
 
 <RazorItemReload TItem="@PluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel"/>
 

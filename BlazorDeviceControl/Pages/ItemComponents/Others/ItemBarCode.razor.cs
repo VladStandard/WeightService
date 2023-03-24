@@ -7,7 +7,7 @@ using WsStorage.Models.Tables.BarCodes;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Others;
 
-public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
+public sealed partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 {
     #region Public and private fields, properties, constructor
 

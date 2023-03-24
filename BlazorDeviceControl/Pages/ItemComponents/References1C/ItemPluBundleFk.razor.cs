@@ -7,7 +7,7 @@ using DataCore.Sql.TableScaleModels.Plus;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.References1C;
 
-public partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
+public sealed partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
 {
     #region Public and private fields, properties, constructor
 

@@ -5,7 +5,7 @@ using DataCore.Sql.TableScaleModels.PlusWeighings;
 
 namespace BlazorDeviceControl.Pages.ItemComponents.Plus;
 
-public partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
+public sealed partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
 {
     #region Public and private fields, properties, constructor
 

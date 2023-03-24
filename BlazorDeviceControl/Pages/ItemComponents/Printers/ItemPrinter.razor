@@ -1,4 +1,9 @@
-﻿@using DataCore.Sql.TableScaleModels.Printers
+﻿@page "/item/printer"
+@page "/item/printer/new"
+@page "/item/printer/{IdentityId:long}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<PrinterModel>
+@using DataCore.Sql.TableScaleModels.Printers
 @using DataCore.Sql.TableScaleModels.PrintersTypes
 @using System.Net
 @using BlazorDeviceControl.Pages.CustomComponents
