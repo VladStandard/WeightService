@@ -1,4 +1,4 @@
-﻿@inherits RazorComponentBase
+@inherits RazorComponentBase
 @using static BlazorCoreUtils
 @using DataCore.Helpers
 
@@ -12,104 +12,104 @@
 
 <div class="@GetCssName.NavMenu(CollapseNavMenu)" @onclick="@ToggleNavMenu">
   <ul class="nav flex-column">
-    <RadzenPanelMenu class="@GetCssName.RadzenPanelMenu(BlazorAppSettings)">
+    <RadzenPanelMenu class="@GetCssName.RadzenPanelMenu()">
       <AuthorizeView Roles="@UserAccessStr.Read">
         @* Devices *@
-        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionScales>
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem() Text=@LocaleCore.DeviceControl.SectionScales>
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionAutomatedWorkplaceShort Path=@LocaleCore.DeviceControl.RouteSectionScales />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionHosts Path=@LocaleCore.DeviceControl.RouteSectionDevices />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionProductionFacilitiesShort Path=@LocaleCore.DeviceControl.RouteSectionProductionFacilities />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionWorkShops Path=@LocaleCore.DeviceControl.RouteSectionWorkShops />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.Print.Names Path=@LocaleCore.DeviceControl.RouteSectionPrinters />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.Print.Types Path=@LocaleCore.DeviceControl.RouteSectionPrinterTypes />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionResources Path=@LocaleCore.DeviceControl.RouteSectionPrinterResources />
         </RadzenPanelMenuItem>
         @* Operations *@
-        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionOperations>
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem() Text=@LocaleCore.DeviceControl.SectionOperations>
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionWeithingFactsAggregationShort Path=@LocaleCore.DeviceControl.RouteSectionPlusWeighingsAggregation />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionWeighings Path=@LocaleCore.DeviceControl.RouteSectionPlusWeighings />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionLabels Path=@LocaleCore.DeviceControl.RouteSectionPlusLabels />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionBarCodesShort Path=@LocaleCore.DeviceControl.RouteSectionBarCodes />
         </RadzenPanelMenuItem>
         @* References *@
-        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionReferences>
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem() Text=@LocaleCore.DeviceControl.SectionReferences>
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionOrganizations Path=@LocaleCore.DeviceControl.RouteSectionOrganizations />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionTemplates Path=@LocaleCore.DeviceControl.RouteSectionTemplates />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionTemplateResources Path=@LocaleCore.DeviceControl.RouteSectionTemplateResources />
         </RadzenPanelMenuItem>
         @* References 1C *@
-        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionReferences1C>
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem() Text=@LocaleCore.DeviceControl.SectionReferences1C>
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionBrands Path=@LocaleCore.DeviceControl.RouteSectionBrands />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionContragents Path=@LocaleCore.DeviceControl.RouteSectionContragents />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionNomenclaturesGroups Path=@LocaleCore.DeviceControl.RouteSectionNomenclaturesGroups />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionNomenclatures Path=@LocaleCore.DeviceControl.RouteSectionPlus />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionBoxes Path=@LocaleCore.DeviceControl.RouteSectionBoxes />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionBundles Path=@LocaleCore.DeviceControl.RouteSectionBundles />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionPlusBundlesFk Path=@LocaleCore.DeviceControl.RouteSectionPlusBundlesFks />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionPlusNestingFk Path=@LocaleCore.DeviceControl.RouteSectionPlusNestingFks />
         </RadzenPanelMenuItem>
         @*Info *@
-       <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.Menu.MenuHelp>
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"
+       <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem() Text=@LocaleCore.Menu.MenuHelp>
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem() Icon="info"
                                Text=@LocaleCore.System.UserInfo Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
        </RadzenPanelMenuItem>
       </AuthorizeView>
       <AuthorizeView Roles="@UserAccessStr.Admin">
-        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionAdministering>
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem() Text=@LocaleCore.DeviceControl.SectionAdministering>
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Icon="people"
                                Text=@LocaleCore.System.Users
                                Path=@LocaleCore.DeviceControl.RouteSectionAccess />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionScreenShots
                                Path=@LocaleCore.DeviceControl.RouteSectionScalesScreenShots />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Text=@LocaleCore.DeviceControl.SectionPlusScales Path=@LocaleCore.DeviceControl.RouteSectionPlusScales />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Icon="info"
                                Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem()
                                Icon="info"
                                Text=@LocaleCore.System.SystemInfo Path=@LocaleCore.DeviceControl.RouteSystemAppInfo />
         </RadzenPanelMenuItem>
         @* Reports *@
-        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.Menu.MenuReports>
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
+        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem() Text=@LocaleCore.Menu.MenuReports>
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem() Icon="article"
                                Text=@LocaleCore.System.SystemLogsAll Path=@LocaleCore.DeviceControl.RouteSectionLogs />
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem() Icon="article"
                                Text=@LocaleCore.WebService.Name Path=@LocaleCore.DeviceControl.RouteSectionLogsWebService />
           @* Develop *@
         </RadzenPanelMenuItem>
-        @if (DebugHelper.Instance.IsDebug)
+        @if (DebugHelper.Instance.IsDevelop)
         {
-          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev>
-            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="Mud"
+          <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem() Text=@LocaleCore.DeviceControl.SectionReferencesDev>
+            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem() Text="Mud"
                                  Path=@LocaleCore.DeviceControl.RouteExampleMud />
-            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="Radzen"
+            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem() Text="Radzen"
                                  Path=@LocaleCore.DeviceControl.RouteExampleRadzen />
-            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="NetBarcode"
+            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem() Text="NetBarcode"
                                  Path=@LocaleCore.DeviceControl.RouteExampleNetBarcode />
           </RadzenPanelMenuItem>
         }

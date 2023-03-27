@@ -1,4 +1,4 @@
-﻿//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 //// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 //namespace WeightCore.Gui;
@@ -106,7 +106,7 @@
 //            form.AutoScaleMode = AutoScaleMode.Font;
 //            //form.ClientSize = new Size((int)(owner.Width * 0.5), (int)(owner.Height * 0.25));
 //            form.FormBorderStyle = FormBorderStyle.SizableToolWindow;
-//            form.TopMost = Debug.IsDebug;
+//            form.TopMost = Debug.IsDevelop;
 //            form.Resize += (object sender, EventArgs e) =>
 //            {
 //                fieldMessages.Size = new Size(form.ClientSize.Width, form.ClientSize.Height - flowLayoutPanel.Size.Height);

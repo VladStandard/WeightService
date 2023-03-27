@@ -84,7 +84,7 @@ public class JsonSettingsHelper
             Configuration.ReleaseVS => FileNameReleaseVs,
             _ => FileNameDevelopVs,
         };
-    private string BlazorSubDir => DebugHelper.Instance.IsDebug ? @"bin\x64\Debug\net7.0\" : @"bin\x64\Release\net7.0\";
+    private string BlazorSubDir => DebugHelper.Instance.IsDevelop ? @"bin\x64\Debug\net7.0\" : @"bin\x64\Release\net7.0\";
 
     public JsonSettingsHelper()
 	{
@@ -154,7 +154,7 @@ public class JsonSettingsHelper
                 throw new(LocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDebug);
+            DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDevelop);
             DataAccessHelper.Instance.SetupLog(appName);
         }
         catch (Exception ex)
@@ -215,7 +215,7 @@ public class JsonSettingsHelper
                     throw new(LocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDebug);
+            DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDevelop);
             DataAccessHelper.Instance.SetupLog(appName);
             DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
         }

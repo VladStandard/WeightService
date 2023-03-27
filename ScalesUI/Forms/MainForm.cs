@@ -51,8 +51,8 @@ public partial class MainForm : Form
 
     private void ReturnBackLoad()
     {
-        FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
-        TopMost = !Debug.IsDebug;
+        FormBorderStyle = Debug.IsDevelop ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
+        TopMost = !Debug.IsDevelop;
         UserSession.NewPallet();
 
         MDSoft.WinFormsUtils.InvokeControl.SetText(this, AppVersion.AppTitle);
@@ -94,19 +94,7 @@ public partial class MainForm : Form
         // Buttons.
         SetButtonsSettings();
         // Form properties: resolution, position, fonts.
-        switch (Debug.Config)
-        {
-            case Configuration.DevelopAleksandrov:
-            case Configuration.DevelopMorozov:
-            case Configuration.DevelopVS:
-                this.SwitchResolution(Resolution.Value1366x768);
-                break;
-            case Configuration.ReleaseAleksandrov:
-            case Configuration.ReleaseMorozov:
-            case Configuration.ReleaseVS:
-                this.SwitchResolution(Resolution.FullScreen);
-                break;
-        }
+        this.SwitchResolution(Debug.IsDevelop ? Resolution.Value1366x768 : Resolution.FullScreen);
         CenterToScreen();
         LoadFonts();
     }
@@ -135,7 +123,7 @@ public partial class MainForm : Form
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             UserSession.PluginMemory.Execute();
         }).ConfigureAwait(false);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryExt, Debug.IsDebug);
+        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryExt, Debug.IsDevelop);
 
         // Massa.
         UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100), 
@@ -144,7 +132,7 @@ public partial class MainForm : Form
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             UserSession.PluginMassa.Execute();
         }).ConfigureAwait(false);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaExt, Debug.IsDebug);
+        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
 
         // Template.
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTemplateTitle, true);
@@ -157,7 +145,7 @@ public partial class MainForm : Form
                 new(0_250, 0_250),
                 UserSession.PrintBrandMain, UserSession.Scale.PrinterMain, fieldPrintMain, fieldPrintMainExt, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintMain, true);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDebug);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
             _ = Task.Run(async () => {
                 await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
                 UserSession.PluginPrintMain.Execute();
@@ -174,7 +162,7 @@ public partial class MainForm : Form
                     new(0_250, 0_250), new(0_250, 0_250),
                     UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping, fieldPrintShipping, fieldPrintShippingExt, false);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintShipping, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDebug);
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDevelop);
                 _ = Task.Run(async () => {
                     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
                     UserSession.PluginPrintShipping.Execute();
@@ -869,7 +857,7 @@ public partial class MainForm : Form
 
                 // Check printers connections.
                 bool isSkipPrintCheckAccess = false;
-                if (Debug.IsDebug)
+                if (Debug.IsDevelop)
                 {
                     DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
                         LocaleCore.Print.QuestionPrintCheckAccess, true, LogType.Question,

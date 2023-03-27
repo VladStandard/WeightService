@@ -87,13 +87,13 @@ public class SettingsHelper
     /// <summary>
     /// Исходный каталог ПО.
     /// </summary>
-    public string DirSource => DebugHelper.Instance.IsDebug ? @"..\ScalesUI2\bin\Debug\" : @"..\ScalesUI2\bin\Release\";
+    public string DirSource => DebugHelper.Instance.IsDevelop ? @"..\ScalesUI2\bin\Debug\" : @"..\ScalesUI2\bin\Release\";
 
     /// <summary>
     /// Файл библиотеки ядра весовой платформы.
     /// </summary>
     /// <returns></returns>
-    public string ScalesCoreDll => DebugHelper.Instance.IsDebug 
+    public string ScalesCoreDll => DebugHelper.Instance.IsDevelop 
         ? @"..\ScalesCore\bin\Debug\ScalesCore.dll" : @"..\ScalesCore\bin\Release\ScalesCore.dll";
 
     /// <summary>

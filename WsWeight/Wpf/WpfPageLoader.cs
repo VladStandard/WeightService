@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows;
@@ -69,7 +69,7 @@ public partial class WpfPageLoader : Form
         try
         {
             // Own GUI.
-            TopMost = !UserSession.Debug.IsDebug;
+            TopMost = !UserSession.Debug.IsDevelop;
 
             if (Owner is not null)
             {

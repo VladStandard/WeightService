@@ -16,12 +16,18 @@ public class DebugHelper
 
 	#region Public and private methods
 
-	public bool IsDebug =>
-#if DEBUG
-		true;
-#else
-        false;
-#endif
+    public bool IsDevelop => Config switch
+    {
+        Configuration.DevelopAleksandrov => true,
+        Configuration.DevelopMorozov => true,
+        Configuration.DevelopVS => true,
+        Configuration.ReleaseAleksandrov => false,
+        Configuration.ReleaseMorozov => false,
+        Configuration.ReleaseVS => false,
+        _ => throw new ArgumentOutOfRangeException()
+    };
+
+    public bool IsRelease => !IsDevelop;
 
     public Configuration Config =>
 #if DEVELOPALEKSANDROV

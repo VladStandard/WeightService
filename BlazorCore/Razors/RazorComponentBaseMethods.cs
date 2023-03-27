@@ -49,10 +49,7 @@ public partial class RazorComponentBase
         return LocaleCore.Dialog.DialogQuestion + Environment.NewLine;
     }
 
-	protected string GetItemTitle(SqlTableBase? item)
-	{
-		string result = string.Empty;
-		result = item switch
+	protected string GetItemTitle(SqlTableBase? item) => item switch
 		{
 			AccessModel => LocaleCore.Strings.ItemAccess,
 			BarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
@@ -83,15 +80,10 @@ public partial class RazorComponentBase
 			TemplateModel => LocaleCore.DeviceControl.ItemTemplate,
 			TemplateResourceModel => LocaleCore.DeviceControl.ItemTemplateResource,
 			WorkShopModel => LocaleCore.DeviceControl.ItemWorkShop,
-			_ => result
-		};
-		return result;
-	}
+			_ => string.Empty
+        };
 
-	protected string GetSectionTitle(SqlTableBase? item)
-	{
-		string result = string.Empty;
-		result = item switch
+	protected string GetSectionTitle(SqlTableBase? item) => item switch
 		{
             PluGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
             OrderModel => LocaleCore.DeviceControl.SectionOrders,
@@ -123,10 +115,8 @@ public partial class RazorComponentBase
 			ScaleModel => LocaleCore.DeviceControl.SectionScales,
 			TemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
 			WorkShopModel => LocaleCore.DeviceControl.SectionWorkShops,
-			_ => result
+			_ => string.Empty
 		};
-		return result;
-	}
 
 	#endregion
 

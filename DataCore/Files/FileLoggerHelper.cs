@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Helpers;
@@ -23,7 +23,7 @@ public class FileLoggerHelper
     {
         if (!Directory.Exists(dir) || string.IsNullOrEmpty(file)) return;
         LogFileName = Path.Combine(dir, $"{file}.txt");
-        StoreMessage($"Debug mode: {DebugHelper.Instance.IsDebug}");
+        StoreMessage($"Debug mode: {DebugHelper.Instance.IsDevelop}");
     }
 
     private void StoreCore(Action<StreamWriter> action)

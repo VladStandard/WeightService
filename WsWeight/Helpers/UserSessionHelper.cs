@@ -397,7 +397,7 @@ public class UserSessionHelper : BaseViewModel
     /// Check Massa-K device exists.
     /// </summary>
     /// <returns></returns>
-    public bool CheckWeightMassaDeviceExists() => Debug.IsDebug || PluScale is { IsNew: false, Plu.IsCheckWeight: false } || true;
+    public bool CheckWeightMassaDeviceExists() => Debug.IsDevelop || PluScale is { IsNew: false, Plu.IsCheckWeight: false } || true;
 
     /// <summary>
 	/// Check Massa-K is stable.
@@ -406,7 +406,7 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
 	public bool CheckWeightMassaIsStable(IWin32Window owner)
     {
-        if (Debug.IsDebug) return true;
+        if (Debug.IsDevelop) return true;
 
         if (PluScale.Plu.IsCheckWeight && !PluginMassa.IsStable)
         {
@@ -682,7 +682,7 @@ public class UserSessionHelper : BaseViewModel
     /// <param name="owner"></param>
     public void SetPluWeighingFake(IWin32Window owner)
     {
-        if (!Debug.IsDebug) return;
+        if (!Debug.IsDevelop) return;
         if (!PluScale.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
 
@@ -718,7 +718,7 @@ public class UserSessionHelper : BaseViewModel
             }
 
             // Send cmd to the print.
-            if (Debug.IsDebug)
+            if (Debug.IsDevelop)
             {
                 DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
                     LocaleCore.Print.QuestionPrintSendCmd, true, LogType.Question,
