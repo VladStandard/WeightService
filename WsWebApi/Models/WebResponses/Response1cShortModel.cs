@@ -1,11 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
 // ReSharper disable InconsistentNaming
+
 namespace WsWebApi.Models.WebResponses;
 
 [XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
-public class Response1cShortModel : SerializeBase
+public class Response1cShortModel : ResponseDebugInfoModel
 {
     #region Public and private fields and properties
 
@@ -22,7 +22,7 @@ public class Response1cShortModel : SerializeBase
 
     [XmlArray, XmlArrayItem(WebConstants.Record)]
     public List<Response1cErrorModel> Errors { get; set; }
-
+    
     public Response1cShortModel()
     {
         SuccessesCount = 0;

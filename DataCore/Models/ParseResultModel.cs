@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Serialization.Models;
+
 namespace DataCore.Models;
 
 [XmlRoot("ParseResult", Namespace = "", IsNullable = false)]
@@ -10,6 +12,8 @@ public class ParseResultModel : SerializeBase, ICloneable // SqlTableBase, ISqlD
     #region Public and private fields, properties, constructor
 
     [XmlAttribute] public virtual ParseStatus Status { get; set; }
+    [XmlIgnore] public virtual bool IsStatusSuccess => Equals(Status, ParseStatus.Success);
+    [XmlIgnore] public virtual bool IsStatusError => Equals(Status, ParseStatus.Error);
     [XmlAttribute] public virtual string Message { get; set; }
     [XmlAttribute] public virtual string Exception { get; set; }
     [XmlAttribute] public virtual string InnerException { get; set; }

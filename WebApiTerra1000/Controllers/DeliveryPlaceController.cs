@@ -8,6 +8,7 @@ using System;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
+using WsLocalization.Utils;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
@@ -29,7 +30,7 @@ public class DeliveryPlaceController : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/deliveryplaces/")]
+    [Route(UrlWebService.GetDeliveryPlaces)]
     public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "")
     {

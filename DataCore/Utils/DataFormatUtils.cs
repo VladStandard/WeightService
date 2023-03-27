@@ -403,32 +403,29 @@ public static class DataFormatUtils
 
     public static string SerializeAsText(string item) => item?.ToString() ?? string.Empty;
 
-    public static ContentResult GetContentResultCore(FormatType formatType, object content, HttpStatusCode statusCode) => new()
+    private static ContentResult GetContentResultCore(FormatType formatType, object content, HttpStatusCode statusCode) => new()
     {
         ContentType = DataUtils.GetContentType(formatType),
         StatusCode = (int)statusCode,
-        Content = content as string ?? content.ToString()
+        Content = content as string ?? content.ToString(),
     };
 
-    public static ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) =>
+    private static ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) =>
         GetContentResultCore(DataUtils.GetFormatType(formatString), content, statusCode);
 
-    public static ContentResult GetContentResult(FormatType formatType, object content, HttpStatusCode statusCode) =>
+    private static ContentResult GetContentResult(FormatType formatType, object content, HttpStatusCode statusCode) =>
         GetContentResultCore(formatType, content, statusCode);
 
-    public static ContentResult GetContentResult<T>(ISerializable item, FormatType formatType, HttpStatusCode statusCode) => formatType switch
-    {
-        FormatType.Text => GetContentResult(formatType, SerializeAsText<T>(item), statusCode),
-        FormatType.JavaScript => GetContentResult(formatType, SerializeAsText<T>(item), statusCode),
-        FormatType.Json => GetContentResult(formatType, SerializeAsJson(item), statusCode),
-        FormatType.Html => GetContentResult(formatType, SerializeAsHtml(item), statusCode),
-        FormatType.Xml or FormatType.XmlUtf8 => GetContentResult(formatType, SerializeAsXmlString<T>(item, true, false), statusCode),
-        FormatType.XmlUtf16 => GetContentResult(formatType, SerializeAsXmlString<T>(item, true, true), statusCode),
-        _ => throw DataUtils.GetArgumentException(nameof(formatType))
-    };
-
     public static ContentResult GetContentResult<T>(ISerializable item, string format, HttpStatusCode statusCode) =>
-        GetContentResult<T>(item, GetFormatType(format), statusCode);
+        GetFormatType(format) switch {
+        FormatType.Text => GetContentResult(FormatType.Text, SerializeAsText<T>(item), statusCode),
+        FormatType.JavaScript => GetContentResult(FormatType.JavaScript, SerializeAsText<T>(item), statusCode),
+        FormatType.Json => GetContentResult(FormatType.Json, SerializeAsJson(item), statusCode),
+        FormatType.Html => GetContentResult(FormatType.Html, SerializeAsHtml(item), statusCode),
+        FormatType.Xml or FormatType.XmlUtf8 => GetContentResult(FormatType.XmlUtf8, SerializeAsXmlString<T>(item, true, false), statusCode),
+        FormatType.XmlUtf16 => GetContentResult(FormatType.XmlUtf16, SerializeAsXmlString<T>(item, true, true), statusCode),
+        _ => throw DataUtils.GetArgumentException(nameof(format))
+    };
 
     public static FormatType GetFormatType(string format) => format.ToUpper() switch
     {

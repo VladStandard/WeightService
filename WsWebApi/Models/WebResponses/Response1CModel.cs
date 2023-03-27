@@ -1,11 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
 // ReSharper disable InconsistentNaming
+
 namespace WsWebApi.Models.WebResponses;
 
 [XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
-public class Response1cModel : SerializeBase
+public class Response1cModel : ResponseDebugInfoModel
 {
     #region Public and private fields and properties
 
@@ -27,6 +27,9 @@ public class Response1cModel : SerializeBase
     [XmlArray, XmlArrayItem(WebConstants.Record)]
     public List<Response1cRecordModel> Errors { get; set; }
 
+    /// <summary>
+    /// Empty constructor.
+    /// </summary>
     public Response1cModel()
     {
         SuccessesCount = 0;
@@ -59,21 +62,11 @@ public class Response1cModel : SerializeBase
         Infos = info.GetValue(nameof(Infos), typeof(List<Response1cInfoModel>)) as List<Response1cInfoModel> ?? new();
         Successes = info.GetValue(nameof(Successes), typeof(List<Response1cRecordModel>)) as List<Response1cRecordModel> ?? new();
         Errors = info.GetValue(nameof(Errors), typeof(List<Response1cRecordModel>)) as List<Response1cRecordModel> ?? new();
-        //Count = info.GetInt32(nameof(Count));
-        //object? brands = info.GetValue(nameof(Brands), typeof(List<BrandModel>));
-        //Brands = brands is not null ? (List<BrandModel>)brands : new();
     }
 
     #endregion
 
     #region Public and private methods
-
-    public override string ToString() =>
-        $"{nameof(SuccessesCount)}: {SuccessesCount}. " +
-        $"{nameof(ErrorsCount)}: {ErrorsCount}. " +
-        $"{nameof(Infos)}.{nameof(Infos.Count)}: {Infos.Count}. " +
-        $"{nameof(Successes)}.{nameof(Successes.Count)}: {Successes.Count}. " +
-        $"{nameof(Errors)}.{nameof(Errors.Count)}: {Errors.Count}. ";
 
     /// <summary>
     /// Get object data for serialization info.
@@ -90,6 +83,13 @@ public class Response1cModel : SerializeBase
         info.AddValue(nameof(Successes), Successes);
         info.AddValue(nameof(Errors), Errors);
     }
+
+    public override string ToString() =>
+        $"{nameof(SuccessesCount)}: {SuccessesCount}. " +
+        $"{nameof(ErrorsCount)}: {ErrorsCount}. " +
+        $"{nameof(Infos)}.{nameof(Infos.Count)}: {Infos.Count}. " +
+        $"{nameof(Successes)}.{nameof(Successes.Count)}: {Successes.Count}. " +
+        $"{nameof(Errors)}.{nameof(Errors.Count)}: {Errors.Count}. ";
 
     #endregion
 }

@@ -1,5 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using DataCore.Serialization.Models;
 
 namespace WsWebApi.Models;
 
@@ -15,9 +17,10 @@ public class SqlSimpleV2Model : SerializeBase
     /// Constructor.
     /// </summary>
     /// <param name="description"></param>
-    public SqlSimpleV2Model(string description)
+    /// <param name="isDebug"></param>
+    public SqlSimpleV2Model(string description, bool isDebug)
     {
-        Item = new(description);
+        Item = new(description, isDebug);
     }
 
     /// <summary>

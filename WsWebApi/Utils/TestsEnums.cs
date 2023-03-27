@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsWebApi.Utils;
@@ -32,7 +32,7 @@ public static class TestsEnums
     /// <returns></returns>
     public static List<string> GetString()
     {
-        return new() { null, "", string.Empty };
+        return new() { "", string.Empty };
     }
 
     /// <summary>

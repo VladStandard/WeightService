@@ -1,5 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using DataCore.Serialization.Models;
 
 namespace WsWebApi.Models.WebResponses;
 
@@ -22,7 +24,17 @@ public class ResponseBarCodeModel : SerializeBase, ICloneable, ISerializable // 
 
     public ResponseBarCodeModel()
     {
-        //
+        IdentityValueUid = Guid.Empty;
+        CreateDt = DateTime.MinValue;
+        ChangeDt = DateTime.MinValue;
+        IsMarked = false;
+        TypeTop = string.Empty;
+        TypeRight = string.Empty;
+        TypeBottom = string.Empty;
+        ValueTop = string.Empty;
+        ValueRight = string.Empty;
+        ValueBottom = string.Empty;
+        PluLabelGuid = Guid.Empty;
     }
 
     /// <summary>

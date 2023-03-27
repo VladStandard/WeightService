@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalization.Utils;
+
 namespace WsWebApi.Controllers;
 
 /// <summary>
@@ -25,7 +27,7 @@ public class TestControllerV1 : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v1/info/")]
+    [Route(UrlWebService.GetInfoV1)]
     public ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
         ControllerHelp.GetContentResult(() =>
         {
@@ -37,35 +39,34 @@ public class TestControllerV1 : WebControllerBase
             sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
             string response = sqlQuery.UniqueResult<string>();
             transaction.Commit();
-
-            return new ServiceInfoModel(Environment.MachineName, AppVersion.App, AppVersion.Version,
+            return DataFormatUtils.GetContentResult<ServiceInfoModel>(new ServiceInfoModel(Environment.MachineName, AppVersion.App,
+                AppVersion.Version,
                 DateTime.Now.ToString(CultureInfo.InvariantCulture),
                 response.ToString(CultureInfo.InvariantCulture),
-                session.Connection.ConnectionString.ToString(),
+                session.Connection.ConnectionString,
                 session.Connection.ConnectionTimeout,
                 session.Connection.DataSource,
                 session.Connection.ServerVersion,
                 session.Connection.Database,
                 (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576,
-                (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
-            .GetContentResult<ServiceInfoModel>(format, HttpStatusCode.OK);
+                (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576), format, HttpStatusCode.OK);
         }, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v1/exception/")]
-    public ContentResult GetException([FromQuery(Name = "format")] string format = "") =>
+    [Route(UrlWebService.GetExceptionV1)]
+    public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "is_debug")] bool isDebug = false) =>
         ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetException);
-
-            return new SqlSimpleV1Model(response).GetContentResult<SqlSimpleV1Model>(format, HttpStatusCode.OK);
+            return DataFormatUtils.GetContentResult<SqlSimpleV1Model>(new SqlSimpleV1Model(response, isDebug), format, HttpStatusCode.OK);
         }, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v1/simple/")]
-    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", int version = 0)
+    [Route(UrlWebService.GetSimpleV1)]
+    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "is_debug")] bool isDebug = false, 
+        int version = 0)
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -73,24 +74,26 @@ public class TestControllerV1 : WebControllerBase
             {      
                 case 1:
                     string response1 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV1);
-                    return DataFormatUtils.DeserializeFromXml<SqlSimpleV1Model>(response1)
-                        .GetContentResult<SqlSimpleV1Model>(format, HttpStatusCode.OK);
+                    return DataFormatUtils.GetContentResult<SqlSimpleV1Model>(
+                        DataFormatUtils.DeserializeFromXml<SqlSimpleV1Model>(response1), format, HttpStatusCode.OK);
                 case 2:
                     string response2 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV2);
-                    return DataFormatUtils.DeserializeFromXml<SqlSimpleV2Model>(response2)
-                        .GetContentResult<SqlSimpleV2Model>(format, HttpStatusCode.OK);
+                    return DataFormatUtils.GetContentResult<SqlSimpleV2Model>(
+                        DataFormatUtils.DeserializeFromXml<SqlSimpleV2Model>(response2), format, HttpStatusCode.OK);
                 case 3:
                     string response3 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV3);
-                    return DataFormatUtils.DeserializeFromXml<SqlSimpleV3Model>(response3)
-                        .GetContentResult<SqlSimpleV3Model>(format, HttpStatusCode.OK);
+                    return DataFormatUtils.GetContentResult<SqlSimpleV3Model>(
+                        DataFormatUtils.DeserializeFromXml<SqlSimpleV3Model>(response3), 
+                        format, HttpStatusCode.OK);
                 case 4:
                     string response4 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV4);
-                    return DataFormatUtils.DeserializeFromXml<SqlSimpleV4Model>(response4)
-                        .GetContentResult<SqlSimpleV4Model>(format, HttpStatusCode.OK);
+                    return DataFormatUtils.GetContentResult<SqlSimpleV4Model>(
+                        DataFormatUtils.DeserializeFromXml<SqlSimpleV4Model>(response4),
+                        format, HttpStatusCode.OK);
             }
-
-            return new SqlSimpleV1Model("Simple method from C Sharp")
-                .GetContentResult<SqlSimpleV1Model>(format, HttpStatusCode.OK);
+            return DataFormatUtils.GetContentResult<SqlSimpleV1Model>(
+                new SqlSimpleV1Model("Simple method from C Sharp", isDebug),
+                format, HttpStatusCode.OK);
         }, format);
     }
 

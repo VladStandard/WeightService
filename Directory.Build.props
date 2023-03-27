@@ -31,31 +31,31 @@
         <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|AnyCPU' ">
-        <DefineConstants>DEBUG;TRACE;RELEASE_ALEKSANDROV</DefineConstants>
+        <DefineConstants>TRACE;RELEASE_ALEKSANDROV</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x64' ">
-        <DefineConstants>DEBUG;TRACE;RELEASE_ALEKSANDROV</DefineConstants>
+        <DefineConstants>TRACE;RELEASE_ALEKSANDROV</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x86' ">
-        <DefineConstants>DEBUG;TRACE;RELEASE_ALEKSANDROV</DefineConstants>
+        <DefineConstants>TRACE;RELEASE_ALEKSANDROV</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMorozov|AnyCPU' ">
-        <DefineConstants>DEBUG;TRACE;RELEASE_MOROZOV</DefineConstants>
+        <DefineConstants>TRACE;RELEASE_MOROZOV</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMorozov|x64' ">
-        <DefineConstants>DEBUG;TRACE;RELEASE_MOROZOV</DefineConstants>
+        <DefineConstants>TRACE;RELEASE_MOROZOV</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMorozov|x86' ">
-        <DefineConstants>DEBUG;TRACE;RELEASE_MOROZOV</DefineConstants>
+        <DefineConstants>TRACE;RELEASE_MOROZOV</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|AnyCPU' ">
-        <DefineConstants>DEBUG;TRACE;RELEASE_VS</DefineConstants>
+        <DefineConstants>TRACE;RELEASE_VS</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|x64' ">
-        <DefineConstants>DEBUG;TRACE;RELEASE_VS</DefineConstants>
+        <DefineConstants>TRACE;RELEASE_VS</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|x86' ">
-        <DefineConstants>DEBUG;TRACE;RELEASE_VS</DefineConstants>
+        <DefineConstants>TRACE;RELEASE_VS</DefineConstants>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="..\IsExternalInit.cs" Visible="false" />

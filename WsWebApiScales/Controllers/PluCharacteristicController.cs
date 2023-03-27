@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalization.Models;
+using WsLocalization.Utils;
 using WsStorage.Enums;
 using WsWebApi.Controllers;
 
@@ -30,8 +30,9 @@ public class PluCharacteristicController : WebControllerBase
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost]
-    [Route("api/send_nomenclatures_characteristics/")]
+    [Route(UrlWebService.SendNomenclaturesCharacteristics)]
     public ContentResult SendPluCharacteristics([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
+        [FromQuery(Name = "is_debug")] bool isDebug = false, 
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime requestStampDt = DateTime.Now;
@@ -39,12 +40,12 @@ public class PluCharacteristicController : WebControllerBase
         {
             AcceptVersion.V2 =>
                 ControllerHelp.GetContentResult(() => ControllerHelp
-                        .NewResponse1cIsNotFound(version, format),
+                        .NewResponse1cIsNotFound(version, format, isDebug, SessionFactory),
                     format),
             _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cPluCharacteristics(xml, format), format)
+                .NewResponse1cPluCharacteristics(xml, format, isDebug, SessionFactory), format)
         };
-        ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), LocaleCore.WebService.UrlSendNomenclaturesCharacteristics,
+        ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendNomenclaturesCharacteristics,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }

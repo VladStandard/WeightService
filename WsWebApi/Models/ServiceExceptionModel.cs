@@ -1,5 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using DataCore.Serialization.Models;
 
 namespace WsWebApi.Models;
 
@@ -19,7 +21,11 @@ public class ServiceExceptionModel : SerializeBase
     /// </summary>
     public ServiceExceptionModel()
     {
-        //
+        FilePath = string.Empty;
+        LineNumber = 0;
+        MemberName = string.Empty;
+        Exception = string.Empty;
+        InnerException = string.Empty;
     }
 
     /// <summary>
@@ -30,7 +36,7 @@ public class ServiceExceptionModel : SerializeBase
     /// <param name="memberName"></param>
     /// <param name="exception"></param>
     /// <param name="innerException"></param>
-    public ServiceExceptionModel(string filePath, int lineNumber, string memberName, string exception, string innerException)
+    public ServiceExceptionModel(string filePath, int lineNumber, string memberName, string exception, string innerException) : this()
     {
         FilePath = filePath;
         LineNumber = lineNumber;
@@ -47,8 +53,8 @@ public class ServiceExceptionModel : SerializeBase
     /// <param name="memberName"></param>
     /// <param name="ex"></param>
     public ServiceExceptionModel(string filePath, int lineNumber, string memberName, Exception ex) :
-        this(filePath, lineNumber, memberName, ex.Message, ex.InnerException is not null ? ex.InnerException.Message : string.Empty)
-    { }
+        this(filePath, lineNumber, memberName, ex.Message, 
+        ex.InnerException is not null ? ex.InnerException.Message : string.Empty) { }
 
     /// <summary>
     /// Constructor.
@@ -80,7 +86,7 @@ public class ServiceExceptionModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(FilePath), FilePath);

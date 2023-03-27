@@ -6,22 +6,20 @@ using DataCore.Serialization.Models;
 
 namespace WsWebApi.Models.WebResponses;
 
-[XmlRoot(WebConstants.Record, Namespace = "", IsNullable = false)]
-public class Response1cSuccessModel : SerializeBase
+[XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
+public class ResponseDebugInfoModel : SerializeDebugBase
 {
-    #region Public and private fields, properties, constructor
+    #region Public and private fields and properties
 
-    [XmlAttribute("Guid")]
-    public Guid Uid { get; set; }
+    [XmlElement("DebugInfo")]
+    public ServiceInfoModel? Info { get; set; }
 
-    public Response1cSuccessModel()
+    /// <summary>
+    /// Empty constructor.
+    /// </summary>
+    public ResponseDebugInfoModel()
     {
-        Uid = Guid.Empty;
-    }
-
-    public Response1cSuccessModel(Guid uid)
-    {
-        Uid = uid;
+        //
     }
 
     /// <summary>
@@ -29,17 +27,14 @@ public class Response1cSuccessModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private Response1cSuccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    public ResponseDebugInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        object? uid = info.GetValue(nameof(Uid), typeof(Guid));
-        Uid = uid is not null ? (Guid)uid : Guid.Empty;
+        Info = (ServiceInfoModel?)info.GetValue(nameof(Info), typeof(ServiceInfoModel));
     }
 
     #endregion
 
     #region Public and private methods
-
-    public override string ToString() => $"{nameof(Uid)}: {Uid}. ";
 
     /// <summary>
     /// Get object data for serialization info.
@@ -49,7 +44,7 @@ public class Response1cSuccessModel : SerializeBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Uid), Uid);
+        info.AddValue(nameof(Info), Info);
     }
 
     #endregion

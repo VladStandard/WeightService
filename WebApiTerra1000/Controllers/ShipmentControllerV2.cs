@@ -10,6 +10,7 @@ using System.Data;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
+using WsLocalization.Utils;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
@@ -31,13 +32,13 @@ public class ShipmentControllerV2 : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/shipment/")]
+    [Route(UrlWebService.GetShipmentV2)]
     public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
         GetShipmentWork(SqlQueriesV2.GetShipment, id, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/shipment_preview/")]
+    [Route(UrlWebService.GetShipmentV2Preview)]
     public ContentResult GetShipmentPreview([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
         GetShipmentWork(SqlQueriesV2.GetShipmentPreview, id, format);
 
@@ -78,14 +79,14 @@ public class ShipmentControllerV2 : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/shipments/")]
+    [Route(UrlWebService.GetShipmentsV2)]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
         GetShipmentsCore(SqlQueriesV2.GetShipments, startDate, endDate, offset, rowCount, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/shipments_preview/")]
+    [Route(UrlWebService.GetShipmentsV2Preview)]
     public ContentResult GetShipmentsPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
         GetShipmentsCore(SqlQueriesV2.GetShipmentsPreview, startDate, endDate, offset, rowCount, format);

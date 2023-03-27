@@ -9,6 +9,7 @@ using System;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
+using WsLocalization.Utils;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
@@ -30,8 +31,9 @@ public class ContragentController : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/contragent/")]
-    public ContentResult GetContragent([FromQuery] long id, [FromQuery(Name = "format")] string format = "")
+    [Route(UrlWebService.GetContragent)]
+    public ContentResult GetContragent([FromQuery] long id, [FromQuery(Name = "format")] string format = "",
+        [FromQuery(Name = "is_debug")] bool isDebug = false)
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -44,9 +46,10 @@ public class ContragentController : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/contragents/")]
+    [Route(UrlWebService.GetContragents)]
     public ContentResult GetContragents([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0, 
-        [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
+        [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "",
+        [FromQuery(Name = "is_debug")] bool isDebug = false)
     {
         return ControllerHelp.GetContentResult(() =>
         {

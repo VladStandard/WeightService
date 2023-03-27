@@ -1,5 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using DataCore.Serialization.Models;
 
 namespace WsWebApi.Models;
 
@@ -16,25 +18,16 @@ public class SqlSimpleV3Model : SerializeBase
     /// </summary>
     public SqlSimpleV3Model()
     {
-        //
+        Simples = new();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString()
-    {
-        string result = string.Empty;
-        if (Simples?.Count > 0)
-        {
-            foreach (SqlSimpleV1Model item in Simples)
-            {
-                result += DataFormatUtils.SerializeAsText<string>(item) + Environment.NewLine;
-            }
-        }
-        return result;
-    }
+    public override string ToString() => 
+        Simples.Aggregate(string.Empty, 
+            (current, item) => current + (DataFormatUtils.SerializeAsText<string>(item) + Environment.NewLine));
 
     #endregion
 }

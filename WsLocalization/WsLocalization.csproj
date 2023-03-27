@@ -5,12 +5,9 @@
     <Nullable>enable</Nullable>
 	<Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>latest</LangVersion>
-    <Version>0.9.40.0</Version>
+    <Version>0.9.55.0</Version>
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
   <ItemGroup>
     <Using Include="WsLocalization.Enums" />
   </ItemGroup>

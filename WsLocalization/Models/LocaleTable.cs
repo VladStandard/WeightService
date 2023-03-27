@@ -138,7 +138,6 @@ public class LocaleTable
     public string Message => Lang == Lang.English ? "Message" : "Сообщение";
     public string Name => Lang == Lang.English ? "Name" : "Наименование";
     public string NameFull => Lang == Lang.English ? "Full name" : "Полное наименование";
-    public string Nesting => Lang == Lang.English ? "Nesting" : "Вложенность";
     public string NestingCount => Lang == Lang.English ? "Nesting count" : "Кол-во вложений";
     public string NestingMeasurement => Lang == Lang.English ? "pc" : "шт";
     public string Nomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";

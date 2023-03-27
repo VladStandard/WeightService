@@ -1,9 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-using DataCore.Sql.TableScaleModels.PlusCharacteristics;
-using DataCore.Sql.TableScaleModels.PlusGroups;
 // ReSharper disable InconsistentNaming
+
+using DataCore.Serialization.Models;
 
 namespace WsWebApi.Helpers;
 
@@ -49,28 +48,55 @@ public partial class ControllerHelper
         }
     }
 
-    private ContentResult NewResponse1cCore<T>(Action<T> action, string format, HttpStatusCode httpStatusCode = HttpStatusCode.OK) 
-        where T : SerializeBase, new()
+    private ContentResult NewResponse1cCore<T>(Action<T> action, string format, bool isDebug, ISessionFactory sessionFactory,
+        HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
         T response = new();
 
         try
         {
             action(response);
+            switch (typeof(T))
+            {
+                case var cls when cls == typeof(Response1cShortModel):
+                    if (response is Response1cShortModel response1CShort)
+                    {
+                        response1CShort.IsDebug = isDebug;
+                        if (response1CShort.IsDebug)
+                            response1CShort.Info = WebResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                    }
+                    break;
+                case var cls when cls == typeof(Response1cModel):
+                    if (response is Response1cModel response1c)
+                    {
+                        response1c.IsDebug = isDebug;
+                        if (response1c.IsDebug)
+                            response1c.Info = WebResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                    }
+                    break;
+            }
         }
         catch (Exception ex)
         {
             httpStatusCode = HttpStatusCode.InternalServerError;
-            if (response is Response1cModel response1c)
+            switch (typeof(T))
             {
-                response1c.Errors.Add(new(ex));
+                case var cls when cls == typeof(Response1cShortModel):
+                    if (response is Response1cShortModel response1CShort)
+                        response1CShort.Errors.Add(new(ex));
+                    break;
+                case var cls when cls == typeof(Response1cModel):
+                    if (response is Response1cModel response1c)
+                        response1c.Errors.Add(new(ex));
+                    break;
             }
         }
 
         return DataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
     }
 
-    public ContentResult NewResponse1cFromQuery(string url, SqlParameter? sqlParameter, string format) =>
+    public ContentResult NewResponse1cFromQuery(string url, SqlParameter? sqlParameter, string format, bool isDebug, 
+        ISessionFactory sessionFactory) => 
         NewResponse1cCore<Response1cModel>(response =>
         {
             if (!string.IsNullOrEmpty(url))
@@ -106,7 +132,7 @@ public partial class ControllerHelper
             }
             else
                 response.Infos.Add(new("Empty query. Try to make some select from any table."));
-        }, format);
+        }, format, isDebug, sessionFactory);
 
     /// <summary>
     /// Add error for response.
@@ -461,7 +487,7 @@ public partial class ControllerHelper
         return string.Empty;
     }
 
-    public ContentResult NewResponseBarCodes(DateTime dtStart, DateTime dtEnd, string format)
+    public ContentResult NewResponseBarCodes(DateTime dtStart, DateTime dtEnd, string format, bool isDebug, ISessionFactory sessionFactory)
     {
         return NewResponse1cCore<ResponseBarCodeListModel>(response =>
         {
@@ -477,7 +503,7 @@ public partial class ControllerHelper
             response.StartDate = dtStart;
             response.EndDate = dtEnd;
             response.Count = response.ResponseBarCodes.Count;
-        }, format);
+        }, format, isDebug, sessionFactory);
     }
 
     /// <summary>
@@ -485,12 +511,14 @@ public partial class ControllerHelper
     /// </summary>
     /// <param name="version"></param>
     /// <param name="format"></param>
+    /// <param name="isDebug"></param>
+    /// <param name="sessionFactory"></param>
     /// <returns></returns>
-    public ContentResult NewResponse1cIsNotFound(string version, string format) =>
+    public ContentResult NewResponse1cIsNotFound(string version, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<Response1cModel>(response =>
         {
             response.Infos.Add(new($"Version {version} {LocaleCore.WebService.IsNotFound}!"));
-        }, format, HttpStatusCode.NotFound);
+        }, format, isDebug, sessionFactory, HttpStatusCode.NotFound);
 
     #endregion
 }

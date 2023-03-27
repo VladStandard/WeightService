@@ -8,6 +8,7 @@ using System;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
+using WsLocalization.Utils;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
@@ -29,7 +30,7 @@ public class SummaryController : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/summary/")]
+    [Route(UrlWebService.GetSummary)]
     public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery(Name = "format")] string format = "")
     {

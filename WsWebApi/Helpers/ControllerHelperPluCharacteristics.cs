@@ -1,8 +1,5 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
-using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 // ReSharper disable InconsistentNaming
 
 namespace WsWebApi.Helpers;
@@ -82,7 +79,7 @@ public partial class ControllerHelper
         }
     }
 
-    public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format) =>
+    public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<Response1cShortModel>(response =>
         {
             List<PluCharacteristicModel> pluCharacteristicsDb = DataContext.GetListNotNullable<PluCharacteristicModel>(SqlCrudConfig);
@@ -90,15 +87,15 @@ public partial class ControllerHelper
             List<PluCharacteristicModel> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (PluCharacteristicModel pluCharacteristicXml in pluCharacteristicsXml)
             {
-                if (pluCharacteristicXml.ParseResult.Status == ParseStatus.Success)
+                if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPluCharacteristics(response, pluCharacteristicsDb, pluCharacteristicXml);
-                if (pluCharacteristicXml.ParseResult.Status == ParseStatus.Success)
+                if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPluCharacteristicsFks(response, pluCharacteristicsFksDb, pluCharacteristicXml);
-                if (pluCharacteristicXml.ParseResult.Status == ParseStatus.Error)
+                if (pluCharacteristicXml.ParseResult.IsStatusError)
                     AddResponse1cException(response, pluCharacteristicXml.Uid1c, 
                         pluCharacteristicXml.ParseResult.Exception, pluCharacteristicXml.ParseResult.InnerException);
             }
-        }, format);
+        }, format, isDebug, sessionFactory);
 
     #endregion
 }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
+using WsLocalization.Utils;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
@@ -32,7 +33,7 @@ public class ContragentControllerV2 : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/contragent/")]
+    [Route(UrlWebService.GetContragentV2)]
     public ContentResult GetContragentFromCodeIdProd([FromQuery] string code, long id, 
         [FromQuery(Name = "format")] string format = "") =>
         GetContragentFromCodeIdWork(code != null
@@ -41,7 +42,7 @@ public class ContragentControllerV2 : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/contragent_preview/")]
+    [Route(UrlWebService.GetContragentV2Preview)]
     public ContentResult GetContragentFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetContragentFromCodeIdWork(code != null
@@ -63,7 +64,7 @@ public class ContragentControllerV2 : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/contragents/")]
+    [Route(UrlWebService.GetContragentsV2)]
     public ContentResult GetContragentsProd([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
@@ -79,7 +80,7 @@ public class ContragentControllerV2 : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/contragents_preview/")]
+    [Route(UrlWebService.GetContragentsV2Preview)]
     public ContentResult GetContragentsPreview([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {

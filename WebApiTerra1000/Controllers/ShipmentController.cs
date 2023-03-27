@@ -10,6 +10,7 @@ using System.Data;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
+using WsLocalization.Utils;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
@@ -31,7 +32,7 @@ public class ShipmentController : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/shipment/")]
+    [Route(UrlWebService.GetShipment)]
     public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
         return ControllerHelp.GetContentResult(() =>
@@ -69,8 +70,8 @@ public class ShipmentController : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/shipmentsbydocdate/")]
-    [Route("api/shipments/")]
+    [Route(UrlWebService.GetShipmentsByDocDate)]
+    [Route(UrlWebService.GetShipments)]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {

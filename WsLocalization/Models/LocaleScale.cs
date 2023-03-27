@@ -82,6 +82,13 @@ public class LocaleScale
     public string IsDataNotExists => Lang == Lang.English ? "Check the connection of the scales!" : "Проверьте подключение весов!";
     public string IsException(string? message) => Lang == Lang.English ? $"Error! {message}" : $"Ошибка! {message}";
     public string IsNotConnectWithMassa => Lang == Lang.English ? "Check the connection of the USB-adapter!" : "Проверьте подключение ЮСБ-адапетра!";
+    public string LabelContextKneading => Lang == Lang.English ? "Kneading" : "Замес";
+    public string LabelContextNesting => Lang == Lang.English ? "Nesting" : "Вложенность";
+    public string LabelContextPlu => Lang == Lang.English ? "PLU" : "ПЛУ";
+    public string LabelContextProductDt => Lang == Lang.English ? "Date of production" : "Дата изготовления";
+    public string LabelContextExpirationDt => Lang == Lang.English ? "Good to" : "Годен до";
+    public string LabelContextWeight => Lang == Lang.English ? "Weight" : "Вес";
+    public string LabelContextWorkShop => Lang == Lang.English ? "WorkShop/Line" : "Цех/Линия";
     public string Labels => Lang == Lang.English ? "Labels" : "Этикетки";
     public string Line => Lang == Lang.English ? "Ling" : "Строка";
     public string MassaDevice => Lang == Lang.English ? "Massa-K" : "Масса-К";

@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalization.Utils;
+
 namespace WsWebApi.Controllers;
 
 /// <summary>
@@ -30,46 +32,26 @@ public class TestControllerV2 : WebControllerBase
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/info/")]
+    [Route(UrlWebService.GetInfoV2)]
     public ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
-        ControllerHelp.GetContentResult(() =>
-        {
-            AppVersion.Setup(Assembly.GetExecutingAssembly());
-
-            using ISession session = SessionFactory.OpenSession();
-            using ITransaction transaction = session.BeginTransaction();
-            ISQLQuery sqlQuery = session.CreateSQLQuery(SqlQueriesV2.GetDateTimeNow);
-            sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
-            string response = sqlQuery.UniqueResult<string>();
-            transaction.Commit();
-            ServiceInfoModel serviceInfo = new(Environment.MachineName,
-                AppVersion.App,
-                AppVersion.Version,
-                StringUtils.FormatDtEng(DateTime.Now, true),
-                response.ToString(CultureInfo.InvariantCulture),
-                session.Connection.ConnectionString.ToString(),
-                session.Connection.ConnectionTimeout,
-                session.Connection.DataSource,
-                session.Connection.ServerVersion,
-                session.Connection.Database,
-                (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576,
-                (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576);
-            return DataFormatUtils.GetContentResult<ServiceInfoModel>(serviceInfo, format, HttpStatusCode.OK);
-        }, format);
+        ControllerHelp.GetContentResult(() => 
+            DataFormatUtils.GetContentResult<ServiceInfoModel>(
+            WebResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
 
     /// <summary>
     /// Get exception.
     /// </summary>
     /// <param name="format"></param>
+    /// <param name="isDebug"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/exception/")]
-    public ContentResult GetException([FromQuery(Name = "format")] string format = "") =>
+    [Route(UrlWebService.GetExceptionV2)]
+    public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "is_debug")] bool isDebug = false) =>
         ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetException);
-            SqlSimpleV1Model sqlSimpleV1 = new(response);
+            SqlSimpleV1Model sqlSimpleV1 = new(response, isDebug);
             ContentResult content = DataFormatUtils.GetContentResult<SqlSimpleV1Model>(sqlSimpleV1, format, HttpStatusCode.OK);
             return content;
         }, format);
@@ -77,13 +59,15 @@ public class TestControllerV2 : WebControllerBase
     /// <summary>
     /// Get simple.
     /// </summary>
-    /// <param name="version"></param>
     /// <param name="format"></param>
+    /// <param name="isDebug"></param>
+    /// <param name="version"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/v2/simple/")]
-    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", int version = 0)
+    [Route(UrlWebService.GetSimpleV2)]
+    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "is_debug")] bool isDebug = false, 
+        int version = 0)
     {
         return ControllerHelp.GetContentResult(() =>
         {
@@ -106,7 +90,7 @@ public class TestControllerV2 : WebControllerBase
                     SqlSimpleV4Model sqlSimpleV4 = DataFormatUtils.DeserializeFromXml<SqlSimpleV4Model>(response4);
                     return DataFormatUtils.GetContentResult<SqlSimpleV4Model>(sqlSimpleV4, format, HttpStatusCode.OK);
             }
-            SqlSimpleV1Model sqlSimpleV1Default = new("Simple method from C Sharp");
+            SqlSimpleV1Model sqlSimpleV1Default = new("Simple method from C Sharp", isDebug);
             return DataFormatUtils.GetContentResult<SqlSimpleV1Model>(sqlSimpleV1Default, format, HttpStatusCode.OK);
         }, format);
     }

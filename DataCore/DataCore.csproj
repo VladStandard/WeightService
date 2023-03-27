@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <AssemblyVersion>0.9.40.0</AssemblyVersion>
-    <FileVersion>0.9.40.0</FileVersion>
+    <AssemblyVersion>0.9.55.0</AssemblyVersion>
+    <FileVersion>0.9.55.0</FileVersion>
 	<Nullable>enable</Nullable>
 	<LangVersion>latest</LangVersion>
 	<Platforms>AnyCPU;x64;x86</Platforms>
@@ -84,10 +84,11 @@
       </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Serialization\Utils\" />
     <Folder Include="ZplTemplates\" />
   </ItemGroup>
   <PropertyGroup>
-    <Version>0.9.40.0</Version>
+    <Version>0.9.55.0</Version>
     <DebugType>portable</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopAleksandrov|x64'">

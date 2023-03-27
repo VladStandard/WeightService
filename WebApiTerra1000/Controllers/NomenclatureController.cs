@@ -9,6 +9,7 @@ using System;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
+using WsLocalization.Utils;
 using WsStorage.Utils;
 using WsWebApi.Controllers;
 using WsWebApi.Models;
@@ -30,7 +31,7 @@ public class NomenclatureController : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/nomenclature/")]
+    [Route(UrlWebService.GetNomenclature)]
     public ContentResult GetNomenclature([FromQuery] string code, [FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
         return ControllerHelp.GetContentResult(() =>
@@ -46,7 +47,7 @@ public class NomenclatureController : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/nomenclatures/")]
+    [Route( UrlWebService.GetNomenclatures)]
     public ContentResult GetNomenclatures([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
@@ -62,7 +63,7 @@ public class NomenclatureController : WebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("api/nomenclaturescosts/")]
+    [Route( UrlWebService.GetNomenclaturesCosts)]
     public ContentResult GetNomenclaturesCosts([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {

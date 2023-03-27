@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
 // ReSharper disable InconsistentNaming
+
 namespace WsWebApi.Helpers;
 
 public partial class ControllerHelper
@@ -46,7 +46,7 @@ public partial class ControllerHelper
         }
     }
 
-    public ContentResult NewResponse1cBrands(XElement xml, string formatString) =>
+    public ContentResult NewResponse1cBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<Response1cShortModel>(response =>
         {
             List<BrandModel> itemsDb = DataContext.GetListNotNullable<BrandModel>(SqlCrudConfig);
@@ -63,7 +63,7 @@ public partial class ControllerHelper
                         break;
                 }
             }
-        }, formatString);
+        }, formatString, isDebug, sessionFactory);
 
     #endregion
 }

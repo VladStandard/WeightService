@@ -1,17 +1,5 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
-using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
-using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
-using DataCore.Sql.TableScaleFkModels.PlusFks;
-using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
-using DataCore.Sql.TableScaleModels.Boxes;
-using DataCore.Sql.TableScaleModels.Bundles;
-using DataCore.Sql.TableScaleModels.Clips;
-using DevExpress.Internal;
-using FluentValidation.Results;
-using NHibernate.Util;
 // ReSharper disable InconsistentNaming
 
 namespace WsWebApi.Helpers;
@@ -384,7 +372,7 @@ public partial class ControllerHelper
         }
     }
 
-    private string[] GetPluPropertiesArray() => new string[]
+    private string[] GetPluPropertiesArray() => new[]
     {
         nameof(PluModel.BoxTypeGuid),
         nameof(PluModel.BoxTypeName),
@@ -412,16 +400,14 @@ public partial class ControllerHelper
         nameof(PluModel.ShelfLifeDays),
     };
 
-    public ContentResult NewResponse1cPlus(XElement xml, string format) =>
+    public ContentResult NewResponse1cPlus(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<Response1cShortModel>(response =>
         {
-            string[] pluProperties = GetPluPropertiesArray();
             List<PluModel> plusDb = DataContext.GetListNotNullablePlus(SqlCrudConfig);
             List<PluFkModel> pluFksDb = DataContext.GetListNotNullablePlusFks(SqlCrudConfig);
             List<BoxModel> boxesDb = DataContext.GetListNotNullableBoxes(SqlCrudConfig);
             List<BundleModel> bundlesDb = DataContext.GetListNotNullableBundles(SqlCrudConfig);
             List<PluBundleFkModel> pluBundlesFksDb = DataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
-            //List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(SqlCrudConfig);
             List<PluBrandFkModel> pluBrandsFksDb = DataContext.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
             List<ClipModel> clipsDb = DataContext.GetListNotNullableClips(SqlCrudConfig);
             List<PluClipFkModel> pluClipsFksDb = DataContext.GetListNotNullablePlusClipsFks(SqlCrudConfig);
@@ -430,47 +416,50 @@ public partial class ControllerHelper
             List<PluModel> plusXml = GetXmlPluList(xml);
             foreach (PluModel pluXml in plusXml)
             {
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
-                    CheckPluNumberForNonGroup(pluXml, plusDb);
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
-                    CheckPluValidator(pluXml, pluProperties);
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                if (pluXml.ParseResult.IsStatusSuccess)
+                    CheckPluNumberForNonGroup(pluXml);
+                if (pluXml.ParseResult.IsStatusSuccess)
+                    CheckPluValidation(pluXml);
+                if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluDublicateForNonGroup(pluXml, plusDb);
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                if (pluXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPlus(response, plusDb, pluXml);
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                if (pluXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPlusFks(response, pluFksDb, pluXml);
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                if (pluXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPlusBoxes(response, boxesDb, pluXml);
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                if (pluXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPlusBundles(response, bundlesDb, pluXml);
-                //if (pluXml.ParseResult.Status == ParseStatus.Success)
-                //    AddResponse1cPlusBrands(response, brandsDb, pluXml);
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                if (pluXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPlusBrandsFks(response, pluBrandsFksDb, pluXml);
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                if (pluXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPlusClips(response, clipsDb, pluXml);
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                if (pluXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPlusClipsFks(response, pluClipsFksDb, pluXml);
 
-                if (pluXml.ParseResult.Status == ParseStatus.Success)
+                if (pluXml.ParseResult.IsStatusSuccess)
                 {
                     PluBundleFkModel pluBundleFk = AddResponse1cPlusBundlesFks(response, pluBundlesFksDb, pluXml);
-                    if (pluXml.ParseResult.Status == ParseStatus.Success)
+                    if (pluXml.ParseResult.IsStatusSuccess)
                         AddResponse1cPlusNestingFks(response, pluBundleFk, pluNestingFksDb, pluXml);
                 }
-                if (pluXml.ParseResult.Status == ParseStatus.Error)
+                if (pluXml.ParseResult.IsStatusError)
                     AddResponse1cException(response, pluXml.Uid1c, 
                         pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
             }
-        }, format);
+        }, format, isDebug, sessionFactory);
 
-    private void CheckPluValidator(PluModel itemXml, string[] pluProperties)
+    /// <summary>
+    /// Check PLU validation.
+    /// </summary>
+    /// <param name="itemXml"></param>
+    private void CheckPluValidation(PluModel itemXml)
     {
         PluValidator pluValidator = new();
         ValidationResult validation = pluValidator.Validate(itemXml);
         if (!validation.IsValid)
         {
+            string[] pluProperties = GetPluPropertiesArray();
             foreach (ValidationFailure error in validation.Errors)
             {
                 if (pluProperties.Contains(error.PropertyName) &&
@@ -480,7 +469,11 @@ public partial class ControllerHelper
         }
     }
 
-    private void CheckPluNumberForNonGroup(PluModel pluXml, List<PluModel> plusDb)
+    /// <summary>
+    /// Check PLU number for no group.
+    /// </summary>
+    /// <param name="pluXml"></param>
+    private void CheckPluNumberForNonGroup(PluModel pluXml)
     {
         if (pluXml.IsGroup) return;
         if (Equals(pluXml.Number, (short)0))
@@ -492,6 +485,11 @@ public partial class ControllerHelper
         }
     }
 
+    /// <summary>
+    /// Check PLU duplicate for no group.
+    /// </summary>
+    /// <param name="pluXml"></param>
+    /// <param name="plusDb"></param>
     private void CheckPluDublicateForNonGroup(PluModel pluXml, List<PluModel> plusDb)
     {
         if (pluXml.IsGroup) return;
