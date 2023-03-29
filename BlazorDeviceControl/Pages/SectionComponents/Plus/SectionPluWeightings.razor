@@ -13,35 +13,29 @@
   ButtonSettings="@ButtonSettings"
   />
 
-@if (IsSqlSectionGet == false)
-{
-  <Preloader />
-}
-else
-{
-  <RadzenDataGridLocal
-    @bind-Value="@SelectedRow"
-    TItem="@PluWeighingModel"
-    Data="@SqlSectionCast"
-    CellContextMenu="@OnCellContextMenu"
-    RowSelect="@SqlItemSet"
-    RowRender="@RowRender"
-    RowDoubleClick="@SqlItemEditAsync">
-    <Columns>
-      <TItemContent TItem="@PluWeighingModel">
-        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" FormatString="@StrUtils.FormatDtDefault" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="PluScale.Scale.Description" Width="22%" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Host" Sortable="false" Width="13%">
-          <Template Context="itemCast">
-            @GetDeviceName(itemCast)
-          </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluScale.Plu.Name" Width="18%" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.BundleFkWeightTare" Property="WeightTare" Width="10%" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.WeightNetto" Property="NettoWeight" Width="10%" />
-        @* @itemCast.NettoWeight.ToString(CultureInfo.InvariantCulture) *@
-      </TItemContent>
-    </Columns>
-  </RadzenDataGridLocal>
-}
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@PluWeighingModel"
+  Data="@SqlSectionCast"
+  IsLoading="@IsLoading"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@PluWeighingModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" FormatString="@StrUtils.FormatDtDefault" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="PluScale.Scale.Description" Width="22%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Host" Sortable="false" Width="13%">
+        <Template Context="itemCast">
+          @GetDeviceName(itemCast)
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluScale.Plu.Name" Width="18%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.BundleFkWeightTare" Property="WeightTare" Width="10%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WeightNetto" Property="NettoWeight" Width="10%" />
+      @* @itemCast.NettoWeight.ToString(CultureInfo.InvariantCulture) *@
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

@@ -13,32 +13,26 @@
   ButtonSettings="@ButtonSettings"
   />
 
-@if (IsSqlSectionGet == false)
-{
-  <Preloader />
-}
-else
-{
-  <RadzenDataGridLocal
-    @bind-Value="@SelectedRow"
-    TItem="@PluBundleFkModel"
-    Data="@SqlSectionCast"
-    CellContextMenu="@OnCellContextMenu"
-    RowSelect="@SqlItemSet"
-    RowRender="@RowRender"
-    RowDoubleClick="@SqlItemEditAsync">
-    <Columns>
-      <TItemContent TItem="@PluBundleFkModel">
-        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-        <RadzenDataGridColumn TItem="PluBundleFkModel" Title="@LocaleCore.Table.Weighted" SortProperty="Plu.IsCheckWeight" Width="7%">
-          <Template Context="itemCast">
-            <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
-          </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="Plu.Number" Width="7%" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="23%" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Bundle" Property="Bundle.Name" Width="15%" />
-      </TItemContent>
-    </Columns>
-  </RadzenDataGridLocal>
-}
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@PluBundleFkModel"
+  Data="@SqlSectionCast"
+  IsLoading="@IsLoading"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@PluBundleFkModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn TItem="PluBundleFkModel" Title="@LocaleCore.Table.Weighted" SortProperty="Plu.IsCheckWeight" Width="7%">
+        <Template Context="itemCast">
+          <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="Plu.Number" Width="7%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="23%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Bundle" Property="Bundle.Name" Width="15%" />
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

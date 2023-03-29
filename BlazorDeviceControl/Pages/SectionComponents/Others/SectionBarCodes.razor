@@ -13,16 +13,11 @@
   ButtonSettings="@ButtonSettings"
   />
 
-@if (IsSqlSectionGet == false)
-{
-  <Preloader />
-}
-else
-{
-  <RadzenDataGridLocal
+<RadzenDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@BarCodeModel"
   Data="@SqlSectionCast"
+  IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowRender="@RowRender"
@@ -37,5 +32,4 @@ else
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueBottom" Property="ValueBottom" Width="28%" />
     </TItemContent>
   </Columns>
-  </RadzenDataGridLocal>
-}
+</RadzenDataGridLocal>

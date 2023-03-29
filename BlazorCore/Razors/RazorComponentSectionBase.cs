@@ -19,7 +19,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
 
-    protected bool IsSqlSectionGet = false;
+    protected bool IsLoading = true;
     
     #endregion
 
@@ -133,7 +133,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     {
         RunActionsSafe(string.Empty, SetSqlSectionCast);
         AutoShowFilterOnlyTopSetup();
-        IsSqlSectionGet = true;
+        IsLoading = false;
         StateHasChanged();
     }
 
