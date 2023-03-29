@@ -11,7 +11,7 @@ namespace DataCore.Sql.Fields;
 /// DB table model.
 /// </summary>
 [Serializable]
-public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
+public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase
 {
 	#region Public and private fields, properties, constructor
 

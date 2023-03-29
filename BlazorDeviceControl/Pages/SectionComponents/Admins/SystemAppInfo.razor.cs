@@ -9,9 +9,9 @@ public sealed partial class SystemAppInfo : RazorComponentBase
 {
 	#region Public and private fields, properties, constructor
 
-	private string VerApp => AssemblyUtuls.GetAppVersion(Assembly.GetExecutingAssembly());
+	private string VerApp => AssemblyUtils.GetAppVersion(Assembly.GetExecutingAssembly());
 	private string VerLibBlazorCore => BlazorCoreUtils.GetLibVersion();
-	private string VerLibDataCore => AssemblyUtuls.GetLibVersion();
+	private string VerLibDataCore => AssemblyUtils.GetLibVersion();
 	private List<TypeModel<bool>> TemplateIsDebug { get; set; } = new();
 	private uint DbCurSize { get; set; }
 	private string DbCurSizeAsString => $"{LocaleCore.Sql.SqlDbCurSize}: {DbCurSize:### ###} MB {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";

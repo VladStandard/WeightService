@@ -8,7 +8,7 @@ using DataCore.Sql.TableScaleModels.Scales;
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class XmlDeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class XmlDeviceModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 

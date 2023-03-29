@@ -56,7 +56,6 @@ namespace DataCore.Utils;
 
 public class ValidationUtils
 {
-
     #region Public and private methods
 
     private static void SetValidationFailureLog(ValidationResult result, ref string detailAddition)

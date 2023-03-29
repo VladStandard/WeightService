@@ -11,7 +11,7 @@ public static class RazorComponentUtils
 	public static CssStyleTableHeadModel GetTableHeadStyle(List<int> columnsWidths) =>
 		new(columnsWidths, "blue", "12px", "center");
 
-	public static CssStyleTableHeadModel GetTabelHeadStyleInfo() =>
+	public static CssStyleTableHeadModel GetTableHeadStyleInfo() =>
 		new(new() { 40, 30, 30 },
 		new() { LocaleCore.Strings.SettingName, LocaleCore.Strings.SettingValue },
 		"blue", "12px", "center");

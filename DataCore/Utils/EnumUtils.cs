@@ -121,9 +121,8 @@ public static class EnumUtils
         return result;
     }
 
-    public static string GetDayOfWeekRu(DayOfWeek day)
-    {
-        return day switch
+    public static string GetDayOfWeekRu(DayOfWeek day) => 
+        day switch
         {
             DayOfWeek.Monday => "Понедельник",
             DayOfWeek.Tuesday => "Вторник",
@@ -134,7 +133,6 @@ public static class EnumUtils
             DayOfWeek.Sunday => "Воскресенье",
             _ => string.Empty
         };
-    }
 
     #endregion
 }

@@ -35,12 +35,10 @@ else
       <TItemContent TItem="@PluScaleModel">
         <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="30%" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale.Description" Width="15%" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.NumberShort" Property="Plu.Number" Width="10%" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.Active" SortProperty="IsActive" Width="10%" >
           <Template Context="itemCast">
-            <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive"
-                            Change=@(_ => @SetSqlSectionSave(itemCast)) />
+            <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive" Change=@(_ => @SetSqlSectionSave(itemCast)) />
           </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Title="@LocaleCore.Table.WeightShort" SortProperty="Plu.IsCheckWeight" Width="10%">

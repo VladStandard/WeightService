@@ -6,7 +6,7 @@ using DataCore.Sql.Core.Interfaces;
 namespace DataCore.Sql.Fields;
 
 [Serializable]
-public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerializable
+public class SqlFieldBinaryModel : SqlFieldBase
 {
 	#region Public and private fields, properties, constructor
 

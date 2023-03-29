@@ -30,8 +30,7 @@ else
   <Columns>
     <TItemContent TItem="@BarCodeModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="PluLabel.CreateDt" Width="12%"
-                          FormatString="@StringUtils.FormatDtDefaultStr" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="PluLabel.CreateDt" Width="12%" FormatString="@StrUtils.FormatDtDefault" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueTop" Property="ValueTop" Width="28%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueRight" Property="ValueRight" Width="15%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueBottom" Property="ValueBottom" Width="28%" />

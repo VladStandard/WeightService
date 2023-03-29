@@ -27,7 +27,7 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.User" Property="Name" Width="30%"/>
       <RadzenDataGridColumn TItem="@AccessModel" Title="@LocaleCore.Table.AccessLevel" SortProperty="Rights" Width="30%">
          <Template Context="itemCast">
-            <RadzenText Text="@DataAccess.GetAccessRightsDescription(itemCast.Rights)" />
+            @DataAccess.GetAccessRightsDescription(itemCast.Rights)
          </Template>
       </RadzenDataGridColumn>
     </TItemContent>

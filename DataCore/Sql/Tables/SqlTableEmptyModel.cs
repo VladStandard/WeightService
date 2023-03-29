@@ -8,7 +8,7 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// DB empty table model.
 /// </summary>
-public class SqlTableEmptyModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class SqlTableEmptyModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 

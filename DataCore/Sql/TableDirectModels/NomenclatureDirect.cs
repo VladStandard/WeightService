@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class NomenclatureDirect : SqlSerializeBase, ISerializable
+public class NomenclatureDirect : SqlSerializeBase
 {
 	#region Public and private fields, properties, constructor
 

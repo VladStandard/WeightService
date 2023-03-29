@@ -23,10 +23,8 @@
   <Columns>
     <TItemContent TItem="@WeithingFactSummaryModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.WeighDt" Property="WeithingDate" Width="15%"
-                            FormatString="@StringUtils.FormatDtDefaultStr"/>
-      <RadzenDataGridColumn TItem="WeithingFactSummaryModel" Title="@LocaleCore.Table.DayOfWeek"
-                            SortProperty="WeithingDate.DayOfWeek" Width="15%">
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WeighDt" Property="WeithingDate" Width="15%" FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn TItem="WeithingFactSummaryModel" Title="@LocaleCore.Table.DayOfWeek" SortProperty="WeithingDate.DayOfWeek" Width="15%">
         <Template Context="itemCast">
           @EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek)
         </Template>

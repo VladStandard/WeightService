@@ -31,7 +31,7 @@ public partial class MainForm : Form
 
         Initialize();
         PortController = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
-        statusTimeLabel.Text = StringUtils.FormatDtRus(DateTime.Now, true);
+        statusTimeLabel.Text = StrUtils.FormatDtRus(DateTime.Now, true);
         toolStripStatusTx.Text = @"Sent: 0";
         toolStripStatusRx.Text = @"Received: 0";
         MaximizeBox = false;

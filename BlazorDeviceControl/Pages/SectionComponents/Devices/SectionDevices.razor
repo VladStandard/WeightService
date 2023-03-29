@@ -25,7 +25,7 @@
     <TItemContent TItem="@DeviceModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="15%"
-                            FormatString="@StringUtils.FormatDtDefaultStr" />
+                            FormatString="@StrUtils.FormatDtDefault" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Width="20%" Sortable="false">
         <Template Context="itemCast">

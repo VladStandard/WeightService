@@ -59,9 +59,9 @@ public class ProductHelper
 					{
 						ProductUnitEntity item = new ProductUnitEntity
 						{
-							Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
-							Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
-							Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
+							Heft = DataCore.Utils.StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
+							Capacity = DataCore.Utils.StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
+							Rate = DataCore.Utils.StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
 							Threshold = GetAttribute<int>(xmlChild, "Threshold"),
 							Okei = GetAttribute<string>(xmlChild, "OKEI"),
 							Description = GetAttribute<string>(xmlChild, "Description")
@@ -116,9 +116,9 @@ public class ProductHelper
 						ProductBoxEntity item = new ProductBoxEntity
 						{
 							Description = GetAttribute<string>(xmlChild, "Description"),
-							Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
-							Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
-							Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
+							Heft = DataCore.Utils.StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
+							Capacity = DataCore.Utils.StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
+							Rate = DataCore.Utils.StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
 							Threshold = GetAttribute<int>(xmlChild, "Threshold"),
 							Okei = GetAttribute<string>(xmlChild, "OKEI"),
 							Unit = GetAttribute<string>(xmlChild, "Unit")

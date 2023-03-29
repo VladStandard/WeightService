@@ -32,9 +32,9 @@ public partial class DataAccessHelper
 
     private void LogCore(string message, LogType logType, string filePath, int lineNumber, string memberName)
     {
-        StringUtils.SetStringValueTrim(ref filePath, 32, true);
-        StringUtils.SetStringValueTrim(ref memberName, 32);
-        StringUtils.SetStringValueTrim(ref message, 1024);
+        StrUtils.SetStringValueTrim(ref filePath, 32, true);
+        StrUtils.SetStringValueTrim(ref memberName, 32);
+        StrUtils.SetStringValueTrim(ref message, 1024);
         LogTypeModel? logTypeItem = GetItemLogTypeNullable(logType);
 
         LogModel log = new()
