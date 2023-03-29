@@ -4,7 +4,7 @@
 namespace DataCore.Sql.Models;
 
 [DebuggerDisplay("Type = {nameof(SqlDataConfigurationModel)} | {OrderAsc} | {PageNo} | {PageSize}")]
-public record SqlDataConfigurationModel
+public sealed record SqlDataConfigurationModel
 {
     public bool OrderAsc { get; init; } = true;
     public int PageNo { get; init; } = 0;

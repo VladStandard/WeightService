@@ -3,17 +3,17 @@
 
 using DataCore.Sql.Core.Enums;
 
-namespace DataCore.Sql.Fields;
+namespace DataCore.Sql.Models;
 
 /// <summary>
 /// SQL field comparing model.
 /// </summary>
 [DebuggerDisplay("Type = {nameof(SqlFieldFilterModel)} | {Name} | {Comparer} | {Value}")]
-public record SqlFieldFilterModel
+public sealed record SqlFieldFilterModel
 {
     public string Name { get; init; } = "";
     public SqlFieldComparerEnum Comparer { get; init; } = SqlFieldComparerEnum.Equal;
     public object? Value { get; init; }
 
-    public override int GetHashCode() => (Name.ToUpper(), Comparer, Value?.ToString().ToUpper() ?? null ).GetHashCode();
+    public override int GetHashCode() => (Name.ToUpper(), Comparer, Value?.ToString().ToUpper() ?? null).GetHashCode();
 }

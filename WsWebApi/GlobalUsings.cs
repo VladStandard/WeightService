@@ -7,7 +7,6 @@ global using DataCore.Enums;
 global using DataCore.Settings.Helpers;
 global using DataCore.Sql.Core.Enums;
 global using DataCore.Sql.Core.Models;
-global using DataCore.Sql.Fields;
 global using DataCore.Sql.Models;
 global using DataCore.Sql.Tables;
 global using DataCore.Sql.TableScaleModels.BarCodes;

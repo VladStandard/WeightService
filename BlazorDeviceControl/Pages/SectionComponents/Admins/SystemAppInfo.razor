@@ -1,4 +1,4 @@
-﻿@page "/system/appinfo"
+@page "/system/appinfo"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @inherits RazorComponentBase
 @using BlazorDeviceControl.Pages.ItemComponents
@@ -109,7 +109,7 @@
 <tr>
   <td>@LocaleCore.Strings.DbAndMemory</td>
   <td >
-    @if (DbCurSize == 0)
+    @if (DbFileSizeAll == 0)
     {
       <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
     }
@@ -125,7 +125,7 @@
 <tr>
   <td>@LocaleCore.Strings.DbAndMemoryProgressBar</td>
   <td>
-    @if (DbCurSize == 0)
+    @if (DbFileSizeAll == 0)
     {
       <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true/>
     }
@@ -150,7 +150,7 @@
       <RadzenRadialGauge Style="width: 250px; height: 250px;">
         <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step=1024 Min=0 Max=@DbMaxSize
                                 TickPosition=@GaugeTickPosition.Inside>
-          <RadzenRadialGaugeScalePointer Length=0.7 ShowValue=true Value=@DbCurSize>
+          <RadzenRadialGaugeScalePointer Length=0.7 ShowValue=true Value=@DbFileSizeAll>
             <Template Context="pointer">
               <h4>
                 @pointer.Value<sup>MB</sup>

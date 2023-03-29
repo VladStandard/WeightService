@@ -13,14 +13,14 @@ public static partial class SqlQueries
 SELECT COALESCE(SERVERPROPERTY('INSTANCENAME'), 'EMPTY') [INSTANCENAME]
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-			public static string GetDbSpace => @"
+			public static string GetDbFileSizes => @"
 SELECT
-	[NAME] [DB_NAME]
-	,[SIZE] [DB_SIZE]
-	,[SIZE] * 8 / 1024 [DB_SIZE_MB]
-	,[MAX_SIZE]
+	 [TYPE]
+	,[NAME] [FILE_NAME]
+	,[SIZE] * 8 / 1024 [SIZE_MB]
 	,[MAX_SIZE] * 8 / 1024 [MAX_SIZE_MB]
 FROM [SYS].[DATABASE_FILES]
+ORDER BY [TYPE_DESC] DESC, [NAME];
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 		}
 	}

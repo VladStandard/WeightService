@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.Fields;
+namespace DataCore.Sql.Models;
 
 /// <summary>
 /// MAC address.
@@ -9,10 +9,11 @@ namespace DataCore.Sql.Fields;
 [Serializable]
 public class SqlFieldMacAddressModel : SqlFieldBase
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	[XmlIgnore] private string _value;
-    [XmlElement] public string Value
+    [XmlIgnore] private string _value;
+    [XmlElement]
+    public string Value
     {
         get => _value;
         set
@@ -39,13 +40,13 @@ public class SqlFieldMacAddressModel : SqlFieldBase
     [XmlIgnore] public string ValuePrettyLookMinus => GetValueAsString('-');
     [XmlIgnore] public string ValuePrettyLookColon => GetValueAsString(':');
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public SqlFieldMacAddressModel()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public SqlFieldMacAddressModel()
     {
-	    FieldName = nameof(SqlFieldMacAddressModel);
-		_value = string.Empty;
+        FieldName = nameof(SqlFieldMacAddressModel);
+        _value = string.Empty;
     }
 
     /// <summary>
@@ -57,32 +58,32 @@ public class SqlFieldMacAddressModel : SqlFieldBase
         _value = address;
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="info"></param>
-	/// <param name="context"></param>
-	protected SqlFieldMacAddressModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    protected SqlFieldMacAddressModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-	    _value = info.GetString(nameof(Value));
+        _value = info.GetString(nameof(Value));
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	public override string ToString() =>
-		$"{nameof(Value)}: {ValuePrettyLookMinus}. ";
+    public override string ToString() =>
+        $"{nameof(Value)}: {ValuePrettyLookMinus}. ";
 
     public override bool Equals(object obj)
-	{
-	    if (ReferenceEquals(null, obj)) return false;
-		if (ReferenceEquals(this, obj)) return true;
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((SqlFieldMacAddressModel)obj);
     }
 
-	public override int GetHashCode() => Value.GetHashCode();
+    public override int GetHashCode() => Value.GetHashCode();
 
     public override bool EqualsNew() => Equals(new());
 
@@ -128,21 +129,21 @@ public class SqlFieldMacAddressModel : SqlFieldBase
         info.AddValue(nameof(Value), Value);
     }
 
-	public override void FillProperties()
-	{
-		base.FillProperties();
-		Value = LocaleCore.Sql.SqlItemFieldMac;
-	}
+    public override void FillProperties()
+    {
+        base.FillProperties();
+        Value = LocaleCore.Sql.SqlItemFieldMac;
+    }
 
 
-	#endregion
+    #endregion
 
-	#region Public and private methods - virtual
+    #region Public and private methods - virtual
 
-	public virtual bool Equals(SqlFieldMacAddressModel item) => 
-		ReferenceEquals(this, item) || Equals(Value, item.Value);
+    public virtual bool Equals(SqlFieldMacAddressModel item) =>
+        ReferenceEquals(this, item) || Equals(Value, item.Value);
 
-	public new virtual SqlFieldMacAddressModel CloneCast() => (SqlFieldMacAddressModel)Clone();
+    public new virtual SqlFieldMacAddressModel CloneCast() => (SqlFieldMacAddressModel)Clone();
 
-	#endregion
+    #endregion
 }
