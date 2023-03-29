@@ -6,7 +6,9 @@ namespace BlazorDeviceControl.Pages;
 public partial class MainLayout : RazorComponentBase
 {
     #region Public and private methods
-
+    
+    private string VerBlazor => BlazorCoreUtils.GetLibVersion();
+    
     protected override void OnParametersSet()
 	{
         RunActionsParametersSet(new()

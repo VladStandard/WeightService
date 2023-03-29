@@ -19,10 +19,15 @@
       <div class="col-sm-12 col-md-12 col-lg-12">
         <RadzenMenu Style="margin-left: -20px; margin-top: 0; align-content: center; background-color: transparent; ">
           <RadzenMenuItem
-              Icon="people"
-              Style="background-color: transparent;"
-              Text=@($"{User?.Identity?.Name}")
-              Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
+            Icon="people"
+            Style="background-color: transparent;"
+            Text=@($"{User?.Identity?.Name}")
+            Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
+          <MudSpacer/>
+          <RadzenMenuItem
+            Style="background-color: transparent;"
+            Text=@($"DeviceControl: {VerBlazor}")
+            Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
         </RadzenMenu>
       </div>
     </div>
