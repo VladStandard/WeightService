@@ -6,7 +6,7 @@ using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Scales;
 
-namespace BlazorDeviceControl.Pages.SectionComponents.Admins;
+namespace BlazorDeviceControl.Pages.SectionComponents.Nested;
 
 public sealed partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel>
 {

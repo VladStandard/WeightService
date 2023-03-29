@@ -3,7 +3,7 @@
 
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
-namespace BlazorDeviceControl.Pages.SectionComponents.Printers;
+namespace BlazorDeviceControl.Pages.SectionComponents.Nested;
 
 public sealed partial class SectionPrintersResources : RazorComponentSectionBase<PrinterResourceFkModel>
 {
