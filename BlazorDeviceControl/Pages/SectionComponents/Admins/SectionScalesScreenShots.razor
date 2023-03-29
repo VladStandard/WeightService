@@ -34,7 +34,7 @@ else
         <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale.Description" Width="40%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.ScreenShot" Width="43%" Sortable="false">
           <Template Context="itemCast">
-            <RadzenText Text=@GetByteLength(itemCast) />
+            @GetByteLength(itemCast)
           </Template>
         </RadzenDataGridColumn>
       </TItemContent>

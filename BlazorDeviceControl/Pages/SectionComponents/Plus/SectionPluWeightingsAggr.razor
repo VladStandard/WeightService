@@ -28,7 +28,7 @@
       <RadzenDataGridColumn TItem="WeithingFactSummaryModel" Title="@LocaleCore.Table.DayOfWeek"
                             SortProperty="WeithingDate.DayOfWeek" Width="15%">
         <Template Context="itemCast">
-          <RadzenText Text="@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek)"/>
+          @EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek)
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="Count" Width="15%"/>

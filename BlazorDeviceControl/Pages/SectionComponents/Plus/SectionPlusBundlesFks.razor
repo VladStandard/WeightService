@@ -30,8 +30,7 @@ else
     <Columns>
       <TItemContent TItem="@PluBundleFkModel">
         <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-        <RadzenDataGridColumn TItem="PluBundleFkModel" Title="@LocaleCore.Table.Weighted"
-                              SortProperty="Plu.IsCheckWeight" Width="7%">
+        <RadzenDataGridColumn TItem="PluBundleFkModel" Title="@LocaleCore.Table.Weighted" SortProperty="Plu.IsCheckWeight" Width="7%">
           <Template Context="itemCast">
             <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
           </Template>

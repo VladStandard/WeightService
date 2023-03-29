@@ -29,7 +29,7 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Width="20%" Sortable="false">
         <Template Context="itemCast">
-          <RadzenText Text="@GetDevicePrettyName(itemCast)" />
+          @GetDevicePrettyName(itemCast)
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceIp" Property="Ipv4" Width="20%"/>

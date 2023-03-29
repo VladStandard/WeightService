@@ -51,7 +51,7 @@ else
         <RadzenDataGridColumn Title="@LocaleCore.Table.ShelfLifeDaysShort" Property="Plu.ShelfLifeDays" Width="10%" />
         <RadzenDataGridColumn Title="@LocaleCore.Table.PluPackage" Width="10%" Sortable="false">
           <Template Context="itemCast">
-            <RadzenText Text="@(GetPluPackagesCount(itemCast.Plu))"/>
+            @GetPluPackagesCount(itemCast.Plu)
           </Template>
         </RadzenDataGridColumn>
       </TItemContent>

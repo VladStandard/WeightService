@@ -42,7 +42,7 @@ else
         <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluScale.Plu.Name" Width="20%"/>
         <RadzenDataGridColumn TItem="@PluLabelModel" Title="@LocaleCore.Table.Template" Width="14%" Sortable="@false">
           <Template Context="itemCast">
-            <RadzenText Text="@(DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).Title)"/>
+            @DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).Title
           </Template>
         </RadzenDataGridColumn>
       </TItemContent>
