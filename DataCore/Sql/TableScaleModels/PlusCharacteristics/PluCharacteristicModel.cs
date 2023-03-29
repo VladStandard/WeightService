@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -103,7 +103,7 @@ public class PluCharacteristicModel : SqlTableBase1c
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluCharacteristicModel pluCharacteristic) return;
         Uid1c = pluCharacteristic.IdentityValueUid;
-        if (!Equals(pluCharacteristic.NomenclatureGuid, Guid.Equals))
+        if (!Equals(pluCharacteristic.NomenclatureGuid, Guid.Empty))
             NomenclatureGuid = pluCharacteristic.NomenclatureGuid;
         if (pluCharacteristic.AttachmentsCount > 0)
             AttachmentsCount = pluCharacteristic.AttachmentsCount;

@@ -4,6 +4,7 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Helpers;
+using DataCore.Sql.Core.Utils;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -1100,6 +1101,32 @@ public partial class DataContextModel
             _ => string.Empty
         };
     }
+
+    /// <summary>
+    /// Get list of db files infos.
+    /// </summary>
+    /// <returns></returns>
+    public List<SqlDbFileSizeInfoModel> GetDbFileSizeInfos()
+    {
+        List<SqlDbFileSizeInfoModel> result = new();
+        object[] objects = DataAccess.GetArrayObjectsNotNullable(SqlQueries.DbSystem.Properties.GetDbFileSizes);
+        foreach (object obj in objects)
+        {
+            if (obj is object[] { Length: 4 } item)
+            {
+                result.Add(new(Convert.ToByte(item[0]), Convert.ToString(item[1]), 
+                    Convert.ToUInt16(item[2]), Convert.ToUInt16(item[3])));
+            }
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Get all db files sizes.
+    /// </summary>
+    /// <returns></returns>
+    public ushort GetDbFileSizeAll() =>
+        (ushort)GetDbFileSizeInfos().Sum(item => item.SizeMb);
 
     #endregion
 }

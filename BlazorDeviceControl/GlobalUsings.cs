@@ -9,7 +9,6 @@ global using DataCore.Models;
 global using DataCore.Protocols;
 global using DataCore.Sql.Core.Enums;
 global using DataCore.Sql.Core.Utils;
-global using DataCore.Sql.Fields;
 global using DataCore.Sql.Models;
 global using DataCore.Sql.Tables;
 global using DataCore.Utils;

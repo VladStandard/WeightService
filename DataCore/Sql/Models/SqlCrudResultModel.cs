@@ -7,7 +7,7 @@ namespace DataCore.Sql.Models;
 /// SQL result for CRUD operations.
 /// </summary>
 [DebuggerDisplay("Type = {nameof(SqlCrudResultModel)} | {IsOk} | {Exception}")]
-public record SqlCrudResultModel
+public sealed record SqlCrudResultModel
 {
     public bool IsOk { get; init; }
     public Exception? Exception { get; init; }

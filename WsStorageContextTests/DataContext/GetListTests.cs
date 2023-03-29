@@ -11,7 +11,7 @@ using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.LogsWebs;
 using DataCore.Sql.TableScaleModels.PlusStorageMethods;
 
-namespace WsStorageContextTests.GetList;
+namespace WsStorageContextTests.DataContext;
 
 [TestFixture]
 internal class GetListTests

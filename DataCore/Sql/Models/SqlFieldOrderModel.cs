@@ -3,13 +3,13 @@
 
 using DataCore.Sql.Core.Enums;
 
-namespace DataCore.Sql.Fields;
+namespace DataCore.Sql.Models;
 
 /// <summary>
 /// SQL order model.
 /// </summary>
 [DebuggerDisplay("Type = {nameof(SqlFieldOrderModel)} | {ToString} | {Direction}")]
-public record SqlFieldOrderModel
+public sealed record SqlFieldOrderModel
 {
     public string Name { get; init; } = "";
     public SqlOrderDirection Direction { get; init; } = SqlOrderDirection.Asc;

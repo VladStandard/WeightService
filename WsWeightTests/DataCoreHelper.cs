@@ -10,7 +10,6 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Models;
 using DataCore.Sql.Core.Utils;
-using DataCore.Sql.Fields;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.Tables;

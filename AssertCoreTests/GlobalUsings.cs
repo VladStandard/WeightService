@@ -10,7 +10,6 @@ global using System.Threading;
 global using DataCore.Files;
 global using DataCore.Protocols;
 global using DataCore.Sql.Core;
-global using DataCore.Sql.Fields;
 global using DataCore.Sql.Models;
 global using DataCore.Sql.Tables;
 global using DataCore.Utils;

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Models;
@@ -22,8 +22,7 @@ public class DataSourceDicsHelper
     public override string ToString() =>
         $"{nameof(GetTemplateCategories)}: {GetTemplateCategories().Count}. " +
         $"{nameof(GetTemplateLanguagesEng)}: {GetTemplateLanguagesEng().Count}. " +
-        $"{nameof(GetTemplateLanguagesRus)}: {GetTemplateLanguagesRus().Count}. " +
-        $"{nameof(GetTemplateIsDebug)}: {GetTemplateIsDebug().Count}. ";
+        $"{nameof(GetTemplateLanguagesRus)}: {GetTemplateLanguagesRus().Count}";
 
     public List<TypeModel<string>> GetTemplateCategories() =>
         new()
@@ -69,12 +68,6 @@ public class DataSourceDicsHelper
     {
         new("Английский", Lang.English),
         new("Русский", Lang.Russian)
-    };
-
-    public List<TypeModel<bool>> GetTemplateIsDebug() => new()
-    {
-        new("Enable", true),
-        new("Disable", false)
     };
 
     #endregion
