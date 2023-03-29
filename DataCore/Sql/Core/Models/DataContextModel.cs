@@ -4,6 +4,7 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Helpers;
+using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
@@ -45,7 +46,6 @@ using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Scales;
-using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleModels.Tasks;
 using DataCore.Sql.TableScaleModels.TasksTypes;
 using DataCore.Sql.TableScaleModels.Templates;

@@ -13,4 +13,3 @@ global using System.Threading;
 global using System.Windows.Forms;
 global using DataCore.Sql.Core.Helpers;
 global using DataCore.Sql.TableScaleModels.Scales;
-global using DataCore.Sql.TableScaleModels.ScalesScreenshots;

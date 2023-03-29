@@ -1,12 +1,12 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Utils;
 
-namespace DataCore.Sql.TableScaleModels.ScalesScreenshots;
+namespace DataCore.Sql.TableDiagModels.ScalesScreenshots;
 
 /// <summary>
-/// Table map "SCALES_SCREENSHOTS".
+/// Table map "diag.SCALES_SCREENSHOTS".
 /// </summary>
 public class ScaleScreenShotMap : ClassMap<ScaleScreenShotModel>
 {
@@ -15,7 +15,7 @@ public class ScaleScreenShotMap : ClassMap<ScaleScreenShotModel>
     /// </summary>
     public ScaleScreenShotMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(SqlSchemaNamesUtils.Diag);
         Table(SqlTableNamesUtils.ScalesScreenshots);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

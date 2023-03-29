@@ -37,6 +37,8 @@ public class PluLabelContextModel : SerializeBase
     [XmlElement] public virtual string LotNumberFormat { get => $"{PluLabel.ProductDt:yyMM}"; set => _ = value; }
     [XmlElement] public virtual string ProductDateBarCodeFormat { get => $"{PluLabel.ProductDt:yyMMdd}"; set => _ = value; }
     [XmlElement] public virtual string ProductTimeBarCodeFormat { get => $"{PluLabel.ProductDt:HHmmss}"; set => _ = value; }
+    [XmlElement] public virtual string CurrentDateBarCode { get => $"{DateTime.Now:yyMMdd}"; set => _ = value; }
+    [XmlElement] public virtual string CurrentTimeBarCode { get => $"{DateTime.Now:HHmmss}"; set => _ = value; }
     [XmlElement] public virtual string Nesting { get => $"{LocaleCore.Scales.LabelContextNesting}: {DataContext?.GetPluNestingFkBundleCount(PluNestingFk) ?? 0}{LocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string Address { get => ProductionFacility.Address; set => _ = value; }
     [XmlElement] public virtual string PluDescription { get => PluScale.Plu.Description; set => _ = value; }
@@ -76,7 +78,7 @@ public class PluLabelContextModel : SerializeBase
         Вес [5 симв]:       PluWeighingKg2 PluWeighingGr3
         Замес [3 симв]:     PluWeighingKneading
         */
-        get => $"298{ScaleNumber}{ScaleCounter}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
+        get => $"298{ScaleNumber}{ScaleCounter}{ProductDateBarCodeFormat}{CurrentTimeBarCode}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
         set => _ = value;
     }
     [XmlElement] public virtual string BarCodeRight

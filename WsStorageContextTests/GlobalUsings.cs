@@ -37,7 +37,6 @@ global using DataCore.Sql.TableScaleModels.PrintersTypes;
 global using DataCore.Sql.TableScaleModels.ProductionFacilities;
 global using DataCore.Sql.TableScaleModels.ProductSeries;
 global using DataCore.Sql.TableScaleModels.Scales;
-global using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 global using DataCore.Sql.TableScaleModels.Tasks;
 global using DataCore.Sql.TableScaleModels.TasksTypes;
 global using DataCore.Sql.TableScaleModels.Templates;

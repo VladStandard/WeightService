@@ -15,7 +15,6 @@ global using DataCore.Sql.TableScaleModels.PlusLabels;
 global using DataCore.Sql.TableScaleModels.PlusScales;
 global using DataCore.Sql.TableScaleModels.Printers;
 global using DataCore.Sql.TableScaleModels.Scales;
-global using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 global using DataCore.Wmi;
 global using MDSoft.BarcodePrintUtils.Enums;
 global using MDSoft.BarcodePrintUtils.Tsc;

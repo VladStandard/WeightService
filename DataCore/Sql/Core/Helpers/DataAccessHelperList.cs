@@ -3,6 +3,7 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Utils;
+using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -13,7 +14,6 @@ using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.Scales;
-using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 
 namespace DataCore.Sql.Core.Helpers;
 
