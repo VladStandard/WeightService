@@ -225,18 +225,8 @@ public class DataCoreHelper
             }
         }, false, false);
     }
-
-	public string GetSqlPropertyAsString<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()
-	{
-		// Arrange
-		T item = CreateNewSubstitute<T>(isNotDefault);
-		// Act.
-		string result = item.GetPropertyAsString(propertyName);
-		TestContext.WriteLine($"{typeof(T)}. {propertyName}: {result}");
-		return result;
-	}
-
-	public void AssertValidate<T>(T item, bool assertResult) where T : class, new()
+    
+    public void AssertValidate<T>(T item, bool assertResult) where T : class, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
