@@ -30,7 +30,6 @@ using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Scales;
-using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleModels.Tasks;
 using DataCore.Sql.TableScaleModels.TasksTypes;
 using DataCore.Sql.TableScaleModels.Templates;
@@ -42,6 +41,7 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Core.Models;
+using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 using DataCore.Sql.TableScaleFkModels.PlusFks;
@@ -55,6 +55,7 @@ using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 using DataCore.Sql.TableScaleModels.PlusStorageMethods;
 using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
+
 namespace AssertCoreTests;
 
 public class DataCoreHelper

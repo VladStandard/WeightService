@@ -1,9 +1,8 @@
-﻿@page "/item/scale_screenshot"
+@page "/item/scale_screenshot"
 @page "/item/scale_screenshot/new"
 @page "/item/scale_screenshot/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<ScaleScreenShotModel>
-@using DataCore.Sql.TableScaleModels.ScalesScreenshots
 
 <RazorItemReload TItem="@ScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot"/>
 

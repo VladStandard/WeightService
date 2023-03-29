@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Sql.Core.Utils;
@@ -69,12 +69,6 @@ ORDER BY [CreatedDate] DESC
 
 			public static class Logs
 			{
-				public static string AddLog => @"
-declare @log_type_uid uniqueidentifier = (select [UID] from [db_scales].[LOG_TYPES] where [NUMBER] = @logNumber)
-insert into [db_scales].[LOGS]([HOST_ID],[APP_UID],[VERSION],[FILE],[LINE],[MEMBER],[LOG_TYPE_UID],[MESSAGE]) 
-values (@hostId,@appUid,@version,@file,@line,@member,@log_type_uid,@message)
-			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-
 				public static string AddLogType => @"
 insert into [db_scales].[LOG_TYPES]([NUMBER],[ICON]) 
 values (@number,@icon)

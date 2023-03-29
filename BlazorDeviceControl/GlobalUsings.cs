@@ -19,5 +19,6 @@ global using MudBlazor;
 global using Radzen;
 global using RazorFieldConfigUtils = BlazorCore.Utils.RazorFieldConfigUtils;
 global using System.Globalization;
+global using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 global using WsLocalization.Enums;
 global using WsLocalization.Models;

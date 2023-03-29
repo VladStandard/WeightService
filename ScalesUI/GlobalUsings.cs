@@ -12,7 +12,6 @@ global using DataCore.Sql.Models;
 global using DataCore.Sql.TableScaleModels.Plus;
 global using DataCore.Sql.TableScaleModels.PlusScales;
 global using DataCore.Sql.TableScaleModels.Scales;
-global using DataCore.Sql.TableScaleModels.ScalesScreenshots;
 global using DataCore.Sql.TableScaleModels.Templates;
 global using DataCore.Wmi;
 global using Gma.System.MouseKeyHook;

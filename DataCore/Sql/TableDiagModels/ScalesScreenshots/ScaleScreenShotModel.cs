@@ -1,14 +1,14 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.TableScaleModels.Scales;
 
-namespace DataCore.Sql.TableScaleModels.ScalesScreenshots;
+namespace DataCore.Sql.TableDiagModels.ScalesScreenshots;
 
 /// <summary>
-/// Table "SCALES_SCREENSHOTS".
+/// Table "diag.SCALES_SCREENSHOTS".
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(ScaleScreenShotModel)}")]

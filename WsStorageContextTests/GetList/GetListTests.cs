@@ -4,6 +4,7 @@
 using DataCore.Enums;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Models;
+using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;

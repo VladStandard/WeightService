@@ -1,7 +1,6 @@
-﻿@page "/section/scales_screenshots"
+@page "/section/scales_screenshots"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<ScaleScreenShotModel>
-@using DataCore.Sql.TableScaleModels.ScalesScreenshots
+@inherits RazorComponentSectionBase<DataCore.Sql.TableDiagModels.ScalesScreenshots.ScaleScreenShotModel>
 @using BlazorDeviceControl.Pages.CustomComponents
 
 <SectionReload
@@ -31,7 +30,7 @@ else
         <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
                               FormatString="@StringUtils.FormatDtLongStr" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale.Description" Width="40%"/>
+        <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="RazorFieldConfigUtils.Scale.Description" Width="40%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.ScreenShot" Width="43%" Sortable="false">
           <Template Context="itemCast">
             <RadzenText Text=@GetByteLength(itemCast) />
