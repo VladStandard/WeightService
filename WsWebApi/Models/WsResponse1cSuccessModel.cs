@@ -4,22 +4,24 @@
 
 using DataCore.Serialization.Models;
 
-namespace WsWebApi.Models.WebResponses;
+namespace WsWebApi.Models;
 
-[XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
-public class WsResponseDebugInfoModel : SerializeDebugBase
+[XmlRoot(WebConstants.Record, Namespace = "", IsNullable = false)]
+public class WsResponse1cSuccessModel : SerializeBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
-    [XmlElement("DebugInfo")]
-    public WsServiceInfoModel? Info { get; set; }
+    [XmlAttribute("Guid")]
+    public Guid Uid { get; set; }
 
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
-    public WsResponseDebugInfoModel()
+    public WsResponse1cSuccessModel()
     {
-        //
+        Uid = Guid.Empty;
+    }
+
+    public WsResponse1cSuccessModel(Guid uid)
+    {
+        Uid = uid;
     }
 
     /// <summary>
@@ -27,14 +29,17 @@ public class WsResponseDebugInfoModel : SerializeDebugBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    public WsResponseDebugInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponse1cSuccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Info = (WsServiceInfoModel?)info.GetValue(nameof(Info), typeof(WsServiceInfoModel));
+        object? uid = info.GetValue(nameof(Uid), typeof(Guid));
+        Uid = uid is not null ? (Guid)uid : Guid.Empty;
     }
 
     #endregion
 
     #region Public and private methods
+
+    public override string ToString() => $"{nameof(Uid)}: {Uid}. ";
 
     /// <summary>
     /// Get object data for serialization info.
@@ -44,7 +49,7 @@ public class WsResponseDebugInfoModel : SerializeDebugBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Info), Info);
+        info.AddValue(nameof(Uid), Uid);
     }
 
     #endregion

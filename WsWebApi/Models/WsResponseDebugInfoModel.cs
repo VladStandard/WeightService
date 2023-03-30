@@ -4,24 +4,22 @@
 
 using DataCore.Serialization.Models;
 
-namespace WsWebApi.Models.WebResponses;
+namespace WsWebApi.Models;
 
-[XmlRoot(WebConstants.Info, Namespace = "", IsNullable = false)]
-public class WsResponse1CInfoModel : SerializeBase
+[XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
+public class WsResponseDebugInfoModel : SerializeDebugBase
 {
     #region Public and private fields and properties
 
-    [XmlAttribute(nameof(Message))]
-    public string Message { get; set; }
+    [XmlElement("DebugInfo")]
+    public WsServiceInfoModel? Info { get; set; }
 
-    public WsResponse1CInfoModel(string message)
+    /// <summary>
+    /// Empty constructor.
+    /// </summary>
+    public WsResponseDebugInfoModel()
     {
-        Message = message;
-    }
-
-    public WsResponse1CInfoModel()
-    {
-        Message = string.Empty;
+        //
     }
 
     /// <summary>
@@ -29,17 +27,14 @@ public class WsResponse1CInfoModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private WsResponse1CInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    public WsResponseDebugInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Message = info.GetString(nameof(Message)) ?? string.Empty;
+        Info = (WsServiceInfoModel?)info.GetValue(nameof(Info), typeof(WsServiceInfoModel));
     }
 
     #endregion
 
     #region Public and private methods
-
-    public override string ToString() =>
-        $"{nameof(Message)}: {Message}. ";
 
     /// <summary>
     /// Get object data for serialization info.
@@ -49,7 +44,7 @@ public class WsResponse1CInfoModel : SerializeBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Message), Message);
+        info.AddValue(nameof(Info), Info);
     }
 
     #endregion

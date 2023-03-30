@@ -4,10 +4,10 @@
 
 using DataCore.Serialization.Models;
 
-namespace WsWebApi.Models.WebResponses;
+namespace WsWebApi.Models;
 
 [XmlRoot(WebConstants.Record, Namespace = "", IsNullable = false)]
-public class WsResponse1CRecordModel : SerializeBase
+public class WsResponse1cErrorModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -17,30 +17,22 @@ public class WsResponse1CRecordModel : SerializeBase
     [XmlAttribute(nameof(Message))]
     public string Message { get; set; }
 
-    [XmlAttribute(nameof(InnerMessage))]
-    public string? InnerMessage { get; set; }
-
-    public WsResponse1CRecordModel()
+    public WsResponse1cErrorModel()
     {
         Uid = Guid.Empty;
         Message = string.Empty;
-        InnerMessage = null;
     }
 
-    public WsResponse1CRecordModel(Guid uid, string message, string innerMessage)
+    public WsResponse1cErrorModel(Guid uid, string message)
     {
         Uid = uid;
         Message = message;
-        InnerMessage = innerMessage;
     }
 
-    public WsResponse1CRecordModel(Guid uid, string message) : this(uid, message, string.Empty) { }
-
-    public WsResponse1CRecordModel(Exception ex)
+    public WsResponse1cErrorModel(Exception ex)
     {
         Uid = Guid.Empty;
         Message = ex.Message;
-        InnerMessage = ex.InnerException?.Message;
     }
 
     /// <summary>
@@ -48,22 +40,18 @@ public class WsResponse1CRecordModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private WsResponse1CRecordModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponse1cErrorModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         object? uid = info.GetValue(nameof(Uid), typeof(Guid));
         Uid = uid is not null ? (Guid)uid : Guid.Empty;
         Message = info.GetString(nameof(Message)) ?? string.Empty;
-        InnerMessage = info.GetString(nameof(InnerMessage)) ?? string.Empty;
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() =>
-        $"{nameof(Uid)}: {Uid}. " +
-        $"{nameof(Message)}: {Message}. " +
-        $"{nameof(InnerMessage)}: {InnerMessage}. ";
+    public override string ToString() => $"{nameof(Uid)}: {Uid}. {nameof(Message)}: {Message}";
 
     /// <summary>
     /// Get object data for serialization info.
@@ -75,7 +63,6 @@ public class WsResponse1CRecordModel : SerializeBase
         base.GetObjectData(info, context);
         info.AddValue(nameof(Uid), Uid);
         info.AddValue(nameof(Message), Message);
-        info.AddValue(nameof(InnerMessage), InnerMessage);
     }
 
     #endregion

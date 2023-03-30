@@ -170,8 +170,8 @@ internal class WsWebControllerBase : ControllerBase
                             response1CShort.Info = WsWebResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
                     }
                     break;
-                case var cls when cls == typeof(WsResponse1CModel):
-                    if (response is WsResponse1CModel response1c)
+                case var cls when cls == typeof(WsResponse1cModel):
+                    if (response is WsResponse1cModel response1c)
                     {
                         response1c.IsDebug = isDebug;
                         if (response1c.IsDebug)
@@ -189,8 +189,8 @@ internal class WsWebControllerBase : ControllerBase
                     if (response is WsResponse1cShortModel response1CShort)
                         response1CShort.Errors.Add(new(ex));
                     break;
-                case var cls when cls == typeof(WsResponse1CModel):
-                    if (response is WsResponse1CModel response1c)
+                case var cls when cls == typeof(WsResponse1cModel):
+                    if (response is WsResponse1cModel response1c)
                         response1c.Errors.Add(new(ex));
                     break;
             }
@@ -201,7 +201,7 @@ internal class WsWebControllerBase : ControllerBase
 
     public ContentResult NewResponse1cFromQuery(string url, SqlParameter? sqlParameter, string format, bool isDebug,
         ISessionFactory sessionFactory) =>
-        NewResponse1cCore<WsResponse1CModel>(response =>
+        NewResponse1cCore<WsResponse1cModel>(response =>
         {
             if (!string.IsNullOrEmpty(url))
             {
@@ -266,7 +266,7 @@ internal class WsWebControllerBase : ControllerBase
     /// <param name="sessionFactory"></param>
     /// <returns></returns>
     public ContentResult NewResponse1cIsNotFound(string version, string format, bool isDebug, ISessionFactory sessionFactory) =>
-        NewResponse1cCore<WsResponse1CModel>(response =>
+        NewResponse1cCore<WsResponse1cModel>(response =>
         {
             response.Infos.Add(new($"Version {version} {LocaleCore.WebService.IsNotFound}!"));
         }, format, isDebug, sessionFactory, HttpStatusCode.NotFound);

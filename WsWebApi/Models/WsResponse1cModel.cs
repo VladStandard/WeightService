@@ -2,10 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-namespace WsWebApi.Models.WebResponses;
+namespace WsWebApi.Models;
 
 [XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
-internal sealed class WsResponse1CModel : WsResponseDebugInfoModel
+internal sealed class WsResponse1cModel : WsResponseDebugInfoModel
 {
     #region Public and private fields and properties
 
@@ -19,18 +19,18 @@ internal sealed class WsResponse1CModel : WsResponseDebugInfoModel
     public WsResponseQueryModel? ResponseQuery { get; set; }
 
     [XmlArray, XmlArrayItem(WebConstants.Info)]
-    public List<WsResponse1CInfoModel> Infos { get; set; }
+    public List<WsResponse1cInfoModel> Infos { get; set; }
 
     [XmlArray, XmlArrayItem(WebConstants.Record)]
-    public List<WsResponse1CRecordModel> Successes { get; set; }
+    public List<WsResponse1cRecordModel> Successes { get; set; }
 
     [XmlArray, XmlArrayItem(WebConstants.Record)]
-    public List<WsResponse1CRecordModel> Errors { get; set; }
+    public List<WsResponse1cRecordModel> Errors { get; set; }
 
     /// <summary>
     /// Empty constructor.
     /// </summary>
-    public WsResponse1CModel()
+    public WsResponse1cModel()
     {
         SuccessesCount = 0;
         ErrorsCount = 0;
@@ -40,8 +40,8 @@ internal sealed class WsResponse1CModel : WsResponseDebugInfoModel
         Errors = new();
     }
 
-    public WsResponse1CModel(List<WsResponse1CInfoModel> infos, List<WsResponse1CRecordModel> successes,
-        List<WsResponse1CRecordModel> errors, WsResponseQueryModel? responseQuery) : this()
+    public WsResponse1cModel(List<WsResponse1cInfoModel> infos, List<WsResponse1cRecordModel> successes,
+        List<WsResponse1cRecordModel> errors, WsResponseQueryModel? responseQuery) : this()
     {
         Infos = infos;
         Successes = successes;
@@ -54,14 +54,14 @@ internal sealed class WsResponse1CModel : WsResponseDebugInfoModel
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private WsResponse1CModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponse1cModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         SuccessesCount = info.GetInt32(nameof(SuccessesCount));
         ErrorsCount = info.GetInt32(nameof(ErrorsCount));
         ResponseQuery = info.GetValue(nameof(ResponseQuery), typeof(WsResponseQueryModel)) as WsResponseQueryModel ?? null;
-        Infos = info.GetValue(nameof(Infos), typeof(List<WsResponse1CInfoModel>)) as List<WsResponse1CInfoModel> ?? new();
-        Successes = info.GetValue(nameof(Successes), typeof(List<WsResponse1CRecordModel>)) as List<WsResponse1CRecordModel> ?? new();
-        Errors = info.GetValue(nameof(Errors), typeof(List<WsResponse1CRecordModel>)) as List<WsResponse1CRecordModel> ?? new();
+        Infos = info.GetValue(nameof(Infos), typeof(List<WsResponse1cInfoModel>)) as List<WsResponse1cInfoModel> ?? new();
+        Successes = info.GetValue(nameof(Successes), typeof(List<WsResponse1cRecordModel>)) as List<WsResponse1cRecordModel> ?? new();
+        Errors = info.GetValue(nameof(Errors), typeof(List<WsResponse1cRecordModel>)) as List<WsResponse1cRecordModel> ?? new();
     }
 
     #endregion

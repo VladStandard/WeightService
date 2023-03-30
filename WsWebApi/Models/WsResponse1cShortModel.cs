@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-namespace WsWebApi.Models.WebResponses;
+namespace WsWebApi.Models;
 
 [XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
 public class WsResponse1cShortModel : WsResponseDebugInfoModel
@@ -22,7 +22,7 @@ public class WsResponse1cShortModel : WsResponseDebugInfoModel
 
     [XmlArray, XmlArrayItem(WebConstants.Record)]
     public List<WsResponse1cErrorModel> Errors { get; set; }
-    
+
     public WsResponse1cShortModel()
     {
         SuccessesCount = 0;

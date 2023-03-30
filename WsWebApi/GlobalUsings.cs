@@ -49,6 +49,5 @@ global using WsLocalization.Models;
 global using WsStorage.Enums;
 global using WsStorage.Utils;
 global using WsWebApi.Base;
-global using WsWebApi.Models.WebResponses;
 global using WsWebApi.Models;
 global using WsWebApi.Utils;

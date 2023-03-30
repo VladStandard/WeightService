@@ -4,35 +4,24 @@
 
 using DataCore.Serialization.Models;
 
-namespace WsWebApi.Models.WebResponses;
+namespace WsWebApi.Models;
 
-[XmlRoot(WebConstants.Record, Namespace = "", IsNullable = false)]
-public class WsResponse1cErrorModel : SerializeBase
+[XmlRoot(WebConstants.Info, Namespace = "", IsNullable = false)]
+public class WsResponse1cInfoModel : SerializeBase
 {
-    #region Public and private fields, properties, constructor
-
-    [XmlAttribute("Guid")]
-    public Guid Uid { get; set; }
+    #region Public and private fields and properties
 
     [XmlAttribute(nameof(Message))]
     public string Message { get; set; }
 
-    public WsResponse1cErrorModel()
+    public WsResponse1cInfoModel(string message)
     {
-        Uid = Guid.Empty;
-        Message = string.Empty;
-    }
-
-    public WsResponse1cErrorModel(Guid uid, string message)
-    {
-        Uid = uid;
         Message = message;
     }
 
-    public WsResponse1cErrorModel(Exception ex)
+    public WsResponse1cInfoModel()
     {
-        Uid = Guid.Empty;
-        Message = ex.Message;
+        Message = string.Empty;
     }
 
     /// <summary>
@@ -40,10 +29,8 @@ public class WsResponse1cErrorModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private WsResponse1cErrorModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponse1cInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        object? uid = info.GetValue(nameof(Uid), typeof(Guid));
-        Uid = uid is not null ? (Guid)uid : Guid.Empty;
         Message = info.GetString(nameof(Message)) ?? string.Empty;
     }
 
@@ -51,7 +38,8 @@ public class WsResponse1cErrorModel : SerializeBase
 
     #region Public and private methods
 
-    public override string ToString() => $"{nameof(Uid)}: {Uid}. {nameof(Message)}: {Message}";
+    public override string ToString() =>
+        $"{nameof(Message)}: {Message}. ";
 
     /// <summary>
     /// Get object data for serialization info.
@@ -61,7 +49,6 @@ public class WsResponse1cErrorModel : SerializeBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Uid), Uid);
         info.AddValue(nameof(Message), Message);
     }
 

@@ -3,7 +3,7 @@
 
 using DataCore.Serialization.Models;
 
-namespace WsWebApi.Models.WebResponses;
+namespace WsWebApi.Models;
 
 [Serializable]
 [XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
