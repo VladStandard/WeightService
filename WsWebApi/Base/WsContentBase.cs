@@ -6,7 +6,7 @@ using DataCore.Serialization.Models;
 
 namespace WsWebApi.Base;
 
-public class WsWebControllerBase : ControllerBase
+public class WsContentBase //: ControllerBase
 {
     #region Public and private fields, properties, constructor
 
@@ -26,7 +26,7 @@ public class WsWebControllerBase : ControllerBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public WsWebControllerBase(ISessionFactory sessionFactory)
+    protected WsContentBase(ISessionFactory sessionFactory)
     {
         SessionFactory = sessionFactory;
     }
@@ -72,16 +72,16 @@ public class WsWebControllerBase : ControllerBase
         };
 
         // Store data into the log.
-        if (!System.IO.File.Exists(filePath))
+        if (!File.Exists(filePath))
         {
-            await System.IO.File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
+            await File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
         }
         else
         {
-            string textExists = await System.IO.File.ReadAllTextAsync(filePath);
+            string textExists = await File.ReadAllTextAsync(filePath);
             text = textExists + Environment.NewLine + text;
-            System.IO.File.Delete(filePath);
-            await System.IO.File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
+            File.Delete(filePath);
+            await File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
         }
     }
 
@@ -153,7 +153,7 @@ public class WsWebControllerBase : ControllerBase
     #region Public and private methods
 
     internal ContentResult NewResponse1cCore<T>(Action<T> action, string format, bool isDebug, ISessionFactory sessionFactory,
-    HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
+        HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
     {
         T response = new();
 

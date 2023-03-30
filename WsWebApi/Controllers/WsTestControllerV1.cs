@@ -3,12 +3,12 @@
 
 using WsLocalization.Utils;
 
-namespace WsWebApi.Helpers;
+namespace WsWebApi.Controllers;
 
 /// <summary>
 /// Test controller.
 /// </summary>
-public sealed class WsTestControllerV1 : WsWebControllerBase
+public sealed class WsTestControllerV1 : WsContentBase
 {
     #region Public and private fields and properties
 
@@ -28,7 +28,7 @@ public sealed class WsTestControllerV1 : WsWebControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route(UrlWebService.GetInfoV1)]
-    public ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
+    internal ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
         GetContentResult(() =>
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());

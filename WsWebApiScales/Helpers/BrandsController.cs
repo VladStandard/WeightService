@@ -6,7 +6,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Brands controller.
 /// </summary>
-public sealed class BrandsController : WsBrandsController
+public sealed class BrandsController : WsControllerBase
 {
     #region Public and private fields and properties
 
@@ -36,7 +36,7 @@ public sealed class BrandsController : WsBrandsController
         {
             AcceptVersion.V2 =>
                 GetContentResult(() => NewResponse1cIsNotFound(version, format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => NewResponse1cBrands(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => BrandsControl.NewResponse1cBrands(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendBrands,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

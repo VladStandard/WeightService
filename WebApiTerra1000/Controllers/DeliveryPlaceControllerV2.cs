@@ -15,7 +15,7 @@ using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public sealed class DeliveryPlaceControllerV2 : WsWebControllerBase
+public sealed class DeliveryPlaceControllerV2 : WsControllerBase
 {
     #region Constructor and destructor
 

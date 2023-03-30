@@ -2,9 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-namespace WsWebApi.Helpers;
+namespace WsWebApi.Controllers;
 
-public class WsBrandsController : WsWebControllerBase
+public sealed class WsBrandsController : WsContentBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -17,7 +17,7 @@ public class WsBrandsController : WsWebControllerBase
 
     #region Public and private fields, properties, constructor
 
-    public WsBrandsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    internal WsBrandsController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -67,7 +67,7 @@ public class WsBrandsController : WsWebControllerBase
     public ContentResult NewResponse1cBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<BrandModel> itemsDb = WsDataContext.GetListNotNullable<BrandModel>(SqlCrudConfig);
+            List<BrandModel> itemsDb = WsDataContext.GetListNotNullableBrands(SqlCrudConfig);
             List<BrandModel> itemsXml = GetXmlBrandList(xml);
             foreach (BrandModel itemXml in itemsXml)
             {

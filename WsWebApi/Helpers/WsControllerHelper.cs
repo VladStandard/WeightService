@@ -2,12 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
+using WsWebApi.Controllers;
+
 namespace WsWebApi.Helpers;
 
 /// <summary>
 /// Web API Controller helper.
 /// </summary>
-public sealed class WsControllerHelper
+public class WsControllerHelper
 {
     #region Design pattern "Lazy Singleton"
 
@@ -20,10 +22,7 @@ public sealed class WsControllerHelper
 
     #region Public and private fields, properties, constructor
 
-    public WsBrandsController BrandsController => WsBrandsController.Instance;
-    public WsPlusCharacteristicsController PlusCharacteristicsController => WsPlusCharacteristicsController.Instance;
-    public WsPlusController PlusController => WsPlusController.Instance;
-    public WsPlusGroupsController PlusGroupsController => WsPlusGroupsController.Instance;
+    
 
     #endregion
 }

@@ -6,7 +6,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Nomenclatures groups controller.
 /// </summary>
-public sealed class PlusGroupsController : WsPlusGroupsController
+public sealed class PlusGroupsController : WsControllerBase
 {
     #region Public and private fields and properties
 
@@ -37,7 +37,7 @@ public sealed class PlusGroupsController : WsPlusGroupsController
             AcceptVersion.V2 =>
                 GetContentResult(() => NewResponse1cIsNotFound(version, format, isDebug, SessionFactory),
                     format),
-            _ => GetContentResult(() => NewResponse1cPluGroups(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => PlusGroupsControl.NewResponse1cPluGroups(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendNomenclaturesGroups,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

@@ -3,6 +3,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using WsWebApi.Controllers;
 using WsWebApi.Models;
 
 namespace WsWebApiScales.Helpers;
@@ -10,7 +11,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Test controller v3.
 /// </summary>
-public sealed class TestControllerV3 : WsWebControllerBase
+public sealed class TestControllerV3 : WsControllerBase
 {
     #region Public and private fields and properties
 

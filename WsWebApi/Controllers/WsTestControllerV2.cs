@@ -3,12 +3,12 @@
 
 using WsLocalization.Utils;
 
-namespace WsWebApi.Helpers;
+namespace WsWebApi.Controllers;
 
 /// <summary>
 /// Test controller v2.
 /// </summary>
-public sealed class WsTestControllerV2 : WsWebControllerBase
+public sealed class WsTestControllerV2 : WsContentBase
 {
     #region Public and private fields and properties
 
@@ -16,7 +16,7 @@ public sealed class WsTestControllerV2 : WsWebControllerBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public WsTestControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
+    internal WsTestControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }

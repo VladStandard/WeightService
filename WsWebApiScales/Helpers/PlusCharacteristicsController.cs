@@ -6,7 +6,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Nomenclatures characteristics controller.
 /// </summary>
-public sealed class PlusCharacteristicsController : WsPlusCharacteristicsController
+public sealed class PlusCharacteristicsController : WsControllerBase
 {
     #region Public and public fields and properties
 
@@ -37,7 +37,7 @@ public sealed class PlusCharacteristicsController : WsPlusCharacteristicsControl
             AcceptVersion.V2 =>
                 GetContentResult(() => NewResponse1cIsNotFound(version, format, isDebug, SessionFactory),
                     format),
-            _ => GetContentResult(() => NewResponse1cPluCharacteristics(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => PlusCharacteristicsControl.NewResponse1cPluCharacteristics(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendNomenclaturesCharacteristics,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
