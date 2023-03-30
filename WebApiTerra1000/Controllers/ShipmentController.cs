@@ -12,12 +12,12 @@ using System.Xml.Linq;
 using WebApiTerra1000.Utils;
 using WsLocalization.Utils;
 using WsStorage.Utils;
-using WsWebApi.Controllers;
-using WsWebApi.Models;
+using WsWebApi.Helpers;
+using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public class ShipmentController : WebControllerBase
+public class ShipmentController : WsWebControllerBase
 {
     #region Constructor and destructor
 
@@ -37,7 +37,7 @@ public class ShipmentController : WebControllerBase
     {
         return ControllerHelp.GetContentResult(() =>
         {
-            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipment, new SqlParameter("ID", id));
+            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipment, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
@@ -77,8 +77,8 @@ public class ShipmentController : WebControllerBase
     {
         return ControllerHelp.GetContentResult(() =>
         {
-            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipments,
-                WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipments,
+                WsWebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {

@@ -4,7 +4,7 @@
 using DataCore.Utils;
 using WsLocalization.Utils;
 using WsStorage.Models.Tables.BarCodes;
-using WsWebApi.Controllers;
+using WsWebApi.Helpers;
 using WsWebApi.Utils;
 
 namespace WsWebApiScales.Controllers;
@@ -12,7 +12,7 @@ namespace WsWebApiScales.Controllers;
 /// <summary>
 /// Barcode controller.
 /// </summary>
-public class BarCodeController : WebControllerBase
+public sealed class BarCodeController : WsWebControllerBase
 {
     #region Public and private fields and properties
 
@@ -35,6 +35,7 @@ public class BarCodeController : WebControllerBase
     /// <param name="barcode"></param>
     /// <param name="useCrc"></param>
     /// <param name="format"></param>
+    /// <param name="isDebug"></param>
     /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
@@ -79,6 +80,7 @@ public class BarCodeController : WebControllerBase
     /// </summary>
     /// <param name="barcode"></param>
     /// <param name="format"></param>
+    /// <param name="isDebug"></param>
     /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
@@ -157,7 +159,7 @@ public class BarCodeController : WebControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "") {
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindBottom, new("VALUE_BOTTOM", barcodeBottom.GetValue()), 
+            ControllerHelp.NewResponse1cFromQuery(WsSqlQueriesBarcodes.FindBottom, new("VALUE_BOTTOM", barcodeBottom.GetValue()), 
                 format, isDebug, SessionFactory), format);
         ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendBarcodeBottom, 
             requestStampDt, DataFormatUtils.GetContent<BarcodeBottomModel>(barcodeBottom, DataCore.Enums.FormatType.XmlUtf8, true),
@@ -174,7 +176,7 @@ public class BarCodeController : WebControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "") {
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindRight, new("VALUE_RIGHT", barcodeRight.GetValue()), 
+            ControllerHelp.NewResponse1cFromQuery(WsSqlQueriesBarcodes.FindRight, new("VALUE_RIGHT", barcodeRight.GetValue()), 
                 format, isDebug, SessionFactory), format);
         ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendBarcodeRight, 
             requestStampDt, DataFormatUtils.GetContent<BarcodeRightModel>(barcodeRight, DataCore.Enums.FormatType.XmlUtf8, true),
@@ -191,7 +193,7 @@ public class BarCodeController : WebControllerBase
     {
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindTop, new("VALUE_TOP", barcodeTop.GetValue()), 
+            ControllerHelp.NewResponse1cFromQuery(WsSqlQueriesBarcodes.FindTop, new("VALUE_TOP", barcodeTop.GetValue()), 
                 format, isDebug, SessionFactory), format);
         ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendBarcodeTop,
             requestStampDt, DataFormatUtils.GetContent<BarcodeTopModel>(barcodeTop, DataCore.Enums.FormatType.XmlUtf8, true),
@@ -207,7 +209,7 @@ public class BarCodeController : WebControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "") {
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = ControllerHelp.GetContentResult(() =>
-            ControllerHelp.NewResponse1cFromQuery(SqlQueriesBarcodes.FindTop,
+            ControllerHelp.NewResponse1cFromQuery(WsSqlQueriesBarcodes.FindTop,
                 new("VALUE_TOP", DataFormatUtils.DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()), 
                 format, isDebug, SessionFactory), format);
         ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendBarcodeTopV2, 

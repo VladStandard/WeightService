@@ -18,9 +18,9 @@ internal class ContragentControllerTests
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in new WebRequestTerra1000().GetListContragent(ServerType.All))
+            foreach (string url in new WsWebRequestTerra1000().GetListContragent(ServerType.All))
             {
-                foreach (long id in TestsUtils.GetListContragentId)
+                foreach (long id in WsTestsUtils.GetListContragentId)
                 {
                     await GetContragentAsync(url, null, id);
                     TestContext.WriteLine();
@@ -35,9 +35,9 @@ internal class ContragentControllerTests
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in new WebRequestTerra1000().GetListContragentV2(ServerType.All))
+            foreach (string url in new WsWebRequestTerra1000().GetListContragentV2(ServerType.All))
             {
-                foreach (long id in TestsUtils.GetListContragentId)
+                foreach (long id in WsTestsUtils.GetListContragentId)
                 {
                     await GetContragentAsync(url, null, id);
                     TestContext.WriteLine();
@@ -48,7 +48,7 @@ internal class ContragentControllerTests
 
     private async Task GetContragentAsync(string url, string? code, long? id)
     {
-        await WebResponseUtils.GetResponseAsync(url, WebRequestUtils.GetRequestCodeOrId(code, id), (response) =>
+        await WsWebResponseUtils.GetResponseAsync(url, WsWebRequestUtils.GetRequestCodeOrId(code, id), (response) =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);

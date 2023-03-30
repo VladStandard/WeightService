@@ -10,12 +10,12 @@ using System.Xml.Linq;
 using WebApiTerra1000.Utils;
 using WsLocalization.Utils;
 using WsStorage.Utils;
-using WsWebApi.Controllers;
-using WsWebApi.Models;
+using WsWebApi.Helpers;
+using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public class DeliveryPlaceControllerV2 : WebControllerBase
+public class DeliveryPlaceControllerV2 : WsWebControllerBase
 {
     #region Constructor and destructor
 
@@ -47,8 +47,8 @@ public class DeliveryPlaceControllerV2 : WebControllerBase
     {
         return ControllerHelp.GetContentResult(() =>
         {
-            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url,
-                WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, url,
+                WsWebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.DeliveryPlaces} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
