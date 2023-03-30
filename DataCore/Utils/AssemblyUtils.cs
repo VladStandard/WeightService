@@ -3,7 +3,7 @@
 
 namespace DataCore.Utils;
 
-public static class AssemblyUtuls
+public static class AssemblyUtils
 {
     #region Public and private methods
 

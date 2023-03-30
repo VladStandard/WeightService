@@ -59,7 +59,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     [Parameter] public SqlTableBase? SqlItem { get; set; }
     public SqlTableBase? SqlItemFilter { get; set; }
-    public List<SqlTableBase>? SqlSection { get; set; }
     public List<SqlTableBase>? SqlLinkedItems { get; set; }
     public ClaimsPrincipal? User { get; set; }
     
@@ -69,7 +68,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		SqlItem = null;
         SqlItemFilter = null;
-		SqlSection = null;
         SqlLinkedItems = null;
 
 		RazorFieldConfig = new();

@@ -29,7 +29,7 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Code" Width="20%" Property="Code"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Group" Width="30%" Sortable="false">
         <Template Context="itemCast">
-          <RadzenText Text="@(DataAccess.GetItemNomenclatureGroupParentNotNullable(itemCast).Name)" />
+          @DataAccess.GetItemNomenclatureGroupParentNotNullable(itemCast).Name
         </Template>
       </RadzenDataGridColumn>
     </TItemContent>

@@ -48,7 +48,7 @@ public static class WsWebResponseUtils
         return new(Environment.MachineName,
             AppVersion.App,
             AppVersion.Version,
-            StringUtils.FormatDtEng(DateTime.Now, true),
+            StrUtils.FormatDtEng(DateTime.Now, true),
             sqlCurrentDate,
             session.Connection.ConnectionString,
             session.Connection.ConnectionTimeout,

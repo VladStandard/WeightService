@@ -13,39 +13,30 @@
   ButtonSettings="@ButtonSettings"
 />
 
-@if (IsSqlSectionGet == false)
-{
-  <Preloader />
-}
-else
-{
-  <RadzenDataGridLocal
-    @bind-Value="@SelectedRow"
-    TItem="@PluLabelModel"
-    Data="@SqlSectionCast"
-    CellContextMenu="@OnCellContextMenu"
-    RowSelect="@SqlItemSet"
-    RowRender="@RowRender"
-    RowDoubleClick="@SqlItemEditAsync">
-    <Columns>
-      <TItemContent TItem="@PluLabelModel">
-        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
-                              FormatString="@StringUtils.FormatDtDefaultStr" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Weighing" Property="PluWeighing.CreateDt" Width="12%"
-                              FormatString="@StringUtils.FormatDtDefaultStr" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDt" Width="12%"
-                              FormatString="@StringUtils.FormatDtShortStr" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.ExpirationDt" Property="ExpirationDt" Width="12%"
-                              FormatString="@StringUtils.FormatDtShortStr" />
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="PluScale.Scale.Description" Width="16%"/>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluScale.Plu.Name" Width="20%"/>
-        <RadzenDataGridColumn TItem="@PluLabelModel" Title="@LocaleCore.Table.Template" Width="14%" Sortable="@false">
-          <Template Context="itemCast">
-            <RadzenText Text="@(DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).Title)"/>
-          </Template>
-        </RadzenDataGridColumn>
-      </TItemContent>
-    </Columns>
-  </RadzenDataGridLocal>
-}
+<RadzenDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@PluLabelModel"
+  Data="@SqlSectionCast"
+  IsLoading="@IsLoading"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@PluLabelModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" FormatString="@StrUtils.FormatDtDefault" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighing" Property="PluWeighing.CreateDt" Width="8%" FormatString="@StrUtils.FormatDtDefault" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDt" Width="8%" FormatString="@StrUtils.FormatDtShort" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ExpirationDt" Property="ExpirationDt" Width="8%" FormatString="@StrUtils.FormatDtShort" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="PluScale.Scale.Description" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluScale.Plu.Number" Width="8%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluScale.Plu.Name" Width="25%"/>
+      <RadzenDataGridColumn TItem="@PluLabelModel" Title="@LocaleCore.Table.Template" Width="14%" Sortable="@false">
+        <Template Context="itemCast">
+          @DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).Title
+        </Template>
+      </RadzenDataGridColumn>
+    </TItemContent>
+  </Columns>
+</RadzenDataGridLocal>

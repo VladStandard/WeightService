@@ -7,7 +7,7 @@ using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class ProductSeriesDirect : SqlSerializeBase, ISerializable
+public class ProductSeriesDirect : SqlSerializeBase
 {
 	#region Public and private fields, properties, constructor
 

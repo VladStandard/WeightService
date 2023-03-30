@@ -3,11 +3,11 @@
 
 namespace DataCore.Utils;
 
-public static class StringUtils
+public static class StrUtils
 {
-    public static string FormatDtLongStr => "{0:dd.MM.yy HH:mm:ss}";
-    public static string FormatDtDefaultStr => "{0:dd.MM.yy HH:mm}";
-    public static string FormatDtShortStr => "{0:dd.MM.yy}";
+    public static string FormatDtLong => "{0:dd.MM.yy HH:mm:ss}";
+    public static string FormatDtDefault => "{0:dd.MM.yy HH:mm}";
+    public static string FormatDtShort => "{0:dd.MM.yy}";
     
     public static string FormatDtRus(DateTime dt, bool isShowSeconds) =>
 	    isShowSeconds

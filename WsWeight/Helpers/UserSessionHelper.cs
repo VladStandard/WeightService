@@ -691,7 +691,7 @@ public class UserSessionHelper : BaseViewModel
             new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
         if (dialogResult is DialogResult.Yes)
         {
-            PluginMassa.WeightNet = StringUtils.NextDecimal(PluNestingFk.WeightMin, PluNestingFk.WeightMax);
+            PluginMassa.WeightNet = StrUtils.NextDecimal(PluNestingFk.WeightMin, PluNestingFk.WeightMax);
             PluginMassa.IsWeightNetFake = true;
         }
     }

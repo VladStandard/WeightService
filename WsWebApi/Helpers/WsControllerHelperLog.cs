@@ -28,7 +28,7 @@ public sealed partial class WsControllerHelper
     /// <returns></returns>
     private static async Task LogToFileCore(ServiceLogDirection serviceLogType, string appName, string api, DateTime stampDt, string text)
     {
-        string dtString = StringUtils.FormatDtEng(stampDt, true).Replace(':', '.');
+        string dtString = StrUtils.FormatDtEng(stampDt, true).Replace(':', '.');
         // Get directory name.
         if (!Directory.Exists(RootDirectory)) return;
         // Machine dir.

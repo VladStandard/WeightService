@@ -28,7 +28,7 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Title" Property="Title" Width="60%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Size" SortProperty="Data.Length" Width="30%">
           <Template Context="itemCast">
-            <RadzenText Text="@ConvertBytes(itemCast)" />
+            @ConvertBytes(itemCast)
           </Template>
       </RadzenDataGridColumn>
     </TItemContent>

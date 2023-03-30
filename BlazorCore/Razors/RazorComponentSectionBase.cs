@@ -19,22 +19,19 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
 
-    protected bool IsSqlSectionGet = false;
+    protected bool IsLoading = true;
     
     #endregion
 
     public IList<TItem>? SelectedRow { get; set; }
 
-    protected List<TItem> SqlSectionCast
-    {
-        get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
-        set => SqlSection = !value.Any() ? null : new(value);
-    }
+    protected List<TItem> SqlSectionCast { get; set; }
 
     protected List<TItem> SqlSectionSave { get; set; }
 
     public RazorComponentSectionBase()
     {
+        SqlSectionCast = new List<TItem>();
         SelectedRow = new List<TItem>();
         SqlSectionSave = new List<TItem>();
         SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
@@ -136,7 +133,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     {
         RunActionsSafe(string.Empty, SetSqlSectionCast);
         AutoShowFilterOnlyTopSetup();
-        IsSqlSectionGet = true;
+        IsLoading = false;
         StateHasChanged();
     }
 

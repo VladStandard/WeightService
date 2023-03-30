@@ -7,7 +7,7 @@ using DataCore.Sql.Core.Helpers;
 namespace DataCore.Sql.Models;
 
 [Serializable]
-public class SqlSerializeBase : SerializeBase, ISerializable
+public class SqlSerializeBase : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
