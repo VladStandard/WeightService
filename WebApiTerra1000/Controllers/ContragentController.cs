@@ -16,7 +16,7 @@ using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-internal sealed class ContragentController : WsWebControllerBase
+public sealed class ContragentController : WsWebControllerBase
 {
     #region Constructor and destructor
 

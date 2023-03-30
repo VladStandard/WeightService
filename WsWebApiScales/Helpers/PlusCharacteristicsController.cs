@@ -6,7 +6,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Nomenclatures characteristics controller.
 /// </summary>
-internal sealed class PlusCharacteristicsController : WsPlusCharacteristicsController
+public sealed class PlusCharacteristicsController : WsPlusCharacteristicsController
 {
     #region Public and public fields and properties
 

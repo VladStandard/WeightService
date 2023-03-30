@@ -4,7 +4,7 @@
 
 namespace WsWebApi.Helpers;
 
-internal class WsPlusGroupsController : WsWebControllerBase
+public class WsPlusGroupsController : WsWebControllerBase
 {
     #region Design pattern "Lazy Singleton"
 

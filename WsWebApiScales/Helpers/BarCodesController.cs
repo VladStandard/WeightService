@@ -8,7 +8,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Barcodes controller.
 /// </summary>
-internal sealed class BarCodesController : WsWebControllerBase
+public sealed class BarCodesController : WsWebControllerBase
 {
     #region Public and private fields and properties
 

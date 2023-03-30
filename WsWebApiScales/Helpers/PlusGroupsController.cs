@@ -6,7 +6,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Nomenclatures groups controller.
 /// </summary>
-internal sealed class PlusGroupsController : WsPlusGroupsController
+public sealed class PlusGroupsController : WsPlusGroupsController
 {
     #region Public and private fields and properties
 

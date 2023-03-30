@@ -7,7 +7,7 @@ namespace WsWebApi.Helpers;
 /// <summary>
 /// Web API Controller helper.
 /// </summary>
-internal sealed class WsControllerHelper
+public sealed class WsControllerHelper
 {
     #region Design pattern "Lazy Singleton"
 

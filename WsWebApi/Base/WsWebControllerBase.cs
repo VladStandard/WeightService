@@ -6,7 +6,7 @@ using DataCore.Serialization.Models;
 
 namespace WsWebApi.Base;
 
-internal class WsWebControllerBase : ControllerBase
+public class WsWebControllerBase : ControllerBase
 {
     #region Public and private fields, properties, constructor
 

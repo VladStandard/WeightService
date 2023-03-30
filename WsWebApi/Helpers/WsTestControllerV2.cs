@@ -8,7 +8,7 @@ namespace WsWebApi.Helpers;
 /// <summary>
 /// Test controller v2.
 /// </summary>
-internal sealed class WsTestControllerV2 : WsWebControllerBase
+public sealed class WsTestControllerV2 : WsWebControllerBase
 {
     #region Public and private fields and properties
 

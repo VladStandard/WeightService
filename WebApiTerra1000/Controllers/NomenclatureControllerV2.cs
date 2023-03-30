@@ -19,7 +19,7 @@ using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-internal sealed class NomenclatureControllerV2 : WsWebControllerBase
+public sealed class NomenclatureControllerV2 : WsWebControllerBase
 {
     #region Constructor and destructor
 

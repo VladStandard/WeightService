@@ -4,7 +4,7 @@
 
 namespace WsWebApi.Helpers;
 
-internal class WsPlusCharacteristicsController : WsWebControllerBase
+public class WsPlusCharacteristicsController : WsWebControllerBase
 {
     #region Design pattern "Lazy Singleton"
 

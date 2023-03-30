@@ -10,7 +10,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Test controller v3.
 /// </summary>
-internal sealed class TestControllerV3 : WsWebControllerBase
+public sealed class TestControllerV3 : WsWebControllerBase
 {
     #region Public and private fields and properties
 

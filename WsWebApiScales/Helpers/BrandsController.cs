@@ -6,7 +6,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Brands controller.
 /// </summary>
-internal sealed class BrandsController : WsBrandsController
+public sealed class BrandsController : WsBrandsController
 {
     #region Public and private fields and properties
 
