@@ -18,9 +18,9 @@ internal class NomenclatureControllerTests
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in new WebRequestTerra1000().GetListNomenclature(ServerType.All))
+            foreach (string url in new WsWebRequestTerra1000().GetListNomenclature(ServerType.All))
             {
-                foreach (long id in TestsUtils.GetListNomenclatureId)
+                foreach (long id in WsTestsUtils.GetListNomenclatureId)
                 {
                     await GetNomenclatureAsync(url, null, id);
                     TestContext.WriteLine();
@@ -35,9 +35,9 @@ internal class NomenclatureControllerTests
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in new WebRequestTerra1000().GetListNomenclatureV2(ServerType.All))
+            foreach (string url in new WsWebRequestTerra1000().GetListNomenclatureV2(ServerType.All))
             {
-                foreach (long id in TestsUtils.GetListNomenclatureId)
+                foreach (long id in WsTestsUtils.GetListNomenclatureId)
                 {
                     await GetNomenclatureAsync(url, null, id);
                     TestContext.WriteLine();
@@ -48,7 +48,7 @@ internal class NomenclatureControllerTests
 
     private async Task GetNomenclatureAsync(string url, string? code, long? id)
     {
-        await WebResponseUtils.GetResponseAsync(url, WebRequestUtils.GetRequestCodeOrId(code, id), (response) =>
+        await WsWebResponseUtils.GetResponseAsync(url, WsWebRequestUtils.GetRequestCodeOrId(code, id), (response) =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);

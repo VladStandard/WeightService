@@ -14,7 +14,7 @@ public static class WebResponseUtilsTests
 {
     public static async Task GetExceptionAsync(string url, RestRequest request)
     {
-        await WebResponseUtils.GetResponseAsync(url, request, response =>
+        await WsWebResponseUtils.GetResponseAsync(url, request, response =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.IsNotEmpty(response.Content);
@@ -22,15 +22,15 @@ public static class WebResponseUtilsTests
 
             if (!string.IsNullOrEmpty(response.Content))
             {
-                ServiceExceptionModel? serviceException = null;
-                if (request.Parameters.Contains(WebRequestUtils.GetQueryParameterFormatJson()))
+                WsServiceExceptionModel? serviceException = null;
+                if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatJson()))
                 {
-                    serviceException = JsonConvert.DeserializeObject<ServiceExceptionModel>(response.Content);
+                    serviceException = JsonConvert.DeserializeObject<WsServiceExceptionModel>(response.Content);
                     Assert.IsTrue(serviceException is not null);
                 }
-                else if (request.Parameters.Contains(WebRequestUtils.GetQueryParameterFormatXml()))
+                else if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatXml()))
                 {
-                    serviceException =  DataFormatUtils.DeserializeFromXml<ServiceExceptionModel>(response.Content); 
+                    serviceException =  DataFormatUtils.DeserializeFromXml<WsServiceExceptionModel>(response.Content); 
                     Assert.IsTrue(serviceException is not null);
                 }
                 if (serviceException is not null)
@@ -47,7 +47,7 @@ public static class WebResponseUtilsTests
 
     public static async Task GetInfoAsync(string url, RestRequest request)
     {
-        await WebResponseUtils.GetResponseAsync(url, request, response =>
+        await WsWebResponseUtils.GetResponseAsync(url, request, response =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.IsNotEmpty(response.Content);
@@ -55,15 +55,15 @@ public static class WebResponseUtilsTests
 
             if (!string.IsNullOrEmpty(response.Content))
             {
-                ServiceInfoModel? serviceInfo = null;
-                if (request.Parameters.Contains(WebRequestUtils.GetQueryParameterFormatJson()))
+                WsServiceInfoModel? serviceInfo = null;
+                if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatJson()))
                 {
-                    serviceInfo = JsonConvert.DeserializeObject<ServiceInfoModel>(response.Content);
+                    serviceInfo = JsonConvert.DeserializeObject<WsServiceInfoModel>(response.Content);
                     Assert.IsTrue(serviceInfo is not null);
                 }
-                else if (request.Parameters.Contains(WebRequestUtils.GetQueryParameterFormatXml()))
+                else if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatXml()))
                 {
-                    serviceInfo = DataFormatUtils.DeserializeFromXml<ServiceInfoModel>(response.Content);
+                    serviceInfo = DataFormatUtils.DeserializeFromXml<WsServiceInfoModel>(response.Content);
                     Assert.IsTrue(serviceInfo is not null);
                 }
                 if (serviceInfo is not null)

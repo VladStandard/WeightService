@@ -3,16 +3,16 @@
 
 using WsLocalization.Utils;
 using WsStorage.Enums;
-using WsWebApi.Controllers;
+using WsWebApi.Helpers;
 
 namespace WsWebApiScales.Controllers;
 
 /// <summary>
 /// Nomenclature Group controller.
 /// </summary>
-public class PluCharacteristicController : WebControllerBase
+public sealed class PluCharacteristicController : WsWebControllerBase
 {
-    #region Public and private fields and properties
+    #region Public and public fields and properties
 
     /// <summary>
     /// Constructor.
@@ -25,7 +25,7 @@ public class PluCharacteristicController : WebControllerBase
 
     #endregion
 
-    #region Public and private methods
+    #region Public and public methods
 
     [AllowAnonymous]
     [Produces("application/xml")]

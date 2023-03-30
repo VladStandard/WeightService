@@ -10,12 +10,12 @@ using System.Xml.Linq;
 using WebApiTerra1000.Utils;
 using WsLocalization.Utils;
 using WsStorage.Utils;
-using WsWebApi.Controllers;
-using WsWebApi.Models;
+using WsWebApi.Helpers;
+using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public class SummaryControllerV2 : WebControllerBase
+public class SummaryControllerV2 : WsWebControllerBase
 {
     #region Constructor and destructor
 
@@ -45,8 +45,8 @@ public class SummaryControllerV2 : WebControllerBase
     private ContentResult GetSummaryCore(string url, DateTime startDate, DateTime endDate, string format) => 
         ControllerHelp.GetContentResult(() =>
         {
-            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url,
-                WebUtils.Sql.GetParameters(startDate, endDate));
+            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, url,
+                WsWebUtils.Sql.GetParameters(startDate, endDate));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Summary} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);

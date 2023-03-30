@@ -3,14 +3,14 @@
 
 using WsLocalization.Utils;
 using WsStorage.Enums;
-using WsWebApi.Controllers;
+using WsWebApi.Helpers;
 
 namespace WsWebApiScales.Controllers;
 
 /// <summary>
 /// Brand controller.
 /// </summary>
-public class BrandController : WebControllerBase
+public sealed class BrandController : WsWebControllerBase
 {
     #region Public and private fields and properties
 

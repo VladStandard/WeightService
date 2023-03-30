@@ -3,14 +3,14 @@
 
 using WsLocalization.Utils;
 using WsStorage.Enums;
-using WsWebApi.Controllers;
+using WsWebApi.Helpers;
 
 namespace WsWebApiScales.Controllers;
 
 /// <summary>
 /// Nomenclature Group controller.
 /// </summary>
-public class PluController : WebControllerBase
+public sealed class PluController : WsWebControllerBase
 {
     #region Public and private fields and properties
 
