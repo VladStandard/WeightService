@@ -13,7 +13,7 @@
   ButtonSettings="@ButtonSettings"
   />
 
-<RadzenDataGridLocal
+<RzDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@PluWeighingModel"
   Data="@SqlSectionCast"
@@ -38,4 +38,4 @@
       @* @itemCast.NettoWeight.ToString(CultureInfo.InvariantCulture) *@
     </TItemContent>
   </Columns>
-</RadzenDataGridLocal>
+</RzDataGridLocal>

@@ -11,9 +11,9 @@
 <RazorItemReload TItem="@PluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluScaleModel" SqlItem="@SqlItem"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.IsActive</td>
     <td>
@@ -49,10 +49,11 @@
       </MudSelectLocal>
     </td>
   </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemDates SqlItem="@SqlItem"/>
+
 
 <RazorItemActions
   TItem="@PluScaleModel"

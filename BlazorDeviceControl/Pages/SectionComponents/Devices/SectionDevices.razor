@@ -13,7 +13,7 @@
   ButtonSettings="@ButtonSettings"
 />
 
-<RadzenDataGridLocal
+<RzDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@DeviceModel"
   Data="@SqlSectionCast"
@@ -36,4 +36,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceMac" Property="MacAddress.ValuePrettyLookMinus" Width="20%"/>
     </TItemContent>
   </Columns>
-</RadzenDataGridLocal>
+</RzDataGridLocal>

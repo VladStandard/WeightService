@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Pages.ItemComponents;
 
-public partial class RazorItemTableBody<TItem> : RazorComponentItemBase<TItem> where TItem : SqlTableBase, new()
+public sealed partial class RazorItemTableBody: LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
     

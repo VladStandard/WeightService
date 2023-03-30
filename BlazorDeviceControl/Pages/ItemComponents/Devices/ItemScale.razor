@@ -4,7 +4,6 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<ScaleModel>
 @using DataCore.Sql.TableScaleModels.Scales
-@using DataCore.Sql.TableScaleModels.WorkShops
 @using DataCore.Sql.TableScaleModels.Devices
 @using DataCore.Sql.TableScaleModels.Printers
 @using BlazorDeviceControl.Pages.CustomComponents
@@ -13,7 +12,7 @@
 <RazorItemReload TItem="@ScaleModel" Title="@LocaleCore.DeviceControl.ItemScale"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody TItem="@ScaleModel" SqlItem="@SqlItem"/>
   <tr>
@@ -168,7 +167,6 @@
   </tbody>
 </MudSimpleTable>
 
-<RazorItemDates SqlItem="@SqlItem" />
 <RazorItemActions
   TItem="@ScaleModel"
   ButtonSettings="@ButtonSettings"

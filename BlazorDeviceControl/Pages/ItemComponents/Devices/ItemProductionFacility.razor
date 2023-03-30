@@ -3,12 +3,13 @@
 @page "/item/production_facility/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<ProductionFacilityModel>
+@using BlazorDeviceControl.Pages.CustomComponents
 @using DataCore.Sql.TableScaleModels.ProductionFacilities
 
 <RazorItemReload TItem="@ProductionFacilityModel" Title="@LocaleCore.DeviceControl.ItemProductionFacility"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody TItem="@ProductionFacilityModel" SqlItem="@SqlItem"/>
   <tr>
@@ -29,7 +30,7 @@
   </tbody>
 </MudSimpleTable>
 
-<RazorItemDates SqlItem="@SqlItem"/>
+
 
 <RazorItemActions
   TItem="@ProductionFacilityModel"

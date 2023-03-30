@@ -13,7 +13,7 @@
   ButtonSettings="@ButtonSettings"
   />
 
-<RadzenDataGridLocal
+<RzDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@VersionModel"
   Data="@SqlSectionCast"
@@ -27,4 +27,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Description" Property="Description" Width="75%" />
     </TItemContent>
   </Columns>
-</RadzenDataGridLocal>
+</RzDataGridLocal>

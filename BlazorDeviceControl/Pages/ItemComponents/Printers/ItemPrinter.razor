@@ -12,7 +12,7 @@
 <RazorItemReload TItem="@PrinterModel" Title="@LocaleCore.Print.Name"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
   <tbody>
   <RazorItemTableBody TItem="@PrinterModel" SqlItem="@SqlItem"/>
   <tr>
@@ -101,10 +101,6 @@
   </tr>
   </tbody>
 </MudSimpleTable>
-
-<br style="margin-top: 10px; "/>
-
-<RazorItemDates SqlItem="@SqlItem"/>
 
 <RazorItemActions
   TItem="@PrinterModel"

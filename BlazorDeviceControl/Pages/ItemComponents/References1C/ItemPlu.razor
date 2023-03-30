@@ -12,9 +12,9 @@
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
 
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluModel" SqlItem="@SqlItem"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.PluNumber</td>
     <td>
@@ -90,10 +90,10 @@
         @bind-Value="@SqlItemCast.Description" Rows="3"/>
     </td>
   </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemDates SqlItem="@SqlItem"/>
 <RazorItemActions
   TItem="@PluModel"
   ButtonSettings="@ButtonSettings"

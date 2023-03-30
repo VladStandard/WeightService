@@ -9,9 +9,9 @@
 <RazorItemReload TItem="@TemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@TemplateModel" SqlItem="@SqlItem"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Title</td>
     <td>
@@ -44,14 +44,13 @@
         @bind-Value="@(SqlItemCast.Data)"/>
     </td>
   </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemDates SqlItem="@SqlItem"/>
 <RazorItemActions
   TItem="@TemplateModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"
   />
-

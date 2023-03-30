@@ -6,11 +6,10 @@ namespace BlazorDeviceControl.Pages.ItemComponents;
 public partial class RazorItemDates : LayoutComponentBase
 {
 	#region Public and private fields, properties, constructor
-    [Parameter] public SqlTableBase? SqlItem { get; set; }
-	private string CreateDt =>  SqlItem == null ? "" : StrUtils.FormatDtRus(SqlItem.CreateDt, true);
-	private string ChangeDt =>  SqlItem == null ? "" : StrUtils.FormatDtRus(SqlItem.ChangeDt, true);
     
-	#endregion
+    [Parameter] public SqlTableBase SqlItem { get; set; }
+
+    #endregion
 
 	#region Public and private methods
 

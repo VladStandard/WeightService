@@ -10,9 +10,9 @@
 <RazorItemReload TItem="@WorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@WorkShopModel" SqlItem="@SqlItem"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td colspan="3">
@@ -36,10 +36,9 @@
       </MudSelectLocal>
     </td>
   </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
-
-<RazorItemDates SqlItem="@SqlItem"/>
 
 <RazorItemActions
   TItem="@WorkShopModel"

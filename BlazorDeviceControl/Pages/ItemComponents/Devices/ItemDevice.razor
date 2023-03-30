@@ -10,7 +10,7 @@
 <RazorItemReload TItem="@DeviceModel" Title="@LocaleCore.DeviceControl.ItemHost" />
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
   <RazorItemTableBody TItem="@DeviceModel" SqlItem="@SqlItem"/>
   <tr>
@@ -132,8 +132,6 @@
   </tr>
   </tbody>
 </MudSimpleTable>
-
-<RazorItemDates SqlItem="@SqlItem"/>
 
 <RazorItemActions
   TItem="@DeviceModel"

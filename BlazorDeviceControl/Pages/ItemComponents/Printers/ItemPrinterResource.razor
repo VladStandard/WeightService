@@ -11,9 +11,9 @@
 <RazorItemReload TItem="@PrinterResourceFkModel" Title="@LocaleCore.Print.Resource"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PrinterResourceFkModel" SqlItem="@SqlItem"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Print.Name</td>
     <td>
@@ -43,7 +43,8 @@
   </tbody>
 </MudSimpleTable>
 
-<RazorItemDates SqlItem="@SqlItem"/>
+<RazorItemDates SqlItem="@SqlItemCast"/>
+
 <RazorItemActions
   TItem="@PrinterResourceFkModel"
   ButtonSettings="@ButtonSettings"
