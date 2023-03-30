@@ -4,8 +4,26 @@
 
 namespace WsWebApi.Helpers;
 
-public sealed partial class WsControllerHelper
+internal class WsPlusGroupsController : WsWebControllerBase
 {
+    #region Design pattern "Lazy Singleton"
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private static WsPlusGroupsController _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public static WsPlusGroupsController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+    #endregion
+
+    #region Public and private fields, properties, constructor
+
+    public WsPlusGroupsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    {
+        //
+    }
+
+    #endregion
+
     #region Public and private methods
 
     private List<PluGroupModel> GetXmlPluGroupsList(XElement xml) =>
@@ -26,7 +44,7 @@ public sealed partial class WsControllerHelper
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
         });
 
-    private void AddResponse1cPluGroupsFks(WsResponse1cShortModel response, List<PluGroupFkModel> itemsDb, 
+    private void AddResponse1cPluGroupsFks(WsResponse1cShortModel response, List<PluGroupFkModel> itemsDb,
         PluGroupModel pluGroupXml)
     {
         try
@@ -34,20 +52,20 @@ public sealed partial class WsControllerHelper
             if (Equals(pluGroupXml.ParentGuid, Guid.Empty)) return;
 
             PluGroupModel parent = new() { IdentityValueUid = pluGroupXml.ParentGuid };
-            parent = DataContext.GetItemNotNullable<PluGroupModel>(parent.Identity);
+            parent = WsDataContext.GetItemNotNullable<PluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
                 AddResponse1cException(response, pluGroupXml.Uid1c, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
                 return;
             }
             PluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
-            pluGroup = DataContext.GetItemNotNullable<PluGroupModel>(pluGroup.Identity);
+            pluGroup = WsDataContext.GetItemNotNullable<PluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
             {
                 AddResponse1cException(response, pluGroupXml.Uid1c, new($"PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
                 return;
             }
-            
+
             PluGroupFkModel itemGroupFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
@@ -57,7 +75,7 @@ public sealed partial class WsControllerHelper
             };
 
             // Find by Identity -> Update exists.
-            PluGroupFkModel? itemDb = itemsDb.Find(x => 
+            PluGroupFkModel? itemDb = itemsDb.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
             if (UpdateItemDb(response, pluGroupXml.Uid1c, itemGroupFk, itemDb, false)) return;
@@ -107,8 +125,8 @@ public sealed partial class WsControllerHelper
     public ContentResult NewResponse1cPluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<PluGroupModel> itemsDb = DataContext.GetListNotNullable<PluGroupModel>(SqlCrudConfig);
-            List<PluGroupFkModel> pluGroupsFksDb = DataContext.GetListNotNullable<PluGroupFkModel>(SqlCrudConfig);
+            List<PluGroupModel> itemsDb = WsDataContext.GetListNotNullable<PluGroupModel>(SqlCrudConfig);
+            List<PluGroupFkModel> pluGroupsFksDb = WsDataContext.GetListNotNullable<PluGroupFkModel>(SqlCrudConfig);
             List<PluGroupModel> itemsXml = GetXmlPluGroupsList(xml);
             foreach (PluGroupModel itemXml in itemsXml)
             {

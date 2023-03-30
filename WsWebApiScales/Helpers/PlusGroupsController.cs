@@ -1,16 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalization.Utils;
-using WsStorage.Enums;
-using WsWebApi.Helpers;
-
-namespace WsWebApiScales.Controllers;
+namespace WsWebApiScales.Helpers;
 
 /// <summary>
-/// Nomenclature Group controller.
+/// Nomenclatures groups controller.
 /// </summary>
-public sealed class PluGroupController : WsWebControllerBase
+internal sealed class PlusGroupsController : WsPlusGroupsController
 {
     #region Public and private fields and properties
 
@@ -18,7 +14,7 @@ public sealed class PluGroupController : WsWebControllerBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public PluGroupController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public PlusGroupsController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -32,20 +28,18 @@ public sealed class PluGroupController : WsWebControllerBase
     [HttpPost]
     [Route(UrlWebService.SendNomenclaturesGroups)]
     public ContentResult SendPluGroups([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
-        [FromQuery(Name = "is_debug")] bool isDebug = false,
+        [FromQuery(Name = "debug")] bool isDebug = false,
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
-                ControllerHelp.GetContentResult(() => ControllerHelp
-                        .NewResponse1cIsNotFound(version, format, isDebug, SessionFactory),
+                GetContentResult(() => NewResponse1cIsNotFound(version, format, isDebug, SessionFactory),
                     format),
-            _ => ControllerHelp.GetContentResult(() => ControllerHelp
-                .NewResponse1cPluGroups(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => NewResponse1cPluGroups(xml, format, isDebug, SessionFactory), format)
         };
-        ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendNomenclaturesGroups,
+        LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendNomenclaturesGroups,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }

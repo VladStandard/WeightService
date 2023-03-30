@@ -8,7 +8,7 @@ namespace WsWebApi.Helpers;
 /// <summary>
 /// Test controller.
 /// </summary>
-public sealed class WsTestControllerV1 : WsWebControllerBase
+internal sealed class WsTestControllerV1 : WsWebControllerBase
 {
     #region Public and private fields and properties
 
@@ -29,7 +29,7 @@ public sealed class WsTestControllerV1 : WsWebControllerBase
     [HttpGet]
     [Route(UrlWebService.GetInfoV1)]
     public ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
-        ControllerHelp.GetContentResult(() =>
+        GetContentResult(() =>
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
 
@@ -55,38 +55,37 @@ public sealed class WsTestControllerV1 : WsWebControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route(UrlWebService.GetExceptionV1)]
-    public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "is_debug")] bool isDebug = false) =>
-        ControllerHelp.GetContentResult(() =>
+    public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false) =>
+        GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetException);
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetException);
             return DataFormatUtils.GetContentResult<WsSqlSimpleV1Model>(new WsSqlSimpleV1Model(response, isDebug), format, HttpStatusCode.OK);
         }, format);
 
     [AllowAnonymous]
     [HttpGet]
     [Route(UrlWebService.GetSimpleV1)]
-    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "is_debug")] bool isDebug = false,
-        int version = 0)
-    {
-        return ControllerHelp.GetContentResult(() =>
+    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false,
+        int version = 0) =>
+        GetContentResult(() =>
         {
             switch (version)
             {
                 case 1:
-                    string response1 = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV1);
+                    string response1 = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV1);
                     return DataFormatUtils.GetContentResult<WsSqlSimpleV1Model>(
                         DataFormatUtils.DeserializeFromXml<WsSqlSimpleV1Model>(response1), format, HttpStatusCode.OK);
                 case 2:
-                    string response2 = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV2);
+                    string response2 = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV2);
                     return DataFormatUtils.GetContentResult<WsSqlSimpleV2Model>(
                         DataFormatUtils.DeserializeFromXml<WsSqlSimpleV2Model>(response2), format, HttpStatusCode.OK);
                 case 3:
-                    string response3 = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV3);
+                    string response3 = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV3);
                     return DataFormatUtils.GetContentResult<WsSqlSimpleV3Model>(
                         DataFormatUtils.DeserializeFromXml<WsSqlSimpleV3Model>(response3),
                         format, HttpStatusCode.OK);
                 case 4:
-                    string response4 = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV4);
+                    string response4 = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV4);
                     return DataFormatUtils.GetContentResult<WsSqlSimpleV4Model>(
                         DataFormatUtils.DeserializeFromXml<WsSqlSimpleV4Model>(response4),
                         format, HttpStatusCode.OK);
@@ -95,7 +94,6 @@ public sealed class WsTestControllerV1 : WsWebControllerBase
                 new WsSqlSimpleV1Model("Simple method from C Sharp", isDebug),
                 format, HttpStatusCode.OK);
         }, format);
-    }
 
     #endregion
 }

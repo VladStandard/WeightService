@@ -4,8 +4,107 @@
 
 namespace WsWebApi.Helpers;
 
-public sealed partial class WsControllerHelper
+internal class WsPlusController : WsWebControllerBase
 {
+    #region Design pattern "Lazy Singleton"
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private static WsPlusController _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public static WsPlusController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+    #endregion
+
+    #region Public and private fields, properties, constructor
+
+    public WsPlusController(ISessionFactory sessionFactory) : base(sessionFactory)
+    {
+        //
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    private bool UpdateBoxDb(WsResponse1cShortModel response, PluModel pluXml, BoxModel? boxDb, bool isCounter)
+    {
+        if (boxDb is null || boxDb.IsNew) return false;
+        boxDb.UpdateProperties(pluXml);
+        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(boxDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(pluXml.Uid1c));
+        }
+        else
+            AddResponse1cException(response, pluXml.Uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
+
+    internal bool UpdateBundleDb(WsResponse1cShortModel response, PluModel pluXml, BundleModel? bundleDb, bool isCounter)
+    {
+        if (bundleDb is null || bundleDb.IsNew) return false;
+        bundleDb.UpdateProperties(pluXml);
+        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(bundleDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(pluXml.Uid1c));
+        }
+        else
+            AddResponse1cException(response, pluXml.Uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
+
+    internal bool UpdateClipDb(WsResponse1cShortModel response, PluModel pluXml, ClipModel? clipDb, bool isCounter)
+    {
+        if (clipDb is null || clipDb.IsNew) return false;
+        clipDb.UpdateProperties(pluXml);
+        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(clipDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(pluXml.Uid1c));
+        }
+        else
+            AddResponse1cException(response, pluXml.Uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
+
+    /// <summary>
+    /// Update the PLU record in the database.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluXml"></param>
+    /// <param name="pluDb"></param>
+    /// <param name="isCounter"></param>
+    internal bool UpdatePluDb(WsResponse1cShortModel response, PluModel pluXml, PluModel? pluDb, bool isCounter)
+    {
+        if (pluDb is null || pluDb.IsNew) return false;
+        pluDb.Identity = pluXml.Identity;
+        pluDb.UpdateProperties(pluXml);
+        // Native update -> Be careful, good luck.
+        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.ExecQueryNative(
+            SqlQueries.UpdatePlu, new List<SqlParameter>
+            {
+                new("uid", pluXml.IdentityValueUid),
+                new("code", pluDb.Code),
+                new("number", pluDb.Number),
+            });
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(pluXml.IdentityValueUid));
+        }
+        else
+        {
+            AddResponse1cException(response, pluXml.IdentityValueUid, dbUpdate.Exception);
+        }
+        return dbUpdate.IsOk;
+    }
+
+    #endregion
+
     #region Public and private methods
 
     /// <summary>
@@ -13,7 +112,7 @@ public sealed partial class WsControllerHelper
     /// </summary>
     /// <param name="xml"></param>
     /// <returns></returns>
-    private List<PluModel> GetXmlPluList(XElement xml) =>
+    internal List<PluModel> GetXmlPluList(XElement xml) =>
         GetNodesListCore<PluModel>(xml, LocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
         {
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -45,7 +144,7 @@ public sealed partial class WsControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.IdentityValueUid, Guid.Empty))
             {
-                AddResponse1cException(response, pluXml.Uid1c, 
+                AddResponse1cException(response, pluXml.Uid1c,
                     $"{LocaleCore.WebService.IsEmpty} {LocaleCore.WebService.FieldGuid}!", "");
                 return;
             }
@@ -121,7 +220,7 @@ public sealed partial class WsControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.BoxTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.BoxTypeName))
             {
-                AddResponse1cException(response, pluXml.Uid1c, 
+                AddResponse1cException(response, pluXml.Uid1c,
                     $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.BoxTypeGuid)}!", "");
                 return;
             }
@@ -156,7 +255,7 @@ public sealed partial class WsControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.PackageTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.PackageTypeName))
             {
-                AddResponse1cException(response, pluXml.Uid1c, 
+                AddResponse1cException(response, pluXml.Uid1c,
                     $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.PackageTypeGuid)}!", "");
                 return;
             }
@@ -262,7 +361,7 @@ public sealed partial class WsControllerHelper
             // Check Uid1C.
             if (Equals(pluXml.ClipTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.ClipTypeName))
             {
-                AddResponse1cException(response, pluXml.Uid1c, 
+                AddResponse1cException(response, pluXml.Uid1c,
                     $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.ClipTypeGuid)}!", "");
                 return;
             }
@@ -331,7 +430,7 @@ public sealed partial class WsControllerHelper
         {
             if (pluBundleFk.IsNotExists)
             {
-                List<PluBundleFkModel> pluBundleFks =  DataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
+                List<PluBundleFkModel> pluBundleFks = WsDataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
                 if (pluBundleFks.Any())
                 {
                     pluBundleFk = pluBundleFks.Find(item => Equals(item.Plu.Number, pluXml.Number)) ?? new();
@@ -403,15 +502,15 @@ public sealed partial class WsControllerHelper
     public ContentResult NewResponse1cPlus(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<PluModel> plusDb = DataContext.GetListNotNullablePlus(SqlCrudConfig);
-            List<PluFkModel> pluFksDb = DataContext.GetListNotNullablePlusFks(SqlCrudConfig);
-            List<BoxModel> boxesDb = DataContext.GetListNotNullableBoxes(SqlCrudConfig);
-            List<BundleModel> bundlesDb = DataContext.GetListNotNullableBundles(SqlCrudConfig);
-            List<PluBundleFkModel> pluBundlesFksDb = DataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
-            List<PluBrandFkModel> pluBrandsFksDb = DataContext.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
-            List<ClipModel> clipsDb = DataContext.GetListNotNullableClips(SqlCrudConfig);
-            List<PluClipFkModel> pluClipsFksDb = DataContext.GetListNotNullablePlusClipsFks(SqlCrudConfig);
-            List<PluNestingFkModel> pluNestingFksDb = DataContext.GetListNotNullablePlusNestingFks(
+            List<PluModel> plusDb = WsDataContext.GetListNotNullablePlus(SqlCrudConfig);
+            List<PluFkModel> pluFksDb = WsDataContext.GetListNotNullablePlusFks(SqlCrudConfig);
+            List<BoxModel> boxesDb = WsDataContext.GetListNotNullableBoxes(SqlCrudConfig);
+            List<BundleModel> bundlesDb = WsDataContext.GetListNotNullableBundles(SqlCrudConfig);
+            List<PluBundleFkModel> pluBundlesFksDb = WsDataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
+            List<PluBrandFkModel> pluBrandsFksDb = WsDataContext.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
+            List<ClipModel> clipsDb = WsDataContext.GetListNotNullableClips(SqlCrudConfig);
+            List<PluClipFkModel> pluClipsFksDb = WsDataContext.GetListNotNullablePlusClipsFks(SqlCrudConfig);
+            List<PluNestingFkModel> pluNestingFksDb = WsDataContext.GetListNotNullablePlusNestingFks(
                 new(DataCore.Sql.Core.Utils.SqlQueries.DbScales.Tables.PluNestingFks.GetList(false), false));
             List<PluModel> plusXml = GetXmlPluList(xml);
             foreach (PluModel pluXml in plusXml)
@@ -444,7 +543,7 @@ public sealed partial class WsControllerHelper
                         AddResponse1cPlusNestingFks(response, pluBundleFk, pluNestingFksDb, pluXml);
                 }
                 if (pluXml.ParseResult.IsStatusError)
-                    AddResponse1cException(response, pluXml.Uid1c, 
+                    AddResponse1cException(response, pluXml.Uid1c,
                         pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);

@@ -4,8 +4,26 @@
 
 namespace WsWebApi.Helpers;
 
-public sealed partial class WsControllerHelper
+internal class WsBrandsController : WsWebControllerBase
 {
+    #region Design pattern "Lazy Singleton"
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private static WsBrandsController _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public static WsBrandsController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+    #endregion
+
+    #region Public and private fields, properties, constructor
+
+    public WsBrandsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    {
+        //
+    }
+
+    #endregion
+
     #region Public and private methods
 
     private List<BrandModel> GetXmlBrandList(XElement xml) =>
@@ -49,7 +67,7 @@ public sealed partial class WsControllerHelper
     public ContentResult NewResponse1cBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<BrandModel> itemsDb = DataContext.GetListNotNullable<BrandModel>(SqlCrudConfig);
+            List<BrandModel> itemsDb = WsDataContext.GetListNotNullable<BrandModel>(SqlCrudConfig);
             List<BrandModel> itemsXml = GetXmlBrandList(xml);
             foreach (BrandModel itemXml in itemsXml)
             {
@@ -64,6 +82,21 @@ public sealed partial class WsControllerHelper
                 }
             }
         }, formatString, isDebug, sessionFactory);
+
+    private bool UpdateBrandDb(WsResponse1cShortModel response, BrandModel brandXml, BrandModel? brandDb, bool isCounter)
+    {
+        if (brandDb is null || brandDb.IsNew) return false;
+        brandDb.UpdateProperties(brandXml);
+        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(brandDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(brandXml.Uid1c));
+        }
+        else
+            AddResponse1cException(response, brandXml.Uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
 
     #endregion
 }

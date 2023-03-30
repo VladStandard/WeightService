@@ -3,7 +3,7 @@
 
 namespace WsWebApi.Utils;
 
-public static class WsSqlQueriesBarcodes
+internal static class WsSqlQueriesBarcodes
 {
     public static string FindBottom => @"
 SELECT

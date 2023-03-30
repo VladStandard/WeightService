@@ -5,7 +5,7 @@
 namespace WsWebApi.Models.WebResponses;
 
 [XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
-public class WsResponse1CModel : WsResponseDebugInfoModel
+internal sealed class WsResponse1CModel : WsResponseDebugInfoModel
 {
     #region Public and private fields and properties
 

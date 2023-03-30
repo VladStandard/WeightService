@@ -4,8 +4,26 @@
 
 namespace WsWebApi.Helpers;
 
-public sealed partial class WsControllerHelper
+internal class WsPlusCharacteristicsController : WsWebControllerBase
 {
+    #region Design pattern "Lazy Singleton"
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private static WsPlusCharacteristicsController _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public static WsPlusCharacteristicsController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+    #endregion
+
+    #region Public and private fields, properties, constructor
+
+    public WsPlusCharacteristicsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    {
+        //
+    }
+
+    #endregion
+
     #region Public and private methods
 
     private List<PluCharacteristicModel> GetXmlPluCharacteristicsList(XElement xml) =>
@@ -18,7 +36,7 @@ public sealed partial class WsControllerHelper
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "NomenclatureGuid");
         });
 
-    private void AddResponse1cPluCharacteristics(WsResponse1cShortModel response, List<PluCharacteristicModel> pluCharacteristicsDb, 
+    private void AddResponse1cPluCharacteristics(WsResponse1cShortModel response, List<PluCharacteristicModel> pluCharacteristicsDb,
         PluCharacteristicModel pluCharacteristicXml)
     {
         try
@@ -40,7 +58,7 @@ public sealed partial class WsControllerHelper
         }
     }
 
-    private void AddResponse1cPluCharacteristicsFks(WsResponse1cShortModel response, List<PluCharacteristicsFkModel> pluCharacteristicsFksDb, 
+    private void AddResponse1cPluCharacteristicsFks(WsResponse1cShortModel response, List<PluCharacteristicsFkModel> pluCharacteristicsFksDb,
         PluCharacteristicModel pluCharacteristicXml)
     {
         try
@@ -82,8 +100,8 @@ public sealed partial class WsControllerHelper
     public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<PluCharacteristicModel> pluCharacteristicsDb = DataContext.GetListNotNullable<PluCharacteristicModel>(SqlCrudConfig);
-            List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = DataContext.GetListNotNullable<PluCharacteristicsFkModel>(SqlCrudConfig);
+            List<PluCharacteristicModel> pluCharacteristicsDb = WsDataContext.GetListNotNullable<PluCharacteristicModel>(SqlCrudConfig);
+            List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = WsDataContext.GetListNotNullable<PluCharacteristicsFkModel>(SqlCrudConfig);
             List<PluCharacteristicModel> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (PluCharacteristicModel pluCharacteristicXml in pluCharacteristicsXml)
             {
@@ -92,7 +110,7 @@ public sealed partial class WsControllerHelper
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPluCharacteristicsFks(response, pluCharacteristicsFksDb, pluCharacteristicXml);
                 if (pluCharacteristicXml.ParseResult.IsStatusError)
-                    AddResponse1cException(response, pluCharacteristicXml.Uid1c, 
+                    AddResponse1cException(response, pluCharacteristicXml.Uid1c,
                         pluCharacteristicXml.ParseResult.Exception, pluCharacteristicXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);

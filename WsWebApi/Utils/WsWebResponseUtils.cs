@@ -3,7 +3,7 @@
 
 namespace WsWebApi.Utils;
 
-public static class WsWebResponseUtils
+internal static class WsWebResponseUtils
 {
     #region Public and private fields, properties, constructor
 
