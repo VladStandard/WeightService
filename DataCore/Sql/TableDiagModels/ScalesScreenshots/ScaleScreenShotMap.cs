@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableDiagModels.ScalesScreenshots;
 /// <summary>
 /// Table map "diag.SCALES_SCREENSHOTS".
 /// </summary>
-public class ScaleScreenShotMap : ClassMap<ScaleScreenShotModel>
+public sealed class ScaleScreenShotMap : ClassMap<ScaleScreenShotModel>
 {
     /// <summary>
     /// Constructor.

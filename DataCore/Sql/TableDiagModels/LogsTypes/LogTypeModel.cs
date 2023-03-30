@@ -3,7 +3,7 @@
 
 using DataCore.Sql.Core.Enums;
 
-namespace DataCore.Sql.TableScaleModels.LogsTypes;
+namespace DataCore.Sql.TableDiagModels.LogsTypes;
 
 /// <summary>
 /// Table "LOG_TYPES".

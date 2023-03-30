@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.Printers;
 /// <summary>
 /// Table validation "ZebraPrinter".
 /// </summary>
-public class PrinterValidator : SqlTableValidator<PrinterModel>
+public sealed class PrinterValidator : SqlTableValidator<PrinterModel>
 {
     /// <summary>
     /// Constructor.

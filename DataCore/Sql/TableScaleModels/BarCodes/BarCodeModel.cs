@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.TableScaleModels.PlusLabels;
-using System;
 
 namespace DataCore.Sql.TableScaleModels.BarCodes;
 

@@ -2,8 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Protocols;
-using DataCore.Sql.TableScaleModels.Logs;
-using DataCore.Sql.TableScaleModels.LogsTypes;
+using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsTypes;
 
 namespace DataCore.Sql.Core.Helpers;
 

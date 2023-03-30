@@ -3,7 +3,6 @@
 global using AssertCoreTests;
 global using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 global using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-global using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
 global using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 global using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 global using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
@@ -21,8 +20,6 @@ global using DataCore.Sql.TableScaleModels.Clips;
 global using DataCore.Sql.TableScaleModels.Contragents;
 global using DataCore.Sql.TableScaleModels.Devices;
 global using DataCore.Sql.TableScaleModels.DeviceTypes;
-global using DataCore.Sql.TableScaleModels.Logs;
-global using DataCore.Sql.TableScaleModels.LogsTypes;
 global using DataCore.Sql.TableScaleModels.Orders;
 global using DataCore.Sql.TableScaleModels.OrdersWeighings;
 global using DataCore.Sql.TableScaleModels.Organizations;

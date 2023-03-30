@@ -3,12 +3,12 @@
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.TableDiagModels.LogsTypes;
+using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.Devices;
-using DataCore.Sql.TableScaleModels.LogsTypes;
-using DataCore.Sql.TableScaleModels.LogsWebs;
 
-namespace DataCore.Sql.TableScaleFkModels.LogsWebsFks;
+namespace DataCore.Sql.TableDiagModels.LogsWebsFks;
 
 /// <summary>
 /// Table "LOGS_WEBS_FK".

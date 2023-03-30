@@ -1,14 +1,14 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Utils;
 
-namespace DataCore.Sql.TableScaleModels.LogsTypes;
+namespace DataCore.Sql.TableDiagModels.LogsTypes;
 
 /// <summary>
 /// Table map "LOG_TYPES".
 /// </summary>
-public class LogTypeMap : ClassMap<LogTypeModel>
+public sealed class LogTypeMap : ClassMap<LogTypeModel>
 {
     /// <summary>
     /// Constructor.

@@ -1,22 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCoreTests.TableScaleModels.LogsTypes;
+using DataCore.Sql.TableDiagModels.LogsWebs;
+
+namespace WsStorageCoreTests.TableDiagModels.LogsWebs;
 
 [TestFixture]
-internal class LogTypeValidatorTests
+internal class LogWebValidatorTests
 {
     [Test]
     public void Model_Validate_IsFalse()
     {
-        LogTypeModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<LogTypeModel>(false);
+        LogWebModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<LogWebModel>(false);
         DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        LogTypeModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<LogTypeModel>(true);
+        LogWebModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<LogWebModel>(true);
         DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

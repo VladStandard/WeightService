@@ -3,7 +3,7 @@
 
 using DataCore.Sql.Core.Enums;
 
-namespace DataCore.Sql.TableScaleModels.LogsWebs;
+namespace DataCore.Sql.TableDiagModels.LogsWebs;
 
 /// <summary>
 /// Table "LOGS_WEBS".

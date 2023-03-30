@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 /// <summary>
 /// Table validation "PLUS_STORAGE_METHODS_FK".
 /// </summary>
-public class PluStorageMethodFkValidator : SqlTableValidator<PluStorageMethodFkModel>
+public sealed class PluStorageMethodFkValidator : SqlTableValidator<PluStorageMethodFkModel>
 {
     /// <summary>
     /// Constructor.

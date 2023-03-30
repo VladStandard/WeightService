@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.PlusStorageMethods;
 /// <summary>
 /// Table map "PLUS_STORAGE_METHODS".
 /// </summary>
-public class PluStorageMethodMap : ClassMap<PluStorageMethodModel>
+public sealed class PluStorageMethodMap : ClassMap<PluStorageMethodModel>
 {
     /// <summary>
     /// Constructor.

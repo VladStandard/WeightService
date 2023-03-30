@@ -1,17 +1,17 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableDiagModels.LogsTypes;
+using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.Devices;
-using DataCore.Sql.TableScaleModels.LogsTypes;
-using DataCore.Sql.TableScaleModels.LogsWebs;
 
-namespace DataCore.Sql.TableScaleFkModels.LogsWebsFks;
+namespace DataCore.Sql.TableDiagModels.LogsWebsFks;
 
 /// <summary>
 /// Table validation "LOGS_WEBS_FK".
 /// </summary>
-public class LogWebFkValidator : SqlTableValidator<LogWebFkModel>
+public sealed class LogWebFkValidator : SqlTableValidator<LogWebFkModel>
 {
     /// <summary>
     /// Constructor.

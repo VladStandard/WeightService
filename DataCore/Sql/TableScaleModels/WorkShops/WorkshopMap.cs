@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.WorkShops;
 /// <summary>
 /// Table map "WorkShop".
 /// </summary>
-public class WorkShopMap : ClassMap<WorkShopModel>
+public sealed class WorkShopMap : ClassMap<WorkShopModel>
 {
     /// <summary>
     /// Constructor.

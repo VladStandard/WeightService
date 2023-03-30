@@ -3,12 +3,12 @@
 
 using DataCore.Sql.Core.Utils;
 
-namespace DataCore.Sql.TableScaleFkModels.LogsWebsFks;
+namespace DataCore.Sql.TableDiagModels.LogsWebsFks;
 
 /// <summary>
 /// Table map "LOGS_WEBS_FK".
 /// </summary>
-public class LogWebFkMap : ClassMap<LogWebFkModel>
+public sealed class LogWebFkMap : ClassMap<LogWebFkModel>
 {
     /// <summary>
     /// Constructor.

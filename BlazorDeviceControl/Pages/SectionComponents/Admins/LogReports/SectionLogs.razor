@@ -1,9 +1,9 @@
-﻿@page "/section/logs"
+@page "/section/logs"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @inherits RazorComponentSectionBase<LogQuickModel>
 @using DataCore.Sql.Xml
-@using DataCore.Sql.TableScaleModels.LogsTypes
 @using BlazorDeviceControl.Pages.CustomComponents
+@using DataCore.Sql.TableDiagModels.LogsTypes
 
 <SectionReload
   TItem="@LogQuickModel"

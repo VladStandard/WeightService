@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 /// <summary>
 /// Table map "PLUS".
 /// </summary>
-public class PluMap : ClassMap<PluModel>
+public sealed class PluMap : ClassMap<PluModel>
 {
     /// <summary>
     /// Constructor.

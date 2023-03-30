@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -13,8 +15,6 @@ using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Contragents;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
-using DataCore.Sql.TableScaleModels.Logs;
-using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;

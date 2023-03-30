@@ -1,9 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleModels.LogsWebs;
+using DataCore.Sql.TableDiagModels.LogsWebs;
 
-namespace WsStorageCoreTests.TableScaleModels.LogsWebs;
+namespace WsStorageCoreTests.TableDiagModels.LogsWebs;
 
 [TestFixture]
 internal class LogWebModelTests

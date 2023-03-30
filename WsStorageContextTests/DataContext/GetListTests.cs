@@ -4,11 +4,14 @@
 using DataCore.Enums;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Models;
+using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsTypes;
+using DataCore.Sql.TableDiagModels.LogsWebs;
+using DataCore.Sql.TableDiagModels.LogsWebsFks;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
-using DataCore.Sql.TableScaleModels.LogsWebs;
 using DataCore.Sql.TableScaleModels.PlusStorageMethods;
 
 namespace WsStorageContextTests.DataContext;

@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleModels.BarCodes;
-using DataCore.Sql.TableScaleModels.PlusLabels;
 
 namespace DataCore.Sql.Helpers;
 

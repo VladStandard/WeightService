@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 /// <summary>
 /// Table map "PLUS_STORAGE_METHODS_FK".
 /// </summary>
-public class PluStorageMethodFkMap : ClassMap<PluStorageMethodFkModel>
+public sealed class PluStorageMethodFkMap : ClassMap<PluStorageMethodFkModel>
 {
     /// <summary>
     /// Constructor.

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels.Brands;
@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 /// <summary>
 /// Table validation "PLUS_BRANDS_FK".
 /// </summary>
-public class PluBrandFkValidator : SqlTableValidator<PluBrandFkModel>
+public sealed class PluBrandFkValidator : SqlTableValidator<PluBrandFkModel>
 {
     /// <summary>
     /// Constructor.

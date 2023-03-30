@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.PlusStorageMethods;
 /// <summary>
 /// Table validation "PLUS_STORAGE_METHODS".
 /// </summary>
-public class PluStorageMethodValidator : SqlTableValidator<PluStorageMethodModel>
+public sealed class PluStorageMethodValidator : SqlTableValidator<PluStorageMethodModel>
 {
     /// <summary>
     /// Constructor.

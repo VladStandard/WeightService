@@ -3,12 +3,12 @@
 
 using DataCore.Sql.Core.Utils;
 
-namespace DataCore.Sql.TableScaleModels.LogsWebs;
+namespace DataCore.Sql.TableDiagModels.LogsWebs;
 
 /// <summary>
 /// Table map "LOGS_WEBS".
 /// </summary>
-public class LogWebMap : ClassMap<LogWebModel>
+public sealed class LogWebMap : ClassMap<LogWebModel>
 {
     /// <summary>
     /// Constructor.

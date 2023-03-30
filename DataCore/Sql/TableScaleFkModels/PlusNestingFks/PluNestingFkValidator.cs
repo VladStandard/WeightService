@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 /// <summary>
 /// Table validation "PLUS_NESTING_FK".
 /// </summary>
-public class PluNestingFkValidator : SqlTableValidator<PluNestingFkModel>
+public sealed class PluNestingFkValidator : SqlTableValidator<PluNestingFkModel>
 {
     public PluNestingFkValidator() : base(true, true)
     {

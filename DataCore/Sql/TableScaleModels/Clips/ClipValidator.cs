@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Sql.TableScaleModels.Clips;
@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels.Clips;
 /// <summary>
 /// Table validation "CLIPS".
 /// </summary>
-public class ClipValidator: SqlTableValidator<ClipModel>
+public sealed class ClipValidator : SqlTableValidator<ClipModel>
 {
     /// <summary>
     /// Constructor.

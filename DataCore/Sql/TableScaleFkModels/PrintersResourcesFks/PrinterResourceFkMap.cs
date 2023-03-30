@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 /// <summary>
 /// Table map "ZebraPrinterResourceRef".
 /// </summary>
-public class PrinterResourceFkMap : ClassMap<PrinterResourceFkModel>
+public sealed class PrinterResourceFkMap : ClassMap<PrinterResourceFkModel>
 {
     /// <summary>
     /// Constructor.
