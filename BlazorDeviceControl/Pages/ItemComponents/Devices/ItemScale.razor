@@ -14,156 +14,92 @@
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@ScaleModel" SqlItem="@SqlItem"/>
-  <tr>
-    <td>@LocaleCore.Table.Description</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Description"/>
-    </td>
-    <td>@LocaleCore.Table.DeviceComPort</td>
-    <td>
-      <MudSelectLocal @bind-Value="@SqlItemCast.DeviceComPort">
-        @foreach (TypeModel<string> item in ComPorts)
-        {
-          <MudSelectItem Value=@item.Value>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemHost, Device, Device.IdentityValueUid)"
-                  Text="@LocaleCore.Table.Host"/>
-    </td>
-    <td>
-      <MudSelectLocal @bind-Value="@Device">
-        @foreach (DeviceModel item in DataContext.Devices)
-        {
-          <MudSelectItem Value=@item>@item.Name | @item.Ipv4</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
-    <td>@LocaleCore.Table.DeviceReceiveTimeout</td>
-    <td>
-      <MudNumericLocal @bind-Value="@SqlItemCast.DeviceReceiveTimeout" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterMain, SqlItemCast.PrinterMain?.IdentityValueId)"
-                  Text="@LocaleCore.Print.NameMain"/>
-    </td>
-    <td>
-      <MudSelectLocal @bind-Value="@SqlItemCast.PrinterMain">
-        @foreach (PrinterModel item in DataContext.Printers)
-        {
-          <MudSelectItem Value=@item>@item.Name | @item.Ip </MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
-    <td>@LocaleCore.Table.DeviceSendTimeout</td>
-    <td>
-      <MudNumericLocal @bind-Value="@SqlItemCast.DeviceSendTimeout"/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <RadzenLink
-        Style="width: 100%; "
-        Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterShipping, SqlItemCast.PrinterShipping?.IdentityValueId)"
-        Text="@LocaleCore.Print.NameShipping"/>
-    </td>
-    <td>
-      <MudSelectLocal @bind-Value="@SqlItemCast.PrinterShipping">
-        @foreach (PrinterModel item in DataContext.Printers)
-        {
-          <MudSelectItem Value=@item>@item.Name | @item.Ip </MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
-    <td>@LocaleCore.Table.IsShipping</td>
-    <td>
-      <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@SqlItemCast.IsShipping"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.IsShippingLength</td>
-    <td>
-      <MudNumericLocal @bind-Value="@SqlItemCast.ShippingLength"/>
-    </td>
-    <td>@LocaleCore.Table.IsKneading</td>
-    <td>
-      <RadzenCheckBox
-        Disabled="false"
-        TValue="bool" @bind-Value="@SqlItemCast.IsKneading"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.DeviceNumber</td>
-    <td>
-      <RadzenTemplateForm TItem="@ScaleModel" Data="@SqlItemCast">
-        <RadzenNumeric
-          Style="width: 100%; text-align: center; display: block;" Disabled="false"
-          Name="fieldNumber"
-          TValue="int" @bind-Value="@SqlItemCast.Number"/>
-        <RadzenNumericRangeValidator
-          Component="fieldNumber"
-          Min="1" Max="99999"
-          Text="@LocaleCore.Strings.InputControlCheck(1, 99999)" Popup="true" Style="position: absolute;"/>
-      </RadzenTemplateForm>
-    </td>
-    <td>@LocaleCore.Table.IsOrder</td>
-    <td>
-      <RadzenCheckBox Disabled="false" @bind-Value="@SqlItemCast.IsOrder"/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <RadzenLink
-        Style="width: 100%; "
-        Path="@(SqlItemCast.WorkShop is null ? string.Empty : GetRouteItemPath(LocaleCore.DeviceControl.RouteItemWorkShop, SqlItemCast.WorkShop, SqlItemCast.WorkShop.IdentityValueId))"
-        Text="@LocaleCore.Table.WorkShopName"/>
-    </td>
-    <td>
-      <MudSelectLocal @bind-Value="@SqlItemCast.WorkShop">
-        @foreach (WorkShopModel item in DataContext.WorkShops)
-        {
-          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
-    <td>
-      <RadzenLink
-        Style="width: 100%; "
-        Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, SqlItemCast.WorkShop?.ProductionFacility, SqlItemCast.WorkShop?.ProductionFacility.IdentityValueId)"
-        Text="@LocaleCore.Table.ProductionFacility"/>
-    </td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; background-color: lightgray;" ReadOnly="true"
-        Value="@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldEmpty)"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.ScaleFactor</td>
-    <td>
-      <MudNumericLocal @bind-Value="@SqlItemCast.ScaleFactor"/>
-    </td>
-    <td>@LocaleCore.Table.Counter</td>
-    <td>
-      <RadzenTemplateForm TItem="@ScaleModel" Data="@SqlItemCast">
-        <RadzenNumeric
-          Style="width: 100%; text-align: center; display: block;" Disabled="false"
-          Name="fieldCounter" TValue="int" @bind-Value="@SqlItemCast.Counter"/>
-        <RadzenNumericRangeValidator
-          Component="fieldCounter"
-          Min="1" Max="99999"
-          Text="@LocaleCore.Strings.InputControlCheck(1, 99999999)" Popup="true" Style="position: absolute;"/>
-      </RadzenTemplateForm>
-    </td>
-  </tr>
+    <RazorItemTableBody SqlItem="@SqlItemCast"/>
+    <tr>
+      <td>@LocaleCore.Table.Name</td>
+      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Description"/></td>
+
+      <td>@LocaleCore.Table.IsKneading</td>
+      <td><RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@SqlItemCast.IsKneading"/></td>
+    </tr>
+    <tr>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDevice, Device)" Text="@LocaleCore.Table.Host"/>
+      </td>
+      <td>
+        <RzDropDownLocal @bind-Value="@Device" Data="@DataContext.Devices">
+          <Template>
+            @($"{(context as DeviceModel)?.Name} | {(context as DeviceModel)?.Ipv4}")
+          </Template>
+        </RzDropDownLocal>
+      </td>
+      <td>@LocaleCore.Table.IsOrder</td>
+      <td><RadzenCheckBox Disabled="false" @bind-Value="@SqlItemCast.IsOrder"/></td>
+    </tr>
+    <tr>
+        <td>
+          <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterShipping)"
+                      Text="@LocaleCore.Print.NameShipping"/>
+        </td>
+        <td>
+         <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterShipping" Data="@DataContext.Printers">
+            <Template>
+              @($"{(context as PrinterModel)?.Name} | {(context as PrinterModel)?.Ip}")
+            </Template>
+          </RzDropDownLocal>
+        </td>
+        <td>@LocaleCore.Table.IsShipping</td>
+        <td><RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@SqlItemCast.IsShipping"/></td>
+      </tr>
+    <tr>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemWorkShop, SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
+      </td>
+      <td><RzDropDownLocal @bind-Value="@SqlItemCast.WorkShop" Data="@DataContext.WorkShops" TextProperty="Name" /></td>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
+      </td>
+      <td>@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldEmpty)</td>
+    </tr>
+    <tr>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterMain)"
+          Text="@LocaleCore.Print.NameMain"/>
+      </td>
+      <td>
+       <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterMain" Data="@DataContext.Printers">
+          <Template>
+            @($"{(context as PrinterModel)?.Name} | {(context as PrinterModel)?.Ip}")
+          </Template>
+        </RzDropDownLocal>
+      </td>
+      <td>@LocaleCore.Table.DeviceComPort</td>
+      <td>
+        <RzDropDownLocal @bind-Value="@SqlItemCast.DeviceComPort" Data="@ComPorts" TextProperty="Name" ValueProperty="Value"  />
+      </td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.DeviceReceiveTimeout</td>
+      <td><RzNumericLocal Min="0" @bind-Value="@SqlItemCast.DeviceReceiveTimeout" /></td>
+
+      <td>@LocaleCore.Table.DeviceSendTimeout</td>
+      <td><RzNumericLocal Min="0" @bind-Value="@SqlItemCast.DeviceSendTimeout" /></td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.DeviceNumber</td>
+      <td><RzNumericLocal Min="1" Max="99999" @bind-Value="@SqlItemCast.Number" /></td>
+
+      <td>@LocaleCore.Table.IsShippingLength</td>
+      <td><RzNumericLocal Min="@byte.MinValue" Max="@byte.MaxValue" @bind-Value="@SqlItemCast.ShippingLength" /></td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.ScaleFactor</td>
+      <td><RzNumericLocal @bind-Value="@SqlItemCast.ScaleFactor" /></td>
+
+      <td>@LocaleCore.Table.Counter</td>
+      <td><RzNumericLocal Min="0" Max="99999" @bind-Value="@SqlItemCast.Counter" /></td>
+    </tr>
+    <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 

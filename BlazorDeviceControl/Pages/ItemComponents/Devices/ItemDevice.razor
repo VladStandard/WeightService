@@ -4,7 +4,6 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<DeviceModel>
 @using DataCore.Sql.TableScaleModels.Devices
-@using DataCore.Sql.TableScaleModels.DeviceTypes
 @using BlazorDeviceControl.Pages.CustomComponents
 
 <RazorItemReload TItem="@DeviceModel" Title="@LocaleCore.DeviceControl.ItemHost" />
@@ -12,124 +11,30 @@
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@DeviceModel" SqlItem="@SqlItem"/>
-  <tr>
-    <td>@LocaleCore.Table.LoginDt</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: center; background-color: lightgray; "
-        ReadOnly="true" Value="@(StrUtils.FormatDtRus(SqlItemCast.LoginDt, true))"/>
-    </td>
-    <td>@LocaleCore.Table.LogoutDt</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: center; background-color: lightgray; "
-        ReadOnly="true" Value="@(StrUtils.FormatDtRus(SqlItemCast.LogoutDt, true))"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Device</td>
-    <td>
-      <RadzenLink
-        Style="width: 100%; "
-        Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{SqlItemCast.IdentityValueUid}")
-        Text="@SqlItemCast.Name"/>
-    </td>
-    <td colspan="2">
-      <RadzenLink
-        Style="width: 100%; "
-        Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{SqlItemCast.IdentityValueUid}")
-        Text="@SqlItemCast.IdentityValueUid.ToString()"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Name</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: transparent; "
-        ReadOnly="false" @bind-Value="@SqlItemCast.Name"/>
-    </td>
-    <td>@LocaleCore.Table.PrettyName</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: transparent; "
-        ReadOnly="false" @bind-Value="@SqlItemCast.PrettyName"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.DeviceIp</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: center; background-color: lightgray; "
-        ReadOnly="true" @bind-Value="@SqlItemCast.Ipv4"/>
-    </td>
-    <td>@LocaleCore.Table.DeviceMac</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: center; background-color: lightgray; "
-        ReadOnly="true" Value="@SqlItemCast.MacAddress.ValuePrettyLookMinus"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Description</td>
-    <td colspan="3">
-      <RadzenTextArea
-        Style="width: 100%; text-align: left; background-color: transparent; "
-        ReadOnly="false" @bind-Value="@SqlItemCast.Description" Rows="4"/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      @if (DeviceTypeFk.IsNotNew)
-      {
-        <RadzenLink
-          Style="width: 100%; "
-          Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.Type, DeviceTypeFk.IdentityValueUid)
-          Text=@LocaleCore.Table.DeviceType/>
-      }
-      else
-      {
-        @LocaleCore.Table.DeviceType
-      }
-    </td>
-    <td>
-      <MudSelectLocal @bind-Value="@DeviceType">
-        @foreach (DeviceTypeModel item in DataContext.DeviceTypes)
-        {
-          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
-    <td colspan="2">
-      @if (DeviceTypeFk.IsNotNew)
-      {
-        <RadzenLink
-          Style="width: 100%;"
-          Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.Type, DeviceTypeFk.Type.IdentityValueUid)
-          Text=@DeviceTypeFk.Type.IdentityValueUid.ToString()/>
-      }
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.DeviceType</td>
-    @if (DeviceTypeFk.IsNotNew)
-    {
+    <RazorItemTableBody SqlItem="@SqlItemCast" />
+    <tr>
+      <td>@LocaleCore.Table.LoginDt</td>
+      <td>@string.Format(StrUtils.FormatDtLong, SqlItemCast.LoginDt)</td>
+
+      <td>@LocaleCore.Table.LogoutDt</td>
+      <td>@string.Format(StrUtils.FormatDtLong, SqlItemCast.LogoutDt)</td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.Name</td>
+      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/></td>
+
+      <td>@LocaleCore.Table.PrettyName</td>
+      <td><RzTextBoxLocal ReadOnly="false" @bind-Value="@SqlItemCast.PrettyName"/></td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.DeviceType</td>
       <td>
-        <RadzenTextBox
-          Style="width: 100%; text-align: center; background-color: lightgray; "
-          ReadOnly=true Value=@DeviceTypeFk.Type.Name />
+        <RzDropDownLocal @bind-Value="@DeviceType" Data="@DataContext.DeviceTypes" TextProperty="Name" />
       </td>
-    }
-    <td>@LocaleCore.Table.PrettyName</td>
-    @if (DeviceTypeFk.IsNotNew)
-    {
-      <td>
-        <RadzenTextBox
-          Style="width: 100%; text-align: center; background-color: lightgray; "
-          ReadOnly=true Value=@DeviceTypeFk.Type.PrettyName />
-      </td>
-    }
-  </tr>
+      <td/>
+      <td/>
+    </tr>
+  <RazorItemDates SqlItem="@SqlItemCast" />
   </tbody>
 </MudSimpleTable>
 

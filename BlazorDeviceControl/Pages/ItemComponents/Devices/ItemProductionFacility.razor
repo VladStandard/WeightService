@@ -11,22 +11,20 @@
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@ProductionFacilityModel" SqlItem="@SqlItem"/>
-  <tr>
-    <td>@LocaleCore.Table.Name</td>
-    <td colspan="3">
-      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
-    </td>
-  </tr>
-  <tr>
-    <td >@LocaleCore.Table.Address</td>
-    <td colspan="3">
-      <RadzenTextArea
-        Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
-        Rows="3"
-        @bind-Value="@SqlItemCast.Address"/>
-    </td>
-  </tr>
+    <RazorItemTableBody SqlItem="@SqlItemCast"/>
+    <tr>
+      <td>@LocaleCore.Table.Name</td>
+      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name" /></td>
+      <td/>
+      <td/>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.Address</td>
+      <td colspan="3">
+        <RadzenTextArea Style="width: 100%;" Rows="2" @bind-Value="@SqlItemCast.Address"/>
+      </td>
+    </tr>
+    <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 

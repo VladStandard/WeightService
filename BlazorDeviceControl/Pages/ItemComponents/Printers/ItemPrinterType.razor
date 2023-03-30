@@ -11,13 +11,14 @@
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PrinterTypeModel" SqlItem="@SqlItem"/>
-  <tr>
-    <td>@LocaleCore.Table.Name</td>
-    <td colspan="3">
-      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
-    </td>
-  </tr>
+    <RazorItemTableBody SqlItem="@SqlItemCast"/>
+    <tr>
+      <td>@LocaleCore.Table.Name</td>
+      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/></td>
+      <td/>
+      <td/>
+    </tr>
+    <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
