@@ -17,7 +17,7 @@ internal class DataAccessExtTests
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<ScaleModel> scales = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullable<ScaleModel>(sqlCrudConfig);
+			List<ScaleModel> scales = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullableScales(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
 			// Assert.
 			Assert.IsTrue(scales.Count > 0);
@@ -28,7 +28,7 @@ internal class DataAccessExtTests
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
 					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(scale, nameof(PluScaleModel.Scale),
                         false, true, false, false);
-					List<PluScaleModel> pluScales = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
+					List<PluScaleModel> pluScales = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullablePlusScales(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}
@@ -43,7 +43,7 @@ internal class DataAccessExtTests
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<PluModel> plus = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
+			List<PluModel> plus = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullablePlus(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 			// Assert.
 			Assert.IsTrue(plus.Count > 0);
@@ -54,7 +54,7 @@ internal class DataAccessExtTests
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
 					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluBundleFkModel.Plu),
                         false, true, false, false);
-                    List<PluBundleFkModel> pluPackages = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig);
+                    List<PluBundleFkModel> pluPackages = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullablePlusBundlesFks(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}

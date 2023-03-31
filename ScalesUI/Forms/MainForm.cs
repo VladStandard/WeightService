@@ -21,7 +21,7 @@ public partial class MainForm : Form
     private FontsSettingsHelper FontsSettings => FontsSettingsHelper.Instance;
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private ActionSettingsModel ActionSettings { get; set; }
-    private Button ButtonDevice { get; set; }
+    private Button ButtonLine { get; set; }
     private Button ButtonPluNestingFk { get; set; }
     private Button ButtonKneading { get; set; }
     private Button ButtonMore { get; set; }
@@ -69,7 +69,7 @@ public partial class MainForm : Form
         UserSession.DataAccess.LogInformation(
             $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
             $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
-            $"{nameof(LocaleData.Program.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.");
+            $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
     }
 
     private void PreLoadControls()
@@ -212,7 +212,7 @@ public partial class MainForm : Form
                 UserSession.StopwatchMain.Stop();
                 UserSession.DataAccess.LogInformation(
                     LocaleData.Program.IsClosed + Environment.NewLine +
-                    $"{LocaleData.Program.Elapsed}: {UserSession.StopwatchMain.Elapsed}.");
+                    $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
             }
         );
     }
@@ -244,7 +244,7 @@ public partial class MainForm : Form
         fieldKneading.Font = FontsSettings.FontLabelsBlack;
         labelProductDate.Font = FontsSettings.FontLabelsBlack;
 
-        ButtonDevice.Font = FontsSettings.FontButtonsSmall;
+        ButtonLine.Font = FontsSettings.FontButtonsSmall;
         ButtonPlu.Font = FontsSettings.FontButtonsSmall;
         ButtonPluNestingFk.Font = FontsSettings.FontButtonsSmall;
 
@@ -254,6 +254,7 @@ public partial class MainForm : Form
         ButtonKneading.Font = FontsSettings.FontButtons;
         ButtonMore.Font = FontsSettings.FontButtons;
         ButtonPrint.Font = FontsSettings.FontButtons;
+        ButtonPrint.BackColor = ColorTranslator.FromHtml("#ff7f50");
     }
 
     private void SetButtonsSettings()
@@ -286,12 +287,12 @@ public partial class MainForm : Form
 
         if (ActionSettings.IsDevice)
         {
-            ButtonDevice = GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonDevice), 1, rowCount++);
-            ButtonDevice.Click += ActionDevice;
+            ButtonLine = GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonLine), 1, rowCount++);
+            ButtonLine.Click += ActionDevice;
         }
         else
         {
-            ButtonDevice = new();
+            ButtonLine = new();
         }
 
         if (ActionSettings.IsPlu)
@@ -557,7 +558,8 @@ public partial class MainForm : Form
         LocaleCore.Lang = LocaleData.Lang = lang;
         string area = UserSession.Scale.WorkShop is null
             ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice, UserSession.Scale.Description + Environment.NewLine + area);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonLine, $"{UserSession.Scale.Description} | {UserSession.Scale.Number}" +  
+            Environment.NewLine + area);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
             ? LocaleCore.Table.FieldPackageIsNotSelected
             : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");

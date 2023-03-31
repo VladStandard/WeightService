@@ -407,7 +407,7 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(false, false);
-			List<TemplateResourceModel> templateResources = DataContext.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
+			List<TemplateResourceModel> templateResources = DataContext.GetListNotNullableTemplateResources(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains("TTF"))

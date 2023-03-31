@@ -13,7 +13,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 /// Table "PLUS_NESTING_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluNestingFkModel)}")]
+[DebuggerDisplay("{nameof(PluNestingFkModel)} | {Box}")]
 public class PluNestingFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
