@@ -3,12 +3,12 @@
 
 using WsLocalization.Utils;
 
-namespace WsWebApi.Controllers;
+namespace WsWebApi.Helpers;
 
 /// <summary>
 /// Test controller v2.
 /// </summary>
-public sealed class WsTestControllerV2 : WsContentBase
+public sealed class WsTestV2Helper : WsContentBase
 {
     #region Public and private fields and properties
 
@@ -16,7 +16,7 @@ public sealed class WsTestControllerV2 : WsContentBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    internal WsTestControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
+    internal WsTestV2Helper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -32,7 +32,7 @@ public sealed class WsTestControllerV2 : WsContentBase
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetInfoV2)]
+    [Route(WsWebServiceUrls.GetInfoV2)]
     public ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
         GetContentResult(() =>
             DataFormatUtils.GetContentResult<WsServiceInfoModel>(
@@ -46,7 +46,7 @@ public sealed class WsTestControllerV2 : WsContentBase
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetExceptionV2)]
+    [Route(WsWebServiceUrls.GetExceptionV2)]
     public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false) =>
         GetContentResult(() =>
         {
@@ -65,7 +65,7 @@ public sealed class WsTestControllerV2 : WsContentBase
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetSimpleV2)]
+    [Route(WsWebServiceUrls.GetSimpleV2)]
     public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false,
         int version = 0) =>
         GetContentResult(() =>

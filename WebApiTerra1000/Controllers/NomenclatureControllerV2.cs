@@ -34,7 +34,7 @@ public sealed class NomenclatureControllerV2 : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetNomenclatureV2)]
+    [Route(WsWebServiceUrls.GetNomenclatureV2)]
     public ContentResult GetNomenclatureFromCodeIdProd([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetNomenclatureFromCodeIdWork(code != null 
@@ -43,7 +43,7 @@ public sealed class NomenclatureControllerV2 : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetNomenclatureV2Preview)]
+    [Route(WsWebServiceUrls.GetNomenclatureV2Preview)]
     public ContentResult GetNomenclatureFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetNomenclatureFromCodeIdWork(code != null 
@@ -65,7 +65,7 @@ public sealed class NomenclatureControllerV2 : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetNomenclaturesV2)]
+    [Route(WsWebServiceUrls.GetNomenclaturesV2)]
     public ContentResult GetNomenclaturesProd([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
@@ -81,14 +81,14 @@ public sealed class NomenclatureControllerV2 : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetNomenclaturesCostsV2)]
+    [Route(WsWebServiceUrls.GetNomenclaturesCostsV2)]
     public ContentResult GetNomenclaturesProdDeprecated([FromQuery(Name = "format")] string format = "") =>
         GetContentResult(() => DataFormatUtils.GetContentResult<WsServiceReplyModel>(
             new WsServiceReplyModel("Deprecated method. Use: api/nomenclatures/"), format, HttpStatusCode.OK), format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetNomenclaturesPreviewV2)]
+    [Route(WsWebServiceUrls.GetNomenclaturesPreviewV2)]
     public ContentResult GetNomenclaturesPreview([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
@@ -104,7 +104,7 @@ public sealed class NomenclatureControllerV2 : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetNomenclaturesCostsPreviewV2)]
+    [Route(WsWebServiceUrls.GetNomenclaturesCostsPreviewV2)]
     public ContentResult GetNomenclaturesPreviewDeprecated([FromQuery(Name = "format")] string format = "") =>
         GetContentResult(() => DataFormatUtils.GetContentResult<WsServiceReplyModel>(
             new WsServiceReplyModel("Deprecated method. Use: api/nomenclatures_preview/"), format, HttpStatusCode.OK), format);

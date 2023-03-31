@@ -1,4 +1,4 @@
-﻿@page "/item/log"
+@page "/item/log"
 @page "/item/log/new"
 @page "/item/log/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
@@ -12,7 +12,7 @@
   <tbody>
   <RazorItemTableBody TItem="LogModel" SqlItem="@SqlItem"/>
   <tr>
-    <td>@LocaleCore.Table.Arm</td>
+    <td>@LocaleCore.Table.Line</td>
     <td>
       @if (SqlItemCast.Device is not null)
       {

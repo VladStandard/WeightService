@@ -2,22 +2,22 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-namespace WsWebApi.Controllers;
+namespace WsWebApi.Helpers;
 
-public sealed class WsPlusController : WsContentBase
+public sealed class WsPlusHelper : WsContentBase
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsPlusController _instance;
+    private static WsPlusHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsPlusController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsPlusHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    internal WsPlusController(ISessionFactory sessionFactory) : base(sessionFactory)
+    internal WsPlusHelper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -162,7 +162,7 @@ public sealed class WsPlusController : WsContentBase
             if (UpdateItem1cDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluXml, true);
+            bool isSave = SaveItemDb(response, pluXml, true);
 
             // Update db list.
             if (pluDb is not null && isSave && !plusDb.Select(x => x.IdentityValueUid).Contains(pluDb.IdentityValueUid))
@@ -201,7 +201,7 @@ public sealed class WsPlusController : WsContentBase
             if (UpdateItemDb(response, pluXml.Uid1c, pluFk, pluFkDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluFk, false);
+            bool isSave = SaveItemDb(response, pluFk, false, pluXml.Uid1c);
 
             // Update db list.
             if (isSave && !pluFksDb.Select(x => x.IdentityValueUid).Contains(pluFk.IdentityValueUid))
@@ -236,7 +236,7 @@ public sealed class WsPlusController : WsContentBase
             // Not find -> Add new.
             boxDb = new();
             boxDb.UpdateProperties(pluXml);
-            bool isSave = SaveItemDb(response, pluXml.Uid1c, boxDb, false);
+            bool isSave = SaveItemDb(response, boxDb, false, pluXml.Uid1c);
 
             // Update db list.
             if (isSave && !boxesDb.Select(x => x.IdentityValueUid).Contains(boxDb.IdentityValueUid))
@@ -271,7 +271,7 @@ public sealed class WsPlusController : WsContentBase
             // Not find -> Add new.
             bundleDb = new();
             bundleDb.UpdateProperties(pluXml);
-            bool isSave = SaveItemDb(response, pluXml.Uid1c, bundleDb, false);
+            bool isSave = SaveItemDb(response, bundleDb, false, pluXml.Uid1c);
 
             // Update db list.
             if (isSave && !bundlesDb.Select(x => x.IdentityValueUid).Contains(bundleDb.IdentityValueUid))
@@ -307,7 +307,7 @@ public sealed class WsPlusController : WsContentBase
                 if (UpdateItemDb(response, pluXml.Uid1c, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluBundleFk, false);
+            bool isSave = SaveItemDb(response, pluBundleFk, false, pluXml.Uid1c);
 
             // Update db list.
             if (isSave && !pluBundlesFksDb.Select(x => x.IdentityValueUid).Contains(pluBundleFk.IdentityValueUid))
@@ -342,7 +342,7 @@ public sealed class WsPlusController : WsContentBase
             if (UpdateItemDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluBrandFk, false);
+            bool isSave = SaveItemDb(response, pluBrandFk, false, pluXml.Uid1c);
 
             // Update db list.
             if (isSave && !pluBrandsFksDb.Select(x => x.IdentityValueUid).Contains(pluBrandFk.IdentityValueUid))
@@ -377,7 +377,7 @@ public sealed class WsPlusController : WsContentBase
             // Not find -> Add new.
             clipDb = new();
             clipDb.UpdateProperties(pluXml);
-            bool isSave = SaveItemDb(response, pluXml.Uid1c, clipDb, false);
+            bool isSave = SaveItemDb(response, clipDb, false, pluXml.Uid1c);
 
             // Update db list.
             if (isSave && !clipsDb.Select(x => x.IdentityValueUid).Contains(clipDb.IdentityValueUid))
@@ -411,7 +411,7 @@ public sealed class WsPlusController : WsContentBase
             if (UpdateItemDb(response, pluXml.Uid1c, pluClipFk, pluClipFkDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluClipFk, false);
+            bool isSave = SaveItemDb(response, pluClipFk, false, pluXml.Uid1c);
 
             // Update db list.
             if (isSave && !pluClipsFksDb.Select(x => x.IdentityValueUid).Contains(pluClipFk.IdentityValueUid))
@@ -459,7 +459,7 @@ public sealed class WsPlusController : WsContentBase
             if (UpdateItemDb(response, pluXml.Uid1c, pluNestingFk, pluNestingFkDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluXml.Uid1c, pluNestingFk, false);
+            bool isSave = SaveItemDb(response, pluNestingFk, false, pluXml.Uid1c);
 
             // Update db list.
             if (isSave && !pluNestingFksDb.Select(x => x.IdentityValueUid).Contains(pluNestingFk.IdentityValueUid))

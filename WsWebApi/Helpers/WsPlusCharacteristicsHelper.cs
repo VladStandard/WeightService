@@ -2,22 +2,22 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-namespace WsWebApi.Controllers;
+namespace WsWebApi.Helpers;
 
-public sealed class WsPlusCharacteristicsController : WsContentBase
+public sealed class WsPlusCharacteristicsHelper : WsContentBase
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsPlusCharacteristicsController _instance;
+    private static WsPlusCharacteristicsHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsPlusCharacteristicsController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsPlusCharacteristicsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    internal WsPlusCharacteristicsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    internal WsPlusCharacteristicsHelper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -46,7 +46,7 @@ public sealed class WsPlusCharacteristicsController : WsContentBase
             if (UpdateItem1cDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicXml, itemDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicXml, true);
+            bool isSave = SaveItemDb(response, pluCharacteristicXml, true);
 
             // Update db list.
             if (isSave && !pluCharacteristicsDb.Select(x => x.IdentityValueUid).Contains(pluCharacteristicXml.IdentityValueUid))
@@ -85,7 +85,7 @@ public sealed class WsPlusCharacteristicsController : WsContentBase
             if (UpdateItemDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, pluCharacteristicFkDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, false);
+            bool isSave = SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1c);
 
             // Update db list.
             if (isSave && !pluCharacteristicsFksDb.Select(x => x.IdentityValueUid).Contains(pluCharacteristicsFk.IdentityValueUid))
@@ -100,8 +100,8 @@ public sealed class WsPlusCharacteristicsController : WsContentBase
     public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<PluCharacteristicModel> pluCharacteristicsDb = WsDataContext.GetListNotNullable<PluCharacteristicModel>(SqlCrudConfig);
-            List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = WsDataContext.GetListNotNullable<PluCharacteristicsFkModel>(SqlCrudConfig);
+            List<PluCharacteristicModel> pluCharacteristicsDb = WsDataContext.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
+            List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = WsDataContext.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
             List<PluCharacteristicModel> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (PluCharacteristicModel pluCharacteristicXml in pluCharacteristicsXml)
             {

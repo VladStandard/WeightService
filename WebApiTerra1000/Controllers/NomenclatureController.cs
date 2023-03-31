@@ -31,7 +31,7 @@ public sealed class NomenclatureController : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetNomenclature)]
+    [Route(WsWebServiceUrls.GetNomenclature)]
     public ContentResult GetNomenclature([FromQuery] string code, [FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
         return GetContentResult(() =>
@@ -47,7 +47,7 @@ public sealed class NomenclatureController : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route( UrlWebService.GetNomenclatures)]
+    [Route(WsWebServiceUrls.GetNomenclatures)]
     public ContentResult GetNomenclatures([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
@@ -63,7 +63,7 @@ public sealed class NomenclatureController : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route( UrlWebService.GetNomenclaturesCosts)]
+    [Route(WsWebServiceUrls.GetNomenclaturesCosts)]
     public ContentResult GetNomenclaturesCosts([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {

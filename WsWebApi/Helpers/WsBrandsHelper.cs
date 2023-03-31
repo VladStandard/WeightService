@@ -2,22 +2,22 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-namespace WsWebApi.Controllers;
+namespace WsWebApi.Helpers;
 
-public sealed class WsBrandsController : WsContentBase
+public sealed class WsBrandsHelper : WsContentBase
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsBrandsController _instance;
+    private static WsBrandsHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsBrandsController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsBrandsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    internal WsBrandsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    internal WsBrandsHelper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -52,7 +52,7 @@ public sealed class WsBrandsController : WsContentBase
             if (UpdateBrandDb(response, brandXml, brandDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, brandXml.Uid1c, brandXml, true);
+            bool isSave = SaveItemDb(response, brandXml, true);
 
             // Update db list.
             if (brandDb is not null && isSave && !brandsDb.Select(x => x.IdentityValueUid).Contains(brandDb.IdentityValueUid))
@@ -82,21 +82,6 @@ public sealed class WsBrandsController : WsContentBase
                 }
             }
         }, formatString, isDebug, sessionFactory);
-
-    private bool UpdateBrandDb(WsResponse1cShortModel response, BrandModel brandXml, BrandModel? brandDb, bool isCounter)
-    {
-        if (brandDb is null || brandDb.IsNew) return false;
-        brandDb.UpdateProperties(brandXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(brandDb);
-        if (dbUpdate.IsOk)
-        {
-            if (isCounter)
-                response.Successes.Add(new(brandXml.Uid1c));
-        }
-        else
-            AddResponse1cException(response, brandXml.Uid1c, dbUpdate.Exception);
-        return dbUpdate.IsOk;
-    }
 
     #endregion
 }

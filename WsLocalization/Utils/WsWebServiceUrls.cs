@@ -3,7 +3,7 @@
 
 namespace WsLocalization.Utils;
 
-public static class UrlWebService
+public static class WsWebServiceUrls
 {
     #region Public and private fields, properties, constructor
 

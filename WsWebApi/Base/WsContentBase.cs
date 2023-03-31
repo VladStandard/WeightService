@@ -6,7 +6,7 @@ using DataCore.Serialization.Models;
 
 namespace WsWebApi.Base;
 
-public class WsContentBase //: ControllerBase
+public class WsContentBase : ControllerBase
 {
     #region Public and private fields, properties, constructor
 
@@ -26,7 +26,7 @@ public class WsContentBase //: ControllerBase
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    protected WsContentBase(ISessionFactory sessionFactory)
+    public WsContentBase(ISessionFactory sessionFactory)
     {
         SessionFactory = sessionFactory;
     }
@@ -72,16 +72,16 @@ public class WsContentBase //: ControllerBase
         };
 
         // Store data into the log.
-        if (!File.Exists(filePath))
+        if (!System.IO.File.Exists(filePath))
         {
-            await File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
+            await System.IO.File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
         }
         else
         {
-            string textExists = await File.ReadAllTextAsync(filePath);
+            string textExists = await System.IO.File.ReadAllTextAsync(filePath);
             text = textExists + Environment.NewLine + text;
-            File.Delete(filePath);
-            await File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
+            System.IO.File.Delete(filePath);
+            await System.IO.File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
         }
     }
 
@@ -249,7 +249,7 @@ public class WsContentBase //: ControllerBase
             };
             SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
             sqlCrudConfig.AddFilters(sqlFilters);
-            List<BarCodeModel> barcodesDb = WsDataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
+            List<BarCodeModel> barcodesDb = WsDataContext.GetListNotNullableBarCodes(sqlCrudConfig);
             response.ResponseBarCodes = WsWebResponseUtils.CastBarCodes(barcodesDb);
             response.StartDate = dtStart;
             response.EndDate = dtEnd;
@@ -887,7 +887,7 @@ public class WsContentBase //: ControllerBase
 
     #endregion
 
-    #region Public and private methods
+    #region Public and private methods - Update item
 
     /// <summary>
     /// Update the record in the database.
@@ -895,12 +895,12 @@ public class WsContentBase //: ControllerBase
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
-    /// <param name="importUid"></param>
+    /// <param name="importUid1c"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdateItemDb<T>(WsResponse1cShortModel response, Guid importUid, T itemXml, T? itemDb, bool isCounter) where T : ISqlTable
+    internal bool UpdateItemDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : ISqlTable
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -908,10 +908,10 @@ public class WsContentBase //: ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(importUid));
+                response.Successes.Add(new(importUid1c));
         }
         else
-            AddResponse1cException(response, importUid, dbUpdate.Exception);
+            AddResponse1cException(response, importUid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -921,12 +921,12 @@ public class WsContentBase //: ControllerBase
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
-    /// <param name="importUid"></param>
+    /// <param name="importUid1c"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdateItem1cDb<T>(WsResponse1cShortModel response, Guid importUid, T itemXml, T? itemDb, bool isCounter) where T : ISqlTable1c
+    internal bool UpdateItem1cDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : SqlTableBase1c
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -934,10 +934,10 @@ public class WsContentBase //: ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(importUid));
+                response.Successes.Add(new(importUid1c));
         }
         else
-            AddResponse1cException(response, importUid, dbUpdate.Exception);
+            AddResponse1cException(response, importUid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -945,21 +945,60 @@ public class WsContentBase //: ControllerBase
     /// Save the record to the database.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="importUid"></param>
     /// <param name="item"></param>
     /// <param name="isCounter"></param>
-    internal bool SaveItemDb<T>(WsResponse1cShortModel response, Guid importUid, T item, bool isCounter) where T : ISqlTable
+    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter) where T : SqlTableBase1c
+        => SaveItemDb(response, item, isCounter, item.Uid1c);
+
+    /// <summary>
+    /// Save the record to the database.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="item"></param>
+    /// <param name="isCounter"></param>
+    /// <param name="uid1c"></param>
+    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter, Guid uid1c) where T : SqlTableBase
     {
         SqlCrudResultModel dbSave = WsDataContext.DataAccess.Save(item, item.Identity);
         // Add was success.
         if (dbSave.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(importUid));
+                response.Successes.Add(new(uid1c));
         }
         else
-            AddResponse1cException(response, importUid, dbSave.Exception);
+            AddResponse1cException(response, uid1c, dbSave.Exception);
         return dbSave.IsOk;
+    }
+
+    internal bool UpdateBrandDb(WsResponse1cShortModel response, BrandModel brandXml, BrandModel? brandDb, bool isCounter)
+    {
+        if (brandDb is null || brandDb.IsNew) return false;
+        brandDb.UpdateProperties(brandXml);
+        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(brandDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(brandXml.Uid1c));
+        }
+        else
+            AddResponse1cException(response, brandXml.Uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
+
+    internal bool UpdatePluGroupDb(WsResponse1cShortModel response, PluGroupModel pluGroupXml, PluGroupModel? pluGroupDb, bool isCounter)
+    {
+        if (pluGroupDb is null || pluGroupDb.IsNew) return false;
+        pluGroupDb.UpdateProperties(pluGroupXml);
+        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(pluGroupDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(pluGroupXml.Uid1c));
+        }
+        else
+            AddResponse1cException(response, pluGroupXml.Uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
     }
 
     #endregion

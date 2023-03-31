@@ -2,22 +2,22 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-namespace WsWebApi.Controllers;
+namespace WsWebApi.Helpers;
 
-public sealed class WsPlusGroupsController : WsContentBase
+public sealed class WsPlusGroupsHelper : WsContentBase
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsPlusGroupsController _instance;
+    private static WsPlusGroupsHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsPlusGroupsController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsPlusGroupsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    internal WsPlusGroupsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    internal WsPlusGroupsHelper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -81,7 +81,7 @@ public sealed class WsPlusGroupsController : WsContentBase
             if (UpdateItemDb(response, pluGroupXml.Uid1c, itemGroupFk, itemDb, false)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluGroupXml.Uid1c, itemGroupFk, false);
+            bool isSave = SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1c);
 
             // Update db list.
             if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(itemGroupFk.IdentityValueUid))
@@ -99,7 +99,7 @@ public sealed class WsPlusGroupsController : WsContentBase
         {
             // Find by Uid1C -> Update exists.
             PluGroupModel? pluGroupDb = pluGroupsDb.Find(item => Equals(item.Uid1c, pluGroupXml.IdentityValueUid));
-            if (UpdateItemDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
+            if (UpdatePluGroupDb(response, pluGroupXml, pluGroupDb, true)) return;
 
             // Find by Code -> Update exists.
             pluGroupDb = pluGroupsDb.Find(item => Equals(item.Code, pluGroupXml.Code));
@@ -110,7 +110,7 @@ public sealed class WsPlusGroupsController : WsContentBase
             if (UpdateItemDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluGroupXml.Uid1c, pluGroupXml, true);
+            bool isSave = SaveItemDb(response, pluGroupXml, true);
 
             // Update db list.
             if (pluGroupDb is not null && isSave && !pluGroupsDb.Select(x => x.IdentityValueUid).Contains(pluGroupDb.IdentityValueUid))
@@ -125,8 +125,8 @@ public sealed class WsPlusGroupsController : WsContentBase
     public ContentResult NewResponse1cPluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<PluGroupModel> itemsDb = WsDataContext.GetListNotNullable<PluGroupModel>(SqlCrudConfig);
-            List<PluGroupFkModel> pluGroupsFksDb = WsDataContext.GetListNotNullable<PluGroupFkModel>(SqlCrudConfig);
+            List<PluGroupModel> itemsDb = WsDataContext.GetListNotNullablePlusGroups(SqlCrudConfig);
+            List<PluGroupFkModel> pluGroupsFksDb = WsDataContext.GetListNotNullablePlusGroupFks(SqlCrudConfig);
             List<PluGroupModel> itemsXml = GetXmlPluGroupsList(xml);
             foreach (PluGroupModel itemXml in itemsXml)
             {

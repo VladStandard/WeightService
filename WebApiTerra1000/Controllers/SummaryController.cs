@@ -30,7 +30,7 @@ public sealed class SummaryController : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetSummary)]
+    [Route(WsWebServiceUrls.GetSummary)]
     public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery(Name = "format")] string format = "")
     {

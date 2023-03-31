@@ -31,7 +31,7 @@ public sealed class ContragentController : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetContragent)]
+    [Route(WsWebServiceUrls.GetContragent)]
     public ContentResult GetContragent([FromQuery] long id, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "is_debug")] bool isDebug = false)
     {
@@ -46,7 +46,7 @@ public sealed class ContragentController : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetContragents)]
+    [Route(WsWebServiceUrls.GetContragents)]
     public ContentResult GetContragents([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0,
         [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "is_debug")] bool isDebug = false)

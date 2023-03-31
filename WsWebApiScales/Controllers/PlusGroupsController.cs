@@ -1,33 +1,34 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsWebApiScales.Helpers;
+namespace WsWebApiScales.Controllers;
 
 /// <summary>
-/// Nomenclatures characteristics controller.
+/// Nomenclatures groups controller.
 /// </summary>
-public sealed class PlusCharacteristicsController : WsControllerBase
+[Tags(WsWebServiceConsts.Ref1cNomenclaturesGroups)]
+public sealed class PlusGroupsController : WsControllerBase
 {
-    #region Public and public fields and properties
+    #region Public and private fields and properties
 
     /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public PlusCharacteristicsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public PlusGroupsController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
 
     #endregion
 
-    #region Public and public methods
+    #region Public and private methods
 
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost]
-    [Route(UrlWebService.SendNomenclaturesCharacteristics)]
-    public ContentResult SendPluCharacteristics([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
+    [Route(WsWebServiceUrls.SendNomenclaturesGroups)]
+    public ContentResult SendPluGroups([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "debug")] bool isDebug = false,
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
@@ -37,9 +38,9 @@ public sealed class PlusCharacteristicsController : WsControllerBase
             AcceptVersion.V2 =>
                 GetContentResult(() => NewResponse1cIsNotFound(version, format, isDebug, SessionFactory),
                     format),
-            _ => GetContentResult(() => PlusCharacteristicsControl.NewResponse1cPluCharacteristics(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => WsPlusGroups.NewResponse1cPluGroups(xml, format, isDebug, SessionFactory), format)
         };
-        LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.SendNomenclaturesCharacteristics,
+        LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendNomenclaturesGroups,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }

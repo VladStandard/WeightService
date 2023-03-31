@@ -32,13 +32,13 @@ public sealed class ShipmentControllerV2 : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipmentV2)]
+    [Route(WsWebServiceUrls.GetShipmentV2)]
     public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
         GetShipmentWork(SqlQueriesV2.GetShipment, id, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipmentV2Preview)]
+    [Route(WsWebServiceUrls.GetShipmentV2Preview)]
     public ContentResult GetShipmentPreview([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
         GetShipmentWork(SqlQueriesV2.GetShipmentPreview, id, format);
 
@@ -79,14 +79,14 @@ public sealed class ShipmentControllerV2 : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipmentsV2)]
+    [Route(WsWebServiceUrls.GetShipmentsV2)]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
         GetShipmentsCore(SqlQueriesV2.GetShipments, startDate, endDate, offset, rowCount, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipmentsV2Preview)]
+    [Route(WsWebServiceUrls.GetShipmentsV2Preview)]
     public ContentResult GetShipmentsPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
         GetShipmentsCore(SqlQueriesV2.GetShipmentsPreview, startDate, endDate, offset, rowCount, format);
