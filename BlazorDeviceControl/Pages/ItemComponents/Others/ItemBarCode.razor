@@ -13,127 +13,72 @@
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
+    <td>
+       <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.PluLabel.PluScale.Scale)"
+                            Text="@LocaleCore.Table.Scale" />
+    </td>
+    <td>@SqlItemCast.PluLabel.PluScale.Scale.Description</td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPluLabel, SqlItemCast.PluLabel)"
+                  Text="@LocaleCore.Table.Label"/>
+    </td>
+    <td>@SqlItemCast.PluLabel.IdentityValueUid</td>
+  </tr>
+  <tr>
+    <td>
+        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu,@SqlItemCast.PluLabel.PluScale.Plu)"
+                        Text="@LocaleCore.Table.Plu" />
+    </td>
+    <td>@($"{SqlItemCast.PluLabel.PluScale.Plu.Number} | {SqlItemCast.PluLabel.PluScale.Plu.Name}")</td>
+    <td/>
+    <td/>
+  </tr>
+  @if (SqlItemCast.PluLabel.PluWeighing is not null)
+  {
+    <tr>
+      <td>@LocaleCore.Table.ProductSeries</td>
+      <td>@SqlItemCast.PluLabel.PluWeighing.Series?.Sscc</td>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPluWeighing, SqlItemCast.PluLabel.PluWeighing)"
+                          Text="@LocaleCore.Table.Weighing" />
+      </td>
+      <td>@SqlItemCast.PluLabel.PluWeighing.IdentityValueUid</td>
+    </tr>
+  }
+  <tr>
     <td>@LocaleCore.Table.TypeTop</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: lightgray; "
-        ReadOnly="true" @bind-Value="@SqlItemCast.TypeTop"/>
-    </td>
+    <td>@SqlItemCast.TypeTop</td>
     <td>@LocaleCore.Table.ValueTop</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: lightgray; "
-        ReadOnly="true" @bind-Value="@SqlItemCast.ValueTop"/>
-    </td>
+    <td>@SqlItemCast.ValueTop</td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.Description</td>
     <td colspan="3">
-      <RadzenTextArea
-        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; "
-        Disabled="false" ReadOnly="true"
-        Value="@GetBarcodeTop(FormatType.Xml)" Rows="11"/>
+      <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@GetBarcodeTop(FormatType.Xml)" Rows="11"/>
     </td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.TypeRight</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: lightgray; "
-        ReadOnly="true" @bind-Value="@SqlItemCast.TypeRight"/>
-    </td>
+    <td>@SqlItemCast.TypeRight</td>
     <td>@LocaleCore.Table.ValueRight</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: lightgray; "
-        ReadOnly="true" @bind-Value="@SqlItemCast.ValueRight"/>
-    </td>
+    <td>@SqlItemCast.ValueRight</td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.Description</td>
     <td colspan="3">
-      <RadzenTextArea
-        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; "
-        Disabled="false" ReadOnly="true"
-        Value="@GetBarcodeRight(FormatType.Xml)" Rows="5"/>
+      <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@GetBarcodeRight(FormatType.Xml)" Rows="5"/>
     </td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.TypeBottom</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: lightgray; "
-        ReadOnly="true" @bind-Value="@SqlItemCast.TypeBottom"/>
-    </td>
+    <td>@SqlItemCast.TypeBottom</td>
     <td>@LocaleCore.Table.ValueBottom</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: lightgray; "
-        ReadOnly="true" @bind-Value="@SqlItemCast.ValueBottom"/>
-    </td>
+    <td>@SqlItemCast.ValueBottom</td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.Description</td>
     <td colspan="3">
-      <RadzenTextArea
-        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; "
-        Disabled="false" ReadOnly="true"
-        Value="@GetBarcodeBottom(FormatType.Xml)" Rows="10"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Plu</td>
-    <td>
-      @if (SqlItemCast.PluLabel.PluWeighing is not null)
-      {
-        <RadzenLink
-          Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.IdentityValueUid}")
-          Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.Name)/>
-      }
-    </td>
-    <td>@LocaleCore.Table.Label</td>
-    <td>
-      <RadzenLink
-        Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{SqlItemCast.PluLabel.IdentityValueUid}")
-        Text="@(SqlItemCast.PluLabel.IdentityValueUid.ToString())"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Scale</td>
-    <td>
-      @if (SqlItemCast.PluLabel.PluWeighing is not null)
-      {
-        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.IdentityValueId}")
-                    Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Description)/>
-      }
-    </td>
-    <td>@LocaleCore.Table.Host</td>
-    <td>
-      @*@if (SqlItemCast.PluLabel.PluWeighing?.PluScale.Scale.Host is not null)
-                {
-	                <RadzenLink
-		                Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.IdentityValueId}")
-                        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Host.Name) />
-                }*@
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Weighing</td>
-    <td>
-      @if (SqlItemCast.PluLabel.PluWeighing is not null)
-      {
-        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{SqlItemCast.PluLabel.PluWeighing.IdentityValueUid}")
-                    Text=@(SqlItemCast.PluLabel.PluWeighing.IdentityValueUid.ToString())/>
-      }
-    </td>
-    <td>@LocaleCore.Table.ProductSeries</td>
-    <td>
-      @if (SqlItemCast.PluLabel.PluWeighing?.Series is not null)
-      {
-        <RadzenTextBox
-          Style="width: 100%; text-align: left; background-color: lightgray; "
-          ReadOnly=true @bind-Value=@(SqlItemCast.PluLabel.PluWeighing.Series.Sscc)/>
-      }
+      <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@GetBarcodeBottom(FormatType.Xml)" Rows="10"/>
     </td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
