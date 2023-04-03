@@ -17,7 +17,8 @@ public static class PluController
             return false;
 
         List<SqlFieldFilterModel> sqlFilters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PluTemplateFkModel.Plu), pluModel.IdentityValueUid);
-        SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
+        SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, 
+            true, false, false, true, false);
 
         List<PluTemplateFkModel> pluTemplateFks = DataContext.GetListNotNullablePlusTemplatesFks(sqlCrudConfig);
         

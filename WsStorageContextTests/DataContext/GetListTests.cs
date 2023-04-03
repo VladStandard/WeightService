@@ -10,7 +10,6 @@ using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableDiagModels.LogsWebsFks;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
-using DataCore.Sql.TableScaleFkModels.PlusLabels;
 using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
@@ -21,8 +20,8 @@ namespace WsStorageContextTests.DataContext;
 [TestFixture]
 internal class GetListTests
 {
-    private static SqlCrudConfigModel SqlCrudConfig => new(false, true, false, true);
-    private static SqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true);
+    private static SqlCrudConfigModel SqlCrudConfig => new(false, true, false, true, false);
+    private static SqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true, false);
     private static List<Configuration> Configurations => new() { Configuration.ReleaseVS, Configuration.DevelopVS };
     private static readonly List<Configuration> ConfigurationsDev = new() { Configuration.DevelopVS };
 

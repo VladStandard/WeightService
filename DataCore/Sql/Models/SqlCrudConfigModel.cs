@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -37,6 +37,10 @@ public class SqlCrudConfigModel : ICloneable
         }
     }
     public bool IsResultShowOnlyTop { get; set; }
+    /// <summary>
+    /// SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED.
+    /// </summary>
+    public bool IsReadUncommitted { get; set; }
     
     public SqlCrudConfigModel()
     {
@@ -55,6 +59,7 @@ public class SqlCrudConfigModel : ICloneable
         IsResultShowOnlyTop = false;
         IsResultAddFieldEmpty = false;
         IsResultOrder = false;
+        IsReadUncommitted = false;
     }
 
     public SqlCrudConfigModel(string query, List<SqlParameter> parameters) : this()
@@ -76,7 +81,7 @@ public class SqlCrudConfigModel : ICloneable
     }
 
     public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders,
-        bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) : this()
+        bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) : this()
     {
         Filters = filters;
         Orders = orders;
@@ -85,20 +90,23 @@ public class SqlCrudConfigModel : ICloneable
         IsResultShowOnlyTop = isShowOnlyTop;
         IsResultAddFieldEmpty = isAddFieldEmpty;
         IsResultOrder = isOrder;
+        IsReadUncommitted = isReadUncommitted;
     }
 
     public SqlCrudConfigModel(List<SqlFieldFilterModel> filters,
-        bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) :
-        this(filters, new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder)
+        bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
+        this(filters, new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, 
+            isOrder, isReadUncommitted)
     { }
 
     public SqlCrudConfigModel(List<SqlFieldOrderModel> orders,
-        bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) :
-        this(new(), orders, isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder)
+        bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
+        this(new(), orders, isShowMarked, isShowOnlyTop, 
+            isAddFieldEmpty, isOrder, isReadUncommitted)
     { }
 
-    public SqlCrudConfigModel(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) :
-        this(new(), new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder)
+    public SqlCrudConfigModel(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
+        this(new(), new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, isReadUncommitted)
     { }
 
     #endregion

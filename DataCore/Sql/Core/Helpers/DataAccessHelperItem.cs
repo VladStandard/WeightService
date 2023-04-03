@@ -228,7 +228,7 @@ public partial class DataAccessHelper
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
             { new() { Name = nameof(LogTypeModel.Number), Value = (byte)logType } },
-            true, true, false, false);
+            true, true, false, false, false);
         return GetItemNullable<LogTypeModel>(sqlCrudConfig);
     }
 
@@ -238,7 +238,7 @@ public partial class DataAccessHelper
     public List<LogTypeModel> GetListLogTypesNotNullable()
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(),
-            false, false, false, true);
+            false, false, false, true, false);
         sqlCrudConfig.AddOrders(new() { Name = nameof(LogTypeModel.Number), Direction = SqlOrderDirection.Asc });
         return GetListNotNullable<LogTypeModel>(sqlCrudConfig);
     }
@@ -263,13 +263,13 @@ public partial class DataAccessHelper
             return string.Empty;
         string right = user.Claims.Where(c => c.Type == ClaimTypes.Role).
             Select(c => c.Value).OrderByDescending(int.Parse).First();
-        return GetAccessRightsDescription((AccessRightsEnum)(int.Parse(right)));
+        return GetAccessRightsDescription((AccessRightsEnum)int.Parse(right));
     }
     
     public ScaleModel GetScaleNotNullable(long id)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-            nameof(SqlTableBase.IdentityValueId), id, false, false);
+            nameof(SqlTableBase.IdentityValueId), id, false, false, false, false);
         return DataAccessHelper.Instance.GetItemNotNullable<ScaleModel>(sqlCrudConfig);
     }
 

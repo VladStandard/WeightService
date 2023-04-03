@@ -16,13 +16,9 @@ public sealed record PluAggrModel
     /// <summary>
     /// Empty constructor.
     /// </summary>
-    public PluAggrModel()
+    public PluAggrModel() : this(DateTime.MinValue)
     {
-        ChangeDt = DateTime.MinValue;
-        Count = 0;
-        Line = string.Empty;
-        Device = string.Empty;
-        Plu = string.Empty;
+        //
     }
 
     /// <summary>
@@ -33,7 +29,7 @@ public sealed record PluAggrModel
     /// <param name="line"></param>
     /// <param name="device"></param>
     /// <param name="plu"></param>
-    public PluAggrModel(DateTime changeDt, int count, string line, string device, string plu = "")
+    public PluAggrModel(DateTime changeDt, int count = 0, string line = "", string device = "", string plu = "")
     {
         ChangeDt = changeDt;
         Count = count;
