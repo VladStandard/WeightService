@@ -11,9 +11,9 @@
 <RazorItemReload TItem="@PluNestingFkModel" Title="@LocaleCore.DeviceControl.ItemPluNestingFk"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PluNestingFkModel" SqlItem="@SqlItem"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
       @LocaleCore.Table.Name
@@ -133,13 +133,13 @@
       <RadzenLabel Style="width: 100%; " Text="@LocaleCore.Table.NestingCount"/>
     </td>
     <td>
-      <MudNumericLocal @bind-Value="@SqlItemCast.BundleCount"/>
+      <RzNumericLocal @bind-Value="@SqlItemCast.BundleCount"/>
     </td>
     <td>
       <RadzenLabel Style="width: 100%; " Text="@LocaleCore.Table.WeightNominal"/>
     </td>
     <td>
-      <MudNumericLocal @bind-Value="@SqlItemCast.WeightNom"/>
+      <RzNumericLocal @bind-Value="@SqlItemCast.WeightNom"/>
     </td>
   </tr>
   <tr>
@@ -158,10 +158,10 @@
                      TValue="decimal" @bind-Value="@SqlItemCast.WeightMax"/>
     </td>
   </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemDates SqlItem="@SqlItem"/>
 <RazorItemActions
   TItem="@PluNestingFkModel"
   ButtonSettings="@ButtonSettings"

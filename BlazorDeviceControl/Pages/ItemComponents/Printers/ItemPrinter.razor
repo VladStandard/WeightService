@@ -4,107 +4,56 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<PrinterModel>
 @using DataCore.Sql.TableScaleModels.Printers
-@using DataCore.Sql.TableScaleModels.PrintersTypes
-@using System.Net
 @using BlazorDeviceControl.Pages.CustomComponents
 @using BlazorDeviceControl.Pages.SectionComponents.Nested
 
 <RazorItemReload TItem="@PrinterModel" Title="@LocaleCore.Print.Name"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
   <tbody>
-  <RazorItemTableBody TItem="@PrinterModel" SqlItem="@SqlItem"/>
-  <tr>
-    <td>@LocaleCore.Table.Name</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: left; " @bind-Value="@SqlItemCast.Name"/>
-    </td>
-    <td>@LocaleCore.Print.Mac</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.MacAddress.Value"/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <RadzenLink Style="width: 100%; margin-left: 0; " Target="_blank"
-                  Path="@SqlItemCast.Link"
-                  Text="@LocaleCore.Print.ControlPanel"/>
-    </td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false"
-                     TValue="string" @bind-Value="@SqlItemCast.Ip"/>
-    </td>
-    <td>
-      <RadzenLink Style="width: 100%; margin-left: 0; "
-                  Path="@GetRouteItemPath(SqlItemCast.PrinterType)"
-                  Text="@LocaleCore.Print.Type"/>
-    </td>
-    <td>
-      <MudSelectLocal @bind-Value="@SqlItemCast.PrinterType">
-        @foreach (PrinterTypeModel item in DataContext.PrinterTypes)
-        {
-          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Print.Port</td>
-    <td>
-      <MudNumericLocal  @bind-Value="@SqlItemCast.Port"/>
-    </td>
-    <td>@LocaleCore.Print.Password</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: center;" @bind-Value="@SqlItemCast.Password"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Print.StatusCode</td>
-    <td>
-      <RadzenIcon
-        Style="width: 16%; align-content: center; " IconStyle="@IconStyle.Primary"
-        Icon=@(SqlItemCast.HttpStatusCode == HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null") />
-      <RadzenLabel Disabled="false" ReadOnly="true" Style="width: 80%; text-align: left; "
-                   Text="@SqlItemCast.HttpStatusCode.ToString()"/>
-    </td>
-    @if (SqlItemCast.HttpStatusException is not null)
-    {
-      <td>@LocaleCore.Table.HttpStatusException</td>
+    <RazorItemTableBody SqlItem="@SqlItemCast"/>
+    <tr>
+      <td>@LocaleCore.Table.Name</td>
+      <td><RzTextBoxLocal  @bind-Value="@SqlItemCast.Name"/></td>
+      <td>@LocaleCore.Print.Mac</td>
+      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.MacAddress.Value"/></td>
+    </tr>
+    <tr>
+      <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterType)" Text="@LocaleCore.Print.Type"/></td>
       <td>
-        <RadzenLabel Style="width: 100%; "
-                     Text=@(SqlItemCast.HttpStatusException is not null ? SqlItemCast.HttpStatusException.Message : string.Empty) />
+        <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterType" Data="@DataContext.PrinterTypes" TextProperty="Name" />
       </td>
-    }
-    else
-    {
-      <td colspan=2>@LocaleCore.Table.HttpStatusNoException</td>
-    }
-  </tr>
-  <tr>
-    <td>@LocaleCore.DeviceControl.Actions</td>
-    <td>
-      <RadzenButton Click="@(args => SqlItemPrinterResourcesClear(SqlItemCast))"
-                    class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!DataAccess.IsConnected())"/>
-    </td>
-    <td>
-      <RadzenButton Click=@(args => SqlItemPrinterResourcesLoad(SqlItemCast, "TTF"))
-                    class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!DataAccess.IsConnected())"/>
-    </td>
-    <td>
-      <RadzenButton Click=@(args => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF"))
-                    class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!DataAccess.IsConnected())"/>
-    </td>
-  </tr>
+      <td>@LocaleCore.Print.Port</td>
+      <td><RzNumericLocal Min="0" Max="32767" @bind-Value="@SqlItemCast.Port"/></td>
+    </tr>
+    <tr>
+      <td><RadzenLink Target="_blank" Path="@SqlItemCast.Link" Text="@LocaleCore.Print.ControlPanel"/></td>
+      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Ip"/></td>
+      <td>@LocaleCore.Print.Password</td>
+      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Password"/></td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.DeviceControl.Actions</td>
+      <td>
+        <RadzenButton Click="@(_ => SqlItemPrinterResourcesClear(SqlItemCast))"
+                      class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
+                      Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!DataAccess.IsConnected())"/>
+      </td>
+      <td>
+        <RadzenButton Click=@(_=> SqlItemPrinterResourcesLoad(SqlItemCast, "TTF"))
+                      class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
+                      Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!DataAccess.IsConnected())"/>
+      </td>
+      <td>
+        <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF"))
+                      class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
+                      Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!DataAccess.IsConnected())"/>
+      </td>
+    </tr>
+    <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
-
-<br style="margin-top: 10px; "/>
-
-<RazorItemDates SqlItem="@SqlItem"/>
 
 <RazorItemActions
   TItem="@PrinterModel"

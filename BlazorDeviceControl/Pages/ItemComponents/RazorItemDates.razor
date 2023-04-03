@@ -1,18 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
-@if (!string.IsNullOrEmpty(CreateDt) && !string.IsNullOrEmpty(ChangeDt))
+@if (SqlItem.CreateDt != DateTime.MinValue && SqlItem.ChangeDt != DateTime.MinValue)
 {
-  <MudPaper Outlined="true" Class="my-1">
-    <MudToolBar Dense="true" DisableGutters="true" Class="my-n2">
-      <MudSpacer/>
-      <MudText Typo="Typo.body2">@LocaleCore.Table.CreateDt</MudText>
-      <MudSpacer/>
-      <MudText Typo="Typo.body2">@CreateDt</MudText>
-      <MudSpacer/>
-      <MudText Typo="Typo.body2">@LocaleCore.Table.ChangeDt</MudText>
-      <MudSpacer/>
-      <MudText Typo="Typo.body2">@ChangeDt</MudText>
-      <MudSpacer/>
-    </MudToolBar>
-  </MudPaper>
+  <tr>
+    <td><b>@LocaleCore.Table.CreateDt.ToUpper()</b></td>
+    <td>@string.Format(StrUtils.FormatDtLong, SqlItem.CreateDt)</td>
+
+    <td><b>@LocaleCore.Table.ChangeDt.ToUpper()</b></td>
+    <td>@string.Format(StrUtils.FormatDtLong, SqlItem.ChangeDt)</td>
+  </tr>
 }

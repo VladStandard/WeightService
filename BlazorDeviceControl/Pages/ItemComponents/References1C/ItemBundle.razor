@@ -9,9 +9,9 @@
 <RazorItemReload TItem="BundleModel" Title="@LocaleCore.DeviceControl.ItemBundle"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody TItem="BundleModel" SqlItem="@SqlItem"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
@@ -19,13 +19,13 @@
     </td>
     <td>@LocaleCore.Table.Weight</td>
     <td>
-      <MudNumericLocal @bind-Value="@SqlItemCast.Weight"/>
+      <RzNumericLocal @bind-Value="@SqlItemCast.Weight"/>
     </td>
   </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemDates SqlItem="@SqlItem"/>
 <RazorItemActions
   TItem="@BundleModel"
   ButtonSettings="@ButtonSettings"

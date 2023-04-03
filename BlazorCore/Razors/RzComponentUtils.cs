@@ -6,7 +6,7 @@ using DataCore.CssStyles;
 
 namespace BlazorCore.Razors;
 
-public static class RazorComponentUtils
+public static class RzComponentUtils
 {
 	public static CssStyleTableHeadModel GetTableHeadStyle(List<int> columnsWidths) =>
 		new(columnsWidths, "blue", "12px", "center");

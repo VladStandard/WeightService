@@ -22,7 +22,7 @@
   }
 </MudSelectLocal>
 
-<RadzenDataGridLocal
+<RzDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@LogQuickModel"
   Data="@SqlSectionCast"
@@ -42,4 +42,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Message" Property="Message" Width="30%" />
     </TItemContent>
   </Columns>
-</RadzenDataGridLocal>
+</RzDataGridLocal>

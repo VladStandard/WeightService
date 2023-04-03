@@ -37,7 +37,6 @@ using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.Xml;
-using Microsoft.JSInterop;
 
 namespace BlazorCore.Razors;
 
@@ -199,7 +198,14 @@ public partial class RazorComponentBase
             long id => item is null ? $"{uriItem}/" : $"{uriItem}/{id}",
             _ => $"{uriItem}/",
         };
-
+    
+    protected string GetRouteItemPath(string uriItem, SqlTableBase? item) =>
+        item?.Identity.Name switch
+        {
+            SqlFieldIdentity.Id => $"{uriItem}/{item.IdentityValueId}",
+            SqlFieldIdentity.Uid => $"{uriItem}/{item.IdentityValueUid}",
+            _ => $"{uriItem}/"
+        };
     protected void SetRouteItemNavigate<TItem>(TItem? item) where TItem : SqlTableBase, new()
     {
         if (item is null) return;

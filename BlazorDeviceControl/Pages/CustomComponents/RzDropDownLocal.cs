@@ -1,15 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Variant = MudBlazor.Variant;
+using Radzen.Blazor;
 
 namespace BlazorDeviceControl.Pages.CustomComponents;
 
-public class MudNumericLocal<T> : MudNumericField<T>
+public class RzDropDownLocal<T>: RadzenDropDown<T>
 {
-    public MudNumericLocal()
+    public RzDropDownLocal()
     {
-        Margin = Margin.Dense;
-        Variant =  Variant.Outlined;
+        Style = "width: 100%";
     }
 }

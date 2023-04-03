@@ -13,7 +13,7 @@
   ButtonSettings="@ButtonSettings"
   />
 
-<RadzenDataGridLocal
+<RzDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@BundleModel"
   Data="@SqlSectionCast"
@@ -28,4 +28,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.BundleWeight" Property="Weight" />
     </TItemContent>
   </Columns>
-</RadzenDataGridLocal>
+</RzDataGridLocal>

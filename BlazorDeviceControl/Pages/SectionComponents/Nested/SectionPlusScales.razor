@@ -16,7 +16,7 @@
                 Style="margin-top: -3px; margin-left: 20px; "/>
 <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text="@LocaleCore.Action.ActionIsShowActivePlu"/>
 
-<RadzenDataGridLocal
+<RzDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@PluScaleModel"
   Data="@SqlSectionCast"
@@ -48,7 +48,7 @@
       </RadzenDataGridColumn>
     </TItemContent>
   </Columns>
-</RadzenDataGridLocal>
+</RzDataGridLocal>
 
 <SectionActions OnSectionSave="@OnSqlSectionSaveAsync" ButtonSettings="@ButtonSettings"/>
 

@@ -21,7 +21,7 @@
           <RadzenMenuItem
             Icon="people"
             Style="background-color: transparent;"
-            Text=@($"{User?.Identity?.Name}")
+            Text="@User?.Identity?.Name"
             Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
           <MudSpacer/>
           <RadzenMenuItem

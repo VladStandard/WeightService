@@ -6,9 +6,9 @@ using DataCore.Sql.Core.Helpers;
 
 namespace BlazorDeviceControl.Pages.CustomComponents;
 
-public class RadzenDataGridLocal<TItem> : RadzenDataGrid<TItem>
+public class RzDataGridLocal<TItem> : RadzenDataGrid<TItem>
 {
-    public RadzenDataGridLocal()
+    public RzDataGridLocal()
     {
         AllowPaging = true;
         AllowSorting = true;
