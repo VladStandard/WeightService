@@ -1,6 +1,5 @@
-﻿@page "/item/device"
-@page "/item/device/new"
-@page "/item/device/{IdentityUidStr}"
+﻿@page "/section/devices/new"
+@page "/section/devices/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<DeviceModel>
 @using DataCore.Sql.TableScaleModels.Devices

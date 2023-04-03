@@ -1,6 +1,5 @@
-﻿@page "/item/plu_scale"
-@page "/item/plu_scale/new"
-@page "/item/plu_scale/{IdentityUidStr}"
+﻿@page "/section/plu_scales/new"
+@page "/section/plu_scales/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<PluScaleModel>
 @using DataCore.Sql.TableScaleModels.PlusScales
@@ -24,7 +23,7 @@
     <td>
       <RadzenLink
         Style="width: 100%; margin-left: 0;"
-        Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.IdentityValueId)"
+        Path="@GetRouteItemPath(SqlItemCast.Scale)"
         Text="@LocaleCore.Table.Scale"/>
     </td>
     <td>
@@ -37,7 +36,7 @@
     </td>
     <td>
       <RadzenLink Style="width: 100%; margin-left: 0;"
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)"
+                  Path="@GetRouteItemPath(SqlItemCast.Plu)"
                   Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>

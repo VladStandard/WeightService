@@ -1,6 +1,5 @@
-﻿@page "/item/barcode"
-@page "/item/barcode/new"
-@page "/item/barcode/{IdentityUidStr}"
+﻿@page "/section/barcodes/new"
+@page "/section/barcodes/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<BarCodeModel>
 @using DataCore.Sql.TableScaleModels.BarCodes
@@ -14,19 +13,19 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-       <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.PluLabel.PluScale.Scale)"
+       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluLabel.PluScale.Scale)"
                             Text="@LocaleCore.Table.Scale" />
     </td>
     <td>@SqlItemCast.PluLabel.PluScale.Scale.Description</td>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPluLabel, SqlItemCast.PluLabel)"
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluLabel)"
                   Text="@LocaleCore.Table.Label"/>
     </td>
     <td>@SqlItemCast.PluLabel.IdentityValueUid</td>
   </tr>
   <tr>
     <td>
-        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu,@SqlItemCast.PluLabel.PluScale.Plu)"
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluLabel.PluScale.Plu)"
                         Text="@LocaleCore.Table.Plu" />
     </td>
     <td>@($"{SqlItemCast.PluLabel.PluScale.Plu.Number} | {SqlItemCast.PluLabel.PluScale.Plu.Name}")</td>
@@ -39,7 +38,7 @@
       <td>@LocaleCore.Table.ProductSeries</td>
       <td>@SqlItemCast.PluLabel.PluWeighing.Series?.Sscc</td>
       <td>
-        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPluWeighing, SqlItemCast.PluLabel.PluWeighing)"
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluLabel.PluWeighing)"
                           Text="@LocaleCore.Table.Weighing" />
       </td>
       <td>@SqlItemCast.PluLabel.PluWeighing.IdentityValueUid</td>

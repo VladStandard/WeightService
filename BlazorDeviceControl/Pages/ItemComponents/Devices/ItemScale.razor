@@ -1,6 +1,5 @@
-﻿@page "/item/scale"
-@page "/item/scale/new"
-@page "/item/scale/{IdentityId:long}"
+﻿@page "/section/scales/new"
+@page "/section/scales/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<ScaleModel>
 @using DataCore.Sql.TableScaleModels.Scales
@@ -24,7 +23,7 @@
     </tr>
     <tr>
       <td>
-        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDevice, Device)" Text="@LocaleCore.Table.Host"/>
+        <RadzenLink Path="@GetRouteItemPath(Device)" Text="@LocaleCore.Table.Host"/>
       </td>
       <td>
         <RzDropDownLocal @bind-Value="@Device" Data="@DataContext.Devices">
@@ -38,7 +37,7 @@
     </tr>
     <tr>
         <td>
-          <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterShipping)"
+          <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterShipping)"
                       Text="@LocaleCore.Print.NameShipping"/>
         </td>
         <td>
@@ -53,17 +52,17 @@
       </tr>
     <tr>
       <td>
-        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemWorkShop, SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
       </td>
       <td><RzDropDownLocal @bind-Value="@SqlItemCast.WorkShop" Data="@DataContext.WorkShops" TextProperty="Name" /></td>
       <td>
-        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
       </td>
       <td>@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldEmpty)</td>
     </tr>
     <tr>
       <td>
-        <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterMain)"
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterMain)"
           Text="@LocaleCore.Print.NameMain"/>
       </td>
       <td>

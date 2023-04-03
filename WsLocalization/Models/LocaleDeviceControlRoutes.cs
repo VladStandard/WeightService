@@ -33,8 +33,7 @@ public partial class LocaleDeviceControl
     public string RouteItemPrinterType => "/item/printer_type";
     public string RouteItemProductionFacility => "/item/production_facility";
     public string RouteItemProductSerie => "/item/product_serie";
-    public string RouteItemScale => "/item/scale";
-    public string RouteItemScaleObsolete => "/item/scale_obsolete";
+    public string RouteItemScale => "/section/scales";
     public string RouteItemScaleScreenShot => "/item/scale_screenshot";
     public string RouteItemTaskModule => "/item/taskmodule";
     public string RouteItemTaskTypeModule => "/item/tasktypemodule";

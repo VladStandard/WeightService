@@ -1,6 +1,5 @@
-﻿@page "/item/plu_bundle_fk"
-@page "/item/plu_bundle_fk/new"
-@page "/item/plu_bundle_fk/{IdentityUidStr}"
+﻿@page "/section/plus_bundles_fks/new"
+@page "/section/plus_bundles_fks/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<PluBundleFkModel>
 @using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
@@ -18,7 +17,7 @@
   <tr>
     <td>
       <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, Plu, Plu.IdentityValueUid)"
+                  Path="@GetRouteItemPath(Plu)"
                   Text="@LocaleCore.Table.Plu"/>
     </td>
     <td colspan="3">
@@ -34,17 +33,17 @@
   <tr>
     <td>
       <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)"
+                  Path="@GetRouteItemPath(SqlItemCast.Plu)"
                   Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>
       <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)"
+                  Path="@GetRouteItemPath(SqlItemCast.Plu)"
                   Text=@($"{Plu.Number}") />
     </td>
     <td colspan="2">
       <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.IdentityValueUid)"
+                  Path="@GetRouteItemPath(SqlItemCast.Plu)"
                   Text="@Plu.Name"/>
     </td>
   </tr>
@@ -55,7 +54,7 @@
     </td>
     <td>
       <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Bundle, SqlItemCast.Plu.IdentityValueUid)"
+                  Path="@GetRouteItemPath(SqlItemCast.Bundle)"
                   Text="@(SqlItemCast.Plu.Code)"/>
     </td>
   </tr>
@@ -63,7 +62,7 @@
   <tr>
     <td>
       <RadzenLink Style="width: 100%; margin-left: 0;"
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemBundle, SqlItemCast.Bundle, SqlItemCast.Bundle.IdentityValueUid)"
+                  Path="@GetRouteItemPath(SqlItemCast.Bundle)"
                   Text="@LocaleCore.Table.Bundle"/>
     </td>
     <td colspan="3">

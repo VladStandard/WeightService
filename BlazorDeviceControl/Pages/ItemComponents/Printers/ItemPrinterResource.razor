@@ -1,6 +1,5 @@
-@page "/item/printer_resource"
-@page "/item/printer_resource/new"
-@page "/item/printer_resource/{IdentityId:long}"
+@page "/section/printer_resources/new"
+@page "/section/printer_resources/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<PrinterResourceFkModel>
 @using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks

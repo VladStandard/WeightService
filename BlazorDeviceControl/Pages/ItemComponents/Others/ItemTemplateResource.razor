@@ -1,6 +1,5 @@
-@page "/item/template_resource"
-@page "/item/template_resource/new"
-@page "/item/template_resource/{IdentityUidStr}"
+@page "/section/templates_resources/new"
+@page "/section/templates_resources/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<TemplateResourceModel>
 @using DataCore.Sql.TableScaleModels.TemplatesResources

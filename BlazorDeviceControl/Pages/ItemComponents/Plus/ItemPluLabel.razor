@@ -1,6 +1,5 @@
-﻿@page "/item/plu_label"
-@page "/item/plu_label/new"
-@page "/item/plu_label/{IdentityUidStr}"
+﻿@page "/section/plus_labels/new"
+@page "/section/plus_labels/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<PluLabelModel>
 @using DataCore.Sql.TableScaleModels.PlusLabels
@@ -13,7 +12,7 @@
     <RazorItemTableBody SqlItem="@SqlItemCast"/>
     <tr>
       <td>
-       <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.PluScale.Scale)"
+       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale)"
                                 Text="@LocaleCore.Table.Scale"/>
       </td>
       <td>@SqlItemCast.PluScale.Scale.Description</td>
@@ -24,13 +23,12 @@
     </tr>
     <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.PluScale.Plu)"
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Plu)"
                   Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>@($"{SqlItemCast.PluScale.Plu.Number} | {SqlItemCast.PluScale.Plu.Name}")</td>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate,
-                          DataAccess.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
+      <RadzenLink Path="@GetRouteItemPath(DataAccess.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
                   Text="@LocaleCore.Table.Template"/>
     </td>
     <td>@DataAccess.GetItemTemplateNotNullable(SqlItemCast.PluScale).Title</td>
@@ -39,7 +37,7 @@
     {
       <tr>
         <td>
-          <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPluWeighing, SqlItemCast.PluWeighing)"
+          <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluWeighing)"
                       Text="@LocaleCore.Table.Weighing"/>
         </td>
         <td>@SqlItemCast.PluWeighing.IdentityValueUid</td>

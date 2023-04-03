@@ -1,6 +1,5 @@
-﻿@page "/item/access"
-@page "/item/access/new"
-@page "/item/access/{IdentityUidStr}"
+﻿@page "/section/access/new"
+@page "/section/access/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<AccessModel>
 @using DataCore.Sql.TableScaleModels.Access

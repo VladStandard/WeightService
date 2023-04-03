@@ -1,10 +1,8 @@
-﻿@page "/item/plu"
-@page "/item/plu/new"
-@page "/item/plu/{IdentityUidStr}"
+﻿@page "/section/plus/new"
+@page "/section/plus/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<PluModel>
 @using DataCore.Sql.TableScaleModels.Plus
-@using DataCore.Sql.TableScaleModels.Templates
 @using BlazorDeviceControl.Pages.CustomComponents
 @using BlazorDeviceControl.Pages.SectionComponents.Plus
 
@@ -14,83 +12,51 @@
 
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
-  <tr>
-    <td>@LocaleCore.Table.PluNumber</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " ReadOnly="true"
-                     Value="@SqlItemCast.Number.ToString()"/>
-    </td>
-    <td>@LocaleCore.Table.CheckWeight</td>
-    <td>
-      <RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsCheckWeight"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Name</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: center; " ReadOnly="false" Value="@SqlItemCast.Name"/>
-    </td>
-    <td>
-      <RadzenLink Style="width: 100%; margin-left: 0;"
-                  Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, Template, Template.IdentityValueId)"
-                  Text="@LocaleCore.Table.Template"/>
-    </td>
-    <td>
-      <MudSelectLocal @bind-Value="@Template">
-        @foreach (TemplateModel item in DataContext.Templates)
-        {
-          <MudSelectItem Value=@item>@item.Title</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.FullName</td>
-    <td>
-      <RadzenTextArea
-        Style="width: 100%; text-align: left; font-size: 11px; line-height: 16px; "
-        @bind-Value="@SqlItemCast.FullName"/>
-    </td>
-    <td>@LocaleCore.Table.ShelfLifeDays</td>
-    <td>
-      <RzNumericLocal @bind-Value="@SqlItemCast.ShelfLifeDays"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.NomenclatureCode</td>
-    <td>
-      <RadzenTextBox Style="text-align: center; width: 100%; background-color: lightgray;" ReadOnly="true"
-                     Value="@SqlItemCast.Code"/>
-    </td>
-    <td>@LocaleCore.Table.Itf14</td>
-    <td >
-      <RadzenTextBox Style="width: 93%; text-align: center; " @bind-Value="@SqlItemCast.Itf14"/>
-      <RadzenLabel Style="width: 6%; text-align: center; " Text="@SqlItemCast.Itf14.Length.ToString()"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Ean13</td>
-    <td >
-      <RadzenTextBox Style="width: 93%; text-align: center; " @bind-Value="@SqlItemCast.Ean13"/>
-      <RadzenLabel Style="width: 6%; text-align: center; "
-                   Text="@SqlItemCast.Ean13.Length.ToString()"/>
-    </td>
-    <td>@LocaleCore.Table.Gtin</td>
-    <td >
-      <RadzenTextBox Style="width: 93%; text-align: center; " @bind-Value="@SqlItemCast.Gtin"/>
-      <RadzenLabel Style="width: 6%; text-align: center; " Text="@SqlItemCast.Gtin.Length.ToString()"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Description</td>
-    <td colspan="3">
-      <RadzenTextArea
-        Style="width: 100%; text-align: left; font-size: 11px; line-height: 16px; "
-        @bind-Value="@SqlItemCast.Description" Rows="3"/>
-    </td>
-  </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+    <RazorItemTableBody SqlItem="@SqlItemCast"/>
+    <tr>
+      <td>@LocaleCore.Table.PluNumber</td>
+      <td>@SqlItemCast.Number</td>
+      <td>@LocaleCore.Table.CheckWeight</td>
+      <td><RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsCheckWeight"/></td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.Name</td>
+      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/></td>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(Template)"
+                    Text="@LocaleCore.Table.Template"/>
+      </td>
+      <td><RzDropDownLocal @bind-Value="@Template" Data="@DataContext.Templates" TextProperty="Title" /></td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.FullName</td>
+      <td><RadzenTextArea Style="width: 100%;" @bind-Value="@SqlItemCast.FullName"/></td>
+      <td>@LocaleCore.Table.ShelfLifeDays</td>
+      <td><RzNumericLocal @bind-Value="@SqlItemCast.ShelfLifeDays"/></td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.NomenclatureCode</td>
+      <td>@SqlItemCast.Code</td>
+      <td>@LocaleCore.Table.Itf14</td>
+      <td>@SqlItemCast.Itf14</td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.Ean13</td>
+      <td>@SqlItemCast.Ean13</td>
+      <td>@LocaleCore.Table.Gtin</td>
+      <td>@SqlItemCast.Gtin</td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.Description</td>
+      <td>
+        <RadzenTextArea
+          Style="width: 100%;"
+          @bind-Value="@SqlItemCast.Description" Rows="3"/>
+      </td>
+      <td />
+      <td />
+    </tr>
+    <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 

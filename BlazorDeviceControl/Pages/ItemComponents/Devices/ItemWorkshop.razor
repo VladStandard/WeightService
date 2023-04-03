@@ -1,6 +1,5 @@
-﻿@page "/item/workshop"
-@page "/item/workshop/new"
-@page "/item/workshop/{IdentityId:long}"
+﻿@page "/section/workshops/new"
+@page "/section/workshops/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<WorkShopModel>
 @using DataCore.Sql.TableScaleModels.WorkShops
@@ -20,7 +19,7 @@
   </tr>
   <tr>
     <td>
-          <RadzenLink Path="@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, SqlItemCast.ProductionFacility)"
+          <RadzenLink Path="@GetRouteItemPath(SqlItemCast.ProductionFacility)"
                       Text="@LocaleCore.Table.ProductionFacility"/>
         </td>
     <td>

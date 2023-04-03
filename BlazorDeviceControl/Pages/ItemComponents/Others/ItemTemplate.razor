@@ -1,6 +1,5 @@
-@page "/item/template"
-@page "/item/template/new"
-@page "/item/template/{IdentityId:long}"
+@page "/section/templates/new"
+@page "/section/templates/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<TemplateModel>
 @using DataCore.Sql.TableScaleModels.Templates

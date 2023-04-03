@@ -1,6 +1,5 @@
-﻿@page "/item/printer"
-@page "/item/printer/new"
-@page "/item/printer/{IdentityId:long}"
+﻿@page "/section/printers/new"
+@page "/section/printers/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<PrinterModel>
 @using DataCore.Sql.TableScaleModels.Printers
