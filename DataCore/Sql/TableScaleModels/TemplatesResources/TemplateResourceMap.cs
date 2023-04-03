@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.TemplatesResources;
 /// <summary>
 /// Table map "TEMPLATES_RESOURCES".
 /// </summary>
-public class TemplateResourceMap : ClassMap<TemplateResourceModel>
+public sealed class TemplateResourceMap : ClassMap<TemplateResourceModel>
 {
     /// <summary>
     /// Constructor.

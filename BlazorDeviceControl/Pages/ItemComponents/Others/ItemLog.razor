@@ -1,4 +1,4 @@
-﻿@page "/section/logs/new"
+@page "/section/logs/new"
 @page "/section/logs/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<LogModel>
@@ -11,7 +11,7 @@
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Arm</td>
+    <td>@LocaleCore.Table.Line</td>
     <td>
       @if (SqlItemCast.Device is not null)
       {

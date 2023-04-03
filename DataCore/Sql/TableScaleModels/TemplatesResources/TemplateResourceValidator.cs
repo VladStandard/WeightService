@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.TemplatesResources;
 /// <summary>
 /// Table validation "TEMPLATES_RESOURCES".
 /// </summary>
-public class TemplateResourceValidator : SqlTableValidator<TemplateResourceModel>
+public sealed class TemplateResourceValidator : SqlTableValidator<TemplateResourceModel>
 {
     /// <summary>
     /// Constructor.

@@ -12,12 +12,12 @@ using System.Xml.Linq;
 using WebApiTerra1000.Utils;
 using WsLocalization.Utils;
 using WsStorage.Utils;
-using WsWebApi.Helpers;
+using WsWebApi.Base;
 using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public class ShipmentControllerV2 : WsWebControllerBase
+public sealed class ShipmentControllerV2 : WsControllerBase
 {
     #region Constructor and destructor
 
@@ -32,21 +32,21 @@ public class ShipmentControllerV2 : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipmentV2)]
+    [Route(WsWebServiceUrls.GetShipmentV2)]
     public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
         GetShipmentWork(SqlQueriesV2.GetShipment, id, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipmentV2Preview)]
+    [Route(WsWebServiceUrls.GetShipmentV2Preview)]
     public ContentResult GetShipmentPreview([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
         GetShipmentWork(SqlQueriesV2.GetShipmentPreview, id, format);
 
     private ContentResult GetShipmentWork(string url, long id, string format)
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
@@ -79,14 +79,14 @@ public class ShipmentControllerV2 : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipmentsV2)]
+    [Route(WsWebServiceUrls.GetShipmentsV2)]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
         GetShipmentsCore(SqlQueriesV2.GetShipments, startDate, endDate, offset, rowCount, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipmentsV2Preview)]
+    [Route(WsWebServiceUrls.GetShipmentsV2Preview)]
     public ContentResult GetShipmentsPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
         GetShipmentsCore(SqlQueriesV2.GetShipmentsPreview, startDate, endDate, offset, rowCount, format);
@@ -94,10 +94,10 @@ public class ShipmentControllerV2 : WsWebControllerBase
     private ContentResult GetShipmentsCore(string url, DateTime startDate, DateTime endDate, 
         int offset = 0, int rowCount = 10, string format = "")
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, url, 
-                WsWebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, url, 
+                WsWebSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {

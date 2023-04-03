@@ -10,12 +10,12 @@ using System.Xml.Linq;
 using WebApiTerra1000.Utils;
 using WsLocalization.Utils;
 using WsStorage.Utils;
-using WsWebApi.Helpers;
+using WsWebApi.Base;
 using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public class SummaryControllerV2 : WsWebControllerBase
+public sealed class SummaryControllerV2 : WsControllerBase
 {
     #region Constructor and destructor
 
@@ -30,23 +30,23 @@ public class SummaryControllerV2 : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetSummaryV2)]
+    [Route(WsWebServiceUrls.GetSummaryV2)]
     public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
         [FromQuery(Name = "format")] string format = "") =>
         GetSummaryCore(SqlQueriesV2.GetSummary, startDate, endDate, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetSummaryV2Preview)]
+    [Route(WsWebServiceUrls.GetSummaryV2Preview)]
     public ContentResult GetSummaryPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
         [FromQuery(Name = "format")] string format = "") =>
         GetSummaryCore(SqlQueriesV2.GetSummaryPreview, startDate, endDate, format);
 
     private ContentResult GetSummaryCore(string url, DateTime startDate, DateTime endDate, string format) => 
-        ControllerHelp.GetContentResult(() =>
+        GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, url,
-                WsWebUtils.Sql.GetParameters(startDate, endDate));
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, url,
+                WsWebSqlUtils.GetParameters(startDate, endDate));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Summary} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);

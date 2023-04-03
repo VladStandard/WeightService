@@ -1,4 +1,4 @@
-﻿using DataCore.Sql.TableScaleFkModels.LogsWebsFks;
+﻿using DataCore.Sql.TableDiagModels.LogsWebsFks;
 
 namespace BlazorDeviceControl.Pages.SectionComponents.Admins.LogReports;
 

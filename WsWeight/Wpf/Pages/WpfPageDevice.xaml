@@ -59,7 +59,7 @@
 				Background="Transparent" FontSize="18"/>
             <Label 
 	            Margin="2" Grid.Column="0" Grid.Row="3" 
-                Content="{Binding Source={StaticResource LocaleTable}, Path=Arm}" 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Line}" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
 			<ComboBox 
 	            Margin="10" Grid.Column="1" Grid.Row="3" x:Name="comboBoxScale"

@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.TasksTypes;
 /// <summary>
 /// Table validation "TASKS_TYPES".
 /// </summary>
-public class TaskTypeValidator : SqlTableValidator<TaskTypeModel>
+public sealed class TaskTypeValidator : SqlTableValidator<TaskTypeModel>
 {
     /// <summary>
     /// Constructor.

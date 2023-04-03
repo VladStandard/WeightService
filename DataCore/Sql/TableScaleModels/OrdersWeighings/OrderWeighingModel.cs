@@ -2,8 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 using DataCore.Sql.TableScaleModels.Orders;
-using DataCore.Sql.TableScaleModels.PlusWeighings;
 
 namespace DataCore.Sql.TableScaleModels.OrdersWeighings;
 

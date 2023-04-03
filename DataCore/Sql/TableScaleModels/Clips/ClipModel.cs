@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.Clips;
 /// Table "CLIPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(ClipModel)} | {nameof(Uid1c)} = {Uid1c} | {Name} | {Weight}")]
+[DebuggerDisplay("{nameof(ClipModel)} | {Name} | {Weight} | {Uid1c} ")]
 public class ClipModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor

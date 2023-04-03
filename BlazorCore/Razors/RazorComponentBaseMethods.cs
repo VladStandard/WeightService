@@ -9,14 +9,11 @@ using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
-using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
-using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
@@ -29,6 +26,7 @@ using Radzen;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using BlazorCore.Utils;
+using DataCore.Sql.TableDiagModels.Logs;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleModels.Boxes;
 using DataCore.Sql.TableScaleModels.Bundles;
@@ -37,6 +35,8 @@ using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
+using DataCore.Sql.TableScaleFkModels.PlusLabels;
 
 namespace BlazorCore.Razors;
 
@@ -407,7 +407,7 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(false, false);
-			List<TemplateResourceModel> templateResources = DataContext.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
+			List<TemplateResourceModel> templateResources = DataContext.GetListNotNullableTemplateResources(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains("TTF"))

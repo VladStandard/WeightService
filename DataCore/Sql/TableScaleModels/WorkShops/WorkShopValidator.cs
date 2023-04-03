@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.WorkShops;
 /// <summary>
 /// Table validation "WorkShop".
 /// </summary>
-public class WorkShopValidator : SqlTableValidator<WorkShopModel>
+public sealed class WorkShopValidator : SqlTableValidator<WorkShopModel>
 {
     /// <summary>
     /// Constructor.

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels.Scales;
@@ -7,7 +7,7 @@ using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class ProductSeriesDirect : SqlSerializeBase
+public sealed class ProductSeriesDirect : SqlSerializeBase
 {
 	#region Public and private fields, properties, constructor
 

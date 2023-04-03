@@ -12,12 +12,12 @@ using System.Xml.Linq;
 using WebApiTerra1000.Utils;
 using WsLocalization.Utils;
 using WsStorage.Utils;
-using WsWebApi.Helpers;
+using WsWebApi.Base;
 using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public class ShipmentController : WsWebControllerBase
+public sealed class ShipmentController : WsControllerBase
 {
     #region Constructor and destructor
 
@@ -32,12 +32,12 @@ public class ShipmentController : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipment)]
+    [Route(WsWebServiceUrls.GetShipment)]
     public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipment, new SqlParameter("ID", id));
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetShipment, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
@@ -70,15 +70,15 @@ public class ShipmentController : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetShipmentsByDocDate)]
-    [Route(UrlWebService.GetShipments)]
+    [Route(WsWebServiceUrls.GetShipmentsByDocDate)]
+    [Route(WsWebServiceUrls.GetShipments)]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipments,
-                WsWebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetShipments,
+                WsWebSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {

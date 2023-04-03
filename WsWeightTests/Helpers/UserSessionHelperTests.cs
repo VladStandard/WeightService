@@ -17,7 +17,7 @@ public class UserSessionHelperTests
     {
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
-            List<AppModel> apps = UserSession.DataContext.GetListNotNullable<AppModel>(new());
+            List<AppModel> apps = UserSession.DataContext.GetListNotNullableApps(new());
             Assert.Greater(apps.Count, 0);
         }, false);
     }

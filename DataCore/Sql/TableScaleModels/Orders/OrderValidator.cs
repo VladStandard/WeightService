@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Sql.TableScaleModels.Orders;
@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Orders;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class OrderValidator : SqlTableValidator<OrderModel>
+public sealed class OrderValidator : SqlTableValidator<OrderModel>
 {
     /// <summary>
     /// Constructor.

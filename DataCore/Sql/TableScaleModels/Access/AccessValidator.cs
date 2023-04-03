@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.Access;
 /// <summary>
 /// Table validation "ACCESS".
 /// </summary>
-public class AccessValidator : SqlTableValidator<AccessModel>
+public sealed class AccessValidator : SqlTableValidator<AccessModel>
 {
     /// <summary>
     /// Constructor.

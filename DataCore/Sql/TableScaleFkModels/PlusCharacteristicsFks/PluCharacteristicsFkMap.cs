@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 /// <summary>
 /// Table map "PLUS_CHARACTERISTICS_FK".
 /// </summary>
-public class PluCharacteristicsFkMap : ClassMap<PluCharacteristicsFkModel>
+public sealed class PluCharacteristicsFkMap : ClassMap<PluCharacteristicsFkModel>
 {
     /// <summary>
     /// Constructor.

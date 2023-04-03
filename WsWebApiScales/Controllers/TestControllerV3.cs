@@ -3,18 +3,15 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using DataCore.Utils;
-using WsLocalization.Utils;
-using WsWebApi.Helpers;
 using WsWebApi.Models;
-using WsWebApi.Utils;
 
 namespace WsWebApiScales.Controllers;
 
 /// <summary>
 /// Test controller v3.
 /// </summary>
-public sealed class TestControllerV3 : WsWebControllerBase
+[Tags(WsWebServiceConsts.Tests)]
+public sealed class TestControllerV3 : WsControllerBase
 {
     #region Public and private fields and properties
 
@@ -35,41 +32,42 @@ public sealed class TestControllerV3 : WsWebControllerBase
     /// Get info.
     /// </summary>
     /// <param name="format"></param>
+    /// <param name="isDebug"></param>
     /// <param name="host"></param>
     /// <param name="version"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetInfo)]
-    public ContentResult GetInfo([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "is_debug")] bool isDebug = false, 
+    [Route(WsWebServiceUrls.GetInfo)]
+    public ContentResult GetInfo([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false, 
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime requestStampDt = DateTime.Now;
-        ContentResult result = ControllerHelp.GetContentResult(() => 
+        ContentResult result = GetContentResult(() => 
             DataFormatUtils.GetContentResult<WsServiceInfoModel>(
             WsWebResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
-        ControllerHelp.LogWebServiceFk(nameof(WsWebApiScales), UrlWebService.GetInfo,
+        LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.GetInfo,
             requestStampDt, string.Empty, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetException)]
-    public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "is_debug")] bool isDebug = false, 
+    [Route(WsWebServiceUrls.GetException)]
+    public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false, 
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "",
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        ControllerHelp.GetContentResult(() => 
+        GetContentResult(() => 
             DataFormatUtils.GetContentResult<WsServiceExceptionModel>(
                 new WsServiceExceptionModel(filePath, lineNumber, memberName, "Test Exception!", "Test inner exception!"), 
                 format, HttpStatusCode.InternalServerError), format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetSimple)]
-    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "is_debug")] bool isDebug = false, 
+    [Route(WsWebServiceUrls.GetSimple)]
+    public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false, 
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "") =>
-        new WsTestControllerV2(SessionFactory).GetSimple(format, isDebug);
+        new WsTestV2Helper(SessionFactory).GetSimple(format, isDebug);
 
     #endregion
 }

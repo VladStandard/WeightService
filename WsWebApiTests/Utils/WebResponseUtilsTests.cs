@@ -1,18 +1,19 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Net;
 using DataCore.Utils;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using System.Net;
 using WsWebApi.Models;
+using WsWebApi.Base;
 using WsWebApi.Utils;
 
 namespace WsWebApiTests.Utils;
 
-public static class WebResponseUtilsTests
+internal static class WebResponseUtilsTests
 {
-    public static async Task GetExceptionAsync(string url, RestRequest request)
+    internal static async Task GetExceptionAsync(string url, RestRequest request)
     {
         await WsWebResponseUtils.GetResponseAsync(url, request, response =>
         {
@@ -30,7 +31,7 @@ public static class WebResponseUtilsTests
                 }
                 else if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatXml()))
                 {
-                    serviceException =  DataFormatUtils.DeserializeFromXml<WsServiceExceptionModel>(response.Content); 
+                    serviceException = DataFormatUtils.DeserializeFromXml<WsServiceExceptionModel>(response.Content);
                     Assert.IsTrue(serviceException is not null);
                 }
                 if (serviceException is not null)
@@ -45,7 +46,7 @@ public static class WebResponseUtilsTests
         });
     }
 
-    public static async Task GetInfoAsync(string url, RestRequest request)
+    internal static async Task GetInfoAsync(string url, RestRequest request)
     {
         await WsWebResponseUtils.GetResponseAsync(url, request, response =>
         {

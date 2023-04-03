@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Sql.TableScaleModels.Contragents;
@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Contragents;
 /// <summary>
 /// Table validation "CONTRAGENTS_V2".
 /// </summary>
-public class ContragentValidator : SqlTableValidator<ContragentModel>
+public sealed class ContragentValidator : SqlTableValidator<ContragentModel>
 {
     /// <summary>
     /// Constructor.

@@ -74,23 +74,81 @@ LEFT JOIN [DB_SCALES].[BOXES] [B] ON [PNFK].[BOX_UID] = [B].[UID]
 ORDER BY [P].[NUMBER];
                 ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             }
-            public static class WeithingFacts
+
+            public static class PluLabels
             {
-                public static string GetWeithingFacts(int topRecords) => @$"
--- Table WeithingFact diagram summary
+                public static string GetLabelsAggrWithoutPlu(int topRecords) => $@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+-- PLUS_LABELS_SELECT_AGGR_WITHOUT_PLU | АГРЕГИРОВАННЫЕ ЭТИКЕТКИ БЕЗ ПЛУ
 SELECT {GetTopRecords(topRecords)}
-	cast([wf].[WeithingDate] as date) [WeithingDate]
-	,count(*) [Count]
-	,[s].[Description] [Scale]
-	,[h].[Name] [Host]
-	,[p].[Name] [Printer]
-from [db_scales].[WeithingFact] [wf]
-left join [db_scales].[Scales] [s] on [wf].[ScaleId] = [s].[Id]
-left join [db_scales].[Hosts] [h] on [s].[HostId] = [h].[Id]
-left join [db_scales].[ZebraPrinter] [p] on [s].[ZebraPrinterId] = [p].[Id]
-group by cast([WeithingDate] as date), [s].[Description], [h].[Name], [p].[Name]
-order by [WeithingDate] desc
-					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+     CAST([PL].[CHANGE_DT] AS DATE) [PL_CHANGE_DT]
+	,COUNT(*) [COUNT]
+	,[S].[DESCRIPTION] [LINE]
+	,[D].[NAME] [DEVICE]
+FROM [db_scales].[PLUS_LABELS] [PL]
+LEFT JOIN [db_scales].[PLUS_SCALES] [PS] ON [PS].[UID] = [PL].[PLU_SCALE_UID]
+LEFT JOIN [DB_SCALES].[SCALES] [S] ON [S].[ID] = [PS].[SCALE_ID]
+LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
+LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
+GROUP BY CAST([PL].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME]
+ORDER BY [PL_CHANGE_DT] DESC;
+";
+                public static string GetLabelsAggrWithPlu(int topRecords) => $@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+-- PLUS_LABELS_SELECT_AGGR_WITH_PLU | АГРЕГИРОВАННЫЕ ЭТИКЕТКИ С ПЛУ
+SELECT {GetTopRecords(topRecords)}
+	 CAST([PL].[CHANGE_DT] AS DATE) [PL_CHANGE_DT]
+	,COUNT(*) [COUNT]
+	,[S].[DESCRIPTION] [LINE]
+	,[D].[NAME] [DEVICE]
+	,[P].[NAME] [PLU]
+FROM [db_scales].[PLUS_LABELS] [PL]
+LEFT JOIN [db_scales].[PLUS_SCALES] [PS] ON [PS].[UID] = [PL].[PLU_SCALE_UID]
+LEFT JOIN [db_scales].[PLUS] [P] ON [P].[UID] = [PS].[PLU_UID]
+LEFT JOIN [DB_SCALES].[SCALES] [S] ON [S].[ID] = [PS].[SCALE_ID]
+LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
+LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
+GROUP BY CAST([PL].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME], [P].[NAME]
+ORDER BY [PL_CHANGE_DT] DESC;
+";
+            }
+
+            public static class PluWeighings
+            {
+                public static string GetWeighingsAggrWithoutPlu(int topRecords) => $@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+-- PLUS_WEIGHINGS_SELECT_AGGR_WITHOUT_PLU | АГРЕГИРОВАННЫЕ ВЗВЕШИВАНИЯ БЕЗ ПЛУ
+SELECT {GetTopRecords(topRecords)}
+	 CAST([PW].[CHANGE_DT] AS DATE) [PW_CHANGE_DT]
+	,COUNT(*) [COUNT]
+	,[S].[DESCRIPTION] [LINE]
+	,[D].[NAME] [DEVICE]
+FROM [db_scales].[PLUS_WEIGHINGS] [PW]
+LEFT JOIN [db_scales].[PLUS_SCALES] [PS] ON [PS].[UID] = [PW].[PLU_SCALE_UID]
+LEFT JOIN [DB_SCALES].[SCALES] [S] ON [S].[ID] = [PS].[SCALE_ID]
+LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
+LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
+GROUP BY CAST([PW].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME]
+ORDER BY [PW_CHANGE_DT] DESC;
+";
+                public static string GetWeighingsAggrWithPlu(int topRecords) => $@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+-- PLUS_WEIGHINGS_SELECT_AGGR_WITH_PLU | АГРЕГИРОВАННЫЕ ВЗВЕШИВАНИЯ С ПЛУ
+SELECT {GetTopRecords(topRecords)}
+	 CAST([PW].[CHANGE_DT] AS DATE) [PW_CHANGE_DT]
+	,COUNT(*) [COUNT]
+	,[S].[DESCRIPTION] [LINE]
+	,[D].[NAME] [DEVICE]
+	,[P].[NAME] [PLU]
+FROM [db_scales].[PLUS_WEIGHINGS] [PW]
+LEFT JOIN [db_scales].[PLUS_SCALES] [PS] ON [PS].[UID] = [PW].[PLU_SCALE_UID]
+LEFT JOIN [db_scales].[PLUS] [P] ON [P].[UID] = [PS].[PLU_UID]
+LEFT JOIN [DB_SCALES].[SCALES] [S] ON [S].[ID] = [PS].[SCALE_ID]
+LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
+LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
+GROUP BY CAST([PW].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME], [P].[NAME]
+ORDER BY [PW_CHANGE_DT] DESC;
+";
             }
         }
 

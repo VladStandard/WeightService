@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 /// <summary>
 /// Table validation "PLUS_CHARACTERISTICS_FK".
 /// </summary>
-public class PluCharacteristicsFkValidator : SqlTableValidator<PluCharacteristicsFkModel>
+public sealed class PluCharacteristicsFkValidator : SqlTableValidator<PluCharacteristicsFkModel>
 {
     /// <summary>
     /// Constructor.

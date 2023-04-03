@@ -11,12 +11,12 @@ using System.Xml.Linq;
 using WebApiTerra1000.Utils;
 using WsLocalization.Utils;
 using WsStorage.Utils;
-using WsWebApi.Helpers;
+using WsWebApi.Base;
 using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public class NomenclatureController : WsWebControllerBase
+public sealed class NomenclatureController : WsControllerBase
 {
     #region Constructor and destructor
 
@@ -31,14 +31,14 @@ public class NomenclatureController : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetNomenclature)]
+    [Route(WsWebServiceUrls.GetNomenclature)]
     public ContentResult GetNomenclature([FromQuery] string code, [FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
             string response = string.IsNullOrEmpty(code)
-                ? WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromId, new SqlParameter("id", id))
-                : WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromCode, new SqlParameter("code", code));
+                ? WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromId, new SqlParameter("id", id))
+                : WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromCode, new SqlParameter("code", code));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -47,14 +47,14 @@ public class NomenclatureController : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route( UrlWebService.GetNomenclatures)]
+    [Route(WsWebServiceUrls.GetNomenclatures)]
     public ContentResult GetNomenclatures([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatures,
-                WsWebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatures,
+                WsWebSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -63,14 +63,14 @@ public class NomenclatureController : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route( UrlWebService.GetNomenclaturesCosts)]
+    [Route(WsWebServiceUrls.GetNomenclaturesCosts)]
     public ContentResult GetNomenclaturesCosts([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclaturesCosts,
-                WsWebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclaturesCosts,
+                WsWebSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);

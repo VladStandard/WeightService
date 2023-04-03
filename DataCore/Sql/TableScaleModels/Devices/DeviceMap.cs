@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Utils;
@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.Devices;
 /// <summary>
 /// Table map "DEVICES".
 /// </summary>
-public class DeviceMap : ClassMap<DeviceModel>
+public sealed class DeviceMap : ClassMap<DeviceModel>
 {
     /// <summary>
     /// Constructor.

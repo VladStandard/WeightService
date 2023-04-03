@@ -3,10 +3,15 @@
 
 using DataCore.Enums;
 using DataCore.Sql.Core.Helpers;
+using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsTypes;
+using DataCore.Sql.TableDiagModels.LogsWebs;
+using DataCore.Sql.TableDiagModels.LogsWebsFks;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
+using DataCore.Sql.TableScaleFkModels.PlusLabels;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
-using DataCore.Sql.TableScaleModels.LogsWebs;
 
 namespace WsStorageCoreTests.Core.Helpers;
 

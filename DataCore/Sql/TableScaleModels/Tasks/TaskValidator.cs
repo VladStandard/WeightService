@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Tasks;
 /// <summary>
 /// Table validation "TASKS".
 /// </summary>
-public class TaskValidator : SqlTableValidator<TaskModel>
+public sealed class TaskValidator : SqlTableValidator<TaskModel>
 {
     /// <summary>
     /// Constructor.

@@ -12,12 +12,12 @@ using System.Xml.Linq;
 using WebApiTerra1000.Utils;
 using WsLocalization.Utils;
 using WsStorage.Utils;
-using WsWebApi.Helpers;
+using WsWebApi.Base;
 using WsWebApi.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public class ContragentControllerV2 : WsWebControllerBase
+public sealed class ContragentControllerV2 : WsControllerBase
 {
     #region Constructor and destructor
 
@@ -32,8 +32,8 @@ public class ContragentControllerV2 : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetContragentV2)]
-    public ContentResult GetContragentFromCodeIdProd([FromQuery] string code, long id, 
+    [Route(WsWebServiceUrls.GetContragentV2)]
+    public ContentResult GetContragentFromCodeIdProd([FromQuery] string code, long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetContragentFromCodeIdWork(code != null
             ? WsSqlQueriesContragentsV2.GetContragentFromCodeProd : WsSqlQueriesContragentsV2.GetContragentFromIdProd,
@@ -41,20 +41,20 @@ public class ContragentControllerV2 : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetContragentV2Preview)]
+    [Route(WsWebServiceUrls.GetContragentV2Preview)]
     public ContentResult GetContragentFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetContragentFromCodeIdWork(code != null
             ? WsSqlQueriesContragentsV2.GetContragentFromCodePreview : WsSqlQueriesContragentsV2.GetContragentFromIdPreview,
             code, id, format);
 
-    private ContentResult GetContragentFromCodeIdWork([FromQuery] string url, [FromQuery] string code, 
+    private ContentResult GetContragentFromCodeIdWork([FromQuery] string url, [FromQuery] string code,
         [FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, url,
-                code != null ? WsWebUtils.Sql.GetParametersV2(code) : WsWebUtils.Sql.GetParametersV2(id));
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, url,
+                code != null ? WsWebSqlUtils.GetParametersV2(code) : WsWebSqlUtils.GetParametersV2(id));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -63,7 +63,7 @@ public class ContragentControllerV2 : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetContragentsV2)]
+    [Route(WsWebServiceUrls.GetContragentsV2)]
     public ContentResult GetContragentsProd([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
@@ -79,7 +79,7 @@ public class ContragentControllerV2 : WsWebControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(UrlWebService.GetContragentsV2Preview)]
+    [Route(WsWebServiceUrls.GetContragentsV2Preview)]
     public ContentResult GetContragentsPreview([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
@@ -95,29 +95,29 @@ public class ContragentControllerV2 : WsWebControllerBase
 
     private ContentResult GetContragentsEmptyWork([FromQuery] string url, [FromQuery(Name = "format")] string format = "")
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, url);
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, url);
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
         }, format);
     }
 
-    private ContentResult GetContragentsWork([FromQuery] string url, [FromQuery] DateTime? startDate = null, 
+    private ContentResult GetContragentsWork([FromQuery] string url, [FromQuery] DateTime? startDate = null,
         [FromQuery] DateTime? endDate = null, [FromQuery] int? offset = null, [FromQuery] int? rowCount = null,
         [FromQuery(Name = "format")] string format = "")
     {
-        return ControllerHelp.GetContentResult(() =>
+        return GetContentResult(() =>
         {
             List<SqlParameter> parameters = null;
             if (startDate != null && endDate != null && offset != null && rowCount != null)
-                parameters = WsWebUtils.Sql.GetParametersV2(startDate, endDate, offset, rowCount);
+                parameters = WsWebSqlUtils.GetParametersV2(startDate, endDate, offset, rowCount);
             else if (startDate != null && endDate != null)
-                parameters = WsWebUtils.Sql.GetParametersV2(startDate, endDate);
+                parameters = WsWebSqlUtils.GetParametersV2(startDate, endDate);
             else if (startDate != null && endDate == null)
-                parameters = WsWebUtils.Sql.GetParametersV2(startDate);
-            string response = WsWebUtils.Sql.GetResponse<string>(SessionFactory, url, parameters);
+                parameters = WsWebSqlUtils.GetParametersV2(startDate);
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, url, parameters);
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);

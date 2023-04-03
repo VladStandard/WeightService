@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DataCore.Sql.TableScaleModels.DeviceTypes;
@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.DeviceTypes;
 /// <summary>
 /// Table validation "DEVICES_TYPES".
 /// </summary>
-public class DeviceTypeValidator : SqlTableValidator<DeviceTypeModel>
+public sealed class DeviceTypeValidator : SqlTableValidator<DeviceTypeModel>
 {
     /// <summary>
     /// Constructor.
