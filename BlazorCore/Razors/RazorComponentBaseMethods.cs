@@ -13,9 +13,7 @@ using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.PlusLabels;
 using DataCore.Sql.TableScaleModels.PlusScales;
-using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.Printers;
 using DataCore.Sql.TableScaleModels.PrintersTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
@@ -37,6 +35,8 @@ using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleModels.PlusGroups;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
+using DataCore.Sql.TableScaleFkModels.PlusLabels;
 
 namespace BlazorCore.Razors;
 

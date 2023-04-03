@@ -6,7 +6,7 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 
-namespace DataCore.Sql.TableScaleModels.PlusWeighings;
+namespace DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 
 /// <summary>
 /// Table "PLUS_WEIGHINGS".

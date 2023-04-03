@@ -9,7 +9,7 @@ global using DataCore.Models;
 global using DataCore.Protocols;
 global using DataCore.Settings.Helpers;
 global using DataCore.Sql.Core.Helpers;
-global using DataCore.Sql.TableScaleModels.PlusLabels;
+global using DataCore.Sql.TableScaleFkModels.PlusLabels;
 global using DataCore.Sql.TableScaleModels.Printers;
 global using MDSoft.BarcodePrintUtils.Enums;
 global using MDSoft.BarcodePrintUtils.Tsc;

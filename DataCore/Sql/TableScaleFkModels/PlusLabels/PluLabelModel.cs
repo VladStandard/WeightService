@@ -3,10 +3,10 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Core.Enums;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 using DataCore.Sql.TableScaleModels.PlusScales;
-using DataCore.Sql.TableScaleModels.PlusWeighings;
 
-namespace DataCore.Sql.TableScaleModels.PlusLabels;
+namespace DataCore.Sql.TableScaleFkModels.PlusLabels;
 
 /// <summary>
 /// Table "PLUS_LABELS".
@@ -22,7 +22,8 @@ public class PluLabelModel : SqlTableBase
     [XmlElement] public virtual string Zpl { get; set; }
     [XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
     [XmlElement] public virtual DateTime ProductDt { get; set; }
-    [XmlElement] public virtual DateTime ExpirationDt
+    [XmlElement]
+    public virtual DateTime ExpirationDt
     {
         get => PluScale.IsNew ? DateTime.MinValue : ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
         // This code need for print labels.
@@ -64,7 +65,7 @@ public class PluLabelModel : SqlTableBase
     public override string ToString() =>
         $"{nameof(ProductDt)}: {ProductDt}. " +
         $"{nameof(PluScale.Plu.Number)}: {PluScale.Plu.Number}. " +
-        $"{nameof(Zpl)}: {Zpl.Length}. " + 
+        $"{nameof(Zpl)}: {Zpl.Length}. " +
         $"{nameof(Xml)}: {(Xml is null ? 0 : Xml.OuterXml.Length)}. ";
 
     public override bool Equals(object obj)

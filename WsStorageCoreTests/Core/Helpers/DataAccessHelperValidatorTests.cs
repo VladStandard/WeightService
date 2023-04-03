@@ -4,6 +4,8 @@
 using DataCore.Sql.TableDiagModels.Logs;
 using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
+using DataCore.Sql.TableScaleFkModels.PlusLabels;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
 namespace WsStorageCoreTests.Core.Helpers;

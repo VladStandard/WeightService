@@ -1,12 +1,11 @@
-﻿@page "/section/plus_weighings_aggr"
+@*@page "/section/plus_weighings_aggr"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WeithingFactSummaryModel>
-@using DataCore.Sql.Xml
-@using BlazorDeviceControl.Pages.CustomComponents
+@using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks
+@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusWeighingsFks.PluWeighingModel>
 
 <SectionReload
-  TItem="@WeithingFactSummaryModel"
-  Title="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation"
+  TItem="@PluWeighingAggrModel"
+  Title="@LocaleCore.DeviceControl.SectionWeithingFactsAggregationWithoutPlu"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
@@ -15,22 +14,23 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@WeithingFactSummaryModel"
+  TItem="@PluWeighingAggrModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowRender="@RowRender">
   <Columns>
-    <TItemContent TItem="@WeithingFactSummaryModel">
+    <TItemContent TItem="@PluWeighingAggrModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.WeighDt" Property="WeithingDate" Width="15%" FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn TItem="WeithingFactSummaryModel" Title="@LocaleCore.Table.DayOfWeek" SortProperty="WeithingDate.DayOfWeek" Width="15%">
+        <RadzenDataGridColumn Title="@LocaleCore.Table.WeighDt" Property="WeithingDate" Width="15%" FormatString="@StrUtils.FormatDtDefault" />
+      <RadzenDataGridColumn TItem="PluWeighingAggrModel" Title="@LocaleCore.Table.DayOfWeek" SortProperty="WeithingDate.DayOfWeek" Width="15%">
         <Template Context="itemCast">
           @EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek)
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="Count" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale" Width="55%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="55%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>
+*@

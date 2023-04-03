@@ -3,7 +3,7 @@
 
 using DataCore.Sql.Core.Utils;
 
-namespace DataCore.Sql.TableScaleModels.PlusWeighings;
+namespace DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 
 /// <summary>
 /// Table map "PLUS_WEIGHINGS".

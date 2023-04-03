@@ -1,45 +1,60 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+//// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Xml;
+//using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 
-namespace BlazorDeviceControl.Pages.SectionComponents.Plus;
+//namespace BlazorDeviceControl.Pages.SectionComponents.Plus;
 
-public sealed partial class SectionPluWeightingsAggr : RazorComponentSectionBase<WeithingFactSummaryModel>
-{
-    #region Public and private fields, properties, constructor
+//public sealed partial class SectionPluWeightingsAggr : RazorComponentSectionBase<PluWeighingModel>
+//{
+//    #region Public and private fields, properties, constructor
 
-    public SectionPluWeightingsAggr() : base()
-    {
-        ButtonSettings = new(false, false, false, false, false, false, false);
-    }
+//    private bool IsAddPlu { get; set; }
+//    private List<PluAggrModel> PluAggrs { get; set; }
 
-	#endregion
+//    public SectionPluWeightingsAggr()
+//    {
+//        PluAggrs = new();
+//        ButtonSettings = new(false, false, false, false, false, false, false);
+//    }
 
-	#region Public and private methods
+//	#endregion
 
-    protected override void SetSqlSectionCast()
-    {
-        object[] objects = DataAccess.GetArrayObjectsNotNullable(
-            SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts(
-                SqlCrudConfigSection.IsResultShowOnlyTop ? DataAccess.JsonSettings.Local.SelectTopRowsCount : 0));
-        List<WeithingFactSummaryModel> items = new();
-        foreach (object obj in objects)
-        {
-            if (obj is object[] { Length: 5 } item)
-            {
-                items.Add(new()
-                {
-                    WeithingDate = Convert.ToDateTime(item[0]),
-                    Count = Convert.ToInt32(item[1]),
-                    Scale = item[2] as string ?? string.Empty,
-                    Host = item[3] as string ?? string.Empty,
-                    Printer = item[4] as string ?? string.Empty,
-                });
-            }
-        }
-        SqlSectionCast = items;
-    }
+//	#region Public and private methods
 
-    #endregion
-}
+//    protected override void SetSqlSectionCast()
+//    {
+//        object[] objects = IsAddPlu 
+//            ? DataAccess.GetArrayObjectsNotNullable(SqlQueries.DbScales.Tables.PluWeighings.GetWeighingsAggrWithPlu(
+//                SqlCrudConfigSection.IsResultShowOnlyTop ? DataAccess.JsonSettings.Local.SelectTopRowsCount : 0))
+//            : DataAccess.GetArrayObjectsNotNullable(SqlQueries.DbScales.Tables.PluWeighings.GetWeighingsAggrWithoutPlu(
+//                SqlCrudConfigSection.IsResultShowOnlyTop ? DataAccess.JsonSettings.Local.SelectTopRowsCount : 0));
+//        PluAggrs = new();
+//        foreach (object obj in objects)
+//        {
+//            if (IsAddPlu)
+//            {
+//                if (obj is object[] { Length: 5 } item)
+//                {
+//                    PluAggrs.Add(new(Convert.ToDateTime(item[0]),
+//                        Convert.ToInt32(item[1]), Convert.ToString(item[2]) ?? string.Empty,
+//                        Convert.ToString(item[3]) ?? string.Empty, Convert.ToString(item[4]) ?? string.Empty)
+//                    );
+//                }
+//            }
+//            else
+//            {
+//                if (obj is object[] { Length: 4 } item)
+//                {
+//                    PluAggrs.Add(new(Convert.ToDateTime(item[0]),
+//                        Convert.ToInt32(item[1]), Convert.ToString(item[2]) ?? string.Empty,
+//                        Convert.ToString(item[3]) ?? string.Empty)
+//                    );
+//                }
+//            }
+//        }
+//        //SqlSectionCast = items;
+//    }
+
+//    #endregion
+//}

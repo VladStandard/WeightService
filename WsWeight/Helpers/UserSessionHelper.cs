@@ -14,7 +14,6 @@ using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.DeviceTypes;
-using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Templates;
@@ -27,6 +26,8 @@ using DataCore.Sql.Helpers;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using WsWeight.Plugins.Helpers;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
+using DataCore.Sql.TableScaleFkModels.PlusLabels;
 
 namespace WsWeight.Helpers;
 

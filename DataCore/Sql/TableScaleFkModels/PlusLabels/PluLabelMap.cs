@@ -3,7 +3,7 @@
 
 using DataCore.Sql.Core.Utils;
 
-namespace DataCore.Sql.TableScaleModels.PlusLabels;
+namespace DataCore.Sql.TableScaleFkModels.PlusLabels;
 
 /// <summary>
 /// Table map "PLUS_LABELS".

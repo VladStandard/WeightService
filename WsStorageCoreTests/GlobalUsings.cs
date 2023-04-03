@@ -1,6 +1,5 @@
 // Global using directives
 
-global using System.Diagnostics;
 global using AssertCoreTests;
 global using DataCore.Sql.Core.Utils;
 global using DataCore.Sql.Models;
@@ -12,6 +11,7 @@ global using DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 global using DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 global using DataCore.Sql.TableScaleFkModels.PlusFks;
 global using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
+global using DataCore.Sql.TableScaleFkModels.PlusLabels;
 global using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 global using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 global using DataCore.Sql.TableScaleModels.Access;
@@ -30,10 +30,8 @@ global using DataCore.Sql.TableScaleModels.Organizations;
 global using DataCore.Sql.TableScaleModels.Plus;
 global using DataCore.Sql.TableScaleModels.PlusCharacteristics;
 global using DataCore.Sql.TableScaleModels.PlusGroups;
-global using DataCore.Sql.TableScaleModels.PlusLabels;
 global using DataCore.Sql.TableScaleModels.PlusScales;
 global using DataCore.Sql.TableScaleModels.PlusStorageMethods;
-global using DataCore.Sql.TableScaleModels.PlusWeighings;
 global using DataCore.Sql.TableScaleModels.Printers;
 global using DataCore.Sql.TableScaleModels.PrintersTypes;
 global using DataCore.Sql.TableScaleModels.ProductionFacilities;
@@ -51,3 +49,4 @@ global using FluentNHibernate.Cfg;
 global using NHibernate;
 global using NSubstitute;
 global using NUnit.Framework;
+global using System.Diagnostics;

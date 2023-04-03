@@ -4,10 +4,10 @@
 
 using DataCore.Serialization.Models;
 using DataCore.Sql.Helpers;
+using DataCore.Sql.TableScaleFkModels.PlusLabels;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
-using DataCore.Sql.TableScaleModels.PlusLabels;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 using DataCore.Sql.TableScaleModels.PlusScales;
-using DataCore.Sql.TableScaleModels.PlusWeighings;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 
 namespace DataCore.Sql.Core.Models;

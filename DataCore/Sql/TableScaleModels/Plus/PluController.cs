@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
-using System;
 
 namespace DataCore.Sql.TableScaleModels.Plus;
 

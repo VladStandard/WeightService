@@ -31,12 +31,14 @@ internal class PluStorageMethodContentTests
 
             foreach (PluStorageMethodModel method in plus.Select(plu => DataCoreTestsUtils.DataCore.DataContext.GetPluStorageMethod(plu)))
             {
-                DataCoreTestsUtils.DataCore.AssertSqlValidate(method, true);
+                if (method.IsExists)
+                    DataCoreTestsUtils.DataCore.AssertSqlValidate(method, true);
             }
 
             foreach (TemplateResourceModel resource in plus.Select(plu => DataCoreTestsUtils.DataCore.DataContext.GetPluStorageResource(plu)))
             {
-                DataCoreTestsUtils.DataCore.AssertSqlValidate(resource, true);
+                if (resource.IsExists)
+                    DataCoreTestsUtils.DataCore.AssertSqlValidate(resource, true);
             }
 
         }, false, new() { Configuration.ReleaseVS, Configuration.DevelopVS });

@@ -126,7 +126,9 @@ public partial class LocaleDeviceControl
     public string SectionTemplateResources => Lang == Lang.English ? "Template resources" : "Ресурсы шаблонов";
     public string SectionTemplates => Lang == Lang.English ? "Templates" : "Шаблоны";
     public string SectionWeighings => Lang == Lang.English ? "Weighings" : "Взвешивания";
-    public string SectionWeithingFactsAggregation => Lang == Lang.English ? "Aggregation weithings" : "Взвешивания";
+    public string SectionWeithingFactsAggregation => Lang == Lang.English ? "Aggregation weithings" : "Агрегированные взвешивания";
+    public string SectionWeithingFactsAggregationWithoutPlu => Lang == Lang.English ? "Aggregation weithings without PLU" : "Агрегированные взвешивания без ПЛУ";
+    public string SectionWeithingFactsAggregationWithPLU => Lang == Lang.English ? "Aggregation weithings with PLU" : "Агрегированные взвешивания с ПЛУ";
     public string SectionWeithingFactsAggregationShort => Lang == Lang.English ? "Aggr. weithings" : "Агр. взвешивания";
     public string SectionWorkShops => Lang == Lang.English ? "Workshops" : "Цеха";
     public string SqlServerDevelopAleksandrov => "LOCALHOST";

@@ -3,7 +3,7 @@
 
 using FluentValidation.Results;
 
-namespace DataCore.Sql.TableScaleModels.PlusLabels;
+namespace DataCore.Sql.TableScaleFkModels.PlusLabels;
 
 /// <summary>
 /// Table validation "PLUS_LABELS".

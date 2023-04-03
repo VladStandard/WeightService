@@ -9,6 +9,8 @@ using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableDiagModels.LogsWebsFks;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
+using DataCore.Sql.TableScaleFkModels.PlusLabels;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 
 namespace WsStorageCoreTests.Core.Helpers;

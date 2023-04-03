@@ -28,8 +28,10 @@ public partial class DataContextModel
     /// <returns></returns>
     public PluStorageMethodModel GetPluStorageMethod(PluModel plu)
     {
-        PluStorageMethodFkModel pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
-        return pluStorageMethodFk.IsExists ? pluStorageMethodFk.Method : new();
+        PluStorageMethodFkModel pluStorageMethodFk = new();
+        if (PluStorageMethodsFks.Exists(item => Equals(item.Plu, plu)))
+            pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        return pluStorageMethodFk.Method;
     }
 
     /// <summary>
@@ -40,8 +42,10 @@ public partial class DataContextModel
     /// <returns></returns>
     public TemplateResourceModel GetPluStorageResource(PluModel plu)
     {
-        PluStorageMethodFkModel pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
-        return pluStorageMethodFk.IsExists ? pluStorageMethodFk.Resource : new();
+        PluStorageMethodFkModel pluStorageMethodFk = new();
+        if (PluStorageMethodsFks.Exists(item => Equals(item.Plu, plu)))
+            pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        return pluStorageMethodFk.Resource;
     }
 
     /// <summary>
@@ -52,8 +56,10 @@ public partial class DataContextModel
     /// <returns></returns>
     public PluStorageMethodFkModel GetPluStorageMethodFk(PluModel plu)
     {
-        PluStorageMethodFkModel pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
-        return pluStorageMethodFk.IsExists ? pluStorageMethodFk : new();
+        PluStorageMethodFkModel pluStorageMethodFk = new();
+        if (PluStorageMethodsFks.Exists(item => Equals(item.Plu, plu)))
+            pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        return pluStorageMethodFk;
     }
 
     #endregion
