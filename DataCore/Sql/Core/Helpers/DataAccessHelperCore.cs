@@ -28,9 +28,9 @@ public partial class DataAccessHelper
 		SqlCrudConfigModel? sqlCrudConfig = value switch
 		{
 			Guid uid => new(new List<SqlFieldFilterModel>{ new() { Name = nameof(SqlTableBase.IdentityValueUid), Value = uid } }, 
-				true, false, false,  false),
+				true, false, false,  false, false),
 			long id => new(new List<SqlFieldFilterModel> { new() { Name = nameof(SqlTableBase.IdentityValueId), Value = id } }, 
-				true, false, false,  false),
+				true, false, false,  false, false),
 			_ => null
         };
 		return sqlCrudConfig is not null ? GetItemNullable<T>(sqlCrudConfig) : null;

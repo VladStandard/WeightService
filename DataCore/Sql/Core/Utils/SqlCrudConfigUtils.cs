@@ -8,13 +8,13 @@ public static class SqlCrudConfigUtils
     #region Public and private methods
 
     public static SqlCrudConfigModel GetCrudConfigItem(bool isShowMarked) =>
-        new(new List<SqlFieldFilterModel>(), isShowMarked, false, false, false);
+        new(new List<SqlFieldFilterModel>(), isShowMarked, false, false, false, false);
 
     public static SqlCrudConfigModel GetCrudConfigSection(bool isShowMarked) =>
-        new(new List<SqlFieldFilterModel>(), isShowMarked, true, false, true);
+        new(new List<SqlFieldFilterModel>(), isShowMarked, true, false, true, false);
 
     public static SqlCrudConfigModel GetCrudConfigComboBox() =>
-        new(new List<SqlFieldFilterModel>(), false, false, true, true);
+        new(new List<SqlFieldFilterModel>(), false, false, true, true, false);
 
     public static SqlCrudConfigModel GetCrudConfig(SqlTableBase? itemFilter, string className, List<SqlFieldOrderModel> orders,
         bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) =>
@@ -30,7 +30,7 @@ public static class SqlCrudConfigUtils
 
     public static SqlCrudConfigModel GetCrudConfig(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders,
         bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) =>
-        new(filters, orders, isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder);
+        new(filters, orders, isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, false);
 
     public static SqlCrudConfigModel GetCrudConfig(string className, object? value,
         bool isShowMarked, bool isShowOnlyTop = true, bool isAddFieldEmpty = false, bool isOrder = false) =>

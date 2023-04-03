@@ -19,7 +19,8 @@ public class WsContentBase : ControllerBase
     /// </summary>
     protected ISessionFactory SessionFactory { get; }
     internal DataContextModel WsDataContext { get; } = new();
-    internal SqlCrudConfigModel SqlCrudConfig => new(new List<SqlFieldFilterModel>(), true, false, false, true);
+    internal SqlCrudConfigModel SqlCrudConfig => new(new List<SqlFieldFilterModel>(), 
+        true, false, false, true, false);
     private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
 
     /// <summary>
@@ -293,7 +294,7 @@ public class WsContentBase : ControllerBase
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
-                true, false, false, false);
+                true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (!isCheckGroup)
             {
@@ -334,7 +335,7 @@ public class WsContentBase : ControllerBase
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
-                true, false, false, false);
+                true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
@@ -364,7 +365,7 @@ public class WsContentBase : ControllerBase
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
-                true, false, false, false);
+                true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<BrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
@@ -394,7 +395,7 @@ public class WsContentBase : ControllerBase
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
-                true, false, false, false);
+                true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<ClipModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
@@ -424,7 +425,7 @@ public class WsContentBase : ControllerBase
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
-                true, false, false, false);
+                true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<BoxModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
@@ -454,7 +455,7 @@ public class WsContentBase : ControllerBase
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
-                true, false, false, false);
+                true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
@@ -484,7 +485,7 @@ public class WsContentBase : ControllerBase
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
-                true, false, false, false);
+                true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<PluCharacteristicModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {

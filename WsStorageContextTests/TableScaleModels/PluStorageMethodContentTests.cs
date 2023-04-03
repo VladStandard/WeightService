@@ -22,7 +22,7 @@ internal class PluStorageMethodContentTests
     {
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
-            SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false);
+            SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false, false);
             List<PluStorageMethodFkModel> pluStorageMethodFks = DataCoreTestsUtils.DataCore.DataContext.UpdatePluStorageMethodFks(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(pluStorageMethodFks)}.{nameof(pluStorageMethodFks.Count)}: {pluStorageMethodFks.Count}");
             
