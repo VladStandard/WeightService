@@ -12,8 +12,8 @@ public static class WsWebServiceConsts
     public const string Tests = "Tests";
     public const string Ref1cBarCodes = "1C barcodes";
     public const string Ref1cBrands= "1C brands";
-    public const string Ref1cNomenclatures = "1C nomenclatures groups";
-    public const string Ref1cNomenclaturesGroups = "1C Nomenclatures groups";
+    public const string Ref1cNomenclatures = "1C nomenclatures";
+    public const string Ref1cNomenclaturesGroups = "1C nomenclatures groups";
     public const string Ref1cNomenclaturesCharacteristics = "1C nomenclatures characteristics";
 
     #endregion
