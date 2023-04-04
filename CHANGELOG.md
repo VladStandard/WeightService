@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Распространить метод UpdateProperties (см. BrandModel)
 - #WS-T-611 БД. Удалить табличную функцию GetTemplatesObjByID
 - #WS-T-619 Управление устройствами. Исправление задвоенной загрузки данных разделов
-- #WS-T-935 Этикетки. Правка шаблонов TSC 60x150
 
 ## [0.9.090] - 2023-04-03
 ### Tasks
@@ -19,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - #WS-T-931 Фреймворк. Агрегированные запросы
 - #WS-T-927 ТЗ на разработку веб-сервиса 'Обмен с ВП' v0.6.docx
 - #WS-T-923 Веб-сервис. Отладка "Обмен с весовой платформой"
+- #WS-T-935 Этикетки. Правка шаблонов TSC 60x150
 
 ## [0.9.080] - 2023-03-31
 ### Описание обновления:

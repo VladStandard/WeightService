@@ -52,7 +52,7 @@ public class UTF8StringWriter : StringWriter
 
 ## TSC Print offline
 ESET -> Setup -> Network Protection -> Network attack protection -> IDS rules:
-Remote IP address: 192.168.4.159, 192.168.4.164, 192.168.7.41
+Remote IP address: 192.168.xxx.yyy
 ARP Cache Poisoning attack | In | Any profile | No Block | Notify | No Log
 Unexpected protocol data | In | Any profile | No Block | Notify | No Log
 
@@ -60,4 +60,4 @@ Unexpected protocol data | In | Any profile | No Block | Notify | No Log
 Приложение перестало запускаться.
 1. Проверить страницы на дубликат адреса: `@page "/url"`
 2. Проверить DataCoreTests на ошибки. Модели
-3. Проверить модели данных DataCore на наличие не виртуальных свойств и методов.
+3. Проверить в DataCore модели данных SQL-таблиц на наличие не виртуальных свойств и методов.

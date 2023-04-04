@@ -5,100 +5,7 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Icons", "Icons", "{7433D1A9-AB41-4BFD-A6E8-3B2FEB0F46E5}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\Icons\exit_1.png = Resources\Icons\exit_1.png
-		Resources\Icons\exit_2.png = Resources\Icons\exit_2.png
-		Resources\Icons\ScalesUI.ico = Resources\Icons\ScalesUI.ico
-		Resources\Icons\settings_1.png = Resources\Icons\settings_1.png
-		Resources\Icons\settings_2.png = Resources\Icons\settings_2.png
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gif", "Gif", "{E92E8921-572E-437B-B288-C508B153EF3B}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\Gif\scales_1.gif = Resources\Gif\scales_1.gif
-		Resources\Gif\scales_2.gif = Resources\Gif\scales_2.gif
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fonts", "Fonts", "{F5635B3B-1E4F-448E-861F-43305D58C8D1}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\TTF\ARIAL.TTF = Resources\TTF\ARIAL.TTF
-		Resources\TTF\ARIALBD.TTF = Resources\TTF\ARIALBD.TTF
-		Resources\TTF\ARIALBI.TTF = Resources\TTF\ARIALBI.TTF
-		Resources\TTF\ARIALI.TTF = Resources\TTF\ARIALI.TTF
-		Resources\TTF\CASCADIACODE.TTF = Resources\TTF\CASCADIACODE.TTF
-		Resources\TTF\COUR.TTF = Resources\TTF\COUR.TTF
-		Resources\TTF\COURB.TTF = Resources\TTF\COURB.TTF
-		Resources\TTF\COURBD.TTF = Resources\TTF\COURBD.TTF
-		Resources\TTF\COURBI.TTF = Resources\TTF\COURBI.TTF
-		Resources\TTF\COURI.TTF = Resources\TTF\COURI.TTF
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{91A97E4B-FC8E-44C1-B0BF-4F91EE4BAE27}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\Images\EAC 6x6.bmp = Resources\Images\EAC 6x6.bmp
-		Resources\Images\EAC.bmp = Resources\Images\EAC.bmp
-		Resources\Images\EAC.jpg = Resources\Images\EAC.jpg
-		Resources\Images\FORK.bmp = Resources\Images\FORK.bmp
-		Resources\Images\REB7.bmp = Resources\Images\REB7.bmp
-		Resources\Images\REC5.bmp = Resources\Images\REC5.bmp
-		Resources\Images\REC7.bmp = Resources\Images\REC7.bmp
-		Resources\Images\TL18.bmp = Resources\Images\TL18.bmp
-		Resources\Images\TMO06.bmp = Resources\Images\TMO06.bmp
-		Resources\Images\Vilka.jpg = Resources\Images\Vilka.jpg
-		Resources\Images\VL.bmp = Resources\Images\VL.bmp
-		Resources\Images\Znak-EAC-600x600.jpg = Resources\Images\Znak-EAC-600x600.jpg
-		Resources\Images\Безымянный.jpg = Resources\Images\Безымянный.jpg
-		Resources\Images\знак-скоропортящийся-продукт.jpg = Resources\Images\знак-скоропортящийся-продукт.jpg
-		Resources\Images\минус-18.jpg = Resources\Images\минус-18.jpg
-		Resources\Images\от 0 до 6.jpg = Resources\Images\от 0 до 6.jpg
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7x7_203dpi", "7x7_203dpi", "{62CCE789-EEFE-4AA7-8C79-3154FCD1FA9D}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\Images\7x7_203dpi\18 грудисов_7мм_203dpi.bmp = Resources\Images\7x7_203dpi\18 грудисов_7мм_203dpi.bmp
-		Resources\Images\7x7_203dpi\6 градусов_7мм_203dpi.bmp = Resources\Images\7x7_203dpi\6 градусов_7мм_203dpi.bmp
-		Resources\Images\7x7_203dpi\EAC_7мм_203dpi.bmp = Resources\Images\7x7_203dpi\EAC_7мм_203dpi.bmp
-		Resources\Images\7x7_203dpi\Переработка 5_7мм_203dpi.bmp = Resources\Images\7x7_203dpi\Переработка 5_7мм_203dpi.bmp
-		Resources\Images\7x7_203dpi\Переработка 7_7мм_203dpi.bmp = Resources\Images\7x7_203dpi\Переработка 7_7мм_203dpi.bmp
-		Resources\Images\7x7_203dpi\Рюмка с вилкой_7мм_203 dpi.bmp = Resources\Images\7x7_203dpi\Рюмка с вилкой_7мм_203 dpi.bmp
-		Resources\Images\7x7_203dpi\Скороопорт_7мм_203dpi.bmp = Resources\Images\7x7_203dpi\Скороопорт_7мм_203dpi.bmp
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7x7_300dpi", "7x7_300dpi", "{24D3D99E-E4F5-4531-967C-746566307077}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\Images\7x7_300dpi\18 грудисов_7мм_300dpi.bmp = Resources\Images\7x7_300dpi\18 грудисов_7мм_300dpi.bmp
-		Resources\Images\7x7_300dpi\6 градусов_7мм_300dpi.bmp = Resources\Images\7x7_300dpi\6 градусов_7мм_300dpi.bmp
-		Resources\Images\7x7_300dpi\EAC_7мм_300dpi.bmp = Resources\Images\7x7_300dpi\EAC_7мм_300dpi.bmp
-		Resources\Images\7x7_300dpi\Переработка 5_7мм_300dpi.bmp = Resources\Images\7x7_300dpi\Переработка 5_7мм_300dpi.bmp
-		Resources\Images\7x7_300dpi\Переработка 7_7мм_300dpi.bmp = Resources\Images\7x7_300dpi\Переработка 7_7мм_300dpi.bmp
-		Resources\Images\7x7_300dpi\Рюмка с вилкой_7мм_300 dpi.bmp = Resources\Images\7x7_300dpi\Рюмка с вилкой_7мм_300 dpi.bmp
-		Resources\Images\7x7_300dpi\Скороопорт_7мм_300dpi.bmp = Resources\Images\7x7_300dpi\Скороопорт_7мм_300dpi.bmp
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10x10_203dpi", "10x10_203dpi", "{D017AF5F-AF6D-4D1A-B1D0-0D27E4DF5B51}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\Images\10x10_203dpi\18 грудисов_10мм_203dpi.bmp = Resources\Images\10x10_203dpi\18 грудисов_10мм_203dpi.bmp
-		Resources\Images\10x10_203dpi\6 градусов_10мм_203dpi.bmp = Resources\Images\10x10_203dpi\6 градусов_10мм_203dpi.bmp
-		Resources\Images\10x10_203dpi\EAC_10мм_203dpi.bmp = Resources\Images\10x10_203dpi\EAC_10мм_203dpi.bmp
-		Resources\Images\10x10_203dpi\Переработка 5_10мм_203dpi.bmp = Resources\Images\10x10_203dpi\Переработка 5_10мм_203dpi.bmp
-		Resources\Images\10x10_203dpi\Переработка 7_10мм_203dpi.bmp = Resources\Images\10x10_203dpi\Переработка 7_10мм_203dpi.bmp
-		Resources\Images\10x10_203dpi\Рюмка с вилкой_10мм_203 dpi.bmp = Resources\Images\10x10_203dpi\Рюмка с вилкой_10мм_203 dpi.bmp
-		Resources\Images\10x10_203dpi\Скороопорт_10мм_203dpi.bmp = Resources\Images\10x10_203dpi\Скороопорт_10мм_203dpi.bmp
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10x10_300dpi", "10x10_300dpi", "{6244AF63-32F6-44CD-B2F0-5FED7B98E55F}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\Images\10x10_300dpi\18 грудисов_10мм_300dpi.bmp = Resources\Images\10x10_300dpi\18 грудисов_10мм_300dpi.bmp
-		Resources\Images\10x10_300dpi\6 градусов_10мм_300dpi.bmp = Resources\Images\10x10_300dpi\6 градусов_10мм_300dpi.bmp
-		Resources\Images\10x10_300dpi\EAC_10мм_300dpi.bmp = Resources\Images\10x10_300dpi\EAC_10мм_300dpi.bmp
-		Resources\Images\10x10_300dpi\Переработка 5_10мм_300dpi.bmp = Resources\Images\10x10_300dpi\Переработка 5_10мм_300dpi.bmp
-		Resources\Images\10x10_300dpi\Переработка 7_10мм_300dpi.bmp = Resources\Images\10x10_300dpi\Переработка 7_10мм_300dpi.bmp
-		Resources\Images\10x10_300dpi\Рюмка с вилкой_10мм_300 dpi.bmp = Resources\Images\10x10_300dpi\Рюмка с вилкой_10мм_300 dpi.bmp
-		Resources\Images\10x10_300dpi\Скороопорт_10мм_300dpi.bmp = Resources\Images\10x10_300dpi\Скороопорт_10мм_300dpi.bmp
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontLoader", "FontLoader\FontLoader.csproj", "{DFCE3BBB-986A-4655-B0F3-1BD2C3132623}"
 EndProject
@@ -118,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Converts.md = Converts.md
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
+		GS1-128.md = GS1-128.md
 		IsExternalInit.cs = IsExternalInit.cs
 		LICENSE.md = LICENSE.md
 		Publish life cycle.md = Publish life cycle.md
@@ -176,45 +84,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCoreTests", "BlazorCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTerra1000Tests", "WebApiTerra1000Tests\WebApiTerra1000Tests.csproj", "{99E4F265-9C8D-44A0-B5F3-F05D9AA54487}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplateResources", "TemplateResources", "{5121B4E0-3103-4872-AB23-0E5909BA356D}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\TemplateResources\DEGREES_06_300DPMM_64X64.ZPL = Resources\TemplateResources\DEGREES_06_300DPMM_64X64.ZPL
-		Resources\TemplateResources\DEGREES_06_300DPMM_64X64_COMPRESSED.ZPL = Resources\TemplateResources\DEGREES_06_300DPMM_64X64_COMPRESSED.ZPL
-		Resources\TemplateResources\EAC 300DPMM 60X60 COMPRESSED.ZPL = Resources\TemplateResources\EAC 300DPMM 60X60 COMPRESSED.ZPL
-		Resources\TemplateResources\EAC 300DPMM 60X60.ZPL = Resources\TemplateResources\EAC 300DPMM 60X60.ZPL
-		Resources\TemplateResources\EAC_94x115_000.bmp = Resources\TemplateResources\EAC_94x115_000.bmp
-		Resources\TemplateResources\EAC_94x115_000.zpl = Resources\TemplateResources\EAC_94x115_000.zpl
-		Resources\TemplateResources\EAC_94x115_000_V2.zpl = Resources\TemplateResources\EAC_94x115_000_V2.zpl
-		Resources\TemplateResources\FISH 115X94.ZPL = Resources\TemplateResources\FISH 115X94.ZPL
-		Resources\TemplateResources\FISH_1_94x115_000.zpl = Resources\TemplateResources\FISH_1_94x115_000.zpl
-		Resources\TemplateResources\FISH_2_94x115_000.bmp = Resources\TemplateResources\FISH_2_94x115_000.bmp
-		Resources\TemplateResources\FISH_2_94x115_000.zpl = Resources\TemplateResources\FISH_2_94x115_000.zpl
-		Resources\TemplateResources\FISH_2_94x115_000_V2.zpl = Resources\TemplateResources\FISH_2_94x115_000_V2.zpl
-		Resources\TemplateResources\GLASS_WITH_FORK_203DPMM_78X78.ZPL = Resources\TemplateResources\GLASS_WITH_FORK_203DPMM_78X78.ZPL
-		Resources\TemplateResources\GLASS_WITH_FORK_203DPMM_78X78_COMPRESSED.ZPL = Resources\TemplateResources\GLASS_WITH_FORK_203DPMM_78X78_COMPRESSED.ZPL
-		Resources\TemplateResources\GLASS_WITH_FORK_300DPMM_64X64.ZPL = Resources\TemplateResources\GLASS_WITH_FORK_300DPMM_64X64.ZPL
-		Resources\TemplateResources\GLASS_WITH_FORK_300DPMM_64X64_COMPRESSED.ZPL = Resources\TemplateResources\GLASS_WITH_FORK_300DPMM_64X64_COMPRESSED.ZPL
-		Resources\TemplateResources\GS1-128.ZPL = Resources\TemplateResources\GS1-128.ZPL
-		Resources\TemplateResources\PACKAGED_IN_MODIFIED_ATMOSPHERE.ZPL = Resources\TemplateResources\PACKAGED_IN_MODIFIED_ATMOSPHERE.ZPL
-		Resources\TemplateResources\RECYCLING_300DPMM_64X64.ZPL = Resources\TemplateResources\RECYCLING_300DPMM_64X64.ZPL
-		Resources\TemplateResources\RECYCLING_300DPMM_64X64_COMPRESSED.ZPL = Resources\TemplateResources\RECYCLING_300DPMM_64X64_COMPRESSED.ZPL
-		Resources\TemplateResources\SOON_TO_BE_SPOILED_96DPMM_64X79.ZPL = Resources\TemplateResources\SOON_TO_BE_SPOILED_96DPMM_64X79.ZPL
-		Resources\TemplateResources\SOON_TO_BE_SPOILED_96DPMM_64X79_COMPRESSED.ZPL = Resources\TemplateResources\SOON_TO_BE_SPOILED_96DPMM_64X79_COMPRESSED.ZPL
-		Resources\TemplateResources\TEMP_6_94x115_000.PNG = Resources\TemplateResources\TEMP_6_94x115_000.PNG
-		Resources\TemplateResources\TEMP_6_94x115_000.zpl = Resources\TemplateResources\TEMP_6_94x115_000.zpl
-		Resources\TemplateResources\TEMP_6_94x115_000_V2.zpl = Resources\TemplateResources\TEMP_6_94x115_000_V2.zpl
-		Resources\TemplateResources\TEST.NLBL = Resources\TemplateResources\TEST.NLBL
-		Resources\TemplateResources\TEST.ZPL = Resources\TemplateResources\TEST.ZPL
-		Resources\TemplateResources\ЧУДО-ПЕЧКА ТЕСТ.NLBL = Resources\TemplateResources\ЧУДО-ПЕЧКА ТЕСТ.NLBL
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E045-41F4-9460-CC519B8D7DBF}"
 	ProjectSection(SolutionItems) = preProject
 		Resources\Templates\TSC\TSC 60x150 300dpi вес v1 example.txt = Resources\Templates\TSC\TSC 60x150 300dpi вес v1 example.txt
 		Resources\Templates\TSC\TSC 60x150 300dpi шт v1 example.txt = Resources\Templates\TSC\TSC 60x150 300dpi шт v1 example.txt
-		Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml
-		Resources\Templates\TSC\TSC 60x150 шт v1.xml = Resources\Templates\TSC\TSC 60x150 шт v1.xml
 		Resources\Templates\TSC\TSC 60x150 вес v1.xml = Resources\Templates\TSC\TSC 60x150 вес v1.xml
+		Resources\Templates\TSC\TSC 60x150 вес v2.xml = Resources\Templates\TSC\TSC 60x150 вес v2.xml
+		Resources\Templates\TSC\TSC 60x150 вес v3.xml = Resources\Templates\TSC\TSC 60x150 вес v3.xml
+		Resources\Templates\TSC\TSC 60x150 шт v1.xml = Resources\Templates\TSC\TSC 60x150 шт v1.xml
+		Resources\Templates\TSC\TSC 60x150 шт v2.xml = Resources\Templates\TSC\TSC 60x150 шт v2.xml
+		Resources\Templates\TSC\TSC 60x150 шт v3.xml = Resources\Templates\TSC\TSC 60x150 шт v3.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml
@@ -1893,15 +1773,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7433D1A9-AB41-4BFD-A6E8-3B2FEB0F46E5} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
-		{E92E8921-572E-437B-B288-C508B153EF3B} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
-		{F5635B3B-1E4F-448E-861F-43305D58C8D1} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
 		{F93145FD-2BD5-44AE-8FB5-4597B5AD1D33} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
-		{91A97E4B-FC8E-44C1-B0BF-4F91EE4BAE27} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
-		{62CCE789-EEFE-4AA7-8C79-3154FCD1FA9D} = {91A97E4B-FC8E-44C1-B0BF-4F91EE4BAE27}
-		{24D3D99E-E4F5-4531-967C-746566307077} = {91A97E4B-FC8E-44C1-B0BF-4F91EE4BAE27}
-		{D017AF5F-AF6D-4D1A-B1D0-0D27E4DF5B51} = {91A97E4B-FC8E-44C1-B0BF-4F91EE4BAE27}
-		{6244AF63-32F6-44CD-B2F0-5FED7B98E55F} = {91A97E4B-FC8E-44C1-B0BF-4F91EE4BAE27}
 		{DFCE3BBB-986A-4655-B0F3-1BD2C3132623} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
 		{EC65F24D-2649-49D5-A96B-CE4D7F94262D} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
 		{4ACDED65-38C5-4734-AF9B-21C2A5D14E3B} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
@@ -1923,7 +1795,6 @@ Global
 		{A2EF44CD-8CD2-4AE2-8D7E-A191AF6A07C9} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 		{56738D2C-7E81-4E61-ADD4-0E1F91E539A9} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 		{99E4F265-9C8D-44A0-B5F3-F05D9AA54487} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
-		{5121B4E0-3103-4872-AB23-0E5909BA356D} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
 		{5CA80E2F-E045-41F4-9460-CC519B8D7DBF} = {F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}
 		{5973F987-103A-455D-A5E3-C7429906657A} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
 		{1FA7C648-CEB6-487D-AEE7-67922AF5CA52} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}

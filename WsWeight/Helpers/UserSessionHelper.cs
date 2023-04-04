@@ -4,12 +4,14 @@
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Models;
 using DataCore.Sql.Core.Utils;
+using DataCore.Sql.Helpers;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 using DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
+using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 using DataCore.Sql.TableScaleModels.BarCodes;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Devices;
@@ -17,17 +19,14 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.ProductionFacilities;
 using DataCore.Sql.TableScaleModels.ProductSeries;
 using DataCore.Sql.TableScaleModels.Templates;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Utils;
 using MvvmHelpers;
 using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
-using DataCore.Sql.Helpers;
-using DataCore.Sql.TableScaleModels.TemplatesResources;
 using WsWeight.Plugins.Helpers;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
-using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
-using DataCore.Sql.TableScaleFkModels.PlusLabels;
 
 namespace WsWeight.Helpers;
 
@@ -140,7 +139,7 @@ public sealed class UserSessionHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    
+
     [XmlElement] public PluStorageMethodFkModel PluStorageMethodFk { get; set; }
 
     private DeviceScaleFkModel _deviceScaleFk;
@@ -279,7 +278,7 @@ public sealed class UserSessionHelper : BaseViewModel
         Scales = DataContext.GetListNotNullableScales(sqlCrudConfig);
 
         sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
-        sqlCrudConfig.AddOrders(new() { Name = nameof(ProductionFacilityModel.Name), Direction =  SqlOrderDirection.Asc });
+        sqlCrudConfig.AddOrders(new() { Name = nameof(ProductionFacilityModel.Name), Direction = SqlOrderDirection.Asc });
         ProductionFacilities = DataContext.GetListNotNullableProductionFacilities(SqlCrudConfigUtils.GetCrudConfigSection(false));
     }
 
@@ -753,7 +752,7 @@ public sealed class UserSessionHelper : BaseViewModel
         PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
 
         pluLabel.Xml = DataFormatUtils.SerializeAsXmlDocument<PluLabelModel>(pluLabel, true, true);
-        
+
         XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
@@ -772,6 +771,11 @@ public sealed class UserSessionHelper : BaseViewModel
         return (pluLabel, pluLabelContext);
     }
 
+    /// <summary>
+    /// Replace temperatue storage method.
+    /// </summary>
+    /// <param name="pluLabel"></param>
+    /// <returns></returns>
     private Action<string> ActionReplaceStorageMethod(PluLabelModel pluLabel) =>
         zpl =>
         {
@@ -813,7 +817,7 @@ public sealed class UserSessionHelper : BaseViewModel
 
     public void SetPluScales()
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(Scale, nameof(PluScaleModel.Scale), 
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(Scale, nameof(PluScaleModel.Scale),
             false, false, false, false);
         sqlCrudConfig.AddFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
         sqlCrudConfig.AddOrders(new() { Name = nameof(PluScaleModel.Plu), Direction = SqlOrderDirection.Asc });
