@@ -38,7 +38,7 @@ public partial class MainForm : Form
     private WaitUserControl WaitControl { get; set; }
 
     /// <summary>
-    /// Constructor.
+    /// Empty constructor.
     /// </summary>
     public MainForm()
     {
@@ -69,6 +69,7 @@ public partial class MainForm : Form
         UserSession.DataAccess.LogInformation(
             $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
             $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
+            UserSession.PluginMemory.GetMemoryState() + Environment.NewLine +
             $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
     }
 
@@ -192,6 +193,7 @@ public partial class MainForm : Form
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
+                UserSession.DataAccess.LogInformation(UserSession.PluginMemory.GetMemoryState());
                 UserSession.StopwatchMain.Restart();
                 ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
                 // Wait control.

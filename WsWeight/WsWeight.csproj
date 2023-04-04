@@ -407,7 +407,6 @@
     <Compile Include="Gui\MessageBoxModel.cs" />
     <Compile Include="Gui\SerialPortsUtils.cs" />
     <Compile Include="Gui\VisibilitySettingsModel.cs" />
-    <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\UserSessionHelper.cs" />
     <Compile Include="Plugins\Enums\TaskType.cs" />
     <Compile Include="Plugins\Helpers\PluginLabelsHelper.cs" />
@@ -438,7 +437,6 @@
     <Compile Include="Gui\ServiceMessages.cs" />
     <Compile Include="Gui\TextBoxAppender.cs" />
     <Compile Include="Helpers\HardwareHelper.cs" />
-    <Compile Include="Helpers\RegHelper.cs" />
     <Compile Include="Helpers\UacHelper.cs" />
     <Compile Include="Helpers\WinInfoHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

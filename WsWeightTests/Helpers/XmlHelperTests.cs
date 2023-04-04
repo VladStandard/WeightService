@@ -7,7 +7,6 @@ namespace WsWeightTests.Helpers;
 public class XmlHelperTests
 {
     private XmlHelper Xml => XmlHelper.Instance;
-    private SettingsHelper Settings => SettingsHelper.Instance;
     private const string TestFile = @"c:\Program Files\Common Files\microsoft shared\ink\Content.xml";
 
     [Test]
@@ -47,56 +46,5 @@ public class XmlHelperTests
         TestContext.WriteLine("----------------------------------------------");
 
         Assert.AreEqual(actual.NoError ? "NOT IsPersonalizationRestricted()" : string.Empty, actual.Value);
-    }
-
-    [Test]
-    public void ReadScalesUI_ConnectionString_AreEqual()
-    {
-        if (File.Exists(Settings.GetScalesConfigFileName()))
-        {
-            ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
-            {
-                new XmlTag("connectionStrings"),
-                new XmlTag("add", "name", "ScalesUI.Properties.Settings.ConnectionString"),
-            }, "connectionString");
-            TestContext.WriteLine($@"ConnectionString=""{actual.Value}""");
-            TestContext.WriteLine($@"actual.NoError=""{actual.NoError}""");
-
-            TestContext.WriteLine("----------------------------------------------");
-            TestContext.WriteLine(string.Join(Environment.NewLine, actual.Str));
-            TestContext.WriteLine("----------------------------------------------");
-
-            Assert.AreEqual(
-                actual.NoError
-                    ? @"Server=CREATIO\INS1;Database=Scales;Uid=scale01;Pwd=scale01;"
-                    : string.Empty, actual.Value);
-        }
-        else
-            Assert.AreEqual(string.Empty, string.Empty);
-    }
-
-    [Test]
-    public void ReadScalesUI_ScalesID_AreEqual()
-    {
-        if (File.Exists(Settings.GetScalesConfigFileName()))
-        {
-            ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
-            {
-                new XmlTag("applicationSettings"),
-                new XmlTag("ScalesUI.Properties.Settings"),
-                new XmlTag("setting", "name", "ScalesID"),
-                new XmlTag("value"),
-            });
-            TestContext.WriteLine($@"ScalesID=""{actual.Value}""");
-            TestContext.WriteLine($@"actual.NoError=""{actual.NoError}""");
-
-            TestContext.WriteLine("----------------------------------------------");
-            TestContext.WriteLine(string.Join(Environment.NewLine, actual.Str));
-            TestContext.WriteLine("----------------------------------------------");
-
-            Assert.AreEqual(actual.NoError ? @"F1A90176-894E-11EA-9E4C-4CCC6A93A440" : string.Empty, actual.Value);
-        }
-        else
-            Assert.AreEqual(string.Empty, string.Empty);
     }
 }

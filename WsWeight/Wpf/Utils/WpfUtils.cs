@@ -15,7 +15,7 @@ public static class WpfUtils
 {
     #region Public and private fields, properties, constructor
 
-    private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+    private static DataAccessHelper DataAccess => DataAccessHelper.Instance;
     private static WpfPageLoader WpfPage { get; set; } = new();
 
     #endregion
@@ -148,7 +148,7 @@ public static class WpfUtils
         bool isDbLog, bool isShowWindow, string filePath, int lineNumber, string memberName)
     {
         if (isDbLog)
-            DataAccess.LogError(ex, filePath, lineNumber, memberName);
+            DataAccess.LogErrorWithInfo(ex, filePath, lineNumber, memberName);
 
         if (isShowWindow)
         {

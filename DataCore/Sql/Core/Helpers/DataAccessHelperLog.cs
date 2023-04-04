@@ -54,15 +54,18 @@ public partial class DataAccessHelper
         SaveAsync(log).ConfigureAwait(false);
     }
 
-    public void LogError(Exception ex, 
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    public void LogErrorWithInfo(Exception ex, string filePath, int lineNumber, string memberName)
 	{
 		LogCore(ex.Message, LogType.Error, filePath, lineNumber, memberName);
 		if (ex.InnerException is not null)
 			LogCore(ex.InnerException.Message, LogType.Error, filePath, lineNumber, memberName);
 	}
 
-	public void LogError(string message, 
+    public void LogError(Exception ex, 
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+        LogErrorWithInfo(ex, filePath, lineNumber, memberName);
+
+    public void LogError(string message, 
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         LogCore(message, LogType.Error, filePath, lineNumber, memberName);
 

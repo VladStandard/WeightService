@@ -17,7 +17,7 @@ public class SqlConnectFactory
     #region Public and private fields, properties, constructor
 
     private readonly object _locker = new();
-    private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+    private DataAccessHelper DataAccess => DataAccessHelper.Instance;
 
     #endregion
 
