@@ -27,11 +27,7 @@
         <RadzenLink Path="@GetRouteItemPath(Device)" Text="@LocaleCore.Table.Host"/>
       </td>
       <td>
-        <RzDropDownLocal @bind-Value="@Device" Data="@DataContext.Devices">
-          <Template>
-            @($"{(context as DeviceModel)?.Name} | {(context as DeviceModel)?.Ipv4}")
-          </Template>
-        </RzDropDownLocal>
+        <RzDropDownLocal @bind-Value="@Device" Data="@DataContext.Devices" TextProperty="DisplayName" />
       </td>
       <td>@LocaleCore.Table.IsOrder</td>
       <td><RadzenCheckBox Disabled="false" @bind-Value="@SqlItemCast.IsOrder"/></td>
@@ -42,11 +38,7 @@
                       Text="@LocaleCore.Print.NameShipping"/>
         </td>
         <td>
-         <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterShipping" Data="@DataContext.Printers">
-            <Template>
-              @($"{(context as PrinterModel)?.Name} | {(context as PrinterModel)?.Ip}")
-            </Template>
-          </RzDropDownLocal>
+          <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterShipping" Data="@DataContext.Printers" TextProperty="DisplayName" />
         </td>
         <td>@LocaleCore.Table.IsShipping</td>
         <td><RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@SqlItemCast.IsShipping"/></td>
@@ -67,11 +59,7 @@
           Text="@LocaleCore.Print.NameMain"/>
       </td>
       <td>
-       <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterMain" Data="@DataContext.Printers">
-          <Template>
-            @($"{(context as PrinterModel)?.Name} | {(context as PrinterModel)?.Ip}")
-          </Template>
-        </RzDropDownLocal>
+        <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterMain" Data="@DataContext.Printers" TextProperty="DisplayName" />
       </td>
       <td>@LocaleCore.Table.DeviceComPort</td>
       <td>

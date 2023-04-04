@@ -23,11 +23,13 @@
             Style="background-color: transparent;"
             Text="@User?.Identity?.Name"
             Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
-          <MudSpacer/>
-          <RadzenMenuItem
-            Style="background-color: transparent;"
-            Text=@($"DeviceControl: {VerBlazor}")
-            Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
+          <AuthorizeView Roles="@UserAccessStr.Admin">
+            <MudSpacer/>
+            <RadzenMenuItem
+              Style="background-color: transparent;"
+              Text="@VerBlazor"
+              Path=@($"{LocaleCore.DeviceControl.RouteSystemAppInfo}") />
+          </AuthorizeView>
         </RadzenMenu>
       </div>
     </div>

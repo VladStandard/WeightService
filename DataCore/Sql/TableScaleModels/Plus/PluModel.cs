@@ -86,6 +86,8 @@ public class PluModel : SqlTableBase1c
     /// </summary>
     [XmlElement] public virtual short AttachmentsCount { get; set; }
 
+    [XmlIgnore] public virtual string DisplayName => $"{Number} | {Name}";
+    
     /// <summary>
     /// Constructor.
     /// </summary>

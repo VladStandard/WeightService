@@ -10,11 +10,11 @@
 }
 
 .SidebarRelease {
-  background-image: linear-gradient(90deg, blue 0, blue 50%);
+  background-image: linear-gradient(90deg, gray 0, grey 50%);
 }
 
 .SidebarDebug {
-  background-image: linear-gradient(90deg, grey 0, grey 50%);
+  background-image: linear-gradient(90deg, darkorange 0, darkorange 50%);
 }
 
 .SidebarDefault {

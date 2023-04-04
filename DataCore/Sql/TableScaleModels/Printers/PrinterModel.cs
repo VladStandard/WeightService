@@ -29,6 +29,7 @@ public class PrinterModel : SqlTableBase
     [XmlIgnore] public virtual bool IsPing => PingStatus == IPStatus.Success;
     [XmlIgnore] public virtual Exception? HttpStatusException { get; set; }
     [XmlIgnore] public virtual bool IsConnect => HttpStatusCode == HttpStatusCode.OK;
+    [XmlIgnore] public virtual string DisplayName => $"{Name} | {Ip}";
 
     /// <summary>
     /// Constructor.
