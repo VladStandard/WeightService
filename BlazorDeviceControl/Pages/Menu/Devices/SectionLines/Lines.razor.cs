@@ -3,13 +3,13 @@
 
 using DataCore.Sql.TableScaleModels.Scales;
 
-namespace BlazorDeviceControl.Pages.Menu.Devices.SectionScales;
+namespace BlazorDeviceControl.Pages.Menu.Devices.SectionLines;
 
-public sealed partial class Scales : RazorComponentSectionBase<ScaleModel>
+public sealed partial class Lines : RazorComponentSectionBase<ScaleModel>
 {
     #region Public and private fields, properties, constructor
 
-    public Scales() : base()
+    public Lines() : base()
     {
         SqlCrudConfigSection.AddOrders(new() { Name = nameof(ScaleModel.Description), Direction = SqlOrderDirection.Asc });
     }

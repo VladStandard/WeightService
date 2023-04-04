@@ -9,12 +9,12 @@ using DataCore.Sql.TableScaleModels.Scales;
 using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.WorkShops;
 
-namespace BlazorDeviceControl.Pages.Menu.Devices.SectionScales;
+namespace BlazorDeviceControl.Pages.Menu.Devices.SectionLines;
 
 /// <summary>
 /// Scale item page.
 /// </summary>
-public sealed partial class ItemScale : RazorComponentItemBase<ScaleModel>
+public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -23,7 +23,7 @@ public sealed partial class ItemScale : RazorComponentItemBase<ScaleModel>
 	private DeviceScaleFkModel DeviceScaleFk { get; set; }
 	private List<TypeModel<string>> ComPorts { get; set; }
 
-	public ItemScale() : base()
+	public ItemLines() : base()
 	{
 		SqlCrudConfigItem.IsGuiShowItemsCount = true;
 		SqlCrudConfigItem.IsGuiShowFilterAdditional = true;

@@ -22,34 +22,32 @@
       </td>
     </tr>
     <tr>
-    <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
-    </td>
-    <td>@($"{SqlItemCast.PluScale.Plu.Number} | {SqlItemCast.PluScale.Plu.Name}")</td>
-    <td>
-      <RadzenLink Path="@GetRouteItemPath(DataAccess.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
-                  Text="@LocaleCore.Table.Template"/>
-    </td>
-    <td>@DataAccess.GetItemTemplateNotNullable(SqlItemCast.PluScale).Title</td>
-  </tr>
-    @if (SqlItemCast.PluWeighing != null)
-    {
-      <tr>
-        <td>
-          <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
-        </td>
-        <td>@SqlItemCast.PluWeighing.IdentityValueUid</td>
-
-        <td />
-        <td />
-      </tr>
-    }
-    <tr>
-      <td>@LocaleCore.Table.ProductDt</td>
-      <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ProductDt)</td>
-      <td>@LocaleCore.Table.ExpirationDt</td>
-      <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ExpirationDt)</td>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
+      </td>
+      <td>@SqlItemCast.PluScale.Plu.DisplayName</td>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(DataAccess.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
+                    Text="@LocaleCore.Table.Template"/>
+      </td>
+      <td>@DataAccess.GetItemTemplateNotNullable(SqlItemCast.PluScale).Title</td>
     </tr>
+    <tr>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale.PrinterMain)" Text="@LocaleCore.Table.Printer"/>
+      </td>
+      <td>@SqlItemCast.PluScale.Scale.PrinterMain?.DisplayName</td>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
+      </td>
+      <td>@SqlItemCast.PluWeighing?.IdentityValueUid</td>
+    </tr>
+    <tr>
+        <td>@LocaleCore.Table.ProductDt</td>
+        <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ProductDt)</td>
+        <td>@LocaleCore.Table.ExpirationDt</td>
+        <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ExpirationDt)</td>
+      </tr>
     <tr>
       <td>
         <RadzenLink Path="@(LocaleCore.DeviceControl.LinkLabelary)" Text="@(LocaleCore.Table.TemplateLabelary)"/>
