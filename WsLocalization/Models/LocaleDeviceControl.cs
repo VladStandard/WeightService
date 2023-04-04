@@ -58,7 +58,7 @@ public partial class LocaleDeviceControl
     public string ItemProductionFacility => Lang == Lang.English ? "Prod. facility" : "Произв. площадка";
     public string ItemProductSeries => Lang == Lang.English ? "Product series" : "Серия продукта";
     public string ItemResource => Lang == Lang.English ? "Resource" : "Ресурс";
-    public string ItemScale => Lang == Lang.English ? "Device" : "Устройство";
+    public string ItemScale => Lang == Lang.English ? "Line" : "Линия";
     public string ItemScreenShot => Lang == Lang.English ? "ScreenShot" : "Скриншот";
     public string ItemTask => Lang == Lang.English ? "Task" : "Задача";
     public string ItemTaskModule => Lang == Lang.English ? "Task module" : "Модуль задачи";
@@ -72,7 +72,6 @@ public partial class LocaleDeviceControl
     public string LinkLabelary => "http://labelary.com/viewer.html";
     public string SectionAdministering => Lang == Lang.English ? "Administering" : "Администрирование";
     public string SectionAutomatedWorkplace => Lang == Lang.English ? "Automated Workplaces" : "Автоматизированные Рабочие Места";
-    public string SectionAutomatedWorkplaceShort => Lang == Lang.English ? "AWs" : "АРМы";
     public string SectionBarCodes => Lang == Lang.English ? "Barcodes" : "Штрихкоды";
     public string SectionBarCodesShort => Lang == Lang.English ? "BC" : "ШК";
     public string SectionBarCodeTypes => Lang == Lang.English ? "Barcodes types" : "Типы штрихкодов";
@@ -119,7 +118,7 @@ public partial class LocaleDeviceControl
     public string SectionReferencesAdditional => Lang == Lang.English ? "Add. references" : "Доп. справочники";
     public string SectionReferencesDev => Lang == Lang.English ? "Development" : "Разработка";
     public string SectionResources => Lang == Lang.English ? "Resources" : "Ресурсы";
-    public string SectionScales => Lang == Lang.English ? "Devices" : "Устройства";
+    public string SectionScales => Lang == Lang.English ? "Lines" : "Линии";
     public string SectionScreenShots => Lang == Lang.English ? "Screenshots" : "Скриншоты";
     public string SectionTaskModules => Lang == Lang.English ? "Task Modules" : "Модули задач";
     public string SectionTasks => Lang == Lang.English ? "Tasks" : "Задачи";

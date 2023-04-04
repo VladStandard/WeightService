@@ -1,0 +1,36 @@
+﻿@page "/section/access"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<AccessModel>
+@using DataCore.Sql.TableScaleModels.Access
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+
+<SectionReload
+  TItem="@AccessModel"
+  Title="@LocaleCore.Strings.AccessRights"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@AccessModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@AccessModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="30%" FormatString="@StrUtils.FormatDtLong" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.User" Property="Name" Width="30%" />
+      <RadzenDataGridColumn TItem="@AccessModel" Title="@LocaleCore.Table.AccessLevel" SortProperty="Rights" Width="30%">
+         <Template Context="itemCast">
+            @DataAccess.GetAccessRightsDescription(itemCast.Rights)
+         </Template>
+      </RadzenDataGridColumn>
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

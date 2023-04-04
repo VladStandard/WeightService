@@ -9,9 +9,11 @@ public partial class RazorItemReload<TItem> : RazorComponentItemBase<TItem> wher
     
     [Parameter] public EventCallback OnItemUpdate { get; set; }
 
-	#endregion
+    public TItem GetItem() => new TItem();
 
-	#region Public and private methods
-    
-	#endregion
+    #endregion
+
+    #region Public and private methods
+
+    #endregion
 }

@@ -1,0 +1,35 @@
+﻿@page "/section/printers"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<PrinterModel>
+@using DataCore.Sql.TableScaleModels.Printers
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+
+<SectionReload
+  TItem="@PrinterModel"
+  Title="@LocaleCore.Print.Names"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RzDataGridLocal
+  class="DataGridSection"
+  @bind-Value="@SelectedRow"
+  TItem="@PrinterModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@PrinterModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Print.Type" Property="PrinterType.Name" Width="20%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Print.Ip" Property="Ip" Width="20%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Print.Mac" Property="MacAddress.ValuePrettyLookMinus" Width="20%" />
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

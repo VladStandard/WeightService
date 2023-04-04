@@ -1,0 +1,49 @@
+﻿@page "/section/access/new"
+@page "/section/access/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<AccessModel>
+@using DataCore.Sql.TableScaleModels.Access
+@using BlazorDeviceControl.Pages.ItemComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+
+<RazorItemReload TItem="@AccessModel" Title="@LocaleCore.Strings.AccessRights"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.LoginDt</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: center; background-color: lightgray; "
+        ReadOnly="true" Value="@(StrUtils.FormatDtRus(SqlItemCast.LoginDt, true))"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.User</td>
+    <td>
+      <RadzenTextBox
+        Style="width: 100%; text-align: left; background-color: lightgray; "
+        ReadOnly="true" @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@LocaleCore.Strings.AccessRights</td>
+    <td>
+      <MudSelectLocal @bind-Value="@Rights">
+        @foreach (TypeModel<AccessRightsEnum> item in TemplateAccessRights)
+        {
+          <MudSelectItem Value=@item.Value>@item.Name</MudSelectItem>
+        }
+      </MudSelectLocal>
+    </td>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@AccessModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

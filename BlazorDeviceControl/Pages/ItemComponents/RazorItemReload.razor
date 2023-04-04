@@ -10,6 +10,6 @@
       Size="@ButtonSize.Small"
       Disabled=@(!DataAccess.IsConnected())
       Click="OnItemUpdate" />
-    <MudText><b>@Title</b></MudText>
+      <RadzenLink Style="font-weight: bold" Path="@GetRouteSectionPath(new TItem())" Text="@Title"/>
   </MudToolBar>
 </MudPaper>

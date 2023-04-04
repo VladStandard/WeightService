@@ -80,7 +80,7 @@ public partial class RazorComponentBase
 
     public string GetRouteItemPathShort<TItem>() where TItem : SqlTableBase, new() => GetRouteSectionPath(new TItem());
 
-    private string GetRouteSectionPath<TItem>(TItem? item) where TItem : SqlTableBase, new() =>
+    protected string GetRouteSectionPath<TItem>(TItem? item) where TItem : SqlTableBase, new() =>
         item switch
         {
             AccessModel => LocaleCore.DeviceControl.RouteSectionAccess,

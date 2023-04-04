@@ -1,0 +1,46 @@
+﻿@page "/section/logs"
+@attribute [Authorize(Roles = UserAccessStr.Admin)]
+@inherits RazorComponentSectionBase<LogQuickModel>
+@using DataCore.Sql.Xml
+@using BlazorDeviceControl.Pages.CustomComponents
+@using BlazorDeviceControl.Pages.SectionComponents
+@using DataCore.Sql.TableDiagModels.LogsTypes
+
+<SectionReload
+  TItem="@LogQuickModel"
+  ButtonSettings="@ButtonSettings"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  Title="@LocaleCore.System.SystemLogs"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  />
+
+<MudSelectLocal T="LogTypeModel" Value="@CurrentType" ValueChanged="OnSelectTypeChanged">
+  <MudSelectItem Value="@LogTypeNew">All</MudSelectItem>
+  @foreach (LogTypeModel logType in LogTypes)
+  {
+    <MudSelectItem Value=@logType>@logType.Icon</MudSelectItem>
+  }
+</MudSelectLocal>
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@LogQuickModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@LogQuickModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="14%" FormatString="@StrUtils.FormatDtLong" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="Scale" Width="17%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="13%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App" Width="13%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="6%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Icon" Property="Icon" Width="7%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Message" Property="Message" Width="30%" />
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

@@ -1,0 +1,42 @@
+﻿@page "/section/nomenclatures_groups/new"
+@page "/section/nomenclatures_groups/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<PluGroupModel>
+@using BlazorDeviceControl.Pages.ItemComponents
+@using DataCore.Sql.TableScaleModels.PlusGroups
+
+<RazorItemReload TItem="@PluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@LocaleCore.Table.Code</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Code"/>
+    </td>
+  </tr>
+  <tr >
+    <td>@LocaleCore.Table.Parent</td>
+    <td >
+      <RadzenLink
+        Style="width: 100%; "
+        Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclatureGroup}/{DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).IdentityValueUid}")
+        Text="@(DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).Name)"/>
+    </td>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@PluGroupModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

@@ -1,0 +1,34 @@
+@page "/section/scales"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<ScaleModel>
+@using DataCore.Sql.TableScaleModels.Scales
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+
+<SectionReload
+  TItem="@ScaleModel"
+  Title="@LocaleCore.DeviceControl.SectionScales"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@ScaleModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@ScaleModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Description" Width="30%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WorkShop" Property="WorkShop.Name" Width="35%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Printer" Property="PrinterMain.Name" Width="35%"/>
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>
