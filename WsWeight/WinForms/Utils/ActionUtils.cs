@@ -32,17 +32,13 @@ public static class ActionUtils
 
     private static void MakeScreenShot(IWin32Window win32Window, ScaleModel scale)
     {
+        if (win32Window is not Form form) return;
         using MemoryStream memoryStream = new();
-
-        if (win32Window is Form form)
-        {
-            using Bitmap bitmap = new(form.Width, form.Height);
-            using Graphics graphics = Graphics.FromImage(bitmap);
-            graphics.CopyFromScreen(form.Location.X, form.Location.Y, 0, 0, form.Size);
-            using Image img = bitmap;
-            img.Save(memoryStream, ImageFormat.Png);
-        }
-
+        using Bitmap bitmap = new(form.Width, form.Height);
+        using Graphics graphics = Graphics.FromImage(bitmap);
+        graphics.CopyFromScreen(form.Location.X, form.Location.Y, 0, 0, form.Size);
+        using Image img = bitmap;
+        img.Save(memoryStream, ImageFormat.Png);
         ScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
         DataAccess.Save(scaleScreenShot);
     }

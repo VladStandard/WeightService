@@ -84,25 +84,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCoreTests", "BlazorCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTerra1000Tests", "WebApiTerra1000Tests\WebApiTerra1000Tests.csproj", "{99E4F265-9C8D-44A0-B5F3-F05D9AA54487}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E045-41F4-9460-CC519B8D7DBF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC 300DPMM", "TSC 300DPMM", "{5CA80E2F-E045-41F4-9460-CC519B8D7DBF}"
 	ProjectSection(SolutionItems) = preProject
-		Resources\Templates\TSC\TSC 60x150 300dpi вес v1 example.txt = Resources\Templates\TSC\TSC 60x150 300dpi вес v1 example.txt
-		Resources\Templates\TSC\TSC 60x150 300dpi шт v1 example.txt = Resources\Templates\TSC\TSC 60x150 300dpi шт v1 example.txt
-		Resources\Templates\TSC\TSC 60x150 вес v1.xml = Resources\Templates\TSC\TSC 60x150 вес v1.xml
-		Resources\Templates\TSC\TSC 60x150 вес v2.xml = Resources\Templates\TSC\TSC 60x150 вес v2.xml
-		Resources\Templates\TSC\TSC 60x150 вес v3.xml = Resources\Templates\TSC\TSC 60x150 вес v3.xml
-		Resources\Templates\TSC\TSC 60x150 шт v1.xml = Resources\Templates\TSC\TSC 60x150 шт v1.xml
-		Resources\Templates\TSC\TSC 60x150 шт v2.xml = Resources\Templates\TSC\TSC 60x150 шт v2.xml
-		Resources\Templates\TSC\TSC 60x150 шт v3.xml = Resources\Templates\TSC\TSC 60x150 шт v3.xml
-		Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml
-		Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml
-		Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml
-		Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml
-		Resources\Templates\TSC\TSC 80x100 300dpi вес v4.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v4.xml
-		Resources\Templates\TSC\TSC 80x100 300dpi вес v5.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v5.xml
-		Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml
-		Resources\Templates\TSC\TSC 80x100 300dpi шт v4.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт v4.xml
-		Resources\Templates\TSC\TSC 80x100 300dpi шт v5.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт v5.xml
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V1 ПРИМЕР.TXT = Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V1 ПРИМЕР.TXT
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V1.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V1.XML
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V2.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V2.XML
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СПРАВА V3.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СПРАВА V3.XML
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V1 ПРИМЕР.TXT = Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V1 ПРИМЕР.TXT
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V1.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V1.XML
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V2.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V2.XML
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СПРАВА V3.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СПРАВА V3.XML
+		Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС (РЕЗЕРВ).XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС (РЕЗЕРВ).XML
+		Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V1.XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V1.XML
+		Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V2.XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V2.XML
+		Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V3.XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V3.XML
+		Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V4.XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V4.XML
+		Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V5.XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V5.XML
+		Resources\Templates\TSC 300DPMM\TSC 80X100 ШТ (РЕЗЕРВ).XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ШТ (РЕЗЕРВ).XML
+		Resources\Templates\TSC 300DPMM\TSC 80X100 ШТ V4.XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ШТ V4.XML
+		Resources\Templates\TSC 300DPMM\TSC 80X100 ШТ V5.XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ШТ V5.XML
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TscPrintDemoWinForm", "TscPrintDemoWinForm\TscPrintDemoWinForm.csproj", "{5973F987-103A-455D-A5E3-C7429906657A}"
