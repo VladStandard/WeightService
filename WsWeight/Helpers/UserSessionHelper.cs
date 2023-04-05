@@ -47,7 +47,6 @@ public sealed class UserSessionHelper : BaseViewModel
     #region Public and private fields and properties
 
     private BarCodeHelper BarCode => BarCodeHelper.Instance;
-    public DataAccessHelper DataAccess => DataAccessHelper.Instance;
     public DataContextModel DataContext { get; } = new();
     public DebugHelper Debug => DebugHelper.Instance;
     public PluginLabelsHelper PluginLabels => PluginLabelsHelper.Instance;
@@ -103,7 +102,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             _pluScale = value;
             if (value.IsNotNew)
-                DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
+                DataContext.DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
             PluginPrintMain.LabelPrintedCount = 1;
             PluginPrintShipping.LabelPrintedCount = 1;
             SetPluNestingFks(value.Plu);
@@ -160,9 +159,9 @@ public sealed class UserSessionHelper : BaseViewModel
         get => _scale;
         set
         {
-            _scale = value ?? DataAccess.GetItemNewEmpty<ScaleModel>();
+            _scale = value;
             _ = ProductionFacility;
-            PluScale = DataAccess.GetItemNewEmpty<PluScaleModel>();
+            PluScale = DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
             OnPropertyChanged();
         }
     }
@@ -187,7 +186,7 @@ public sealed class UserSessionHelper : BaseViewModel
                 ? _productionFacility : Scale.WorkShop is not null ? Scale.WorkShop.ProductionFacility : _productionFacility;
         set
         {
-            _productionFacility = value ?? DataAccess.GetItemNewEmpty<ProductionFacilityModel>();
+            _productionFacility = value;
             OnPropertyChanged();
         }
     }
@@ -235,13 +234,13 @@ public sealed class UserSessionHelper : BaseViewModel
     public UserSessionHelper()
     {
         // Items.
-        _pluNestingFk = DataAccess.GetItemNewEmpty<PluNestingFkModel>();
-        _pluScale = DataAccess.GetItemNewEmpty<PluScaleModel>();
-        _pluWeighing = DataAccess.GetItemNewEmpty<PluWeighingModel>();
-        _deviceScaleFk = DataAccess.GetItemNewEmpty<DeviceScaleFkModel>();
-        _productionFacility = DataAccess.GetItemNewEmpty<ProductionFacilityModel>();
-        _scale = DataAccess.GetItemNewEmpty<ScaleModel>();
-        PluStorageMethodFk = DataAccess.GetItemNewEmpty<PluStorageMethodFkModel>();
+        _pluNestingFk = DataContext.DataAccess.GetItemNewEmpty<PluNestingFkModel>();
+        _pluScale = DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
+        _pluWeighing = DataContext.DataAccess.GetItemNewEmpty<PluWeighingModel>();
+        _deviceScaleFk = DataContext.DataAccess.GetItemNewEmpty<DeviceScaleFkModel>();
+        _productionFacility = DataContext.DataAccess.GetItemNewEmpty<ProductionFacilityModel>();
+        _scale = DataContext.DataAccess.GetItemNewEmpty<ScaleModel>();
+        PluStorageMethodFk = DataContext.DataAccess.GetItemNewEmpty<PluStorageMethodFkModel>();
         // Lists.
         _pluNestingFks = new();
         _productionFacilities = new();
@@ -290,22 +289,22 @@ public sealed class UserSessionHelper : BaseViewModel
             DeviceModel device = WpfUtils.SetNewDeviceWithQuestion(
                 DeviceName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
-            DeviceTypeFkModel deviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(device);
+            DeviceTypeFkModel deviceTypeFk = DataContext.DataAccess.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)
             {
                 // DeviceType.
-                DeviceTypeModel deviceType = DataAccess.GetItemDeviceTypeNotNullable("Monoblock");
+                DeviceTypeModel deviceType = DataContext.DataAccess.GetItemDeviceTypeNotNullable("Monoblock");
                 // DeviceTypeFk.
                 deviceTypeFk.Device = device;
                 deviceTypeFk.Type = deviceType;
-                DataAccess.Save(deviceTypeFk);
+                DataContext.DataAccess.Save(deviceTypeFk);
             }
             // DeviceTypeFk.
-            DeviceScaleFk = DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
+            DeviceScaleFk = DataContext.DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
             // Scale.
-            Scale = scaleId <= 0 ? DeviceScaleFk.Scale : DataAccess.GetScaleNotNullable(scaleId);
+            Scale = scaleId <= 0 ? DeviceScaleFk.Scale : DataContext.DataAccess.GetScaleNotNullable(scaleId);
             // Area.
-            ProductionFacility = DataAccess.GetProductionFacilityNotNullable(productionFacilityName);
+            ProductionFacility = DataContext.DataAccess.GetProductionFacilityNotNullable(productionFacilityName);
             // Other.
             ProductDate = DateTime.Now;
             // Новыя серия, упаковка продукции, новая паллета.
@@ -318,7 +317,7 @@ public sealed class UserSessionHelper : BaseViewModel
     {
         if (uid is null)
             // Manual set by another place.
-            PluNestingFk = DataAccess.GetItemNewEmpty<PluNestingFkModel>();
+            PluNestingFk = DataContext.DataAccess.GetItemNewEmpty<PluNestingFkModel>();
         else
             // PluBundlesFks set default BundleFk.
             _ = PluNestingFks;
@@ -554,7 +553,7 @@ public sealed class UserSessionHelper : BaseViewModel
         // #WS-T-710 Печать этикеток. Исправление счётчика этикеток
         //PluScale = DataAccess.GetItemNotNullable<PluScaleModel>(PluScale.IdentityValueUid);
         PluScale.Scale = Scale;
-        TemplateModel template = DataAccess.GetItemTemplateNotNullable(PluScale);
+        TemplateModel template = DataContext.DataAccess.GetItemTemplateNotNullable(PluScale);
         // Template isn't exist.
         if (template.IsNew)
         {
@@ -582,7 +581,7 @@ public sealed class UserSessionHelper : BaseViewModel
     public void AddScaleCounter()
     {
         Scale.Counter++;
-        DataAccess.UpdateForce(Scale);
+        DataContext.DataAccess.UpdateForce(Scale);
     }
 
     /// <summary>
@@ -654,7 +653,7 @@ public sealed class UserSessionHelper : BaseViewModel
 
     public void NewPluWeighing()
     {
-        ProductSeriesModel productSeries = DataAccess.GetItemProductSeriesNotNullable(PluScale.Scale);
+        ProductSeriesModel productSeries = DataContext.DataAccess.GetItemProductSeriesNotNullable(PluScale.Scale);
 
         PluWeighing = new()
         {
@@ -737,9 +736,9 @@ public sealed class UserSessionHelper : BaseViewModel
         if (!PluWeighing.PluScale.Plu.IsCheckWeight) return;
 
         if (PluWeighing.IsNew)
-            DataAccess.Save(PluWeighing);
+            DataContext.DataAccess.Save(PluWeighing);
         else
-            DataAccess.UpdateForce(PluWeighing);
+            DataContext.DataAccess.UpdateForce(PluWeighing);
     }
 
     /// <summary>
@@ -766,7 +765,7 @@ public sealed class UserSessionHelper : BaseViewModel
         _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
         // Save.
-        DataAccess.Save(pluLabel);
+        DataContext.DataAccess.Save(pluLabel);
 
         return (pluLabel, pluLabelContext);
     }
@@ -800,7 +799,7 @@ public sealed class UserSessionHelper : BaseViewModel
         BarCode.SetBarCodeTop(barCode, pluLabelContext);
         BarCode.SetBarCodeRight(barCode, pluLabelContext);
         BarCode.SetBarCodeBottom(barCode, pluLabelContext);
-        DataAccess.Save(barCode);
+        DataContext.DataAccess.Save(barCode);
     }
 
     private void SetSqlPublish() =>
@@ -840,10 +839,10 @@ public sealed class UserSessionHelper : BaseViewModel
 
     private void SetNewPluNestingFks()
     {
-        PluNestingFkModel pluNestingFk = DataAccess.GetItemNewEmpty<PluNestingFkModel>();
-        pluNestingFk.PluBundle = DataAccess.GetItemNewEmpty<PluBundleFkModel>();
-        pluNestingFk.PluBundle.Plu = DataAccess.GetItemNewEmpty<PluModel>();
-        pluNestingFk.PluBundle.Bundle = DataAccess.GetItemNewEmpty<BundleModel>();
+        PluNestingFkModel pluNestingFk = DataContext.DataAccess.GetItemNewEmpty<PluNestingFkModel>();
+        pluNestingFk.PluBundle = DataContext.DataAccess.GetItemNewEmpty<PluBundleFkModel>();
+        pluNestingFk.PluBundle.Plu = DataContext.DataAccess.GetItemNewEmpty<PluModel>();
+        pluNestingFk.PluBundle.Bundle = DataContext.DataAccess.GetItemNewEmpty<BundleModel>();
         PluNestingFks = new() { pluNestingFk };
     }
 

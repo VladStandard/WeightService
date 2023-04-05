@@ -57,7 +57,7 @@ using PluBundleFkValidator = DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluB
 
 namespace DataCore.Sql.Core.Models;
 
-public partial class DataContextModel
+public sealed class DataContextModel
 {
     #region Public and private fields, properties, constructor
 
@@ -110,8 +110,7 @@ public partial class DataContextModel
     public List<TemplateResourceModel> TemplateResources { get; set; }
     private List<VersionModel> Versions { get; set; }
     public List<WorkShopModel> WorkShops { get; set; }
-
-    public NHibernate.ISession Session => DataAccess.SessionFactory.GetCurrentSession();
+    //public NHibernate.ISession Session => DataAccess.SessionFactory.GetCurrentSession();
 
     public DataContextModel()
     {
@@ -796,7 +795,7 @@ public partial class DataContextModel
         if (sqlCrudConfig.IsResultOrder && TemplateResources.Any())
             TemplateResources = TemplateResources
                 .OrderBy(item => item.Name)
-                .OrderBy(item => item.Type).ToList();
+                .ThenBy(item => item.Type).ToList();
         return TemplateResources;
     }
 
@@ -829,22 +828,22 @@ public partial class DataContextModel
     [Obsolete(@"Use GetItemNotNullable(SqlFieldIdentityModel) or GetItemNullableByUid(Guid?) or GetItemNullableById(long?)")]
     public T GetItemNotNullable<T>(object? value) where T : SqlTableBase, new() => DataAccess.GetItemNotNullable<T>(value);
 
-    public T? GetItemNullable<T>(SqlFieldIdentityModel identity) where T : SqlTableBase, new() => 
+    public T? GetItemNullable<T>(SqlFieldIdentityModel identity) where T : SqlTableBase, new() =>
         DataAccess.GetItemNullable<T>(identity);
 
-    public T GetItemNotNullable<T>(SqlFieldIdentityModel identity) where T : SqlTableBase, new() => 
+    public T GetItemNotNullable<T>(SqlFieldIdentityModel identity) where T : SqlTableBase, new() =>
         DataAccess.GetItemNotNullable<T>(identity);
 
-    public T? GetItemNullableByUid<T>(Guid? uid) where T : SqlTableBase, new() => 
+    public T? GetItemNullableByUid<T>(Guid? uid) where T : SqlTableBase, new() =>
         DataAccess.GetItemNullableByUid<T>(uid);
 
-    public T GetItemNotNullableByUid<T>(Guid? uid) where T : SqlTableBase, new() => 
+    public T GetItemNotNullableByUid<T>(Guid? uid) where T : SqlTableBase, new() =>
         DataAccess.GetItemNotNullableByUid<T>(uid);
 
-    public T? GetItemNullableById<T>(long? id) where T : SqlTableBase, new() => 
+    public T? GetItemNullableById<T>(long? id) where T : SqlTableBase, new() =>
         DataAccess.GetItemNullableById<T>(id);
 
-    public T GetItemNotNullableById<T>(long id) where T : SqlTableBase, new() => 
+    public T GetItemNotNullableById<T>(long id) where T : SqlTableBase, new() =>
         DataAccess.GetItemNotNullableById<T>(id);
 
     /// <summary>
@@ -1114,7 +1113,7 @@ public partial class DataContextModel
         {
             if (obj is object[] { Length: 4 } item)
             {
-                result.Add(new(Convert.ToByte(item[0]), Convert.ToString(item[1]), 
+                result.Add(new(Convert.ToByte(item[0]), Convert.ToString(item[1]),
                     Convert.ToUInt16(item[2]), Convert.ToUInt16(item[3])));
             }
         }
@@ -1127,6 +1126,105 @@ public partial class DataContextModel
     /// <returns></returns>
     public ushort GetDbFileSizeAll() =>
         (ushort)GetDbFileSizeInfos().Sum(item => item.SizeMb);
+
+    #endregion
+
+    #region Public and private methods - PluNestingFk
+
+    /// <summary>
+    /// Force update list PluStorageMethodFks.
+    /// </summary>
+    /// <param name="sqlCrudConfig"></param>
+    public List<PluNestingFkModel> UpdatePluNestingFks(SqlCrudConfigModel sqlCrudConfig) =>
+        PluNestingFks = GetListNotNullablePlusNestingFks(sqlCrudConfig);
+
+    /// <summary>
+    /// Get item PluStorageMethod by Plu.
+    /// Use UpdatePluStorageMethodFks for force update.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <param name="bundle"></param>
+    /// <param name="box"></param>
+    /// <returns></returns>
+    public PluNestingFkModel GetPluNestingFk(PluModel plu, BundleModel bundle, BoxModel box)
+    {
+        PluNestingFkModel pluNestingFk = PluNestingFks.Find(item => Equals(item.PluBundle.Plu, plu) &&
+                                                                    Equals(item.PluBundle.Bundle, bundle) && Equals(item.Box, box));
+        return pluNestingFk.IsExists ? pluNestingFk : new();
+    }
+
+    /// <summary>
+    /// Get item PluStorageMethod by Plu.
+    /// Use UpdatePluStorageMethodFks for force update.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <param name="bundle"></param>
+    /// <param name="box"></param>
+    /// <returns></returns>
+    public short GetPluNestingFkBundleCount(PluModel plu, BundleModel bundle, BoxModel box) =>
+        GetPluNestingFk(plu, bundle, box).BundleCount;
+
+    /// <summary>
+    /// Get item PluStorageMethod by Plu.
+    /// Use UpdatePluStorageMethodFks for force update.
+    /// </summary>
+    /// <param name="pluNestingFk"></param>
+    /// <returns></returns>
+    public short GetPluNestingFkBundleCount(PluNestingFkModel pluNestingFk) =>
+        pluNestingFk.BundleCount;
+
+    #endregion
+
+    #region Public and private methods - PluStorageMethodFk
+
+    /// <summary>
+    /// Force update list PluStorageMethodFks.
+    /// </summary>
+    /// <param name="sqlCrudConfig"></param>
+    public List<PluStorageMethodFkModel> UpdatePluStorageMethodFks(SqlCrudConfigModel sqlCrudConfig) =>
+        PluStorageMethodsFks = GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig);
+
+    /// <summary>
+    /// Get item PluStorageMethod by Plu.
+    /// Use UpdatePluStorageMethodFks for force update.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <returns></returns>
+    public PluStorageMethodModel GetPluStorageMethod(PluModel plu)
+    {
+        PluStorageMethodFkModel pluStorageMethodFk = new();
+        if (PluStorageMethodsFks.Exists(item => Equals(item.Plu, plu)))
+            pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        return pluStorageMethodFk.Method;
+    }
+
+    /// <summary>
+    /// Get item PluStorageMethod by Plu.
+    /// Use UpdatePluStorageMethodFks for force update.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <returns></returns>
+    public TemplateResourceModel GetPluStorageResource(PluModel plu)
+    {
+        PluStorageMethodFkModel pluStorageMethodFk = new();
+        if (PluStorageMethodsFks.Exists(item => Equals(item.Plu, plu)))
+            pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        return pluStorageMethodFk.Resource;
+    }
+
+    /// <summary>
+    /// Get item PluStorageMethodFk by Plu.
+    /// Use UpdatePluStorageMethodFks for force update.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <returns></returns>
+    public PluStorageMethodFkModel GetPluStorageMethodFk(PluModel plu)
+    {
+        PluStorageMethodFkModel pluStorageMethodFk = new();
+        if (PluStorageMethodsFks.Exists(item => Equals(item.Plu, plu)))
+            pluStorageMethodFk = PluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        return pluStorageMethodFk;
+    }
 
     #endregion
 }

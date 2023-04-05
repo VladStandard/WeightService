@@ -11,7 +11,7 @@ public partial class PasswordForm : Form
 
     private ushort UnlockCode => (ushort)(DateTime.Now.Hour * 100 + DateTime.Now.Minute);
     private ushort UserCode { get; set; }
-    public UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+    private UserSessionHelper UserSession => UserSessionHelper.Instance;
 
     #endregion
 

@@ -3,7 +3,7 @@
 
 namespace DataCore.Sql.Core.Enums;
 
-public enum SqlFieldComparerEnum
+public enum SqlFieldComparer
 {
     Equal,
     NotEqual,

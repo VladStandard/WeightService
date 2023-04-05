@@ -208,7 +208,8 @@ public class WsContentBase : ControllerBase
             {
                 if (response.ResponseQuery is not null)
                     response.ResponseQuery.Query = url;
-                ISQLQuery sqlQuery = WsDataContext.Session.CreateSQLQuery(url);
+                //ISQLQuery sqlQuery = WsDataContext.Session.CreateSQLQuery(url);
+                ISQLQuery sqlQuery = WsDataContext.DataAccess.SessionFactory.OpenSession().CreateSQLQuery(url);
                 if (sqlParameter is not null)
                 {
                     if (response.ResponseQuery is not null)
@@ -245,8 +246,8 @@ public class WsContentBase : ControllerBase
         {
             List<SqlFieldFilterModel> sqlFilters = new()
             {
-                new() { Name = nameof(BarCodeModel.CreateDt), Comparer = SqlFieldComparerEnum.MoreOrEqual, Value = dtStart },
-                new() { Name = nameof(BarCodeModel.CreateDt), Comparer = SqlFieldComparerEnum.LessOrEqual, Value = dtEnd },
+                new() { Name = nameof(BarCodeModel.CreateDt), Comparer = SqlFieldComparer.MoreOrEqual, Value = dtStart },
+                new() { Name = nameof(BarCodeModel.CreateDt), Comparer = SqlFieldComparer.LessOrEqual, Value = dtEnd },
             };
             SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
             sqlCrudConfig.AddFilters(sqlFilters);
