@@ -347,6 +347,7 @@ public sealed class DataContextModel
 
     public List<LogTypeModel> GetListNotNullableLogsTypes(SqlCrudConfigModel sqlCrudConfig)
     {
+        sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(LogTypeModel.Number) });
         LogTypes = DataAccess.GetListNotNullable<LogTypeModel>(sqlCrudConfig);
@@ -357,6 +358,7 @@ public sealed class DataContextModel
 
     public List<LogModel> GetListNotNullableLogs(SqlCrudConfigModel sqlCrudConfig)
     {
+        sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = SqlOrderDirection.Desc });
         Logs = DataAccess.GetListNotNullable<LogModel>(sqlCrudConfig);
@@ -367,6 +369,7 @@ public sealed class DataContextModel
 
     public List<LogWebModel> GetListNotNullableLogsWebs(SqlCrudConfigModel sqlCrudConfig)
     {
+        sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt) });
         LogsWebs = DataAccess.GetListNotNullable<LogWebModel>(sqlCrudConfig);
@@ -380,6 +383,7 @@ public sealed class DataContextModel
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new() { 
         //        Name = $"{nameof(LogWebFkModel.LogWebRequest)}.{nameof(LogWebModel.CreateDt)}", Direction = SqlOrderDirection.Desc });
+        sqlCrudConfig.IsReadUncommitted = true;
         LogsWebsFks = DataAccess.GetListNotNullable<LogWebFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && LogsWebsFks.Any())
             LogsWebsFks = LogsWebsFks.OrderByDescending(item => item.LogWebRequest.CreateDt).ToList();
