@@ -7,7 +7,7 @@ public partial class MainLayout : RazorComponentBase
 {
     #region Public and private methods
     
-    private string VerBlazor => BlazorCoreUtils.GetLibVersion();
+    private string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
     
     protected override void OnParametersSet()
 	{

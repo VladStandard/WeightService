@@ -164,13 +164,11 @@
         <ProjectReference Include="..\WsStorage\WsStorage.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <AdditionalFiles Include="Pages\SectionComponents\Admins\LogReports\SectionLogs.razor" />
-      <AdditionalFiles Include="Pages\SectionComponents\Admins\LogReports\SectionWebServiceLogs.razor" />
-    </ItemGroup>
-    <ItemGroup>
       <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionLogs.razor" />
       <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionLogTable.razor" />
       <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionWebServiceLogs.razor" />
+      <_ContentIncludedByDefault Remove="Pages\SectionComponents\Nested\SectionPlusScales.razor" />
+      <_ContentIncludedByDefault Remove="Pages\SectionComponents\Nested\SectionPrintersResources.razor" />
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

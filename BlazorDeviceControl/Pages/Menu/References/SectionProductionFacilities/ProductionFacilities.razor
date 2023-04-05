@@ -1,0 +1,32 @@
+﻿@page "/section/production_facilities"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<ProductionFacilityModel>
+@using DataCore.Sql.TableScaleModels.ProductionFacilities
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+
+<SectionReload
+  TItem="@ProductionFacilityModel"
+  Title="@LocaleCore.DeviceControl.SectionProductionFacilities"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@ProductionFacilityModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowRender="@RowRender"
+  RowDoubleClick="SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@ProductionFacilityModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Address" Property="Address" Width="70%" />
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

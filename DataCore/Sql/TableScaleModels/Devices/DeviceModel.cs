@@ -19,6 +19,7 @@ public class DeviceModel : SqlTableBase
     [XmlElement] public virtual string PrettyName { get; set; }
     [XmlElement] public virtual string Ipv4 { get; set; }
     [XmlElement] public virtual SqlFieldMacAddressModel MacAddress { get; set; }
+    
     [XmlElement]
     public virtual string MacAddressValue
     {
@@ -26,6 +27,7 @@ public class DeviceModel : SqlTableBase
         set => MacAddress.Value = value;
     }
 
+    [XmlIgnore] public virtual string DisplayName => $"{Name} | {Ipv4}";
     /// <summary>
     /// Constructor.
     /// </summary>

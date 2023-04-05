@@ -43,48 +43,24 @@ namespace BlazorCore.Razors;
 public partial class RazorComponentBase
 {
     #region Public and private methods - Routes
-
-    protected string GetColumnIdentityName<TItem>() where TItem : SqlTableBase, new()
-    {
-        TItem item = new();
-        string page = GetRouteItemPathShort(item);
-        if (!string.IsNullOrEmpty(page))
-            return item.Identity.Name switch
-            {
-                SqlFieldIdentity.Id => LocaleCore.Table.IdentityId,
-                SqlFieldIdentity.Uid => LocaleCore.Table.IdentityUid,
-                _ => LocaleCore.Table.Identity
-            };
-        return string.Empty;
-    }
-
+    
     protected string GetRouteItemPathForLink<TItem>(TItem? item) where TItem : SqlTableBase, new()
     {
-        if (string.IsNullOrEmpty(RazorFieldConfig.LinkUrl))
+        string page = GetRouteSectionPath(item);
+        if (string.IsNullOrEmpty(page)) 
+            return string.Empty;
+
+        page = item.Identity.Name switch
         {
-            return GetRouteItemPath(item);
-        }
-        return item switch
-        {
-            ScaleModel scale => RazorFieldConfig.SqlTable switch
-            {
-                SqlTableEmptyModel => GetRouteItemPathCombine(RazorFieldConfig.LinkUrl, item),
-                PrinterModel => GetRouteItemPathCombine(RazorFieldConfig.LinkUrl, scale.PrinterMain),
-                WorkShopModel => GetRouteItemPathCombine(RazorFieldConfig.LinkUrl, scale.WorkShop),
-                _ => string.Empty,
-            },
-            DeviceScaleFkModel deviceScaleFk => RazorFieldConfig.SqlTable switch
-            {
-                SqlTableEmptyModel => GetRouteItemPathCombine(RazorFieldConfig.LinkUrl, item),
-                DeviceModel => GetRouteItemPathCombine(RazorFieldConfig.LinkUrl, deviceScaleFk.Device),
-                _ => string.Empty,
-            },
-            _ => string.Empty,
+            SqlFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
+            SqlFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
+            _ => page
         };
+        return page;
     }
 
     public string GetRouteItemPath<TItem>(TItem? item) where TItem : SqlTableBase, new() =>
-        GetRouteItemPathCombine(GetRouteItemPathShort<SqlTableBase>(item), item);
+        GetRouteItemPathCombine(GetRouteSectionPath<SqlTableBase>(item), item);
 
     public string GetRouteItemPathCombine<TItem>(string page, TItem? item) where TItem : SqlTableBase, new()
     {
@@ -102,51 +78,9 @@ public partial class RazorComponentBase
         return string.Empty;
     }
 
-    public string GetRouteItemPathShort<TItem>() where TItem : SqlTableBase, new() => GetRouteItemPathShort(new TItem());
+    public string GetRouteItemPathShort<TItem>() where TItem : SqlTableBase, new() => GetRouteSectionPath(new TItem());
 
-    private string GetRouteItemPathShort<TItem>(TItem? item) where TItem : SqlTableBase, new() => item switch
-    {
-        AccessModel => LocaleCore.DeviceControl.RouteItemAccess,
-        AppModel => LocaleCore.DeviceControl.RouteItemApp,
-        BrandModel => LocaleCore.DeviceControl.RouteItemBrand,
-        BarCodeModel => LocaleCore.DeviceControl.RouteItemBarCode,
-        BoxModel => LocaleCore.DeviceControl.RouteItemBox,
-        BundleModel => LocaleCore.DeviceControl.RouteItemBundle,
-        ContragentModel => LocaleCore.DeviceControl.RouteItemContragent,
-        DeviceModel => LocaleCore.DeviceControl.RouteItemDevice,
-        DeviceScaleFkModel => LocaleCore.DeviceControl.RouteItemDeviceScaleFk,
-        DeviceTypeFkModel => LocaleCore.DeviceControl.RouteItemDeviceTypeFk,
-        DeviceTypeModel => LocaleCore.DeviceControl.RouteItemDeviceType,
-        LogModel => LocaleCore.DeviceControl.RouteItemLog,
-        LogQuickModel => LocaleCore.DeviceControl.RouteItemLog,
-        LogTypeModel => LocaleCore.DeviceControl.RouteItemLogType,
-        PluGroupModel => LocaleCore.DeviceControl.RouteItemNomenclatureGroup,
-        OrderModel => LocaleCore.DeviceControl.RouteItemOrder,
-        OrderWeighingModel => LocaleCore.DeviceControl.RouteItemOrderWeighing,
-        OrganizationModel => LocaleCore.DeviceControl.RouteItemOrganization,
-        PluBundleFkModel => LocaleCore.DeviceControl.RouteItemPluBundleFk,
-        PluLabelModel => LocaleCore.DeviceControl.RouteItemPluLabel,
-        PluModel => LocaleCore.DeviceControl.RouteItemPlu,
-        PluNestingFkModel => LocaleCore.DeviceControl.RouteItemPluNestingFk,
-        PluScaleModel => LocaleCore.DeviceControl.RouteItemPluScale,
-        PluWeighingModel => LocaleCore.DeviceControl.RouteItemPluWeighing,
-        PrinterModel => LocaleCore.DeviceControl.RouteItemPrinter,
-        PrinterResourceFkModel => LocaleCore.DeviceControl.RouteItemPrinterResource,
-        PrinterTypeModel => LocaleCore.DeviceControl.RouteItemPrinterType,
-        ProductionFacilityModel => LocaleCore.DeviceControl.RouteItemProductionFacility,
-        ProductSeriesModel => LocaleCore.DeviceControl.RouteItemProductSerie,
-        ScaleScreenShotModel => LocaleCore.DeviceControl.RouteItemScalesScreenShots,
-        ScaleModel => LocaleCore.DeviceControl.RouteItemScale,
-        TaskModel => LocaleCore.DeviceControl.RouteItemTaskModule,
-        TaskTypeModel => LocaleCore.DeviceControl.RouteItemTaskTypeModule,
-        TemplateModel => LocaleCore.DeviceControl.RouteItemTemplate,
-        TemplateResourceModel => LocaleCore.DeviceControl.RouteItemTemplateResource,
-        VersionModel => LocaleCore.DeviceControl.RouteItemVersion,
-        WorkShopModel => LocaleCore.DeviceControl.RouteItemWorkShop,
-        _ => string.Empty
-    };
-
-    private string GetRouteSectionPath<TItem>(TItem? item) where TItem : SqlTableBase, new() =>
+    protected string GetRouteSectionPath<TItem>(TItem? item) where TItem : SqlTableBase, new() =>
         item switch
         {
             AccessModel => LocaleCore.DeviceControl.RouteSectionAccess,
@@ -190,26 +124,11 @@ public partial class RazorComponentBase
         };
 
     public string GetRouteSectionPath<TItem>() where TItem : SqlTableBase, new() => GetRouteSectionPath(new TItem());
-
-    protected string GetRouteItemPath(string uriItem, SqlTableBase? item, object? value) =>
-        value switch
-        {
-            Guid uid => item is null ? $"{uriItem}/" : $"{uriItem}/{uid}",
-            long id => item is null ? $"{uriItem}/" : $"{uriItem}/{id}",
-            _ => $"{uriItem}/",
-        };
     
-    protected string GetRouteItemPath(string uriItem, SqlTableBase? item) =>
-        item?.Identity.Name switch
-        {
-            SqlFieldIdentity.Id => $"{uriItem}/{item.IdentityValueId}",
-            SqlFieldIdentity.Uid => $"{uriItem}/{item.IdentityValueUid}",
-            _ => $"{uriItem}/"
-        };
     protected void SetRouteItemNavigate<TItem>(TItem? item) where TItem : SqlTableBase, new()
     {
         if (item is null) return;
-        string page = GetRouteItemPathShort(item);
+        string page = GetRouteSectionPath(item);
         if (string.IsNullOrEmpty(page)) return;
 
         page = item.Identity.Name switch

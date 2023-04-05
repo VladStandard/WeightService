@@ -1,0 +1,39 @@
+﻿@page "/section/plus_bundles_fks"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<PluBundleFkModel>
+@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+
+<SectionReload
+  TItem="@PluBundleFkModel"
+  Title="@LocaleCore.DeviceControl.SectionPlusBundlesFk"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@PluBundleFkModel"
+  Data="@SqlSectionCast"
+  IsLoading="@IsLoading"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@PluBundleFkModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn TItem="PluBundleFkModel" Title="@LocaleCore.Table.Weighted" SortProperty="Plu.IsCheckWeight" Width="7%">
+        <Template Context="itemCast">
+          <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="Plu.Number" Width="7%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="23%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Bundle" Property="Bundle.Name" Width="15%" />
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

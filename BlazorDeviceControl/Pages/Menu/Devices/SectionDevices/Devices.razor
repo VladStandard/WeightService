@@ -1,0 +1,40 @@
+﻿@page "/section/devices"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<DeviceModel>
+@using DataCore.Sql.TableScaleModels.Devices
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+
+<SectionReload
+  TItem="@DeviceModel"
+  Title="@LocaleCore.DeviceControl.SectionHosts"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@DeviceModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowRender="@RowRender"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@DeviceModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="15%"
+                            FormatString="@StrUtils.FormatDtDefault" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Width="20%" Sortable="false">
+        <Template Context="itemCast">
+          @GetDevicePrettyName(itemCast)
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceIp" Property="Ipv4" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceMac" Property="MacAddress.ValuePrettyLookMinus" Width="20%"/>
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>
