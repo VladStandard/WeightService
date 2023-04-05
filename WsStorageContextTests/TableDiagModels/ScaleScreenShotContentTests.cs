@@ -3,14 +3,14 @@
 
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 
-namespace WsStorageContextTests.TableScaleModels;
+namespace WsStorageContextTests.TableDiagModels;
 
 [TestFixture]
 internal class ScaleScreenShotContentTests
 {
-	[Test]
+    [Test]
     public void Model_Content_Validate()
     {
-		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<ScaleScreenShotModel>();
-	}
+        DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<ScaleScreenShotModel>();
+    }
 }

@@ -3,6 +3,7 @@
 
 using DataCore.CssStyles;
 using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsMemories;
 using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableDiagModels.LogsWebsFks;
@@ -87,6 +88,7 @@ public class ValidationUtils
             var cls when cls == typeof(DeviceTypeFkModel) => new DeviceTypeFkValidator(),
             var cls when cls == typeof(DeviceTypeModel) => new DeviceTypeValidator(),
             var cls when cls == typeof(LogModel) => new LogValidator(),
+            var cls when cls == typeof(LogMemoryModel) => new LogMemoryValidator(),
             var cls when cls == typeof(LogTypeModel) => new LogTypeValidator(),
             var cls when cls == typeof(LogWebFkModel) => new LogWebFkValidator(),
             var cls when cls == typeof(LogWebModel) => new LogWebValidator(),
@@ -140,6 +142,7 @@ public class ValidationUtils
             DeviceTypeFkModel deviceTypeFk => new DeviceTypeFkValidator().Validate(deviceTypeFk),
             DeviceTypeModel deviceType => new DeviceTypeValidator().Validate(deviceType),
             LogModel log => new LogValidator().Validate(log),
+            LogMemoryModel logMemory => new LogMemoryValidator().Validate(logMemory),
             LogTypeModel logType => new LogTypeValidator().Validate(logType),
             LogWebFkModel logWebFk => new LogWebFkValidator().Validate(logWebFk),
             LogWebModel logWeb => new LogWebValidator().Validate(logWeb),

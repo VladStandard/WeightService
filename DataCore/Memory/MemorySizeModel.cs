@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
@@ -70,6 +70,10 @@ public class MemorySizeModel : HelperBase//DisposableBase, IDisposableBase
         PhysicalTotal = null;
         Wmi = null;
     }
+
+    public short GetMemorySizeAppMb() => (short)(PhysicalCurrent?.MegaBytes ?? 0);
+
+    public short GetMemorySizeFreeMb() => (short)(PhysicalFree?.MegaBytes ?? 0);
 
     #endregion
 }

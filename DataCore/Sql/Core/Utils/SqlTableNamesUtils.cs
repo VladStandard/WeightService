@@ -22,6 +22,7 @@ public static class SqlTableNamesUtils
     public static string Hosts => "Hosts";
     public static string Labels => "Labels";
     public static string Logs => "LOGS";
+    public static string LogsMemories => "LOGS_MEMORIES";
     public static string LogsTypes => "LOG_TYPES";
     public static string LogsWebs => "LOGS_WEBS";
     public static string LogWebFks => "LOGS_WEBS_FK";

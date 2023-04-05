@@ -77,7 +77,7 @@ public static class ActionUtils
         try
         {
             MakeScreenShot(win32Window, scale);
-            DataAccess.LogInformation(PluginMemory.GetMemoryState());
+            DataAccess.LogMemory(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
             GC.Collect();
         }
         catch (Exception ex)

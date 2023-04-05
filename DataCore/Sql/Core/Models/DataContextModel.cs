@@ -6,6 +6,7 @@ using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsMemories;
 using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableDiagModels.LogsWebsFks;
@@ -75,6 +76,7 @@ public sealed class DataContextModel
     private List<DeviceTypeFkModel> DeviceTypeFks { get; set; }
     private List<DeviceScaleFkModel> DeviceScaleFks { get; set; }
     private List<LogModel> Logs { get; set; }
+    private List<LogMemoryModel> LogsMemories { get; set; }
     private List<LogTypeModel> LogTypes { get; set; }
     private List<LogWebModel> LogsWebs { get; set; }
     private List<LogWebFkModel> LogsWebsFks { get; set; }
@@ -127,6 +129,7 @@ public sealed class DataContextModel
         DeviceTypeFks = new();
         DeviceScaleFks = new();
         Logs = new();
+        LogsMemories = new();
         LogTypes = new();
         LogsWebs = new();
         LogsWebsFks = new();
@@ -184,6 +187,7 @@ public sealed class DataContextModel
         var cls when cls == typeof(DeviceTypeFkModel) => GetListNotNullableDeviceTypesFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(LogTypeModel) => GetListNotNullableLogsTypes(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(LogModel) => GetListNotNullableLogs(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(LogMemoryModel) => GetListNotNullableLogsMemories(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(LogWebModel) => GetListNotNullableLogsWebs(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(LogWebFkModel) => GetListNotNullableLogsWebsFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(OrderModel) => GetListNotNullableOrders(sqlCrudConfig).Cast<T>().ToList(),
@@ -365,6 +369,17 @@ public sealed class DataContextModel
         if (sqlCrudConfig.IsResultOrder && Logs.Any())
             Logs = Logs.OrderByDescending(item => item.CreateDt).ToList();
         return Logs;
+    }
+
+    public List<LogMemoryModel> GetListNotNullableLogsMemories(SqlCrudConfigModel sqlCrudConfig)
+    {
+        sqlCrudConfig.IsReadUncommitted = true;
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = SqlOrderDirection.Desc });
+        LogsMemories = DataAccess.GetListNotNullable<LogMemoryModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && LogsMemories.Any())
+            LogsMemories = LogsMemories.OrderByDescending(item => item.CreateDt).ToList();
+        return LogsMemories;
     }
 
     public List<LogWebModel> GetListNotNullableLogsWebs(SqlCrudConfigModel sqlCrudConfig)
@@ -753,6 +768,7 @@ public sealed class DataContextModel
 
     public List<ScaleScreenShotModel> GetListNotNullableScaleScreenShots(SqlCrudConfigModel sqlCrudConfig)
     {
+        sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = SqlOrderDirection.Desc });
         ScaleScreenShots = DataAccess.GetListNotNullable<ScaleScreenShotModel>(sqlCrudConfig);

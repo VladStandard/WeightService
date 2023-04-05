@@ -5,12 +5,11 @@ using DataCore.Sql.Core.Helpers;
 
 namespace WsWeightTests;
 
-public static class DataCoreTestsUtils
+internal static class DataCoreTestsUtils
 {
     #region Public and private fields, properties, constructor
 
     public static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    public static DataAccessHelper DataAccess => DataAccessHelper.Instance;
 
     #endregion
 }

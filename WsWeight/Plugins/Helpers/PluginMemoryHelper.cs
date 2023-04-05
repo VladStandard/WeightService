@@ -20,7 +20,7 @@ public class PluginMemoryHelper : PluginHelperBase
 
     private Label FieldMemory { get; set; }
     private Label FieldMemoryExt { get; set; }
-    private MemorySizeModel MemorySize { get; }
+    public MemorySizeModel MemorySize { get; }
 
     #endregion
 
@@ -48,13 +48,13 @@ public class PluginMemoryHelper : PluginHelperBase
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
-        ActionUtils.ActionTryCatch(() =>
-        {
+        //ActionUtils.ActionTryCatch(() =>
+        //{
             FieldMemory = fieldMemory;
             FieldMemoryExt = fieldMemoryExt;
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
-        });
+        //});
     }
 
     public override void Execute()
@@ -64,13 +64,17 @@ public class PluginMemoryHelper : PluginHelperBase
         ResponseItem.Execute(Response);
     }
 
-    public string GetMemoryState() =>
+    private string GetMemoryState() =>
         $"{LocaleCore.Scales.Memory} | {LocaleCore.Scales.MemoryBusy}: " +
         (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : "- MB") +
         $" | {LocaleCore.Scales.MemoryFree}: " +
         (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : "- MB") +
         $" | {LocaleCore.Scales.MemoryAll}: " +
         (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : "- MB");
+
+    public short GetMemorySizeAppMb() => MemorySize.GetMemorySizeAppMb();
+
+    public short GetMemorySizeFreeMb() => MemorySize.GetMemorySizeFreeMb();
 
     private void Response()
     {

@@ -30,6 +30,7 @@ public partial class MainForm : Form
     private Button ButtonPrint { get; set; }
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
+    private readonly object _lockerMinutes10 = new();
     private readonly object _lockerHours = new();
     private readonly object _lockerDays = new();
     private NavigationUserControl NavigationControl { get; set; }
@@ -66,10 +67,11 @@ public partial class MainForm : Form
         ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
         UserSession.StopwatchMain.Stop();
 
+        UserSession.DataContext.DataAccess.LogMemory(
+            UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
         UserSession.DataContext.DataAccess.LogInformation(
             $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
             $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
-            UserSession.PluginMemory.GetMemoryState() + Environment.NewLine +
             $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
     }
 
@@ -193,7 +195,8 @@ public partial class MainForm : Form
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
-                UserSession.DataContext.DataAccess.LogInformation(UserSession.PluginMemory.GetMemoryState());
+                UserSession.DataContext.DataAccess.LogMemory(
+                    UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
                 UserSession.StopwatchMain.Restart();
                 ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
                 // Wait control.
@@ -407,6 +410,9 @@ public partial class MainForm : Form
 
     private void LoadSchedule()
     {
+        Quartz.AddJob(QuartzUtils.CronExpression.EveryMinutes10(), ScheduleEveryMinutes10,
+            $"job{nameof(ScheduleEveryMinutes10)}", $"trigger{nameof(ScheduleEveryMinutes10)}",
+            $"triggerGroup{nameof(ScheduleEveryHours)}");
         Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
             $"job{nameof(ScheduleEveryHours)}", $"trigger{nameof(ScheduleEveryHours)}",
             $"triggerGroup{nameof(ScheduleEveryHours)}");
@@ -423,6 +429,21 @@ public partial class MainForm : Form
                 {
                     if (Quartz is null) return;
                     ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
+                }
+            );
+        }
+    }
+
+    private void ScheduleEveryMinutes10()
+    {
+        lock (_lockerMinutes10)
+        {
+            ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+                {
+                    if (Quartz is null) return;
+                    UserSession.DataContext.DataAccess.LogMemory(
+                        UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
+                    GC.Collect();
                 }
             );
         }

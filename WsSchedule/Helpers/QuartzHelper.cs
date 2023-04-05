@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsSchedule.Enums;
@@ -88,7 +88,7 @@ public class QuartzHelper : IDisposable
             Scheduler.Shutdown();
     }
 
-    public IJobDetail? CreateJobDetail(QuartzEnums.Interval interval, string cronExpression, Action action, string jobName)
+    private IJobDetail? CreateJobDetail(QuartzEnums.Interval interval, string cronExpression, Action action, string jobName)
     {
         IJobDetail? jobDetail = null;
         JobBuilder? jobBuilder = null;
@@ -100,6 +100,8 @@ public class QuartzHelper : IDisposable
                 interval = QuartzEnums.Interval.Seconds10;
             else if (cronExpression == QuartzUtils.CronExpression.EveryMinutes())
                 interval = QuartzEnums.Interval.Minutes;
+            else if (cronExpression == QuartzUtils.CronExpression.EveryMinutes10())
+                interval = QuartzEnums.Interval.Minutes10;
             else if (cronExpression == QuartzUtils.CronExpression.EveryHours())
                 interval = QuartzEnums.Interval.Hours;
             else if (cronExpression == QuartzUtils.CronExpression.EveryDays())
@@ -129,6 +131,12 @@ public class QuartzHelper : IDisposable
                 QuartzJobEveryMinutesModel.Actions.Add(action);
                 jobBuilder = JobBuilder
                     .Create<QuartzJobEveryMinutesModel>()
+                    .WithIdentity(jobName);
+                break;
+            case QuartzEnums.Interval.Minutes10:
+                QuartzJobEveryMinutes10Model.Actions.Add(action);
+                jobBuilder = JobBuilder
+                    .Create<QuartzJobEveryMinutes10Model>()
                     .WithIdentity(jobName);
                 break;
             case QuartzEnums.Interval.Hours:

@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableDiagModels.ScalesScreenshots;
 /// Table "diag.SCALES_SCREENSHOTS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(ScaleScreenShotModel)}")]
+[DebuggerDisplay("{nameof(ScaleScreenShotModel)} | {Scale.Description}")]
 public class ScaleScreenShotModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -46,7 +46,7 @@ public class ScaleScreenShotModel : SqlTableBase
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Scale)}: {Scale.Description}. " +
-        $"{nameof(ScreenShot)}: {ScreenShot.Length}. ";
+        $"{nameof(ScreenShot)}: {ScreenShot.Length}";
 
     public override bool Equals(object obj)
     {
@@ -92,7 +92,7 @@ public class ScaleScreenShotModel : SqlTableBase
     #region Public and private methods - virtual
 
     public virtual bool Equals(ScaleScreenShotModel item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Scale, item.Scale) &&
         Equals(ScreenShot, item.ScreenShot) &&
         Scale.Equals(item.Scale);

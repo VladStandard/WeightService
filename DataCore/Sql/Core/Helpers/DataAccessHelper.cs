@@ -6,6 +6,7 @@
 using DataCore.Files;
 using DataCore.Settings.Helpers;
 using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsMemories;
 using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableDiagModels.LogsWebsFks;
@@ -179,6 +180,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMemoryMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebMap>());
@@ -197,8 +199,8 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluNestingFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluTemplateFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterMap>());

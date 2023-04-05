@@ -4,6 +4,7 @@
 using DataCore.Enums;
 using DataCore.Sql.Core.Helpers;
 using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsMemories;
 using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableDiagModels.LogsWebsFks;
@@ -178,6 +179,16 @@ internal class DataAccessHelperMapTests
         Assert.DoesNotThrow(() =>
         {
             LogMap item = new();
+            TestContext.WriteLine(item);
+        });
+    }
+
+    [Test]
+    public void DataAccess_LogMemoryMap_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            LogMemoryMap item = new();
             TestContext.WriteLine(item);
         });
     }

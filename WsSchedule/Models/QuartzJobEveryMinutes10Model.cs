@@ -3,7 +3,7 @@
 
 namespace WsSchedule.Models;
 
-public sealed class QuartzJobEverySeconds10Model : IJob
+public sealed class QuartzJobEveryMinutes10Model : IJob
 {
     #region Public and private fields, properties, constructor
 

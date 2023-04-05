@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsMemories;
 using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableDiagModels.LogsWebsFks;
@@ -53,6 +54,12 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods
 
+    /// <summary>
+    /// Fill references for table.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="item"></param>
+    /// <param name="isFillReferences"></param>
     private void FillReferences<T>(T? item, bool isFillReferences) where T : SqlTableBase, new()
 	{
 		switch (item)
@@ -77,6 +84,10 @@ public partial class DataAccessHelper
 				deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
 				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
+            case LogMemoryModel logMemory:
+                logMemory.App = GetItemNotNullable<AppModel>(logMemory.App.IdentityValueUid);
+                logMemory.Device = GetItemNotNullable<DeviceModel>(logMemory.Device.IdentityValueUid);
+                break;
             case LogWebFkModel logWebFk:
                 logWebFk.LogWebRequest = GetItemNotNullable<LogWebModel>(logWebFk.LogWebRequest.IdentityValueUid);
                 logWebFk.LogWebResponse = GetItemNotNullable<LogWebModel>(logWebFk.LogWebResponse.IdentityValueUid);

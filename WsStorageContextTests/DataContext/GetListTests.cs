@@ -5,6 +5,7 @@ using DataCore.Enums;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableDiagModels.Logs;
+using DataCore.Sql.TableDiagModels.LogsMemories;
 using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableDiagModels.LogsWebsFks;
@@ -107,6 +108,12 @@ internal class GetListTests
     public void DataContext_AssertGetList_LogModel()
     {
         DataCoreTestsUtils.DataCore.AssertGetList<LogModel>(SqlCrudConfig, Configurations);
+    }
+
+    [Test]
+    public void DataContext_AssertGetList_LogMemoryModel()
+    {
+        DataCoreTestsUtils.DataCore.AssertGetList<LogMemoryModel>(SqlCrudConfigFk, Configurations);
     }
 
     [Test]

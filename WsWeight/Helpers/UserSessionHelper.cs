@@ -286,8 +286,8 @@ public sealed class UserSessionHelper : BaseViewModel
         lock (_locker)
         {
             // Device.
-            DeviceModel device = WpfUtils.SetNewDeviceWithQuestion(
-                DeviceName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
+            DeviceModel device = WpfUtils.SetNewDeviceWithQuestion(DeviceName, 
+                NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
             DeviceTypeFkModel deviceTypeFk = DataContext.DataAccess.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)

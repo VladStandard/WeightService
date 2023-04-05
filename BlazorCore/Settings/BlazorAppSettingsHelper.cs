@@ -6,6 +6,9 @@ using DataCore;
 using System.Threading;
 using DataCore.Models;
 using DataCore.Sql.Core.Helpers;
+using DataCore.Sql.Core.Models;
+using DataCore.Protocols;
+using DataCore.Sql.TableScaleModels.Devices;
 
 namespace BlazorCore.Settings;
 
@@ -43,6 +46,7 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
         Memory = new();
         //Memory.OpenAsync(callRefreshAsync);
         Memory.MemorySize.Execute();
+        DataAccess.LogMemory(Memory.MemorySize.GetMemorySizeAppMb(), Memory.MemorySize.GetMemorySizeFreeMb());
     }
 
     #endregion

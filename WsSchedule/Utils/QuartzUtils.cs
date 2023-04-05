@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // https://www.freeformatter.com/cron-expression-generator-quartz.html
 
@@ -43,6 +43,8 @@ public static class QuartzUtils
         public static string EverySeconds10() => "*/10 * * ? * *";
 
         public static string EveryMinutes(int minutes = 0) => minutes == 0 ? "0 * * ? * *" : $"0 */{minutes} * ? * *";
+
+        public static string EveryMinutes10(int minutes = 0) => minutes == 0 ? "0 0/10 * ? * *" : $"0 0/{minutes} * ? * *";
 
         public static string EveryHours(int hours = 0) => hours == 0 ? "0 0 * ? * *" : $"0 0 */{hours} ? * *";
 
