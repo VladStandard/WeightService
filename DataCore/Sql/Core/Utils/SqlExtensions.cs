@@ -38,12 +38,12 @@ public static class SqlExtensions
         {
             AbstractCriterion? criterion = filter.Comparer switch
             {
-                SqlFieldComparerEnum.Less => Restrictions.Lt(filter.Name, filter.Value),
-                SqlFieldComparerEnum.More => Restrictions.Gt(filter.Name, filter.Value),
-                SqlFieldComparerEnum.LessOrEqual => Restrictions.Le(filter.Name, filter.Value),
-                SqlFieldComparerEnum.MoreOrEqual => Restrictions.Ge(filter.Name, filter.Value),
-                SqlFieldComparerEnum.Equal => Restrictions.Eq(filter.Name, filter.Value),
-                SqlFieldComparerEnum.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
+                SqlFieldComparer.Less => Restrictions.Lt(filter.Name, filter.Value),
+                SqlFieldComparer.More => Restrictions.Gt(filter.Name, filter.Value),
+                SqlFieldComparer.LessOrEqual => Restrictions.Le(filter.Name, filter.Value),
+                SqlFieldComparer.MoreOrEqual => Restrictions.Ge(filter.Name, filter.Value),
+                SqlFieldComparer.Equal => Restrictions.Eq(filter.Name, filter.Value),
+                SqlFieldComparer.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
                 _ => throw new ArgumentOutOfRangeException()
             };
             if (criterion is not null)

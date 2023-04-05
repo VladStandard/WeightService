@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Collections.Generic;
+using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.Devices;
 
@@ -27,7 +28,8 @@ public class UserSessionHelperTests
     {
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
-            List<DeviceModel> devices = UserSession.DataAccess.GetListDevices(true, true, true);
+            SqlCrudConfigModel sqlCrudConfig = new(true, true, true, true, true);
+            List<DeviceModel> devices = UserSession.DataContext.GetListNotNullableDevices(sqlCrudConfig);
             Assert.Greater(devices.Count, 0);
         }, false);
     }

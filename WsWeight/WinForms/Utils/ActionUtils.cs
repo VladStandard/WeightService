@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
+using WsWeight.Plugins.Helpers;
 
 namespace WsWeight.WinForms.Utils;
 
@@ -9,40 +10,22 @@ public static class ActionUtils
 {
     #region Public and private fields, properties, constructor
 
-    private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+    private static DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    private static PluginMemoryHelper PluginMemory => PluginMemoryHelper.Instance;
 
     #endregion
 
     #region Public and private methods
 
-    public static void MakeScreenShot(ScaleModel scale)
-    {
-        using MemoryStream memoryStream = new();
-
-        Rectangle bounds = Screen.GetBounds(Point.Empty);
-        using Bitmap bitmap = new(bounds.Width, bounds.Height);
-        using Graphics graphics = Graphics.FromImage(bitmap);
-        graphics.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
-        Image img = bitmap;
-        img.Save(memoryStream, ImageFormat.Png);
-
-        ScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
-        DataAccess.Save(scaleScreenShot);
-    }
-
     private static void MakeScreenShot(IWin32Window win32Window, ScaleModel scale)
     {
+        if (win32Window is not Form form) return;
         using MemoryStream memoryStream = new();
-
-        if (win32Window is Form form)
-        {
-            using Bitmap bitmap = new(form.Width, form.Height);
-            using Graphics graphics = Graphics.FromImage(bitmap);
-            graphics.CopyFromScreen(form.Location.X, form.Location.Y, 0, 0, form.Size);
-            using Image img = bitmap;
-            img.Save(memoryStream, ImageFormat.Png);
-        }
-
+        using Bitmap bitmap = new(form.Width, form.Height);
+        using Graphics graphics = Graphics.FromImage(bitmap);
+        graphics.CopyFromScreen(form.Location.X, form.Location.Y, 0, 0, form.Size);
+        using Image img = bitmap;
+        img.Save(memoryStream, ImageFormat.Png);
         ScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
         DataAccess.Save(scaleScreenShot);
     }
@@ -94,6 +77,8 @@ public static class ActionUtils
         try
         {
             MakeScreenShot(win32Window, scale);
+            DataAccess.LogInformation(PluginMemory.GetMemoryState());
+            GC.Collect();
         }
         catch (Exception ex)
         {

@@ -71,9 +71,9 @@ public class DataCoreHelper
 
 	#region Public and private fields, properties, constructor
 
-	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	public DataAccessHelper DataAccess => DataAccessHelper.Instance;
 	public DataContextModel DataContext { get; } = new();
-    public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
+    private JsonSettingsHelper JsonSettings => JsonSettingsHelper.Instance;
 
 	#endregion
 

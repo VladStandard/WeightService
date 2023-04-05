@@ -75,6 +75,7 @@ values (@number,@icon)
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 				public static string GetLogTypes => @"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- Table LOG_TYPES
 select 
 	[UID]
@@ -85,6 +86,7 @@ order by [NUMBER]
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 				public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- Table LOGS diagram summary
 select {GetTopRecords(topRecords)}
 	 [l].[UID]

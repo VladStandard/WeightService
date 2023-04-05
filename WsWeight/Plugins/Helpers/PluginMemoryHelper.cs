@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsWeight.WinForms.Utils;
@@ -26,6 +26,9 @@ public class PluginMemoryHelper : PluginHelperBase
 
     #region Constructor and destructor
 
+    /// <summary>
+    /// Empty constructor.
+    /// </summary>
     public PluginMemoryHelper()
     {
         TskType = TaskType.TaskMemory;
@@ -61,17 +64,17 @@ public class PluginMemoryHelper : PluginHelperBase
         ResponseItem.Execute(Response);
     }
 
+    public string GetMemoryState() =>
+        $"{LocaleCore.Scales.Memory} | {LocaleCore.Scales.MemoryBusy}: " +
+        (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : "- MB") +
+        $" | {LocaleCore.Scales.MemoryFree}: " +
+        (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : "- MB") +
+        $" | {LocaleCore.Scales.MemoryAll}: " +
+        (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : "- MB");
+
     private void Response()
     {
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory,
-            $"{LocaleCore.Scales.Memory}" +
-            $" | {LocaleCore.Scales.MemoryBusy}: " +
-            (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : "- MB") +
-            $" | {LocaleCore.Scales.MemoryFree}: " +
-            (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : "- MB") +
-            $" | {LocaleCore.Scales.MemoryAll}: " +
-            (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : "- MB")
-        );
+        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, GetMemoryState());
         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
     }
 

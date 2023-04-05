@@ -21,7 +21,7 @@ public class PluLabelContextModel : SerializeBase
 {
     #region Public and private properties - References
 
-    [XmlIgnore] private DataContextModel? DataContext { get; set; }
+    [XmlIgnore] private DataContextModel DataContext { get; set; }
     [XmlIgnore] private PluLabelModel PluLabel { get; set; }
     [XmlIgnore] private PluNestingFkModel PluNestingFk { get; set; }
     [XmlIgnore] private PluScaleModel PluScale { get; set; }
@@ -39,7 +39,7 @@ public class PluLabelContextModel : SerializeBase
     [XmlElement] public virtual string ProductTimeBarCodeFormat { get => $"{PluLabel.ProductDt:HHmmss}"; set => _ = value; }
     [XmlElement] public virtual string CurrentDateBarCode { get => $"{DateTime.Now:yyMMdd}"; set => _ = value; }
     [XmlElement] public virtual string CurrentTimeBarCode { get => $"{DateTime.Now:HHmmss}"; set => _ = value; }
-    [XmlElement] public virtual string Nesting { get => $"{LocaleCore.Scales.LabelContextNesting}: {DataContext?.GetPluNestingFkBundleCount(PluNestingFk) ?? 0}{LocaleCore.Table.NestingMeasurement}"; set => _ = value; }
+    [XmlElement] public virtual string Nesting { get => $"{LocaleCore.Scales.LabelContextNesting}: {DataContext.GetPluNestingFkBundleCount(PluNestingFk)}{LocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string Address { get => ProductionFacility.Address; set => _ = value; }
     [XmlElement] public virtual string PluDescription { get => PluScale.Plu.Description; set => _ = value; }
     [XmlElement] public virtual string PluFullName { get => PluScale.Plu.FullName; set => _ = value; }
@@ -126,7 +126,7 @@ public class PluLabelContextModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluLabelContextModel() : this(null, new(), new(), new(), new(), new())
+    public PluLabelContextModel() : this(new(), new(), new(), new(), new(), new())
     {
         //
     }
@@ -134,7 +134,7 @@ public class PluLabelContextModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluLabelContextModel(DataContextModel? dataContext, PluLabelModel pluLabel, PluNestingFkModel pluNestingFk, 
+    public PluLabelContextModel(DataContextModel dataContext, PluLabelModel pluLabel, PluNestingFkModel pluNestingFk, 
         PluScaleModel pluScale, ProductionFacilityModel productionFacility, PluWeighingModel pluWeighing)
     {
         DataContext = dataContext;
@@ -152,6 +152,7 @@ public class PluLabelContextModel : SerializeBase
     /// <param name="context"></param>
     protected PluLabelContextModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
+        DataContext = new();
         PluLabel = (PluLabelModel)info.GetValue(nameof(PluLabel), typeof(PluLabelModel));
         PluNestingFk = (PluNestingFkModel)info.GetValue(nameof(PluNestingFk), typeof(PluNestingFkModel));
         PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
@@ -201,12 +202,6 @@ public class PluLabelContextModel : SerializeBase
         //info.AddValue(nameof(ProductDt), ProductDt);
         //info.AddValue(nameof(ProductTimeBarCodeFormat), ProductTimeBarCodeFormat);
     }
-
-    #endregion
-
-    #region Public and private methods
-
-
 
     #endregion
 }

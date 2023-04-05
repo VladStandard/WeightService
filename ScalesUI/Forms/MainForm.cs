@@ -38,7 +38,7 @@ public partial class MainForm : Form
     private WaitUserControl WaitControl { get; set; }
 
     /// <summary>
-    /// Constructor.
+    /// Empty constructor.
     /// </summary>
     public MainForm()
     {
@@ -66,9 +66,10 @@ public partial class MainForm : Form
         ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
         UserSession.StopwatchMain.Stop();
 
-        UserSession.DataAccess.LogInformation(
+        UserSession.DataContext.DataAccess.LogInformation(
             $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
             $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
+            UserSession.PluginMemory.GetMemoryState() + Environment.NewLine +
             $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
     }
 
@@ -192,6 +193,7 @@ public partial class MainForm : Form
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
+                UserSession.DataContext.DataAccess.LogInformation(UserSession.PluginMemory.GetMemoryState());
                 UserSession.StopwatchMain.Restart();
                 ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
                 // Wait control.
@@ -210,7 +212,7 @@ public partial class MainForm : Form
             () =>
             {
                 UserSession.StopwatchMain.Stop();
-                UserSession.DataAccess.LogInformation(
+                UserSession.DataContext.DataAccess.LogInformation(
                     LocaleData.Program.IsClosed + Environment.NewLine +
                     $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
             }
@@ -567,7 +569,7 @@ public partial class MainForm : Form
             UserSession.PluScale.IsNotNew
                 ? $"{UserSession.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
-        TemplateModel template = UserSession.DataAccess.GetItemTemplateNotNullable(UserSession.PluScale);
+        TemplateModel template = UserSession.DataContext.DataAccess.GetItemTemplateNotNullable(UserSession.PluScale);
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTemplateValue, template.Title);
     }
 
@@ -793,7 +795,7 @@ public partial class MainForm : Form
         }
         else
         {
-            UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
+            UserSession.PluScale = UserSession.DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
         }
     }
 
@@ -803,7 +805,7 @@ public partial class MainForm : Form
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelNettoWeight, false);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldNettoWeight, false);
-                UserSession.PluScale = UserSession.DataAccess.GetItemNewEmpty<PluScaleModel>();
+                UserSession.PluScale = UserSession.DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
                 //if (UserSession.CheckWeightMassaDeviceExists())
                 //{
                 //    if (!UserSession.CheckWeightIsNegative(this) || !UserSession.CheckWeightIsPositive(this))

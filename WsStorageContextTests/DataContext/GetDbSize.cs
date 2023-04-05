@@ -33,8 +33,8 @@ internal sealed class GetDbSizeInfosTests
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
             ushort dbFileSizeAll = DataCoreTestsUtils.DataCore.DataContext.GetDbFileSizeAll();
-            Assert.That(0 < dbFileSizeAll);
-            TestContext.WriteLine($"{nameof(dbFileSizeAll)}: {dbFileSizeAll}");
+            Assert.That(dbFileSizeAll > 0);
+            TestContext.WriteLine($"{nameof(dbFileSizeAll)}: {dbFileSizeAll} MB");
         }, false, Configurations);
     }
 }
