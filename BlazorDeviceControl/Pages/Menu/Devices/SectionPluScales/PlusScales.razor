@@ -24,7 +24,6 @@
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
-  RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PluScaleModel">
@@ -33,7 +32,7 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.NumberShort" Property="Plu.Number" Width="10%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Active" SortProperty="IsActive" Width="10%" >
         <Template Context="itemCast">
-          <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive" Change=@(_ => @SetSqlSectionSave(itemCast)) />
+          <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive" Change="@(_ => @SetSqlSectionSave(itemCast))" />
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@LocaleCore.Table.WeightShort" SortProperty="Plu.IsCheckWeight" Width="10%">

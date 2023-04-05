@@ -43,7 +43,7 @@ public class LocaleSystem
     public string SystemLogsStops => Lang == Lang.English ? "Stops" : "Остановы";
     public string SystemLogsWarnings => Lang == Lang.English ? "Warnings" : "Предупреждения";
     public string SystemWindowsUser => Lang == Lang.English ? "Windows-user" : "Windows-пользователь";
-    public string UserInfo => Lang == Lang.English ? "User info" : "Информация о пользователе";
+    public string UserInfo => Lang == Lang.English ? "Profile" : "Профиль";
     public string Users => Lang == Lang.English ? "Users" : "Пользователи";
 
     #endregion

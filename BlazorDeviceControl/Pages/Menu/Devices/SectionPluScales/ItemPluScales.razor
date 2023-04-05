@@ -25,7 +25,7 @@
       <RadzenLink
         Style="width: 100%; margin-left: 0;"
         Path="@GetRouteItemPath(SqlItemCast.Scale)"
-        Text="@LocaleCore.Table.Scale"/>
+        Text="@LocaleCore.Table.Line"/>
     </td>
     <td>
       <MudSelectLocal ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Scale">
@@ -36,9 +36,7 @@
       </MudSelectLocal>
     </td>
     <td>
-      <RadzenLink Style="width: 100%; margin-left: 0;"
-                  Path="@GetRouteItemPath(SqlItemCast.Plu)"
-                  Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Style="width: 100%; margin-left: 0;" Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>
       <MudSelectLocal ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Plu">
@@ -52,8 +50,6 @@
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
-
-
 
 <RazorItemActions
   TItem="@PluScaleModel"

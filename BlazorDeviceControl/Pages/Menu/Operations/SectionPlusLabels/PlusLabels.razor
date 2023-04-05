@@ -21,7 +21,6 @@
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
-  RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PluLabelModel">
@@ -30,7 +29,7 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Weighing" Property="PluWeighing.CreateDt" Width="8%" FormatString="@StrUtils.FormatDtDefault" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDt" Width="8%" FormatString="@StrUtils.FormatDtShort" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.ExpirationDt" Property="ExpirationDt" Width="8%" FormatString="@StrUtils.FormatDtShort" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Scale" Property="PluScale.Scale.Description" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="PluScale.Scale.Description" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluScale.Plu.Number" Width="8%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluScale.Plu.Name" Width="25%"/>
       <RadzenDataGridColumn TItem="@PluLabelModel" Title="@LocaleCore.Table.Template" Width="14%" Sortable="@false">

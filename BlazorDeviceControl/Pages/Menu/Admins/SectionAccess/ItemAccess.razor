@@ -13,29 +13,18 @@
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.LoginDt</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: center; background-color: lightgray; "
-        ReadOnly="true" Value="@(StrUtils.FormatDtRus(SqlItemCast.LoginDt, true))"/>
-    </td>
-  </tr>
+      <td>@LocaleCore.Table.User</td>
+      <td>@SqlItemCast.Name</td>
+      <td>@LocaleCore.Strings.AccessRights</td>
+      <td>
+        <RzDropDownLocal @bind-Value="@Rights" Data="@TemplateAccessRights" ValueProperty="Value" TextProperty="Name" />
+      </td>
+    </tr>
   <tr>
-    <td>@LocaleCore.Table.User</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: lightgray; "
-        ReadOnly="true" @bind-Value="@SqlItemCast.Name"/>
-    </td>
-    <td>@LocaleCore.Strings.AccessRights</td>
-    <td>
-      <MudSelectLocal @bind-Value="@Rights">
-        @foreach (TypeModel<AccessRightsEnum> item in TemplateAccessRights)
-        {
-          <MudSelectItem Value=@item.Value>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
+    <td>@LocaleCore.Table.LoginDt</td>
+    <td>@string.Format(StrUtils.FormatDtLong,SqlItemCast.LoginDt)</td>
+    <td/>
+    <td/>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>

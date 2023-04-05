@@ -9,7 +9,7 @@ public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<PluGr
 {
 	#region Public and private fields, properties, constructor
 
-	//
+	private PluGroupModel? ParentGroup { get; set; }
 
 	#endregion
 
@@ -26,6 +26,8 @@ public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<PluGr
                 {
 					SqlItemCast = SqlItemNew<PluGroupModel>();
 				}
+
+                ParentGroup = DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
             }
 		});
 	}

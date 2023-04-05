@@ -7,7 +7,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.Menu.References1C.SectionPlusNestingFks
 
-<RazorItemReload TItem="@PluModel" Title="@LocaleCore.DeviceControl.ItemPlu"/>
+<RazorItemReload TItem="@PluModel" Title="@LocaleCore.DeviceControl.ItemNomenclature"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
 
@@ -24,8 +24,7 @@
       <td>@LocaleCore.Table.Name</td>
       <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/></td>
       <td>
-        <RadzenLink Path="@GetRouteItemPath(Template)"
-                    Text="@LocaleCore.Table.Template"/>
+        <RadzenLink Path="@GetRouteItemPath(Template)" Text="@LocaleCore.Table.Template"/>
       </td>
       <td><RzDropDownLocal @bind-Value="@Template" Data="@DataContext.Templates" TextProperty="Title" /></td>
     </tr>
@@ -50,9 +49,7 @@
     <tr>
       <td>@LocaleCore.Table.Description</td>
       <td>
-        <RadzenTextArea
-          Style="width: 100%;"
-          @bind-Value="@SqlItemCast.Description" Rows="3"/>
+        <RadzenTextArea Style="width: 100%;" @bind-Value="@SqlItemCast.Description" Rows="3"/>
       </td>
       <td />
       <td />

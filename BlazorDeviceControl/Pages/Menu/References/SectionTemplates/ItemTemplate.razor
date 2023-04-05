@@ -14,25 +14,10 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Title</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Title"/>
-    </td>
+    <td><RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Title"/></td>
     <td>@LocaleCore.Table.CategoryName</td>
     <td>
-      @if (TemplateCategories is null)
-      {
-        <RadzenTextBox Style="width: 100%;" ReadOnly=true Value=""/>
-        <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px"/>
-      }
-      else
-      {
-        <MudSelectLocal @bind-Value="@SqlItemCast.CategoryId">
-          @foreach (TypeModel<string> category in TemplateCategories)
-          {
-            <MudSelectItem Value=@category.Value>@category.Name</MudSelectItem>
-          }
-        </MudSelectLocal>
-      }
+      <RzDropDownLocal @bind-Value="@SqlItemCast.CategoryId" Data="@TemplateCategories" ValueProperty="Value" TextProperty="Name" />
     </td>
   </tr>
   <tr>
