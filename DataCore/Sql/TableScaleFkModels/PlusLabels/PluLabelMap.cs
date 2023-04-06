@@ -15,7 +15,7 @@ public sealed class PluLabelMap : ClassMap<PluLabelModel>
     /// </summary>
     public PluLabelMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.PlusLabels);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

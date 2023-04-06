@@ -15,7 +15,7 @@ public sealed class VersionMap : ClassMap<VersionModel>
     /// </summary>
     public VersionMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.Versions);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

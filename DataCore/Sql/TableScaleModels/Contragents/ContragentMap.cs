@@ -15,7 +15,7 @@ public sealed class ContragentMap : ClassMap<ContragentModel>
     /// </summary>
     public ContragentMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.Contragents);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

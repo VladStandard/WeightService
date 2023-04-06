@@ -15,7 +15,7 @@ public sealed class OrderWeighingMap : ClassMap<OrderWeighingModel>
     /// </summary>
     public OrderWeighingMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.OrdersWeighings);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

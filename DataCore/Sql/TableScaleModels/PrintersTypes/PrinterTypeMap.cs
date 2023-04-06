@@ -15,7 +15,7 @@ public sealed class PrinterTypeMap : ClassMap<PrinterTypeModel>
     /// </summary>
     public PrinterTypeMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.PrintersTypes);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();

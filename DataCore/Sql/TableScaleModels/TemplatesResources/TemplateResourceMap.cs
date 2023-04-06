@@ -15,7 +15,7 @@ public sealed class TemplateResourceMap : ClassMap<TemplateResourceModel>
     /// </summary>
     public TemplateResourceMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.TemplatesResources);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

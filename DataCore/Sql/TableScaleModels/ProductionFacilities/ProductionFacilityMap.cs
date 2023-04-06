@@ -15,7 +15,7 @@ public sealed class ProductionFacilityMap : ClassMap<ProductionFacilityModel>
     /// </summary>
     public ProductionFacilityMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.ProductionFacilities);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();

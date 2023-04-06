@@ -15,7 +15,7 @@ public sealed class PluCharacteristicsFkMap : ClassMap<PluCharacteristicsFkModel
     /// </summary>
     public PluCharacteristicsFkMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.PlusCharacteristicsFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

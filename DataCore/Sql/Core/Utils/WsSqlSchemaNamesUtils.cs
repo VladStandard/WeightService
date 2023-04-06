@@ -3,7 +3,7 @@
 
 namespace DataCore.Sql.Core.Utils;
 
-public static class SqlSchemaNamesUtils
+public static class WsSqlSchemaNamesUtils
 {
     #region Public and private fields, properties, constructor
 

@@ -15,7 +15,7 @@ public sealed class ScaleScreenShotMap : ClassMap<ScaleScreenShotModel>
     /// </summary>
     public ScaleScreenShotMap()
     {
-        Schema(SqlSchemaNamesUtils.Diag);
+        Schema(WsSqlSchemaNamesUtils.Diag);
         Table(WsSqlTableNamesUtils.ScalesScreenshots);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

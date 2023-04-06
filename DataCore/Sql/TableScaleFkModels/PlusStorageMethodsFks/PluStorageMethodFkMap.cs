@@ -15,7 +15,7 @@ public sealed class PluStorageMethodFkMap : ClassMap<PluStorageMethodFkModel>
     /// </summary>
     public PluStorageMethodFkMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.PlusStorageMethodsFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

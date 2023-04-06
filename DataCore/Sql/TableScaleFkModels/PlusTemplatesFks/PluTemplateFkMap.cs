@@ -15,7 +15,7 @@ public sealed class PluTemplateFkMap : ClassMap<PluTemplateFkModel>
     /// </summary>
     public PluTemplateFkMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.PlusTemplatesFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

@@ -15,7 +15,7 @@ public sealed class DeviceTypeFkMap : ClassMap<DeviceTypeFkModel>
     /// </summary>
     public DeviceTypeFkMap()
     {
-        Schema(SqlSchemaNamesUtils.DbScales);
+        Schema(WsSqlSchemaNamesUtils.DbScales);
         Table(WsSqlTableNamesUtils.DevicesTypesFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
