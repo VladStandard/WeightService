@@ -855,7 +855,7 @@ public sealed class UserSessionHelper : BaseViewModel
         else
         {
             SqlCrudConfigModel sqlCrudConfig = new(
-                SqlQueries.DbScales.Tables.PluNestingFks.GetList(true), new("P_UID", plu.IdentityValueUid), true);
+                WsSqlQueriesScales.Tables.PluNestingFks.GetList(true), new("P_UID", plu.IdentityValueUid), true);
             PluNestingFks = DataContext.GetListNotNullablePlusNestingFks(sqlCrudConfig);
         }
     }

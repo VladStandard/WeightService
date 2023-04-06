@@ -46,8 +46,8 @@ public sealed partial class PluWeightingsAggr: LayoutComponentBase
     private void LoadAggrWithoutPlu()
     {
         PluWeightAggrs = new();
-        object[] sql_objects = DataAccessHelper.Instance.GetArrayObjectsNotNullable(
-            SqlQueries.DbScales.Tables.PluWeighings.GetWeighingsAggrWithoutPlu(200));
+        object[] sql_objects = WsDataAccessHelper.Instance.GetArrayObjectsNotNullable(
+            WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggrWithoutPlu(200));
         foreach (object obj in sql_objects)
         {
             if (obj is object[] { Length: 4 } item)
@@ -63,8 +63,8 @@ public sealed partial class PluWeightingsAggr: LayoutComponentBase
     private void LoadAggrWithPlu()
     {
         PluWeightAggrs = new();
-        object[] sql_objects = DataAccessHelper.Instance.GetArrayObjectsNotNullable(
-            SqlQueries.DbScales.Tables.PluWeighings.GetWeighingsAggrWithPlu(200));
+        object[] sql_objects = WsDataAccessHelper.Instance.GetArrayObjectsNotNullable(
+            WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggrWithPlu(200));
         foreach (object obj in sql_objects)
         {
             if (obj is object[] { Length: 5 } item)

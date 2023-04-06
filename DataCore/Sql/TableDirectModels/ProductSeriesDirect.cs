@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core.Utils;
 using DataCore.Sql.TableScaleModels.Scales;
 using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
 
@@ -55,7 +56,7 @@ public sealed class ProductSeriesDirect : SqlSerializeBase
             throw new("Equipment instance not identified. Set [Scale].");
         }
 
-        SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetCurrentProductSeriesV2,
+        SqlConnect.ExecuteReader(WsSqlQueriesScales.Functions.GetCurrentProductSeriesV2,
             new("@SCALE_ID", SqlDbType.VarChar, 38) { Value = Scale.IdentityValueId }, reader =>
             {
                 byte count = 0;

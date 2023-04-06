@@ -210,7 +210,7 @@ internal class GetListTests
     public void DataContext_AssertGetList_PluNestingFkModel()
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
-        sqlCrudConfig.NativeQuery = SqlQueries.DbScales.Tables.PluNestingFks.GetList(true);
+        sqlCrudConfig.NativeQuery = WsSqlQueriesScales.Tables.PluNestingFks.GetList(true);
         sqlCrudConfig.NativeParameters = new() { new("P_UID", new Guid("5B24E604-C550-43C9-91DD-74989A5E9D6C")), };
         DataCoreTestsUtils.DataCore.AssertGetList<PluNestingFkModel>(sqlCrudConfig, Configurations);
     }

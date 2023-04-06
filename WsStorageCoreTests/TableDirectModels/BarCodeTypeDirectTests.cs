@@ -23,7 +23,7 @@
 //            {
 //                TestContext.WriteLine($"[db_scales].[BarCodeTypes]");
 //                List<long> listId = new();
-//                SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetAllItems, (SqlDataReader reader) =>
+//                SqlConnect.ExecuteReader(WsSqlQueriesScales.Tables.BarCodeTypes.GetAllItems, (SqlDataReader reader) =>
 //                {
 //                    while (reader.Read())
 //                    {

@@ -13,7 +13,7 @@ public sealed partial class PlusNestingFks : RazorComponentSectionBase<PluNestin
     {
         ButtonSettings = new(true, true, true,
             true, true, true, false);
-        SqlCrudConfigSection.NativeQuery = SqlQueries.DbScales.Tables.PluNestingFks.GetList(true);
+        SqlCrudConfigSection.NativeQuery = WsSqlQueriesScales.Tables.PluNestingFks.GetList(true);
     }
 
     #endregion

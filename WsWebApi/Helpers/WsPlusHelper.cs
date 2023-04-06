@@ -511,7 +511,7 @@ public sealed class WsPlusHelper : WsContentBase
             List<ClipModel> clipsDb = WsDataContext.GetListNotNullableClips(SqlCrudConfig);
             List<PluClipFkModel> pluClipsFksDb = WsDataContext.GetListNotNullablePlusClipsFks(SqlCrudConfig);
             List<PluNestingFkModel> pluNestingFksDb = WsDataContext.GetListNotNullablePlusNestingFks(
-                new(DataCore.Sql.Core.Utils.SqlQueries.DbScales.Tables.PluNestingFks.GetList(false), false));
+                new(DataCore.Sql.Core.Utils.WsSqlQueriesScales.Tables.PluNestingFks.GetList(false), false));
             List<PluModel> plusXml = GetXmlPluList(xml);
             foreach (PluModel pluXml in plusXml)
             {

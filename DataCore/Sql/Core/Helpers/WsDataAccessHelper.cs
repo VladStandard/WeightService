@@ -1238,7 +1238,7 @@ public class WsDataAccessHelper
     #region Public and private methods - LogMemory
 
     /// <summary>
-    /// Log memory info.
+    /// Save log memory info.
     /// </summary>
     /// <param name="sizeAppMb"></param>
     /// <param name="sizeFreeMb"></param>
@@ -1253,6 +1253,43 @@ public class WsDataAccessHelper
             Device = Device,
         };
         SaveAsync(logMemory).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get list of log memory info.
+    /// </summary>
+    /// <returns></returns>
+    public List<LogMemoryModel> GetListLogsMemories()
+    {
+        List<LogMemoryModel> result = new();
+        //string query = SqlQueries.DbServiceManaging.Tables.Logs.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
+        //    ? DataAccess.JsonSettings.Local.SelectTopRowsCount : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
+        //object[] objects = DataAccess.GetArrayObjectsNotNullable(query);
+        //List<LogQuickModel> items = new();
+        //foreach (object obj in objects)
+        //{
+        //    if (obj is not object[] { Length: 12 } item)
+        //        continue;
+
+        //    if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+        //    {
+        //        items.Add(new()
+        //        {
+        //            IdentityValueUid = uid,
+        //            CreateDt = Convert.ToDateTime(item[1]),
+        //            Scale = item[2] as string ?? string.Empty,
+        //            Host = item[4] as string ?? string.Empty,
+        //            App = item[5] as string ?? string.Empty,
+        //            Version = item[6] as string ?? string.Empty,
+        //            File = item[7] as string ?? string.Empty,
+        //            Line = Convert.ToInt32(item[8]),
+        //            Member = item[9] as string ?? string.Empty,
+        //            Icon = item[10] as string ?? string.Empty,
+        //            Message = item[11] as string ?? string.Empty,
+        //        });
+        //    }
+        //}
+        return result;
     }
 
     #endregion
