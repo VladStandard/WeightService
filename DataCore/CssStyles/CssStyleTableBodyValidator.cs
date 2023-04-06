@@ -15,7 +15,7 @@ public class CssStyleTableBodyValidator : AbstractValidator<CssStyleTableBodyMod
 	public CssStyleTableBodyValidator()
 	{
 		RuleFor(item => item.IdentityName)
-			.NotEqual(SqlFieldIdentity.Empty);
+			.NotEqual(WsSqlFieldIdentity.Empty);
 	}
 
 	#endregion

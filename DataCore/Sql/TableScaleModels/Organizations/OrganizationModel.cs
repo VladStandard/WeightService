@@ -19,7 +19,7 @@ public class OrganizationModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public OrganizationModel() : base(SqlFieldIdentity.Uid)
+    public OrganizationModel() : base(WsSqlFieldIdentity.Uid)
     {
         Gln = 0;
     }

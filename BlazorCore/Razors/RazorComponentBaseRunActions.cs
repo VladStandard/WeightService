@@ -69,7 +69,7 @@ public partial class RazorComponentBase
         }
 
         // SQL log.
-        DataAccess.LogError(ex);
+        DataAccess.SaveLogError(ex);
     }
 
     protected void RunActionsWithQeustion(string title, string questionAdd, Action action)

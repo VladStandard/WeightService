@@ -15,6 +15,6 @@ public class RzDataGridLocal<TItem> : RadzenDataGrid<TItem>
         Style = "DataGridSection";
         PagerPosition = PagerPosition.TopAndBottom;
         PagerHorizontalAlign = HorizontalAlign.Justify;
-        PageSize = DataAccessHelper.Instance.JsonSettings.Local.SectionRowsCount;
+        PageSize = WsDataAccessHelper.Instance.JsonSettings.Local.SectionRowsCount;
     }
 }

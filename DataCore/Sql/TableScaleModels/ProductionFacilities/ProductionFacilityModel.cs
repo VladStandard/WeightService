@@ -20,7 +20,7 @@ public class ProductionFacilityModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ProductionFacilityModel() : base(SqlFieldIdentity.Id)
+    public ProductionFacilityModel() : base(WsSqlFieldIdentity.Id)
     {
         Address = string.Empty;
     }

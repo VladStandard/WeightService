@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -33,7 +33,7 @@ public class LogWebFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogWebFkModel() : base(SqlFieldIdentity.Uid)
+    public LogWebFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         _logWebRequest = new();
         _logWebResponse = new();
@@ -126,7 +126,7 @@ public class LogWebFkModel : SqlTableBase
         Device.FillProperties();
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public override void UpdateProperties(IWsSqlTable item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

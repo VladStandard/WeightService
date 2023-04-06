@@ -23,7 +23,7 @@ public class TaskModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TaskModel() : base(SqlFieldIdentity.Uid)
+    public TaskModel() : base(WsSqlFieldIdentity.Uid)
     {
         TaskType = new();
         Scale = new();

@@ -22,7 +22,7 @@ public class PrinterResourceFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PrinterResourceFkModel() : base(SqlFieldIdentity.Id)
+    public PrinterResourceFkModel() : base(WsSqlFieldIdentity.Id)
     {
         Printer = new();
         TemplateResource = new();

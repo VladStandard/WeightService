@@ -12,7 +12,7 @@ public sealed partial class Nomenclatures : RazorComponentSectionBase<PluModel>
 	public Nomenclatures() : base()
 	{
         SqlCrudConfigSection.IsResultOrder = false;
-		SqlCrudConfigSection.AddOrders(new() { Name = $"{nameof(PluModel.Number)}", Direction = SqlOrderDirection.Asc });
+		SqlCrudConfigSection.AddOrders(new() { Name = $"{nameof(PluModel.Number)}", Direction = WsSqlOrderDirection.Asc });
         ButtonSettings = new(false, false, true, true, false, false, false);
     }
 

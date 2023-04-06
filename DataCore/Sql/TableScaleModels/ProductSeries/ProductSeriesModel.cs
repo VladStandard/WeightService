@@ -23,7 +23,7 @@ public class ProductSeriesModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ProductSeriesModel() : base(SqlFieldIdentity.Id)
+    public ProductSeriesModel() : base(WsSqlFieldIdentity.Id)
     {
         Scale = new();
         IsClose = false;

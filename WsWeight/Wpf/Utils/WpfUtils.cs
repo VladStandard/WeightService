@@ -15,7 +15,7 @@ public static class WpfUtils
 {
     #region Public and private fields, properties, constructor
 
-    private static DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    private static WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
     private static WpfPageLoader WpfPage { get; set; } = new();
 
     #endregion
@@ -90,17 +90,17 @@ public static class WpfUtils
         switch (logType)
         {
             case LogType.Error:
-                DataAccess.LogError(message, filePath, lineNumber, memberName);
+                DataAccess.SaveLogError(message, filePath, lineNumber, memberName);
                 break;
             case LogType.Question:
-                DataAccess.LogQuestion(message);
+                DataAccess.SaveLogQuestion(message);
                 break;
             case LogType.Warning:
-                DataAccess.LogWarning(message);
+                DataAccess.SaveLogWarning(message);
                 break;
             case LogType.None:
             case LogType.Information:
-                DataAccess.LogInformation(message);
+                DataAccess.SaveLogInformation(message);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
@@ -148,7 +148,7 @@ public static class WpfUtils
         bool isDbLog, bool isShowWindow, string filePath, int lineNumber, string memberName)
     {
         if (isDbLog)
-            DataAccess.LogErrorWithInfo(ex, filePath, lineNumber, memberName);
+            DataAccess.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
 
         if (isShowWindow)
         {

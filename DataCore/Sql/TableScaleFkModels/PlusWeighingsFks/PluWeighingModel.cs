@@ -28,7 +28,7 @@ public class PluWeighingModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluWeighingModel() : base(SqlFieldIdentity.Uid)
+    public PluWeighingModel() : base(WsSqlFieldIdentity.Uid)
     {
         PluScale = new();
         Series = null;

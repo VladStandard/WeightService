@@ -14,7 +14,7 @@ public interface IUserRightsService
 
 public class UserRightsService : IUserRightsService
 {
-    private DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    private WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
 
     public async Task<List<string>> GetUserRightsAsync(string username)
     {

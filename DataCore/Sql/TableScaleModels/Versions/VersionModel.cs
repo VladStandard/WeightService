@@ -20,7 +20,7 @@ public class VersionModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public VersionModel() : base(SqlFieldIdentity.Uid)
+    public VersionModel() : base(WsSqlFieldIdentity.Uid)
     {
         ReleaseDt = DateTime.MinValue;
         Version = 0;

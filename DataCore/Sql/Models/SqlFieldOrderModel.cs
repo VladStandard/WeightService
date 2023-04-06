@@ -12,7 +12,7 @@ namespace DataCore.Sql.Models;
 public sealed record SqlFieldOrderModel
 {
     public string Name { get; init; } = "";
-    public SqlOrderDirection Direction { get; init; } = SqlOrderDirection.Asc;
+    public WsSqlOrderDirection Direction { get; init; } = WsSqlOrderDirection.Asc;
 
     public override int GetHashCode() => (Name.ToUpper(), Direction).GetHashCode();
 }

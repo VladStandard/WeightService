@@ -3,7 +3,7 @@
 
 namespace DataCore.Sql.Core.Enums;
 
-public enum SqlFieldIdentity
+public enum WsSqlFieldIdentity
 {
     Empty,
     Id,

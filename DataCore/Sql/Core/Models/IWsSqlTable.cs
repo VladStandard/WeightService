@@ -3,9 +3,9 @@
 
 using DataCore.Models;
 
-namespace DataCore.Sql.Core.Interfaces;
+namespace DataCore.Sql.Core.Models;
 
-public interface ISqlTable : ISqlDbBase
+public interface IWsSqlTable : IWsSqlDbBase
 {
     #region Public and private fields, properties, constructor
 
@@ -29,7 +29,7 @@ public interface ISqlTable : ISqlDbBase
 
     #region Public and private methods - override
 
-    public bool Equals(ISqlTable item);
+    public bool Equals(IWsSqlTable item);
 
     #endregion
 
@@ -41,7 +41,7 @@ public interface ISqlTable : ISqlDbBase
 
     public void SetDtNow();
 
-    public void UpdateProperties(ISqlTable item);
+    public void UpdateProperties(IWsSqlTable item);
 
     #endregion
 }

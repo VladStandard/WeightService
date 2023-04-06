@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.Templates;
 
@@ -23,7 +23,7 @@ public class PluTemplateFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluTemplateFkModel() : base(SqlFieldIdentity.Uid)
+    public PluTemplateFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         Plu = new();
         Template = new();
@@ -98,7 +98,7 @@ public class PluTemplateFkModel : SqlTableBase
         Template.FillProperties();
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public override void UpdateProperties(IWsSqlTable item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

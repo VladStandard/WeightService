@@ -29,7 +29,7 @@ public class LogWebModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogWebModel() : base(SqlFieldIdentity.Uid)
+    public LogWebModel() : base(WsSqlFieldIdentity.Uid)
     {
         Version = string.Empty;
         Direction = default;

@@ -3,7 +3,7 @@
 
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleModels.Clips;
 using DataCore.Sql.TableScaleModels.Plus;
 
@@ -24,7 +24,7 @@ public class PluClipFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluClipFkModel() : base(SqlFieldIdentity.Uid)
+    public PluClipFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         Clip = new();
         Plu = new();
@@ -100,7 +100,7 @@ public class PluClipFkModel : SqlTableBase
         Plu.FillProperties();
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public override void UpdateProperties(IWsSqlTable item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

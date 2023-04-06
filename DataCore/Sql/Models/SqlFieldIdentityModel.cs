@@ -14,7 +14,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual SqlFieldIdentity Name { get; private set; }
+    [XmlElement] public virtual WsSqlFieldIdentity Name { get; private set; }
     [XmlElement] public virtual long Id { get; private set; }
     [XmlElement] public virtual Guid Uid { get; private set; }
 
@@ -24,7 +24,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
     public SqlFieldIdentityModel()
     {
         FieldName = nameof(SqlFieldIdentityModel);
-        Name = SqlFieldIdentity.Empty;
+        Name = WsSqlFieldIdentity.Empty;
         Id = 0;
         Uid = Guid.Empty;
     }
@@ -33,7 +33,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
     /// Constructor.
     /// </summary>
     /// <param name="identityName"></param>
-    public SqlFieldIdentityModel(SqlFieldIdentity identityName) : this()
+    public SqlFieldIdentityModel(WsSqlFieldIdentity identityName) : this()
     {
         Name = identityName;
     }
@@ -41,7 +41,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    private SqlFieldIdentityModel(SqlFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
+    private SqlFieldIdentityModel(WsSqlFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
     {
         Id = identityId;
         Uid = identityUid;
@@ -54,7 +54,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
     /// <param name="context"></param>
     protected SqlFieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Name = (SqlFieldIdentity)info.GetValue(nameof(Name), typeof(SqlFieldIdentity));
+        Name = (WsSqlFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlFieldIdentity));
         Id = info.GetInt64(nameof(Id));
         Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
     }
@@ -66,30 +66,30 @@ public class SqlFieldIdentityModel : SqlFieldBase
     public override string ToString() =>
         Name switch
         {
-            SqlFieldIdentity.Id => $"{nameof(Id)}: {Id}. ",
-            SqlFieldIdentity.Uid => $"{nameof(Uid)}: {Uid}. ",
+            WsSqlFieldIdentity.Id => $"{nameof(Id)}: {Id}. ",
+            WsSqlFieldIdentity.Uid => $"{nameof(Uid)}: {Uid}. ",
             _ => string.Empty
         };
 
     public string GetValue() =>
         Name switch
         {
-            SqlFieldIdentity.Id => $"{Id}",
-            SqlFieldIdentity.Uid => $"{Uid}",
+            WsSqlFieldIdentity.Id => $"{Id}",
+            WsSqlFieldIdentity.Uid => $"{Uid}",
             _ => string.Empty
         };
 
     public virtual string GetValueAsString() => Name switch
     {
-        SqlFieldIdentity.Id => Id.ToString(),
-        SqlFieldIdentity.Uid => Uid.ToString(),
+        WsSqlFieldIdentity.Id => Id.ToString(),
+        WsSqlFieldIdentity.Uid => Uid.ToString(),
         _ => string.Empty
     };
 
     public virtual object? GetValueAsObjectNullable() => Name switch
     {
-        SqlFieldIdentity.Id => Id,
-        SqlFieldIdentity.Uid => Uid,
+        WsSqlFieldIdentity.Id => Id,
+        WsSqlFieldIdentity.Uid => Uid,
         _ => null
     };
 
@@ -103,8 +103,8 @@ public class SqlFieldIdentityModel : SqlFieldBase
 
     public override int GetHashCode() => Name switch
     {
-        SqlFieldIdentity.Id => Id.GetHashCode(),
-        SqlFieldIdentity.Uid => Uid.GetHashCode(),
+        WsSqlFieldIdentity.Id => Id.GetHashCode(),
+        WsSqlFieldIdentity.Uid => Uid.GetHashCode(),
         _ => default
     };
 
@@ -141,15 +141,15 @@ public class SqlFieldIdentityModel : SqlFieldBase
 
     public virtual bool IsNotExists => Name switch
     {
-        SqlFieldIdentity.Id => Equals(Id, default(long)),
-        SqlFieldIdentity.Uid => Equals(Uid, Guid.Empty),
+        WsSqlFieldIdentity.Id => Equals(Id, default(long)),
+        WsSqlFieldIdentity.Uid => Equals(Uid, Guid.Empty),
         _ => default
     };
 
     public virtual bool IsExists => Name switch
     {
-        SqlFieldIdentity.Id => !Equals(Id, default(long)),
-        SqlFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
+        WsSqlFieldIdentity.Id => !Equals(Id, default(long)),
+        WsSqlFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
         _ => default
     };
 

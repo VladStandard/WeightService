@@ -16,7 +16,7 @@ internal class SqlQueriesTests
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
             List<PluAggrModel> pluWeighingAggrs = new();
-            object[] objects = DataCoreTestsUtils.DataCore.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = DataCoreTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
                 SqlQueries.DbScales.Tables.PluWeighings.GetWeighingsAggrWithPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)
@@ -43,7 +43,7 @@ internal class SqlQueriesTests
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
             List<PluAggrModel> pluWeighingAggrs = new();
-            object[] objects = DataCoreTestsUtils.DataCore.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = DataCoreTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
                 SqlQueries.DbScales.Tables.PluWeighings.GetWeighingsAggrWithoutPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)
@@ -70,7 +70,7 @@ internal class SqlQueriesTests
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
             List<PluAggrModel> pluAggrs = new();
-            object[] objects = DataCoreTestsUtils.DataCore.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = DataCoreTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
                 SqlQueries.DbScales.Tables.PluLabels.GetLabelsAggrWithPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)
@@ -97,7 +97,7 @@ internal class SqlQueriesTests
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
             List<PluAggrModel> pluWeighingAggrs = new();
-            object[] objects = DataCoreTestsUtils.DataCore.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = DataCoreTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
                 SqlQueries.DbScales.Tables.PluLabels.GetLabelsAggrWithoutPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)

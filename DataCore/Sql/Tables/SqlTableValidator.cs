@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 using FluentValidation.Results;
 
 namespace DataCore.Sql.Tables;
@@ -9,7 +9,7 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// Table validation.
 /// </summary>
-public class SqlTableValidator<T> : AbstractValidator<T> where T : ISqlTable
+public class SqlTableValidator<T> : AbstractValidator<T> where T : IWsSqlTable
 {
     /// <summary>
     /// Constructor.

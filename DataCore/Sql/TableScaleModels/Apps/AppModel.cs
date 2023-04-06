@@ -17,7 +17,7 @@ public class AppModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AppModel() : base(SqlFieldIdentity.Uid)
+    public AppModel() : base(WsSqlFieldIdentity.Uid)
     {
         //
     }

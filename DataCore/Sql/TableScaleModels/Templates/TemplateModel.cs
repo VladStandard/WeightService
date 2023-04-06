@@ -21,7 +21,7 @@ public class TemplateModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TemplateModel() : base(SqlFieldIdentity.Id)
+    public TemplateModel() : base(WsSqlFieldIdentity.Id)
     {
         CategoryId = string.Empty;
         Title = string.Empty;

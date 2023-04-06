@@ -21,7 +21,7 @@ public class PluStorageMethodModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluStorageMethodModel() : base(SqlFieldIdentity.Uid)
+    public PluStorageMethodModel() : base(WsSqlFieldIdentity.Uid)
     {
         MinTemp = default;
         MaxTemp = default;

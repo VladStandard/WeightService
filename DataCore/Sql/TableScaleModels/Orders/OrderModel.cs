@@ -23,7 +23,7 @@ public class OrderModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public OrderModel() : base(SqlFieldIdentity.Uid)
+    public OrderModel() : base(WsSqlFieldIdentity.Uid)
     {
         BeginDt = DateTime.MinValue;
         ProdDt = DateTime.MinValue;

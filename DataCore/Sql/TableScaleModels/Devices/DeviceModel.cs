@@ -31,7 +31,7 @@ public class DeviceModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public DeviceModel() : base(SqlFieldIdentity.Uid)
+    public DeviceModel() : base(WsSqlFieldIdentity.Uid)
     {
         LoginDt = DateTime.MinValue;
         LogoutDt = DateTime.MinValue;

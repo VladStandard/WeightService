@@ -21,7 +21,7 @@ public class TemplateResourceModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TemplateResourceModel() : base(SqlFieldIdentity.Uid)
+    public TemplateResourceModel() : base(WsSqlFieldIdentity.Uid)
     {
         Type = string.Empty;
         Data = new();

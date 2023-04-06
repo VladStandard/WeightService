@@ -3,7 +3,7 @@
 
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 using DataCore.Sql.TableScaleModels.Boxes;
 
@@ -31,7 +31,7 @@ public class PluNestingFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluNestingFkModel() : base(SqlFieldIdentity.Uid)
+    public PluNestingFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         Box = new();
         //Plu = new();
@@ -142,7 +142,7 @@ public class PluNestingFkModel : SqlTableBase
         BundleCount = 0;
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public override void UpdateProperties(IWsSqlTable item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

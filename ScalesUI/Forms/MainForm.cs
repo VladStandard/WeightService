@@ -67,9 +67,9 @@ public partial class MainForm : Form
         ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
         UserSession.StopwatchMain.Stop();
 
-        UserSession.DataContext.DataAccess.LogMemory(
+        UserSession.DataContext.DataAccess.SaveLogMemory(
             UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
-        UserSession.DataContext.DataAccess.LogInformation(
+        UserSession.DataContext.DataAccess.SaveLogInformation(
             $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
             $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
             $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
@@ -195,7 +195,7 @@ public partial class MainForm : Form
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
-                UserSession.DataContext.DataAccess.LogMemory(
+                UserSession.DataContext.DataAccess.SaveLogMemory(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
                 UserSession.StopwatchMain.Restart();
                 ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
@@ -215,7 +215,7 @@ public partial class MainForm : Form
             () =>
             {
                 UserSession.StopwatchMain.Stop();
-                UserSession.DataContext.DataAccess.LogInformation(
+                UserSession.DataContext.DataAccess.SaveLogInformation(
                     LocaleData.Program.IsClosed + Environment.NewLine +
                     $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
             }
@@ -441,7 +441,7 @@ public partial class MainForm : Form
             ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
                 {
                     if (Quartz is null) return;
-                    UserSession.DataContext.DataAccess.LogMemory(
+                    UserSession.DataContext.DataAccess.SaveLogMemory(
                         UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
                     GC.Collect();
                 }

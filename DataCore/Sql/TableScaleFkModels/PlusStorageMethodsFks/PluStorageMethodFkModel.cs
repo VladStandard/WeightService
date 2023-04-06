@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusStorageMethods;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
@@ -25,7 +25,7 @@ public class PluStorageMethodFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluStorageMethodFkModel() : base(SqlFieldIdentity.Uid)
+    public PluStorageMethodFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         Plu = new();
         Method = new();
@@ -106,7 +106,7 @@ public class PluStorageMethodFkModel : SqlTableBase
         Resource.FillProperties();
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public override void UpdateProperties(IWsSqlTable item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

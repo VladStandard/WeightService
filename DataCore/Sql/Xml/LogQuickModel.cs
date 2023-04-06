@@ -23,7 +23,7 @@ public class LogQuickModel : SqlTableBase
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogQuickModel() : base(SqlFieldIdentity.Uid)
+	public LogQuickModel() : base(WsSqlFieldIdentity.Uid)
 	{
 		Scale = string.Empty;
 		Host = string.Empty;

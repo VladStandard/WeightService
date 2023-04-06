@@ -22,7 +22,7 @@ public class AccessModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AccessModel() : base(SqlFieldIdentity.Uid)
+    public AccessModel() : base(WsSqlFieldIdentity.Uid)
     {
         LoginDt = DateTime.MinValue;
         Rights = 0x00;

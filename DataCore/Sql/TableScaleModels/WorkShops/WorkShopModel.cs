@@ -20,7 +20,7 @@ public class WorkShopModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WorkShopModel() : base(SqlFieldIdentity.Id)
+    public WorkShopModel() : base(WsSqlFieldIdentity.Id)
     {
         ProductionFacility = new();
     }

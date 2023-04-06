@@ -154,8 +154,8 @@ public class JsonSettingsHelper
                 throw new(LocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDevelop);
-            DataAccessHelper.Instance.SetupLog(appName);
+            WsDataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDevelop);
+            WsDataAccessHelper.Instance.SetupLog(appName);
         }
         catch (Exception ex)
         {
@@ -170,8 +170,8 @@ public class JsonSettingsHelper
 		if (!SetupJsonSettings(localDir, false, fileName))
 			throw new(LocaleCore.System.JsonSettingsLocalFileException);
 		
-		DataAccessHelper.Instance.SetSessionFactory(isShowSql);
-		DataAccessHelper.Instance.SetupLog(deviceName, appName);
+		WsDataAccessHelper.Instance.SetSessionFactory(isShowSql);
+		WsDataAccessHelper.Instance.SetupLog(deviceName, appName);
 	}
 
 	public void SetupTestsDevelopAleksandrov(string localDir, string deviceName, string appName, bool isShowSql) =>
@@ -215,9 +215,9 @@ public class JsonSettingsHelper
                     throw new(LocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDevelop);
-            DataAccessHelper.Instance.SetupLog(appName);
-            DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
+            WsDataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDevelop);
+            WsDataAccessHelper.Instance.SetupLog(appName);
+            WsDataAccessHelper.Instance.SaveLogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
         }
         catch (Exception ex)
         {

@@ -78,8 +78,8 @@ public class DataCoreHelper
 
 	#region Public and private fields, properties, constructor
 
-    private DataAccessHelper DataAccess => DataAccessHelper.Instance;
-    private DataContextModel DataContext { get; } = new();
+    private WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
+    private WsDataContextModel DataContext { get; } = new();
     public JsonSettingsHelper JsonSettings => JsonSettingsHelper.Instance;
 
     #endregion
@@ -292,8 +292,8 @@ public class DataCoreHelper
 
 	public T CreateNewSubstitute<T>(bool isNotDefault) where T : SqlTableBase, new()
 	{
-		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(SqlFieldIdentity.Empty);
-		fieldIdentity.Name.Returns(SqlFieldIdentity.Test);
+		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(WsSqlFieldIdentity.Empty);
+		fieldIdentity.Name.Returns(WsSqlFieldIdentity.Test);
 		fieldIdentity.Uid.Returns(Guid.NewGuid());
 		fieldIdentity.Id.Returns(-1);
 

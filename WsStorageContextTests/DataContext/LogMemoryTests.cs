@@ -18,7 +18,7 @@ internal sealed class LogMemoryTests
     {
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
-            DataCoreTestsUtils.DataCore.DataAccess.LogMemory(1, 1);
+            DataCoreTestsUtils.DataCore.DataContext.DataAccess.SaveLogMemory(1, 1);
             DataCoreTestsUtils.DataCore.AssertGetList<LogMemoryModel>(SqlCrudConfigFk, Configurations, false);
         }, false, Configurations);
     }

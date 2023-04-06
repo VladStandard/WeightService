@@ -22,7 +22,7 @@ public class ChartBase
 	{
 		ChartCountModel[] result = Array.Empty<ChartCountModel>();
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-            new SqlFieldOrderModel { Name = nameof(SqlTableBase.CreateDt), Direction = SqlOrderDirection.Asc }, false, false);
+            new SqlFieldOrderModel { Name = nameof(SqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Asc }, false, false);
 		ContragentModel[]? contragents = BlazorAppSettings.DataAccess.GetArrayNullable<ContragentModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)

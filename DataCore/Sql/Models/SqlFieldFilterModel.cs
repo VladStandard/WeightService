@@ -12,7 +12,7 @@ namespace DataCore.Sql.Models;
 public sealed record SqlFieldFilterModel
 {
     public string Name { get; init; } = "";
-    public SqlFieldComparer Comparer { get; init; } = SqlFieldComparer.Equal;
+    public WsSqlFieldComparer Comparer { get; init; } = WsSqlFieldComparer.Equal;
     public object? Value { get; init; }
 
     public override int GetHashCode() => (Name.ToUpper(), Comparer, Value?.ToString().ToUpper() ?? null).GetHashCode();

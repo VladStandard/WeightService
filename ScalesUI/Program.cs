@@ -10,7 +10,7 @@ internal static class Program
     #region Public and private fields and properties
 
     private static AppVersionHelper AppVersion => AppVersionHelper.Instance;
-    private static DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    private static WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
 
     #endregion
 
@@ -35,7 +35,7 @@ internal static class Program
             {
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(UserSessionHelper.Instance.DeviceName);
                 WpfUtils.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
-                DataAccess.LogError(new Exception(message));
+                DataAccess.SaveLogError(new Exception(message));
                 System.Windows.Forms.Application.Exit();
                 return;
             }
@@ -46,12 +46,12 @@ internal static class Program
             {
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
                 WpfUtils.ShowNewRegistration(message);
-                DataAccess.LogError(new Exception(message));
+                DataAccess.SaveLogError(new Exception(message));
                 System.Windows.Forms.Application.Exit();
             }
             else
             {
-                DataAccess.LogInformation(
+                DataAccess.SaveLogInformation(
                     LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description));
                 // Run app.
                 System.Windows.Forms.Application.Run(new MainForm());

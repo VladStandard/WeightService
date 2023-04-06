@@ -3,12 +3,11 @@
 
 namespace DataCore.Sql.Core.Enums;
 
-public enum SqlFieldComparer
+/// <summary>
+/// SQL order direcrion.
+/// </summary>
+public enum WsSqlOrderDirection
 {
-    Equal,
-    NotEqual,
-    More,
-    Less,
-    MoreOrEqual,
-    LessOrEqual
+    Asc = 0,
+    Desc = 1,
 }

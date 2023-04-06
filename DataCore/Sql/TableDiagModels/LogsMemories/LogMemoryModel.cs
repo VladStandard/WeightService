@@ -25,7 +25,7 @@ public class LogMemoryModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogMemoryModel() : base(SqlFieldIdentity.Uid)
+    public LogMemoryModel() : base(WsSqlFieldIdentity.Uid)
     {
         SizeAppMb = default;
         SizeFreeMb = default;

@@ -15,8 +15,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // NHibernate & JsonSettings & DataAccess.
 JsonSettingsHelper.Instance.SetupWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales));
-builder.Services.AddSingleton(DataAccessHelper.Instance.SessionFactory);
-builder.Services.AddScoped(factory => DataAccessHelper.Instance.SessionFactory.OpenSession());
+builder.Services.AddSingleton(WsDataAccessHelper.Instance.SessionFactory);
+builder.Services.AddScoped(factory => WsDataAccessHelper.Instance.SessionFactory.OpenSession());
 //ISessionFactory GetSessionFactory(string? connectionString)
 //{
 //    FluentConfiguration configuration = Fluently

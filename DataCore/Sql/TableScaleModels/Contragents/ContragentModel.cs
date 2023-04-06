@@ -23,7 +23,7 @@ public class ContragentModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ContragentModel() : base(SqlFieldIdentity.Uid)
+    public ContragentModel() : base(WsSqlFieldIdentity.Uid)
     {
         FullName = string.Empty;
         IdRRef = Guid.Empty;

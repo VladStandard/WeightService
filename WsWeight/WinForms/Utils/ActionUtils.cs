@@ -10,7 +10,7 @@ public static class ActionUtils
 {
     #region Public and private fields, properties, constructor
 
-    private static DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    private static WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
     private static PluginMemoryHelper PluginMemory => PluginMemoryHelper.Instance;
 
     #endregion
@@ -77,7 +77,7 @@ public static class ActionUtils
         try
         {
             MakeScreenShot(win32Window, scale);
-            DataAccess.LogMemory(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
+            DataAccess.SaveLogMemory(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
             GC.Collect();
         }
         catch (Exception ex)

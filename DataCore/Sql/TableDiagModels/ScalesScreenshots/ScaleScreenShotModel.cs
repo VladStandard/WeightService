@@ -22,7 +22,7 @@ public class ScaleScreenShotModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleScreenShotModel() : base(SqlFieldIdentity.Uid)
+    public ScaleScreenShotModel() : base(WsSqlFieldIdentity.Uid)
     {
         Scale = new();
         ScreenShot = Array.Empty<byte>();

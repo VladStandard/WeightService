@@ -52,8 +52,8 @@ public partial class RazorComponentBase
 
         page = item.Identity.Name switch
         {
-            SqlFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
-            SqlFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
+            WsSqlFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
+            WsSqlFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
             _ => page
         };
         return page;
@@ -69,9 +69,9 @@ public partial class RazorComponentBase
             if (!string.IsNullOrEmpty(page))
                 return item.Identity.Name switch
                 {
-                    SqlFieldIdentity.Id => $"{page}/{item.IdentityValueId}",
-                    SqlFieldIdentity.Uid => $"{page}/{item.IdentityValueUid}",
-                    SqlFieldIdentity.Test => $"{page}/{nameof(SqlFieldIdentity.Test)}",
+                    WsSqlFieldIdentity.Id => $"{page}/{item.IdentityValueId}",
+                    WsSqlFieldIdentity.Uid => $"{page}/{item.IdentityValueUid}",
+                    WsSqlFieldIdentity.Test => $"{page}/{nameof(WsSqlFieldIdentity.Test)}",
                     _ => string.Empty
                 };
         }
@@ -133,8 +133,8 @@ public partial class RazorComponentBase
 
         page = item.Identity.Name switch
         {
-            SqlFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
-            SqlFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
+            WsSqlFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
+            WsSqlFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
             _ => page
         };
         NavigationManager?.NavigateTo(page);

@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleModels.Clips;
@@ -18,7 +18,7 @@ public class ClipModel : SqlTableBase1c
 
     [XmlElement] public virtual decimal Weight { get; set; }
 
-    public ClipModel() : base(SqlFieldIdentity.Uid)
+    public ClipModel() : base(WsSqlFieldIdentity.Uid)
     {
         Weight = 0;
     }
@@ -76,7 +76,7 @@ public class ClipModel : SqlTableBase1c
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public override void UpdateProperties(ISqlTable1c item)
+    public override void UpdateProperties(IWsSqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

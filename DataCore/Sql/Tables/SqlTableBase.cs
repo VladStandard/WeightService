@@ -4,7 +4,7 @@
 using DataCore.Models;
 using DataCore.Serialization.Models;
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 
 namespace DataCore.Sql.Tables;
 
@@ -13,7 +13,7 @@ namespace DataCore.Sql.Tables;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(SqlTableBase)} | {Identity}")]
-public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
+public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
 {
 	#region Public and private fields, properties, constructor
 
@@ -24,8 +24,8 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
 	[XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
 	[XmlIgnore] public virtual bool IsNew => IsNotExists;
     [XmlIgnore] public virtual bool IsNotNew => IsExists;
-	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, SqlFieldIdentity.Id);
-	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, SqlFieldIdentity.Uid);
+	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, WsSqlFieldIdentity.Id);
+	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, WsSqlFieldIdentity.Uid);
 	[XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual bool IsMarked { get; set; } = false;
@@ -38,13 +38,13 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
     /// </summary>
     public SqlTableBase()
     {
-	    Identity = new(SqlFieldIdentity.Empty);
+	    Identity = new(WsSqlFieldIdentity.Empty);
     }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public SqlTableBase(SqlFieldIdentity identityName) : this()
+	public SqlTableBase(WsSqlFieldIdentity identityName) : this()
     {
 	    Identity = new(identityName);
     }
@@ -85,7 +85,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
 		return strCreateDt + strChangeDt + strIsMarked + strName + strDescription;
     }
 
-    public virtual bool Equals(ISqlTable item) =>
+    public virtual bool Equals(IWsSqlTable item) =>
 	    ReferenceEquals(this, item) || Identity.Equals(item.Identity) && //-V3130
 	    Equals(CreateDt, item.CreateDt) &&
 	    Equals(ChangeDt, item.ChangeDt) &&
@@ -174,7 +174,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlTable
 		Description = LocaleCore.Sql.SqlItemFieldDescription;
 	}
 
-    public virtual void UpdateProperties(ISqlTable item)
+    public virtual void UpdateProperties(IWsSqlTable item)
     {
 		if (!item.CreateDt.Equals(DateTime.MinValue))
 			CreateDt = item.CreateDt;

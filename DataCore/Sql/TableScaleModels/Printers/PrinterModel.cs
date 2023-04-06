@@ -34,7 +34,7 @@ public class PrinterModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PrinterModel() : base(SqlFieldIdentity.Id)
+    public PrinterModel() : base(WsSqlFieldIdentity.Id)
     {
         Ip = string.Empty;
         Port = 0;

@@ -8,7 +8,7 @@ namespace BlazorCore.Services;
 
 public class FileUpload : IFileUpload
 {
-    private DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    private WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
     //private readonly IWebHostEnvironment _environment;
     private readonly IHostingEnvironment _environment;
     //public FileUpload(IWebHostEnvironment environment)

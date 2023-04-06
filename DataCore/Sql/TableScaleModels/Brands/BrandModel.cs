@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 
 namespace DataCore.Sql.TableScaleModels.Brands;
 
@@ -21,7 +21,7 @@ public class BrandModel : SqlTableBase1c
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BrandModel() : base(SqlFieldIdentity.Uid)
+    public BrandModel() : base(WsSqlFieldIdentity.Uid)
     {
         Code = string.Empty;
     }
@@ -99,7 +99,7 @@ public class BrandModel : SqlTableBase1c
 
     public new virtual BrandModel CloneCast() => (BrandModel)Clone();
 
-    public override void UpdateProperties(ISqlTable1c item)
+    public override void UpdateProperties(IWsSqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_brands/.

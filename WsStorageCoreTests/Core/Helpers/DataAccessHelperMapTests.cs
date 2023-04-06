@@ -30,7 +30,7 @@ internal class DataAccessHelperMapTests
                 throw new ArgumentNullException(nameof(DataCoreTestsUtils.DataAccess.SqlConfiguration));
 
             FluentConfiguration fluentConfiguration = Fluently.Configure().Database(DataCoreTestsUtils.DataAccess.SqlConfiguration);
-            DataAccessHelper.AddConfigurationMappings(fluentConfiguration);
+            WsDataAccessHelper.AddConfigurationMappings(fluentConfiguration);
             fluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
             ISessionFactory sessionFactory = fluentConfiguration.BuildSessionFactory();
             sessionFactory.OpenSession();

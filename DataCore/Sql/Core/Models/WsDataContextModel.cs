@@ -58,11 +58,11 @@ using PluBundleFkValidator = DataCore.Sql.TableScaleFkModels.PlusBundlesFks.PluB
 
 namespace DataCore.Sql.Core.Models;
 
-public sealed class DataContextModel
+public sealed class WsDataContextModel
 {
     #region Public and private fields, properties, constructor
 
-    public DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    public WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
     private List<AccessModel> Accesses { get; set; }
     private List<AppModel> Apps { get; set; }
     private List<BarCodeModel> BarCodes { get; set; }
@@ -114,7 +114,7 @@ public sealed class DataContextModel
     public List<WorkShopModel> WorkShops { get; set; }
     //public NHibernate.ISession Session => DataAccess.SessionFactory.GetCurrentSession();
 
-    public DataContextModel()
+    public WsDataContextModel()
     {
         Accesses = new();
         Apps = new();
@@ -228,7 +228,7 @@ public sealed class DataContextModel
     public List<AccessModel> GetListNotNullableAccesses(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         Accesses = DataAccess.GetListNotNullable<AccessModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Accesses.Any())
             Accesses = Accesses.OrderByDescending(item => item.RightsEnum).ThenByDescending(item => item.LoginDt).ToList();
@@ -248,7 +248,7 @@ public sealed class DataContextModel
     public List<BarCodeModel> GetListNotNullableBarCodes(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         BarCodes = DataAccess.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && BarCodes.Any())
             BarCodes = BarCodes.OrderByDescending(item => item.ChangeDt).ToList();
@@ -364,7 +364,7 @@ public sealed class DataContextModel
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
         Logs = DataAccess.GetListNotNullable<LogModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Logs.Any())
             Logs = Logs.OrderByDescending(item => item.CreateDt).ToList();
@@ -375,7 +375,7 @@ public sealed class DataContextModel
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
         LogsMemories = DataAccess.GetListNotNullable<LogMemoryModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && LogsMemories.Any())
             LogsMemories = LogsMemories.OrderByDescending(item => item.CreateDt).ToList();
@@ -445,7 +445,7 @@ public sealed class DataContextModel
     public List<OrderModel> GetListNotNullableOrders(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         Orders = DataAccess.GetListNotNullable<OrderModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Orders.Any())
             Orders = Orders.OrderByDescending(item => item.ChangeDt).ToList();
@@ -455,7 +455,7 @@ public sealed class DataContextModel
     public List<OrderWeighingModel> GetListNotNullableOrdersWeighings(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         OrderWeighings = DataAccess.GetListNotNullable<OrderWeighingModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && OrderWeighings.Any())
             OrderWeighings = OrderWeighings.OrderByDescending(item => item.ChangeDt).ToList();
@@ -475,7 +475,7 @@ public sealed class DataContextModel
     public List<PluLabelModel> GetListNotNullablePluLabels(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         PluLabels = DataAccess.GetListNotNullable<PluLabelModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PluLabels.Any())
             PluLabels = PluLabels.OrderByDescending(item => item.ChangeDt).ToList();
@@ -602,7 +602,7 @@ public sealed class DataContextModel
     public List<PluWeighingModel> GetListNotNullablePlusWeighings(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         PluWeighings = DataAccess.GetListNotNullable<PluWeighingModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PluWeighings.Any())
             PluWeighings = PluWeighings.OrderByDescending(item => item.ChangeDt).ToList();
@@ -749,7 +749,7 @@ public sealed class DataContextModel
     public List<ProductSeriesModel> GetListNotNullableProductSeries(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
         ProductSeries = DataAccess.GetListNotNullable<ProductSeriesModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && ProductSeries.Any())
             ProductSeries = ProductSeries.OrderByDescending(item => item.CreateDt).ToList();
@@ -770,7 +770,7 @@ public sealed class DataContextModel
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         ScaleScreenShots = DataAccess.GetListNotNullable<ScaleScreenShotModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && ScaleScreenShots.Any())
             ScaleScreenShots = ScaleScreenShots.OrderByDescending(item => item.ChangeDt).ToList();
@@ -822,7 +822,7 @@ public sealed class DataContextModel
     public List<VersionModel> GetListNotNullableVersions(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(VersionModel.Version), Direction = SqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(VersionModel.Version), Direction = WsSqlOrderDirection.Desc });
         Versions = DataAccess.GetListNotNullable<VersionModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Versions.Any())
             Versions = Versions.OrderByDescending(item => item.Version).ToList();
@@ -1190,8 +1190,7 @@ public sealed class DataContextModel
     /// </summary>
     /// <param name="pluNestingFk"></param>
     /// <returns></returns>
-    public short GetPluNestingFkBundleCount(PluNestingFkModel pluNestingFk) =>
-        pluNestingFk.BundleCount;
+    public short GetPluNestingFkBundleCount(PluNestingFkModel pluNestingFk) => pluNestingFk.BundleCount;
 
     #endregion
 

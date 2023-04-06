@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleModels.Plus;
 
 namespace DataCore.Sql.TableScaleFkModels.PlusFks;
@@ -26,7 +26,7 @@ public class PluFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluFkModel() : base(SqlFieldIdentity.Uid)
+    public PluFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         _plu = new();
         _parent = new();
@@ -107,7 +107,7 @@ public class PluFkModel : SqlTableBase
         Category?.FillProperties();
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public override void UpdateProperties(IWsSqlTable item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

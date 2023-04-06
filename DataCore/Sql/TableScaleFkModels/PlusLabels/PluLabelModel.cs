@@ -33,7 +33,7 @@ public class PluLabelModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluLabelModel() : base(SqlFieldIdentity.Uid)
+    public PluLabelModel() : base(WsSqlFieldIdentity.Uid)
     {
         PluWeighing = null;
         PluScale = new();

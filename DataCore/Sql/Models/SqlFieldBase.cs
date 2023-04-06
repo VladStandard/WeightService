@@ -3,7 +3,7 @@
 // ReSharper disable MissingXmlDoc
 
 using DataCore.Serialization.Models;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 
 namespace DataCore.Sql.Models;
 
@@ -11,7 +11,7 @@ namespace DataCore.Sql.Models;
 /// DB table model.
 /// </summary>
 [Serializable]
-public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
+public class SqlFieldBase : SerializeBase, ICloneable, IWsSqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

@@ -2,8 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Diagnostics;
-using BlazorCore.Settings;
-using DataCore.Enums;
 using DataCore.Helpers;
 
 namespace BlazorCore.Utils;

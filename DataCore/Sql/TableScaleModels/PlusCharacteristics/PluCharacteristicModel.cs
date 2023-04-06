@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 
 namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
 
@@ -22,7 +22,7 @@ public class PluCharacteristicModel : SqlTableBase1c
     [XmlIgnore] public virtual Guid NomenclatureGuid{ get; set; }
 
 
-    public PluCharacteristicModel() : base(SqlFieldIdentity.Uid)
+    public PluCharacteristicModel() : base(WsSqlFieldIdentity.Uid)
     {
         AttachmentsCount = 0;
         NomenclatureGuid = Guid.Empty;
@@ -97,7 +97,7 @@ public class PluCharacteristicModel : SqlTableBase1c
     
     public new virtual PluCharacteristicModel CloneCast() => (PluCharacteristicModel)Clone();
 
-    public override void UpdateProperties(ISqlTable1c item)
+    public override void UpdateProperties(IWsSqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

@@ -29,7 +29,7 @@ public class LogModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogModel() : base(SqlFieldIdentity.Uid)
+    public LogModel() : base(WsSqlFieldIdentity.Uid)
     {
         Device = null;
         App = null;

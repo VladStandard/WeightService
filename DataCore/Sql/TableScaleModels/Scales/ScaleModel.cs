@@ -35,7 +35,7 @@ public class ScaleModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleModel() : base(SqlFieldIdentity.Id)
+    public ScaleModel() : base(WsSqlFieldIdentity.Id)
     {
         WorkShop = null;
         PrinterMain = null;

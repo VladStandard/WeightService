@@ -71,9 +71,7 @@ public class DataCoreHelper
 
 	#region Public and private fields, properties, constructor
 
-	public DataAccessHelper DataAccess => DataAccessHelper.Instance;
-	public DataContextModel DataContext { get; } = new();
-    private JsonSettingsHelper JsonSettings => JsonSettingsHelper.Instance;
+	public WsDataContextModel DataContext { get; } = new();
 
 	#endregion
 
@@ -81,50 +79,50 @@ public class DataCoreHelper
 
 	public void SetupDevelopAleksandrov(bool isShowSql)
 	{
-		JsonSettings.SetupTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
+        DataContext.DataAccess.JsonSettings.SetupTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
 			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
-		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+		TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
+		TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
 	}
 
 	public void SetupDevelopMorozov(bool isShowSql)
 	{
-		JsonSettings.SetupTestsDevelopMorozov(Directory.GetCurrentDirectory(),
+        DataContext.DataAccess.JsonSettings.SetupTestsDevelopMorozov(Directory.GetCurrentDirectory(),
 			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
-		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+		TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
+		TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
 	}
 
     public void SetupDevelopVs(bool isShowSql)
     {
-        JsonSettings.SetupTestsDevelopVs(Directory.GetCurrentDirectory(),
+        DataContext.DataAccess.JsonSettings.SetupTestsDevelopVs(Directory.GetCurrentDirectory(),
             NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
     }
 
     private void SetupReleaseAleksandrov(bool isShowSql)
     {
-        DataAccess.JsonSettings.SetupTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
+        DataContext.DataAccess.JsonSettings.SetupTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
             NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
     }
 
     private void SetupReleaseMorozov(bool isShowSql)
     {
-        DataAccess.JsonSettings.SetupTestsReleaseMorozov(Directory.GetCurrentDirectory(),
+        DataContext.DataAccess.JsonSettings.SetupTestsReleaseMorozov(Directory.GetCurrentDirectory(),
             NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
     }
 
     private void SetupReleaseVs(bool isShowSql)
     {
-        DataAccess.JsonSettings.SetupTestsReleaseVs(Directory.GetCurrentDirectory(),
+        DataContext.DataAccess.JsonSettings.SetupTestsReleaseVs(Directory.GetCurrentDirectory(),
             NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
+        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
     }
 
 	public void AssertAction(Action action, bool isShowSql, List<Configuration> publishTypes)
@@ -330,8 +328,8 @@ public class DataCoreHelper
 	
     public T CreateNewSubstitute<T>(bool isNotDefault) where T : SqlTableBase, new()
 	{
-		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(SqlFieldIdentity.Empty);
-		fieldIdentity.Name.Returns(SqlFieldIdentity.Test);
+		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(WsSqlFieldIdentity.Empty);
+		fieldIdentity.Name.Returns(WsSqlFieldIdentity.Test);
 		fieldIdentity.Uid.Returns(Guid.NewGuid());
 		fieldIdentity.Id.Returns(-1);
 

@@ -3,7 +3,7 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 
 namespace DataCore.Sql.TableScaleModels.Plus;
 
@@ -91,7 +91,7 @@ public class PluModel : SqlTableBase1c
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluModel() : base(SqlFieldIdentity.Uid)
+    public PluModel() : base(WsSqlFieldIdentity.Uid)
     {
         BoxTypeGuid = Guid.Empty;
         BoxTypeName = string.Empty;
@@ -297,7 +297,7 @@ public class PluModel : SqlTableBase1c
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 
-    public override void UpdateProperties(ISqlTable1c item)
+    public override void UpdateProperties(IWsSqlTable1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

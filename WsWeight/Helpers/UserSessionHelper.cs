@@ -47,7 +47,7 @@ public sealed class UserSessionHelper : BaseViewModel
     #region Public and private fields and properties
 
     private BarCodeHelper BarCode => BarCodeHelper.Instance;
-    public DataContextModel DataContext { get; } = new();
+    public WsDataContextModel DataContext { get; } = new();
     public DebugHelper Debug => DebugHelper.Instance;
     public PluginLabelsHelper PluginLabels => PluginLabelsHelper.Instance;
     public PluginMassaHelper PluginMassa => PluginMassaHelper.Instance;
@@ -102,7 +102,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             _pluScale = value;
             if (value.IsNotNew)
-                DataContext.DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
+                DataContext.DataAccess.SaveLogInformation($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
             PluginPrintMain.LabelPrintedCount = 1;
             PluginPrintShipping.LabelPrintedCount = 1;
             SetPluNestingFks(value.Plu);
@@ -273,11 +273,11 @@ public sealed class UserSessionHelper : BaseViewModel
         SetScale(scaleId, productionFacilityName);
 
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
-        sqlCrudConfig.AddOrders(new() { Name = nameof(ScaleModel.Description), Direction = SqlOrderDirection.Asc });
+        sqlCrudConfig.AddOrders(new() { Name = nameof(ScaleModel.Description), Direction = WsSqlOrderDirection.Asc });
         Scales = DataContext.GetListNotNullableScales(sqlCrudConfig);
 
         sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
-        sqlCrudConfig.AddOrders(new() { Name = nameof(ProductionFacilityModel.Name), Direction = SqlOrderDirection.Asc });
+        sqlCrudConfig.AddOrders(new() { Name = nameof(ProductionFacilityModel.Name), Direction = WsSqlOrderDirection.Asc });
         ProductionFacilities = DataContext.GetListNotNullableProductionFacilities(SqlCrudConfigUtils.GetCrudConfigSection(false));
     }
 
@@ -755,7 +755,7 @@ public sealed class UserSessionHelper : BaseViewModel
         XmlDocument xmlArea = DataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
-        PluLabelContextModel pluLabelContext = new(DataContext, pluLabel, PluNestingFk, pluLabel.PluScale, ProductionFacility, PluWeighing);
+        PluLabelContextModel pluLabelContext = new(pluLabel, PluNestingFk, pluLabel.PluScale, ProductionFacility, PluWeighing);
         XmlDocument xmlLabelContext = DataFormatUtils.SerializeAsXmlDocument<PluLabelContextModel>(pluLabelContext, true, true);
         pluLabel.Xml = DataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
 
@@ -819,7 +819,7 @@ public sealed class UserSessionHelper : BaseViewModel
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(Scale, nameof(PluScaleModel.Scale),
             false, false, false, false);
         sqlCrudConfig.AddFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
-        sqlCrudConfig.AddOrders(new() { Name = nameof(PluScaleModel.Plu), Direction = SqlOrderDirection.Asc });
+        sqlCrudConfig.AddOrders(new() { Name = nameof(PluScaleModel.Plu), Direction = WsSqlOrderDirection.Asc });
         sqlCrudConfig.IsResultOrder = true;
         PluScales = DataContext.GetListNotNullablePlusScales(sqlCrudConfig);
     }

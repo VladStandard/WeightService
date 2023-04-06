@@ -20,7 +20,7 @@ public class LogTypeModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogTypeModel() : base(SqlFieldIdentity.Uid)
+    public LogTypeModel() : base(WsSqlFieldIdentity.Uid)
     {
         Number = 0x00;
         Icon = string.Empty;

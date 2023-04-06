@@ -1,14 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 //using Microsoft.AspNetCore.Components;
 using System.Threading;
 using DataCore.Models;
 using DataCore.Sql.Core.Helpers;
-using DataCore.Sql.Core.Models;
-using DataCore.Protocols;
-using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Memory;
 
 namespace BlazorCore.Settings;
 
@@ -25,7 +22,7 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
 
     #region Public and private fields, properties, constructor
 
-    public DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    public WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
     public DataSourceDicsHelper DataSourceDics => DataSourceDicsHelper.Instance;
     public MemoryModel Memory { get; private set; } = new();
     public static int Delay => 5_000;
@@ -46,7 +43,7 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
         Memory = new();
         //Memory.OpenAsync(callRefreshAsync);
         Memory.MemorySize.Execute();
-        DataAccess.LogMemory(Memory.MemorySize.GetMemorySizeAppMb(), Memory.MemorySize.GetMemorySizeFreeMb());
+        DataAccess.SaveLogMemory(Memory.MemorySize.GetMemorySizeAppMb(), Memory.MemorySize.GetMemorySizeFreeMb());
     }
 
     #endregion

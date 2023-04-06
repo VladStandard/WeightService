@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleModels.Brands;
 using DataCore.Sql.TableScaleModels.Plus;
 
@@ -23,7 +23,7 @@ public class PluBrandFkModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluBrandFkModel() : base(SqlFieldIdentity.Uid)
+    public PluBrandFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         Plu = new();
         Brand = new();
@@ -98,7 +98,7 @@ public class PluBrandFkModel : SqlTableBase
         Brand.FillProperties();
     }
 
-    public override void UpdateProperties(ISqlTable item)
+    public override void UpdateProperties(IWsSqlTable item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

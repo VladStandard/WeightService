@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 
 namespace DataCore.Sql.Tables;
 
@@ -12,7 +12,7 @@ namespace DataCore.Sql.Tables;
 [Serializable]
 [DebuggerDisplay("{nameof(SqlTableBase1c)} | {Uid1c}")]
 // ReSharper disable once InconsistentNaming
-public class SqlTableBase1c : SqlTableBase, ISqlTable1c
+public class SqlTableBase1c : SqlTableBase, IWsSqlTable1c
 {
     #region Public and private fields, properties, constructor
 
@@ -29,7 +29,7 @@ public class SqlTableBase1c : SqlTableBase, ISqlTable1c
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlTableBase1c(SqlFieldIdentity identityName) : base(identityName)
+    public SqlTableBase1c(WsSqlFieldIdentity identityName) : base(identityName)
     {
         Uid1c = Guid.Empty;
     }
@@ -46,7 +46,7 @@ public class SqlTableBase1c : SqlTableBase, ISqlTable1c
 
     #region Public and private methods - override
 
-    public virtual bool Equals(ISqlTable1c item) =>
+    public virtual bool Equals(IWsSqlTable1c item) =>
         ReferenceEquals(this, item) || base.Equals(item) && Equals(Uid1c, item.Uid1c);
 
     public override bool Equals(object obj)
@@ -96,7 +96,7 @@ public class SqlTableBase1c : SqlTableBase, ISqlTable1c
             base.CloneSetup(sqlTable);
     }
 
-    public virtual void UpdateProperties(ISqlTable1c item)
+    public virtual void UpdateProperties(IWsSqlTable1c item)
     {
         base.UpdateProperties(item);
         Uid1c = item.Uid1c;

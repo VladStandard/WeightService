@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 [Obsolete(@"Move it to DataContext")]
 public static class PluController
 {
-    private static DataContextModel DataContext { get; } = new();
+    private static WsDataContextModel DataContext { get; } = new();
 
     public static bool IsFullValid(PluModel pluModel)
     {

@@ -22,7 +22,7 @@ public class OrderWeighingModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public OrderWeighingModel() : base(SqlFieldIdentity.Uid)
+    public OrderWeighingModel() : base(WsSqlFieldIdentity.Uid)
     {
         Order = new();
         PluWeighing = new();

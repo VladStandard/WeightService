@@ -17,7 +17,7 @@ public class TaskTypeModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TaskTypeModel() : base(SqlFieldIdentity.Uid)
+    public TaskTypeModel() : base(WsSqlFieldIdentity.Uid)
     {
         //
     }

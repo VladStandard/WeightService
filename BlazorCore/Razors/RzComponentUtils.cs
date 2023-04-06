@@ -16,5 +16,5 @@ public static class RzComponentUtils
 		new() { LocaleCore.Strings.SettingName, LocaleCore.Strings.SettingValue },
 		"blue", "12px", "center");
 
-	public static CssStyleTableBodyModel GetTableBodyStyle(SqlFieldIdentity columnName, bool isShowMarked) => new(columnName, isShowMarked);
+	public static CssStyleTableBodyModel GetTableBodyStyle(WsSqlFieldIdentity columnName, bool isShowMarked) => new(columnName, isShowMarked);
 }

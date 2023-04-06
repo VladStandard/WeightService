@@ -101,7 +101,7 @@ public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
     private void PortExceptionCallback(Exception ex)
 	{
 		IsExceptionResult = true;
-		DataAccessHelper.Instance.LogError(ex);
+		WsDataAccessHelper.Instance.SaveLogError(ex);
 	}
 
 	#endregion

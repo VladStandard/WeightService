@@ -17,16 +17,16 @@ public sealed partial class RazorItemTableBody: LayoutComponentBase
     private string IdentityName => 
         SqlItem.Identity.Name switch
         {
-            SqlFieldIdentity.Id => LocaleCore.Table.Id,
-            SqlFieldIdentity.Uid => LocaleCore.Table.Uid,
+            WsSqlFieldIdentity.Id => LocaleCore.Table.Id,
+            WsSqlFieldIdentity.Uid => LocaleCore.Table.Uid,
             _ => string.Empty
         };
     
     private string IdentityNameId => 
         SqlItem.Identity.Name switch
         {
-            SqlFieldIdentity.Id => $"{SqlItem.IdentityValueId}",
-            SqlFieldIdentity.Uid => $"{SqlItem.IdentityValueUid}",
+            WsSqlFieldIdentity.Id => $"{SqlItem.IdentityValueId}",
+            WsSqlFieldIdentity.Uid => $"{SqlItem.IdentityValueUid}",
             _ => $"{Guid.Empty}"
         };
     

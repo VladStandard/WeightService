@@ -1,12 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 
 namespace DataCore.Sql.Models;
 
 [Serializable]
-public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerializable
+public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, IWsSqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

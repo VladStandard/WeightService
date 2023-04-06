@@ -11,7 +11,7 @@ public class SqlSerializeBase : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+    [XmlIgnore] public WsSqlConnectFactory SqlConnect { get; private set; } = WsSqlConnectFactory.Instance;
 
 	/// <summary>
 	/// Constructor.

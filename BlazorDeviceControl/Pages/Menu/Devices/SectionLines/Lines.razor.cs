@@ -11,7 +11,7 @@ public sealed partial class Lines : RazorComponentSectionBase<ScaleModel>
 
     public Lines() : base()
     {
-        SqlCrudConfigSection.AddOrders(new() { Name = nameof(ScaleModel.Description), Direction = SqlOrderDirection.Asc });
+        SqlCrudConfigSection.AddOrders(new() { Name = nameof(ScaleModel.Description), Direction = WsSqlOrderDirection.Asc });
     }
 
     #endregion

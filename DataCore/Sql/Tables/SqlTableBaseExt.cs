@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
-using DataCore.Sql.Core.Interfaces;
+using DataCore.Sql.Core.Models;
 
 namespace DataCore.Sql.Tables;
 
@@ -12,7 +12,7 @@ public static class SqlTableBaseExt
 {
 	#region Public and private methods
 
-    public static object? GetPropertyAsObject<T>(this T? item, string propertyName) where T : ISqlTable
+    public static object? GetPropertyAsObject<T>(this T? item, string propertyName) where T : IWsSqlTable
     {
 		if (item is not null && !string.IsNullOrEmpty(propertyName))
 		{

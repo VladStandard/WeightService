@@ -20,7 +20,7 @@ internal class CssStyleTableBodyValidatorTests
 		// Assert.
 		DataCoreTestsUtils.DataCore.AssertValidate(item, false);
 		// Act.
-		item.IdentityName = SqlFieldIdentity.Empty;
+		item.IdentityName = WsSqlFieldIdentity.Empty;
 		// Assert.
 		DataCoreTestsUtils.DataCore.AssertValidate(item, false);
 	}
@@ -31,7 +31,7 @@ internal class CssStyleTableBodyValidatorTests
 		// Arrange.
 		CssStyleTableBodyModel item = Substitute.For<CssStyleTableBodyModel>();
 		// Act.
-		item.IdentityName = SqlFieldIdentity.Uid;
+		item.IdentityName = WsSqlFieldIdentity.Uid;
 		item.IsShowMarked = true;
 		// Assert.
 		DataCoreTestsUtils.DataCore.AssertValidate(item, true);

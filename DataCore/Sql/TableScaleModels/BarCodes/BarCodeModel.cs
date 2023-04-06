@@ -29,7 +29,7 @@ public class BarCodeModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarCodeModel() : base(SqlFieldIdentity.Uid)
+    public BarCodeModel() : base(WsSqlFieldIdentity.Uid)
     {
         TypeTop = string.Empty;
         ValueTop = string.Empty;

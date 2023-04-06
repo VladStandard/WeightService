@@ -16,7 +16,7 @@ public class XmlDeviceModel : SqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public XmlDeviceModel() : base(SqlFieldIdentity.Id)
+    public XmlDeviceModel() : base(WsSqlFieldIdentity.Id)
     {
         Scale = new();
     }

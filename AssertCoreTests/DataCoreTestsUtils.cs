@@ -10,7 +10,7 @@ public static class DataCoreTestsUtils
     #region Public and private fields, properties, constructor
 
     public static DataCoreHelper DataCore => DataCoreHelper.Instance;
-    public static DataAccessHelper DataAccess => DataAccessHelper.Instance;
+    public static WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
 
     #endregion
 }
