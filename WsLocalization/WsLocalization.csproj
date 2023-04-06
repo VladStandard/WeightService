@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
 	<Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>latest</LangVersion>
-    <Version>0.9.135.0</Version>
+    <Version>0.9.140.0</Version>
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
