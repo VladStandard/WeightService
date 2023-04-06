@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableDiagModels.LogsTypes;
@@ -23,7 +23,7 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
     protected override void SetSqlSectionCast()
     {
         Guid logTypeUid = CurrentType.IdentityValueUid;
-        string query = SqlQueries.DbServiceManaging.Tables.Logs.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
+        string query = WsSqlQueriesDiags.Logs.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
             ? DataAccess.JsonSettings.Local.SelectTopRowsCount : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
         object[] objects = DataAccess.GetArrayObjectsNotNullable(query);
         List<LogQuickModel> items = new();
