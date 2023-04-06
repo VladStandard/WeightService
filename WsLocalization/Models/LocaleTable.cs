@@ -172,7 +172,6 @@ public class LocaleTable
     public string ReleaseDt => Lang == Lang.English ? "Release date" : "Дата релиза";
     public string Resource => Lang == Lang.English ? "Resource" : "Ресурс";
     public string Row => Lang == Lang.English ? "Row" : "Строка";
-    public string Scale => Lang == Lang.English ? "Device" : "Устройство";
     public string ScaleFactor => Lang == Lang.English ? "Scale factor" : "Коэф. масштабирования";
     public string ScaleId => Lang == Lang.English ? "Scale ID" : "ID весов";
     public string ScreenShot => Lang == Lang.English ? "Screenshot" : "Скриншот";

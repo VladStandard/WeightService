@@ -9,10 +9,7 @@ public partial class Profile : RazorComponentBase
 
 	private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
 	private List<Lang> Langs { get; set; }
-    private string HttpId => HttpContext is null ? string.Empty : HttpContext.Connection.Id;
     private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
-    protected string HttpIdDescription => $"{LocaleCore.Strings.AuthorizingId}: {HttpId}";
-    protected string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {IpAddress}";
 
     public Profile()
 	{

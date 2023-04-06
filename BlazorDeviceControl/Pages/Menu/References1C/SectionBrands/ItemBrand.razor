@@ -3,6 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<BrandModel>
 @using BlazorDeviceControl.Pages.ItemComponents
+@using BlazorDeviceControl.Pages.CustomComponents
 @using DataCore.Sql.TableScaleModels.Brands
 
 <RazorItemReload TItem="@BrandModel" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
@@ -13,17 +14,9 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; background-color: transparent; "
-        ReadOnly="false" @bind-Value="@SqlItemCast.Name"/>
-    </td>
+    <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/></td>
     <td>@LocaleCore.Table.Code</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: left; "
-        ReadOnly="false" @bind-Value="@SqlItemCast.Code"/>
-    </td>
+    <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Code"/></td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
@@ -35,4 +28,3 @@
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"
   />
-

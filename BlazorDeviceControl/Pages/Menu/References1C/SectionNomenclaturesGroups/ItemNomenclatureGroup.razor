@@ -3,6 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<PluGroupModel>
 @using BlazorDeviceControl.Pages.ItemComponents
+@using BlazorDeviceControl.Pages.CustomComponents
 @using DataCore.Sql.TableScaleModels.PlusGroups
 
 <RazorItemReload TItem="@PluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup"/>
@@ -13,23 +14,19 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Name"/>
-    </td>
+    <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/></td>
     <td>@LocaleCore.Table.Code</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Code"/>
-    </td>
+    <td><RadzenTextBox @bind-Value="@SqlItemCast.Code"/></td>
   </tr>
-  <tr >
-    <td>@LocaleCore.Table.Parent</td>
-    <td >
-      <RadzenLink
-        Style="width: 100%; "
-        Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclatureGroup}/{DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).IdentityValueUid}")
-        Text="@(DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).Name)"/>
-    </td>
-  </tr>
+  @if (ParentGroup is {IsNotNew: true })
+  {
+    <tr>
+      <td><RadzenLink Path="@GetRouteItemPath(ParentGroup)" Text="@LocaleCore.Table.Parent"/></td>
+      <td>@ParentGroup.Name</td>
+      <td/>
+      <td/>
+    </tr>
+  }
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>

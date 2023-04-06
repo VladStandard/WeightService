@@ -17,10 +17,7 @@
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@VersionModel"
-  Data="@SqlSectionCast"
-  CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSet"
-  RowRender="@RowRender">
+  Data="@SqlSectionCast">
   <Columns>
     <TItemContent TItem="@VersionModel">
       <RadzenDataGridColumn Title="@LocaleCore.Table.ReleaseDt" Property="ReleaseDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>

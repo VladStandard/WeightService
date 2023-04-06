@@ -17,8 +17,10 @@ public sealed partial class SystemAppInfo : RazorComponentBase
 	private string DbCurSizeAsString => $"{LocaleCore.Sql.SqlDbCurSize}: {DbFileSizeAll:### ###} MB {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
 	private uint DbMaxSize => 10_240;
 	private uint DbFillSize => DbFileSizeAll == 0 ? 0 : DbFileSizeAll * 100 / DbMaxSize;
-
-	#endregion
+    private ulong CurrentRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalAllocated.MegaBytes;
+    private ulong TotalRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes;
+    
+    #endregion
 
 	#region Public and private methods
 

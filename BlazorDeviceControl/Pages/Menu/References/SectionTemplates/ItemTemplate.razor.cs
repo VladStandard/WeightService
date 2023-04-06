@@ -9,7 +9,7 @@ public sealed partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private List<TypeModel<string>>? TemplateCategories { get; }
+	private List<TypeModel<string>> TemplateCategories { get; }
 
 	public ItemTemplate() : base()
 	{
@@ -29,7 +29,7 @@ public sealed partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
                 SqlItemCast = DataContext.GetItemNotNullable<TemplateModel>(IdentityId);
                 if (SqlItemCast.IsNew)
                 {
-					SqlItemCast = SqlItemNew < TemplateModel >();
+					SqlItemCast = SqlItemNew <TemplateModel>();
 				}
             }
 		});

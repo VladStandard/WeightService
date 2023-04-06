@@ -14,13 +14,9 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
-    </td>
+    <td><RzTextBoxLocal  @bind-Value="@SqlItemCast.Name"/></td>
     <td>@LocaleCore.Table.Weight</td>
-    <td>
-      <RzNumericLocal @bind-Value="@SqlItemCast.Weight"/>
-    </td>
+    <td><RzNumericLocal @bind-Value="@SqlItemCast.Weight"/></td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
