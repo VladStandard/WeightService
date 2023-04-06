@@ -10,7 +10,7 @@ namespace DataCore.Sql.Core.Utils;
 /// <summary>
 /// SQL extensions.
 /// </summary>
-public static class SqlExtensions
+public static class WsSqlExtensions
 {
     #region Public methods
 
