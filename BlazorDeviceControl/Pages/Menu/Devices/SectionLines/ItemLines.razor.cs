@@ -43,11 +43,11 @@ public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
 		{
 			() =>
 			{
-				DataContext.GetListNotNullable<DeviceModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
-				DataContext.GetListNotNullable<DeviceTypeModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
-				DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
-				DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
-				DataContext.GetListNotNullable<WorkShopModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<DeviceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<DeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<PrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<TemplateModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<WorkShopModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
 				SqlItemCast = DataContext.GetItemNotNullable<ScaleModel>(IdentityId);
 				SqlItemCast.PrinterMain ??= DataAccess.GetItemNewEmpty<PrinterModel>();

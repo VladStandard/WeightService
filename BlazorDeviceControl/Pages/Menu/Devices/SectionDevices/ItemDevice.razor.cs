@@ -31,7 +31,7 @@ public sealed partial class ItemDevice : RazorComponentItemBase<DeviceModel>
         {
             () =>
             {
-                DataContext.GetListNotNullable<DeviceTypeModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+                DataContext.GetListNotNullable<DeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
                 SqlItemCast = DataContext.GetItemNotNullable<DeviceModel>(IdentityUid);
                 if (SqlItemCast.IsNew)

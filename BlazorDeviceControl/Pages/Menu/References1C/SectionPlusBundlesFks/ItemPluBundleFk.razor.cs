@@ -33,8 +33,8 @@ public sealed partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFk
             () =>
             {
                 SqlItemCast = DataAccess.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
-                DataContext.GetListNotNullable<PluModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
-                DataContext.GetListNotNullable<BundleModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+                DataContext.GetListNotNullable<PluModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                DataContext.GetListNotNullable<BundleModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
                 if (SqlItemCast.IsNew)
                 {

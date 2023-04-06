@@ -15,7 +15,7 @@ internal class DataAccessExtTests
 	{
         DataCoreTestsUtils.DataCore.AssertAction(() =>
 		{
-			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
+			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
 			List<ScaleModel> scales = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullableScales(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
@@ -26,7 +26,7 @@ internal class DataAccessExtTests
 				if (scale.IdentityValueId == 5)
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
-					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(scale, nameof(PluScaleModel.Scale),
+					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(scale, nameof(PluScaleModel.Scale),
                         false, true, false, false);
 					List<PluScaleModel> pluScales = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullablePlusScales(sqlCrudConfig);
 					// Act.
@@ -41,7 +41,7 @@ internal class DataAccessExtTests
 	{
 		DataCoreTestsUtils.DataCore.AssertAction(() =>
 		{
-			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
+			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
 			List<PluModel> plus = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullablePlus(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
@@ -52,7 +52,7 @@ internal class DataAccessExtTests
 				if (plu.Number == 113)
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
-					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluBundleFkModel.Plu),
+					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluBundleFkModel.Plu),
                         false, true, false, false);
                     List<PluBundleFkModel> pluPackages = DataCoreTestsUtils.DataCore.DataContext.GetListNotNullablePlusBundlesFks(sqlCrudConfig);
 					// Act.

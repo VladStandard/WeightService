@@ -421,14 +421,14 @@ public class WsDataAccessHelper
 
     public AccessModel? GetItemAccessNullable(string? userName)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(SqlTableBase.Name), userName, false, false);
         return GetItemNullable<AccessModel>(sqlCrudConfig);
     }
 
     public ProductSeriesModel? GetItemProductSeriesNullable(ScaleModel scale)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             new List<SqlFieldFilterModel>
             {
                 new() { Name = nameof(ProductSeriesModel.IsClose), Value = false },
@@ -444,7 +444,7 @@ public class WsDataAccessHelper
     {
         if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return null;
 
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(SqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, false, false);
         return GetItemNullable<PluModel>(sqlCrudConfig);
     }
@@ -455,7 +455,7 @@ public class WsDataAccessHelper
     public PluTemplateFkModel? GetItemPluTemplateFkNullable(PluModel plu)
     {
         if (plu.IsNew) return null;
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             $"{nameof(PluTemplateFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
             false, false);
         return GetItemNullable<PluTemplateFkModel>(sqlCrudConfig);
@@ -467,9 +467,9 @@ public class WsDataAccessHelper
     public PluBundleFkModel? GetItemPluBundleFkNullable(PluModel plu, BundleModel bundle)
     {
         if (plu.IsNew) return null;
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             $"{nameof(PluBundleFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, false, false);
-        SqlCrudConfigModel sqlCrudConfigBundle = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfigBundle = WsSqlCrudConfigUtils.GetCrudConfig(
             $"{nameof(PluBundleFkModel.Bundle)}.{nameof(SqlTableBase.IdentityValueUid)}", bundle.IdentityValueUid, false, false);
         sqlCrudConfig.Filters.Add(sqlCrudConfigBundle.Filters.First());
         return GetItemNullable<PluBundleFkModel>(sqlCrudConfig);
@@ -490,7 +490,7 @@ public class WsDataAccessHelper
 
     private ScaleModel? GetItemScaleNullable(DeviceModel device)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFiltersIdentity(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFiltersIdentity(
             $"{nameof(DeviceScaleFkModel.Device)}", device.IdentityValueUid), false, false);
         return GetItemNotNullable<DeviceScaleFkModel>(sqlCrudConfig).Scale;
     }
@@ -500,14 +500,14 @@ public class WsDataAccessHelper
 
     private DeviceModel? GetItemDeviceNullable(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(SqlTableBase.Name), name, false, false);
         return GetItemNullable<DeviceModel>(sqlCrudConfig);
     }
 
     public DeviceModel? GetItemDeviceNullable(ScaleModel scale)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
         return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig)?.Device;
     }
@@ -518,7 +518,7 @@ public class WsDataAccessHelper
 
     public DeviceTypeModel? GetItemDeviceTypeNullable(string typeName)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             SqlCrudConfigModel.GetFilters(nameof(DeviceTypeModel.Name), typeName), false, false);
         return GetItemNullable<DeviceTypeModel>(sqlCrudConfig);
     }
@@ -528,7 +528,7 @@ public class WsDataAccessHelper
 
     public DeviceTypeFkModel? GetItemDeviceTypeFkNullable(DeviceModel device)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceTypeFkModel.Device), device.IdentityValueUid), false, false);
         return GetItemNullable<DeviceTypeFkModel>(sqlCrudConfig);
     }
@@ -538,7 +538,7 @@ public class WsDataAccessHelper
 
     public DeviceScaleFkModel? GetItemDeviceScaleFkNullable(DeviceModel device)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceScaleFkModel.Device), device.IdentityValueUid), false, false);
         return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig);
     }
@@ -548,7 +548,7 @@ public class WsDataAccessHelper
 
     public DeviceScaleFkModel? GetItemDeviceScaleFkNullable(ScaleModel scale)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
         return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig);
     }
@@ -581,21 +581,21 @@ public class WsDataAccessHelper
 
     public ScaleModel GetScaleNotNullable(long id)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(SqlTableBase.IdentityValueId), id, false, false, false, false);
         return GetItemNotNullable<ScaleModel>(sqlCrudConfig);
     }
 
     public ProductionFacilityModel GetProductionFacilityNotNullable(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(ProductionFacilityModel.Name), name, false, false);
         return GetItemNotNullable<ProductionFacilityModel>(sqlCrudConfig);
     }
 
     public PluGroupModel? GetItemNomenclatureGroupParentNullable(PluGroupModel nomenclatureGroup)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
             $"{nameof(PluGroupFkModel.PluGroup)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
             false, false);
         PluGroupModel? result = GetItemNullable<PluGroupFkModel>(sqlCrudConfig)?.Parent;
@@ -649,7 +649,7 @@ public class WsDataAccessHelper
     [Obsolete(@"Use DataContext")]
     public List<DeviceScaleFkModel> GetListDevicesScalesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
         List<DeviceScaleFkModel> result = new();
         if (isAddFieldNull)
             result.Add(new() { Device = GetItemNewEmpty<DeviceModel>(), Scale = GetItemNewEmpty<ScaleModel>() });
@@ -663,7 +663,7 @@ public class WsDataAccessHelper
     [Obsolete(@"Use DataContext")]
     public List<DeviceTypeModel> GetListDevicesTypes(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
         List<DeviceTypeModel> deviceTypes = GetListDevicesTypes(sqlCrudConfig);
         return deviceTypes;
     }
@@ -671,7 +671,7 @@ public class WsDataAccessHelper
     [Obsolete(@"Use DataContext")]
     public List<DeviceModel> GetListDevices(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
         List<DeviceModel> devices = GetListDevices(sqlCrudConfig);
         return devices;
     }
@@ -679,7 +679,7 @@ public class WsDataAccessHelper
     [Obsolete(@"Use DataContext")]
     public List<DeviceTypeFkModel> GetListDevicesTypesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
         List<DeviceTypeFkModel> deviceTypesFks = GetListDevicesTypesFks(sqlCrudConfig);
         return deviceTypesFks;
     }
@@ -687,7 +687,7 @@ public class WsDataAccessHelper
     [Obsolete(@"Use DataContext")]
     public List<DeviceTypeFkModel> GetListDevicesTypesFkFree(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
         List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
         List<DeviceModel> devices = GetListNotNullable<DeviceModel>(sqlCrudConfig);
         deviceTypeFks = deviceTypeFks.Where(x => !devices.Contains(x.Device)).ToList();
@@ -697,7 +697,7 @@ public class WsDataAccessHelper
     [Obsolete(@"Use DataContext")]
     public List<DeviceTypeFkModel> GetListDevicesTypesFkBusy(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
         List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
         List<DeviceModel> devices = GetListNotNullable<DeviceModel>(sqlCrudConfig);
         deviceTypeFks = deviceTypeFks.Where(x => devices.Contains(x.Device)).ToList();
@@ -707,7 +707,7 @@ public class WsDataAccessHelper
     [Obsolete(@"Use DataContext")]
     public List<PluLabelModel> GetListPluLabels(bool isShowMarked, bool isShowOnlyTop)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
         sqlCrudConfig.Orders.Add(new() { Name = nameof(PluWeighingModel.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         return GetListNotNullable<PluLabelModel>(sqlCrudConfig);
     }
@@ -715,7 +715,7 @@ public class WsDataAccessHelper
     [Obsolete(@"Use DataContext")]
     public List<ScaleScreenShotModel> GetListScalesScreenShots(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             SqlCrudConfigModel.GetFiltersIdentity(nameof(ScaleScreenShotModel.Scale), itemFilter?.IdentityValueId),
             isShowMarked, isShowOnlyTop, isAddFieldNull);
         List<ScaleScreenShotModel> result = GetListNotNullable<ScaleScreenShotModel>(sqlCrudConfig);
@@ -731,7 +731,7 @@ public class WsDataAccessHelper
             result.Add(GetItemNewEmpty<PluBundleFkModel>());
         List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
 
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters,
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
             new SqlFieldOrderModel { Name = nameof(PluBundleFkModel.Plu), Direction = WsSqlOrderDirection.Asc },
             isShowMarked, isShowOnlyTop);
         result.AddRange(GetListNotNullable<PluBundleFkModel>(sqlCrudConfig));
@@ -744,7 +744,7 @@ public class WsDataAccessHelper
     public List<PrinterResourceFkModel> GetListPrinterResources(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
     {
         List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters,
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
             new SqlFieldOrderModel { Name = nameof(SqlTableBase.Description), Direction = WsSqlOrderDirection.Asc },
             isShowMarked, isShowOnlyTop);
         return GetListNotNullable<PrinterResourceFkModel>(sqlCrudConfig);
@@ -753,7 +753,7 @@ public class WsDataAccessHelper
     [Obsolete(@"Use DataContext")]
     public List<PrinterTypeModel> GetListPrinterTypes(bool isShowMarked, bool isShowOnlyTop)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             new SqlFieldOrderModel { Name = nameof(PrinterTypeModel.Name), Direction = WsSqlOrderDirection.Asc }, isShowMarked, isShowOnlyTop);
         return GetListNotNullable<PrinterTypeModel>(sqlCrudConfig);
     }
@@ -823,7 +823,7 @@ public class WsDataAccessHelper
 
     protected AppModel GetItemAppOrCreateNew(string appName)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(SqlTableBase.Name), appName, false, false);
         AppModel app = GetItemNotNullable<AppModel>(sqlCrudConfig);
         if (app.IsNew)
@@ -845,14 +845,14 @@ public class WsDataAccessHelper
 
     public AppModel? GetItemAppNullable(string appName)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(SqlTableBase.Name), appName, false, false);
         return GetItemNullable<AppModel>(sqlCrudConfig);
     }
 
     protected DeviceModel GetItemDeviceOrCreateNew(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(SqlTableBase.Name), name, true, false);
         DeviceModel device = GetItemNotNullable<DeviceModel>(sqlCrudConfig);
         if (device.IsNew)

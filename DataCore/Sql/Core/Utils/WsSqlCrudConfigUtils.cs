@@ -3,7 +3,7 @@
 
 namespace DataCore.Sql.Core.Utils;
 
-public static class SqlCrudConfigUtils
+public static class WsSqlCrudConfigUtils
 {
     #region Public and private methods
 

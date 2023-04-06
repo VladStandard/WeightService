@@ -27,7 +27,7 @@ public sealed partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
 				{
 					SqlItemCast = SqlItemNew<PrinterModel>();
 				}
-				DataContext.GetListNotNullable<PrinterTypeModel>(SqlCrudConfigUtils.GetCrudConfigComboBox());
+				DataContext.GetListNotNullable<PrinterTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
             }
 		});
 	}

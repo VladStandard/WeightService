@@ -34,7 +34,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
         SqlSectionCast = new List<TItem>();
         SelectedRow = new List<TItem>();
         SqlSectionSave = new List<TItem>();
-        SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
+        SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
         SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;

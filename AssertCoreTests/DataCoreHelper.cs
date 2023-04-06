@@ -187,7 +187,7 @@ public class DataCoreHelper
     {
         AssertAction(() =>
         {
-            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
+            SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
             List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
 
             if (!items.Any())
@@ -218,7 +218,7 @@ public class DataCoreHelper
     {
         AssertAction(() =>
         {
-            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(false);
+            SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
             List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
 
             if (!items.Any())

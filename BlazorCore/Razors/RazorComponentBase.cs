@@ -71,7 +71,7 @@ public partial class RazorComponentBase : LayoutComponentBase
         SqlLinkedItems = null;
 
 		RazorFieldConfig = new();
-		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem(true);
+		SqlCrudConfigItem = WsSqlCrudConfigUtils.GetCrudConfigItem(true);
     }
 
     #endregion

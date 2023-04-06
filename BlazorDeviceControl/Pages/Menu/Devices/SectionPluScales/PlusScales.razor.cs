@@ -39,7 +39,7 @@ public sealed partial class PlusScales : RazorComponentSectionBase<PluScaleModel
 
     private string GetPluPackagesCount(PluModel plu)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu),
+		SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu),
             false, true, false, false);
         return DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}
