@@ -3,7 +3,7 @@
 
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.TableScaleModels.Scales;
-using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
+using SqlQueries = DataCore.Sql.Core.Utils.WsSqlQueries;
 
 namespace DataCore.Sql.TableDirectModels;
 

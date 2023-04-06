@@ -8,7 +8,7 @@ public static class WsSqlQueriesDiags
 	public static class Errors
 	{
 		public static string GetErrors(int topRecords) => $@"
-SELECT {SqlQueries.GetTopRecords(topRecords)}
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 [Id]
 ,[CreatedDate]
 ,[ModifiedDate]
@@ -43,7 +43,7 @@ order by [NUMBER]
 		public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- Table LOGS diagram summary
-select {SqlQueries.GetTopRecords(topRecords)}
+select {WsSqlQueries.GetTopRecords(topRecords)}
 [l].[UID]
 ,[l].[CREATE_DT]
 ,[s].[Description] [SCALE]
@@ -62,7 +62,7 @@ left join [db_scales].[DEVICES_SCALES_FK] [ds] on [ds].[DEVICE_UID] = [d].[UID]
 left join [db_scales].[Scales] [s] on [s].[Id] = [ds].[SCALE_ID]
 left join [db_scales].[APPS] [a] on [a].[UID] = [l].[APP_UID]
 left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID] = [l].[LOG_TYPE_UID]
-{SqlQueries.GetWhereIsMarkedAndNumber(isShowMarkedItems, "[l]", "[lt]", logTypeUid)}
+{WsSqlQueries.GetWhereIsMarkedAndNumber(isShowMarkedItems, "[l]", "[lt]", logTypeUid)}
 order by [l].[CREATE_DT] desc
 ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 	}

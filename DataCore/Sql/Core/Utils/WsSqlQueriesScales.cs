@@ -81,7 +81,7 @@ ORDER BY [P].[NUMBER];
             public static string GetLabelsAggrWithoutPlu(int topRecords) => $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- PLUS_LABELS_SELECT_AGGR_WITHOUT_PLU | АГРЕГИРОВАННЫЕ ЭТИКЕТКИ БЕЗ ПЛУ
-SELECT {SqlQueries.GetTopRecords(topRecords)}
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
  CAST([PL].[CHANGE_DT] AS DATE) [PL_CHANGE_DT]
 ,COUNT(*) [COUNT]
 ,[S].[DESCRIPTION] [LINE]
@@ -97,7 +97,7 @@ ORDER BY [PL_CHANGE_DT] DESC;
             public static string GetLabelsAggrWithPlu(int topRecords) => $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- PLUS_LABELS_SELECT_AGGR_WITH_PLU | АГРЕГИРОВАННЫЕ ЭТИКЕТКИ С ПЛУ
-SELECT {SqlQueries.GetTopRecords(topRecords)}
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
  CAST([PL].[CHANGE_DT] AS DATE) [PL_CHANGE_DT]
 ,COUNT(*) [COUNT]
 ,[S].[DESCRIPTION] [LINE]
@@ -119,7 +119,7 @@ ORDER BY [PL_CHANGE_DT] DESC;
             public static string GetWeighingsAggrWithoutPlu(int topRecords) => $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- PLUS_WEIGHINGS_SELECT_AGGR_WITHOUT_PLU | АГРЕГИРОВАННЫЕ ВЗВЕШИВАНИЯ БЕЗ ПЛУ
-SELECT {SqlQueries.GetTopRecords(topRecords)}
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
  CAST([PW].[CHANGE_DT] AS DATE) [PW_CHANGE_DT]
 ,COUNT(*) [COUNT]
 ,[S].[DESCRIPTION] [LINE]
@@ -135,7 +135,7 @@ ORDER BY [PW_CHANGE_DT] DESC;
             public static string GetWeighingsAggrWithPlu(int topRecords) => $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- PLUS_WEIGHINGS_SELECT_AGGR_WITH_PLU | АГРЕГИРОВАННЫЕ ВЗВЕШИВАНИЯ С ПЛУ
-SELECT {SqlQueries.GetTopRecords(topRecords)}
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
  CAST([PW].[CHANGE_DT] AS DATE) [PW_CHANGE_DT]
 ,COUNT(*) [COUNT]
 ,[S].[DESCRIPTION] [LINE]

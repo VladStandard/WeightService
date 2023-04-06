@@ -26,7 +26,7 @@ using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 using WsWeight.Plugins.Helpers;
-using SqlQueries = DataCore.Sql.Core.Utils.SqlQueries;
+using SqlQueries = DataCore.Sql.Core.Utils.WsSqlQueries;
 
 namespace WsWeight.Helpers;
 
