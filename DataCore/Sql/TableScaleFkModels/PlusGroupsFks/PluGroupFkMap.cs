@@ -16,7 +16,7 @@ public sealed class PluGroupFkMap : ClassMap<PluGroupFkModel>
     public PluGroupFkMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.PlusGroupsFks);
+        Table(WsSqlTableNamesUtils.PlusGroupsFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

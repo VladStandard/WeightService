@@ -16,7 +16,7 @@ public sealed class TaskTypeMap : ClassMap<TaskTypeModel>
     public TaskTypeMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.TasksTypes);
+        Table(WsSqlTableNamesUtils.TasksTypes);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(32).Not.Nullable();

@@ -16,7 +16,7 @@ public sealed class PluFkMap : ClassMap<PluFkModel>
     public PluFkMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.PlusFks);
+        Table(WsSqlTableNamesUtils.PlusFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

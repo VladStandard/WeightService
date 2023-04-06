@@ -16,7 +16,7 @@ public sealed class BundleMap : ClassMap<BundleModel>
     public BundleMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.Bundles);
+        Table(WsSqlTableNamesUtils.Bundles);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

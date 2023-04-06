@@ -16,7 +16,7 @@ public sealed class LogMemoryMap : ClassMap<LogMemoryModel>
     public LogMemoryMap()
     {
         Schema(SqlSchemaNamesUtils.Diag);
-        Table(SqlTableNamesUtils.LogsMemories);
+        Table(WsSqlTableNamesUtils.LogsMemories);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

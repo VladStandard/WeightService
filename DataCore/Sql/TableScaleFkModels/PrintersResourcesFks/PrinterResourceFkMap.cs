@@ -16,7 +16,7 @@ public sealed class PrinterResourceFkMap : ClassMap<PrinterResourceFkModel>
     public PrinterResourceFkMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.PrintersResourcesFks);
+        Table(WsSqlTableNamesUtils.PrintersResourcesFks);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");

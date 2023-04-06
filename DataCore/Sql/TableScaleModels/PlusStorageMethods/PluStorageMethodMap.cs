@@ -16,7 +16,7 @@ public sealed class PluStorageMethodMap : ClassMap<PluStorageMethodModel>
     public PluStorageMethodMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.PlusStorageMethods);
+        Table(WsSqlTableNamesUtils.PlusStorageMethods);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

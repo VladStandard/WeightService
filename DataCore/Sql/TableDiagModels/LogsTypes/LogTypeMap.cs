@@ -16,7 +16,7 @@ public sealed class LogTypeMap : ClassMap<LogTypeModel>
     public LogTypeMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.LogsTypes);
+        Table(WsSqlTableNamesUtils.LogsTypes);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");

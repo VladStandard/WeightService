@@ -16,7 +16,7 @@ public sealed class LogWebMap : ClassMap<LogWebModel>
     public LogWebMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.LogsWebs);
+        Table(WsSqlTableNamesUtils.LogsWebs);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

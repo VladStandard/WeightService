@@ -16,7 +16,7 @@ public sealed class TemplateMap : ClassMap<TemplateModel>
     public TemplateMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.Templates);
+        Table(WsSqlTableNamesUtils.Templates);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();

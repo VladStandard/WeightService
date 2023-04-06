@@ -16,7 +16,7 @@ public sealed class ScaleScreenShotMap : ClassMap<ScaleScreenShotModel>
     public ScaleScreenShotMap()
     {
         Schema(SqlSchemaNamesUtils.Diag);
-        Table(SqlTableNamesUtils.ScalesScreenshots);
+        Table(WsSqlTableNamesUtils.ScalesScreenshots);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

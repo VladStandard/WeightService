@@ -16,7 +16,7 @@ public sealed class DeviceScaleFkMap : ClassMap<DeviceScaleFkModel>
     public DeviceScaleFkMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.DevicesScalesFks);
+        Table(WsSqlTableNamesUtils.DevicesScalesFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

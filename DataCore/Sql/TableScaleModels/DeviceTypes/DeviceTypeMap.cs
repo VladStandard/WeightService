@@ -16,7 +16,7 @@ public sealed class DeviceTypeMap : ClassMap<DeviceTypeModel>
     public DeviceTypeMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.DevicesTypes);
+        Table(WsSqlTableNamesUtils.DevicesTypes);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

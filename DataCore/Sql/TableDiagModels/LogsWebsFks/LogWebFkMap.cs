@@ -16,7 +16,7 @@ public sealed class LogWebFkMap : ClassMap<LogWebFkModel>
     public LogWebFkMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.LogWebFks);
+        Table(WsSqlTableNamesUtils.LogWebFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         References(x => x.LogWebRequest).Column("LOG_WEB_REQUEST_UID").Not.Nullable();

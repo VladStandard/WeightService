@@ -16,7 +16,7 @@ public sealed class PluNestingFkMap : ClassMap<PluNestingFkModel>
     public PluNestingFkMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.PlusNestingFks);
+        Table(WsSqlTableNamesUtils.PlusNestingFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

@@ -13,7 +13,7 @@ public sealed class PluClipFkMap : ClassMap<PluClipFkModel>
     public PluClipFkMap()
     {
         Schema(SqlSchemaNamesUtils.DbScales);
-        Table(SqlTableNamesUtils.PlusClipsFks);
+        Table(WsSqlTableNamesUtils.PlusClipsFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
