@@ -1128,7 +1128,7 @@ public sealed class WsDataContextModel
     public List<SqlDbFileSizeInfoModel> GetDbFileSizeInfos()
     {
         List<SqlDbFileSizeInfoModel> result = new();
-        object[] objects = DataAccess.GetArrayObjectsNotNullable(SqlQueries.DbSystem.Properties.GetDbFileSizes);
+        object[] objects = DataAccess.GetArrayObjectsNotNullable(WsSqlQueriesSystem.Properties.GetDbFileSizes);
         foreach (object obj in objects)
         {
             if (obj is object[] { Length: 4 } item)
