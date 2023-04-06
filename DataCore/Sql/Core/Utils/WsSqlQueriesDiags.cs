@@ -5,7 +5,7 @@ namespace DataCore.Sql.Core.Utils;
 
 public static class WsSqlQueriesDiags
 {
-	public static class Errors
+	public static class Tables
 	{
 		public static string GetErrors(int topRecords) => $@"
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
@@ -20,16 +20,13 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 FROM [db_scales].[Errors]
 ORDER BY [CreatedDate] DESC
 ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	}
 
-	public static class Logs
-	{
-		public static string AddLogType => @"
+        public static string AddLogType => @"
 insert into [db_scales].[LOG_TYPES]([NUMBER],[ICON]) 
 values (@number,@icon)
 	".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-		public static string GetLogTypes => @"
+        public static string GetLogTypes => @"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- Table LOG_TYPES
 select 
@@ -40,7 +37,7 @@ from [db_scales].[LOG_TYPES]
 order by [NUMBER]
 ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-		public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
+        public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- Table LOGS diagram summary
 select {WsSqlQueries.GetTopRecords(topRecords)}
@@ -64,6 +61,30 @@ left join [db_scales].[APPS] [a] on [a].[UID] = [l].[APP_UID]
 left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID] = [l].[LOG_TYPE_UID]
 {WsSqlQueries.GetWhereIsMarkedAndNumber(isShowMarkedItems, "[l]", "[lt]", logTypeUid)}
 order by [l].[CREATE_DT] desc
-".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	}
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    }
+
+    /// <summary>
+    /// Представления.
+    /// </summary>
+    public static class Views
+    {
+        /// <summary>
+        /// Получить логи памяти.
+        /// </summary>
+        /// <param name="topRecords"></param>
+        /// <returns></returns>
+        public static string GetLogsMemories(int topRecords) => $@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
+	 [CREATE_DT]
+	,[APP_NAME]
+	,[DEVICE_NAME]
+	,[SCALE_NAME]
+	,[SIZE_APP_MB]
+	,[SIZE_FREE_MB]
+FROM [diag].[VIEW_LOGS_MEMORIES]
+ORDER BY [CREATE_DT] DESC;
+            ";
+    }
 }

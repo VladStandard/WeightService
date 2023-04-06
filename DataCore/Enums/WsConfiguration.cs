@@ -3,7 +3,7 @@
 
 namespace DataCore.Enums;
 
-public enum Configuration
+public enum WsConfiguration
 {
     DevelopAleksandrov,
     DevelopMorozov,

@@ -9,7 +9,7 @@ namespace WsStorageContextTests.DataContext;
 [TestFixture]
 internal sealed class GetDbSizeInfosTests
 {
-    private static List<Configuration> Configurations => new() { Configuration.ReleaseVS, Configuration.DevelopVS };
+    private static List<WsConfiguration> Configurations => new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS };
     
     [Test]
     public void DataContext_GetDbFileSizeInfos_Assert()

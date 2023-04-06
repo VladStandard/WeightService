@@ -15,7 +15,7 @@ public class JsonSettingsFileModelTests
         DataCoreTestsUtils.DataCore.AssertAction(() =>
         {
             //
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
     #endregion

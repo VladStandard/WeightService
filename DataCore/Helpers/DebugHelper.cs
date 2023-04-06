@@ -18,18 +18,18 @@ public class DebugHelper
 
     public bool IsDevelop => Config switch
     {
-        Configuration.DevelopAleksandrov => true,
-        Configuration.DevelopMorozov => true,
-        Configuration.DevelopVS => true,
-        Configuration.ReleaseAleksandrov => false,
-        Configuration.ReleaseMorozov => false,
-        Configuration.ReleaseVS => false,
+        WsConfiguration.DevelopAleksandrov => true,
+        WsConfiguration.DevelopMorozov => true,
+        WsConfiguration.DevelopVS => true,
+        WsConfiguration.ReleaseAleksandrov => false,
+        WsConfiguration.ReleaseMorozov => false,
+        WsConfiguration.ReleaseVS => false,
         _ => throw new ArgumentOutOfRangeException()
     };
 
     public bool IsRelease => !IsDevelop;
 
-    public Configuration Config =>
+    public WsConfiguration Config =>
 #if DEVELOPALEKSANDROV
         Configuration.DevelopAleksandrov;
 #elif DEVELOPMOROZOV
@@ -41,7 +41,7 @@ public class DebugHelper
 #elif RELEASEMOROZOV
         Configuration.ReleaseMorozov;
 #elif RELEASEVS
-        Configuration.ReleaseVS;
+        WsConfiguration.ReleaseVS;
 #else
         Configuration.DevelopVS;
 #endif

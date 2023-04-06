@@ -125,41 +125,41 @@ public class DataCoreHelper
         TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
     }
 
-	public void AssertAction(Action action, bool isShowSql, List<Configuration> publishTypes)
+	public void AssertAction(Action action, bool isShowSql, List<WsConfiguration> publishTypes)
 	{
 		Assert.DoesNotThrow(() =>
 		{
-            if (publishTypes.Contains(Configuration.DevelopAleksandrov))
+            if (publishTypes.Contains(WsConfiguration.DevelopAleksandrov))
             {
                 SetupDevelopAleksandrov(isShowSql);
                 action.Invoke();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(Configuration.DevelopMorozov))
+            if (publishTypes.Contains(WsConfiguration.DevelopMorozov))
             {
                 SetupDevelopMorozov(isShowSql);
                 action.Invoke();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(Configuration.DevelopVS))
+            if (publishTypes.Contains(WsConfiguration.DevelopVS))
             {
                 SetupDevelopVs(isShowSql);
                 action.Invoke();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(Configuration.ReleaseAleksandrov))
+            if (publishTypes.Contains(WsConfiguration.ReleaseAleksandrov))
             {
                 SetupReleaseAleksandrov(isShowSql);
                 action.Invoke();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(Configuration.ReleaseMorozov))
+            if (publishTypes.Contains(WsConfiguration.ReleaseMorozov))
             {
                 SetupReleaseMorozov(isShowSql);
                 action.Invoke();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(Configuration.ReleaseVS))
+            if (publishTypes.Contains(WsConfiguration.ReleaseVS))
             {
                 SetupReleaseVs(isShowSql);
                 action.Invoke();
@@ -208,7 +208,7 @@ public class DataCoreHelper
                     Assert.IsTrue(validationResult.IsValid);
                 }
             }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
 	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new() =>
@@ -240,7 +240,7 @@ public class DataCoreHelper
                     Assert.IsNotEmpty(xml);
                 }
             }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
     
     public void AssertValidate<T>(T item, bool assertResult) where T : class, new()
@@ -308,7 +308,7 @@ public class DataCoreHelper
 		}
 	}
 
-    public void AssertGetList<T>(SqlCrudConfigModel sqlCrudConfig, List<Configuration> publishTypes, bool isGreater = true) 
+    public void AssertGetList<T>(SqlCrudConfigModel sqlCrudConfig, List<WsConfiguration> publishTypes, bool isGreater = true) 
         where T : SqlTableBase, new()
     {
         AssertAction(() =>

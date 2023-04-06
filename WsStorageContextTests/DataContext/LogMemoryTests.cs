@@ -10,7 +10,7 @@ namespace WsStorageContextTests.DataContext;
 [TestFixture]
 internal sealed class LogMemoryTests
 {
-    private static List<Configuration> Configurations => new() { Configuration.ReleaseVS, Configuration.DevelopVS };
+    private static List<WsConfiguration> Configurations => new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS };
     private static SqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true, false);
 
     [Test]

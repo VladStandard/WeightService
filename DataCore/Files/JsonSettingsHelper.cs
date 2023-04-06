@@ -76,12 +76,12 @@ public class JsonSettingsHelper
     private string FileNameReleaseVs => "appsettings.ReleaseVS.json";
     private string JsonFileName =>
         DebugHelper.Instance.Config switch {
-            Configuration.DevelopAleksandrov => FileNameDevelopAleksandrov,
-            Configuration.DevelopMorozov => FileNameDevelopMorozov,
-            Configuration.DevelopVS => FileNameDevelopVs,
-            Configuration.ReleaseAleksandrov => FileNameReleaseAleksandrov,
-            Configuration.ReleaseMorozov => FileNameReleaseMorozov,
-            Configuration.ReleaseVS => FileNameReleaseVs,
+            WsConfiguration.DevelopAleksandrov => FileNameDevelopAleksandrov,
+            WsConfiguration.DevelopMorozov => FileNameDevelopMorozov,
+            WsConfiguration.DevelopVS => FileNameDevelopVs,
+            WsConfiguration.ReleaseAleksandrov => FileNameReleaseAleksandrov,
+            WsConfiguration.ReleaseMorozov => FileNameReleaseMorozov,
+            WsConfiguration.ReleaseVS => FileNameReleaseVs,
             _ => FileNameDevelopVs,
         };
     private string BlazorSubDir => DebugHelper.Instance.IsDevelop ? @"bin\x64\Debug\net7.0\" : @"bin\x64\Release\net7.0\";
@@ -229,13 +229,13 @@ public class JsonSettingsHelper
 	{
         switch (DebugHelper.Instance.Config)
         {
-            case Configuration.DevelopAleksandrov:
-            case Configuration.DevelopMorozov:
-            case Configuration.ReleaseAleksandrov:
-            case Configuration.ReleaseMorozov:
+            case WsConfiguration.DevelopAleksandrov:
+            case WsConfiguration.DevelopMorozov:
+            case WsConfiguration.ReleaseAleksandrov:
+            case WsConfiguration.ReleaseMorozov:
                 return;
-            case Configuration.DevelopVS:
-            case Configuration.ReleaseVS:
+            case WsConfiguration.DevelopVS:
+            case WsConfiguration.ReleaseVS:
                 break;
         }
 

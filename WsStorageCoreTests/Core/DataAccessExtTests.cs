@@ -33,7 +33,7 @@ internal class DataAccessExtTests
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}
 			}
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
 	[Test]
@@ -59,7 +59,7 @@ internal class DataAccessExtTests
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}
 			}
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
 	#endregion

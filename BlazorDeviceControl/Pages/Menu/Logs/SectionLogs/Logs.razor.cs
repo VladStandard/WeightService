@@ -23,7 +23,7 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
     protected override void SetSqlSectionCast()
     {
         Guid logTypeUid = CurrentType.IdentityValueUid;
-        string query = WsSqlQueriesDiags.Logs.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
+        string query = WsSqlQueriesDiags.Tables.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
             ? DataAccess.JsonSettings.Local.SelectTopRowsCount : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
         object[] objects = DataAccess.GetArrayObjectsNotNullable(query);
         List<LogQuickModel> items = new();

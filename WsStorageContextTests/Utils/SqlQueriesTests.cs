@@ -34,7 +34,7 @@ internal class SqlQueriesTests
                 if (i < pluWeighingAggrs.Count)
                     TestContext.WriteLine(pluWeighingAggrs[i]);
             }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
     
     [Test]
@@ -61,7 +61,7 @@ internal class SqlQueriesTests
                 if (i < pluWeighingAggrs.Count)
                     TestContext.WriteLine(pluWeighingAggrs[i]);
             }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -88,7 +88,7 @@ internal class SqlQueriesTests
                 if (i < pluAggrs.Count)
                     TestContext.WriteLine(pluAggrs[i]);
             }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -115,6 +115,6 @@ internal class SqlQueriesTests
                 if (i < pluWeighingAggrs.Count)
                     TestContext.WriteLine(pluWeighingAggrs[i]);
             }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 }

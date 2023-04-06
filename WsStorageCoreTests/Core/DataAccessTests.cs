@@ -19,7 +19,7 @@ internal class DataAccessTests
 			{
 				List<DeviceTypeFkModel> deviceTypeFks = DataCoreTestsUtils.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
 	[Test]
@@ -31,7 +31,7 @@ internal class DataAccessTests
 			{
 				List<DeviceTypeFkModel> deviceTypeFks = DataCoreTestsUtils.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
     private IEnumerable<string> GetDeviceTypesEnums() => 
@@ -54,7 +54,7 @@ internal class DataAccessTests
 	        {
 		        Assert.That(GetDeviceTypesEnums().Contains(deviceType.Name), Is.EqualTo(true));
 	        }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -68,7 +68,7 @@ internal class DataAccessTests
 		        DeviceTypeModel deviceType2 = DataCoreTestsUtils.DataAccess.GetItemDeviceTypeNotNullable(deviceType1.Name);
 		        Assert.That(deviceType2, Is.EqualTo(deviceType1));
 	        }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -82,7 +82,7 @@ internal class DataAccessTests
 		        TestContext.WriteLine(device);
 		        //Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
 	        }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -97,7 +97,7 @@ internal class DataAccessTests
 		        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
 		        TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
 	        }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -119,7 +119,7 @@ internal class DataAccessTests
 			        }
 		        }
 	        }
-        }, false, new() { Configuration.DevelopVS, Configuration.ReleaseVS });
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
     #endregion

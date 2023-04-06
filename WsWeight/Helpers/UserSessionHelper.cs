@@ -805,12 +805,12 @@ public sealed class UserSessionHelper : BaseViewModel
     private void SetSqlPublish() =>
         PublishDescription = Debug.Config switch
         {
-            Configuration.DevelopAleksandrov => LocaleCore.Sql.SqlServerDevelopAleksandrov,
-            Configuration.DevelopMorozov => LocaleCore.Sql.SqlServerDevelopMorozov,
-            Configuration.DevelopVS => LocaleCore.Sql.SqlServerVS,
-            Configuration.ReleaseAleksandrov => LocaleCore.Sql.SqlServerReleaseAleksandrov,
-            Configuration.ReleaseMorozov => LocaleCore.Sql.SqlServerReleaseMorozov,
-            Configuration.ReleaseVS => LocaleCore.Sql.SqlServerReleaseVS,
+            WsConfiguration.DevelopAleksandrov => LocaleCore.Sql.SqlServerDevelopAleksandrov,
+            WsConfiguration.DevelopMorozov => LocaleCore.Sql.SqlServerDevelopMorozov,
+            WsConfiguration.DevelopVS => LocaleCore.Sql.SqlServerVS,
+            WsConfiguration.ReleaseAleksandrov => LocaleCore.Sql.SqlServerReleaseAleksandrov,
+            WsConfiguration.ReleaseMorozov => LocaleCore.Sql.SqlServerReleaseMorozov,
+            WsConfiguration.ReleaseVS => LocaleCore.Sql.SqlServerReleaseVS,
             _ => throw new ArgumentOutOfRangeException()
         };
 
