@@ -600,7 +600,7 @@ public class WsContentBase : ControllerBase
         } while (isFind);
     }
 
-    internal void SetItemPropertyFromXmlAttribute<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable
+    internal void SetItemPropertyFromXmlAttribute<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase
     {
         SetItemPropertyFromXmlAttributeForBase(xmlNode, item, xmlPropertyName);
         switch (item)
@@ -620,7 +620,7 @@ public class WsContentBase : ControllerBase
         }
     }
 
-    internal void SetItemParseResultException<T>(T item, string xmlPropertyName) where T : IWsSqlTable
+    internal void SetItemParseResultException<T>(T item, string xmlPropertyName) where T : WsSqlTableBase
     {
         item.ParseResult.Status = ParseStatus.Error;
         item.ParseResult.Exception = string.IsNullOrEmpty(item.ParseResult.Exception)
@@ -629,7 +629,7 @@ public class WsContentBase : ControllerBase
 
     }
 
-    internal void SetItemPropertyFromXmlAttributeForBase<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable
+    internal void SetItemPropertyFromXmlAttributeForBase<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase
     {
         switch (xmlPropertyName.ToUpper())
         {
@@ -767,7 +767,7 @@ public class WsContentBase : ControllerBase
         }
     }
 
-    internal string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName) where T : IWsSqlTable
+    internal string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName) where T : WsSqlTableBase
     {
         if (xmlNode?.Attributes is null) return string.Empty;
         foreach (XmlAttribute? attribute in xmlNode.Attributes)
@@ -783,7 +783,7 @@ public class WsContentBase : ControllerBase
     }
 
     internal bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
-        List<string> valuesFalse, List<string> valuesTrue) where T : IWsSqlTable
+        List<string> valuesFalse, List<string> valuesTrue) where T : WsSqlTableBase
     {
         string value = GetXmlAttributeString(xmlNode, item, xmlPropertyName).ToUpper();
         if (Enumerable.Contains(valuesFalse, value)) return false;
@@ -791,29 +791,29 @@ public class WsContentBase : ControllerBase
         return default;
     }
 
-    internal bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { "0", "FALSE" }, new() { "1", "TRUE" });
 
     internal bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
-        string valueFalse, string valueTrue) where T : IWsSqlTable =>
+        string valueFalse, string valueTrue) where T : WsSqlTableBase =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { valueFalse }, new() { valueTrue });
 
-    internal Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         Guid.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out Guid uid) ? uid : Guid.Empty;
 
-    internal byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         byte.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out byte result) ? result : default;
 
-    internal ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         ushort.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out ushort result) ? result : default;
 
-    internal short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         short.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out short result) ? result : default;
 
-    internal decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         decimal.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out decimal result) ? result : default;
 
-    internal List<T> GetNodesListCore<T>(XElement xml, string nodeIdentity, Action<XmlNode, T> action) where T : IWsSqlTable, new()
+    internal List<T> GetNodesListCore<T>(XElement xml, string nodeIdentity, Action<XmlNode, T> action) where T : WsSqlTableBase, new()
     {
         List<T> itemsXml = new();
         XmlDocument xmlDocument = new();
@@ -906,7 +906,7 @@ public class WsContentBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdateItemDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : IWsSqlTable
+    internal bool UpdateItemDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : WsSqlTableBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);

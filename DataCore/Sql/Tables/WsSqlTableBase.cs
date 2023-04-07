@@ -4,7 +4,6 @@
 using DataCore.Models;
 using DataCore.Serialization.Models;
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Models;
 
 namespace DataCore.Sql.Tables;
 
@@ -13,20 +12,20 @@ namespace DataCore.Sql.Tables;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(WsSqlTableBase)} | {Identity}")]
-public class WsSqlTableBase : SerializeBase, ICloneable, IWsSqlTable
+public class WsSqlTableBase : SerializeBase, ICloneable
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	[XmlIgnore] public virtual SqlFieldIdentityModel Identity { get; set; }
-	[XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
-	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
-	[XmlIgnore] public virtual bool IsExists => Identity.IsExists;
-	[XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
-	[XmlIgnore] public virtual bool IsNew => IsNotExists;
+    [XmlIgnore] public virtual SqlFieldIdentityModel Identity { get; set; }
+    [XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
+    [XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
+    [XmlIgnore] public virtual bool IsExists => Identity.IsExists;
+    [XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
+    [XmlIgnore] public virtual bool IsNew => IsNotExists;
     [XmlIgnore] public virtual bool IsNotNew => IsExists;
-	[XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, WsSqlFieldIdentity.Id);
-	[XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, WsSqlFieldIdentity.Uid);
-	[XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
+    [XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, WsSqlFieldIdentity.Id);
+    [XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, WsSqlFieldIdentity.Uid);
+    [XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual bool IsMarked { get; set; } = false;
     [XmlElement] public virtual string Name { get; set; } = string.Empty;
@@ -38,23 +37,23 @@ public class WsSqlTableBase : SerializeBase, ICloneable, IWsSqlTable
     /// </summary>
     public WsSqlTableBase()
     {
-	    Identity = new(WsSqlFieldIdentity.Empty);
+        Identity = new(WsSqlFieldIdentity.Empty);
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public WsSqlTableBase(WsSqlFieldIdentity identityName) : this()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public WsSqlTableBase(WsSqlFieldIdentity identityName) : this()
     {
-	    Identity = new(identityName);
+        Identity = new(identityName);
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public WsSqlTableBase(SqlFieldIdentityModel identity) : this()
-	{
-		Identity = (SqlFieldIdentityModel)identity.Clone();
+    {
+        Identity = (SqlFieldIdentityModel)identity.Clone();
     }
 
     /// <summary>
@@ -62,57 +61,57 @@ public class WsSqlTableBase : SerializeBase, ICloneable, IWsSqlTable
     /// </summary>
     protected WsSqlTableBase(SerializationInfo info, StreamingContext context)
     {
-		Identity = (SqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(SqlFieldIdentityModel));
+        Identity = (SqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(SqlFieldIdentityModel));
         CreateDt = info.GetDateTime(nameof(CreateDt));
         ChangeDt = info.GetDateTime(nameof(ChangeDt));
         IsMarked = info.GetBoolean(nameof(IsMarked));
-		Name = info.GetString(nameof(Name));
+        Name = info.GetString(nameof(Name));
         Description = info.GetString(nameof(Description));
         ParseResult = (ParseResultModel)info.GetValue(nameof(ParseResult), typeof(ParseResultModel));
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods - override
+    #region Public and private methods - override
 
-	public override string ToString()
+    public override string ToString()
     {
         string strCreateDt = CreateDt != DateTime.MinValue ? $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
         string strChangeDt = ChangeDt != DateTime.MinValue ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
         string strIsMarked = $"{nameof(IsMarked)}: {IsMarked}. ";
         string strName = string.IsNullOrEmpty(Name) ? string.Empty : $"{nameof(Name)}: {Name}. ";
         string strDescription = string.IsNullOrEmpty(Description) ? string.Empty : $"{nameof(Description)}: {Description}. ";
-		return strCreateDt + strChangeDt + strIsMarked + strName + strDescription;
+        return strCreateDt + strChangeDt + strIsMarked + strName + strDescription;
     }
 
-    public virtual bool Equals(IWsSqlTable item) =>
-	    ReferenceEquals(this, item) || Identity.Equals(item.Identity) && //-V3130
-	    Equals(CreateDt, item.CreateDt) &&
-	    Equals(ChangeDt, item.ChangeDt) &&
-	    Equals(IsMarked, item.IsMarked) &&
-	    Equals(Name, item.Name) &&
-	    Equals(Description, item.Description) &&
+    public virtual bool Equals(WsSqlTableBase item) =>
+        ReferenceEquals(this, item) || Identity.Equals(item.Identity) && //-V3130
+        Equals(CreateDt, item.CreateDt) &&
+        Equals(ChangeDt, item.ChangeDt) &&
+        Equals(IsMarked, item.IsMarked) &&
+        Equals(Name, item.Name) &&
+        Equals(Description, item.Description) &&
         Equals(ParseResult, item.ParseResult);
 
     public override bool Equals(object obj)
     {
-		if (ReferenceEquals(null, obj)) return false;
-		if (ReferenceEquals(this, obj)) return true;
-		if (obj.GetType() != GetType()) return false;
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
         return Equals((WsSqlTableBase)obj);
     }
-    
+
     public override int GetHashCode() => Identity.GetHashCode();
 
-	/// <summary>
-	/// Get object data for serialization info.
-	/// </summary>
-	/// <param name="info"></param>
-	/// <param name="context"></param>
-	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-	    base.GetObjectData(info, context);
-		info.AddValue(nameof(Identity), Identity);
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(Identity), Identity);
         info.AddValue(nameof(ChangeDt), ChangeDt);
         info.AddValue(nameof(CreateDt), CreateDt);
         info.AddValue(nameof(IsMarked), IsMarked);
@@ -121,70 +120,70 @@ public class WsSqlTableBase : SerializeBase, ICloneable, IWsSqlTable
         info.AddValue(nameof(ParseResult), ParseResult);
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods - virtual
+    #region Public and private methods - virtual
 
-	public virtual bool EqualsNew() => Equals(new WsSqlTableBase());
+    public virtual bool EqualsNew() => Equals(new WsSqlTableBase());
 
-	public virtual bool EqualsDefault() =>
-		Identity.EqualsDefault() &&
-		Equals(CreateDt, DateTime.MinValue) &&
-		Equals(ChangeDt, DateTime.MinValue) &&
-		Equals(IsMarked, false) &&
-		Equals(Name, string.Empty) &&
-		Equals(Description, string.Empty) &&
+    public virtual bool EqualsDefault() =>
+        Identity.EqualsDefault() &&
+        Equals(CreateDt, DateTime.MinValue) &&
+        Equals(ChangeDt, DateTime.MinValue) &&
+        Equals(IsMarked, false) &&
+        Equals(Name, string.Empty) &&
+        Equals(Description, string.Empty) &&
         ParseResult.EqualsDefault();
 
-	public virtual object Clone() => new WsSqlTableBase(Identity)
-	{
-		CreateDt = CreateDt,
-		ChangeDt = ChangeDt,
-		IsMarked = IsMarked,
-		Name = Name,
-		Description = Description,
+    public virtual object Clone() => new WsSqlTableBase(Identity)
+    {
+        CreateDt = CreateDt,
+        ChangeDt = ChangeDt,
+        IsMarked = IsMarked,
+        Name = Name,
+        Description = Description,
         ParseResult = ParseResult.CloneCast()
     };
 
-	public virtual WsSqlTableBase CloneCast() => (WsSqlTableBase)Clone();
+    public virtual WsSqlTableBase CloneCast() => (WsSqlTableBase)Clone();
 
-	public virtual void CloneSetup(WsSqlTableBase item)
-	{
-		CreateDt = item.CreateDt;
-		ChangeDt = item.ChangeDt;
-		IsMarked = item.IsMarked;
-		Name = item.Name;
-		Description = item.Description;
-	}
-
-	public virtual void SetDtNow()
-	{
-		ChangeDt = CreateDt = DateTime.Now;
-	}
-
-	public virtual void ClearNullProperties()
-	{
-		//throw new NotImplementedException();
-	}
-
-	public virtual void FillProperties()
-	{
-		SetDtNow();
-		Name = LocaleCore.Sql.SqlItemFieldName;
-		Description = LocaleCore.Sql.SqlItemFieldDescription;
-	}
-
-    public virtual void UpdateProperties(IWsSqlTable item)
+    public virtual void CloneSetup(WsSqlTableBase item)
     {
-		if (!item.CreateDt.Equals(DateTime.MinValue))
-			CreateDt = item.CreateDt;
+        CreateDt = item.CreateDt;
+        ChangeDt = item.ChangeDt;
+        IsMarked = item.IsMarked;
+        Name = item.Name;
+        Description = item.Description;
+    }
+
+    public virtual void SetDtNow()
+    {
+        ChangeDt = CreateDt = DateTime.Now;
+    }
+
+    public virtual void ClearNullProperties()
+    {
+        //throw new NotImplementedException();
+    }
+
+    public virtual void FillProperties()
+    {
+        SetDtNow();
+        Name = LocaleCore.Sql.SqlItemFieldName;
+        Description = LocaleCore.Sql.SqlItemFieldDescription;
+    }
+
+    public virtual void UpdateProperties(WsSqlTableBase item)
+    {
+        if (!item.CreateDt.Equals(DateTime.MinValue))
+            CreateDt = item.CreateDt;
         if (!item.ChangeDt.Equals(DateTime.MinValue))
             ChangeDt = item.ChangeDt;
-		IsMarked = item.IsMarked;
-		if (string.IsNullOrEmpty(item.Name)) throw new ArgumentException(nameof(Name));
+        IsMarked = item.IsMarked;
+        if (string.IsNullOrEmpty(item.Name)) throw new ArgumentException(nameof(Name));
         Name = item.Name;
         if (!string.IsNullOrEmpty(item.Description))
-		    Description = item.Description;
+            Description = item.Description;
         ParseResult = item.ParseResult.CloneCast();
     }
 

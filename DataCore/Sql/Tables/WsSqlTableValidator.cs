@@ -9,7 +9,7 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// Table validation.
 /// </summary>
-public class WsSqlTableValidator<T> : AbstractValidator<T> where T : IWsSqlTable
+public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableBase
 {
     /// <summary>
     /// Constructor.

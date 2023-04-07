@@ -106,7 +106,7 @@ public class PluStorageMethodFkModel : WsSqlTableBase
         Resource.FillProperties();
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

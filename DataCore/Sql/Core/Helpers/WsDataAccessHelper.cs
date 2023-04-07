@@ -351,7 +351,7 @@ public class WsDataAccessHelper
     public SqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         ExecQueryNative(query, new List<SqlParameter> { parameter });
 
-    public SqlCrudResultModel Save<T>(T? item) where T : IWsSqlTable
+    public SqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
@@ -361,13 +361,13 @@ public class WsDataAccessHelper
         return ExecuteCore(session => session.Save(item), true);
     }
 
-    protected async Task<SqlCrudResultModel> SaveAsync<T>(T? item) where T : IWsSqlTable
+    protected async Task<SqlCrudResultModel> SaveAsync<T>(T? item) where T : WsSqlTableBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         return Save(item);
     }
 
-    public SqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : IWsSqlTable
+    public SqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
@@ -382,7 +382,7 @@ public class WsDataAccessHelper
             : ExecuteCore(session => session.Save(item, id), true);
     }
 
-    protected SqlCrudResultModel SaveOrUpdate<T>(T? item) where T : IWsSqlTable
+    protected SqlCrudResultModel SaveOrUpdate<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
@@ -391,7 +391,7 @@ public class WsDataAccessHelper
         return ExecuteCore(session => session.SaveOrUpdate(item), true);
     }
 
-    public SqlCrudResultModel UpdateForce<T>(T? item) where T : IWsSqlTable
+    public SqlCrudResultModel UpdateForce<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
@@ -400,14 +400,14 @@ public class WsDataAccessHelper
         return ExecuteCore(session => session.Update(item), true);
     }
 
-    public SqlCrudResultModel Delete<T>(T? item) where T : IWsSqlTable
+    public SqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
         return ExecuteCore(session => session.Delete(item), true);
     }
 
-    public SqlCrudResultModel Mark<T>(T? item) where T : IWsSqlTable
+    public SqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
