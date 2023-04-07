@@ -30,10 +30,10 @@ public static class RazorFieldConfigUtils
 {
     public static class Base
     {
-        public static RazorFieldConfigModel GetChangeDt() => new(nameof(SqlTableBase.ChangeDt), TextAlign.Center, LocaleCore.Table.ChangeDt);
-        public static RazorFieldConfigModel GetCreateDt() => new(nameof(SqlTableBase.CreateDt), TextAlign.Center, LocaleCore.Table.CreateDt);
-        public static RazorFieldConfigModel GetDescription(string description = "") => new(nameof(SqlTableBase.Description), TextAlign.Left, !string.IsNullOrEmpty(description) ? description : LocaleCore.Table.Description);
-        public static RazorFieldConfigModel GetName(string name = "") => new(nameof(SqlTableBase.Name), TextAlign.Left, !string.IsNullOrEmpty(name) ? name : LocaleCore.Table.Name);
+        public static RazorFieldConfigModel GetChangeDt() => new(nameof(WsSqlTableBase.ChangeDt), TextAlign.Center, LocaleCore.Table.ChangeDt);
+        public static RazorFieldConfigModel GetCreateDt() => new(nameof(WsSqlTableBase.CreateDt), TextAlign.Center, LocaleCore.Table.CreateDt);
+        public static RazorFieldConfigModel GetDescription(string description = "") => new(nameof(WsSqlTableBase.Description), TextAlign.Left, !string.IsNullOrEmpty(description) ? description : LocaleCore.Table.Description);
+        public static RazorFieldConfigModel GetName(string name = "") => new(nameof(WsSqlTableBase.Name), TextAlign.Left, !string.IsNullOrEmpty(name) ? name : LocaleCore.Table.Name);
     }
     
     public static class Access

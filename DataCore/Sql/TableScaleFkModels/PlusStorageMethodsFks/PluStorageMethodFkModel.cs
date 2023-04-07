@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluStorageMethodFkModel)} | {Plu.Name} | {Method.Name} | {Resource.Name}")]
-public class PluStorageMethodFkModel : SqlTableBase
+public class PluStorageMethodFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

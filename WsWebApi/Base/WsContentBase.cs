@@ -963,7 +963,7 @@ public class WsContentBase : ControllerBase
     /// <param name="item"></param>
     /// <param name="isCounter"></param>
     /// <param name="uid1c"></param>
-    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter, Guid uid1c) where T : SqlTableBase
+    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter, Guid uid1c) where T : WsSqlTableBase
     {
         SqlCrudResultModel dbSave = WsDataContext.DataAccess.Save(item, item.Identity);
         // Add was success.

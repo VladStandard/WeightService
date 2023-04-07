@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Versions;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(VersionModel)}")]
-public class VersionModel : SqlTableBase
+public class VersionModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

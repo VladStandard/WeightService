@@ -6,7 +6,7 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// DB empty table model.
 /// </summary>
-public class SqlTableEmptyModel : SqlTableBase
+public class SqlTableEmptyModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

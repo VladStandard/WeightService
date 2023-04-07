@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Pages.SectionComponents;
 
-public partial class SectionFieldIsMarked<TItem> : LayoutComponentBase where TItem : SqlTableBase, new()
+public partial class SectionFieldIsMarked<TItem> : LayoutComponentBase where TItem : WsSqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
     

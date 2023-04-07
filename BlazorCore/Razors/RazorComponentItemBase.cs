@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorCore.Razors;
 
-public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : SqlTableBase, new()
+public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 

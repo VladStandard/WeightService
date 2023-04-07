@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Pages.ItemComponents;
 
-public partial class RazorItemReload<TItem> : RazorComponentItemBase<TItem> where TItem : SqlTableBase, new()
+public partial class RazorItemReload<TItem> : RazorComponentItemBase<TItem> where TItem : WsSqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
     

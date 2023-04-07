@@ -7,7 +7,7 @@ namespace DataCore.Models;
 
 [XmlRoot("ParseResult", Namespace = "", IsNullable = false)]
 [Serializable]
-public class ParseResultModel : SerializeBase, ICloneable // SqlTableBase, ISqlDbBase
+public class ParseResultModel : SerializeBase, ICloneable
 {
     #region Public and private fields, properties, constructor
 

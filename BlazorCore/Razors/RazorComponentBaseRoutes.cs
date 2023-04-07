@@ -44,7 +44,7 @@ public partial class RazorComponentBase
 {
     #region Public and private methods - Routes
     
-    protected string GetRouteItemPathForLink<TItem>(TItem? item) where TItem : SqlTableBase, new()
+    protected string GetRouteItemPathForLink<TItem>(TItem? item) where TItem : WsSqlTableBase, new()
     {
         string page = GetRouteSectionPath(item);
         if (string.IsNullOrEmpty(page)) 
@@ -59,10 +59,10 @@ public partial class RazorComponentBase
         return page;
     }
 
-    public string GetRouteItemPath<TItem>(TItem? item) where TItem : SqlTableBase, new() =>
-        GetRouteItemPathCombine(GetRouteSectionPath<SqlTableBase>(item), item);
+    public string GetRouteItemPath<TItem>(TItem? item) where TItem : WsSqlTableBase, new() =>
+        GetRouteItemPathCombine(GetRouteSectionPath<WsSqlTableBase>(item), item);
 
-    public string GetRouteItemPathCombine<TItem>(string page, TItem? item) where TItem : SqlTableBase, new()
+    public string GetRouteItemPathCombine<TItem>(string page, TItem? item) where TItem : WsSqlTableBase, new()
     {
         if (item is not null)
         {
@@ -78,9 +78,9 @@ public partial class RazorComponentBase
         return string.Empty;
     }
 
-    public string GetRouteItemPathShort<TItem>() where TItem : SqlTableBase, new() => GetRouteSectionPath(new TItem());
+    public string GetRouteItemPathShort<TItem>() where TItem : WsSqlTableBase, new() => GetRouteSectionPath(new TItem());
 
-    protected string GetRouteSectionPath<TItem>(TItem? item) where TItem : SqlTableBase, new() =>
+    protected string GetRouteSectionPath<TItem>(TItem? item) where TItem : WsSqlTableBase, new() =>
         item switch
         {
             AccessModel => LocaleCore.DeviceControl.RouteSectionAccess,
@@ -123,9 +123,9 @@ public partial class RazorComponentBase
             _ => string.Empty
         };
 
-    public string GetRouteSectionPath<TItem>() where TItem : SqlTableBase, new() => GetRouteSectionPath(new TItem());
+    public string GetRouteSectionPath<TItem>() where TItem : WsSqlTableBase, new() => GetRouteSectionPath(new TItem());
     
-    protected void SetRouteItemNavigate<TItem>(TItem? item) where TItem : SqlTableBase, new()
+    protected void SetRouteItemNavigate<TItem>(TItem? item) where TItem : WsSqlTableBase, new()
     {
         if (item is null) return;
         string page = GetRouteSectionPath(item);

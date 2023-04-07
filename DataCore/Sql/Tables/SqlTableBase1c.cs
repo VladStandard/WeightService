@@ -1,5 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable InconsistentNaming
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Models;
@@ -12,7 +13,7 @@ namespace DataCore.Sql.Tables;
 [Serializable]
 [DebuggerDisplay("{nameof(SqlTableBase1c)} | {Uid1c}")]
 // ReSharper disable once InconsistentNaming
-public class SqlTableBase1c : SqlTableBase, IWsSqlTable1c
+public class SqlTableBase1c : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -46,7 +47,7 @@ public class SqlTableBase1c : SqlTableBase, IWsSqlTable1c
 
     #region Public and private methods - override
 
-    public virtual bool Equals(IWsSqlTable1c item) =>
+    public virtual bool Equals(SqlTableBase1c item) =>
         ReferenceEquals(this, item) || base.Equals(item) && Equals(Uid1c, item.Uid1c);
 
     public override bool Equals(object obj)
@@ -92,11 +93,11 @@ public class SqlTableBase1c : SqlTableBase, IWsSqlTable1c
 
     public virtual void CloneSetup(SqlTableBase1c item)
     {
-        if (item is SqlTableBase sqlTable)
+        if (item is WsSqlTableBase sqlTable)
             base.CloneSetup(sqlTable);
     }
 
-    public virtual void UpdateProperties(IWsSqlTable1c item)
+    public virtual void UpdateProperties(SqlTableBase1c item)
     {
         base.UpdateProperties(item);
         Uid1c = item.Uid1c;

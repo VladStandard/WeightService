@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Tasks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(TaskModel)}")]
-public class TaskModel : SqlTableBase
+public class TaskModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

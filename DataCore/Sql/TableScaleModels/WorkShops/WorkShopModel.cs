@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.WorkShops;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(WorkShopModel)}")]
-public class WorkShopModel : SqlTableBase
+public class WorkShopModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

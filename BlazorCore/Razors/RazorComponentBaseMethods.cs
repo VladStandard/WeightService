@@ -49,7 +49,7 @@ public partial class RazorComponentBase
         return LocaleCore.Dialog.DialogQuestion + Environment.NewLine;
     }
 
-	protected string GetItemTitle(SqlTableBase? item) => item switch
+	protected string GetItemTitle(WsSqlTableBase? item) => item switch
 		{
 			AccessModel => LocaleCore.Strings.ItemAccess,
 			BarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
@@ -83,7 +83,7 @@ public partial class RazorComponentBase
 			_ => string.Empty
         };
 
-	protected string GetSectionTitle(SqlTableBase? item) => item switch
+	protected string GetSectionTitle(WsSqlTableBase? item) => item switch
 		{
             PluGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
             OrderModel => LocaleCore.DeviceControl.SectionOrders,
@@ -122,7 +122,7 @@ public partial class RazorComponentBase
 
 	#region Public and private methods - Actions
 
-	private bool SqlItemValidate<T>(NotificationService? notificationService, T? item) where T : SqlTableBase, new()
+	private bool SqlItemValidate<T>(NotificationService? notificationService, T? item) where T : WsSqlTableBase, new()
 	{
 		bool result = item is not null;
 		string detailAddition = Environment.NewLine;
@@ -149,7 +149,7 @@ public partial class RazorComponentBase
 		}
 	}
 
-	protected TItem SqlItemNew<TItem>() where TItem : SqlTableBase, new()
+	protected TItem SqlItemNew<TItem>() where TItem : WsSqlTableBase, new()
 	{
 		TItem item = new();
 		item.FillProperties();
@@ -162,14 +162,14 @@ public partial class RazorComponentBase
         RunActionsSafe(LocaleCore.Table.TableCancel, SetRouteSectionNavigate);
 	}
 
-	protected TItem SqlItemNewEmpty<TItem>() where TItem : SqlTableBase, new()
+	protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
 	{
 		TItem item = DataAccess.GetItemNewEmpty<TItem>();
 		item.FillProperties();
 		return item;
 	}
 
-	private void SqlItemSave<T>(T? item) where T : SqlTableBase, new()
+	private void SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
 	{
 		if (item is null) return;
 		if (item.IsNew)
@@ -183,7 +183,7 @@ public partial class RazorComponentBase
 		}
 	}
 
-	private void SqlItemsSave<T>(List<T>? items) where T : SqlTableBase, new()
+	private void SqlItemsSave<T>(List<T>? items) where T : WsSqlTableBase, new()
 	{
 		if (items is null) return;
 
@@ -239,7 +239,7 @@ public partial class RazorComponentBase
     private void SqlItemSaveScale(ScaleModel scale)
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
-        foreach (SqlTableBase item in SqlLinkedItems)
+        foreach (WsSqlTableBase item in SqlLinkedItems)
         {
             if (item is DeviceModel device)
             {
@@ -265,7 +265,7 @@ public partial class RazorComponentBase
     {
         if (SqlLinkedItems is not null && SqlLinkedItems.Any())
         {
-            foreach (SqlTableBase item in SqlLinkedItems)
+            foreach (WsSqlTableBase item in SqlLinkedItems)
             {
                 if (item is TemplateModel template)
                 {
@@ -314,7 +314,7 @@ public partial class RazorComponentBase
     private void SqlItemSaveDevice(DeviceModel device)
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
-        foreach (SqlTableBase item in SqlLinkedItems)
+        foreach (WsSqlTableBase item in SqlLinkedItems)
         {
             if (item is DeviceTypeModel deviceType)
             {
@@ -336,7 +336,7 @@ public partial class RazorComponentBase
         }
     }
 
-    protected async Task SqlItemNewAsync<TItem>() where TItem : SqlTableBase, new()
+    protected async Task SqlItemNewAsync<TItem>() where TItem : WsSqlTableBase, new()
 	{
         if (User?.IsInRole(UserAccessStr.Write) == false) return;
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -432,7 +432,7 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesLoadTtf, GetQuestionAdd(), () =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-                new SqlFieldOrderModel { Name = nameof(SqlTableBase.Description), Direction = WsSqlOrderDirection.Asc}, false, false);
+                new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc}, false, false);
 			List<TemplateResourceModel> templateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{

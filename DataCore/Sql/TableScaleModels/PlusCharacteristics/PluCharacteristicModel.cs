@@ -97,7 +97,7 @@ public class PluCharacteristicModel : SqlTableBase1c
     
     public new virtual PluCharacteristicModel CloneCast() => (PluCharacteristicModel)Clone();
 
-    public override void UpdateProperties(IWsSqlTable1c item)
+    public override void UpdateProperties(SqlTableBase1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

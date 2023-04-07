@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
@@ -35,9 +35,9 @@ public interface IWsSqlTable : IWsSqlDbBase
 
     #region Public and private methods - virtual
 
-    public SqlTableBase CloneCast();
+    public WsSqlTableBase CloneCast();
 
-    public void CloneSetup(SqlTableBase item);
+    public void CloneSetup(WsSqlTableBase item);
 
     public void SetDtNow();
 

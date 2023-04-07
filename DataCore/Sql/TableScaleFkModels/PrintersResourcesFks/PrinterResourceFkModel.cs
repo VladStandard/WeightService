@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PrinterResourceFkModel)} {Printer.Name}")]
-public class PrinterResourceFkModel : SqlTableBase
+public class PrinterResourceFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

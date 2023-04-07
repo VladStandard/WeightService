@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Scales;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(ScaleModel)} | Name = {Description}")]
-public class ScaleModel : SqlTableBase
+public class ScaleModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

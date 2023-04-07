@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.TemplatesResources;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(TemplateResourceModel)} | {Type} | {Name}")]
-public class TemplateResourceModel : SqlTableBase
+public class TemplateResourceModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

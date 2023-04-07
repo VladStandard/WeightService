@@ -13,7 +13,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluBrandFkModel)} | {Plu.Number} | {Plu.Name} | {Brand.Name} ")]
-public class PluBrandFkModel : SqlTableBase
+public class PluBrandFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

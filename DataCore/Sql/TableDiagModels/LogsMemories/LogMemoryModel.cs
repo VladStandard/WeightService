@@ -13,7 +13,7 @@ namespace DataCore.Sql.TableDiagModels.LogsMemories;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogMomoryModel)} | {Device.Description} | {SizeAppMb} | SizeFreeMb")]
-public class LogMemoryModel : SqlTableBase
+public class LogMemoryModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

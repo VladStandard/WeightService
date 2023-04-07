@@ -13,7 +13,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluTemplateFkModel)}")]
-public class PluTemplateFkModel : SqlTableBase
+public class PluTemplateFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

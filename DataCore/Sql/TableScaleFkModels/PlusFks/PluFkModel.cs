@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluFkModel)} | {ToString()}")]
-public class PluFkModel : SqlTableBase
+public class PluFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 

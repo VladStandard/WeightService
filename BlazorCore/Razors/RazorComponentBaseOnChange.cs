@@ -19,7 +19,7 @@ public partial class RazorComponentBase
     #region Public and private methods - OnChange
     
     // TODO: FIX OnChangeItem
-    protected void OnChangeItem(SqlTableBase? item, string filterName, object? value)
+    protected void OnChangeItem(WsSqlTableBase? item, string filterName, object? value)
     {
         RunActionsSafe(LocaleCore.Table.TableEdit, () =>
         {

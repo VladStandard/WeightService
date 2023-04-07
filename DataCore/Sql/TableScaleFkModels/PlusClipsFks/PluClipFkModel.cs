@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluClipFkModel)} | {Plu.Number} | {Plu.Name} | {Clip.Name} | {Clip.Weight}")]
-public class PluClipFkModel : SqlTableBase
+public class PluClipFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Pages.ItemComponents;
 public sealed partial class RazorItemTableBody: LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
-    [Parameter] public SqlTableBase SqlItem { get; set; }
+    [Parameter] public WsSqlTableBase SqlItem { get; set; }
     
     private bool IsSqlItem1C => SqlItem is SqlTableBase1c;
     

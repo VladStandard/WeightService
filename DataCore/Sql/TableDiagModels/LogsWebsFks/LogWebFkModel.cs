@@ -15,7 +15,7 @@ namespace DataCore.Sql.TableDiagModels.LogsWebsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogWebFkModel)} | {ToString()}")]
-public class LogWebFkModel : SqlTableBase
+public class LogWebFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 

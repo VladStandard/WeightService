@@ -10,7 +10,7 @@ using Microsoft.JSInterop;
 
 namespace BlazorCore.Razors;
 
-public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem : SqlTableBase, new()
+public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 

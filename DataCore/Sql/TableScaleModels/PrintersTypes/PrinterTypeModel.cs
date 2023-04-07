@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.PrintersTypes;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PrinterTypeModel)}")]
-public class PrinterTypeModel : SqlTableBase
+public class PrinterTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

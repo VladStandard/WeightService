@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableDiagModels.ScalesScreenshots;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(ScaleScreenShotModel)} | {Scale.Description}")]
-public class ScaleScreenShotModel : SqlTableBase
+public class ScaleScreenShotModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

@@ -6,7 +6,7 @@ using DataCore.Sql.Core.Enums;
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class LogQuickModel : SqlTableBase
+public class LogQuickModel : WsSqlTableBase
 {
 	#region Public and private fields, properties, constructor
 

@@ -4,7 +4,7 @@
 namespace BlazorDeviceControl.Pages.SectionComponents;
 
 public partial class SectionReload<TItem> : RazorComponentSectionBase<TItem>
-	where TItem : SqlTableBase, new()
+	where TItem : WsSqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
     

@@ -13,7 +13,7 @@ namespace DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(DeviceScaleFkModel)}")]
-public class DeviceScaleFkModel : SqlTableBase
+public class DeviceScaleFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

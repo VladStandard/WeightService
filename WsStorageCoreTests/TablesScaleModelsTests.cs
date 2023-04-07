@@ -13,10 +13,10 @@ internal class TablesScaleModelsTests
 	{
         Assert.DoesNotThrow(() =>
         {
-            List<SqlTableBase> sqlTables = DataCoreTestsUtils.DataCore.DataContext.GetTableModels();
+            List<WsSqlTableBase> sqlTables = DataCoreTestsUtils.DataCore.DataContext.GetTableModels();
             List<(string, bool, bool)> asserts = new();
 
-            foreach (SqlTableBase sqlTable in sqlTables)
+            foreach (WsSqlTableBase sqlTable in sqlTables)
 	            asserts.Add((sqlTable.GetType().Name, sqlTable.EqualsNew(), sqlTable.EqualsDefault()));
             
 			foreach ((string, bool, bool) assert in asserts)
@@ -24,8 +24,8 @@ internal class TablesScaleModelsTests
                 TestContext.WriteLine(
                     ((!assert.Item2 || !assert.Item3) ? "[x] " : "[✓] ") +
                     $"{assert.Item1}\t|\t" +
-                    $"{nameof(SqlTableBase.EqualsNew)} = {assert.Item2}\t|\t" +
-                    $"{nameof(SqlTableBase.EqualsDefault)} = {assert.Item3}");
+                    $"{nameof(WsSqlTableBase.EqualsNew)} = {assert.Item2}\t|\t" +
+                    $"{nameof(WsSqlTableBase.EqualsDefault)} = {assert.Item3}");
             }
 
             foreach ((string, bool, bool) assert in asserts)

@@ -113,7 +113,7 @@ public class SqlCrudConfigModel : ICloneable
 
     #region Public and private methods - Filters
 
-    public static List<SqlFieldFilterModel> GetFilters(string className, SqlTableBase? item) =>
+    public static List<SqlFieldFilterModel> GetFilters(string className, WsSqlTableBase? item) =>
         item is null || string.IsNullOrEmpty(className) ? new()
             : GetFiltersIdentity(className, item.Identity.Name == WsSqlFieldIdentity.Uid ? item.IdentityValueUid : item.IdentityValueId);
 
@@ -124,14 +124,14 @@ public class SqlCrudConfigModel : ICloneable
         value switch
         {
             Guid uid => new() { 
-                new() { Name = $"{className}.{nameof(SqlTableBase.IdentityValueUid)}", Value = uid } },
+                new() { Name = $"{className}.{nameof(WsSqlTableBase.IdentityValueUid)}", Value = uid } },
             long id => new() {
-                new() { Name = $"{className}.{nameof(SqlTableBase.IdentityValueId)}", Value = id } },
+                new() { Name = $"{className}.{nameof(WsSqlTableBase.IdentityValueId)}", Value = id } },
             _ => new()
         };
 
     private List<SqlFieldFilterModel> GetFiltersIsResultShowMarked(bool isShowMarked) =>
-        new() { new() { Name = nameof(SqlTableBase.IsMarked), Value = isShowMarked } };
+        new() { new() { Name = nameof(WsSqlTableBase.IsMarked), Value = isShowMarked } };
 
     public void AddFilters(List<SqlFieldFilterModel> filters)
     {
@@ -150,7 +150,7 @@ public class SqlCrudConfigModel : ICloneable
 
     public void AddFilters(SqlFieldFilterModel filter) => AddFilters(new List<SqlFieldFilterModel> { filter });
 
-    public void AddFilters(string className, SqlTableBase? item) => AddFilters(GetFilters(className, item));
+    public void AddFilters(string className, WsSqlTableBase? item) => AddFilters(GetFilters(className, item));
 
     public void ClearFilters() => Filters.Clear();
 
@@ -171,7 +171,7 @@ public class SqlCrudConfigModel : ICloneable
 
     public void RemoveFilters(SqlFieldFilterModel filter) => RemoveFilters(new List<SqlFieldFilterModel> { filter });
 
-    public void RemoveFilters(string className, SqlTableBase? item) => RemoveFilters(GetFilters(className, item));
+    public void RemoveFilters(string className, WsSqlTableBase? item) => RemoveFilters(GetFilters(className, item));
 
     #endregion
 

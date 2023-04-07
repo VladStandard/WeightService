@@ -171,7 +171,7 @@ public sealed class WsDataContextModel
 
     #region Public and private methods - GetListNotNullable
 
-    public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new() => typeof(T) switch
+    public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => typeof(T) switch
     {
         var cls when cls == typeof(AccessModel) => GetListNotNullableAccesses(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(AppModel) => GetListNotNullableApps(sqlCrudConfig).Cast<T>().ToList(),
@@ -228,7 +228,7 @@ public sealed class WsDataContextModel
     public List<AccessModel> GetListNotNullableAccesses(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         Accesses = DataAccess.GetListNotNullable<AccessModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Accesses.Any())
             Accesses = Accesses.OrderByDescending(item => item.RightsEnum).ThenByDescending(item => item.LoginDt).ToList();
@@ -238,7 +238,7 @@ public sealed class WsDataContextModel
     public List<AppModel> GetListNotNullableApps(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Apps = DataAccess.GetListNotNullable<AppModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Apps.Any())
             Apps = Apps.OrderBy(item => item.Name).ToList();
@@ -248,7 +248,7 @@ public sealed class WsDataContextModel
     public List<BarCodeModel> GetListNotNullableBarCodes(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         BarCodes = DataAccess.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && BarCodes.Any())
             BarCodes = BarCodes.OrderByDescending(item => item.ChangeDt).ToList();
@@ -258,7 +258,7 @@ public sealed class WsDataContextModel
     public List<BoxModel> GetListNotNullableBoxes(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Boxes = DataAccess.GetListNotNullable<BoxModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Boxes.Any())
             Boxes = Boxes.OrderBy(item => item.Name).ToList();
@@ -268,7 +268,7 @@ public sealed class WsDataContextModel
     public List<BrandModel> GetListNotNullableBrands(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Brands = DataAccess.GetListNotNullable<BrandModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Brands.Any())
             Brands = Brands.OrderBy(item => item.Name).ToList();
@@ -278,7 +278,7 @@ public sealed class WsDataContextModel
     public List<BundleModel> GetListNotNullableBundles(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Bundles = DataAccess.GetListNotNullable<BundleModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Bundles.Any())
             Bundles = Bundles.OrderBy(item => item.Name).ToList();
@@ -288,7 +288,7 @@ public sealed class WsDataContextModel
     public List<ClipModel> GetListNotNullableClips(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Clips = DataAccess.GetListNotNullable<ClipModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Clips.Any())
             Clips = Clips.OrderBy(item => item.Name).ToList();
@@ -298,7 +298,7 @@ public sealed class WsDataContextModel
     public List<ContragentModel> GetListNotNullableContragents(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Contragents = DataAccess.GetListNotNullable<ContragentModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Contragents.Any())
             Contragents = Contragents.OrderBy(item => item.Name).ToList();
@@ -308,7 +308,7 @@ public sealed class WsDataContextModel
     public List<DeviceModel> GetListNotNullableDevices(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Devices = DataAccess.GetListNotNullable<DeviceModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Devices.Any())
             Devices = Devices.OrderBy(item => item.Name).ToList();
@@ -318,7 +318,7 @@ public sealed class WsDataContextModel
     public List<DeviceScaleFkModel> GetListNotNullableDeviceScalesFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new(nameof(SqlTableBase.Name) ));
+        //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name) ));
         DeviceScaleFks = DataAccess.GetListNotNullable<DeviceScaleFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && DeviceScaleFks.Any())
             DeviceScaleFks = DeviceScaleFks
@@ -330,7 +330,7 @@ public sealed class WsDataContextModel
     public List<DeviceTypeModel> GetListNotNullableDeviceTypes(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         DeviceTypes = DataAccess.GetListNotNullable<DeviceTypeModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && DeviceTypes.Any())
             DeviceTypes = DeviceTypes.OrderBy(item => item.Name).ToList();
@@ -340,7 +340,7 @@ public sealed class WsDataContextModel
     public List<DeviceTypeFkModel> GetListNotNullableDeviceTypesFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new(nameof(SqlTableBase.Name)));
+        //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name)));
         DeviceTypeFks = DataAccess.GetListNotNullable<DeviceTypeFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && DeviceTypeFks.Any())
             DeviceTypeFks = DeviceTypeFks
@@ -364,7 +364,7 @@ public sealed class WsDataContextModel
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
         Logs = DataAccess.GetListNotNullable<LogModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Logs.Any())
             Logs = Logs.OrderByDescending(item => item.CreateDt).ToList();
@@ -375,7 +375,7 @@ public sealed class WsDataContextModel
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
         LogsMemories = DataAccess.GetListNotNullable<LogMemoryModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && LogsMemories.Any())
             LogsMemories = LogsMemories.OrderByDescending(item => item.CreateDt).ToList();
@@ -386,7 +386,7 @@ public sealed class WsDataContextModel
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt) });
         LogsWebs = DataAccess.GetListNotNullable<LogWebModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && LogsWebs.Any())
             LogsWebs = LogsWebs.OrderBy(item => item.CreateDt).ToList();
@@ -408,7 +408,7 @@ public sealed class WsDataContextModel
     public List<PluCharacteristicModel> GetListNotNullablePlusCharacteristics(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         NomenclaturesCharacteristics = DataAccess.GetListNotNullable<PluCharacteristicModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && NomenclaturesCharacteristics.Any())
             NomenclaturesCharacteristics = NomenclaturesCharacteristics.OrderBy(item => item.Name).ToList();
@@ -423,7 +423,7 @@ public sealed class WsDataContextModel
     public List<PluGroupModel> GetListNotNullablePlusGroups(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         NomenclaturesGroups = DataAccess.GetListNotNullable<PluGroupModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && NomenclaturesGroups.Any())
             NomenclaturesGroups = NomenclaturesGroups.OrderBy(item => item.Name).ToList();
@@ -433,7 +433,7 @@ public sealed class WsDataContextModel
     public List<PluGroupFkModel> GetListNotNullablePlusGroupFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new(nameof(SqlTableBase.Name), SqlOrderDirection.Asc));
+        //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name), SqlOrderDirection.Asc));
         NomenclaturesGroupsFk = DataAccess.GetListNotNullable<PluGroupFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && NomenclaturesGroupsFk.Any())
             NomenclaturesGroupsFk = NomenclaturesGroupsFk
@@ -445,7 +445,7 @@ public sealed class WsDataContextModel
     public List<OrderModel> GetListNotNullableOrders(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         Orders = DataAccess.GetListNotNullable<OrderModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Orders.Any())
             Orders = Orders.OrderByDescending(item => item.ChangeDt).ToList();
@@ -455,7 +455,7 @@ public sealed class WsDataContextModel
     public List<OrderWeighingModel> GetListNotNullableOrdersWeighings(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         OrderWeighings = DataAccess.GetListNotNullable<OrderWeighingModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && OrderWeighings.Any())
             OrderWeighings = OrderWeighings.OrderByDescending(item => item.ChangeDt).ToList();
@@ -465,7 +465,7 @@ public sealed class WsDataContextModel
     public List<OrganizationModel> GetListNotNullableOrganizations(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Organizations = DataAccess.GetListNotNullable<OrganizationModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Organizations.Any())
             Organizations = Organizations.OrderBy(item => item.Name).ToList();
@@ -475,7 +475,7 @@ public sealed class WsDataContextModel
     public List<PluLabelModel> GetListNotNullablePluLabels(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         PluLabels = DataAccess.GetListNotNullable<PluLabelModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PluLabels.Any())
             PluLabels = PluLabels.OrderByDescending(item => item.ChangeDt).ToList();
@@ -503,7 +503,7 @@ public sealed class WsDataContextModel
     public List<PluBrandFkModel> GetListNotNullablePlusBrandsFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new(nameof(SqlTableBase.ClearNullProperties), SqlOrderDirection.Asc));
+        //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.ClearNullProperties), SqlOrderDirection.Asc));
         PluBrandFks = DataAccess.GetListNotNullable<PluBrandFkModel>(sqlCrudConfig);
         if (PluBrandFks.Any())
         {
@@ -568,7 +568,7 @@ public sealed class WsDataContextModel
     public List<PluStorageMethodModel> GetListNotNullablePlusStoragesMethods(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         PluStorageMethods = DataAccess.GetListNotNullable<PluStorageMethodModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PluStorageMethods.Any())
             PluStorageMethods = PluStorageMethods
@@ -579,7 +579,7 @@ public sealed class WsDataContextModel
     public List<PluStorageMethodFkModel> GetListNotNullablePlusStoragesMethodsFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+        //    sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         PluStorageMethodsFks = DataAccess.GetListNotNullable<PluStorageMethodFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PluStorageMethodsFks.Any())
             PluStorageMethodsFks = PluStorageMethodsFks
@@ -602,7 +602,7 @@ public sealed class WsDataContextModel
     public List<PluWeighingModel> GetListNotNullablePlusWeighings(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         PluWeighings = DataAccess.GetListNotNullable<PluWeighingModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PluWeighings.Any())
             PluWeighings = PluWeighings.OrderByDescending(item => item.ChangeDt).ToList();
@@ -707,7 +707,7 @@ public sealed class WsDataContextModel
     public List<PrinterModel> GetListNotNullablePrinters(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Printers = DataAccess.GetListNotNullable<PrinterModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Printers.Any())
             Printers = Printers.OrderBy(item => item.Name).ToList();
@@ -717,7 +717,7 @@ public sealed class WsDataContextModel
     public List<PrinterResourceFkModel> GetListNotNullablePrintersResources(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new(nameof(SqlTableBase.Name), SqlOrderDirection.Asc));
+        //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name), SqlOrderDirection.Asc));
         PrinterResources = DataAccess.GetListNotNullable<PrinterResourceFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PrinterResources.Any())
             PrinterResources = PrinterResources
@@ -729,7 +729,7 @@ public sealed class WsDataContextModel
     public List<PrinterTypeModel> GetListNotNullablePrintersTypes(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         PrinterTypes = DataAccess.GetListNotNullable<PrinterTypeModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && PrinterTypes.Any())
             PrinterTypes = PrinterTypes.OrderBy(item => item.Name).ToList();
@@ -739,7 +739,7 @@ public sealed class WsDataContextModel
     public List<ProductionFacilityModel> GetListNotNullableProductionFacilities(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         ProductionFacilities = DataAccess.GetListNotNullable<ProductionFacilityModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && ProductionFacilities.Any())
             ProductionFacilities = ProductionFacilities.OrderBy(item => item.Name).ToList();
@@ -749,7 +749,7 @@ public sealed class WsDataContextModel
     public List<ProductSeriesModel> GetListNotNullableProductSeries(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
         ProductSeries = DataAccess.GetListNotNullable<ProductSeriesModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && ProductSeries.Any())
             ProductSeries = ProductSeries.OrderByDescending(item => item.CreateDt).ToList();
@@ -759,7 +759,7 @@ public sealed class WsDataContextModel
     public List<ScaleModel> GetListNotNullableScales(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Description) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Description) });
         Scales = DataAccess.GetListNotNullable<ScaleModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Scales.Any())
             Scales = Scales.OrderBy(item => item.Description).ToList();
@@ -770,7 +770,7 @@ public sealed class WsDataContextModel
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         ScaleScreenShots = DataAccess.GetListNotNullable<ScaleScreenShotModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && ScaleScreenShots.Any())
             ScaleScreenShots = ScaleScreenShots.OrderByDescending(item => item.ChangeDt).ToList();
@@ -780,7 +780,7 @@ public sealed class WsDataContextModel
     public List<TaskModel> GetListNotNullableTasks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+        //    sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         Tasks = DataAccess.GetListNotNullable<TaskModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && Tasks.Any())
             Tasks = Tasks.OrderBy(item => item.Scale.Description).ToList();
@@ -790,7 +790,7 @@ public sealed class WsDataContextModel
     public List<TaskTypeModel> GetListNotNullableTasksTypes(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         TaskTypes = DataAccess.GetListNotNullable<TaskTypeModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && TaskTypes.Any())
             TaskTypes = TaskTypes.OrderBy(item => item.Name).ToList();
@@ -810,7 +810,7 @@ public sealed class WsDataContextModel
     public List<TemplateResourceModel> GetListNotNullableTemplateResources(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new(nameof(SqlTableBase.Name), SqlOrderDirection.Asc));
+        //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name), SqlOrderDirection.Asc));
         TemplateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && TemplateResources.Any())
             TemplateResources = TemplateResources
@@ -832,7 +832,7 @@ public sealed class WsDataContextModel
     public List<WorkShopModel> GetListNotNullableWorkShops(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(SqlTableBase.Name) });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
         WorkShops = DataAccess.GetListNotNullable<WorkShopModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && WorkShops.Any())
             WorkShops = WorkShops.OrderBy(item => item.Name).ToList();
@@ -843,34 +843,34 @@ public sealed class WsDataContextModel
 
     #region Public and private methods
 
-    public T? GetItemNullable<T>(object? value) where T : SqlTableBase, new() => DataAccess.GetItemNullable<T>(value);
+    public T? GetItemNullable<T>(object? value) where T : WsSqlTableBase, new() => DataAccess.GetItemNullable<T>(value);
 
     [Obsolete(@"Use GetItemNotNullable(SqlFieldIdentityModel) or GetItemNullableByUid(Guid?) or GetItemNullableById(long?)")]
-    public T GetItemNotNullable<T>(object? value) where T : SqlTableBase, new() => DataAccess.GetItemNotNullable<T>(value);
+    public T GetItemNotNullable<T>(object? value) where T : WsSqlTableBase, new() => DataAccess.GetItemNotNullable<T>(value);
 
-    public T? GetItemNullable<T>(SqlFieldIdentityModel identity) where T : SqlTableBase, new() =>
+    public T? GetItemNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         DataAccess.GetItemNullable<T>(identity);
 
-    public T GetItemNotNullable<T>(SqlFieldIdentityModel identity) where T : SqlTableBase, new() =>
+    public T GetItemNotNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         DataAccess.GetItemNotNullable<T>(identity);
 
-    public T? GetItemNullableByUid<T>(Guid? uid) where T : SqlTableBase, new() =>
+    public T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
         DataAccess.GetItemNullableByUid<T>(uid);
 
-    public T GetItemNotNullableByUid<T>(Guid? uid) where T : SqlTableBase, new() =>
+    public T GetItemNotNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
         DataAccess.GetItemNotNullableByUid<T>(uid);
 
-    public T? GetItemNullableById<T>(long? id) where T : SqlTableBase, new() =>
+    public T? GetItemNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
         DataAccess.GetItemNullableById<T>(id);
 
-    public T GetItemNotNullableById<T>(long id) where T : SqlTableBase, new() =>
+    public T GetItemNotNullableById<T>(long id) where T : WsSqlTableBase, new() =>
         DataAccess.GetItemNotNullableById<T>(id);
 
     /// <summary>
     /// List of tables models.
     /// </summary>
     /// <returns></returns>
-    public List<SqlTableBase> GetTableModels() => new()
+    public List<WsSqlTableBase> GetTableModels() => new()
     {
         new AccessModel(),
         new AppModel(),
@@ -1070,7 +1070,7 @@ public sealed class WsDataContextModel
         typeof(WorkShopValidator),
     };
 
-    public string GetTableModelName<T>() where T : SqlTableBase, new()
+    public string GetTableModelName<T>() where T : WsSqlTableBase, new()
     {
         return typeof(T) switch
         {

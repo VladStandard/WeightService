@@ -29,7 +29,7 @@ public class SqlTableValidator<T> : AbstractValidator<T> where T : IWsSqlTable
                 .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
     }
 
-    protected bool PreValidateSubEntity<TItem>(TItem? item, ref ValidationResult result) where TItem : SqlTableBase, new()
+    protected bool PreValidateSubEntity<TItem>(TItem? item, ref ValidationResult result) where TItem : WsSqlTableBase, new()
 	{
         if (item is not null)
         {

@@ -1,8 +1,9 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleModels.PlusGroups;
+using System;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups;
 
@@ -11,16 +12,17 @@ public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluG
 	#region Public and private fields, properties, constructor
 
     private List<PluGroupModel> AllData { get; set; }
-    
+
     #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
+    [Obsolete(@"AllData проинициализируй в конструкторе")]
     protected override void SetSqlSectionCast()
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigSection.CloneCast();
         //sqlCrudConfig.AddFilters(new SqlFieldFilterModel($"{nameof(PluGroupFkModel.IsGroup)}", false));
-        //sqlCrudConfig.SetOrders(new(nameof(SqlTableBase.Name), SqlFieldOrderEnum.Asc));
+        //sqlCrudConfig.SetOrders(new(nameof(WsSqlTableBase.Name), SqlFieldOrderEnum.Asc));
         sqlCrudConfig.IsResultOrder = true;
         var pluGroupsFk = DataContext.GetListNotNullable<PluGroupFkModel>(new SqlCrudConfigModel());
         AllData = DataContext.GetListNotNullable<PluGroupModel>(sqlCrudConfig);

@@ -99,7 +99,7 @@ public class BrandModel : SqlTableBase1c
 
     public new virtual BrandModel CloneCast() => (BrandModel)Clone();
 
-    public override void UpdateProperties(IWsSqlTable1c item)
+    public override void UpdateProperties(SqlTableBase1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_brands/.

@@ -13,7 +13,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusLabels;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluLabelModel)} | {ProductDt} | {PluScale.Plu.Number}")]
-public class PluLabelModel : SqlTableBase
+public class PluLabelModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

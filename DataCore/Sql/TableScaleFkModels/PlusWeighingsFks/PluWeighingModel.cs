@@ -13,7 +13,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluWeighingModel)}")]
-public class PluWeighingModel : SqlTableBase
+public class PluWeighingModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

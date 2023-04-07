@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Organizations;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(OrganizationModel)}")]
-public class OrganizationModel : SqlTableBase
+public class OrganizationModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluNestingFkModel)} | {Box}")]
-public class PluNestingFkModel : SqlTableBase
+public class PluNestingFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     [XmlElement] public virtual BoxModel Box { get; set; }

@@ -12,8 +12,8 @@ namespace DataCore.Sql.Tables;
 /// DB table model.
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(SqlTableBase)} | {Identity}")]
-public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
+[DebuggerDisplay("{nameof(WsSqlTableBase)} | {Identity}")]
+public class WsSqlTableBase : SerializeBase, ICloneable, IWsSqlTable
 {
 	#region Public and private fields, properties, constructor
 
@@ -36,7 +36,7 @@ public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlTableBase()
+    public WsSqlTableBase()
     {
 	    Identity = new(WsSqlFieldIdentity.Empty);
     }
@@ -44,7 +44,7 @@ public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public SqlTableBase(WsSqlFieldIdentity identityName) : this()
+	public WsSqlTableBase(WsSqlFieldIdentity identityName) : this()
     {
 	    Identity = new(identityName);
     }
@@ -52,7 +52,7 @@ public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlTableBase(SqlFieldIdentityModel identity) : this()
+    public WsSqlTableBase(SqlFieldIdentityModel identity) : this()
 	{
 		Identity = (SqlFieldIdentityModel)identity.Clone();
     }
@@ -60,7 +60,7 @@ public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected SqlTableBase(SerializationInfo info, StreamingContext context)
+    protected WsSqlTableBase(SerializationInfo info, StreamingContext context)
     {
 		Identity = (SqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(SqlFieldIdentityModel));
         CreateDt = info.GetDateTime(nameof(CreateDt));
@@ -99,7 +99,7 @@ public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((SqlTableBase)obj);
+        return Equals((WsSqlTableBase)obj);
     }
     
     public override int GetHashCode() => Identity.GetHashCode();
@@ -125,7 +125,7 @@ public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
 
 	#region Public and private methods - virtual
 
-	public virtual bool EqualsNew() => Equals(new SqlTableBase());
+	public virtual bool EqualsNew() => Equals(new WsSqlTableBase());
 
 	public virtual bool EqualsDefault() =>
 		Identity.EqualsDefault() &&
@@ -136,7 +136,7 @@ public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
 		Equals(Description, string.Empty) &&
         ParseResult.EqualsDefault();
 
-	public virtual object Clone() => new SqlTableBase(Identity)
+	public virtual object Clone() => new WsSqlTableBase(Identity)
 	{
 		CreateDt = CreateDt,
 		ChangeDt = ChangeDt,
@@ -146,9 +146,9 @@ public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
         ParseResult = ParseResult.CloneCast()
     };
 
-	public virtual SqlTableBase CloneCast() => (SqlTableBase)Clone();
+	public virtual WsSqlTableBase CloneCast() => (WsSqlTableBase)Clone();
 
-	public virtual void CloneSetup(SqlTableBase item)
+	public virtual void CloneSetup(WsSqlTableBase item)
 	{
 		CreateDt = item.CreateDt;
 		ChangeDt = item.ChangeDt;
