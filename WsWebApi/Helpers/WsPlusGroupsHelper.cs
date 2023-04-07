@@ -69,7 +69,6 @@ public sealed class WsPlusGroupsHelper : WsContentBase
             PluGroupFkModel itemGroupFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
-                Plu = null,
                 PluGroup = pluGroup,
                 Parent = parent
             };

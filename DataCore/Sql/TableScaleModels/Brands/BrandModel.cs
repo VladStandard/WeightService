@@ -103,9 +103,10 @@ public class BrandModel : SqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_brands/.
-        if (item is not BrandModel brand) return;
+        if (item is not BrandModel brand) throw new ArgumentException(nameof(item));
+        Uid1c = brand.Uid1c;
+        
         Code = brand.Code;
-        Uid1c = brand.IdentityValueUid;
     }
 
     #endregion

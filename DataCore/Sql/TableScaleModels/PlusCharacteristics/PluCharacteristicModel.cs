@@ -101,8 +101,9 @@ public class PluCharacteristicModel : SqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluCharacteristicModel pluCharacteristic) return;
-        Uid1c = pluCharacteristic.IdentityValueUid;
+        if (item is not PluCharacteristicModel pluCharacteristic) throw new ArgumentException(nameof(item));
+        Uid1c = pluCharacteristic.Uid1c;
+
         if (!Equals(pluCharacteristic.NomenclatureGuid, Guid.Empty))
             NomenclatureGuid = pluCharacteristic.NomenclatureGuid;
         if (pluCharacteristic.AttachmentsCount > 0)

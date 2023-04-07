@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.PlusGroups;
 /// Table "PLUS_GROUPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluGroupModel)} | {IsGroup} | {Code} | {Uid1c} ")]
+[DebuggerDisplay("{nameof(PluGroupModel)} | {IsMarked} | {IsGroup} | {Code} | {Name} | {Uid1c} ")]
 public class PluGroupModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -103,9 +103,12 @@ public class PluGroupModel : SqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures_groups/.
-        if (item is not PluGroupModel pluGroup) return;
+        if (item is not PluGroupModel pluGroup) throw new ArgumentException(nameof(item));
+        Uid1c = pluGroup.Uid1c;
+
+        IsGroup = pluGroup.IsGroup;
         Code = pluGroup.Code;
-        Uid1c = pluGroup.IdentityValueUid;
+        ParentGuid = pluGroup.ParentGuid;
     }
 
     #endregion
