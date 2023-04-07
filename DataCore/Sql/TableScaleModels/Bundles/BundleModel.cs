@@ -80,8 +80,9 @@ public class BundleModel : SqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluModel plu) return;
+        if (item is not PluModel plu) throw new ArgumentException(nameof(item));
         Uid1c = plu.PackageTypeGuid;
+
         Name = plu.PackageTypeName;
         Weight = plu.PackageTypeWeight;
     }

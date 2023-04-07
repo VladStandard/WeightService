@@ -81,8 +81,9 @@ public class BoxModel : SqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluModel plu) return;
+        if (item is not PluModel plu) throw new ArgumentException(nameof(item));
         Uid1c = plu.BoxTypeGuid;
+        
         Name = plu.BoxTypeName;
         Weight = plu.BoxTypeWeight;
     }

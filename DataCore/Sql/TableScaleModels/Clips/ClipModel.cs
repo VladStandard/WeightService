@@ -80,8 +80,9 @@ public class ClipModel : SqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluModel plu) return;
+        if (item is not PluModel plu) throw new ArgumentException(nameof(item));
         Uid1c = plu.ClipTypeGuid;
+
         Name = plu.ClipTypeName;
         Weight = plu.ClipTypeWeight;
     }

@@ -15,14 +15,13 @@ public sealed class PluGroupFkMap : ClassMap<PluGroupFkModel>
     /// </summary>
     public PluGroupFkMap()
     {
-        Schema(WsSqlSchemaNamesUtils.DbScales);
-        Table(WsSqlTableNamesUtils.PlusGroupsFks);
+        Schema(WsSqlSchemasUtils.DbScales);
+        Table(WsSqlTablesUtils.PlusGroupsFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        References(x => x.Plu).Column("PLU_UID").Nullable();
         References(x => x.PluGroup).Column("PLU_GROUP_UID").Not.Nullable();
         References(x => x.Parent).Column("PARENT_UID").Not.Nullable();
     }

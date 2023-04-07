@@ -16,8 +16,8 @@ public sealed class BarCodeMap : ClassMap<BarCodeModel>
     /// </summary>
     public BarCodeMap()
     {
-        Schema(WsSqlSchemaNamesUtils.DbScales);
-        Table(WsSqlTableNamesUtils.BarCodes);
+        Schema(WsSqlSchemasUtils.DbScales);
+        Table(WsSqlTablesUtils.BarCodes);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

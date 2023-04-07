@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 /// Table "PLUS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluModel)} | {Name} | {Number} | {Code} | {Uid1c} ")]
+[DebuggerDisplay("{nameof(PluModel)} | {IsMarked} | {IsGroup} | {Name} | {Number} | {Code} | {Uid1c} ")]
 public class PluModel : SqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -301,23 +301,27 @@ public class PluModel : SqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluModel plu) return;
+        if (item is not PluModel plu) throw new ArgumentException(nameof(item));
+        Uid1c = plu.Uid1c;
+
         IsGroup = plu.IsGroup;
-        if (IsGroup || plu.Number > 0)
-            Number = plu.Number;
-        if (!string.IsNullOrEmpty(plu.Code))
-            Code = plu.Code;
-        if (!string.IsNullOrEmpty(plu.FullName))
-            FullName = plu.FullName;
-        if (plu.ShelfLifeDays > 0)
-            ShelfLifeDays = plu.ShelfLifeDays;
+        if (!IsGroup && Equals(plu.Number, (short)0)) throw new ArgumentException(nameof(Number));
+        Number = plu.Number;
+        if (string.IsNullOrEmpty(plu.Code)) throw new ArgumentException(nameof(Code));
+        Code = plu.Code;
+        if (string.IsNullOrEmpty(plu.FullName)) throw new ArgumentException(nameof(FullName));
+        FullName = plu.FullName;
+        if (plu.ShelfLifeDays <= 0) throw new ArgumentException(nameof(ShelfLifeDays));
+        ShelfLifeDays = plu.ShelfLifeDays;
+        IsCheckWeight = plu.IsCheckWeight;
+        
         if (!string.IsNullOrEmpty(plu.Gtin))
             Gtin = plu.Gtin;
         if (!string.IsNullOrEmpty(plu.Ean13))
             Ean13 = plu.Ean13;
         if (!string.IsNullOrEmpty(plu.Itf14))
             Itf14 = plu.Itf14;
-        IsCheckWeight = plu.IsCheckWeight;
+        
         if (!Equals(plu.ParentGuid, Guid.Empty))
             ParentGuid = plu.ParentGuid;
         if (!Equals(plu.GroupGuid, Guid.Empty))
@@ -340,9 +344,9 @@ public class PluModel : SqlTableBase1c
             PackageTypeName = plu.PackageTypeName;
         if (plu.PackageTypeWeight > 0)
             PackageTypeWeight = plu.PackageTypeWeight;
-        Uid1c = plu.IdentityValueUid;
-        if (plu.AttachmentsCount > 0)
-            AttachmentsCount = plu.AttachmentsCount;
+        
+        if (!IsGroup && plu.AttachmentsCount <= 0) throw new ArgumentException(nameof(AttachmentsCount));
+        AttachmentsCount = plu.AttachmentsCount;
     }
 
     #endregion

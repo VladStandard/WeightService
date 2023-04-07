@@ -128,6 +128,10 @@ public class WsContentBase : ControllerBase
         // Log into FS.
         await LogToFileCore(ServiceLogDirection.Request, appName, url, requestStampDt, metaDataRequest + requestData).ConfigureAwait(false);
         await LogToFileCore(ServiceLogDirection.Response, appName, url, responseStampDt, metaDataResponse + responseData).ConfigureAwait(false);
+
+        // Log memory into DB.
+        //PluginMemory.MemorySize.Execute();
+        //WsDataContext.DataAccess.SaveLogMemory(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
     }
 
     /// <summary>

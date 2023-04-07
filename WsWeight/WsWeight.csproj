@@ -422,7 +422,9 @@
     <Compile Include="WinForms\Utils\ComboBoxExtensions.cs" />
     <Compile Include="WinForms\Utils\FormUtils.cs" />
     <Compile Include="Wpf\Helpers\XamlHelper.cs" />
-    <Compile Include="Gui\NumberInputForm.cs" />
+    <Compile Include="Gui\NumberInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Gui\NumberInputForm.Designer.cs">
       <DependentUpon>NumberInputForm.cs</DependentUpon>
     </Compile>

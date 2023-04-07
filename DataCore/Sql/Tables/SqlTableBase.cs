@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
@@ -181,8 +181,8 @@ public class SqlTableBase : SerializeBase, ICloneable, IWsSqlTable
         if (!item.ChangeDt.Equals(DateTime.MinValue))
             ChangeDt = item.ChangeDt;
 		IsMarked = item.IsMarked;
-		if (!string.IsNullOrEmpty(item.Name))
-            Name = item.Name;
+		if (string.IsNullOrEmpty(item.Name)) throw new ArgumentException(nameof(Name));
+        Name = item.Name;
         if (!string.IsNullOrEmpty(item.Description))
 		    Description = item.Description;
         ParseResult = item.ParseResult.CloneCast();
