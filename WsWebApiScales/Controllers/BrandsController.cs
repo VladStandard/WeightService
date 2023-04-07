@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalization.Models;
+
 namespace WsWebApiScales.Controllers;
 
 /// <summary>
@@ -36,7 +38,8 @@ public sealed class BrandsController : WsControllerBase
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
-                GetContentResult(() => NewResponse1cIsNotFound(version, format, isDebug, SessionFactory), format),
+                GetContentResult(() => NewResponse1cIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", 
+                    format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => WsBrands.NewResponse1cBrands(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBrands,

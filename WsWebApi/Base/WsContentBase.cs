@@ -260,17 +260,17 @@ public class WsContentBase : ControllerBase
     }
 
     /// <summary>
-    /// New response 1C.
+    /// New response 1C not found.
     /// </summary>
-    /// <param name="version"></param>
+    /// <param name="message"></param>
     /// <param name="format"></param>
     /// <param name="isDebug"></param>
     /// <param name="sessionFactory"></param>
     /// <returns></returns>
-    public ContentResult NewResponse1cIsNotFound(string version, string format, bool isDebug, ISessionFactory sessionFactory) =>
+    public ContentResult NewResponse1cIsNotFound(string message, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cModel>(response =>
         {
-            response.Infos.Add(new($"Version {version} {LocaleCore.WebService.IsNotFound}!"));
+            response.Infos.Add(new(message));
         }, format, isDebug, sessionFactory, HttpStatusCode.NotFound);
 
     #endregion

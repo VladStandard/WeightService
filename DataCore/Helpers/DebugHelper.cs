@@ -31,19 +31,19 @@ public class DebugHelper
 
     public WsConfiguration Config =>
 #if DEVELOPALEKSANDROV
-        Configuration.DevelopAleksandrov;
+        WsConfiguration.DevelopAleksandrov;
 #elif DEVELOPMOROZOV
-        Configuration.DevelopMorozov;
+        WsConfiguration.DevelopMorozov;
 #elif DEVELOPVS
-        Configuration.DevelopVS;
+        WsConfiguration.DevelopVS;
 #elif RELEASEALEKSANDROV
-        Configuration.ReleaseAleksandrov;
+        WsConfiguration.ReleaseAleksandrov;
 #elif RELEASEMOROZOV
-        Configuration.ReleaseMorozov;
+        WsConfiguration.ReleaseMorozov;
 #elif RELEASEVS
         WsConfiguration.ReleaseVS;
 #else
-        Configuration.DevelopVS;
+        WsConfiguration.DevelopVS;
 #endif
 
     #endregion

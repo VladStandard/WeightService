@@ -12,10 +12,11 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>10.0</LangVersion>
-    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Kamni\</PublishUrl>
+    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Versions\0.9.140\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -38,7 +39,7 @@
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <BootstrapperComponentsLocation>Absolute</BootstrapperComponentsLocation>
-    <BootstrapperComponentsUrl>\\palych\Install\.NET\</BootstrapperComponentsUrl>
+    <BootstrapperComponentsUrl>\\palych\Install\NET\</BootstrapperComponentsUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x64' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -836,9 +837,7 @@
     <Compile Include="Controls\NavigationUserControl.Designer.cs">
       <DependentUpon>NavigationUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PluUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Controls\PluUserControl.cs" />
     <Compile Include="Controls\PluUserControl.Designer.cs">
       <DependentUpon>PluUserControl.cs</DependentUpon>
     </Compile>
@@ -977,8 +976,10 @@
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>

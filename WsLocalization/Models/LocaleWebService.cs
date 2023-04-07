@@ -18,7 +18,6 @@ public class LocaleWebService
 
     #region Public and private fields, properties, constructor
     
-    public string Name => Lang == Lang.English ? "WebService 1C" : "ВебСервис 1С";
     public string DtStamp => Lang == Lang.English ? "Date time stamp" : "Отметка времени даты";
     public string Dublicate => Lang == Lang.English ? "Dublicate" : "Дубликат";
     public string FieldBrand => Lang == Lang.English ? "Brand" : "Бренд";
@@ -42,7 +41,9 @@ public class LocaleWebService
     public string LogTypeMetaData => Lang == Lang.English ? "Metadata" : "Метаданные";
     public string LogTypeRequest => Lang == Lang.English ? "Request" : "Запрос";
     public string LogTypeResponse => Lang == Lang.English ? "Response" : "Ответ";
+    public string Name => Lang == Lang.English ? "WebService 1C" : "ВебСервис 1С";
     public string Node => Lang == Lang.English ? "node" : "узел";
+    public string Underdevelopment => Lang == Lang.English ? "Under development, contact the developer." : "Находится в разработке, свяжитесь с разработчиком.";
     public string With => Lang == Lang.English ? "with" : "с";
     public string XmlItemBrand => "Brand";
     public string XmlItemCharacteristic => "Characteristic";
