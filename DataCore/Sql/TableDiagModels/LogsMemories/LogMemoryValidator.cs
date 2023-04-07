@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableDiagModels.LogsMemories;
 /// <summary>
 /// Table validation "diag.LOGS_MEMORIES".
 /// </summary>
-public sealed class LogMemoryValidator : SqlTableValidator<LogMemoryModel>
+public sealed class LogMemoryValidator : WsSqlTableValidator<LogMemoryModel>
 {
     /// <summary>
     /// Constructor.

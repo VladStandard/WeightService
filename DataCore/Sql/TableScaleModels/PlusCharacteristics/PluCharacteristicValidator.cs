@@ -3,7 +3,7 @@
 
 namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
 
-public sealed class PluCharacteristicValidator : SqlTableValidator<PluCharacteristicModel>
+public sealed class PluCharacteristicValidator : WsSqlTableValidator<PluCharacteristicModel>
 {
     public PluCharacteristicValidator() : base(true, true)
     {

@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Organizations;
 /// <summary>
 /// Table validation "ORGANIZATIONS".
 /// </summary>
-public sealed class OrganizationValidator : SqlTableValidator<OrganizationModel>
+public sealed class OrganizationValidator : WsSqlTableValidator<OrganizationModel>
 {
     /// <summary>
     /// Constructor.

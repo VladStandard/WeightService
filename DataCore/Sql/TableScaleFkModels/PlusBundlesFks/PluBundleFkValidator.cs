@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 /// <summary>
 /// Table validation "PLUS_BUNDLES_FK".
 /// </summary>
-public sealed class PluBundleFkValidator : SqlTableValidator<PluBundleFkModel>
+public sealed class PluBundleFkValidator : WsSqlTableValidator<PluBundleFkModel>
 {    
     /// <summary>
     /// Constructor.

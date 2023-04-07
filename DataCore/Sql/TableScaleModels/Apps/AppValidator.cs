@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Apps;
 /// <summary>
 /// Table validation "APPS".
 /// </summary>
-public sealed class AppValidator : SqlTableValidator<AppModel>
+public sealed class AppValidator : WsSqlTableValidator<AppModel>
 {
     /// <summary>
     /// Constructor.

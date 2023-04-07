@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Contragents;
 /// <summary>
 /// Table validation "CONTRAGENTS_V2".
 /// </summary>
-public sealed class ContragentValidator : SqlTableValidator<ContragentModel>
+public sealed class ContragentValidator : WsSqlTableValidator<ContragentModel>
 {
     /// <summary>
     /// Constructor.

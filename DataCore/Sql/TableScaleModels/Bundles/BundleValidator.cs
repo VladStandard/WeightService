@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Bundles;
 /// <summary>
 /// Table validation "BUNDLES".
 /// </summary>
-public sealed class BundleValidator : SqlTableValidator<BundleModel>
+public sealed class BundleValidator : WsSqlTableValidator<BundleModel>
 {
     /// <summary>
     /// Constructor.

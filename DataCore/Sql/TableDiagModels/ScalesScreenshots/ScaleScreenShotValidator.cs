@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableDiagModels.ScalesScreenshots;
 /// <summary>
 /// Table validation "diag.SCALES_SCREENSHOTS".
 /// </summary>
-public sealed class ScaleScreenShotValidator : SqlTableValidator<ScaleScreenShotModel>
+public sealed class ScaleScreenShotValidator : WsSqlTableValidator<ScaleScreenShotModel>
 {
     /// <summary>
     /// Constructor.

@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Versions;
 /// <summary>
 /// Table validation "VERSIONS".
 /// </summary>
-public sealed class VersionValidator : SqlTableValidator<VersionModel>
+public sealed class VersionValidator : WsSqlTableValidator<VersionModel>
 {
     /// <summary>
     /// Constructor.

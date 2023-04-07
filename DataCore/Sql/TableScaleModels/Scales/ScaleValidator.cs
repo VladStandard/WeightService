@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.Scales;
 /// <summary>
 /// Table validation "SCALES".
 /// </summary>
-public sealed class ScaleValidator : SqlTableValidator<ScaleModel>
+public sealed class ScaleValidator : WsSqlTableValidator<ScaleModel>
 {
     /// <summary>
     /// Constructor.

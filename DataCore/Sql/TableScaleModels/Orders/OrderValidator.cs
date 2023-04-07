@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Orders;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public sealed class OrderValidator : SqlTableValidator<OrderModel>
+public sealed class OrderValidator : WsSqlTableValidator<OrderModel>
 {
     /// <summary>
     /// Constructor.

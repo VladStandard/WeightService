@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.PlusGroups;
 /// <summary>
 /// Table validation "PLUS_GROUPS".
 /// </summary>
-public sealed class PluGroupValidator : SqlTableValidator<PluGroupModel>
+public sealed class PluGroupValidator : WsSqlTableValidator<PluGroupModel>
 {
     /// <summary>
     /// Constructor.

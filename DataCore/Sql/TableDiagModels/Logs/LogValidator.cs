@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableDiagModels.Logs;
 /// <summary>
 /// Table validation "LOGS".
 /// </summary>
-public sealed class LogValidator : SqlTableValidator<LogModel>
+public sealed class LogValidator : WsSqlTableValidator<LogModel>
 {
     /// <summary>
     /// Constructor.

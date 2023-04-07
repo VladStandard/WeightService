@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 /// <summary>
 /// Table validation "PLUS_BRANDS_FK".
 /// </summary>
-public sealed class PluBrandFkValidator : SqlTableValidator<PluBrandFkModel>
+public sealed class PluBrandFkValidator : WsSqlTableValidator<PluBrandFkModel>
 {
     /// <summary>
     /// Constructor.

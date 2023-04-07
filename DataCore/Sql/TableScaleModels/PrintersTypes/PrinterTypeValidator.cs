@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.PrintersTypes;
 /// <summary>
 /// Table validation "ZebraPrinterType".
 /// </summary>
-public sealed class PrinterTypeValidator : SqlTableValidator<PrinterTypeModel>
+public sealed class PrinterTypeValidator : WsSqlTableValidator<PrinterTypeModel>
 {
     /// <summary>
     /// Constructor.
