@@ -23,7 +23,7 @@ public class RazorFieldConfigModel
         Title = string.Empty;
         LinkUrl = string.Empty;
 		TextAlign = TextAlign.Center;
-        SqlTable = new SqlTableEmptyModel();
+        SqlTable = new WsSqlTableEmptyModel();
     }
 
 	public RazorFieldConfigModel(string name, TextAlign textAlign, string title, string type) : this()
@@ -48,7 +48,7 @@ public class RazorFieldConfigModel
 	}
 
 	public RazorFieldConfigModel(string name, TextAlign textAlign, string title) :
-		this(string.Empty, new SqlTableEmptyModel(), name, textAlign, title, "string") { }
+		this(string.Empty, new WsSqlTableEmptyModel(), name, textAlign, title, "string") { }
 
 	#endregion
 
@@ -56,7 +56,7 @@ public class RazorFieldConfigModel
 
 	public override string ToString() =>
 		(!string.IsNullOrEmpty(LinkUrl) ? $"{LinkUrl}. " : string.Empty) +
-		(SqlTable is not SqlTableEmptyModel ? $"{SqlTable}. " : SqlTable) +
+		(SqlTable is not WsSqlTableEmptyModel ? $"{SqlTable}. " : SqlTable) +
 		(!string.IsNullOrEmpty(Name) ? $"{Name}. " : string.Empty) +
 		(!string.IsNullOrEmpty(Title) ? $"{Title}. " : string.Empty) +
 		$"{TextAlign}. " +

@@ -13,7 +13,7 @@ namespace DataCore.Sql.Tables;
 [Serializable]
 [DebuggerDisplay("{nameof(SqlTableBase1c)} | {Uid1c}")]
 // ReSharper disable once InconsistentNaming
-public class SqlTableBase1c : WsSqlTableBase
+public class WsSqlTableBase1c : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -22,7 +22,7 @@ public class SqlTableBase1c : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlTableBase1c() : base()
+    public WsSqlTableBase1c() : base()
     {
         Uid1c = Guid.Empty;
     }
@@ -30,7 +30,7 @@ public class SqlTableBase1c : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlTableBase1c(WsSqlFieldIdentity identityName) : base(identityName)
+    public WsSqlTableBase1c(WsSqlFieldIdentity identityName) : base(identityName)
     {
         Uid1c = Guid.Empty;
     }
@@ -38,7 +38,7 @@ public class SqlTableBase1c : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected SqlTableBase1c(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlTableBase1c(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Uid1c = info.GetValue(nameof(Uid1c), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
@@ -47,7 +47,7 @@ public class SqlTableBase1c : WsSqlTableBase
 
     #region Public and private methods - override
 
-    public virtual bool Equals(SqlTableBase1c item) =>
+    public virtual bool Equals(WsSqlTableBase1c item) =>
         ReferenceEquals(this, item) || base.Equals(item) && Equals(Uid1c, item.Uid1c);
 
     public override bool Equals(object obj)
@@ -55,7 +55,7 @@ public class SqlTableBase1c : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((SqlTableBase1c)obj);
+        return Equals((WsSqlTableBase1c)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -75,29 +75,29 @@ public class SqlTableBase1c : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public override bool EqualsNew() => Equals(new SqlTableBase1c());
+    public override bool EqualsNew() => Equals(new WsSqlTableBase1c());
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Uid1c, Guid.Empty);
 
     public override object Clone()
     {
-        SqlTableBase1c item = new();
+        WsSqlTableBase1c item = new();
         item.CloneSetup(base.CloneCast());
         item.Uid1c = Uid1c;
         return item;
     }
 
-    public new virtual SqlTableBase1c CloneCast() =>
-        (SqlTableBase1c)Clone();
+    public new virtual WsSqlTableBase1c CloneCast() =>
+        (WsSqlTableBase1c)Clone();
 
-    public virtual void CloneSetup(SqlTableBase1c item)
+    public virtual void CloneSetup(WsSqlTableBase1c item)
     {
         if (item is WsSqlTableBase sqlTable)
             base.CloneSetup(sqlTable);
     }
 
-    public virtual void UpdateProperties(SqlTableBase1c item)
+    public virtual void UpdateProperties(WsSqlTableBase1c item)
     {
         base.UpdateProperties(item);
         Uid1c = item.Uid1c;

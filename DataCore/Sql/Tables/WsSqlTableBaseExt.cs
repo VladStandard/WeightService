@@ -8,7 +8,7 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// DB table model.
 /// </summary>
-public static class SqlTableBaseExt
+public static class WsSqlTableBaseExt
 {
 	#region Public and private methods
 

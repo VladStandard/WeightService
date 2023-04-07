@@ -298,7 +298,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (!isCheckGroup)
@@ -339,7 +339,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -369,7 +369,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<BrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -399,7 +399,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<ClipModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -429,7 +429,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<BoxModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -459,7 +459,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -489,7 +489,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<PluCharacteristicModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -932,7 +932,7 @@ public class WsContentBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdateItem1cDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : SqlTableBase1c
+    internal bool UpdateItem1cDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : WsSqlTableBase1c
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -953,7 +953,7 @@ public class WsContentBase : ControllerBase
     /// <param name="response"></param>
     /// <param name="item"></param>
     /// <param name="isCounter"></param>
-    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter) where T : SqlTableBase1c
+    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter) where T : WsSqlTableBase1c
         => SaveItemDb(response, item, isCounter, item.Uid1c);
 
     /// <summary>

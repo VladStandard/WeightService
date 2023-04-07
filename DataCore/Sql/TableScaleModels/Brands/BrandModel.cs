@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Brands;
 [Serializable]
 [XmlRoot("Brand", Namespace = "", IsNullable = false)]
 [DebuggerDisplay("{nameof(BrandModel)} | {Code} | {Name} | {Uid1c} ")]
-public class BrandModel : SqlTableBase1c
+public class BrandModel : WsSqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
@@ -99,7 +99,7 @@ public class BrandModel : SqlTableBase1c
 
     public new virtual BrandModel CloneCast() => (BrandModel)Clone();
 
-    public override void UpdateProperties(SqlTableBase1c item)
+    public override void UpdateProperties(WsSqlTableBase1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_brands/.

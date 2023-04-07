@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.PlusGroups;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluGroupModel)} | {IsMarked} | {IsGroup} | {Code} | {Name} | {Uid1c} ")]
-public class PluGroupModel : SqlTableBase1c
+public class PluGroupModel : WsSqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
@@ -99,7 +99,7 @@ public class PluGroupModel : SqlTableBase1c
         Code = LocaleCore.Sql.SqlItemFieldCode;
     }
 
-    public override void UpdateProperties(SqlTableBase1c item)
+    public override void UpdateProperties(WsSqlTableBase1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures_groups/.

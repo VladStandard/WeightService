@@ -10,9 +10,9 @@ public sealed partial class RazorItemTableBody: LayoutComponentBase
     #region Public and private fields, properties, constructor
     [Parameter] public WsSqlTableBase SqlItem { get; set; }
     
-    private bool IsSqlItem1C => SqlItem is SqlTableBase1c;
+    private bool IsSqlItem1C => SqlItem is WsSqlTableBase1c;
     
-    private string Guid1C => IsSqlItem1C ? $"{((SqlTableBase1c?)SqlItem)?.Uid1c}" : $"{Guid.Empty}";
+    private string Guid1C => IsSqlItem1C ? $"{((WsSqlTableBase1c?)SqlItem)?.Uid1c}" : $"{Guid.Empty}";
         
     private string IdentityName => 
         SqlItem.Identity.Name switch
