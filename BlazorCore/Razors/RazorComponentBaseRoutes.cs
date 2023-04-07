@@ -105,7 +105,7 @@ public partial class RazorComponentBase
             PluLabelModel => LocaleCore.DeviceControl.RouteSectionPlusLabels,
             PluModel => LocaleCore.DeviceControl.RouteSectionPlus,
             PluNestingFkModel => LocaleCore.DeviceControl.RouteSectionPlusNestingFks,
-            PluScaleModel => LocaleCore.DeviceControl.RouteSectionScales,
+            PluScaleModel => LocaleCore.DeviceControl.RouteSectionPlusScales,
             PluWeighingModel => LocaleCore.DeviceControl.RouteSectionPlusWeighings,
             PrinterModel => LocaleCore.DeviceControl.RouteSectionPrinters,
             PrinterResourceFkModel => LocaleCore.DeviceControl.RouteSectionPrinterResources,

@@ -11,78 +11,51 @@
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
-  <tr>
-    <td>@LocaleCore.Table.Line</td>
-    <td>
-      @if (SqlItemCast.Device is not null)
-      {
-        <RadzenTextBox
-          Style="width: 100%; text-align: left; background-color: lightgray;"
-          ReadOnly=true @bind-Value=@DataAccess.GetItemScaleNotNullable(SqlItemCast.Device).Description/>
-      }
-    </td>
-    <td>@LocaleCore.Table.Host</td>
-    <td>
-      @if (SqlItemCast.Device is not null)
-      {
-        <RadzenTextBox
-          Style="width: 100%; text-align: left; background-color: lightgray;"
-          ReadOnly=true @bind-Value=@SqlItemCast.Device.Name/>
-      }
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.App</td>
-    <td>
-      @if (SqlItemCast.App is not null)
-      {
-        <RadzenTextBox
-          Style="width: 100%; text-align: center; background-color: lightgray;"
-          ReadOnly=true @bind-Value=@SqlItemCast.App.Name/>
-      }
-    </td>
-    <td>@LocaleCore.Table.Version</td>
-    <td>
-      <RadzenTextBox
-        Style="width: 100%; text-align: center; background-color: lightgray;"
-        ReadOnly="true" @bind-Value="@SqlItemCast.Version"/>
-    </td>
-  </tr>
+  @if (SqlItemCast.Device is not null)
+  { 
+    <tr>
+      <td>@LocaleCore.Table.Line</td>
+      <td>@DataAccess.GetItemScaleNotNullable(SqlItemCast.Device).Description</td>
+      <td>@LocaleCore.Table.Host</td>
+      <td>@SqlItemCast.Device.Name</td>
+    </tr>
+  }
+  @if (SqlItemCast.App is not null)
+  {
+      <tr>
+        <td>@LocaleCore.Table.App</td>
+        <td>@SqlItemCast.App.Name</td>
+        <td>@LocaleCore.Table.Version</td>
+        <td>@SqlItemCast.Version</td>
+      </tr>
+  }
   <tr>
     <td>@LocaleCore.Table.File</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
-                     ReadOnly="true" @bind-Value="@SqlItemCast.File"/>
-    </td>
+    <td>@SqlItemCast.File</td>
     <td>@LocaleCore.Table.Row</td>
-    <td>
-      <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
-                     ReadOnly="true" TValue="int" @bind-Value="@SqlItemCast.Line"/>
-    </td>
+    <td>@SqlItemCast.Line</td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.Member</td>
-    <td >
-      <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
-                     ReadOnly="true" @bind-Value="@SqlItemCast.Member"/>
-    </td>
-    <td>@LocaleCore.Table.LogType</td>
-    <td >
-      @if (SqlItemCast.LogType is not null)
-      {
-        <RadzenTextBox
-          Style="width: 100%; text-align: center; background-color: lightgray;"
-          ReadOnly=true @bind-Value=@SqlItemCast.LogType.Icon/>
-      }
-    </td>
+    <td>@SqlItemCast.Member</td>
+    @if (SqlItemCast.LogType is not null)
+    { 
+      <td>@LocaleCore.Table.LogType</td>
+      <td>@SqlItemCast.LogType.Icon</td>
+    }
+    else
+    {
+      <td />
+      <td />
+    }
   </tr>
-  <tr >
+  <tr>
     <td>@LocaleCore.Table.Message</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px; background-color: lightgray; "
         Rows="12" ReadOnly="true"
-        @bind-Value="@(SqlItemCast.Message)"/>
+        @bind-Value="@SqlItemCast.Message"/>
     </td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>

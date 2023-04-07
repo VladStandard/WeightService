@@ -55,15 +55,15 @@
       <td><RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@SqlItemCast.IsShipping"/></td>
     </tr>
     <tr>
-          <td>
-            <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
-          </td>
-          <td><RzDropDownLocal @bind-Value="@SqlItemCast.WorkShop" Data="@DataContext.WorkShops" TextProperty="Name" /></td>
-          <td>
-            <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
-          </td>
-          <td>@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldEmpty)</td>
-        </tr>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
+      </td>
+      <td><RzDropDownLocal @bind-Value="@SqlItemCast.WorkShop" Data="@DataContext.WorkShops" TextProperty="Name" /></td>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
+      </td>
+      <td>@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldEmpty)</td>
+    </tr>
     <tr>
       <td>@LocaleCore.Table.DeviceReceiveTimeout</td>
       <td><RzNumericLocal Min="0" @bind-Value="@SqlItemCast.DeviceReceiveTimeout" /></td>

@@ -1,10 +1,8 @@
-﻿@page "/section/plu_scales/new"
-@page "/section/plu_scales/{IdentityUidStr}"
+﻿@page "/section/plus_scales/new"
+@page "/section/plus_scales/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<PluScaleModel>
 @using DataCore.Sql.TableScaleModels.PlusScales
-@using DataCore.Sql.TableScaleModels.Scales
-@using DataCore.Sql.TableScaleModels.Plus
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
 
@@ -16,36 +14,15 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.IsActive</td>
-    <td>
-      <RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsActive"/>
-    </td>
+    <td><RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsActive"/></td>
+    <td/>
+    <td/>
   </tr>
   <tr>
-    <td>
-      <RadzenLink
-        Style="width: 100%; margin-left: 0;"
-        Path="@GetRouteItemPath(SqlItemCast.Scale)"
-        Text="@LocaleCore.Table.Line"/>
-    </td>
-    <td>
-      <MudSelectLocal ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Scale">
-        @foreach (ScaleModel item in DataContext.Scales)
-        {
-          <MudSelectItem Value=@item>@item.Description</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
-    <td>
-      <RadzenLink Style="width: 100%; margin-left: 0;" Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
-    </td>
-    <td>
-      <MudSelectLocal ReadOnly="true" Disabled="true" @bind-Value="@SqlItemCast.Plu">
-        @foreach (PluModel item in DataContext.Plus)
-        {
-          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
+    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/></td>
+    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Scale" Data="@DataContext.Scales" TextProperty="Description"/></td>
+    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/></td>
+    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Plu" Data="@DataContext.Plus" TextProperty="Name"/></td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
