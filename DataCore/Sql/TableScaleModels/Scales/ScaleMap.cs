@@ -15,8 +15,8 @@ public sealed class ScaleMap : ClassMap<ScaleModel>
     /// </summary>
     public ScaleMap()
     {
-        Schema(WsSqlSchemaNamesUtils.DbScales);
-        Table(WsSqlTableNamesUtils.Scales);
+        Schema(WsSqlSchemasUtils.DbScales);
+        Table(WsSqlTablesUtils.Scales);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();

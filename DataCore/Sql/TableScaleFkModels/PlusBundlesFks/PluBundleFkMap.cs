@@ -15,8 +15,8 @@ public sealed class PluBundleFkMap : ClassMap<PluBundleFkModel>
     /// </summary>
     public PluBundleFkMap()
     {
-        Schema(WsSqlSchemaNamesUtils.DbScales);
-        Table(WsSqlTableNamesUtils.PlusBundlesFks);
+        Schema(WsSqlSchemasUtils.DbScales);
+        Table(WsSqlTablesUtils.PlusBundlesFks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

@@ -15,8 +15,8 @@ public sealed class WorkShopMap : ClassMap<WorkShopModel>
     /// </summary>
     public WorkShopMap()
     {
-        Schema(WsSqlSchemaNamesUtils.DbScales);
-        Table(WsSqlTableNamesUtils.WorkShops);
+        Schema(WsSqlSchemasUtils.DbScales);
+        Table(WsSqlTablesUtils.WorkShops);
         LazyLoad();
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Nullable();

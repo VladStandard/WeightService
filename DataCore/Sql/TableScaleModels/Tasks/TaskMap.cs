@@ -15,8 +15,8 @@ public sealed class TaskMap : ClassMap<TaskModel>
     /// </summary>
     public TaskMap()
     {
-        Schema(WsSqlSchemaNamesUtils.DbScales);
-        Table(WsSqlTableNamesUtils.Tasks);
+        Schema(WsSqlSchemasUtils.DbScales);
+        Table(WsSqlTablesUtils.Tasks);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.Enabled).CustomSqlType("BIT").Column("ENABLED").Not.Nullable().Default("0");

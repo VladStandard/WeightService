@@ -13,8 +13,8 @@ public sealed class BoxMap : ClassMap<BoxModel>
 { 
     public BoxMap()
     {
-        Schema(WsSqlSchemaNamesUtils.DbScales);
-        Table(WsSqlTableNamesUtils.Boxes);
+        Schema(WsSqlSchemasUtils.DbScales);
+        Table(WsSqlTablesUtils.Boxes);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

@@ -15,8 +15,8 @@ public sealed class PluWeighingMap : ClassMap<PluWeighingModel>
     /// </summary>
     public PluWeighingMap()
     {
-        Schema(WsSqlSchemaNamesUtils.DbScales);
-        Table(WsSqlTableNamesUtils.PlusWeighings);
+        Schema(WsSqlSchemasUtils.DbScales);
+        Table(WsSqlTablesUtils.PlusWeighings);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

@@ -15,8 +15,8 @@ public sealed class BrandMap : ClassMap<BrandModel>
     /// </summary>
     public BrandMap()
     {
-        Schema(WsSqlSchemaNamesUtils.DbScales);
-        Table(WsSqlTableNamesUtils.Brands);
+        Schema(WsSqlSchemasUtils.DbScales);
+        Table(WsSqlTablesUtils.Brands);
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
