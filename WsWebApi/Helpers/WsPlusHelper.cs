@@ -339,7 +339,9 @@ public sealed class WsPlusHelper : WsContentBase
 
             // Find by Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
             PluBrandFkModel? pluBrandFkDb = pluBrandsFksDb.Find(item => Equals(item.Plu.Uid1c, pluBrandFk.Plu.Uid1c));
+            // FIX HERE!!!!
             if (UpdateItemDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
+            //if (UpdateBrandDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluBrandFk, false, pluXml.Uid1c);

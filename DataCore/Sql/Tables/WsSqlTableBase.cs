@@ -173,14 +173,16 @@ public class WsSqlTableBase : SerializeBase, ICloneable
         Description = LocaleCore.Sql.SqlItemFieldDescription;
     }
 
-    public virtual void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlTableBase item) => UpdateProperties(item, false);
+
+    public virtual void UpdateProperties(WsSqlTableBase item, bool isSkipName)
     {
         if (!item.CreateDt.Equals(DateTime.MinValue))
             CreateDt = item.CreateDt;
         if (!item.ChangeDt.Equals(DateTime.MinValue))
             ChangeDt = item.ChangeDt;
         IsMarked = item.IsMarked;
-        if (string.IsNullOrEmpty(item.Name)) throw new ArgumentException(nameof(Name));
+        if (!isSkipName && string.IsNullOrEmpty(item.Name)) throw new ArgumentException(nameof(Name));
         Name = item.Name;
         if (!string.IsNullOrEmpty(item.Description))
             Description = item.Description;
