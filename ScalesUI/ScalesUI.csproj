@@ -32,7 +32,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.9.155.0</ApplicationVersion>
+    <ApplicationVersion>0.9.160.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -836,9 +836,7 @@
     <Compile Include="Controls\NavigationUserControl.Designer.cs">
       <DependentUpon>NavigationUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PluUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Controls\PluUserControl.cs" />
     <Compile Include="Controls\PluUserControl.Designer.cs">
       <DependentUpon>PluUserControl.cs</DependentUpon>
     </Compile>
