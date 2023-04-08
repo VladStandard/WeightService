@@ -18,6 +18,10 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 - ✓ develop -> main:    `git switch main && git merge develop && git push all main && git switch develop && git bra && git st`
 - x rollback merge:     `git merge --quit && git reset . && git checkout . && git clean -fd && cls && git bra && git st`
 
+## Back version
+Go back: `git co . && git co 79ad47adc && git bra`
+Retrurn `git co . && git switch develop`
+
 ## Rollback commits
 git reset HEAD~X
 make changes
