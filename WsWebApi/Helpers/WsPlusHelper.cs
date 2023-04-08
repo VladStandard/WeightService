@@ -118,23 +118,29 @@ public sealed class WsPlusHelper : WsContentBase
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsGroup));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.FullName));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Description));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsCheckWeight));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "MeasurementType");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ShelfLife");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PluNumber");
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BrandGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BoxTypeGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BoxTypeName");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BoxTypeWeight");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PackageTypeGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PackageTypeName");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PackageTypeWeight");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.FullName));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.CategoryGuid));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BrandGuid));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.MeasurementType));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.GroupGuid));
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.AttachmentsCount));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeGuid));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeName));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeWeight));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.PackageTypeGuid));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.PackageTypeName));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.PackageTypeWeight));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ClipTypeGuid));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ClipTypeName));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ClipTypeWeight));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PluNumber");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Description));
+            //SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsCheckWeight));
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ShelfLife");
+            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Gtin));
         });
 
     private void AddResponse1cPlus(WsResponse1cShortModel response, List<PluModel> plusDb, PluModel pluXml)
@@ -340,8 +346,8 @@ public sealed class WsPlusHelper : WsContentBase
             // Find by Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
             PluBrandFkModel? pluBrandFkDb = pluBrandsFksDb.Find(item => Equals(item.Plu.Uid1c, pluBrandFk.Plu.Uid1c));
             // FIX HERE!!!!
-            if (UpdateItemDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
-            //if (UpdateBrandDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
+            //if (UpdateItemDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
+            if (UpdatePluBrandFkDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluBrandFk, false, pluXml.Uid1c);

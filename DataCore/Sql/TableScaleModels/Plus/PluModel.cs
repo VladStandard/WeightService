@@ -309,9 +309,9 @@ public class PluModel : WsSqlTableBase1c
         Number = plu.Number;
         if (string.IsNullOrEmpty(plu.Code)) throw new ArgumentException(nameof(Code));
         Code = plu.Code;
-        if (string.IsNullOrEmpty(plu.FullName)) throw new ArgumentException(nameof(FullName));
+        if (!IsGroup && string.IsNullOrEmpty(plu.FullName)) throw new ArgumentException(nameof(FullName));
         FullName = plu.FullName;
-        if (plu.ShelfLifeDays <= 0) throw new ArgumentException(nameof(ShelfLifeDays));
+        if (!IsGroup && plu.ShelfLifeDays <= 0) throw new ArgumentException(nameof(ShelfLifeDays));
         ShelfLifeDays = plu.ShelfLifeDays;
         IsCheckWeight = plu.IsCheckWeight;
         

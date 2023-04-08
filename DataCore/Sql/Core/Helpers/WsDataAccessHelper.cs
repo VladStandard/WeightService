@@ -1143,6 +1143,7 @@ public class WsDataAccessHelper
             case PluFkModel pluFk:
                 pluFk.Plu = GetItemNotNullable<PluModel>(pluFk.Plu.IdentityValueUid);
                 pluFk.Parent = GetItemNotNullable<PluModel>(pluFk.Parent.IdentityValueUid);
+                pluFk.Category = GetItemNotNullable<PluModel>(pluFk.Category?.IdentityValueUid);
                 break;
             case PluBrandFkModel pluBrandFk:
                 pluBrandFk.Plu = GetItemNotNullable<PluModel>(pluBrandFk.Plu.IdentityValueUid);

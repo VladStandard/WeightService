@@ -3,6 +3,7 @@
 // ReSharper disable InconsistentNaming
 
 using DataCore.Serialization.Models;
+using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 
 namespace WsWebApi.Base;
 
@@ -708,15 +709,6 @@ public class WsContentBase : ControllerBase
             case "BOXTYPEWEIGHT":
                 item.BoxTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
                 break;
-            case "CLIPTYPEGUID":
-                item.ClipTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
-                break;
-            case "CLIPTYPENAME":
-                item.ClipTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
-                break;
-            case "CLIPTYPEWEIGHT":
-                item.ClipTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
-                break;
             case "PACKAGETYPEGUID":
                 item.PackageTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
@@ -726,8 +718,20 @@ public class WsContentBase : ControllerBase
             case "PACKAGETYPEWEIGHT":
                 item.PackageTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
                 break;
+            case "CLIPTYPEGUID":
+                item.ClipTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+            case "CLIPTYPENAME":
+                item.ClipTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                break;
+            case "CLIPTYPEWEIGHT":
+                item.ClipTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
+                break;
             case "ATTACHMENTSCOUNT":
                 item.AttachmentsCount = GetXmlAttributeShort(xmlNode, item, xmlPropertyName);
+                break;
+            case "GTIN":
+                item.Gtin = GetXmlAttributeString(xmlNode, item, xmlPropertyName, false);
                 break;
         }
     }
@@ -767,7 +771,8 @@ public class WsContentBase : ControllerBase
         }
     }
 
-    internal string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName) where T : WsSqlTableBase
+    internal string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName,
+        bool isAttributeMustExists = true) where T : WsSqlTableBase
     {
         if (xmlNode?.Attributes is null) return string.Empty;
         foreach (XmlAttribute? attribute in xmlNode.Attributes)
@@ -778,7 +783,8 @@ public class WsContentBase : ControllerBase
                     return attribute.Value;
             }
         }
-        SetItemParseResultException(item, attributeName);
+        if (isAttributeMustExists)
+            SetItemParseResultException(item, attributeName);
         return string.Empty;
     }
 
@@ -977,7 +983,10 @@ public class WsContentBase : ControllerBase
         return dbSave.IsOk;
     }
 
-    internal bool UpdateBrandDb(WsResponse1cShortModel response, BrandModel brandXml, BrandModel? brandDb, bool isCounter)
+    internal bool UpdateBrandDb(WsResponse1cShortModel response, BrandModel brandXml, BrandModel? brandDb,
+        bool isCounter) => UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, isCounter);
+
+    internal bool UpdateBrandDb(WsResponse1cShortModel response, Guid uid1c, BrandModel brandXml, BrandModel? brandDb, bool isCounter)
     {
         if (brandDb is null || brandDb.IsNew) return false;
         brandDb.UpdateProperties(brandXml);
@@ -985,14 +994,19 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(brandXml.Uid1c));
+                response.Successes.Add(new(uid1c));
         }
         else
-            AddResponse1cException(response, brandXml.Uid1c, dbUpdate.Exception);
+            AddResponse1cException(response, uid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
-    internal bool UpdatePluGroupDb(WsResponse1cShortModel response, PluGroupModel pluGroupXml, PluGroupModel? pluGroupDb, bool isCounter)
+    internal bool UpdatePluGroupDb(WsResponse1cShortModel response, PluGroupModel pluGroupXml,
+        PluGroupModel? pluGroupDb, bool isCounter) =>
+        UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, isCounter);
+
+    internal bool UpdatePluGroupDb(WsResponse1cShortModel response, Guid uid1c, PluGroupModel pluGroupXml, 
+        PluGroupModel? pluGroupDb, bool isCounter)
     {
         if (pluGroupDb is null || pluGroupDb.IsNew) return false;
         pluGroupDb.UpdateProperties(pluGroupXml);
@@ -1000,10 +1014,26 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(pluGroupXml.Uid1c));
+                response.Successes.Add(new(uid1c));
         }
         else
-            AddResponse1cException(response, pluGroupXml.Uid1c, dbUpdate.Exception);
+            AddResponse1cException(response, uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
+
+    internal bool UpdatePluBrandFkDb(WsResponse1cShortModel response, Guid uid1c, PluBrandFkModel pluBrandXml,
+        PluBrandFkModel? pluBrandDb, bool isCounter)
+    {
+        if (pluBrandDb is null || pluBrandDb.IsNew) return false;
+        pluBrandDb.UpdateProperties(pluBrandXml);
+        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(pluBrandDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(uid1c));
+        }
+        else
+            AddResponse1cException(response, uid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 

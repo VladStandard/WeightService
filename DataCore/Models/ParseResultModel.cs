@@ -50,11 +50,13 @@ public class ParseResultModel : SerializeBase, ICloneable
     /// To string.
     /// </summary>
     /// <returns></returns>
-    public override string ToString() =>
-        $"{nameof(Status)}: {Status}. " +
-        $"{nameof(Message)}: {Message}. " +
-        $"{nameof(Exception)}: {Exception}. " +
-        $"{nameof(InnerException)}: {InnerException}. ";
+    public override string ToString() => string.IsNullOrEmpty(Exception) 
+        ? $"{nameof(Status)}: {Status}. {nameof(Message)}: {Message}"
+        : string.IsNullOrEmpty($"{nameof(InnerException)}: {InnerException}. ") 
+            ? $"{nameof(Status)}: {Status}. {nameof(Message)}: {Message}. " +
+              $"{nameof(Exception)}: {Exception}."
+            : $"{nameof(Status)}: {Status}. {nameof(Message)}: {Message}. " +
+              $"{nameof(Exception)}: {Exception}. {nameof(InnerException)}: {InnerException}. ";
 
     public override bool Equals(object obj)
     {

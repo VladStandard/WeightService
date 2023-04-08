@@ -101,7 +101,7 @@ public class PluBrandFkModel : WsSqlTableBase
 
     public override void UpdateProperties(WsSqlTableBase item)
     {
-        base.UpdateProperties(item);
+        base.UpdateProperties(item, true);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluBrandFkModel pluBundleFk) return;
         Plu = pluBundleFk.Plu;
