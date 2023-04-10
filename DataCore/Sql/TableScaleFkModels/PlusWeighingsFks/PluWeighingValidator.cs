@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
 /// <summary>
 /// Table validation "PLUS_WEIGHINGS".
 /// </summary>
-public sealed class PluWeighingValidator : SqlTableValidator<PluWeighingModel>
+public sealed class PluWeighingValidator : WsSqlTableValidator<PluWeighingModel>
 {
     /// <summary>
     /// Constructor.

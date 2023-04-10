@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Templates;
 /// <summary>
 /// Table validation "Templates".
 /// </summary>
-public sealed class TemplateValidator : SqlTableValidator<TemplateModel>
+public sealed class TemplateValidator : WsSqlTableValidator<TemplateModel>
 {
     /// <summary>
     /// Constructor.

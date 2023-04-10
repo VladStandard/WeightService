@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleModels.BarCodes;
                  "{nameof(ValueTop)} = {ValueTop} | {nameof(ValueRight)} = {ValueRight} | " +
                  "{nameof(ValueBottom)} = {ValueBottom} | " +
                  "{nameof(PluLabel)} = {PluLabel}")]
-public class BarCodeModel : SqlTableBase
+public class BarCodeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

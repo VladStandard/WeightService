@@ -22,12 +22,12 @@ public class ChartBase
 	{
 		ChartCountModel[] result = Array.Empty<ChartCountModel>();
 		SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            new SqlFieldOrderModel { Name = nameof(SqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Asc }, false, false);
+            new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Asc }, false, false);
 		ContragentModel[]? contragents = BlazorAppSettings.DataAccess.GetArrayNullable<ContragentModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)
 		{
-			case nameof(SqlTableBase.CreateDt):
+			case nameof(WsSqlTableBase.CreateDt):
 				List<ChartCountModel> entitiesDateCreated = new();
 				if (contragents?.Any() == true)
 				{
@@ -46,7 +46,7 @@ public class ChartBase
 					i++;
 				}
 				break;
-			case nameof(SqlTableBase.ChangeDt):
+			case nameof(WsSqlTableBase.ChangeDt):
 				List<ChartCountModel> entitiesDateModified = new();
 				if (contragents?.Any() == true)
 				{

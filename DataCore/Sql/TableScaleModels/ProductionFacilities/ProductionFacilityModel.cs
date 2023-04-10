@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.ProductionFacilities;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(ProductionFacilityModel)}")]
-public class ProductionFacilityModel : SqlTableBase
+public class ProductionFacilityModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

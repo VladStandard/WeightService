@@ -16,7 +16,7 @@ public static class WsSqlCrudConfigUtils
     public static SqlCrudConfigModel GetCrudConfigComboBox() =>
         new(new List<SqlFieldFilterModel>(), false, false, true, true, false);
 
-    public static SqlCrudConfigModel GetCrudConfig(SqlTableBase? itemFilter, string className, List<SqlFieldOrderModel> orders,
+    public static SqlCrudConfigModel GetCrudConfig(WsSqlTableBase? itemFilter, string className, List<SqlFieldOrderModel> orders,
         bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) =>
         GetCrudConfig(SqlCrudConfigModel.GetFilters(className, itemFilter), orders, isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder);
 
@@ -24,7 +24,7 @@ public static class WsSqlCrudConfigUtils
         bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) =>
         GetCrudConfig(SqlCrudConfigModel.GetFilters(className, value), orders, isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder);
 
-    public static SqlCrudConfigModel GetCrudConfig(SqlTableBase? itemFilter, string className,
+    public static SqlCrudConfigModel GetCrudConfig(WsSqlTableBase? itemFilter, string className,
         bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) =>
         GetCrudConfig(itemFilter, className, new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder);
 

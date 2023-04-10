@@ -402,10 +402,10 @@ public sealed class UserSessionHelper : BaseViewModel
 
         if (PluScale.Plu.IsCheckWeight && !PluginMassa.IsStable)
         {
-            WpfUtils.ShowNewOperationControl(owner,
-                LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
-                true, LogType.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
+            //WpfUtils.ShowNewOperationControl(owner,
+            //    LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
+            //    true, LogType.Warning,
+            //    new() { ButtonCancelVisibility = Visibility.Visible });
             return false;
         }
         return true;

@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.PlusStorageMethods;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PlusStorageMethodModel)} | {IsMarked} | {Name} | {MinTemp} | {MaxTemp}")]
-public class PluStorageMethodModel : SqlTableBase
+public class PluStorageMethodModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

@@ -13,7 +13,7 @@ namespace DataCore.Sql.TableDiagModels.Logs;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogModel)}")]
-public class LogModel : SqlTableBase
+public class LogModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

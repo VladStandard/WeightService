@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.ProductionFacilities;
 /// <summary>
 /// Table validation "ProductionFacility".
 /// </summary>
-public sealed class ProductionFacilityValidator : SqlTableValidator<ProductionFacilityModel>
+public sealed class ProductionFacilityValidator : WsSqlTableValidator<ProductionFacilityModel>
 {
     /// <summary>
     /// Constructor.

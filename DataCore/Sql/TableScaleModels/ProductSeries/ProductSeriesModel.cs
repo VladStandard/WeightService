@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.ProductSeries;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(ProductSeriesModel)}")]
-public class ProductSeriesModel : SqlTableBase
+public class ProductSeriesModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

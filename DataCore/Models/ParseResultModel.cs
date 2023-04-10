@@ -7,7 +7,7 @@ namespace DataCore.Models;
 
 [XmlRoot("ParseResult", Namespace = "", IsNullable = false)]
 [Serializable]
-public class ParseResultModel : SerializeBase, ICloneable // SqlTableBase, ISqlDbBase
+public class ParseResultModel : SerializeBase, ICloneable
 {
     #region Public and private fields, properties, constructor
 
@@ -50,11 +50,13 @@ public class ParseResultModel : SerializeBase, ICloneable // SqlTableBase, ISqlD
     /// To string.
     /// </summary>
     /// <returns></returns>
-    public override string ToString() =>
-        $"{nameof(Status)}: {Status}. " +
-        $"{nameof(Message)}: {Message}. " +
-        $"{nameof(Exception)}: {Exception}. " +
-        $"{nameof(InnerException)}: {InnerException}. ";
+    public override string ToString() => string.IsNullOrEmpty(Exception) 
+        ? $"{nameof(Status)}: {Status}. {nameof(Message)}: {Message}"
+        : string.IsNullOrEmpty($"{nameof(InnerException)}: {InnerException}. ") 
+            ? $"{nameof(Status)}: {Status}. {nameof(Message)}: {Message}. " +
+              $"{nameof(Exception)}: {Exception}."
+            : $"{nameof(Status)}: {Status}. {nameof(Message)}: {Message}. " +
+              $"{nameof(Exception)}: {Exception}. {nameof(InnerException)}: {InnerException}. ";
 
     public override bool Equals(object obj)
     {

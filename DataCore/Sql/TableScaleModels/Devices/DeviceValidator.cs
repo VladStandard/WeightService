@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Devices;
 /// <summary>
 /// Table validation "DEVICES".
 /// </summary>
-public sealed class DeviceValidator : SqlTableValidator<DeviceModel>
+public sealed class DeviceValidator : WsSqlTableValidator<DeviceModel>
 {
     /// <summary>
     /// Constructor.

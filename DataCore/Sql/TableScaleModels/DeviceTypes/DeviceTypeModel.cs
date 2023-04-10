@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.DeviceTypes;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(DeviceTypeModel)}")]
-public class DeviceTypeModel : SqlTableBase
+public class DeviceTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

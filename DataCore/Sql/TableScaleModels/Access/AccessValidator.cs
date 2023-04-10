@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels.Access;
 /// <summary>
 /// Table validation "ACCESS".
 /// </summary>
-public sealed class AccessValidator : SqlTableValidator<AccessModel>
+public sealed class AccessValidator : WsSqlTableValidator<AccessModel>
 {
     /// <summary>
     /// Constructor.

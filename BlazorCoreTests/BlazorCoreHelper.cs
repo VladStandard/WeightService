@@ -10,7 +10,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Threading;
-using SqlTableBase = DataCore.Sql.Tables.SqlTableBase;
+using WsSqlTableBase = DataCore.Sql.Tables.WsSqlTableBase;
 
 namespace BlazorCoreTests;
 
@@ -44,7 +44,7 @@ public class BlazorCoreHelper
 		};
 	}
 
-	public void Model_GetRoutePathItem_IsNotEmpty<T>() where T : SqlTableBase, new()
+	public void Model_GetRoutePathItem_IsNotEmpty<T>() where T : WsSqlTableBase, new()
 	{
 		// Arrange.
 		RazorComponentBase razorComponent = new();
@@ -56,7 +56,7 @@ public class BlazorCoreHelper
 		Assert.IsNotEmpty(urlItem);
 	}
 
-	public void Model_GetRoutePathSection_IsNotEmpty<T>() where T : SqlTableBase, new()
+	public void Model_GetRoutePathSection_IsNotEmpty<T>() where T : WsSqlTableBase, new()
 	{
 		// Arrange.
 		RazorComponentBase razorComponent = new();

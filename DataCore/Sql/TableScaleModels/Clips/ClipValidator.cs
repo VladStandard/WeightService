@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels.Clips;
 /// <summary>
 /// Table validation "CLIPS".
 /// </summary>
-public sealed class ClipValidator : SqlTableValidator<ClipModel>
+public sealed class ClipValidator : WsSqlTableValidator<ClipModel>
 {
     /// <summary>
     /// Constructor.

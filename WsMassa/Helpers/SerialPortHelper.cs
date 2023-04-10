@@ -1,6 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Runtime.CompilerServices;
 using WsMassa.Utils;
 
 namespace WsMassa.Helpers;
@@ -13,7 +14,7 @@ public class SerialPortHelper
     private Action<object, SerialPortEventArgs> OpenCallback { get; }
     private Action<object, SerialPortEventArgs> CloseCallback { get; }
     private Action<object, SerialPortEventArgs> ResponseCallback { get; }
-	private Action<Exception> ExceptionAction { get; }
+	private Action<Exception, string, int, string> ExceptionAction { get; }
     private readonly object _locker = new();
 	public UsbAdapterStatus AdapterStatus { get; private set; }
 	public Exception Exception { get; private set; }
@@ -25,11 +26,12 @@ public class SerialPortHelper
         OpenCallback = (_, _) => { };
         CloseCallback = (_, _) => { };
         ResponseCallback = (_, _) => { };
-        ExceptionAction = (_) => { };
+        ExceptionAction = (_, _, _, _) => { };
     }
 
     public SerialPortHelper(Action<object, SerialPortEventArgs> openCallback, Action<object, SerialPortEventArgs> closeCallback,
-        Action<object, SerialPortEventArgs> responseCallback, Action<Exception> exceptionAction) : this()
+        Action<object, SerialPortEventArgs> responseCallback, 
+        Action<Exception, string, int, string> exceptionAction) : this()
     {
 		OpenCallback = openCallback;
 		CloseCallback = closeCallback;
@@ -122,38 +124,43 @@ public class SerialPortHelper
 		}
 	}
 
-	private void DataReceived(object sender, SerialDataReceivedEventArgs e)
-	{
-		lock (_locker)
-		{
-			if (!SerialPort.IsOpen || SerialPort.BytesToRead <= 0)
-				return;
+    private void DataReceivedCore(
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        if (!SerialPort.IsOpen || SerialPort.BytesToRead <= 0)
+            return;
 
-			try
-			{
-				int len = SerialPort.BytesToRead;
-				byte[] data = new byte[len];
+        try
+        {
+            int len = SerialPort.BytesToRead;
+            byte[] data = new byte[len];
 
-				SerialPort.Read(data, 0, len);
+            SerialPort.Read(data, 0, len);
 
-				SerialPortEventArgs args = new()
-				{
-					ReceivedBytes = data
-				};
-				AdapterStatus = data.All(x => x == 0x00) ? UsbAdapterStatus.IsDataNotExists : UsbAdapterStatus.IsDataExists;
-				ResponseCallback?.Invoke(this, args);
-			}
-			catch (Exception ex)
-			{
-				ExceptionAction.Invoke(ex);
-			}
-		}
-	}
+            SerialPortEventArgs args = new()
+            {
+                ReceivedBytes = data
+            };
+            AdapterStatus = data.All(x => x == 0x00) ? UsbAdapterStatus.IsDataNotExists : UsbAdapterStatus.IsDataExists;
+            ResponseCallback?.Invoke(this, args);
+        }
+        catch (Exception ex)
+        {
+            ExceptionAction.Invoke(ex, filePath, lineNumber, memberName);
+        }
+    }
+
+
+    private void DataReceived(object sender, SerialDataReceivedEventArgs e)
+    {
+        lock (_locker) DataReceivedCore();
+    }
 
 	public bool Send(string str) => 
         !string.IsNullOrEmpty(str) && Send(Encoding.Default.GetBytes(str));
 
-    public bool Send(byte[] bytes)
+    public bool Send(byte[] bytes,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		if (!SerialPort.IsOpen)
 		{
@@ -167,7 +174,7 @@ public class SerialPortHelper
 		}
 		catch (Exception ex)
 		{
-			ExceptionAction?.Invoke(ex);
+			ExceptionAction.Invoke(ex, filePath, lineNumber, memberName);
 		}
 		return false;
 	}
@@ -200,24 +207,29 @@ public class SerialPortHelper
 		closeThread.Start();
 	}
 
-	private void CloseThread()
-	{
-		SerialPortEventArgs args = new() { SerialPort = new() };
-		try
-		{
-			SerialPort.Close();
-			SerialPort.DataReceived -= DataReceived;
-		}
-		catch (Exception ex)
-		{
-			args.SerialPort = new();
-			ExceptionAction?.Invoke(ex);
-		}
-		finally
-		{
-			CloseCallback?.Invoke(this, args);
-		}
-	}
+    private void CloseThreadCore(
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0,
+        [CallerMemberName] string memberName = "")
+    {
+        SerialPortEventArgs args = new() { SerialPort = new() };
+        try
+        {
+            SerialPort.Close();
+            SerialPort.DataReceived -= DataReceived;
+        }
+        catch (Exception ex)
+        {
+            args.SerialPort = new();
+            ExceptionAction?.Invoke(ex, filePath, lineNumber, memberName);
+        }
+        finally
+        {
+            CloseCallback?.Invoke(this, args);
+        }
+    }
 
-	#endregion
+
+    private void CloseThread() => CloseThreadCore();
+
+    #endregion
 }

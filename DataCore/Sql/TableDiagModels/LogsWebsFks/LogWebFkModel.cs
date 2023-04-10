@@ -7,6 +7,7 @@ using DataCore.Sql.TableDiagModels.LogsTypes;
 using DataCore.Sql.TableDiagModels.LogsWebs;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.Devices;
+using WsSqlTableBase = DataCore.Sql.Tables.WsSqlTableBase;
 
 namespace DataCore.Sql.TableDiagModels.LogsWebsFks;
 
@@ -15,7 +16,7 @@ namespace DataCore.Sql.TableDiagModels.LogsWebsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogWebFkModel)} | {ToString()}")]
-public class LogWebFkModel : SqlTableBase
+public class LogWebFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
@@ -126,7 +127,7 @@ public class LogWebFkModel : SqlTableBase
         Device.FillProperties();
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

@@ -57,9 +57,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     #endregion
 
-    [Parameter] public SqlTableBase? SqlItem { get; set; }
-    public SqlTableBase? SqlItemFilter { get; set; }
-    public List<SqlTableBase>? SqlLinkedItems { get; set; }
+    [Parameter] public WsSqlTableBase? SqlItem { get; set; }
+    public WsSqlTableBase? SqlItemFilter { get; set; }
+    public List<WsSqlTableBase>? SqlLinkedItems { get; set; }
     public ClaimsPrincipal? User { get; set; }
     
 	public RazorComponentBase()

@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.OrdersWeighings;
 /// <summary>
 /// Table validation "ORDERS_WEIGHINGS".
 /// </summary>
-public sealed class OrderWeighingValidator : SqlTableValidator<OrderWeighingModel>
+public sealed class OrderWeighingValidator : WsSqlTableValidator<OrderWeighingModel>
 {
     /// <summary>
     /// Constructor.

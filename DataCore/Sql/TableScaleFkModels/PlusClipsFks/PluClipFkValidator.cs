@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 /// <summary>
 /// Table validation "PLUS_CLIP_FK".
 /// </summary>
-public sealed class PluClipFkValidator : SqlTableValidator<PluClipFkModel>
+public sealed class PluClipFkValidator : WsSqlTableValidator<PluClipFkModel>
 {
     public PluClipFkValidator() : base(true, true)
     {

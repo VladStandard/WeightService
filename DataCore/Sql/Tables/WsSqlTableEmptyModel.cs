@@ -6,14 +6,14 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// DB empty table model.
 /// </summary>
-public class SqlTableEmptyModel : SqlTableBase
+public class WsSqlTableEmptyModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlTableEmptyModel()
+    public WsSqlTableEmptyModel()
     {
         //
     }
@@ -23,7 +23,7 @@ public class SqlTableEmptyModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private SqlTableEmptyModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsSqlTableEmptyModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         //
     }
@@ -39,7 +39,7 @@ public class SqlTableEmptyModel : SqlTableBase
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((SqlTableEmptyModel)obj);
+        return Equals((WsSqlTableEmptyModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -50,7 +50,7 @@ public class SqlTableEmptyModel : SqlTableBase
 
     public override object Clone()
     {
-        SqlTableEmptyModel item = new();
+        WsSqlTableEmptyModel item = new();
         item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -59,10 +59,10 @@ public class SqlTableEmptyModel : SqlTableBase
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(SqlTableEmptyModel item) => 
+	public virtual bool Equals(WsSqlTableEmptyModel item) => 
 		ReferenceEquals(this, item) || base.Equals(item);
 
-	public new virtual SqlTableEmptyModel CloneCast() => (SqlTableEmptyModel)Clone();
+	public new virtual WsSqlTableEmptyModel CloneCast() => (WsSqlTableEmptyModel)Clone();
 
     #endregion
 }

@@ -1,10 +1,11 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
 using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleModels.Devices;
 using DataCore.Sql.TableScaleModels.Scales;
+using WsSqlTableBase = DataCore.Sql.Tables.WsSqlTableBase;
 
 namespace DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 
@@ -13,7 +14,7 @@ namespace DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(DeviceScaleFkModel)}")]
-public class DeviceScaleFkModel : SqlTableBase
+public class DeviceScaleFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -98,7 +99,7 @@ public class DeviceScaleFkModel : SqlTableBase
         Scale.FillProperties();
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

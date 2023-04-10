@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluModel)} | {IsMarked} | {IsGroup} | {Name} | {Number} | {Code} | {Uid1c} ")]
-public class PluModel : SqlTableBase1c
+public class PluModel : WsSqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
@@ -297,7 +297,7 @@ public class PluModel : SqlTableBase1c
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 
-    public override void UpdateProperties(IWsSqlTable1c item)
+    public override void UpdateProperties(WsSqlTableBase1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
@@ -309,9 +309,9 @@ public class PluModel : SqlTableBase1c
         Number = plu.Number;
         if (string.IsNullOrEmpty(plu.Code)) throw new ArgumentException(nameof(Code));
         Code = plu.Code;
-        if (string.IsNullOrEmpty(plu.FullName)) throw new ArgumentException(nameof(FullName));
+        if (!IsGroup && string.IsNullOrEmpty(plu.FullName)) throw new ArgumentException(nameof(FullName));
         FullName = plu.FullName;
-        if (plu.ShelfLifeDays <= 0) throw new ArgumentException(nameof(ShelfLifeDays));
+        if (!IsGroup && plu.ShelfLifeDays <= 0) throw new ArgumentException(nameof(ShelfLifeDays));
         ShelfLifeDays = plu.ShelfLifeDays;
         IsCheckWeight = plu.IsCheckWeight;
         

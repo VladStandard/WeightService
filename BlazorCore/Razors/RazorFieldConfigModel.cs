@@ -10,7 +10,7 @@ public class RazorFieldConfigModel
 	#region Public and private fields, properties, constructor
 
 	public string LinkUrl { get; set; }
-	public SqlTableBase SqlTable { get; set; }
+	public WsSqlTableBase SqlTable { get; set; }
 	public string Name { get; set; }
 	public TextAlign TextAlign { get; set; }
 	public string Title { get; set; }
@@ -23,7 +23,7 @@ public class RazorFieldConfigModel
         Title = string.Empty;
         LinkUrl = string.Empty;
 		TextAlign = TextAlign.Center;
-        SqlTable = new SqlTableEmptyModel();
+        SqlTable = new WsSqlTableEmptyModel();
     }
 
 	public RazorFieldConfigModel(string name, TextAlign textAlign, string title, string type) : this()
@@ -34,21 +34,21 @@ public class RazorFieldConfigModel
 		Type = type;
 	}
 
-	public RazorFieldConfigModel(string linkUrl, SqlTableBase sqlTable, string name, TextAlign textAlign, string title, string type) :
+	public RazorFieldConfigModel(string linkUrl, WsSqlTableBase sqlTable, string name, TextAlign textAlign, string title, string type) :
 		this(name, textAlign, title, type)
 	{
 		LinkUrl = linkUrl;
 		SqlTable = sqlTable;
 	}
 
-	public RazorFieldConfigModel(SqlTableBase sqlTable, string name, TextAlign textAlign, string title, string type) :
+	public RazorFieldConfigModel(WsSqlTableBase sqlTable, string name, TextAlign textAlign, string title, string type) :
 		this(name, textAlign, title, type)
 	{
 		SqlTable = sqlTable;
 	}
 
 	public RazorFieldConfigModel(string name, TextAlign textAlign, string title) :
-		this(string.Empty, new SqlTableEmptyModel(), name, textAlign, title, "string") { }
+		this(string.Empty, new WsSqlTableEmptyModel(), name, textAlign, title, "string") { }
 
 	#endregion
 
@@ -56,7 +56,7 @@ public class RazorFieldConfigModel
 
 	public override string ToString() =>
 		(!string.IsNullOrEmpty(LinkUrl) ? $"{LinkUrl}. " : string.Empty) +
-		(SqlTable is not SqlTableEmptyModel ? $"{SqlTable}. " : SqlTable) +
+		(SqlTable is not WsSqlTableEmptyModel ? $"{SqlTable}. " : SqlTable) +
 		(!string.IsNullOrEmpty(Name) ? $"{Name}. " : string.Empty) +
 		(!string.IsNullOrEmpty(Title) ? $"{Title}. " : string.Empty) +
 		$"{TextAlign}. " +

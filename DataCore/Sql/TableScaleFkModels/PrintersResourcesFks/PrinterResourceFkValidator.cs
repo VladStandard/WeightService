@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleFkModels.PrintersResourcesFks;
 /// <summary>
 /// Table validation "ZebraPrinterResourceRef".
 /// </summary>
-public sealed class PrinterResourceFkValidator : SqlTableValidator<PrinterResourceFkModel>
+public sealed class PrinterResourceFkValidator : WsSqlTableValidator<PrinterResourceFkModel>
 {
     /// <summary>
     /// Constructor.

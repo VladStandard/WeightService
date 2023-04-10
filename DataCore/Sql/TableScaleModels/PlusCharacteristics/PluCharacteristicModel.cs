@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.PlusCharacteristics;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluCharacteristicModel)} | {AttachmentsCount} | {Uid1c} ")]
-public class PluCharacteristicModel : SqlTableBase1c
+public class PluCharacteristicModel : WsSqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
@@ -97,7 +97,7 @@ public class PluCharacteristicModel : SqlTableBase1c
     
     public new virtual PluCharacteristicModel CloneCast() => (PluCharacteristicModel)Clone();
 
-    public override void UpdateProperties(IWsSqlTable1c item)
+    public override void UpdateProperties(WsSqlTableBase1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

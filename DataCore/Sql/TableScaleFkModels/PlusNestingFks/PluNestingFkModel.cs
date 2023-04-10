@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusNestingFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluNestingFkModel)} | {Box}")]
-public class PluNestingFkModel : SqlTableBase
+public class PluNestingFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     [XmlElement] public virtual BoxModel Box { get; set; }
@@ -142,7 +142,7 @@ public class PluNestingFkModel : SqlTableBase
         BundleCount = 0;
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

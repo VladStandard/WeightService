@@ -72,7 +72,7 @@ public class ValidationUtils
         }
     }
 
-    public static IValidator GetSqlValidator<T>() where T : SqlTableBase, new() =>
+    public static IValidator GetSqlValidator<T>() where T : WsSqlTableBase, new() =>
         typeof(T) switch
         {
             var cls when cls == typeof(AccessModel) => new AccessValidator(),

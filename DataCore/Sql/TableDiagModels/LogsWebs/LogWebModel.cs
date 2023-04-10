@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableDiagModels.LogsWebs;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogWebModel)} | {Identity}")]
-public class LogWebModel : SqlTableBase
+public class LogWebModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

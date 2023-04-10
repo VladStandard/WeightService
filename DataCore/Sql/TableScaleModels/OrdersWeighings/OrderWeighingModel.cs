@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.OrdersWeighings;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(OrderWeighingModel)}")]
-public class OrderWeighingModel : SqlTableBase
+public class OrderWeighingModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

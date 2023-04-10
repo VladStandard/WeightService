@@ -165,7 +165,7 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlDbContentValidate<T>(bool isShowMarked = false) where T : SqlTableBase, new()
+	public void AssertSqlDbContentValidate<T>(bool isShowMarked = false) where T : WsSqlTableBase, new()
     {
         AssertAction(() =>
         {
@@ -193,10 +193,10 @@ public class DataCoreHelper
         }, false, false);
     }
 
-	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new() =>
+	public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
 		AssertValidate(item, assertResult);
 
-    public void AssertSqlDbContentSerialize<T>() where T : SqlTableBase, new()
+    public void AssertSqlDbContentSerialize<T>() where T : WsSqlTableBase, new()
     {
         AssertAction(() =>
         {
@@ -244,7 +244,7 @@ public class DataCoreHelper
 		});
 	}
 
-	public object? GetSqlPropertyValue<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()
+	public object? GetSqlPropertyValue<T>(bool isNotDefault, string propertyName) where T : WsSqlTableBase, new()
 	{
 		// Arrange
 		T item = CreateNewSubstitute<T>(isNotDefault);
@@ -254,7 +254,7 @@ public class DataCoreHelper
 		return value;
 	}
 
-	public void AssertSqlPropertyCheckDt<T>(string propertyName) where T : SqlTableBase, new()
+	public void AssertSqlPropertyCheckDt<T>(string propertyName) where T : WsSqlTableBase, new()
 	{
 		// Arrange & Act.
 		object? value = GetSqlPropertyValue<T>(true, propertyName);
@@ -266,7 +266,7 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlPropertyCheckBool<T>(string propertyName) where T : SqlTableBase, new()
+	public void AssertSqlPropertyCheckBool<T>(string propertyName) where T : WsSqlTableBase, new()
 	{
 		// Arrange & Act.
 		object? value = GetSqlPropertyValue<T>(true, propertyName);
@@ -278,7 +278,7 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlPropertyCheckString<T>(string propertyName) where T : SqlTableBase, new()
+	public void AssertSqlPropertyCheckString<T>(string propertyName) where T : WsSqlTableBase, new()
 	{
 		// Arrange & Act.
 		object? value = GetSqlPropertyValue<T>(true, propertyName);
@@ -290,7 +290,7 @@ public class DataCoreHelper
 		}
 	}
 
-	public T CreateNewSubstitute<T>(bool isNotDefault) where T : SqlTableBase, new()
+	public T CreateNewSubstitute<T>(bool isNotDefault) where T : WsSqlTableBase, new()
 	{
 		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(WsSqlFieldIdentity.Empty);
 		fieldIdentity.Name.Returns(WsSqlFieldIdentity.Test);
@@ -542,13 +542,13 @@ public class DataCoreHelper
 		return item;
 	}
 
-	public void TableBaseModelAssertEqualsNew<T>() where T : SqlTableBase, new()
+	public void TableBaseModelAssertEqualsNew<T>() where T : WsSqlTableBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			SqlTableBase baseItem = new();
+			WsSqlTableBase baseItem = new();
 			// Act.
 			bool itemEqualsNew = item.EqualsNew();
 			bool baseEqualsNew = baseItem.EqualsNew();
@@ -572,35 +572,35 @@ public class DataCoreHelper
 		});
 	}
 
-	public void TableBaseModelAssertSerialize<T>() where T : SqlTableBase, new()
+	public void TableBaseModelAssertSerialize<T>() where T : WsSqlTableBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item1 = new();
-			SqlTableBase base1 = new();
+			WsSqlTableBase base1 = new();
 			// Act.
 			string xml1 = DataFormatUtils.SerializeAsXmlString<T>(item1, true, true);
-			string xml2 = DataFormatUtils.SerializeAsXmlString<SqlTableBase>(base1, true, true);
+			string xml2 = DataFormatUtils.SerializeAsXmlString<WsSqlTableBase>(base1, true, true);
 			// Assert.
 			Assert.AreNotEqual(xml1, xml2);
 			// Act.
 			T item2 = DataFormatUtils.DeserializeFromXml<T>(xml1);
 			TestContext.WriteLine($"{nameof(item2)}: {item2}");
-			SqlTableBase base2 = DataFormatUtils.DeserializeFromXml<SqlTableBase>(xml2);
+			WsSqlTableBase base2 = DataFormatUtils.DeserializeFromXml<WsSqlTableBase>(xml2);
 			TestContext.WriteLine($"{nameof(base2)}: {base2}");
 			// Assert.
 			Assert.AreNotEqual(item2, base2);
 		});
 	}
 
-	public void TableBaseModelAssertToString<T>() where T : SqlTableBase, new()
+	public void TableBaseModelAssertToString<T>() where T : WsSqlTableBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			SqlTableBase baseItem = new();
+			WsSqlTableBase baseItem = new();
 			// Act.
 			string itemString = item.ToString();
 			string baseString = baseItem.ToString();

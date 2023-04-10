@@ -1,8 +1,7 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Models;
 using DataCore.Sql.TableScaleModels.Bundles;
 using DataCore.Sql.TableScaleModels.Plus;
 
@@ -13,7 +12,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusBundlesFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluBundleFkModel)} | {Plu.Number} | {Plu.Name} | {Bundle.Name} | {Bundle.Weight}")]
-public class PluBundleFkModel : SqlTableBase
+public class PluBundleFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -25,7 +24,7 @@ public class PluBundleFkModel : SqlTableBase
     /// </summary>
     public PluBundleFkModel() : base(WsSqlFieldIdentity.Uid)
     {
-        Bundle = new(); 
+        Bundle = new();
         Plu = new();
 
     }
@@ -99,7 +98,7 @@ public class PluBundleFkModel : SqlTableBase
         Plu.FillProperties();
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

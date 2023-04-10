@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 /// <summary>
 /// Table validation "PLUS".
 /// </summary>
-public sealed class PluValidator : SqlTableValidator<PluModel>
+public sealed class PluValidator : WsSqlTableValidator<PluModel>
 {
     /// <summary>
     /// Constructor.

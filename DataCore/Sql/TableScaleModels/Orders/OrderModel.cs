@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Orders;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(OrderModel)}")]
-public class OrderModel : SqlTableBase
+public class OrderModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

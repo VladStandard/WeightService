@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 /// <summary>
 /// Table validation "PLUS_GROUPS_FK".
 /// </summary>
-public sealed class PluGroupFkValidator : SqlTableValidator<PluGroupFkModel>
+public sealed class PluGroupFkValidator : WsSqlTableValidator<PluGroupFkModel>
 {
     /// <summary>
     /// Constructor.

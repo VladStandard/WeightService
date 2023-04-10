@@ -13,7 +13,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusCharacteristicsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluCharacteristicsFkModel)}")]
-public class PluCharacteristicsFkModel : SqlTableBase
+public class PluCharacteristicsFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -98,7 +98,7 @@ public class PluCharacteristicsFkModel : SqlTableBase
         Characteristic.FillProperties();
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

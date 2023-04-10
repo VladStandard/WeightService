@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Core.Enums;
@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluFkModel)} | {ToString()}")]
-public class PluFkModel : SqlTableBase
+public class PluFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
@@ -107,9 +107,9 @@ public class PluFkModel : SqlTableBase
         Category?.FillProperties();
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
-        base.UpdateProperties(item);
+        base.UpdateProperties(item, true);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluFkModel pluFk) return;
         Plu = pluFk.Plu;

@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Apps;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(AppModel)}")]
-public class AppModel : SqlTableBase
+public class AppModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

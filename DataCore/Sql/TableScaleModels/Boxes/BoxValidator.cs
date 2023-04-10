@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Boxes;
 /// <summary>
 /// Table validation "BOXES".
 /// </summary>
-public sealed class BoxValidator : SqlTableValidator<BoxModel>
+public sealed class BoxValidator : WsSqlTableValidator<BoxModel>
 {
     /// <summary>
     /// Constructor.

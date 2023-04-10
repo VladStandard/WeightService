@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Brands;
 /// <summary>
 /// Table validation "BRANDS".
 /// </summary>
-public sealed class BrandValidator : SqlTableValidator<BrandModel>
+public sealed class BrandValidator : WsSqlTableValidator<BrandModel>
 {
     /// <summary>
     /// Constructor.

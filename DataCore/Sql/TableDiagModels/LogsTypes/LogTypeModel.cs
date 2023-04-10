@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableDiagModels.LogsTypes;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogTypeModel)}")]
-public class LogTypeModel : SqlTableBase
+public class LogTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

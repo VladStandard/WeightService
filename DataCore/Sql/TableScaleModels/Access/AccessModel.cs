@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.Access;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(AccessModel)}")]
-public class AccessModel : SqlTableBase
+public class AccessModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

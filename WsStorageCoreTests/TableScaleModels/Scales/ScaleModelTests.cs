@@ -9,11 +9,11 @@ internal class ScaleModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(SqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(SqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<ScaleModel>(nameof(SqlTableBase.IsMarked));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(WsSqlTableBase.CreateDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(WsSqlTableBase.ChangeDt));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<ScaleModel>(nameof(WsSqlTableBase.IsMarked));
         //DataCoreTestsUtils.DataCore.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckString<ScaleModel>(nameof(SqlTableBase.Description));
+        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckString<ScaleModel>(nameof(WsSqlTableBase.Description));
     }
 
     [Test]

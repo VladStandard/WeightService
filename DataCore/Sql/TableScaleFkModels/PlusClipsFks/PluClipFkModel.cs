@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 
@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusClipsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluClipFkModel)} | {Plu.Number} | {Plu.Name} | {Clip.Name} | {Clip.Weight}")]
-public class PluClipFkModel : SqlTableBase
+public class PluClipFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -100,7 +100,7 @@ public class PluClipFkModel : SqlTableBase
         Plu.FillProperties();
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

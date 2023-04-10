@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels.BarCodes;
 /// Table validation "BARCODES".
 /// </summary>
 [DebuggerDisplay("{nameof(BarCodeValidator)}")]
-public sealed class BarCodeValidator : SqlTableValidator<BarCodeModel>
+public sealed class BarCodeValidator : WsSqlTableValidator<BarCodeModel>
 {
     /// <summary>
     /// Constructor.

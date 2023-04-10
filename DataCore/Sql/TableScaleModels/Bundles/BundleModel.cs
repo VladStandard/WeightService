@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Bundles;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(BundleModel)} | {Name} | {Weight} | {Uid1c} ")]
-public class BundleModel : SqlTableBase1c
+public class BundleModel : WsSqlTableBase1c
 {
     #region Public and private fields, properties, constructor
 
@@ -76,7 +76,7 @@ public class BundleModel : SqlTableBase1c
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public override void UpdateProperties(IWsSqlTable1c item)
+    public override void UpdateProperties(WsSqlTableBase1c item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

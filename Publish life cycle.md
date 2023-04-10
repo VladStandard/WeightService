@@ -3,7 +3,7 @@
 ## Update routing
 VS -> Tools -> Version changer
 cmd: `git add *.csproj && git add *AssemblyInfo.cs && git add CHANGELOG.md && git cism "#Version update to v0.x.xxx" && git bra && git st`
-cmd: `git stad && git cism "#Version update to v0.x.xxx"`
+# cmd: `git stad && git cism "#Version update to v0.x.xxx"`
 
 ## Tag routing
 cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
@@ -17,6 +17,10 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 - ✓ preview -> main:    `git switch main && git merge preview && git push all main && git switch preview && git bra && git st`
 - ✓ develop -> main:    `git switch main && git merge develop && git push all main && git switch develop && git bra && git st`
 - x rollback merge:     `git merge --quit && git reset . && git checkout . && git clean -fd && cls && git bra && git st`
+
+## Back version
+Go back: `git co . && git co 79ad47adc && git bra`
+Retrurn `git co . && git switch develop`
 
 ## Rollback commits
 git reset HEAD~X

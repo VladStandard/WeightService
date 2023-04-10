@@ -98,10 +98,11 @@ public class MassaDeviceHelper : HelperBase //DisposableBase, IDisposableBase
 		}
 	}
 
-    private void PortExceptionCallback(Exception ex)
+    private void PortExceptionCallback(Exception ex,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		IsExceptionResult = true;
-		WsDataAccessHelper.Instance.SaveLogError(ex);
+		WsDataAccessHelper.Instance.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
 	}
 
 	#endregion

@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluGroupFkModel)} | {PluGroup.Code} | {Parent.Code}")]
-public class PluGroupFkModel : SqlTableBase
+public class PluGroupFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
@@ -99,9 +99,9 @@ public class PluGroupFkModel : SqlTableBase
         Parent.FillProperties();
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
-        base.UpdateProperties(item);
+        base.UpdateProperties(item, true);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluGroupFkModel pluGroupFk) return;
         PluGroup = pluGroupFk.PluGroup;

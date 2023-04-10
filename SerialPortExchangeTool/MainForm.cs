@@ -3,6 +3,7 @@
 
 using System;
 using System.IO.Ports;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
 using DataCore.Utils;
@@ -193,11 +194,12 @@ public partial class MainForm : Form
         }
     }
 
-    private void PortExceptionCallback(Exception ex)
+    private void PortExceptionCallback(Exception ex,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         if (InvokeRequired)
         {
-            Invoke(new Action<Exception>(PortExceptionCallback), ex);
+            Invoke(new Action<Exception, string, int, string>(PortExceptionCallback), ex);
             return;
         }
 

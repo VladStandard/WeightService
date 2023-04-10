@@ -3,6 +3,7 @@
 // ReSharper disable InconsistentNaming
 
 using DataCore.Serialization.Models;
+using DataCore.Sql.TableScaleFkModels.PlusBrandsFks;
 
 namespace WsWebApi.Base;
 
@@ -298,7 +299,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (!isCheckGroup)
@@ -339,7 +340,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -369,7 +370,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<BrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -399,7 +400,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<ClipModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -429,7 +430,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<BoxModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -459,7 +460,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -489,7 +490,7 @@ public class WsContentBase : ControllerBase
         if (!Equals(uid1c, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(SqlTableBase1c.Uid1c), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
             itemDb = WsDataContext.DataAccess.GetItemNullable<PluCharacteristicModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
@@ -600,7 +601,7 @@ public class WsContentBase : ControllerBase
         } while (isFind);
     }
 
-    internal void SetItemPropertyFromXmlAttribute<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable
+    internal void SetItemPropertyFromXmlAttribute<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase
     {
         SetItemPropertyFromXmlAttributeForBase(xmlNode, item, xmlPropertyName);
         switch (item)
@@ -620,7 +621,7 @@ public class WsContentBase : ControllerBase
         }
     }
 
-    internal void SetItemParseResultException<T>(T item, string xmlPropertyName) where T : IWsSqlTable
+    internal void SetItemParseResultException<T>(T item, string xmlPropertyName) where T : WsSqlTableBase
     {
         item.ParseResult.Status = ParseStatus.Error;
         item.ParseResult.Exception = string.IsNullOrEmpty(item.ParseResult.Exception)
@@ -629,7 +630,7 @@ public class WsContentBase : ControllerBase
 
     }
 
-    internal void SetItemPropertyFromXmlAttributeForBase<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable
+    internal void SetItemPropertyFromXmlAttributeForBase<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase
     {
         switch (xmlPropertyName.ToUpper())
         {
@@ -708,15 +709,6 @@ public class WsContentBase : ControllerBase
             case "BOXTYPEWEIGHT":
                 item.BoxTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
                 break;
-            case "CLIPTYPEGUID":
-                item.ClipTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
-                break;
-            case "CLIPTYPENAME":
-                item.ClipTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
-                break;
-            case "CLIPTYPEWEIGHT":
-                item.ClipTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
-                break;
             case "PACKAGETYPEGUID":
                 item.PackageTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
@@ -726,8 +718,20 @@ public class WsContentBase : ControllerBase
             case "PACKAGETYPEWEIGHT":
                 item.PackageTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
                 break;
+            case "CLIPTYPEGUID":
+                item.ClipTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                break;
+            case "CLIPTYPENAME":
+                item.ClipTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                break;
+            case "CLIPTYPEWEIGHT":
+                item.ClipTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
+                break;
             case "ATTACHMENTSCOUNT":
                 item.AttachmentsCount = GetXmlAttributeShort(xmlNode, item, xmlPropertyName);
+                break;
+            case "GTIN":
+                item.Gtin = GetXmlAttributeString(xmlNode, item, xmlPropertyName, false);
                 break;
         }
     }
@@ -767,7 +771,8 @@ public class WsContentBase : ControllerBase
         }
     }
 
-    internal string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName) where T : IWsSqlTable
+    internal string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName,
+        bool isAttributeMustExists = true) where T : WsSqlTableBase
     {
         if (xmlNode?.Attributes is null) return string.Empty;
         foreach (XmlAttribute? attribute in xmlNode.Attributes)
@@ -778,12 +783,13 @@ public class WsContentBase : ControllerBase
                     return attribute.Value;
             }
         }
-        SetItemParseResultException(item, attributeName);
+        if (isAttributeMustExists)
+            SetItemParseResultException(item, attributeName);
         return string.Empty;
     }
 
     internal bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
-        List<string> valuesFalse, List<string> valuesTrue) where T : IWsSqlTable
+        List<string> valuesFalse, List<string> valuesTrue) where T : WsSqlTableBase
     {
         string value = GetXmlAttributeString(xmlNode, item, xmlPropertyName).ToUpper();
         if (Enumerable.Contains(valuesFalse, value)) return false;
@@ -791,29 +797,29 @@ public class WsContentBase : ControllerBase
         return default;
     }
 
-    internal bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { "0", "FALSE" }, new() { "1", "TRUE" });
 
     internal bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
-        string valueFalse, string valueTrue) where T : IWsSqlTable =>
+        string valueFalse, string valueTrue) where T : WsSqlTableBase =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { valueFalse }, new() { valueTrue });
 
-    internal Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         Guid.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out Guid uid) ? uid : Guid.Empty;
 
-    internal byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         byte.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out byte result) ? result : default;
 
-    internal ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal ushort GetXmlAttributeUshort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         ushort.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out ushort result) ? result : default;
 
-    internal short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         short.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out short result) ? result : default;
 
-    internal decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : IWsSqlTable =>
+    internal decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         decimal.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out decimal result) ? result : default;
 
-    internal List<T> GetNodesListCore<T>(XElement xml, string nodeIdentity, Action<XmlNode, T> action) where T : IWsSqlTable, new()
+    internal List<T> GetNodesListCore<T>(XElement xml, string nodeIdentity, Action<XmlNode, T> action) where T : WsSqlTableBase, new()
     {
         List<T> itemsXml = new();
         XmlDocument xmlDocument = new();
@@ -906,7 +912,7 @@ public class WsContentBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdateItemDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : IWsSqlTable
+    internal bool UpdateItemDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : WsSqlTableBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -932,7 +938,7 @@ public class WsContentBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdateItem1cDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : SqlTableBase1c
+    internal bool UpdateItem1cDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : WsSqlTableBase1c
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -953,7 +959,7 @@ public class WsContentBase : ControllerBase
     /// <param name="response"></param>
     /// <param name="item"></param>
     /// <param name="isCounter"></param>
-    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter) where T : SqlTableBase1c
+    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter) where T : WsSqlTableBase1c
         => SaveItemDb(response, item, isCounter, item.Uid1c);
 
     /// <summary>
@@ -963,7 +969,7 @@ public class WsContentBase : ControllerBase
     /// <param name="item"></param>
     /// <param name="isCounter"></param>
     /// <param name="uid1c"></param>
-    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter, Guid uid1c) where T : SqlTableBase
+    internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter, Guid uid1c) where T : WsSqlTableBase
     {
         SqlCrudResultModel dbSave = WsDataContext.DataAccess.Save(item, item.Identity);
         // Add was success.
@@ -977,7 +983,10 @@ public class WsContentBase : ControllerBase
         return dbSave.IsOk;
     }
 
-    internal bool UpdateBrandDb(WsResponse1cShortModel response, BrandModel brandXml, BrandModel? brandDb, bool isCounter)
+    internal bool UpdateBrandDb(WsResponse1cShortModel response, BrandModel brandXml, BrandModel? brandDb,
+        bool isCounter) => UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, isCounter);
+
+    internal bool UpdateBrandDb(WsResponse1cShortModel response, Guid uid1c, BrandModel brandXml, BrandModel? brandDb, bool isCounter)
     {
         if (brandDb is null || brandDb.IsNew) return false;
         brandDb.UpdateProperties(brandXml);
@@ -985,14 +994,19 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(brandXml.Uid1c));
+                response.Successes.Add(new(uid1c));
         }
         else
-            AddResponse1cException(response, brandXml.Uid1c, dbUpdate.Exception);
+            AddResponse1cException(response, uid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
-    internal bool UpdatePluGroupDb(WsResponse1cShortModel response, PluGroupModel pluGroupXml, PluGroupModel? pluGroupDb, bool isCounter)
+    internal bool UpdatePluGroupDb(WsResponse1cShortModel response, PluGroupModel pluGroupXml,
+        PluGroupModel? pluGroupDb, bool isCounter) =>
+        UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, isCounter);
+
+    internal bool UpdatePluGroupDb(WsResponse1cShortModel response, Guid uid1c, PluGroupModel pluGroupXml, 
+        PluGroupModel? pluGroupDb, bool isCounter)
     {
         if (pluGroupDb is null || pluGroupDb.IsNew) return false;
         pluGroupDb.UpdateProperties(pluGroupXml);
@@ -1000,10 +1014,26 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(pluGroupXml.Uid1c));
+                response.Successes.Add(new(uid1c));
         }
         else
-            AddResponse1cException(response, pluGroupXml.Uid1c, dbUpdate.Exception);
+            AddResponse1cException(response, uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
+
+    internal bool UpdatePluBrandFkDb(WsResponse1cShortModel response, Guid uid1c, PluBrandFkModel pluBrandXml,
+        PluBrandFkModel? pluBrandDb, bool isCounter)
+    {
+        if (pluBrandDb is null || pluBrandDb.IsNew) return false;
+        pluBrandDb.UpdateProperties(pluBrandXml);
+        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(pluBrandDb);
+        if (dbUpdate.IsOk)
+        {
+            if (isCounter)
+                response.Successes.Add(new(uid1c));
+        }
+        else
+            AddResponse1cException(response, uid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 

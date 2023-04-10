@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.PlusScales;
 /// <summary>
 /// Table validation "PLUS_SCALES".
 /// </summary>
-public sealed class PluScaleValidator : SqlTableValidator<PluScaleModel>
+public sealed class PluScaleValidator : WsSqlTableValidator<PluScaleModel>
 {
     /// <summary>
     /// Constructor.

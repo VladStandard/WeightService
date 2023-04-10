@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableDiagModels.LogsWebsFks;
 /// <summary>
 /// Table validation "LOGS_WEBS_FK".
 /// </summary>
-public sealed class LogWebFkValidator : SqlTableValidator<LogWebFkModel>
+public sealed class LogWebFkValidator : WsSqlTableValidator<LogWebFkModel>
 {
     /// <summary>
     /// Constructor.

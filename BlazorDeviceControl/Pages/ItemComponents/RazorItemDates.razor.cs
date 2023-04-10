@@ -7,7 +7,7 @@ public partial class RazorItemDates : LayoutComponentBase
 {
 	#region Public and private fields, properties, constructor
     
-    [Parameter] public SqlTableBase SqlItem { get; set; }
+    [Parameter] public WsSqlTableBase SqlItem { get; set; }
 
     #endregion
 

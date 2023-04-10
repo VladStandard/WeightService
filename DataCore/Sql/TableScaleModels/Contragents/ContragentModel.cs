@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Contragents;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(ContragentModel)}")]
-public class ContragentModel : SqlTableBase
+public class ContragentModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 

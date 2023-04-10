@@ -14,7 +14,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusStorageMethodsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluStorageMethodFkModel)} | {Plu.Name} | {Method.Name} | {Resource.Name}")]
-public class PluStorageMethodFkModel : SqlTableBase
+public class PluStorageMethodFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -106,7 +106,7 @@ public class PluStorageMethodFkModel : SqlTableBase
         Resource.FillProperties();
     }
 
-    public override void UpdateProperties(IWsSqlTable item)
+    public override void UpdateProperties(WsSqlTableBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.

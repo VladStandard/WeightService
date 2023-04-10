@@ -351,7 +351,7 @@ public class WsDataAccessHelper
     public SqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         ExecQueryNative(query, new List<SqlParameter> { parameter });
 
-    public SqlCrudResultModel Save<T>(T? item) where T : IWsSqlTable
+    public SqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
@@ -361,13 +361,13 @@ public class WsDataAccessHelper
         return ExecuteCore(session => session.Save(item), true);
     }
 
-    protected async Task<SqlCrudResultModel> SaveAsync<T>(T? item) where T : IWsSqlTable
+    protected async Task<SqlCrudResultModel> SaveAsync<T>(T? item) where T : WsSqlTableBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         return Save(item);
     }
 
-    public SqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : IWsSqlTable
+    public SqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
@@ -382,7 +382,7 @@ public class WsDataAccessHelper
             : ExecuteCore(session => session.Save(item, id), true);
     }
 
-    protected SqlCrudResultModel SaveOrUpdate<T>(T? item) where T : IWsSqlTable
+    protected SqlCrudResultModel SaveOrUpdate<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
@@ -391,7 +391,7 @@ public class WsDataAccessHelper
         return ExecuteCore(session => session.SaveOrUpdate(item), true);
     }
 
-    public SqlCrudResultModel UpdateForce<T>(T? item) where T : IWsSqlTable
+    public SqlCrudResultModel UpdateForce<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
@@ -400,14 +400,14 @@ public class WsDataAccessHelper
         return ExecuteCore(session => session.Update(item), true);
     }
 
-    public SqlCrudResultModel Delete<T>(T? item) where T : IWsSqlTable
+    public SqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
         return ExecuteCore(session => session.Delete(item), true);
     }
 
-    public SqlCrudResultModel Mark<T>(T? item) where T : IWsSqlTable
+    public SqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
@@ -422,7 +422,7 @@ public class WsDataAccessHelper
     public AccessModel? GetItemAccessNullable(string? userName)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(SqlTableBase.Name), userName, false, false);
+            nameof(WsSqlTableBase.Name), userName, false, false);
         return GetItemNullable<AccessModel>(sqlCrudConfig);
     }
 
@@ -445,7 +445,7 @@ public class WsDataAccessHelper
         if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return null;
 
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(SqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, false, false);
+            nameof(WsSqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, false, false);
         return GetItemNullable<PluModel>(sqlCrudConfig);
     }
 
@@ -456,7 +456,7 @@ public class WsDataAccessHelper
     {
         if (plu.IsNew) return null;
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(PluTemplateFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
+            $"{nameof(PluTemplateFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
             false, false);
         return GetItemNullable<PluTemplateFkModel>(sqlCrudConfig);
     }
@@ -468,9 +468,9 @@ public class WsDataAccessHelper
     {
         if (plu.IsNew) return null;
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(PluBundleFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, false, false);
+            $"{nameof(PluBundleFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, false, false);
         SqlCrudConfigModel sqlCrudConfigBundle = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(PluBundleFkModel.Bundle)}.{nameof(SqlTableBase.IdentityValueUid)}", bundle.IdentityValueUid, false, false);
+            $"{nameof(PluBundleFkModel.Bundle)}.{nameof(WsSqlTableBase.IdentityValueUid)}", bundle.IdentityValueUid, false, false);
         sqlCrudConfig.Filters.Add(sqlCrudConfigBundle.Filters.First());
         return GetItemNullable<PluBundleFkModel>(sqlCrudConfig);
     }
@@ -501,7 +501,7 @@ public class WsDataAccessHelper
     private DeviceModel? GetItemDeviceNullable(string name)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(SqlTableBase.Name), name, false, false);
+            nameof(WsSqlTableBase.Name), name, false, false);
         return GetItemNullable<DeviceModel>(sqlCrudConfig);
     }
 
@@ -582,7 +582,7 @@ public class WsDataAccessHelper
     public ScaleModel GetScaleNotNullable(long id)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(SqlTableBase.IdentityValueId), id, false, false, false, false);
+            nameof(WsSqlTableBase.IdentityValueId), id, false, false, false, false);
         return GetItemNotNullable<ScaleModel>(sqlCrudConfig);
     }
 
@@ -596,7 +596,7 @@ public class WsDataAccessHelper
     public PluGroupModel? GetItemNomenclatureGroupParentNullable(PluGroupModel nomenclatureGroup)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
-            $"{nameof(PluGroupFkModel.PluGroup)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
+            $"{nameof(PluGroupFkModel.PluGroup)}.{nameof(WsSqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
             false, false);
         PluGroupModel? result = GetItemNullable<PluGroupFkModel>(sqlCrudConfig)?.Parent;
         return result;
@@ -713,7 +713,7 @@ public class WsDataAccessHelper
     }
 
     [Obsolete(@"Use DataContext")]
-    public List<ScaleScreenShotModel> GetListScalesScreenShots(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<ScaleScreenShotModel> GetListScalesScreenShots(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             SqlCrudConfigModel.GetFiltersIdentity(nameof(ScaleScreenShotModel.Scale), itemFilter?.IdentityValueId),
@@ -724,7 +724,7 @@ public class WsDataAccessHelper
     }
 
     [Obsolete(@"Use DataContext")]
-    public List<PluBundleFkModel> GetListPluBundles(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<PluBundleFkModel> GetListPluBundles(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
         List<PluBundleFkModel> result = new();
         if (isAddFieldNull)
@@ -741,11 +741,11 @@ public class WsDataAccessHelper
     }
 
     [Obsolete(@"Use DataContext")]
-    public List<PrinterResourceFkModel> GetListPrinterResources(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
+    public List<PrinterResourceFkModel> GetListPrinterResources(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
     {
         List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
-            new SqlFieldOrderModel { Name = nameof(SqlTableBase.Description), Direction = WsSqlOrderDirection.Asc },
+            new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc },
             isShowMarked, isShowOnlyTop);
         return GetListNotNullable<PrinterResourceFkModel>(sqlCrudConfig);
     }
@@ -824,7 +824,7 @@ public class WsDataAccessHelper
     protected AppModel GetItemAppOrCreateNew(string appName)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(SqlTableBase.Name), appName, false, false);
+            nameof(WsSqlTableBase.Name), appName, false, false);
         AppModel app = GetItemNotNullable<AppModel>(sqlCrudConfig);
         if (app.IsNew)
         {
@@ -846,14 +846,14 @@ public class WsDataAccessHelper
     public AppModel? GetItemAppNullable(string appName)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(SqlTableBase.Name), appName, false, false);
+            nameof(WsSqlTableBase.Name), appName, false, false);
         return GetItemNullable<AppModel>(sqlCrudConfig);
     }
 
     protected DeviceModel GetItemDeviceOrCreateNew(string name)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(SqlTableBase.Name), name, true, false);
+            nameof(WsSqlTableBase.Name), name, true, false);
         DeviceModel device = GetItemNotNullable<DeviceModel>(sqlCrudConfig);
         if (device.IsNew)
         {
@@ -901,7 +901,7 @@ public class WsDataAccessHelper
 
     #region Public and private methods - GetItem
 
-    public T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    public T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = null;
         ExecuteCore(session =>
@@ -913,26 +913,26 @@ public class WsDataAccessHelper
         return item;
     }
 
-    public T? GetItemNullable<T>(object? value) where T : SqlTableBase, new()
+    public T? GetItemNullable<T>(object? value) where T : WsSqlTableBase, new()
     {
         SqlCrudConfigModel? sqlCrudConfig = value switch
         {
-            Guid uid => new(new List<SqlFieldFilterModel> { new() { Name = nameof(SqlTableBase.IdentityValueUid), Value = uid } },
+            Guid uid => new(new List<SqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
                 true, false, false, false, false),
-            long id => new(new List<SqlFieldFilterModel> { new() { Name = nameof(SqlTableBase.IdentityValueId), Value = id } },
+            long id => new(new List<SqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
                 true, false, false, false, false),
             _ => null
         };
         return sqlCrudConfig is not null ? GetItemNullable<T>(sqlCrudConfig) : null;
     }
 
-    public T GetItemNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    public T GetItemNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = GetItemNullable<T>(sqlCrudConfig);
         return item ?? new();
     }
 
-    public T GetItemNotNullable<T>(object? value) where T : SqlTableBase, new()
+    public T GetItemNotNullable<T>(object? value) where T : WsSqlTableBase, new()
     {
         T? item = value switch
         {
@@ -943,7 +943,7 @@ public class WsDataAccessHelper
         return item ?? new();
     }
 
-    public T? GetItemNullable<T>(SqlFieldIdentityModel identity) where T : SqlTableBase, new() =>
+    public T? GetItemNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         identity.Name switch
         {
             WsSqlFieldIdentity.Uid => GetItemNullable<T>(identity.Uid),
@@ -951,22 +951,22 @@ public class WsDataAccessHelper
             _ => new()
         };
 
-    public T GetItemNotNullable<T>(SqlFieldIdentityModel identity) where T : SqlTableBase, new() =>
+    public T GetItemNotNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         GetItemNullable<T>(identity) ?? new();
 
-    public T? GetItemNullableByUid<T>(Guid? uid) where T : SqlTableBase, new() =>
+    public T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
         GetItemNullable<T>(uid);
 
-    public T GetItemNotNullableByUid<T>(Guid? uid) where T : SqlTableBase, new() =>
+    public T GetItemNotNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
         GetItemNullableByUid<T>(uid) ?? new();
 
-    public T? GetItemNullableById<T>(long? id) where T : SqlTableBase, new() =>
+    public T? GetItemNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
         GetItemNullable<T>(id);
 
-    public T GetItemNotNullableById<T>(long? id) where T : SqlTableBase, new() =>
+    public T GetItemNotNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
         GetItemNullableById<T>(id) ?? new();
 
-    public bool IsItemExists<T>(T? item) where T : SqlTableBase, new()
+    public bool IsItemExists<T>(T? item) where T : WsSqlTableBase, new()
     {
         if (item is null)
             return false;
@@ -979,7 +979,7 @@ public class WsDataAccessHelper
         return result;
     }
 
-    public bool IsItemExists<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    public bool IsItemExists<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         bool result = false;
         ExecuteCore(session =>
@@ -992,14 +992,14 @@ public class WsDataAccessHelper
         return result;
     }
 
-    public T GetItemNewEmpty<T>() where T : SqlTableBase, new() =>
+    public T GetItemNewEmpty<T>() where T : WsSqlTableBase, new() =>
         new() { Name = LocaleCore.Table.FieldEmpty, Description = LocaleCore.Table.FieldEmpty };
 
     #endregion
 
     #region Public and private methods - GetArray
 
-    public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T[]? items = null;
         ExecuteCore(session =>
@@ -1014,7 +1014,7 @@ public class WsDataAccessHelper
         return items;
     }
 
-    public T[]? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : SqlTableBase, new()
+    public T[]? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
     {
         T[]? result = null;
         ExecuteCore(session =>
@@ -1080,7 +1080,7 @@ public class WsDataAccessHelper
 
     #region Public and private methods - GetList
 
-    public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         List<T> result = new();
         if (sqlCrudConfig.IsResultAddFieldEmpty)
@@ -1105,7 +1105,7 @@ public class WsDataAccessHelper
     /// <typeparam name="T"></typeparam>
     /// <param name="item"></param>
     /// <param name="isFillReferences"></param>
-    private void FillReferences<T>(T? item, bool isFillReferences) where T : SqlTableBase, new()
+    private void FillReferences<T>(T? item, bool isFillReferences) where T : WsSqlTableBase, new()
     {
         switch (item)
         {
@@ -1143,6 +1143,7 @@ public class WsDataAccessHelper
             case PluFkModel pluFk:
                 pluFk.Plu = GetItemNotNullable<PluModel>(pluFk.Plu.IdentityValueUid);
                 pluFk.Parent = GetItemNotNullable<PluModel>(pluFk.Parent.IdentityValueUid);
+                pluFk.Category = GetItemNotNullable<PluModel>(pluFk.Category?.IdentityValueUid);
                 break;
             case PluBrandFkModel pluBrandFk:
                 pluBrandFk.Plu = GetItemNotNullable<PluModel>(pluBrandFk.Plu.IdentityValueUid);

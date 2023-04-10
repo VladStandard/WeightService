@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 /// <summary>
 /// Table validation "DEVICES_SCALES_FK".
 /// </summary>
-public sealed class DeviceScaleFkValidator : SqlTableValidator<DeviceScaleFkModel>
+public sealed class DeviceScaleFkValidator : WsSqlTableValidator<DeviceScaleFkModel>
 {
     /// <summary>
     /// Constructor.
