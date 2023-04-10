@@ -1,0 +1,60 @@
+@page "/section/logs_web_service_fk/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<LogWebFkModel>
+@using DataCore.Sql.TableDiagModels.LogsWebsFks
+@using BlazorDeviceControl.Pages.ItemComponents
+@using DataCore.Sql.TableDiagModels.Logs
+
+<RazorItemReload TItem="LogModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 10, 35, 15, 35 })"/>
+  <tbody>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.Host</td>
+    <td>@SqlItemCast.Device.Name</td>
+    <td>@LocaleCore.Table.App</td>
+    <td>@SqlItemCast.App.Name</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.LogType</td>
+    <td>@SqlItemCast.LogType.Icon</td>
+    <td>@LocaleCore.Table.Version</td>
+    <td>@SqlItemCast.LogWebRequest.Version</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.RequestUrl</td>
+    <td>@SqlItemCast.LogWebRequest.Url</td>
+    <td>@LocaleCore.Table.Request</td>
+    <td>@SqlItemCast.ToString()</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Request</td>
+    <td colspan="3">
+      <RadzenTextArea
+        Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
+        Rows="12" ReadOnly="true"
+        Value="@DataFormatUtils.GetPrettyXml(SqlItemCast.LogWebRequest.DataString)"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Response</td>
+    <td colspan="3">
+      <RadzenTextArea
+        Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
+        Rows="12" ReadOnly="true"
+        Value="@DataFormatUtils.GetPrettyXml(SqlItemCast.LogWebResponse.DataString)"/>
+    </td>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@LogModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+

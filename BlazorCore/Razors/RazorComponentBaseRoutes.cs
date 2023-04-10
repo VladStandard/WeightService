@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableDiagModels.Logs;
 using DataCore.Sql.TableDiagModels.LogsTypes;
+using DataCore.Sql.TableDiagModels.LogsWebsFks;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -97,6 +98,7 @@ public partial class RazorComponentBase
             LogModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogQuickModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogTypeModel => LocaleCore.DeviceControl.RouteSectionLogTypes,
+            LogWebFkModel => LocaleCore.DeviceControl.RouteSectionLogsWebService,
             PluGroupModel => LocaleCore.DeviceControl.RouteSectionNomenclaturesGroups,
             OrderModel => LocaleCore.DeviceControl.RouteSectionOrders,
             OrderWeighingModel => LocaleCore.DeviceControl.RouteSectionOrdersWeighings,

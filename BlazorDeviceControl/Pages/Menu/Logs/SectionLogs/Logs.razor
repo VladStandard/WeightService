@@ -8,10 +8,10 @@
 
 <SectionReload
   TItem="@LogQuickModel"
+  Title="@LocaleCore.System.SystemLogs"
   ButtonSettings="@ButtonSettings"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
-  Title="@LocaleCore.System.SystemLogs"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   />
 
@@ -39,7 +39,7 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="13%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App" Width="13%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="6%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Icon" Property="Icon" Width="7%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="Icon" Width="7%" />
       <RadzenDataGridColumn Title="@LocaleCore.Table.Message" Property="Message" Width="30%" />
     </TItemContent>
   </Columns>

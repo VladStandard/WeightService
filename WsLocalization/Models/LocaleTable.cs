@@ -242,6 +242,8 @@ public class LocaleTable
     public string XmlPretty => Lang == Lang.English ? "Pretty XML" : "Красивый XML";
     public string Zpl => Lang == Lang.English ? "ZPL" : "ЗПЛ";
     public string RequestUrl => Lang == Lang.English ? "Request url" : "Url запроса";
-    public string Request => Lang == Lang.English ? "Result" : "Результат";
+    public string Request => Lang == Lang.English ? "Request" : "Запрос";
+    public string Response => Lang == Lang.English ? "Response" : "Ответ";
+    
     #endregion
 }
