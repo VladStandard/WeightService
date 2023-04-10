@@ -121,6 +121,14 @@ public sealed class WsPlusGroupsHelper : WsContentBase
         }
     }
 
+    /// <summary>
+    /// Отправить номенклатурные группы и получить ответ.
+    /// </summary>
+    /// <param name="xml"></param>
+    /// <param name="format"></param>
+    /// <param name="isDebug"></param>
+    /// <param name="sessionFactory"></param>
+    /// <returns></returns>
     public ContentResult NewResponse1cPluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {

@@ -3,14 +3,14 @@
 
 namespace WsLocalization.Models;
 
-public class LocaleWebService
+public class WsLocaleWebService
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static LocaleWebService _instance;
+    private static WsLocaleWebService _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static LocaleWebService Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsLocaleWebService Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -43,6 +43,7 @@ public class LocaleWebService
     public string LogTypeResponse => Lang == Lang.English ? "Response" : "Ответ";
     public string Name => Lang == Lang.English ? "WebService 1C" : "ВебСервис 1С";
     public string Node => Lang == Lang.English ? "node" : "узел";
+    public string PackageZero => Lang == Lang.English ? "Without the package" : "Без пакета";
     public string Underdevelopment => Lang == Lang.English ? "Under development, contact the developer." : "Находится в разработке, свяжитесь с разработчиком.";
     public string With => Lang == Lang.English ? "with" : "с";
     public string XmlItemBrand => "Brand";

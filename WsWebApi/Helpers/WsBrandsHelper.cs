@@ -64,6 +64,14 @@ public sealed class WsBrandsHelper : WsContentBase
         }
     }
 
+    /// <summary>
+    /// Отправить бренды и получить ответ.
+    /// </summary>
+    /// <param name="xml"></param>
+    /// <param name="formatString"></param>
+    /// <param name="isDebug"></param>
+    /// <param name="sessionFactory"></param>
+    /// <returns></returns>
     public ContentResult NewResponse1cBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {

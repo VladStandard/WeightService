@@ -143,7 +143,13 @@ public sealed class WsPlusHelper : WsContentBase
             SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Gtin));
         });
 
-    private void AddResponse1cPlus(WsResponse1cShortModel response, List<PluModel> plusDb, PluModel pluXml)
+    /// <summary>
+    /// Добавить ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="plusDb"></param>
+    /// <param name="pluXml"></param>
+    private void AddResponse1cPlu(WsResponse1cShortModel response, List<PluModel> plusDb, PluModel pluXml)
     {
         try
         {
@@ -180,7 +186,13 @@ public sealed class WsPlusHelper : WsContentBase
         }
     }
 
-    private void AddResponse1cPlusFks(WsResponse1cShortModel response, List<PluFkModel> pluFksDb, PluModel pluXml)
+    /// <summary>
+    /// Добавить связь ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluFksDb"></param>
+    /// <param name="pluXml"></param>
+    private void AddResponse1cPluFks(WsResponse1cShortModel response, List<PluFkModel> pluFksDb, PluModel pluXml)
     {
         try
         {
@@ -219,7 +231,13 @@ public sealed class WsPlusHelper : WsContentBase
         }
     }
 
-    private void AddResponse1cPlusBoxes(WsResponse1cShortModel response, List<BoxModel> boxesDb, PluModel pluXml)
+    /// <summary>
+    /// Добавить коробку.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="boxesDb"></param>
+    /// <param name="pluXml"></param>
+    private void AddResponse1cPluBox(WsResponse1cShortModel response, List<BoxModel> boxesDb, PluModel pluXml)
     {
         try
         {
@@ -254,16 +272,31 @@ public sealed class WsPlusHelper : WsContentBase
         }
     }
 
-    private void AddResponse1cPlusBundles(WsResponse1cShortModel response, List<BundleModel> bundlesDb, PluModel pluXml)
+    /// <summary>
+    /// Добавить пакет.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="bundlesDb"></param>
+    /// <param name="pluXml"></param>
+    private void AddResponse1cPluBundle(WsResponse1cShortModel response, List<BundleModel> bundlesDb, PluModel pluXml)
     {
         try
         {
             // Check Uid1C.
-            if (Equals(pluXml.PackageTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.PackageTypeName))
+            if (Equals(pluXml.PackageTypeGuid, Guid.Empty))
             {
-                AddResponse1cException(response, pluXml.Uid1c,
+                // PackageTypeGuid="00000000-0000-0000-0000-000000000000" PackageTypeName!="" PackageTypeWeight!="".
+                if (pluXml.PackageTypeWeight > 0)
+                {
+                    AddResponse1cException(response, pluXml.Uid1c,
                     $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.PackageTypeGuid)}!", "");
-                return;
+                    return;
+                }
+                // PackageTypeGuid="00000000-0000-0000-0000-000000000000" PackageTypeName="" PackageTypeWeight="".
+                if (Equals(pluXml.PackageTypeWeight, (decimal)0))
+                {
+                    pluXml.PackageTypeName = LocaleCore.WebService.PackageZero;
+                }
             }
 
             // Find by Uid1C -> Update exists.
@@ -289,44 +322,13 @@ public sealed class WsPlusHelper : WsContentBase
         }
     }
 
-    private PluBundleFkModel AddResponse1cPlusBundlesFks(WsResponse1cShortModel response, List<PluBundleFkModel> pluBundlesFksDb, PluModel pluXml)
-    {
-        PluBundleFkModel pluBundleFk = new();
-        try
-        {
-            if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return pluBundleFk;
-
-            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return pluBundleFk;
-            if (!GetBundleDb(response, pluXml.PackageTypeGuid, pluXml.Uid1c, LocaleCore.WebService.FieldBundle, out BundleModel? bundleDb)) return pluBundleFk;
-            if (pluDb is null || bundleDb is null) return pluBundleFk;
-
-            pluBundleFk = new()
-            {
-                IdentityValueUid = Guid.NewGuid(),
-                Plu = pluDb,
-                Bundle = bundleDb,
-            };
-
-            // Find by Identity -> Update exists | UQ_BUNDLES_FK.
-            PluBundleFkModel? pluBundleFkDb = pluBundlesFksDb.Find(item => Equals(item.Plu.Uid1c, pluBundleFk.Plu.Uid1c));
-            if (pluBundleFkDb is not null)
-                if (UpdateItemDb(response, pluXml.Uid1c, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
-
-            // Not find -> Add new.
-            bool isSave = SaveItemDb(response, pluBundleFk, false, pluXml.Uid1c);
-
-            // Update db list.
-            if (isSave && !pluBundlesFksDb.Select(x => x.IdentityValueUid).Contains(pluBundleFk.IdentityValueUid))
-                pluBundlesFksDb.Add(pluBundleFk);
-        }
-        catch (Exception ex)
-        {
-            AddResponse1cException(response, pluXml.Uid1c, ex);
-        }
-        return pluBundleFk;
-    }
-
-    private void AddResponse1cPlusBrandsFks(WsResponse1cShortModel response, List<PluBrandFkModel> pluBrandsFksDb, PluModel pluXml)
+    /// <summary>
+    /// Добавить связь бренда.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluBrandsFksDb"></param>
+    /// <param name="pluXml"></param>
+    private void AddResponse1cPluBrandFk(WsResponse1cShortModel response, List<PluBrandFkModel> pluBrandsFksDb, PluModel pluXml)
     {
         try
         {
@@ -345,8 +347,6 @@ public sealed class WsPlusHelper : WsContentBase
 
             // Find by Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
             PluBrandFkModel? pluBrandFkDb = pluBrandsFksDb.Find(item => Equals(item.Plu.Uid1c, pluBrandFk.Plu.Uid1c));
-            // FIX HERE!!!!
-            //if (UpdateItemDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
             if (UpdatePluBrandFkDb(response, pluXml.Uid1c, pluBrandFk, pluBrandFkDb, false)) return;
 
             // Not find -> Add new.
@@ -362,7 +362,13 @@ public sealed class WsPlusHelper : WsContentBase
         }
     }
 
-    private void AddResponse1cPlusClips(WsResponse1cShortModel response, List<ClipModel> clipsDb, PluModel pluXml)
+    /// <summary>
+    /// Добавить клипсу.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="clipsDb"></param>
+    /// <param name="pluXml"></param>
+    private void AddResponse1cPluClip(WsResponse1cShortModel response, List<ClipModel> clipsDb, PluModel pluXml)
     {
         try
         {
@@ -397,7 +403,13 @@ public sealed class WsPlusHelper : WsContentBase
         }
     }
 
-    private void AddResponse1cPlusClipsFks(WsResponse1cShortModel response, List<PluClipFkModel> pluClipsFksDb, PluModel pluXml)
+    /// <summary>
+    /// Добавить связь клипсы ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluClipsFksDb"></param>
+    /// <param name="pluXml"></param>
+    private void AddResponse1cPluClipFk(WsResponse1cShortModel response, List<PluClipFkModel> pluClipsFksDb, PluModel pluXml)
     {
         try
         {
@@ -431,7 +443,59 @@ public sealed class WsPlusHelper : WsContentBase
         }
     }
 
-    private void AddResponse1cPlusNestingFks(WsResponse1cShortModel response, PluBundleFkModel pluBundleFk,
+    /// <summary>
+    /// Добавить связь пакета ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluBundlesFksDb"></param>
+    /// <param name="pluXml"></param>
+    /// <returns></returns>
+    private PluBundleFkModel AddResponse1cPluBundleFk(WsResponse1cShortModel response, List<PluBundleFkModel> pluBundlesFksDb, 
+        PluModel pluXml)
+    {
+        PluBundleFkModel pluBundleFk = new();
+        try
+        {
+            //if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return pluBundleFk;
+
+            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return pluBundleFk;
+            if (!GetBundleDb(response, pluXml.PackageTypeGuid, pluXml.Uid1c, LocaleCore.WebService.FieldBundle, out BundleModel? bundleDb)) return pluBundleFk;
+            if (pluDb is null || bundleDb is null) return pluBundleFk;
+
+            pluBundleFk = new()
+            {
+                IdentityValueUid = Guid.NewGuid(),
+                Plu = pluDb,
+                Bundle = bundleDb,
+            };
+
+            // Find by Identity -> Update exists | UQ_BUNDLES_FK.
+            PluBundleFkModel? pluBundleFkDb = pluBundlesFksDb.Find(item => Equals(item.Plu.Uid1c, pluBundleFk.Plu.Uid1c));
+            if (pluBundleFkDb is not null)
+                if (UpdateItemDb(response, pluXml.Uid1c, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
+
+            // Not find -> Add new.
+            bool isSave = SaveItemDb(response, pluBundleFk, false, pluXml.Uid1c);
+
+            // Update db list.
+            if (isSave && !pluBundlesFksDb.Select(x => x.IdentityValueUid).Contains(pluBundleFk.IdentityValueUid))
+                pluBundlesFksDb.Add(pluBundleFk);
+        }
+        catch (Exception ex)
+        {
+            AddResponse1cException(response, pluXml.Uid1c, ex);
+        }
+        return pluBundleFk;
+    }
+
+    /// <summary>
+    /// Добавить связь вложенности ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluBundleFk"></param>
+    /// <param name="pluNestingFksDb"></param>
+    /// <param name="pluXml"></param>
+    private void AddResponse1cPluNestingFk(WsResponse1cShortModel response, PluBundleFkModel pluBundleFk,
         List<PluNestingFkModel> pluNestingFksDb, PluModel pluXml)
     {
         try
@@ -507,9 +571,18 @@ public sealed class WsPlusHelper : WsContentBase
         nameof(PluModel.ShelfLifeDays),
     };
 
+    /// <summary>
+    /// Отправить номенклатуру и получить ответ.
+    /// </summary>
+    /// <param name="xml"></param>
+    /// <param name="format"></param>
+    /// <param name="isDebug"></param>
+    /// <param name="sessionFactory"></param>
+    /// <returns></returns>
     public ContentResult NewResponse1cPlus(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
+            // Подготовка.
             List<PluModel> plusDb = WsDataContext.GetListNotNullablePlus(SqlCrudConfig);
             List<PluFkModel> pluFksDb = WsDataContext.GetListNotNullablePlusFks(SqlCrudConfig);
             List<BoxModel> boxesDb = WsDataContext.GetListNotNullableBoxes(SqlCrudConfig);
@@ -521,43 +594,57 @@ public sealed class WsPlusHelper : WsContentBase
             List<PluNestingFkModel> pluNestingFksDb = WsDataContext.GetListNotNullablePlusNestingFks(
                 new(DataCore.Sql.Core.Utils.WsSqlQueriesScales.Tables.PluNestingFks.GetList(false), false));
             List<PluModel> plusXml = GetXmlPluList(xml);
+            // Цикл по всем XML-номенклатурам.
             foreach (PluModel pluXml in plusXml)
             {
+                // Проверить номер ПЛУ для группы.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluNumberForNonGroup(pluXml);
+                // Проверить валидацию ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluValidation(pluXml);
+                // Проверить дубликат ПЛУ для не группы.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluDublicateForNonGroup(pluXml, plusDb);
+                // Добавить ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPlus(response, plusDb, pluXml);
+                    AddResponse1cPlu(response, plusDb, pluXml);
+                // Добавить связь ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPlusFks(response, pluFksDb, pluXml);
+                    AddResponse1cPluFks(response, pluFksDb, pluXml);
+                // Добавить коробку.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPlusBoxes(response, boxesDb, pluXml);
+                    AddResponse1cPluBox(response, boxesDb, pluXml);
+                // Добавить пакет.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPlusBundles(response, bundlesDb, pluXml);
+                    AddResponse1cPluBundle(response, bundlesDb, pluXml);
+                // Добавить связь бренда.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPlusBrandsFks(response, pluBrandsFksDb, pluXml);
+                    AddResponse1cPluBrandFk(response, pluBrandsFksDb, pluXml);
+                // Добавить клипсу.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPlusClips(response, clipsDb, pluXml);
+                    AddResponse1cPluClip(response, clipsDb, pluXml);
+                // Добавить связь клипсы ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPlusClipsFks(response, pluClipsFksDb, pluXml);
+                    AddResponse1cPluClipFk(response, pluClipsFksDb, pluXml);
 
                 if (pluXml.ParseResult.IsStatusSuccess)
                 {
-                    PluBundleFkModel pluBundleFk = AddResponse1cPlusBundlesFks(response, pluBundlesFksDb, pluXml);
+                    // Добавить связь пакета ПЛУ.
+                    PluBundleFkModel pluBundleFk = AddResponse1cPluBundleFk(response, pluBundlesFksDb, pluXml);
+                    // Добавить связь вложенности ПЛУ.
                     if (pluXml.ParseResult.IsStatusSuccess)
-                        AddResponse1cPlusNestingFks(response, pluBundleFk, pluNestingFksDb, pluXml);
+                        AddResponse1cPluNestingFk(response, pluBundleFk, pluNestingFksDb, pluXml);
                 }
+                // Исключение.
                 if (pluXml.ParseResult.IsStatusError)
-                    AddResponse1cException(response, pluXml.Uid1c,
+                    AddResponse1cException(response, pluXml.Uid1c, 
                         pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);
 
     /// <summary>
-    /// Check PLU validation.
+    /// Проверить валидацию ПЛУ.
     /// </summary>
     /// <param name="itemXml"></param>
     private void CheckPluValidation(PluModel itemXml)
@@ -577,7 +664,7 @@ public sealed class WsPlusHelper : WsContentBase
     }
 
     /// <summary>
-    /// Check PLU number for no group.
+    /// Проверить номер ПЛУ для группы.
     /// </summary>
     /// <param name="pluXml"></param>
     private void CheckPluNumberForNonGroup(PluModel pluXml)
@@ -593,7 +680,7 @@ public sealed class WsPlusHelper : WsContentBase
     }
 
     /// <summary>
-    /// Check PLU duplicate for no group.
+    /// Проверить дубликат ПЛУ для не группы.
     /// </summary>
     /// <param name="pluXml"></param>
     /// <param name="plusDb"></param>

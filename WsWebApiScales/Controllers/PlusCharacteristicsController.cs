@@ -37,8 +37,8 @@ public sealed class PlusCharacteristicsController : WsControllerBase
         DateTime requestStampDt = DateTime.Now;
         //ContentResult result = GetAcceptVersion(version) switch
         //{
-        //    AcceptVersion.V2 => GetContentResult(() => NewResponse1cIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!",
-        // format, isDebug, SessionFactory), format),
+        //    AcceptVersion.V2 => GetContentResult(() => NewResponse1cIsNotFound(
+        //        $"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
         //    _ => GetContentResult(() => WsPlusCharacteristics.NewResponse1cPluCharacteristics(xml, format, isDebug, SessionFactory), format)
         //};
         ContentResult result = GetContentResult(() => NewResponse1cIsNotFound(LocaleCore.WebService.Underdevelopment, 

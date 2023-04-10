@@ -30,7 +30,7 @@ public static class LocaleCore
     public static LocaleTable Table { get; } = LocaleTable.Instance;
     public static LocaleValidator Validator { get; } = LocaleValidator.Instance;
     public static LocalePing Ping { get; } = LocalePing.Instance;
-    public static LocaleWebService WebService { get; } = LocaleWebService.Instance;
+    public static WsLocaleWebService WebService { get; } = WsLocaleWebService.Instance;
 	public static LocaleContextMenu ContextMenu { get; } = LocaleContextMenu.Instance;
 
     #endregion

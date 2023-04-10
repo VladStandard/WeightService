@@ -38,8 +38,8 @@ public sealed class BrandsController : WsControllerBase
         ContentResult result = GetAcceptVersion(version) switch
         {
             AcceptVersion.V2 =>
-                GetContentResult(() => NewResponse1cIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", 
-                    format, isDebug, SessionFactory), format),
+                GetContentResult(() => NewResponse1cIsNotFound(
+                    $"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => WsBrands.NewResponse1cBrands(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBrands,
