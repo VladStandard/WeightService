@@ -5,7 +5,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @using DataCore.Sql.TableDiagModels.Logs
 
-<RazorItemReload TItem="LogModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
+<RazorItemReload TItem="LogWebFkModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 10, 35, 15, 35 })"/>

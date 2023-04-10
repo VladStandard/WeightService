@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Reflection;
+using DataCore.Sql.Core.Models;
 
 namespace BlazorDeviceControl.Pages.Menu.Admins;
 
@@ -19,7 +20,9 @@ public sealed partial class SystemAppInfo : RazorComponentBase
 	private uint DbFillSize => DbFileSizeAll == 0 ? 0 : DbFileSizeAll * 100 / DbMaxSize;
     private ulong CurrentRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalAllocated.MegaBytes;
     private ulong TotalRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes;
-    
+
+    private List<SqlDbFileSizeInfoModel> DbFileSizeInfos => new WsDataContextModel().GetDbFileSizeInfos();
+
     #endregion
 
 	#region Public and private methods

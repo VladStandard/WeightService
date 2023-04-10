@@ -75,7 +75,7 @@ public static class LocaleCore
         public static string DataSizeMBytes => Lang == Lang.English ? "Mbytes" : "МБайтов";
         public static string DataSizeVolume => Lang == Lang.English ? "Data volume" : "Объём данных";
         public static string DbAndMemory => Lang == Lang.English ? "DB and memory" : "БД и память";
-        public static string DbAndMemoryGauge => Lang == Lang.English ? "DB and memory (gauge)" : "БД и память (измеритель)";
+        public static string DbAndMemoryGauge => Lang == Lang.English ? "RAM" : "Оперативная память";
         public static string DbAndMemoryProgressBar => Lang == Lang.English ? "DB and memory (progressbar)" : "БД и память (шкала прогресса)";
         public static string DbInfo => Lang == Lang.English ? "Information about the DB" : "Информация о БД";
         public static string DebugMode => Lang == Lang.English ? "Debug mode" : "Режим отладки";
