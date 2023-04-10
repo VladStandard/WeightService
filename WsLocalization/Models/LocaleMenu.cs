@@ -34,7 +34,7 @@ public class LocaleMenu
     public string MenuInfo => Lang == Lang.English ? "Info" : "Информация";
     public string MenuMain => Lang == Lang.English ? "Main" : "Главная";
     public string MenuReferences => Lang == Lang.English ? "References" : "Справочники";
-    public string MenuReports => Lang == Lang.English ? "Reports" : "Журналы";
+    public string MenuReports => Lang == Lang.English ? "Diagnostic" : "Диагностика";
     public string MenuSecurity => Lang == Lang.English ? "Security" : "Безопасность";
     public string MenuSystem => Lang == Lang.English ? "System" : "Система";
     public string ServerResponse => Lang == Lang.English ? "Server response" : "Ответ сервера";

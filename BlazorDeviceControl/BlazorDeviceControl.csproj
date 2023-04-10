@@ -169,6 +169,14 @@
       <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionWebServiceLogs.razor" />
       <_ContentIncludedByDefault Remove="Pages\SectionComponents\Nested\SectionPlusScales.razor" />
       <_ContentIncludedByDefault Remove="Pages\SectionComponents\Nested\SectionPrintersResources.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Menu\Admins\SectionScalesScreenShots\ItemScaleScreenShot.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Menu\Admins\SectionScalesScreenShots\ScalesScreenShots.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ExampleComponents\ExampleNetBarcode.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ExampleComponents\ExampleRadzen.razor" />
+    </ItemGroup>
+    <ItemGroup>
+      <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ItemScaleScreenShot.razor" />
+      <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ScalesScreenShots.razor" />
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

@@ -1,6 +1,6 @@
 @page "/section/scales_screenshots/new"
 @page "/section/scales_screenshots/{IdentityUidStr}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Admin)]
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<ScaleScreenShotModel>
 

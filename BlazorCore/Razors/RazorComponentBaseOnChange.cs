@@ -65,13 +65,14 @@ public partial class RazorComponentBase
 
     private void OnChangeItemPrinterResource(PrinterResourceFkModel item, string filterName, object? value)
     {
-        if (filterName == nameof(item.Printer) && value is long printerId)
+        switch (filterName)
         {
-            item.Printer = DataContext.GetItemNotNullable<PrinterModel>(printerId);
-        }
-        if (filterName == nameof(item.TemplateResource) && value is long resourceId)
-        {
-            item.TemplateResource = DataContext.GetItemNotNullable<TemplateResourceModel>(resourceId);
+            case nameof(item.Printer) when value is long printerId:
+                item.Printer = DataContext.GetItemNotNullable<PrinterModel>(printerId);
+                break;
+            case nameof(item.TemplateResource) when value is long resourceId:
+                item.TemplateResource = DataContext.GetItemNotNullable<TemplateResourceModel>(resourceId);
+                break;
         }
     }
 

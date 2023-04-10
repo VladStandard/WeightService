@@ -7,28 +7,28 @@
   <MudPaper Outlined="true" Class="mb-2">
     <MudToolBar Dense="true" DisableGutters="true">
       <AuthorizeView Roles="@UserAccessStr.Write">
-          @if (ButtonSettings.IsShowSave)
-              {
-                <RadzenButton
-                  class="RadzenButtonLong"
-                  Click=@OnItemSave
-                  ButtonStyle=@ButtonStyle.Primary
-                  Size=@ButtonSize.Small
-                  Style="width: 50%;"
-                  Text=@LocaleCore.DeviceControl.TableActionSave/>
-                <MudSpacer/>
-              }
+        @if (ButtonSettings.IsShowSave)
+        {
+          <RadzenButton
+            class="RadzenButtonLong"
+            Click=@OnItemSave
+            ButtonStyle=@ButtonStyle.Primary
+            Size=@ButtonSize.Small
+            Style="width: 50%;"
+            Text=@LocaleCore.DeviceControl.TableActionSave/>
+          <MudSpacer/>
+        }
       </AuthorizeView>
       <AuthorizeView Roles="@UserAccessStr.Read">
-           @if (ButtonSettings.IsShowCancel)
-              {
-                <RadzenButton
-                  class="RadzenButtonLong"
-                  Click=@OnItemCancel
-                  ButtonStyle=@ButtonStyle.Secondary Size=@ButtonSize.Small
-                  Style="width: 50%; "
-                  Text=@LocaleCore.DeviceControl.TableActionCancel/>
-              }
+        @if (ButtonSettings.IsShowCancel)
+        {
+          <RadzenButton
+          class="RadzenButtonLong"
+          Click=@OnItemCancel
+          ButtonStyle=@ButtonStyle.Secondary Size=@ButtonSize.Small
+          Style="width: 50%; "
+          Text=@LocaleCore.DeviceControl.TableActionCancel/>
+        }
       </AuthorizeView>
     </MudToolBar>
   </MudPaper>

@@ -82,39 +82,6 @@ a, .btn-link {
   background-image: linear-gradient(0, transparent 0, transparent 50%);
 }
 
-.RadzenPanelMenuItemRelease {
-  margin: 0;
-  font-size: 12px;
-  background-color: transparent;
-  border-color: transparent;
-  background-image: linear-gradient(0, grey 0, grey 50%);
-}
-
-.RadzenPanelMenuItemDebug {
-  margin: 0;
-  font-size: 12px;
-  background-color: transparent;
-  border-color: gray;
-  background-image: linear-gradient(0, darkorange 0, darkorange 25%);
-}
-
-.RadzenPanelMenuItemDefault {
-  margin: 0;
-  font-size: 12px;
-  background-color: transparent;
-  border-color: transparent;
-  background-image: linear-gradient(0, transparent 0, transparent 50%);
-}
-
-.RadzenPanelMenuSubItem {
-  margin: 0;
-  font-size: 11px;
-  background-color: transparent;
-  border-color: transparent;
-  border-block-color: transparent;
-  background-image: linear-gradient(0, transparent 100%, transparent 100%);
-}
-
 .RadzenProgressBar {
   margin: 3px 0 0;
   width: 100%;

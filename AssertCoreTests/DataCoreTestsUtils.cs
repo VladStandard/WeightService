@@ -11,6 +11,6 @@ public static class DataCoreTestsUtils
 
     public static DataCoreHelper DataCore => DataCoreHelper.Instance;
     public static WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
-
+    
     #endregion
 }

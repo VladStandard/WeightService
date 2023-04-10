@@ -44,7 +44,7 @@ public partial class RazorComponentBase
 {
     #region Public and private methods - Routes
     
-    protected string GetRouteItemPathForLink<TItem>(TItem? item) where TItem : WsSqlTableBase, new()
+    protected string GetRouteItemPathForLink<TItem>(TItem item) where TItem : WsSqlTableBase, new()
     {
         string page = GetRouteSectionPath(item);
         if (string.IsNullOrEmpty(page)) 

@@ -10,7 +10,6 @@ using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Settings.Helpers;
 using DataCore.Sql.Core.Enums;
-using DataCore.Sql.Core.Models;
 using DataCore.Sql.Core.Utils;
 using DataCore.Sql.TableDiagModels.Logs;
 using DataCore.Sql.TableDiagModels.LogsMemories;
@@ -488,7 +487,7 @@ public class WsDataAccessHelper
     public TemplateModel GetItemTemplateNotNullable(PluScaleModel pluScale) =>
         GetItemTemplateNullable(pluScale) ?? new();
 
-    private ScaleModel? GetItemScaleNullable(DeviceModel device)
+    private ScaleModel GetItemScaleNullable(DeviceModel device)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFiltersIdentity(
             $"{nameof(DeviceScaleFkModel.Device)}", device.IdentityValueUid), false, false);

@@ -22,7 +22,7 @@
     <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/></td>
     <td><RzDropDownLocal @bind-Value="@SqlItemCast.Scale" Data="@DataContext.Scales" TextProperty="Description"/></td>
     <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/></td>
-    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Plu" Data="@DataContext.Plus" TextProperty="Name"/></td>
+    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Plu" Data="@DataContext.Plus" TextProperty="DisplayName" /></td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
