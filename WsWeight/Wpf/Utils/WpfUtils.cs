@@ -90,7 +90,7 @@ public static class WpfUtils
         switch (logType)
         {
             case LogType.Error:
-                DataAccess.SaveLogError(message, filePath, lineNumber, memberName);
+                DataAccess.SaveLogErrorWithInfo(message, filePath, lineNumber, memberName);
                 break;
             case LogType.Question:
                 DataAccess.SaveLogQuestion(message);

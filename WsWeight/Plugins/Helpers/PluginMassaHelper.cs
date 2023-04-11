@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsWeight.WinForms.Utils;
@@ -27,7 +27,7 @@ public class PluginMassaHelper : PluginHelperBase
     private Label FieldNettoWeight { get; set; }
     private readonly object _locker = new();
     //public MassaStableModel MassaStable { get; set; } = new(0_100, false);
-    public bool IsStable { get; set; }
+    public bool IsStable { get; private set; }
     private decimal _weightNet;
     public decimal WeightNet
     {
@@ -40,6 +40,7 @@ public class PluginMassaHelper : PluginHelperBase
     private ResponseParseModel ResponseParseScalePar { get; set; }
     private ResponseParseModel ResponseParseSet { get; set; }
     public bool IsWeightNetFake { get; set; }
+    private Action ResetWarning { get; set; }
 
     /// <summary>
     /// Default constructor.
@@ -53,6 +54,7 @@ public class PluginMassaHelper : PluginHelperBase
         ResponseParseScalePar = new();
         ResponseParseGet = new();
         ResponseParseSet = new();
+        ResetWarning = () => { };
     }
 
     #endregion
@@ -60,7 +62,7 @@ public class PluginMassaHelper : PluginHelperBase
     #region Public and private methods
 
     public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
-        Label fieldNettoWeight, Label fieldMassa, Label fieldMassaExt)
+        Label fieldNettoWeight, Label fieldMassa, Label fieldMassaExt, Action resetWarning)
     {
         base.Init();
         
@@ -70,7 +72,8 @@ public class PluginMassaHelper : PluginHelperBase
         FieldNettoWeight = fieldNettoWeight;
         FieldMassa = fieldMassa;
         FieldMassaExt = fieldMassaExt;
-        
+        ResetWarning = resetWarning;
+
         ActionUtils.ActionTryCatch(() =>
         {
             if (UserSessionHelper.Instance.Scale.IsNotNew)
@@ -121,7 +124,7 @@ public class PluginMassaHelper : PluginHelperBase
         if (!UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
             SetControlsTextDefault();
         else
-            SetControlsText();
+            SetLabelsText();
     }
 
     private void SetControlsTextDefault()
@@ -131,7 +134,10 @@ public class PluginMassaHelper : PluginHelperBase
         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
     }
 
-    private void SetControlsText()
+    /// <summary>
+    /// Задать текст весовой ПЛУ.
+    /// </summary>
+    private void SetLabelsText()
     {
         switch (MassaDevice.PortController.AdapterStatus)
         {
@@ -228,7 +234,7 @@ public class PluginMassaHelper : PluginHelperBase
 
             MassaExchange.ResponseParse = new(MassaExchange.CmdType, response);
             ParseSetResponse();
-            ParseSetMassa();
+            ParseMassa();
         }
     }
 
@@ -263,7 +269,7 @@ public class PluginMassaHelper : PluginHelperBase
         }
     }
 
-    private void ParseSetMassa()
+    private void ParseMassa()
     {
         switch (MassaExchange.CmdType)
         {
@@ -280,6 +286,8 @@ public class PluginMassaHelper : PluginHelperBase
                 // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
                 //MassaStable = new(0_100, MassaExchange.ResponseParse.Massa.IsStable == 0x01);
                 IsStable = MassaExchange.ResponseParse.Massa.IsStable;
+                if (IsStable)
+                    ResetWarning();
                 // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
                 //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
                 break;

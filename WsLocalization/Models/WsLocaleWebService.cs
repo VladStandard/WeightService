@@ -18,6 +18,8 @@ public class WsLocaleWebService
 
     #region Public and private fields, properties, constructor
     
+    public string BoxZero => Lang == Lang.English ? "Without the box" : "Без коробки";
+    public string ClipZero => Lang == Lang.English ? "Without the clip" : "Без клипсы";
     public string DtStamp => Lang == Lang.English ? "Date time stamp" : "Отметка времени даты";
     public string Dublicate => Lang == Lang.English ? "Dublicate" : "Дубликат";
     public string FieldBrand => Lang == Lang.English ? "Brand" : "Бренд";

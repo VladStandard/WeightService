@@ -113,34 +113,34 @@ public sealed class WsPlusHelper : WsContentBase
     /// <param name="xml"></param>
     /// <returns></returns>
     internal List<PluModel> GetXmlPluList(XElement xml) =>
-        GetNodesListCore<PluModel>(xml, LocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
+        WsContentUtils.GetNodesListCore<PluModel>(xml, LocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
         {
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsGroup));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.FullName));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.CategoryGuid));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BrandGuid));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.MeasurementType));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.GroupGuid));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.AttachmentsCount));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeGuid));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeName));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeWeight));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.PackageTypeGuid));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.PackageTypeName));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.PackageTypeWeight));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ClipTypeGuid));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ClipTypeName));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ClipTypeWeight));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PluNumber");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Description));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsGroup));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.FullName));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.CategoryGuid));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BrandGuid));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.MeasurementType));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.GroupGuid));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.AttachmentsCount));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeGuid));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeName));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeWeight));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.PackageTypeGuid));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.PackageTypeName));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.PackageTypeWeight));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ClipTypeGuid));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ClipTypeName));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.ClipTypeWeight));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PluNumber");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Description));
             //SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsCheckWeight));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ShelfLife");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Gtin));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ShelfLife");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Gtin));
         });
 
     /// <summary>
@@ -197,10 +197,10 @@ public sealed class WsPlusHelper : WsContentBase
         try
         {
             if (Equals(pluXml.ParentGuid, Guid.Empty)) return;
-
-            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
-            if (!GetPluDb(response, pluXml.ParentGuid, pluXml.Uid1c, LocaleCore.WebService.FieldGroup, true, out PluModel? parentDb)) return;
-            if (!GetPluDb(response, pluXml.CategoryGuid, pluXml.Uid1c, LocaleCore.WebService.FieldGroup1Level, true, out PluModel? categoryDb)) return;
+            // Проверить наличие ПЛУ в БД.
+            if (!CheckExistsPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
+            if (!CheckExistsPluDb(response, pluXml.ParentGuid, pluXml.Uid1c, LocaleCore.WebService.FieldGroup, true, out PluModel? parentDb)) return;
+            if (!CheckExistsPluDb(response, pluXml.CategoryGuid, pluXml.Uid1c, LocaleCore.WebService.FieldGroup1Level, true, out PluModel? categoryDb)) return;
             if (pluDb is null || parentDb is null) return;
 
             PluFkModel pluFk = new()
@@ -216,7 +216,7 @@ public sealed class WsPlusHelper : WsContentBase
                 Equals(item.Plu.Uid1c, pluFk.Plu.Uid1c) &&
                 Equals(item.Parent.Uid1c, pluFk.Parent.Uid1c) &&
                 Equals(item.Category?.Uid1c, pluFk.Category?.Uid1c));
-            if (UpdateItemDb(response, pluXml.Uid1c, pluFk, pluFkDb, false)) return;
+            if (UpdatePluFkDb(response, pluXml.Uid1c, pluFk, pluFkDb, false)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluFk, false, pluXml.Uid1c);
@@ -242,11 +242,17 @@ public sealed class WsPlusHelper : WsContentBase
         try
         {
             // Check Uid1C.
-            if (Equals(pluXml.BoxTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.BoxTypeName))
+            if (Equals(pluXml.BoxTypeGuid, Guid.Empty))
             {
-                AddResponse1cException(response, pluXml.Uid1c,
+                // BoxTypeGuid="00000000-0000-0000-0000-000000000000" BoxTypeName!="" BoxTypeWeight!="".
+                if (pluXml.PackageTypeWeight > 0)
+                {
+                    AddResponse1cException(response, pluXml.Uid1c,
                     $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.BoxTypeGuid)}!", "");
-                return;
+                    return;
+                }
+                // BoxTypeGuid="00000000-0000-0000-0000-000000000000" BoxTypeName="" BoxTypeWeight="".
+                pluXml.BoxTypeName = LocaleCore.WebService.BoxZero;
             }
 
             // Find by Uid1C -> Update exists.
@@ -293,10 +299,7 @@ public sealed class WsPlusHelper : WsContentBase
                     return;
                 }
                 // PackageTypeGuid="00000000-0000-0000-0000-000000000000" PackageTypeName="" PackageTypeWeight="".
-                if (Equals(pluXml.PackageTypeWeight, (decimal)0))
-                {
-                    pluXml.PackageTypeName = LocaleCore.WebService.PackageZero;
-                }
+                pluXml.PackageTypeName = LocaleCore.WebService.PackageZero;
             }
 
             // Find by Uid1C -> Update exists.
@@ -333,9 +336,10 @@ public sealed class WsPlusHelper : WsContentBase
         try
         {
             if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
-
-            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
-            if (!GetBrandDb(response, pluXml.BrandGuid, pluXml.Uid1c, LocaleCore.WebService.FieldBrand, out BrandModel? brandDb)) return;
+            // Проверить наличие ПЛУ в БД.
+            if (!CheckExistsPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
+            // Проверить наличие бренда в БД.
+            if (!CheckExistsBrandDb(response, pluXml.BrandGuid, pluXml.Uid1c, LocaleCore.WebService.FieldBrand, out BrandModel? brandDb)) return;
             if (pluDb is null || brandDb is null) return;
 
             PluBrandFkModel pluBrandFk = new()
@@ -373,11 +377,17 @@ public sealed class WsPlusHelper : WsContentBase
         try
         {
             // Check Uid1C.
-            if (Equals(pluXml.ClipTypeGuid, Guid.Empty) && !string.IsNullOrEmpty(pluXml.ClipTypeName))
+            if (Equals(pluXml.ClipTypeGuid, Guid.Empty))
             {
-                AddResponse1cException(response, pluXml.Uid1c,
+                // ClipTypeGuid="00000000-0000-0000-0000-000000000000" ClipTypeName!="" ClipTypeWeight!="".
+                if (pluXml.ClipTypeWeight > 0)
+                {
+                    AddResponse1cException(response, pluXml.Uid1c,
                     $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.ClipTypeGuid)}!", "");
-                return;
+                    return;
+                }
+                // ClipTypeGuid="00000000-0000-0000-0000-000000000000" ClipTypeName="" ClipTypeWeight="".
+                pluXml.ClipTypeName = LocaleCore.WebService.ClipZero;
             }
 
             // Find by Uid1C -> Update exists.
@@ -414,9 +424,10 @@ public sealed class WsPlusHelper : WsContentBase
         try
         {
             if (Equals(pluXml.ClipTypeGuid, Guid.Empty)) return;
-
-            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
-            if (!GetClipDb(response, pluXml.ClipTypeGuid, pluXml.Uid1c, LocaleCore.WebService.FieldClip, out ClipModel? clipDb)) return;
+            // Проверить наличие ПЛУ в БД.
+            if (!CheckExistsPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
+            // Проверить наличие клипсы в БД.
+            if (!CheckExistsClipDb(response, pluXml.ClipTypeGuid, pluXml.Uid1c, LocaleCore.WebService.FieldClip, out ClipModel? clipDb)) return;
             if (pluDb is null || clipDb is null) return;
 
             PluClipFkModel pluClipFk = new()
@@ -428,7 +439,7 @@ public sealed class WsPlusHelper : WsContentBase
 
             // Find by Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
             PluClipFkModel? pluClipFkDb = pluClipsFksDb.Find(item => Equals(item.Plu.Uid1c, pluClipFk.Plu.Uid1c));
-            if (UpdateItemDb(response, pluXml.Uid1c, pluClipFk, pluClipFkDb, false)) return;
+            if (UpdatePluClipFkDb(response, pluXml.Uid1c, pluClipFk, pluClipFkDb, false)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluClipFk, false, pluXml.Uid1c);
@@ -456,10 +467,10 @@ public sealed class WsPlusHelper : WsContentBase
         PluBundleFkModel pluBundleFk = new();
         try
         {
-            //if (Equals(pluXml.PackageTypeGuid, Guid.Empty)) return pluBundleFk;
-
-            if (!GetPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return pluBundleFk;
-            if (!GetBundleDb(response, pluXml.PackageTypeGuid, pluXml.Uid1c, LocaleCore.WebService.FieldBundle, out BundleModel? bundleDb)) return pluBundleFk;
+            // Проверить наличие ПЛУ в БД.
+            if (!CheckExistsPluDb(response, pluXml.Uid1c, pluXml.Uid1c, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return pluBundleFk;
+            // Проверить наличие пакета в БД.
+            if (!CheckExistsBundleDb(response, pluXml.PackageTypeGuid, pluXml.Uid1c, LocaleCore.WebService.FieldBundle, out BundleModel? bundleDb)) return pluBundleFk;
             if (pluDb is null || bundleDb is null) return pluBundleFk;
 
             pluBundleFk = new()
@@ -472,7 +483,7 @@ public sealed class WsPlusHelper : WsContentBase
             // Find by Identity -> Update exists | UQ_BUNDLES_FK.
             PluBundleFkModel? pluBundleFkDb = pluBundlesFksDb.Find(item => Equals(item.Plu.Uid1c, pluBundleFk.Plu.Uid1c));
             if (pluBundleFkDb is not null)
-                if (UpdateItemDb(response, pluXml.Uid1c, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
+                if (UpdatePluBundleFkDb(response, pluXml.Uid1c, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluBundleFk, false, pluXml.Uid1c);
@@ -528,7 +539,7 @@ public sealed class WsPlusHelper : WsContentBase
                     Equals(item.PluBundle.Plu.Uid1c, pluNestingFk.PluBundle.Plu.Uid1c) &&
                     Equals(item.PluBundle.Bundle.Uid1c, pluNestingFk.PluBundle.Bundle.Uid1c) &&
                     Equals(item.BundleCount, pluXml.AttachmentsCount));
-            if (UpdateItemDb(response, pluXml.Uid1c, pluNestingFk, pluNestingFkDb, false)) return;
+            if (UpdatePluNestingFk(response, pluXml.Uid1c, pluNestingFk, pluNestingFkDb, false)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluNestingFk, false, pluXml.Uid1c);
@@ -658,7 +669,7 @@ public sealed class WsPlusHelper : WsContentBase
             {
                 if (pluProperties.Contains(error.PropertyName) &&
                     !itemXml.ParseResult.Exception.Contains(error.PropertyName))
-                    SetItemParseResultException(itemXml, error.PropertyName);
+                    WsContentUtils.SetItemParseResultException(itemXml, error.PropertyName);
             }
         }
     }

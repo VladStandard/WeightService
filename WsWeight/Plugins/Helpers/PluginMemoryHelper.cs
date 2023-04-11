@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsWeight.WinForms.Utils;
-
 namespace WsWeight.Plugins.Helpers;
 
 public class PluginMemoryHelper : PluginHelperBase
