@@ -108,7 +108,7 @@ public partial class LocaleDeviceControl
     public string SectionPlus => Lang == Lang.English ? "PLUs" : "ПЛУ";
     public string SectionPlusBundlesFk => Lang == Lang.English ? "PLU & bundles" : "Пакеты ПЛУ";
     public string SectionPlusNestingFk => Lang == Lang.English ? "PLU's nesting" : "Вложенности ПЛУ";
-    public string SectionPlusScales => Lang == Lang.English ? "PLU & devices" : "ПЛУ и устройства";
+    public string SectionPlusScales => Lang == Lang.English ? "PLU & Lines" : "ПЛУ и Линия";
     public string SectionPlusWeightings => Lang == Lang.English ? "Plus Weightings" : "Взвешивания ПЛУ";
     public string SectionProductionFacilities => Lang == Lang.English ? "Production facilities" : "Производственные площадки";
     public string SectionProductionFacilitiesShort => Lang == Lang.English ? "Facilities" : "Площадки";

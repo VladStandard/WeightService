@@ -34,10 +34,8 @@ public sealed partial class ItemAccess : RazorComponentItemBase<AccessModel>
 			{
 				SqlItemCast = DataContext.GetItemNotNullable<AccessModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-				{
-					SqlItemCast = SqlItemNew<AccessModel>();
-				}
-				TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
+                    SqlItemCast = SqlItemNew<AccessModel>();
+                TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
             }
 		});
 	}

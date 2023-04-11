@@ -1,9 +1,8 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleFkModels.PlusGroupsFks;
 using DataCore.Sql.TableScaleModels.PlusGroups;
-using System;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups;
 
@@ -20,12 +19,8 @@ public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluG
     [Obsolete(@"AllData проинициализируй в конструкторе")]
     protected override void SetSqlSectionCast()
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigSection.CloneCast();
-        //sqlCrudConfig.AddFilters(new SqlFieldFilterModel($"{nameof(PluGroupFkModel.IsGroup)}", false));
-        //sqlCrudConfig.SetOrders(new(nameof(WsSqlTableBase.Name), SqlFieldOrderEnum.Asc));
-        sqlCrudConfig.IsResultOrder = true;
         var pluGroupsFk = DataContext.GetListNotNullable<PluGroupFkModel>(new SqlCrudConfigModel());
-        AllData = DataContext.GetListNotNullable<PluGroupModel>(sqlCrudConfig);
+        AllData = DataContext.GetListNotNullable<PluGroupModel>(new SqlCrudConfigModel() {IsResultOrder = true});
         foreach (PluGroupModel pluGroup in AllData)
         {
             var  temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();
@@ -36,7 +31,7 @@ public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluG
         SqlSectionCast = AllData.Where(e=> e.ParentGuid == Guid.Empty).ToList();
     }
 
-    void RowRender(RowRenderEventArgs<PluGroupModel> args)
+    private new void RowRender(RowRenderEventArgs<PluGroupModel> args)
     {
         args.Expandable = AllData.Any(e => e.ParentGuid == args.Data.IdentityValueUid);
     }

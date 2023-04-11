@@ -17,7 +17,9 @@ public sealed record SqlDbFileSizeInfoModel
     public string FileName { get; init; }
     public ushort SizeMb { get; init; }
     public ushort MaxSizeMb { get; init; }
-
+    public string DisplayName => $"{SizeMb} из {MaxSizeMb} MB";
+    public double DbFillSize => ((double)SizeMb / MaxSizeMb) * 100;
+    
     public SqlDbFileSizeInfoModel(byte type, string fileName, ushort sizeMb, ushort maxSizeMb)
     {
         Type = type == 0 ? DbFileType.MasterDataFile : DbFileType.LogDataFile;

@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableDiagModels.Logs;
 using DataCore.Sql.TableDiagModels.LogsTypes;
+using DataCore.Sql.TableDiagModels.LogsWebsFks;
 using DataCore.Sql.TableDiagModels.ScalesScreenshots;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
@@ -44,7 +45,7 @@ public partial class RazorComponentBase
 {
     #region Public and private methods - Routes
     
-    protected string GetRouteItemPathForLink<TItem>(TItem? item) where TItem : WsSqlTableBase, new()
+    protected string GetRouteItemPathForLink<TItem>(TItem item) where TItem : WsSqlTableBase, new()
     {
         string page = GetRouteSectionPath(item);
         if (string.IsNullOrEmpty(page)) 
@@ -97,6 +98,7 @@ public partial class RazorComponentBase
             LogModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogQuickModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogTypeModel => LocaleCore.DeviceControl.RouteSectionLogTypes,
+            LogWebFkModel => LocaleCore.DeviceControl.RouteSectionLogsWebService,
             PluGroupModel => LocaleCore.DeviceControl.RouteSectionNomenclaturesGroups,
             OrderModel => LocaleCore.DeviceControl.RouteSectionOrders,
             OrderWeighingModel => LocaleCore.DeviceControl.RouteSectionOrdersWeighings,
@@ -105,7 +107,7 @@ public partial class RazorComponentBase
             PluLabelModel => LocaleCore.DeviceControl.RouteSectionPlusLabels,
             PluModel => LocaleCore.DeviceControl.RouteSectionPlus,
             PluNestingFkModel => LocaleCore.DeviceControl.RouteSectionPlusNestingFks,
-            PluScaleModel => LocaleCore.DeviceControl.RouteSectionScales,
+            PluScaleModel => LocaleCore.DeviceControl.RouteSectionPlusScales,
             PluWeighingModel => LocaleCore.DeviceControl.RouteSectionPlusWeighings,
             PrinterModel => LocaleCore.DeviceControl.RouteSectionPrinters,
             PrinterResourceFkModel => LocaleCore.DeviceControl.RouteSectionPrinterResources,
