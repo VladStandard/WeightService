@@ -12,7 +12,7 @@ public sealed partial class PlusBundlesFks : RazorComponentSectionBase<PluBundle
     public PlusBundlesFks() : base()
     {
         SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
-        ButtonSettings = new(true, true, true, true, true, true, false);
+        ButtonSettings = new(false, false, true, true, false, false, false);
     }
 
     #endregion

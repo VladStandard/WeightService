@@ -9,8 +9,13 @@ namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups
 public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluGroupModel> 
 {
 	#region Public and private fields, properties, constructor
-
+    
     private List<PluGroupModel> AllData { get; set; }
+
+    public NomenclaturesGroups() : base()
+    {
+        ButtonSettings = new(false, false, true, true, false, false, false);
+    }
 
     #endregion
 

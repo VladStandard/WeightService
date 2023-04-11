@@ -14,66 +14,17 @@
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
-  @* Plu & Number *@
   <tr>
-    <td>
-      <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(Plu)"
-                  Text="@LocaleCore.Table.Plu"/>
-    </td>
-    <td colspan="3">
-      <MudSelectLocal @bind-Value="@Plu">
-        @foreach (PluModel item in DataContext.Plus)
-        {
-          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
+    <td><RadzenLink Path="@GetRouteItemPath(@SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu" /></td>
+    <td>@SqlItemCast.Plu.DisplayName</td>
+    <td>@LocaleCore.Table.NomenclatureCode</td>
+    <td>@SqlItemCast.Plu.Code</td>
   </tr>
-  @* Plu *@
   <tr>
-    <td>
-      <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(SqlItemCast.Plu)"
-                  Text="@LocaleCore.Table.Plu"/>
-    </td>
-    <td>
-      <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(SqlItemCast.Plu)"
-                  Text=@($"{Plu.Number}") />
-    </td>
-    <td colspan="2">
-      <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(SqlItemCast.Plu)"
-                  Text="@Plu.Name"/>
-    </td>
-  </tr>
-  @* Nomenclature *@
-  <tr>
-    <td>
-      <RadzenLabel Style="width: 100%; " Text="@LocaleCore.Table.NomenclatureCode"/>
-    </td>
-    <td>
-      <RadzenLink Style="width: 100%; "
-                  Path="@GetRouteItemPath(SqlItemCast.Bundle)"
-                  Text="@(SqlItemCast.Plu.Code)"/>
-    </td>
-  </tr>
-  @* Bundle *@
-  <tr>
-    <td>
-      <RadzenLink Style="width: 100%; margin-left: 0;"
-                  Path="@GetRouteItemPath(SqlItemCast.Bundle)"
-                  Text="@LocaleCore.Table.Bundle"/>
-    </td>
-    <td colspan="3">
-      <MudSelectLocal @bind-Value="@Bundle">
-        @foreach (BundleModel item in DataContext.Bundles)
-        {
-          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
-    </td>
+    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Bundle)" Text="@LocaleCore.Table.Bundle" /></td>
+    <td>@SqlItemCast.Bundle.Name</td>
+    <td>@LocaleCore.Table.BundleWeight</td>
+    <td>@SqlItemCast.Bundle.Weight</td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>

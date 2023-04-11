@@ -9,6 +9,11 @@ public sealed partial class Bundles : RazorComponentSectionBase<BundleModel>
 {
     #region Public and private fields, properties, constructor
 
+    public Bundles() : base()
+    {
+        ButtonSettings = new(false, false, true, true, false, false, false);
+    }
+    
     #endregion
 
     #region Public and private methods

@@ -9,6 +9,11 @@ public sealed partial class Contragents : RazorComponentSectionBase<ContragentMo
 {
     #region Public and private fields, properties, constructor
 
+    public Contragents() : base()
+    {
+        ButtonSettings = new(false, false, true, true, false, false, false);
+    }
+    
     #endregion
 
     #region Public and private methods
