@@ -12,36 +12,25 @@
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
-    <td colspan="3">
-      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.FullName</td>
-    <td colspan="3">
-      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.FullName"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.IdRRef</td>
-    <td>
-      <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
-                     ReadOnly="true" @bind-Value="@SqlItemCast.IdRRefAsString"/>
-    </td>
+    <td><b>@LocaleCore.Table.Uid1c</b></td>
+    <td>@SqlItemCast.IdRRefAsString</td>
     <td>@LocaleCore.Table.IdDwh</td>
-    <td>
-      <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; "
-                     ReadOnly="true" TValue="int" @bind-Value="@SqlItemCast.DwhId"/>
-    </td>
+    <td>@SqlItemCast.DwhId</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>@SqlItemCast.Name</td>
+    <td>@LocaleCore.Table.FullName</td>
+    <td>@SqlItemCast.FullName</td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.Xml</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px; background-color: lightgray; "
-        Rows="6" ReadOnly="true"
-        @bind-Value="@(SqlItemCast.Xml)"/>
+        Rows="6"
+        ReadOnly="true"
+        Value="@DataFormatUtils.GetPrettyXml(SqlItemCast.Xml)"/>
     </td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>

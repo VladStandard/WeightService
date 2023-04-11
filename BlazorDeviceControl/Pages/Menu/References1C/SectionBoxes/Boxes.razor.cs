@@ -9,6 +9,11 @@ public sealed partial class Boxes : RazorComponentSectionBase<BoxModel>
 {
     #region Public and private fields, properties, constructor
 
+    public Boxes() : base()
+    {
+        ButtonSettings = new(false, false, true, true, false, false, false);
+    }
+    
     #endregion
 
     #region Public and private methods

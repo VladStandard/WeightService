@@ -18,7 +18,7 @@ public sealed record SqlDbFileSizeInfoModel
     public ushort SizeMb { get; init; }
     public ushort MaxSizeMb { get; init; }
     public string DisplayName => $"{SizeMb} из {MaxSizeMb} MB";
-    public double DbFillSize => ((double)SizeMb / MaxSizeMb) * 100;
+    public double DbFillSize => Math.Round(((double)SizeMb / MaxSizeMb) * 100, 2);
     
     public SqlDbFileSizeInfoModel(byte type, string fileName, ushort sizeMb, ushort maxSizeMb)
     {

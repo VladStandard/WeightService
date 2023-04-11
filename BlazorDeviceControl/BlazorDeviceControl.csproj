@@ -33,7 +33,8 @@
         <Compile Remove="Razors\SectionComponents\RazorSectionFilter.razor.cs" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="wwwroot\static\lib\" />
+        <Folder Include="wwwroot\js\" />
+        <Folder Include="wwwroot\static\" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />

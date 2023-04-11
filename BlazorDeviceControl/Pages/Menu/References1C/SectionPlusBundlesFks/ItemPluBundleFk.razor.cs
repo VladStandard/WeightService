@@ -11,18 +11,6 @@ public sealed partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFk
 {
     #region Public and private fields, properties, constructor
 
-    private PluModel _plu;
-    private PluModel Plu { get => _plu; set { _plu = value; SqlLinkedItems = new() { _plu, _bundle }; } }
-
-    private BundleModel _bundle;
-    private BundleModel Bundle { get => _bundle; set { _bundle = value; SqlLinkedItems = new() { _plu, _bundle }; } }
-
-    public ItemPluBundleFk() : base()
-    {
-        _plu = SqlItemNewEmpty<PluModel>();
-        _bundle = SqlItemNewEmpty<BundleModel>();
-    }
-
     #endregion
 
     #region Public and private methods
@@ -33,22 +21,8 @@ public sealed partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFk
             () =>
             {
                 SqlItemCast = DataAccess.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
-                DataContext.GetListNotNullable<PluModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-                DataContext.GetListNotNullable<BundleModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-
                 if (SqlItemCast.IsNew)
-                {
-                    Plu = DataContext.Plus.FirstOrDefault(item => item.IsNew) ?? SqlItemNewEmpty<PluModel>();
-                    Bundle = DataContext.Bundles.FirstOrDefault(item => item.IsNew) ?? SqlItemNewEmpty<BundleModel>();
                     SqlItemCast = SqlItemNew<PluBundleFkModel>();
-                    SqlItemCast.Plu = Plu;
-                    SqlItemCast.Bundle = Bundle;
-                }
-                else
-                {
-                    Plu = SqlItemCast.Plu;
-                    Bundle = SqlItemCast.Bundle;
-                }
             }
         );
     }
