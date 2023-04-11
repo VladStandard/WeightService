@@ -7,7 +7,7 @@ using WsSchedule.Utils;
 
 namespace WsSchedule.Helpers;
 
-public class QuartzHelper : IDisposable
+public class QuartzHelper
 {
     #region Design pattern "Lazy Singleton"
 
@@ -20,26 +20,10 @@ public class QuartzHelper : IDisposable
 
     #region Public and private fields, properties, constructor
 
-    public StdSchedulerFactory? _factory;
-    public StdSchedulerFactory Factory
-    {
-        get
-        {
-            if (_factory == null)
-                _factory = new();
-            return _factory;
-        }
-    }
-    public IScheduler? _scheduler;
-    public IScheduler Scheduler
-    {
-        get
-        {
-            if (_scheduler == null)
-                _scheduler = Factory.GetScheduler().Result;
-            return _scheduler;
-        }
-    }
+    private StdSchedulerFactory? _factory;
+    private StdSchedulerFactory Factory => _factory ??= new();
+    private IScheduler? _scheduler;
+    private IScheduler Scheduler => _scheduler ??= Factory.GetScheduler().Result;
 
     #endregion
 
@@ -71,12 +55,7 @@ public class QuartzHelper : IDisposable
         Scheduler.ScheduleJob(jobDetail, trigger);
     }
 
-    public void Dispose()
-    {
-        Close();
-    }
-
-    public void Start()
+    private void Start()
     {
         if (!Scheduler.IsStarted)
             Scheduler.Start();
@@ -92,6 +71,7 @@ public class QuartzHelper : IDisposable
     {
         IJobDetail? jobDetail = null;
         JobBuilder? jobBuilder = null;
+
         if (interval == QuartzEnums.Interval.Cron)
         {
             if (cronExpression == QuartzUtils.CronExpression.EverySeconds())
@@ -107,6 +87,7 @@ public class QuartzHelper : IDisposable
             else if (cronExpression == QuartzUtils.CronExpression.EveryDays())
                 interval = QuartzEnums.Interval.Days;
         }
+
         switch (interval)
         {
             case QuartzEnums.Interval.Cron:

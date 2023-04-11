@@ -792,6 +792,9 @@ public class WsDataAccessHelper
             SaveLogCore(ex.InnerException.Message, LogType.Error, filePath, lineNumber, memberName);
     }
 
+    public void SaveLogErrorWithInfo(string message, string filePath, int lineNumber, string memberName) => 
+        SaveLogCore(message, LogType.Error, filePath, lineNumber, memberName);
+
     public void SaveLogError(Exception ex,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);

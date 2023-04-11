@@ -37,8 +37,8 @@ public sealed class PlusController : WsControllerBase
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
-            AcceptVersion.V2 => GetContentResult(() => NewResponse1cIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!",
-         format, isDebug, SessionFactory), format),
+            AcceptVersion.V2 => GetContentResult(() => NewResponse1cIsNotFound(
+                $"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => WsPlus.NewResponse1cPlus(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendNomenclatures,

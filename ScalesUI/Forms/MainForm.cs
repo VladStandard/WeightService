@@ -13,14 +13,14 @@ public partial class MainForm : Form
 {
     #region Public and private fields, properties, constructor
 
+    private ActionSettingsModel ActionSettings { get; set; }
     private AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private DebugHelper Debug => DebugHelper.Instance;
-    private ProcHelper Proc => ProcHelper.Instance;
-    private QuartzHelper Quartz => QuartzHelper.Instance;
-    private UserSessionHelper UserSession => UserSessionHelper.Instance;
     private FontsSettingsHelper FontsSettings => FontsSettingsHelper.Instance;
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
-    private ActionSettingsModel ActionSettings { get; set; }
+    private ProcHelper Proc => ProcHelper.Instance;
+    private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
+    private UserSessionHelper UserSession => UserSessionHelper.Instance;
     private Button ButtonLine { get; set; }
     private Button ButtonPluNestingFk { get; set; }
     private Button ButtonKneading { get; set; }
@@ -30,13 +30,11 @@ public partial class MainForm : Form
     private Button ButtonPrint { get; set; }
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
-    private readonly object _lockerMinutes10 = new();
-    private readonly object _lockerHours = new();
-    private readonly object _lockerDays = new();
     private NavigationUserControl NavigationControl { get; set; }
     private PluUserControl PluControl { get; set; }
     private KneadingUserControl KneadingControl { get; set; }
     private WaitUserControl WaitControl { get; set; }
+    private const bool IsReleaseForce = true;
 
     /// <summary>
     /// Empty constructor.
@@ -62,7 +60,7 @@ public partial class MainForm : Form
         LoadLocalizationStatic(Lang.Russian);
 
         // Quartz.
-        LoadSchedule();
+        WsScheduler.Load(this);
 
         ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
         UserSession.StopwatchMain.Stop();
@@ -85,15 +83,12 @@ public partial class MainForm : Form
         NavigationControl.Parent = this;
         NavigationControl.Dock = DockStyle.Fill;
         WaitControl = new();
-        
-        //_ = Task.Run(async () => {
-        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            PluControl = new();
-            PluControl.RefreshAction();
-            KneadingControl = new();
-            KneadingControl.RefreshAction();
-        //}).ConfigureAwait(false);
-        
+
+        PluControl = new();
+        PluControl.RefreshAction();
+        KneadingControl = new();
+        KneadingControl.RefreshAction();
+
         // Buttons.
         SetButtonsSettings();
         // Form properties: resolution, position, fonts.
@@ -119,69 +114,54 @@ public partial class MainForm : Form
 
     private void LoadMainControls()
     {
-        // Memory.
+        // Память.
         UserSession.PluginMemory.Init(new(1_000, 0_250), new(0_250, 0_250),
             new(0_250, 0_250), fieldMemory, fieldMemoryExt);
-        //_ = Task.Run(async () => {
-        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            UserSession.PluginMemory.Execute();
-        //}).ConfigureAwait(false);
+        UserSession.PluginMemory.Execute();
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryExt, Debug.IsDevelop);
 
-        // Massa.
-        UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100), 
-            new(0_050, 0_100), fieldNettoWeight, fieldMassa, fieldMassaExt);
-        //_ = Task.Run(async () => {
-        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            UserSession.PluginMassa.Execute();
-        //}).ConfigureAwait(false);
+        // Весовая плфтформа Масса-К.
+        UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100),
+            new(0_050, 0_100), fieldNettoWeight, fieldMassa, fieldMassaExt, ResetWarning);
+        UserSession.PluginMassa.Execute();
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
 
-        // Template.
+        // Шаблон.
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTemplateTitle, true);
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTemplateValue, true);
 
-        // PrintMain.
+        // Основной принтер.
         if (UserSession.Scale.PrinterMain is not null)
         {
-            UserSession.PluginPrintMain.Init(new(0_500, 0_250), new(0_250, 0_250), 
+            UserSession.PluginPrintMain.Init(new(0_500, 0_250), new(0_250, 0_250),
                 new(0_250, 0_250),
                 UserSession.PrintBrandMain, UserSession.Scale.PrinterMain, fieldPrintMain, fieldPrintMainExt, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintMain, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
-            //_ = Task.Run(async () => {
-            //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-                UserSession.PluginPrintMain.Execute();
-            //}).ConfigureAwait(false);
+            UserSession.PluginPrintMain.Execute();
             UserSession.PluginPrintMain.SetOdometorUserLabel(1);
         }
 
-        // PrintShipping.
+        // Транспортный принтер.
         if (UserSession.Scale.IsShipping)
         {
             if (UserSession.Scale.PrinterShipping is not null)
             {
-                UserSession.PluginPrintShipping.Init(new(0_500, 0_250), 
+                UserSession.PluginPrintShipping.Init(new(0_500, 0_250),
                     new(0_250, 0_250), new(0_250, 0_250),
                     UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping, fieldPrintShipping, fieldPrintShippingExt, false);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintShipping, true);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDevelop);
-                //_ = Task.Run(async () => {
-                //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-                    UserSession.PluginPrintShipping.Execute();
-                //}).ConfigureAwait(false);
+                UserSession.PluginPrintShipping.Execute();
                 UserSession.PluginPrintShipping.SetOdometorUserLabel(1);
             }
         }
 
-        // Labels.
+        // Метки.
         UserSession.PluginLabels.Init(
-            new(0_250, 0_250), new(0_250, 0_250), 
-            new(0_250, 0_250), fieldPlu, fieldSscc, fieldProductDate, fieldKneading);
-        //_ = Task.Run(async () => {
-        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            UserSession.PluginLabels.Execute();
-        //}).ConfigureAwait(false);
+            new(0_250, 0_250), new(0_250, 0_250),
+            new(0_250, 0_250), fieldPlu, fieldProductDate, fieldKneading);
+        UserSession.PluginLabels.Execute();
         MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {UserSession.PublishDescription}.");
         MDSoft.WinFormsUtils.InvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }
@@ -202,15 +182,8 @@ public partial class MainForm : Form
                 // Wait control.
                 NavigateToControl(WaitControl, ReturnBackExit, true, LocaleCore.Scales.AppWaitExit);
                 // Quartz.
-                if (Quartz is not null)
-                {
-                    Quartz.Close();
-                    Quartz.Dispose();
-                }
+                WsScheduler.Close();
                 UserSession.PluginsClose();
-                // Mouse unhook.
-                KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
-                KeyboardMouseEvents.Dispose();
             },
             () =>
             {
@@ -220,6 +193,9 @@ public partial class MainForm : Form
                     $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
             }
         );
+        // Mouse unhook.
+        KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
+        KeyboardMouseEvents.Dispose();
     }
 
     private void LoadFonts()
@@ -231,7 +207,6 @@ public partial class MainForm : Form
         fieldPlu.Font = FontsSettings.FontLabelsMaximum;
         fieldProductDate.Font = FontsSettings.FontLabelsMaximum;
 
-        fieldSscc.Font = FontsSettings.FontLabelsGray;
         fieldMemoryExt.Font = FontsSettings.FontLabelsGray;
         fieldPrintMain.Font = FontsSettings.FontLabelsGray;
         fieldPrintShipping.Font = FontsSettings.FontLabelsGray;
@@ -243,6 +218,7 @@ public partial class MainForm : Form
         fieldTemplateTitle.Font = FontsSettings.FontLabelsGray;
         fieldTemplateValue.Font = FontsSettings.FontLabelsGray;
 
+        fieldWarning.Font = FontsSettings.FontLabelsBlack;
         labelNettoWeight.Font = FontsSettings.FontLabelsBlack;
         labelPackageWeight.Font = FontsSettings.FontLabelsBlack;
         labelKneading.Font = FontsSettings.FontLabelsBlack;
@@ -287,13 +263,13 @@ public partial class MainForm : Form
     private void CreateButtonsDevices()
     {
         TableLayoutPanel layoutPanelDevice = GuiUtils.WinForm.NewTableLayoutPanel(layoutPanel, nameof(layoutPanelDevice),
-            1, 14, 2, 98);
+            1, 13, 2, 98);
         int rowCount = 0;
 
         if (ActionSettings.IsDevice)
         {
             ButtonLine = GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonLine), 1, rowCount++);
-            ButtonLine.Click += ActionDevice;
+            ButtonLine.Click += ActionSwitchLine;
         }
         else
         {
@@ -303,7 +279,7 @@ public partial class MainForm : Form
         if (ActionSettings.IsPlu)
         {
             ButtonPlu = GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
-            ButtonPlu.Click += ActionPlu;
+            ButtonPlu.Click += ActionSwitchPlu;
         }
         else
         {
@@ -329,7 +305,7 @@ public partial class MainForm : Form
     private void CreateButtonsActions()
     {
         TableLayoutPanel layoutPanelActions = GuiUtils.WinForm.NewTableLayoutPanel(layoutPanel, nameof(layoutPanelActions),
-            3, 14, layoutPanel.ColumnCount - 3, 99);
+            3, 13, layoutPanel.ColumnCount - 3, 99);
         int columnCount = 0;
 
         if (ActionSettings.IsScalesTerminal)
@@ -390,7 +366,7 @@ public partial class MainForm : Form
         {
             ButtonPrint =
                 GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonPrint), columnCount++, 0);
-            ButtonPrint.Click += ActionPrint;
+            ButtonPrint.Click += ActionPreparePrint;
             ButtonPrint.Focus();
         }
         else
@@ -406,67 +382,12 @@ public partial class MainForm : Form
 
     #endregion
 
-    #region Public and private methods - Schedule
-
-    private void LoadSchedule()
-    {
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryMinutes10(), ScheduleEveryMinutes10,
-            $"job{nameof(ScheduleEveryMinutes10)}", $"trigger{nameof(ScheduleEveryMinutes10)}",
-            $"triggerGroup{nameof(ScheduleEveryHours)}");
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
-            $"job{nameof(ScheduleEveryHours)}", $"trigger{nameof(ScheduleEveryHours)}",
-            $"triggerGroup{nameof(ScheduleEveryHours)}");
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
-            $"job{nameof(ScheduleEveryDays)}", $"trigger{nameof(ScheduleEveryDays)}",
-            $"triggerGroup{nameof(ScheduleEveryDays)}");
-    }
-
-    private void ScheduleEveryHours()
-    {
-        lock (_lockerHours)
-        {
-            ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
-                {
-                    if (Quartz is null) return;
-                    ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
-                }
-            );
-        }
-    }
-
-    private void ScheduleEveryMinutes10()
-    {
-        lock (_lockerMinutes10)
-        {
-            ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
-                {
-                    if (Quartz is null) return;
-                    UserSession.DataContext.DataAccess.SaveLogMemory(
-                        UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
-                    GC.Collect();
-                }
-            );
-        }
-    }
-
-    private void ScheduleEveryDays()
-    {
-        lock (_lockerDays)
-        {
-            if (Quartz is null) return;
-            UserSession.ProductDate = DateTime.Now;
-            ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
-        }
-    }
-
-    #endregion
-
     #region Public and private methods - Controls
 
     private void MouseDownExt(object sender, MouseEventExtArgs e)
     {
         if (e.Button == MouseButtons.Middle)
-            ActionPrint(sender, e);
+            ActionPreparePrint(sender, e);
     }
 
     private void FieldPrintManager_Click(object sender, EventArgs e)
@@ -581,7 +502,7 @@ public partial class MainForm : Form
         LocaleCore.Lang = LocaleData.Lang = lang;
         string area = UserSession.Scale.WorkShop is null
             ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonLine, $"{UserSession.Scale.Description} | {UserSession.Scale.Number}" +  
+        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonLine, $"{UserSession.Scale.Description} | {UserSession.Scale.Number}" +
             Environment.NewLine + area);
         MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
             ? LocaleCore.Table.FieldPackageIsNotSelected
@@ -630,10 +551,17 @@ public partial class MainForm : Form
 
     #region Public and private methods - Actions
 
+    /// <summary>
+    /// Закрыть программу.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ActionClose(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
             {
+                // Сброс предупреждения.
+                ResetWarning();
                 DialogResult result = WpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionCloseApp}?",
                     true, LogType.Question,
@@ -647,10 +575,17 @@ public partial class MainForm : Form
         );
     }
 
-    private void ActionDevice(object sender, EventArgs e)
+    /// <summary>
+    /// Сменить линию.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ActionSwitchLine(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
+                // Сброс предупреждения.
+                ResetWarning();
                 using WpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 800, Height = 400 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
@@ -669,13 +604,21 @@ public partial class MainForm : Form
             }, FinallyAction);
     }
 
+    /// <summary>
+    /// Сменить вложенность ПЛУ.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ActionPluNestingFk(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
+                // Сброс предупреждения.
+                ResetWarning();
+                // Проверить наличие ПЛУ.
                 if (!ActionCheckPluIdentityIsNew()) return;
 
-                using WpfPageLoader wpfPageLoader = new(PageEnum.PluBundleFk, false) { Width = 800, Height = 300 };
+                using WpfPageLoader wpfPageLoader = new(PageEnum.PluNestingFk, false) { Width = 800, Height = 300 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 // Here is another instance of wpfPageLoader.PagePluNestingFk.UserSession.
@@ -693,28 +636,33 @@ public partial class MainForm : Form
             }, FinallyAction);
     }
 
+    /// <summary>
+    /// Проверить наличие ПЛУ.
+    /// </summary>
+    /// <returns></returns>
     private bool ActionCheckPluIdentityIsNew()
     {
         if (UserSession.PluScale.Plu.IsNew)
         {
-            using WpfPageLoader wpfPageLoader = new(
-                PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
-            { Width = 700, Height = 450 };
-            wpfPageLoader.Text = LocaleCore.Action.ActionAccessDeny;
-            wpfPageLoader.MessageBox.Caption = LocaleCore.Table.FieldPluIsNotSelected;
-            wpfPageLoader.MessageBox.Message = LocaleCore.Table.FieldPluMustBeSelected;
-            wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = Visibility.Visible;
-            _ = wpfPageLoader.ShowDialog(this);
-            wpfPageLoader.Close();
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, LocaleCore.Table.FieldPluIsNotSelected);
+            UserSession.DataContext.DataAccess.SaveLogError(LocaleCore.Table.FieldPluIsNotSelected);
             return false;
         }
         return true;
     }
 
+    /// <summary>
+    /// Запустить ПО.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ActionScalesTerminal(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
+                // Сброс предупреждения.
+                ResetWarning();
                 DialogResult result = WpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
                     true, LogType.Question,
@@ -739,10 +687,17 @@ public partial class MainForm : Form
             }, FinallyAction);
     }
 
+    /// <summary>
+    /// Инициализировать весовую платформу Масса-К.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ActionScalesInit(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
+                // Сброс предупреждения.
+                ResetWarning();
                 if (!UserSession.PluScale.Plu.IsCheckWeight)
                 {
                     WpfUtils.ShowNewOperationControl(this,
@@ -768,8 +723,9 @@ public partial class MainForm : Form
                 //{
                 //    UserSession.PluginMassa.ResetMassa();
                 //}
-
-                UserSession.CheckWeightMassaDeviceExists();
+                // Проверить наличие весовой платформы Масса-К.
+                if (IsReleaseForce || Debug.IsRelease)
+                    UserSession.CheckWeightMassaDeviceExists();
                 UserSession.PluScale = new();
 
                 UserSession.PluginMassa.Execute();
@@ -777,10 +733,17 @@ public partial class MainForm : Form
             }, FinallyAction);
     }
 
+    /// <summary>
+    /// Новая паллета.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ActionNewPallet(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
+                // Сброс предупреждения.
+                ResetWarning();
                 UserSession.NewPallet();
             }, FinallyAction);
     }
@@ -794,6 +757,11 @@ public partial class MainForm : Form
             UserSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
     }
 
+    /// <summary>
+    /// Сменить замес.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ActionKneading(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
@@ -820,10 +788,17 @@ public partial class MainForm : Form
         }
     }
 
-    private void ActionPlu(object sender, EventArgs e)
+    /// <summary>
+    /// Сменить ПЛУ.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ActionSwitchPlu(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
+                // Сброс предупреждения.
+                ResetWarning();
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelNettoWeight, false);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldNettoWeight, false);
                 UserSession.PluScale = UserSession.DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
@@ -841,11 +816,18 @@ public partial class MainForm : Form
         UserSession.PluginMassa.Execute();
     }
 
+    /// <summary>
+    /// Ещё.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ActionMore(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale,
             () =>
             {
+                // Сброс предупреждения.
+                ResetWarning();
                 if (UserSession.PluScale.IsNew)
                 {
                     WpfUtils.ShowNewOperationControl(this,
@@ -858,50 +840,69 @@ public partial class MainForm : Form
             }, FinallyAction);
     }
 
-    private void ActionPrint(object sender, EventArgs e)
+    /// <summary>
+    /// Сброс предупреждения.
+    /// </summary>
+    private void ResetWarning()
+    {
+        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, false);
+        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, string.Empty);
+    }
+
+    /// <summary>
+    /// Подготовка к печати.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ActionPreparePrint(object sender, EventArgs e)
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
-            {
-                UserSession.AddScaleCounter();
-
-                if (!UserSession.CheckPluIsEmpty(this)) return;
-                //if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IsNew)
-                // Maybe tare didn't need.
-                //if (UserSession.PluBundlesFks.Count > 1 && UserSession.PluBundleFk.IsNew)
-                //    ActionPluBundleFk(sender, e);
-                if (!UserSession.CheckPluBundleFkIsEmpty(this)) return;
+        {
+            // Сброс предупреждения.
+            ResetWarning();
+            // Инкремент счётчика этикеток.
+            UserSession.AddScaleCounter();
+            // Проверить наличие ПЛУ.
+            if (!UserSession.CheckPluIsEmpty(fieldWarning)) return;
+            // Проверить наличие вложенности ПЛУ.
+            if (!UserSession.CheckPluNestingFkIsEmpty(fieldWarning)) return;
+            // Проверить наличие весовой платформы Масса-К.
+            if (IsReleaseForce || Debug.IsRelease)
                 if (!UserSession.CheckWeightMassaDeviceExists()) return;
-                if (!UserSession.CheckWeightMassaIsStable(this)) return;
-                if (!UserSession.CheckPluGtin(this)) return;
-
-                // Set fake data for PLU weighing.
-                UserSession.SetPluWeighingFake(this);
-                if (!UserSession.CheckWeightIsNegative(this)) return;
-                UserSession.NewPluWeighing();
-                if (!UserSession.CheckWeightThresholds(this)) return;
-
-                // Check printers connections.
-                bool isSkipPrintCheckAccess = false;
-                if (Debug.IsDevelop)
-                {
-                    DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
-                        LocaleCore.Print.QuestionPrintCheckAccess, true, LogType.Question,
-                        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                    isSkipPrintCheckAccess = dialogResult != DialogResult.Yes;
-                }
-                if (!isSkipPrintCheckAccess)
-                {
-                    if (!UserSession.CheckPrintIsConnect(this, UserSession.PluginPrintMain, true)) return;
-                    if (UserSession.Scale.IsShipping)
-                        if (!UserSession.CheckPrintIsConnect(this, UserSession.PluginPrintShipping, false)) return;
-                    // Check printers statuses.
-                    if (!UserSession.CheckPrintStatusReady(this, UserSession.PluginPrintMain, true)) return;
-                    if (UserSession.Scale.IsShipping)
-                        if (!UserSession.CheckPrintStatusReady(this, UserSession.PluginPrintShipping, false)) return;
-                }
-
-                UserSession.PrintLabel(this, false);
-            },
+            // Проверить стаблизацию весовой платформы Масса-К.
+            if (IsReleaseForce || Debug.IsRelease)
+                if (!UserSession.CheckWeightMassaIsStable(fieldWarning)) return;
+            // Проверить ГТИН ПЛУ.
+            if (!UserSession.CheckPluGtin(fieldWarning)) return;
+            // Задать фейк данные веса ПЛУ для режима разработки.
+            if (!IsReleaseForce && Debug.IsDevelop)
+                UserSession.SetPluWeighingFakeForDevelop(this);
+            // Проверить отрицательный вес.
+            if (!UserSession.CheckWeightIsNegative(fieldWarning)) return;
+            // Создать новое взвешивание ПЛУ.
+            UserSession.NewPluWeighing();
+            // Проверить границы веса.
+            if (!UserSession.CheckWeightThresholds(fieldWarning)) return;
+            // Проверить подключение принтера.
+            bool isSkipPrintCheckAccess = false;
+            if (!IsReleaseForce && Debug.IsDevelop)
+            {
+                DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
+                    LocaleCore.Print.QuestionPrintCheckAccess, true, LogType.Question,
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                isSkipPrintCheckAccess = dialogResult != DialogResult.Yes;
+            }
+            if (!isSkipPrintCheckAccess)
+            {
+                // Проверить подключение и готовность основного принтера.
+                if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, UserSession.PluginPrintMain, true)) return;
+                // Проверить подключение и готовность транспортного принтера.
+                if (UserSession.Scale.IsShipping)
+                    if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, UserSession.PluginPrintShipping, false)) return;
+            }
+            // Печать этикетки.
+            UserSession.PrintLabel(fieldWarning, false);
+        },
             () =>
             {
                 FinallyAction();

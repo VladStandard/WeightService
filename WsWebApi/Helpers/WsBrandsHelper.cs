@@ -27,12 +27,12 @@ public sealed class WsBrandsHelper : WsContentBase
     #region Public and private methods
 
     private List<BrandModel> GetXmlBrandList(XElement xml) =>
-        GetNodesListCore<BrandModel>(xml, LocaleCore.WebService.XmlItemBrand, (xmlNode, itemXml) =>
+        WsContentUtils.GetNodesListCore<BrandModel>(xml, LocaleCore.WebService.XmlItemBrand, (xmlNode, itemXml) =>
         {
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
         });
 
     private void AddResponse1cBrand(WsResponse1cShortModel response, List<BrandModel> brandsDb, BrandModel brandXml)
@@ -41,15 +41,15 @@ public sealed class WsBrandsHelper : WsContentBase
         {
             // Find by Uid1C -> Update exists.
             BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1c, brandXml.IdentityValueUid));
-            if (UpdateBrandDb(response, brandXml, brandDb, true)) return;
+            if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
             // Find by Code -> Update exists.
             brandDb = brandsDb.Find(item => Equals(item.Code, brandXml.Code));
-            if (UpdateBrandDb(response, brandXml, brandDb, true)) return;
+            if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
             // Find by Name -> Update exists.
             brandDb = brandsDb.Find(item => Equals(item.Name, brandXml.Name));
-            if (UpdateBrandDb(response, brandXml, brandDb, true)) return;
+            if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, brandXml, true);
@@ -64,6 +64,14 @@ public sealed class WsBrandsHelper : WsContentBase
         }
     }
 
+    /// <summary>
+    /// Отправить бренды и получить ответ.
+    /// </summary>
+    /// <param name="xml"></param>
+    /// <param name="formatString"></param>
+    /// <param name="isDebug"></param>
+    /// <param name="sessionFactory"></param>
+    /// <returns></returns>
     public ContentResult NewResponse1cBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {

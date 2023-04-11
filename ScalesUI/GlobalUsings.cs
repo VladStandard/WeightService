@@ -19,6 +19,7 @@ global using MDSoft.BarcodePrintUtils.Enums;
 global using MDSoft.BarcodePrintUtils.Wmi;
 global using ScalesUI.Controls;
 global using ScalesUI.Forms;
+global using ScalesUI.Helpers;
 global using System.Collections.Generic;
 global using System.Diagnostics;
 global using System.Drawing.Imaging;

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsWeight.WinForms.Utils;
@@ -21,7 +21,6 @@ public class PluginLabelsHelper : PluginHelperBase
     private Label FieldKneading { get; set; }
     private Label FieldPlu { get; set; }
     private Label FieldProductDate { get; set; }
-    private Label FieldSscc { get; set; }
     
     #endregion
 
@@ -37,7 +36,7 @@ public class PluginLabelsHelper : PluginHelperBase
     #region Public and private methods
 
     public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
-        Label fieldPlu, Label fieldSscc, Label fieldProductDate, Label fieldKneading)
+        Label fieldPlu, Label fieldProductDate, Label fieldKneading)
     {
         base.Init();
         ReopenItem.Config = configReopen;
@@ -46,11 +45,10 @@ public class PluginLabelsHelper : PluginHelperBase
         ActionUtils.ActionTryCatch(() =>
         {
             FieldPlu = fieldPlu;
-            FieldSscc = fieldSscc;
             FieldProductDate = fieldProductDate;
             FieldKneading = fieldKneading;
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
+            //MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
         });
@@ -65,7 +63,7 @@ public class PluginLabelsHelper : PluginHelperBase
 
     private void Reopen()
     {
-        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
+        //MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, UserSessionHelper.Instance.Scale.IsKneading);
     }
 

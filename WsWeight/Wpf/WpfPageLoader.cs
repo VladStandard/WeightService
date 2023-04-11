@@ -122,7 +122,7 @@ public partial class WpfPageLoader : Form
                 ElementHost.Child = PageDevice;
                 PageDevice.OnClose += WpfPageLoader_OnClose;
                 break;
-            case PageEnum.PluBundleFk:
+            case PageEnum.PluNestingFk:
                 PagePluNestingFk = new();
                 PagePluNestingFk.InitializeComponent();
                 ElementHost.Child = PagePluNestingFk;
@@ -163,7 +163,7 @@ public partial class WpfPageLoader : Form
             {
                 PageEnum.MessageBox => MessageBox.Result,
                 PageEnum.Device => PageDevice?.Result ?? DialogResult.Cancel,
-                PageEnum.PluBundleFk => PagePluNestingFk?.Result ?? DialogResult.Cancel,
+                PageEnum.PluNestingFk => PagePluNestingFk?.Result ?? DialogResult.Cancel,
                 PageEnum.PinCode => PagePinCode?.Result ?? DialogResult.Cancel,
                 PageEnum.SqlSettings => PageSqlSettings?.Result ?? DialogResult.Cancel,
                 _ => DialogResult

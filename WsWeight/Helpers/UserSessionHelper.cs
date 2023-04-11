@@ -351,225 +351,222 @@ public sealed class UserSessionHelper : BaseViewModel
     }
 
     /// <summary>
-    /// Check PLU BundleFk is empty.
+    /// Проверить наличие вложенности ПЛУ.
     /// </summary>
-    /// <param name="owner"></param>
+    /// <param name="fieldWarning"></param>
     /// <returns></returns>
-    public bool CheckPluBundleFkIsEmpty(IWin32Window owner)
+    public bool CheckPluNestingFkIsEmpty(Label fieldWarning)
     {
-        //if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IsNew)
         if (PluNestingFk.IsNew && PluNestingFks.Count > 1)
         {
-            WpfUtils.ShowNewOperationControl(owner,
-                LocaleCore.Scales.PluPackageNotSelect, true, LogType.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluPackageNotSelect);
+            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.PluPackageNotSelect);
             return false;
         }
         return true;
     }
 
     /// <summary>
-    /// Check PLU is empty.
+    /// Проверить наличие ПЛУ.
     /// </summary>
-    /// <param name="owner"></param>
+    /// <param name="fieldWarning"></param>
     /// <returns></returns>
-    public bool CheckPluIsEmpty(IWin32Window owner)
+    public bool CheckPluIsEmpty(Label fieldWarning)
     {
         if (PluScale.IsNew)
         {
-            WpfUtils.ShowNewOperationControl(owner,
-                LocaleCore.Scales.PluNotSelect, true, LogType.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluNotSelect);
+            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.PluNotSelect);
             return false;
         }
         return true;
     }
 
     /// <summary>
-    /// Check Massa-K device exists.
+    /// Проверить наличие весовой платформы Масса-К.
     /// </summary>
     /// <returns></returns>
-    public bool CheckWeightMassaDeviceExists() => Debug.IsDevelop || PluScale is { IsNew: false, Plu.IsCheckWeight: false } || true;
+    public bool CheckWeightMassaDeviceExists() => PluScale is { IsNew: false, Plu.IsCheckWeight: false } || true;
 
     /// <summary>
-	/// Check Massa-K is stable.
-	/// </summary>
-	/// <param name="owner"></param>
-	/// <returns></returns>
-	public bool CheckWeightMassaIsStable(IWin32Window owner)
+    /// Проверить стаблизацию весовой платформы Масса-К.
+    /// </summary>
+    /// <param name="fieldWarning"></param>
+    /// <returns></returns>
+    public bool CheckWeightMassaIsStable(Label fieldWarning)
     {
-        if (Debug.IsDevelop) return true;
-
         if (PluScale.Plu.IsCheckWeight && !PluginMassa.IsStable)
         {
-            //WpfUtils.ShowNewOperationControl(owner,
-            //    LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
-            //    true, LogType.Warning,
-            //    new() { ButtonCancelVisibility = Visibility.Visible });
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, $"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
+            DataContext.DataAccess.SaveLogError($"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
             return false;
         }
         return true;
     }
 
     /// <summary>
-    /// Check PLU GTIN.
+    /// Проверить ГТИН ПЛУ.
     /// </summary>
-    /// <param name="owner"></param>
+    /// <param name="fieldWarning"></param>
     /// <returns></returns>
-    public bool CheckPluGtin(IWin32Window owner)
+    public bool CheckPluGtin(Label fieldWarning)
     {
         if (string.IsNullOrEmpty(PluScale.Plu.Gtin))
         {
-            WpfUtils.ShowNewOperationControl(owner,
-                LocaleCore.Scales.PluGtinIsNotSet,
-                true, LogType.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluGtinIsNotSet);
+            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.PluGtinIsNotSet);
             return false;
         }
         return true;
     }
 
     /// <summary>
-    /// Check printer connection.
+    /// Проверить подключение и готовность принтера.
     /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public bool CheckPrintIsConnect(IWin32Window owner, PluginPrintModel managerPrint, bool isMain)
-    {
-        if (!managerPrint.Printer.IsPing)
-        {
-            WpfUtils.ShowNewOperationControl(owner, isMain
-                ? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
-                : LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
-                true, LogType.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
-            return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Check printer status on ready.
-    /// </summary>
-    /// <param name="owner"></param>
+    /// <param name="fieldWarning"></param>
     /// <param name="managerPrint"></param>
     /// <param name="isMain"></param>
     /// <returns></returns>
-    public bool CheckPrintStatusReady(IWin32Window owner, PluginPrintModel managerPrint, bool isMain)
+    public bool CheckPrintIsConnectAndReady(Label fieldWarning, PluginPrintModel managerPrint, bool isMain)
     {
+        // Подключение.
+        if (!managerPrint.Printer.IsPing)
+        {
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            string message = isMain
+                ? $"{LocaleCore.Print.DeviceMainIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}"
+                : $"{LocaleCore.Print.DeviceShippingIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, message);
+            DataContext.DataAccess.SaveLogError(message);
+            return false;
+        }
+        // Готовность.
         if (!managerPrint.CheckDeviceStatus())
         {
-            WpfUtils.ShowNewOperationControl(owner, isMain
-                ? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
-                : LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
-                true, LogType.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            string message = isMain
+                ? $"{LocaleCore.Print.DeviceMainCheckStatus} {managerPrint.GetDeviceStatus()}" 
+                : $"{LocaleCore.Print.DeviceShippingCheckStatus} {managerPrint.GetDeviceStatus()}";
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, message);
+            DataContext.DataAccess.SaveLogError(message);
             return false;
         }
         return true;
     }
 
     /// <summary>
-    /// Check weight is negative.
+    /// Проверить отрицательный вес.
     /// </summary>
-    /// <param name="owner"></param>
+    /// <param name="fieldWarning"></param>
     /// <returns></returns>
-    public bool CheckWeightIsNegative(IWin32Window owner)
+    public bool CheckWeightIsNegative(Label fieldWarning)
     {
         if (PluginMassa.IsWeightNetFake) return true;
         if (!PluScale.Plu.IsCheckWeight) return true;
 
         if (PluginMassa.WeightNet <= 0)
         {
-            WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightIsZero, true, LogType.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, LocaleCore.Scales.CheckWeightIsZero);
+            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.CheckWeightIsZero);
             return false;
         }
-        else
+
+        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
+        if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
         {
-            decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
-            if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
-            {
-                WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight), true, LogType.Warning,
-                    new() { ButtonCancelVisibility = Visibility.Visible });
-                return false;
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, LocaleCore.Scales.CheckWeightThreshold(weight));
+            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.CheckWeightThreshold(weight));
+            return false;
         }
         return true;
     }
 
     /// <summary>
-    /// Check weight is positive.
+    /// Проверить положительный вес.
     /// </summary>
-    /// <param name="owner"></param>
+    /// <param name="fieldWarning"></param>
     /// <returns></returns>
-    public bool CheckWeightIsPositive(IWin32Window owner)
+    public bool CheckWeightIsPositive(Label fieldWarning)
     {
         if (!PluScale.Plu.IsCheckWeight) return true;
 
         decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingFk.WeightTare);
         if (weight > LocaleCore.Scales.MassaThresholdValue)
         {
-            DialogResult result = WpfUtils.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
-                true, LogType.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
-            return result == DialogResult.Cancel;
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, LocaleCore.Scales.CheckWeightThreshold(weight));
+            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.CheckWeightThreshold(weight));
+            return false;
         }
         return true;
     }
 
     /// <summary>
-    /// Check weight thresholds.
+    /// Проверить границы веса.
     /// </summary>
-    /// <param name="owner"></param>
+    /// <param name="fieldWarning"></param>
     /// <returns></returns>
-    public bool CheckWeightThresholds(IWin32Window owner)
+    public bool CheckWeightThresholds(Label fieldWarning)
     {
         if (PluginMassa.IsWeightNetFake) return true;
         if (!PluScale.Plu.IsCheckWeight) return true;
 
-        if (PluNestingFk.WeightNom > 0 && PluNestingFk.WeightMin is not 0 && PluNestingFk.WeightMax is not 0)
+        if (PluNestingFk is { WeightNom: > 0, WeightMin: not 0, WeightMax: not 0 })
         {
             if (!(PluWeighing.NettoWeight >= PluNestingFk.WeightMin && PluWeighing.NettoWeight <= PluNestingFk.WeightMax))
             {
                 if (PluWeighing.IsNotNew)
-                    WpfUtils.ShowNewOperationControl(owner,
-                        LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IsNew ? 0 : PluNestingFk.WeightMax,
+                {
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+                    string message = LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight,
+                        PluScale.IsNew ? 0 : PluNestingFk.WeightMax,
                         PluScale.IsNew ? 0 : PluNestingFk.WeightNom,
-                        PluScale.IsNew ? 0 : PluNestingFk.WeightMin),
-                        true, LogType.Warning,
-                        new() { ButtonCancelVisibility = Visibility.Visible });
+                        PluScale.IsNew ? 0 : PluNestingFk.WeightMin);
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, message);
+                    DataContext.DataAccess.SaveLogError(message);
+                }
                 return false;
             }
         }
         return true;
     }
 
-    public void PrintLabel(IWin32Window owner, bool isClearBuffer)
+    /// <summary>
+    /// Печать этикетки.
+    /// </summary>
+    /// <param name="fieldWarning"></param>
+    /// <param name="isClearBuffer"></param>
+    public void PrintLabel(Label fieldWarning, bool isClearBuffer)
     {
         if (Scale is { IsOrder: true })
             throw new("Order under construct!");
 
         // #WS-T-710 Печать этикеток. Исправление счётчика этикеток
-        //PluScale = DataAccess.GetItemNotNullable<PluScaleModel>(PluScale.IdentityValueUid);
         PluScale.Scale = Scale;
+        // Получить шаблон этикетки.
         TemplateModel template = DataContext.DataAccess.GetItemTemplateNotNullable(PluScale);
-        // Template isn't exist.
+        // Проверить наличие шаблона этикетки.
         if (template.IsNew)
         {
-            WpfUtils.ShowNewOperationControl(owner,
-                LocaleCore.Scales.PluTemplateNotSet,
-                true, LogType.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible });
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluTemplateNotSet);
+            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.PluTemplateNotSet); 
             return;
         }
-
-        // Template is exists!
+        // Выбор типа ПЛУ.
         switch (PluScale.Plu.IsCheckWeight)
         {
+            // Весовая ПЛУ.
             case true:
                 PrintLabelCore(template, isClearBuffer);
                 break;
+            // Штучная ПЛУ.
             default:
                 PrintLabelCount(template, isClearBuffer);
                 break;
@@ -578,6 +575,9 @@ public sealed class UserSessionHelper : BaseViewModel
         PluWeighing = new();
     }
 
+    /// <summary>
+    /// Инкремент счётчика этикеток.
+    /// </summary>
     public void AddScaleCounter()
     {
         Scale.Counter++;
@@ -585,59 +585,19 @@ public sealed class UserSessionHelper : BaseViewModel
     }
 
     /// <summary>
-    /// Count label printing.
+    /// Печать этикетки штучной ПЛУ.
     /// </summary>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
     private void PrintLabelCount(TemplateModel template, bool isClearBuffer)
     {
-        //// Указан номинальный вес.
-        //bool isCheck = false;
-        //if (CurrentPlu.NominalWeight > 0)
-        //{
-        //    if (Manager.Massa is not null)
-        //        CurrentWeighingFact.NettoWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsWeightTare;
-        //    else
-        //        CurrentWeighingFact.NettoWeight -= CurrentPlu.GoodsWeightTare;
-        //    if (CurrentWeighingFact.NettoWeight >= CurrentPlu.LowerWeightThreshold &&
-        //        CurrentWeighingFact.NettoWeight <= CurrentPlu.UpperWeightThreshold)
-        //    {
-        //        isCheck = true;
-        //    }
-        //}
-        //else
-        //    isCheck = true;
-        //if (!isCheck)
-        //{
-        //    // WPF MessageBox.
-        //    using WpfPageLoader wpfPageLoader = new(Page.MessageBox, false) { Width = 700, Height = 400 };
-        //    wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
-        //    wpfPageLoader.MessageBox.Message =
-        //        LocaleCore.Scales.WeightingControl + Environment.NewLine +
-        //        $"Вес нетто: {CurrentWeighingFact.NettoWeight} кг" + Environment.NewLine +
-        //        $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
-        //        $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
-        //        $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
-        //        "Для продолжения печати нажмите Ignore.";
-        //    wpfPageLoader.MessageBox.ButtonAbortVisibility = Visibility.Visible;
-        //    wpfPageLoader.MessageBox.ButtonRetryVisibility = Visibility.Visible;
-        //    wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
-        //    wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-        //    wpfPageLoader.ShowDialog(owner);
-        //    DialogResult result = wpfPageLoader.MessageBox.Result;
-        //    wpfPageLoader.Close();
-        //    wpfPageLoader.Dispose();
-        //    if (result != DialogResult.Ignore)
-        //        return;
-        //}
-
         // Шаблон с указанием кол-ва и не весовой продукт.
         if (template.Data.Contains("^PQ1") && !PluScale.Plu.IsCheckWeight)
         {
             // Изменить кол-во этикеток.
             if (WeighingSettings.LabelsCountMain > 1)
                 template.Data = template.Data.Replace("^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
-            // Печать этикетки.
+            // Печать этикетки ПЛУ.
             PrintLabelCore(template, isClearBuffer);
         }
         // Шаблон без указания кол-ва.
@@ -645,12 +605,15 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             for (int i = PluginPrintMain.LabelPrintedCount; i <= WeighingSettings.LabelsCountMain; i++)
             {
-                // Печать этикетки.
+                // Печать этикетки ПЛУ.
                 PrintLabelCore(template, isClearBuffer);
             }
         }
     }
 
+    /// <summary>
+    /// Создать новое взвешивание ПЛУ.
+    /// </summary>
     public void NewPluWeighing()
     {
         ProductSeriesModel productSeries = DataContext.DataAccess.GetItemProductSeriesNotNullable(PluScale.Scale);
@@ -669,12 +632,11 @@ public sealed class UserSessionHelper : BaseViewModel
     }
 
     /// <summary>
-    /// Set fake data for PLU weighing.
+    /// Задать фейк данные веса ПЛУ для режима разработки.
     /// </summary>
     /// <param name="owner"></param>
-    public void SetPluWeighingFake(IWin32Window owner)
+    public void SetPluWeighingFakeForDevelop(IWin32Window owner)
     {
-        if (!Debug.IsDevelop) return;
         if (!PluScale.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
 
@@ -690,7 +652,7 @@ public sealed class UserSessionHelper : BaseViewModel
     }
 
     /// <summary>
-    /// Weight label printing.
+    /// Печать этикетки ПЛУ.
     /// </summary>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>

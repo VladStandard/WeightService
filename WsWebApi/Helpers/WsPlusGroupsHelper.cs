@@ -27,21 +27,21 @@ public sealed class WsPlusGroupsHelper : WsContentBase
     #region Public and private methods
 
     private List<PluGroupModel> GetXmlPluGroupsList(XElement xml) =>
-        GetNodesListCore<PluGroupModel>(xml, LocaleCore.WebService.XmlItemNomenclatureGroup, (xmlNode, itemXml) =>
+        WsContentUtils.GetNodesListCore<PluGroupModel>(xml, LocaleCore.WebService.XmlItemNomenclatureGroup, (xmlNode, itemXml) =>
         {
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsGroup));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "AttachmentsCount");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BoxTypeGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BrandGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "CategoryGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ClipTypeGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "GroupGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PackageTypeGuid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsGroup));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "AttachmentsCount");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BoxTypeGuid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BrandGuid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "CategoryGuid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ClipTypeGuid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "GroupGuid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PackageTypeGuid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
         });
 
     private void AddResponse1cPluGroupsFks(WsResponse1cShortModel response, List<PluGroupFkModel> itemsDb,
@@ -77,7 +77,7 @@ public sealed class WsPlusGroupsHelper : WsContentBase
             PluGroupFkModel? itemDb = itemsDb.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
-            if (UpdateItemDb(response, pluGroupXml.Uid1c, itemGroupFk, itemDb, false)) return;
+            if (UpdatePluGroupFkDb(response, pluGroupXml.Uid1c, itemGroupFk, itemDb, false)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1c);
@@ -98,15 +98,15 @@ public sealed class WsPlusGroupsHelper : WsContentBase
         {
             // Find by Uid1C -> Update exists.
             PluGroupModel? pluGroupDb = pluGroupsDb.Find(item => Equals(item.Uid1c, pluGroupXml.IdentityValueUid));
-            if (UpdatePluGroupDb(response, pluGroupXml, pluGroupDb, true)) return;
+            if (UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Find by Code -> Update exists.
             pluGroupDb = pluGroupsDb.Find(item => Equals(item.Code, pluGroupXml.Code));
-            if (UpdateItemDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
+            if (UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Find by Name -> Update exists.
             pluGroupDb = pluGroupsDb.Find(item => Equals(item.Name, pluGroupXml.Name));
-            if (UpdateItemDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
+            if (UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluGroupXml, true);
@@ -121,6 +121,14 @@ public sealed class WsPlusGroupsHelper : WsContentBase
         }
     }
 
+    /// <summary>
+    /// Отправить номенклатурные группы и получить ответ.
+    /// </summary>
+    /// <param name="xml"></param>
+    /// <param name="format"></param>
+    /// <param name="isDebug"></param>
+    /// <param name="sessionFactory"></param>
+    /// <returns></returns>
     public ContentResult NewResponse1cPluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {

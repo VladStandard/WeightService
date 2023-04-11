@@ -6,12 +6,11 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Net;
 using WsWebApi.Models;
-using WsWebApi.Base;
 using WsWebApi.Utils;
 
 namespace WsWebApiTests.Utils;
 
-internal static class WebResponseUtilsTests
+internal static class WsWebResponseUtilsTests
 {
     internal static async Task GetExceptionAsync(string url, RestRequest request)
     {

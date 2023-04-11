@@ -27,13 +27,13 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     #region Public and private methods
 
     private List<PluCharacteristicModel> GetXmlPluCharacteristicsList(XElement xml) =>
-        GetNodesListCore<PluCharacteristicModel>(xml, LocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
+        WsContentUtils.GetNodesListCore<PluCharacteristicModel>(xml, LocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
         {
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "AttachmentsCount");
-            SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "NomenclatureGuid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "AttachmentsCount");
+            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "NomenclatureGuid");
         });
 
     private void AddResponse1cPluCharacteristics(WsResponse1cShortModel response, List<PluCharacteristicModel> pluCharacteristicsDb,
@@ -82,7 +82,7 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             PluCharacteristicsFkModel? pluCharacteristicFkDb = pluCharacteristicsFksDb.Find(item =>
                 Equals(item.Plu.Uid1c, pluCharacteristicsFk.Plu.Uid1c) &&
                 Equals(item.Characteristic.Uid1c, pluCharacteristicsFk.Characteristic.Uid1c));
-            if (UpdateItemDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, pluCharacteristicFkDb, false)) return;
+            if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, pluCharacteristicFkDb, false)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1c);
@@ -97,6 +97,14 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
         }
     }
 
+    /// <summary>
+    /// Отправить номенклатурные характеристик и получить ответ.
+    /// </summary>
+    /// <param name="xml"></param>
+    /// <param name="format"></param>
+    /// <param name="isDebug"></param>
+    /// <param name="sessionFactory"></param>
+    /// <returns></returns>
     public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
