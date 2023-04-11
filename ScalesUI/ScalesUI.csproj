@@ -16,7 +16,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>10.0</LangVersion>
-    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-16-Stend\</PublishUrl>
+    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Versions\0.9.180\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
