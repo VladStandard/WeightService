@@ -26,10 +26,10 @@ using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 using WsWeight.Plugins.Helpers;
-using SqlQueries = DataCore.Sql.Core.Utils.WsSqlQueries;
 
 namespace WsWeight.Helpers;
 
+#nullable enable
 /// <summary>
 /// User session.
 /// </summary>
@@ -119,22 +119,20 @@ public sealed class UserSessionHelper : BaseViewModel
     private List<PluStorageMethodFkModel> PluStorageMethodFks { get; set; }
 
     private PluNestingFkModel _pluNestingFk;
-
-    [XmlElement]
     public PluNestingFkModel PluNestingFk { get => _pluNestingFk; set { _pluNestingFk = value; OnPropertyChanged(); } }
 
     private List<PluNestingFkModel> _pluNestingFks;
-
-    [XmlElement]
     public List<PluNestingFkModel> PluNestingFks
     {
         get => _pluNestingFks;
         private set
         {
             _pluNestingFks = value;
-            PluNestingFk = _pluNestingFks.Exists(x => !x.IsNew) && value.Exists(x => x.IsDefault)
-                ? value.Find(x => x.IsDefault)
-                : value.First();
+            PluNestingFk = !_pluNestingFks.Any() 
+                ? DataContext.DataAccess.GetItemNewEmpty<PluNestingFkModel>()
+                : _pluNestingFks.Exists(x => !x.IsNew && x.IsDefault)
+                    ? value.Find(x => !x.IsNew && x.IsDefault)
+                    : value.First();
             OnPropertyChanged();
         }
     }
@@ -832,3 +830,4 @@ public sealed class UserSessionHelper : BaseViewModel
 
     #endregion
 }
+#nullable disable
