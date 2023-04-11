@@ -28,14 +28,14 @@
     <EmbeddedResource Include="Resources\settings_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FluentNHibernate" Version="3.1.0" />
-    <PackageReference Include="FluentValidation" Version="11.5.1" />
+    <PackageReference Include="FluentNHibernate" Version="3.2.0" />
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="IndexRange" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.0" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.51.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.52.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NHibernate" Version="5.4.1" />
+    <PackageReference Include="NHibernate" Version="5.4.2" />
     <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
     <PackageReference Include="Quartz" Version="3.6.2" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />

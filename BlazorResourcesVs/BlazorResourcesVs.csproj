@@ -35,10 +35,10 @@
         <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.4" />
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.4" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.4" />
-        <PackageReference Include="Radzen.Blazor" Version="4.8.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.5" />
+        <PackageReference Include="Radzen.Blazor" Version="4.8.4" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
