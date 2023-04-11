@@ -159,7 +159,7 @@ public partial class RazorComponentBase
 	protected async Task SqlItemCancelAsync()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsSafe(LocaleCore.Table.TableCancel, SetRouteSectionNavigate);
+        SetRouteSectionNavigate();
 	}
 
 	protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()

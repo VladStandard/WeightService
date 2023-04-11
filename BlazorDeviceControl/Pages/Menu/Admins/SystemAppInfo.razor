@@ -43,12 +43,14 @@
         <h4>Windows</h4>
       </div>
       <div align="center">
-        <RadzenRadialGauge>
-          <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step="1024" Min="0" Max="@TotalRamSize"
+         <RadzenRadialGauge>
+          <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step="1000" Min="0" Max="@TotalRamSize"
                                   TickPosition="@GaugeTickPosition.Inside">
-            <RadzenRadialGaugeScalePointer Value="@CurrentRamSize" Length="0.7" ShowValue="true">
+            <RadzenRadialGaugeScalePointer Value="@CurrentRamSize" Length="0.6" ShowValue="true">
               <Template Context="pointer">
-                <h4>@pointer.Value<sup>MB</sup></h4>
+                <h4>
+                  @pointer.Value <sup>MB</sup>
+                </h4>
               </Template>
             </RadzenRadialGaugeScalePointer>
             <RadzenRadialGaugeScaleRange From="0" To="@(TotalRamSize * 0.75)" Fill="green"/>

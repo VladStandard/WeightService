@@ -11,16 +11,9 @@ public partial class MainLayout : RazorComponentBase
     
     protected override void OnParametersSet()
 	{
-        RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				BlazorAppSettings.SetupMemory();
-				BlazorAppSettings.Memory.OpenAsync().ConfigureAwait(false);
-				//
-			}
-		});
-	}
+        BlazorAppSettings.SetupMemory(); 
+        BlazorAppSettings.Memory.OpenAsync().ConfigureAwait(false);
+    }
 
     #endregion
 }
