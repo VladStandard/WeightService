@@ -1,16 +1,16 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Wmi;
+namespace MDSoft.Wmi.Helpers;
 
-public class WmiHelper
+public sealed class MdWmiHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WmiHelper _instance;
+    private static MdWmiHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WmiHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static MdWmiHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -22,7 +22,7 @@ public class WmiHelper
 
     #region Public and private methods
 
-    public WmiWin32MemoryModel GetWin32OperatingSystemMemory()
+    public MdWmiWinMemoryModel GetWin32OperatingSystemMemory()
     {
         lock (_locker)
         {
@@ -36,7 +36,7 @@ public class WmiHelper
             ulong totalVirtual = 0;
             ulong totalPhysical = 0;
             if (items.Count > 0)
-                foreach (ManagementObject item in items)
+                foreach (ManagementBaseObject item in items)
                 {
                     freeVirtual = Convert.ToUInt64(item["FreeVirtualMemory"]) * 1024;
                     freePhysical = Convert.ToUInt64(item["FreePhysicalMemory"]) * 1024;
@@ -58,7 +58,7 @@ public class WmiHelper
             ManagementObjectCollection items = searcher.Get();
             Dictionary<string, string> result = new();
             if (items.Count > 0)
-                foreach (ManagementObject item in items)
+                foreach (ManagementBaseObject item in items)
                 {
                     result.Add("SerialNumber", item["SerialNumber"].ToString());
                     result.Add("SystemVersion", item["Caption"].ToString());
@@ -70,7 +70,7 @@ public class WmiHelper
         }
     }
 
-    public WmiSoftwareModel GetSoftware(string search)
+    public MdWmiSoftwareModel GetSoftware(string search)
     {
         lock (_locker)
         {
@@ -109,9 +109,9 @@ public class WmiHelper
         }
     }
 
-    public string GetStatusDescription(Lang lang, string status)
+    public string GetStatusDescription(MdLang lang, string status)
     {
-        return lang == Lang.Russian
+        return lang == MdLang.Russian
             ? status switch
             {
                 "OK" => "ОК",

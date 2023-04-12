@@ -13,7 +13,6 @@ global using DataCore.Sql.TableScaleFkModels.PlusLabels;
 global using DataCore.Sql.TableScaleModels.Printers;
 global using MDSoft.BarcodePrintUtils.Enums;
 global using MDSoft.BarcodePrintUtils.Tsc;
-global using MDSoft.BarcodePrintUtils.Wmi;
 global using Nito.AsyncEx;
 global using System.Diagnostics;
 global using System.Drawing;

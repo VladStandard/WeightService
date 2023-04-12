@@ -1,12 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Models;
-using DataCore.Wmi;
-
 namespace DataCore.Memory;
 
-public class MemorySizeModel : HelperBase//DisposableBase, IDisposableBase
+public class MemorySizeModel : HelperBase
 {
     #region Public and private fields, properties, constructor
 
@@ -20,7 +17,8 @@ public class MemorySizeModel : HelperBase//DisposableBase, IDisposableBase
         new(VirtualTotal is not null && VirtualFree is not null ? VirtualTotal.Bytes - VirtualFree.Bytes : 0);
     public MemorySizeConvertModel PhysicalAllocated =>
         new(PhysicalTotal is not null && PhysicalFree is not null ? PhysicalTotal.Bytes - PhysicalFree.Bytes : 0);
-    private WmiHelper? Wmi { get; set; } = WmiHelper.Instance;
+    private MdWmiHelper Wmi => MdWmiHelper.Instance;
+
 
     #endregion
 
@@ -49,14 +47,11 @@ public class MemorySizeModel : HelperBase//DisposableBase, IDisposableBase
         if (VirtualCurrent is not null)
             VirtualCurrent.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
 
-        if (Wmi is not null)
-        {
-            WmiWin32MemoryModel getWmi = Wmi.GetWin32OperatingSystemMemory();
-            VirtualFree = new() { Bytes = getWmi.FreeVirtual };
-            PhysicalFree = new() { Bytes = getWmi.FreePhysical };
-            VirtualTotal = new() { Bytes = getWmi.TotalVirtual };
-            PhysicalTotal = new() { Bytes = getWmi.TotalPhysical };
-        }
+        MdWmiWinMemoryModel getWmi = Wmi.GetWin32OperatingSystemMemory();
+        VirtualFree = new() { Bytes = getWmi.FreeVirtual };
+        PhysicalFree = new() { Bytes = getWmi.FreePhysical };
+        VirtualTotal = new() { Bytes = getWmi.TotalVirtual };
+        PhysicalTotal = new() { Bytes = getWmi.TotalPhysical };
     }
 
     public override void Close()
@@ -68,7 +63,6 @@ public class MemorySizeModel : HelperBase//DisposableBase, IDisposableBase
         PhysicalFree = null;
         VirtualTotal = null;
         PhysicalTotal = null;
-        Wmi = null;
     }
 
     public short GetMemorySizeAppMb() => (short)(PhysicalCurrent?.MegaBytes ?? 0);

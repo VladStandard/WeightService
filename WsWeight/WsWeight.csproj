@@ -549,6 +549,10 @@
       <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
       <Name>MDSoft.BarcodePrintUtils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MDSoft.Wmi\MDSoft.Wmi.csproj">
+      <Project>{04e2eac8-ef91-4e9f-9686-13a3e600b17d}</Project>
+      <Name>MDSoft.Wmi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WsLocalization\WsLocalization.csproj">
       <Project>{f494c3d7-e4c9-4d2b-926f-66835260f4b5}</Project>
       <Name>WsLocalization</Name>

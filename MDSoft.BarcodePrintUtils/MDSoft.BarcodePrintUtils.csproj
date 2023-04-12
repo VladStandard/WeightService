@@ -217,8 +217,6 @@
     <Compile Include="Tsc\TscLibNet64Native.cs" />
     <Compile Include="Tsc\TscLibNet32Native.cs" />
     <Compile Include="Tsc\TscPrintProperties.cs" />
-    <Compile Include="Wmi\Models\WmiWin32PrinterModel.cs" />
-    <Compile Include="Wmi\Enums\Win32PrinterStatus.cs" />
     <Compile Include="Zebra\DeviceEntity.cs" />
     <Compile Include="Zebra\DeviceSocketRaw.cs" />
     <Compile Include="Zebra\DeviceSocketTcp.cs" />
@@ -237,8 +235,6 @@
       <Version>2.15.2634</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

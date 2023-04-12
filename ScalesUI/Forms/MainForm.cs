@@ -2,7 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Enums;
-using MDSoft.BarcodePrintUtils.Wmi.Models;
+using MDSoft.Wmi.Enums;
+using MDSoft.Wmi.Helpers;
+using MDSoft.Wmi.Models;
 
 namespace ScalesUI.Forms;
 
@@ -423,7 +425,7 @@ public partial class MainForm : Form
             ? UserSession.PluginPrintMain.GetZebraPrintMode() :
             UserSession.PluginPrintShipping.GetZebraPrintMode();
         PrintBrand printBrand = isMain ? UserSession.PluginPrintMain.PrintBrand : UserSession.PluginPrintShipping.PrintBrand;
-        WmiWin32PrinterModel wmiPrinter = pluginPrint.TscWmiPrinter;
+        MdWmiWinPrinterModel wmiPrinter = pluginPrint.TscWmiPrinter;
         return
             $"{UserSession.WeighingSettings.GetPrintName(isMain, printBrand)}" + Environment.NewLine +
             $"{LocaleCore.Print.DeviceCommunication} ({pluginPrint.Printer.Ip}): {pluginPrint.Printer.PingStatus}" + Environment.NewLine +
@@ -436,7 +438,8 @@ public partial class MainForm : Form
             $"{LocaleCore.Print.StatusCode}: {wmiPrinter.PrinterStatus}" + Environment.NewLine +
             $"{LocaleCore.Print.Status}: {pluginPrint.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
             $"{LocaleCore.Print.State} (ENG): {wmiPrinter.Status}" + Environment.NewLine +
-            $"{LocaleCore.Print.State}: {WmiHelper.Instance.GetStatusDescription(LocaleCore.Lang, wmiPrinter.Status)}" + Environment.NewLine +
+            $"{LocaleCore.Print.State}: {MdWmiHelper.Instance.GetStatusDescription(
+                LocaleCore.Lang == Lang.English ? MdLang.English : MdLang.Russian, wmiPrinter.Status)}" + Environment.NewLine +
             $"{LocaleCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +
             $"{LocaleCore.Print.Mode}: {printMode}" + Environment.NewLine;
     }
