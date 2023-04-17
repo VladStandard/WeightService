@@ -1,9 +1,10 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
-using DataCore.Sql.TableScaleModels.Devices;
-using DataCore.Sql.TableScaleModels.DeviceTypes;
+using WsStorage.TableScaleFkModels.DeviceTypesFks;
+using WsStorage.TableScaleModels.Devices;
+using WsStorage.TableScaleModels.DeviceTypes;
+using WsStorage.Utils;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionDevices;
 
@@ -33,10 +34,10 @@ public sealed partial class ItemDevice : RazorComponentItemBase<DeviceModel>
             {
                 DataContext.GetListNotNullable<DeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
-                SqlItemCast = DataContext.GetItemNotNullable<DeviceModel>(IdentityUid);
+                SqlItemCast = DataContext.GetItemNotNullableByUid<DeviceModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<DeviceModel>();
-                DeviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(SqlItemCast);
+                DeviceTypeFk = DataContext.GetItemDeviceTypeFkNotNullable(SqlItemCast);
                 DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : DataAccess.GetItemNewEmpty<DeviceTypeModel>();
             }
         });

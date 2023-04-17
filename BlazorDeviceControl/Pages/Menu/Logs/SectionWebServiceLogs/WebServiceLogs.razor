@@ -1,9 +1,9 @@
 @page "/section/logs_web_service_fk"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@inherits RazorComponentSectionBase<DataCore.Sql.TableDiagModels.LogsWebsFks.LogWebFkModel>
+@inherits RazorComponentSectionBase<WsStorage.TableDiagModels.LogsWebsFks.LogWebFkModel>
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using DataCore.Sql.TableDiagModels.LogsWebsFks
+@using WsStorage.TableDiagModels.LogsWebsFks
 
 <SectionReload
   TItem="@LogWebFkModel"

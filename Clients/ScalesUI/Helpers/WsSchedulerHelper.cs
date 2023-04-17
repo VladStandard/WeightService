@@ -18,7 +18,7 @@ internal class WsSchedulerHelper
     #region Public and private fields, properties, constructor
 
     private UserSessionHelper UserSession => UserSessionHelper.Instance;
-    private QuartzHelper Quartz => QuartzHelper.Instance;
+    private WsQuartzHelper Quartz => WsQuartzHelper.Instance;
     private readonly object _lockerMinutes10 = new();
     private readonly object _lockerHours = new();
     private readonly object _lockerDays = new();
@@ -34,13 +34,13 @@ internal class WsSchedulerHelper
     {
         FormMain = form;
 
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryMinutes10(), ScheduleEveryMinutes10,
+        Quartz.AddJob(WsQuartzUtils.CronExpression.EveryMinutes10(), ScheduleEveryMinutes10,
             $"job{nameof(ScheduleEveryMinutes10)}", $"trigger{nameof(ScheduleEveryMinutes10)}",
             $"triggerGroup{nameof(ScheduleEveryHours)}");
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
+        Quartz.AddJob(WsQuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
             $"job{nameof(ScheduleEveryHours)}", $"trigger{nameof(ScheduleEveryHours)}",
             $"triggerGroup{nameof(ScheduleEveryHours)}");
-        Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
+        Quartz.AddJob(WsQuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
             $"job{nameof(ScheduleEveryDays)}", $"trigger{nameof(ScheduleEveryDays)}",
             $"triggerGroup{nameof(ScheduleEveryDays)}");
     }
@@ -85,4 +85,3 @@ internal class WsSchedulerHelper
 
     #endregion
 }
-#nullable disable

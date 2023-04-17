@@ -1,9 +1,9 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Enums;
-using DataCore.Sql.TableScaleModels.BarCodes;
-using WsStorage.Models.Tables.BarCodes;
+using WsStorage.TableScaleModels.BarCodes;
+using WsStorage.WebApiModels.Tables.BarCodes;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionBarcodes;
 

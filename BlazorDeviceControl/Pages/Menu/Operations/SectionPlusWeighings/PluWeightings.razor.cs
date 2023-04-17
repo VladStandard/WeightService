@@ -1,8 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
-using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks;
+using WsStorage.TableScaleFkModels.DeviceScalesFks;
+using WsStorage.TableScaleFkModels.PlusWeighingsFks;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighings;
 

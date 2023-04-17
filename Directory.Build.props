@@ -57,7 +57,4 @@
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|x86' ">
         <DefineConstants>TRACE;RELEASE_VS</DefineConstants>
     </PropertyGroup>
-    <ItemGroup>
-        <Compile Include="..\IsExternalInit.cs" Visible="false" />
-    </ItemGroup>
 </Project>

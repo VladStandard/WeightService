@@ -289,7 +289,7 @@ public partial class PluUserControl : UserControlBase
         panel.RowStyles.Clear();
         panel.RowCount += rowCount;
         //ushort heightPanelActions = 0;
-        ushort height = (ushort)(100 / (panel.RowCount));
+        ushort height = (ushort)(100 / panel.RowCount);
         for (ushort i = 0; i < panel.RowCount; i++)
         {
             panel.RowStyles.Add(new(SizeType.Percent, height));

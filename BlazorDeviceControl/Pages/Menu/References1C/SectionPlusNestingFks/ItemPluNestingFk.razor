@@ -1,12 +1,10 @@
 ﻿@page "/section/plus_nesting_fks/new"
 @page "/section/plus_nesting_fks/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<PluNestingFkModel>
-@using DataCore.Sql.TableScaleFkModels.PlusNestingFks
-@using DataCore.Sql.TableScaleModels.Boxes
-@using DataCore.Sql.TableScaleFkModels.PlusBundlesFks
+@inherits RazorComponentItemBase<WsStorage.TableScaleFkModels.PlusNestingFks.PluNestingFkModel>
 @using BlazorDeviceControl.Pages.CustomComponents
 @using BlazorDeviceControl.Pages.ItemComponents
+@using WsStorage.TableScaleFkModels.PlusNestingFks
 
 <RazorItemReload TItem="@PluNestingFkModel" Title="@LocaleCore.DeviceControl.ItemPluNestingFk"/>
 

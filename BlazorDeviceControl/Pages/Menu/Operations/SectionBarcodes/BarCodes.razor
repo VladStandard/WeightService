@@ -1,9 +1,9 @@
 ﻿@page "/section/barcodes"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<BarCodeModel>
-@using DataCore.Sql.TableScaleModels.BarCodes
+@inherits RazorComponentSectionBase<WsStorage.TableScaleModels.BarCodes.BarCodeModel>
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleModels.BarCodes
 
 <SectionReload
   TItem="@BarCodeModel"

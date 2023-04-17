@@ -1,12 +1,12 @@
 @page "/section/printers_resources/new"
 @page "/section/printers_resources/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<PrinterResourceFkModel>
-@using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
-@using DataCore.Sql.TableScaleModels.Printers
-@using DataCore.Sql.TableScaleModels.TemplatesResources
+@inherits RazorComponentItemBase<WsStorage.TableScaleFkModels.PrintersResourcesFks.PrinterResourceFkModel>
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleFkModels.PrintersResourcesFks
+@using WsStorage.TableScaleModels.Printers
+@using WsStorage.TableScaleModels.TemplatesResources
 
 <RazorItemReload TItem="@PrinterResourceFkModel" Title="@LocaleCore.Print.Resource"/>
 

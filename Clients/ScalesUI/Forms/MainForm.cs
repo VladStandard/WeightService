@@ -1,8 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Enums;
-using MDSoft.Wmi.Enums;
+using MDSoft.NetUtils;
+using MDSoft.WinFormsUtils;
 using MDSoft.Wmi.Helpers;
 using MDSoft.Wmi.Models;
 
@@ -56,8 +56,8 @@ public partial class MainForm : Form
         TopMost = !Debug.IsDevelop;
         UserSession.NewPallet();
 
-        MDSoft.WinFormsUtils.InvokeControl.SetText(this, AppVersion.AppTitle);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, string.Empty);
+        MdInvokeControl.SetText(this, AppVersion.AppTitle);
+        MdInvokeControl.SetText(fieldProductDate, string.Empty);
         LoadMainControls();
         LoadLocalizationStatic(Lang.Russian);
 
@@ -94,10 +94,23 @@ public partial class MainForm : Form
         // Buttons.
         SetButtonsSettings();
         // Form properties: resolution, position, fonts.
-        this.SwitchResolution(Debug.IsDevelop ? Resolution.Value1366x768 : Resolution.FullScreen);
+        this.SwitchResolution(Debug.IsDevelop ? WsScreenResolution.Value1366x768 : WsScreenResolution.FullScreen);
         CenterToScreen();
         LoadFonts();
     }
+
+    private MdPrinterModel GetMdPrinter(PrinterModel scalePrinter) => new()
+    {
+        Name = scalePrinter.Name,
+        Ip = scalePrinter.Ip,
+        Port = scalePrinter.Port,
+        Password = scalePrinter.Password,
+        PeelOffSet = scalePrinter.PeelOffSet,
+        DarknessLevel = scalePrinter.DarknessLevel,
+        HttpStatusCode = scalePrinter.HttpStatusCode,
+        PingStatus = scalePrinter.PingStatus,
+        HttpStatusException = scalePrinter.HttpStatusException,
+    };
 
     private void MainForm_Load(object sender, EventArgs e)
     {
@@ -120,26 +133,26 @@ public partial class MainForm : Form
         UserSession.PluginMemory.Init(new(1_000, 0_250), new(0_250, 0_250),
             new(0_250, 0_250), fieldMemory, fieldMemoryExt);
         UserSession.PluginMemory.Execute();
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryExt, Debug.IsDevelop);
+        MdInvokeControl.SetVisible(fieldMemoryExt, Debug.IsDevelop);
 
-        // Весовая плфтформа Масса-К.
+        // Весовая платформа Масса-К.
         UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100),
             new(0_050, 0_100), fieldNettoWeight, fieldMassa, fieldMassaExt, ResetWarning);
         UserSession.PluginMassa.Execute();
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
+        MdInvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
 
         // Шаблон.
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTemplateTitle, true);
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTemplateValue, true);
+        MdInvokeControl.SetVisible(fieldTemplateTitle, true);
+        MdInvokeControl.SetVisible(fieldTemplateValue, true);
 
         // Основной принтер.
         if (UserSession.Scale.PrinterMain is not null)
         {
             UserSession.PluginPrintMain.Init(new(0_500, 0_250), new(0_250, 0_250),
                 new(0_250, 0_250),
-                UserSession.PrintBrandMain, UserSession.Scale.PrinterMain, fieldPrintMain, fieldPrintMainExt, true);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintMain, true);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
+                UserSession.PrintBrandMain, GetMdPrinter(UserSession.Scale.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
+            MdInvokeControl.SetVisible(fieldPrintMain, true);
+            MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
             UserSession.PluginPrintMain.Execute();
             UserSession.PluginPrintMain.SetOdometorUserLabel(1);
         }
@@ -151,9 +164,9 @@ public partial class MainForm : Form
             {
                 UserSession.PluginPrintShipping.Init(new(0_500, 0_250),
                     new(0_250, 0_250), new(0_250, 0_250),
-                    UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping, fieldPrintShipping, fieldPrintShippingExt, false);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintShipping, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDevelop);
+                    UserSession.PrintBrandShipping, GetMdPrinter(UserSession.Scale.PrinterShipping), fieldPrintShipping, fieldPrintShippingExt, false);
+                MdInvokeControl.SetVisible(fieldPrintShipping, true);
+                MdInvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDevelop);
                 UserSession.PluginPrintShipping.Execute();
                 UserSession.PluginPrintShipping.SetOdometorUserLabel(1);
             }
@@ -164,8 +177,8 @@ public partial class MainForm : Form
             new(0_250, 0_250), new(0_250, 0_250),
             new(0_250, 0_250), fieldPlu, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
-        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {UserSession.PublishDescription}.");
-        MDSoft.WinFormsUtils.InvokeControl.SetBackColor(fieldTitle, Color.Transparent);
+        MdInvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {UserSession.PublishDescription}.");
+        MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }
 
     private void ReturnBackExit()
@@ -439,7 +452,7 @@ public partial class MainForm : Form
             $"{LocaleCore.Print.Status}: {pluginPrint.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
             $"{LocaleCore.Print.State} (ENG): {wmiPrinter.Status}" + Environment.NewLine +
             $"{LocaleCore.Print.State}: {MdWmiHelper.Instance.GetStatusDescription(
-                LocaleCore.Lang == Lang.English ? MdLang.English : MdLang.Russian, wmiPrinter.Status)}" + Environment.NewLine +
+                LocaleCore.Lang == Lang.English ? MDSoft.Wmi.Enums.MdLang.English : MDSoft.Wmi.Enums.MdLang.Russian, wmiPrinter.Status)}" + Environment.NewLine +
             $"{LocaleCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +
             $"{LocaleCore.Print.Mode}: {printMode}" + Environment.NewLine;
     }
@@ -486,18 +499,18 @@ public partial class MainForm : Form
     private void LoadLocalizationStatic(Lang lang)
     {
         LocaleCore.Lang = LocaleData.Lang = lang;
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonPlu);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(labelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(labelPackageWeight, LocaleCore.Scales.FieldWeightTare);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTemplateTitle, $"{LocaleCore.Print.Template}");
+        MdInvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
+        MdInvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
+        MdInvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
+        MdInvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
+        MdInvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonPlu);
+        MdInvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
+        MdInvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
+        MdInvokeControl.SetText(labelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
+        MdInvokeControl.SetText(labelPackageWeight, LocaleCore.Scales.FieldWeightTare);
+        MdInvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
+        MdInvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
+        MdInvokeControl.SetText(fieldTemplateTitle, $"{LocaleCore.Print.Template}");
     }
 
     private void LoadLocalizationDynamic(Lang lang)
@@ -505,17 +518,17 @@ public partial class MainForm : Form
         LocaleCore.Lang = LocaleData.Lang = lang;
         string area = UserSession.Scale.WorkShop is null
             ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonLine, $"{UserSession.Scale.Description} | {UserSession.Scale.Number}" +
+        MdInvokeControl.SetText(ButtonLine, $"{UserSession.Scale.Description} | {UserSession.Scale.Number}" +
             Environment.NewLine + area);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
+        MdInvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
             ? LocaleCore.Table.FieldPackageIsNotSelected
             : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
-        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPackageWeight,
+        MdInvokeControl.SetText(fieldPackageWeight,
             UserSession.PluScale.IsNotNew
                 ? $"{UserSession.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
         TemplateModel template = UserSession.DataContext.DataAccess.GetItemTemplateNotNullable(UserSession.PluScale);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTemplateValue, template.Title);
+        MdInvokeControl.SetText(fieldTemplateValue, template.Title);
     }
 
     #endregion
@@ -524,7 +537,7 @@ public partial class MainForm : Form
 
     private void FinallyAction()
     {
-        MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
+        MdInvokeControl.Select(ButtonPrint);
         LoadLocalizationDynamic(Lang.Russian);
     }
 
@@ -647,8 +660,8 @@ public partial class MainForm : Form
     {
         if (UserSession.PluScale.Plu.IsNew)
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, true);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, LocaleCore.Table.FieldPluIsNotSelected);
+            MdInvokeControl.SetVisible(fieldWarning, true);
+            MdInvokeControl.SetText(fieldWarning, LocaleCore.Table.FieldPluIsNotSelected);
             UserSession.DataContext.DataAccess.SaveLogError(LocaleCore.Table.FieldPluIsNotSelected);
             return false;
         }
@@ -780,8 +793,8 @@ public partial class MainForm : Form
             UserSession.WeighingSettings.Kneading = 1;
             UserSession.ProductDate = DateTime.Now;
             UserSession.NewPallet();
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelNettoWeight, UserSession.PluScale.Plu.IsCheckWeight);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldNettoWeight, UserSession.PluScale.Plu.IsCheckWeight);
+            MdInvokeControl.SetVisible(labelNettoWeight, UserSession.PluScale.Plu.IsCheckWeight);
+            MdInvokeControl.SetVisible(fieldNettoWeight, UserSession.PluScale.Plu.IsCheckWeight);
 
             ActionMore(null, null);
         }
@@ -802,8 +815,8 @@ public partial class MainForm : Form
             {
                 // Сброс предупреждения.
                 ResetWarning();
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelNettoWeight, false);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldNettoWeight, false);
+                MdInvokeControl.SetVisible(labelNettoWeight, false);
+                MdInvokeControl.SetVisible(fieldNettoWeight, false);
                 UserSession.PluScale = UserSession.DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
                 //if (UserSession.CheckWeightMassaDeviceExists())
                 //{
@@ -848,8 +861,8 @@ public partial class MainForm : Form
     /// </summary>
     private void ResetWarning()
     {
-        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWarning, false);
-        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWarning, string.Empty);
+        MdInvokeControl.SetVisible(fieldWarning, false);
+        MdInvokeControl.SetText(fieldWarning, string.Empty);
     }
 
     /// <summary>
@@ -872,7 +885,7 @@ public partial class MainForm : Form
             // Проверить наличие весовой платформы Масса-К.
             if (IsReleaseForce || Debug.IsRelease)
                 if (!UserSession.CheckWeightMassaDeviceExists()) return;
-            // Проверить стаблизацию весовой платформы Масса-К.
+            // Проверить стабилизацию весовой платформы Масса-К.
             if (IsReleaseForce || Debug.IsRelease)
                 if (!UserSession.CheckWeightMassaIsStable(fieldWarning)) return;
             // Проверить ГТИН ПЛУ.

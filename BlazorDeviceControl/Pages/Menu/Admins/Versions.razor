@@ -1,9 +1,9 @@
 ﻿@page "/section/versions"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @using BlazorDeviceControl.Pages.SectionComponents
-@inherits RazorComponentSectionBase<VersionModel>
-@using DataCore.Sql.TableScaleModels.Versions
+@inherits RazorComponentSectionBase<WsStorage.TableScaleModels.Versions.VersionModel>
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleModels.Versions
 
 <SectionReload
   TItem="@VersionModel"

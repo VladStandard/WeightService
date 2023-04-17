@@ -1,8 +1,8 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<PrinterResourceFkModel>
-@using DataCore.Sql.TableScaleFkModels.PrintersResourcesFks
+@inherits RazorComponentSectionBase<WsStorage.TableScaleFkModels.PrintersResourcesFks.PrinterResourceFkModel>
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleFkModels.PrintersResourcesFks
 
 @if (SqlSectionCast.Count > 0)
 {

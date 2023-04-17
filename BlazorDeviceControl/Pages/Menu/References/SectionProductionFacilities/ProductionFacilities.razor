@@ -1,9 +1,9 @@
 ﻿@page "/section/production_facilities"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<ProductionFacilityModel>
-@using DataCore.Sql.TableScaleModels.ProductionFacilities
+@inherits RazorComponentSectionBase<WsStorage.TableScaleModels.ProductionFacilities.ProductionFacilityModel>
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleModels.ProductionFacilities
 
 <SectionReload
   TItem="@ProductionFacilityModel"

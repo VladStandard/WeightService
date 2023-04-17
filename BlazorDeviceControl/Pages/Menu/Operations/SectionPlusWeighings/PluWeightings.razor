@@ -1,9 +1,9 @@
 @page "/section/plu_weighings"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusWeighingsFks.PluWeighingModel>
+@inherits RazorComponentSectionBase<WsStorage.TableScaleFkModels.PlusWeighingsFks.PluWeighingModel>
 @using BlazorDeviceControl.Pages.CustomComponents
 @using BlazorDeviceControl.Pages.SectionComponents
-@using DataCore.Sql.TableScaleFkModels.PlusWeighingsFks
+@using WsStorage.TableScaleFkModels.PlusWeighingsFks
 
 <SectionReload
   TItem="@PluWeighingModel"

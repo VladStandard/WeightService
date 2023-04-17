@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.9.180.0</ApplicationVersion>
+    <ApplicationVersion>0.9.210.0</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -250,15 +250,14 @@
       <Version>1.1.7</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\DataCore\DataCore.csproj">
-      <Project>{2A3AF48B-DC5B-4359-B056-3605631440F5}</Project>
-      <Name>DataCore</Name>
+    <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj">
+      <Project>{b5de7b8c-16ae-4027-9ba5-f977605b850b}</Project>
+      <Name>WsDataCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WsMassa\WsMassa.csproj">
-      <Project>{b16ecc51-2ef8-49e6-b77e-b8cc065550a4}</Project>
-      <Name>WsMassa</Name>
+    <ProjectReference Include="..\..\Core\WsMassaCore\WsMassaCore.csproj">
+      <Project>{B16ECC51-2EF8-49E6-B77E-B8CC065550A4}</Project>
+      <Name>WsMassaCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,9 +1,9 @@
 ﻿@page "/section/access"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<AccessModel>
-@using DataCore.Sql.TableScaleModels.Access
+@inherits RazorComponentSectionBase<WsStorage.TableScaleModels.Access.AccessModel>
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleModels.Access
 
 <SectionReload
   TItem="@AccessModel"

@@ -1,9 +1,9 @@
 @page "/section/plus_labels"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using DataCore.Sql.TableScaleFkModels.PlusLabels
 @using BlazorDeviceControl.Pages.SectionComponents
-@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleFkModels.PlusLabels.PluLabelModel>
+@inherits RazorComponentSectionBase<WsStorage.TableScaleFkModels.PlusLabels.PluLabelModel>
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleFkModels.PlusLabels
 
 <SectionReload
   TItem="@PluLabelModel"

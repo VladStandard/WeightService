@@ -2,7 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Reflection;
-using DataCore.Sql.Core.Models;
+using WsStorage.Core.Models;
+using WsStorage.Models;
 
 namespace BlazorDeviceControl.Pages.Menu.Admins;
 

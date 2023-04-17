@@ -1,9 +1,9 @@
 @page "/section/templates_resources/new"
 @page "/section/templates_resources/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<TemplateResourceModel>
+@inherits RazorComponentItemBase<WsStorage.TableScaleModels.TemplatesResources.TemplateResourceModel>
 @using BlazorDeviceControl.Pages.ItemComponents
-@using DataCore.Sql.TableScaleModels.TemplatesResources
+@using WsStorage.TableScaleModels.TemplatesResources
 
 <RazorItemReload TItem="@TemplateResourceModel" Title="@LocaleCore.DeviceControl.ItemTemplateResource"/>
 

@@ -1,9 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
-using DataCore.Sql.TableScaleModels.Plus;
-using DataCore.Sql.TableScaleModels.Templates;
+using WsStorage.TableScaleFkModels.PlusTemplatesFks;
+using WsStorage.TableScaleModels.Plus;
+using WsStorage.TableScaleModels.Templates;
+using WsStorage.Utils;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclatures;
 

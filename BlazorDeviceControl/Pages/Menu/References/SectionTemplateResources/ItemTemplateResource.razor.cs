@@ -4,7 +4,7 @@
 using BlazorCore.Settings;
 using BlazorDownloadFile;
 using DataCore.Enums;
-using DataCore.Sql.TableScaleModels.TemplatesResources;
+using WsStorage.TableScaleModels.TemplatesResources;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionTemplateResources;
 

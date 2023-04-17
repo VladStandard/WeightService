@@ -1,10 +1,10 @@
 ﻿@page "/section/bundles/new"
 @page "/section/bundles/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<BundleModel>
-@using DataCore.Sql.TableScaleModels.Bundles
+@inherits RazorComponentItemBase<WsStorage.TableScaleModels.Bundles.BundleModel>
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleModels.Bundles
 
 <RazorItemReload TItem="BundleModel" Title="@LocaleCore.DeviceControl.ItemBundle"/>
 

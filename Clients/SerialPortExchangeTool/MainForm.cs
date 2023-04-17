@@ -6,10 +6,10 @@ using System.IO.Ports;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
-using DataCore.Utils;
-using WsMassa.Helpers;
-using WsMassa.Models;
-using WsMassa.Utils;
+using WsDataCore.Utils;
+using WsMassaCore.Helpers;
+using WsMassaCore.Models;
+using WsMassaCore.Utils;
 
 namespace SerialPortExchangeTool;
 

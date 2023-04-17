@@ -1,9 +1,9 @@
 ﻿@page "/section/brands"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<BrandModel>
-@using DataCore.Sql.TableScaleModels.Brands
+@inherits RazorComponentSectionBase<WsStorage.TableScaleModels.Brands.BrandModel>
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleModels.Brands
 
 <SectionReload
   TItem="@BrandModel"

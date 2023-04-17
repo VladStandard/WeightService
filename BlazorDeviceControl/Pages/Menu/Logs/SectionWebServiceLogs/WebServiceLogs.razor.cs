@@ -1,4 +1,4 @@
-﻿using DataCore.Sql.TableDiagModels.LogsWebsFks;
+﻿using WsStorage.TableDiagModels.LogsWebsFks;
 
 namespace BlazorDeviceControl.Pages.Menu.Logs.SectionWebServiceLogs;
 

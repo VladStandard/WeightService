@@ -50,11 +50,11 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.5" />
         <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
         <PackageReference Include="Microsoft.Identity.Web" Version="2.7.0" />
-        <PackageReference Include="MudBlazor" Version="6.2.0" />
+        <PackageReference Include="MudBlazor" Version="6.2.1" />
         <PackageReference Include="NetBarcode" Version="2.0.0-beta.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="NHibernate" Version="5.4.2" />
-        <PackageReference Include="Radzen.Blazor" Version="4.8.4" />
+        <PackageReference Include="Radzen.Blazor" Version="4.9.1" />
         <PackageReference Include="RestSharp" Version="110.2.0" />
     </ItemGroup>
     <ItemGroup>
@@ -159,12 +159,6 @@
         <Watch Remove="Razors\SystemComponents\SystemIdentity.razor" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
-        <ProjectReference Include="..\DataCore\DataCore.csproj" />
-        <ProjectReference Include="..\WsLocalization\WsLocalization.csproj" />
-        <ProjectReference Include="..\WsStorage\WsStorage.csproj" />
-    </ItemGroup>
-    <ItemGroup>
       <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionLogs.razor" />
       <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionLogTable.razor" />
       <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionWebServiceLogs.razor" />
@@ -178,6 +172,9 @@
     <ItemGroup>
       <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ItemScaleScreenShot.razor" />
       <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ScalesScreenShots.razor" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Core\WsLocalizationCore\WsLocalizationCore.csproj" />
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

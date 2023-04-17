@@ -1,9 +1,9 @@
 @page "/section/templates_resources"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<TemplateResourceModel>
-@using DataCore.Sql.TableScaleModels.TemplatesResources
+@inherits RazorComponentSectionBase<WsStorage.TableScaleModels.TemplatesResources.TemplateResourceModel>
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleModels.TemplatesResources
 
 <SectionReload
   TItem="@TemplateResourceModel"

@@ -1,9 +1,9 @@
 @page "/section/plus_labels/new"
 @page "/section/plus_labels/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using DataCore.Sql.TableScaleFkModels.PlusLabels
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<PluLabelModel>
+@using WsStorage.TableScaleFkModels.PlusLabels
+@inherits RazorComponentItemBase<WsStorage.TableScaleFkModels.PlusLabels.PluLabelModel>
 
 <RazorItemReload TItem="@PluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel"/>
 

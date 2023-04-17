@@ -1,9 +1,9 @@
 ﻿@page "/section/devices"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<DeviceModel>
-@using DataCore.Sql.TableScaleModels.Devices
+@inherits RazorComponentSectionBase<WsStorage.TableScaleModels.Devices.DeviceModel>
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleModels.Devices
 
 <SectionReload
   TItem="@DeviceModel"

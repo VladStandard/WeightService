@@ -1,13 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
-using DataCore.Sql.TableScaleModels.Devices;
-using DataCore.Sql.TableScaleModels.DeviceTypes;
-using DataCore.Sql.TableScaleModels.Printers;
-using DataCore.Sql.TableScaleModels.Scales;
-using DataCore.Sql.TableScaleModels.Templates;
-using DataCore.Sql.TableScaleModels.WorkShops;
+using WsStorage.TableScaleFkModels.DeviceScalesFks;
+using WsStorage.TableScaleModels.Devices;
+using WsStorage.TableScaleModels.DeviceTypes;
+using WsStorage.TableScaleModels.Printers;
+using WsStorage.TableScaleModels.Scales;
+using WsStorage.TableScaleModels.Templates;
+using WsStorage.TableScaleModels.WorkShops;
+using WsStorage.Utils;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionLines;
 
@@ -57,7 +58,7 @@ public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
 				Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : DataAccess.GetItemNewEmpty<DeviceModel>();
 
 			    // ComPorts
-			    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
+			    ComPorts = MdSerialPortsUtils.GetListTypeComPorts(Lang.English);
 			    // ScaleFactor
 			    SqlItemCast.ScaleFactor ??= 1000;
 			}

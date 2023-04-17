@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Identity;
+using WsStorage.Enums;
+using WsStorage.Tables;
 
 namespace BlazorDeviceControl.Pages.ItemComponents;
 

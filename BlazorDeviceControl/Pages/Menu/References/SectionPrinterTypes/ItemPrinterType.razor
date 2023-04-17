@@ -1,10 +1,10 @@
 ﻿@page "/section/printer_types/new"
 @page "/section/printer_types/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<PrinterTypeModel>
-@using DataCore.Sql.TableScaleModels.PrintersTypes
+@inherits RazorComponentItemBase<WsStorage.TableScaleModels.PrintersTypes.PrinterTypeModel>
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorage.TableScaleModels.PrintersTypes
 
 <RazorItemReload TItem="@PrinterTypeModel" Title="@LocaleCore.Print.Type"/>
 
