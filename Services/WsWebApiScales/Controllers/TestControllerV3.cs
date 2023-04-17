@@ -3,7 +3,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using WsWebApi.Models;
+using WsWebApiCore.Models;
 
 namespace WsWebApiScales.Controllers;
 
@@ -44,7 +44,7 @@ public sealed class TestControllerV3 : WsControllerBase
     {
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetContentResult(() => 
-            DataFormatUtils.GetContentResult<WsServiceInfoModel>(
+            WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(
             WsWebResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.GetInfo,
             requestStampDt, string.Empty, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
@@ -58,7 +58,7 @@ public sealed class TestControllerV3 : WsControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "",
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         GetContentResult(() => 
-            DataFormatUtils.GetContentResult<WsServiceExceptionModel>(
+            WsDataFormatUtils.GetContentResult<WsServiceExceptionModel>(
                 new WsServiceExceptionModel(filePath, lineNumber, memberName, "Test Exception!", "Test inner exception!"), 
                 format, HttpStatusCode.InternalServerError), format);
 

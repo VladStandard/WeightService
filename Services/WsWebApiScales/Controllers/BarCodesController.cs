@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Models.Tables.BarCodes;
-
 namespace WsWebApiScales.Controllers;
 
 /// <summary>
@@ -44,7 +42,7 @@ public sealed class BarCodesController : WsControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "") {
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetContentResult(() =>
-            DataFormatUtils.GetContentResult<BarcodeTopModel>(new BarcodeTopModel(barcode, useCrc), format, HttpStatusCode.OK), format);
+            WsDataFormatUtils.GetContentResult<BarcodeTopModel>(new BarcodeTopModel(barcode, useCrc), format, HttpStatusCode.OK), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.GetBarcodeTop,
             requestStampDt, barcode, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
@@ -67,7 +65,7 @@ public sealed class BarCodesController : WsControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "") {
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetContentResult(() =>
-            DataFormatUtils.GetContentResult<BarcodeBottomModel>(new BarcodeBottomModel(barcode), format, HttpStatusCode.OK), format);
+            WsDataFormatUtils.GetContentResult<BarcodeBottomModel>(new BarcodeBottomModel(barcode), format, HttpStatusCode.OK), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.GetBarcodeBottom, 
             requestStampDt, barcode, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
@@ -90,7 +88,7 @@ public sealed class BarCodesController : WsControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "") {
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetContentResult(() =>
-            DataFormatUtils.GetContentResult<BarcodeRightModel>(new BarcodeRightModel(barcode), format, HttpStatusCode.OK), format);
+            WsDataFormatUtils.GetContentResult<BarcodeRightModel>(new BarcodeRightModel(barcode), format, HttpStatusCode.OK), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.GetBarcodeRight, 
             requestStampDt, barcode, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
@@ -160,7 +158,7 @@ public sealed class BarCodesController : WsControllerBase
             NewResponse1cFromQuery(WsSqlQueriesBarcodes.FindBottom, new("VALUE_BOTTOM", barcodeBottom.GetValue()), 
                 format, isDebug, SessionFactory), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBarcodeBottom, 
-            requestStampDt, DataFormatUtils.GetContent<BarcodeBottomModel>(barcodeBottom, DataCore.Enums.FormatType.XmlUtf8, true),
+            requestStampDt, WsDataFormatUtils.GetContent<BarcodeBottomModel>(barcodeBottom, FormatType.XmlUtf8, true),
             result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }
@@ -177,7 +175,7 @@ public sealed class BarCodesController : WsControllerBase
             NewResponse1cFromQuery(WsSqlQueriesBarcodes.FindRight, new("VALUE_RIGHT", barcodeRight.GetValue()), 
                 format, isDebug, SessionFactory), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBarcodeRight, 
-            requestStampDt, DataFormatUtils.GetContent<BarcodeRightModel>(barcodeRight, DataCore.Enums.FormatType.XmlUtf8, true),
+            requestStampDt, WsDataFormatUtils.GetContent<BarcodeRightModel>(barcodeRight, FormatType.XmlUtf8, true),
             result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }
@@ -194,7 +192,7 @@ public sealed class BarCodesController : WsControllerBase
             NewResponse1cFromQuery(WsSqlQueriesBarcodes.FindTop, new("VALUE_TOP", barcodeTop.GetValue()), 
                 format, isDebug, SessionFactory), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBarcodeTop,
-            requestStampDt, DataFormatUtils.GetContent<BarcodeTopModel>(barcodeTop, DataCore.Enums.FormatType.XmlUtf8, true),
+            requestStampDt, WsDataFormatUtils.GetContent<BarcodeTopModel>(barcodeTop, FormatType.XmlUtf8, true),
             result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }
@@ -208,7 +206,7 @@ public sealed class BarCodesController : WsControllerBase
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetContentResult(() =>
             NewResponse1cFromQuery(WsSqlQueriesBarcodes.FindTop,
-                new("VALUE_TOP", DataFormatUtils.DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()), 
+                new("VALUE_TOP", WsDataFormatUtils.DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()), 
                 format, isDebug, SessionFactory), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBarcodeTopV2, 
             requestStampDt, barcodeTop, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

@@ -8,10 +8,10 @@ using System;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using WsLocalization.Utils;
-using WsStorage.Utils;
-using WsWebApi.Base;
-using WsWebApi.Utils;
+using WsLocalizationCore.Utils;
+using WsStorageCore.Utils;
+using WsWebApiCore.Base;
+using WsWebApiCore.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -33,14 +33,14 @@ public sealed class DeliveryPlaceControllerV2 : WsControllerBase
     [Route(WsWebServiceUrls.GetDeliveryPlacesV2)]
     public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0,
         [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "") =>
-        GetDeliveryPlacesWork(SqlQueriesV2.GetDeliveryPlaces, startDate, endDate, offset, rowCount, format);
+        GetDeliveryPlacesWork(WsWebSqlQueriesV2.GetDeliveryPlaces, startDate, endDate, offset, rowCount, format);
 
     [AllowAnonymous]
     [HttpGet]
     [Route(WsWebServiceUrls.GetDeliveryPlacesV2Preview)]
     public ContentResult GetDeliveryPlacesPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0, 
         [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "") =>
-        GetDeliveryPlacesWork(SqlQueriesV2.GetDeliveryPlacesPreview, startDate, endDate, offset, rowCount, format);
+        GetDeliveryPlacesWork(WsWebSqlQueriesV2.GetDeliveryPlacesPreview, startDate, endDate, offset, rowCount, format);
 
     private ContentResult GetDeliveryPlacesWork([FromQuery] string url, [FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "")
@@ -49,8 +49,8 @@ public sealed class DeliveryPlaceControllerV2 : WsControllerBase
         {
             string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, url,
                 WsWebSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
-            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.DeliveryPlaces} />", LoadOptions.None);
-            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
+            XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.DeliveryPlaces} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
         }, format);
     }

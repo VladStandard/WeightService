@@ -6,7 +6,7 @@
         <Product>WeightService</Product>
         <Copyright>Copyright © 2020 - 2023</Copyright>
         <Authors />
-        <Version>0.9.180.0</Version>
+        <Version>0.9.210.0</Version>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <Platforms>AnyCPU;x64;x86</Platforms>
@@ -38,13 +38,12 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.5" />
         <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="NHibernate" Version="5.4.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\DataCore\DataCore.csproj" />
-        <ProjectReference Include="..\WsStorage\WsStorage.csproj" />
-        <ProjectReference Include="..\WsWebApi\WsWebApi.csproj" />
+      <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj" />
+      <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
+      <ProjectReference Include="..\..\Core\WsWebApiCore\WsWebApiCore.csproj" />
     </ItemGroup>
 </Project>

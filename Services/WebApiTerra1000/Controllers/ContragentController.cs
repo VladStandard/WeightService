@@ -9,10 +9,10 @@ using System;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using WsLocalization.Utils;
-using WsStorage.Utils;
-using WsWebApi.Base;
-using WsWebApi.Utils;
+using WsLocalizationCore.Utils;
+using WsStorageCore.Utils;
+using WsWebApiCore.Base;
+using WsWebApiCore.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -37,9 +37,9 @@ public sealed class ContragentController : WsControllerBase
     {
         return GetContentResult(() =>
         {
-            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetContragent, new SqlParameter("ID", id));
-            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
-            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetContragent, new SqlParameter("ID", id));
+            XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Contragents} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
         }, format);
     }
@@ -53,10 +53,10 @@ public sealed class ContragentController : WsControllerBase
     {
         return GetContentResult(() =>
         {
-            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetContragents,
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetContragents,
                 WsWebSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
-            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
-            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
+            XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Contragents} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
         }, format);
     }

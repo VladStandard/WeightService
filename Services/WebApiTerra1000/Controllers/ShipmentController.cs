@@ -10,18 +10,18 @@ using System.Data;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using WsLocalization.Utils;
-using WsStorage.Utils;
-using WsWebApi.Base;
-using WsWebApi.Utils;
+using WsLocalizationCore.Utils;
+using WsStorageCore.Utils;
+using WsWebApiCore.Base;
+using WsWebApiCore.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public sealed class ShipmentControllerV2 : WsControllerBase
+public sealed class ShipmentController : WsControllerBase
 {
     #region Constructor and destructor
 
-    public ShipmentControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
+    public ShipmentController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -32,29 +32,20 @@ public sealed class ShipmentControllerV2 : WsControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetShipmentV2)]
-    public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
-        GetShipmentWork(SqlQueriesV2.GetShipment, id, format);
-
-    [AllowAnonymous]
-    [HttpGet]
-    [Route(WsWebServiceUrls.GetShipmentV2Preview)]
-    public ContentResult GetShipmentPreview([FromQuery] long id, [FromQuery(Name = "format")] string format = "") => 
-        GetShipmentWork(SqlQueriesV2.GetShipmentPreview, id, format);
-
-    private ContentResult GetShipmentWork(string url, long id, string format)
+    [Route(WsWebServiceUrls.GetShipment)]
+    public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
         return GetContentResult(() =>
         {
-            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
-            XDocument xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipment, new SqlParameter("ID", id));
+            XDocument xml = XDocument.Parse($"<{WsWebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
                 IDbCommand command = new SqlCommand()
                 {
-                    Connection = session.Connection as SqlConnection,
+                    Connection = session.Connection as Microsoft.Data.SqlClient.SqlConnection,
                     CommandTimeout = session.Connection.ConnectionTimeout,
                     CommandType = CommandType.StoredProcedure,
                     CommandText = "[IIS].[GetShipments]",
@@ -69,43 +60,33 @@ public sealed class ShipmentControllerV2 : WsControllerBase
                 command.ExecuteNonQuery();
                 if (xmlOutput.Value != DBNull.Value)
                 {
-                    xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{WebConstants.Shipments} />", LoadOptions.None);
+                    xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{WsWebConstants.Shipments} />", LoadOptions.None);
                 }
             }
-            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
+            XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
         }, format);
     }
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetShipmentsV2)]
+    [Route(WsWebServiceUrls.GetShipmentsByDocDate)]
+    [Route(WsWebServiceUrls.GetShipments)]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
-        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
-        GetShipmentsCore(SqlQueriesV2.GetShipments, startDate, endDate, offset, rowCount, format);
-
-    [AllowAnonymous]
-    [HttpGet]
-    [Route(WsWebServiceUrls.GetShipmentsV2Preview)]
-    public ContentResult GetShipmentsPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
-        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "") =>
-        GetShipmentsCore(SqlQueriesV2.GetShipmentsPreview, startDate, endDate, offset, rowCount, format);
-
-    private ContentResult GetShipmentsCore(string url, DateTime startDate, DateTime endDate, 
-        int offset = 0, int rowCount = 10, string format = "")
+        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
         return GetContentResult(() =>
         {
-            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, url, 
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipments,
                 WsWebSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
-            XDocument xml = xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
+            XDocument xml = xml = XDocument.Parse($"<{WsWebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
                 IDbCommand command = new SqlCommand()
                 {
-                    Connection = session.Connection as SqlConnection,
+                    Connection = session.Connection as Microsoft.Data.SqlClient.SqlConnection,
                     CommandTimeout = session.Connection.ConnectionTimeout,
                     CommandType = CommandType.StoredProcedure,
                     CommandText = "[IIS].[GetShipments]",
@@ -120,10 +101,10 @@ public sealed class ShipmentControllerV2 : WsControllerBase
                 command.ExecuteNonQuery();
                 if (xmlOutput.Value != DBNull.Value)
                 {
-                    xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{WebConstants.Shipments} />", LoadOptions.None);
+                    xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{WsWebConstants.Shipments} />", LoadOptions.None);
                 }
             }
-            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
+            XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc.ToString(), HttpStatusCode.OK);
         }, format);
     }

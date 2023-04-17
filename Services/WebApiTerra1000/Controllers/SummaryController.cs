@@ -8,10 +8,10 @@ using System;
 using System.Net;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using WsLocalization.Utils;
-using WsStorage.Utils;
-using WsWebApi.Base;
-using WsWebApi.Utils;
+using WsLocalizationCore.Utils;
+using WsStorageCore.Utils;
+using WsWebApiCore.Base;
+using WsWebApiCore.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -36,10 +36,10 @@ public sealed class SummaryController : WsControllerBase
     {
         return GetContentResult(() =>
         {
-            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, SqlQueries.GetSummary,
+            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetSummary,
                 WsWebSqlUtils.GetParameters(startDate, endDate));
-            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Summary} />", LoadOptions.None);
-            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
+            XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Summary} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
         }, format);
     }
