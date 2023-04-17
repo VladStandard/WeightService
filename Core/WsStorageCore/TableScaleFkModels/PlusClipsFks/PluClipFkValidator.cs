@@ -1,0 +1,26 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using WsStorageCore.Tables;
+using WsStorageCore.TableScaleModels.Clips;
+using WsStorageCore.TableScaleModels.Plus;
+
+namespace WsStorageCore.TableScaleFkModels.PlusClipsFks;
+
+/// <summary>
+/// Table validation "PLUS_CLIP_FK".
+/// </summary>
+public sealed class PluClipFkValidator : WsSqlTableValidator<PluClipFkModel>
+{
+    public PluClipFkValidator() : base(true, true)
+    {
+        RuleFor(item => item.Plu)
+            .NotEmpty()
+            .NotNull()
+            .SetValidator(new PluValidator());
+        RuleFor(item => item.Clip)
+            .NotEmpty()
+            .NotNull()
+            .SetValidator(new ClipValidator());
+    }
+}

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Configurations>DevelopVS;ReleaseVS;DevelopAleksandrov;DevelopMorozov;ReleaseAleksandrov;ReleaseMorozov</Configurations>
+    <Version>0.9.210.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Xpo" Version="22.2.5" />
+    <PackageReference Include="FluentNHibernate" Version="3.2.0" />
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
+    <PackageReference Include="MDSoft.NetUtils" Version="0.2.40" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="NHibernate" Version="5.4.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WsDataCore\WsDataCore.csproj" />
+    <ProjectReference Include="..\WsFileSystemCore\WsFileSystemCore.csproj" />
+    <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+	<Compile Include="..\..\IsExternalInit.cs" Visible="false" />
+  </ItemGroup>
+</Project>
