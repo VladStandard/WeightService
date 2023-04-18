@@ -8,7 +8,7 @@ namespace WsBlazorCore.Services;
 
 public class FileUpload : IFileUpload
 {
-    private WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
+    private WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
     //private readonly IWebHostEnvironment _environment;
     private readonly IHostingEnvironment _environment;
     //public FileUpload(IWebHostEnvironment environment)
@@ -46,6 +46,6 @@ public class FileUpload : IFileUpload
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
         item.Data = new() { Value = DataUtils.GetBytes(stream, true) };
-        DataAccess.UpdateForce(item);
+        AccessManager.AccessItem.UpdateForce(item);
     }
 }

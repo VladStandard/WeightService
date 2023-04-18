@@ -16,8 +16,7 @@ public sealed class DataCoreHelper
 
 	#region Public and private fields, properties, constructor
 
-    private WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
-    private WsDataContextModel DataContext { get; } = new();
+    private WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
 
     #endregion
@@ -26,50 +25,50 @@ public sealed class DataCoreHelper
 
     public void SetupDevelopAleksandrov(bool isShowSql)
     {
-        JsonSettings.SetupTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsLabelCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     public void SetupDevelopMorozov(bool isShowSql)
     {
-        JsonSettings.SetupTestsDevelopMorozov(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsDevelopMorozov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsLabelCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     public void SetupDevelopVs(bool isShowSql)
     {
-        JsonSettings.SetupTestsDevelopVs(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsDevelopVs(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsLabelCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     private void SetupReleaseAleksandrov(bool isShowSql)
     {
-        DataAccess.JsonSettings.SetupTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsLabelCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     private void SetupReleaseMorozov(bool isShowSql)
     {
-        DataAccess.JsonSettings.SetupTestsReleaseMorozov(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsReleaseMorozov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsLabelCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     private void SetupReleaseVs(bool isShowSql)
     {
-        DataAccess.JsonSettings.SetupTestsReleaseVs(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsReleaseVs(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsLabelCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
 	public void AssertAction(Action action, bool isShowSql, bool isSkipDbRelease = false)
@@ -108,7 +107,7 @@ public sealed class DataCoreHelper
         AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
-            List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             //WsTestsUtils.DataCore.PrintTopRecords(items, 10, true);
             if (!items.Any())
@@ -140,7 +139,7 @@ public sealed class DataCoreHelper
         AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
-            List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             //WsTestsUtils.DataCore.PrintTopRecords(items, 10, true, true);
             if (!items.Any())
@@ -248,12 +247,12 @@ public sealed class DataCoreHelper
 
 		switch (item)
 		{
-			case AccessModel access:
+			case WsSqlAccessModel access:
 				access.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				access.Rights.Returns((byte)AccessRightsEnum.None);
 				access.LoginDt.Returns(DateTime.Now);
 				break;
-			case AppModel app:
+			case WsSqlAppModel app:
 				app.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
 			case BarCodeModel barCode:
@@ -331,7 +330,7 @@ public sealed class DataCoreHelper
                 logWebFk.LogWebRequest = CreateNewSubstitute<LogWebModel>(isNotDefault);
                 logWebFk.LogWebResponse = CreateNewSubstitute<LogWebModel>(isNotDefault);
                 logWebFk.LogWebResponse.Direction.Returns((byte)1);
-                logWebFk.App = CreateNewSubstitute<AppModel>(isNotDefault);
+                logWebFk.App = CreateNewSubstitute<WsSqlAppModel>(isNotDefault);
                 logWebFk.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
                 logWebFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				break;

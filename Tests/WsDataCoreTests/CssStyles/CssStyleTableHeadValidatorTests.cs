@@ -13,11 +13,11 @@ public sealed class CssStyleTableHeadValidatorTests
 	{
 		CssStyleTableHeadModel item = Substitute.For<CssStyleTableHeadModel>();
 		
-        WsTestsUtils.DataCore.AssertValidate(item, false);
+        WsTestsUtils.DataTests.AssertValidate(item, false);
 		
         item.Color = "";
 		
-        WsTestsUtils.DataCore.AssertValidate(item, false);
+        WsTestsUtils.DataTests.AssertValidate(item, false);
 	}
 
 	[Test]
@@ -32,6 +32,6 @@ public sealed class CssStyleTableHeadValidatorTests
 		item.FontWeight = "bold";
 		item.TextAlign = "center";
 		// Assert.
-		WsTestsUtils.DataCore.AssertValidate(item, true);
+		WsTestsUtils.DataTests.AssertValidate(item, true);
 	}
 }

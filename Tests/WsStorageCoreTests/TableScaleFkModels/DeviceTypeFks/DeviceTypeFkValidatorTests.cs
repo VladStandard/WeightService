@@ -11,14 +11,14 @@ public sealed class DeviceTypeFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        DeviceTypeFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeFkModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        DeviceTypeFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<DeviceTypeFkModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        DeviceTypeFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeFkModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        DeviceTypeFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<DeviceTypeFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

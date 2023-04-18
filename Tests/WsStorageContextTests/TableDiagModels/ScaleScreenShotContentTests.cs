@@ -9,6 +9,6 @@ public sealed class ScaleScreenShotContentTests
     [Test]
     public void Model_Content_Validate()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<ScaleScreenShotModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<ScaleScreenShotModel>();
     }
 }

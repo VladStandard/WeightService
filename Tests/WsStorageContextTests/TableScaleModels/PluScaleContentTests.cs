@@ -9,6 +9,6 @@ public sealed class PluScaleContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluScaleModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluScaleModel>();
 	}
 }

@@ -11,14 +11,14 @@ public sealed class AppValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        AppModel item = WsTestsUtils.DataCore.CreateNewSubstitute<AppModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        WsSqlAppModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlAppModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        AppModel item = WsTestsUtils.DataCore.CreateNewSubstitute<AppModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        WsSqlAppModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlAppModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

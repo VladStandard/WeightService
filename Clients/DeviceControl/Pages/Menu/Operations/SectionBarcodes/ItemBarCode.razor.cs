@@ -30,7 +30,7 @@ public sealed partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
         {
             () =>
             {
-                SqlItemCast = DataContext.GetItemNotNullable<BarCodeModel>(IdentityUid);
+                SqlItemCast = ContextManager.GetItemNotNullable<BarCodeModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<BarCodeModel>();

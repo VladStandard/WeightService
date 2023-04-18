@@ -1,4 +1,5 @@
 ﻿@typeparam TItem
+@using WsStorageCore.Helpers
 @inherits RazorComponentSectionBase<TItem>
 
 <MudPaper Outlined="true" Class="mb-2">
@@ -8,7 +9,7 @@
       {
       <RadzenCheckBox TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop Style="margin-left: 20px" Change=@OnSectionUpdate />
         <RadzenLabel Style="font-size: 13px; margin-left: 5px"
-                     Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(DataAccess.JsonSettings.Local.SelectTopRowsCount) />
+                     Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(WsStorageAccessCoreHelper.JsonSettings.Local.SelectTopRowsCount) />
       }
       @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
       {
@@ -23,7 +24,7 @@
         ButtonStyle="@ButtonStyle.Primary"
         Style="margin-left: 20px; width: 60px;"
         Size="@ButtonSize.Small"
-        Disabled="@(!DataAccess.IsConnected())"
+        Disabled="@(!ContextManager.IsConnected())"
         Click="@OnSectionUpdate" />
       @if (ButtonSettings is not null)
       {

@@ -22,7 +22,7 @@ public sealed partial class ItemBox : RazorComponentItemBase<BoxModel>
         {
             () =>
             {
-                SqlItemCast = DataAccess.GetItemNotNullable<BoxModel>(IdentityUid);
+                SqlItemCast = ContextManager.GetItemNotNullable<BoxModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<BoxModel>();

@@ -205,7 +205,7 @@ public partial class PluUserControl : UserControlBase
     private Label NewLabelPluTemplate(PluScaleModel pluScale, int tabIndex, Control buttonPlu)
     {
         //TemplateModel template = UserSession.DataAccess.GetItemNotNullable<TemplateModel>(pluScale.Plu.Template.IdentityValueId);
-        TemplateModel template = UserSession.DataContext.DataAccess.GetItemTemplateNotNullable(pluScale);
+        TemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(pluScale);
         Label labelPluTemplate = new()
         {
             Name = $@"{nameof(labelPluTemplate)}{tabIndex}",

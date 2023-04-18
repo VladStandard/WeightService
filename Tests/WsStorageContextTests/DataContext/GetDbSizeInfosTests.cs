@@ -11,9 +11,9 @@ public sealed class GetDbSizeInfosTests
     [Test]
     public void DataContext_GetDbFileSizeInfos_Assert()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlDbFileSizeInfoModel> infos = WsTestsUtils.DataCore.DataContext.GetDbFileSizeInfos();
+            List<SqlDbFileSizeInfoModel> infos = WsTestsUtils.DataTests.DataContext.GetDbFileSizeInfos();
             Assert.That(Equals(true, infos.Any()));
             foreach (SqlDbFileSizeInfoModel info in infos)
             {
@@ -27,9 +27,9 @@ public sealed class GetDbSizeInfosTests
     [Test]
     public void DataContext_GetDbFileSizeAll_Assert()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-            ushort dbFileSizeAll = WsTestsUtils.DataCore.DataContext.GetDbFileSizeAll();
+            ushort dbFileSizeAll = WsTestsUtils.DataTests.DataContext.GetDbFileSizeAll();
             Assert.That(dbFileSizeAll > 0);
             TestContext.WriteLine($"{nameof(dbFileSizeAll)}: {dbFileSizeAll} MB");
         }, false, Configurations);

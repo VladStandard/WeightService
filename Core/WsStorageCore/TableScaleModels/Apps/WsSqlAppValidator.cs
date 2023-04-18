@@ -6,12 +6,12 @@ namespace WsStorageCore.TableScaleModels.Apps;
 /// <summary>
 /// Table validation "APPS".
 /// </summary>
-public sealed class AppValidator : WsSqlTableValidator<AppModel>
+public sealed class WsSqlAppValidator : WsSqlTableValidator<WsSqlAppModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AppValidator() : base(false, false)
+    public WsSqlAppValidator() : base(false, false)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

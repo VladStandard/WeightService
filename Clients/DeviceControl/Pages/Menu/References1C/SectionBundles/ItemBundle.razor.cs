@@ -22,7 +22,7 @@ public sealed partial class ItemBundle : RazorComponentItemBase<BundleModel>
         {
             () =>
             {
-                SqlItemCast = DataAccess.GetItemNotNullable<BundleModel>(IdentityUid);
+                SqlItemCast = ContextManager.GetItemNotNullable<BundleModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<BundleModel>();

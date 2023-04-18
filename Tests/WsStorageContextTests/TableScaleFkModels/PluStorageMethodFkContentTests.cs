@@ -9,6 +9,6 @@ public sealed class PluStorageMethodFkContentTests
 	[Test]
     public void Item_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluStorageMethodFkModel>(true);
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluStorageMethodFkModel>(true);
 	}
 }

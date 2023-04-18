@@ -17,11 +17,11 @@ public sealed class DataAccessTests
 	[Test]
 	public void GetFreeHosts_Exec_DoesNotThrow()
 	{
-		WsTestsUtils.DataCore.AssertAction(() =>
+		WsTestsUtils.DataTests.AssertAction(() =>
 		{
 			foreach (bool isMarked in DataCoreEnums.GetBool())
 			{
-				List<DeviceTypeFkModel> deviceTypeFks = WsTestsUtils.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
+				List<DeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
@@ -29,11 +29,11 @@ public sealed class DataAccessTests
 	[Test]
 	public void GetBusyHosts_Exec_DoesNotThrow()
 	{
-		WsTestsUtils.DataCore.AssertAction(() =>
+		WsTestsUtils.DataTests.AssertAction(() =>
 		{
 			foreach (bool isMarked in DataCoreEnums.GetBool())
 			{
-				List<DeviceTypeFkModel> deviceTypeFks = WsTestsUtils.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
+				List<DeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
@@ -51,9 +51,9 @@ public sealed class DataAccessTests
     [Test]
     public void GetListDevicesTypes_Exec_DoesNotThrow()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceTypeModel> deviceTypes = WsTestsUtils.DataAccess.GetListDevicesTypes(true, false, false);
+	        List<DeviceTypeModel> deviceTypes = WsTestsUtils.ContextManager.GetListDevicesTypes(true, false, false);
 	        foreach (DeviceTypeModel deviceType in deviceTypes)
 	        {
 		        Assert.That(GetDeviceTypesEnums().Contains(deviceType.Name), Is.EqualTo(true));
@@ -64,12 +64,12 @@ public sealed class DataAccessTests
     [Test]
     public void GetItemDeviceType_Exec_DoesNotThrow()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceTypeModel> deviceTypes = WsTestsUtils.DataAccess.GetListDevicesTypes(true, false, false);
+	        List<DeviceTypeModel> deviceTypes = WsTestsUtils.ContextManager.GetListDevicesTypes(true, false, false);
 	        foreach (DeviceTypeModel deviceType1 in deviceTypes)
 	        {
-		        DeviceTypeModel deviceType2 = WsTestsUtils.DataCore.DataContext.GetItemDeviceTypeNotNullable(deviceType1.Name);
+		        DeviceTypeModel deviceType2 = WsTestsUtils.DataTests.DataContext.GetItemDeviceTypeNotNullable(deviceType1.Name);
 		        Assert.That(deviceType2, Is.EqualTo(deviceType1));
 	        }
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
@@ -78,9 +78,9 @@ public sealed class DataAccessTests
     [Test]
     public void GetListDevices_Exec_DoesNotThrow()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceModel> devices = WsTestsUtils.DataAccess.GetListDevices(true, false, false);
+	        List<DeviceModel> devices = WsTestsUtils.ContextManager.GetListDevices(true, false, false);
 	        foreach (DeviceModel device in devices)
 	        {
 		        TestContext.WriteLine(device);
@@ -92,12 +92,12 @@ public sealed class DataAccessTests
     [Test]
     public void GetListDeviceScalesFks_Exec_DoesNotThrow()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceModel> devices = WsTestsUtils.DataAccess.GetListDevices(true, false, false);
+	        List<DeviceModel> devices = WsTestsUtils.ContextManager.GetListDevices(true, false, false);
 	        foreach (DeviceModel device in devices)
 	        {
-		        DeviceScaleFkModel deviceScaleFks = WsTestsUtils.DataAccess.GetItemDeviceScaleFkNotNullable(device);
+		        DeviceScaleFkModel deviceScaleFks = WsTestsUtils.ContextManager.GetItemDeviceScaleFkNotNullable(device);
 		        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
 		        TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
 	        }
@@ -107,14 +107,14 @@ public sealed class DataAccessTests
     [Test]
     public void GetItemDeviceType2_Exec_DoesNotThrow()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceTypeFkModel> deviceTypesFks = WsTestsUtils.DataAccess.GetListDevicesTypesFks(true, false, false);
+	        List<DeviceTypeFkModel> deviceTypesFks = WsTestsUtils.ContextManager.GetListDevicesTypesFks(true, false, false);
 	        foreach (DeviceTypeFkModel deviceTypeFk in deviceTypesFks)
 	        {
 		        if (deviceTypeFk.Device.IsNotNew)
 		        {
-			        DeviceScaleFkModel deviceScaleFks = WsTestsUtils.DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
+			        DeviceScaleFkModel deviceScaleFks = WsTestsUtils.ContextManager.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
 			        if (deviceTypeFk.Device.Name.Equals("SCALES-MON-101"))
 			        {
 				        TestContext.WriteLine($"{nameof(deviceTypeFk.Device)}: {deviceTypeFk.Device}");

@@ -26,7 +26,7 @@ public sealed partial class PluWeightings : RazorComponentSectionBase<PluWeighin
     protected override void SetSqlSectionCast()
     {
         base.SetSqlSectionCast();
-        DeviceScaleFk = DataContext.GetListNotNullable<DeviceScaleFkModel>(new());
+        DeviceScaleFk = StorageContext.GetListNotNullable<DeviceScaleFkModel>(new());
     }
     
     private string GetDeviceName(PluWeighingModel pluWeighing)

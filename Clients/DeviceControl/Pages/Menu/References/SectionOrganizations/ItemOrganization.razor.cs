@@ -21,7 +21,7 @@ public sealed partial class ItemOrganization : RazorComponentItemBase<Organizati
 		{
 			() =>
 			{
-                SqlItemCast = DataAccess.GetItemNotNullable<OrganizationModel>(IdentityUid);
+                SqlItemCast = ContextManager.GetItemNotNullable<OrganizationModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
 					SqlItemCast = SqlItemNew < OrganizationModel >();

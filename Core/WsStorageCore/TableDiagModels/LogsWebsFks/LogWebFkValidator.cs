@@ -24,7 +24,7 @@ public sealed class LogWebFkValidator : WsSqlTableValidator<LogWebFkModel>
         RuleFor(item => item.App)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new AppValidator());
+            .SetValidator(new WsSqlAppValidator());
         RuleFor(item => item.LogType)
             .NotEmpty()
             .NotNull()

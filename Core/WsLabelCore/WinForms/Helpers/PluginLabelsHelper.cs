@@ -63,21 +63,21 @@ public class PluginLabelsHelper : PluginHelperBase
 
     private void Reopen()
     {
-        //MdInvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
-        MdInvokeControl.SetVisible(FieldKneading, UserSessionHelper.Instance.Scale.IsKneading);
+        //MdInvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {WsUserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
+        MdInvokeControl.SetVisible(FieldKneading, WsUserSessionHelper.Instance.Scale.IsKneading);
     }
 
     private void Request()
     {
-        if (UserSessionHelper.Instance.PluScale.IsNew)
+        if (WsUserSessionHelper.Instance.PluScale.IsNew)
             MdInvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
         else
             MdInvokeControl.SetText(FieldPlu,
-                UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight
-                    ? $"{LocaleCore.Scales.PluWeight}: {UserSessionHelper.Instance.PluScale.Plu.Number} | {UserSessionHelper.Instance.PluScale.Plu.Name}"
-                    : $"{LocaleCore.Scales.PluCount}: {UserSessionHelper.Instance.PluScale.Plu.Number} | {UserSessionHelper.Instance.PluScale.Plu.Name}");
-        MdInvokeControl.SetText(FieldProductDate, $"{UserSessionHelper.Instance.ProductDate:dd.MM.yyyy}");
-        MdInvokeControl.SetText(FieldKneading, $"{UserSessionHelper.Instance.WeighingSettings.Kneading}");
+                WsUserSessionHelper.Instance.PluScale.Plu.IsCheckWeight
+                    ? $"{LocaleCore.Scales.PluWeight}: {WsUserSessionHelper.Instance.PluScale.Plu.Number} | {WsUserSessionHelper.Instance.PluScale.Plu.Name}"
+                    : $"{LocaleCore.Scales.PluCount}: {WsUserSessionHelper.Instance.PluScale.Plu.Number} | {WsUserSessionHelper.Instance.PluScale.Plu.Name}");
+        MdInvokeControl.SetText(FieldProductDate, $"{WsUserSessionHelper.Instance.ProductDate:dd.MM.yyyy}");
+        MdInvokeControl.SetText(FieldKneading, $"{WsUserSessionHelper.Instance.WeighingSettings.Kneading}");
     }
 
     #endregion

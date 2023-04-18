@@ -11,14 +11,14 @@ public sealed class PrinterResourceFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PrinterResourceFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PrinterResourceFkModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PrinterResourceFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PrinterResourceFkModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PrinterResourceFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PrinterResourceFkModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PrinterResourceFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PrinterResourceFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

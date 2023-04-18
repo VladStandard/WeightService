@@ -25,7 +25,7 @@ public sealed partial class ItemPluWeighing : RazorComponentItemBase<PluWeighing
         {
             () =>
             {
-                SqlItemCast = DataAccess.GetItemNotNullable<PluWeighingModel>(IdentityUid);
+                SqlItemCast = ContextManager.GetItemNotNullable<PluWeighingModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<PluWeighingModel>();

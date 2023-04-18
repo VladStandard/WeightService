@@ -11,14 +11,14 @@ public sealed class WorkShopValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        WorkShopModel item = WsTestsUtils.DataCore.CreateNewSubstitute<WorkShopModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        WorkShopModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WorkShopModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        WorkShopModel item = WsTestsUtils.DataCore.CreateNewSubstitute<WorkShopModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        WorkShopModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WorkShopModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

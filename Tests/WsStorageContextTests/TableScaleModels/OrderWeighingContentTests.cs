@@ -9,6 +9,6 @@ public sealed class OrdersWeighingContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<OrderWeighingModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<OrderWeighingModel>();
 	}
 }

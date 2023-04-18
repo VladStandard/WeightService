@@ -11,14 +11,14 @@ public sealed class LogWebValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        LogWebModel item = WsTestsUtils.DataCore.CreateNewSubstitute<LogWebModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        LogWebModel item = WsTestsUtils.DataTests.CreateNewSubstitute<LogWebModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        LogWebModel item = WsTestsUtils.DataCore.CreateNewSubstitute<LogWebModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        LogWebModel item = WsTestsUtils.DataTests.CreateNewSubstitute<LogWebModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

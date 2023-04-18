@@ -9,6 +9,6 @@ public sealed class AppContentTests
     [Test]
     public void Model_Validate_Content()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<AppModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlAppModel>();
     }
 }

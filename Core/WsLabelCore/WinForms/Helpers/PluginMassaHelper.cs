@@ -78,11 +78,11 @@ public class PluginMassaHelper : PluginHelperBase
 
         ActionUtils.ActionTryCatch(() =>
         {
-            if (UserSessionHelper.Instance.Scale.IsNotNew)
+            if (WsUserSessionHelper.Instance.Scale.IsNotNew)
             {
-                MassaDevice.Init(UserSessionHelper.Instance.Scale.DeviceComPort,
-                    UserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
-                    UserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
+                MassaDevice.Init(WsUserSessionHelper.Instance.Scale.DeviceComPort,
+                    WsUserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
+                    WsUserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
             }
             SetControlsTextDefault();
         });
@@ -101,16 +101,16 @@ public class PluginMassaHelper : PluginHelperBase
     {
         MdInvokeControl.SetText(FieldMassaExt, $"{ReopenCounter} | {RequestCounter} | {ReopenCounter}");
 
-        if (UserSessionHelper.Instance.PluScale.Plu.IsNew) return;
-        if (!UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight) return;
+        if (WsUserSessionHelper.Instance.PluScale.Plu.IsNew) return;
+        if (!WsUserSessionHelper.Instance.PluScale.Plu.IsCheckWeight) return;
         
         MassaDevice.Execute();
     }
 
     private void Request()
     {
-        if (UserSessionHelper.Instance.PluScale.Plu.IsNew) return;
-        if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
+        if (WsUserSessionHelper.Instance.PluScale.Plu.IsNew) return;
+        if (WsUserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
         {
             if (MassaDevice.IsOpenPort)
             {
@@ -123,7 +123,7 @@ public class PluginMassaHelper : PluginHelperBase
 
     private void Response()
     {
-        if (!UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
+        if (!WsUserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
             SetControlsTextDefault();
         else
             SetLabelsText();
@@ -162,7 +162,7 @@ public class PluginMassaHelper : PluginHelperBase
                 break;
         }
 
-        decimal weight = UserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluNestingFk.WeightTare;
+        decimal weight = WsUserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - WsUserSessionHelper.Instance.PluNestingFk.WeightTare;
 
         MdInvokeControl.SetText(FieldNettoWeight, IsStable
             ? $"{weight:0.000} {LocaleCore.Scales.WeightUnitKg}"

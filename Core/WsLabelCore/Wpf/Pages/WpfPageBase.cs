@@ -13,7 +13,7 @@ public class WpfPageBase : UserControl
 {
     #region Public and private fields, properties, constructor
 
-    public UserSessionHelper UserSession { get; private set; }
+    public WsUserSessionHelper UserSession { get; private set; }
     public System.Windows.Forms.DialogResult Result { get; protected set; }
     public RoutedEventHandler? OnClose { get; set; }
 
@@ -22,17 +22,17 @@ public class WpfPageBase : UserControl
     /// </summary>
     protected WpfPageBase()
     {
-        UserSession = UserSessionHelper.Instance;
+        UserSession = WsUserSessionHelper.Instance;
         Result = System.Windows.Forms.DialogResult.Cancel;
         OnClose = null;
 
         if (!Resources.Contains(nameof(UserSession)))
-            Resources.Add(nameof(UserSession), UserSessionHelper.Instance);
+            Resources.Add(nameof(UserSession), WsUserSessionHelper.Instance);
         object context = FindResource(nameof(UserSession));
-        if (context is UserSessionHelper userSession)
+        if (context is WsUserSessionHelper userSession)
             UserSession = userSession;
         else
-            UserSession = UserSessionHelper.Instance;
+            UserSession = WsUserSessionHelper.Instance;
     }
 
     #endregion

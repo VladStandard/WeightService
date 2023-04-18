@@ -11,6 +11,6 @@ public sealed class PluCharacteristicsFkSerializeTests
 	[Test]
     public void Item_Serialize_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentSerialize<PluCharacteristicsFkModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentSerialize<PluCharacteristicsFkModel>();
 	}
 }

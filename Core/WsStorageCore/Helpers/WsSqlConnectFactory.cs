@@ -17,7 +17,6 @@ public class WsSqlConnectFactory
     #region Public and private fields, properties, constructor
 
     private readonly object _locker = new();
-    private WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
 
     #endregion
 
@@ -27,12 +26,12 @@ public class WsSqlConnectFactory
     {
         lock (_locker)
         {
-            if (string.IsNullOrEmpty(DataAccess.JsonSettings.Local.ConnectionString))
+            if (string.IsNullOrEmpty(WsStorageAccessCoreHelper.JsonSettings.Local.ConnectionString))
             {
-                throw new($"Factory not initialized. Call this method with param {nameof(DataAccess.JsonSettings.Local.ConnectionString)}");
+                throw new($"Factory not initialized. Call this method with param {nameof(WsStorageAccessCoreHelper.JsonSettings.Local.ConnectionString)}");
             }
         }
-        return new(DataAccess.JsonSettings.Local.ConnectionString);
+        return new(WsStorageAccessCoreHelper.JsonSettings.Local.ConnectionString);
     }
 
     public T GetValueAsNotNullable<T>(SqlDataReader reader, string fieldName) where T : struct

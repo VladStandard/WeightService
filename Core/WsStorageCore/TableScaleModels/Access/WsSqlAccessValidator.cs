@@ -6,12 +6,12 @@ namespace WsStorageCore.TableScaleModels.Access;
 /// <summary>
 /// Table validation "ACCESS".
 /// </summary>
-public sealed class AccessValidator : WsSqlTableValidator<AccessModel>
+public sealed class WsSqlAccessValidator : WsSqlTableValidator<WsSqlAccessModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AccessValidator() : base(true, true)
+    public WsSqlAccessValidator() : base(true, true)
     {
         RuleFor(item => item.LoginDt)
             .NotEmpty()

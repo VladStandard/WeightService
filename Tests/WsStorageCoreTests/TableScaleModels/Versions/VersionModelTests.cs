@@ -11,29 +11,29 @@ public sealed class VersionModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(WsSqlTableBase.Description));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<VersionModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<VersionModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<VersionModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckString<VersionModel>(nameof(WsSqlTableBase.Description));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<VersionModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertToString<VersionModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<VersionModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<VersionModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<VersionModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<VersionModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<VersionModel>();
     }
 }

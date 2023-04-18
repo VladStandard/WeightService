@@ -9,6 +9,6 @@ public sealed class ScaleContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<ScaleModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<ScaleModel>();
 	}
 }

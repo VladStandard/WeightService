@@ -9,6 +9,6 @@ public sealed class PluClipFkContentTests
     [Test]
     public void Model_Content_Validate()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluClipFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluClipFkModel>();
     }
 }

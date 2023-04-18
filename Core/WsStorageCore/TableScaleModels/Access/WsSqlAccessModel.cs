@@ -7,8 +7,8 @@ namespace WsStorageCore.TableScaleModels.Access;
 /// Table "ACCESS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(AccessModel)}")]
-public class AccessModel : WsSqlTableBase
+[DebuggerDisplay("{nameof(WsSqlAccessModel)} | {ToString()}")]
+public class WsSqlAccessModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public class AccessModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AccessModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlAccessModel() : base(WsSqlFieldIdentity.Uid)
     {
         LoginDt = DateTime.MinValue;
         Rights = 0x00;
@@ -30,7 +30,7 @@ public class AccessModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
 	/// <param name="context"></param>
-	protected AccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	protected WsSqlAccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         LoginDt = info.GetDateTime(nameof(LoginDt));
         Rights = info.GetByte(nameof(Rights));
@@ -54,7 +54,7 @@ public class AccessModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((AccessModel)obj);
+        return Equals((WsSqlAccessModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -68,7 +68,7 @@ public class AccessModel : WsSqlTableBase
 
     public override object Clone()
     {
-        AccessModel item = new();
+        WsSqlAccessModel item = new();
         item.CloneSetup(base.CloneCast());
         item.LoginDt = LoginDt;
         item.Rights = Rights;
@@ -98,12 +98,12 @@ public class AccessModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(AccessModel item) =>
+    public virtual bool Equals(WsSqlAccessModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(LoginDt, item.LoginDt) &&
         Equals(Rights, item.Rights);
 
-    public new virtual AccessModel CloneCast() => (AccessModel)Clone();
+    public new virtual WsSqlAccessModel CloneCast() => (WsSqlAccessModel)Clone();
 
     #endregion
 }

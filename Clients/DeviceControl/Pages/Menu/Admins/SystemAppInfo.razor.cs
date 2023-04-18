@@ -22,7 +22,7 @@ public sealed partial class SystemAppInfo : RazorComponentBase
     private ulong CurrentRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalAllocated.MegaBytes;
     private ulong TotalRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes;
 
-    private List<SqlDbFileSizeInfoModel> DbFileSizeInfos => new WsDataContextModel().GetDbFileSizeInfos();
+    private List<SqlDbFileSizeInfoModel> DbFileSizeInfos => new WsStorageContextHelper().GetDbFileSizeInfos();
 
     #endregion
 
@@ -34,8 +34,8 @@ public sealed partial class SystemAppInfo : RazorComponentBase
 		{
 			() =>
             {
-                DbSizeInfos = DataContext.GetDbFileSizeInfos();
-                DbFileSizeAll = DataContext.GetDbFileSizeAll();
+                DbSizeInfos = ContextManager.GetDbFileSizeInfos();
+                DbFileSizeAll = ContextManager.GetDbFileSizeAll();
 			}
 		});
 	}

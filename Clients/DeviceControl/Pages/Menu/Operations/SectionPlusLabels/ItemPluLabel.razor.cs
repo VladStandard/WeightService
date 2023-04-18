@@ -26,7 +26,7 @@ public sealed partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
         {
             () =>
             {
-                SqlItemCast = DataAccess.GetItemNotNullable<PluLabelModel>(IdentityUid);
+                SqlItemCast = ContextManager.GetItemNotNullable<PluLabelModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<PluLabelModel>();

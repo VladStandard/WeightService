@@ -11,14 +11,14 @@ public sealed class PluCharacteristicsFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluCharacteristicsFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluCharacteristicsFkModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluCharacteristicsFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluCharacteristicsFkModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluCharacteristicsFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluCharacteristicsFkModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluCharacteristicsFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluCharacteristicsFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

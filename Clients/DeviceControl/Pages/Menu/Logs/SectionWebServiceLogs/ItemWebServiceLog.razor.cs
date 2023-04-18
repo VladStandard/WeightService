@@ -25,7 +25,7 @@ public sealed partial class ItemWebServiceLog : RazorComponentItemBase<LogWebFkM
 		{
 			() =>
 			{
-                SqlItemCast = DataContext.GetItemNotNullable<LogWebFkModel>(IdentityUid);
+                SqlItemCast = StorageContext.GetItemNotNullable<LogWebFkModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<LogWebFkModel>();
             }

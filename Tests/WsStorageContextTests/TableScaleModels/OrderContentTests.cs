@@ -9,6 +9,6 @@ public sealed class OrderContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<OrderModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<OrderModel>();
 	}
 }

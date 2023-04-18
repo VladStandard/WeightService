@@ -24,7 +24,7 @@ public sealed class LogMemoryValidator : WsSqlTableValidator<LogMemoryModel>
         RuleFor(item => item.App)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new AppValidator());
+            .SetValidator(new WsSqlAppValidator());
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()

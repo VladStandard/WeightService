@@ -18,5 +18,5 @@
     <locale:LocaleSql x:Key="LocaleSql" />
     <locale:LocaleSystem x:Key="LocaleSystem" />
     <locale:LocaleTable x:Key="LocaleTable" />
-	<x:Static Member="helpers:UserSessionHelper.Instance" x:Key="UserSession" />
+	<x:Static Member="helpers:WsUserSessionHelper.Instance" x:Key="UserSession" />
 </ResourceDictionary>

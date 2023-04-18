@@ -13,7 +13,7 @@ public sealed class TablesScaleModelsTests
 	{
         Assert.DoesNotThrow(() =>
         {
-            List<WsSqlTableBase> sqlTables = WsTestsUtils.DataCore.DataContext.GetTableModels();
+            List<WsSqlTableBase> sqlTables = WsTestsUtils.DataTests.DataContext.GetTableModels();
             List<(string, bool, bool)> asserts = new();
 
             foreach (WsSqlTableBase sqlTable in sqlTables)

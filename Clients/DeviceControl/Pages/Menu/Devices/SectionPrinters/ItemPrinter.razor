@@ -23,7 +23,7 @@
     <tr>
       <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterType)" Text="@LocaleCore.Print.Type"/></td>
       <td>
-        <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterType" Data="@DataContext.PrinterTypes" TextProperty="Name" />
+        <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterType" Data="@StorageContext.PrinterTypes" TextProperty="Name" />
       </td>
       <td>@LocaleCore.Print.Port</td>
       <td><RzNumericLocal Min="0" Max="32767" @bind-Value="@SqlItemCast.Port"/></td>
@@ -39,17 +39,17 @@
       <td>
         <RadzenButton Click="@(_ => SqlItemPrinterResourcesClear(SqlItemCast))"
                       class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                      Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!DataAccess.IsConnected())"/>
+                      Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!ContextManager.IsConnected())"/>
       </td>
       <td>
         <RadzenButton Click=@(_=> SqlItemPrinterResourcesLoad(SqlItemCast, "TTF"))
                       class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                      Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!DataAccess.IsConnected())"/>
+                      Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!ContextManager.IsConnected())"/>
       </td>
       <td>
         <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF"))
                       class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                      Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!DataAccess.IsConnected())"/>
+                      Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!ContextManager.IsConnected())"/>
       </td>
     </tr>
     <RazorItemDates SqlItem="@SqlItemCast"/>

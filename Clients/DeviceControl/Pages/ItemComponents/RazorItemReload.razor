@@ -1,4 +1,4 @@
-﻿@typeparam TItem
+@typeparam TItem
 @inherits RazorComponentItemBase<TItem>
 
 <MudPaper Outlined="true">
@@ -8,7 +8,7 @@
       ButtonStyle="@ButtonStyle.Primary"
       Style="margin-right: 1%; width: 60px;"
       Size="@ButtonSize.Small"
-      Disabled=@(!DataAccess.IsConnected())
+      Disabled=@(!AccessManager.IsConnected())
       Click="OnItemUpdate" />
       <RadzenLink Style="font-weight: bold" Path="@GetRouteSectionPath(new TItem())" Text="@Title"/>
   </MudToolBar>

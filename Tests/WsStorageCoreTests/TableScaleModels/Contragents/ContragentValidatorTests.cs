@@ -11,14 +11,14 @@ public sealed class ContragentValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ContragentModel item = WsTestsUtils.DataCore.CreateNewSubstitute<ContragentModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        ContragentModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ContragentModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        ContragentModel item = WsTestsUtils.DataCore.CreateNewSubstitute<ContragentModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        ContragentModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ContragentModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

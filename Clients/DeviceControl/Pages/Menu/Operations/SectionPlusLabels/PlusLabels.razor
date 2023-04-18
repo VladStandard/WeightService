@@ -36,7 +36,7 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluScale.Plu.Name" Width="25%"/>
       <RadzenDataGridColumn TItem="@PluLabelModel" Title="@LocaleCore.Table.Template" Width="14%" Sortable="@false">
         <Template Context="itemCast">
-          @DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).Title
+          @ContextManager.GetItemTemplateNotNullable(itemCast.PluScale).Title
         </Template>
       </RadzenDataGridColumn>
     </TItemContent>

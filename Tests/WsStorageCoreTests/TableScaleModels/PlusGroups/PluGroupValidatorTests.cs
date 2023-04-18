@@ -11,14 +11,14 @@ public sealed class PluGroupValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluGroupModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluGroupModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluGroupModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluGroupModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluGroupModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluGroupModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluGroupModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluGroupModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

@@ -11,28 +11,28 @@ public sealed class ScaleModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<ScaleModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<ScaleModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<ScaleModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<ScaleModel>(nameof(WsSqlTableBase.IsMarked));
         //WsTestsUtils.DataCore.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckString<ScaleModel>(nameof(WsSqlTableBase.Description));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckString<ScaleModel>(nameof(WsSqlTableBase.Description));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertToString<ScaleModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<ScaleModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ScaleModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<ScaleModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<ScaleModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<ScaleModel>();
     }
 }

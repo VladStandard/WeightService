@@ -108,8 +108,8 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<PluCharacteristicModel> pluCharacteristicsDb = WsDataContext.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
-            List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = WsDataContext.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
+            List<PluCharacteristicModel> pluCharacteristicsDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
+            List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
             List<PluCharacteristicModel> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (PluCharacteristicModel pluCharacteristicXml in pluCharacteristicsXml)
             {

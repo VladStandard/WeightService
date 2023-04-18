@@ -11,14 +11,14 @@ public sealed class PluValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

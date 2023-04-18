@@ -6,12 +6,12 @@ namespace WsStorageCore.TableScaleModels.Access;
 /// <summary>
 /// Table map "ACCESS".
 /// </summary>
-public sealed class AccessMap : ClassMap<AccessModel>
+public sealed class WsSqlAccessMap : ClassMap<WsSqlAccessModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AccessMap()
+    public WsSqlAccessMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Access);

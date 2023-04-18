@@ -9,6 +9,6 @@ public sealed class PluCharacteristicsFkContentTests
 	[Test]
     public void Item_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluCharacteristicsFkModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluCharacteristicsFkModel>();
 	}
 }

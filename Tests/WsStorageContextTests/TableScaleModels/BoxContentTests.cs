@@ -9,6 +9,6 @@ public sealed class BoxContentTests
     [Test]
     public void Model_Validate_Content()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<BoxModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<BoxModel>();
     }
 }

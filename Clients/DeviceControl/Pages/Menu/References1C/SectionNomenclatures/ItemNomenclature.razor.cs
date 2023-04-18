@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleFkModels.PlusTemplatesFks;
@@ -39,13 +39,14 @@ public sealed partial class ItemNomenclature : RazorComponentItemBase<PluModel>
         {
             () =>
             {
-                SqlItemCast = DataContext.GetItemNullableByUid<PluModel>(IdentityUid) 
+                SqlItemCast = ContextManager.GetItemNullableByUid<PluModel>(IdentityUid) 
                               ?? SqlItemNew <PluModel>();
                 
-                DataContext.GetListNotNullable<TemplateModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                ContextManager.GetListNotNullable<TemplateModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
-                PluTemplateFk = DataAccess.GetItemPluTemplateFkNotNullable(SqlItemCast);
-                Template = PluTemplateFk.Template.IsNotNew ? PluTemplateFk.Template : DataAccess.GetItemNewEmpty<TemplateModel>();
+                PluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNotNullable(SqlItemCast);
+                Template = PluTemplateFk.Template.IsNotNew 
+                    ? PluTemplateFk.Template : AccessManager.AccessItem.GetItemNewEmpty<TemplateModel>();
             }
         });
     }

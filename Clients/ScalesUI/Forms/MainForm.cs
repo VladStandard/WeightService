@@ -22,7 +22,7 @@ public partial class MainForm : Form
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private ProcHelper Proc => ProcHelper.Instance;
     private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
-    private UserSessionHelper UserSession => UserSessionHelper.Instance;
+    private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private Button ButtonLine { get; set; }
     private Button ButtonPluNestingFk { get; set; }
     private Button ButtonKneading { get; set; }
@@ -67,9 +67,9 @@ public partial class MainForm : Form
         ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
         UserSession.StopwatchMain.Stop();
 
-        UserSession.DataContext.DataAccess.SaveLogMemory(
+        UserSession.ContextManager.ContextItem.SaveLogMemory(
             UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
-        UserSession.DataContext.DataAccess.SaveLogInformation(
+        UserSession.ContextManager.ContextItem.SaveLogInformation(
             $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
             $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
             $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
@@ -190,7 +190,7 @@ public partial class MainForm : Form
     {
         ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
-                UserSession.DataContext.DataAccess.SaveLogMemory(
+                UserSession.ContextManager.ContextItem.SaveLogMemory(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
                 UserSession.StopwatchMain.Restart();
                 ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
@@ -203,7 +203,7 @@ public partial class MainForm : Form
             () =>
             {
                 UserSession.StopwatchMain.Stop();
-                UserSession.DataContext.DataAccess.SaveLogInformation(
+                UserSession.ContextManager.ContextItem.SaveLogInformation(
                     LocaleData.Program.IsClosed + Environment.NewLine +
                     $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
             }
@@ -527,7 +527,7 @@ public partial class MainForm : Form
             UserSession.PluScale.IsNotNew
                 ? $"{UserSession.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
-        TemplateModel template = UserSession.DataContext.DataAccess.GetItemTemplateNotNullable(UserSession.PluScale);
+        TemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
         MdInvokeControl.SetText(fieldTemplateValue, template.Title);
     }
 
@@ -662,7 +662,7 @@ public partial class MainForm : Form
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Table.FieldPluIsNotSelected);
-            UserSession.DataContext.DataAccess.SaveLogError(LocaleCore.Table.FieldPluIsNotSelected);
+            UserSession.ContextManager.ContextItem.SaveLogError(LocaleCore.Table.FieldPluIsNotSelected);
             return false;
         }
         return true;
@@ -800,7 +800,7 @@ public partial class MainForm : Form
         }
         else
         {
-            UserSession.PluScale = UserSession.DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
+            UserSession.PluScale = UserSession.AccessManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
         }
     }
 
@@ -817,7 +817,7 @@ public partial class MainForm : Form
                 ResetWarning();
                 MdInvokeControl.SetVisible(labelNettoWeight, false);
                 MdInvokeControl.SetVisible(fieldNettoWeight, false);
-                UserSession.PluScale = UserSession.DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
+                UserSession.PluScale = UserSession.AccessManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
                 //if (UserSession.CheckWeightMassaDeviceExists())
                 //{
                 //    if (!UserSession.CheckWeightIsNegative(this) || !UserSession.CheckWeightIsPositive(this))

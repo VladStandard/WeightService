@@ -75,7 +75,7 @@ public sealed class WsBrandsHelper : WsContentBase
     public ContentResult NewResponse1cBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<BrandModel> itemsDb = WsDataContext.GetListNotNullableBrands(SqlCrudConfig);
+            List<BrandModel> itemsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
             List<BrandModel> itemsXml = GetXmlBrandList(xml);
             foreach (BrandModel itemXml in itemsXml)
             {

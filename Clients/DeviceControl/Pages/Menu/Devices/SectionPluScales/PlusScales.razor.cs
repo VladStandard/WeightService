@@ -47,7 +47,7 @@ public sealed partial class PlusScales : RazorComponentSectionBase<PluScaleModel
 	{
 		SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu),
             false, true, false, false);
-        return DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
+        return ContextManager.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}
 
     protected override async Task OnSqlSectionSaveAsync()

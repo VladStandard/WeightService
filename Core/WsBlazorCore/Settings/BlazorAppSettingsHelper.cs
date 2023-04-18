@@ -23,7 +23,8 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
 
     #region Public and private fields, properties, constructor
 
-    public WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
+    public WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
+    public WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
     public DataSourceDicsHelper DataSourceDics => DataSourceDicsHelper.Instance;
     public MemoryModel Memory { get; private set; } = new();
     public static int Delay => 5_000;
@@ -44,7 +45,7 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
         Memory = new();
         //Memory.OpenAsync(callRefreshAsync);
         Memory.MemorySize.Execute();
-        DataAccess.SaveLogMemory(Memory.MemorySize.GetMemorySizeAppMb(), Memory.MemorySize.GetMemorySizeFreeMb());
+        ContextManager.ContextItem.SaveLogMemory(Memory.MemorySize.GetMemorySizeAppMb(), Memory.MemorySize.GetMemorySizeFreeMb());
     }
 
     #endregion

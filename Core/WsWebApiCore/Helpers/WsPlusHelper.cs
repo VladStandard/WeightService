@@ -30,7 +30,7 @@ public sealed class WsPlusHelper : WsContentBase
     {
         if (boxDb is null || boxDb.IsNew) return false;
         boxDb.UpdateProperties(pluXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(boxDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(boxDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -45,7 +45,7 @@ public sealed class WsPlusHelper : WsContentBase
     {
         if (bundleDb is null || bundleDb.IsNew) return false;
         bundleDb.UpdateProperties(pluXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(bundleDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(bundleDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -60,7 +60,7 @@ public sealed class WsPlusHelper : WsContentBase
     {
         if (clipDb is null || clipDb.IsNew) return false;
         clipDb.UpdateProperties(pluXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(clipDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(clipDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -84,7 +84,7 @@ public sealed class WsPlusHelper : WsContentBase
         pluDb.Identity = pluXml.Identity;
         pluDb.UpdateProperties(pluXml);
         // Native update -> Be careful, good luck.
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.ExecQueryNative(
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.ExecQueryNative(
             WsWebSqlQueries.UpdatePlu, new List<SqlParameter>
             {
                 new("uid", pluXml.IdentityValueUid),
@@ -513,7 +513,7 @@ public sealed class WsPlusHelper : WsContentBase
         {
             if (pluBundleFk.IsNotExists)
             {
-                List<PluBundleFkModel> pluBundleFks = WsDataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
+                List<PluBundleFkModel> pluBundleFks = ContextManager.ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
                 if (pluBundleFks.Any())
                 {
                     pluBundleFk = pluBundleFks.Find(item => Equals(item.Plu.Number, pluXml.Number)) ?? new();
@@ -594,15 +594,15 @@ public sealed class WsPlusHelper : WsContentBase
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
             // Подготовка.
-            List<PluModel> plusDb = WsDataContext.GetListNotNullablePlus(SqlCrudConfig);
-            List<PluFkModel> pluFksDb = WsDataContext.GetListNotNullablePlusFks(SqlCrudConfig);
-            List<BoxModel> boxesDb = WsDataContext.GetListNotNullableBoxes(SqlCrudConfig);
-            List<BundleModel> bundlesDb = WsDataContext.GetListNotNullableBundles(SqlCrudConfig);
-            List<PluBundleFkModel> pluBundlesFksDb = WsDataContext.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
-            List<PluBrandFkModel> pluBrandsFksDb = WsDataContext.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
-            List<ClipModel> clipsDb = WsDataContext.GetListNotNullableClips(SqlCrudConfig);
-            List<PluClipFkModel> pluClipsFksDb = WsDataContext.GetListNotNullablePlusClipsFks(SqlCrudConfig);
-            List<PluNestingFkModel> pluNestingFksDb = WsDataContext.GetListNotNullablePlusNestingFks(
+            List<PluModel> plusDb = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
+            List<PluFkModel> pluFksDb = ContextManager.ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
+            List<BoxModel> boxesDb = ContextManager.ContextList.GetListNotNullableBoxes(SqlCrudConfig);
+            List<BundleModel> bundlesDb = ContextManager.ContextList.GetListNotNullableBundles(SqlCrudConfig);
+            List<PluBundleFkModel> pluBundlesFksDb = ContextManager.ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
+            List<PluBrandFkModel> pluBrandsFksDb = ContextManager.ContextList.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
+            List<ClipModel> clipsDb = ContextManager.ContextList.GetListNotNullableClips(SqlCrudConfig);
+            List<PluClipFkModel> pluClipsFksDb = ContextManager.ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
+            List<PluNestingFkModel> pluNestingFksDb = ContextManager.ContextList.GetListNotNullablePlusNestingFks(
                 new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(false), false));
             List<PluModel> plusXml = GetXmlPluList(xml);
             // Цикл по всем XML-номенклатурам.

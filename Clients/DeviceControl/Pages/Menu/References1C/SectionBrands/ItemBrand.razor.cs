@@ -22,7 +22,7 @@ public sealed partial class ItemBrand : RazorComponentItemBase<BrandModel>
         {
             () =>
             {
-                SqlItemCast = DataContext.GetItemNotNullable<BrandModel>(IdentityUid);
+                SqlItemCast = ContextManager.GetItemNotNullable<BrandModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<BrandModel>();

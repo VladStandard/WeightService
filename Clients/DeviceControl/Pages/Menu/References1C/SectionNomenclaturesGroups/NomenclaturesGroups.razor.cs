@@ -27,8 +27,8 @@ public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluG
     [Obsolete(@"AllData проинициализируй в конструкторе")]
     protected override void SetSqlSectionCast()
     {
-        var pluGroupsFk = DataContext.GetListNotNullable<PluGroupFkModel>(new SqlCrudConfigModel());
-        AllData = DataContext.GetListNotNullable<PluGroupModel>(new SqlCrudConfigModel() {IsResultOrder = true});
+        var pluGroupsFk = StorageContext.GetListNotNullable<PluGroupFkModel>(new SqlCrudConfigModel());
+        AllData = StorageContext.GetListNotNullable<PluGroupModel>(new SqlCrudConfigModel() {IsResultOrder = true});
         foreach (PluGroupModel pluGroup in AllData)
         {
             var  temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();

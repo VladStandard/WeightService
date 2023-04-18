@@ -21,7 +21,7 @@ public sealed partial class ItemProductionFacility : RazorComponentItemBase<Prod
 		{
 			() =>
 			{
-				SqlItemCast = DataAccess.GetItemNotNullable<ProductionFacilityModel>(IdentityId);
+				SqlItemCast = ContextManager.GetItemNotNullable<ProductionFacilityModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
             }

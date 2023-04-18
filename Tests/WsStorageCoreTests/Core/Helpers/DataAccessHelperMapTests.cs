@@ -58,13 +58,13 @@ public sealed class DataAccessHelperMapTests
     [Test]
     public void DataAccess_SetFluentConfigurationForTest()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-            if (WsTestsUtils.DataAccess.SqlConfiguration is null)
-                throw new ArgumentNullException(nameof(WsTestsUtils.DataAccess.SqlConfiguration));
+            if (WsTestsUtils.ContextManager.SqlConfiguration is null)
+                throw new ArgumentNullException(nameof(WsTestsUtils.ContextManager.SqlConfiguration));
 
-            FluentConfiguration fluentConfiguration = Fluently.Configure().Database(WsTestsUtils.DataAccess.SqlConfiguration);
-            WsDataAccessHelper.AddConfigurationMappings(fluentConfiguration);
+            FluentConfiguration fluentConfiguration = Fluently.Configure().Database(WsTestsUtils.ContextManager.SqlConfiguration);
+            WsStorageAccessCoreHelper.AddConfigurationMappings(fluentConfiguration);
             fluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
             ISessionFactory sessionFactory = fluentConfiguration.BuildSessionFactory();
             sessionFactory.OpenSession();
@@ -79,7 +79,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            List<Type> sqlTableMaps = WsTestsUtils.DataCore.DataContext.GetTableMaps();
+            List<Type> sqlTableMaps = WsTestsUtils.DataTests.DataContext.GetTableMaps();
             foreach (Type sqlTableMap in sqlTableMaps)
             {
                 TestContext.WriteLine(sqlTableMap);
@@ -92,7 +92,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            AccessMap item = new();
+            WsSqlAccessMap item = new();
             TestContext.WriteLine(item);
         });
     }
@@ -102,7 +102,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            AppMap item = new();
+            WsSqlAppMap item = new();
             TestContext.WriteLine(item);
         });
     }

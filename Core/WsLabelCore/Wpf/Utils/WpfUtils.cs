@@ -13,7 +13,8 @@ public static class WpfUtils
 {
     #region Public and private fields, properties, constructor
 
-    public static WsDataContextModel DataContext { get; set; } = new();
+    private static WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
+    private static WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
     private static WpfPageLoader WpfPage { get; set; } = new();
 
     #endregion
@@ -88,17 +89,17 @@ public static class WpfUtils
         switch (logType)
         {
             case LogType.Error:
-                DataContext.DataAccess.SaveLogErrorWithInfo(message, filePath, lineNumber, memberName);
+                ContextManager.ContextItem.SaveLogErrorWithInfo(message, filePath, lineNumber, memberName);
                 break;
             case LogType.Question:
-                DataContext.DataAccess.SaveLogQuestion(message);
+                ContextManager.ContextItem.SaveLogQuestion(message);
                 break;
             case LogType.Warning:
-                DataContext.DataAccess.SaveLogWarning(message);
+                ContextManager.ContextItem.SaveLogWarning(message);
                 break;
             case LogType.None:
             case LogType.Information:
-                DataContext.DataAccess.SaveLogInformation(message);
+                ContextManager.ContextItem.SaveLogInformation(message);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
@@ -126,7 +127,7 @@ public static class WpfUtils
                     LoginDt = DateTime.Now,
                     IsMarked = false,
                 };
-                DataContext.DataAccess.Save(device);
+                AccessManager.AccessItem.Save(device);
             }
         }
         else
@@ -136,7 +137,7 @@ public static class WpfUtils
             device.ChangeDt = DateTime.Now;
             device.LoginDt = DateTime.Now;
             device.IsMarked = false;
-            DataContext.DataAccess.UpdateForce(device);
+            AccessManager.AccessItem.UpdateForce(device);
         }
         return device;
     }
@@ -145,7 +146,7 @@ public static class WpfUtils
         bool isDbLog, bool isShowWindow, string filePath, int lineNumber, string memberName)
     {
         if (isDbLog)
-            DataContext.DataAccess.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
+            ContextManager.ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
 
         if (isShowWindow)
         {

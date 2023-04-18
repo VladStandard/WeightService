@@ -13,17 +13,18 @@ public interface IUserRightsService
 
 public class UserRightsService : IUserRightsService
 {
-    private WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
+    private WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
+    private WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
 
     public async Task<List<string>> GetUserRightsAsync(string username)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         List<string> rights = new();
-        AccessModel? access = DataAccess.GetItemAccessNullable(username);
+        WsSqlAccessModel? access = ContextManager.ContextItem.GetItemAccessNullable(username);
         if (access is null)
             return rights;
         access.LoginDt = DateTime.Now;
-        DataAccess.UpdateForce(access);
+        AccessManager.AccessItem.UpdateForce(access);
         for (int i = access.Rights; i >= 0; --i)
             rights.Add($"{i}");
         return rights;

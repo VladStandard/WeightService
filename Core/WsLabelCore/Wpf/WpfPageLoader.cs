@@ -12,7 +12,7 @@ public partial class WpfPageLoader : Form
 {
     #region Public and private fields and properties
 
-    private UserSessionHelper UserSession => UserSessionHelper.Instance;
+    private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private ElementHost ElementHost { get; }
     private bool UseOwnerSize { get; }
     public MessageBoxModel MessageBox { get; }
@@ -184,4 +184,3 @@ public partial class WpfPageLoader : Form
 
     #endregion
 }
-#nullable disable

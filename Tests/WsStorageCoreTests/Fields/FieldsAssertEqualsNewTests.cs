@@ -11,19 +11,19 @@ public sealed class FieldsAssertEqualsNewTests
     [Test]
     public void FieldBinaryModel_Assert_EqualsNew()
     {
-        WsTestsUtils.DataCore.FieldBaseModelAssertEqualsNew<SqlFieldBinaryModel>();
+        WsTestsUtils.DataTests.FieldBaseModelAssertEqualsNew<SqlFieldBinaryModel>();
     }
 
     [Test]
     public void FieldIdentityModel_Assert_EqualsNew()
     {
-        WsTestsUtils.DataCore.FieldBaseModelAssertEqualsNew<SqlFieldIdentityModel>();
+        WsTestsUtils.DataTests.FieldBaseModelAssertEqualsNew<SqlFieldIdentityModel>();
     }
 
     [Test]
     public void FieldMacAddressModel_Assert_EqualsNew()
     {
-        WsTestsUtils.DataCore.FieldBaseModelAssertEqualsNew<SqlFieldMacAddressModel>();
+        WsTestsUtils.DataTests.FieldBaseModelAssertEqualsNew<SqlFieldMacAddressModel>();
     }
 
     #endregion

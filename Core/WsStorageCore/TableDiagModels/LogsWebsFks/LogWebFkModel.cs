@@ -18,8 +18,8 @@ public class LogWebFkModel : Tables.WsSqlTableBase
     [XmlElement] public virtual LogWebModel LogWebRequest { get => _logWebRequest; set => _logWebRequest = value; }
     private LogWebModel _logWebResponse;
     [XmlElement] public virtual LogWebModel LogWebResponse { get => _logWebResponse; set => _logWebResponse = value; }
-    private AppModel _app;
-    [XmlElement] public virtual AppModel App { get => _app; set => _app = value; }
+    private WsSqlAppModel _app;
+    [XmlElement] public virtual WsSqlAppModel App { get => _app; set => _app = value; }
     private LogTypeModel _logType;
     [XmlElement] public virtual LogTypeModel LogType { get => _logType; set => _logType = value; }
     private DeviceModel _device;
@@ -46,7 +46,7 @@ public class LogWebFkModel : Tables.WsSqlTableBase
     {
         _logWebRequest = (LogWebModel)info.GetValue(nameof(LogWebRequest), typeof(LogWebModel));
         _logWebResponse = (LogWebModel)info.GetValue(nameof(LogWebResponse), typeof(LogWebModel));
-        _app = (AppModel)info.GetValue(nameof(App), typeof(AppModel));
+        _app = (WsSqlAppModel)info.GetValue(nameof(App), typeof(WsSqlAppModel));
         _logType = (LogTypeModel)info.GetValue(nameof(LogType), typeof(LogTypeModel));
         _device = (DeviceModel)info.GetValue(nameof(DeviceModel), typeof(DeviceModel));
     }

@@ -11,14 +11,14 @@ public sealed class OrganizationValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        OrganizationModel item = WsTestsUtils.DataCore.CreateNewSubstitute<OrganizationModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        OrganizationModel item = WsTestsUtils.DataTests.CreateNewSubstitute<OrganizationModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        OrganizationModel item = WsTestsUtils.DataCore.CreateNewSubstitute<OrganizationModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        OrganizationModel item = WsTestsUtils.DataTests.CreateNewSubstitute<OrganizationModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

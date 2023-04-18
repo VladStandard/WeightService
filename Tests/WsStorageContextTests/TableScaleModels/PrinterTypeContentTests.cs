@@ -9,6 +9,6 @@ public sealed class PrinterTypeContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PrinterTypeModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PrinterTypeModel>();
 	}
 }

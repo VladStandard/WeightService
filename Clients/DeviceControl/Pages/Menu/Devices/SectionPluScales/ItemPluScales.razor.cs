@@ -27,11 +27,11 @@ public sealed partial class ItemPluScales : RazorComponentItemBase<PluScaleModel
         {
             () =>
             {
-                SqlItemCast = DataContext.GetItemNotNullable<PluScaleModel>(IdentityUid);
+                SqlItemCast = ContextManager.GetItemNotNullable<PluScaleModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<PluScaleModel>();
-                DataContext.GetListNotNullable<PluModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-	            DataContext.GetListNotNullable<ScaleModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                ContextManager.GetListNotNullable<PluModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+	            ContextManager.GetListNotNullable<ScaleModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
             }
         });
     }

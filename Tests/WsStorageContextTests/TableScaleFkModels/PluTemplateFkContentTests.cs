@@ -9,6 +9,6 @@ public sealed class PluTemplateFkContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluTemplateFkModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluTemplateFkModel>();
 	}
 }

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsDataCore.Models;
@@ -7,7 +7,7 @@ using WsStorageCore.TableScaleModels.Access;
 
 namespace BlazorDeviceControl.Pages.Menu.Admins.SectionAccess;
 
-public sealed partial class ItemAccess : RazorComponentItemBase<AccessModel>
+public sealed partial class ItemAccess : RazorComponentItemBase<WsSqlAccessModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -34,9 +34,9 @@ public sealed partial class ItemAccess : RazorComponentItemBase<AccessModel>
 		{
 			() =>
 			{
-				SqlItemCast = DataContext.GetItemNotNullable<AccessModel>(IdentityUid);
+				SqlItemCast = AccessManager.AccessItem.GetItemNotNullable<WsSqlAccessModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<AccessModel>();
+                    SqlItemCast = SqlItemNew<WsSqlAccessModel>();
                 TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
             }
 		});

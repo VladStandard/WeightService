@@ -8,7 +8,7 @@ namespace ScalesUI;
 internal static class Program
 {
     private static AppVersionHelper AppVersion => AppVersionHelper.Instance;
-    private static WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
+    private static WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
 
     [STAThread]
     internal static void Main()
@@ -21,15 +21,15 @@ internal static class Program
 
             // Setup.
             AppVersion.Setup(Assembly.GetExecutingAssembly(), LocaleCore.Scales.AppTitle);
-            WsJsonSettingsHelper.Instance.SetupScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
+            ContextManager.SetupJsonScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
 
             // User
-            UserSessionHelper.Instance.SetMain();
-            if (UserSessionHelper.Instance.DeviceScaleFk.IsNew)
+            WsUserSessionHelper.Instance.SetMain();
+            if (WsUserSessionHelper.Instance.DeviceScaleFk.IsNew)
             {
-                string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(UserSessionHelper.Instance.DeviceName);
+                string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(WsUserSessionHelper.Instance.DeviceName);
                 WpfUtils.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
-                DataAccess.SaveLogError(new Exception(message));
+                ContextManager.ContextItem.SaveLogError(new Exception(message));
                 System.Windows.Forms.Application.Exit();
                 return;
             }
@@ -40,13 +40,13 @@ internal static class Program
             {
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
                 WpfUtils.ShowNewRegistration(message);
-                DataAccess.SaveLogError(new Exception(message));
+                ContextManager.ContextItem.SaveLogError(new Exception(message));
                 System.Windows.Forms.Application.Exit();
             }
             else
             {
-                DataAccess.SaveLogInformation(
-                    LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description));
+                ContextManager.ContextItem.SaveLogInformation(
+                    LocaleCore.Scales.RegistrationSuccess(WsUserSessionHelper.Instance.DeviceName, WsUserSessionHelper.Instance.DeviceScaleFk.Scale.Description));
                 // Run app.
                 System.Windows.Forms.Application.Run(new MainForm());
             }

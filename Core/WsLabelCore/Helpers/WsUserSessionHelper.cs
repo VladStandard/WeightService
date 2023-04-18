@@ -34,21 +34,22 @@ namespace WsLabelCore.Helpers;
 /// <summary>
 /// User session.
 /// </summary>
-public sealed class UserSessionHelper : BaseViewModel
+public sealed class WsUserSessionHelper : BaseViewModel
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618
-    private static UserSessionHelper _instance;
+    private static WsUserSessionHelper _instance;
 #pragma warning restore CS8618
-    public static UserSessionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsUserSessionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields and properties
 
+    public WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
+    public WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
     private WsBarCodeHelper BarCode => WsBarCodeHelper.Instance;
-    public WsDataContextModel DataContext { get; } = new();
     public DebugHelper Debug => DebugHelper.Instance;
     public PluginLabelsHelper PluginLabels => PluginLabelsHelper.Instance;
     public PluginMassaHelper PluginMassa => PluginMassaHelper.Instance;
@@ -103,7 +104,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             _pluScale = value;
             if (value.IsNotNew)
-                DataContext.DataAccess.SaveLogInformation($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
+                ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
             PluginPrintMain.LabelPrintedCount = 1;
             PluginPrintShipping.LabelPrintedCount = 1;
             SetPluNestingFks(value.Plu);
@@ -130,7 +131,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             _pluNestingFks = value;
             PluNestingFk = !_pluNestingFks.Any()
-                ? DataContext.DataAccess.GetItemNewEmpty<PluNestingFkModel>()
+                ? AccessManager.AccessItem.GetItemNewEmpty<PluNestingFkModel>()
                 : _pluNestingFks.Exists(x => !x.IsNew && x.IsDefault)
                     ? value.Find(x => !x.IsNew && x.IsDefault)
                     : value.First();
@@ -160,7 +161,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             _scale = value;
             _ = ProductionFacility;
-            PluScale = DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
+            PluScale = AccessManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
             OnPropertyChanged();
         }
     }
@@ -230,16 +231,16 @@ public sealed class UserSessionHelper : BaseViewModel
     /// <summary>
     /// Constructor.
     /// </summary>
-    public UserSessionHelper()
+    public WsUserSessionHelper()
     {
         // Items.
-        _pluNestingFk = DataContext.DataAccess.GetItemNewEmpty<PluNestingFkModel>();
-        _pluScale = DataContext.DataAccess.GetItemNewEmpty<PluScaleModel>();
-        _pluWeighing = DataContext.DataAccess.GetItemNewEmpty<PluWeighingModel>();
-        _deviceScaleFk = DataContext.DataAccess.GetItemNewEmpty<DeviceScaleFkModel>();
-        _productionFacility = DataContext.DataAccess.GetItemNewEmpty<ProductionFacilityModel>();
-        _scale = DataContext.DataAccess.GetItemNewEmpty<ScaleModel>();
-        PluStorageMethodFk = DataContext.DataAccess.GetItemNewEmpty<PluStorageMethodFkModel>();
+        _pluNestingFk = AccessManager.AccessItem.GetItemNewEmpty<PluNestingFkModel>();
+        _pluScale = AccessManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
+        _pluWeighing = AccessManager.AccessItem.GetItemNewEmpty<PluWeighingModel>();
+        _deviceScaleFk = AccessManager.AccessItem.GetItemNewEmpty<DeviceScaleFkModel>();
+        _productionFacility = AccessManager.AccessItem.GetItemNewEmpty<ProductionFacilityModel>();
+        _scale = AccessManager.AccessItem.GetItemNewEmpty<ScaleModel>();
+        PluStorageMethodFk = AccessManager.AccessItem.GetItemNewEmpty<PluStorageMethodFkModel>();
         // Lists.
         _pluNestingFks = new();
         _productionFacilities = new();
@@ -273,11 +274,11 @@ public sealed class UserSessionHelper : BaseViewModel
 
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
         sqlCrudConfig.AddOrders(new() { Name = nameof(ScaleModel.Description), Direction = WsSqlOrderDirection.Asc });
-        Scales = DataContext.GetListNotNullableScales(sqlCrudConfig);
+        Scales = ContextManager.ContextList.GetListNotNullableScales(sqlCrudConfig);
 
         sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
         sqlCrudConfig.AddOrders(new() { Name = nameof(ProductionFacilityModel.Name), Direction = WsSqlOrderDirection.Asc });
-        ProductionFacilities = DataContext.GetListNotNullableProductionFacilities(WsSqlCrudConfigUtils.GetCrudConfigSection(false));
+        ProductionFacilities = ContextManager.ContextList.GetListNotNullableProductionFacilities(WsSqlCrudConfigUtils.GetCrudConfigSection(false));
     }
 
     private void SetScale(long scaleId, string productionFacilityName)
@@ -285,25 +286,25 @@ public sealed class UserSessionHelper : BaseViewModel
         lock (_locker)
         {
             // Device.
-            DeviceModel device = DataContext.GetItemDeviceNotNullable(DeviceName);
+            DeviceModel device = ContextManager.ContextItem.GetItemDeviceNotNullable(DeviceName);
             device = WpfUtils.SetNewDeviceWithQuestion(device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
-            DeviceTypeFkModel deviceTypeFk = DataContext.GetItemDeviceTypeFkNotNullable(device);
+            DeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)
             {
                 // DeviceType.
-                DeviceTypeModel deviceType = DataContext.GetItemDeviceTypeNotNullable("Monoblock");
+                DeviceTypeModel deviceType = ContextManager.ContextItem.GetItemDeviceTypeNotNullable("Monoblock");
                 // DeviceTypeFk.
                 deviceTypeFk.Device = device;
                 deviceTypeFk.Type = deviceType;
-                DataContext.DataAccess.Save(deviceTypeFk);
+                AccessManager.AccessItem.Save(deviceTypeFk);
             }
             // DeviceTypeFk.
-            DeviceScaleFk = DataContext.DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
+            DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
             // Scale.
-            Scale = scaleId <= 0 ? DeviceScaleFk.Scale : DataContext.DataAccess.GetScaleNotNullable(scaleId);
+            Scale = scaleId <= 0 ? DeviceScaleFk.Scale : ContextManager.ContextItem.GetScaleNotNullable(scaleId);
             // Area.
-            ProductionFacility = DataContext.DataAccess.GetProductionFacilityNotNullable(productionFacilityName);
+            ProductionFacility = ContextManager.ContextItem.GetProductionFacilityNotNullable(productionFacilityName);
             // Other.
             ProductDate = DateTime.Now;
             // Новая серия, упаковка продукции, новая паллета.
@@ -316,7 +317,7 @@ public sealed class UserSessionHelper : BaseViewModel
     {
         if (uid is null)
             // Manual set by another place.
-            PluNestingFk = DataContext.DataAccess.GetItemNewEmpty<PluNestingFkModel>();
+            PluNestingFk = AccessManager.AccessItem.GetItemNewEmpty<PluNestingFkModel>();
         else
             // PluBundlesFks set default BundleFk.
             _ = PluNestingFks;
@@ -360,7 +361,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluPackageNotSelect);
-            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.PluPackageNotSelect);
+            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluPackageNotSelect);
             return false;
         }
         return true;
@@ -377,7 +378,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluNotSelect);
-            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.PluNotSelect);
+            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluNotSelect);
             return false;
         }
         return true;
@@ -400,7 +401,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, $"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
-            DataContext.DataAccess.SaveLogError($"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
+            ContextManager.ContextItem.SaveLogError($"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
             return false;
         }
         return true;
@@ -417,7 +418,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluGtinIsNotSet);
-            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.PluGtinIsNotSet);
+            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluGtinIsNotSet);
             return false;
         }
         return true;
@@ -440,7 +441,7 @@ public sealed class UserSessionHelper : BaseViewModel
                 ? $"{LocaleCore.Print.DeviceMainIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}"
                 : $"{LocaleCore.Print.DeviceShippingIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
             MdInvokeControl.SetText(fieldWarning, message);
-            DataContext.DataAccess.SaveLogError(message);
+            ContextManager.ContextItem.SaveLogError(message);
             return false;
         }
         // Готовность.
@@ -451,7 +452,7 @@ public sealed class UserSessionHelper : BaseViewModel
                 ? $"{LocaleCore.Print.DeviceMainCheckStatus} {managerPrint.GetDeviceStatus()}"
                 : $"{LocaleCore.Print.DeviceShippingCheckStatus} {managerPrint.GetDeviceStatus()}";
             MdInvokeControl.SetText(fieldWarning, message);
-            DataContext.DataAccess.SaveLogError(message);
+            ContextManager.ContextItem.SaveLogError(message);
             return false;
         }
         return true;
@@ -471,7 +472,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.CheckWeightIsZero);
-            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.CheckWeightIsZero);
+            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.CheckWeightIsZero);
             return false;
         }
 
@@ -480,7 +481,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.CheckWeightThreshold(weight));
-            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.CheckWeightThreshold(weight));
+            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.CheckWeightThreshold(weight));
             return false;
         }
         return true;
@@ -500,7 +501,7 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.CheckWeightThreshold(weight));
-            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.CheckWeightThreshold(weight));
+            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.CheckWeightThreshold(weight));
             return false;
         }
         return true;
@@ -528,7 +529,7 @@ public sealed class UserSessionHelper : BaseViewModel
                         PluScale.IsNew ? 0 : PluNestingFk.WeightNom,
                         PluScale.IsNew ? 0 : PluNestingFk.WeightMin);
                     MdInvokeControl.SetText(fieldWarning, message);
-                    DataContext.DataAccess.SaveLogError(message);
+                    ContextManager.ContextItem.SaveLogError(message);
                 }
                 return false;
             }
@@ -549,13 +550,13 @@ public sealed class UserSessionHelper : BaseViewModel
         // #WS-T-710 Печать этикеток. Исправление счётчика этикеток
         PluScale.Scale = Scale;
         // Получить шаблон этикетки.
-        TemplateModel template = DataContext.DataAccess.GetItemTemplateNotNullable(PluScale);
+        TemplateModel template = ContextManager.ContextItem.GetItemTemplateNotNullable(PluScale);
         // Проверить наличие шаблона этикетки.
         if (template.IsNew)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluTemplateNotSet);
-            DataContext.DataAccess.SaveLogError(LocaleCore.Scales.PluTemplateNotSet);
+            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluTemplateNotSet);
             return;
         }
         // Выбор типа ПЛУ.
@@ -580,7 +581,7 @@ public sealed class UserSessionHelper : BaseViewModel
     public void AddScaleCounter()
     {
         Scale.Counter++;
-        DataContext.DataAccess.UpdateForce(Scale);
+        AccessManager.AccessItem.UpdateForce(Scale);
     }
 
     /// <summary>
@@ -615,7 +616,7 @@ public sealed class UserSessionHelper : BaseViewModel
     /// </summary>
     public void NewPluWeighing()
     {
-        ProductSeriesModel productSeries = DataContext.DataAccess.GetItemProductSeriesNotNullable(PluScale.Scale);
+        ProductSeriesModel productSeries = ContextManager.ContextItem.GetItemProductSeriesNotNullable(PluScale.Scale);
 
         PluWeighing = new()
         {
@@ -697,9 +698,9 @@ public sealed class UserSessionHelper : BaseViewModel
         if (!PluWeighing.PluScale.Plu.IsCheckWeight) return;
 
         if (PluWeighing.IsNew)
-            DataContext.DataAccess.Save(PluWeighing);
+            AccessManager.AccessItem.Save(PluWeighing);
         else
-            DataContext.DataAccess.UpdateForce(PluWeighing);
+            AccessManager.AccessItem.UpdateForce(PluWeighing);
     }
 
     /// <summary>
@@ -726,7 +727,7 @@ public sealed class UserSessionHelper : BaseViewModel
         _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
         // Save.
-        DataContext.DataAccess.Save(pluLabel);
+        AccessManager.AccessItem.Save(pluLabel);
 
         return (pluLabel, pluLabelContext);
     }
@@ -742,7 +743,8 @@ public sealed class UserSessionHelper : BaseViewModel
             // Patch for using table `PLUS_STORAGE_METHODS_FK`.
             if (PluStorageMethodFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
-                TemplateResourceModel resource = DataContext.GetPluStorageResource(pluLabel.PluScale.Plu);
+                TemplateResourceModel resource = ContextManager.ContextPluStorage.GetPluStorageResource(
+                    pluLabel.PluScale.Plu, ContextManager.PluStorageMethodsFks);
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
                 zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
             }
@@ -760,7 +762,7 @@ public sealed class UserSessionHelper : BaseViewModel
         BarCode.SetBarCodeTop(barCode, pluLabelContext);
         BarCode.SetBarCodeRight(barCode, pluLabelContext);
         BarCode.SetBarCodeBottom(barCode, pluLabelContext);
-        DataContext.DataAccess.Save(barCode);
+        AccessManager.AccessItem.Save(barCode);
     }
 
     private void SetSqlPublish() =>
@@ -782,13 +784,13 @@ public sealed class UserSessionHelper : BaseViewModel
         sqlCrudConfig.AddFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
         sqlCrudConfig.AddOrders(new() { Name = nameof(PluScaleModel.Plu), Direction = WsSqlOrderDirection.Asc });
         sqlCrudConfig.IsResultOrder = true;
-        PluScales = DataContext.GetListNotNullablePlusScales(sqlCrudConfig);
+        PluScales = ContextManager.ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
     }
 
     public void SetPluStorageMethodsFks()
     {
         SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false, false);// { IsFillReferences = false };
-        PluStorageMethodFks = DataContext.UpdatePluStorageMethodFks(sqlCrudConfig);
+        ContextManager.PluStorageMethodsFks = PluStorageMethodFks = ContextManager.ContextPluStorage.UpdatePluStorageMethodFks(sqlCrudConfig);
     }
 
     public List<PluScaleModel> GetCurrentPlus()
@@ -800,10 +802,10 @@ public sealed class UserSessionHelper : BaseViewModel
 
     private void SetNewPluNestingFks()
     {
-        PluNestingFkModel pluNestingFk = DataContext.DataAccess.GetItemNewEmpty<PluNestingFkModel>();
-        pluNestingFk.PluBundle = DataContext.DataAccess.GetItemNewEmpty<PluBundleFkModel>();
-        pluNestingFk.PluBundle.Plu = DataContext.DataAccess.GetItemNewEmpty<PluModel>();
-        pluNestingFk.PluBundle.Bundle = DataContext.DataAccess.GetItemNewEmpty<BundleModel>();
+        PluNestingFkModel pluNestingFk = AccessManager.AccessItem.GetItemNewEmpty<PluNestingFkModel>();
+        pluNestingFk.PluBundle = AccessManager.AccessItem.GetItemNewEmpty<PluBundleFkModel>();
+        pluNestingFk.PluBundle.Plu = AccessManager.AccessItem.GetItemNewEmpty<PluModel>();
+        pluNestingFk.PluBundle.Bundle = AccessManager.AccessItem.GetItemNewEmpty<BundleModel>();
         PluNestingFks = new() { pluNestingFk };
     }
 
@@ -817,14 +819,14 @@ public sealed class UserSessionHelper : BaseViewModel
         {
             SqlCrudConfigModel sqlCrudConfig = new(
                 WsSqlQueriesScales.Tables.PluNestingFks.GetList(true), new("P_UID", plu.IdentityValueUid), true);
-            PluNestingFks = DataContext.GetListNotNullablePlusNestingFks(sqlCrudConfig);
+            PluNestingFks = ContextManager.ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
         }
     }
 
     private void SetPluStorageMethodFks(PluModel plu)
     {
         if (plu.IsNotExists) return;
-        PluStorageMethodFk = DataContext.GetPluStorageMethodFk(plu);
+        PluStorageMethodFk = ContextManager.ContextPluStorage.GetPluStorageMethodFk(plu, ContextManager.PluStorageMethodsFks);
         if (PluStorageMethodFk.IsNotExists)
             PluStorageMethodFk.FillProperties();
     }

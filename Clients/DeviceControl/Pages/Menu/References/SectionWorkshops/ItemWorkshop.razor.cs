@@ -22,10 +22,10 @@ public sealed partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 		{
 			() =>
 			{
-				SqlItemCast = DataContext.GetItemNotNullable<WorkShopModel>(IdentityId);
+				SqlItemCast = ContextManager.GetItemNotNullable<WorkShopModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
-				DataContext.GetListNotNullable<ProductionFacilityModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+				ContextManager.GetListNotNullable<ProductionFacilityModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
             }
 		});
 	}

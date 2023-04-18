@@ -22,13 +22,13 @@ public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<PluGr
 		{
 			() =>
 			{
-                SqlItemCast = DataAccess.GetItemNotNullable<PluGroupModel>(IdentityUid);
+                SqlItemCast = ContextManager.GetItemNotNullable<PluGroupModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
 					SqlItemCast = SqlItemNew<PluGroupModel>();
 				}
 
-                ParentGroup = DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
+                ParentGroup = ContextManager.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
             }
 		});
 	}

@@ -52,14 +52,14 @@ public sealed class WsPlusGroupsHelper : WsContentBase
             if (Equals(pluGroupXml.ParentGuid, Guid.Empty)) return;
 
             PluGroupModel parent = new() { IdentityValueUid = pluGroupXml.ParentGuid };
-            parent = WsDataContext.GetItemNotNullable<PluGroupModel>(parent.Identity);
+            parent = AccessManager.AccessItem.GetItemNotNullable<PluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
                 AddResponse1cException(response, pluGroupXml.Uid1c, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
                 return;
             }
             PluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
-            pluGroup = WsDataContext.GetItemNotNullable<PluGroupModel>(pluGroup.Identity);
+            pluGroup = AccessManager.AccessItem.GetItemNotNullable<PluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
             {
                 AddResponse1cException(response, pluGroupXml.Uid1c, new($"PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
@@ -132,8 +132,8 @@ public sealed class WsPlusGroupsHelper : WsContentBase
     public ContentResult NewResponse1cPluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<PluGroupModel> itemsDb = WsDataContext.GetListNotNullablePlusGroups(SqlCrudConfig);
-            List<PluGroupFkModel> pluGroupsFksDb = WsDataContext.GetListNotNullablePlusGroupFks(SqlCrudConfig);
+            List<PluGroupModel> itemsDb = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
+            List<PluGroupFkModel> pluGroupsFksDb = ContextManager.ContextList.GetListNotNullablePlusGroupFks(SqlCrudConfig);
             List<PluGroupModel> itemsXml = GetXmlPluGroupsList(xml);
             foreach (PluGroupModel itemXml in itemsXml)
             {

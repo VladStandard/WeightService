@@ -9,6 +9,6 @@ public sealed class WorkShopContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<WorkShopModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<WorkShopModel>();
 	}
 }

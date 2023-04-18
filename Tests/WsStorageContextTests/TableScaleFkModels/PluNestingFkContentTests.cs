@@ -9,6 +9,6 @@ public sealed class PluNestingFkContentTests
     [Test]
     public void Model_Content_Validate()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluNestingFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluNestingFkModel>();
     }
 }

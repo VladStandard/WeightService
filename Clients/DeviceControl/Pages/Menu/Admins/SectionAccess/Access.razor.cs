@@ -6,7 +6,7 @@ using WsStorageCore.TableScaleModels.Access;
 
 namespace BlazorDeviceControl.Pages.Menu.Admins.SectionAccess;
 
-public sealed partial class Access : RazorComponentSectionBase<AccessModel>
+public sealed partial class Access : RazorComponentSectionBase<WsSqlAccessModel>
 {
     #region Public and private fields, properties, constructor
 

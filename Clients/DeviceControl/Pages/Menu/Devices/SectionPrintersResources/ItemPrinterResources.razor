@@ -21,7 +21,7 @@
     <td>@LocaleCore.Print.Name</td>
     <td>
       <MudSelectLocal @bind-Value="@SqlItemCast.Printer">
-        @foreach (PrinterModel item in DataContext.Printers)
+        @foreach (PrinterModel item in ContextManager.Printers)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
@@ -30,7 +30,7 @@
     <td>@LocaleCore.Table.Resource</td>
     <td>
       <MudSelectLocal @bind-Value="@SqlItemCast.TemplateResource">
-        @foreach (TemplateResourceModel item in DataContext.TemplateResources)
+        @foreach (TemplateResourceModel item in ContextManager.TemplateResources)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }

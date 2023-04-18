@@ -13,7 +13,7 @@ public class ChartBase
 {
 	#region Public and private fields, properties, constructor
 
-	public BlazorAppSettingsHelper BlazorAppSettings { get; } = BlazorAppSettingsHelper.Instance;
+    private BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
 
 	#endregion
 
@@ -26,7 +26,7 @@ public class ChartBase
 		ChartCountModel[] result = Array.Empty<ChartCountModel>();
 		SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Asc }, false, false);
-		ContragentModel[]? contragents = BlazorAppSettings.DataAccess.GetArrayNullable<ContragentModel>(sqlCrudConfig);
+		ContragentModel[]? contragents = BlazorAppSettings.AccessManager.AccessList.GetArrayNullable<ContragentModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)
 		{

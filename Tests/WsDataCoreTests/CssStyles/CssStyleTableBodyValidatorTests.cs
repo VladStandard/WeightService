@@ -18,11 +18,11 @@ public sealed class CssStyleTableBodyValidatorTests
 		CssStyleTableBodyModel item = Substitute.For<CssStyleTableBodyModel>();
 		// Act.
 		// Assert.
-		WsTestsUtils.DataCore.AssertValidate(item, false);
+		WsTestsUtils.DataTests.AssertValidate(item, false);
 		// Act.
 		item.IdentityName = WsSqlFieldIdentity.Empty;
 		// Assert.
-		WsTestsUtils.DataCore.AssertValidate(item, false);
+		WsTestsUtils.DataTests.AssertValidate(item, false);
 	}
 
 	[Test]
@@ -34,7 +34,7 @@ public sealed class CssStyleTableBodyValidatorTests
 		item.IdentityName = WsSqlFieldIdentity.Uid;
 		item.IsShowMarked = true;
 		// Assert.
-		WsTestsUtils.DataCore.AssertValidate(item, true);
+		WsTestsUtils.DataTests.AssertValidate(item, true);
 	}
 
 	#endregion

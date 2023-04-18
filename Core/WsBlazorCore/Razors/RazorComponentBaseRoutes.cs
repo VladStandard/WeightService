@@ -86,8 +86,8 @@ public partial class RazorComponentBase
     protected string GetRouteSectionPath<TItem>(TItem? item) where TItem : WsSqlTableBase, new() =>
         item switch
         {
-            AccessModel => LocaleCore.DeviceControl.RouteSectionAccess,
-            AppModel => LocaleCore.DeviceControl.RouteSectionApps,
+            WsSqlAccessModel => LocaleCore.DeviceControl.RouteSectionAccess,
+            WsSqlAppModel => LocaleCore.DeviceControl.RouteSectionApps,
             BarCodeModel => LocaleCore.DeviceControl.RouteSectionBarCodes,
             BoxModel => LocaleCore.DeviceControl.RouteSectionBoxes,
             BrandModel => LocaleCore.DeviceControl.RouteSectionBrands,

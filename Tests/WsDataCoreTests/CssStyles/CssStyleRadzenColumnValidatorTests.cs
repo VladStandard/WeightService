@@ -17,11 +17,11 @@ public sealed class CssStyleRadzenColumnValidatorTests
         CssStyleRadzenColumnModel item = Substitute.For<CssStyleRadzenColumnModel>();
         // Act.
         // Assert.
-        WsTestsUtils.DataCore.AssertValidate(item, false);
+        WsTestsUtils.DataTests.AssertValidate(item, false);
         // Act.
         item.Width = "";
         // Assert.
-        WsTestsUtils.DataCore.AssertValidate(item, false);
+        WsTestsUtils.DataTests.AssertValidate(item, false);
     }
 
     [Test]
@@ -32,7 +32,7 @@ public sealed class CssStyleRadzenColumnValidatorTests
         // Act.
         item.Width = "10%";
         // Assert.
-        WsTestsUtils.DataCore.AssertValidate(item, true);
+        WsTestsUtils.DataTests.AssertValidate(item, true);
     }
 
     #endregion

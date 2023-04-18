@@ -9,6 +9,6 @@ public sealed class OrganizationContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<OrganizationModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<OrganizationModel>();
 	}
 }

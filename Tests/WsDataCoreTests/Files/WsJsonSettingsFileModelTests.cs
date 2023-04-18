@@ -10,7 +10,7 @@ public sealed class WsJsonSettingsFileModelTests
     [Test]
     public void JsonSettings_New_DoesNotThrow()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
             //
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });

@@ -11,26 +11,26 @@ public sealed class ProductionFacilitieModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertToString<ProductionFacilityModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<ProductionFacilityModel>();
     }
     
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ProductionFacilityModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<ProductionFacilityModel>();
     }
     
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<ProductionFacilityModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<ProductionFacilityModel>();
     }
 }

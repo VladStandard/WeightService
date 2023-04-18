@@ -11,14 +11,14 @@ public sealed class TemplateResourceValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        TemplateResourceModel item = WsTestsUtils.DataCore.CreateNewSubstitute<TemplateResourceModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        TemplateResourceModel item = WsTestsUtils.DataTests.CreateNewSubstitute<TemplateResourceModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        TemplateResourceModel item = WsTestsUtils.DataCore.CreateNewSubstitute<TemplateResourceModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        TemplateResourceModel item = WsTestsUtils.DataTests.CreateNewSubstitute<TemplateResourceModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

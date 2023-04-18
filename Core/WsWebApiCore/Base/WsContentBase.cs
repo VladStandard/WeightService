@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
+using WsStorageCore.Helpers;
+
 namespace WsWebApiCore.Base;
 
 /// <summary>
@@ -19,7 +21,9 @@ public class WsContentBase : ControllerBase
     /// NHibernate session.
     /// </summary>
     protected ISessionFactory SessionFactory { get; }
-    internal WsDataContextModel WsDataContext { get; } = new();
+
+    internal WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
+    internal WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
     internal SqlCrudConfigModel SqlCrudConfig => new(new List<SqlFieldFilterModel>(), 
         true, false, false, true, false);
     private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
@@ -109,7 +113,7 @@ public class WsContentBase : ControllerBase
         int countErrors = WsContentUtils.GetAttributeValueAsInt(responseData, nameof(WsResponse1cShortModel.ErrorsCount));
 
         // Log into DB.
-        WsDataContext.DataAccess.SaveLogWebService(requestStampDt, requestData, responseStampDt, responseData, LogType.Information,
+        ContextManager.ContextItem.SaveLogWebService(requestStampDt, requestData, responseStampDt, responseData, LogType.Information,
             $"{host}/{url}", "", "", format, countAll, countSuccess, countErrors);
 
         // Add meta data.
@@ -214,7 +218,7 @@ public class WsContentBase : ControllerBase
                 if (response.ResponseQuery is not null)
                     response.ResponseQuery.Query = url;
                 //ISQLQuery sqlQuery = WsDataContext.Session.CreateSQLQuery(url);
-                ISQLQuery sqlQuery = WsDataContext.DataAccess.SessionFactory.OpenSession().CreateSQLQuery(url);
+                ISQLQuery sqlQuery = AccessManager.SessionFactory.OpenSession().CreateSQLQuery(url);
                 if (sqlParameter is not null)
                 {
                     if (response.ResponseQuery is not null)
@@ -256,7 +260,7 @@ public class WsContentBase : ControllerBase
             };
             SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
             sqlCrudConfig.AddFilters(sqlFilters);
-            List<BarCodeModel> barcodesDb = WsDataContext.GetListNotNullableBarCodes(sqlCrudConfig);
+            List<BarCodeModel> barcodesDb = ContextManager.ContextList.GetListNotNullableBarCodes(sqlCrudConfig);
             response.ResponseBarCodes = WsWebResponseUtils.CastBarCodes(barcodesDb);
             response.StartDate = dtStart;
             response.EndDate = dtEnd;
@@ -301,7 +305,7 @@ public class WsContentBase : ControllerBase
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
-            itemDb = WsDataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
+            itemDb = AccessManager.AccessItem.GetItemNullable<PluModel>(sqlCrudConfig);
             if (!isCheckGroup)
             {
                 if (itemDb is null || itemDb.IsNew)
@@ -339,7 +343,7 @@ public class WsContentBase : ControllerBase
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
             true, false, false, false, false);
-        itemDb = WsDataContext.DataAccess.GetItemNullable<BundleModel>(sqlCrudConfig);
+        itemDb = AccessManager.AccessItem.GetItemNullable<BundleModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponse1cException(response, uid1cException,
@@ -367,7 +371,7 @@ public class WsContentBase : ControllerBase
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
-            itemDb = WsDataContext.DataAccess.GetItemNullable<BrandModel>(sqlCrudConfig);
+            itemDb = AccessManager.AccessItem.GetItemNullable<BrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
                 AddResponse1cException(response, uid1cException,
@@ -394,7 +398,7 @@ public class WsContentBase : ControllerBase
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
             true, false, false, false, false);
-        itemDb = WsDataContext.DataAccess.GetItemNullable<ClipModel>(sqlCrudConfig);
+        itemDb = AccessManager.AccessItem.GetItemNullable<ClipModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponse1cException(response, uid1cException,
@@ -419,7 +423,7 @@ public class WsContentBase : ControllerBase
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
             { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
             true, false, false, false, false);
-        itemDb = WsDataContext.DataAccess.GetItemNullable<BoxModel>(sqlCrudConfig);
+        itemDb = AccessManager.AccessItem.GetItemNullable<BoxModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponse1cException(response, uid1cException,
@@ -447,7 +451,7 @@ public class WsContentBase : ControllerBase
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
                 true, false, false, false, false);
-            itemDb = WsDataContext.DataAccess.GetItemNullable<PluModel>(sqlCrudConfig);
+            itemDb = AccessManager.AccessItem.GetItemNullable<PluModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
                 AddResponse1cException(response, uid1cException,
@@ -474,7 +478,7 @@ public class WsContentBase : ControllerBase
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
             true, false, false, false, false);
-        itemDb = WsDataContext.DataAccess.GetItemNullable<PluCharacteristicModel>(sqlCrudConfig);
+        itemDb = AccessManager.AccessItem.GetItemNullable<PluCharacteristicModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponse1cException(response, uid1cException,
@@ -599,7 +603,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -628,7 +632,7 @@ public class WsContentBase : ControllerBase
     /// <param name="uid1c"></param>
     internal bool SaveItemDb<T>(WsResponse1cShortModel response, T item, bool isCounter, Guid uid1c) where T : WsSqlTableBase
     {
-        SqlCrudResultModel dbSave = WsDataContext.DataAccess.Save(item, item.Identity);
+        SqlCrudResultModel dbSave = AccessManager.AccessItem.Save(item, item.Identity);
         // Add was success.
         if (dbSave.IsOk)
         {
@@ -653,7 +657,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -677,7 +681,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -701,7 +705,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -725,7 +729,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -749,7 +753,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -773,7 +777,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -797,7 +801,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -821,7 +825,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -845,7 +849,7 @@ public class WsContentBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = WsDataContext.DataAccess.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
