@@ -6,7 +6,7 @@
 //namespace DataCoreTests.Sql.TableModels
 //{
 //    [TestFixture]
-//    internal class PluTests
+//    public sealed class PluTests
 //    {
 //        [Test]
 //        public void Model_Equals_DoesNotThrow()

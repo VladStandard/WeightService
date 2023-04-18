@@ -4,7 +4,7 @@
 //namespace DataCoreTests.Sql.TableModels
 //{
 //    [TestFixture]
-//    internal class WorkshopTests
+//    public sealed class WorkshopTests
 //    {
 //        [Test]
 //        public void Model_Equals_DoesNotThrow()

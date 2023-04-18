@@ -1,37 +1,36 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Tables;
-using WsStorage.TableScaleFkModels.PlusNestingFks;
+using WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 namespace WsStorageCoreTests.TableScaleFkModels.PlusNestingFks;
 
 [TestFixture]
-internal class PluNestingFkModelTests
+public sealed class PluNestingFkModelTests
 { 
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluNestingFkModel>(nameof(WsSqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluNestingFkModel>(nameof(WsSqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluNestingFkModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluNestingFkModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluNestingFkModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluNestingFkModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PluNestingFkModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertToString<PluNestingFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluNestingFkModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluNestingFkModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PluNestingFkModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<PluNestingFkModel>();
     }
 }

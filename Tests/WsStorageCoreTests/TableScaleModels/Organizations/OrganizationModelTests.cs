@@ -1,37 +1,36 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Tables;
-using WsStorage.TableScaleModels.Organizations;
+using WsStorageCore.TableScaleModels.Organizations;
 
 namespace WsStorageCoreTests.TableScaleModels.Organizations;
 
 [TestFixture]
-internal class OrganizationModelTests
+public sealed class OrganizationModelTests
 {
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(WsSqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(WsSqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<OrganizationModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<OrganizationModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<OrganizationModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertToString<OrganizationModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<OrganizationModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<OrganizationModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<OrganizationModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<OrganizationModel>();
     }
 }

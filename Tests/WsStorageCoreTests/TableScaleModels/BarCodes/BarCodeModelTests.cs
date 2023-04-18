@@ -1,37 +1,36 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Tables;
-using WsStorage.TableScaleModels.BarCodes;
+using WsStorageCore.TableScaleModels.BarCodes;
 
 namespace WsStorageCoreTests.TableScaleModels.BarCodes;
 
 [TestFixture]
-internal class BarCodeModelTests
+public sealed class BarCodeModelTests
 {
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(WsSqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(WsSqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<BarCodeModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<BarCodeModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<BarCodeModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertToString<BarCodeModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<BarCodeModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<BarCodeModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<BarCodeModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<BarCodeModel>();
     }
 }

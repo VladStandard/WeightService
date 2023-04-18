@@ -8,7 +8,7 @@
 //namespace DataCoreTests.Sql.TableModels
 //{
 //    [TestFixture]
-//    internal class TemplateResourcesTests
+//    public sealed class TemplateResourcesTests
 //    {
 //        [Test]
 //        public void Model_Equals_DoesNotThrow()

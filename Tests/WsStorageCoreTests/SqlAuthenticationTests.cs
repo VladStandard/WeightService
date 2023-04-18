@@ -1,7 +1,5 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-using WsStorage.Models;
 
 namespace WsStorageCoreTests;
 
@@ -14,10 +12,6 @@ public class SqlAuthenticationTests
     [Test]
     public void Constructor_Create_Correct()
     {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
-        Stopwatch stopwatch = Stopwatch.StartNew();
-
         foreach (ushort port in EnumValuesUtils.GetUshort())
         {
             foreach (bool persistSecurityInfo in EnumValuesUtils.GetBool())
@@ -48,23 +42,13 @@ public class SqlAuthenticationTests
                 }
             }
         }
-
-        TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {stopwatch.Elapsed}");
-        stopwatch.Stop();
     }
 
     [Test]
     public void Exists_Execute_Assert()
     {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} start.");
-        Stopwatch stopwatch = Stopwatch.StartNew();
-
         SqlAuthenticationModel sqlAuthentication = new();
         Assert.IsFalse(sqlAuthentication.Exists());
-
-        TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} complete. Elapsed time: {stopwatch.Elapsed}");
-        stopwatch.Stop();
     }
 
     #endregion

@@ -1,37 +1,36 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Tables;
-using WsStorage.TableScaleModels.ProductionFacilities;
+using WsStorageCore.TableScaleModels.ProductionFacilities;
 
 namespace WsStorageCoreTests.TableScaleModels.ProductionFacilities;
 
 [TestFixture]
-internal class ProductionFacilitieModelTests
+public sealed class ProductionFacilitieModelTests
 {
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(WsSqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(WsSqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<ProductionFacilityModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertToString<ProductionFacilityModel>();
     }
     
     [Test]
     public void Model_EqualsNew()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ProductionFacilityModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ProductionFacilityModel>();
     }
     
     [Test]
     public void Model_Serialize()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<ProductionFacilityModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<ProductionFacilityModel>();
     }
 }

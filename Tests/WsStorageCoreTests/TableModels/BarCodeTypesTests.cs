@@ -8,7 +8,7 @@
 //namespace DataCoreTests.Sql.TableModels
 //{
 //    [TestFixture]
-//    internal class BarCodeTypesTests
+//    public sealed class BarCodeTypesTests
 //    {
 //        [Test]
 //        public void Model_Equals_DoesNotThrow()

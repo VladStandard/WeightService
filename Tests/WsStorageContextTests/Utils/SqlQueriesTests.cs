@@ -1,22 +1,18 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Enums;
-using WsStorage.TableScaleFkModels.Aggregations;
-using WsStorage.Utils;
-
 namespace WsStorageContextTests.Utils;
 
 [TestFixture]
-internal class SqlQueriesTests
+public sealed class SqlQueriesTests
 {
     [Test]
     public void SqlQueries_GetWeighingsAggrWithPlu_MoreThanZero()
     {
-        DataCoreTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataCore.AssertAction(() =>
         {
             List<PluAggrModel> pluWeighingAggrs = new();
-            object[] objects = DataCoreTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = WsTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggrWithPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)
@@ -40,10 +36,10 @@ internal class SqlQueriesTests
     [Test]
     public void SqlQueries_GetWeighingsAggrWithoutPlu_MoreThanZero()
     {
-        DataCoreTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataCore.AssertAction(() =>
         {
             List<PluAggrModel> pluWeighingAggrs = new();
-            object[] objects = DataCoreTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = WsTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggrWithoutPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)
@@ -67,10 +63,10 @@ internal class SqlQueriesTests
     [Test]
     public void SqlQueries_GetLabelsAggrWithPlu_MoreThanZero()
     {
-        DataCoreTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataCore.AssertAction(() =>
         {
             List<PluAggrModel> pluAggrs = new();
-            object[] objects = DataCoreTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = WsTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluLabels.GetLabelsAggrWithPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)
@@ -94,10 +90,10 @@ internal class SqlQueriesTests
     [Test]
     public void SqlQueries_GetLabelsAggrWithoutPlu_MoreThanZero()
     {
-        DataCoreTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataCore.AssertAction(() =>
         {
             List<PluAggrModel> pluWeighingAggrs = new();
-            object[] objects = DataCoreTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = WsTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluLabels.GetLabelsAggrWithoutPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)

@@ -24,7 +24,7 @@
     <PackageReference Include="RestSharp" Version="110.2.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WsWebApiScales\WsWebApiScales.csproj" />
+    <ProjectReference Include="..\..\Services\WsWebApiScales\WsWebApiScales.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Using Include="NUnit.Framework" />

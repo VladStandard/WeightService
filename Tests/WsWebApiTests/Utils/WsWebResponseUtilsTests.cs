@@ -1,14 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Utils;
+using System.Net;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using System.Net;
+using WsStorageCore.Utils;
 using WsWebApiCore.Models;
 using WsWebApiCore.Utils;
 
-namespace WsWebApiTests.Utils;
+namespace WsWebApiCoreTests.Utils;
 
 internal static class WsWebResponseUtilsTests
 {
@@ -30,7 +30,7 @@ internal static class WsWebResponseUtilsTests
                 }
                 else if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatXml()))
                 {
-                    serviceException = DataFormatUtils.DeserializeFromXml<WsServiceExceptionModel>(response.Content);
+                    serviceException = WsDataFormatUtils.DeserializeFromXml<WsServiceExceptionModel>(response.Content);
                     Assert.IsTrue(serviceException is not null);
                 }
                 if (serviceException is not null)
@@ -63,7 +63,7 @@ internal static class WsWebResponseUtilsTests
                 }
                 else if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatXml()))
                 {
-                    serviceInfo = DataFormatUtils.DeserializeFromXml<WsServiceInfoModel>(response.Content);
+                    serviceInfo = WsDataFormatUtils.DeserializeFromXml<WsServiceInfoModel>(response.Content);
                     Assert.IsTrue(serviceInfo is not null);
                 }
                 if (serviceInfo is not null)

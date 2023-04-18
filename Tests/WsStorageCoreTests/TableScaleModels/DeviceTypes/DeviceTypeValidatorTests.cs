@@ -1,24 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.TableScaleModels.DeviceTypes;
+using WsStorageCore.TableScaleModels.DeviceTypes;
 
 namespace WsStorageCoreTests.TableScaleModels.DeviceTypes;
 
 [TestFixture]
-internal class DeviceTypeValidatorTests
+public sealed class DeviceTypeValidatorTests
 {
     [Test]
     public void Model_Validate_IsFalse()
     {
-        DeviceTypeModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeModel>(false);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
+        DeviceTypeModel item = WsTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeModel>(false);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        DeviceTypeModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeModel>(true);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
+        DeviceTypeModel item = WsTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeModel>(true);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

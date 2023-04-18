@@ -1,24 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.TableScaleModels.Boxes;
+using WsStorageCore.TableScaleModels.Boxes;
 
 namespace WsStorageCoreTests.TableScaleModels.Boxes;
 
 [TestFixture]
-internal class BoxValidatorTests
+public sealed class BoxValidatorTests
 {
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BoxModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BoxModel>(false);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
+        BoxModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BoxModel>(false);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BoxModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<BoxModel>(true);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
+        BoxModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BoxModel>(true);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

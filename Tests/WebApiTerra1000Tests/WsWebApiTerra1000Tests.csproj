@@ -24,7 +24,7 @@
     <PackageReference Include="RestSharp" Version="110.2.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebApiTerra1000\WebApiTerra1000.csproj" />
+    <ProjectReference Include="..\..\Services\WebApiTerra1000\WebApiTerra1000.csproj" />
   </ItemGroup>
 	<PropertyGroup>
 		<Version>0.9.180.0</Version>

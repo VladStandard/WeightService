@@ -1,37 +1,36 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Tables;
-using WsStorage.TableScaleFkModels.DeviceTypesFks;
+using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
 
 namespace WsStorageCoreTests.TableScaleFkModels.DeviceTypeFks;
 
 [TestFixture]
-internal class DeviceTypeFkModelTests
+public sealed class DeviceTypeFkModelTests
 {
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(WsSqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(WsSqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<DeviceTypeFkModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<DeviceTypeFkModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<DeviceTypeFkModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertToString<DeviceTypeFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<DeviceTypeFkModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<DeviceTypeFkModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<DeviceTypeFkModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<DeviceTypeFkModel>();
     }
 }

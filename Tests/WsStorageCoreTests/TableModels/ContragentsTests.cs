@@ -9,7 +9,7 @@
 //namespace DataCoreTests.Sql.TableModels
 //{
 //    [TestFixture]
-//    internal class ContragentsTests
+//    public sealed class ContragentsTests
 //    {
 //        [Test]
 //        public void Model_Equals_DoesNotThrow()

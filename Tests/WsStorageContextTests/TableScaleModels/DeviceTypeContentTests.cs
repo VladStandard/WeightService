@@ -1,16 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.TableScaleModels.DeviceTypes;
-
 namespace WsStorageContextTests.TableScaleModels;
 
 [TestFixture]
-internal class DeviceTypeContentTests
+public sealed class DeviceTypeContentTests
 {
 	[Test]
 	public void Model_Validate_Content()
 	{
-		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<DeviceTypeModel>();
+		WsTestsUtils.DataCore.AssertSqlDbContentValidate<DeviceTypeModel>();
 	}
 }

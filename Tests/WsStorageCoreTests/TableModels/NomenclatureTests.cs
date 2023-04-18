@@ -9,7 +9,7 @@
 //namespace DataCoreTests.Sql.TableModels
 //{
 //    [TestFixture]
-//    internal class NomenclatureTests
+//    public sealed class NomenclatureTests
 //    {
 //        [Test]
 //        public void Model_Equals_DoesNotThrow()

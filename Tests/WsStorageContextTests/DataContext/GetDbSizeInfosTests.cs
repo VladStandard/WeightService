@@ -1,22 +1,19 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Enums;
-using WsStorage.Models;
-
 namespace WsStorageContextTests.DataContext;
 
 [TestFixture]
-internal sealed class GetDbSizeInfosTests
+public sealed class GetDbSizeInfosTests
 {
     private static List<WsConfiguration> Configurations => new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS };
-    
+
     [Test]
     public void DataContext_GetDbFileSizeInfos_Assert()
     {
-        DataCoreTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataCore.AssertAction(() =>
         {
-            List<SqlDbFileSizeInfoModel> infos = DataCoreTestsUtils.DataCore.DataContext.GetDbFileSizeInfos();
+            List<SqlDbFileSizeInfoModel> infos = WsTestsUtils.DataCore.DataContext.GetDbFileSizeInfos();
             Assert.That(Equals(true, infos.Any()));
             foreach (SqlDbFileSizeInfoModel info in infos)
             {
@@ -26,13 +23,13 @@ internal sealed class GetDbSizeInfosTests
             }
         }, false, Configurations);
     }
-    
+
     [Test]
     public void DataContext_GetDbFileSizeAll_Assert()
     {
-        DataCoreTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataCore.AssertAction(() =>
         {
-            ushort dbFileSizeAll = DataCoreTestsUtils.DataCore.DataContext.GetDbFileSizeAll();
+            ushort dbFileSizeAll = WsTestsUtils.DataCore.DataContext.GetDbFileSizeAll();
             Assert.That(dbFileSizeAll > 0);
             TestContext.WriteLine($"{nameof(dbFileSizeAll)}: {dbFileSizeAll} MB");
         }, false, Configurations);

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>0.9.180.0</Version>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MDSoft.NetUtils" Version="0.2.40" />
+    <PackageReference Include="NSubstitute" Version="5.0.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj" />
+    <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj" />
+    <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
+  </ItemGroup>
+</Project>

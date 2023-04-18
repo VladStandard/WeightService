@@ -4,7 +4,7 @@
 //namespace DataCoreTests.Sql.TableModels
 //{
 //    [TestFixture]
-//    internal class ZebraPrinterTypeTests
+//    public sealed class ZebraPrinterTypeTests
 //    {
 //        [Test]
 //        public void Model_Equals_DoesNotThrow()

@@ -1,24 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.TableScaleModels.PlusGroups;
+using WsStorageCore.TableScaleModels.PlusGroups;
 
 namespace WsStorageCoreTests.TableScaleModels.PlusGroups;
 
 [TestFixture]
-internal class PluGroupValidatorTests
+public sealed class PluGroupValidatorTests
 {
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluGroupModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluGroupModel>(false);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluGroupModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluGroupModel>(false);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluGroupModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluGroupModel>(true);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluGroupModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluGroupModel>(true);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

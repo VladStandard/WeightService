@@ -1,37 +1,36 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Tables;
-using WsStorage.TableScaleModels.PlusCharacteristics;
+using WsStorageCore.TableScaleModels.PlusCharacteristics;
 
 namespace WsStorageCoreTests.TableScaleModels.PluCharacteristics;
 
 [TestFixture]
-internal class NomenclaturesCharacteristicModelTests
+public sealed class NomenclaturesCharacteristicModelTests
 {
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluCharacteristicModel>(nameof(WsSqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluCharacteristicModel>(nameof(WsSqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluCharacteristicModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluCharacteristicModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluCharacteristicModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluCharacteristicModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PluCharacteristicModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertToString<PluCharacteristicModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluCharacteristicModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluCharacteristicModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PluCharacteristicModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<PluCharacteristicModel>();
     }
 }

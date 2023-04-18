@@ -1,16 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using NUnit.Framework;
 using System.Xml.Linq;
+using NUnit.Framework;
 using WsLocalizationCore.Models;
 using WsStorageCore.TableScaleModels.Brands;
 using WsWebApiCore.Utils;
 
-namespace WsWebApiTests.Utils;
+namespace WsWebApiCoreTests.Utils;
 
 [TestFixture]
-internal class WsContentUtilsTests
+public sealed class WsContentUtilsTests
 {
     private XElement? GetXmlBrands()
     {

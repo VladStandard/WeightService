@@ -22,4 +22,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj" />
+    <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
+    <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
+  </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.DataModels;
 
 
 [TestFixture]
-internal class XmlProductModelTests
+public sealed class XmlProductModelTests
 {
     //private ProductHelper _product { get; set; } = ProductHelper.Instance;
 

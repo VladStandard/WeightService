@@ -1,37 +1,36 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Tables;
-using WsStorage.TableScaleFkModels.PlusBrandsFks;
+using WsStorageCore.TableScaleFkModels.PlusBrandsFks;
 
 namespace WsStorageCoreTests.TableScaleFkModels.PlusBrandFks;
 
 [TestFixture]
-internal class PluBrandFkModelTests
+public sealed class PluBrandFkModelTests
 {
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluBrandFkModel>(nameof(WsSqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluBrandFkModel>(nameof(WsSqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluBrandFkModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluBrandFkModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluBrandFkModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluBrandFkModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<PluBrandFkModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertToString<PluBrandFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluBrandFkModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluBrandFkModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<PluBrandFkModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<PluBrandFkModel>();
     }
 }

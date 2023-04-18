@@ -7,7 +7,7 @@
 //namespace DataCoreTests.Sql.TableModels
 //{
 //    [TestFixture]
-//    internal class HostsTests
+//    public sealed class HostsTests
 //    {
 //        [Test]
 //        public void Model_Equals_DoesNotThrow()

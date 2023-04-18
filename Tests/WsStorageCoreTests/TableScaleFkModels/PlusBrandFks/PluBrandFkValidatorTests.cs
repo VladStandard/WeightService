@@ -1,24 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.TableScaleFkModels.PlusBundlesFks;
+using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 
 namespace WsStorageCoreTests.TableScaleFkModels.PlusBrandFks;
 
 [TestFixture]
-internal class PluBrandFkValidatorTests
+public sealed class PluBrandFkValidatorTests
 {
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluBundleFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluBundleFkModel>(false);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluBundleFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluBundleFkModel>(false);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluBundleFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluBundleFkModel>(true);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluBundleFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluBundleFkModel>(true);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

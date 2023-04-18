@@ -6,7 +6,7 @@
 //namespace DataCoreTests.Sql.TableModels
 //{
 //    [TestFixture]
-//    internal class OrderStatusEntityTests
+//    public sealed class OrderStatusEntityTests
 //    {
 //        [Test]
 //        public void Model_Equals_DoesNotThrow()

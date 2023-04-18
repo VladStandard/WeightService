@@ -1,24 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.TableScaleFkModels.PlusNestingFks;
+using WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 namespace WsStorageCoreTests.TableScaleFkModels.PlusNestingFks;
 
 [TestFixture]
-internal class PluNestingFkValidatorTests
+public sealed class PluNestingFkValidatorTests
 {
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluNestingFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluNestingFkModel>(false);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluNestingFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluNestingFkModel>(false);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluNestingFkModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluNestingFkModel>(true);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluNestingFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluNestingFkModel>(true);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

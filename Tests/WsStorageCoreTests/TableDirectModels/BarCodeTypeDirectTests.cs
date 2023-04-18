@@ -10,7 +10,7 @@
 //namespace DataCoreTests.Sql.TableDirectModels
 //{
 //    [TestFixture]
-//    internal class BarCodeTypeDirectTests
+//    public sealed class BarCodeTypeDirectTests
 //    {
 //        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 

@@ -30,4 +30,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
+  </ItemGroup>
+
 </Project>

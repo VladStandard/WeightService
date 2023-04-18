@@ -1,24 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.TableScaleFkModels.PlusLabels;
+using WsStorageCore.TableScaleFkModels.PlusLabels;
 
 namespace WsStorageCoreTests.TableScaleModels.PluLabels;
 
 [TestFixture]
-internal class PluLabelValidatorTests
+public sealed class PluLabelValidatorTests
 {
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluLabelModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluLabelModel>(false);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluLabelModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluLabelModel>(false);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluLabelModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluLabelModel>(true);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluLabelModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluLabelModel>(true);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

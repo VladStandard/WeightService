@@ -1,24 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.TableScaleFkModels.PlusWeighingsFks;
+using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
 
 namespace WsStorageCoreTests.TableScaleModels.PlusWeighings;
 
 [TestFixture]
-internal class PluWeighingValidatorTests
+public sealed class PluWeighingValidatorTests
 {
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluWeighingModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluWeighingModel>(false);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluWeighingModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluWeighingModel>(false);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluWeighingModel item = DataCoreTestsUtils.DataCore.CreateNewSubstitute<PluWeighingModel>(true);
-        DataCoreTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluWeighingModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluWeighingModel>(true);
+        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
     }
 }

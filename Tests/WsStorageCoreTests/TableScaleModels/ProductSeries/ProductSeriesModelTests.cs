@@ -1,37 +1,36 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Tables;
-using WsStorage.TableScaleModels.ProductSeries;
+using WsStorageCore.TableScaleModels.ProductSeries;
 
 namespace WsStorageCoreTests.TableScaleModels.ProductSeries;
 
 [TestFixture]
-internal class ProductSeriesModelTests
+public sealed class ProductSeriesModelTests
 {
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(WsSqlTableBase.CreateDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(WsSqlTableBase.ChangeDt));
-        DataCoreTestsUtils.DataCore.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertToString<ProductSeriesModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertToString<ProductSeriesModel>();
     }
     
     [Test]
     public void Model_EqualsNew()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ProductSeriesModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ProductSeriesModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        DataCoreTestsUtils.DataCore.TableBaseModelAssertSerialize<ProductSeriesModel>();
+        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<ProductSeriesModel>();
     }
 }

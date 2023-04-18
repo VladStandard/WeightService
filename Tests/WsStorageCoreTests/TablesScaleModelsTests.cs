@@ -1,12 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.Tables;
-
 namespace WsStorageCoreTests;
 
 [TestFixture]
-internal class TablesScaleModelsTests
+public sealed class TablesScaleModelsTests
 {
 	#region Public and private methods
 
@@ -15,7 +13,7 @@ internal class TablesScaleModelsTests
 	{
         Assert.DoesNotThrow(() =>
         {
-            List<WsSqlTableBase> sqlTables = DataCoreTestsUtils.DataCore.DataContext.GetTableModels();
+            List<WsSqlTableBase> sqlTables = WsTestsUtils.DataCore.DataContext.GetTableModels();
             List<(string, bool, bool)> asserts = new();
 
             foreach (WsSqlTableBase sqlTable in sqlTables)

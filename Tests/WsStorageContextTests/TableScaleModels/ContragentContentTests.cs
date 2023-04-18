@@ -1,16 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorage.TableScaleModels.Contragents;
-
 namespace WsStorageContextTests.TableScaleModels;
 
 [TestFixture]
-internal class ContragentContentTests
+public sealed class ContragentContentTests
 {
 	[Test]
 	public void Model_Validate_Content()
 	{
-		DataCoreTestsUtils.DataCore.AssertSqlDbContentValidate<ContragentModel>();
+		WsTestsUtils.DataCore.AssertSqlDbContentValidate<ContragentModel>();
 	}
 }
