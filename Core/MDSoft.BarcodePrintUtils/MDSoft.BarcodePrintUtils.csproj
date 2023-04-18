@@ -222,6 +222,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WsDataCore\WsDataCore.csproj">
+      <Project>{b5de7b8c-16ae-4027-9ba5-f977605b850b}</Project>
+      <Name>WsDataCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj">
       <Project>{e2bc4403-b429-421a-a192-402a7db5ecf8}</Project>
       <Name>WsPrintCore</Name>
