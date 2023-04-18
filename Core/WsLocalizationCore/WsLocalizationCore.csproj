@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<Platforms>AnyCPU;x64;x86</Platforms>
+    <LangVersion>latest</LangVersion>
+    <Version>0.9.220.0</Version>
+    <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="WsLocalizationCore.Enums" />
+  </ItemGroup>
+</Project>

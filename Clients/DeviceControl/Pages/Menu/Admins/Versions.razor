@@ -1,0 +1,29 @@
+﻿@page "/section/versions"
+@attribute [Authorize(Roles = UserAccessStr.Admin)]
+@using BlazorDeviceControl.Pages.SectionComponents
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Versions.VersionModel>
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsDataCore.Utils
+@using WsStorageCore.TableScaleModels.Versions
+@using WsStorageCore.TableScaleModels.Versions
+
+<SectionReload
+  TItem="@VersionModel"
+  Title="@LocaleCore.Strings.VersionsDb"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RzDataGridLocal
+  TItem="@VersionModel"
+  Data="@SqlSectionCast">
+  <Columns>
+    <TItemContent TItem="@VersionModel">
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ReleaseDt" Property="ReleaseDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="10%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Description" Property="Description" Width="75%" />
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

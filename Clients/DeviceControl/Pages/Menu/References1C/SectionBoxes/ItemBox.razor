@@ -1,0 +1,31 @@
+﻿@page "/section/boxes/new"
+@page "/section/boxes/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Boxes.BoxModel>
+@using BlazorDeviceControl.Pages.ItemComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.Boxes
+@using WsStorageCore.TableScaleModels.Boxes
+
+<RazorItemReload TItem="BoxModel" Title="@LocaleCore.DeviceControl.ItemBox"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>@SqlItemCast.Name</td>
+    <td>@LocaleCore.Table.Weight</td>
+    <td>@SqlItemCast.Weight</td>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@BoxModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

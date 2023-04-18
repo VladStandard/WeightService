@@ -20,6 +20,12 @@
     Folder:  \\palych\Install\VSSoft\Scales-3-Release\
     SQL:     PALYCH\LUTON + ScalesDB
 
+## Для установки ПО `Печать этикеток` на сегодня (`2023-04-12`) требуется установить:
+.NET Framework 4.7.2 Offline Installer: `\\palych\Install\NET\ndp472-kb4054530-x86-x64-allos-enu.exe`
+.NET Framework 4.7.2 Offline RUS Language Pack: `\\palych\Install\NET\ndp472-kb4054530-x86-x64-allos-rus.exe`
+.NET Framework 4.8.1 Offline Installer: `\\palych\Install\NET\ndp481-x86-x64-allos-enu.exe`
+.NET Framework 4.8.1 Offline RUS Language Pack: `\\palych\Install\NET\ndp481-x86-x64-allos-rus.exe`
+
 ## WsWebApiScales
   DevelopVS: switch to DevelopVS
     SCALES-DEV-PREVIEW

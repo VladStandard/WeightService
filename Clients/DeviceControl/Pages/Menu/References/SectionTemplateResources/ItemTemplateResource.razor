@@ -1,0 +1,49 @@
+@page "/section/templates_resources/new"
+@page "/section/templates_resources/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.TemplatesResources.TemplateResourceModel>
+@using BlazorDeviceControl.Pages.ItemComponents
+@using WsStorageCore.TableScaleModels.TemplatesResources
+@using WsStorageCore.TableScaleModels.TemplatesResources
+
+<RazorItemReload TItem="@TemplateResourceModel" Title="@LocaleCore.DeviceControl.ItemTemplateResource"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@LocaleCore.Table.Type</td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Type"/>
+    </td>
+  </tr>
+
+  @if (IsNotBlackType(SqlItemCast.Type))
+  {
+    <tr>
+      <td>@LocaleCore.Table.ImageData</td>
+      <td colspan="3">
+        <RadzenTextArea
+          Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+          Rows="18"
+          @bind-Value="@(SqlItemCast.Data.ValueUnicode)"/>
+      </td>
+    </tr>
+  }
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@TemplateResourceModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+
+

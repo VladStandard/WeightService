@@ -1,0 +1,129 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+    <AssemblyVersion>0.9.220.0</AssemblyVersion>
+    <FileVersion>0.9.220.0</FileVersion>
+	<Nullable>enable</Nullable>
+	<LangVersion>latest</LangVersion>
+	<Platforms>AnyCPU;x64;x86</Platforms>
+	<Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\exit_1.png" />
+    <None Remove="Resources\exit_2.png" />
+    <None Remove="Resources\ScalesUI.ico" />
+    <None Remove="Resources\scales_1.gif" />
+    <None Remove="Resources\scales_2.gif" />
+    <None Remove="Resources\settings_1.png" />
+    <None Remove="Resources\settings_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\exit_1.png" />
+    <EmbeddedResource Include="Resources\exit_2.png" />
+    <EmbeddedResource Include="Resources\ScalesUI.ico" />
+    <EmbeddedResource Include="Resources\scales_1.gif" />
+    <EmbeddedResource Include="Resources\scales_2.gif" />
+    <EmbeddedResource Include="Resources\settings_1.png" />
+    <EmbeddedResource Include="Resources\settings_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentNHibernate" Version="3.2.0" />
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
+    <PackageReference Include="IndexRange" Version="1.0.2" />
+    <PackageReference Include="MDSoft.NetUtils" Version="0.2.40" />
+    <PackageReference Include="MDSoft.Wmi" Version="0.2.40" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.53.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NHibernate" Version="5.4.2" />
+    <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
+    <PackageReference Include="Quartz" Version="3.6.2" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="System.Management" Version="8.0.0-preview.3.23174.8" />
+  </ItemGroup>
+  <ItemGroup>
+      <None Update="appsettings.DevelopAleksandrov.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+      <None Update="appsettings.DevelopMorozov.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+      <None Update="appsettings.DevelopVS.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+      <None Update="appsettings.ReleaseAleksandrov.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+      <None Update="appsettings.ReleaseMorozov.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+      <None Update="appsettings.ReleaseVS.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Serialization\Utils\" />
+    <Folder Include="ZplTemplates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WsLocalizationCore\WsLocalizationCore.csproj" />
+    <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <Version>0.9.220.0</Version>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopAleksandrov|x64'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopMorozov|x64'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|x64'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopAleksandrov|x86'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopMorozov|x86'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|x86'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopAleksandrov|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopMorozov|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMorozov|AnyCPU'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMorozov|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMorozov|x86'" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="Post-build.cmd" />
+  </Target>
+</Project>

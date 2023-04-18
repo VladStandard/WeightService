@@ -1,0 +1,41 @@
+@* @page "/section/plus_nesting_fks" *@
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.PluNestingFkModel>
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleFkModels.PlusNestingFks
+@using WsStorageCore.TableScaleFkModels.PlusNestingFks
+
+<SectionReload
+  TItem="@PluNestingFkModel"
+  Title="@LocaleCore.DeviceControl.SectionPlusNestingFk"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@PluNestingFkModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@PluNestingFkModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" SortProperty="PluBundle.Plu.IsCheckWeight" Width="5%">
+        <Template Context="itemCast">
+          <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.PluBundle.Plu.IsCheckWeight"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluBundle.Plu.Number" Width="5%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluBundle.Plu.Name" Width="27%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Bundle" Property="PluBundle.Bundle.Name" Width="15%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Box" Property="Box.Name" Width="28%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="BundleCount" Width="5%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Weight" Property="WeightTare" Width="5%" />
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

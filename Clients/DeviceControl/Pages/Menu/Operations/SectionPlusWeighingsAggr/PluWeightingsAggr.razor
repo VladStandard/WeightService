@@ -1,0 +1,44 @@
+@page "/section/plus_weighings_aggr"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits LayoutComponentBase
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsDataCore.Utils
+@using WsStorageCore.TableScaleFkModels.Aggregations
+@using WsStorageCore.TableScaleFkModels.Aggregations
+
+<MudPaper Outlined="true" Class="mb-2">
+  <MudToolBar Dense="true">
+    <RadzenLabel Style="font-size: 15px;" Text="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation"/>
+    <RadzenCheckBox TValue="bool" @bind-Value="@IsShowPlu" Style="margin-left: 20px " Change="@GetSectionData" />
+    <RadzenLabel Style="font-size: 13px; margin-left: 5px" Text="Учитывать плу" />
+    <RadzenButton
+        id="button_loader"
+        Icon="refresh"
+        ButtonStyle="@ButtonStyle.Primary"
+        Style="margin-left: 20px; width: 60px;"
+        Size="@ButtonSize.Small"
+        Click="@GetSectionData" />
+    <RadzenLabel Style="margin-left: 20px; font-size: 13px; " Text="@SqlListCountResult" />
+  </MudToolBar>
+</MudPaper>
+
+<RzDataGridLocal
+  TItem="@PluAggrModel"
+  Data="@PluWeightAggrs">
+  <Columns>
+    <TItemContent TItem="@PluAggrModel">
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WeighDt" Property="ChangeDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn TItem="@PluAggrModel" Title="@LocaleCore.Table.DayOfWeek" SortProperty="ChangeDt.DayOfWeek" Width="15%">
+        <Template Context="itemCast">
+          @EnumUtils.GetDayOfWeekRu(itemCast.ChangeDt.DayOfWeek)
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="Count" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="20%"/>
+      @if (IsShowPlu)
+      {
+        <RadzenDataGridColumn Title=@LocaleCore.Table.Plu Property="Plu" Width="30%"/>
+      }
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

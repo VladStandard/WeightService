@@ -1,0 +1,83 @@
+<pages:WpfPageBase 
+	x:Class="WsLabelCore.Wpf.Pages.WpfPageDevice"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:pages="clr-namespace:WsLabelCore.Wpf.Pages"
+    mc:Ignorable="d" 
+    d:DesignWidth="800" d:DesignHeight="400" FontSize="20"
+	DataContext="{DynamicResource UserSession}" >
+	<pages:WpfPageBase.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="WpfResourceDictionary.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</pages:WpfPageBase.Resources>
+	<Border
+	    BorderBrush="Blue" BorderThickness="1" Margin="2" >
+		<Grid >
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"></ColumnDefinition>
+				<ColumnDefinition Width="1*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Label 
+	            Margin="2" Grid.Column="0" Grid.Row="0" 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Host}"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+			<Label 
+	            Margin="2" Grid.Column="1" Grid.Row="0" 
+                Content="{Binding Path=DeviceScaleFk.Device.Name}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+			<Label 
+	            Margin="2" Grid.Column="0" Grid.Row="1" 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Number}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+			<Label 
+	            Margin="2" Grid.Column="1" Grid.Row="1" 
+                Content="{Binding Path=Scale.Number}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+            <Label 
+	            Margin="2" Grid.Column="0" Grid.Row="2" 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Area}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+            <ComboBox 
+	            Margin="10" Grid.Column="1" Grid.Row="2" x:Name="comboBoxArea"
+	            DisplayMemberPath="Name" SelectedValuePath="Name"
+                ItemsSource="{Binding Path=ProductionFacilities}" 
+	            SelectedValue="{Binding Path=ProductionFacility.Name}" 
+	            SelectedItem="{Binding Path=ProductionFacility}" 
+                HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+				Background="Transparent" FontSize="18"/>
+            <Label 
+	            Margin="2" Grid.Column="0" Grid.Row="3" 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Line}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+			<ComboBox 
+	            Margin="10" Grid.Column="1" Grid.Row="3" x:Name="comboBoxScale"
+	            ItemsSource="{Binding Path=Scales}" 
+	            DisplayMemberPath="Description" SelectedValuePath="Description"
+	            SelectedValue="{Binding Path=Scale.Description}" 
+	            SelectedItem="{Binding Path=Scale}"
+                HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+				Background="Transparent" FontSize="18"/>
+			<Button 
+	            Margin="2" Grid.Column="0" Grid.Row="4"
+                Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply}"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                Click="ButtonApply_OnClick" />
+			<Button 
+	            Margin="2" Grid.Column="1" Grid.Row="4" 
+                Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel}" 
+                Click="ButtonCancel_OnClick" />
+		</Grid>
+	</Border>
+</pages:WpfPageBase>

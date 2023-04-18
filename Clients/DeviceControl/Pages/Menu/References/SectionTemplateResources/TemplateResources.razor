@@ -1,0 +1,37 @@
+@page "/section/templates_resources"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.TemplatesResources.TemplateResourceModel>
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.TemplatesResources
+@using WsStorageCore.TableScaleModels.TemplatesResources
+
+<SectionReload
+  TItem="@TemplateResourceModel"
+  Title="@LocaleCore.DeviceControl.SectionTemplateResources"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@TemplateResourceModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+      <TItemContent TItem="@TemplateResourceModel">
+        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
+        <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Property="Type" Width="20%" />
+        <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="55%" />
+        <RadzenDataGridColumn Title="@LocaleCore.Table.Size" SortProperty="DataValue.Length" Width="20%">
+            <Template Context="itemCast">
+              @ConvertBytes(itemCast)
+            </Template>
+        </RadzenDataGridColumn>
+      </TItemContent>
+  </Columns>
+</RzDataGridLocal>

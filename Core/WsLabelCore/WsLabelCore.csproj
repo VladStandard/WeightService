@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C71C3398-8DA4-4729-AC11-08F48207AFF7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WsLabelCore</RootNamespace>
+    <AssemblyName>WsLabelCore</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x86'">
+    <OutputPath>bin\x86\DevelopAleksandrov\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x64'">
+    <OutputPath>bin\x64\DevelopAleksandrov\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopAleksandrov|AnyCPU'">
+    <OutputPath>bin\AnyCPU\DevelopAleksandrov\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopMorozov|x86'">
+    <OutputPath>bin\x86\DevelopMorozov\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopMorozov|x64'">
+    <OutputPath>bin\x64\DevelopMorozov\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopMorozov|AnyCPU'">
+    <OutputPath>bin\AnyCPU\DevelopMorozov\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopVS|x86'">
+    <OutputPath>bin\x86\DevelopVS\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopVS|x64'">
+    <OutputPath>bin\x64\DevelopVS\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopVS|AnyCPU'">
+    <OutputPath>bin\AnyCPU\DevelopVS\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x86'">
+    <OutputPath>bin\x86\ReleaseAleksandrov\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x64'">
+    <OutputPath>bin\x64\ReleaseAleksandrov\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|AnyCPU'">
+    <OutputPath>bin\AnyCPU\ReleaseAleksandrov\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseMorozov|x86'">
+    <OutputPath>bin\x86\ReleaseMorozov\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseMorozov|x64'">
+    <OutputPath>bin\x64\ReleaseMorozov\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseMorozov|AnyCPU'">
+    <OutputPath>bin\AnyCPU\ReleaseMorozov\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseVS|x86'">
+    <OutputPath>bin\x86\ReleaseVS\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseVS|x64'">
+    <OutputPath>bin\x64\ReleaseVS\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseVS|AnyCPU'">
+    <OutputPath>bin\AnyCPU\ReleaseVS\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="tsclibnet">
+      <HintPath>..\..\Resources\TscLibNet\2.0.50727\tsclibnet.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GlobalUsings.cs" />
+    <Compile Include="Gui\ControlPluModel.cs" />
+    <Compile Include="Gui\GuiUtils.WinForm.cs" />
+    <Compile Include="Gui\MessageBoxModel.cs" />
+    <Compile Include="Gui\NumberInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\NumberInputForm.Designer.cs">
+      <DependentUpon>NumberInputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\PasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\PasswordForm.Designer.cs">
+      <DependentUpon>PasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\SerialPortsUtils.cs" />
+    <Compile Include="Gui\ServiceMessages.cs" />
+    <Compile Include="Gui\TextBoxAppender.cs" />
+    <Compile Include="Gui\VisibilitySettingsModel.cs" />
+    <Compile Include="Helpers\HardwareHelper.cs" />
+    <Compile Include="Helpers\UacHelper.cs" />
+    <Compile Include="Helpers\UserSessionHelper.cs" />
+    <Compile Include="Helpers\WinInfoHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\Helpers\FontsSettingsHelper.cs" />
+    <Compile Include="WinForms\Helpers\PluginLabelsHelper.cs" />
+    <Compile Include="WinForms\Helpers\PluginMassaHelper.cs" />
+    <Compile Include="WinForms\Helpers\PluginMemoryHelper.cs" />
+    <Compile Include="WinForms\Helpers\PluginPrintModel.cs" />
+    <Compile Include="WinForms\Models\ConfigModel.cs" />
+    <Compile Include="WinForms\Models\PluginHelperBase.cs" />
+    <Compile Include="WinForms\Models\PluginModel.cs" />
+    <Compile Include="WinForms\Utils\ActionUtils.cs" />
+    <Compile Include="WinForms\Utils\ComboBoxExtensions.cs" />
+    <Compile Include="WinForms\Utils\FormUtils.cs" />
+    <Compile Include="Wpf\Helpers\XamlHelper.cs" />
+    <Compile Include="Wpf\Pages\WpfPageBase.cs" />
+    <Compile Include="Wpf\Pages\WpfPageDevice.xaml.cs">
+      <DependentUpon>WpfPageDevice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\Pages\WpfPageMessageBox.xaml.cs">
+      <DependentUpon>WpfPageMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\Pages\WpfPagePinCode.xaml.cs">
+      <DependentUpon>WpfPagePinCode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\Pages\WpfPagePluNestingFk.xaml.cs">
+      <DependentUpon>WpfPagePluNestingFk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\Pages\WpfPageSqlSettings.xaml.cs">
+      <DependentUpon>WpfPageSqlSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\Utils\WpfUtils.cs" />
+    <Compile Include="Wpf\WpfPageLoader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wpf\WpfPageLoader.Designer.cs">
+      <DependentUpon>WpfPageLoader.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MDSoft.NetUtils">
+      <Version>0.2.40</Version>
+    </PackageReference>
+    <PackageReference Include="MDSoft.WinFormsUtils">
+      <Version>0.2.40</Version>
+    </PackageReference>
+    <PackageReference Include="MDSoft.WpfUtils">
+      <Version>0.2.40</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Data.SqlClient">
+      <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Nito.AsyncEx">
+      <Version>5.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Refractored.MvvmHelpers">
+      <Version>1.6.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Gui\NumberInputForm.resx">
+      <DependentUpon>NumberInputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\PasswordForm.resx">
+      <DependentUpon>PasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wpf\WpfPageLoader.resx">
+      <DependentUpon>WpfPageLoader.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Gui\ResourceDictionarySql.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\Pages\WpfPageDevice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\Pages\WpfPageMessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\Pages\WpfPagePinCode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\Pages\WpfPagePluNestingFk.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\Pages\WpfPageSqlSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\Pages\WpfResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scales_1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scales_2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj">
+      <Project>{A713AB22-2C23-48B6-8974-2FD7230012F7}</Project>
+      <Name>MDSoft.BarcodePrintUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsDataCore\WsDataCore.csproj">
+      <Project>{B5DE7B8C-16AE-4027-9BA5-F977605B850B}</Project>
+      <Name>WsDataCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsLocalizationCore\WsLocalizationCore.csproj">
+      <Project>{024ac0d8-3e29-482b-b08a-6bf591b0f9e5}</Project>
+      <Name>WsLocalizationCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsMassaCore\WsMassaCore.csproj">
+      <Project>{B16ECC51-2EF8-49E6-B77E-B8CC065550A4}</Project>
+      <Name>WsMassaCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj">
+      <Project>{E2BC4403-B429-421A-A192-402A7DB5ECF8}</Project>
+      <Name>WsPrintCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsStorageCore\WsStorageCore.csproj">
+      <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
+      <Name>WsStorageCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsWinFormsCore\WsWinFormsCore.csproj">
+      <Project>{1eb9514d-984c-456a-8237-0314ed0eb53c}</Project>
+      <Name>WsWinFormsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsWpfCore\WsWpfCore.csproj">
+      <Project>{e11c984d-33c1-4094-a7cf-8e7f765b5209}</Project>
+      <Name>WsWpfCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

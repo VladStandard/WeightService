@@ -1,7 +1,6 @@
 # User-specific files
 /BlazorDeviceControl/BlazorDeviceControl.txt
 /WebApiScales/WebApiScales.txt
-.idea
 *.msi
 
 ## Ignore Visual Studio temporary files, build results, and
@@ -37,6 +36,9 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+
+# JetBrains Rider
+.idea
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
