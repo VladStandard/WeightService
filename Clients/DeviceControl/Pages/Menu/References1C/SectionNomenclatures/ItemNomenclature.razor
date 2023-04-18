@@ -1,0 +1,71 @@
+﻿@page "/section/plus/new"
+@page "/section/plus/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Plus.PluModel>
+@using BlazorDeviceControl.Pages.ItemComponents
+@using BlazorDeviceControl.Pages.Menu.References1C.SectionPlusNestingFks
+@using WsStorageCore.TableScaleModels.Plus
+@using WsStorageCore.TableScaleModels.Plus
+
+<RazorItemReload TItem="@PluModel" Title="@LocaleCore.DeviceControl.ItemNomenclature"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <tbody>
+    <RazorItemTableBody SqlItem="@SqlItemCast"/>
+    <tr>
+      <td>@LocaleCore.Table.PluNumber</td>
+      <td>@SqlItemCast.Number</td>
+      <td>@LocaleCore.Table.CheckWeight</td>
+      <td><RadzenCheckBox TValue="bool" Disabled="true" Value="@SqlItemCast.IsCheckWeight"/></td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.Name</td>
+      <td>@SqlItemCast.Name</td>
+      <td>@LocaleCore.Table.NomenclatureCode</td>
+      <td>@SqlItemCast.Code</td>
+    </tr>
+    <tr>
+      <td><RadzenLink Path="@GetRouteItemPath(Template)" Text="@LocaleCore.Table.Template" /></td>
+      <td>@Template.Title</td>
+      <td>@LocaleCore.Table.Itf14</td>
+      <td>@SqlItemCast.Itf14</td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.Ean13</td>
+      <td>@SqlItemCast.Ean13</td>
+      <td>@LocaleCore.Table.Gtin</td>
+      <td>@SqlItemCast.Gtin</td>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.ShelfLifeDays</td>
+      <td>@SqlItemCast.ShelfLifeDays</td>
+      <td/>
+      <td/>
+    </tr>
+    <tr>
+      <td>@LocaleCore.Table.FullName</td>
+      <td><RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.FullName"/></td>
+      <td>@LocaleCore.Table.Description</td>
+      <td><RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.Description" Rows="3"/></td>
+      <td/>
+      <td/>
+    </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@PluModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+/>
+
+@if (SqlItem != null)
+{
+  <PlusNestingFks SqlItem="@SqlItem" />
+}
+
+

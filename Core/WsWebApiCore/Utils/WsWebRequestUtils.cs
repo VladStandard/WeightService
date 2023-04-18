@@ -3,7 +3,7 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsWebRequestUtils
+public static class WsWebRequestUtils
 {
     #region Public and private methods
 

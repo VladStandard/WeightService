@@ -1,8 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Razors;
 using Radzen;
+using WsBlazorCore.Razors;
 using WsStorageCore.Tables;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
@@ -26,7 +26,7 @@ using WsStorageCore.TableScaleModels.Versions;
 using WsStorageCore.TableScaleModels.WorkShops;
 using WsStorageCore.Xml;
 
-namespace BlazorCore.Utils;
+namespace WsBlazorCore.Utils;
 
 public static class RazorFieldConfigUtils
 {

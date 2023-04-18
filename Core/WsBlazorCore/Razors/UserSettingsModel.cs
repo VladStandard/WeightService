@@ -3,7 +3,7 @@
 
 using WsDataCore.Models;
 
-namespace BlazorCore.Razors;
+namespace WsBlazorCore.Razors;
 
 public class UserSettingsModel
 {

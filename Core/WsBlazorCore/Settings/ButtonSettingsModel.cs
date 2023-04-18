@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorCore.Settings;
+namespace WsBlazorCore.Settings;
 
 public class ButtonSettingsModel
 {

@@ -1,0 +1,32 @@
+﻿@page "/section/bundles/new"
+@page "/section/bundles/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Bundles.BundleModel>
+@using BlazorDeviceControl.Pages.ItemComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.Bundles
+@using WsStorageCore.TableScaleModels.Bundles
+
+<RazorItemReload TItem="BundleModel" Title="@LocaleCore.DeviceControl.ItemBundle"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>@SqlItemCast.Name</td>
+    <td>@LocaleCore.Table.Weight</td>
+    <td>@SqlItemCast.Weight</td>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@BundleModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+

@@ -62,7 +62,7 @@ public class XmlHelper
 		{
 			xmlReader.MoveToContent();
 
-			ReadInside(xmlReader, elements, getValueFromName, ref value, str);
+			ReadInside(xmlReader, elements, getValueFromName ?? string.Empty, ref value, str);
 		}
 		return new(!string.IsNullOrEmpty(value), string.IsNullOrEmpty(value) ? string.Empty : value, str);
 	}
@@ -75,7 +75,7 @@ public class XmlHelper
 	/// <param name="getValueFromName"></param>
 	/// <param name="value"></param>
 	/// <param name="str"></param>
-	public void ReadInside(XmlTextReader xmlReader, Collection<XmlTag> elements, string getValueFromName, ref string value,
+    private void ReadInside(XmlTextReader xmlReader, Collection<XmlTag> elements, string getValueFromName, ref string value,
 		Collection<string> str)
 	{
 		XmlTag? elementCur = null;
@@ -154,7 +154,7 @@ public class XmlHelper
 				{
 					if (!string.IsNullOrEmpty(getValueFromName))
 					{
-						value = xmlReader.GetAttribute(getValueFromName);
+						value = xmlReader.GetAttribute(getValueFromName) ?? string.Empty;
 						str.Add($"+ search: {elementCur.ElementName} {elementCur.AttributeName}=\"{elementCur.AttributeValue}\". {getValueFromName}=\"{value}\"");
 					}
 					else

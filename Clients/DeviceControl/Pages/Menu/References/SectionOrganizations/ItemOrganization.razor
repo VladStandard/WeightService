@@ -1,0 +1,43 @@
+﻿@page "/section/organizations/new"
+@page "/section/organizations/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Organizations.OrganizationModel>
+@using BlazorDeviceControl.Pages.ItemComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.Organizations
+@using WsStorageCore.TableScaleModels.Organizations
+
+<RazorItemReload TItem="OrganizationModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td colspan="3">
+      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Description</td>
+    <td colspan="3">
+      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Description"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Gln</td>
+    <td colspan="3">
+      <RzNumericLocal  @bind-Value="@SqlItemCast.Gln"/>
+    </td>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@OrganizationModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

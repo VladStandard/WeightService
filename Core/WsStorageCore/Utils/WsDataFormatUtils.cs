@@ -3,8 +3,6 @@
 
 using System.Runtime.Serialization.Formatters.Binary;
 using WsPrintCore.Zpl;
-using WsStorageCore.Models;
-using WsStorageCore.TableScaleModels.ProductionFacilities;
 
 namespace WsStorageCore.Utils;
 

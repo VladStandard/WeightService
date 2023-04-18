@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using WsStorageCore.Helpers;
 using WsStorageCore.TableScaleModels.Access;
 
-namespace BlazorCore.Services;
+namespace WsBlazorCore.Services;
 
 
 public interface IUserRightsService

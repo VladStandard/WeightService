@@ -1,0 +1,34 @@
+﻿@page "/section/brands"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Brands.BrandModel>
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsDataCore.Utils
+@using WsStorageCore.TableScaleModels.Brands
+@using WsStorageCore.TableScaleModels.Brands
+
+<SectionReload
+  TItem="@BrandModel"
+  Title="@LocaleCore.DeviceControl.SectionBrands"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@BrandModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@BrandModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ChangeDt" Property="ChangeDt" Width="33%" FormatString="@StrUtils.FormatDtDefault" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="43%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Code" Property="Code" Width="33%" />
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

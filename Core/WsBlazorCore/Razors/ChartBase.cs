@@ -1,13 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Settings;
+using WsBlazorCore.Settings;
 using WsStorageCore.Models;
 using WsStorageCore.Tables;
 using WsStorageCore.TableScaleModels.Contragents;
 using WsStorageCore.Utils;
 
-namespace BlazorCore.Razors;
+namespace WsBlazorCore.Razors;
 
 public class ChartBase
 {

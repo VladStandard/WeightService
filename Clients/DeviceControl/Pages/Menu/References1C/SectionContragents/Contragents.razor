@@ -1,0 +1,32 @@
+﻿@page "/section/contragents"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Contragents.ContragentModel>
+@using BlazorDeviceControl.Pages.CustomComponents
+@using BlazorDeviceControl.Pages.SectionComponents
+@using WsStorageCore.TableScaleModels.Contragents
+@using WsStorageCore.TableScaleModels.Contragents
+
+<SectionReload
+  TItem="@ContragentModel"
+  Title="@LocaleCore.DeviceControl.SectionContragents"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@ContragentModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@ContragentModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="50%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.FullName" Property="FullName" Width="50%" />
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

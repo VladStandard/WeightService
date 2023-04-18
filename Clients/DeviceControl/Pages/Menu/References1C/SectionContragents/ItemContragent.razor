@@ -1,0 +1,48 @@
+﻿@page "/section/contragents/new"
+@page "/section/contragents/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Contragents.ContragentModel>
+@using BlazorDeviceControl.Pages.ItemComponents
+@using WsStorageCore.TableScaleModels.Contragents
+@using WsStorageCore.TableScaleModels.Contragents
+
+<RazorItemReload TItem="@ContragentModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td><b>@LocaleCore.Table.Uid1c</b></td>
+    <td>@SqlItemCast.IdRRefAsString</td>
+    <td>@LocaleCore.Table.IdDwh</td>
+    <td>@SqlItemCast.DwhId</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>@SqlItemCast.Name</td>
+    <td>@LocaleCore.Table.FullName</td>
+    <td>@SqlItemCast.FullName</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Xml</td>
+    <td colspan="3">
+      <RadzenTextArea
+        Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px; background-color: lightgray; "
+        Rows="6"
+        ReadOnly="true"
+        Value="@WsDataFormatUtils.GetPrettyXml(SqlItemCast.Xml)"/>
+    </td>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@ContragentModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />
+
+

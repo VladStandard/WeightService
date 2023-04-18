@@ -3,11 +3,6 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using WsStorageCore.Helpers;
-using WsStorageCore.TableScaleFkModels.PlusLabels;
-using WsStorageCore.TableScaleFkModels.PlusNestingFks;
-using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
-using WsStorageCore.TableScaleModels.PlusScales;
-using WsStorageCore.TableScaleModels.ProductionFacilities;
 
 namespace WsStorageCore.Models;
 

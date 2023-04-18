@@ -1,0 +1,40 @@
+﻿@page "/section/access/new"
+@page "/section/access/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Access.AccessModel>
+@using BlazorDeviceControl.Pages.ItemComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsDataCore.Utils
+@using WsStorageCore.TableScaleModels.Access
+@using WsStorageCore.TableScaleModels.Access
+
+<RazorItemReload TItem="@AccessModel" Title="@LocaleCore.Strings.AccessRights"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <tbody>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+      <td>@LocaleCore.Table.User</td>
+      <td>@SqlItemCast.Name</td>
+      <td>@LocaleCore.Strings.AccessRights</td>
+      <td>
+        <RzDropDownLocal @bind-Value="@Rights" Data="@TemplateAccessRights" ValueProperty="Value" TextProperty="Name" />
+      </td>
+    </tr>
+  <tr>
+    <td>@LocaleCore.Table.LoginDt</td>
+    <td>@string.Format(StrUtils.FormatDtLong,SqlItemCast.LoginDt)</td>
+    <td/>
+    <td/>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<RazorItemActions
+  TItem="@AccessModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"
+  />

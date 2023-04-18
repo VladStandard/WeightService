@@ -41,7 +41,7 @@ using WsStorageCore.TableScaleModels.Versions;
 using WsStorageCore.TableScaleModels.WorkShops;
 using WsStorageCore.Xml;
 
-namespace BlazorCore.Razors;
+namespace WsBlazorCore.Razors;
 
 public partial class RazorComponentBase
 {

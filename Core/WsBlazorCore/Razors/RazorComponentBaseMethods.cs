@@ -1,11 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Settings;
-using WsDataCore.Protocols;
-using Radzen;
 using System.Net.Sockets;
-using BlazorCore.Utils;
+using Radzen;
+using WsBlazorCore.Settings;
+using WsBlazorCore.Utils;
+using WsDataCore.Protocols;
 using WsStorageCore.Models;
 using WsStorageCore.TableDiagModels.Logs;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
@@ -41,7 +41,7 @@ using WsStorageCore.TableScaleModels.TemplatesResources;
 using WsStorageCore.TableScaleModels.WorkShops;
 using WsStorageCore.Utils;
 
-namespace BlazorCore.Razors;
+namespace WsBlazorCore.Razors;
 
 public partial class RazorComponentBase
 {

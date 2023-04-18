@@ -2,12 +2,13 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 //using Microsoft.AspNetCore.Components;
+
 using System.Threading;
-using WsDataCore.Models;
 using WsDataCore.Memory;
+using WsDataCore.Models;
 using WsStorageCore.Helpers;
 
-namespace BlazorCore.Settings;
+namespace WsBlazorCore.Settings;
 
 public class BlazorAppSettingsHelper //: LayoutComponentBase
 {

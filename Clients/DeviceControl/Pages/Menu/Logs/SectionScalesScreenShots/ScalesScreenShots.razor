@@ -1,0 +1,40 @@
+@page "/section/scales_screenshots"
+@attribute [Authorize(Roles = UserAccessStr.Admin)]
+@inherits RazorComponentSectionBase<WsStorageCore.TableDiagModels.ScalesScreenshots.ScaleScreenShotModel>
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsDataCore.Utils
+@using WsStorageCore.TableDiagModels.ScalesScreenshots
+@using WsStorageCore.TableDiagModels.ScalesScreenshots
+
+<SectionReload
+  TItem="@ScaleScreenShotModel"
+  Title="@LocaleCore.DeviceControl.SectionScreenShots"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+  />
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@ScaleScreenShotModel"
+  Data="@SqlSectionCast"
+  IsLoading="@IsLoading"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@ScaleScreenShotModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
+                            FormatString="@StrUtils.FormatDtLong" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Scale.Description" Width="40%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ScreenShot" Width="43%" Sortable="false">
+        <Template Context="itemCast">
+          @GetByteLength(itemCast)
+        </Template>
+      </RadzenDataGridColumn>
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

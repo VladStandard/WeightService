@@ -3,6 +3,7 @@
 
 namespace MDSoft.BarcodePrintUtils.Utils;
 
+#nullable enable
 public static class DataFormatUtils
 {
     private static List<TemplateResourceModel> _templateResources = new();

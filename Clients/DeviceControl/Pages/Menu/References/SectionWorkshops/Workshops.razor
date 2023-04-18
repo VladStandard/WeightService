@@ -1,0 +1,32 @@
+﻿@page "/section/workshops"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.WorkShops.WorkShopModel>
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.WorkShops
+@using WsStorageCore.TableScaleModels.WorkShops
+
+<SectionReload
+  TItem="@WorkShopModel"
+  Title="@LocaleCore.DeviceControl.SectionWorkShops"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"
+/>
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@WorkShopModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@WorkShopModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="40%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ProductionFacility" Property="ProductionFacility.Name" Width="40%" />
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

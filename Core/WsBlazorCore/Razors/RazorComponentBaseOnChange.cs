@@ -13,7 +13,7 @@ using WsStorageCore.TableScaleModels.Templates;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 using WsStorageCore.TableScaleModels.WorkShops;
 
-namespace BlazorCore.Razors;
+namespace WsBlazorCore.Razors;
 
 public partial class RazorComponentBase
 {

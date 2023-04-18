@@ -2,11 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Runtime.CompilerServices;
-using BlazorCore.Settings;
 using Microsoft.AspNetCore.Components;
 using Radzen;
+using WsBlazorCore.Settings;
 
-namespace BlazorCore.Razors;
+namespace WsBlazorCore.Razors;
 
 public partial class RazorComponentBase
 {

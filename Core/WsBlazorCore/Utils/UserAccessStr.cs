@@ -1,4 +1,4 @@
-namespace BlazorCore.Utils;
+namespace WsBlazorCore.Utils;
 
 public static class UserAccessStr
 {

@@ -4,7 +4,7 @@
 using System.Diagnostics;
 using WsDataCore.Helpers;
 
-namespace BlazorCore.Utils;
+namespace WsBlazorCore.Utils;
 
 public static class BlazorCoreUtils
 {

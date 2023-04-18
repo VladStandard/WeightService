@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.TemplatesResources;
 
-namespace BlazorCore.Services;
+namespace WsBlazorCore.Services;
 
 public class FileDownload : IFileDownload
 {

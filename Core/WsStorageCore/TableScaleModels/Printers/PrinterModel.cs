@@ -2,10 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Net.NetworkInformation;
-using WsStorageCore.Enums;
-using WsStorageCore.Models;
-using WsStorageCore.Tables;
-using WsStorageCore.TableScaleModels.PrintersTypes;
 
 namespace WsStorageCore.TableScaleModels.Printers;
 

@@ -2,15 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Components;
-using BlazorCore.Settings;
-using BlazorCore.Utils;
-using Radzen;
 using Microsoft.JSInterop;
+using Radzen;
+using WsBlazorCore.Settings;
+using WsBlazorCore.Utils;
 using WsStorageCore.Models;
 using WsStorageCore.Tables;
 using WsStorageCore.Utils;
 
-namespace BlazorCore.Razors;
+namespace WsBlazorCore.Razors;
 
 public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {

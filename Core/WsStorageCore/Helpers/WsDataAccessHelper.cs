@@ -3,64 +3,9 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
-using WsStorageCore.Enums;
-using WsStorageCore.Models;
-using WsStorageCore.TableDiagModels.Logs;
-using WsStorageCore.TableDiagModels.LogsMemories;
-using WsStorageCore.TableDiagModels.LogsTypes;
-using WsStorageCore.TableDiagModels.LogsWebs;
-using WsStorageCore.TableDiagModels.LogsWebsFks;
-using WsStorageCore.TableDiagModels.ScalesScreenshots;
-using WsStorageCore.Tables;
-using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
-using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
-using WsStorageCore.TableScaleFkModels.PlusBrandsFks;
-using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
-using WsStorageCore.TableScaleFkModels.PlusCharacteristicsFks;
-using WsStorageCore.TableScaleFkModels.PlusClipsFks;
-using WsStorageCore.TableScaleFkModels.PlusFks;
-using WsStorageCore.TableScaleFkModels.PlusGroupsFks;
-using WsStorageCore.TableScaleFkModels.PlusLabels;
-using WsStorageCore.TableScaleFkModels.PlusNestingFks;
-using WsStorageCore.TableScaleFkModels.PlusStorageMethodsFks;
-using WsStorageCore.TableScaleFkModels.PlusTemplatesFks;
-using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
-using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
-using WsStorageCore.TableScaleModels.Access;
-using WsStorageCore.TableScaleModels.Apps;
-using WsStorageCore.TableScaleModels.BarCodes;
-using WsStorageCore.TableScaleModels.Boxes;
-using WsStorageCore.TableScaleModels.Brands;
-using WsStorageCore.TableScaleModels.Bundles;
-using WsStorageCore.TableScaleModels.Clips;
-using WsStorageCore.TableScaleModels.Contragents;
-using WsStorageCore.TableScaleModels.Devices;
-using WsStorageCore.TableScaleModels.DeviceTypes;
-using WsStorageCore.TableScaleModels.Orders;
-using WsStorageCore.TableScaleModels.OrdersWeighings;
-using WsStorageCore.TableScaleModels.Organizations;
-using WsStorageCore.TableScaleModels.Plus;
-using WsStorageCore.TableScaleModels.PlusCharacteristics;
-using WsStorageCore.TableScaleModels.PlusGroups;
-using WsStorageCore.TableScaleModels.PlusScales;
-using WsStorageCore.TableScaleModels.PlusStorageMethods;
-using WsStorageCore.TableScaleModels.Printers;
-using WsStorageCore.TableScaleModels.PrintersTypes;
-using WsStorageCore.TableScaleModels.ProductionFacilities;
-using WsStorageCore.TableScaleModels.ProductSeries;
-using WsStorageCore.TableScaleModels.Scales;
-using WsStorageCore.TableScaleModels.Tasks;
-using WsStorageCore.TableScaleModels.TasksTypes;
-using WsStorageCore.TableScaleModels.Templates;
-using WsStorageCore.TableScaleModels.TemplatesResources;
-using WsStorageCore.TableScaleModels.Versions;
-using WsStorageCore.TableScaleModels.WorkShops;
-using WsStorageCore.Utils;
-using WsStorageCore.Xml;
-
 namespace WsStorageCore.Helpers;
 
-public class WsDataAccessHelper
+public sealed class WsDataAccessHelper
 {
     #region Design pattern "Lazy Singleton"
 

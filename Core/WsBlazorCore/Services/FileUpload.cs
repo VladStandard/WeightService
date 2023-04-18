@@ -4,7 +4,7 @@
 using WsStorageCore.Helpers;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 
-namespace BlazorCore.Services;
+namespace WsBlazorCore.Services;
 
 public class FileUpload : IFileUpload
 {

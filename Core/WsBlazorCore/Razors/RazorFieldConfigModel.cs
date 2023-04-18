@@ -4,7 +4,7 @@
 using Radzen;
 using WsStorageCore.Tables;
 
-namespace BlazorCore.Razors;
+namespace WsBlazorCore.Razors;
 
 public class RazorFieldConfigModel
 {

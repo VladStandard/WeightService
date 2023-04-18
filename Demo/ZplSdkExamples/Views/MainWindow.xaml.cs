@@ -6,7 +6,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ZabbixStubService.Zabbix;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZplSdkExamples.Models;
@@ -27,13 +26,13 @@ public partial class MainWindow
     private readonly ConnectionBuilderViewModel _viewModel;
     private Connection _connection;
     private LogHelper Log { get; set; } = LogHelper.Instance;
-    private HealthDataCollectorDummy _healthDataCollector;
+    //private HealthDataCollectorDummy _healthDataCollector;
     private CancellationTokenSource _cancelTokenSource;
     private CancellationToken _token;
-    private FakeCheckThreadByLog _fakeCheckThreadByLog;
+    //private FakeCheckThreadByLog _fakeCheckThreadByLog;
     //private CancellationTokenSource _cancelTokenSourceHttpListener;
     private CancellationToken _tokenHttpListener;
-    private ZabbixHttpListener _zabbixHttpListener;
+    //private ZabbixHttpListener _zabbixHttpListener;
 
     #endregion
 
@@ -214,15 +213,15 @@ public partial class MainWindow
         try
         {
             Log.Info("new HealthDataCollectorDummy()");
-            _healthDataCollector = new HealthDataCollectorDummy();
-            _healthDataCollector.LoadValues();
+            //_healthDataCollector = new HealthDataCollectorDummy();
+            //_healthDataCollector.LoadValues();
 
             Log.Info("new FakeCheckThreadByLog");
             _cancelTokenSource = new CancellationTokenSource();
             _token = _cancelTokenSource.Token;
 
-            _fakeCheckThreadByLog = new FakeCheckThreadByLog(_healthDataCollector.LoadValues, _token, 2500);
-            _fakeCheckThreadByLog.Start();
+            //_fakeCheckThreadByLog = new FakeCheckThreadByLog(_healthDataCollector.LoadValues, _token, 2500);
+            //_fakeCheckThreadByLog.Start();
 
             Log.Info("new ZabbixHttpListener");
             Log.Info("http://localhost:18086/status");
@@ -230,8 +229,8 @@ public partial class MainWindow
             _tokenHttpListener = _cancelTokenSource.Token;
 
             //_zabbixHttpListener = new ZabbixHttpListener(_healthDataCollector.ResponseBuilderFunc, _tokenHttpListener, 10);
-            _zabbixHttpListener = new ZabbixHttpListener();
-            _zabbixHttpListener.Start();
+            //_zabbixHttpListener = new ZabbixHttpListener();
+            //_zabbixHttpListener.Start();
 
             Log.Info("fakeCheckThreadByLog.StartED.");
         }
@@ -251,10 +250,10 @@ public partial class MainWindow
         Log.Info("fakeCheckThreadByLog.Stop()");
         try
         {
-            _zabbixHttpListener?.Stop();
+            //_zabbixHttpListener?.Stop();
             _token.ThrowIfCancellationRequested();
             _tokenHttpListener.ThrowIfCancellationRequested();
-            _fakeCheckThreadByLog.Start();
+            //_fakeCheckThreadByLog.Start();
             //zabbixHttpListener.Stop();
         }
         catch (Exception ex)

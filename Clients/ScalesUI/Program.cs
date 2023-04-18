@@ -7,14 +7,8 @@ namespace ScalesUI;
 
 internal static class Program
 {
-    #region Public and private fields and properties
-
     private static AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private static WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
-
-    #endregion
-
-    #region Public and private methods
 
     [STAThread]
     internal static void Main()
@@ -62,6 +56,4 @@ internal static class Program
             WpfUtils.CatchException(ex, true, true);
         }
     }
-
-    #endregion
 }
