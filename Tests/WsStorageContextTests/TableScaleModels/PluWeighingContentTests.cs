@@ -9,6 +9,6 @@ public sealed class PluWeighingContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluWeighingModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluWeighingModel>();
 	}
 }

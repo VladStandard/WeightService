@@ -11,27 +11,27 @@ public sealed class BoxModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<BoxModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<BoxModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<BoxModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<BoxModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<BoxModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<BoxModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertToString<BoxModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<BoxModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<BoxModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<BoxModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<BoxModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<BoxModel>();
     }
 
 }

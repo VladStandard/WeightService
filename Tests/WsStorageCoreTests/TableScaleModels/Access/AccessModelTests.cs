@@ -9,26 +9,26 @@ public sealed class AccessModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<AccessModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlAccessModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlAccessModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlAccessModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertToString<AccessModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlAccessModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<AccessModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlAccessModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<AccessModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlAccessModel>();
     }
 }

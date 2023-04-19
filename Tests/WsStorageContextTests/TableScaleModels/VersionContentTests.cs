@@ -11,6 +11,6 @@ public sealed class VersionContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<VersionModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<VersionModel>();
 	}
 }

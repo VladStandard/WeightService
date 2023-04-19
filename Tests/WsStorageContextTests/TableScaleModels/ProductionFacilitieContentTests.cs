@@ -9,6 +9,6 @@ public sealed class ProductionFacilitieContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<ProductionFacilityModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<ProductionFacilityModel>();
 	}
 }

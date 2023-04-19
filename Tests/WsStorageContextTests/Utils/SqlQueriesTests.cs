@@ -9,10 +9,10 @@ public sealed class SqlQueriesTests
     [Test]
     public void SqlQueries_GetWeighingsAggrWithPlu_MoreThanZero()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<PluAggrModel> pluWeighingAggrs = new();
-            object[] objects = WsTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = WsTestsUtils.DataTests.DataContext.Access.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggrWithPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)
@@ -36,10 +36,10 @@ public sealed class SqlQueriesTests
     [Test]
     public void SqlQueries_GetWeighingsAggrWithoutPlu_MoreThanZero()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<PluAggrModel> pluWeighingAggrs = new();
-            object[] objects = WsTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = WsTestsUtils.DataTests.DataContext.Access.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggrWithoutPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)
@@ -63,10 +63,10 @@ public sealed class SqlQueriesTests
     [Test]
     public void SqlQueries_GetLabelsAggrWithPlu_MoreThanZero()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<PluAggrModel> pluAggrs = new();
-            object[] objects = WsTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = WsTestsUtils.DataTests.DataContext.Access.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluLabels.GetLabelsAggrWithPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)
@@ -90,10 +90,10 @@ public sealed class SqlQueriesTests
     [Test]
     public void SqlQueries_GetLabelsAggrWithoutPlu_MoreThanZero()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<PluAggrModel> pluWeighingAggrs = new();
-            object[] objects = WsTestsUtils.DataCore.DataContext.DataAccess.GetArrayObjectsNotNullable(
+            object[] objects = WsTestsUtils.DataTests.DataContext.Access.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluLabels.GetLabelsAggrWithoutPlu(200));
             Assert.That(objects.Any());
             foreach (object obj in objects)

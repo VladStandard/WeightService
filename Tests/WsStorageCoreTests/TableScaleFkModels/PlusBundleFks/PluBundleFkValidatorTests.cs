@@ -11,14 +11,14 @@ public sealed class PluBundleFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluBundleFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluBundleFkModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluBundleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluBundleFkModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluBundleFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluBundleFkModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluBundleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluBundleFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

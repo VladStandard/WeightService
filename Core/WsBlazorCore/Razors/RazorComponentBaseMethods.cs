@@ -54,7 +54,7 @@ public partial class RazorComponentBase
 
 	protected string GetItemTitle(WsSqlTableBase? item) => item switch
 		{
-			AccessModel => LocaleCore.Strings.ItemAccess,
+			WsSqlAccessModel => LocaleCore.Strings.ItemAccess,
 			BarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
 			BoxModel => LocaleCore.DeviceControl.ItemBox,
 			BundleModel => LocaleCore.DeviceControl.ItemBundle,
@@ -92,7 +92,7 @@ public partial class RazorComponentBase
             OrderModel => LocaleCore.DeviceControl.SectionOrders,
             ScaleScreenShotModel => LocaleCore.DeviceControl.SectionScreenShots,
             TemplateModel => LocaleCore.DeviceControl.SectionTemplates,
-			AccessModel => LocaleCore.Strings.SectionAccess,
+			WsSqlAccessModel => LocaleCore.Strings.SectionAccess,
 			BarCodeModel => LocaleCore.DeviceControl.SectionBarCodes,
 			BoxModel => LocaleCore.DeviceControl.SectionBoxes,
 			BundleModel => LocaleCore.DeviceControl.SectionBundles,
@@ -167,7 +167,7 @@ public partial class RazorComponentBase
 
 	protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
 	{
-		TItem item = DataAccess.GetItemNewEmpty<TItem>();
+		TItem item = ContextManager.AccessManager.AccessItem.GetItemNewEmpty<TItem>();
 		item.FillProperties();
 		return item;
 	}
@@ -177,12 +177,12 @@ public partial class RazorComponentBase
 		if (item is null) return;
 		if (item.IsNew)
 		{
-			DataAccess.Save(item);
+            ContextManager.AccessManager.AccessItem.Save(item);
 		}
 		else
 		{
 			if (!SqlItemValidate(NotificationService, item)) return;
-			DataAccess.UpdateForce(item);
+            ContextManager.AccessManager.AccessItem.UpdateForce(item);
 		}
 	}
 
@@ -246,7 +246,7 @@ public partial class RazorComponentBase
         {
             if (item is DeviceModel device)
             {
-                DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale);
+                DeviceScaleFkModel? deviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNullable(scale);
                 if (device.IsNotNew)
                 {
                     if (deviceScaleFk is null)
@@ -258,7 +258,7 @@ public partial class RazorComponentBase
                 else
                 {
                     if (deviceScaleFk is not null)
-                        DataAccess.Delete(deviceScaleFk);
+                        ContextManager.AccessManager.AccessItem.Delete(deviceScaleFk);
                 }
             }
         }
@@ -272,7 +272,7 @@ public partial class RazorComponentBase
             {
                 if (item is TemplateModel template)
                 {
-                    PluTemplateFkModel? pluTemplateFk = DataAccess.GetItemPluTemplateFkNullable(plu);
+                    PluTemplateFkModel? pluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNullable(plu);
                     if (template.IsNotNew)
                     {
                         if (pluTemplateFk is null)
@@ -284,7 +284,7 @@ public partial class RazorComponentBase
                     else
                     {
                         if (pluTemplateFk is not null)
-                            DataAccess.Delete(pluTemplateFk);
+                            ContextManager.AccessManager.AccessItem.Delete(pluTemplateFk);
                     }
                 }
             }
@@ -321,7 +321,7 @@ public partial class RazorComponentBase
         {
             if (item is DeviceTypeModel deviceType)
             {
-                DeviceTypeFkModel? deviceTypeFk = DataContext.GetItemDeviceTypeFkNullable(device);
+                DeviceTypeFkModel? deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNullable(device);
                 if (deviceType.IsNotNew)
                 {
                     if (deviceTypeFk is null)
@@ -333,7 +333,7 @@ public partial class RazorComponentBase
                 else
                 {
                     if (deviceTypeFk is not null)
-                        DataAccess.Delete(deviceTypeFk);
+                        ContextManager.AccessManager.AccessItem.Delete(deviceTypeFk);
                 }
             }
         }
@@ -381,7 +381,7 @@ public partial class RazorComponentBase
 		
 		RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
 		{
-			DataAccess.Mark(SqlItem); ;
+			ContextManager.AccessManager.AccessItem.Mark(SqlItem); ;
 		});
 	}
 
@@ -398,7 +398,7 @@ public partial class RazorComponentBase
 		
 		RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
 		{
-			DataAccess.Delete(SqlItem);
+			ContextManager.AccessManager.AccessItem.Delete(SqlItem);
         });
 	}
 
@@ -410,7 +410,7 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(false, false);
-			List<TemplateResourceModel> templateResources = DataContext.GetListNotNullableTemplateResources(sqlCrudConfig);
+			List<TemplateResourceModel> templateResources = ContextManager.ContextList.GetListNotNullableTemplateResources(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains("TTF"))
@@ -436,7 +436,7 @@ public partial class RazorComponentBase
 		{
 			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
                 new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc}, false, false);
-			List<TemplateResourceModel> templateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
+			List<TemplateResourceModel> templateResources = ContextManager.ContextList.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains(fileType))

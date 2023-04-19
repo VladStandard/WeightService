@@ -11,26 +11,26 @@ public sealed class PluCharacteristicsFkModelTests
     [Test] 
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluCharacteristicsFkModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluCharacteristicsFkModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluCharacteristicsFkModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluCharacteristicsFkModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluCharacteristicsFkModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<PluCharacteristicsFkModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertToString<PluCharacteristicsFkModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<PluCharacteristicsFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluCharacteristicsFkModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<PluCharacteristicsFkModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<PluCharacteristicsFkModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<PluCharacteristicsFkModel>();
     }
 }

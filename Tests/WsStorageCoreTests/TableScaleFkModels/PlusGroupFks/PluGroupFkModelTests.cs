@@ -11,26 +11,26 @@ public sealed class PluGroupFkModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluGroupFkModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<PluGroupFkModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<PluGroupFkModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluGroupFkModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluGroupFkModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<PluGroupFkModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertToString<PluGroupFkModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<PluGroupFkModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<PluGroupFkModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<PluGroupFkModel>();
     }
     
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<PluGroupFkModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<PluGroupFkModel>();
     }
 }

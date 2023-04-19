@@ -11,26 +11,26 @@ public sealed class ProductSeriesModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertToString<ProductSeriesModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<ProductSeriesModel>();
     }
     
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<ProductSeriesModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<ProductSeriesModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<ProductSeriesModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<ProductSeriesModel>();
     }
 }

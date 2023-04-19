@@ -10,14 +10,14 @@ public sealed class ClipValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ClipModel item = WsTestsUtils.DataCore.CreateNewSubstitute<ClipModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        ClipModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ClipModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        ClipModel item = WsTestsUtils.DataCore.CreateNewSubstitute<ClipModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        ClipModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ClipModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

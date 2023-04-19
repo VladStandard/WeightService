@@ -23,8 +23,8 @@ public class WsValidationUtils
     public static IValidator GetSqlValidator<T>() where T : WsSqlTableBase, new() =>
         typeof(T) switch
         {
-            var cls when cls == typeof(AccessModel) => new AccessValidator(),
-            var cls when cls == typeof(AppModel) => new AppValidator(),
+            var cls when cls == typeof(WsSqlAccessModel) => new WsSqlAccessValidator(),
+            var cls when cls == typeof(WsSqlAppModel) => new WsSqlAppValidator(),
             var cls when cls == typeof(BarCodeModel) => new BarCodeValidator(),
             var cls when cls == typeof(BoxModel) => new BoxValidator(),
             var cls when cls == typeof(BrandModel) => new BrandValidator(),
@@ -72,8 +72,8 @@ public class WsValidationUtils
     public static ValidationResult GetValidationResult<T>(T? item) where T : class, new() =>
         item switch
         {
-            AccessModel access => new AccessValidator().Validate(access),
-            AppModel app => new AppValidator().Validate(app),
+            WsSqlAccessModel access => new WsSqlAccessValidator().Validate(access),
+            WsSqlAppModel app => new WsSqlAppValidator().Validate(app),
             BarCodeModel barCode => new BarCodeValidator().Validate(barCode),
             BoxModel box => new BoxValidator().Validate(box),
             BrandModel brand => new BrandValidator().Validate(brand),

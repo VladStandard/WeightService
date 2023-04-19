@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleModels.PrintersTypes;
@@ -22,7 +22,7 @@ public sealed partial class ItemPrinterType : RazorComponentItemBase<PrinterType
 		{
 			() =>
 			{
-                SqlItemCast = DataAccess.GetItemNotNullable<PrinterTypeModel>(IdentityId);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterTypeModel>(IdentityId);
                 if (SqlItemCast.IsNew)
                 {
 					SqlItemCast = SqlItemNew<PrinterTypeModel>();

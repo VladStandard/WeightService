@@ -3,10 +3,9 @@
 
 namespace WsStorageCore.TableScaleModels.Plus;
 
-[Obsolete(@"Move it to DataContext")]
 public static class PluController
 {
-    private static WsDataContextModel DataContext { get; } = new();
+    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
 
     public static bool IsFullValid(PluModel pluModel)
     {
@@ -17,7 +16,7 @@ public static class PluController
         SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, 
             true, false, false, true, false);
 
-        List<PluTemplateFkModel> pluTemplateFks = DataContext.GetListNotNullablePlusTemplatesFks(sqlCrudConfig);
+        List<PluTemplateFkModel> pluTemplateFks = ContextManager.ContextList.GetListNotNullablePlusTemplatesFks(sqlCrudConfig);
         
         return pluTemplateFks.Count != 0;
     }

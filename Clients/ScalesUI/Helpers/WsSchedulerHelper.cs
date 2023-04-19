@@ -17,7 +17,7 @@ internal class WsSchedulerHelper
 
     #region Public and private fields, properties, constructor
 
-    private UserSessionHelper UserSession => UserSessionHelper.Instance;
+    private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private WsQuartzHelper Quartz => WsQuartzHelper.Instance;
     private readonly object _lockerMinutes10 = new();
     private readonly object _lockerHours = new();
@@ -53,7 +53,7 @@ internal class WsSchedulerHelper
         {
             ActionUtils.ActionTryCatch(FormMain, UserSession.Scale, () =>
             {
-                UserSession.DataContext.DataAccess.SaveLogMemory(
+                UserSession.ContextManager.ContextItem.SaveLogMemory(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
                 GC.Collect();
             }

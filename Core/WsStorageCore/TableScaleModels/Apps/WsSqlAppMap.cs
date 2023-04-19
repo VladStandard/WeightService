@@ -6,12 +6,12 @@ namespace WsStorageCore.TableScaleModels.Apps;
 /// <summary>
 /// Table map "APPS".
 /// </summary>
-public sealed class AppMap : ClassMap<AppModel>
+public sealed class WsSqlAppMap : ClassMap<WsSqlAppModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AppMap()
+    public WsSqlAppMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Apps);

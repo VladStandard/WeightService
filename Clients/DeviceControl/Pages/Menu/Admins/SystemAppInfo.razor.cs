@@ -3,6 +3,7 @@
 
 using System.Reflection;
 using WsDataCore.Utils;
+using WsStorageCore.Helpers;
 using WsStorageCore.Models;
 
 namespace BlazorDeviceControl.Pages.Menu.Admins;
@@ -22,8 +23,6 @@ public sealed partial class SystemAppInfo : RazorComponentBase
     private ulong CurrentRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalAllocated.MegaBytes;
     private ulong TotalRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes;
 
-    private List<SqlDbFileSizeInfoModel> DbFileSizeInfos => new WsDataContextModel().GetDbFileSizeInfos();
-
     #endregion
 
 	#region Public and private methods
@@ -34,8 +33,8 @@ public sealed partial class SystemAppInfo : RazorComponentBase
 		{
 			() =>
             {
-                DbSizeInfos = DataContext.GetDbFileSizeInfos();
-                DbFileSizeAll = DataContext.GetDbFileSizeAll();
+                DbSizeInfos = ContextManager.GetDbFileSizeInfos();
+                DbFileSizeAll = ContextManager.GetDbFileSizeAll();
 			}
 		});
 	}

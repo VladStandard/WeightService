@@ -33,10 +33,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     #region Constants
 
-    public WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
+    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public HttpContext? HttpContext => HttpContextAccess?.HttpContext;
     protected BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
-    public WsDataContextModel DataContext { get; } = new();
 
     #endregion
 

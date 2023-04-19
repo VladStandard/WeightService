@@ -53,7 +53,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            List<Type> sqlTableValidators = WsTestsUtils.DataCore.DataContext.GetTableValidators();
+            List<Type> sqlTableValidators = WsTestsUtils.DataTests.DataContext.GetTableValidators();
             foreach (Type sqlTableValidator in sqlTableValidators)
             {
                 TestContext.WriteLine(sqlTableValidator);
@@ -66,7 +66,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            AccessValidator item = new();
+            WsSqlAccessValidator item = new();
             TestContext.WriteLine(item);
         });
     }
@@ -76,7 +76,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            AppValidator item = new();
+            WsSqlAppValidator item = new();
             TestContext.WriteLine(item);
         });
     }

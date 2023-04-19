@@ -9,22 +9,22 @@ public sealed class GetListViewTests
     [Test]
     public void Get_view_logs_memories()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewLogMemory> items = WsTestsUtils.DataCore.DataContext.GetListViewLogsMemories(200);
+            List<WsSqlViewLogMemory> items = WsTestsUtils.DataTests.DataContext.GetListViewLogsMemories(200);
             Assert.IsTrue(items.Any());
-            WsTestsUtils.DataCore.PrintTopRecords(items, 10);
+            WsTestsUtils.DataTests.PrintTopRecords(items, 10);
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
     
     [Test]
     public void Get_view_tables_sizes()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewTableSizeMemory> items = WsTestsUtils.DataCore.DataContext.GetListViewTablesSizes(200);
+            List<WsSqlViewTableSizeMemory> items = WsTestsUtils.DataTests.DataContext.GetListViewTablesSizes(200);
             Assert.IsTrue(items.Any());
-            WsTestsUtils.DataCore.PrintTopRecords(items);
+            WsTestsUtils.DataTests.PrintTopRecords(items);
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 }

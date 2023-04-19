@@ -9,7 +9,8 @@ public static class ActionUtils
 {
     #region Public and private fields, properties, constructor
 
-    private static WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
+    private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private static PluginMemoryHelper PluginMemory => PluginMemoryHelper.Instance;
 
     #endregion
@@ -26,7 +27,7 @@ public static class ActionUtils
         using Image img = bitmap;
         img.Save(memoryStream, ImageFormat.Png);
         ScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
-        DataAccess.Save(scaleScreenShot);
+        AccessManager.AccessItem.Save(scaleScreenShot);
     }
 
     public static void ActionTryCatchFinally(IWin32Window win32Window, ScaleModel scale, Action action, Action actionFinally)
@@ -77,7 +78,7 @@ public static class ActionUtils
         {
             MakeScreenShot(win32Window, scale);
             PluginMemory.MemorySize.Execute();
-            DataAccess.SaveLogMemory(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
+            ContextManager.ContextItem.SaveLogMemory(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
             GC.Collect();
         }
         catch (Exception ex)

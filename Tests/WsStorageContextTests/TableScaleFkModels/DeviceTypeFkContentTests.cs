@@ -9,6 +9,6 @@ public sealed class DeviceTypeFkContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<DeviceTypeFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<DeviceTypeFkModel>();
 	}
 }

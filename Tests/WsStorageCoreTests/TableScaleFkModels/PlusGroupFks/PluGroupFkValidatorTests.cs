@@ -11,14 +11,14 @@ public sealed class PluGroupFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluGroupFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluGroupFkModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluGroupFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluGroupFkModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluGroupFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluGroupFkModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluGroupFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluGroupFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

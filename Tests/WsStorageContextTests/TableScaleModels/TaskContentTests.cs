@@ -9,6 +9,6 @@ public sealed class TaskContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<TaskModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<TaskModel>();
 	}
 }

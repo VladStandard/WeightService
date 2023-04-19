@@ -4,16 +4,16 @@
 namespace WsLabelCoreTests.Helpers;
 
 [TestFixture]
-public sealed class UserSessionHelperTests
+public sealed class WsUserSessionHelperTests
 {
-    private UserSessionHelper UserSession => UserSessionHelper.Instance;
+    private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
 
     [Test]
     public void UserSession_DataContext_Greater()
     {
         WsTestsUtils.DataCore.AssertAction(() =>
         {
-            List<AppModel> apps = UserSession.DataContext.GetListNotNullableApps(new());
+            List<WsSqlAppModel> apps = UserSession.ContextManager.GetListNotNullableApps(new());
             Assert.Greater(apps.Count, 0);
         }, false);
     }
@@ -24,7 +24,7 @@ public sealed class UserSessionHelperTests
         WsTestsUtils.DataCore.AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(true, true, true, true, true);
-            List<DeviceModel> devices = UserSession.DataContext.GetListNotNullableDevices(sqlCrudConfig);
+            List<DeviceModel> devices = UserSession.ContextManager.GetListNotNullableDevices(sqlCrudConfig);
             Assert.Greater(devices.Count, 0);
         }, false);
     }

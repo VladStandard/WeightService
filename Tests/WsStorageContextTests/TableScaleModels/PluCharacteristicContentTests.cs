@@ -9,6 +9,6 @@ public sealed class NomenclaturesCharacteristicContentTests
 	[Test]
 	public void Model_Content_Validate()
 	{
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluCharacteristicModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluCharacteristicModel>();
 	}
 }

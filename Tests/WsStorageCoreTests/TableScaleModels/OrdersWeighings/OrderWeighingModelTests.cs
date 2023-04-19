@@ -11,26 +11,26 @@ public sealed class OrdersWeighingModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataCore.AssertSqlPropertyCheckBool<OrderWeighingModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<OrderWeighingModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertToString<OrderWeighingModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<OrderWeighingModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertEqualsNew<OrderWeighingModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<OrderWeighingModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataCore.TableBaseModelAssertSerialize<OrderWeighingModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<OrderWeighingModel>();
     }
 }

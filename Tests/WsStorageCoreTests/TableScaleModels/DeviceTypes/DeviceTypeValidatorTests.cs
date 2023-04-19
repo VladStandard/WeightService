@@ -11,14 +11,14 @@ public sealed class DeviceTypeValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        DeviceTypeModel item = WsTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        DeviceTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<DeviceTypeModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        DeviceTypeModel item = WsTestsUtils.DataCore.CreateNewSubstitute<DeviceTypeModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        DeviceTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<DeviceTypeModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

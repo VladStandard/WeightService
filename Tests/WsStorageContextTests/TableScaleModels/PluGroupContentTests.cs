@@ -9,6 +9,6 @@ public sealed class PluGroupContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluGroupModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluGroupModel>();
 	}
 }

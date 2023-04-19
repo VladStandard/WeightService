@@ -11,14 +11,14 @@ public sealed class PluStorageMethodFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluStorageMethodFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluStorageMethodFkModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluStorageMethodFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluStorageMethodFkModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluStorageMethodFkModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluStorageMethodFkModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluStorageMethodFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluStorageMethodFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

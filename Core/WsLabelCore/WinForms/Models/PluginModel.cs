@@ -73,7 +73,7 @@ public class PluginModel : HelperBase
                 }
                 catch (Exception ex)
                 {
-                    WsDataAccessHelper.Instance.SaveLogError(ex);
+                    WsSqlContextManagerHelper.Instance.ContextItem.SaveLogError(ex);
                 }
             }
         });

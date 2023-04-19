@@ -124,14 +124,14 @@ public class PluginPrintModel : PluginHelperBase
 
     private byte GetLabelCount() =>
         IsMain
-            ? UserSessionHelper.Instance.WeighingSettings.LabelsCountMain
-            : UserSessionHelper.Instance.WeighingSettings.LabelsCountShipping;
+            ? WsUserSessionHelper.Instance.WeighingSettings.LabelsCountMain
+            : WsUserSessionHelper.Instance.WeighingSettings.LabelsCountShipping;
 
     private void Response()
     {
         MdInvokeControl.SetText(FieldPrint,
-            UserSessionHelper.Instance.WeighingSettings.GetPrintDescription(IsMain, PrintBrand, Printer,
-                UserSessionHelper.Instance.Scale.Counter, GetDeviceStatus(), LabelPrintedCount, GetLabelCount()));
+            WsUserSessionHelper.Instance.WeighingSettings.GetPrintDescription(IsMain, PrintBrand, Printer,
+                WsUserSessionHelper.Instance.Scale.Counter, GetDeviceStatus(), LabelPrintedCount, GetLabelCount()));
         MdInvokeControl.SetForeColor(FieldPrint,
             Equals(Printer.PingStatus, IPStatus.Success) ? Color.Green : Color.Red);
     }

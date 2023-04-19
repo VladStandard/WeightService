@@ -9,6 +9,6 @@ public sealed class TemplateResourceContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<TemplateResourceModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<TemplateResourceModel>();
 	}
 }

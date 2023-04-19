@@ -9,6 +9,6 @@ public sealed class PluBundleFkContentTests
     [Test]
     public void Model_Content_Validate()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluBundleFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluBundleFkModel>();
     }
 }

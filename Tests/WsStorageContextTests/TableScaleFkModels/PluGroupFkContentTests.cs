@@ -9,6 +9,6 @@ public sealed class PluGroupFkContentTests
 	[Test]
     public void Item_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PluGroupFkModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluGroupFkModel>();
 	}
 }

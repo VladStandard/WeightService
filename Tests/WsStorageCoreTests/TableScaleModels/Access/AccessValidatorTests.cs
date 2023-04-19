@@ -9,14 +9,14 @@ public sealed class AccessValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        AccessModel item = WsTestsUtils.DataCore.CreateNewSubstitute<AccessModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        WsSqlAccessModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlAccessModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        AccessModel item = WsTestsUtils.DataCore.CreateNewSubstitute<AccessModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        WsSqlAccessModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlAccessModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

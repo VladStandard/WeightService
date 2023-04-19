@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.TableScaleModels.Apps;
@@ -7,15 +7,15 @@ namespace WsStorageCore.TableScaleModels.Apps;
 /// Table "APPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(AppModel)}")]
-public class AppModel : WsSqlTableBase
+[DebuggerDisplay("{nameof(WsSqlAppModel)} | {ToString()}")]
+public class WsSqlAppModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AppModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlAppModel() : base(WsSqlFieldIdentity.Uid)
     {
         //
     }
@@ -25,7 +25,7 @@ public class AppModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected AppModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlAppModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         //
     }
@@ -43,7 +43,7 @@ public class AppModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((AppModel)obj);
+        return Equals((WsSqlAppModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -55,7 +55,7 @@ public class AppModel : WsSqlTableBase
 
     public override object Clone()
     {
-        AppModel item = new();
+        WsSqlAppModel item = new();
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -74,10 +74,10 @@ public class AppModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(AppModel item) =>
+    public virtual bool Equals(WsSqlAppModel item) =>
         ReferenceEquals(this, item) || base.Equals(item);
 
-    public new virtual AppModel CloneCast() => (AppModel)Clone();
+    public new virtual WsSqlAppModel CloneCast() => (WsSqlAppModel)Clone();
 
     #endregion
 }

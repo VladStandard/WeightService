@@ -35,13 +35,13 @@ public sealed partial class ItemDevice : RazorComponentItemBase<DeviceModel>
         {
             () =>
             {
-                DataContext.GetListNotNullable<DeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                ContextManager.ContextList.GetListNotNullable<DeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
-                SqlItemCast = DataContext.GetItemNotNullableByUid<DeviceModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<DeviceModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<DeviceModel>();
-                DeviceTypeFk = DataContext.GetItemDeviceTypeFkNotNullable(SqlItemCast);
-                DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : DataAccess.GetItemNewEmpty<DeviceTypeModel>();
+                DeviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(SqlItemCast);
+                DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<DeviceTypeModel>();
             }
         });
     }

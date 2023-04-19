@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsDataCore.Models;
@@ -28,7 +28,7 @@ public sealed partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 		{
 			() =>
 			{
-                SqlItemCast = DataContext.GetItemNotNullable<TemplateModel>(IdentityId);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<TemplateModel>(IdentityId);
                 if (SqlItemCast.IsNew)
                 {
 					SqlItemCast = SqlItemNew <TemplateModel>();

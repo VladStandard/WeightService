@@ -2,6 +2,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @inherits RazorComponentBase
 @using BlazorDeviceControl.Pages.ItemComponents
+@using WsStorageCore.Helpers
 @using WsStorageCore.Models
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
@@ -18,15 +19,15 @@
   </tr>
   <tr>
     <td>@LocaleCore.Sql.SqlServer</td>
-    <td colspan="2">@DataAccess.JsonSettings.Local.Sql.DataSource</td>
+    <td colspan="2">@ContextManager.JsonSettings.Local.Sql.DataSource</td>
   </tr>
   <tr>
     <td>@LocaleCore.Sql.SqlDb</td>
-    <td colspan="2">@DataAccess.JsonSettings.Local.Sql.InitialCatalog</td>
+    <td colspan="2">@ContextManager.JsonSettings.Local.Sql.InitialCatalog</td>
   </tr>
   <tr>
     <td>
-      @if (DataAccess.JsonSettings.Local.Sql.PersistSecurityInfo)
+      @if (ContextManager.JsonSettings.Local.Sql.PersistSecurityInfo)
       {
         @LocaleCore.System.SystemWindowsUser
       }
@@ -35,7 +36,7 @@
         @LocaleCore.Sql.SqlUser
       }
     </td>
-    <td colspan="2">@DataAccess.JsonSettings.Local.Sql.UserId</td>
+    <td colspan="2">@ContextManager.JsonSettings.Local.Sql.UserId</td>
   </tr>
   <tr style="height: 200px; ">
     <td>@LocaleCore.Strings.DbAndMemoryGauge</td>
@@ -67,7 +68,7 @@
       </div>
     </td>
   </tr>
-  @foreach(SqlDbFileSizeInfoModel size in DbFileSizeInfos)
+  @foreach (SqlDbFileSizeInfoModel size in ContextManager.GetDbFileSizeInfos())
   {
     <tr>
       <td>@size.FileName</td>

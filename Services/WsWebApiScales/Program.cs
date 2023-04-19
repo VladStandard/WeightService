@@ -13,9 +13,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 //});
 
 // NHibernate & JsonSettings & DataAccess.
-WsJsonSettingsHelper.Instance.SetupWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales));
-builder.Services.AddSingleton(WsDataAccessHelper.Instance.SessionFactory);
-builder.Services.AddScoped(factory => WsDataAccessHelper.Instance.SessionFactory.OpenSession());
+WsSqlContextManagerHelper.Instance.SetupJsonWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales));
+builder.Services.AddSingleton(WsSqlAccessManagerHelper.Instance.SessionFactory);
+builder.Services.AddScoped(factory => WsSqlAccessManagerHelper.Instance.SessionFactory.OpenSession());
 //ISessionFactory GetSessionFactory(string? connectionString)
 //{
 //    FluentConfiguration configuration = Fluently

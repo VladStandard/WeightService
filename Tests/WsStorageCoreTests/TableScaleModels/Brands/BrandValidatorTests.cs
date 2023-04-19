@@ -11,14 +11,14 @@ public sealed class BrandValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BrandModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BrandModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        BrandModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BrandModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BrandModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BrandModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        BrandModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BrandModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

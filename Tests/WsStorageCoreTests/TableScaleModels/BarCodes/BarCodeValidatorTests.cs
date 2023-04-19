@@ -11,14 +11,14 @@ public sealed class BarCodeValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BarCodeModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BarCodeModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        BarCodeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BarCodeModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BarCodeModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BarCodeModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        BarCodeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BarCodeModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

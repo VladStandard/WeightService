@@ -40,8 +40,8 @@ public static class RazorFieldConfigUtils
     
     public static class Access
 	{
-		public static RazorFieldConfigModel GetRights() => new(nameof(AccessModel.Rights), TextAlign.Left, LocaleCore.Table.AccessLevel);
-		public static RazorFieldConfigModel GetLoginDt() => new(nameof(AccessModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
+		public static RazorFieldConfigModel GetRights() => new(nameof(WsSqlAccessModel.Rights), TextAlign.Left, LocaleCore.Table.AccessLevel);
+		public static RazorFieldConfigModel GetLoginDt() => new(nameof(WsSqlAccessModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
 	}
 
 	public static class BarCode

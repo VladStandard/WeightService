@@ -16,7 +16,8 @@ public class WsDataTestsHelper
 
     #region Public and private fields, properties, constructor
 
-    public WsDataContextModel DataContext { get; } = new();
+    public static WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
+    private WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
 
     #endregion
 
@@ -24,50 +25,50 @@ public class WsDataTestsHelper
 
     public void SetupDevelopAleksandrov(bool isShowSql)
     {
-        DataContext.DataAccess.JsonSettings.SetupTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     public void SetupDevelopMorozov(bool isShowSql)
     {
-        DataContext.DataAccess.JsonSettings.SetupTestsDevelopMorozov(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsDevelopMorozov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     public void SetupDevelopVs(bool isShowSql)
     {
-        DataContext.DataAccess.JsonSettings.SetupTestsDevelopVs(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsDevelopVs(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     private void SetupReleaseAleksandrov(bool isShowSql)
     {
-        DataContext.DataAccess.JsonSettings.SetupTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     private void SetupReleaseMorozov(bool isShowSql)
     {
-        DataContext.DataAccess.JsonSettings.SetupTestsReleaseMorozov(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsReleaseMorozov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     private void SetupReleaseVs(bool isShowSql)
     {
-        DataContext.DataAccess.JsonSettings.SetupTestsReleaseVs(Directory.GetCurrentDirectory(),
+        ContextManager.SetupJsonTestsReleaseVs(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(DataContext.DataAccess.JsonSettings.IsRemote)}: {DataContext.DataAccess.JsonSettings.IsRemote}");
-        TestContext.WriteLine(DataContext.DataAccess.JsonSettings.IsRemote ? DataContext.DataAccess.JsonSettings.Remote : DataContext.DataAccess.JsonSettings.Local);
+        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
+        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
     public void AssertAction(Action action, bool isShowSql, List<WsConfiguration> publishTypes)
@@ -133,7 +134,7 @@ public class WsDataTestsHelper
         AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
-            List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 5, true);
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
@@ -147,7 +148,7 @@ public class WsDataTestsHelper
         AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
-            List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 10, true, true);
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
@@ -223,7 +224,7 @@ public class WsDataTestsHelper
     {
         AssertAction(() =>
         {
-            List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(items.Count)}: {items.Count}");
             if (isGreater)
                 Assert.Greater(items.Count, 0);
@@ -254,12 +255,12 @@ public class WsDataTestsHelper
 
         switch (item)
         {
-            case AccessModel access:
+            case WsSqlAccessModel access:
                 access.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 access.Rights.Returns((byte)AccessRightsEnum.None);
                 access.LoginDt.Returns(DateTime.Now);
                 break;
-            case AppModel app:
+            case WsSqlAppModel app:
                 app.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 break;
             case BarCodeModel barCode:
@@ -337,7 +338,7 @@ public class WsDataTestsHelper
                 logWebFk.LogWebRequest = CreateNewSubstitute<LogWebModel>(isNotDefault);
                 logWebFk.LogWebResponse = CreateNewSubstitute<LogWebModel>(isNotDefault);
                 logWebFk.LogWebResponse.Direction.Returns((byte)1);
-                logWebFk.App = CreateNewSubstitute<AppModel>(isNotDefault);
+                logWebFk.App = CreateNewSubstitute<WsSqlAppModel>(isNotDefault);
                 logWebFk.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
                 logWebFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
                 break;

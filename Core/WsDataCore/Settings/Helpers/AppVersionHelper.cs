@@ -5,7 +5,7 @@ using WsDataCore.Models;
 
 namespace WsDataCore.Settings.Helpers;
 
-public class AppVersionHelper
+public sealed class AppVersionHelper
 {
     #region Design pattern "Lazy Singleton"
 

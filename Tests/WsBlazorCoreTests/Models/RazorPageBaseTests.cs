@@ -20,8 +20,8 @@ public sealed class RazorComponentBaseTests
 	public void Model_GetRoutePathItem_IsNotEmpty()
 	{
 		BlazorCore.DataCore.SetupDevelopVs(false);
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<AccessModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<AppModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<WsSqlAccessModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<WsSqlAppModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<BarCodeModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<BoxModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<BundleModel>();
@@ -58,8 +58,8 @@ public sealed class RazorComponentBaseTests
 	[Test]
 	public void Model_GetRoutePathSection_IsNotEmpty()
 	{
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<AccessModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<AppModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<WsSqlAccessModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<WsSqlAppModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<BarCodeModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<BoxModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<BundleModel>();

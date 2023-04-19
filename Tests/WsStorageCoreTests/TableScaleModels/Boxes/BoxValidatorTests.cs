@@ -11,14 +11,14 @@ public sealed class BoxValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BoxModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BoxModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        BoxModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BoxModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BoxModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BoxModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        BoxModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BoxModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

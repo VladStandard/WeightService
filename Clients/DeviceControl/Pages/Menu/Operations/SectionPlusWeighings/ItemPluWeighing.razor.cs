@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
@@ -25,7 +25,7 @@ public sealed partial class ItemPluWeighing : RazorComponentItemBase<PluWeighing
         {
             () =>
             {
-                SqlItemCast = DataAccess.GetItemNotNullable<PluWeighingModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluWeighingModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<PluWeighingModel>();

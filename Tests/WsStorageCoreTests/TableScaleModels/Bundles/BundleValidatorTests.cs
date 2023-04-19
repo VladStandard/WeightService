@@ -11,14 +11,14 @@ public sealed class BundleValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BundleModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BundleModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        BundleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BundleModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BundleModel item = WsTestsUtils.DataCore.CreateNewSubstitute<BundleModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        BundleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BundleModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

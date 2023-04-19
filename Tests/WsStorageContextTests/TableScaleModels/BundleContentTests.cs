@@ -9,6 +9,6 @@ public sealed class BundleContentTests
     [Test]
     public void Model_Validate_Content()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<BundleModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<BundleModel>();
     }
 }

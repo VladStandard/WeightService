@@ -11,7 +11,7 @@ public sealed class WsDataFormatUtilsTests
     [Test]
     public void AppHelper_GetCurrentVersion_AreEqual()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<TemplateResourceModel> templateResources = MDSoft.BarcodePrintUtils.Utils.DataFormatUtils.LoadTemplatesResources(true);
             Assert.IsTrue(templateResources.Any());

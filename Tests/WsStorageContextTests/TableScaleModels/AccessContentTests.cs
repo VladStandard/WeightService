@@ -9,6 +9,6 @@ public sealed class AccessContentTests
     [Test]
     public void Model_Validate_Content()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<AccessModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlAccessModel>();
     }
 }

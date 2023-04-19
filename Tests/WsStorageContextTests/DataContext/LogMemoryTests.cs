@@ -12,10 +12,10 @@ public sealed class LogMemoryTests
     [Test]
     public void DataContext_GetDbFileSizeInfos_Assert()
     {
-        WsTestsUtils.DataCore.AssertAction(() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsTestsUtils.DataCore.DataContext.DataAccess.SaveLogMemory(1, 1);
-            WsTestsUtils.DataCore.AssertGetList<LogMemoryModel>(SqlCrudConfigFk, Configurations, false);
+            WsTestsUtils.DataTests.DataContext.Access.SaveLogMemory(1, 1);
+            WsTestsUtils.DataTests.AssertGetList<LogMemoryModel>(SqlCrudConfigFk, Configurations, false);
         }, false, Configurations);
     }
 }

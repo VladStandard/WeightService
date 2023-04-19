@@ -9,6 +9,6 @@ public sealed class BrandContentTests
 	[Test]
 	public void Model_Validate_Content()
 	{
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<BrandModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<BrandModel>();
 	}
 }

@@ -9,6 +9,6 @@ public sealed class BarCodeContentTests
     [Test]
     public void Model_Validate_Content()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentValidate<BarCodeModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<BarCodeModel>();
     }
 }

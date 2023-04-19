@@ -1,4 +1,4 @@
-﻿@page "/profile"
+@page "/profile"
 @inherits RazorComponentBase
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
@@ -17,7 +17,7 @@
   </tr>
   <tr>
     <td>@LocaleCore.Strings.AccessRights</td>
-    <td>@DataAccess.GetAccessRightsDescription(User)</td>
+    <td>@ContextManager.ContextItem.GetAccessRightsDescription(User)</td>
   </tr>
   <tr>
     <td>@LocaleCore.Strings.Language</td>

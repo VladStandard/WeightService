@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.Models;
@@ -47,7 +47,7 @@ public sealed partial class PlusScales : RazorComponentSectionBase<PluScaleModel
 	{
 		SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu),
             false, true, false, false);
-        return DataContext.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
+        return ContextManager.AccessManager.AccessList.GetListNotNullable<PluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}
 
     protected override async Task OnSqlSectionSaveAsync()

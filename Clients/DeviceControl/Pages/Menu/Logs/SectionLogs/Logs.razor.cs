@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Helpers;
 using WsStorageCore.Models;
 using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.Utils;
@@ -18,7 +19,7 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
     public Logs() : base()
     {
         CurrentType = new();
-        LogTypes = DataAccess.GetListNotNullable<LogTypeModel>(new SqlCrudConfigModel());
+        LogTypes = ContextManager.AccessManager.AccessList.GetListNotNullable<LogTypeModel>(new SqlCrudConfigModel());
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultShowMarked = true;
         SqlCrudConfigSection.IsResultOrder = true;
@@ -28,8 +29,8 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
     {
         Guid logTypeUid = CurrentType.IdentityValueUid;
         string query = WsSqlQueriesDiags.Tables.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
-            ? DataAccess.JsonSettings.Local.SelectTopRowsCount : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
-        object[] objects = DataAccess.GetArrayObjectsNotNullable(query);
+            ? ContextManager.JsonSettings.Local.SelectTopRowsCount : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
+        object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<LogQuickModel> items = new();
         foreach (object obj in objects)
         {

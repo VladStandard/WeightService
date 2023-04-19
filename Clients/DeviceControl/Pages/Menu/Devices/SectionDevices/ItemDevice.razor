@@ -1,4 +1,4 @@
-﻿@page "/section/devices/new"
+@page "/section/devices/new"
 @page "/section/devices/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Devices.DeviceModel>
@@ -31,7 +31,7 @@
     <tr>
       <td>@LocaleCore.Table.DeviceType</td>
       <td>
-        <RzDropDownLocal @bind-Value="@DeviceType" Data="@DataContext.DeviceTypes" TextProperty="Name" />
+        <RzDropDownLocal @bind-Value="@DeviceType" Data="@ContextManager.ContextList.DeviceTypes" TextProperty="Name" />
       </td>
       <td/>
       <td/>

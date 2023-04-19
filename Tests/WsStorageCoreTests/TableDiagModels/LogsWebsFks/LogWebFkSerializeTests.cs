@@ -11,6 +11,6 @@ public sealed class LogWebFkSerializeTests
     [Test]
     public void Item_Serialize_Validate()
     {
-        WsTestsUtils.DataCore.AssertSqlDbContentSerialize<LogWebFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlDbContentSerialize<LogWebFkModel>(true);
     }
 }

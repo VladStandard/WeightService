@@ -7,8 +7,8 @@ public static class WsTestsUtils
 {
     #region Public and private fields, properties, constructor
 
-    public static WsDataTestsHelper DataCore => WsDataTestsHelper.Instance;
-    public static WsDataAccessHelper DataAccess => WsDataAccessHelper.Instance;
+    public static WsDataTestsHelper DataTests => WsDataTestsHelper.Instance;
+    public static WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
     
     #endregion
 }

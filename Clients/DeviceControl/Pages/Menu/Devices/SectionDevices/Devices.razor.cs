@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
@@ -21,7 +21,7 @@ public sealed partial class Devices : RazorComponentSectionBase<DeviceModel>
     protected override void SetSqlSectionCast()
     {
         base.SetSqlSectionCast();
-        DeviceTypesFk = DataContext.GetListNotNullable<DeviceTypeFkModel>(new());
+        DeviceTypesFk = ContextManager.ContextList.GetListNotNullable<DeviceTypeFkModel>(new());
         // DataAccessHelper.Instance.GetItemDeviceTypeFkNotNullable(device).Type.PrettyName
     }
 

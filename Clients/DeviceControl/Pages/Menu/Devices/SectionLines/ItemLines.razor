@@ -1,4 +1,4 @@
-﻿@page "/section/scales/new"
+@page "/section/scales/new"
 @page "/section/scales/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Scales.ScaleModel>
@@ -26,7 +26,7 @@
         <RadzenLink Path="@GetRouteItemPath(Device)" Text="@LocaleCore.Table.Host"/>
       </td>
       <td>
-        <RzDropDownLocal @bind-Value="@Device" Data="@DataContext.Devices" TextProperty="DisplayName" />
+                <RzDropDownLocal @bind-Value="@Device" Data="@ContextManager.ContextList.Devices" TextProperty="DisplayName" />
       </td>
       <td>@LocaleCore.Table.IsOrder</td>
       <td><RadzenCheckBox Disabled="false" @bind-Value="@SqlItemCast.IsOrder"/></td>
@@ -37,7 +37,7 @@
             Text="@LocaleCore.Print.NameMain"/>
         </td>
         <td>
-          <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterMain" Data="@DataContext.Printers" TextProperty="DisplayName" />
+                <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterMain" Data="@ContextManager.ContextList.Printers" TextProperty="DisplayName" />
         </td>
         <td>@LocaleCore.Table.DeviceComPort</td>
         <td>
@@ -50,7 +50,7 @@
                     Text="@LocaleCore.Print.NameShipping"/>
       </td>
       <td>
-        <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterShipping" Data="@DataContext.Printers" TextProperty="DisplayName" />
+                <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterShipping" Data="@ContextManager.ContextList.Printers" TextProperty="DisplayName" />
       </td>
       <td>@LocaleCore.Table.IsShipping</td>
       <td><RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@SqlItemCast.IsShipping"/></td>
@@ -59,7 +59,7 @@
       <td>
         <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
       </td>
-      <td><RzDropDownLocal @bind-Value="@SqlItemCast.WorkShop" Data="@DataContext.WorkShops" TextProperty="Name" /></td>
+            <td><RzDropDownLocal @bind-Value="@SqlItemCast.WorkShop" Data="@ContextManager.ContextList.WorkShops" TextProperty="Name" /></td>
       <td>
         <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
       </td>

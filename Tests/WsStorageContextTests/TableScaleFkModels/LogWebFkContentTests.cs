@@ -9,6 +9,6 @@ public sealed class LogWebFkContentTests
 	[Test]
     public void Item_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<LogWebFkModel>(true);
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<LogWebFkModel>(true);
 	}
 }

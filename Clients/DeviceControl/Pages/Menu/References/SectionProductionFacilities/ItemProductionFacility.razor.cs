@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleModels.ProductionFacilities;
@@ -21,7 +21,7 @@ public sealed partial class ItemProductionFacility : RazorComponentItemBase<Prod
 		{
 			() =>
 			{
-				SqlItemCast = DataAccess.GetItemNotNullable<ProductionFacilityModel>(IdentityId);
+				SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ProductionFacilityModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
             }

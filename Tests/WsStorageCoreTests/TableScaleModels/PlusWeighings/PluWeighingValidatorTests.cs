@@ -11,14 +11,14 @@ public sealed class PluWeighingValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluWeighingModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluWeighingModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluWeighingModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluWeighingModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluWeighingModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluWeighingModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Components;
@@ -6,6 +6,7 @@ using Microsoft.JSInterop;
 using Radzen;
 using WsBlazorCore.Settings;
 using WsBlazorCore.Utils;
+using WsStorageCore.Helpers;
 using WsStorageCore.Models;
 using WsStorageCore.Tables;
 using WsStorageCore.Utils;
@@ -49,7 +50,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     protected void AutoShowFilterOnlyTopSetup()
     {
         SqlCrudConfigSection.IsGuiShowFilterOnlyTop =
-            (SqlSectionCast.Count >= DataAccess.JsonSettings.Local.SelectTopRowsCount);
+            SqlSectionCast.Count >= ContextManager.JsonSettings.Local.SelectTopRowsCount;
     }
 
     protected void RowRender(RowRenderEventArgs<TItem> args)
@@ -141,7 +142,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
 
     protected virtual void SetSqlSectionCast()
     {
-        SqlSectionCast = DataContext.GetListNotNullable<TItem>(SqlCrudConfigSection);
+        SqlSectionCast = ContextManager.AccessManager.AccessList.GetListNotNullable<TItem>(SqlCrudConfigSection);
     }
 
     protected virtual void SetSqlSectionSave(TItem model)
@@ -159,7 +160,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
         RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
         {
             foreach (TItem item in SqlSectionSave)
-                DataAccess.UpdateForce(item);
+                ContextManager.AccessManager.AccessItem.UpdateForce(item);
             SqlSectionSave.Clear();
         });
     }

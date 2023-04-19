@@ -5,20 +5,25 @@
 
 namespace WsStorageCore.Helpers;
 
-public sealed class WsDataAccessHelper
+/// <summary>
+/// SQL-помощник методов доступа.
+/// Базовый слой доступа к БД.
+/// </summary>
+internal sealed class WsSqlAccessCoreHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsDataAccessHelper _instance;
+    private static WsSqlAccessCoreHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsDataAccessHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlAccessCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
+    public static WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
+    
     private ISessionFactory? _sessionFactory;
     public ISessionFactory SessionFactory
     {
@@ -30,10 +35,8 @@ public sealed class WsDataAccessHelper
         }
         set => _sessionFactory = value;
     }
-    protected AppVersionHelper AppVersion => AppVersionHelper.Instance;
-    public AppModel App { get; set; } = new();
-    public DeviceModel Device { get; set; } = new();
-    private readonly object _locker = new();
+
+    private readonly object _lockerSessionFactory = new();
 
     public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; private set; }
 
@@ -63,7 +66,7 @@ public sealed class WsDataAccessHelper
     }
 
     // Be careful. If there are errors in the mapping, this line will make an Exception!
-    private void SetFluentConfiguration()
+    private void SetupFluentConfiguration()
     {
         if (SqlConfiguration is null)
             throw new ArgumentNullException(nameof(SqlConfiguration));
@@ -75,17 +78,17 @@ public sealed class WsDataAccessHelper
         FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
     }
 
-    public void SetSessionFactory(bool isShowSql, ISessionFactory? sessionFactory = null)
+    public void SetupSessionFactory(bool isShowSql, ISessionFactory? sessionFactory = null)
     {
-        lock (_locker)
+        lock (_lockerSessionFactory)
         {
             SetSqlConfiguration(isShowSql);
-            SetFluentConfiguration();
+            SetupFluentConfiguration();
             SessionFactory = sessionFactory ?? FluentConfiguration.BuildSessionFactory();
         }
     }
 
-    ~WsDataAccessHelper()
+    public void Close()
     {
         SessionFactory.Close();
         SessionFactory.Dispose();
@@ -110,10 +113,10 @@ public sealed class WsDataAccessHelper
           (JsonSettings.Local.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Local.Sql.UserId}; Password={JsonSettings.Local.Sql.Password}; ") +
           $"TrustServerCertificate={JsonSettings.Local.Sql.TrustServerCertificate}; ";
 
-    public static void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
+    public void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
     {
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlAccessMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlAppMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BoxMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BrandMap>());
@@ -163,31 +166,11 @@ public sealed class WsDataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WorkShopMap>());
     }
 
-    public void SetupLog(string deviceName, string appName)
-    {
-        if (Device.IsNew)
-        {
-            if (string.IsNullOrEmpty(deviceName))
-                deviceName = MdNetUtils.GetLocalDeviceName(false);
-            WsDataContextModel dataContext = new();
-            Device = dataContext.GetItemDeviceOrCreateNew(deviceName);
-        }
-
-        if (App.IsNew)
-        {
-            if (string.IsNullOrEmpty(appName))
-                appName = nameof(WsDataCore);
-            App = GetItemAppOrCreateNew(appName);
-        }
-    }
-
-    public void SetupLog(string appName) => SetupLog("", appName);
-
     #endregion
 
     #region Public and private methods - Base
 
-    protected ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
+    private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
         if (JsonSettings.Local.MaxCount > 0 && sqlCrudConfig.IsResultShowOnlyTop || JsonSettings.Local.MaxCount == 1)
@@ -203,7 +186,7 @@ public sealed class WsDataAccessHelper
         return criteria;
     }
 
-    protected SqlCrudResultModel ExecuteCore(Action<ISession> action, bool isTransaction)
+    private SqlCrudResultModel ExecuteCore(Action<ISession> action, bool isTransaction)
     {
         ISession? session = null;
         Exception? exception = null;
@@ -215,7 +198,7 @@ public sealed class WsDataAccessHelper
             if (isTransaction)
                 transaction = session.BeginTransaction();
             session.FlushMode = isTransaction ? FlushMode.Commit : FlushMode.Manual;
-            action.Invoke(session);
+            action(session);
             if (isTransaction)
                 session.Flush();
             if (isTransaction)
@@ -242,8 +225,9 @@ public sealed class WsDataAccessHelper
 
         if (exception is not null)
         {
-            SaveLogError(exception);
-            return new() { IsOk = false, Exception = exception };
+            //SaveLogError(exception);
+            //return new() { IsOk = false, Exception = exception };
+            throw exception;
         }
         return new() { IsOk = true, Exception = null };
     }
@@ -258,7 +242,7 @@ public sealed class WsDataAccessHelper
         return result;
     }
 
-    protected ISQLQuery? GetSqlQuery(ISession session, string query, List<SqlParameter> parameters)
+    private ISQLQuery? GetSqlQuery(ISession session, string query, List<SqlParameter> parameters)
     {
         if (string.IsNullOrEmpty(query)) return null;
 
@@ -355,380 +339,13 @@ public sealed class WsDataAccessHelper
 
     #endregion
 
-    #region Public and public methods - Item
-
-    public AccessModel? GetItemAccessNullable(string? userName)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), userName, false, false);
-        return GetItemNullable<AccessModel>(sqlCrudConfig);
-    }
-
-    public ProductSeriesModel? GetItemProductSeriesNullable(ScaleModel scale)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            new List<SqlFieldFilterModel>
-            {
-                new() { Name = nameof(ProductSeriesModel.IsClose), Value = false },
-                new() { Name = $"{nameof(ProductSeriesModel.Scale)}.{nameof(ScaleModel.IdentityValueId)}", Value = scale.IdentityValueId }
-            }, false, false);
-        return GetItemNullable<ProductSeriesModel>(sqlCrudConfig);
-    }
-
-    public ProductSeriesModel GetItemProductSeriesNotNullable(ScaleModel scale) =>
-        GetItemProductSeriesNullable(scale) ?? GetItemNewEmpty<ProductSeriesModel>();
-
-    private PluModel? GetItemPluNullable(PluScaleModel pluScale)
-    {
-        if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return null;
-
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, false, false);
-        return GetItemNullable<PluModel>(sqlCrudConfig);
-    }
-
-    public PluModel GetItemPluNotNullable(PluScaleModel pluScale) =>
-        GetItemPluNullable(pluScale) ?? new();
-
-    public PluTemplateFkModel? GetItemPluTemplateFkNullable(PluModel plu)
-    {
-        if (plu.IsNew) return null;
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(PluTemplateFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
-            false, false);
-        return GetItemNullable<PluTemplateFkModel>(sqlCrudConfig);
-    }
-
-    public PluTemplateFkModel GetItemPluTemplateFkNotNullable(PluModel plu) =>
-        GetItemPluTemplateFkNullable(plu) ?? new();
-
-    public PluBundleFkModel? GetItemPluBundleFkNullable(PluModel plu, BundleModel bundle)
-    {
-        if (plu.IsNew) return null;
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(PluBundleFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, false, false);
-        SqlCrudConfigModel sqlCrudConfigBundle = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(PluBundleFkModel.Bundle)}.{nameof(WsSqlTableBase.IdentityValueUid)}", bundle.IdentityValueUid, false, false);
-        sqlCrudConfig.Filters.Add(sqlCrudConfigBundle.Filters.First());
-        return GetItemNullable<PluBundleFkModel>(sqlCrudConfig);
-    }
-
-    public PluBundleFkModel GetItemPluBundleFkNotNullable(PluModel plu, BundleModel bundle) =>
-        GetItemPluBundleFkNullable(plu, bundle) ?? new();
-
-    private TemplateModel? GetItemTemplateNullable(PluScaleModel pluScale)
-    {
-        if (pluScale.IsNew || pluScale.Plu.IsNew) return null;
-        PluModel plu = GetItemPluNotNullable(pluScale);
-        return GetItemPluTemplateFkNullable(plu)?.Template;
-    }
-
-    public TemplateModel GetItemTemplateNotNullable(PluScaleModel pluScale) =>
-        GetItemTemplateNullable(pluScale) ?? new();
-
-    private ScaleModel GetItemScaleNullable(DeviceModel device)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFiltersIdentity(
-            $"{nameof(DeviceScaleFkModel.Device)}", device.IdentityValueUid), false, false);
-        return GetItemNotNullable<DeviceScaleFkModel>(sqlCrudConfig).Scale;
-    }
-
-    public ScaleModel GetItemScaleNotNullable(DeviceModel device) =>
-        GetItemScaleNullable(device) ?? new();
-
-    public DeviceScaleFkModel? GetItemDeviceScaleFkNullable(DeviceModel device)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceScaleFkModel.Device), device.IdentityValueUid), false, false);
-        return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig);
-    }
-
-    public DeviceScaleFkModel GetItemDeviceScaleFkNotNullable(DeviceModel device) =>
-        GetItemDeviceScaleFkNullable(device) ?? new();
-
-    public DeviceScaleFkModel? GetItemDeviceScaleFkNullable(ScaleModel scale)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
-        return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig);
-    }
-
-    public DeviceScaleFkModel GetItemDeviceScaleFkNotNullable(ScaleModel scale) =>
-        GetItemDeviceScaleFkNullable(scale) ?? new();
-
-    public string GetAccessRightsDescription(AccessRightsEnum? accessRights)
-    {
-        return accessRights switch
-        {
-            AccessRightsEnum.Read => LocaleCore.Strings.AccessRightsRead,
-            AccessRightsEnum.Write => LocaleCore.Strings.AccessRightsWrite,
-            AccessRightsEnum.Admin => LocaleCore.Strings.AccessRightsAdmin,
-            _ => LocaleCore.Strings.AccessRightsNone
-        };
-    }
-
-    public string GetAccessRightsDescription(byte accessRights) =>
-        GetAccessRightsDescription((AccessRightsEnum)accessRights);
-
-    public string GetAccessRightsDescription(ClaimsPrincipal? user)
-    {
-        if (user == null)
-            return string.Empty;
-        string right = user.Claims.Where(c => c.Type == ClaimTypes.Role).
-            Select(c => c.Value).OrderByDescending(int.Parse).First();
-        return GetAccessRightsDescription((AccessRightsEnum)int.Parse(right));
-    }
-
-    public ScaleModel GetScaleNotNullable(long id)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.IdentityValueId), id, false, false, false, false);
-        return GetItemNotNullable<ScaleModel>(sqlCrudConfig);
-    }
-
-    public ProductionFacilityModel GetProductionFacilityNotNullable(string name)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(ProductionFacilityModel.Name), name, false, false);
-        return GetItemNotNullable<ProductionFacilityModel>(sqlCrudConfig);
-    }
-
-    public PluGroupModel? GetItemNomenclatureGroupParentNullable(PluGroupModel nomenclatureGroup)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
-            $"{nameof(PluGroupFkModel.PluGroup)}.{nameof(WsSqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
-            false, false);
-        PluGroupModel? result = GetItemNullable<PluGroupFkModel>(sqlCrudConfig)?.Parent;
-        return result;
-    }
-
-    public PluGroupModel GetItemNomenclatureGroupParentNotNullable(PluGroupModel nomenclatureGroup) =>
-        GetItemNomenclatureGroupParentNullable(nomenclatureGroup) ?? new();
-
-    #endregion
-
-    #region Public and private methods - List
-
-    [Obsolete(@"Use DataContext")]
-    public List<DeviceModel> GetListDevices(SqlCrudConfigModel sqlCrudConfig)
-    {
-        List<DeviceModel> result = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(GetItemNewEmpty<DeviceModel>());
-        List<DeviceModel> list = GetListNotNullable<DeviceModel>(sqlCrudConfig);
-        result = result.OrderBy(x => x.Name).ToList();
-        result.AddRange(list);
-        return result;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<DeviceTypeModel> GetListDevicesTypes(SqlCrudConfigModel sqlCrudConfig)
-    {
-        List<DeviceTypeModel> result = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(GetItemNewEmpty<DeviceTypeModel>());
-        List<DeviceTypeModel> list = GetListNotNullable<DeviceTypeModel>(sqlCrudConfig);
-        result = result.OrderBy(x => x.Name).ToList();
-        result.AddRange(list);
-        return result;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<DeviceTypeFkModel> GetListDevicesTypesFks(SqlCrudConfigModel sqlCrudConfig)
-    {
-        List<DeviceTypeFkModel> result = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(new() { Device = GetItemNewEmpty<DeviceModel>(), Type = GetItemNewEmpty<DeviceTypeModel>() });
-        List<DeviceTypeFkModel> list = GetListNotNullable<DeviceTypeFkModel>(sqlCrudConfig);
-        result = result.OrderBy(x => x.Type.Name).ToList();
-        result = result.OrderBy(x => x.Device.Name).ToList();
-        result.AddRange(list);
-        return result;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<DeviceScaleFkModel> GetListDevicesScalesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
-        List<DeviceScaleFkModel> result = new();
-        if (isAddFieldNull)
-            result.Add(new() { Device = GetItemNewEmpty<DeviceModel>(), Scale = GetItemNewEmpty<ScaleModel>() });
-        List<DeviceScaleFkModel> list = GetListNotNullable<DeviceScaleFkModel>(sqlCrudConfig);
-        result = result.OrderBy(x => x.Scale.Description).ToList();
-        result = result.OrderBy(x => x.Device.Name).ToList();
-        result.AddRange(list);
-        return result;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<DeviceTypeModel> GetListDevicesTypes(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<DeviceTypeModel> deviceTypes = GetListDevicesTypes(sqlCrudConfig);
-        return deviceTypes;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<DeviceModel> GetListDevices(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<DeviceModel> devices = GetListDevices(sqlCrudConfig);
-        return devices;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<DeviceTypeFkModel> GetListDevicesTypesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<DeviceTypeFkModel> deviceTypesFks = GetListDevicesTypesFks(sqlCrudConfig);
-        return deviceTypesFks;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<DeviceTypeFkModel> GetListDevicesTypesFkFree(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
-        List<DeviceModel> devices = GetListNotNullable<DeviceModel>(sqlCrudConfig);
-        deviceTypeFks = deviceTypeFks.Where(x => !devices.Contains(x.Device)).ToList();
-        return deviceTypeFks;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<DeviceTypeFkModel> GetListDevicesTypesFkBusy(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
-        List<DeviceModel> devices = GetListNotNullable<DeviceModel>(sqlCrudConfig);
-        deviceTypeFks = deviceTypeFks.Where(x => devices.Contains(x.Device)).ToList();
-        return deviceTypeFks;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<PluLabelModel> GetListPluLabels(bool isShowMarked, bool isShowOnlyTop)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
-        sqlCrudConfig.Orders.Add(new() { Name = nameof(PluWeighingModel.ChangeDt), Direction = WsSqlOrderDirection.Desc });
-        return GetListNotNullable<PluLabelModel>(sqlCrudConfig);
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<ScaleScreenShotModel> GetListScalesScreenShots(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFiltersIdentity(nameof(ScaleScreenShotModel.Scale), itemFilter?.IdentityValueId),
-            isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<ScaleScreenShotModel> result = GetListNotNullable<ScaleScreenShotModel>(sqlCrudConfig);
-        result = result.OrderByDescending(x => x.CreateDt).ToList();
-        return result;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<PluBundleFkModel> GetListPluBundles(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
-    {
-        List<PluBundleFkModel> result = new();
-        if (isAddFieldNull)
-            result.Add(GetItemNewEmpty<PluBundleFkModel>());
-        List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
-
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
-            new SqlFieldOrderModel { Name = nameof(PluBundleFkModel.Plu), Direction = WsSqlOrderDirection.Asc },
-            isShowMarked, isShowOnlyTop);
-        result.AddRange(GetListNotNullable<PluBundleFkModel>(sqlCrudConfig));
-        result = result.OrderBy(x => x.Bundle.Name).ToList();
-        result = result.OrderBy(x => x.Plu.Number).ToList();
-        return result;
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<PrinterResourceFkModel> GetListPrinterResources(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
-    {
-        List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
-            new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc },
-            isShowMarked, isShowOnlyTop);
-        return GetListNotNullable<PrinterResourceFkModel>(sqlCrudConfig);
-    }
-
-    [Obsolete(@"Use DataContext")]
-    public List<PrinterTypeModel> GetListPrinterTypes(bool isShowMarked, bool isShowOnlyTop)
-    {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            new SqlFieldOrderModel { Name = nameof(PrinterTypeModel.Name), Direction = WsSqlOrderDirection.Asc }, isShowMarked, isShowOnlyTop);
-        return GetListNotNullable<PrinterTypeModel>(sqlCrudConfig);
-    }
-
-    #endregion
-
-    #region Public and private methods - Logs
-
-    private void SaveLogCore(string message, LogType logType, string filePath, int lineNumber, string memberName)
-    {
-        StrUtils.SetStringValueTrim(ref filePath, 32, true);
-        StrUtils.SetStringValueTrim(ref memberName, 32);
-        StrUtils.SetStringValueTrim(ref message, 1024);
-        LogTypeModel? logTypeItem = GetItemLogTypeNullable(logType);
-
-        LogModel log = new()
-        {
-            CreateDt = DateTime.Now,
-            ChangeDt = DateTime.Now,
-            IsMarked = false,
-            Device = Device,
-            App = App,
-            LogType = logTypeItem,
-            Version = AppVersion.Version,
-            File = filePath,
-            Line = lineNumber,
-            Member = memberName,
-            Message = message
-        };
-        SaveAsync(log).ConfigureAwait(false);
-    }
-
-    public void SaveLogErrorWithInfo(Exception ex, string filePath, int lineNumber, string memberName)
-    {
-        SaveLogCore(ex.Message, LogType.Error, filePath, lineNumber, memberName);
-        if (ex.InnerException is not null)
-            SaveLogCore(ex.InnerException.Message, LogType.Error, filePath, lineNumber, memberName);
-    }
-
-    public void SaveLogErrorWithInfo(string message, string filePath, int lineNumber, string memberName) =>
-        SaveLogCore(message, LogType.Error, filePath, lineNumber, memberName);
-
-    public void SaveLogError(Exception ex,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
-
-    public void SaveLogError(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Error, filePath, lineNumber, memberName);
-
-    public void SaveLogStop(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Stop, filePath, lineNumber, memberName);
-
-    public void SaveLogInformation(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Information, filePath, lineNumber, memberName);
-
-    public void SaveLogWarning(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Warning, filePath, lineNumber, memberName);
-
-    public void SaveLogQuestion(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Question, filePath, lineNumber, memberName);
-
-    #endregion
-
     #region Public and private methods - App & Device
 
-    protected AppModel GetItemAppOrCreateNew(string appName)
+    public WsSqlAppModel GetItemAppOrCreateNew(string appName)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), appName, false, false);
-        AppModel app = GetItemNotNullable<AppModel>(sqlCrudConfig);
+        WsSqlAppModel app = GetItemNotNullable<WsSqlAppModel>(sqlCrudConfig);
         if (app.IsNew)
         {
             app = new()
@@ -746,11 +363,11 @@ public sealed class WsDataAccessHelper
         return app;
     }
 
-    public AppModel? GetItemAppNullable(string appName)
+    public WsSqlAppModel? GetItemAppNullable(string appName)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), appName, false, false);
-        return GetItemNullable<AppModel>(sqlCrudConfig);
+        return GetItemNullable<WsSqlAppModel>(sqlCrudConfig);
     }
 
     public LogTypeModel? GetItemLogTypeNullable(LogType logType)
@@ -942,7 +559,7 @@ public sealed class WsDataAccessHelper
         return result;
     }
 
-    public object[] GetArrayObjectsNotNullable(string query) =>
+    public object[] GetArrayObjectsNotNullable(string query) => 
         GetArrayObjectsNotNullable(query, new());
 
     public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>
@@ -975,7 +592,8 @@ public sealed class WsDataAccessHelper
     #region Public and private methods - Fill references
 
     /// <summary>
-    /// Fill references for table.
+    /// Заполнить ссылочные данные.
+    /// Следует перенести в клиентский слой доступа к данным!
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="item"></param>
@@ -988,7 +606,7 @@ public sealed class WsDataAccessHelper
                 xmlDevice.Scale = GetItemNotNullable<ScaleModel>(xmlDevice.Scale.IdentityValueId);
                 break;
             case LogModel log:
-                log.App = GetItemNotNullable<AppModel>(log.App?.IdentityValueUid);
+                log.App = GetItemNotNullable<WsSqlAppModel>(log.App?.IdentityValueUid);
                 log.Device = GetItemNullable<DeviceModel>(log.Device?.IdentityValueUid);
                 log.LogType = GetItemNotNullable<LogTypeModel>(log.LogType?.IdentityValueUid);
                 break;
@@ -1005,13 +623,13 @@ public sealed class WsDataAccessHelper
                 deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
                 break;
             case LogMemoryModel logMemory:
-                logMemory.App = GetItemNotNullable<AppModel>(logMemory.App.IdentityValueUid);
+                logMemory.App = GetItemNotNullable<WsSqlAppModel>(logMemory.App.IdentityValueUid);
                 logMemory.Device = GetItemNotNullable<DeviceModel>(logMemory.Device.IdentityValueUid);
                 break;
             case LogWebFkModel logWebFk:
                 logWebFk.LogWebRequest = GetItemNotNullable<LogWebModel>(logWebFk.LogWebRequest.IdentityValueUid);
                 logWebFk.LogWebResponse = GetItemNotNullable<LogWebModel>(logWebFk.LogWebResponse.IdentityValueUid);
-                logWebFk.App = GetItemNotNullable<AppModel>(logWebFk.App.IdentityValueUid);
+                logWebFk.App = GetItemNotNullable<WsSqlAppModel>(logWebFk.App.IdentityValueUid);
                 logWebFk.LogType = GetItemNotNullable<LogTypeModel>(logWebFk.LogType.IdentityValueUid);
                 logWebFk.Device = GetItemNotNullable<DeviceModel>(logWebFk.Device.IdentityValueUid);
                 break;
@@ -1107,97 +725,6 @@ public sealed class WsDataAccessHelper
                 workshop.ProductionFacility = GetItemNotNullable<ProductionFacilityModel>(workshop.ProductionFacility.IdentityValueId);
                 break;
         }
-    }
-
-    #endregion
-
-    #region Public and private methods - LogMemory
-
-    /// <summary>
-    /// Save log memory info.
-    /// </summary>
-    /// <param name="sizeAppMb"></param>
-    /// <param name="sizeFreeMb"></param>
-    public void SaveLogMemory(short sizeAppMb, short sizeFreeMb)
-    {
-        LogMemoryModel logMemory = new()
-        {
-            CreateDt = DateTime.Now,
-            SizeAppMb = sizeAppMb,
-            SizeFreeMb = sizeFreeMb,
-            App = App,
-            Device = Device,
-        };
-        SaveAsync(logMemory).ConfigureAwait(false);
-    }
-
-    #endregion
-
-    #region Public and private methods - LogWeb
-
-    public void SaveLogWebService(DateTime requestStampDt, string requestDataString,
-        DateTime responseStampDt, string responseDataString, LogType logType,
-        string url, string parameters, string headers, FormatType formatType, int countAll, int countSuccess, int countErrors) =>
-        SaveLogWebService(requestStampDt, requestDataString, responseStampDt, responseDataString, logType,
-            url, parameters, headers, (byte)formatType, countAll, countSuccess, countErrors);
-
-    public void SaveLogWebService(DateTime requestStampDt, string requestDataString,
-        DateTime responseStampDt, string responseDataString, LogType logType,
-        string url, string parameters, string headers, string format, int countAll, int countSuccess, int countErrors) =>
-        SaveLogWebService(requestStampDt, requestDataString, responseStampDt, responseDataString, logType,
-            url, parameters, headers, (byte)WsDataFormatUtils.GetFormatType(format), countAll, countSuccess, countErrors);
-
-    private void SaveLogWebService(DateTime requestStampDt, string requestDataString,
-        DateTime responseStampDt, string responseDataString, LogType logType,
-        string url, string parameters, string headers,
-        byte formatType, int countAll, int countSuccess, int countErrors)
-    {
-        LogWebModel logWebRequest = new()
-        {
-            CreateDt = DateTime.Now,
-            StampDt = requestStampDt,
-            IsMarked = false,
-            Version = AppVersion.Version,
-            Direction = (byte)ServiceLogDirection.Request,
-            Url = url,
-            Params = parameters,
-            Headers = headers,
-            DataType = formatType,
-            DataString = requestDataString,
-            CountAll = countAll,
-            CountSuccess = countSuccess,
-            CountErrors = countErrors,
-        };
-        Save(logWebRequest);
-
-        LogWebModel logWebResponse = new()
-        {
-            CreateDt = DateTime.Now,
-            StampDt = responseStampDt,
-            IsMarked = false,
-            Version = AppVersion.Version,
-            Direction = (byte)ServiceLogDirection.Response,
-            Url = url,
-            Params = parameters,
-            Headers = headers,
-            DataType = formatType,
-            DataString = responseDataString,
-            CountAll = countAll,
-            CountSuccess = countSuccess,
-            CountErrors = countErrors,
-        };
-        Save(logWebResponse);
-
-        LogTypeModel logTypeItem = GetItemLogTypeNotNullable(logType);
-        LogWebFkModel logWebFk = new()
-        {
-            LogWebRequest = logWebRequest,
-            LogWebResponse = logWebResponse,
-            App = App,
-            LogType = logTypeItem,
-            Device = Device,
-        };
-        SaveAsync(logWebFk).ConfigureAwait(false);
     }
 
     #endregion

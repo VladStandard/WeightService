@@ -9,6 +9,6 @@ public sealed class PrinterResourceContentTests
 	[Test]
     public void Model_Content_Validate()
     {
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<PrinterResourceFkModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PrinterResourceFkModel>();
 	}
 }

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleModels.Contragents;
@@ -22,7 +22,7 @@ public sealed partial class ItemContragent : RazorComponentItemBase<ContragentMo
         {
             () =>
             {
-                SqlItemCast = DataAccess.GetItemNotNullable<ContragentModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ContragentModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<ContragentModel>();

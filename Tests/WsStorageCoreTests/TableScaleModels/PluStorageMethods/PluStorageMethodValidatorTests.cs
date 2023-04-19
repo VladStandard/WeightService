@@ -11,14 +11,14 @@ public sealed class PluStorageMethodValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluStorageMethodModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluStorageMethodModel>(false);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, false);
+        PluStorageMethodModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluStorageMethodModel>(false);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluStorageMethodModel item = WsTestsUtils.DataCore.CreateNewSubstitute<PluStorageMethodModel>(true);
-        WsTestsUtils.DataCore.AssertSqlValidate(item, true);
+        PluStorageMethodModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluStorageMethodModel>(true);
+        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

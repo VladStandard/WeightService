@@ -9,6 +9,6 @@ public sealed class LogContentTests
 	[Test]
 	public void Model_Validate_Content()
 	{
-		WsTestsUtils.DataCore.AssertSqlDbContentValidate<LogModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<LogModel>();
 	}
 }

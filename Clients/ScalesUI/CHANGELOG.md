@@ -53,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.710] - 2022-05-23
 ### Changed
-- WeightCore.Helpers.UserSessionHelper
+- WeightCore.Helpers.WsUserSessionHelper
 ### Описание обновления:
 - Универсальный алгоритм загрузки ресурсов шаблонов
 
