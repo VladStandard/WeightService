@@ -13,7 +13,7 @@ public sealed class WsUserSessionHelperTests
     {
         WsTestsUtils.DataCore.AssertAction(() =>
         {
-            List<WsSqlAppModel> apps = UserSession.ContextManager.GetListNotNullableApps(new());
+            List<WsSqlAppModel> apps = UserSession.ContextManager.ContextList.GetListNotNullableApps(new());
             Assert.Greater(apps.Count, 0);
         }, false);
     }
@@ -24,7 +24,7 @@ public sealed class WsUserSessionHelperTests
         WsTestsUtils.DataCore.AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(true, true, true, true, true);
-            List<DeviceModel> devices = UserSession.ContextManager.GetListNotNullableDevices(sqlCrudConfig);
+            List<DeviceModel> devices = UserSession.ContextManager.ContextList.GetListNotNullableDevices(sqlCrudConfig);
             Assert.Greater(devices.Count, 0);
         }, false);
     }

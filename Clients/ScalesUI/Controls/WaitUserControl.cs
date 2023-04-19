@@ -3,7 +3,7 @@
 
 namespace ScalesUI.Controls;
 
-public partial class WaitUserControl : UserControlBase
+public sealed partial class WaitUserControl : UserControlBase
 {
     #region Public and private fields, properties, constructor
 

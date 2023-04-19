@@ -3,7 +3,7 @@
 
 namespace ScalesUI.Controls;
 
-public partial class PluUserControl : UserControlBase
+public sealed partial class PluUserControl : UserControlBase
 {
     #region Public and private fields, properties, constructor
 

@@ -4,7 +4,7 @@
 namespace ScalesUI.Controls;
 
 #nullable enable
-public partial class NavigationUserControl : UserControlBase
+public sealed partial class NavigationUserControl : UserControlBase
 {
     #region Public and private fields, properties, constructor
 

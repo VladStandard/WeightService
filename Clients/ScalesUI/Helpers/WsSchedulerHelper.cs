@@ -4,7 +4,7 @@
 namespace ScalesUI.Helpers;
 
 #nullable enable
-internal class WsSchedulerHelper
+internal sealed class WsSchedulerHelper
 {
     #region Design pattern "Lazy Singleton"
 

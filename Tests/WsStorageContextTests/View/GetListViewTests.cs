@@ -11,7 +11,7 @@ public sealed class GetListViewTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewLogMemory> items = WsTestsUtils.DataTests.DataContext.GetListViewLogsMemories(200);
+            List<WsSqlViewLogMemory> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewLogsMemories(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
@@ -22,7 +22,7 @@ public sealed class GetListViewTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewTableSizeMemory> items = WsTestsUtils.DataTests.DataContext.GetListViewTablesSizes(200);
+            List<WsSqlViewTableSizeMemory> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewTablesSizes(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items);
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });

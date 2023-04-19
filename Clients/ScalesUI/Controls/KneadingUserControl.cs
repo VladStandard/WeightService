@@ -3,7 +3,7 @@
 
 namespace ScalesUI.Controls;
 
-public partial class KneadingUserControl : UserControlBase
+public sealed partial class KneadingUserControl : UserControlBase
 {
     #region Private fields and properties
 

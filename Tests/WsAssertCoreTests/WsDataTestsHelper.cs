@@ -16,7 +16,7 @@ public class WsDataTestsHelper
 
     #region Public and private fields, properties, constructor
 
-    public static WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
+    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
 
     #endregion
@@ -134,7 +134,7 @@ public class WsDataTestsHelper
         AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
-            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 5, true);
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
@@ -148,7 +148,7 @@ public class WsDataTestsHelper
         AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
-            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 10, true, true);
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
@@ -224,7 +224,7 @@ public class WsDataTestsHelper
     {
         AssertAction(() =>
         {
-            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(items.Count)}: {items.Count}");
             if (isGreater)
                 Assert.Greater(items.Count, 0);

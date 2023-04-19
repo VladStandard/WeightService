@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Configuration Condition=" '$(Configuration)' == '' ">DevelopVS</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProjectGuid>{C71C3398-8DA4-4729-AC11-08F48207AFF7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -14,116 +14,16 @@
     <Deterministic>true</Deterministic>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x86'">
-    <OutputPath>bin\x86\DevelopAleksandrov\</OutputPath>
-    <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x64'">
-    <OutputPath>bin\x64\DevelopAleksandrov\</OutputPath>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopAleksandrov|AnyCPU'">
-    <OutputPath>bin\AnyCPU\DevelopAleksandrov\</OutputPath>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopMorozov|x86'">
-    <OutputPath>bin\x86\DevelopMorozov\</OutputPath>
-    <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopMorozov|x64'">
-    <OutputPath>bin\x64\DevelopMorozov\</OutputPath>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopMorozov|AnyCPU'">
-    <OutputPath>bin\AnyCPU\DevelopMorozov\</OutputPath>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopVS|x86'">
-    <OutputPath>bin\x86\DevelopVS\</OutputPath>
-    <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopVS|x64'">
-    <OutputPath>bin\x64\DevelopVS\</OutputPath>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopVS|AnyCPU'">
-    <OutputPath>bin\AnyCPU\DevelopVS\</OutputPath>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x86'">
-    <OutputPath>bin\x86\ReleaseAleksandrov\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x64'">
-    <OutputPath>bin\x64\ReleaseAleksandrov\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|AnyCPU'">
-    <OutputPath>bin\AnyCPU\ReleaseAleksandrov\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseMorozov|x86'">
-    <OutputPath>bin\x86\ReleaseMorozov\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseMorozov|x64'">
-    <OutputPath>bin\x64\ReleaseMorozov\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseMorozov|AnyCPU'">
-    <OutputPath>bin\AnyCPU\ReleaseMorozov\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseVS|x86'">
-    <OutputPath>bin\x86\ReleaseVS\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseVS|x64'">
-    <OutputPath>bin\x64\ReleaseVS\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseVS|AnyCPU'">
-    <OutputPath>bin\AnyCPU\ReleaseVS\</OutputPath>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="tsclibnet">
-      <HintPath>..\..\Resources\TscLibNet\2.0.50727\tsclibnet.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +94,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FluentNHibernate">
+      <Version>3.2.0</Version>
+    </PackageReference>
     <PackageReference Include="MDSoft.NetUtils">
       <Version>0.2.40</Version>
     </PackageReference>
@@ -206,8 +109,14 @@
     <PackageReference Include="Microsoft.Data.SqlClient">
       <Version>5.1.1</Version>
     </PackageReference>
+    <PackageReference Include="NHibernate">
+      <Version>5.4.2</Version>
+    </PackageReference>
     <PackageReference Include="Nito.AsyncEx">
       <Version>5.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Quartz">
+      <Version>3.6.2</Version>
     </PackageReference>
     <PackageReference Include="Refractored.MvvmHelpers">
       <Version>1.6.2</Version>
@@ -300,14 +209,6 @@
     <ProjectReference Include="..\WsStorageCore\WsStorageCore.csproj">
       <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
       <Name>WsStorageCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WsWinFormsCore\WsWinFormsCore.csproj">
-      <Project>{1eb9514d-984c-456a-8237-0314ed0eb53c}</Project>
-      <Name>WsWinFormsCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WsWpfCore\WsWpfCore.csproj">
-      <Project>{e11c984d-33c1-4094-a7cf-8e7f765b5209}</Project>
-      <Name>WsWpfCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

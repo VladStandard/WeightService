@@ -7,13 +7,4 @@
 	<LangVersion>latest</LangVersion>
 	<Version>0.9.220.0</Version>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="MDSoft.NetUtils" Version="0.2.40" />
-    <PackageReference Include="MDSoft.Wmi" Version="0.2.40" />
-    <PackageReference Include="Zebra.Printer.SDK" Version="2.15.2634" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj" />
-    <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj" />
-  </ItemGroup>
 </Project>

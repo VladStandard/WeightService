@@ -1,46 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.TableDiagModels.Logs;
-using WsStorageCore.TableDiagModels.LogsTypes;
-using WsStorageCore.TableDiagModels.ScalesScreenshots;
-using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
-using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
-using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
-using WsStorageCore.TableScaleFkModels.PlusCharacteristicsFks;
-using WsStorageCore.TableScaleFkModels.PlusGroupsFks;
-using WsStorageCore.TableScaleFkModels.PlusLabels;
-using WsStorageCore.TableScaleFkModels.PlusTemplatesFks;
-using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
-using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
-using WsStorageCore.TableScaleModels.Apps;
-using WsStorageCore.TableScaleModels.BarCodes;
-using WsStorageCore.TableScaleModels.Boxes;
-using WsStorageCore.TableScaleModels.Brands;
-using WsStorageCore.TableScaleModels.Bundles;
-using WsStorageCore.TableScaleModels.Clips;
-using WsStorageCore.TableScaleModels.Contragents;
-using WsStorageCore.TableScaleModels.Devices;
-using WsStorageCore.TableScaleModels.DeviceTypes;
-using WsStorageCore.TableScaleModels.Orders;
-using WsStorageCore.TableScaleModels.OrdersWeighings;
-using WsStorageCore.TableScaleModels.Organizations;
-using WsStorageCore.TableScaleModels.Plus;
-using WsStorageCore.TableScaleModels.PlusCharacteristics;
-using WsStorageCore.TableScaleModels.PlusGroups;
-using WsStorageCore.TableScaleModels.PlusScales;
-using WsStorageCore.TableScaleModels.Printers;
-using WsStorageCore.TableScaleModels.PrintersTypes;
-using WsStorageCore.TableScaleModels.ProductionFacilities;
-using WsStorageCore.TableScaleModels.ProductSeries;
-using WsStorageCore.TableScaleModels.Scales;
-using WsStorageCore.TableScaleModels.Tasks;
-using WsStorageCore.TableScaleModels.TasksTypes;
-using WsStorageCore.TableScaleModels.Templates;
-using WsStorageCore.TableScaleModels.TemplatesResources;
-using WsStorageCore.TableScaleModels.Versions;
-using WsStorageCore.TableScaleModels.WorkShops;
-
 namespace WsStorageCoreTests.Core.Helpers;
 
 [TestFixture]
@@ -53,7 +13,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            List<Type> sqlTableValidators = WsTestsUtils.DataTests.DataContext.GetTableValidators();
+            List<Type> sqlTableValidators = WsTestsUtils.DataTests.ContextManager.GetTableValidators();
             foreach (Type sqlTableValidator in sqlTableValidators)
             {
                 TestContext.WriteLine(sqlTableValidator);

@@ -1,11 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using MDSoft.NetUtils;
-using MDSoft.WinFormsUtils;
-using MDSoft.Wmi.Helpers;
-using MDSoft.Wmi.Models;
-
 namespace ScalesUI.Forms;
 
 /// <summary>
