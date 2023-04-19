@@ -8,9 +8,6 @@ namespace WsStorageCore.TableScaleModels.Plus;
 /// </summary>
 public sealed class PluValidator : WsSqlTableValidator<PluModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public PluValidator() : base(true, true)
     {
         RuleFor(item => item.Description)
@@ -52,23 +49,23 @@ public sealed class PluValidator : WsSqlTableValidator<PluModel>
     }
 }
 /*
-Вот все атрибуты, которые будут пустыми у групп
-ЗаписьXML.ЗаписатьАтрибут("FullName",             "");
-ЗаписьXML.ЗаписатьАтрибут("CategoryGuid",         "");
-ЗаписьXML.ЗаписатьАтрибут("BrandGuid",             "");
-ЗаписьXML.ЗаписатьАтрибут("MeasurementType",     "");
-ЗаписьXML.ЗаписатьАтрибут("GroupGuid",             "");
-ЗаписьXML.ЗаписатьАтрибут("AttachmentsCount",     "");
-ЗаписьXML.ЗаписатьАтрибут("BoxTypeGuid",         "");
-ЗаписьXML.ЗаписатьАтрибут("BoxTypeName",         "");
-ЗаписьXML.ЗаписатьАтрибут("BoxTypeWeight",         "");
-ЗаписьXML.ЗаписатьАтрибут("PackageTypeGuid",     "");
-ЗаписьXML.ЗаписатьАтрибут("PackageTypeName",     "");
-ЗаписьXML.ЗаписатьАтрибут("PackageTypeWeight",     "");
-ЗаписьXML.ЗаписатьАтрибут("ClipTypeGuid",         "");
-ЗаписьXML.ЗаписатьАтрибут("ClipTypeName",         "");
-ЗаписьXML.ЗаписатьАтрибут("ClipTypeWeight",     "");
-ЗаписьXML.ЗаписатьАтрибут("PluNumber",             "0");
-ЗаписьXML.ЗаписатьАтрибут("Description",         "");
-ЗаписьXML.ЗаписатьАтрибут("ShelfLife",             "");
+Пустые атрибуты у групп
+FullName
+CategoryGuid
+BrandGuid
+MeasurementType
+GroupGuid
+AttachmentsCount
+BoxTypeGuid
+BoxTypeName
+BoxTypeWeight
+PackageTypeGuid
+PackageTypeName
+PackageTypeWeight
+ClipTypeGuid
+ClipTypeName
+ClipTypeWeight
+PluNumber
+Description
+ShelfLife
 */

@@ -9,14 +9,14 @@ namespace WsStorageCore.Helpers;
 /// SQL-помощник методов доступа.
 /// Базовый слой доступа к БД.
 /// </summary>
-internal sealed class WsStorageAccessCoreHelper
+internal sealed class WsSqlAccessCoreHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsStorageAccessCoreHelper _instance;
+    private static WsSqlAccessCoreHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsStorageAccessCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlAccessCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -113,7 +113,7 @@ internal sealed class WsStorageAccessCoreHelper
           (JsonSettings.Local.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Local.Sql.UserId}; Password={JsonSettings.Local.Sql.Password}; ") +
           $"TrustServerCertificate={JsonSettings.Local.Sql.TrustServerCertificate}; ";
 
-    public static void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
+    public void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlAccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlAppMap>());
@@ -559,7 +559,7 @@ internal sealed class WsStorageAccessCoreHelper
         return result;
     }
 
-    public object[] GetArrayObjectsNotNullable(string query) =>
+    public object[] GetArrayObjectsNotNullable(string query) => 
         GetArrayObjectsNotNullable(query, new());
 
     public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>

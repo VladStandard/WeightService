@@ -22,8 +22,8 @@ public class WsContentBase : ControllerBase
     /// </summary>
     protected ISessionFactory SessionFactory { get; }
 
-    internal WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
-    internal WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
+    internal WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     internal SqlCrudConfigModel SqlCrudConfig => new(new List<SqlFieldFilterModel>(), 
         true, false, false, true, false);
     private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";

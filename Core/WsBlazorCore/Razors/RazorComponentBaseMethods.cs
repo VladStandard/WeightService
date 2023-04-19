@@ -167,7 +167,7 @@ public partial class RazorComponentBase
 
 	protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
 	{
-		TItem item = AccessManager.AccessItem.GetItemNewEmpty<TItem>();
+		TItem item = ContextManager.AccessManager.AccessItem.GetItemNewEmpty<TItem>();
 		item.FillProperties();
 		return item;
 	}
@@ -177,12 +177,12 @@ public partial class RazorComponentBase
 		if (item is null) return;
 		if (item.IsNew)
 		{
-            AccessManager.AccessItem.Save(item);
+            ContextManager.AccessManager.AccessItem.Save(item);
 		}
 		else
 		{
 			if (!SqlItemValidate(NotificationService, item)) return;
-            AccessManager.AccessItem.UpdateForce(item);
+            ContextManager.AccessManager.AccessItem.UpdateForce(item);
 		}
 	}
 
@@ -258,7 +258,7 @@ public partial class RazorComponentBase
                 else
                 {
                     if (deviceScaleFk is not null)
-                        AccessManager.AccessItem.Delete(deviceScaleFk);
+                        ContextManager.AccessManager.AccessItem.Delete(deviceScaleFk);
                 }
             }
         }
@@ -284,7 +284,7 @@ public partial class RazorComponentBase
                     else
                     {
                         if (pluTemplateFk is not null)
-                            AccessManager.AccessItem.Delete(pluTemplateFk);
+                            ContextManager.AccessManager.AccessItem.Delete(pluTemplateFk);
                     }
                 }
             }
@@ -333,7 +333,7 @@ public partial class RazorComponentBase
                 else
                 {
                     if (deviceTypeFk is not null)
-                        AccessManager.AccessItem.Delete(deviceTypeFk);
+                        ContextManager.AccessManager.AccessItem.Delete(deviceTypeFk);
                 }
             }
         }
@@ -381,7 +381,7 @@ public partial class RazorComponentBase
 		
 		RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
 		{
-			AccessManager.AccessItem.Mark(SqlItem); ;
+			ContextManager.AccessManager.AccessItem.Mark(SqlItem); ;
 		});
 	}
 
@@ -398,7 +398,7 @@ public partial class RazorComponentBase
 		
 		RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
 		{
-			AccessManager.AccessItem.Delete(SqlItem);
+			ContextManager.AccessManager.AccessItem.Delete(SqlItem);
         });
 	}
 

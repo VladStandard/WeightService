@@ -7,20 +7,20 @@ namespace WsStorageCore.Helpers;
 /// SQL-помощник методов доступа к табличным записям.
 /// Базовый слой доступа к БД.
 /// </summary>
-public sealed class WsStorageAccessItemHelper
+public sealed class WsSqlAccessItemHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsStorageAccessItemHelper _instance;
+    private static WsSqlAccessItemHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsStorageAccessItemHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlAccessItemHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    private static WsStorageAccessCoreHelper AccessCore => WsStorageAccessCoreHelper.Instance;
+    private static WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
 
     #endregion
 
@@ -81,6 +81,8 @@ public sealed class WsStorageAccessItemHelper
 
     public SqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase =>
         AccessCore.Mark(item);
+
+    public WsSqlAppModel GetItemAppOrCreateNew(string appName) => AccessCore.GetItemAppOrCreateNew(appName);
 
     #endregion
 }

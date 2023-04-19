@@ -5,7 +5,7 @@ namespace WsStorageCore.TableScaleModels.Plus;
 
 public static class PluController
 {
-    private static WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
+    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
 
     public static bool IsFullValid(PluModel pluModel)
     {

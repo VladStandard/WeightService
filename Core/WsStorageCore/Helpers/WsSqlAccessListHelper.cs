@@ -7,20 +7,20 @@ namespace WsStorageCore.Helpers;
 /// SQL-помощник методов доступа к табличным спискам.
 /// Базовый слой доступа к БД.
 /// </summary>
-public sealed class WsStorageAccessListHelper
+public sealed class WsSqlAccessListHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsStorageAccessListHelper _instance;
+    private static WsSqlAccessListHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsStorageAccessListHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlAccessListHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    private static WsStorageAccessCoreHelper AccessCore => WsStorageAccessCoreHelper.Instance;
+    private static WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
 
     #endregion
 
@@ -31,6 +31,15 @@ public sealed class WsStorageAccessListHelper
 
     public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
         AccessCore.GetListNotNullable<T>(sqlCrudConfig);
+
+    public object[] GetArrayObjectsNotNullable(string query) =>
+        AccessCore.GetArrayObjectsNotNullable(query);
+
+    public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>
+        AccessCore.GetArrayObjectsNotNullable(query, parameters);
+
+    public object[] GetArrayObjectsNotNullable(SqlCrudConfigModel sqlCrudConfig) =>
+        AccessCore.GetArrayObjectsNotNullable(sqlCrudConfig);
 
     #endregion
 }

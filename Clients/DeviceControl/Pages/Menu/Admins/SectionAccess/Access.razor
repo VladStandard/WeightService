@@ -1,4 +1,4 @@
-﻿@page "/section/access"
+@page "/section/access"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
 @using BlazorDeviceControl.Pages.SectionComponents
@@ -28,7 +28,7 @@
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn TItem="@WsSqlAccessModel" Title="@LocaleCore.Table.AccessLevel" SortProperty="Rights" Width="30%">
         <Template Context="itemCast">
-          @ContextManager.GetAccessRightsDescription(itemCast.Rights)
+          @ContextManager.ContextItem.GetAccessRightsDescription(itemCast.Rights)
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@LocaleCore.Table.User" Property="Name" Width="30%" />

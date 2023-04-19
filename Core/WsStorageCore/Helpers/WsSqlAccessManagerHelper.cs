@@ -7,25 +7,28 @@ namespace WsStorageCore.Helpers;
 /// SQL-менеджер SQL-помощников методов доступа.
 /// Базовый слой доступа к БД.
 /// </summary>
-public sealed class WsStorageAccessManagerHelper
+public sealed class WsSqlAccessManagerHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsStorageAccessManagerHelper _instance;
+    private static WsSqlAccessManagerHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsStorageAccessManagerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlAccessManagerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    private WsStorageAccessCoreHelper AccessCore => WsStorageAccessCoreHelper.Instance;
-    public WsStorageAccessItemHelper AccessItem => WsStorageAccessItemHelper.Instance;
-    public WsStorageAccessListHelper AccessList => WsStorageAccessListHelper.Instance;
+    private WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
+    public WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
+    public WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
     public ISessionFactory SessionFactory => AccessCore.SessionFactory;
 
     #endregion
 
     public bool IsConnected() => AccessCore.IsConnected();
+
+    public void AddConfigurationMappings(FluentConfiguration fluentConfiguration) =>
+        AccessCore.AddConfigurationMappings(fluentConfiguration);
 }

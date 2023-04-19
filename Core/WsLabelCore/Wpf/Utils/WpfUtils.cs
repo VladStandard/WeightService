@@ -13,8 +13,8 @@ public static class WpfUtils
 {
     #region Public and private fields, properties, constructor
 
-    private static WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
-    private static WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
+    private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private static WpfPageLoader WpfPage { get; set; } = new();
 
     #endregion

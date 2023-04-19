@@ -18,7 +18,7 @@ public sealed partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFk
         RunActionsParametersSetJustOne(
             () =>
             {
-                SqlItemCast = ContextManager.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<PluBundleFkModel>();
             }

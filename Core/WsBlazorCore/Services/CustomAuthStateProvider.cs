@@ -13,8 +13,8 @@ public interface IUserRightsService
 
 public class UserRightsService : IUserRightsService
 {
-    private WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
-    private WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
+    private WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
 
     public async Task<List<string>> GetUserRightsAsync(string username)
     {

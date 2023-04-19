@@ -9,8 +9,8 @@ public static class ActionUtils
 {
     #region Public and private fields, properties, constructor
 
-    private static WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
-    private static WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
+    private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private static PluginMemoryHelper PluginMemory => PluginMemoryHelper.Instance;
 
     #endregion

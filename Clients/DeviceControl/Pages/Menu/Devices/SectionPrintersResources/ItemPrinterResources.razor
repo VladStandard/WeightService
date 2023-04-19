@@ -7,9 +7,6 @@
 @using WsStorageCore.TableScaleFkModels.PrintersResourcesFks
 @using WsStorageCore.TableScaleModels.Printers
 @using WsStorageCore.TableScaleModels.TemplatesResources
-@using WsStorageCore.TableScaleFkModels.PrintersResourcesFks
-@using WsStorageCore.TableScaleModels.Printers
-@using WsStorageCore.TableScaleModels.TemplatesResources
 
 <RazorItemReload TItem="@PrinterResourceFkModel" Title="@LocaleCore.Print.Resource"/>
 
@@ -21,7 +18,7 @@
     <td>@LocaleCore.Print.Name</td>
     <td>
       <MudSelectLocal @bind-Value="@SqlItemCast.Printer">
-        @foreach (PrinterModel item in ContextManager.Printers)
+        @foreach (PrinterModel item in ContextManager.ContextList.Printers)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }
@@ -30,7 +27,7 @@
     <td>@LocaleCore.Table.Resource</td>
     <td>
       <MudSelectLocal @bind-Value="@SqlItemCast.TemplateResource">
-        @foreach (TemplateResourceModel item in ContextManager.TemplateResources)
+        @foreach (TemplateResourceModel item in ContextManager.ContextList.TemplateResources)
         {
           <MudSelectItem Value=@item>@item.Name</MudSelectItem>
         }

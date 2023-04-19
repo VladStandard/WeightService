@@ -50,7 +50,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     protected void AutoShowFilterOnlyTopSetup()
     {
         SqlCrudConfigSection.IsGuiShowFilterOnlyTop =
-            SqlSectionCast.Count >= WsStorageContextManagerHelper.Instance.JsonSettings.Local.SelectTopRowsCount;
+            SqlSectionCast.Count >= ContextManager.JsonSettings.Local.SelectTopRowsCount;
     }
 
     protected void RowRender(RowRenderEventArgs<TItem> args)
@@ -142,7 +142,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
 
     protected virtual void SetSqlSectionCast()
     {
-        SqlSectionCast = AccessManager.AccessList.GetListNotNullable<TItem>(SqlCrudConfigSection);
+        SqlSectionCast = ContextManager.AccessManager.AccessList.GetListNotNullable<TItem>(SqlCrudConfigSection);
     }
 
     protected virtual void SetSqlSectionSave(TItem model)
@@ -160,7 +160,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
         RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
         {
             foreach (TItem item in SqlSectionSave)
-                AccessManager.AccessItem.UpdateForce(item);
+                ContextManager.AccessManager.AccessItem.UpdateForce(item);
             SqlSectionSave.Clear();
         });
     }

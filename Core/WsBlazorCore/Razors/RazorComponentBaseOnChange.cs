@@ -60,7 +60,7 @@ public partial class RazorComponentBase
     {
         if (filterName == nameof(item.PrinterType) && value is long printerTypeId)
         {
-            item.PrinterType = AccessManager.AccessItem.GetItemNotNullable<PrinterTypeModel>(printerTypeId);
+            item.PrinterType = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterTypeModel>(printerTypeId);
         }
     }
 
@@ -69,10 +69,10 @@ public partial class RazorComponentBase
         switch (filterName)
         {
             case nameof(item.Printer) when value is long printerId:
-                item.Printer = AccessManager.AccessItem.GetItemNotNullable<PrinterModel>(printerId);
+                item.Printer = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterModel>(printerId);
                 break;
             case nameof(item.TemplateResource) when value is long resourceId:
-                item.TemplateResource = AccessManager.AccessItem.GetItemNotNullable<TemplateResourceModel>(resourceId);
+                item.TemplateResource = ContextManager.AccessManager.AccessItem.GetItemNotNullable<TemplateResourceModel>(resourceId);
                 break;
         }
     }
@@ -81,7 +81,7 @@ public partial class RazorComponentBase
     {
         if (filterName == nameof(ScaleModel.IdentityValueId) && value is long id)
         {
-            item = AccessManager.AccessItem.GetItemNotNullable<ScaleModel>(id);
+            item = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ScaleModel>(id);
         }
         if (filterName == nameof(ScaleModel.DeviceComPort) && value is string deviceComPort)
         {
@@ -93,11 +93,11 @@ public partial class RazorComponentBase
         //}
         if (filterName == nameof(ScaleModel.PrinterMain) && value is long printerId)
         {
-            item.PrinterMain = AccessManager.AccessItem.GetItemNullableById<PrinterModel>(printerId);
+            item.PrinterMain = ContextManager.AccessManager.AccessItem.GetItemNullableById<PrinterModel>(printerId);
         }
         if (filterName == nameof(ScaleModel.WorkShop) && value is long workShopId)
         {
-            item.WorkShop = AccessManager.AccessItem.GetItemNullableById<WorkShopModel>(workShopId);
+            item.WorkShop = ContextManager.AccessManager.AccessItem.GetItemNullableById<WorkShopModel>(workShopId);
         }
     }
 
@@ -113,7 +113,7 @@ public partial class RazorComponentBase
     {
         if (filterName == nameof(item.ProductionFacility) && value is int productionFacilityId)
         {
-            item.ProductionFacility = AccessManager.AccessItem.GetItemNotNullable<ProductionFacilityModel>(productionFacilityId);
+            item.ProductionFacility = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ProductionFacilityModel>(productionFacilityId);
         }
     }
 

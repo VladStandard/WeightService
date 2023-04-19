@@ -30,13 +30,13 @@ public sealed partial class ItemPrinterResources : RazorComponentItemBase<Printe
 		{
 			() =>
 			{
-                SqlItemCast = ContextManager.GetItemNotNullable<PrinterResourceFkModel>(IdentityId);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterResourceFkModel>(IdentityId);
                 if (SqlItemCast.IsNew)
 				{
 					SqlItemCast = SqlItemNew<PrinterResourceFkModel>();
 				}
-				ContextManager.GetListNotNullable<PrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-				ContextManager.GetListNotNullable<TemplateResourceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+				ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+				ContextManager.AccessManager.AccessList.GetListNotNullable<TemplateResourceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
             }
 		});
 	}

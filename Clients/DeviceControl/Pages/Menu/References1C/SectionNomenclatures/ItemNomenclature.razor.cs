@@ -39,14 +39,14 @@ public sealed partial class ItemNomenclature : RazorComponentItemBase<PluModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.GetItemNullableByUid<PluModel>(IdentityUid) 
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNullableByUid<PluModel>(IdentityUid) 
                               ?? SqlItemNew <PluModel>();
                 
-                ContextManager.GetListNotNullable<TemplateModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                ContextManager.AccessManager.AccessList.GetListNotNullable<TemplateModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
                 PluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNotNullable(SqlItemCast);
                 Template = PluTemplateFk.Template.IsNotNew 
-                    ? PluTemplateFk.Template : AccessManager.AccessItem.GetItemNewEmpty<TemplateModel>();
+                    ? PluTemplateFk.Template : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<TemplateModel>();
             }
         });
     }

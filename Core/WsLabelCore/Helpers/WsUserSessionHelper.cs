@@ -47,8 +47,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
 
     #region Public and private fields and properties
 
-    public WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
-    public WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
+    public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsBarCodeHelper BarCode => WsBarCodeHelper.Instance;
     public DebugHelper Debug => DebugHelper.Instance;
     public PluginLabelsHelper PluginLabels => PluginLabelsHelper.Instance;
@@ -744,7 +744,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             if (PluStorageMethodFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
                 TemplateResourceModel resource = ContextManager.ContextPluStorage.GetPluStorageResource(
-                    pluLabel.PluScale.Plu, ContextManager.PluStorageMethodsFks);
+                    pluLabel.PluScale.Plu, ContextManager.ContextList.PluStorageMethodsFks);
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
                 zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
             }
@@ -790,7 +790,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public void SetPluStorageMethodsFks()
     {
         SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false, false);// { IsFillReferences = false };
-        ContextManager.PluStorageMethodsFks = PluStorageMethodFks = ContextManager.ContextPluStorage.UpdatePluStorageMethodFks(sqlCrudConfig);
+        ContextManager.ContextList.PluStorageMethodsFks = PluStorageMethodFks = ContextManager.ContextPluStorage.UpdatePluStorageMethodFks(sqlCrudConfig);
     }
 
     public List<PluScaleModel> GetCurrentPlus()
@@ -826,7 +826,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     private void SetPluStorageMethodFks(PluModel plu)
     {
         if (plu.IsNotExists) return;
-        PluStorageMethodFk = ContextManager.ContextPluStorage.GetPluStorageMethodFk(plu, ContextManager.PluStorageMethodsFks);
+        PluStorageMethodFk = ContextManager.ContextPluStorage.GetPluStorageMethodFk(plu, ContextManager.ContextList.PluStorageMethodsFks);
         if (PluStorageMethodFk.IsNotExists)
             PluStorageMethodFk.FillProperties();
     }

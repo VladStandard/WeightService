@@ -1,11 +1,10 @@
-﻿@page "/section/printers/new"
+@page "/section/printers/new"
 @page "/section/printers/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Printers.PrinterModel>
 @using BlazorDeviceControl.Pages.CustomComponents
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.Menu.Devices.SectionPrintersResources
-@using WsStorageCore.TableScaleModels.Printers
 @using WsStorageCore.TableScaleModels.Printers
 
 <RazorItemReload TItem="@PrinterModel" Title="@LocaleCore.Print.Name"/>
@@ -23,7 +22,7 @@
     <tr>
       <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterType)" Text="@LocaleCore.Print.Type"/></td>
       <td>
-        <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterType" Data="@StorageContext.PrinterTypes" TextProperty="Name" />
+        <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterType" Data="@ContextManager.ContextList.PrinterTypes" TextProperty="Name" />
       </td>
       <td>@LocaleCore.Print.Port</td>
       <td><RzNumericLocal Min="0" Max="32767" @bind-Value="@SqlItemCast.Port"/></td>
@@ -39,17 +38,17 @@
       <td>
         <RadzenButton Click="@(_ => SqlItemPrinterResourcesClear(SqlItemCast))"
                       class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                      Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!ContextManager.IsConnected())"/>
+                      Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!ContextManager.AccessManager.IsConnected())"/>
       </td>
       <td>
         <RadzenButton Click=@(_=> SqlItemPrinterResourcesLoad(SqlItemCast, "TTF"))
                       class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                      Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!ContextManager.IsConnected())"/>
+                      Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!ContextManager.AccessManager.IsConnected())"/>
       </td>
       <td>
         <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF"))
                       class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                      Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!ContextManager.IsConnected())"/>
+                      Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!ContextManager.AccessManager.IsConnected())"/>
       </td>
     </tr>
     <RazorItemDates SqlItem="@SqlItemCast"/>

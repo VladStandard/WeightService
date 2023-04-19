@@ -8,7 +8,7 @@ namespace WsBlazorCore.Services;
 
 public class FileUpload : IFileUpload
 {
-    private WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
+    private WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
     //private readonly IWebHostEnvironment _environment;
     private readonly IHostingEnvironment _environment;
     //public FileUpload(IWebHostEnvironment environment)

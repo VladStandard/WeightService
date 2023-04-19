@@ -7,82 +7,33 @@ namespace WsStorageCore.Helpers;
 /// SQL-менеджер SQL-помощников.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsStorageContextManagerHelper
+public sealed class WsSqlContextManagerHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsStorageContextManagerHelper _instance;
+    private static WsSqlContextManagerHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsStorageContextManagerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlContextManagerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    private WsStorageAccessCoreHelper AccessCore => WsStorageAccessCoreHelper.Instance;
-    private WsStorageContextCoreHelper ContextCore => WsStorageContextCoreHelper.Instance;
-    public WsStorageContextItemHelper ContextItem => WsStorageContextItemHelper.Instance;
-    public WsStorageContextListHelper ContextList => WsStorageContextListHelper.Instance;
-    public WsStorageContextPluNestingHelper ContextPluNesting => WsStorageContextPluNestingHelper.Instance;
-    public WsStorageContextPluStorageHelper ContextPluStorage => WsStorageContextPluStorageHelper.Instance;
+    private WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
+    public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    public WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
+    public WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
+    private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
+    public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
+    public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
+    public WsSqlContextPluNestingHelper ContextPluNesting => WsSqlContextPluNestingHelper.Instance;
+    public WsSqlContextPluStorageHelper ContextPluStorage => WsSqlContextPluStorageHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     private AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
-    
-    #endregion
-
-    #region Public and private fields, properties, constructor
-
-    public List<WsSqlAccessModel> Accesses { get; set; } = new();
-    public List<WsSqlAppModel> Apps { get; set; } = new();
-    public List<BarCodeModel> BarCodes { get; set; } = new();
-    public List<BoxModel> Boxes { get; set; } = new();
-    public List<BrandModel> Brands { get; set; } = new();
-    public List<BundleModel> Bundles { get; set; } = new();
-    public List<ClipModel> Clips { get; set; } = new();
-    public List<ContragentModel> Contragents { get; set; } = new();
-    public List<DeviceModel> Devices { get; set; } = new();
-    public List<DeviceTypeModel> DeviceTypes { get; set; } = new();
-    public List<DeviceTypeFkModel> DeviceTypeFks { get; set; } = new();
-    public List<DeviceScaleFkModel> DeviceScaleFks { get; set; } = new();
-    public List<LogModel> Logs { get; set; } = new();
-    public List<LogMemoryModel> LogsMemories { get; set; } = new();
-    public List<LogTypeModel> LogTypes { get; set; } = new();
-    public List<LogWebModel> LogsWebs { get; set; } = new();
-    public List<LogWebFkModel> LogsWebsFks { get; set; } = new();
-    public List<PluGroupModel> NomenclaturesGroups { get; set; } = new();
-    public List<PluGroupFkModel> NomenclaturesGroupsFk { get; set; } = new();
-    public List<PluCharacteristicModel> NomenclaturesCharacteristics { get; set; } = new();
-    public List<PluCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; } = new();
-    public List<OrderModel> Orders { get; set; } = new();
-    public List<OrderWeighingModel> OrderWeighings { get; set; } = new();
-    public List<OrganizationModel> Organizations { get; set; } = new();
-    public List<PluLabelModel> PluLabels { get; set; } = new();
-    public List<PluModel> Plus { get; set; } = new();
-    public List<PluFkModel> PlusFks { get; set; } = new();
-    public List<PluBrandFkModel> PluBrandFks { get; set; } = new();
-    public List<PluBundleFkModel> PluBundleFks { get; set; } = new();
-    public List<PluClipFkModel> PluClipFks { get; set; } = new();
-    public List<PluNestingFkModel> PluNestingFks { get; set; } = new();
-    public List<PluScaleModel> PluScales { get; set; } = new();
-    public List<PluStorageMethodModel> PluStorageMethods { get; set; } = new();
-    public List<PluStorageMethodFkModel> PluStorageMethodsFks { get; set; } = new();
-    public List<PluTemplateFkModel> PluTemplateFks { get; set; } = new();
-    public List<PluWeighingModel> PluWeighings { get; set; } = new();
-    public List<PrinterModel> Printers { get; set; } = new();
-    public List<PrinterResourceFkModel> PrinterResources { get; set; } = new();
-    public List<PrinterTypeModel> PrinterTypes { get; set; } = new();
-    public List<ProductionFacilityModel> ProductionFacilities { get; set; } = new();
-    public List<ProductSeriesModel> ProductSeries { get; set; } = new();
-    public List<ScaleModel> Scales { get; set; } = new();
-    public List<ScaleScreenShotModel> ScaleScreenShots { get; set; } = new();
-    public List<TaskModel> Tasks { get; set; } = new();
-    public List<TaskTypeModel> TaskTypes { get; set; } = new();
-    public List<TemplateModel> Templates { get; set; } = new();
-    public List<TemplateResourceModel> TemplateResources { get; set; } = new();
-    public List<VersionModel> Versions { get; set; } = new();
-    public List<WorkShopModel> WorkShops { get; set; } = new();
+    public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration => AccessCore.SqlConfiguration;
 
     #endregion
 
@@ -308,6 +259,14 @@ public sealed class WsStorageContextManagerHelper
     public List<SqlDbFileSizeInfoModel> GetDbFileSizeInfos() => ContextCore.GetDbFileSizeInfos();
     
     public ushort GetDbFileSizeAll() => ContextCore.GetDbFileSizeAll();
+
+    public List<WsSqlTableBase> GetTableModels() => ContextCore.GetTableModels();
+
+    public List<Type> GetTableTypes() => ContextCore.GetTableTypes();
+
+    public List<Type> GetTableMaps() => ContextCore.GetTableMaps();
+
+    public List<Type> GetTableValidators() => ContextCore.GetTableValidators();
 
     #endregion
 }

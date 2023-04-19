@@ -19,7 +19,7 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
     public Logs() : base()
     {
         CurrentType = new();
-        LogTypes = ContextManager.GetListNotNullable<LogTypeModel>(new SqlCrudConfigModel());
+        LogTypes = ContextManager.AccessManager.AccessList.GetListNotNullable<LogTypeModel>(new SqlCrudConfigModel());
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultShowMarked = true;
         SqlCrudConfigSection.IsResultOrder = true;
@@ -29,8 +29,8 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
     {
         Guid logTypeUid = CurrentType.IdentityValueUid;
         string query = WsSqlQueriesDiags.Tables.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
-            ? WsStorageAccessCoreHelper.JsonSettings.Local.SelectTopRowsCount : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
-        object[] objects = ContextManager.GetArrayObjectsNotNullable(query);
+            ? ContextManager.JsonSettings.Local.SelectTopRowsCount : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
+        object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<LogQuickModel> items = new();
         foreach (object obj in objects)
         {

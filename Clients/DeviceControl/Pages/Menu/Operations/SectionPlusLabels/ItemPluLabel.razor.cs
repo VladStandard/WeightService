@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleFkModels.PlusLabels;
@@ -26,7 +26,7 @@ public sealed partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.GetItemNotNullable<PluLabelModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluLabelModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
                     SqlItemCast = SqlItemNew<PluLabelModel>();

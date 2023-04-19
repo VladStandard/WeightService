@@ -102,7 +102,7 @@ public class MassaDeviceHelper : HelperBase
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		IsExceptionResult = true;
-		WsStorageContextManagerHelper.Instance.ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
+		WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
 	}
 
 	#endregion

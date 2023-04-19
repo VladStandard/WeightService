@@ -28,7 +28,7 @@ public sealed partial class ItemTemplateResource : RazorComponentItemBase<Templa
         {
             () =>
             {
-                SqlItemCast = ContextManager.GetItemNotNullable<TemplateResourceModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<TemplateResourceModel>(IdentityUid);
                 //if (IdentityId is not null && TableAction == DbTableAction.New)
                 //    SqlItemCast.IdentityValueId = (long)IdentityId;
             }

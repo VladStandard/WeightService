@@ -35,14 +35,14 @@ public sealed class PluNestingFkValidator : WsSqlTableValidator<PluNestingFkMode
         RuleFor(item => item.WeightMax)
             .GreaterThanOrEqualTo(item => item.WeightMin)
             .GreaterThanOrEqualTo(item => item.WeightNom)
-            .When(item => item.WeightMax > 0 && item.WeightNom > 0 && item.WeightMin > 0);
+            .When(item => item.WeightMax > 0 && item is { WeightNom: > 0, WeightMin: > 0 });
         RuleFor(item => item.WeightNom)
             .GreaterThanOrEqualTo(item => item.WeightMin)
             .LessThanOrEqualTo(item => item.WeightMax)
-            .When(item => item.WeightMax > 0 && item.WeightNom > 0 && item.WeightMin > 0);
+            .When(item => item.WeightMax > 0 && item is { WeightNom: > 0, WeightMin: > 0 });
         RuleFor(item => item.WeightMin)
             .LessThanOrEqualTo(item => item.WeightMax)
             .LessThanOrEqualTo(item => item.WeightNom)
-            .When(item => item.WeightMax > 0 && item.WeightNom > 0 && item.WeightMin > 0);
+            .When(item => item.WeightMax > 0 && item is { WeightNom: > 0, WeightMin: > 0 });
     }
 }

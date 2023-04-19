@@ -59,12 +59,12 @@ public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
 				ContextManager.ContextList.GetListNotNullable<TemplateModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 				ContextManager.ContextList.GetListNotNullable<WorkShopModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
-				SqlItemCast = AccessManager.AccessItem.GetItemNotNullable<ScaleModel>(IdentityId);
-				SqlItemCast.PrinterMain ??= AccessManager.AccessItem.GetItemNewEmpty<PrinterModel>();
-				SqlItemCast.PrinterShipping ??= AccessManager.AccessItem.GetItemNewEmpty<PrinterModel>();
-                SqlItemCast.WorkShop ??= AccessManager.AccessItem.GetItemNewEmpty<WorkShopModel>();
+				SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ScaleModel>(IdentityId);
+				SqlItemCast.PrinterMain ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<PrinterModel>();
+				SqlItemCast.PrinterShipping ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<PrinterModel>();
+                SqlItemCast.WorkShop ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WorkShopModel>();
 				DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(SqlItemCast);
-				Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : AccessManager.AccessItem.GetItemNewEmpty<DeviceModel>();
+				Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<DeviceModel>();
 
 			    // ComPorts
 			    ComPorts = MdSerialPortsUtils.GetListTypeComPorts(Lang.English);

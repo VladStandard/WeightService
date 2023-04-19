@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleModels.PlusGroups;
@@ -22,13 +22,13 @@ public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<PluGr
 		{
 			() =>
 			{
-                SqlItemCast = ContextManager.GetItemNotNullable<PluGroupModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluGroupModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
 					SqlItemCast = SqlItemNew<PluGroupModel>();
 				}
 
-                ParentGroup = ContextManager.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
+                ParentGroup = ContextManager.ContextItem.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
             }
 		});
 	}

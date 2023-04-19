@@ -3,6 +3,7 @@
 
 using System.Reflection;
 using WsDataCore.Utils;
+using WsStorageCore.Helpers;
 using WsStorageCore.Models;
 
 namespace BlazorDeviceControl.Pages.Menu.Admins;
@@ -21,8 +22,6 @@ public sealed partial class SystemAppInfo : RazorComponentBase
 	private uint DbFillSize => DbFileSizeAll == 0 ? 0 : DbFileSizeAll * 100 / DbMaxSize;
     private ulong CurrentRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalAllocated.MegaBytes;
     private ulong TotalRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes;
-
-    private List<SqlDbFileSizeInfoModel> DbFileSizeInfos => new WsStorageContextHelper().GetDbFileSizeInfos();
 
     #endregion
 

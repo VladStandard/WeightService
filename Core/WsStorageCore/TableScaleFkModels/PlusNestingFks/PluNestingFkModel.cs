@@ -65,9 +65,10 @@ public class PluNestingFkModel : WsSqlTableBase
     /// </summary>
     /// <returns></returns>
     public override string ToString() =>
+        $"{nameof(IdentityValueUid)}: {IdentityValueUid}. " +
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Box)}: {Box.Name}. " +
-        //$"{nameof(Plu)}: {Plu.Name}. " +
+        $"{nameof(PluBundle.Plu)}: {PluBundle.Plu.Code}. " +
         $"{nameof(PluBundle)}: {PluBundle.Bundle.Name}. " +
         $"{nameof(WeightTare)}: {WeightTare}. " +
         $"{nameof(IsDefault)}: {IsDefault}. ";

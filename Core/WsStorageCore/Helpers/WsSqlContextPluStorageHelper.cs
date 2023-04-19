@@ -7,21 +7,21 @@ namespace WsStorageCore.Helpers;
 /// SQL-помощник табличных записей таблиц PLUS_STORAGE_METHODS, PLUS_STORAGE_METHODS_FK.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsStorageContextPluStorageHelper
+public sealed class WsSqlContextPluStorageHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsStorageContextPluStorageHelper _instance;
+    private static WsSqlContextPluStorageHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsStorageContextPluStorageHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlContextPluStorageHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    private static WsStorageAccessManagerHelper AccessManager => WsStorageAccessManagerHelper.Instance;
-    private static WsStorageContextListHelper ContextList => WsStorageContextListHelper.Instance;
+    private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    private static WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
 
     #endregion
 

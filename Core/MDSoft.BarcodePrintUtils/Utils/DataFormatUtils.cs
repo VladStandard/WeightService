@@ -13,7 +13,7 @@ public static class DataFormatUtils
         if (!isForceUpdate && _templateResources.Any()) return _templateResources;
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceModel.Type), "ZPL"),
             new SqlFieldOrderModel() { Name = nameof(TemplateResourceModel.Name), Direction = WsSqlOrderDirection.Asc }, false, false);
-        TemplateResourceModel[]? templateResources = WsStorageAccessManagerHelper.Instance.AccessList.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
+        TemplateResourceModel[]? templateResources = WsSqlAccessManagerHelper.Instance.AccessList.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
         return _templateResources = templateResources is not null ? templateResources.ToList() : new();
     }
 

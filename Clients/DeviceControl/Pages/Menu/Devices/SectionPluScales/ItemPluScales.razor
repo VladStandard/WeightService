@@ -1,4 +1,4 @@
-﻿@page "/section/plus_scales/new"
+@page "/section/plus_scales/new"
 @page "/section/plus_scales/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusScales.PluScaleModel>
@@ -21,9 +21,9 @@
   </tr>
   <tr>
     <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/></td>
-    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Scale" Data="@ContextManager.Scales" TextProperty="Description"/></td>
+    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Scale" Data="@ContextManager.ContextList.Scales" TextProperty="Description"/></td>
     <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/></td>
-    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Plu" Data="@ContextManager.Plus" TextProperty="DisplayName" /></td>
+    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Plu" Data="@ContextManager.ContextList.Plus" TextProperty="DisplayName" /></td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>

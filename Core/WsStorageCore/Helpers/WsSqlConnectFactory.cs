@@ -26,12 +26,12 @@ public class WsSqlConnectFactory
     {
         lock (_locker)
         {
-            if (string.IsNullOrEmpty(WsStorageAccessCoreHelper.JsonSettings.Local.ConnectionString))
+            if (string.IsNullOrEmpty(WsSqlAccessCoreHelper.JsonSettings.Local.ConnectionString))
             {
-                throw new($"Factory not initialized. Call this method with param {nameof(WsStorageAccessCoreHelper.JsonSettings.Local.ConnectionString)}");
+                throw new($"Factory not initialized. Call this method with param {nameof(WsSqlAccessCoreHelper.JsonSettings.Local.ConnectionString)}");
             }
         }
-        return new(WsStorageAccessCoreHelper.JsonSettings.Local.ConnectionString);
+        return new(WsSqlAccessCoreHelper.JsonSettings.Local.ConnectionString);
     }
 
     public T GetValueAsNotNullable<T>(SqlDataReader reader, string fieldName) where T : struct
