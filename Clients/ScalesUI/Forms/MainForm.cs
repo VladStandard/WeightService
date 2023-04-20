@@ -31,7 +31,10 @@ public partial class MainForm : Form
     private PluUserControl PluControl { get; set; }
     private KneadingUserControl KneadingControl { get; set; }
     private WaitUserControl WaitControl { get; set; }
-    private const bool IsReleaseForce = true;
+    /// <summary>
+    /// Отладочный флаг. Необходим для сквозных тестов печати, без диалогов.
+    /// </summary>
+    private const bool IsReleaseForce = false;
 
     /// <summary>
     /// Empty constructor.

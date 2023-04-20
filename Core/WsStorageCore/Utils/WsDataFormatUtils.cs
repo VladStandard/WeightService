@@ -160,7 +160,7 @@ public static class WsDataFormatUtils
     {
         if (documentA.DocumentElement is not null && documentB.DocumentElement is not null)
         {
-            if (!documentA.DocumentElement.Name.Equals(documentB.DocumentElement.Name))
+            if (!Equals(documentA.DocumentElement.Name, documentB.DocumentElement.Name))
             {
                 XmlNode xmlImport = documentA.ImportNode(documentB.DocumentElement, true);
                 documentA.DocumentElement.AppendChild(xmlImport);

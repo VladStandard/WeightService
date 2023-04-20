@@ -721,6 +721,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
         XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsPluLabelContextModel>(pluLabelContext, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
 
+        // Патч шаблона: PluLabelContextModel -> WsPluLabelContextModel
+        template.Data = template.Data.Replace("PluLabelContextModel", nameof(WsPluLabelContextModel));
+
         pluLabel.Zpl = WsDataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = WsDataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
         pluLabel.Zpl = ZplUtils.ConvertStringToHex(pluLabel.Zpl);
