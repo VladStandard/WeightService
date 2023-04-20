@@ -18,7 +18,7 @@ public sealed class WsQuartzJobEverySeconds10Model : IJob
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         foreach (Action action in Actions)
         {
-            action.Invoke();
+            action();
         }
     }
 

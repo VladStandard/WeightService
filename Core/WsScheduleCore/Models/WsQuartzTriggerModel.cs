@@ -1,24 +1,24 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsScheduleCore.Enums;
-
 namespace WsScheduleCore.Models;
 
-public class WsQuartzTriggerModel
+/// <summary>
+/// Quartz trigger.
+/// </summary>
+public sealed class WsQuartzTriggerModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsQuartzInterval Interval { get; } = WsQuartzInterval.Seconds;
+    private WsQuartzInterval Interval { get; }
     public int IntervalLength { get; set; }
     public TimeSpan TimeSpanValue { get; set; } = new(0);
     public string CronExpression { get; set; } = string.Empty;
-    public bool RepeatForever { get; }
+    private bool RepeatForever { get; }
+    private string Name { get; }
+    private string Group { get; }
 
-    public string Name { get; }
-    public string Group { get; }
-
-    public ITrigger? _trigger;
+    private ITrigger? _trigger;
     public ITrigger? Trigger
     {
         get
@@ -99,10 +99,6 @@ public class WsQuartzTriggerModel
         }
     }
 
-    #endregion
-
-    #region Constructor and destructor
-
     private WsQuartzTriggerModel(string name, string group, WsQuartzInterval interval, bool repeatForever)
     {
         Interval = interval;
@@ -111,13 +107,16 @@ public class WsQuartzTriggerModel
         Group = group;
     }
 
-    public WsQuartzTriggerModel(string name, string group, WsQuartzInterval interval, int length, bool repeatForever) : this(name, group, interval, repeatForever)
+    public WsQuartzTriggerModel(string name, string group, WsQuartzInterval interval, int length, bool repeatForever) : 
+        this(name, group, interval, repeatForever)
         => IntervalLength = length;
 
-    public WsQuartzTriggerModel(string name, string group, TimeSpan timeSpan, bool repeatForever) : this(name, group, WsQuartzInterval.TimeSpan, repeatForever)
+    public WsQuartzTriggerModel(string name, string group, TimeSpan timeSpan, bool repeatForever) : 
+        this(name, group, WsQuartzInterval.TimeSpan, repeatForever)
         => TimeSpanValue = timeSpan;
 
-    public WsQuartzTriggerModel(string name, string group, string cronExpression, bool repeatForever) : this(name, group, WsQuartzInterval.Cron, repeatForever)
+    public WsQuartzTriggerModel(string name, string group, string cronExpression, bool repeatForever) : 
+        this(name, group, WsQuartzInterval.Cron, repeatForever)
         => CronExpression = cronExpression;
 
     #endregion
