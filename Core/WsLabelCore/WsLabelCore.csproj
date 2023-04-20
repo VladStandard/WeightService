@@ -18,6 +18,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -28,46 +29,44 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalUsings.cs" />
-    <Compile Include="Gui\ControlPluModel.cs" />
-    <Compile Include="Gui\GuiUtils.WinForm.cs" />
-    <Compile Include="Gui\MessageBoxModel.cs" />
-    <Compile Include="Gui\NumberInputForm.cs">
+    <Compile Include="Gui\WsControlPluModel.cs" />
+    <Compile Include="Gui\WsWinFormUtils.cs" />
+    <Compile Include="Gui\WsMessageBoxModel.cs" />
+    <Compile Include="Gui\WsNumberInputForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\NumberInputForm.Designer.cs">
-      <DependentUpon>NumberInputForm.cs</DependentUpon>
+    <Compile Include="Gui\WsNumberInputForm.Designer.cs">
+      <DependentUpon>WsNumberInputForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\PasswordForm.cs">
+    <Compile Include="Gui\WsPasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\PasswordForm.Designer.cs">
-      <DependentUpon>PasswordForm.cs</DependentUpon>
+    <Compile Include="Gui\WsPasswordForm.Designer.cs">
+      <DependentUpon>WsPasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Gui\SerialPortsUtils.cs" />
-    <Compile Include="Gui\ServiceMessages.cs" />
-    <Compile Include="Gui\TextBoxAppender.cs" />
     <Compile Include="Gui\VisibilitySettingsModel.cs" />
-    <Compile Include="Helpers\HardwareHelper.cs" />
-    <Compile Include="Helpers\UacHelper.cs" />
+    <Compile Include="Helpers\WsHardwareHelper.cs" />
+    <Compile Include="Helpers\WsUacHelper.cs" />
     <Compile Include="Helpers\WsUserSessionHelper.cs" />
-    <Compile Include="Helpers\WinInfoHelper.cs" />
+    <Compile Include="Helpers\WsWinInfoHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="WinForms\Helpers\FontsSettingsHelper.cs" />
-    <Compile Include="WinForms\Helpers\PluginLabelsHelper.cs" />
-    <Compile Include="WinForms\Helpers\PluginMassaHelper.cs" />
-    <Compile Include="WinForms\Helpers\PluginMemoryHelper.cs" />
-    <Compile Include="WinForms\Helpers\PluginPrintModel.cs" />
-    <Compile Include="WinForms\Models\ConfigModel.cs" />
-    <Compile Include="WinForms\Models\PluginHelperBase.cs" />
-    <Compile Include="WinForms\Models\PluginModel.cs" />
-    <Compile Include="WinForms\Utils\ActionUtils.cs" />
-    <Compile Include="WinForms\Utils\ComboBoxExtensions.cs" />
-    <Compile Include="WinForms\Utils\FormUtils.cs" />
+    <Compile Include="WinForms\Helpers\WsFontsSettingsHelper.cs" />
+    <Compile Include="WinForms\Helpers\WsPluginLabelsHelper.cs" />
+    <Compile Include="WinForms\Helpers\WsPluginMassaHelper.cs" />
+    <Compile Include="WinForms\Helpers\WsPluginMemoryHelper.cs" />
+    <Compile Include="WinForms\Helpers\WsPluginPrintModel.cs" />
+    <Compile Include="WinForms\Models\WsConfigModel.cs" />
+    <Compile Include="WinForms\Helpers\WsPluginHelperBase.cs" />
+    <Compile Include="WinForms\Models\WsPluginModel.cs" />
+    <Compile Include="WinForms\Utils\WsActionUtils.cs" />
+    <Compile Include="WinForms\Utils\WsComboBoxExtensions.cs" />
+    <Compile Include="WinForms\Utils\WsFormUtils.cs" />
     <Compile Include="Wpf\Helpers\XamlHelper.cs" />
     <Compile Include="Wpf\Pages\WpfPageBase.cs" />
     <Compile Include="Wpf\Pages\WpfPageDevice.xaml.cs">
@@ -123,11 +122,11 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Gui\NumberInputForm.resx">
-      <DependentUpon>NumberInputForm.cs</DependentUpon>
+    <EmbeddedResource Include="Gui\WsNumberInputForm.resx">
+      <DependentUpon>WsNumberInputForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Gui\PasswordForm.resx">
-      <DependentUpon>PasswordForm.cs</DependentUpon>
+    <EmbeddedResource Include="Gui\WsPasswordForm.resx">
+      <DependentUpon>WsPasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

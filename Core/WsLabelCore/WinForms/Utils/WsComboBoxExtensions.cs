@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.WinForms.Utils;
 
-public static class ComboBoxExtensions
+public static class WsComboBoxExtensions
 {
     public static void SetEventWithItems(this ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
     {

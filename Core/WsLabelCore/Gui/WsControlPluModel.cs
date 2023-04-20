@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.Gui;
 
-public class ControlPluModel
+public sealed class WsControlPluModel
 {
     #region Public and private fields, properties, constructor
 
@@ -25,7 +25,7 @@ public class ControlPluModel
     /// <param name="labelPluCode"></param>
     /// <param name="labelPluTemplate"></param>
     /// <param name="labelPluValidate"></param>
-    public ControlPluModel(Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluTemplate, Label labelPluValidate)
+    public WsControlPluModel(Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluTemplate, Label labelPluValidate)
     {
         ButtonPlu = buttonPlu;
         LabelPluNumber = labelPluNumber;

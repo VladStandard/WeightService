@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.Gui;
 
-public partial class NumberInputForm : Form
+public partial class WsNumberInputForm : Form
 {
     #region Public and private fields, properties, constructor
 
@@ -16,7 +16,7 @@ public partial class NumberInputForm : Form
 
     #region Constructor and destructor
 
-    public NumberInputForm()
+    public WsNumberInputForm()
     {
         InitializeComponent();
     }

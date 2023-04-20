@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Runtime.InteropServices;
@@ -7,14 +7,14 @@ using Microsoft.Win32;
 
 namespace WsLabelCore.Helpers;
 
-public class UacHelper
+public sealed class WsUacHelper
 {
 	#region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	private static UacHelper _instance;
+	private static WsUacHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	public static UacHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+	public static WsUacHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
 	#endregion
 

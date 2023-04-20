@@ -13,7 +13,7 @@ public partial class MainForm : Form
     private ActionSettingsModel ActionSettings { get; set; }
     private AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private DebugHelper Debug => DebugHelper.Instance;
-    private FontsSettingsHelper FontsSettings => FontsSettingsHelper.Instance;
+    private WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private ProcHelper Proc => ProcHelper.Instance;
     private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
@@ -62,7 +62,7 @@ public partial class MainForm : Form
         // Quartz.
         WsScheduler.Load(this);
 
-        ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
+        WsActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
         UserSession.StopwatchMain.Stop();
 
         UserSession.ContextManager.ContextItem.SaveLogMemory(
@@ -112,7 +112,7 @@ public partial class MainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 UserSession.StopwatchMain = Stopwatch.StartNew();
                 UserSession.StopwatchMain.Restart();
@@ -186,17 +186,19 @@ public partial class MainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 UserSession.ContextManager.ContextItem.SaveLogMemory(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
                 UserSession.StopwatchMain.Restart();
-                ActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
+                WsActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
                 // Wait control.
                 NavigateToControl(WaitControl, ReturnBackExit, true, LocaleCore.Scales.AppWaitExit);
                 // Quartz.
                 WsScheduler.Close();
                 UserSession.PluginsClose();
+                // FontsSettings.
+                FontsSettings.Close();
             },
             () =>
             {
@@ -275,13 +277,13 @@ public partial class MainForm : Form
 
     private void CreateButtonsDevices()
     {
-        TableLayoutPanel layoutPanelDevice = GuiUtils.WinForm.NewTableLayoutPanel(layoutPanel, nameof(layoutPanelDevice),
+        TableLayoutPanel layoutPanelDevice = WsWinFormUtils.NewTableLayoutPanel(layoutPanel, nameof(layoutPanelDevice),
             1, 13, 2, 98);
         int rowCount = 0;
 
         if (ActionSettings.IsDevice)
         {
-            ButtonLine = GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonLine), 1, rowCount++);
+            ButtonLine = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonLine), 1, rowCount++);
             ButtonLine.Click += ActionSwitchLine;
         }
         else
@@ -291,7 +293,7 @@ public partial class MainForm : Form
 
         if (ActionSettings.IsPlu)
         {
-            ButtonPlu = GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
+            ButtonPlu = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
             ButtonPlu.Click += ActionSwitchPlu;
         }
         else
@@ -301,7 +303,7 @@ public partial class MainForm : Form
 
         if (ActionSettings.IsNesting)
         {
-            ButtonPluNestingFk = GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPluNestingFk), 1, rowCount++);
+            ButtonPluNestingFk = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPluNestingFk), 1, rowCount++);
             ButtonPluNestingFk.Click += ActionPluNestingFk;
         }
         else
@@ -310,21 +312,21 @@ public partial class MainForm : Form
         }
 
         layoutPanelDevice.ColumnCount = 1;
-        GuiUtils.WinForm.SetTableLayoutPanelColumnStyles(layoutPanelDevice);
+        WsWinFormUtils.SetTableLayoutPanelColumnStyles(layoutPanelDevice);
         layoutPanelDevice.RowCount = rowCount;
-        GuiUtils.WinForm.SetTableLayoutPanelRowStyles(layoutPanelDevice);
+        WsWinFormUtils.SetTableLayoutPanelRowStyles(layoutPanelDevice);
     }
 
     private void CreateButtonsActions()
     {
-        TableLayoutPanel layoutPanelActions = GuiUtils.WinForm.NewTableLayoutPanel(layoutPanel, nameof(layoutPanelActions),
+        TableLayoutPanel layoutPanelActions = WsWinFormUtils.NewTableLayoutPanel(layoutPanel, nameof(layoutPanelActions),
             3, 13, layoutPanel.ColumnCount - 3, 99);
         int columnCount = 0;
 
         if (ActionSettings.IsScalesTerminal)
         {
             ButtonScalesTerminal =
-                GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesTerminal), columnCount++, 0);
+                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesTerminal), columnCount++, 0);
             ButtonScalesTerminal.Click += ActionScalesTerminal;
         }
         else
@@ -335,7 +337,7 @@ public partial class MainForm : Form
         if (ActionSettings.IsScalesInit)
         {
             ButtonScalesInit =
-                GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesInit), columnCount++, 0);
+                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesInit), columnCount++, 0);
             ButtonScalesInit.Click += ActionScalesInit;
         }
         else
@@ -346,7 +348,7 @@ public partial class MainForm : Form
         if (ActionSettings.IsNewPallet)
         {
             ButtonNewPallet =
-                GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonNewPallet), columnCount++, 0);
+                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonNewPallet), columnCount++, 0);
             ButtonNewPallet.Click += ActionNewPallet;
         }
         else
@@ -357,7 +359,7 @@ public partial class MainForm : Form
         if (ActionSettings.IsKneading)
         {
             ButtonKneading =
-                GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonKneading), columnCount++, 0);
+                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonKneading), columnCount++, 0);
             ButtonKneading.Click += ActionKneading;
         }
         else
@@ -367,7 +369,7 @@ public partial class MainForm : Form
 
         if (ActionSettings.IsMore)
         {
-            ButtonMore = GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonMore), columnCount++, 0);
+            ButtonMore = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonMore), columnCount++, 0);
             ButtonMore.Click += ActionMore;
         }
         else
@@ -378,7 +380,7 @@ public partial class MainForm : Form
         if (ActionSettings.IsPrint)
         {
             ButtonPrint =
-                GuiUtils.WinForm.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonPrint), columnCount++, 0);
+                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonPrint), columnCount++, 0);
             ButtonPrint.Click += ActionPreparePrint;
             ButtonPrint.Focus();
         }
@@ -388,9 +390,9 @@ public partial class MainForm : Form
         }
 
         layoutPanelActions.ColumnCount = columnCount;
-        GuiUtils.WinForm.SetTableLayoutPanelColumnStyles(layoutPanelActions);
+        WsWinFormUtils.SetTableLayoutPanelColumnStyles(layoutPanelActions);
         layoutPanelActions.RowCount = 1;
-        GuiUtils.WinForm.SetTableLayoutPanelRowStyles(layoutPanelActions);
+        WsWinFormUtils.SetTableLayoutPanelRowStyles(layoutPanelActions);
     }
 
     #endregion
@@ -428,7 +430,7 @@ public partial class MainForm : Form
         }
     }
 
-    private string GetPrintInfo(PluginPrintModel pluginPrint, bool isMain)
+    private string GetPrintInfo(WsPluginPrintModel pluginPrint, bool isMain)
     {
         string peeler = isMain
             ? UserSession.PluginPrintMain.ZebraPeelerStatus : UserSession.PluginPrintShipping.ZebraPeelerStatus;
@@ -572,7 +574,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionClose(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
@@ -596,7 +598,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionSwitchLine(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
@@ -625,7 +627,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionPluNestingFk(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
@@ -673,7 +675,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionScalesTerminal(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
@@ -708,7 +710,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionScalesInit(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
@@ -754,7 +756,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionNewPallet(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
@@ -764,7 +766,7 @@ public partial class MainForm : Form
 
     private void ReturnBackKneading()
     {
-        using NumberInputForm numberInputForm = new() { InputValue = 0 };
+        using WsNumberInputForm numberInputForm = new() { InputValue = 0 };
         DialogResult result = numberInputForm.ShowDialog(this);
         numberInputForm.Close();
         if (result == DialogResult.OK)
@@ -778,7 +780,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionKneading(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
         {
             NavigateToControl(KneadingControl, ReturnBackKneading, true);
         }, FinallyAction);
@@ -809,7 +811,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionSwitchPlu(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
@@ -837,7 +839,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionMore(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale,
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale,
             () =>
             {
                 // Сброс предупреждения.
@@ -870,7 +872,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionPreparePrint(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
         {
             // Сброс предупреждения.
             ResetWarning();

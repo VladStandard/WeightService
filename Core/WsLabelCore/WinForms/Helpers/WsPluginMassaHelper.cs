@@ -1,21 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using MDSoft.WinFormsUtils;
-using WsMassaCore.Enums;
-using WsMassaCore.Helpers;
-using WsMassaCore.Models;
-
 namespace WsLabelCore.WinForms.Helpers;
 
-public class PluginMassaHelper : PluginHelperBase
+public sealed class WsPluginMassaHelper : WsPluginHelperBase
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static PluginMassaHelper _instance;
+    private static WsPluginMassaHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static PluginMassaHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsPluginMassaHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -47,7 +42,7 @@ public class PluginMassaHelper : PluginHelperBase
     /// <summary>
     /// Default constructor.
     /// </summary>
-    public PluginMassaHelper()
+    public WsPluginMassaHelper()
     {
         TskType = TaskType.TaskMassa;
         FieldMassa = new();
@@ -63,7 +58,7 @@ public class PluginMassaHelper : PluginHelperBase
 
     #region Public and private methods
 
-    public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
+    public void Init(WsConfigModel configReopen, WsConfigModel configRequest, WsConfigModel configResponse,
         Label fieldNettoWeight, Label fieldMassa, Label fieldMassaExt, Action resetWarning)
     {
         base.Init();
@@ -76,7 +71,7 @@ public class PluginMassaHelper : PluginHelperBase
         FieldMassaExt = fieldMassaExt;
         ResetWarning = resetWarning;
 
-        ActionUtils.ActionTryCatch(() =>
+        WsActionUtils.ActionTryCatch(() =>
         {
             if (WsUserSessionHelper.Instance.Scale.IsNotNew)
             {

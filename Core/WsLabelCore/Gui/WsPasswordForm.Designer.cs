@@ -1,6 +1,6 @@
 ﻿namespace WsLabelCore.Gui
 {
-    partial class PasswordForm
+    partial class WsPasswordForm
     {
         #region Windows Form Designer generated code
 

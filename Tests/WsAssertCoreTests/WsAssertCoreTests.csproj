@@ -14,6 +14,7 @@
     <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\WsBlazorCore\WsBlazorCore.csproj" />
     <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj" />
     <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj" />
     <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />

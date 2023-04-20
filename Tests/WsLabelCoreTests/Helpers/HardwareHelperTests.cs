@@ -6,7 +6,7 @@ namespace WsLabelCoreTests.Helpers;
 [TestFixture]
 public sealed class HardwareHelperTests
 {
-    private HardwareHelper Hard => HardwareHelper.Instance;
+    private WsHardwareHelper Hard => WsHardwareHelper.Instance;
 
     [Test]
     public void SearchingDriver_AreEqual()

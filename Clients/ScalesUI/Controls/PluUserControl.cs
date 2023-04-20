@@ -23,7 +23,7 @@ public sealed partial class PluUserControl : UserControlBase
 
     public override void RefreshAction()
     {
-        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             if (!UserSession.Scale.IdentityValueId.Equals(PreviousScaleId))
             {
@@ -43,18 +43,18 @@ public sealed partial class PluUserControl : UserControlBase
         buttonRightRoll.Text = LocaleCore.Buttons.Next;
     }
 
-    private ControlPluModel[,] CreateControls()
+    private WsControlPluModel[,] CreateControls()
     {
         List<PluScaleModel> plus = UserSession.GetCurrentPlus();
-        ControlPluModel[,] controls = new ControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
-        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsControlPluModel[,] controls = new WsControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
+        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < UserSession.PageRowCount; ++rowNumber)
             {
                 for (ushort columnNumber = 0; columnNumber < UserSession.PageColumnCount; ++columnNumber)
                 {
                     if (buttonNumber >= plus.Count) break;
-                    ControlPluModel control = NewControlGroup(plus[buttonNumber], UserSession.PageNumber, buttonNumber);
+                    WsControlPluModel control = NewControlGroup(plus[buttonNumber], UserSession.PageNumber, buttonNumber);
                     controls[columnNumber, rowNumber] = control;
                     buttonNumber++;
                 }
@@ -63,7 +63,7 @@ public sealed partial class PluUserControl : UserControlBase
         return controls;
     }
 
-    private ControlPluModel NewControlGroup(PluScaleModel pluScale, int pageNumber, ushort buttonNumber)
+    private WsControlPluModel NewControlGroup(PluScaleModel pluScale, int pageNumber, ushort buttonNumber)
     {
         int tabIndex = buttonNumber + pageNumber * UserSession.PageSize;
         Button buttonPlu = NewButtonPlu(pluScale.Plu, tabIndex);
@@ -226,7 +226,7 @@ public sealed partial class PluUserControl : UserControlBase
 
     private void ButtonPluSelect_Click(object sender, EventArgs e)
     {
-        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             ushort tabIndex = 0;
             if (sender is Control control)
@@ -247,7 +247,7 @@ public sealed partial class PluUserControl : UserControlBase
         if (UserSession.PageNumber == saveCurrentPage)
             return;
 
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, SetupLayoutPanel, () => { layoutPanel.Visible = true; }); 
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, SetupLayoutPanel, () => { layoutPanel.Visible = true; }); 
     }
 
     private void ButtonNextRoll_Click(object sender, EventArgs e)
@@ -260,7 +260,7 @@ public sealed partial class PluUserControl : UserControlBase
         if (UserSession.PageNumber == saveCurrentPage)
             return;
 
-        ActionUtils.ActionTryCatchFinally(this, UserSession.Scale, SetupLayoutPanel, () => { layoutPanel.Visible = true; });
+        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, SetupLayoutPanel, () => { layoutPanel.Visible = true; });
     }
 
     private void SetupPanel(ushort columnCount, ushort rowCount)
@@ -315,7 +315,7 @@ public sealed partial class PluUserControl : UserControlBase
         layoutPanel.Visible = false;
         labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
 
-        ControlPluModel[,] controls = CreateControls();
+        WsControlPluModel[,] controls = CreateControls();
 
         ClearPanel();
         ushort columnCount = (ushort)(controls.GetUpperBound(0) + 1);
@@ -326,7 +326,7 @@ public sealed partial class PluUserControl : UserControlBase
         {
             for (ushort row = 0; row < rowCount; row++)
             {
-                ControlPluModel control = controls[column, row];
+                WsControlPluModel control = controls[column, row];
                 if (control is not null)
                 {
                     layoutPanel.Controls.Add(control.ButtonPlu, column, row);
@@ -349,9 +349,9 @@ public sealed partial class PluUserControl : UserControlBase
         SetupSizes(controls);
     }
 
-    private void SetupSizes(ControlPluModel[,] controls)
+    private void SetupSizes(WsControlPluModel[,] controls)
     {
-        foreach (ControlPluModel control in controls)
+        foreach (WsControlPluModel control in controls)
         {
             control?.SetupSizes();
         }

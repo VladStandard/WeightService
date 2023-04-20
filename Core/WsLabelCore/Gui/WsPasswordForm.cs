@@ -1,12 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace WsLabelCore.Gui;
 
-public partial class PasswordForm : Form
+public partial class WsPasswordForm : Form
 {
     #region Public and private fields, properties, constructor
 
@@ -18,7 +17,7 @@ public partial class PasswordForm : Form
 
     #region Constructor and destructor
 
-    public PasswordForm()
+    public WsPasswordForm()
     {
         InitializeComponent();
         TopMost = !UserSession.Debug.IsDevelop;

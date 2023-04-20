@@ -3,6 +3,9 @@
 
 namespace WsLabelCore.Gui;
 
+/// <summary>
+/// Serial port utils.
+/// </summary>
 public static class SerialPortsUtils
 {
     public static void DefaultComPortName(ScaleModel scale, System.Windows.Controls.ComboBox fieldComPort, List<string> listComPorts)

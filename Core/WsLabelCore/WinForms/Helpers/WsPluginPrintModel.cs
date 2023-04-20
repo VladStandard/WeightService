@@ -1,13 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using MDSoft.WinFormsUtils;
-using WsPrintCore.Zpl;
-
 namespace WsLabelCore.WinForms.Helpers;
 
 #nullable enable
-public class PluginPrintModel : PluginHelperBase
+public sealed class WsPluginPrintModel : WsPluginHelperBase
 {
     #region Public and private fields and properties
 
@@ -29,7 +26,7 @@ public class PluginPrintModel : PluginHelperBase
 
     #region Constructor and destructor
 
-    public PluginPrintModel()
+    public WsPluginPrintModel()
     {
         TskType = TaskType.TaskPrint;
         LabelPrintedCount = 0;
@@ -39,7 +36,7 @@ public class PluginPrintModel : PluginHelperBase
 
     #region Public and private methods
 
-    public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
+    public void Init(WsConfigModel configReopen, WsConfigModel configRequest, WsConfigModel configResponse,
         PrintBrand printBrand, MdPrinterModel printer, Label fieldPrint, Label fieldPrintExt, bool isMain)
     {
         base.Init();

@@ -1,18 +1,18 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.Win32;
 
 namespace WsLabelCore.Helpers;
 
-public class HardwareHelper
+public sealed class WsHardwareHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static HardwareHelper _instance;
+    private static WsHardwareHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static HardwareHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsHardwareHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

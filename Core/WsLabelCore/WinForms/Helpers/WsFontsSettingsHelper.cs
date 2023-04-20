@@ -1,18 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using FontStyle = System.Drawing.FontStyle;
-
 namespace WsLabelCore.WinForms.Helpers;
 
-public class FontsSettingsHelper
+public sealed class WsFontsSettingsHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618
-    private static FontsSettingsHelper _instance;
+    private static WsFontsSettingsHelper _instance;
 #pragma warning restore CS8618
-    public static FontsSettingsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsFontsSettingsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -30,7 +28,7 @@ public class FontsSettingsHelper
 
     #region Constructor and destructor
 
-    public FontsSettingsHelper()
+    public WsFontsSettingsHelper()
     {
         Resize(7.00f);
     }
@@ -57,6 +55,17 @@ public class FontsSettingsHelper
         FontLabelsBlack = new("Microsoft Sans Serif", baseSize + 4.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontLabelsTitle = new("Microsoft Sans Serif", baseSize + 5.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontLabelsMaximum = new("Microsoft Sans Serif", baseSize + 16.00f, FontStyle.Bold, GraphicsUnit.Point, 204);
+    }
+
+    public void Close()
+    {
+        FontMinimum.Dispose();
+        FontLabelsGray.Dispose();
+        FontButtons.Dispose();
+        FontButtonsSmall.Dispose();
+        FontLabelsBlack.Dispose();
+        FontLabelsTitle.Dispose();
+        FontLabelsMaximum.Dispose();
     }
 
     #endregion

@@ -1,18 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using MDSoft.WinFormsUtils;
-
 namespace WsLabelCore.WinForms.Helpers;
 
-public class PluginLabelsHelper : PluginHelperBase
+public sealed class WsPluginLabelsHelper : WsPluginHelperBase
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static PluginLabelsHelper _instance;
+    private static WsPluginLabelsHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static PluginLabelsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsPluginLabelsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -26,7 +24,7 @@ public class PluginLabelsHelper : PluginHelperBase
 
     #region Constructor and destructor
 
-    public PluginLabelsHelper()
+    public WsPluginLabelsHelper()
     {
         TskType = TaskType.TaskLabel;
     }
@@ -35,14 +33,14 @@ public class PluginLabelsHelper : PluginHelperBase
 
     #region Public and private methods
 
-    public void Init(ConfigModel configReopen, ConfigModel configRequest, ConfigModel configResponse,
+    public void Init(WsConfigModel configReopen, WsConfigModel configRequest, WsConfigModel configResponse,
         Label fieldPlu, Label fieldProductDate, Label fieldKneading)
     {
         base.Init();
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
-        ActionUtils.ActionTryCatch(() =>
+        WsActionUtils.ActionTryCatch(() =>
         {
             FieldPlu = fieldPlu;
             FieldProductDate = fieldProductDate;

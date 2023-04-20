@@ -30,7 +30,7 @@ public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableB
 	{
         if (item is not null)
         {
-	        ValidationResult validationResult = WsValidationUtils.GetValidationResult<TItem>(item);
+	        ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult<TItem>(item);
 	        if (!result.IsValid) return result.IsValid;
         }
         return result.IsValid;

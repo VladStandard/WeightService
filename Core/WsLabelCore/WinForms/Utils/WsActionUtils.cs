@@ -5,13 +5,13 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.WinForms.Utils;
 
-public static class ActionUtils
+public static class WsActionUtils
 {
     #region Public and private fields, properties, constructor
 
     private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private static PluginMemoryHelper PluginMemory => PluginMemoryHelper.Instance;
+    private static WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
 
     #endregion
 

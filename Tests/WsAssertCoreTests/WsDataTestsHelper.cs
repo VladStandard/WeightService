@@ -1,6 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsBlazorCore.CssStyles;
+using WsBlazorCore.Utils;
+
 namespace WsAssertCoreTests;
 
 public class WsDataTestsHelper
@@ -78,37 +81,37 @@ public class WsDataTestsHelper
             if (publishTypes.Contains(WsConfiguration.DevelopAleksandrov))
             {
                 SetupDevelopAleksandrov(isShowSql);
-                action.Invoke();
+                action();
                 TestContext.WriteLine();
             }
             if (publishTypes.Contains(WsConfiguration.DevelopMorozov))
             {
                 SetupDevelopMorozov(isShowSql);
-                action.Invoke();
+                action();
                 TestContext.WriteLine();
             }
             if (publishTypes.Contains(WsConfiguration.DevelopVS))
             {
                 SetupDevelopVs(isShowSql);
-                action.Invoke();
+                action();
                 TestContext.WriteLine();
             }
             if (publishTypes.Contains(WsConfiguration.ReleaseAleksandrov))
             {
                 SetupReleaseAleksandrov(isShowSql);
-                action.Invoke();
+                action();
                 TestContext.WriteLine();
             }
             if (publishTypes.Contains(WsConfiguration.ReleaseMorozov))
             {
                 SetupReleaseMorozov(isShowSql);
-                action.Invoke();
+                action();
                 TestContext.WriteLine();
             }
             if (publishTypes.Contains(WsConfiguration.ReleaseVS))
             {
                 SetupReleaseVs(isShowSql);
-                action.Invoke();
+                action();
                 TestContext.WriteLine();
             }
         });
@@ -141,7 +144,7 @@ public class WsDataTestsHelper
     }
 
     public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
-        AssertValidate(item, assertResult);
+        AssertSqlTablesValidate(item, assertResult);
 
     public void AssertSqlDbContentSerialize<T>(bool isShowMarked = false) where T : WsSqlTableBase, new()
     {
@@ -154,11 +157,30 @@ public class WsDataTestsHelper
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
 
-    public void AssertValidate<T>(T item, bool assertResult) where T : class, new()
+    public void AssertSqlTablesValidate<T>(T item, bool assertResult) where T : class, new()
     {
         Assert.DoesNotThrow(() =>
         {
-            ValidationResult validationResult = WsValidationUtils.GetValidationResult(item);
+            ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
+            FailureWriteLine(validationResult);
+            // Assert.
+            switch (assertResult)
+            {
+                case true:
+                    Assert.IsTrue(validationResult.IsValid);
+                    break;
+                default:
+                    Assert.IsFalse(validationResult.IsValid);
+                    break;
+            }
+        });
+    }
+
+    public void AssertBlazorCssStylesValidate<T>(T item, bool assertResult) where T : CssStyleBase, new()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            ValidationResult validationResult = WsBlazorCssValidationUtils.GetValidationResult(item);
             FailureWriteLine(validationResult);
             // Assert.
             switch (assertResult)
@@ -231,7 +253,7 @@ public class WsDataTestsHelper
             foreach (T item in items)
             {
                 Assert.IsNotEmpty(item.ToString());
-                ValidationResult validationResult = WsValidationUtils.GetValidationResult(item);
+                ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
                 Assert.IsTrue(validationResult.IsValid);
             }
         }, false, publishTypes);
@@ -591,8 +613,8 @@ public class WsDataTestsHelper
                     TestContext.WriteLine(item);
                     if (isValidate)
                     {
-                        AssertValidate(item, true);
-                        ValidationResult validationResult = WsValidationUtils.GetValidationResult(item);
+                        AssertSqlTablesValidate(item, true);
+                        ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
                         FailureWriteLine(validationResult);
                         Assert.IsTrue(validationResult.IsValid);
                     }

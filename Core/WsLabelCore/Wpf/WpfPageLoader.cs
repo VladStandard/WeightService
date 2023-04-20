@@ -8,14 +8,14 @@ using WsLabelCore.Wpf.Pages;
 namespace WsLabelCore.Wpf;
 
 #nullable enable
-public partial class WpfPageLoader : Form
+public sealed partial class WpfPageLoader : Form
 {
     #region Public and private fields and properties
 
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private ElementHost ElementHost { get; }
     private bool UseOwnerSize { get; }
-    public MessageBoxModel MessageBox { get; }
+    public WsMessageBoxModel MessageBox { get; }
     private WpfPageMessageBox? PageMessageBox { get; set; }
     private WpfPagePinCode? PagePinCode { get; set; }
     public WpfPageDevice? PageDevice { get; private set; }

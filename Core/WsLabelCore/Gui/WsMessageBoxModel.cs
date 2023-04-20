@@ -1,11 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using MvvmHelpers;
-
 namespace WsLabelCore.Gui;
 
-public class MessageBoxModel : BaseViewModel
+public sealed class WsMessageBoxModel : BaseViewModel
 {
 	#region Public and private fields and properties
 
@@ -92,7 +90,7 @@ public class MessageBoxModel : BaseViewModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public MessageBoxModel()
+	public WsMessageBoxModel()
 	{
 		Caption = string.Empty;
 		Message = string.Empty;

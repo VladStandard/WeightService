@@ -3,15 +3,14 @@
 
 namespace WsLabelCore.WinForms.Models;
 
-[DebuggerDisplay("{nameof(ManagerItemModel)} | {TskType}")]
-public class PluginModel : HelperBase
+public sealed class WsPluginModel : HelperBase
 {
     #region Public and private fields, properties, constructor
 
     private AsyncLock Mutex { get; }
     private CancellationTokenSource Cts { get; set; }
     private Task Tsk { get; set; }
-    public ConfigModel Config { get; set; }
+    public WsConfigModel Config { get; set; }
     public TaskType TskType { get; set; }
     private ushort _counter;
     public ushort Counter
@@ -20,7 +19,7 @@ public class PluginModel : HelperBase
         private set => _counter = value > 0_999 ? default : value;
     }
 
-    public PluginModel()
+    public WsPluginModel()
     {
         TskType = TaskType.Default;
         Mutex = new();
@@ -33,7 +32,7 @@ public class PluginModel : HelperBase
 
     #region Public and private methods
 
-    public void Init(ConfigModel config)
+    public void Init(WsConfigModel config)
     {
         base.Init();
         Config = config;
@@ -87,7 +86,7 @@ public class PluginModel : HelperBase
         Cts.Cancel();
         Config.WaitSync(Config.WaitClose);
 
-        Tsk.Wait(ConfigModel.WaitLowLimit);
+        Tsk.Wait(WsConfigModel.WaitLowLimit);
     }
 
     #endregion

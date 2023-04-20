@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.WinForms.Utils;
 
-public static class FormUtils
+public static class WsFormUtils
 {
     #region Public and private methods
 
@@ -37,7 +37,7 @@ public static class FormUtils
                 form.WindowState = FormWindowState.Maximized;
                 break;
         }
-        FontsSettingsHelper.Instance.Transform(form.Width, form.Height);
+        WsFontsSettingsHelper.Instance.Transform(form.Width, form.Height);
     }
 
     #endregion

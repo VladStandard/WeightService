@@ -16,7 +16,7 @@ public partial class WpfPageMessageBox
 {
     #region Public and private fields, properties, constructor
 
-    public MessageBoxModel MessageBox { get; set; } = new();
+    public WsMessageBoxModel MessageBox { get; set; } = new();
 
     #endregion
 

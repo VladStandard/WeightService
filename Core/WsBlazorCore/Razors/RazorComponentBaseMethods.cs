@@ -131,7 +131,7 @@ public partial class RazorComponentBase
 		string detailAddition = Environment.NewLine;
 		if (result)
 		{
-			result = WsValidationUtils.IsValidation(item, ref detailAddition);
+			result = WsSqlValidationUtils.IsValidation(item, ref detailAddition);
 		}
 		switch (result)
 		{

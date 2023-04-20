@@ -1,15 +1,15 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsLabelCore.WinForms.Models;
+namespace WsLabelCore.WinForms.Helpers;
 
-public class PluginHelperBase : HelperBase
+public class WsPluginHelperBase : HelperBase
 {
     #region Public and private fields and properties
 
-    protected PluginModel ReopenItem { get; }
-    protected PluginModel RequestItem { get; }
-    protected PluginModel ResponseItem { get; }
+    protected WsPluginModel ReopenItem { get; }
+    protected WsPluginModel RequestItem { get; }
+    protected WsPluginModel ResponseItem { get; }
     protected TaskType TskType { get; set; }
     protected int ReopenCounter => ReopenItem.Counter;
     protected int RequestCounter => RequestItem.Counter;
@@ -19,7 +19,7 @@ public class PluginHelperBase : HelperBase
 
     #region Constructor and destructor
 
-    protected PluginHelperBase()
+    protected WsPluginHelperBase()
     {
         TskType = TaskType.Default;
         ReopenItem = new() { Config = new(waitExecute: 0_250, waitClose: 0_250) };

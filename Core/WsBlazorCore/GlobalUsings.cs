@@ -16,5 +16,7 @@ global using System.Threading.Tasks;
 global using System;
 global using System.Collections.Generic;
 global using FluentValidation;
+global using FluentValidation.Results;
+global using WsBlazorCore.CssStyles;
 global using WsLocalizationCore.Models;
 global using WsStorageCore.Enums;

@@ -3,7 +3,7 @@
 
 namespace WsStorageCore.Utils;
 
-public class WsValidationUtils
+public class WsSqlValidationUtils
 {
     #region Public and private methods
 
