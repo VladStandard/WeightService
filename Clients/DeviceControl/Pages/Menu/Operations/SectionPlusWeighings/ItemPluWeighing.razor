@@ -10,34 +10,34 @@
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-    <RazorItemTableBody SqlItem="@SqlItemCast"/>
-    <tr>
-      <td>
-        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale)"
-                            Text="@LocaleCore.Table.Line"/>
-      </td>
-      <td>@SqlItemCast.PluScale.Scale.Description</td>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale)"
+                  Text="@LocaleCore.Table.Line"/>
+    </td>
+    <td>@SqlItemCast.PluScale.Scale.Description</td>
 
-      <td>@LocaleCore.Table.WeightNetto</td>
-      <td>@SqlItemCast.NettoWeight.ToString(CultureInfo.InvariantCulture)</td>
-    </tr>
-    <tr>
-      <td>
-        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Plu)"
-                    Text="@LocaleCore.Table.Plu"/>
-      </td>
-      <td>@($"{SqlItemCast.PluScale.Plu.Number} | {SqlItemCast.PluScale.Plu.Name}")</td>
+    <td>@LocaleCore.Table.WeightNetto</td>
+    <td>@SqlItemCast.NettoWeight.ToString(CultureInfo.InvariantCulture)</td>
+  </tr>
+  <tr>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Plu)"
+                  Text="@LocaleCore.Table.Plu"/>
+    </td>
+    <td>@($"{SqlItemCast.PluScale.Plu.Number} | {SqlItemCast.PluScale.Plu.Name}")</td>
 
-      <td>@LocaleCore.Table.BundleFkWeightTare</td>
-      <td>@SqlItemCast.WeightTare.ToString(CultureInfo.InvariantCulture)</td>
-    </tr>
-    <tr>
-      <td>@LocaleCore.Table.Sscc</td>
-      <td>@SqlItemCast.Series?.Sscc</td>
-      <td>@LocaleCore.Table.IsKneading</td>
-      <td>@SqlItemCast.Kneading</td>
-    </tr>
-    <RazorItemDates SqlItem="@SqlItemCast"/>
+    <td>@LocaleCore.Table.BundleFkWeightTare</td>
+    <td>@SqlItemCast.WeightTare.ToString(CultureInfo.InvariantCulture)</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Sscc</td>
+    <td>@SqlItemCast.Series?.Sscc</td>
+    <td>@LocaleCore.Table.IsKneading</td>
+    <td>@SqlItemCast.Kneading</td>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
@@ -45,5 +45,4 @@
   TItem="@PluWeighingModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>

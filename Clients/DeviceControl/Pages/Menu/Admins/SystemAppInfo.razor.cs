@@ -8,11 +8,11 @@ namespace BlazorDeviceControl.Pages.Menu.Admins;
 
 public sealed partial class SystemAppInfo : RazorComponentBase
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	private string VerApp => AssemblyUtils.GetAppVersion(Assembly.GetExecutingAssembly());
-	private string VerLibBlazorCore => BlazorCoreUtils.GetLibVersion();
-	private string VerLibDataCore => AssemblyUtils.GetLibVersion();
+    private string VerApp => AssemblyUtils.GetAppVersion(Assembly.GetExecutingAssembly());
+    private string VerLibBlazorCore => BlazorCoreUtils.GetLibVersion();
+    private string VerLibDataCore => AssemblyUtils.GetLibVersion();
     private uint DbFileSizeAll { get; set; }
     private List<SqlDbFileSizeInfoModel> DbSizeInfos { get; set; } = new();
 	private string DbCurSizeAsString => $"{LocaleCore.Sql.SqlDbCurSize}: {DbFileSizeAll:### ###} MB {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
@@ -23,7 +23,7 @@ public sealed partial class SystemAppInfo : RazorComponentBase
 
     #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
 	protected override void OnParametersSet()
 	{
@@ -33,9 +33,9 @@ public sealed partial class SystemAppInfo : RazorComponentBase
             {
                 DbSizeInfos = ContextManager.GetDbFileSizeInfos();
                 DbFileSizeAll = ContextManager.GetDbFileSizeAll();
-			}
-		});
-	}
+            }
+        });
+    }
 
-	#endregion
+    #endregion
 }

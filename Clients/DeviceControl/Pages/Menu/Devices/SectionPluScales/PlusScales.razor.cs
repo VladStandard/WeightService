@@ -10,11 +10,11 @@ namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPluScales;
 
 public sealed partial class PlusScales : RazorComponentSectionBase<PluScaleModel>
 {
-	#region Public and private fields, properties, constructor
-    
+    #region Public and private fields, properties, constructor
+
     [Parameter] public ScaleModel Scale { get; set; }
     public bool HideNoneActivePlu { get; set; }
-    
+
     public PlusScales() : base()
     {
         HideNoneActivePlu = true;
@@ -25,7 +25,7 @@ public sealed partial class PlusScales : RazorComponentSectionBase<PluScaleModel
     
 	#endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
     protected override void SetSqlSectionCast()
     {

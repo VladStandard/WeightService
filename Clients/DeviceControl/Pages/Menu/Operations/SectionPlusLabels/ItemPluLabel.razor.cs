@@ -8,8 +8,9 @@ namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusLabels;
 public sealed partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
 {
     #region Public and private fields, properties, constructor
-    
+
     private bool IsWeighted => SqlItemCast.PluScale.Plu.IsCheckWeight;
+
     public ItemPluLabel() : base()
     {
         ButtonSettings = new(false, false, false, false, false, false, true);

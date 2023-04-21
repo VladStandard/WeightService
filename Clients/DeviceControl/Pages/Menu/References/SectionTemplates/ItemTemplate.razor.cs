@@ -8,33 +8,31 @@ namespace BlazorDeviceControl.Pages.Menu.References.SectionTemplates;
 
 public sealed partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	private List<TypeModel<string>> TemplateCategories { get; }
+    private List<TypeModel<string>> TemplateCategories { get; }
 
-	public ItemTemplate() : base()
-	{
-		TemplateCategories = BlazorAppSettings.DataSourceDics.GetTemplateCategories();
-	}
+    public ItemTemplate() : base()
+    {
+        TemplateCategories = BlazorAppSettings.DataSourceDics.GetTemplateCategories();
+    }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
+    protected override void OnParametersSet()
+    {
+        RunActionsParametersSet(new List<Action>
+        {
+            () =>
+            {
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<TemplateModel>(IdentityId);
                 if (SqlItemCast.IsNew)
-                {
-					SqlItemCast = SqlItemNew <TemplateModel>();
-				}
+                    SqlItemCast = SqlItemNew<TemplateModel>();
             }
-		});
-	}
+        });
+    }
 
-	#endregion
+    #endregion
 }

@@ -7,13 +7,13 @@ namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups
 
 public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<PluGroupModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	private PluGroupModel? ParentGroup { get; set; }
+    private PluGroupModel? ParentGroup { get; set; }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
 	protected override void OnParametersSet()
 	{
@@ -23,14 +23,12 @@ public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<PluGr
 			{
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluGroupModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                {
-					SqlItemCast = SqlItemNew<PluGroupModel>();
-				}
+                    SqlItemCast = SqlItemNew<PluGroupModel>();
 
                 ParentGroup = ContextManager.ContextItem.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
             }
-		});
-	}
+        });
+    }
 
-	#endregion
+    #endregion
 }

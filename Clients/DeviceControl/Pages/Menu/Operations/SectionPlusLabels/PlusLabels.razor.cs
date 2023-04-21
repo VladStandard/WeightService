@@ -14,9 +14,9 @@ public sealed partial class PlusLabels : RazorComponentSectionBase<PluLabelModel
         ButtonSettings = new(false, true, false, true, false, false, false);
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
     #endregion
 }

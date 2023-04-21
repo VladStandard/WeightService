@@ -8,27 +8,28 @@ namespace BlazorDeviceControl.Pages.Menu.References.SectionWorkshops;
 
 public sealed partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	//
+    //
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WorkShopModel>(IdentityId);
-				//if (TableAction == DbTableAction.New)
-				//	SqlItemCast.IdentityValueId = (long)IdentityId;
-				ContextManager.AccessManager.AccessList.GetListNotNullable<ProductionFacilityModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+    protected override void OnParametersSet()
+    {
+        RunActionsParametersSet(new List<Action>
+        {
+            () =>
+            {
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WorkShopModel>(IdentityId);
+                //if (TableAction == DbTableAction.New)
+                //	SqlItemCast.IdentityValueId = (long)IdentityId;
+                ContextManager.AccessManager.AccessList.GetListNotNullable<ProductionFacilityModel>(WsSqlCrudConfigUtils
+                    .GetCrudConfigComboBox());
             }
-		});
-	}
+        });
+    }
 
-	#endregion
+    #endregion
 }

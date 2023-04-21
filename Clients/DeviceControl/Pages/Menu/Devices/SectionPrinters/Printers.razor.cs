@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrinters;
 public sealed partial class Printers : RazorComponentSectionBase<PrinterModel>
 {
     #region Public and private fields, properties, constructor
-    
+
     #endregion
 
     #region Public and private methods

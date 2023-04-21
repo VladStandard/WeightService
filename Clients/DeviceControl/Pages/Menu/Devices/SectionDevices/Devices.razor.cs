@@ -9,9 +9,9 @@ namespace BlazorDeviceControl.Pages.Menu.Devices.SectionDevices;
 public sealed partial class Devices : RazorComponentSectionBase<DeviceModel>
 {
     #region Public and private fields, properties, constructor
-    
+
     private List<DeviceTypeFkModel> DeviceTypesFk { get; set; }
-    
+
     #endregion
 
     #region Public and private methods
@@ -19,13 +19,13 @@ public sealed partial class Devices : RazorComponentSectionBase<DeviceModel>
     protected override void SetSqlSectionCast()
     {
         base.SetSqlSectionCast();
-        DeviceTypesFk = ContextManager.ContextList.GetListNotNullable<DeviceTypeFkModel>(new());
+        DeviceTypesFk = ContextManager.ContextList.GetListNotNullable<DeviceTypeFkModel>(new SqlCrudConfigModel());
         // DataAccessHelper.Instance.GetItemDeviceTypeFkNotNullable(device).Type.PrettyName
     }
 
     private string GetDevicePrettyName(DeviceModel device)
     {
-        DeviceTypeFkModel? deviceTypeFk = DeviceTypesFk.Find((x) => x.Device.Equals(device));
+        var deviceTypeFk = DeviceTypesFk.Find((x) => x.Device.Equals(device));
         return deviceTypeFk != null ? deviceTypeFk.Type.PrettyName : "";
     }
 

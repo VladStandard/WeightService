@@ -13,7 +13,6 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 #region Add
 
-
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
 builder.Services.AddAuthorization(options => options.FallbackPolicy = options.DefaultPolicy);
 
@@ -27,11 +26,9 @@ builder.Services.AddBlazorDownloadFile();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 
-
 #endregion
 
 #region AddScoped
-
 
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 builder.Services.AddScoped<IUserRightsService, UserRightsService>();
@@ -41,7 +38,6 @@ builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddScoped<IFileDownload, FileDownload>();
-
 
 #endregion
 

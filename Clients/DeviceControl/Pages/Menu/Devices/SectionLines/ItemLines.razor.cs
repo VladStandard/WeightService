@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Pages.Menu.Devices.SectionLines;
 /// </summary>
 public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
 	private DeviceModel _device;
 	private DeviceModel Device { get => _device; set { _device = value; SqlLinkedItems = new() { Device }; } }
@@ -35,9 +35,9 @@ public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
         ComPorts = new();
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
 	protected override void OnParametersSet()
 	{
@@ -58,13 +58,13 @@ public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
 				DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(SqlItemCast);
 				Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<DeviceModel>();
 
-			    // ComPorts
-			    ComPorts = MdSerialPortsUtils.GetListTypeComPorts(Lang.English);
-			    // ScaleFactor
-			    SqlItemCast.ScaleFactor ??= 1000;
-			}
-		});
-	}
+                // ComPorts
+                ComPorts = MdSerialPortsUtils.GetListTypeComPorts(Lang.English);
+                // ScaleFactor
+                SqlItemCast.ScaleFactor ??= 1000;
+            }
+        });
+    }
 
-	#endregion
+    #endregion
 }

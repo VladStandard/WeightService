@@ -10,7 +10,7 @@ public class MudSelectLocal<T> : MudSelect<T>
     public MudSelectLocal()
     {
         Margin = Margin.Dense;
-        Variant =  Variant.Outlined;
+        Variant = Variant.Outlined;
         AnchorOrigin = Origin.BottomCenter;
         Class = "MudSelect";
     }

@@ -7,11 +7,14 @@ namespace BlazorDeviceControl.Pages.Menu.Profiles;
 
 public partial class Profile : RazorComponentBase
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
-	private List<Lang> Langs { get; set; }
-    private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
+    private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
+    private List<Lang> Langs { get; set; }
+
+    private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null
+        ? string.Empty
+        : HttpContext.Connection.RemoteIpAddress.ToString();
 
     public Profile()
 	{
@@ -23,7 +26,7 @@ public partial class Profile : RazorComponentBase
     
     #endregion
 
-	#region Public and private methods
-    
+    #region Public and private methods
+
     #endregion
 }

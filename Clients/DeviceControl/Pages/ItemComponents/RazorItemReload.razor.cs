@@ -7,11 +7,14 @@ namespace BlazorDeviceControl.Pages.ItemComponents;
 
 public partial class RazorItemReload<TItem> : RazorComponentItemBase<TItem> where TItem : WsSqlTableBase, new()
 {
-	#region Public and private fields, properties, constructor
-    
+    #region Public and private fields, properties, constructor
+
     [Parameter] public EventCallback OnItemUpdate { get; set; }
 
-    public TItem GetItem() => new TItem();
+    public TItem GetItem()
+    {
+        return new TItem();
+    }
 
     #endregion
 

@@ -8,29 +8,29 @@ namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrinters;
 
 public sealed partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	//
+    //
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
+    protected override void OnParametersSet()
+    {
+        RunActionsParametersSet(new List<Action>
+        {
+            () =>
+            {
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterModel>(IdentityId);
                 if (SqlItemCast.IsNew)
-				{
-					SqlItemCast = SqlItemNew<PrinterModel>();
-				}
-				ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-            }
-		});
-	}
+                    SqlItemCast = SqlItemNew<PrinterModel>();
 
-	#endregion
+                ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterTypeModel>(WsSqlCrudConfigUtils
+                    .GetCrudConfigComboBox());
+            }
+        });
+    }
+
+    #endregion
 }

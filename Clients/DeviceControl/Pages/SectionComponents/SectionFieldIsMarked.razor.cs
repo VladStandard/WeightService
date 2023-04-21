@@ -7,22 +7,22 @@ namespace BlazorDeviceControl.Pages.SectionComponents;
 
 public partial class SectionFieldIsMarked<TItem> : LayoutComponentBase where TItem : WsSqlTableBase, new()
 {
-	#region Public and private fields, properties, constructor
-    
+    #region Public and private fields, properties, constructor
+
     [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
-    
+
     public string Width { get; set; }
-    
-	public SectionFieldIsMarked()
-	{
+
+    public SectionFieldIsMarked()
+    {
         Width = "5%";
-	}
+    }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	//
+    //
 
-	#endregion
+    #endregion
 }

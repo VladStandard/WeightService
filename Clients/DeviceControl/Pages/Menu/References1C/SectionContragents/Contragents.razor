@@ -11,8 +11,7 @@
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
-  ButtonSettings="@ButtonSettings"
-  />
+  ButtonSettings="@ButtonSettings"/>
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
@@ -24,8 +23,8 @@
   <Columns>
     <TItemContent TItem="@ContragentModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="50%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.FullName" Property="FullName" Width="50%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="50%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.FullName" Property="FullName" Width="50%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

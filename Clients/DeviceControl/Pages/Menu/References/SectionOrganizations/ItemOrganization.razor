@@ -27,7 +27,7 @@
   <tr>
     <td>@LocaleCore.Table.Gln</td>
     <td colspan="3">
-      <RzNumericLocal  @bind-Value="@SqlItemCast.Gln"/>
+      <RzNumericLocal @bind-Value="@SqlItemCast.Gln"/>
     </td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
@@ -38,5 +38,4 @@
   TItem="@OrganizationModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>

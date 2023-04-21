@@ -11,8 +11,7 @@
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
-  ButtonSettings="@ButtonSettings"
-  />
+  ButtonSettings="@ButtonSettings"/>
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
@@ -23,9 +22,9 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@BundleModel">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.BundleWeight" Property="Weight" />
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.BundleWeight" Property="Weight"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

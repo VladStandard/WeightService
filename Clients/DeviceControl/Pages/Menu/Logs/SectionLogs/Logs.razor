@@ -13,12 +13,11 @@
   ButtonSettings="@ButtonSettings"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
-  SqlCrudConfigSection="@SqlCrudConfigSection"
-  />
+  SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <MudSelectLocal T="LogTypeModel" Value="@CurrentType" ValueChanged="OnSelectTypeChanged">
   <MudSelectItem Value="@LogTypeNew">All</MudSelectItem>
-  @foreach (LogTypeModel logType in LogTypes)
+  @foreach (var logType in LogTypes)
   {
     <MudSelectItem Value=@logType>@logType.Icon</MudSelectItem>
   }
@@ -35,13 +34,13 @@
   <Columns>
     <TItemContent TItem="@LogQuickModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="14%" FormatString="@StrUtils.FormatDtLong" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Scale" Width="17%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="13%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App" Width="13%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="6%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="Icon" Width="7%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Message" Property="Message" Width="30%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="14%" FormatString="@StrUtils.FormatDtLong"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Scale" Width="17%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="13%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App" Width="13%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="6%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="Icon" Width="7%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Message" Property="Message" Width="30%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

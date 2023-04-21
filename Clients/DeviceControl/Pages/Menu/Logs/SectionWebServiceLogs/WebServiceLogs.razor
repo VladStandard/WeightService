@@ -12,8 +12,7 @@
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
-  ButtonSettings="@ButtonSettings"
-  />
+  ButtonSettings="@ButtonSettings"/>
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
@@ -28,12 +27,12 @@
     <TItemContent TItem="@LogWebFkModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="LogWebRequest.CreateDt" Width="15%"
-                            FormatString="@StrUtils.FormatDtLong" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Device.Name" Width="10%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="LogWebRequest.Version" Width="15%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="LogType.Icon" Width="15%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.RequestUrl" Property="LogWebRequest.Url" Width="40%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Request"  Property="ToString()" Width="15%" />
+                            FormatString="@StrUtils.FormatDtLong"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Device.Name" Width="10%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="LogWebRequest.Version" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="LogType.Icon" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.RequestUrl" Property="LogWebRequest.Url" Width="40%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Request" Property="ToString()" Width="15%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

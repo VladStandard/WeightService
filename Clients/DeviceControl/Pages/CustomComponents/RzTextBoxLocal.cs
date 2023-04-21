@@ -2,7 +2,7 @@
 
 namespace BlazorDeviceControl.Pages.CustomComponents;
 
-public class RzTextBoxLocal: RadzenTextBox
+public class RzTextBoxLocal : RadzenTextBox
 {
     public RzTextBoxLocal()
     {

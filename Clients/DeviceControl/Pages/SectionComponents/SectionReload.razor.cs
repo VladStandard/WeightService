@@ -6,21 +6,20 @@ using WsStorageCore.Tables;
 namespace BlazorDeviceControl.Pages.SectionComponents;
 
 public partial class SectionReload<TItem> : RazorComponentSectionBase<TItem>
-	where TItem : WsSqlTableBase, new()
+    where TItem : WsSqlTableBase, new()
 {
-	#region Public and private fields, properties, constructor
-    
+    #region Public and private fields, properties, constructor
+
     private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
     [Parameter] public EventCallback OnSectionUpdate { get; set; }
     [Parameter] public int SectionCount { get; set; }
-    
-	#endregion
 
-	#region Public and private methods
+    #endregion
+
+    #region Public and private methods
 
     protected override void OnAfterRender(bool firstRender)
     {
-        
     }
 
     #endregion

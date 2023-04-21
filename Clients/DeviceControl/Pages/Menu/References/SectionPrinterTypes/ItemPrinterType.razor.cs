@@ -7,28 +7,26 @@ namespace BlazorDeviceControl.Pages.Menu.References.SectionPrinterTypes;
 
 public sealed partial class ItemPrinterType : RazorComponentItemBase<PrinterTypeModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	//
+    //
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
+    protected override void OnParametersSet()
+    {
+        RunActionsParametersSet(new List<Action>
+        {
+            () =>
+            {
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterTypeModel>(IdentityId);
                 if (SqlItemCast.IsNew)
-                {
-					SqlItemCast = SqlItemNew<PrinterTypeModel>();
-				}
+                    SqlItemCast = SqlItemNew<PrinterTypeModel>();
             }
-		});
-	}
+        });
+    }
 
-	#endregion
+    #endregion
 }

@@ -12,8 +12,7 @@
     OnSectionUpdate="@GetSectionData"
     SectionCount="@SqlSectionCast.Count"
     SqlCrudConfigSection="@SqlCrudConfigSection"
-    ButtonSettings="@ButtonSettings"
-  />
+    ButtonSettings="@ButtonSettings"/>
 
   <RzDataGridLocal
     @bind-Value="@SelectedRow"
@@ -25,8 +24,8 @@
     <Columns>
       <TItemContent TItem="@PrinterResourceFkModel">
         <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Printer.Name" Width="32%" />
-        <RadzenDataGridColumn Title="@LocaleCore.Print.TemplateResource" Property="TemplateResource.Name" Width="32%" />
+        <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Printer.Name" Width="32%"/>
+        <RadzenDataGridColumn Title="@LocaleCore.Print.TemplateResource" Property="TemplateResource.Name" Width="32%"/>
       </TItemContent>
     </Columns>
   </RzDataGridLocal>

@@ -12,7 +12,9 @@
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td><b>@LocaleCore.Table.Uid1c</b></td>
+    <td>
+      <b>@LocaleCore.Table.Uid1c</b>
+    </td>
     <td>@SqlItemCast.IdRRefAsString</td>
     <td>@LocaleCore.Table.IdDwh</td>
     <td>@SqlItemCast.DwhId</td>
@@ -41,7 +43,4 @@
   TItem="@ContragentModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
-
-
+  OnItemCancel="@SqlItemCancelAsync"/>

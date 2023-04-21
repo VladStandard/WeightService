@@ -15,22 +15,30 @@
     <td>@LocaleCore.Table.Name</td>
     <td>@SqlItemCast.Name</td>
     <td>@LocaleCore.Table.IsDefault</td>
-    <td><RadzenCheckBox TValue="bool" Disabled="true" @bind-Value="@SqlItemCast.IsDefault"/></td>
+    <td>
+      <RadzenCheckBox TValue="bool" Disabled="true" @bind-Value="@SqlItemCast.IsDefault"/>
+    </td>
   </tr>
   <tr>
-    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluBundle.Plu)" Text="@LocaleCore.Table.Plu"/></td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluBundle.Plu)" Text="@LocaleCore.Table.Plu"/>
+    </td>
     <td>@SqlItemCast.PluBundle.Plu.DisplayName</td>
     <td>@LocaleCore.Table.NomenclatureCode</td>
     <td>@SqlItemCast.PluBundle.Plu.Code</td>
   </tr>
   <tr>
-    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluBundle)" Text="@LocaleCore.Table.PluBundleFk"/></td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluBundle)" Text="@LocaleCore.Table.PluBundleFk"/>
+    </td>
     <td>@SqlItemCast.PluBundle.Bundle.Name</td>
     <td>@LocaleCore.Table.BundleWeight</td>
     <td>@SqlItemCast.PluBundle.Bundle.Weight</td>
   </tr>
   <tr>
-    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Box)" Text="@LocaleCore.Table.Box"/></td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Box)" Text="@LocaleCore.Table.Box"/>
+    </td>
     <td>@SqlItemCast.Box.Name</td>
     <td>@LocaleCore.Table.BoxWeight</td>
     <td>@SqlItemCast.Box.Weight</td>
@@ -55,6 +63,4 @@
   TItem="@PluNestingFkModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
-
+  OnItemCancel="@SqlItemCancelAsync"/>

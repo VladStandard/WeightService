@@ -13,19 +13,21 @@
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/></td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/>
+    </td>
     <td>@SqlItemCast.Scale.Description</td>
     <td>@LocaleCore.Table.ScreenShot</td>
     <td>@(DataUtils.GetBytesLength(SqlItemCast.ScreenShot, false))</td>
   </tr>
-    @if (!string.IsNullOrEmpty(ImagePath))
-    {
-      <tr>
-        <td colspan="4">
-          <RadzenImage Style="width: 100%; height: 100%;" Path=@ImagePath />
-        </td>
-      </tr>
-    }
+  @if (!string.IsNullOrEmpty(ImagePath))
+  {
+    <tr>
+      <td colspan="4">
+        <RadzenImage Style="width: 100%; height: 100%;" Path=@ImagePath />
+      </td>
+    </tr>
+  }
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
@@ -34,5 +36,4 @@
   TItem="@ScaleScreenShotModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>

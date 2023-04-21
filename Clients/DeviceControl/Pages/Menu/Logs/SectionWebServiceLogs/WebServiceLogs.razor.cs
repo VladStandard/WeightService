@@ -4,9 +4,8 @@ namespace BlazorDeviceControl.Pages.Menu.Logs.SectionWebServiceLogs;
 
 public sealed partial class WebServiceLogs : RazorComponentSectionBase<LogWebFkModel>
 {
-
     #region Public and private fields, properties, constructor
-    
+
     public WebServiceLogs() : base()
     {
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
@@ -14,10 +13,10 @@ public sealed partial class WebServiceLogs : RazorComponentSectionBase<LogWebFkM
         SqlCrudConfigSection.IsResultOrder = true;
         ButtonSettings = new(false, false,  false, false, false, false, false);
     }
-    
+
     #endregion
 
     #region Public and private methods
-    
+
     #endregion
 }

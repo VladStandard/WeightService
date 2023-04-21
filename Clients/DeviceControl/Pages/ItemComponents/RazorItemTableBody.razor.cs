@@ -6,31 +6,32 @@ using WsStorageCore.Tables;
 
 namespace BlazorDeviceControl.Pages.ItemComponents;
 
-public sealed partial class RazorItemTableBody: LayoutComponentBase
+public sealed partial class RazorItemTableBody : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
+
     [Parameter] public WsSqlTableBase SqlItem { get; set; }
-    
+
     private bool IsSqlItem1C => SqlItem is WsSqlTableBase1c;
-    
+
     private string Guid1C => IsSqlItem1C ? $"{((WsSqlTableBase1c?)SqlItem)?.Uid1c}" : $"{Guid.Empty}";
-        
-    private string IdentityName => 
+
+    private string IdentityName =>
         SqlItem.Identity.Name switch
         {
             WsSqlFieldIdentity.Id => LocaleCore.Table.Id,
             WsSqlFieldIdentity.Uid => LocaleCore.Table.Uid,
             _ => string.Empty
         };
-    
-    private string IdentityNameId => 
+
+    private string IdentityNameId =>
         SqlItem.Identity.Name switch
         {
             WsSqlFieldIdentity.Id => $"{SqlItem.IdentityValueId}",
             WsSqlFieldIdentity.Uid => $"{SqlItem.IdentityValueUid}",
             _ => $"{Guid.Empty}"
         };
-    
+
     #endregion
 
     #region Public and private methods

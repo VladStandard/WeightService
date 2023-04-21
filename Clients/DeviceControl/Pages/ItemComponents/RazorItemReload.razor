@@ -8,8 +8,8 @@
       ButtonStyle="@ButtonStyle.Primary"
       Style="margin-right: 1%; width: 60px;"
       Size="@ButtonSize.Small"
-      Disabled=@(!ContextManager.AccessManager.IsConnected())
-      Click="OnItemUpdate" />
-      <RadzenLink Style="font-weight: bold" Path="@GetRouteSectionPath(new TItem())" Text="@Title"/>
+      Disabled="@(!ContextManager.AccessManager.IsConnected())"
+      Click="OnItemUpdate"/>
+    <RadzenLink Style="font-weight: bold" Path="@GetRouteSectionPath(new TItem())" Text="@Title"/>
   </MudToolBar>
 </MudPaper>
