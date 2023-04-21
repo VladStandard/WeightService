@@ -304,7 +304,7 @@ public partial class MainForm : Form
         if (ActionSettings.IsNesting)
         {
             ButtonPluNestingFk = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPluNestingFk), 1, rowCount++);
-            ButtonPluNestingFk.Click += ActionPluNestingFk;
+            ButtonPluNestingFk.Click += ActionSwitchPluNesting;
         }
         else
         {
@@ -625,7 +625,7 @@ public partial class MainForm : Form
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ActionPluNestingFk(object sender, EventArgs e)
+    private void ActionSwitchPluNesting(object sender, EventArgs e)
     {
         WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
             {
