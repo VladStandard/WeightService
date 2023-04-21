@@ -1,12 +1,10 @@
 @page "/section/barcodes/new"
 @page "/section/barcodes/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.BarCodes.BarCodeModel>
-@using BlazorDeviceControl.Pages.ItemComponents
+@using WsStorageCore.TableScaleModels.BarCodes
 @using WsDataCore.Enums
-@using WsStorageCore.Enums
-@using WsStorageCore.TableScaleModels.BarCodes
-@using WsStorageCore.TableScaleModels.BarCodes
+@using BlazorDeviceControl.Pages.ItemComponents
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.BarCodes.BarCodeModel>
 
 <RazorItemReload TItem="@BarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarcode"/>
 

@@ -3,9 +3,6 @@
 
 using WsStorageCore.Helpers;
 using WsStorageCore.TableScaleFkModels.Aggregations;
-using WsStorageCore.Utils;
-using WsStorageCore.Helpers;
-using WsStorageCore.TableScaleFkModels.Aggregations;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighingsAggr;
 

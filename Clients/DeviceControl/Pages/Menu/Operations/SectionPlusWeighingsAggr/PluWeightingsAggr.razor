@@ -1,10 +1,9 @@
 @page "/section/plus_weighings_aggr"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits LayoutComponentBase
-@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleFkModels.Aggregations
 @using WsDataCore.Utils
-@using WsStorageCore.TableScaleFkModels.Aggregations
-@using WsStorageCore.TableScaleFkModels.Aggregations
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits LayoutComponentBase
 
 <MudPaper Outlined="true" Class="mb-2">
   <MudToolBar Dense="true">

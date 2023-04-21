@@ -1,11 +1,10 @@
 ﻿@page "/section/organizations/new"
 @page "/section/organizations/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Organizations.OrganizationModel>
+@using WsStorageCore.TableScaleModels.Organizations
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.Organizations
-@using WsStorageCore.TableScaleModels.Organizations
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Organizations.OrganizationModel>
 
 <RazorItemReload TItem="OrganizationModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
 

@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleModels.BarCodes;
-using WsStorageCore.TableScaleModels.BarCodes;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionBarcodes;
 

@@ -1,10 +1,9 @@
 ﻿@page "/section/plus"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Plus.PluModel>
+@using WsStorageCore.TableScaleModels.Plus
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.Plus
-@using WsStorageCore.TableScaleModels.Plus
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Plus.PluModel>
 
 <SectionReload
   TItem="@PluModel"

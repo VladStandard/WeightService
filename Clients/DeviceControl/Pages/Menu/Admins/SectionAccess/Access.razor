@@ -1,11 +1,10 @@
 @page "/section/access"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
+@using WsStorageCore.TableScaleModels.Access
+@using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsDataCore.Utils
-@using WsStorageCore.TableScaleModels.Access
-@using WsStorageCore.TableScaleModels.Access
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
 
 <SectionReload
   TItem="@WsSqlAccessModel"

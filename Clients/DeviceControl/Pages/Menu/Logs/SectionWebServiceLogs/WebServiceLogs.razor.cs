@@ -1,5 +1,4 @@
 ﻿using WsStorageCore.TableDiagModels.LogsWebsFks;
-using WsStorageCore.TableDiagModels.LogsWebsFks;
 
 namespace BlazorDeviceControl.Pages.Menu.Logs.SectionWebServiceLogs;
 

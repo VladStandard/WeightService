@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
 using WsFileSystemCore.Helpers;
 using WsStorageCore.Helpers;
+using DialogService = Radzen.DialogService;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +38,7 @@ builder.Services.AddScoped<IUserRightsService, UserRightsService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<ContextMenuService>();
-builder.Services.AddScoped<Radzen.DialogService>();
+builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddScoped<IFileDownload, FileDownload>();
 

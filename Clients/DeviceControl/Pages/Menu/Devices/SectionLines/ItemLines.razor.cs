@@ -10,14 +10,6 @@ using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.Scales;
 using WsStorageCore.TableScaleModels.Templates;
 using WsStorageCore.TableScaleModels.WorkShops;
-using WsStorageCore.Utils;
-using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
-using WsStorageCore.TableScaleModels.Devices;
-using WsStorageCore.TableScaleModels.DeviceTypes;
-using WsStorageCore.TableScaleModels.Printers;
-using WsStorageCore.TableScaleModels.Scales;
-using WsStorageCore.TableScaleModels.Templates;
-using WsStorageCore.TableScaleModels.WorkShops;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionLines;
 

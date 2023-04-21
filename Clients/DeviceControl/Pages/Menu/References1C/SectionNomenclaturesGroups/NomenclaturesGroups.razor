@@ -1,10 +1,9 @@
 @page "/section/nomenclatures_groups"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PlusGroups.PluGroupModel>
+@using WsStorageCore.TableScaleModels.PlusGroups
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.PlusGroups
-@using WsStorageCore.TableScaleModels.PlusGroups
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PlusGroups.PluGroupModel>
 
 <SectionReload
   TItem="@PluGroupModel"

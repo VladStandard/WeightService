@@ -1,12 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Models;
-using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
-using WsStorageCore.TableScaleModels.Plus;
-using WsStorageCore.TableScaleModels.PlusScales;
-using WsStorageCore.TableScaleModels.Scales;
-using WsStorageCore.Utils;
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusScales;

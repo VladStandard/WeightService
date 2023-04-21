@@ -1,10 +1,9 @@
 ﻿@page "/section/boxes"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Boxes.BoxModel>
+@using WsStorageCore.TableScaleModels.Boxes
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.Boxes
-@using WsStorageCore.TableScaleModels.Boxes
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Boxes.BoxModel>
 
 
 <SectionReload

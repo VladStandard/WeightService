@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableDiagModels.LogsWebsFks;
-using WsStorageCore.TableDiagModels.LogsWebsFks;
 
 namespace BlazorDeviceControl.Pages.Menu.Logs.SectionWebServiceLogs;
 

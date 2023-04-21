@@ -4,10 +4,6 @@
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusScales;
 using WsStorageCore.TableScaleModels.Scales;
-using WsStorageCore.Utils;
-using WsStorageCore.TableScaleModels.Plus;
-using WsStorageCore.TableScaleModels.PlusScales;
-using WsStorageCore.TableScaleModels.Scales;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPluScales;
 

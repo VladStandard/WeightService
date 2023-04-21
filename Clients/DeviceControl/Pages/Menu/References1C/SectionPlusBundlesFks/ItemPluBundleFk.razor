@@ -1,10 +1,9 @@
 @page "/section/plus_bundles_fks/new"
 @page "/section/plus_bundles_fks/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel>
-@using BlazorDeviceControl.Pages.CustomComponents
-@using BlazorDeviceControl.Pages.ItemComponents
 @using WsStorageCore.TableScaleFkModels.PlusBundlesFks
+@using BlazorDeviceControl.Pages.ItemComponents
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel>
 
 <RazorItemReload TItem="@PluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk"/>
 

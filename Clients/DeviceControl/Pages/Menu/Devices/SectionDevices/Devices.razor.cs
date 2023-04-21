@@ -3,8 +3,6 @@
 
 using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
 using WsStorageCore.TableScaleModels.Devices;
-using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
-using WsStorageCore.TableScaleModels.Devices;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionDevices;
 

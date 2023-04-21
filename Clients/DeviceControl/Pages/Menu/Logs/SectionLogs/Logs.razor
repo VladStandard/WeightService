@@ -1,13 +1,11 @@
 ﻿@page "/section/logs"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.Xml.LogQuickModel>
-@using BlazorDeviceControl.Pages.CustomComponents
-@using BlazorDeviceControl.Pages.SectionComponents
+@using WsStorageCore.Xml
+@using WsStorageCore.TableDiagModels.LogsTypes
 @using WsDataCore.Utils
-@using WsStorageCore.TableDiagModels.LogsTypes
-@using WsStorageCore.Xml
-@using WsStorageCore.TableDiagModels.LogsTypes
-@using WsStorageCore.Xml
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<WsStorageCore.Xml.LogQuickModel>
 
 <SectionReload
   TItem="@LogQuickModel"

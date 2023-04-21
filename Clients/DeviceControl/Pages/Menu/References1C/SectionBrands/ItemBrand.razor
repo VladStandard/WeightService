@@ -1,11 +1,9 @@
 ﻿@page "/section/brands/new"
 @page "/section/brands/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Brands.BrandModel>
+@using WsStorageCore.TableScaleModels.Brands
 @using BlazorDeviceControl.Pages.ItemComponents
-@using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.Brands
-@using WsStorageCore.TableScaleModels.Brands
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Brands.BrandModel>
 
 <RazorItemReload TItem="@BrandModel" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
 

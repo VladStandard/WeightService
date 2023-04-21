@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleModels.PlusGroups;
-using WsStorageCore.TableScaleModels.PlusGroups;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups;
 

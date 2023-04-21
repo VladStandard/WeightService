@@ -1,12 +1,11 @@
 @page "/section/scales/new"
 @page "/section/scales/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Scales.ScaleModel>
-@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.Scales
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.Menu.Devices.SectionPluScales
-@using WsStorageCore.TableScaleModels.Scales
-@using WsStorageCore.TableScaleModels.Scales
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Scales.ScaleModel>
 
 <RazorItemReload TItem="@ScaleModel" Title="@LocaleCore.DeviceControl.ItemScale"/>
 

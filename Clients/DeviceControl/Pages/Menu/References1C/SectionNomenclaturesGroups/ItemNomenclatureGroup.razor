@@ -1,11 +1,9 @@
 ﻿@page "/section/nomenclatures_groups/new"
 @page "/section/nomenclatures_groups/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusGroups.PluGroupModel>
+@using WsStorageCore.TableScaleModels.PlusGroups
 @using BlazorDeviceControl.Pages.ItemComponents
-@using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.PlusGroups
-@using WsStorageCore.TableScaleModels.PlusGroups
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusGroups.PluGroupModel>
 
 <RazorItemReload TItem="@PluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup"/>
 
