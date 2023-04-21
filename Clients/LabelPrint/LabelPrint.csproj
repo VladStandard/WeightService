@@ -10,9 +10,9 @@
     <Version>0.9.240.0</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MDSoft.NetUtils" Version="0.2.40" />
-    <PackageReference Include="MDSoft.WinFormsUtils" Version="0.2.40" />
-    <PackageReference Include="MDSoft.Wmi" Version="0.2.40" />
-    <PackageReference Include="MDSoft.WpfUtils" Version="0.2.40" />
+    <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />
+    <PackageReference Include="MDSoft.WinFormsUtils" Version="0.2.50" />
+    <PackageReference Include="MDSoft.Wmi" Version="0.2.50" />
+    <PackageReference Include="MDSoft.WpfUtils" Version="0.2.50" />
   </ItemGroup>
 </Project>

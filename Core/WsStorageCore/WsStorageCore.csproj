@@ -11,7 +11,7 @@
     <PackageReference Include="FluentNHibernate" Version="3.2.0" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="Iesi.Collections" Version="4.0.5" />
-    <PackageReference Include="MDSoft.NetUtils" Version="0.2.40" />
+    <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="NHibernate" Version="5.4.2" />
     <PackageReference Include="Quartz" Version="3.6.2" />
