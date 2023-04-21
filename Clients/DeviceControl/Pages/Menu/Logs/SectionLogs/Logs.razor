@@ -15,14 +15,8 @@
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<MudSelectLocal T="LogTypeModel" Value="@CurrentType" ValueChanged="OnSelectTypeChanged">
-  <MudSelectItem Value="@LogTypeNew">All</MudSelectItem>
-  @foreach (var logType in LogTypes)
-  {
-    <MudSelectItem Value=@logType>@logType.Icon</MudSelectItem>
-  }
-</MudSelectLocal>
-
+<RzDropDownLocal @bind-Value="@CurrentType" Data="@LogTypes" TextProperty="Icon" Change="OnSelectTypeChanged"
+                 AllowClear="true" Placeholder="All" />
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@LogQuickModel"

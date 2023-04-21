@@ -8,13 +8,11 @@ namespace BlazorDeviceControl.Pages.Menu.Logs.SectionLogs;
 
 public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
 {
-    private static LogTypeModel LogTypeNew => new();
-    private LogTypeModel CurrentType { get; set; }
+    private LogTypeModel? CurrentType { get; set; }
     private List<LogTypeModel> LogTypes { get; set; }
 
     public Logs() : base()
     {
-        CurrentType = new();
         LogTypes = ContextManager.AccessManager.AccessList.GetListNotNullable<LogTypeModel>(new SqlCrudConfigModel());
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultShowMarked = true;
@@ -24,7 +22,9 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
 
     protected override void SetSqlSectionCast()
     {
-        var logTypeUid = CurrentType.IdentityValueUid;
+        Guid logTypeUid = Guid.Empty;
+        if (CurrentType?.IdentityValueUid != null) 
+            logTypeUid = CurrentType.IdentityValueUid;
         var query = WsSqlQueriesDiags.Tables.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
             ? ContextManager.JsonSettings.Local.SelectTopRowsCount
             : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
@@ -57,9 +57,8 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
         SqlSectionCast = items;
     }
 
-    private void OnSelectTypeChanged(LogTypeModel logType)
+    private void OnSelectTypeChanged()
     {
-        CurrentType = logType;
         SqlCrudConfigSection.IsResultShowOnlyTop = true;
         GetSectionData();
     }
