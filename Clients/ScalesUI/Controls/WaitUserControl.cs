@@ -3,7 +3,7 @@
 
 namespace ScalesUI.Controls;
 
-public partial class WaitUserControl : UserControlBase
+public sealed partial class WaitUserControl : UserControlBase
 {
     #region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public partial class WaitUserControl : UserControlBase
     public override void RefreshAction()
     {
         base.RefreshAction();
-        ActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             labelMessage.Text = Message;
         });

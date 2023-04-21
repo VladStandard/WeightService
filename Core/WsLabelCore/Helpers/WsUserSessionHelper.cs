@@ -2,13 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using MDSoft.BarcodePrintUtils.Utils;
-using MvvmHelpers;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using MDSoft.WinFormsUtils;
 using WsDataCore.Utils;
-using WsPrintCore.Zpl;
 using WsStorageCore.Enums;
 using WsStorageCore.TableDirectModels;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
@@ -51,11 +48,11 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsBarCodeHelper BarCode => WsBarCodeHelper.Instance;
     public DebugHelper Debug => DebugHelper.Instance;
-    public PluginLabelsHelper PluginLabels => PluginLabelsHelper.Instance;
-    public PluginMassaHelper PluginMassa => PluginMassaHelper.Instance;
-    public PluginMemoryHelper PluginMemory => PluginMemoryHelper.Instance;
-    public PluginPrintModel PluginPrintMain { get; } = new();
-    public PluginPrintModel PluginPrintShipping { get; } = new();
+    public WsPluginLabelsHelper PluginLabels => WsPluginLabelsHelper.Instance;
+    public WsPluginMassaHelper PluginMassa => WsPluginMassaHelper.Instance;
+    public WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
+    public WsPluginPrintModel PluginPrintMain { get; } = new();
+    public WsPluginPrintModel PluginPrintShipping { get; } = new();
 
     private ProductSeriesDirect _productSeries;
     [XmlElement]
@@ -431,7 +428,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <param name="managerPrint"></param>
     /// <param name="isMain"></param>
     /// <returns></returns>
-    public bool CheckPrintIsConnectAndReady(Label fieldWarning, PluginPrintModel managerPrint, bool isMain)
+    public bool CheckPrintIsConnectAndReady(Label fieldWarning, WsPluginPrintModel managerPrint, bool isMain)
     {
         // Подключение.
         if (managerPrint.Printer.PingStatus != IPStatus.Success)
@@ -720,6 +717,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
         WsPluLabelContextModel pluLabelContext = new(pluLabel, PluNestingFk, pluLabel.PluScale, ProductionFacility, PluWeighing);
         XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsPluLabelContextModel>(pluLabelContext, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
+
+        // Патч шаблона: PluLabelContextModel -> WsPluLabelContextModel
+        template.Data = template.Data.Replace("PluLabelContextModel", nameof(WsPluLabelContextModel));
 
         pluLabel.Zpl = WsDataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = WsDataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);

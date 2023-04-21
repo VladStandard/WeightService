@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <AssemblyVersion>0.9.220.0</AssemblyVersion>
-    <FileVersion>0.9.220.0</FileVersion>
+    <AssemblyVersion>0.9.240.0</AssemblyVersion>
+    <FileVersion>0.9.240.0</FileVersion>
 	<Nullable>enable</Nullable>
 	<LangVersion>latest</LangVersion>
 	<Platforms>AnyCPU;x64;x86</Platforms>
@@ -90,39 +90,9 @@
     <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj" />
   </ItemGroup>
   <PropertyGroup>
-    <Version>0.9.220.0</Version>
+    <Version>0.9.240.0</Version>
     <DebugType>portable</DebugType>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopAleksandrov|x64'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopMorozov|x64'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|x64'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopAleksandrov|x86'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopMorozov|x86'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|x86'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopAleksandrov|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopMorozov|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMorozov|AnyCPU'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMorozov|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMorozov|x86'" />
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="Post-build.cmd" />
   </Target>

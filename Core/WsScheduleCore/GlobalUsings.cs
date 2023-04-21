@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 global using Quartz.Impl;
@@ -7,3 +7,5 @@ global using System.Collections.Generic;
 global using System.Threading;
 global using System;
 global using System.Threading.Tasks;
+global using WsScheduleCore.Enums;
+global using WsScheduleCore.Models;

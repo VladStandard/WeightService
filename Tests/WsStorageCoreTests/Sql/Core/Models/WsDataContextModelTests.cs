@@ -1,9 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Enums;
 using MDSoft.NetUtils;
-using WsStorageCore.TableScaleModels.Devices;
 
 namespace WsStorageCoreTests.Sql.Core.Models;
 
@@ -18,8 +16,8 @@ public sealed class WsDataContextModelTests
             string deviceName1 = MdNetUtils.GetLocalDeviceName(false);
             string deviceName2 = MdNetUtils.GetLocalDeviceName(false);
 
-            DeviceModel device1 = WsTestsUtils.DataTests.DataContext.GetItemDeviceNotNullable(deviceName1);
-            DeviceModel device2 = WsTestsUtils.DataTests.DataContext.GetItemDeviceOrCreateNew(deviceName2);
+            DeviceModel device1 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceNotNullable(deviceName1);
+            DeviceModel device2 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceOrCreateNew(deviceName2);
             TestContext.WriteLine($"{nameof(device1)}: {device1}");
             TestContext.WriteLine($"{nameof(device2)}: {device2}");
 

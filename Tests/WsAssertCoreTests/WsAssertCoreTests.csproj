@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.9.220.0</Version>
+    <Version>0.9.240.0</Version>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
@@ -14,6 +14,7 @@
     <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\WsBlazorCore\WsBlazorCore.csproj" />
     <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj" />
     <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj" />
     <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />

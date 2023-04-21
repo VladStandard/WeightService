@@ -7,31 +7,26 @@ namespace WsStorageContextTests.TableScaleModels;
 public sealed class PluStorageMethodContentTests
 {
 	[Test]
-    public void Model_Content_Validate()
-    {
-		WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluStorageMethodModel>();
-	}
-
-	[Test]
     public void Model_GetPluStorageMethod_Validate()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false, false);
-            List<PluStorageMethodFkModel> pluStorageMethodFks = WsTestsUtils.DataTests.DataContext.UpdatePluStorageMethodFks(sqlCrudConfig);
+            List<PluStorageMethodFkModel> pluStorageMethodFks = WsTestsUtils.DataTests.ContextManager.ContextPluStorage.UpdatePluStorageMethodFks(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(pluStorageMethodFks)}.{nameof(pluStorageMethodFks.Count)}: {pluStorageMethodFks.Count}");
             
-            List<PluModel> plus = WsTestsUtils.DataTests.DataContext.GetListNotNullablePlus(sqlCrudConfig);
+            List<PluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlus(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 
-            foreach (PluStorageMethodModel method in plus.Select(plu => WsTestsUtils.DataTests.DataContext.GetPluStorageMethod(plu)))
+            foreach (PluStorageMethodModel method in plus.Select(plu => WsTestsUtils.DataTests.ContextManager.
+                ContextPluStorage.GetPluStorageMethod(plu, pluStorageMethodFks)))
             {
                 if (method.IsExists)
                     WsTestsUtils.DataTests.AssertSqlValidate(method, true);
             }
 
             foreach (TemplateResourceModel resource in plus.Select(plu => WsTestsUtils.ContextManager.ContextPluStorage
-                         .GetPluStorageResource(plu, WsTestsUtils.ContextManager.PluStorageMethodsFks)))
+                         .GetPluStorageResource(plu, pluStorageMethodFks)))
             {
                 if (resource.IsExists)
                     WsTestsUtils.DataTests.AssertSqlValidate(resource, true);

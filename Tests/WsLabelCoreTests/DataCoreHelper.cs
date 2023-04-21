@@ -16,7 +16,7 @@ public sealed class DataCoreHelper
 
 	#region Public and private fields, properties, constructor
 
-    private WsStorageContextManagerHelper ContextManager => WsStorageContextManagerHelper.Instance;
+    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
 
     #endregion
@@ -107,7 +107,7 @@ public sealed class DataCoreHelper
         AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
-            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.AccessList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             //WsTestsUtils.DataCore.PrintTopRecords(items, 10, true);
             if (!items.Any())
@@ -122,7 +122,7 @@ public sealed class DataCoreHelper
                         TestContext.WriteLine(item);
                     i++;
                     AssertSqlValidate(item, true);
-                    ValidationResult validationResult = WsValidationUtils.GetValidationResult(item);
+                    ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
                     FailureWriteLine(validationResult);
                     // Assert.
                     Assert.IsTrue(validationResult.IsValid);
@@ -139,7 +139,7 @@ public sealed class DataCoreHelper
         AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
-            List<T> items = ContextManager.ContextItem.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.AccessList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             //WsTestsUtils.DataCore.PrintTopRecords(items, 10, true, true);
             if (!items.Any())
@@ -168,7 +168,7 @@ public sealed class DataCoreHelper
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			ValidationResult validationResult = WsValidationUtils.GetValidationResult(item);
+			ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
 			FailureWriteLine(validationResult);
 			// Assert.
 			switch (assertResult)

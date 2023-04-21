@@ -22,14 +22,13 @@ public sealed class RazorFieldConfigUtilsTests
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			// Arrange & Act & Assert.
 			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Base.GetCreateDt();
 			TestContext.WriteLine(razorFieldConfig);
-			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Base.GetChangeDt();
+			
+            razorFieldConfig = RazorFieldConfigUtils.Base.GetChangeDt();
 			TestContext.WriteLine(razorFieldConfig);
-			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Base.GetDescription();
+			
+            razorFieldConfig = RazorFieldConfigUtils.Base.GetDescription();
 			TestContext.WriteLine(razorFieldConfig);
 		});
 	}

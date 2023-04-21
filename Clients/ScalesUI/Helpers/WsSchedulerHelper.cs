@@ -4,7 +4,7 @@
 namespace ScalesUI.Helpers;
 
 #nullable enable
-internal class WsSchedulerHelper
+internal sealed class WsSchedulerHelper
 {
     #region Design pattern "Lazy Singleton"
 
@@ -51,7 +51,7 @@ internal class WsSchedulerHelper
 
         lock (_lockerMinutes10)
         {
-            ActionUtils.ActionTryCatch(FormMain, UserSession.Scale, () =>
+            WsActionUtils.ActionTryCatch(FormMain, UserSession.Scale, () =>
             {
                 UserSession.ContextManager.ContextItem.SaveLogMemory(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
@@ -67,8 +67,8 @@ internal class WsSchedulerHelper
 
         lock (_lockerHours)
         {
-            ActionUtils.ActionTryCatch(FormMain, UserSession.Scale, 
-                () => ActionUtils.ActionMakeScreenShot(FormMain, UserSession.Scale));
+            WsActionUtils.ActionTryCatch(FormMain, UserSession.Scale, 
+                () => WsActionUtils.ActionMakeScreenShot(FormMain, UserSession.Scale));
         }
     }
 
@@ -79,7 +79,7 @@ internal class WsSchedulerHelper
         lock (_lockerDays)
         {
             UserSession.ProductDate = DateTime.Now;
-            ActionUtils.ActionMakeScreenShot(FormMain, UserSession.Scale);
+            WsActionUtils.ActionMakeScreenShot(FormMain, UserSession.Scale);
         }
     }
 

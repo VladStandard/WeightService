@@ -3,10 +3,10 @@
 
 namespace WsScheduleCore.Models;
 
-public class WsQuartzParamModel<T>
+public sealed class WsQuartzParamModel<T>
 {
-    public string Name { get; }
-    public T Value { get; }
+    private string Name { get; }
+    private T Value { get; }
 
     public WsQuartzParamModel(string name, T value)
     {

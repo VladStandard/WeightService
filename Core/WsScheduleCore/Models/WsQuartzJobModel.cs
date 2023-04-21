@@ -3,11 +3,11 @@
 
 namespace WsScheduleCore.Models;
 
-public class WsQuartzJobModel : IJob
+public sealed class WsQuartzJobModel : IJob
 {
     #region Public and private fields, properties, constructor
 
-    public static List<Action> Actions { get; } = new();
+    private List<Action> Actions { get; } = new();
 
     #endregion
 
@@ -18,7 +18,7 @@ public class WsQuartzJobModel : IJob
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         foreach (Action action in Actions)
         {
-            action.Invoke();
+            action();
         }
     }
 

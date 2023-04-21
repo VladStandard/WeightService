@@ -7,7 +7,7 @@ public class UserControlBase : UserControl
 {
     #region Public and private fields, properties, constructor
 
-    internal FontsSettingsHelper FontsSettings => FontsSettingsHelper.Instance;
+    internal WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     internal WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     internal Action ReturnBackAction { get; set; }
     internal DialogResult Result { get; set; }

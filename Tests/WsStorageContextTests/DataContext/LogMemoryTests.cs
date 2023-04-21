@@ -14,7 +14,7 @@ public sealed class LogMemoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsTestsUtils.DataTests.DataContext.Access.SaveLogMemory(1, 1);
+            WsTestsUtils.DataTests.ContextManager.ContextItem.SaveLogMemory(1, 1);
             WsTestsUtils.DataTests.AssertGetList<LogMemoryModel>(SqlCrudConfigFk, Configurations, false);
         }, false, Configurations);
     }
