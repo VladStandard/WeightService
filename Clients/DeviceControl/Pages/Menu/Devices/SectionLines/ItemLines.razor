@@ -10,7 +10,7 @@
 <RazorItemReload TItem="@ScaleModel" Title="@LocaleCore.DeviceControl.ItemScale"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
@@ -29,7 +29,7 @@
       <RadzenLink Path="@GetRouteItemPath(Device)" Text="@LocaleCore.Table.Host"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@Device" Data="@ContextManager.ContextList.Devices" TextProperty="DisplayName"/>
+      <RzDropDownLocal @bind-Value="@Device" Data="@HostModels" TextProperty="DisplayName"/>
     </td>
     <td>@LocaleCore.Table.IsOrder</td>
     <td>
@@ -42,7 +42,7 @@
                   Text="@LocaleCore.Print.NameMain"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterMain" Data="@ContextManager.ContextList.Printers" TextProperty="DisplayName"/>
+      <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName"/>
     </td>
     <td>@LocaleCore.Table.DeviceComPort</td>
     <td>
@@ -55,7 +55,7 @@
                   Text="@LocaleCore.Print.NameShipping"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterShipping" Data="@ContextManager.ContextList.Printers" TextProperty="DisplayName"/>
+      <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterShipping" Data="@PrinterModels" TextProperty="DisplayName"/>
     </td>
     <td>@LocaleCore.Table.IsShipping</td>
     <td>
@@ -67,7 +67,7 @@
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.WorkShop" Data="@ContextManager.ContextList.WorkShops" TextProperty="Name"/>
+      <RzDropDownLocal @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="Name"/>
     </td>
     <td>
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>

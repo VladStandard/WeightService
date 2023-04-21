@@ -10,7 +10,7 @@ public sealed partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 {
     #region Public and private fields, properties, constructor
 
-    //
+    private List<ProductionFacilityModel> ProductionFacilityModels { get; set; }
 
     #endregion
 
@@ -23,10 +23,8 @@ public sealed partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
             () =>
             {
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WorkShopModel>(IdentityId);
-                //if (TableAction == DbTableAction.New)
-                //	SqlItemCast.IdentityValueId = (long)IdentityId;
-                ContextManager.AccessManager.AccessList.GetListNotNullable<ProductionFacilityModel>(WsSqlCrudConfigUtils
-                    .GetCrudConfigComboBox());
+                ProductionFacilityModels = ContextManager.AccessManager.AccessList.
+                    GetListNotNullable<ProductionFacilityModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
             }
         });
     }

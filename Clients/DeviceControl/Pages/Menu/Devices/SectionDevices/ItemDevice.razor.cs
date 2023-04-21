@@ -13,6 +13,7 @@ public sealed partial class ItemDevice : RazorComponentItemBase<DeviceModel>
     #region Public and private fields, properties, constructor
 
     private DeviceTypeModel _deviceType;
+    private List<DeviceTypeModel> DeviceTypeFkModels { get; set; }
     private DeviceTypeModel DeviceType { get => _deviceType; set { _deviceType = value; SqlLinkedItems = new() { DeviceType }; } }
     private DeviceTypeFkModel DeviceTypeFk { get; set; }
 
@@ -32,8 +33,7 @@ public sealed partial class ItemDevice : RazorComponentItemBase<DeviceModel>
         {
             () =>
             {
-                ContextManager.ContextList.GetListNotNullable<DeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-
+                DeviceTypeFkModels = ContextManager.ContextList.GetListNotNullable<DeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<DeviceModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<DeviceModel>();

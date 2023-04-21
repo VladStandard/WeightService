@@ -1,14 +1,12 @@
-# WeightService - Weight service
-
-## Main info
-- [CHANGELOG](CHANGELOG.md)
-- [LICENSE](LICENSE.md)
-- [Publish lifecycle](Publish%20lifecycle.md)
-- [Publish resources](Publish%20resources.md)
-- [TestCases](TestCases.md)
+# WeightService
 
 ## Projects
-- [BlazorDeviceControl CHANGELOG](BlazorDeviceControl/CHANGELOG.md)
-- [BlazorDeviceControl README](BlazorDeviceControl/README.md)
-- [ScalesUI CHANGELOG](ScalesUI/CHANGELOG.md)
-- [ScalesUI README](ScalesUI/README.md)
+- [ScalesUI](Clients/ScalesUI/README.md)
+- [BlazorDeviceControl](Clients/DeviceControl/README.md)
+
+## Info
+- [Stack](Technology%20Stack.md)
+- [License](LICENSE.md)
+- [Changelog](CHANGELOG.md)
+- [Publish lifecycle](Publish%20life%20cycle.md)
+- [Publish resources](Publish%20resources.md)

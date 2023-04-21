@@ -10,7 +10,7 @@ public sealed partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
 {
     #region Public and private fields, properties, constructor
 
-    //
+    private List<PrinterTypeModel> PrinterTypeModels { get; set; }
 
     #endregion
 
@@ -23,11 +23,10 @@ public sealed partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
             () =>
             {
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterModel>(IdentityId);
+                PrinterTypeModels = ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterTypeModel>(WsSqlCrudConfigUtils
+                    .GetCrudConfigComboBox());
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<PrinterModel>();
-
-                ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterTypeModel>(WsSqlCrudConfigUtils
-                    .GetCrudConfigComboBox());
             }
         });
     }

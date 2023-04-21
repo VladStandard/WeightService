@@ -29,7 +29,7 @@ public sealed partial class ItemAccess : RazorComponentItemBase<WsSqlAccessModel
 
     protected override void OnParametersSet()
     {
-        RunActionsParametersSet(new List<Action>
+        RunActionsParametersSet(new()
         {
             () =>
             {

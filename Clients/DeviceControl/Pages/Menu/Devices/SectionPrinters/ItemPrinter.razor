@@ -28,7 +28,7 @@
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterType)" Text="@LocaleCore.Print.Type"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterType" Data="@ContextManager.ContextList.PrinterTypes" TextProperty="Name"/>
+      <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterType" Data="@PrinterTypeModels" TextProperty="Name"/>
     </td>
     <td>@LocaleCore.Print.Port</td>
     <td>
