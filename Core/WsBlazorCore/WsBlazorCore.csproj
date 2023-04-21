@@ -3,9 +3,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <FileVersion>0.9.240.0</FileVersion>
-    <AssemblyVersion>0.9.240.0</AssemblyVersion>
-    <Version>0.9.240.0</Version>
+    <FileVersion>0.9.250.0</FileVersion>
+    <AssemblyVersion>0.9.250.0</AssemblyVersion>
+    <Version>0.9.250.0</Version>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
@@ -43,7 +43,7 @@
     <PackageReference Include="MudBlazor" Version="6.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NHibernate" Version="5.4.2" />
-    <PackageReference Include="Radzen.Blazor" Version="4.9.2" />
+    <PackageReference Include="Radzen.Blazor" Version="4.10.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj" />
