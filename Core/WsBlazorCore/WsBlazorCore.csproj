@@ -3,9 +3,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <FileVersion>0.9.240.0</FileVersion>
-    <AssemblyVersion>0.9.240.0</AssemblyVersion>
-    <Version>0.9.240.0</Version>
+    <FileVersion>0.9.250.0</FileVersion>
+    <AssemblyVersion>0.9.250.0</AssemblyVersion>
+    <Version>0.9.250.0</Version>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
