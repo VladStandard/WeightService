@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleFkModels.PlusLabels;
-using WsStorageCore.TableScaleFkModels.PlusLabels;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusLabels;
 

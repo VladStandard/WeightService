@@ -1,10 +1,9 @@
 ﻿@page "/section/printers"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Printers.PrinterModel>
+@using WsStorageCore.TableScaleModels.Printers
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.Printers
-@using WsStorageCore.TableScaleModels.Printers
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Printers.PrinterModel>
 
 <SectionReload
   TItem="@PrinterModel"

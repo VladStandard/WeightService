@@ -1,11 +1,11 @@
 @page "/section/printers/new"
 @page "/section/printers/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Printers.PrinterModel>
-@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.Printers
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.Menu.Devices.SectionPrintersResources
-@using WsStorageCore.TableScaleModels.Printers
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Printers.PrinterModel>
 
 <RazorItemReload TItem="@PrinterModel" Title="@LocaleCore.Print.Name"/>
 

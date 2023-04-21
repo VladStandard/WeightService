@@ -3,8 +3,6 @@
 
 using WsStorageCore.Enums;
 using WsStorageCore.TableScaleModels.Plus;
-using WsStorageCore.Enums;
-using WsStorageCore.TableScaleModels.Plus;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclatures;
 

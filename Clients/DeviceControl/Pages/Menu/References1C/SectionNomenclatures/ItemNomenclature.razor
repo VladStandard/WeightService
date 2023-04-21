@@ -1,11 +1,10 @@
 ﻿@page "/section/plus/new"
 @page "/section/plus/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Plus.PluModel>
+@using WsStorageCore.TableScaleModels.Plus
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.Menu.References1C.SectionPlusNestingFks
-@using WsStorageCore.TableScaleModels.Plus
-@using WsStorageCore.TableScaleModels.Plus
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Plus.PluModel>
 
 <RazorItemReload TItem="@PluModel" Title="@LocaleCore.DeviceControl.ItemNomenclature"/>
 

@@ -1,11 +1,10 @@
 @page "/section/templates/new"
 @page "/section/templates/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Templates.TemplateModel>
+@using WsStorageCore.TableScaleModels.Templates
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.Templates
-@using WsStorageCore.TableScaleModels.Templates
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Templates.TemplateModel>
 
 <RazorItemReload TItem="@TemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate"/>
 

@@ -1,10 +1,9 @@
 ﻿@page "/section/workshops"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.WorkShops.WorkShopModel>
+@using WsStorageCore.TableScaleModels.WorkShops
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.WorkShops
-@using WsStorageCore.TableScaleModels.WorkShops
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.WorkShops.WorkShopModel>
 
 <SectionReload
   TItem="@WorkShopModel"

@@ -3,9 +3,6 @@
 
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.PrintersTypes;
-using WsStorageCore.Utils;
-using WsStorageCore.TableScaleModels.Printers;
-using WsStorageCore.TableScaleModels.PrintersTypes;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrinters;
 

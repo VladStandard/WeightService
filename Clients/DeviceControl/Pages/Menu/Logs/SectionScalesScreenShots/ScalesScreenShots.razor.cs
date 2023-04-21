@@ -3,7 +3,6 @@
 
 using WsDataCore.Utils;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
-using WsStorageCore.TableDiagModels.ScalesScreenshots;
 
 namespace BlazorDeviceControl.Pages.Menu.Logs.SectionScalesScreenShots;
 

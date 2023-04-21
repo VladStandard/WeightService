@@ -1,10 +1,9 @@
 ﻿@page "/section/organizations"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Organizations.OrganizationModel>
+@using WsStorageCore.TableScaleModels.Organizations
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.Organizations
-@using WsStorageCore.TableScaleModels.Organizations
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Organizations.OrganizationModel>
 
 <SectionReload
   TItem="@OrganizationModel"

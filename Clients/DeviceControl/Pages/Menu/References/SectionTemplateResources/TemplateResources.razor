@@ -1,10 +1,9 @@
 @page "/section/templates_resources"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.TemplatesResources.TemplateResourceModel>
+@using WsStorageCore.TableScaleModels.TemplatesResources
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.TemplatesResources
-@using WsStorageCore.TableScaleModels.TemplatesResources
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.TemplatesResources.TemplateResourceModel>
 
 <SectionReload
   TItem="@TemplateResourceModel"

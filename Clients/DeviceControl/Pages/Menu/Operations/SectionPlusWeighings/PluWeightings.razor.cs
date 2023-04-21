@@ -3,8 +3,6 @@
 
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
-using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
-using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighings;
 

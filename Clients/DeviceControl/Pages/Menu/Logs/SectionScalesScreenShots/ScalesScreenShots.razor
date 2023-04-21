@@ -1,11 +1,10 @@
 @page "/section/scales_screenshots"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableDiagModels.ScalesScreenshots.ScaleScreenShotModel>
+@using WsStorageCore.TableDiagModels.ScalesScreenshots
+@using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsDataCore.Utils
-@using WsStorageCore.TableDiagModels.ScalesScreenshots
-@using WsStorageCore.TableDiagModels.ScalesScreenshots
+@inherits RazorComponentSectionBase<WsStorageCore.TableDiagModels.ScalesScreenshots.ScaleScreenShotModel>
 
 <SectionReload
   TItem="@ScaleScreenShotModel"

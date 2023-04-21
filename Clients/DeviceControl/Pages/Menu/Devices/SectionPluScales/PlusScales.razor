@@ -1,9 +1,8 @@
 ﻿@attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PlusScales.PluScaleModel>
-@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.PlusScales
 @using BlazorDeviceControl.Pages.SectionComponents
-@using WsStorageCore.TableScaleModels.PlusScales
-@using WsStorageCore.TableScaleModels.PlusScales
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PlusScales.PluScaleModel>
 
 @if (SqlSectionCast.Count != 0)
 {

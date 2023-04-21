@@ -1,11 +1,10 @@
 ﻿@page "/section/versions"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using BlazorDeviceControl.Pages.SectionComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Versions.VersionModel>
-@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.Versions
 @using WsDataCore.Utils
-@using WsStorageCore.TableScaleModels.Versions
-@using WsStorageCore.TableScaleModels.Versions
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Versions.VersionModel>
 
 <SectionReload
   TItem="@VersionModel"

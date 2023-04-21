@@ -1,11 +1,10 @@
 @page "/section/plus_scales/new"
 @page "/section/plus_scales/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusScales.PluScaleModel>
+@using WsStorageCore.TableScaleModels.PlusScales
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.PlusScales
-@using WsStorageCore.TableScaleModels.PlusScales
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusScales.PluScaleModel>
 
 <RazorItemReload TItem="@PluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale"/>
 

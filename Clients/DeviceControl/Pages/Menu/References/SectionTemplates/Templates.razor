@@ -1,10 +1,9 @@
 ﻿@page "/section/templates"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Templates.TemplateModel>
+@using WsStorageCore.TableScaleModels.Templates
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.Templates
-@using WsStorageCore.TableScaleModels.Templates
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Templates.TemplateModel>
 
 <SectionReload
   TItem="@TemplateModel"

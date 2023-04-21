@@ -1,10 +1,9 @@
 @* @page "/section/plus_nesting_fks" *@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.PluNestingFkModel>
+@using WsStorageCore.TableScaleFkModels.PlusNestingFks
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleFkModels.PlusNestingFks
-@using WsStorageCore.TableScaleFkModels.PlusNestingFks
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.PluNestingFkModel>
 
 <SectionReload
   TItem="@PluNestingFkModel"

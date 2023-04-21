@@ -1,10 +1,9 @@
 ﻿@page "/section/contragents/new"
 @page "/section/contragents/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Contragents.ContragentModel>
+@using WsStorageCore.TableScaleModels.Contragents
 @using BlazorDeviceControl.Pages.ItemComponents
-@using WsStorageCore.TableScaleModels.Contragents
-@using WsStorageCore.TableScaleModels.Contragents
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Contragents.ContragentModel>
 
 <RazorItemReload TItem="@ContragentModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
 

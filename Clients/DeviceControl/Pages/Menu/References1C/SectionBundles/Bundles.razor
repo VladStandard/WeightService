@@ -1,10 +1,9 @@
 ﻿@page "/section/bundles"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Bundles.BundleModel>
+@using WsStorageCore.TableScaleModels.Bundles
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.Bundles
-@using WsStorageCore.TableScaleModels.Bundles
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Bundles.BundleModel>
 
 <SectionReload
   TItem="@BundleModel"

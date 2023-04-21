@@ -1,10 +1,9 @@
 @page "/section/logs_web_service_fk/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.LogsWebsFks.LogWebFkModel>
-@using BlazorDeviceControl.Pages.ItemComponents
-@using WsStorageCore.TableDiagModels.Logs
 @using WsStorageCore.TableDiagModels.LogsWebsFks
 @using WsStorageCore.TableDiagModels.Logs
+@using BlazorDeviceControl.Pages.ItemComponents
+@inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.LogsWebsFks.LogWebFkModel>
 
 <RazorItemReload TItem="LogWebFkModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
 

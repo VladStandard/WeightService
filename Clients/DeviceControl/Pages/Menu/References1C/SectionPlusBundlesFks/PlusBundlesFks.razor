@@ -1,10 +1,9 @@
 ﻿@page "/section/plus_bundles_fks"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel>
+@using WsStorageCore.TableScaleFkModels.PlusBundlesFks
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleFkModels.PlusBundlesFks
-@using WsStorageCore.TableScaleFkModels.PlusBundlesFks
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel>
 
 <SectionReload
   TItem="@PluBundleFkModel"

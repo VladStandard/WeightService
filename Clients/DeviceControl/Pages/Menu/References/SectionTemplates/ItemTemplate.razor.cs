@@ -3,7 +3,6 @@
 
 using WsDataCore.Models;
 using WsStorageCore.TableScaleModels.Templates;
-using WsStorageCore.TableScaleModels.Templates;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionTemplates;
 

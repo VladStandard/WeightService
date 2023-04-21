@@ -1,11 +1,10 @@
 @page "/section/plu_weighings"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.PluWeighingModel>
-@using BlazorDeviceControl.Pages.CustomComponents
-@using BlazorDeviceControl.Pages.SectionComponents
+@using WsStorageCore.TableScaleFkModels.PlusWeighingsFks
 @using WsDataCore.Utils
-@using WsStorageCore.TableScaleFkModels.PlusWeighingsFks
-@using WsStorageCore.TableScaleFkModels.PlusWeighingsFks
+@using BlazorDeviceControl.Pages.SectionComponents
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.PluWeighingModel>
 
 <SectionReload
   TItem="@PluWeighingModel"

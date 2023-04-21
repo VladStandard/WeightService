@@ -4,10 +4,6 @@
 using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.TemplatesResources;
-using WsStorageCore.Utils;
-using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
-using WsStorageCore.TableScaleModels.Printers;
-using WsStorageCore.TableScaleModels.TemplatesResources;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrintersResources;
 

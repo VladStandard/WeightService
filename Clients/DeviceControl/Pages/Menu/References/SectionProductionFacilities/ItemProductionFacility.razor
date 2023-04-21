@@ -1,11 +1,10 @@
 ﻿@page "/section/production_facilities/new"
 @page "/section/production_facilities/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.ProductionFacilities.ProductionFacilityModel>
-@using BlazorDeviceControl.Pages.CustomComponents
+@using WsStorageCore.TableScaleModels.ProductionFacilities
 @using BlazorDeviceControl.Pages.ItemComponents
-@using WsStorageCore.TableScaleModels.ProductionFacilities
-@using WsStorageCore.TableScaleModels.ProductionFacilities
+@using BlazorDeviceControl.Pages.CustomComponents
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.ProductionFacilities.ProductionFacilityModel>
 
 <RazorItemReload TItem="@ProductionFacilityModel" Title="@LocaleCore.DeviceControl.ItemProductionFacility"/>
 

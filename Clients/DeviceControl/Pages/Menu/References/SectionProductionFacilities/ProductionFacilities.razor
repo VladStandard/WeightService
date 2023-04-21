@@ -1,10 +1,9 @@
 ﻿@page "/section/production_facilities"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.ProductionFacilities.ProductionFacilityModel>
+@using WsStorageCore.TableScaleModels.ProductionFacilities
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@using WsStorageCore.TableScaleModels.ProductionFacilities
-@using WsStorageCore.TableScaleModels.ProductionFacilities
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.ProductionFacilities.ProductionFacilityModel>
 
 <SectionReload
   TItem="@ProductionFacilityModel"
