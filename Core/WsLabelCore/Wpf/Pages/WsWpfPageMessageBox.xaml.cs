@@ -1,5 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable MismatchedFileName
 
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -10,9 +11,9 @@ using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 namespace WsLabelCore.Wpf.Pages;
 
 /// <summary>
-/// Interaction logic for WpfPageMessageBox.xaml
+/// Interaction logic for WsWpfPageMessageBox.xaml
 /// </summary>
-public partial class WpfPageMessageBox
+public partial class WsWpfPageMessageBox
 {
     #region Public and private fields, properties, constructor
 
@@ -22,7 +23,7 @@ public partial class WpfPageMessageBox
 
     #region Constructor and destructor
 
-    public WpfPageMessageBox()
+    public WsWpfPageMessageBox()
     {
         InitializeComponent();
     }

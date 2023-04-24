@@ -47,10 +47,6 @@ public class ParseResultModel : SerializeBase, ICloneable
 
     #region Public and private methods - override
 
-    /// <summary>
-    /// To string.
-    /// </summary>
-    /// <returns></returns>
     public override string ToString() => string.IsNullOrEmpty(Exception) 
         ? $"{nameof(Status)}: {Status}. {nameof(Message)}: {Message}"
         : string.IsNullOrEmpty($"{nameof(InnerException)}: {InnerException}. ") 

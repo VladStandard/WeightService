@@ -1,21 +1,21 @@
-﻿<pages:WpfPageBase 
-	x:Class="WsLabelCore.Wpf.Pages.WpfPagePinCode"
+<pages:WsWpfPageBase 
+	x:Class="WsLabelCore.Wpf.Pages.WsWpfPagePinCode"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:pages="clr-namespace:WsLabelCore.Wpf.Pages"
     mc:Ignorable="d" 
-    d:DesignWidth="400" d:DesignHeight="400" FontSize="20"
+    d:DesignWidth="400" d:DesignHeight="500" FontSize="24"
     DataContext="{DynamicResource UserSession}" >
 
-	<pages:WpfPageBase.Resources>
+	<pages:WsWpfPageBase.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="WpfResourceDictionary.xaml" />
+				<ResourceDictionary Source="../Resources/WsWpfResourceDictionary.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-	</pages:WpfPageBase.Resources>
+	</pages:WsWpfPageBase.Resources>
 
 	<Grid>
         <Grid.RowDefinitions>
@@ -88,4 +88,4 @@
                 BorderBrush="Transparent" Background="Transparent"
                 Click="ButtonEnter_Click" />
     </Grid>
-</pages:WpfPageBase>
+</pages:WsWpfPageBase>

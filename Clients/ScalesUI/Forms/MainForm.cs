@@ -1,6 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using NHibernate.Util;
+using System.Linq;
+using WsStorageCore.TableScaleFkModels.PlusNestingFks;
+
 namespace ScalesUI.Forms;
 
 /// <summary>
@@ -407,7 +411,7 @@ public partial class MainForm : Form
 
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
-        using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
+        using WsWpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
         wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Caption = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Message = GetPrintInfo(UserSession.PluginPrintMain, true);
@@ -459,7 +463,7 @@ public partial class MainForm : Form
 
     private void FieldSscc_Click(object sender, EventArgs e)
     {
-        using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
+        using WsWpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
         wpfPageLoader.Text = LocaleCore.Scales.FieldSsccShort;
         wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.FieldSscc;
         wpfPageLoader.MessageBox.Message =
@@ -485,7 +489,7 @@ public partial class MainForm : Form
                 $"{LocaleCore.Scales.ThreadState}: {thread.ThreadState}. " +
                 $"{LocaleCore.Scales.ThreadStartTime}: {thread.StartTime}. " + Environment.NewLine;
         }
-        using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog,
+        using WsWpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog,
             20, 14, 18, 0, 12)
         { Width = Width - 50, Height = Height - 50 };
         wpfPageLoader.Text = $@"{LocaleCore.Scales.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}";
@@ -520,12 +524,13 @@ public partial class MainForm : Form
             ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
         MdInvokeControl.SetText(ButtonLine, $"{UserSession.Scale.Description} | {UserSession.Scale.Number}" +
             Environment.NewLine + area);
-        MdInvokeControl.SetText(ButtonPluNestingFk, UserSession.PluNestingFk.IsNew
-            ? LocaleCore.Table.FieldPackageIsNotSelected
-            : $"{UserSession.PluNestingFk.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingFk.Name}");
+        if (UserSession.PluNestingView.Item.IsNew)
+            MdInvokeControl.SetText(ButtonPluNestingFk, LocaleCore.Table.FieldPackageIsNotSelected);
+        else
+            MdInvokeControl.SetText(ButtonPluNestingFk, $"{UserSession.PluNestingView.Item.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingView.Item.Name}");
         MdInvokeControl.SetText(fieldPackageWeight,
             UserSession.PluScale.IsNotNew
-                ? $"{UserSession.PluNestingFk.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
+                ? $"{UserSession.PluNestingView.Item.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
         TemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
         MdInvokeControl.SetText(fieldTemplateValue, template.Title);
@@ -578,7 +583,7 @@ public partial class MainForm : Form
             {
                 // Сброс предупреждения.
                 ResetWarning();
-                DialogResult result = WpfUtils.ShowNewOperationControl(this,
+                DialogResult result = WsWpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionCloseApp}?",
                     true, LogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
@@ -602,7 +607,7 @@ public partial class MainForm : Form
             {
                 // Сброс предупреждения.
                 ResetWarning();
-                using WpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 800, Height = 400 };
+                using WsWpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 800, Height = 500 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 // Here is another instance of wpfPageLoader.PageDevice.UserSession.
@@ -610,11 +615,11 @@ public partial class MainForm : Form
                 {
                     case DialogResult.OK:
                         if (wpfPageLoader.PageDevice is not null)
-                            UserSession.SetMain(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, UserSession.ProductionFacility.Name);
+                            UserSession.SetMain(wpfPageLoader.UserSession.Scale.IdentityValueId, UserSession.ProductionFacility.Name);
                         break;
                     case DialogResult.Cancel:
                         if (wpfPageLoader.PageDevice is not null)
-                            UserSession.SetMain(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, string.Empty);
+                            UserSession.SetMain(wpfPageLoader.UserSession.Scale.IdentityValueId, string.Empty);
                         break;
                 }
             }, FinallyAction);
@@ -634,19 +639,17 @@ public partial class MainForm : Form
                 // Проверить наличие ПЛУ.
                 if (!ActionCheckPluIdentityIsNew()) return;
 
-                using WpfPageLoader wpfPageLoader = new(PageEnum.PluNestingFk, false) { Width = 800, Height = 300 };
+                using WsWpfPageLoader wpfPageLoader = new(PageEnum.PluNestingFk, false) { Width = 800, Height = 300 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 // Here is another instance of wpfPageLoader.PagePluNestingFk.UserSession.
                 switch (dialogResult)
                 {
                     case DialogResult.OK:
-                        if (wpfPageLoader.PagePluNestingFk is not null)
-                            UserSession.SetBundleFk(wpfPageLoader.PagePluNestingFk.UserSession.PluNestingFk.IdentityValueUid);
+                        UserSession.PluNestingView.Item = wpfPageLoader.UserSession.PluNestingView.Item;
                         break;
                     case DialogResult.Cancel:
-                        if (wpfPageLoader.PagePluNestingFk is not null)
-                            UserSession.SetBundleFk(null);
+                        UserSession.PluNestingView.Item = UserSession.PluNestingView.List.First();
                         break;
                 }
             }, FinallyAction);
@@ -679,7 +682,7 @@ public partial class MainForm : Form
             {
                 // Сброс предупреждения.
                 ResetWarning();
-                DialogResult result = WpfUtils.ShowNewOperationControl(this,
+                DialogResult result = WsWpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
                     true, LogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
@@ -695,7 +698,7 @@ public partial class MainForm : Form
                 }
                 else
                 {
-                    WpfUtils.ShowNewOperationControl(this,
+                    WsWpfUtils.ShowNewOperationControl(this,
                         LocaleCore.Scales.ProgramNotFound(
                             LocaleData.Paths.ScalesTerminal), true, LogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
@@ -716,19 +719,19 @@ public partial class MainForm : Form
                 ResetWarning();
                 if (!UserSession.PluScale.Plu.IsCheckWeight)
                 {
-                    WpfUtils.ShowNewOperationControl(this,
+                    WsWpfUtils.ShowNewOperationControl(this,
                         LocaleCore.Scales.PluNotSelectWeight, true, LogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
                 }
                 if (!UserSession.PluginMassa.MassaDevice.IsOpenPort)
                 {
-                    WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogType.Warning,
+                    WsWpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
                 }
 
-                DialogResult result = WpfUtils.ShowNewOperationControl(this,
+                DialogResult result = WsWpfUtils.ShowNewOperationControl(this,
                     LocaleCore.Scales.QuestionPerformOperation, true, LogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result is not DialogResult.Yes)
@@ -800,7 +803,7 @@ public partial class MainForm : Form
         }
         else
         {
-            UserSession.PluScale = UserSession.AccessManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
+            UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
         }
     }
 
@@ -817,7 +820,7 @@ public partial class MainForm : Form
                 ResetWarning();
                 MdInvokeControl.SetVisible(labelNettoWeight, false);
                 MdInvokeControl.SetVisible(fieldNettoWeight, false);
-                UserSession.PluScale = UserSession.AccessManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
+                UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
                 //if (UserSession.CheckWeightMassaDeviceExists())
                 //{
                 //    if (!UserSession.CheckWeightIsNegative(this) || !UserSession.CheckWeightIsPositive(this))
@@ -846,7 +849,7 @@ public partial class MainForm : Form
                 ResetWarning();
                 if (UserSession.PluScale.IsNew)
                 {
-                    WpfUtils.ShowNewOperationControl(this,
+                    WsWpfUtils.ShowNewOperationControl(this,
                         LocaleCore.Scales.PluNotSelect, true, LogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
@@ -881,7 +884,7 @@ public partial class MainForm : Form
             // Проверить наличие ПЛУ.
             if (!UserSession.CheckPluIsEmpty(fieldWarning)) return;
             // Проверить наличие вложенности ПЛУ.
-            if (!UserSession.CheckPluNestingFkIsEmpty(fieldWarning)) return;
+            if (!UserSession.PluNestingView.SetAndCheckList(UserSession.PluScale.Plu, fieldWarning)) return;
             // Проверить наличие весовой платформы Масса-К.
             if (IsReleaseForce || Debug.IsRelease)
                 if (!UserSession.CheckWeightMassaDeviceExists()) return;
@@ -903,7 +906,7 @@ public partial class MainForm : Form
             bool isSkipPrintCheckAccess = false;
             if (!IsReleaseForce && Debug.IsDevelop)
             {
-                DialogResult dialogResult = WpfUtils.ShowNewOperationControl(
+                DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(
                     LocaleCore.Print.QuestionPrintCheckAccess, true, LogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 isSkipPrintCheckAccess = dialogResult != DialogResult.Yes;

@@ -157,7 +157,8 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
                 break;
         }
 
-        decimal weight = WsUserSessionHelper.Instance.PluScale.IsNew ? 0 : WeightNet - WsUserSessionHelper.Instance.PluNestingFk.WeightTare;
+        decimal weight = WsUserSessionHelper.Instance.PluScale.IsNew 
+            ? 0 : WeightNet - WsUserSessionHelper.Instance.PluNestingView.Item.WeightTare;
 
         MdInvokeControl.SetText(FieldNettoWeight, IsStable
             ? $"{weight:0.000} {LocaleCore.Scales.WeightUnitKg}"

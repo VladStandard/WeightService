@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.Boxes;
 /// Table "BOXES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(BoxModel)} | {Name} | {Weight} | {Uid1c} ")]
+[DebuggerDisplay("{nameof(BoxModel)} | {ToString()}")]
 public class BoxModel : WsSqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -34,9 +34,7 @@ public class BoxModel : WsSqlTableBase1c
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Weight)}: {Weight}. ";
+        $"{Uid1c} | {Name} | {Weight}";
 
     public override bool Equals(object obj)
     {

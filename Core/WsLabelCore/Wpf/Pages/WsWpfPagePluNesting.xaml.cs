@@ -1,21 +1,23 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable MismatchedFileName
 
 namespace WsLabelCore.Wpf.Pages;
 
 /// <summary>
-/// Interaction logic for WpfPagePluNestingFk.xaml
+/// Interaction logic for WsWpfPagePluNesting.xaml
 /// </summary>
-public partial class WpfPagePluNestingFk
+public partial class WsWpfPagePluNesting
 {
 	#region Public and private fields, properties, constructor
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WpfPagePluNestingFk()
+	public WsWpfPagePluNesting()
 	{
 		InitializeComponent();
+
 		SetPluNestingFk(comboBoxPluNestingFks);
     }
 
@@ -25,16 +27,14 @@ public partial class WpfPagePluNestingFk
 
 	private void ButtonApply_OnClick(object sender, RoutedEventArgs e)
 	{
-        // Didn't work! Go here: MainForm -> ActionPluBundleFk
-        //UserSession.SetBundleFk(UserSession.PluBundleFk.IdentityValueUid);
+        // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
         Result = System.Windows.Forms.DialogResult.OK;
 		OnClose?.Invoke(sender, e);
 	}
 
 	private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
 	{
-        // Didn't work! Go here: MainForm -> ActionPluBundleFk
-        //UserSession.SetBundleFk(null);
+        // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
         Result = System.Windows.Forms.DialogResult.Cancel;
 		OnClose?.Invoke(sender, e);
 	}

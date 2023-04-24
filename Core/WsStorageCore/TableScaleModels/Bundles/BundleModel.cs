@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.Bundles;
 /// Table "BUNDLES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(BundleModel)} | {Name} | {Weight} | {Uid1c} ")]
+[DebuggerDisplay("{nameof(BundleModel)} | {ToString()}")]
 public class BundleModel : WsSqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -34,9 +34,7 @@ public class BundleModel : WsSqlTableBase1c
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Weight)}: {Weight}. ";
+        $"{Name} | {Weight} | {Uid1c}";
 
     public override bool Equals(object obj)
     {

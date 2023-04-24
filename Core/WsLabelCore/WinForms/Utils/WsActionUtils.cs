@@ -39,7 +39,7 @@ public static class WsActionUtils
         catch (Exception ex)
         {
             ActionMakeScreenShot(win32Window, scale);
-            WpfUtils.CatchException(ex, win32Window, true, true);
+            WsWpfUtils.CatchException(ex, win32Window, true, true);
         }
         finally
         {
@@ -55,7 +55,7 @@ public static class WsActionUtils
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, true);
+            WsWpfUtils.CatchException(ex, true);
         }
     }
 
@@ -68,7 +68,7 @@ public static class WsActionUtils
         catch (Exception ex)
         {
             ActionMakeScreenShot(win32Window, scale);
-            WpfUtils.CatchException(ex, win32Window, true, true);
+            WsWpfUtils.CatchException(ex, win32Window, true, true);
         }
     }
 
@@ -83,7 +83,7 @@ public static class WsActionUtils
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, win32Window, true, false);
+            WsWpfUtils.CatchException(ex, win32Window, true, false);
         }
     }
 

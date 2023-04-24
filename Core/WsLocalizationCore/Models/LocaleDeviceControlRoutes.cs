@@ -1,9 +1,9 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLocalizationCore.Models;
 
-public partial class LocaleDeviceControl
+public sealed partial class LocaleDeviceControl
 {
     public string RouteSectionAccess => "/section/access";
     public string RouteSectionApps => "/section/apps";

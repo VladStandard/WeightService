@@ -20,12 +20,23 @@ public sealed class WsSqlContextPluNestingHelper
 
     #region Public and private fields, properties, constructor
 
-    private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
-    private static WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    
+    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
+    private WsSqlContextBoxHelper ContextBox => WsSqlContextBoxHelper.Instance;
+    private WsSqlContextPluBundleHelper ContextPluBundle => WsSqlContextPluBundleHelper.Instance;
+
     #endregion
 
     #region Public and private methods
+
+    public PluNestingFkModel GetNewItem()
+    {
+        PluNestingFkModel item = AccessItem.GetItemNewEmpty<PluNestingFkModel>();
+        item.Box = ContextBox.GetNewItem();
+        item.PluBundle = ContextPluBundle.GetNewItem();
+        return item;
+    }
 
     /// <summary>
     /// Force update list PluStorageMethodFks.
@@ -70,6 +81,8 @@ public sealed class WsSqlContextPluNestingHelper
     /// <param name="pluNestingFk"></param>
     /// <returns></returns>
     public short GetPluNestingFkBundleCount(PluNestingFkModel pluNestingFk) => pluNestingFk.BundleCount;
+
+    public List<PluNestingFkModel> GetList() => ContextList.GetListNotNullablePlusNestingFks(new());
 
     #endregion
 }

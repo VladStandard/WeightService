@@ -6,7 +6,7 @@ namespace WsLabelCore.Gui;
 /// <summary>
 /// Serial port utils.
 /// </summary>
-public static class SerialPortsUtils
+public static class WsSerialPortsUtils
 {
     public static void DefaultComPortName(ScaleModel scale, System.Windows.Controls.ComboBox fieldComPort, List<string> listComPorts)
     {
@@ -41,7 +41,7 @@ public static class SerialPortsUtils
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, true, true);
+            WsWpfUtils.CatchException(ex, true, true);
         }
     }
 }

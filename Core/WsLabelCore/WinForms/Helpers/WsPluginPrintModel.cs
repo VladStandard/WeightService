@@ -67,7 +67,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex);
+            WsWpfUtils.CatchException(ex);
         }
     }
 
@@ -108,7 +108,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
                         }
                         catch (Exception ex)
                         {
-                            WpfUtils.CatchException(ex);
+                            WsWpfUtils.CatchException(ex);
                             SendCmdToZebra(ZplUtils.ZplHostStatusReturn);
                         }
                     }
@@ -283,14 +283,14 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
                     }
                     else
                     {
-                        WpfUtils.CatchException(new($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"), true, true);
+                        WsWpfUtils.CatchException(new($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"), true, true);
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, true, true);
+            WsWpfUtils.CatchException(ex, true, true);
         }
     }
 
@@ -308,7 +308,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, true, true);
+            WsWpfUtils.CatchException(ex, true, true);
         }
     }
 

@@ -8,27 +8,21 @@ using WsLabelCore.Wpf.Pages;
 namespace WsLabelCore.Wpf;
 
 #nullable enable
-public sealed partial class WpfPageLoader : Form
+public sealed partial class WsWpfPageLoader : Form
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
-    private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
+    public WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private ElementHost ElementHost { get; }
     private bool UseOwnerSize { get; }
     public WsMessageBoxModel MessageBox { get; }
-    private WpfPageMessageBox? PageMessageBox { get; set; }
-    private WpfPagePinCode? PagePinCode { get; set; }
-    public WpfPageDevice? PageDevice { get; private set; }
-    public bool IsPageDeviceLoad => PageDevice is not null;
-    public WpfPagePluNestingFk? PagePluNestingFk { get; set; }
-    private WpfPageSqlSettings? PageSqlSettings { get; set; }
+    private WsWpfPageMessageBox? PageMessageBox { get; set; }
+    private WsWpfPagePinCode? PagePinCode { get; set; }
+    public WsWpfPageLine? PageDevice { get; private set; }
+    public WsWpfPagePluNesting? PagePluNestingFk { get; private set; }
     private PageEnum Page { get; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public WpfPageLoader()
+    public WsWpfPageLoader()
     {
         InitializeComponent();
 
@@ -37,7 +31,7 @@ public sealed partial class WpfPageLoader : Form
         Page = PageEnum.Default;
     }
 
-    public WpfPageLoader(PageEnum page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None,
+    public WsWpfPageLoader(PageEnum page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None,
         double fontSizeCaption = 30, double fontSizeMessage = 26, double fontSizeButton = 22,
         ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1) : this()
     {
@@ -55,7 +49,7 @@ public sealed partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true);
+            WsWpfUtils.CatchException(ex, this, true, true);
         }
     }
 
@@ -100,7 +94,7 @@ public sealed partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true);
+            WsWpfUtils.CatchException(ex, this, true, true);
         }
     }
 
@@ -133,12 +127,6 @@ public sealed partial class WpfPageLoader : Form
                 ElementHost.Child = PagePinCode;
                 PagePinCode.OnClose += WpfPageLoader_OnClose;
                 break;
-            case PageEnum.SqlSettings:
-                PageSqlSettings = new();
-                PageSqlSettings.InitializeComponent();
-                ElementHost.Child = PageSqlSettings;
-                PageSqlSettings.OnClose += WpfPageLoader_OnClose;
-                break;
         }
     }
 
@@ -150,7 +138,7 @@ public sealed partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true);
+            WsWpfUtils.CatchException(ex, this, true, true);
         }
     }
 
@@ -164,13 +152,12 @@ public sealed partial class WpfPageLoader : Form
                 PageEnum.Device => PageDevice?.Result ?? DialogResult.Cancel,
                 PageEnum.PluNestingFk => PagePluNestingFk?.Result ?? DialogResult.Cancel,
                 PageEnum.PinCode => PagePinCode?.Result ?? DialogResult.Cancel,
-                PageEnum.SqlSettings => PageSqlSettings?.Result ?? DialogResult.Cancel,
                 _ => DialogResult
             };
         }
         catch (Exception ex)
         {
-            WpfUtils.CatchException(ex, this, true, true);
+            WsWpfUtils.CatchException(ex, this, true, true);
         }
     }
 

@@ -42,10 +42,6 @@ public class PluStorageMethodFkModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    /// <summary>
-    /// To string.
-    /// </summary>
-    /// <returns></returns>
     public override string ToString() =>
         $"{nameof(Plu)}: {Plu}. " + 
         $"{nameof(Method)}: {Method}. " +

@@ -5,14 +5,14 @@ using System.Windows.Media;
 
 namespace WsLabelCore.Wpf.Helpers;
 
-public sealed class XamlHelper
+public sealed class WsXamlHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static XamlHelper _instance;
+    private static WsXamlHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static XamlHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsXamlHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

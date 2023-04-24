@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleModels.Plus;
 /// Table "PLUS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluModel)} | {IsMarked} | {IsGroup} | {Name} | {Number} | {Code} | {Uid1c} ")]
+[DebuggerDisplay("{nameof(PluModel)} | {ToString()}")]
 public class PluModel : WsSqlTableBase1c
 {
     #region Public and private fields, properties, constructor
@@ -157,11 +157,7 @@ public class PluModel : WsSqlTableBase1c
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(IsGroup)}: {IsGroup}. " +
-        $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Code)}: {Code}. " +
-        $"{nameof(Number)}: {Number}. ";
+        $"{IsGroup} | {Name} | {Number} | {Code} | {Uid1c}";
 
     public override bool Equals(object obj)
     {

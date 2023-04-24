@@ -1,6 +1,5 @@
 // Global using directives
 
-global using WsAssertCoreTests;
 global using NUnit.Framework;
 global using WsAssertCoreTests;
 global using WsDataCore.Enums;

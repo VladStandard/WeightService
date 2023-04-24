@@ -34,6 +34,7 @@ global using FluentValidation.Results;
 global using MDSoft.NetUtils;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Data.SqlClient;
+global using MvvmHelpers;
 global using Newtonsoft.Json;
 global using Newtonsoft.Json.Linq;
 global using NHibernate;
