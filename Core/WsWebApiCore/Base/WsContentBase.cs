@@ -173,11 +173,16 @@ public class WsContentBase : ControllerBase
             switch (typeof(T))
             {
                 case var cls when cls == typeof(WsResponse1cShortModel):
-                    if (response is WsResponse1cShortModel response1CShort)
+                    if (response is WsResponse1cShortModel response1cShort)
                     {
-                        response1CShort.IsDebug = isDebug;
-                        if (response1CShort.IsDebug)
-                            response1CShort.Info = WsWebResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                        response1cShort.IsDebug = isDebug;
+                        if (response1cShort.IsDebug)
+                            response1cShort.Info = WsWebResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                        else
+                        {
+                            response1cShort.SuccessesPlus?.Clear();
+                            response1cShort.SuccessesPlus = null;
+                        }
                     }
                     break;
                 case var cls when cls == typeof(WsResponse1cModel):
@@ -573,6 +578,18 @@ public class WsContentBase : ControllerBase
         do
         {
             isFind = false;
+            if (response.SuccessesPlus is not null)
+            {
+                foreach (WsResponse1cSuccessPluModel successPlu in response.SuccessesPlus)
+                {
+                    if (Equals(successPlu.Uid, responseRecord.Uid))
+                    {
+                        response.SuccessesPlus?.Remove(successPlu);
+                        //isFind = true;
+                        break;
+                    }
+                }
+            }
             foreach (WsResponse1cSuccessModel success in response.Successes)
             {
                 if (Equals(success.Uid, responseRecord.Uid))
@@ -594,12 +611,13 @@ public class WsContentBase : ControllerBase
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
-    /// <param name="importUid1c"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
+    /// <param name="description"></param>
     /// <returns></returns>
-    internal bool UpdateItem1cDb<T>(WsResponse1cShortModel response, Guid importUid1c, T itemXml, T? itemDb, bool isCounter) where T : WsSqlTableBase1c
+    internal bool UpdateItem1cDb<T>(WsResponse1cShortModel response, T itemXml, T? itemDb, bool isCounter, string description = "") 
+        where T : WsSqlTableBase1c
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -607,10 +625,14 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(importUid1c));
+            {
+                response.Successes.Add(new(itemXml.Uid1c));
+                if (!string.IsNullOrEmpty(description) && itemXml is PluModel pluXml)
+                    response.SuccessesPlus?.Add(new(itemXml.Uid1c, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
+            }
         }
         else
-            AddResponse1cException(response, importUid1c, dbUpdate.Exception);
+            AddResponse1cException(response, itemXml.Uid1c, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -637,7 +659,9 @@ public class WsContentBase : ControllerBase
         if (dbSave.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(uid1c));
+            }
         }
         else
             AddResponse1cException(response, uid1c, dbSave.Exception);
@@ -661,7 +685,9 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(uid1c));
+            }
         }
         else
             AddResponse1cException(response, uid1c, dbUpdate.Exception);
@@ -685,7 +711,9 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(uid1c));
+            }
         }
         else
             AddResponse1cException(response, uid1c, dbUpdate.Exception);
@@ -709,7 +737,9 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(uid1c));
+            }
         }
         else
             AddResponse1cException(response, uid1c, dbUpdate.Exception);
@@ -733,7 +763,9 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(uid1c));
+            }
         }
         else
             AddResponse1cException(response, uid1c, dbUpdate.Exception);
@@ -757,7 +789,9 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(uid1c));
+            }
         }
         else
             AddResponse1cException(response, uid1c, dbUpdate.Exception);
@@ -781,7 +815,9 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(uid1c));
+            }
         }
         else
             AddResponse1cException(response, uid1c, dbUpdate.Exception);
@@ -805,7 +841,9 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(uid1c));
+            }
         }
         else
             AddResponse1cException(response, uid1c, dbUpdate.Exception);
@@ -820,8 +858,10 @@ public class WsContentBase : ControllerBase
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
+    /// <param name="pluNumber"></param>
     /// <returns></returns>
-    internal bool UpdatePluCharacteristicFk(WsResponse1cShortModel response, Guid uid1c, PluCharacteristicsFkModel itemXml, PluCharacteristicsFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluCharacteristicFk(WsResponse1cShortModel response, Guid uid1c, PluCharacteristicsFkModel itemXml, 
+        PluCharacteristicsFkModel? itemDb, bool isCounter, short pluNumber)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -830,6 +870,7 @@ public class WsContentBase : ControllerBase
         {
             if (isCounter)
                 response.Successes.Add(new(uid1c));
+            response.SuccessesPlus?.Add(new(uid1c, $"{WsWebConstants.PluNumber}='{pluNumber}'"));
         }
         else
             AddResponse1cException(response, uid1c, dbUpdate.Exception);
@@ -853,7 +894,9 @@ public class WsContentBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(uid1c));
+            }
         }
         else
             AddResponse1cException(response, uid1c, dbUpdate.Exception);
@@ -861,4 +904,22 @@ public class WsContentBase : ControllerBase
     }
 
     #endregion
+
+    /// <summary>
+    /// Проверить номер ПЛУ по списку разрешённых для загрузки.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <param name="itemXml"></param>
+    internal void CheckPluNumberForAcl(PluModel plu, WsSqlTableBase1c itemXml)
+    {
+        if (plu.IsGroup) return;
+        // Номер ПЛУ не входит в списки: Сардельки и сосиски.
+        if (!WsContentUtils.AclSardelki.Contains(plu.Number) && !WsContentUtils.AclSosiski.Contains(plu.Number))
+        {
+            itemXml.ParseResult.Status = ParseStatus.Error;
+            itemXml.ParseResult.Exception =
+                $"{LocaleCore.WebService.FieldPluNumberNotInAcl} '{plu.Number}' " +
+                $"{LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} {LocaleCore.WebService.FieldCode} '{plu.Code}'";
+        }
+    }
 }

@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
+using WsStorageCore.Helpers;
+
 namespace WsWebApiCore.Helpers;
 
 public sealed class WsPlusCharacteristicsHelper : WsContentBase
@@ -37,13 +39,13 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
         });
 
     private void AddResponse1cPluCharacteristics(WsResponse1cShortModel response, List<PluCharacteristicModel> pluCharacteristicsDb,
-        PluCharacteristicModel pluCharacteristicXml)
+        PluCharacteristicModel pluCharacteristicXml, PluModel pluDb)
     {
         try
         {
             // Find by Identity -> Update exists.
             PluCharacteristicModel? itemDb = pluCharacteristicsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
-            if (UpdateItem1cDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicXml, itemDb, true)) return;
+            if (UpdateItem1cDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluCharacteristicXml, true);
@@ -58,7 +60,8 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
         }
     }
 
-    private void AddResponse1cPluCharacteristicsFks(WsResponse1cShortModel response, List<PluCharacteristicsFkModel> pluCharacteristicsFksDb,
+    private void AddResponse1cPluCharacteristicsFks(WsResponse1cShortModel response,
+        List<PluCharacteristicsFkModel> pluCharacteristicsFksDb,
         PluCharacteristicModel pluCharacteristicXml)
     {
         try
@@ -66,9 +69,9 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             if (Equals(pluCharacteristicXml.NomenclatureGuid, Guid.Empty)) return;
 
             if (!GetPluDb(response, pluCharacteristicXml.NomenclatureGuid, pluCharacteristicXml.Uid1c,
-                    LocaleCore.WebService.FieldNomenclature, out PluModel? pluDb)) return;
+                LocaleCore.WebService.FieldNomenclature, out PluModel? pluDb)) return;
             if (!GetPluCharacteristicDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicXml.Uid1c,
-                    LocaleCore.WebService.FieldNomenclatureCharacteristic, out PluCharacteristicModel? pluCharacteristicDb)) return;
+                LocaleCore.WebService.FieldNomenclatureCharacteristic, out PluCharacteristicModel? pluCharacteristicDb)) return;
             if (pluDb is null || pluCharacteristicDb is null) return;
 
             PluCharacteristicsFkModel pluCharacteristicsFk = new()
@@ -82,7 +85,8 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             PluCharacteristicsFkModel? pluCharacteristicFkDb = pluCharacteristicsFksDb.Find(item =>
                 Equals(item.Plu.Uid1c, pluCharacteristicsFk.Plu.Uid1c) &&
                 Equals(item.Characteristic.Uid1c, pluCharacteristicsFk.Characteristic.Uid1c));
-            if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, pluCharacteristicFkDb, false)) return;
+            if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, pluCharacteristicFkDb, 
+                    false, pluDb.Number)) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1c);
@@ -113,8 +117,12 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             List<PluCharacteristicModel> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (PluCharacteristicModel pluCharacteristicXml in pluCharacteristicsXml)
             {
+                // Проверить номер ПЛУ по списку разрешённых для загрузки.
+                PluModel pluDb = WsSqlContextPluHelper.Instance.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluCharacteristics(response, pluCharacteristicsDb, pluCharacteristicXml);
+                    CheckPluNumberForAcl(pluDb, pluCharacteristicXml);
+                if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPluCharacteristics(response, pluCharacteristicsDb, pluCharacteristicXml, pluDb);
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPluCharacteristicsFks(response, pluCharacteristicsFksDb, pluCharacteristicXml);
                 if (pluCharacteristicXml.ParseResult.IsStatusError)

@@ -32,6 +32,7 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string FieldNomenclatureGroup => Lang == Lang.English ? "Nomenclature group" : "Номенклатурная группа";
     public string FieldNomenclatureParent => Lang == Lang.English ? "Parent nomenclature" : "Родительская номенклатура";
     public string FieldPluNumber => Lang == Lang.English ? "PLU number" : "Номер ПЛУ";
+    public string FieldPluNumberNotInAcl => Lang == Lang.English ? "PLU number is not included in the list of allowed" : "Номер ПЛУ не входит в список разрешённых";
     public string ForDbRecord => Lang == Lang.English ? "for DB record" : "для записи БД";
     public string IsEmpty => Lang == Lang.English ? "is empty value" : "пустое значение";
     public string IsFound => Lang == Lang.English ? "is found" : "найдено";

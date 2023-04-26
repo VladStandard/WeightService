@@ -9,7 +9,7 @@ public class WsResponseDebugInfoModel : SerializeDebugBase
 {
     #region Public and private fields and properties
 
-    [XmlElement("DebugInfo")]
+    [XmlElement(WsWebConstants.DebugInfo)]
     public WsServiceInfoModel? Info { get; set; }
 
     /// <summary>
