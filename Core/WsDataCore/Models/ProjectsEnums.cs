@@ -34,7 +34,6 @@ public enum PageEnum
     MessageBox,
     PinCode,
     Device,
-    SqlSettings,
     PluNestingFk
 }
 

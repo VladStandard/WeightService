@@ -55,10 +55,6 @@ public class LogWebFkModel : Tables.WsSqlTableBase
 
     #region Public and private methods - override
 
-    /// <summary>
-    /// To string.
-    /// </summary>
-    /// <returns></returns>
     public override string ToString() =>
         $"{LogWebRequest.CountAll} | " +
         $"{LogWebResponse.CountSuccess} | " +

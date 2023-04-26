@@ -3,7 +3,7 @@
 
 namespace WsLabelCore.Gui;
 
-public sealed class VisibilitySettingsModel : BaseViewModel
+public sealed class WsVisibilitySettingsModel : BaseViewModel
 {
 	#region Public and private fields and properties
 
@@ -44,7 +44,7 @@ public sealed class VisibilitySettingsModel : BaseViewModel
 
 	#region Constructor and destructor
 
-	public VisibilitySettingsModel()
+	public WsVisibilitySettingsModel()
 	{
 		ButtonAbortVisibility = Visibility.Hidden;
 		ButtonCancelVisibility = Visibility.Hidden;

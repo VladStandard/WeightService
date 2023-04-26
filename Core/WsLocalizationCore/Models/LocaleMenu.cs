@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Models;
 
-public class LocaleMenu
+public sealed class LocaleMenu : WsLocalizationBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -13,8 +13,6 @@ public class LocaleMenu
     public static LocaleMenu Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
-
-    public Lang Lang { get; set; } = Lang.Russian;
 
     #region Public and private fields, properties, constructor
 

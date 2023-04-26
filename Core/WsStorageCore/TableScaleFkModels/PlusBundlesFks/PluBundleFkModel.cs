@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 /// Table "PLUS_BUNDLES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluBundleFkModel)} | {Plu.Number} | {Plu.Name} | {Bundle.Name} | {Bundle.Weight}")]
+[DebuggerDisplay("{nameof(PluBundleFkModel)} | {ToString()}")]
 public class PluBundleFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -40,14 +40,8 @@ public class PluBundleFkModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    /// <summary>
-    /// To string.
-    /// </summary>
-    /// <returns></returns>
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(Plu)}: {Plu.Name}. " +
-        $"{nameof(Bundle)}: {Bundle.Name}. ";
+        $"{Bundle} | {Plu}";
 
     public override bool Equals(object obj)
     {

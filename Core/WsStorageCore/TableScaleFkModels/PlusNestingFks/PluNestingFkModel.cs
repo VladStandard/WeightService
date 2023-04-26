@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 /// Table "PLUS_NESTING_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluNestingFkModel)} | {Box}")]
+[DebuggerDisplay("{nameof(PluNestingFkModel)} | {ToString()}")]
 public class PluNestingFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -60,10 +60,6 @@ public class PluNestingFkModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    /// <summary>
-    /// To string.
-    /// </summary>
-    /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IdentityValueUid)}: {IdentityValueUid}. " +
         $"{nameof(IsMarked)}: {IsMarked}. " +

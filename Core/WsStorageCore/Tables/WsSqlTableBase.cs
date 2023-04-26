@@ -124,6 +124,7 @@ public class WsSqlTableBase : SerializeBase, ICloneable
 
     public virtual bool EqualsDefault() =>
         Identity.EqualsDefault() &&
+        IsIdentityUid ? Equals(IdentityValueUid, Guid.Empty) : Equals(IdentityValueId, default(long)) &&
         Equals(CreateDt, DateTime.MinValue) &&
         Equals(ChangeDt, DateTime.MinValue) &&
         Equals(IsMarked, false) &&

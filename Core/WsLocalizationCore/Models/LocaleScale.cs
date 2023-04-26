@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Models;
 
-public class LocaleScale
+public sealed class LocaleScale : WsLocalizationBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -13,8 +13,6 @@ public class LocaleScale
     public static LocaleScale Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
-
-    public Lang Lang { get; set; } = Lang.Russian;
 
     #region Public and private fields, properties, constructor
 

@@ -1,6 +1,6 @@
-﻿namespace WsLabelCore.Wpf
+namespace WsLabelCore.Wpf
 {
-    partial class WpfPageLoader
+    partial class WsWpfPageLoader
     {
         /// <summary>
         /// Required designer variable.
@@ -49,7 +49,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "WpfPageLoader";
+            this.Name = "WsWpfPageLoader";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Text";
             this.TopMost = true;

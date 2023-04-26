@@ -28,6 +28,9 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
+    public WsSqlContextBoxHelper ContextBox => WsSqlContextBoxHelper.Instance;
+    public WsSqlContextBundleHelper ContextBundle => WsSqlContextBundleHelper.Instance;
+    public WsSqlContextPluHelper ContextPlu => WsSqlContextPluHelper.Instance;
     public WsSqlContextPluNestingHelper ContextPluNesting => WsSqlContextPluNestingHelper.Instance;
     public WsSqlContextPluStorageHelper ContextPluStorage => WsSqlContextPluStorageHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;

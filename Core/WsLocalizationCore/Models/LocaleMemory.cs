@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Models;
 
-public class LocaleMemory
+public sealed class LocaleMemory : WsLocalizationBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -13,8 +13,6 @@ public class LocaleMemory
     public static LocaleMemory Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
-
-    public Lang Lang { get; set; } = Lang.Russian;
 
     #region Public and private fields, properties, constructor
 

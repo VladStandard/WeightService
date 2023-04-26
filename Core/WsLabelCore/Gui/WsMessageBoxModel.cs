@@ -76,8 +76,8 @@ public sealed class WsMessageBoxModel : BaseViewModel
 		set { _sizeButton = value; }
 	}
 
-	private VisibilitySettingsModel _visibilitySettings;
-	public VisibilitySettingsModel VisibilitySettings
+	private WsVisibilitySettingsModel _visibilitySettings;
+	public WsVisibilitySettingsModel VisibilitySettings
 	{
 		get => _visibilitySettings;
 		set

@@ -9,13 +9,13 @@ namespace WsLabelCore.Wpf.Utils;
 /// <summary>
 /// Show WPF form inside WinForm.
 /// </summary>
-public static class WpfUtils
+public static class WsWpfUtils
 {
     #region Public and private fields, properties, constructor
 
     private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private static WpfPageLoader WpfPage { get; set; } = new();
+    private static WsWpfPageLoader WpfPage { get; set; } = new();
 
     #endregion
 
@@ -29,7 +29,7 @@ public static class WpfUtils
     /// <param name="message"></param>
     /// <param name="visibilitySettings"></param>
     private static DialogResult ShowNew(IWin32Window? owner, string caption, string message,
-        VisibilitySettingsModel visibilitySettings)
+        WsVisibilitySettingsModel visibilitySettings)
     {
         WpfPage.Close();
 
@@ -68,7 +68,7 @@ public static class WpfUtils
     /// <param name="visibility"></param>
     /// <returns></returns>
     public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog,
-        LogType logType, VisibilitySettingsModel visibility)
+        LogType logType, WsVisibilitySettingsModel visibility)
     {
         if (isLog)
             ShowNewOperationControlLogType(message, logType);
@@ -76,7 +76,7 @@ public static class WpfUtils
     }
 
     public static DialogResult ShowNewOperationControl(string message, bool isLog,
-        LogType logType, VisibilitySettingsModel visibility)
+        LogType logType, WsVisibilitySettingsModel visibility)
     {
         if (isLog)
             ShowNewOperationControlLogType(message, logType);

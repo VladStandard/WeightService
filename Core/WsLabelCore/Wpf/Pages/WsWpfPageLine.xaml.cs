@@ -1,22 +1,23 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable MismatchedFileName
 
 namespace WsLabelCore.Wpf.Pages;
 
 /// <summary>
-/// Interaction logic for WpfPageDevice.xaml
+/// Interaction logic for WsWpfPageLine.xaml
 /// </summary>
-public partial class WpfPageDevice
+public partial class WsWpfPageLine
 {
     #region Public and private fields, properties, constructor
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WpfPageDevice()
+    public WsWpfPageLine()
     {
         InitializeComponent();
-        SetScale(comboBoxScale);
+        SetLine(comboBoxScale);
         SetProductionFacility(comboBoxArea);
     }
 

@@ -40,10 +40,6 @@ public class WsSqlAccessModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    /// <summary>
-    /// To string.
-    /// </summary>
-    /// <returns></returns>
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
