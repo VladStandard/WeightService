@@ -1,8 +1,8 @@
-﻿//using System;
+//using System;
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 //using ScalesUI.Common;
 
-//namespace ScalesUITests.Common
+//namespace WsScalesUITests.Common
 //{
 //    [TestClass()]
 //    public class DeviceStatusTests

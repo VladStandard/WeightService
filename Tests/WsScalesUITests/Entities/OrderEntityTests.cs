@@ -1,4 +1,4 @@
-﻿//using System;
+//using System;
 //using System.Collections.Generic;
 //using System.Text;
 //using System.Threading;
@@ -6,7 +6,7 @@
 //using ScalesUI.Common;
 //using WeightCore.DAL;
 
-//namespace ScalesUITests.Entities
+//namespace WsScalesUITests.Entities
 //{
 //    [TestClass()]
 //    public class OrderEntityTests

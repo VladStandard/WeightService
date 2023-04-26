@@ -2,7 +2,7 @@
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 //using ScalesUI.Common;
 
-//namespace ScalesUITests.Entities
+//namespace WsScalesUITests.Entities
 //{
 //    [TestClass()]
 //    public class TemplateEntityTests

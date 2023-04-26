@@ -61,8 +61,7 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     }
 
     private void AddResponse1cPluCharacteristicsFks(WsResponse1cShortModel response,
-        List<PluCharacteristicsFkModel> pluCharacteristicsFksDb,
-        PluCharacteristicModel pluCharacteristicXml)
+        List<PluCharacteristicsFkModel> pluCharacteristicsFksDb, PluCharacteristicModel pluCharacteristicXml)
     {
         try
         {
@@ -117,10 +116,10 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             List<PluCharacteristicModel> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (PluCharacteristicModel pluCharacteristicXml in pluCharacteristicsXml)
             {
-                // Проверить номер ПЛУ по списку разрешённых для загрузки.
-                PluModel pluDb = WsSqlContextPluHelper.Instance.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
+                PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
+                // Проверить номер ПЛУ в списке разрешённых.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
-                    CheckPluNumberForAcl(pluDb, pluCharacteristicXml);
+                    CheckAclPluNumber(pluDb, pluCharacteristicXml);
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPluCharacteristics(response, pluCharacteristicsDb, pluCharacteristicXml, pluDb);
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)

@@ -2,7 +2,7 @@
 //using NUnit.Framework;
 //using ScalesUI.Helpers;
 
-//namespace ScalesUITests.Helpers
+//namespace WsScalesUITests.Helpers
 //{
 //    internal class SerialPortHelperTests
 //    {
