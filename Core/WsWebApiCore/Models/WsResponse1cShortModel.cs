@@ -17,10 +17,13 @@ public class WsResponse1cShortModel : WsResponseDebugInfoModel
     [XmlElement("SqlQuery")]
     public WsResponseQueryModel? ResponseQuery { get; set; }
 
-    [XmlArray, XmlArrayItem(WsWebConstants.Record)]
+    [XmlArray(WsWebConstants.Successes), XmlArrayItem(WsWebConstants.Record)]
     public List<WsResponse1cSuccessModel> Successes { get; set; }
 
-    [XmlArray, XmlArrayItem(WsWebConstants.Record)]
+    [XmlArray(WsWebConstants.SuccessesPlus), XmlArrayItem(WsWebConstants.Record)]
+    public List<WsResponse1cSuccessPluModel>? SuccessesPlus { get; set; }
+
+    [XmlArray(WsWebConstants.Errors), XmlArrayItem(WsWebConstants.Record)]
     public List<WsResponse1cErrorModel> Errors { get; set; }
 
     public WsResponse1cShortModel()
@@ -29,13 +32,15 @@ public class WsResponse1cShortModel : WsResponseDebugInfoModel
         ErrorsCount = 0;
         ResponseQuery = null;
         Successes = new();
+        SuccessesPlus = new();
         Errors = new();
     }
 
-    public WsResponse1cShortModel(List<WsResponse1cSuccessModel> successes,
+    public WsResponse1cShortModel(List<WsResponse1cSuccessModel> successes, List<WsResponse1cSuccessPluModel> successesPlus,
         List<WsResponse1cErrorModel> errors, WsResponseQueryModel? responseQuery) : this()
     {
         Successes = successes;
+        SuccessesPlus = successesPlus;
         Errors = errors;
         ResponseQuery = responseQuery;
     }
@@ -51,6 +56,7 @@ public class WsResponse1cShortModel : WsResponseDebugInfoModel
         ErrorsCount = info.GetInt32(nameof(ErrorsCount));
         ResponseQuery = info.GetValue(nameof(ResponseQuery), typeof(WsResponseQueryModel)) as WsResponseQueryModel ?? null;
         Successes = info.GetValue(nameof(Successes), typeof(List<WsResponse1cSuccessModel>)) as List<WsResponse1cSuccessModel> ?? new();
+        SuccessesPlus = info.GetValue(nameof(SuccessesPlus), typeof(List<WsResponse1cSuccessPluModel>)) as List<WsResponse1cSuccessPluModel> ?? new();
         Errors = info.GetValue(nameof(Errors), typeof(List<WsResponse1cErrorModel>)) as List<WsResponse1cErrorModel> ?? new();
     }
 
@@ -76,6 +82,7 @@ public class WsResponse1cShortModel : WsResponseDebugInfoModel
         info.AddValue(nameof(ErrorsCount), ErrorsCount);
         info.AddValue(nameof(ResponseQuery), ResponseQuery);
         info.AddValue(nameof(Successes), Successes);
+        info.AddValue(nameof(SuccessesPlus), SuccessesPlus);
         info.AddValue(nameof(Errors), Errors);
     }
 

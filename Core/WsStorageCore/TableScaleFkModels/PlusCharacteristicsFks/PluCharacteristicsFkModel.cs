@@ -91,7 +91,7 @@ public class PluCharacteristicsFkModel : WsSqlTableBase
 
     public override void UpdateProperties(WsSqlTableBase item)
     {
-        base.UpdateProperties(item);
+        base.UpdateProperties(item, true);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluCharacteristicsFkModel pluCharacteristicsFk) return;
         Plu = pluCharacteristicsFk.Plu;

@@ -34,7 +34,10 @@ public sealed class WsPlusHelper : WsContentBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(pluXml.Uid1c));
+                response.SuccessesPlus?.Add(new(pluXml.Uid1c, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
+            }
         }
         else
             AddResponse1cException(response, pluXml.Uid1c, dbUpdate.Exception);
@@ -49,7 +52,10 @@ public sealed class WsPlusHelper : WsContentBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(pluXml.Uid1c));
+                response.SuccessesPlus?.Add(new(pluXml.Uid1c, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
+            }
         }
         else
             AddResponse1cException(response, pluXml.Uid1c, dbUpdate.Exception);
@@ -64,7 +70,10 @@ public sealed class WsPlusHelper : WsContentBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
+            {
                 response.Successes.Add(new(pluXml.Uid1c));
+                response.SuccessesPlus?.Add(new(pluXml.Uid1c, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
+            }
         }
         else
             AddResponse1cException(response, pluXml.Uid1c, dbUpdate.Exception);
@@ -94,7 +103,10 @@ public sealed class WsPlusHelper : WsContentBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(pluXml.IdentityValueUid));
+            {
+                response.Successes.Add(new(pluXml.Uid1c));
+                response.SuccessesPlus?.Add(new(pluXml.Uid1c, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
+            }
         }
         else
         {
@@ -163,15 +175,15 @@ public sealed class WsPlusHelper : WsContentBase
 
             // Find by Uid1C -> Update exists.
             PluModel? pluDb = plusDb.Find(item => Equals(item.Uid1c, pluXml.IdentityValueUid));
-            if (UpdateItem1cDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
+            if (UpdateItem1cDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Find by Code -> Update exists.
             pluDb = plusDb.Find(item => Equals(item.Code, pluXml.Code));
-            if (UpdateItem1cDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
+            if (UpdateItem1cDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Find by Number -> Update exists.
             pluDb = plusDb.Find(item => Equals(item.Number, pluXml.Number) && !Equals(item.Number, (short)0));
-            if (UpdateItem1cDb(response, pluXml.Uid1c, pluXml, pluDb, true)) return;
+            if (UpdateItem1cDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Not find -> Add new.
             bool isSave = SaveItemDb(response, pluXml, true);
@@ -461,7 +473,7 @@ public sealed class WsPlusHelper : WsContentBase
     /// <param name="pluBundlesFksDb"></param>
     /// <param name="pluXml"></param>
     /// <returns></returns>
-    private PluBundleFkModel AddResponse1cPluBundleFk(WsResponse1cShortModel response, List<PluBundleFkModel> pluBundlesFksDb, 
+    private PluBundleFkModel AddResponse1cPluBundleFk(WsResponse1cShortModel response, List<PluBundleFkModel> pluBundlesFksDb,
         PluModel pluXml)
     {
         PluBundleFkModel pluBundleFk = new();
@@ -611,6 +623,9 @@ public sealed class WsPlusHelper : WsContentBase
                 // Проверить номер ПЛУ для группы.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluNumberForNonGroup(pluXml);
+                // Проверить номер ПЛУ по списку разрешённых для загрузки.
+                if (pluXml.ParseResult.IsStatusSuccess)
+                    CheckPluNumberForAcl(pluXml, pluXml);
                 // Проверить валидацию ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluValidation(pluXml);
@@ -649,7 +664,7 @@ public sealed class WsPlusHelper : WsContentBase
                 }
                 // Исключение.
                 if (pluXml.ParseResult.IsStatusError)
-                    AddResponse1cException(response, pluXml.Uid1c, 
+                    AddResponse1cException(response, pluXml.Uid1c,
                         pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);
@@ -685,8 +700,8 @@ public sealed class WsPlusHelper : WsContentBase
         {
             pluXml.ParseResult.Status = ParseStatus.Error;
             pluXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldPluNumber} = '{pluXml.Number}' " +
-                $"{LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} Code '{pluXml.Code}'";
+                $"{LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
+                $"{LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} {LocaleCore.WebService.FieldCode} '{pluXml.Code}'";
         }
     }
 
