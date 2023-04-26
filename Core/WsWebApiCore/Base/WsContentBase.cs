@@ -906,15 +906,15 @@ public class WsContentBase : ControllerBase
     #endregion
 
     /// <summary>
-    /// Проверить номер ПЛУ по списку разрешённых для загрузки.
+    /// Проверить номер ПЛУ в списке разрешённых.
     /// </summary>
     /// <param name="plu"></param>
     /// <param name="itemXml"></param>
-    internal void CheckPluNumberForAcl(PluModel plu, WsSqlTableBase1c itemXml)
+    internal void CheckAclPluNumber(PluModel plu, WsSqlTableBase1c itemXml)
     {
         if (plu.IsGroup) return;
         // Номер ПЛУ не входит в списки: Сардельки и сосиски.
-        if (!WsContentUtils.AclSardelki.Contains(plu.Number) && !WsContentUtils.AclSosiski.Contains(plu.Number))
+        if (!WsContentUtils.AclPluNumbers.Contains(plu.Number))
         {
             itemXml.ParseResult.Status = ParseStatus.Error;
             itemXml.ParseResult.Exception =

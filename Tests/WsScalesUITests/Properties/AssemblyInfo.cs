@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("ScalesUITests")]
+[assembly: AssemblyTitle("WsScalesUITests")]
 [assembly: AssemblyDescription("Тесты печати этикеток")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Владимирский стандарт")]

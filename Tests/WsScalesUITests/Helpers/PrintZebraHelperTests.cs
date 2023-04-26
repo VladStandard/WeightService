@@ -5,7 +5,7 @@
 //using ScalesUI.Common;
 //using ScalesUI.Helpers;
 
-//namespace ScalesUITests.Helpers
+//namespace WsScalesUITests.Helpers
 //{
 //    internal class PrintZebraHelperTests
 //    {

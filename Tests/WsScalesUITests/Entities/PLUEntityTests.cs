@@ -5,7 +5,7 @@
 //using ScalesUI.Common;
 //using ScalesUI.Helpers;
 
-//namespace ScalesUITests.Entities
+//namespace WsScalesUITests.Entities
 //{
 //    [TestClass()]
 //    public class PLUEntityTests

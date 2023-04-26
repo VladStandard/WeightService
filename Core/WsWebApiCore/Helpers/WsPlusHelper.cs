@@ -44,7 +44,7 @@ public sealed class WsPlusHelper : WsContentBase
         return dbUpdate.IsOk;
     }
 
-    internal bool UpdateBundleDb(WsResponse1cShortModel response, PluModel pluXml, BundleModel? bundleDb, bool isCounter)
+    private bool UpdateBundleDb(WsResponse1cShortModel response, PluModel pluXml, BundleModel? bundleDb, bool isCounter)
     {
         if (bundleDb is null || bundleDb.IsNew) return false;
         bundleDb.UpdateProperties(pluXml);
@@ -62,7 +62,7 @@ public sealed class WsPlusHelper : WsContentBase
         return dbUpdate.IsOk;
     }
 
-    internal bool UpdateClipDb(WsResponse1cShortModel response, PluModel pluXml, ClipModel? clipDb, bool isCounter)
+    private bool UpdateClipDb(WsResponse1cShortModel response, PluModel pluXml, ClipModel? clipDb, bool isCounter)
     {
         if (clipDb is null || clipDb.IsNew) return false;
         clipDb.UpdateProperties(pluXml);
@@ -87,7 +87,7 @@ public sealed class WsPlusHelper : WsContentBase
     /// <param name="pluXml"></param>
     /// <param name="pluDb"></param>
     /// <param name="isCounter"></param>
-    internal bool UpdatePluDb(WsResponse1cShortModel response, PluModel pluXml, PluModel? pluDb, bool isCounter)
+    private bool UpdatePluDb(WsResponse1cShortModel response, PluModel pluXml, PluModel? pluDb, bool isCounter)
     {
         if (pluDb is null || pluDb.IsNew) return false;
         pluDb.Identity = pluXml.Identity;
@@ -124,7 +124,7 @@ public sealed class WsPlusHelper : WsContentBase
     /// </summary>
     /// <param name="xml"></param>
     /// <returns></returns>
-    internal List<PluModel> GetXmlPluList(XElement xml) =>
+    private List<PluModel> GetXmlPluList(XElement xml) =>
         WsContentUtils.GetNodesListCore<PluModel>(xml, LocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
         {
             WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -623,9 +623,9 @@ public sealed class WsPlusHelper : WsContentBase
                 // Проверить номер ПЛУ для группы.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluNumberForNonGroup(pluXml);
-                // Проверить номер ПЛУ по списку разрешённых для загрузки.
+                // Проверить номер ПЛУ в списке разрешённых.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    CheckPluNumberForAcl(pluXml, pluXml);
+                    CheckAclPluNumber(pluXml, pluXml);
                 // Проверить валидацию ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluValidation(pluXml);
