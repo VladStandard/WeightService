@@ -15,7 +15,10 @@
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RzDropDownLocal @bind-Value="@CurrentType" Data="@LogTypes" TextProperty="Icon" Change="OnSelectTypeChanged"
+<RzDropDownLocal @bind-Value="@CurrentLogType" 
+                 Data="@LogTypes" 
+                 ValueProperty="Icon" 
+                 TextProperty="Icon" Change="OnSelectTypeChanged"
                  AllowClear="true" Placeholder="All" />
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
@@ -29,11 +32,11 @@
     <TItemContent TItem="@LogQuickModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="14%" FormatString="@StrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Scale" Width="17%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="13%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="14%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="10%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App" Width="13%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="6%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="Icon" Width="7%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="LogType" Width="10%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Message" Property="Message" Width="30%"/>
     </TItemContent>
   </Columns>

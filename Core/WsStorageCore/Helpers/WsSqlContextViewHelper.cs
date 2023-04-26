@@ -33,7 +33,7 @@ public sealed class WsSqlContextViewHelper
     public List<WsSqlViewLogMemory> GetListViewLogsMemories(int topRecords)
     {
         List<WsSqlViewLogMemory> result = new();
-        string query = WsSqlQueriesDiags.Views.GetViewLogsMemories(topRecords);
+        string query = WsSqlQueriesDiags.Tables.Views.GetViewLogsMemories(topRecords);
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
@@ -58,7 +58,7 @@ public sealed class WsSqlContextViewHelper
     public List<WsSqlViewTableSizeMemory> GetListViewTablesSizes(int topRecords)
     {
         List<WsSqlViewTableSizeMemory> result = new();
-        string query = WsSqlQueriesDiags.Views.GetViewTablesSizes(topRecords);
+        string query = WsSqlQueriesDiags.Tables.Views.GetViewTablesSizes(topRecords);
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {

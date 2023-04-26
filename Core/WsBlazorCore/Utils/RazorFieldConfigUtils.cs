@@ -104,9 +104,9 @@ public static class RazorFieldConfigUtils
 	{
 		public static RazorFieldConfigModel GetApp() => new(nameof(LogQuickModel.App), TextAlign.Left, LocaleCore.Table.App);
 		public static RazorFieldConfigModel GetDevice() => new(nameof(LogQuickModel.Host), TextAlign.Left, LocaleCore.Table.Host, "string");
-		public static RazorFieldConfigModel GetIcon() => new(nameof(LogQuickModel.Icon), TextAlign.Left, LocaleCore.Table.Icon);
+		public static RazorFieldConfigModel GetIcon() => new(nameof(LogQuickModel.LogType), TextAlign.Left, LocaleCore.Table.Icon);
 		public static RazorFieldConfigModel GetMessage() => new(nameof(LogQuickModel.Message), TextAlign.Left, LocaleCore.Table.Message);
-		public static RazorFieldConfigModel GetScale() => new(nameof(LogQuickModel.Scale), TextAlign.Left, LocaleCore.Table.Line, "string");
+		public static RazorFieldConfigModel GetScale() => new(nameof(LogQuickModel.Line), TextAlign.Left, LocaleCore.Table.Line, "string");
 		public static RazorFieldConfigModel GetVersion() => new(nameof(LogQuickModel.Version), TextAlign.Left, LocaleCore.Table.Version);
 	}
 
