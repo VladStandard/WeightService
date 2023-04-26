@@ -12,30 +12,31 @@ namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrintersResources;
 /// </summary>
 public sealed partial class ItemPrinterResources : RazorComponentItemBase<PrinterResourceFkModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	//
+    private List<PrinterModel> PrinterModels { get; set; }
+    
+    private List<TemplateResourceModel> TemplateResourceModels { get; set; }
+    #endregion
 
-	#endregion
+    #region Public and private methods
 
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
+    protected override void OnParametersSet()
+    {
+        RunActionsParametersSet(new List<Action>
+        {
+            () =>
+            {
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterResourceFkModel>(IdentityId);
                 if (SqlItemCast.IsNew)
-				{
-					SqlItemCast = SqlItemNew<PrinterResourceFkModel>();
-				}
-				ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-				ContextManager.AccessManager.AccessList.GetListNotNullable<TemplateResourceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                    SqlItemCast = SqlItemNew<PrinterResourceFkModel>();
+                PrinterModels = ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterModel>(WsSqlCrudConfigUtils
+                    .GetCrudConfigComboBox());
+                TemplateResourceModels = ContextManager.AccessManager.AccessList.GetListNotNullable<TemplateResourceModel>(WsSqlCrudConfigUtils
+                    .GetCrudConfigComboBox());
             }
-		});
-	}
+        });
+    }
 
-	#endregion
+    #endregion
 }

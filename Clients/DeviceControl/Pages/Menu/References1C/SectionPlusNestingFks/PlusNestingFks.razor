@@ -11,8 +11,7 @@
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
-  ButtonSettings="@ButtonSettings"
-  />
+  ButtonSettings="@ButtonSettings"/>
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
@@ -29,12 +28,12 @@
           <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.PluBundle.Plu.IsCheckWeight"/>
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluBundle.Plu.Number" Width="5%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluBundle.Plu.Name" Width="27%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Bundle" Property="PluBundle.Bundle.Name" Width="15%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Box" Property="Box.Name" Width="28%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="BundleCount" Width="5%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Weight" Property="WeightTare" Width="5%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluBundle.Plu.Number" Width="5%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluBundle.Plu.Name" Width="27%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Bundle" Property="PluBundle.Bundle.Name" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Box" Property="Box.Name" Width="28%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="BundleCount" Width="5%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Weight" Property="WeightTare" Width="5%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

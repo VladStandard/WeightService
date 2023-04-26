@@ -12,8 +12,7 @@
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
-  ButtonSettings="@ButtonSettings"
-/>
+  ButtonSettings="@ButtonSettings"/>
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
@@ -30,8 +29,8 @@
           @ContextManager.ContextItem.GetAccessRightsDescription(itemCast.Rights)
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.User" Property="Name" Width="30%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="30%" FormatString="@StrUtils.FormatDtLong" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.User" Property="Name" Width="30%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="30%" FormatString="@StrUtils.FormatDtLong"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

@@ -11,70 +11,70 @@
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-    <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale)" Text="@LocaleCore.Table.Line"/>
+    </td>
+    <td>@SqlItemCast.PluScale.Scale.Description</td>
+    <td>@LocaleCore.Table.CheckWeight</td>
+    <td>
+      <RadzenCheckBox TValue="bool" Disabled="true" Value="@IsWeighted"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
+    </td>
+    <td>@SqlItemCast.PluScale.Plu.DisplayName</td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
+                  Text="@LocaleCore.Table.Template"/>
+    </td>
+    <td>@ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale).Title</td>
+  </tr>
+  <tr>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale.PrinterMain)" Text="@LocaleCore.Table.Printer"/>
+    </td>
+    <td>@SqlItemCast.PluScale.Scale.PrinterMain?.DisplayName</td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
+    </td>
+    <td>@SqlItemCast.PluWeighing?.IdentityValueUid</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.ProductDt</td>
+    <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ProductDt)</td>
+    <td>@LocaleCore.Table.ExpirationDt</td>
+    <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ExpirationDt)</td>
+  </tr>
+  <tr>
+    <td>
+      <RadzenLink Path="@(LocaleCore.DeviceControl.LinkLabelary)" Text="@(LocaleCore.Table.TemplateLabelary)"/>
+    </td>
+    <td colspan="3">
+      <RadzenTextArea
+        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; "
+        Disabled="false" ReadOnly="true"
+        Value="@SqlItemCast.Zpl" Rows="20"/>
+    </td>
+  </tr>
+  <AuthorizeView Roles="@UserAccessStr.Admin">
     <tr>
-      <td>
-       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale)" Text="@LocaleCore.Table.Line"/>
-      </td>
-      <td>@SqlItemCast.PluScale.Scale.Description</td>
-      <td>@LocaleCore.Table.CheckWeight</td>
-      <td>
-        <RadzenCheckBox TValue="bool" Disabled="true" Value="@IsWeighted"/>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
-      </td>
-      <td>@SqlItemCast.PluScale.Plu.DisplayName</td>
-      <td>
-                <RadzenLink Path="@GetRouteItemPath(ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
-                    Text="@LocaleCore.Table.Template"/>
-      </td>
-      <td>@ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale).Title</td>
-    </tr>
-    <tr>
-      <td>
-        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale.PrinterMain)" Text="@LocaleCore.Table.Printer"/>
-      </td>
-      <td>@SqlItemCast.PluScale.Scale.PrinterMain?.DisplayName</td>
-      <td>
-        <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
-      </td>
-      <td>@SqlItemCast.PluWeighing?.IdentityValueUid</td>
-    </tr>
-    <tr>
-        <td>@LocaleCore.Table.ProductDt</td>
-        <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ProductDt)</td>
-        <td>@LocaleCore.Table.ExpirationDt</td>
-        <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ExpirationDt)</td>
-      </tr>
-    <tr>
-      <td>
-        <RadzenLink Path="@(LocaleCore.DeviceControl.LinkLabelary)" Text="@(LocaleCore.Table.TemplateLabelary)"/>
-      </td>
+      <td>@LocaleCore.Table.Xml</td>
       <td colspan="3">
-        <RadzenTextArea
-          Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; "
-          Disabled="false" ReadOnly="true"
-          Value="@SqlItemCast.Zpl" Rows="20"/>
+        @if (SqlItemCast.Xml is not null)
+        {
+          <RadzenTextArea
+            Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
+            Disabled=false ReadOnly=true
+            Value=@(WsDataFormatUtils.GetPrettyXmlOrJson(SqlItemCast.Xml.OuterXml)) Rows=20/>
+        }
       </td>
     </tr>
-    <AuthorizeView Roles="@UserAccessStr.Admin">
-      <tr>
-        <td>@LocaleCore.Table.Xml</td>
-        <td colspan=3>
-          @if (SqlItemCast.Xml is not null)
-          {
-            <RadzenTextArea
-              Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
-              Disabled=false ReadOnly=true
-              Value=@(WsDataFormatUtils.GetPrettyXmlOrJson(SqlItemCast.Xml.OuterXml)) Rows=20/>
-          }
-        </td>
-      </tr>
-    </AuthorizeView>
-    <RazorItemDates SqlItem="@SqlItemCast"/>
+  </AuthorizeView>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
@@ -82,5 +82,4 @@
   TItem="@PluLabelModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>

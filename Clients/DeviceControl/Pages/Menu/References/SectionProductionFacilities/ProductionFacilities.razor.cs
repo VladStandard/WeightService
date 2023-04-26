@@ -15,6 +15,6 @@ public sealed partial class ProductionFacilities : RazorComponentSectionBase<Pro
     #endregion
 
     #region Public and private methods
-    
+
     #endregion
 }

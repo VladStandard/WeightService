@@ -8,17 +8,21 @@
 <RazorItemReload TItem="@PluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td><RadzenLink Path="@GetRouteItemPath(@SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu" /></td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(@SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
+    </td>
     <td>@SqlItemCast.Plu.DisplayName</td>
     <td>@LocaleCore.Table.NomenclatureCode</td>
     <td>@SqlItemCast.Plu.Code</td>
   </tr>
   <tr>
-    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Bundle)" Text="@LocaleCore.Table.Bundle" /></td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Bundle)" Text="@LocaleCore.Table.Bundle"/>
+    </td>
     <td>@SqlItemCast.Bundle.Name</td>
     <td>@LocaleCore.Table.BundleWeight</td>
     <td>@SqlItemCast.Bundle.Weight</td>
@@ -31,6 +35,4 @@
   TItem="@PluBundleFkModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
-
+  OnItemCancel="@SqlItemCancelAsync"/>

@@ -8,30 +8,30 @@ namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighings;
 
 public sealed partial class PluWeightings : RazorComponentSectionBase<PluWeighingModel>
 {
-	#region Public and private fields, properties, constructor
-    
+    #region Public and private fields, properties, constructor
+
     private List<DeviceScaleFkModel> DeviceScaleFk { get; set; }
-	
+
     public PluWeightings() : base()
 	{
         ButtonSettings = new(false, true, false, true, false, false, false);
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
-    
+    #region Public and private methods
+
     protected override void SetSqlSectionCast()
     {
         base.SetSqlSectionCast();
         DeviceScaleFk = ContextManager.AccessManager.AccessList.GetListNotNullable<DeviceScaleFkModel>(new());
     }
-    
+
     private string GetDeviceName(PluWeighingModel pluWeighing)
     {
         DeviceScaleFkModel? deviceScale = DeviceScaleFk.Find((x) => x.Scale.Equals(pluWeighing.PluScale.Scale));
         return deviceScale != null ? deviceScale.Device.Name : "";
     }
-    
-	#endregion
+
+    #endregion
 }

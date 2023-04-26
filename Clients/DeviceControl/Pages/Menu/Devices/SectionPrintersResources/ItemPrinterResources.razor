@@ -17,21 +17,11 @@
   <tr>
     <td>@LocaleCore.Print.Name</td>
     <td>
-      <MudSelectLocal @bind-Value="@SqlItemCast.Printer">
-        @foreach (PrinterModel item in ContextManager.ContextList.Printers)
-        {
-          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
+      <RzDropDownLocal @bind-Value="@SqlItemCast.Printer" Data="@PrinterModels" TextProperty="Name"/>
     </td>
     <td>@LocaleCore.Table.Resource</td>
     <td>
-      <MudSelectLocal @bind-Value="@SqlItemCast.TemplateResource">
-        @foreach (TemplateResourceModel item in ContextManager.ContextList.TemplateResources)
-        {
-          <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-        }
-      </MudSelectLocal>
+      <RzDropDownLocal @bind-Value="@SqlItemCast.TemplateResource" Data="@TemplateResourceModels" TextProperty="Name"/>
     </td>
   </tr>
   <tr>
@@ -48,5 +38,4 @@
   TItem="@PrinterResourceFkModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>

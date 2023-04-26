@@ -14,15 +14,25 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.IsActive</td>
-    <td><RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsActive"/></td>
+    <td>
+      <RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsActive"/>
+    </td>
     <td/>
     <td/>
   </tr>
   <tr>
-    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/></td>
-    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Scale" Data="@ContextManager.ContextList.Scales" TextProperty="Description"/></td>
-    <td><RadzenLink Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/></td>
-    <td><RzDropDownLocal @bind-Value="@SqlItemCast.Plu" Data="@ContextManager.ContextList.Plus" TextProperty="DisplayName" /></td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/>
+    </td>
+    <td>
+      <RzDropDownLocal @bind-Value="@SqlItemCast.Scale" Data="@ContextManager.ContextList.Scales" TextProperty="Description"/>
+    </td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
+    </td>
+    <td>
+      <RzDropDownLocal @bind-Value="@SqlItemCast.Plu" Data="@ContextManager.ContextList.Plus" TextProperty="DisplayName"/>
+    </td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
@@ -32,5 +42,4 @@
   TItem="@PluScaleModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>

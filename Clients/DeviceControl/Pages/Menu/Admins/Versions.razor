@@ -12,8 +12,7 @@
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
-  ButtonSettings="@ButtonSettings"
-  />
+  ButtonSettings="@ButtonSettings"/>
 
 <RzDataGridLocal
   TItem="@VersionModel"
@@ -21,8 +20,8 @@
   <Columns>
     <TItemContent TItem="@VersionModel">
       <RadzenDataGridColumn Title="@LocaleCore.Table.ReleaseDt" Property="ReleaseDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="10%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Description" Property="Description" Width="75%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="10%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Description" Property="Description" Width="75%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

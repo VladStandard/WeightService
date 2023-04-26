@@ -7,16 +7,16 @@ namespace BlazorDeviceControl.Pages.Menu.Logs.SectionLogs;
 
 public sealed partial class ItemLog : RazorComponentItemBase<LogModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
     public ItemLog() : base()
     {
         ButtonSettings = new(false, false, false, false, false, false, true);
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
 	protected override void OnParametersSet()
 	{
@@ -26,12 +26,10 @@ public sealed partial class ItemLog : RazorComponentItemBase<LogModel>
 			{
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<LogModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                {
-					SqlItemCast = SqlItemNew<LogModel>();
-				}
+                    SqlItemCast = SqlItemNew<LogModel>();
             }
-		});
-	}
+        });
+    }
 
-	#endregion
+    #endregion
 }

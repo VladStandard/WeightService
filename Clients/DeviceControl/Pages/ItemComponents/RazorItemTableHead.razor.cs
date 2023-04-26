@@ -7,18 +7,18 @@ namespace BlazorDeviceControl.Pages.ItemComponents;
 
 public partial class RazorItemTableHead : LayoutComponentBase
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	[Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
+    [Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
     public RazorItemTableHead()
     {
         CssTableStyleHead = new();
     }
 
-	#endregion
+    #endregion
 }

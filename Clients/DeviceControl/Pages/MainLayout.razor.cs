@@ -6,12 +6,12 @@ namespace BlazorDeviceControl.Pages;
 public partial class MainLayout : RazorComponentBase
 {
     #region Public and private methods
-    
+
     private string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
-    
+
     protected override void OnParametersSet()
-	{
-        BlazorAppSettings.SetupMemory(); 
+    {
+        BlazorAppSettings.SetupMemory();
         BlazorAppSettings.Memory.OpenAsync().ConfigureAwait(false);
     }
 

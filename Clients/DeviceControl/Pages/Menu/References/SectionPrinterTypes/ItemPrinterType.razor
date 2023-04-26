@@ -11,14 +11,16 @@
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-    <RazorItemTableBody SqlItem="@SqlItemCast"/>
-    <tr>
-      <td>@LocaleCore.Table.Name</td>
-      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/></td>
-      <td/>
-      <td/>
-    </tr>
-    <RazorItemDates SqlItem="@SqlItemCast"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td/>
+    <td/>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
@@ -26,5 +28,4 @@
   TItem="@PrinterTypeModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>

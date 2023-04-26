@@ -8,33 +8,36 @@ namespace BlazorDeviceControl.Pages.Menu.Logs.SectionLogs;
 
 public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
 {
-    private static LogTypeModel LogTypeNew => new();
-    private LogTypeModel CurrentType { get; set; }
+    private LogTypeModel? CurrentType { get; set; }
     private List<LogTypeModel> LogTypes { get; set; }
+
     public Logs() : base()
     {
-        CurrentType = new();
         LogTypes = ContextManager.AccessManager.AccessList.GetListNotNullable<LogTypeModel>(new SqlCrudConfigModel());
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultShowMarked = true;
         SqlCrudConfigSection.IsResultOrder = true;
         ButtonSettings = new(false, false,  false, false, false, false, false);
     }
+
     protected override void SetSqlSectionCast()
     {
-        Guid logTypeUid = CurrentType.IdentityValueUid;
-        string query = WsSqlQueriesDiags.Tables.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
-            ? ContextManager.JsonSettings.Local.SelectTopRowsCount : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
+        Guid logTypeUid = Guid.Empty;
+        if (CurrentType?.IdentityValueUid != null) 
+            logTypeUid = CurrentType.IdentityValueUid;
+        var query = WsSqlQueriesDiags.Tables.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
+            ? ContextManager.JsonSettings.Local.SelectTopRowsCount
+            : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<LogQuickModel> items = new();
-        foreach (object obj in objects)
+        foreach (var obj in objects)
         {
             if (obj is not object[] { Length: 12 } item)
                 continue;
 
-            if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+            if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
             {
-                items.Add(new()
+                items.Add(new LogQuickModel
                 {
                     IdentityValueUid = uid,
                     CreateDt = Convert.ToDateTime(item[1]),
@@ -46,16 +49,16 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
                     Line = Convert.ToInt32(item[8]),
                     Member = item[9] as string ?? string.Empty,
                     Icon = item[10] as string ?? string.Empty,
-                    Message = item[11] as string ?? string.Empty,
+                    Message = item[11] as string ?? string.Empty
                 });
             }
         }
+
         SqlSectionCast = items;
     }
 
-    private void OnSelectTypeChanged(LogTypeModel logType)
+    private void OnSelectTypeChanged()
     {
-        CurrentType = logType;
         SqlCrudConfigSection.IsResultShowOnlyTop = true;
         GetSectionData();
     }

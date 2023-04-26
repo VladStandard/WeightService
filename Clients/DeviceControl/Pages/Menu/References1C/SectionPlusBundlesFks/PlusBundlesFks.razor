@@ -11,8 +11,7 @@
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
-  ButtonSettings="@ButtonSettings"
-  />
+  ButtonSettings="@ButtonSettings"/>
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
@@ -30,9 +29,9 @@
           <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="Plu.Number" Width="7%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="23%" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Bundle" Property="Bundle.Name" Width="15%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="Plu.Number" Width="7%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="23%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Bundle" Property="Bundle.Name" Width="15%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

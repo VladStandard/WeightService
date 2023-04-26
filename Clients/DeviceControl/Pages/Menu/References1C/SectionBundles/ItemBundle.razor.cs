@@ -11,8 +11,8 @@ public sealed partial class ItemBundle : RazorComponentItemBase<BundleModel>
 
     //
 
-    #endregion 
-    
+    #endregion
+
     #region Public and private methods
 
     protected override void OnParametersSet()

@@ -11,29 +11,28 @@
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-    <RazorItemTableBody SqlItem="@SqlItemCast"/>
-    <tr>
-      <td>@LocaleCore.Table.Name</td>
-      <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name" /></td>
-      <td/>
-      <td/>
-    </tr>
-    <tr>
-      <td>@LocaleCore.Table.Address</td>
-      <td colspan="3">
-        <RadzenTextArea Style="width: 100%;" Rows="2" @bind-Value="@SqlItemCast.Address"/>
-      </td>
-    </tr>
-    <RazorItemDates SqlItem="@SqlItemCast"/>
+  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>
+      <RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td/>
+    <td/>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Address</td>
+    <td colspan="3">
+      <RadzenTextArea Style="width: 100%;" Rows="2" @bind-Value="@SqlItemCast.Address"/>
+    </td>
+  </tr>
+  <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
-
 
 
 <RazorItemActions
   TItem="@ProductionFacilityModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
-
+  OnItemCancel="@SqlItemCancelAsync"/>

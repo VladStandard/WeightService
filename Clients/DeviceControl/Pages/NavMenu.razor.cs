@@ -8,9 +8,9 @@ public sealed partial class NavMenu : RazorComponentBase
     #region Public and private fields, properties, constructor
 
     private bool CollapseNavMenu { get; set; } = true;
-    
+
     private static LocaleDeviceControl LocaleBlazor { get; } = LocaleDeviceControl.Instance;
-    
+
     #endregion
 
     #region Public and private methods

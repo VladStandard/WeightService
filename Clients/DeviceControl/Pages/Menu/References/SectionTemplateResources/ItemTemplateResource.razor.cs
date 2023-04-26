@@ -11,11 +11,11 @@ namespace BlazorDeviceControl.Pages.Menu.References.SectionTemplateResources;
 public sealed partial class ItemTemplateResource : RazorComponentItemBase<TemplateResourceModel>
 {
     #region Public and private fields, properties, constructor
-    
+
     [Inject] private IFileUpload? FileUpload { get; set; }
     [Inject] private IFileDownload? FileDownload { get; set; }
     [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }
-    
+
     #endregion
 
     #region Public and private methods
@@ -52,6 +52,7 @@ public sealed partial class ItemTemplateResource : RazorComponentItemBase<Templa
             if (FileUpload is not null)
                 FileUpload.UploadAsync(SqlItemCast, file.OpenReadStream(10_000_000));
         }
+
         InvokeAsync(StateHasChanged);
     }
 

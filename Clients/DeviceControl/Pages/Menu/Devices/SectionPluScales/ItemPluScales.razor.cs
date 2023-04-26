@@ -16,10 +16,10 @@ public sealed partial class ItemPluScales : RazorComponentItemBase<PluScaleModel
     #endregion
 
     #region Public and private methods
-    
+
     protected override void OnParametersSet()
     {
-        RunActionsParametersSet(new()
+        RunActionsParametersSet(new List<Action>
         {
             () =>
             {

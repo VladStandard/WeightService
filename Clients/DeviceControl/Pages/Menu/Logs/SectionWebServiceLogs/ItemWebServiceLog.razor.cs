@@ -7,16 +7,16 @@ namespace BlazorDeviceControl.Pages.Menu.Logs.SectionWebServiceLogs;
 
 public sealed partial class ItemWebServiceLog : RazorComponentItemBase<LogWebFkModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
     public ItemWebServiceLog() : base()
     {
         ButtonSettings = new(false, false, false, false, false, false, true);
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
 	protected override void OnParametersSet()
 	{
@@ -28,8 +28,8 @@ public sealed partial class ItemWebServiceLog : RazorComponentItemBase<LogWebFkM
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<LogWebFkModel>();
             }
-		});
-	}
+        });
+    }
 
-	#endregion
+    #endregion
 }

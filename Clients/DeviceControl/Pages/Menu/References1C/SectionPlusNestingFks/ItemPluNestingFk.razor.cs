@@ -14,7 +14,8 @@ public sealed partial class ItemPluNestingFk : RazorComponentItemBase<PluNesting
         RunActionsParametersSetJustOne(
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluNestingFkModel>(IdentityUid);
+                SqlItemCast =
+                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluNestingFkModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<PluNestingFkModel>();
             }

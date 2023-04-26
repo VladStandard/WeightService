@@ -5,7 +5,7 @@ using Radzen.Blazor;
 
 namespace BlazorDeviceControl.Pages.CustomComponents;
 
-public class RzDropDownLocal<T>: RadzenDropDown<T>
+public class RzDropDownLocal<T> : RadzenDropDown<T>
 {
     public RzDropDownLocal()
     {

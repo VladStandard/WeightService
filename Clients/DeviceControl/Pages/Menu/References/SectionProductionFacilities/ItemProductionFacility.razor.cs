@@ -7,12 +7,11 @@ namespace BlazorDeviceControl.Pages.Menu.References.SectionProductionFacilities;
 
 public sealed partial class ItemProductionFacility : RazorComponentItemBase<ProductionFacilityModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
+    #endregion
 
-	#endregion
-
-	#region Public and private methods
+    #region Public and private methods
 
 	protected override void OnParametersSet()
 	{
@@ -24,8 +23,8 @@ public sealed partial class ItemProductionFacility : RazorComponentItemBase<Prod
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
             }
-		});
-	}
+        });
+    }
 
-	#endregion
+    #endregion
 }

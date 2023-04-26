@@ -6,10 +6,10 @@ using WsStorageCore.TableScaleModels.PlusGroups;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups;
 
-public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluGroupModel> 
+public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluGroupModel>
 {
-	#region Public and private fields, properties, constructor
-    
+    #region Public and private fields, properties, constructor
+
     private List<PluGroupModel> AllData { get; set; }
 
     public NomenclaturesGroups() : base()
@@ -28,12 +28,12 @@ public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluG
         AllData = ContextManager.AccessManager.AccessList.GetListNotNullable<PluGroupModel>(new SqlCrudConfigModel() {IsResultOrder = true});
         foreach (PluGroupModel pluGroup in AllData)
         {
-            var  temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();
+            var temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();
             if (temp.Any())
                 pluGroup.ParentGuid = temp.First().Parent.IdentityValueUid;
         }
 
-        SqlSectionCast = AllData.Where(e=> e.ParentGuid == Guid.Empty).ToList();
+        SqlSectionCast = AllData.Where(e => e.ParentGuid == Guid.Empty).ToList();
     }
 
     private new void RowRender(RowRenderEventArgs<PluGroupModel> args)
@@ -43,8 +43,8 @@ public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluG
 
     private void LoadChildData(DataGridLoadChildDataEventArgs<PluGroupModel> args)
     {
-	    args.Data = AllData.Where(e => e.ParentGuid == args.Item.IdentityValueUid);
+        args.Data = AllData.Where(e => e.ParentGuid == args.Item.IdentityValueUid);
     }
 
-	#endregion
+    #endregion
 }

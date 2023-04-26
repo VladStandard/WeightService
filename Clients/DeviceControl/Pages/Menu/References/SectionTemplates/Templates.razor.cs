@@ -12,13 +12,13 @@ public sealed partial class Templates : RazorComponentSectionBase<TemplateModel>
     #endregion
 
     #region Public and private methods
-    
+
     private string ConvertBytes(TemplateModel templateModel)
     {
         return templateModel.Data.Length > 1024
             ? $"{templateModel.Data.Length / 1024:### ##0} {LocaleCore.Strings.DataSizeKBytes}"
             : $"{templateModel.Data.Length:##0} {LocaleCore.Strings.DataSizeBytes}";
     }
-    
+
     #endregion
 }

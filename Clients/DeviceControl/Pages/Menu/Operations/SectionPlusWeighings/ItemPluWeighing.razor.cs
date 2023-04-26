@@ -18,7 +18,7 @@ public sealed partial class ItemPluWeighing : RazorComponentItemBase<PluWeighing
 
     #region Public and private methods
 
-	protected override void OnParametersSet()
+    protected override void OnParametersSet()
     {
         RunActionsParametersSet(new()
         {

@@ -10,17 +10,17 @@ namespace BlazorDeviceControl.Pages.ItemComponents;
 /// </summary>
 public partial class RazorItemActions<TItem> : RazorComponentItemBase<TItem> where TItem : WsSqlTableBase, new()
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
     [Parameter] public EventCallback OnItemSave { get; set; }
-    
+
     [Parameter] public EventCallback OnItemCancel { get; set; }
-    
-	#endregion
 
-	#region Public and private methods
+    #endregion
 
-	//
+    #region Public and private methods
 
-	#endregion
+    //
+
+    #endregion
 }

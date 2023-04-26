@@ -6,12 +6,12 @@ using WsStorageCore.TableScaleFkModels.Aggregations;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighingsAggr;
 
-public sealed partial class PluWeightingsAggr: LayoutComponentBase
+public sealed partial class PluWeightingsAggr : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
-    
+
     private bool IsShowPlu { get; set; }
-    
+
     private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
     private List<PluAggrModel> PluWeightAggrs { get; set; }
 
@@ -20,10 +20,10 @@ public sealed partial class PluWeightingsAggr: LayoutComponentBase
         PluWeightAggrs = new();
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
-    
+    #region Public and private methods
+
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender)
@@ -31,9 +31,10 @@ public sealed partial class PluWeightingsAggr: LayoutComponentBase
             base.OnAfterRender(firstRender);
             return;
         }
+
         GetSectionData();
     }
-    
+
     private void GetSectionData()
     {
         if (IsShowPlu)
@@ -76,6 +77,6 @@ public sealed partial class PluWeightingsAggr: LayoutComponentBase
             }
         }
     }
-    
+
     #endregion
 }

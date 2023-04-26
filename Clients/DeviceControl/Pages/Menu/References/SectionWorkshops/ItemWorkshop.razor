@@ -14,19 +14,21 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
-    <td><RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/></td>
-    <td />
-    <td />
+    <td>
+      <RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td/>
+    <td/>
   </tr>
   <tr>
     <td>
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.ProductionFacility" Data="@ContextManager.ContextList.ProductionFacilities" TextProperty="Name" />
+      <RzDropDownLocal @bind-Value="@SqlItemCast.ProductionFacility" Data="@ProductionFacilityModels" TextProperty="Name"/>
     </td>
-    <td />
-    <td />
+    <td/>
+    <td/>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
@@ -36,5 +38,4 @@
   TItem="@WorkShopModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>

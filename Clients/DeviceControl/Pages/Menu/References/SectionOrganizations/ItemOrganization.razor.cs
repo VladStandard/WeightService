@@ -7,27 +7,25 @@ namespace BlazorDeviceControl.Pages.Menu.References.SectionOrganizations;
 
 public sealed partial class ItemOrganization : RazorComponentItemBase<OrganizationModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
+    #endregion
 
-	#endregion
+    #region Public and private methods
 
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<OrganizationModel>(IdentityUid);
+    protected override void OnParametersSet()
+    {
+        RunActionsParametersSet(new List<Action>
+        {
+            () =>
+            {
+                SqlItemCast =
+                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<OrganizationModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                {
-					SqlItemCast = SqlItemNew < OrganizationModel >();
-				}
+                    SqlItemCast = SqlItemNew<OrganizationModel>();
             }
-		});
-	}
+        });
+    }
 
-	#endregion
+    #endregion
 }

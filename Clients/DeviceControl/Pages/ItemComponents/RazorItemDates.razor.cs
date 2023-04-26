@@ -7,13 +7,13 @@ namespace BlazorDeviceControl.Pages.ItemComponents;
 
 public partial class RazorItemDates : LayoutComponentBase
 {
-	#region Public and private fields, properties, constructor
-    
+    #region Public and private fields, properties, constructor
+
     [Parameter] public WsSqlTableBase SqlItem { get; set; }
 
     #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
     #endregion
 }

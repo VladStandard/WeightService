@@ -11,7 +11,7 @@
   <tbody>
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   @if (SqlItemCast.Device is not null)
-  { 
+  {
     <tr>
       <td>@LocaleCore.Table.Line</td>
       <td>@ContextManager.ContextItem.GetItemScaleNotNullable(SqlItemCast.Device).Description</td>
@@ -21,12 +21,12 @@
   }
   @if (SqlItemCast.App is not null)
   {
-      <tr>
-        <td>@LocaleCore.Table.App</td>
-        <td>@SqlItemCast.App.Name</td>
-        <td>@LocaleCore.Table.Version</td>
-        <td>@SqlItemCast.Version</td>
-      </tr>
+    <tr>
+      <td>@LocaleCore.Table.App</td>
+      <td>@SqlItemCast.App.Name</td>
+      <td>@LocaleCore.Table.Version</td>
+      <td>@SqlItemCast.Version</td>
+    </tr>
   }
   <tr>
     <td>@LocaleCore.Table.File</td>
@@ -38,14 +38,14 @@
     <td>@LocaleCore.Table.Member</td>
     <td>@SqlItemCast.Member</td>
     @if (SqlItemCast.LogType is not null)
-    { 
+    {
       <td>@LocaleCore.Table.LogType</td>
       <td>@SqlItemCast.LogType.Icon</td>
     }
     else
     {
-      <td />
-      <td />
+      <td/>
+      <td/>
     }
   </tr>
   <tr>
@@ -65,6 +65,4 @@
   TItem="@LogModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
-
+  OnItemCancel="@SqlItemCancelAsync"/>

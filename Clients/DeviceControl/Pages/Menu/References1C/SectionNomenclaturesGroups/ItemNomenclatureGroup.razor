@@ -20,7 +20,9 @@
   @if (ParentGroup is {IsNotNew: true })
   {
     <tr>
-      <td><RadzenLink Path="@GetRouteItemPath(ParentGroup)" Text="@LocaleCore.Table.Parent"/></td>
+      <td>
+        <RadzenLink Path="@GetRouteItemPath(ParentGroup)" Text="@LocaleCore.Table.Parent"/>
+      </td>
       <td>@ParentGroup.Name</td>
       <td/>
       <td/>
@@ -34,5 +36,4 @@
   TItem="@PluGroupModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>

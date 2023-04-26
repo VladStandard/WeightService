@@ -12,8 +12,7 @@
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
-  ButtonSettings="@ButtonSettings"
-  />
+  ButtonSettings="@ButtonSettings"/>
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
@@ -27,7 +26,7 @@
     <TItemContent TItem="@ScaleScreenShotModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
-                            FormatString="@StrUtils.FormatDtLong" />
+                            FormatString="@StrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Scale.Description" Width="40%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.ScreenShot" Width="43%" Sortable="false">
         <Template Context="itemCast">

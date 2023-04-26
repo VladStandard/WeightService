@@ -14,10 +14,12 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Title</td>
-    <td><RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Title"/></td>
+    <td>
+      <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Title"/>
+    </td>
     <td>@LocaleCore.Table.CategoryName</td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.CategoryId" Data="@TemplateCategories" ValueProperty="Value" TextProperty="Name" />
+      <RzDropDownLocal @bind-Value="@SqlItemCast.CategoryId" Data="@TemplateCategories" ValueProperty="Value" TextProperty="Name"/>
     </td>
   </tr>
   <tr>
@@ -37,5 +39,4 @@
   TItem="@TemplateModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@SqlItemCancelAsync"
-  />
+  OnItemCancel="@SqlItemCancelAsync"/>
