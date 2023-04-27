@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
+using FluentNHibernate.Testing.Values;
 using WsStorageCore.Helpers;
 
 namespace WsWebApiCore.Helpers;
@@ -28,7 +29,7 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
 
     #region Public and private methods
 
-    private List<PluCharacteristicModel> GetXmlPluCharacteristicsList(XElement xml) =>
+    private List<WsXmlContentRecord<PluCharacteristicModel>> GetXmlPluCharacteristicsList(XElement xml) =>
         WsContentUtils.GetNodesListCore<PluCharacteristicModel>(xml, LocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
         {
             WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -113,9 +114,10 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
         {
             List<PluCharacteristicModel> pluCharacteristicsDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
             List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
-            List<PluCharacteristicModel> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
-            foreach (PluCharacteristicModel pluCharacteristicXml in pluCharacteristicsXml)
+            List<WsXmlContentRecord<PluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
+            foreach (WsXmlContentRecord<PluCharacteristicModel> record in pluCharacteristicsXml)
             {
+                PluCharacteristicModel pluCharacteristicXml = record.Item;
                 PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
                 // Проверить номер ПЛУ в списке ACL.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)

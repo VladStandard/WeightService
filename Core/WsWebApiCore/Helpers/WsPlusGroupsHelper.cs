@@ -26,7 +26,7 @@ public sealed class WsPlusGroupsHelper : WsContentBase
 
     #region Public and private methods
 
-    private List<PluGroupModel> GetXmlPluGroupsList(XElement xml) =>
+    private List<WsXmlContentRecord<PluGroupModel>> GetXmlPluGroupsList(XElement xml) =>
         WsContentUtils.GetNodesListCore<PluGroupModel>(xml, LocaleCore.WebService.XmlItemNomenclatureGroup, (xmlNode, itemXml) =>
         {
             WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -134,17 +134,18 @@ public sealed class WsPlusGroupsHelper : WsContentBase
         {
             List<PluGroupModel> itemsDb = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
             List<PluGroupFkModel> pluGroupsFksDb = ContextManager.ContextList.GetListNotNullablePlusGroupFks(SqlCrudConfig);
-            List<PluGroupModel> itemsXml = GetXmlPluGroupsList(xml);
-            foreach (PluGroupModel itemXml in itemsXml)
+            List<WsXmlContentRecord<PluGroupModel>> itemsXml = GetXmlPluGroupsList(xml);
+            foreach (WsXmlContentRecord<PluGroupModel> record in itemsXml)
             {
-                switch (itemXml.ParseResult.Status)
+                PluGroupModel pluGroup = record.Item;
+                switch (pluGroup.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cPluGroups(response, itemsDb, itemXml);
-                        AddResponse1cPluGroupsFks(response, pluGroupsFksDb, itemXml);
+                        AddResponse1cPluGroups(response, itemsDb, pluGroup);
+                        AddResponse1cPluGroupsFks(response, pluGroupsFksDb, pluGroup);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1cException(response, itemXml.Uid1c, itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
+                        AddResponse1cException(response, pluGroup.Uid1c, pluGroup.ParseResult.Exception, pluGroup.ParseResult.InnerException);
                         break;
                 }
             }

@@ -2,6 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
+using Azure;
+using System.Diagnostics.Metrics;
+using WsStorageCore.TableRefFkModels.Plus1cFk;
+using WsWebApiCore.Models;
+
 namespace WsWebApiCore.Helpers;
 
 public sealed class WsPlusHelper : WsContentBase
@@ -115,6 +120,22 @@ public sealed class WsPlusHelper : WsContentBase
         return dbUpdate.IsOk;
     }
 
+    /// <summary>
+    /// Update the PLU record in the database.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="record"></param>
+    private bool UpdatePlu1cFkDb(WsResponse1cShortModel response, WsXmlContentRecord<PluModel> record)
+    {
+        WsSqlPlu1cFkModel plu1cFkDb = ContextManager.ContextPlu1cFk.GetItemByUid1c(record.Item.Uid1c);
+        if (plu1cFkDb.IsNew) return false;
+        plu1cFkDb.UpdateProperties(record.Content);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(plu1cFkDb);
+        if (!dbUpdate.IsOk)
+            AddResponse1cException(response, record.Item.Uid1c, dbUpdate.Exception);
+        return dbUpdate.IsOk;
+    }
+
     #endregion
 
     #region Public and private methods
@@ -124,7 +145,7 @@ public sealed class WsPlusHelper : WsContentBase
     /// </summary>
     /// <param name="xml"></param>
     /// <returns></returns>
-    private List<PluModel> GetXmlPluList(XElement xml) =>
+    private List<WsXmlContentRecord<PluModel>> GetXmlPluList(XElement xml) =>
         WsContentUtils.GetNodesListCore<PluModel>(xml, LocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
         {
             WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -616,10 +637,14 @@ public sealed class WsPlusHelper : WsContentBase
             List<PluClipFkModel> pluClipsFksDb = ContextManager.ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
             List<PluNestingFkModel> pluNestingFksDb = ContextManager.ContextList.GetListNotNullablePlusNestingFks(
                 new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(false), false));
-            List<PluModel> plusXml = GetXmlPluList(xml);
+            List<WsXmlContentRecord<PluModel>> plusXml = GetXmlPluList(xml);
             // Цикл по всем XML-номенклатурам.
-            foreach (PluModel pluXml in plusXml)
+            foreach (WsXmlContentRecord<PluModel> record in plusXml)
             {
+                PluModel pluXml = record.Item;
+                // Обновить данные в таблице связей номенклатуры 1С.
+                if (pluXml.ParseResult.IsStatusSuccess)
+                    UpdatePlu1cFkDb(response, record);
                 // Проверить номер ПЛУ для группы.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluNumberForNonGroup(pluXml);

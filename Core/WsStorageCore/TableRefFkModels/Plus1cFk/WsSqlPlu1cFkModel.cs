@@ -82,6 +82,13 @@ public class WsSqlPlu1cFkModel : WsSqlTableBase
         info.AddValue(nameof(RequestDataString), RequestDataString);
     }
 
+    public virtual void UpdateProperties(string requestDataString)
+    {
+        // Get properties from /api/send_nomenclatures/.
+        if (string.IsNullOrEmpty(requestDataString)) throw new ArgumentException();
+        RequestDataString = requestDataString;
+    }
+
     public override void FillProperties()
     {
         base.FillProperties();

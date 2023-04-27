@@ -10,9 +10,10 @@ public static class WsContentUtils
 {
     #region Public and private methods
 
-    public static List<T> GetNodesListCore<T>(XElement xml, string nodeIdentity, Action<XmlNode, T> action) where T : WsSqlTableBase, new()
+    public static List<WsXmlContentRecord<T>> GetNodesListCore<T>(XElement xml, string nodeIdentity, 
+        Action<XmlNode, T> action) where T : WsSqlTableBase, new()
     {
-        List<T> itemsXml = new();
+        List<WsXmlContentRecord<T>> itemsXml = new();
         XmlDocument xmlDocument = new();
         xmlDocument.LoadXml(xml.ToString());
         if (xmlDocument.DocumentElement is null) return itemsXml;
@@ -22,6 +23,7 @@ public static class WsContentUtils
         foreach (XmlNode xmlNode in xmlNodes)
         {
             T itemXml = new() { ParseResult = { Status = ParseStatus.Success, Exception = string.Empty } };
+            string stringXml = xmlNode.InnerText;
             if (xmlNode.Name.Equals(nodeIdentity, StringComparison.InvariantCultureIgnoreCase))
             {
                 try
@@ -44,7 +46,7 @@ public static class WsContentUtils
                 itemXml.ParseResult.Exception =
                     $"{LocaleCore.WebService.Node} `{nodeIdentity}` {LocaleCore.WebService.With} `{xmlNode.Name}` {LocaleCore.WebService.IsNotIdent}!";
             }
-            itemsXml.Add(itemXml);
+            itemsXml.Add(new(itemXml, stringXml));
         }
         return itemsXml;
     }
