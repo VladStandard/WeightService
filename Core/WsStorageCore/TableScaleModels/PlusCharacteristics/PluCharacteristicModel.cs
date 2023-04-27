@@ -98,7 +98,7 @@ public class PluCharacteristicModel : WsSqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluCharacteristicModel pluCharacteristic) throw new ArgumentException(nameof(item));
+        if (item is not PluCharacteristicModel pluCharacteristic) throw new ArgumentException();
         Uid1c = pluCharacteristic.Uid1c;
 
         if (!Equals(pluCharacteristic.NomenclatureGuid, Guid.Empty))

@@ -33,7 +33,9 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string FieldNomenclatureParent => Lang == Lang.English ? "Parent nomenclature" : "Родительская номенклатура";
     public string FieldPluNumber => Lang == Lang.English ? "PLU number" : "Номер ПЛУ";
     public string FieldPluNumberNotInAcl => Lang == Lang.English ? "PLU number is not included in the list of allowed" : "Номер ПЛУ не входит в список разрешённых";
+    public string FieldPluIsDenyForLoad => Lang == Lang.English ? "PLU is dey for load" : "ПЛУ запрещена для загрузки";
     public string ForDbRecord => Lang == Lang.English ? "for DB record" : "для записи БД";
+    public string ForRecord => Lang == Lang.English ? "for record" : "для записи";
     public string IsEmpty => Lang == Lang.English ? "is empty value" : "пустое значение";
     public string IsFound => Lang == Lang.English ? "is found" : "найдено";
     public string IsNotFound => Lang == Lang.English ? "is not found" : "не найдено";
@@ -47,6 +49,7 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string PackageZero => Lang == Lang.English ? "Without the package" : "Без пакета";
     public string Underdevelopment => Lang == Lang.English ? "Under development, contact the developer." : "Находится в разработке, свяжитесь с разработчиком.";
     public string With => Lang == Lang.English ? "with" : "с";
+    public string WithFieldCode => Lang == Lang.English ? "with code" : "с кодом";
     public string XmlItemBrand => "Brand";
     public string XmlItemCharacteristic => "Characteristic";
     public string XmlItemNomenclature => "Nomenclature";

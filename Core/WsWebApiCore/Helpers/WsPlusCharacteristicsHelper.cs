@@ -117,7 +117,7 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             foreach (PluCharacteristicModel pluCharacteristicXml in pluCharacteristicsXml)
             {
                 PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
-                // Проверить номер ПЛУ в списке разрешённых.
+                // Проверить номер ПЛУ в списке ACL.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     CheckAclPluNumber(pluDb, pluCharacteristicXml);
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.Helpers;
+using WsStorageCore.TableRefFkModels.Plus1cFk;
 
 namespace WsStorageCoreTests.Core.Helpers;
 
@@ -11,7 +12,7 @@ public sealed class DataAccessHelperMapTests
     #region Public and private methods
 
     [Test]
-    public void DataAccess_SetFluentConfigurationForTest()
+    public void Set_fluent_configuration_for_test()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
@@ -30,7 +31,7 @@ public sealed class DataAccessHelperMapTests
     }
 
     [Test]
-    public void DataAccess_Map_DoesNotThrow()
+    public void Get_string_from_maps()
     {
         Assert.DoesNotThrow(() =>
         {
@@ -43,352 +44,352 @@ public sealed class DataAccessHelperMapTests
     }
 
     [Test]
-    public void DataAccess_AccessMap_DoesNotThrow()
+    public void Get_string_from_AccessMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlAccessMap item = new();
-            TestContext.WriteLine(item);
+            WsSqlAccessMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_AppMap_DoesNotThrow()
+    public void Get_string_from_AppMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlAppMap item = new();
-            TestContext.WriteLine(item);
+            WsSqlAppMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_BarCodeMap_DoesNotThrow()
+    public void Get_string_from_BarCodeMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            BarCodeMap item = new();
-            TestContext.WriteLine(item);
+            BarCodeMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_BoxMap_DoesNotThrow()
+    public void Get_string_from_BoxMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            BoxMap item = new();
-            TestContext.WriteLine(item);
+            BoxMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_BrandMap_DoesNotThrow()
+    public void Get_string_from_BrandMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            BrandMap item = new();
-            TestContext.WriteLine(item);
+            BrandMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_BundleMap_DoesNotThrow()
+    public void Get_string_from_BundleMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            BundleMap item = new();
-            TestContext.WriteLine(item);
+            BundleMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_ClipMap_DoesNotThrow()
+    public void Get_string_from_ClipMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            ClipMap item = new();
-            TestContext.WriteLine(item);
+            ClipMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_ContragentMap_DoesNotThrow()
+    public void Get_string_from_ContragentMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            ContragentMap item = new();
-            TestContext.WriteLine(item);
+            ContragentMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_DeviceMap_DoesNotThrow()
+    public void Get_string_from_DeviceMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceMap item = new();
-            TestContext.WriteLine(item);
+            DeviceMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_DeviceScaleFkMap_DoesNotThrow()
+    public void Get_string_from_DeviceScaleFkMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceScaleFkMap item = new();
-            TestContext.WriteLine(item);
+            DeviceScaleFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_DeviceTypeFkMap_DoesNotThrow()
+    public void Get_string_from_DeviceTypeFkMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceTypeFkMap item = new();
-            TestContext.WriteLine(item);
+            DeviceTypeFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_DeviceTypeMap_DoesNotThrow()
+    public void Get_string_from_DeviceTypeMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceTypeMap item = new();
-            TestContext.WriteLine(item);
+            DeviceTypeMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_LogMap_DoesNotThrow()
+    public void Get_string_from_LogMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            LogMap item = new();
-            TestContext.WriteLine(item);
+            LogMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_LogMemoryMap_DoesNotThrow()
+    public void Get_string_from_LogMemoryMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            LogMemoryMap item = new();
-            TestContext.WriteLine(item);
+            LogMemoryMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_LogTypeMap_DoesNotThrow()
+    public void Get_string_from_LogTypeMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            LogTypeMap item = new();
-            TestContext.WriteLine(item);
+            LogTypeMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_LogWebMap_DoesNotThrow()
+    public void Get_string_from_LogWebMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            LogWebMap item = new();
-            TestContext.WriteLine(item);
+            LogWebMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_LogWebFkMap_DoesNotThrow()
+    public void Get_string_from_LogWebFkMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            LogWebFkMap item = new();
-            TestContext.WriteLine(item);
+            LogWebFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PluGroupMap_DoesNotThrow()
+    public void Get_string_from_PluGroupMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluGroupMap item = new();
-            TestContext.WriteLine(item);
+            PluGroupMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_NomenclaturesCharacteristicsFkMap_DoesNotThrow()
+    public void Get_string_from_NomenclaturesCharacteristicsFkMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluCharacteristicsFkMap item = new();
-            TestContext.WriteLine(item);
+            PluCharacteristicsFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_NomenclaturesCharacteristicsMap_DoesNotThrow()
+    public void Get_string_from_NomenclaturesCharacteristicsMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluCharacteristicMap item = new();
-            TestContext.WriteLine(item);
+            PluCharacteristicMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_NomenclaturesGroupFkMap_DoesNotThrow()
+    public void Get_string_from_NomenclaturesGroupFkMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluGroupFkMap item = new();
-            TestContext.WriteLine(item);
+            PluGroupFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_OrderMap_DoesNotThrow()
+    public void Get_string_from_OrderMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            OrderMap item = new();
-            TestContext.WriteLine(item);
+            OrderMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_OrderWeighingMap_DoesNotThrow()
+    public void Get_string_from_OrderWeighingMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            OrderWeighingMap item = new();
-            TestContext.WriteLine(item);
+            OrderWeighingMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_OrganizationMap_DoesNotThrow()
+    public void Get_string_from_OrganizationMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            OrganizationMap item = new();
-            TestContext.WriteLine(item);
+            OrganizationMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PluBrandFkMap_DoesNotThrow()
+    public void Get_string_from_PluBrandFkMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluBrandFkMap item = new();
-            TestContext.WriteLine(item);
+            PluBrandFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PluBundleFkMap_DoesNotThrow()
+    public void Get_string_from_PluBundleFkMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluBundleFkMap item = new();
-            TestContext.WriteLine(item);
+            PluBundleFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PluLabelMap_DoesNotThrow()
+    public void Get_string_from_PluLabelMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluLabelMap item = new();
-            TestContext.WriteLine(item);
+            PluLabelMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PluMap_DoesNotThrow()
+    public void Get_string_from_PluMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluMap item = new();
-            TestContext.WriteLine(item);
+            PluMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PluScaleMap_DoesNotThrow()
+    public void Get_string_from_PluScaleMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluScaleMap item = new();
-            TestContext.WriteLine(item);
+            PluScaleMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PluTemplateFkMap_DoesNotThrow()
+    public void Get_string_from_PluTemplateFkMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluTemplateFkMap item = new();
-            TestContext.WriteLine(item);
+            PluTemplateFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PluWeighingMap_DoesNotThrow()
+    public void Get_string_from_PluWeighingMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluWeighingMap item = new();
-            TestContext.WriteLine(item);
+            PluWeighingMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PrinterMap_DoesNotThrow()
+    public void Get_string_from_PrinterMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterMap item = new();
-            TestContext.WriteLine(item);
+            PrinterMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PrinterResourceMap_DoesNotThrow()
+    public void Get_string_from_PrinterResourceMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterResourceFkMap item = new();
-            TestContext.WriteLine(item);
+            PrinterResourceFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_PrinterTypeMap_DoesNotThrow()
+    public void Get_string_from_PrinterTypeMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterTypeMap item = new();
-            TestContext.WriteLine(item);
+            PrinterTypeMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_ProductionFacilityMap_DoesNotThrow()
+    public void Get_string_from_ProductionFacilityMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            ProductionFacilityMap item = new();
-            TestContext.WriteLine(item);
+            ProductionFacilityMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
@@ -397,88 +398,98 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            ProductSeriesMap item = new();
-            TestContext.WriteLine(item);
+            ProductSeriesMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_ScaleMap_DoesNotThrow()
+    public void Get_string_from_ScaleMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            ScaleMap item = new();
-            TestContext.WriteLine(item);
+            ScaleMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_ScaleScreenShotMap_DoesNotThrow()
+    public void Get_string_from_ScaleScreenShotMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            ScaleScreenShotMap item = new();
-            TestContext.WriteLine(item);
+            ScaleScreenShotMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_TaskMap_DoesNotThrow()
+    public void Get_string_from_TaskMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            TaskMap item = new();
-            TestContext.WriteLine(item);
+            TaskMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_TaskTypeMap_DoesNotThrow()
+    public void Get_string_from_TaskTypeMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            TaskTypeMap item = new();
-            TestContext.WriteLine(item);
+            TaskTypeMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_TemplateMap_DoesNotThrow()
+    public void Get_string_from_TemplateMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            TemplateMap item = new();
-            TestContext.WriteLine(item);
+            TemplateMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_TemplateResourceMap_DoesNotThrow()
+    public void Get_string_from_TemplateResourceMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            TemplateResourceMap item = new();
-            TestContext.WriteLine(item);
+            TemplateResourceMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_VersionMap_DoesNotThrow()
+    public void Get_string_from_VersionMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            VersionMap item = new();
-            TestContext.WriteLine(item);
+            VersionMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 
     [Test]
-    public void DataAccess_WorkShopMap_DoesNotThrow()
+    public void Get_string_from_WorkShopMap()
     {
         Assert.DoesNotThrow(() =>
         {
-            WorkShopMap item = new();
-            TestContext.WriteLine(item);
+            WorkShopMap map = new();
+            TestContext.WriteLine(map);
+        });
+    }
+
+    [Test]
+    public void Get_string_from_WsSqlPlu1cFkMap()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            WsSqlPlu1cFkMap map = new();
+            TestContext.WriteLine(map);
         });
     }
 

@@ -28,18 +28,12 @@ public class WsContentBase : ControllerBase
         true, false, false, true, false);
     private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="sessionFactory"></param>
     public WsContentBase(ISessionFactory sessionFactory)
     {
         SessionFactory = sessionFactory;
     }
 
     #endregion
-
-    #region Public and private methods
 
     #region Public and private methods
 
@@ -52,7 +46,7 @@ public class WsContentBase : ControllerBase
     /// <param name="stampDt"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    private static async Task LogToFileCore(ServiceLogDirection serviceLogType, string appName, string api, DateTime stampDt, string text)
+    private static void LogToFileCore(ServiceLogDirection serviceLogType, string appName, string api, DateTime stampDt, string text)
     {
         string dtString = StrUtils.FormatDtEng(stampDt, true).Replace(':', '.');
         // Get directory name.
@@ -80,14 +74,14 @@ public class WsContentBase : ControllerBase
         // Store data into the log.
         if (!System.IO.File.Exists(filePath))
         {
-            await System.IO.File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
+            System.IO.File.WriteAllText(filePath, text, Encoding.UTF8);
         }
         else
         {
-            string textExists = await System.IO.File.ReadAllTextAsync(filePath);
+            string textExists = System.IO.File.ReadAllText(filePath);
             text = textExists + Environment.NewLine + text;
             System.IO.File.Delete(filePath);
-            await System.IO.File.WriteAllTextAsync(filePath, text, Encoding.UTF8);
+            System.IO.File.WriteAllText(filePath, text, Encoding.UTF8);
         }
     }
 
@@ -131,8 +125,8 @@ public class WsContentBase : ControllerBase
         metaDataResponse += "Response body:" + Environment.NewLine;
 
         // Log into FS.
-        await LogToFileCore(ServiceLogDirection.Request, appName, url, requestStampDt, metaDataRequest + requestData).ConfigureAwait(false);
-        await LogToFileCore(ServiceLogDirection.Response, appName, url, responseStampDt, metaDataResponse + responseData).ConfigureAwait(false);
+        LogToFileCore(ServiceLogDirection.Request, appName, url, requestStampDt, metaDataRequest + requestData);
+        LogToFileCore(ServiceLogDirection.Response, appName, url, responseStampDt, metaDataResponse + responseData);
 
         // Log memory into DB.
         //PluginMemory.MemorySize.Execute();
@@ -155,8 +149,6 @@ public class WsContentBase : ControllerBase
         string responseData, string format, string host, string version) =>
         await LogWebServiceFk(appName, url, requestStampDt, requestXml.ToString(), responseData,
             format, host, version).ConfigureAwait(false);
-
-    #endregion
 
     #endregion
 
@@ -906,20 +898,18 @@ public class WsContentBase : ControllerBase
     #endregion
 
     /// <summary>
-    /// Проверить номер ПЛУ в списке разрешённых.
+    /// Проверить номер ПЛУ в списке ACL.
     /// </summary>
     /// <param name="plu"></param>
     /// <param name="itemXml"></param>
     internal void CheckAclPluNumber(PluModel plu, WsSqlTableBase1c itemXml)
     {
         if (plu.IsGroup) return;
-        // Номер ПЛУ не входит в списки: Сардельки и сосиски.
         if (!WsContentUtils.AclPluNumbers.Contains(plu.Number))
         {
             itemXml.ParseResult.Status = ParseStatus.Error;
-            itemXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldPluNumberNotInAcl} '{plu.Number}' " +
-                $"{LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} {LocaleCore.WebService.FieldCode} '{plu.Code}'";
+            itemXml.ParseResult.Exception = 
+                $"{LocaleCore.WebService.FieldPluIsDenyForLoad} '{plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu.Code}'";
         }
     }
 }

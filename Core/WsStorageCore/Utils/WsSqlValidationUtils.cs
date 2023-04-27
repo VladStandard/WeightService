@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.TableRefFkModels.Plus1cFk;
+
 namespace WsStorageCore.Utils;
 
 public class WsSqlValidationUtils
@@ -23,8 +25,6 @@ public class WsSqlValidationUtils
     public static IValidator GetSqlValidator<T>() where T : WsSqlTableBase, new() =>
         typeof(T) switch
         {
-            var cls when cls == typeof(WsSqlAccessModel) => new WsSqlAccessValidator(),
-            var cls when cls == typeof(WsSqlAppModel) => new WsSqlAppValidator(),
             var cls when cls == typeof(BarCodeModel) => new BarCodeValidator(),
             var cls when cls == typeof(BoxModel) => new BoxValidator(),
             var cls when cls == typeof(BrandModel) => new BrandValidator(),
@@ -35,8 +35,8 @@ public class WsSqlValidationUtils
             var cls when cls == typeof(DeviceScaleFkModel) => new DeviceScaleFkValidator(),
             var cls when cls == typeof(DeviceTypeFkModel) => new DeviceTypeFkValidator(),
             var cls when cls == typeof(DeviceTypeModel) => new DeviceTypeValidator(),
-            var cls when cls == typeof(LogModel) => new LogValidator(),
             var cls when cls == typeof(LogMemoryModel) => new LogMemoryValidator(),
+            var cls when cls == typeof(LogModel) => new LogValidator(),
             var cls when cls == typeof(LogTypeModel) => new LogTypeValidator(),
             var cls when cls == typeof(LogWebFkModel) => new LogWebFkValidator(),
             var cls when cls == typeof(LogWebModel) => new LogWebValidator(),
@@ -66,14 +66,15 @@ public class WsSqlValidationUtils
             var cls when cls == typeof(TemplateResourceModel) => new TemplateResourceValidator(),
             var cls when cls == typeof(VersionModel) => new VersionValidator(),
             var cls when cls == typeof(WorkShopModel) => new WorkShopValidator(),
+            var cls when cls == typeof(WsSqlAccessModel) => new WsSqlAccessValidator(),
+            var cls when cls == typeof(WsSqlAppModel) => new WsSqlAppValidator(),
+            var cls when cls == typeof(WsSqlPlu1cFkModel) => new WsSqlPlu1cFkValidator(),
             _ => throw new NotImplementedException()
         };
 
     public static ValidationResult GetValidationResult<T>(T? item) where T : class, new() =>
         item switch
         {
-            WsSqlAccessModel access => new WsSqlAccessValidator().Validate(access),
-            WsSqlAppModel app => new WsSqlAppValidator().Validate(app),
             BarCodeModel barCode => new BarCodeValidator().Validate(barCode),
             BoxModel box => new BoxValidator().Validate(box),
             BrandModel brand => new BrandValidator().Validate(brand),
@@ -84,8 +85,8 @@ public class WsSqlValidationUtils
             DeviceScaleFkModel deviceScaleFk => new DeviceScaleFkValidator().Validate(deviceScaleFk),
             DeviceTypeFkModel deviceTypeFk => new DeviceTypeFkValidator().Validate(deviceTypeFk),
             DeviceTypeModel deviceType => new DeviceTypeValidator().Validate(deviceType),
-            LogModel log => new LogValidator().Validate(log),
             LogMemoryModel logMemory => new LogMemoryValidator().Validate(logMemory),
+            LogModel log => new LogValidator().Validate(log),
             LogTypeModel logType => new LogTypeValidator().Validate(logType),
             LogWebFkModel logWebFk => new LogWebFkValidator().Validate(logWebFk),
             LogWebModel logWeb => new LogWebValidator().Validate(logWeb),
@@ -104,8 +105,8 @@ public class WsSqlValidationUtils
             PluModel plu => new PluValidator().Validate(plu),
             PluNestingFkModel nestingFk => new PluNestingFkValidator().Validate(nestingFk),
             PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),
-            PluStorageMethodModel plusStorageMethod => new PluStorageMethodValidator().Validate(plusStorageMethod),
             PluStorageMethodFkModel plusStorageMethodFk => new PluStorageMethodFkValidator().Validate(plusStorageMethodFk),
+            PluStorageMethodModel plusStorageMethod => new PluStorageMethodValidator().Validate(plusStorageMethod),
             PluTemplateFkModel pluTemplate => new PluTemplateFkValidator().Validate(pluTemplate),
             PluWeighingModel pluWeighing => new PluWeighingValidator().Validate(pluWeighing),
             PrinterModel printer => new PrinterValidator().Validate(printer),
@@ -121,7 +122,10 @@ public class WsSqlValidationUtils
             TemplateResourceModel templateResource => new TemplateResourceValidator().Validate(templateResource),
             VersionModel version => new VersionValidator().Validate(version),
             WorkShopModel workShop => new WorkShopValidator().Validate(workShop),
-            _ => throw new NullReferenceException(nameof(item))
+            WsSqlAccessModel access => new WsSqlAccessValidator().Validate(access),
+            WsSqlAppModel app => new WsSqlAppValidator().Validate(app),
+            WsSqlPlu1cFkModel app => new WsSqlPlu1cFkValidator().Validate(app),
+            _ => throw new NotImplementedException()
         };
 
     public static bool IsValidation<T>(T? item, ref string detailAddition) where T : class, new()

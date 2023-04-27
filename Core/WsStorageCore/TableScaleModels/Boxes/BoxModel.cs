@@ -75,11 +75,12 @@ public class BoxModel : WsSqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluModel plu) throw new ArgumentException(nameof(item));
+        if (item is not PluModel plu) throw new ArgumentException();
         Uid1c = plu.BoxTypeGuid;
         
         Name = plu.BoxTypeName;
         Weight = plu.BoxTypeWeight;
+        if (Equals(Weight, default)) throw new ArgumentException(nameof(Weight));
     }
 
     #endregion

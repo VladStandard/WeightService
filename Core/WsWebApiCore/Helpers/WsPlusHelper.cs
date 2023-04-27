@@ -623,7 +623,7 @@ public sealed class WsPlusHelper : WsContentBase
                 // Проверить номер ПЛУ для группы.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluNumberForNonGroup(pluXml);
-                // Проверить номер ПЛУ в списке разрешённых.
+                // Проверить номер ПЛУ в списке ACL.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckAclPluNumber(pluXml, pluXml);
                 // Проверить валидацию ПЛУ.

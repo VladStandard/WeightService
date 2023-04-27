@@ -96,7 +96,7 @@ public class BrandModel : WsSqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_brands/.
-        if (item is not BrandModel brand) throw new ArgumentException(nameof(item));
+        if (item is not BrandModel brand) throw new ArgumentException();
         Uid1c = brand.Uid1c;
         
         Code = brand.Code;

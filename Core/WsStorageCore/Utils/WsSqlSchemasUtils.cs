@@ -3,12 +3,16 @@
 
 namespace WsStorageCore.Utils;
 
+/// <summary>
+/// SQL schema names.
+/// </summary>
 public static class WsSqlSchemasUtils
 {
     #region Public and private fields, properties, constructor
 
     public static string DbScales => "db_scales";
     public static string Diag => "diag";
+    public static string Ref => "REF";
 
     #endregion
 }

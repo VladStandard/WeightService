@@ -9,7 +9,6 @@ namespace WsStorageCore.Tables;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(SqlTableBase1c)} | {Uid1c}")]
-// ReSharper disable once InconsistentNaming
 public class WsSqlTableBase1c : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
