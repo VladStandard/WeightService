@@ -3,6 +3,7 @@
 // ReSharper disable InconsistentNaming
 
 using WsStorageCore.Helpers;
+using WsStorageCore.TableRefFkModels.Plus1cFk;
 
 namespace WsWebApiCore.Base;
 
@@ -900,16 +901,32 @@ public class WsContentBase : ControllerBase
     /// <summary>
     /// Проверить номер ПЛУ в списке ACL.
     /// </summary>
-    /// <param name="plu"></param>
     /// <param name="itemXml"></param>
-    internal void CheckAclPluNumber(PluModel plu, WsSqlTableBase1c itemXml)
+    /// <param name="plu1cFkDb"></param>
+    internal void CheckAclPluNumber(WsSqlTableBase1c itemXml, WsSqlPlu1cFkModel plu1cFkDb)
     {
-        if (plu.IsGroup) return;
-        if (!WsContentUtils.AclPluNumbers.Contains(plu.Number))
+        // Пропуск групп.
+        if (plu1cFkDb.Plu.IsGroup) return;
+        // ПЛУ не найдена.
+        if (plu1cFkDb.IsNotExists)
         {
             itemXml.ParseResult.Status = ParseStatus.Error;
             itemXml.ParseResult.Exception = 
-                $"{LocaleCore.WebService.FieldPluIsDenyForLoad} '{plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu.Code}'";
+                $"{LocaleCore.WebService.FieldPluIsNotFound} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+        }
+        // UID_1C не совпадает.
+        if (!Equals(itemXml.Uid1c, plu1cFkDb.Plu.Uid1c))
+        {
+            itemXml.ParseResult.Status = ParseStatus.Error;
+            itemXml.ParseResult.Exception = 
+                $"{LocaleCore.WebService.FieldPluIsErrorUid1c} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+        }
+        // Загрузка ПЛУ выключена.
+        if (!plu1cFkDb.IsEnabled)
+        {
+            itemXml.ParseResult.Status = ParseStatus.Error;
+            itemXml.ParseResult.Exception = 
+                $"{LocaleCore.WebService.FieldPluIsDenyForLoad} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
         }
     }
 }

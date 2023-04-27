@@ -23,7 +23,6 @@ public static class WsContentUtils
         foreach (XmlNode xmlNode in xmlNodes)
         {
             T itemXml = new() { ParseResult = { Status = ParseStatus.Success, Exception = string.Empty } };
-            string stringXml = xmlNode.InnerText;
             if (xmlNode.Name.Equals(nodeIdentity, StringComparison.InvariantCultureIgnoreCase))
             {
                 try
@@ -46,7 +45,7 @@ public static class WsContentUtils
                 itemXml.ParseResult.Exception =
                     $"{LocaleCore.WebService.Node} `{nodeIdentity}` {LocaleCore.WebService.With} `{xmlNode.Name}` {LocaleCore.WebService.IsNotIdent}!";
             }
-            itemsXml.Add(new(itemXml, stringXml));
+            itemsXml.Add(new(itemXml, xmlNode.OuterXml));
         }
         return itemsXml;
     }
@@ -347,17 +346,6 @@ public static class WsContentUtils
         }
         return result;
     }
-
-    // \\palych\Exchange\Bulk insert\PLUS_13.xlsx
-    public static List<short> AclPluKamni =>
-        new() { 305 };
-    public static List<short> AclPluNumbersSardelki =>
-        new() { 701, 702, 703, 705, 706, 707, 710, 712, 713, 715, 719, 720, 724, 725, 729, 730, 731, 732 };
-    public static List<short> AclPluNumbersSosiski => new() { 801, 802, 803, 804, 805, 806, 808, 809, 810, 811, 812, 813, 814, 817, 819, 820, 821, 822,
-        823, 825, 826, 827, 828, 830, 832, 834, 835, 836, 837, 841, 842, 843, 844, 846, 847, 848, 849, 855, 831, 858, 860,
-        861, 862, 863, 807 };
-    public static List<short> AclPluNumbers => new() { 305, 841 };
-
 
     #endregion
 }

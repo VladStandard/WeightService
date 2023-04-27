@@ -31,13 +31,13 @@ public sealed class WsSqlContextPlu1cFkHelper
 
     #region Public and private methods
 
-    public WsSqlPlu1cFkModel GetItemByUid1c(Guid uid)
-    {
-        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
-                { new() { Name = $"{nameof(WsSqlPlu1cFkModel.Plu)}.{nameof(PluModel.Uid1c)}", Value = uid } },
-            true, false, false, false, false);
-        return AccessItem.GetItemNotNullable<WsSqlPlu1cFkModel>(sqlCrudConfig);
-    }
+    //public WsSqlPlu1cFkModel GetItemByUid1c(Guid uid)
+    //{
+    //    SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
+    //            { new() { Name = $"{nameof(WsSqlPlu1cFkModel.Plu)}.{nameof(PluModel.Uid1c)}", Value = uid } },
+    //        true, false, false, false, false);
+    //    return AccessItem.GetItemNotNullable<WsSqlPlu1cFkModel>(sqlCrudConfig);
+    //}
 
     public WsSqlPlu1cFkModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPlu1cFkModel>();
 

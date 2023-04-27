@@ -4,6 +4,7 @@
 
 using FluentNHibernate.Testing.Values;
 using WsStorageCore.Helpers;
+using WsStorageCore.TableRefFkModels.Plus1cFk;
 
 namespace WsWebApiCore.Helpers;
 
@@ -115,13 +116,16 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             List<PluCharacteristicModel> pluCharacteristicsDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
             List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
             List<WsXmlContentRecord<PluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
+            List<WsSqlPlu1cFkModel> plus1cFks = ContextManager.ContextPlu1cFk.GetList();
             foreach (WsXmlContentRecord<PluCharacteristicModel> record in pluCharacteristicsXml)
             {
                 PluCharacteristicModel pluCharacteristicXml = record.Item;
                 PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
+                WsSqlPlu1cFkModel plu1cFkDb = plus1cFks.Find(item => Equals(item.Plu.Uid1c, record.Item.Uid1c))
+                    ?? ContextManager.ContextPlu1cFk.GetNewItem();
                 // Проверить номер ПЛУ в списке ACL.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
-                    CheckAclPluNumber(pluDb, pluCharacteristicXml);
+                    CheckAclPluNumber(pluCharacteristicXml, plu1cFkDb);
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPluCharacteristics(response, pluCharacteristicsDb, pluCharacteristicXml, pluDb);
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)

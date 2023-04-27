@@ -125,15 +125,14 @@ public sealed class WsPlusHelper : WsContentBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="record"></param>
-    private bool UpdatePlu1cFkDb(WsResponse1cShortModel response, WsXmlContentRecord<PluModel> record)
+    /// <param name="plu1cFkDb"></param>
+    private void UpdatePlu1cFkDb(WsResponse1cShortModel response, WsXmlContentRecord<PluModel> record, WsSqlPlu1cFkModel plu1cFkDb)
     {
-        WsSqlPlu1cFkModel plu1cFkDb = ContextManager.ContextPlu1cFk.GetItemByUid1c(record.Item.Uid1c);
-        if (plu1cFkDb.IsNew) return false;
+        if (plu1cFkDb.IsNew) return;
         plu1cFkDb.UpdateProperties(record.Content);
         SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(plu1cFkDb);
         if (!dbUpdate.IsOk)
             AddResponse1cException(response, record.Item.Uid1c, dbUpdate.Exception);
-        return dbUpdate.IsOk;
     }
 
     #endregion
@@ -637,20 +636,23 @@ public sealed class WsPlusHelper : WsContentBase
             List<PluClipFkModel> pluClipsFksDb = ContextManager.ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
             List<PluNestingFkModel> pluNestingFksDb = ContextManager.ContextList.GetListNotNullablePlusNestingFks(
                 new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(false), false));
+            List<WsSqlPlu1cFkModel> plus1cFks = ContextManager.ContextPlu1cFk.GetList();
             List<WsXmlContentRecord<PluModel>> plusXml = GetXmlPluList(xml);
             // Цикл по всем XML-номенклатурам.
             foreach (WsXmlContentRecord<PluModel> record in plusXml)
             {
                 PluModel pluXml = record.Item;
+                WsSqlPlu1cFkModel plu1cFkDb = plus1cFks.Find(item => Equals(item.Plu.Uid1c, record.Item.Uid1c)) 
+                    ?? ContextManager.ContextPlu1cFk.GetNewItem();
                 // Обновить данные в таблице связей номенклатуры 1С.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    UpdatePlu1cFkDb(response, record);
+                    UpdatePlu1cFkDb(response, record, plu1cFkDb);
                 // Проверить номер ПЛУ для группы.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluNumberForNonGroup(pluXml);
                 // Проверить номер ПЛУ в списке ACL.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    CheckAclPluNumber(pluXml, pluXml);
+                    CheckAclPluNumber(pluXml, plu1cFkDb);
                 // Проверить валидацию ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluValidation(pluXml);

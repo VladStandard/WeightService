@@ -31,9 +31,11 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string FieldNomenclatureCharacteristic => Lang == Lang.English ? "Nomeclature characteristic" : "Номенклатурная характеристика";
     public string FieldNomenclatureGroup => Lang == Lang.English ? "Nomenclature group" : "Номенклатурная группа";
     public string FieldNomenclatureParent => Lang == Lang.English ? "Parent nomenclature" : "Родительская номенклатура";
+    public string FieldPluIsDenyForLoad => Lang == Lang.English ? "PLU is deny for load" : "ПЛУ запрещена для загрузки";
+    public string FieldPluIsErrorUid1c => Lang == Lang.English ? "PLU UID_1C is error" : "Ошибка UID_1C ПЛУ";
+    public string FieldPluIsNotFound => Lang == Lang.English ? "PLU is not found" : "ПЛУ не найдена";
     public string FieldPluNumber => Lang == Lang.English ? "PLU number" : "Номер ПЛУ";
     public string FieldPluNumberNotInAcl => Lang == Lang.English ? "PLU number is not included in the list of allowed" : "Номер ПЛУ не входит в список разрешённых";
-    public string FieldPluIsDenyForLoad => Lang == Lang.English ? "PLU is dey for load" : "ПЛУ запрещена для загрузки";
     public string ForDbRecord => Lang == Lang.English ? "for DB record" : "для записи БД";
     public string ForRecord => Lang == Lang.English ? "for record" : "для записи";
     public string IsEmpty => Lang == Lang.English ? "is empty value" : "пустое значение";
