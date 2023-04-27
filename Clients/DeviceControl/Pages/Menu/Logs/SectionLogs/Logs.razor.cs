@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Pages.Menu.Logs.SectionLogs;
 
 public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
 {
-    private LogTypeModel? CurrentType { get; set; }
+    private string? CurrentLogType { get; set; }
     private List<LogTypeModel> LogTypes { get; set; }
 
     public Logs() : base()
@@ -22,17 +22,14 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
 
     protected override void SetSqlSectionCast()
     {
-        Guid logTypeUid = Guid.Empty;
-        if (CurrentType?.IdentityValueUid != null) 
-            logTypeUid = CurrentType.IdentityValueUid;
-        var query = WsSqlQueriesDiags.Tables.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
+        var query = WsSqlQueriesDiags.Tables.Views.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
             ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, SqlCrudConfigSection.IsResultShowMarked, logTypeUid);
+            : 0, SqlCrudConfigSection.IsResultShowMarked, CurrentLogType);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<LogQuickModel> items = new();
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 12 } item)
+            if (obj is not object[] { Length: 11 } item)
                 continue;
 
             if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
@@ -41,15 +38,15 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
                 {
                     IdentityValueUid = uid,
                     CreateDt = Convert.ToDateTime(item[1]),
-                    Scale = item[2] as string ?? string.Empty,
-                    Host = item[4] as string ?? string.Empty,
-                    App = item[5] as string ?? string.Empty,
-                    Version = item[6] as string ?? string.Empty,
-                    File = item[7] as string ?? string.Empty,
-                    Line = Convert.ToInt32(item[8]),
-                    Member = item[9] as string ?? string.Empty,
-                    Icon = item[10] as string ?? string.Empty,
-                    Message = item[11] as string ?? string.Empty
+                    Line = item[2] as string ?? string.Empty,
+                    Host = item[3] as string ?? string.Empty,
+                    App = item[4] as string ?? string.Empty,
+                    Version = item[5] as string ?? string.Empty,
+                    File = item[6] as string ?? string.Empty,
+                    CodeLine = Convert.ToInt32(item[7]),
+                    Member = item[8] as string ?? string.Empty,
+                    LogType = item[9] as string ?? string.Empty,
+                    Message = item[10] as string ?? string.Empty
                 });
             }
         }

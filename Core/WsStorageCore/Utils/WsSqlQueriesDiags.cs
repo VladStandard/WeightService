@@ -37,44 +37,19 @@ from [db_scales].[LOG_TYPES]
 order by [NUMBER]
 ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-        public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
--- Table LOGS diagram summary
-select {WsSqlQueries.GetTopRecords(topRecords)}
-[l].[UID]
-,[l].[CREATE_DT]
-,[s].[Description] [SCALE]
-,[d].[NAME] [HOSTNAME]
-,[d].[PRETTY_NAME] [HOST_PRETTY_NAME]
-,[a].[NAME] [APP]
-,[l].[VERSION]
-,[l].[FILE]
-,[l].[LINE]
-,[l].[MEMBER]
-,[lt].[ICON]
-,[l].[MESSAGE]
-from [db_scales].[LOGS] [l]
-left join [db_scales].[DEVICES] [d] on [d].[UID] = [l].[DEVICE_UID]
-left join [db_scales].[DEVICES_SCALES_FK] [ds] on [ds].[DEVICE_UID] = [d].[UID]
-left join [db_scales].[Scales] [s] on [s].[Id] = [ds].[SCALE_ID]
-left join [db_scales].[APPS] [a] on [a].[UID] = [l].[APP_UID]
-left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID] = [l].[LOG_TYPE_UID]
-{WsSqlQueries.GetWhereIsMarkedAndNumber(isShowMarkedItems, "[l]", "[lt]", logTypeUid)}
-order by [l].[CREATE_DT] desc
-            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-    }
-
-    /// <summary>
-    /// Представления.
-    /// </summary>
-    public static class Views
-    {
         /// <summary>
-        /// Получить логи памяти.
+        /// Представления.
         /// </summary>
-        /// <param name="topRecords"></param>
-        /// <returns></returns>
-        public static string GetViewLogsMemories(int topRecords) => $@"
+        public static class Views
+        {
+            /// <summary>
+            /// Получить логи памяти.
+            /// </summary>
+            /// <param name="topRecords"></param>
+            /// <returns></returns>
+            public static string GetViewLogsMemories(int topRecords)
+            {
+                return $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	 [CREATE_DT]
@@ -86,13 +61,16 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 FROM [diag].[VIEW_LOGS_MEMORIES]
 ORDER BY [CREATE_DT] DESC;
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+            }
 
-        /// <summary>
-        /// Получить логи размеров таблиц.
-        /// </summary>
-        /// <param name="topRecords"></param>
-        /// <returns></returns>
-        public static string GetViewTablesSizes(int topRecords) => $@"
+            /// <summary>
+            /// Получить логи размеров таблиц.
+            /// </summary>
+            /// <param name="topRecords"></param>
+            /// <returns></returns>
+            public static string GetViewTablesSizes(int topRecords)
+            {
+                return $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	 [SCHEMA_TABLE]
@@ -105,5 +83,31 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 FROM [diag].[VIEW_TABLES_SIZES]
 ORDER BY [SCHEMA], [TABLE];
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+            }
+
+            public static string GetLogs(int topRecords, bool isShowMarkedItems, string? logType)
+            {
+                logType = logType != null ? $"WHERE LOG_TYPE = '{logType}'" : string.Empty;
+                return $@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+-- Table LOGS diagram summary
+select {WsSqlQueries.GetTopRecords(topRecords)}
+	 [UID]
+	,[CREATE_DT]
+	,[LINE]
+	,[HOSTNAME]
+	,[APP]
+	,[VERSION]
+	,[FILE]
+	,[CODE_LINE]
+	,[MEMBER]
+	,[LOG_TYPE]
+	,[MESSAGE]
+from [diag].[VIEW_LOGS]
+{logType}
+order by [CREATE_DT] desc
+           ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+            }
+        }
     }
 }
