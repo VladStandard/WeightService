@@ -8,7 +8,7 @@ namespace WsStorageCore.TableDiagModels.LogsMemories;
 /// Table "diag.LOGS_MEMORIES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(LogMomoryModel)} | {Device.Description} | {SizeAppMb} | SizeFreeMb")]
+[DebuggerDisplay("{nameof(LogMemoryModel)} | {Device.Description} | {SizeAppMb} | SizeFreeMb")]
 public class LogMemoryModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

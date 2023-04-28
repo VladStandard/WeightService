@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using NUnit.Framework;
 using WsLocalizationCore.Models;
 using WsStorageCore.TableScaleModels.Brands;
+using WsWebApiCore.Models;
 using WsWebApiCore.Utils;
 
 namespace WsWebApiCoreTests.Utils;
@@ -68,7 +69,7 @@ public sealed class WsContentUtilsTests
             Assert.That(xElement, Is.Not.Null);
             if (xElement is not null)
             {
-                List<BrandModel> brands = WsContentUtils.GetNodesListCore<BrandModel>(xElement, LocaleCore.WebService.XmlItemBrand,
+                List<WsXmlContentRecord<BrandModel>> brands = WsContentUtils.GetNodesListCore<BrandModel>(xElement, LocaleCore.WebService.XmlItemBrand,
                     (xmlNode, itemXml) =>
                     {
                         WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -76,9 +77,10 @@ public sealed class WsContentUtilsTests
                         WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
                         WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
                     });
-                foreach (BrandModel brand in brands)
+                foreach (WsXmlContentRecord<BrandModel> brand in brands)
                 {
-                    TestContext.WriteLine(brand);
+                    TestContext.WriteLine(brand.Item);
+                    TestContext.WriteLine(brand.Content);
                     //Assert.That(brand);
                 }
             }

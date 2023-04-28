@@ -26,8 +26,9 @@ public sealed class WsBrandsHelper : WsContentBase
 
     #region Public and private methods
 
-    private List<BrandModel> GetXmlBrandList(XElement xml) =>
-        WsContentUtils.GetNodesListCore<BrandModel>(xml, LocaleCore.WebService.XmlItemBrand, (xmlNode, itemXml) =>
+    private List<WsXmlContentRecord<BrandModel>> GetXmlBrandList(XElement xml) =>
+        WsContentUtils.GetNodesListCore<BrandModel>(xml, LocaleCore.WebService.XmlItemBrand, 
+            (xmlNode, itemXml) =>
         {
             WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
@@ -76,16 +77,17 @@ public sealed class WsBrandsHelper : WsContentBase
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
             List<BrandModel> itemsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
-            List<BrandModel> itemsXml = GetXmlBrandList(xml);
-            foreach (BrandModel itemXml in itemsXml)
+            List<WsXmlContentRecord<BrandModel>> itemsXml = GetXmlBrandList(xml);
+            foreach (WsXmlContentRecord<BrandModel> record in itemsXml)
             {
-                switch (itemXml.ParseResult.Status)
+                BrandModel brandXml = record.Item;
+                switch (brandXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cBrand(response, itemsDb, itemXml);
+                        AddResponse1cBrand(response, itemsDb, brandXml);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1cException(response, itemXml);
+                        AddResponse1cException(response, brandXml);
                         break;
                 }
             }

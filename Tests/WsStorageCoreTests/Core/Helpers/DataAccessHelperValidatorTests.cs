@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.TableRefFkModels.Plus1cFk;
+
 namespace WsStorageCoreTests.Core.Helpers;
 
 [TestFixture]
@@ -9,7 +11,7 @@ public sealed class DataAccessHelperValidatorTests
     #region Public and private methods
 
     [Test]
-    public void DataAccess_Validator_DoesNotThrow()
+    public void Get_string_from_validators()
     {
         Assert.DoesNotThrow(() =>
         {
@@ -22,402 +24,412 @@ public sealed class DataAccessHelperValidatorTests
     }
 
     [Test]
-    public void DataAccess_AccessValidator_DoesNotThrow()
+    public void Get_string_from_AccessValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlAccessValidator item = new();
-            TestContext.WriteLine(item);
+            WsSqlAccessValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_AppValidator_DoesNotThrow()
+    public void Get_string_from_AppValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlAppValidator item = new();
-            TestContext.WriteLine(item);
+            WsSqlAppValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_BarCodeValidator_DoesNotThrow()
+    public void Get_string_from_BarCodeValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            BarCodeValidator item = new();
-            TestContext.WriteLine(item);
+            BarCodeValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_BoxValidator_DoesNotThrow()
+    public void Get_string_from_BoxValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            BoxValidator item = new();
-            TestContext.WriteLine(item);
+            BoxValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_BrandValidator_DoesNotThrow()
+    public void Get_string_from_BrandValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            BrandValidator item = new();
-            TestContext.WriteLine(item);
+            BrandValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_BundleValidator_DoesNotThrow()
+    public void Get_string_from_BundleValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            BundleValidator item = new();
-            TestContext.WriteLine(item);
+            BundleValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_ClipValidator_DoesNotThrow()
+    public void Get_string_from_ClipValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            ClipValidator item = new();
-            TestContext.WriteLine(item);
+            ClipValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_ContragentValidator_DoesNotThrow()
+    public void Get_string_from_ContragentValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            ContragentValidator item = new();
-            TestContext.WriteLine(item);
+            ContragentValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_DeviceValidator_DoesNotThrow()
+    public void Get_string_from_DeviceValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceValidator item = new();
-            TestContext.WriteLine(item);
+            DeviceValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_DeviceScaleFkValidator_DoesNotThrow()
+    public void Get_string_from_DeviceScaleFkValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceScaleFkValidator item = new();
-            TestContext.WriteLine(item);
+            DeviceScaleFkValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_DeviceTypeFkValidator_DoesNotThrow()
+    public void Get_string_from_DeviceTypeFkValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceTypeFkValidator item = new();
-            TestContext.WriteLine(item);
+            DeviceTypeFkValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_DeviceTypeValidator_DoesNotThrow()
+    public void Get_string_from_DeviceTypeValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceTypeValidator item = new();
-            TestContext.WriteLine(item);
+            DeviceTypeValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_LogValidator_DoesNotThrow()
+    public void Get_string_from_LogValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            LogValidator item = new();
-            TestContext.WriteLine(item);
+            LogValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_LogTypeValidator_DoesNotThrow()
+    public void Get_string_from_LogTypeValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            LogTypeValidator item = new();
-            TestContext.WriteLine(item);
+            LogTypeValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PluGroupValidator_DoesNotThrow()
+    public void Get_string_from_PluGroupValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluGroupValidator item = new();
-            TestContext.WriteLine(item);
+            PluGroupValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_NomenclaturesCharacteristicsFkValidator_DoesNotThrow()
+    public void Get_string_from_PluCharacteristicsFkValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluCharacteristicsFkValidator item = new();
-            TestContext.WriteLine(item);
+            PluCharacteristicsFkValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_NomenclaturesCharacteristicsValidator_DoesNotThrow()
+    public void Get_string_from_PluCharacteristicValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluCharacteristicValidator item = new();
-            TestContext.WriteLine(item);
+            PluCharacteristicValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_NomenclaturesGroupFkValidator_DoesNotThrow()
+    public void Get_string_from_PluGroupFkValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluGroupFkValidator item = new();
-            TestContext.WriteLine(item);
+            PluGroupFkValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_OrderValidator_DoesNotThrow()
+    public void Get_string_from_OrderValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            OrderValidator item = new();
-            TestContext.WriteLine(item);
+            OrderValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_OrderWeighingValidator_DoesNotThrow()
+    public void Get_string_from_OrderWeighingValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            OrderWeighingValidator item = new();
-            TestContext.WriteLine(item);
+            OrderWeighingValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_OrganizationValidator_DoesNotThrow()
+    public void Get_string_from_OrganizationValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            OrganizationValidator item = new();
-            TestContext.WriteLine(item);
+            OrganizationValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PluBundleFkValidator_DoesNotThrow()
+    public void Get_string_from_PluBundleFkValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluBundleFkValidator item = new();
-            TestContext.WriteLine(item);
+            PluBundleFkValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PluLabelValidator_DoesNotThrow()
+    public void Get_string_from_PluLabelValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluLabelValidator item = new();
-            TestContext.WriteLine(item);
+            PluLabelValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PluValidator_DoesNotThrow()
+    public void Get_string_from_PluValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluValidator item = new();
-            TestContext.WriteLine(item);
+            PluValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PluScaleValidator_DoesNotThrow()
+    public void Get_string_from_PluScaleValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluScaleValidator item = new();
-            TestContext.WriteLine(item);
+            PluScaleValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PluTemplateFkValidator_DoesNotThrow()
+    public void Get_string_from_PluTemplateFkValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluTemplateFkValidator item = new();
-            TestContext.WriteLine(item);
+            PluTemplateFkValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PluWeighingValidator_DoesNotThrow()
+    public void Get_string_from_PluWeighingValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluWeighingValidator item = new();
-            TestContext.WriteLine(item);
+            PluWeighingValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PrinterValidator_DoesNotThrow()
+    public void Get_string_from_PrinterValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterValidator item = new();
-            TestContext.WriteLine(item);
+            PrinterValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PrinterResourceValidator_DoesNotThrow()
+    public void Get_string_from_PrinterResourceValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterResourceFkValidator item = new();
-            TestContext.WriteLine(item);
+            PrinterResourceFkValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_PrinterTypeValidator_DoesNotThrow()
+    public void Get_string_from_PrinterTypeValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterTypeValidator item = new();
-            TestContext.WriteLine(item);
+            PrinterTypeValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_ProductionFacilityValidator_DoesNotThrow()
+    public void Get_string_from_ProductionFacilityValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            ProductionFacilityValidator item = new();
-            TestContext.WriteLine(item);
+            ProductionFacilityValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_ProductSeriesValidator_DoesNotThrow()
+    public void Get_string_from_ProductSeriesValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            ProductSeriesValidator item = new();
-            TestContext.WriteLine(item);
+            ProductSeriesValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_ScaleValidator_DoesNotThrow()
+    public void Get_string_from_ScaleValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            ScaleValidator item = new();
-            TestContext.WriteLine(item);
+            ScaleValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_ScaleScreenShotValidator_DoesNotThrow()
+    public void Get_string_from_ScaleScreenShotValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            ScaleScreenShotValidator item = new();
-            TestContext.WriteLine(item);
+            ScaleScreenShotValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_TaskValidator_DoesNotThrow()
+    public void Get_string_from_TaskValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            TaskValidator item = new();
-            TestContext.WriteLine(item);
+            TaskValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_TaskTypeValidator_DoesNotThrow()
+    public void Get_string_from_TaskTypeValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            TaskTypeValidator item = new();
-            TestContext.WriteLine(item);
+            TaskTypeValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_TemplateValidator_DoesNotThrow()
+    public void Get_string_from_TemplateValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            TemplateValidator item = new();
-            TestContext.WriteLine(item);
+            TemplateValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_TemplateResourceValidator_DoesNotThrow()
+    public void Get_string_from_TemplateResourceValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            TemplateResourceValidator item = new();
-            TestContext.WriteLine(item);
+            TemplateResourceValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_VersionValidator_DoesNotThrow()
+    public void Get_string_from_VersionValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            VersionValidator item = new();
-            TestContext.WriteLine(item);
+            VersionValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 
     [Test]
-    public void DataAccess_WorkShopValidator_DoesNotThrow()
+    public void Get_string_from_WorkShopValidator()
     {
         Assert.DoesNotThrow(() =>
         {
-            WorkShopValidator item = new();
-            TestContext.WriteLine(item);
+            WorkShopValidator validator = new();
+            TestContext.WriteLine(validator);
+        });
+    }
+
+    [Test]
+    public void Get_string_from_WsSqlPlu1cFkValidator()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            WsSqlPlu1cFkValidator validator = new();
+            TestContext.WriteLine(validator);
         });
     }
 

@@ -100,7 +100,7 @@ public class PluGroupModel : WsSqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures_groups/.
-        if (item is not PluGroupModel pluGroup) throw new ArgumentException(nameof(item));
+        if (item is not PluGroupModel pluGroup) throw new ArgumentException();
         Uid1c = pluGroup.Uid1c;
 
         IsGroup = pluGroup.IsGroup;

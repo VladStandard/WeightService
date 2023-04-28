@@ -74,11 +74,12 @@ public class BundleModel : WsSqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluModel plu) throw new ArgumentException(nameof(item));
+        if (item is not PluModel plu) throw new ArgumentException();
         Uid1c = plu.PackageTypeGuid;
 
         Name = plu.PackageTypeName;
         Weight = plu.PackageTypeWeight;
+        if (Equals(Weight, default)) throw new ArgumentException(nameof(Weight));
     }
 
     #endregion

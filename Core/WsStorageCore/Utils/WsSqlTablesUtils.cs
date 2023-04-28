@@ -1,8 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable InconsistentNaming
 
 namespace WsStorageCore.Utils;
 
+/// <summary>
+/// SQL table names.
+/// </summary>
 public static class WsSqlTablesUtils
 {
     #region Public and private fields, properties, constructor
@@ -33,6 +37,7 @@ public static class WsSqlTablesUtils
     public static string OrdersWeighings => "ORDERS_WEIGHINGS";
     public static string Organizations => "ORGANIZATIONS";
     public static string Plus => "PLUS";
+    public static string Plus1cFk => "PLUS_1C_FK";
     public static string PlusBrandsFks => "PLUS_BRANDS_FK";
     public static string PlusBundlesFks => "PLUS_BUNDLES_FK";
     public static string PlusCharacteristics => "PLUS_CHARACTERISTICS";

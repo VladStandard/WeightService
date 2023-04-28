@@ -1,7 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable InconsistentNaming
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
+
+using WsStorageCore.TableRefFkModels.Plus1cFk;
 
 namespace WsStorageCore.Helpers;
 
@@ -164,6 +167,7 @@ internal sealed class WsSqlAccessCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<VersionMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WorkShopMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPlu1cFkMap>());
     }
 
     #endregion
@@ -723,6 +727,9 @@ internal sealed class WsSqlAccessCoreHelper
                 break;
             case WorkShopModel workshop:
                 workshop.ProductionFacility = GetItemNotNullable<ProductionFacilityModel>(workshop.ProductionFacility.IdentityValueId);
+                break;
+            case WsSqlPlu1cFkModel plu1cFk:
+                plu1cFk.Plu = GetItemNotNullable<PluModel>(plu1cFk.Plu.IdentityValueUid);
                 break;
         }
     }

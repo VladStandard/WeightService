@@ -7,7 +7,7 @@ namespace WsStorageContextTests.TableDiagModels;
 public sealed class LogMemoryContentTests
 {
     [Test]
-    public void Model_Content_Validate()
+    public void Validate_logs_memories()
     {
         WsTestsUtils.DataTests.AssertSqlDbContentValidate<LogMemoryModel>(true);
     }

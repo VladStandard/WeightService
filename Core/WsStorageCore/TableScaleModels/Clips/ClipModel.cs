@@ -76,11 +76,12 @@ public class ClipModel : WsSqlTableBase1c
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluModel plu) throw new ArgumentException(nameof(item));
+        if (item is not PluModel plu) throw new ArgumentException();
         Uid1c = plu.ClipTypeGuid;
 
         Name = plu.ClipTypeName;
         Weight = plu.ClipTypeWeight;
+        if (Equals(Weight, default)) throw new ArgumentException(nameof(Weight));
     }
 
     #endregion
