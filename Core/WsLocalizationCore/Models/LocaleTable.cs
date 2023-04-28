@@ -242,6 +242,8 @@ public sealed class LocaleTable : WsLocalizationBase
     public string RequestUrl => Lang == Lang.English ? "Request url" : "Url запроса";
     public string Request => Lang == Lang.English ? "Request" : "Запрос";
     public string Response => Lang == Lang.English ? "Response" : "Ответ";
+    public string Success => Lang == Lang.English ? "Success" : "Успешно";
+    public string Error => Lang == Lang.English ? "Failed" : "Неудачно";
     
     #endregion
 }

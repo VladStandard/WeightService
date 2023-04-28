@@ -3,7 +3,6 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Printers
 @using BlazorDeviceControl.Pages.ItemComponents
-@using BlazorDeviceControl.Pages.Menu.Devices.SectionPrintersResources
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Printers.PrinterModel>
 
@@ -75,7 +74,7 @@
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>
 
-@if (SqlItem != null)
+@*@if (SqlItem != null)
 {
   <PrintersResources SqlItem="@SqlItem"/>
-}
+}*@
