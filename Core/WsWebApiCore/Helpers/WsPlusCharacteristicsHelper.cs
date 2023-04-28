@@ -40,19 +40,26 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "NomenclatureGuid");
         });
 
+    /// <summary>
+    /// Добавить характеристику ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluCharacteristicsDb"></param>
+    /// <param name="pluCharacteristicXml"></param>
+    /// <param name="pluDb"></param>
     private void AddResponse1cPluCharacteristics(WsResponse1cShortModel response, List<PluCharacteristicModel> pluCharacteristicsDb,
         PluCharacteristicModel pluCharacteristicXml, PluModel pluDb)
     {
         try
         {
-            // Find by Identity -> Update exists.
+            // Найдено по Identity -> Обновить найденную запись.
             PluCharacteristicModel? itemDb = pluCharacteristicsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
             if (UpdateItem1cDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
 
-            // Not find -> Add new.
+            // Не найдено -> Добавить новую запись.
             bool isSave = SaveItemDb(response, pluCharacteristicXml, true);
 
-            // Update db list.
+            // Обновить список БД.
             if (isSave && !pluCharacteristicsDb.Select(x => x.IdentityValueUid).Contains(pluCharacteristicXml.IdentityValueUid))
                 pluCharacteristicsDb.Add(pluCharacteristicXml);
         }
@@ -62,6 +69,12 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
         }
     }
 
+    /// <summary>
+    /// Добавить связь характеристики ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluCharacteristicsFksDb"></param>
+    /// <param name="pluCharacteristicXml"></param>
     private void AddResponse1cPluCharacteristicsFks(WsResponse1cShortModel response,
         List<PluCharacteristicsFkModel> pluCharacteristicsFksDb, PluCharacteristicModel pluCharacteristicXml)
     {
@@ -82,17 +95,17 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
                 Characteristic = pluCharacteristicDb,
             };
 
-            // Find by Identity -> Update exists.
+            // Найдено по Identity -> Обновить найденную запись.
             PluCharacteristicsFkModel? pluCharacteristicFkDb = pluCharacteristicsFksDb.Find(item =>
                 Equals(item.Plu.Uid1c, pluCharacteristicsFk.Plu.Uid1c) &&
                 Equals(item.Characteristic.Uid1c, pluCharacteristicsFk.Characteristic.Uid1c));
             if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, pluCharacteristicFkDb, 
                     false, pluDb.Number)) return;
 
-            // Not find -> Add new.
+            // Не найдено -> Добавить новую запись.
             bool isSave = SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1c);
 
-            // Update db list.
+            // Обновить список БД.
             if (isSave && !pluCharacteristicsFksDb.Select(x => x.IdentityValueUid).Contains(pluCharacteristicsFk.IdentityValueUid))
                 pluCharacteristicsFksDb.Add(pluCharacteristicsFk);
         }
@@ -121,15 +134,18 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             {
                 PluCharacteristicModel pluCharacteristicXml = record.Item;
                 PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
-                WsSqlPlu1cFkModel plu1cFkDb = plus1cFks.Find(item => Equals(item.Plu.Uid1c, record.Item.Uid1c))
+                WsSqlPlu1cFkModel plu1cFkDb = plus1cFks.Find(item => Equals(item.Plu.Uid1c, pluCharacteristicXml.NomenclatureGuid))
                     ?? ContextManager.ContextPlu1cFk.GetNewItem();
-                // Проверить номер ПЛУ в списке ACL.
+                // Проверить номер ПЛУ в списке доступа к выгрузке.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
-                    CheckAclPluNumber(pluCharacteristicXml, plu1cFkDb);
+                    CheckIsEnabledPlu(pluCharacteristicXml, plu1cFkDb);
+                // Добавить характеристику ПЛУ.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPluCharacteristics(response, pluCharacteristicsDb, pluCharacteristicXml, pluDb);
+                // Добавить связь характеристики ПЛУ.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPluCharacteristicsFks(response, pluCharacteristicsFksDb, pluCharacteristicXml);
+                // Исключение.
                 if (pluCharacteristicXml.ParseResult.IsStatusError)
                     AddResponse1cException(response, pluCharacteristicXml.Uid1c,
                         pluCharacteristicXml.ParseResult.Exception, pluCharacteristicXml.ParseResult.InnerException);

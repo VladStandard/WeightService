@@ -40,22 +40,22 @@ public sealed class WsBrandsHelper : WsContentBase
     {
         try
         {
-            // Find by Uid1C -> Update exists.
+            // Найдено по Uid1C -> Обновить найденную запись.
             BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1c, brandXml.IdentityValueUid));
             if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
-            // Find by Code -> Update exists.
+            // Найдено по Code -> Обновить найденную запись.
             brandDb = brandsDb.Find(item => Equals(item.Code, brandXml.Code));
             if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
-            // Find by Name -> Update exists.
+            // Найдено по Name -> Обновить найденную запись.
             brandDb = brandsDb.Find(item => Equals(item.Name, brandXml.Name));
             if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
-            // Not find -> Add new.
+            // Не найдено -> Добавить новую запись.
             bool isSave = SaveItemDb(response, brandXml, true);
 
-            // Update db list.
+            // Обновить список БД.
             if (brandDb is not null && isSave && !brandsDb.Select(x => x.IdentityValueUid).Contains(brandDb.IdentityValueUid))
                 brandsDb.Add(brandDb);
         }

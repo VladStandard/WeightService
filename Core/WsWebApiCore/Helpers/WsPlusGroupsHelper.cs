@@ -73,16 +73,16 @@ public sealed class WsPlusGroupsHelper : WsContentBase
                 Parent = parent
             };
 
-            // Find by Identity -> Update exists.
+            // Найдено по Identity -> Обновить найденную запись.
             PluGroupFkModel? itemDb = itemsDb.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
             if (UpdatePluGroupFkDb(response, pluGroupXml.Uid1c, itemGroupFk, itemDb, false)) return;
 
-            // Not find -> Add new.
+            // Не найдено -> Добавить новую запись.
             bool isSave = SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1c);
 
-            // Update db list.
+            // Обновить список БД.
             if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(itemGroupFk.IdentityValueUid))
                 itemsDb.Add(itemGroupFk);
         }
@@ -96,22 +96,22 @@ public sealed class WsPlusGroupsHelper : WsContentBase
     {
         try
         {
-            // Find by Uid1C -> Update exists.
+            // Найдено по Uid1C -> Обновить найденную запись.
             PluGroupModel? pluGroupDb = pluGroupsDb.Find(item => Equals(item.Uid1c, pluGroupXml.IdentityValueUid));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
-            // Find by Code -> Update exists.
+            // Найдено по Code -> Обновить найденную запись.
             pluGroupDb = pluGroupsDb.Find(item => Equals(item.Code, pluGroupXml.Code));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
-            // Find by Name -> Update exists.
+            // Найдено по Name -> Обновить найденную запись.
             pluGroupDb = pluGroupsDb.Find(item => Equals(item.Name, pluGroupXml.Name));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
-            // Not find -> Add new.
+            // Не найдено -> Добавить новую запись.
             bool isSave = SaveItemDb(response, pluGroupXml, true);
 
-            // Update db list.
+            // Обновить список БД.
             if (pluGroupDb is not null && isSave && !pluGroupsDb.Select(x => x.IdentityValueUid).Contains(pluGroupDb.IdentityValueUid))
                 pluGroupsDb.Add(pluGroupDb);
         }

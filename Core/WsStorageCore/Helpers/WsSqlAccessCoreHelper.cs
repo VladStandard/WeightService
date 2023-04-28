@@ -229,9 +229,8 @@ internal sealed class WsSqlAccessCoreHelper
 
         if (exception is not null)
         {
-            //SaveLogError(exception);
-            //return new() { IsOk = false, Exception = exception };
-            throw exception;
+            return new() { IsOk = false, Exception = exception };
+            //throw exception;
         }
         return new() { IsOk = true, Exception = null };
     }

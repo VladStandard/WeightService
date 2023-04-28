@@ -899,11 +899,11 @@ public class WsContentBase : ControllerBase
     #endregion
 
     /// <summary>
-    /// Проверить номер ПЛУ в списке ACL.
+    /// Проверить номер ПЛУ в списке доступа к выгрузке.
     /// </summary>
     /// <param name="itemXml"></param>
     /// <param name="plu1cFkDb"></param>
-    internal void CheckAclPluNumber(WsSqlTableBase1c itemXml, WsSqlPlu1cFkModel plu1cFkDb)
+    internal void CheckIsEnabledPlu(WsSqlTableBase1c itemXml, WsSqlPlu1cFkModel plu1cFkDb)
     {
         // Пропуск групп.
         if (plu1cFkDb.Plu.IsGroup) return;
