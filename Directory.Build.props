@@ -2,6 +2,8 @@
 <Project>
     <PropertyGroup>
         <Deterministic>true</Deterministic>
+        <LangVersion>latest</LangVersion>
+        <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopAleksandrov|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
