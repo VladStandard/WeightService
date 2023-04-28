@@ -2,11 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
-using WsStorageCore.TableScaleModels.Devices;
+using WsStorageCore.ViewScaleModels;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionDevices;
 
-public sealed partial class Devices : RazorComponentSectionBase<DeviceModel>
+public sealed partial class Devices : RazorComponentSectionBase<DeviceView>
 {
     #region Public and private fields, properties, constructor
 
@@ -18,16 +18,32 @@ public sealed partial class Devices : RazorComponentSectionBase<DeviceModel>
 
     protected override void SetSqlSectionCast()
     {
-        base.SetSqlSectionCast();
-        DeviceTypesFk = ContextManager.ContextList.GetListNotNullable<DeviceTypeFkModel>(new SqlCrudConfigModel());
-        // DataAccessHelper.Instance.GetItemDeviceTypeFkNotNullable(device).Type.PrettyName
+        var query = WsSqlQueriesDiags.Tables.Views.GetDevices(SqlCrudConfigSection.IsResultShowOnlyTop
+            ? ContextManager.JsonSettings.Local.SelectTopRowsCount
+            : 0, SqlCrudConfigSection.IsResultShowMarked);
+        object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
+        List<DeviceView> items = new();
+        foreach (var obj in objects)
+        {
+            if (obj is not object[] { Length: 8 } item)
+                continue;
+            if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
+            {
+                items.Add(new DeviceView
+                {
+                    IdentityValueUid = uid,
+                    IsMarked = Convert.ToBoolean(item[1]),
+                    LoginDate = Convert.ToDateTime(item[2]),
+                    LogoutDate = Convert.ToDateTime(item[3]),
+                    Name = item[4] as string ?? string.Empty,
+                    TypeName = item[5] as string ?? string.Empty,
+                    Ip = item[6] as string ?? string.Empty,
+                    Mac = item[7] as string ?? string.Empty
+                });
+            }
+        }
+        SqlSectionCast = items;
     }
-
-    private string GetDevicePrettyName(DeviceModel device)
-    {
-        var deviceTypeFk = DeviceTypesFk.Find((x) => x.Device.Equals(device));
-        return deviceTypeFk != null ? deviceTypeFk.Type.PrettyName : "";
-    }
-
+    
     #endregion
 }

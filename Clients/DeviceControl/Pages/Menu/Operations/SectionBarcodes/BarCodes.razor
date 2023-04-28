@@ -1,13 +1,13 @@
 ﻿@page "/section/barcodes"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.BarCodes
+@using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.BarCodes.BarCodeModel>
+@inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.BarcodeView>
 
 <SectionReload
-  TItem="@BarCodeModel"
+  TItem="@BarcodeView"
   Title="@LocaleCore.DeviceControl.SectionBarCodes"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -16,17 +16,17 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@BarCodeModel"
+  TItem="@BarcodeView"
   Data="@SqlSectionCast"
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@BarCodeModel">
+    <TItemContent TItem="@BarcodeView">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="PluLabel.CreateDt" Width="12%" FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluLabel.PluScale.Plu.Number" Width="12%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="12%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueTop" Property="ValueTop" Width="28%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueRight" Property="ValueRight" Width="15%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueBottom" Property="ValueBottom" Width="28%"/>

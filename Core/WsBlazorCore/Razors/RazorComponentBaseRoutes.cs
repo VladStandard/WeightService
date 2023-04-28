@@ -39,7 +39,7 @@ using WsStorageCore.TableScaleModels.Templates;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 using WsStorageCore.TableScaleModels.Versions;
 using WsStorageCore.TableScaleModels.WorkShops;
-using WsStorageCore.Xml;
+using WsStorageCore.ViewScaleModels;
 
 namespace WsBlazorCore.Razors;
 
@@ -98,7 +98,6 @@ public partial class RazorComponentBase
             DeviceTypeFkModel => LocaleCore.DeviceControl.RouteSectionDevicesTypesFk,
             DeviceTypeModel => LocaleCore.DeviceControl.RouteSectionDevicesTypes,
             LogModel => LocaleCore.DeviceControl.RouteSectionLogs,
-            LogQuickModel => LocaleCore.DeviceControl.RouteSectionLogs,
             LogTypeModel => LocaleCore.DeviceControl.RouteSectionLogTypes,
             LogWebFkModel => LocaleCore.DeviceControl.RouteSectionLogsWebService,
             PluGroupModel => LocaleCore.DeviceControl.RouteSectionNomenclaturesGroups,
@@ -124,6 +123,14 @@ public partial class RazorComponentBase
             TemplateResourceModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
             VersionModel => LocaleCore.DeviceControl.RouteSectionVersions,
             WorkShopModel => LocaleCore.DeviceControl.RouteSectionWorkShops,
+            // VIEWS
+            LogView => LocaleCore.DeviceControl.RouteSectionLogs,
+            LineView => LocaleCore.DeviceControl.RouteSectionScales,
+            BarcodeView => LocaleCore.DeviceControl.RouteSectionBarCodes,
+            PlusLabelView => LocaleCore.DeviceControl.RouteSectionPlusLabels,
+            PluWeightingView => LocaleCore.DeviceControl.RouteSectionPlusWeighings,
+            DeviceView => LocaleCore.DeviceControl.RouteSectionDevices,
+            LogWebView => LocaleCore.DeviceControl.RouteSectionLogsWebService,
             _ => string.Empty
         };
 

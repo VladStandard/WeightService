@@ -1,14 +1,13 @@
 ﻿@page "/section/logs"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.Xml
-@using WsStorageCore.TableDiagModels.LogsTypes
+@using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.Xml.LogQuickModel>
+@inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.LogView>
 
 <SectionReload
-  TItem="@LogQuickModel"
+  TItem="@LogView"
   Title="@LocaleCore.System.SystemLogs"
   ButtonSettings="@ButtonSettings"
   OnSectionUpdate="@GetSectionData"
@@ -22,14 +21,14 @@
                  AllowClear="true" Placeholder="All" />
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@LogQuickModel"
+  TItem="@LogView"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@LogQuickModel">
+    <TItemContent TItem="@LogView">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="14%" FormatString="@StrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="14%"/>

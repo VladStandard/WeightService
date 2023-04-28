@@ -1,13 +1,13 @@
 @page "/section/logs_web_service_fk"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using WsStorageCore.TableDiagModels.LogsWebsFks
+@using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableDiagModels.LogsWebsFks.LogWebFkModel>
+@inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.LogWebView>
 
 <SectionReload
-  TItem="@LogWebFkModel"
+  TItem="@LogWebView"
   Title="@LocaleCore.WebService.Name"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -16,7 +16,7 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@LogWebFkModel"
+  TItem="@LogWebView"
   Data="@SqlSectionCast"
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
@@ -24,15 +24,15 @@
   RowRender="@RowRender"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@LogWebFkModel">
+    <TItemContent TItem="@LogWebView">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="LogWebRequest.CreateDt" Width="15%"
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" 
                             FormatString="@StrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Device.Name" Width="10%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="LogWebRequest.Version" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="LogType.Icon" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.RequestUrl" Property="LogWebRequest.Url" Width="40%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Request" Property="ToString()" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="AppVersion" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.RequestUrl" Property="RequestUrl" Width="40%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="RequestCountAll" Width="15%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Success" Property="ResponseCountSuccess" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Error" Property="ResponseCountError" Width="15%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

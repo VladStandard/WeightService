@@ -1,12 +1,12 @@
 @page "/section/scales"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Scales
+@using WsStorageCore.ViewScaleModels
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Scales.ScaleModel>
+@inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.LineView>
 
 <SectionReload
-  TItem="@ScaleModel"
+  TItem="@LineView"
   Title="@LocaleCore.DeviceControl.SectionScales"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -15,18 +15,19 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@ScaleModel"
+  TItem="@LineView"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@ScaleModel">
+    <TItemContent TItem="@LineView">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Description" Width="30%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Name" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.WorkShop" Property="WorkShop.Name" Width="35%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Printer" Property="PrinterMain.Name" Width="35%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="HostName" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Printer" Property="Printer" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WorkShop" Property="WorkShop" Width="20%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>
