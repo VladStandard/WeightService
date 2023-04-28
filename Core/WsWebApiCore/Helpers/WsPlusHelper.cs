@@ -114,21 +114,6 @@ public sealed class WsPlusHelper : WsContentBase
         return dbUpdate.IsOk;
     }
 
-    /// <summary>
-    /// Обновить данные в таблице связей номенклатуры 1С.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="record"></param>
-    /// <param name="plu1cFkDb"></param>
-    private void UpdatePlu1cFkDb(WsResponse1cShortModel response, WsXmlContentRecord<PluModel> record, WsSqlPlu1cFkModel plu1cFkDb)
-    {
-        if (plu1cFkDb.IsNew) return;
-        plu1cFkDb.UpdateProperties(record.Content);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(plu1cFkDb);
-        if (!dbUpdate.IsOk)
-            AddResponse1cException(response, record.Item.Uid1c, dbUpdate.Exception);
-    }
-
     #endregion
 
     #region Public and private methods
@@ -182,8 +167,8 @@ public sealed class WsPlusHelper : WsContentBase
             // Проверка на пустой Uid1C.
             if (Equals(pluXml.IdentityValueUid, Guid.Empty))
             {
-                AddResponse1cException(response, pluXml.Uid1c,
-                    $"{LocaleCore.WebService.IsEmpty} {LocaleCore.WebService.FieldGuid}!", "");
+                AddResponse1cExceptionString(response, pluXml.Uid1c,
+                    $"{LocaleCore.WebService.IsEmpty} {LocaleCore.WebService.FieldGuid}!");
                 return;
             }
 
@@ -275,8 +260,8 @@ public sealed class WsPlusHelper : WsContentBase
                 // BoxTypeGuid="00000000-0000-0000-0000-000000000000" BoxTypeName!="" BoxTypeWeight!="".
                 if (pluXml.PackageTypeWeight > 0)
                 {
-                    AddResponse1cException(response, pluXml.Uid1c,
-                    $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.BoxTypeGuid)}!", "");
+                    AddResponse1cExceptionString(response, pluXml.Uid1c,
+                    $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.BoxTypeGuid)}!");
                     return;
                 }
                 // BoxTypeGuid="00000000-0000-0000-0000-000000000000" BoxTypeName="" BoxTypeWeight="".
@@ -322,8 +307,8 @@ public sealed class WsPlusHelper : WsContentBase
                 // PackageTypeGuid="00000000-0000-0000-0000-000000000000" PackageTypeName!="" PackageTypeWeight!="".
                 if (pluXml.PackageTypeWeight > 0)
                 {
-                    AddResponse1cException(response, pluXml.Uid1c,
-                    $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.PackageTypeGuid)}!", "");
+                    AddResponse1cExceptionString(response, pluXml.Uid1c,
+                    $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.PackageTypeGuid)}!");
                     return;
                 }
                 // PackageTypeGuid="00000000-0000-0000-0000-000000000000" PackageTypeName="" PackageTypeWeight="".
@@ -410,8 +395,8 @@ public sealed class WsPlusHelper : WsContentBase
                 // ClipTypeGuid="00000000-0000-0000-0000-000000000000" ClipTypeName!="" ClipTypeWeight!="".
                 if (pluXml.ClipTypeWeight > 0)
                 {
-                    AddResponse1cException(response, pluXml.Uid1c,
-                    $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.ClipTypeGuid)}!", "");
+                    AddResponse1cExceptionString(response, pluXml.Uid1c,
+                    $"{LocaleCore.WebService.IsEmpty} {nameof(pluXml.ClipTypeGuid)}!");
                     return;
                 }
                 // ClipTypeGuid="00000000-0000-0000-0000-000000000000" ClipTypeName="" ClipTypeWeight="".
@@ -625,17 +610,12 @@ public sealed class WsPlusHelper : WsContentBase
             Cache.Load();
             List<WsXmlContentRecord<PluModel>> plusXml = GetXmlPluList(xml);
             PluValidator pluValidator = new();
-            PluModel pluXml;
-            WsSqlPlu1cFkModel plu1cFkDb;
             // Цикл по всем XML-номенклатурам.
             foreach (WsXmlContentRecord<PluModel> record in plusXml)
             {
-                pluXml = record.Item;
-                plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Uid1c, record.Item.Uid1c))
-                    ?? ContextManager.ContextPlu1cFk.GetNewItem();
+                PluModel pluXml = record.Item;
                 // Обновить данные в таблице связей номенклатуры 1С.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    UpdatePlu1cFkDb(response, record, plu1cFkDb);
+                WsSqlPlu1cFkModel plu1cFkDb = UpdatePlu1cFkDb(response, record);
                 // Проверить ПЛУ на группу.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     CheckPluNumberForNonGroup(pluXml);
@@ -647,7 +627,7 @@ public sealed class WsPlusHelper : WsContentBase
                     CheckPluValidation(pluXml, pluValidator);
                 // Проверить дубликат ПЛУ для не группы.
                 if (pluXml.ParseResult.IsStatusSuccess)
-                    CheckPluDublicateForNonGroup(pluXml, Cache.PlusDb);
+                    CheckPluDublicateForNonGroup(response, pluXml, Cache.PlusDb);
                 // Добавить ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess)
                     AddResponse1cPlu(response, Cache.PlusDb, pluXml);
@@ -680,7 +660,7 @@ public sealed class WsPlusHelper : WsContentBase
                 }
                 // Исключение.
                 if (pluXml.ParseResult.IsStatusError)
-                    AddResponse1cException(response, pluXml.Uid1c,
+                    AddResponse1cExceptionString(response, pluXml.Uid1c,
                         pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);
@@ -689,6 +669,7 @@ public sealed class WsPlusHelper : WsContentBase
     /// Проверить валидацию ПЛУ.
     /// </summary>
     /// <param name="itemXml"></param>
+    /// <param name="pluValidator"></param>
     private void CheckPluValidation(PluModel itemXml, PluValidator pluValidator)
     {
         ValidationResult validation = pluValidator.Validate(itemXml);
@@ -710,8 +691,8 @@ public sealed class WsPlusHelper : WsContentBase
     /// <param name="pluXml"></param>
     private void CheckPluNumberForNonGroup(PluModel pluXml)
     {
-        if (pluXml.IsGroup) return;
-        if (Equals(pluXml.Number, (short)0))
+        // Пропуск групп с нулевым номером.
+        if (pluXml is { IsGroup: true, Number: 0 })
         {
             pluXml.ParseResult.Status = ParseStatus.Error;
             pluXml.ParseResult.Exception =
@@ -723,21 +704,21 @@ public sealed class WsPlusHelper : WsContentBase
     /// <summary>
     /// Проверить дубликат ПЛУ для не группы.
     /// </summary>
+    /// <param name="response"></param>
     /// <param name="pluXml"></param>
     /// <param name="plusDb"></param>
-    private void CheckPluDublicateForNonGroup(PluModel pluXml, List<PluModel> plusDb)
+    private void CheckPluDublicateForNonGroup(WsResponse1cShortModel response, PluModel pluXml, List<PluModel> plusDb)
     {
-        if (pluXml.IsGroup) return;
-        if (plusDb.Select(x => x.Number).Contains(pluXml.Number))
+        // Пропуск групп с нулевым номером.
+        if (pluXml is { IsGroup: true, Number: 0 }) throw new(nameof(pluXml));
+        List<PluModel> plusNumberDb = plusDb.FindAll(x => Equals(x.Number, pluXml.Number));
+        if (plusNumberDb.Count > 1)
         {
-            PluModel? pluDb = plusDb.Find(x => Equals(x.Number, pluXml.Number) && !Equals(x.Code, pluXml.Code));
-            if (pluDb is not null)
-            {
-                pluXml.ParseResult.Status = ParseStatus.Error;
-                pluXml.ParseResult.Exception =
-                    $"{LocaleCore.WebService.Dublicate} {LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
-                    $"{LocaleCore.WebService.WithFieldCode} '{pluXml.Code}' {LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.WithFieldCode} '{pluDb.Code}'";
-            }
+            AddResponse1cExceptionString(response, pluXml.Uid1c,
+                $"{LocaleCore.WebService.Dublicate} {LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
+                $"{LocaleCore.WebService.WithFieldCode} '{pluXml.Code}' {LocaleCore.WebService.ForDbRecord} " +
+                $"{LocaleCore.WebService.WithFieldCode} '{string.Join(',', plusNumberDb.Select(x => x.Code).ToList())}'");
+            pluXml.ParseResult.Status = ParseStatus.Error;
         }
     }
 

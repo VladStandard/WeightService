@@ -532,8 +532,8 @@ public class WsContentBase : ControllerBase
             response.Errors.Add(responseRecord);
     }
 
-    internal void AddResponse1cException(WsResponse1cShortModel response, Guid uid, Exception? ex) =>
-        AddResponse1cException(response, uid, ex?.Message, ex?.InnerException?.Message);
+    internal void AddResponse1cException(WsResponse1cShortModel response, Guid uid, Exception ex) =>
+        AddResponse1cExceptionString(response, uid, ex.Message, ex.InnerException?.Message);
 
     /// <summary>
     /// Add error for response.
@@ -542,10 +542,11 @@ public class WsContentBase : ControllerBase
     /// <param name="uid"></param>
     /// <param name="exceptionMessage"></param>
     /// <param name="innerExceptionMessage"></param>
-    internal void AddResponse1cException(WsResponse1cShortModel response, Guid uid, string? exceptionMessage, string? innerExceptionMessage)
+    internal void AddResponse1cExceptionString(WsResponse1cShortModel response, Guid uid, string exceptionMessage, 
+        string? innerExceptionMessage = "")
     {
         WsResponse1cErrorModel responseRecord = new(uid,
-            !string.IsNullOrEmpty(innerExceptionMessage) ? innerExceptionMessage : exceptionMessage ?? string.Empty);
+            !string.IsNullOrEmpty(innerExceptionMessage) ? innerExceptionMessage : exceptionMessage);
         if (response.Errors.Select(item => item.Uid).Contains(uid))
         {
             if (response.Errors.Find(item => Equals(item.Uid, uid)) is { } error)
@@ -893,6 +894,64 @@ public class WsContentBase : ControllerBase
         return dbUpdate.IsOk;
     }
 
+    /// <summary>
+    /// Обновить данные в таблице связей номенклатуры 1С.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="record"></param>
+    internal WsSqlPlu1cFkModel UpdatePlu1cFkDb<T>(WsResponse1cShortModel response, WsXmlContentRecord<T> record)
+        where T : WsSqlTableBase1c, new()
+    {
+        WsSqlPlu1cFkModel plu1cFkDb = ContextManager.ContextPlu1cFk.GetNewItem();
+        // Поиск ПЛУ по номеру.
+        if (record is WsXmlContentRecord<PluModel> pluXml)
+        {
+            PluModel pluDb = ContextManager.ContextPlu.GetItemByNumber(pluXml.Item.Number);
+            plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number)) 
+                        ?? ContextManager.ContextPlu1cFk.GetNewItem();
+            if (plu1cFkDb.IsNotExists)
+                plu1cFkDb.Plu = pluDb;
+        }
+        // Поиск ПЛУ по GUID_1C.
+        else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+        {
+            PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(pluCharacteristicXml.Item.NomenclatureGuid);
+            plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
+                        ?? ContextManager.ContextPlu1cFk.GetNewItem();
+            if (plu1cFkDb.IsNotExists)
+                plu1cFkDb.Plu = pluDb;
+        }
+        // Обновить или создать ПЛУ.
+        plu1cFkDb.UpdateProperties(record.Content);
+        // Создать.
+        if (!plu1cFkDb.IsExists)
+        {
+            SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Save(plu1cFkDb);
+            if (!dbUpdate.IsOk)
+                AddResponse1cException(response, record.Item.Uid1c, dbUpdate.Exception);
+        }
+        // Обновить.
+        else
+        {
+            WsSqlPlu1cFkValidator validator = new();
+            ValidationResult validation = validator.Validate(plu1cFkDb);
+            if (!validation.IsValid)
+            {
+                AddResponse1cExceptionString(response, record.Item.Uid1c,
+                    string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
+            }
+            else
+            {
+                SqlCrudResultModel dbUpdate = plu1cFkDb.IsExists
+                ? AccessManager.AccessItem.UpdateForce(plu1cFkDb)
+                : AccessManager.AccessItem.Save(plu1cFkDb);
+                if (!dbUpdate.IsOk)
+                    AddResponse1cException(response, record.Item.Uid1c, dbUpdate.Exception);
+            }
+        }
+        return plu1cFkDb;
+    }
+
     #endregion
 
     /// <summary>
@@ -902,8 +961,8 @@ public class WsContentBase : ControllerBase
     /// <param name="plu1cFkDb"></param>
     internal void CheckIsEnabledPlu(WsSqlTableBase1c itemXml, WsSqlPlu1cFkModel plu1cFkDb)
     {
-        // Пропуск групп.
-        if (plu1cFkDb.Plu.IsGroup) return;
+        // Пропуск групп с нулевым номером.
+        if (plu1cFkDb.Plu is { IsGroup: true, Number: 0 }) throw new(nameof(plu1cFkDb.Plu));
         // ПЛУ не найдена.
         if (plu1cFkDb.IsNotExists)
         {

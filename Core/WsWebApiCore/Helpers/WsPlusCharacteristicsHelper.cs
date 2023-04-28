@@ -125,14 +125,11 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             // Прогреть кеш.
             Cache.Load();
             List<WsXmlContentRecord<PluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
-            PluCharacteristicModel pluCharacteristicXml;
-            PluModel pluDb;
             foreach (WsXmlContentRecord<PluCharacteristicModel> record in pluCharacteristicsXml)
             {
-                pluCharacteristicXml = record.Item;
-                pluDb = ContextManager.ContextPlu.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
-                WsSqlPlu1cFkModel plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Uid1c, record.Item.NomenclatureGuid))
-                    ?? ContextManager.ContextPlu1cFk.GetNewItem();
+                PluCharacteristicModel pluCharacteristicXml = record.Item;
+                WsSqlPlu1cFkModel plu1cFkDb = UpdatePlu1cFkDb(response, record);
+                PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(record.Item.NomenclatureGuid);
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     CheckIsEnabledPlu(pluCharacteristicXml, plu1cFkDb);
@@ -144,7 +141,7 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
                     AddResponse1cPluCharacteristicsFks(response, Cache.PluCharacteristicsFksDb, pluCharacteristicXml);
                 // Исключение.
                 if (pluCharacteristicXml.ParseResult.IsStatusError)
-                    AddResponse1cException(response, pluCharacteristicXml.Uid1c,
+                    AddResponse1cExceptionString(response, pluCharacteristicXml.Uid1c,
                         pluCharacteristicXml.ParseResult.Exception, pluCharacteristicXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);

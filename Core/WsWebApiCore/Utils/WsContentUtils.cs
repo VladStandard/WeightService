@@ -11,7 +11,7 @@ public static class WsContentUtils
     #region Public and private methods
 
     public static List<WsXmlContentRecord<T>> GetNodesListCore<T>(XElement xml, string nodeIdentity, 
-        Action<XmlNode, T> action) where T : WsSqlTableBase, new()
+        Action<XmlNode, T> action) where T : WsSqlTableBase1c, new()
     {
         List<WsXmlContentRecord<T>> itemsXml = new();
         XmlDocument xmlDocument = new();

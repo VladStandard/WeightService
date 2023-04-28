@@ -135,10 +135,9 @@ public sealed class WsPlusGroupsHelper : WsContentBase
             // Прогреть кеш.
             Cache.Load();
             List<WsXmlContentRecord<PluGroupModel>> itemsXml = GetXmlPluGroupsList(xml);
-            PluGroupModel pluGroup;
             foreach (WsXmlContentRecord<PluGroupModel> record in itemsXml)
             {
-                pluGroup = record.Item;
+                PluGroupModel pluGroup = record.Item;
                 switch (pluGroup.ParseResult.Status)
                 {
                     case ParseStatus.Success:
@@ -146,7 +145,8 @@ public sealed class WsPlusGroupsHelper : WsContentBase
                         AddResponse1cPluGroupsFks(response, Cache.PluGroupsFksDb, pluGroup);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1cException(response, pluGroup.Uid1c, pluGroup.ParseResult.Exception, pluGroup.ParseResult.InnerException);
+                        AddResponse1cExceptionString(response, pluGroup.Uid1c, 
+                            pluGroup.ParseResult.Exception, pluGroup.ParseResult.InnerException);
                         break;
                 }
             }
