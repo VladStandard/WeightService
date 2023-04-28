@@ -76,7 +76,8 @@ public sealed class WsBrandsHelper : WsContentBase
     public ContentResult NewResponse1cBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<BrandModel> itemsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
+            // Прогреть кеш.
+            Cache.Load();
             List<WsXmlContentRecord<BrandModel>> itemsXml = GetXmlBrandList(xml);
             foreach (WsXmlContentRecord<BrandModel> record in itemsXml)
             {
@@ -84,7 +85,7 @@ public sealed class WsBrandsHelper : WsContentBase
                 switch (brandXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cBrand(response, itemsDb, brandXml);
+                        AddResponse1cBrand(response, Cache.BrandsDb, brandXml);
                         break;
                     case ParseStatus.Error:
                         AddResponse1cException(response, brandXml);

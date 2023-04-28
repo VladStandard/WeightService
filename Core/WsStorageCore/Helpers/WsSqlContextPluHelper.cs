@@ -37,6 +37,14 @@ public sealed class WsSqlContextPluHelper
         return AccessItem.GetItemNotNullable<PluModel>(sqlCrudConfig);
     }
 
+    public PluModel GetItemByNumber(short number)
+    {
+        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
+                { new() { Name = nameof(PluModel.Number), Value = number } },
+            true, false, false, false, false);
+        return AccessItem.GetItemNotNullable<PluModel>(sqlCrudConfig);
+    }
+
     public PluModel GetNewItem() => AccessItem.GetItemNewEmpty<PluModel>();
 
     public List<PluModel> GetList() => ContextList.GetListNotNullablePlus(new());

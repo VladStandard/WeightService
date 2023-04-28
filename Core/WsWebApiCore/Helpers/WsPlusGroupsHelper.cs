@@ -132,17 +132,18 @@ public sealed class WsPlusGroupsHelper : WsContentBase
     public ContentResult NewResponse1cPluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<PluGroupModel> itemsDb = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
-            List<PluGroupFkModel> pluGroupsFksDb = ContextManager.ContextList.GetListNotNullablePlusGroupFks(SqlCrudConfig);
+            // Прогреть кеш.
+            Cache.Load();
             List<WsXmlContentRecord<PluGroupModel>> itemsXml = GetXmlPluGroupsList(xml);
+            PluGroupModel pluGroup;
             foreach (WsXmlContentRecord<PluGroupModel> record in itemsXml)
             {
-                PluGroupModel pluGroup = record.Item;
+                pluGroup = record.Item;
                 switch (pluGroup.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cPluGroups(response, itemsDb, pluGroup);
-                        AddResponse1cPluGroupsFks(response, pluGroupsFksDb, pluGroup);
+                        AddResponse1cPluGroups(response, Cache.PluGroupsDb, pluGroup);
+                        AddResponse1cPluGroupsFks(response, Cache.PluGroupsFksDb, pluGroup);
                         break;
                     case ParseStatus.Error:
                         AddResponse1cException(response, pluGroup.Uid1c, pluGroup.ParseResult.Exception, pluGroup.ParseResult.InnerException);

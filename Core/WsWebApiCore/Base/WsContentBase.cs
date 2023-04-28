@@ -2,8 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-using WsStorageCore.Helpers;
-using WsStorageCore.TableRefFkModels.Plus1cFk;
+using WsWebApiCore.Helpers;
 
 namespace WsWebApiCore.Base;
 
@@ -28,6 +27,7 @@ public class WsContentBase : ControllerBase
     internal SqlCrudConfigModel SqlCrudConfig => new(new List<SqlFieldFilterModel>(), 
         true, false, false, true, false);
     private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
+    protected WsWebApiCacheHelper Cache => WsWebApiCacheHelper.Instance;
 
     public WsContentBase(ISessionFactory sessionFactory)
     {
@@ -288,37 +288,34 @@ public class WsContentBase : ControllerBase
     /// Проверить наличие ПЛУ в БД.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="number"></param>
     /// <param name="uid1cException"></param>
     /// <param name="refName"></param>
     /// <param name="isCheckGroup"></param>
     /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool CheckExistsPluDb(WsResponse1cShortModel response, Guid uid1c, Guid uid1cException,
+    internal bool CheckExistsPluDb(WsResponse1cShortModel response, short number, Guid uid1cException,
         string refName, bool isCheckGroup, out PluModel? itemDb)
     {
         itemDb = null;
-        if (!Equals(uid1c, Guid.Empty))
+        if (number > 0)
         {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
-                true, false, false, false, false);
-            itemDb = AccessManager.AccessItem.GetItemNullable<PluModel>(sqlCrudConfig);
+            itemDb = ContextManager.ContextPlu.GetItemByNumber(number);
             if (!isCheckGroup)
             {
-                if (itemDb is null || itemDb.IsNew)
+                if (itemDb.IsNew)
                 {
                     AddResponse1cException(response, uid1cException,
-                        new($"{refName} {LocaleCore.WebService.With} '{uid1c}' {LocaleCore.WebService.IsNotFound}!"));
+                        new($"{refName} {LocaleCore.WebService.WithFieldNumber} '{number}' {LocaleCore.WebService.IsNotFound}!"));
                     return false;
                 }
                 return true;
             }
             // isCheckGroup.
-            if (itemDb is null || itemDb.IsNew || !itemDb.IsGroup)
+            if (itemDb.IsNew || !itemDb.IsGroup)
             {
                 AddResponse1cException(response, uid1cException,
-                    new($"{refName} {LocaleCore.WebService.With} '{uid1c}' {LocaleCore.WebService.IsNotFound}!"));
+                    new($"{refName} {LocaleCore.WebService.With} '{number}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;

@@ -52,6 +52,7 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string Underdevelopment => Lang == Lang.English ? "Under development, contact the developer." : "Находится в разработке, свяжитесь с разработчиком.";
     public string With => Lang == Lang.English ? "with" : "с";
     public string WithFieldCode => Lang == Lang.English ? "with code" : "с кодом";
+    public string WithFieldNumber => Lang == Lang.English ? "with number" : "с номером";
     public string XmlItemBrand => "Brand";
     public string XmlItemCharacteristic => "Characteristic";
     public string XmlItemNomenclature => "Nomenclature";

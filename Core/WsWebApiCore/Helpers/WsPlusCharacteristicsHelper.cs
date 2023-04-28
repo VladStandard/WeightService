@@ -2,10 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-using FluentNHibernate.Testing.Values;
-using WsStorageCore.Helpers;
-using WsStorageCore.TableRefFkModels.Plus1cFk;
-
 namespace WsWebApiCore.Helpers;
 
 public sealed class WsPlusCharacteristicsHelper : WsContentBase
@@ -126,25 +122,26 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<PluCharacteristicModel> pluCharacteristicsDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
-            List<PluCharacteristicsFkModel> pluCharacteristicsFksDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
+            // Прогреть кеш.
+            Cache.Load();
             List<WsXmlContentRecord<PluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
-            List<WsSqlPlu1cFkModel> plus1cFks = ContextManager.ContextPlu1cFk.GetList();
+            PluCharacteristicModel pluCharacteristicXml;
+            PluModel pluDb;
             foreach (WsXmlContentRecord<PluCharacteristicModel> record in pluCharacteristicsXml)
             {
-                PluCharacteristicModel pluCharacteristicXml = record.Item;
-                PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
-                WsSqlPlu1cFkModel plu1cFkDb = plus1cFks.Find(item => Equals(item.Plu.Uid1c, pluCharacteristicXml.NomenclatureGuid))
+                pluCharacteristicXml = record.Item;
+                pluDb = ContextManager.ContextPlu.GetItemByUid1c(pluCharacteristicXml.NomenclatureGuid);
+                WsSqlPlu1cFkModel plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Uid1c, record.Item.NomenclatureGuid))
                     ?? ContextManager.ContextPlu1cFk.GetNewItem();
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
                     CheckIsEnabledPlu(pluCharacteristicXml, plu1cFkDb);
                 // Добавить характеристику ПЛУ.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluCharacteristics(response, pluCharacteristicsDb, pluCharacteristicXml, pluDb);
+                    AddResponse1cPluCharacteristics(response, Cache.PluCharacteristicsDb, pluCharacteristicXml, pluDb);
                 // Добавить связь характеристики ПЛУ.
                 if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluCharacteristicsFks(response, pluCharacteristicsFksDb, pluCharacteristicXml);
+                    AddResponse1cPluCharacteristicsFks(response, Cache.PluCharacteristicsFksDb, pluCharacteristicXml);
                 // Исключение.
                 if (pluCharacteristicXml.ParseResult.IsStatusError)
                     AddResponse1cException(response, pluCharacteristicXml.Uid1c,
