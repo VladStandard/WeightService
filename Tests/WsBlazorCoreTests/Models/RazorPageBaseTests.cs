@@ -31,7 +31,6 @@ public sealed class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<DeviceTypeFkModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<DeviceTypeModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogQuickModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogTypeModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrderModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrderWeighingModel>();
@@ -69,7 +68,6 @@ public sealed class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<DeviceTypeFkModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<DeviceTypeModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogQuickModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogTypeModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrderModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrderWeighingModel>();
