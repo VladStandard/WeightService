@@ -33,10 +33,6 @@
         <Compile Remove="Razors\SectionComponents\RazorSectionFilter.razor.cs" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="wwwroot\js\" />
-        <Folder Include="wwwroot\static\" />
-    </ItemGroup>
-    <ItemGroup>
         <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
         <PackageReference Include="BlazorInputFile" Version="0.2.0" />
         <PackageReference Include="FluentNHibernate" Version="3.2.0" />

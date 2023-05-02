@@ -10,7 +10,6 @@ public sealed record PluAggrModel
     public DateTime ChangeDt { get; init; }
     public int Count { get; init; }
     public string Line { get; init; }
-    public string Device { get; init; }
     public string Plu { get; init; }
 
     /// <summary>
@@ -29,12 +28,11 @@ public sealed record PluAggrModel
     /// <param name="line"></param>
     /// <param name="device"></param>
     /// <param name="plu"></param>
-    public PluAggrModel(DateTime changeDt, int count = 0, string line = "", string device = "", string plu = "")
+    public PluAggrModel(DateTime changeDt, int count = 0, string line = "", string plu = "")
     {
         ChangeDt = changeDt;
         Count = count;
         Line = line;
-        Device = device;
         Plu = plu;
     }
 
@@ -44,10 +42,11 @@ public sealed record PluAggrModel
 
     public override string ToString() =>
         string.IsNullOrEmpty(Plu)
-            ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. {nameof(Count)}: {Count}. " +
-              $"{nameof(Line)}: {Line}. {nameof(Device)}: {Device}"
-            : $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. {nameof(Count)}: {Count}. " +
-              $"{nameof(Line)}: {Line}. {nameof(Device)}: {Device}. {nameof(Plu)}: {Plu}. ";
+            ? $"{nameof(Line)}: {Line}. " +
+              $"{nameof(Plu)}: {Plu}. " +
+              $"{nameof(Count)}: {Count}. " +
+              $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}."
+            : String.Empty;
 
     #endregion
 }

@@ -31,52 +31,28 @@ public sealed partial class PluWeightingsAggr : LayoutComponentBase
             base.OnAfterRender(firstRender);
             return;
         }
-
         GetSectionData();
     }
 
     private void GetSectionData()
     {
-        if (IsShowPlu)
-            LoadAggrWithPlu();
-        else
-            LoadAggrWithoutPlu();
-        StateHasChanged();
-    }
-
-    private void LoadAggrWithoutPlu()
-    {
         PluWeightAggrs = new();
         object[] sql_objects = WsSqlContextManagerHelper.Instance.AccessManager.AccessList.GetArrayObjectsNotNullable(
-            WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggrWithoutPlu(200));
+            WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggr(200));
         foreach (object obj in sql_objects)
         {
             if (obj is object[] { Length: 4 } item)
             {
-                PluWeightAggrs.Add(new(Convert.ToDateTime(item[0]),
-                    Convert.ToInt32(item[1]), Convert.ToString(item[2]) ?? string.Empty,
+                PluWeightAggrs.Add(new(
+                    Convert.ToDateTime(item[0]),
+                    Convert.ToInt32(item[1]),
+                    Convert.ToString(item[2]) ?? string.Empty,
                     Convert.ToString(item[3]) ?? string.Empty)
                 );
             }
         }
+        StateHasChanged();
     }
-
-    private void LoadAggrWithPlu()
-    {
-        PluWeightAggrs = new();
-        object[] sql_objects = WsSqlContextManagerHelper.Instance.AccessManager.AccessList.GetArrayObjectsNotNullable(
-            WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggrWithPlu(200));
-        foreach (object obj in sql_objects)
-        {
-            if (obj is object[] { Length: 5 } item)
-            {
-                PluWeightAggrs.Add(new(Convert.ToDateTime(item[0]),
-                    Convert.ToInt32(item[1]), Convert.ToString(item[2]) ?? string.Empty,
-                    Convert.ToString(item[3]) ?? string.Empty, Convert.ToString(item[4]) ?? string.Empty)
-                );
-            }
-        }
-    }
-
+    
     #endregion
 }

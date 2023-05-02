@@ -1,19 +1,13 @@
 ﻿@typeparam TItem
 @inherits LayoutComponentBase
 
-@if (SqlCrudConfigSection is { IsGuiShowFilterMarked: true, IsResultShowMarked: true })
-{
-  <RadzenDataGridColumn
-    TItem=@TItem
-    TextAlign=@TextAlign.Center
-    Width=@Width
-    SortProperty="IsMarked"
-    Title=@LocaleCore.Table.IsMarkedShort>
-    <Template Context="item">
-      @if (item.IsMarked)
-      {
-        <RadzenIcon IconStyle=@IconStyle.Primary Icon="delete"/>
-      }
-    </Template>
-  </RadzenDataGridColumn>
-}
+<RadzenDataGridColumn TItem="@TItem" Width="5%" TextAlign="TextAlign.Center"
+                      SortProperty="IsMarked" Title="@LocaleCore.Table.IsMarkedShort"
+                      Visible="@SqlCrudConfigSection.IsResultShowMarked" >
+  <Template Context="item">
+    @if (item.IsMarked)
+    {
+      <RadzenIcon IconStyle=@IconStyle.Primary Icon="delete"/>
+    }
+  </Template>
+</RadzenDataGridColumn>

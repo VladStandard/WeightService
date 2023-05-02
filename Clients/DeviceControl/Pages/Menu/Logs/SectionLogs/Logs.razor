@@ -14,11 +14,24 @@
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
-<RzDropDownLocal @bind-Value="@CurrentLogType" 
-                 Data="@LogTypes" 
-                 ValueProperty="Icon" 
-                 TextProperty="Icon" Change="OnSelectTypeChanged"
-                 AllowClear="true" Placeholder="All" />
+<div Style="display: flex; margin-bottom: 2px">
+  <RzDropDownLocal Style="width: 50%; display: inline-block;"
+                   @bind-Value="@CurrentLogType" 
+                   Data="@LogTypes" 
+                   ValueProperty="Icon" 
+                   TextProperty="Icon" Change="OnSelectTypeChanged"
+                   AllowClear="true" Placeholder="LogTypes: All" />
+  <RzDropDownLocal Style="width: 50%; display: inline-block;"
+              @bind-Value="@CurrentLine" 
+               Data="@Lines" 
+               FilterOperator="StringFilterOperator.Contains"
+               AllowFiltering="true"
+               ValueProperty="Description" 
+               TextProperty="Description" Change="OnSelectTypeChanged"
+               AllowClear="true"
+               Placeholder="Lines: All" />
+</div>
+
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
   TItem="@LogView"
