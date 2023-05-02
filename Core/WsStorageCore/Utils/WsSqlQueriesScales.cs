@@ -94,6 +94,7 @@ LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
 GROUP BY CAST([PL].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME]
 ORDER BY [PL_CHANGE_DT] DESC;
 ";
+
             public static string GetLabelsAggrWithPlu(int topRecords) => $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- PLUS_LABELS_SELECT_AGGR_WITH_PLU | АГРЕГИРОВАННЫЕ ЭТИКЕТКИ С ПЛУ
@@ -116,46 +117,25 @@ ORDER BY [PL_CHANGE_DT] DESC;
 
         public static class PluWeighings
         {
-            public static string GetWeighingsAggrWithoutPlu(int topRecords) => $@"
+            public static string GetWeighingsAggr(int topRecords)
+            {
+                return $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
--- PLUS_WEIGHINGS_SELECT_AGGR_WITHOUT_PLU | АГРЕГИРОВАННЫЕ ВЗВЕШИВАНИЯ БЕЗ ПЛУ
+-- VIEW_AGGR_WEIGHTINGS | АГРЕГИРОВАННЫЕ ВЗВЕШИВАНИЯ БЕЗ ПЛУ
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
- CAST([PW].[CHANGE_DT] AS DATE) [PW_CHANGE_DT]
-,COUNT(*) [COUNT]
-,[S].[DESCRIPTION] [LINE]
-,[D].[NAME] [DEVICE]
-FROM [db_scales].[PLUS_WEIGHINGS] [PW]
-LEFT JOIN [db_scales].[PLUS_SCALES] [PS] ON [PS].[UID] = [PW].[PLU_SCALE_UID]
-LEFT JOIN [DB_SCALES].[SCALES] [S] ON [S].[ID] = [PS].[SCALE_ID]
-LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
-LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
-GROUP BY CAST([PW].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME]
-ORDER BY [PW_CHANGE_DT] DESC;
-";
-            public static string GetWeighingsAggrWithPlu(int topRecords) => $@"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
--- PLUS_WEIGHINGS_SELECT_AGGR_WITH_PLU | АГРЕГИРОВАННЫЕ ВЗВЕШИВАНИЯ С ПЛУ
-SELECT {WsSqlQueries.GetTopRecords(topRecords)}
- CAST([PW].[CHANGE_DT] AS DATE) [PW_CHANGE_DT]
-,COUNT(*) [COUNT]
-,[S].[DESCRIPTION] [LINE]
-,[D].[NAME] [DEVICE]
-,[P].[NAME] [PLU]
-FROM [db_scales].[PLUS_WEIGHINGS] [PW]
-LEFT JOIN [db_scales].[PLUS_SCALES] [PS] ON [PS].[UID] = [PW].[PLU_SCALE_UID]
-LEFT JOIN [db_scales].[PLUS] [P] ON [P].[UID] = [PS].[PLU_UID]
-LEFT JOIN [DB_SCALES].[SCALES] [S] ON [S].[ID] = [PS].[SCALE_ID]
-LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
-LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
-GROUP BY CAST([PW].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME], [P].[NAME]
-ORDER BY [PW_CHANGE_DT] DESC;
-";
+		 [CHANGE_DT]
+		,[COUNT]
+		,[LINE]
+        ,[PLU]
+FROM [db_scales].[VIEW_AGGR_WEIGHTINGS]
+ORDER BY [CHANGE_DT] DESC;";
+            }
         }
     }
 
     public static class Functions
-    {
-        public static string GetCurrentProductSeriesV2 => @"
+        {
+            public static string GetCurrentProductSeriesV2 => @"
 DECLARE @SSCC VARCHAR(50)
 DECLARE @WeithingDate DATETIME
 DECLARE @XML XML
@@ -165,5 +145,5 @@ EXECUTE [db_scales].[SP_SET_PRODUCT_SERIES_V2] @SCALE_ID, @SSCC OUTPUT, @XML OUT
 SELECT [ID], [CREATE_DT], [UUID], [SSCC], [COUNT_UNIT],[TOTAL_NET_WEIGHT], [TOTAL_TARE_WEIGHT], [IS_MARKED]
 FROM [db_scales].[FN_GET_PRODUCT_SERIES_V2](@SCALE_ID)
 				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+        }
     }
-}

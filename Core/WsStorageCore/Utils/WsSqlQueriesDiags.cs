@@ -88,9 +88,10 @@ FROM [diag].[VIEW_TABLES_SIZES]
 ORDER BY [SCHEMA], [TABLE];");
             }
 
-            public static string GetLogs(int topRecords, string? logType)
+            public static string GetLogs(int topRecords, string? logType, string? currentLine)
             {
-                logType = logType != null ? $"WHERE LOG_TYPE = '{logType}'" : string.Empty;
+                logType = logType != null ? $"LOG_TYPE = '{logType}'" : "1=1"; 
+                currentLine = currentLine != null ? $"AND LINE = '{currentLine}'" : "AND 1=1";
                 return TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(topRecords)}
@@ -106,7 +107,9 @@ select {WsSqlQueries.GetTopRecords(topRecords)}
 	,[LOG_TYPE]
 	,[MESSAGE]
 from [db_scales].[VIEW_LOGS]
+WHERE
 {logType}
+{currentLine}
 order by [CREATE_DT] DESC");
             }
             

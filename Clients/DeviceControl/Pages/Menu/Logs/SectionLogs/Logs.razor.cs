@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableDiagModels.LogsTypes;
+using WsStorageCore.TableScaleModels.Scales;
 using WsStorageCore.ViewScaleModels;
 
 namespace BlazorDeviceControl.Pages.Menu.Logs.SectionLogs;
@@ -9,11 +10,16 @@ namespace BlazorDeviceControl.Pages.Menu.Logs.SectionLogs;
 public sealed partial class Logs : RazorComponentSectionBase<LogView>
 {
     private string? CurrentLogType { get; set; }
+    private string? CurrentLine { get; set; }
     private List<LogTypeModel> LogTypes { get; set; }
+    private List<ScaleModel> Lines { get; set; }
+
 
     public Logs() : base()
     {
         LogTypes = ContextManager.AccessManager.AccessList.GetListNotNullable<LogTypeModel>(new SqlCrudConfigModel());
+        Lines = ContextManager.AccessManager.AccessList.GetListNotNullable<ScaleModel>(new SqlCrudConfigModel());
+        Lines = (from item in Lines orderby item.Description select item).ToList();
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultShowMarked = true;
         SqlCrudConfigSection.IsResultOrder = true;
@@ -24,7 +30,7 @@ public sealed partial class Logs : RazorComponentSectionBase<LogView>
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
             ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, CurrentLogType);
+            : 0, CurrentLogType, CurrentLine);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<LogView> items = new();
         foreach (var obj in objects)
