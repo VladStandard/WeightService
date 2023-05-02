@@ -21,9 +21,11 @@ public sealed class WsSqlContextPluNestingHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
+    private WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
     private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     private WsSqlContextBoxHelper ContextBox => WsSqlContextBoxHelper.Instance;
+    private WsSqlContextPluHelper ContextPlu => WsSqlContextPluHelper.Instance;
     private WsSqlContextPluBundleHelper ContextPluBundle => WsSqlContextPluBundleHelper.Instance;
 
     #endregion
@@ -83,6 +85,24 @@ public sealed class WsSqlContextPluNestingHelper
     public short GetPluNestingFkBundleCount(PluNestingFkModel pluNestingFk) => pluNestingFk.BundleCount;
 
     public List<PluNestingFkModel> GetList() => ContextList.GetListNotNullablePlusNestingFks(new());
+
+    public List<PluNestingFkModel> GetListByUid(Guid? uid)
+    {
+        uid ??= Guid.Empty;
+        SqlCrudConfigModel sqlCrudConfig = new()
+        {
+            NativeParameters = new() { new("P_UID", uid) },
+            NativeQuery = PluNestingFks.GetList(true)
+        };
+        List<PluNestingFkModel> result = ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
+        return result;
+    }
+
+    public List<PluNestingFkModel> GetListByNumber(short number)
+    {
+        PluModel plu = ContextPlu.GetItemByNumber(number);
+        return GetListByUid(plu.IdentityValueUid);
+    }
 
     #endregion
 }

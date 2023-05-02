@@ -6,12 +6,23 @@ namespace WsStorageCore.Models;
 /// <summary>
 /// SQL field comparing model.
 /// </summary>
-[DebuggerDisplay("Type = {nameof(SqlFieldFilterModel)} | {Name} | {Comparer} | {Value}")]
+[DebuggerDisplay("{ToString()}")]
 public sealed record SqlFieldFilterModel
 {
+    #region Public and private fields, properties, constructor
+
     public string Name { get; init; } = "";
     public WsSqlFieldComparer Comparer { get; init; } = WsSqlFieldComparer.Equal;
     public object? Value { get; init; }
+    public List<object> Values { get; init; } = new();
+
+    #endregion
+
+    #region Public and private methods
 
     public override int GetHashCode() => (Name.ToUpper(), Comparer, Value?.ToString().ToUpper() ?? null).GetHashCode();
+    
+    public override string ToString() => $"{Name} | {Comparer} | {Value}";
+
+    #endregion
 }

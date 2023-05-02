@@ -1,14 +1,12 @@
 // Global using directives
 
-global using WsAssertCoreTests;
-global using WsDataCore.Utils;
 global using FluentNHibernate.Cfg;
 global using NHibernate;
 global using NSubstitute;
 global using NUnit.Framework;
-global using System.Diagnostics;
 global using WsAssertCoreTests;
 global using WsDataCore.Enums;
+global using WsDataCore.Utils;
 global using WsStorageCore.Models;
 global using WsStorageCore.TableDiagModels.Logs;
 global using WsStorageCore.TableDiagModels.LogsMemories;

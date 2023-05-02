@@ -2,155 +2,179 @@
 <Project>
     <PropertyGroup>
         <Deterministic>true</Deterministic>
+        <LangVersion>latest</LangVersion>
+        <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopAleksandrov|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DefineConstants>DEBUG;TRACE;DEVELOP_ALEKSANDROV</DefineConstants>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Develop\AnyCPU</OutputPath>
+        <DefineConstants>DEBUG;TRACE;DEVELOP_ALEKSANDROV</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x64' ">
-        <PlatformTarget>x64</PlatformTarget>
-        <DefineConstants>DEBUG;TRACE;DEVELOP_ALEKSANDROV</DefineConstants>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Develop\x64</OutputPath>
+        <DefineConstants>DEBUG;TRACE;DEVELOP_ALEKSANDROV</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_x64</OutputPath>
+        <PlatformTarget>x64</PlatformTarget>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x86' ">
-        <PlatformTarget>x86</PlatformTarget>
-        <DefineConstants>DEBUG;TRACE;DEVELOP_ALEKSANDROV</DefineConstants>
-        <Prefer32Bit>true</Prefer32Bit>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Develop\x86</OutputPath>
+        <DefineConstants>DEBUG;TRACE;DEVELOP_ALEKSANDROV</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_x86</OutputPath>
+        <PlatformTarget>x86</PlatformTarget>
+        <Prefer32Bit>true</Prefer32Bit>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopMorozov|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DefineConstants>DEBUG;TRACE;DEVELOP_MOROZOV</DefineConstants>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Develop\AnyCPU</OutputPath>
+        <DefineConstants>DEBUG;TRACE;DEVELOP_MOROZOV</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopMorozov|x64' ">
-        <PlatformTarget>x64</PlatformTarget>
-        <DefineConstants>DEBUG;TRACE;DEVELOP_MOROZOV</DefineConstants>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Develop\x64</OutputPath>
+        <DefineConstants>DEBUG;TRACE;DEVELOP_MOROZOV</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_x64</OutputPath>
+        <PlatformTarget>x64</PlatformTarget>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopMorozov|x86' ">
-        <PlatformTarget>x86</PlatformTarget>
-        <DefineConstants>DEBUG;TRACE;DEVELOP_MOROZOV</DefineConstants>
-        <Prefer32Bit>true</Prefer32Bit>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Develop\x86</OutputPath>
+        <DefineConstants>DEBUG;TRACE;DEVELOP_MOROZOV</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_x86</OutputPath>
+        <PlatformTarget>x86</PlatformTarget>
+        <Prefer32Bit>true</Prefer32Bit>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopVS|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Develop\AnyCPU</OutputPath>
+        <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopVS|x64' ">
-        <PlatformTarget>x64</PlatformTarget>
-        <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Develop\x64</OutputPath>
+        <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_x64</OutputPath>
+        <PlatformTarget>x64</PlatformTarget>
+        <Prefer32Bit>false</Prefer32Bit>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopVS|x86' ">
-        <PlatformTarget>x86</PlatformTarget>
-        <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
-        <Prefer32Bit>true</Prefer32Bit>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Develop\x86</OutputPath>
+        <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_x86</OutputPath>
+        <PlatformTarget>x86</PlatformTarget>
+        <Prefer32Bit>true</Prefer32Bit>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE;RELEASE_ALEKSANDROV</DefineConstants>
-        <OutputPath>bin\Release\AnyCPU</OutputPath>
+        <OutputPath>bin\Release_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x64' ">
-        <PlatformTarget>x64</PlatformTarget>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE;RELEASE_ALEKSANDROV</DefineConstants>
-        <OutputPath>bin\Release\x64</OutputPath>
+        <OutputPath>bin\Release_x64</OutputPath>
+        <PlatformTarget>x64</PlatformTarget>
+        <Prefer32Bit>false</Prefer32Bit>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAleksandrov|x86' ">
-        <PlatformTarget>x86</PlatformTarget>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE;RELEASE_ALEKSANDROV</DefineConstants>
+        <OutputPath>bin\Release_x86</OutputPath>
+        <PlatformTarget>x86</PlatformTarget>
         <Prefer32Bit>true</Prefer32Bit>
-        <OutputPath>bin\Release\x86</OutputPath>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMorozov|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE;RELEASE_MOROZOV</DefineConstants>
-        <OutputPath>bin\Release\AnyCPU</OutputPath>
+        <OutputPath>bin\Release_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMorozov|x64' ">
-        <PlatformTarget>x64</PlatformTarget>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE;RELEASE_MOROZOV</DefineConstants>
-        <OutputPath>bin\Release\x64</OutputPath>
+        <OutputPath>bin\Release_x64</OutputPath>
+        <PlatformTarget>x64</PlatformTarget>
+        <Prefer32Bit>false</Prefer32Bit>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMorozov|x86' ">
-        <PlatformTarget>x86</PlatformTarget>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE;RELEASE_MOROZOV</DefineConstants>
+        <OutputPath>bin\Release_x86</OutputPath>
+        <PlatformTarget>x86</PlatformTarget>
         <Prefer32Bit>true</Prefer32Bit>
-        <OutputPath>bin\Release\x86</OutputPath>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE;RELEASE_VS</DefineConstants>
-        <OutputPath>bin\Release\AnyCPU</OutputPath>
+        <OutputPath>bin\Release_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|x64' ">
-        <PlatformTarget>x64</PlatformTarget>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE;RELEASE_VS</DefineConstants>
-        <OutputPath>bin\Release\x64</OutputPath>
+        <OutputPath>bin\Release_x64</OutputPath>
+        <PlatformTarget>x64</PlatformTarget>
+        <Prefer32Bit>false</Prefer32Bit>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|x86' ">
-        <PlatformTarget>x86</PlatformTarget>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE;RELEASE_VS</DefineConstants>
+        <OutputPath>bin\Release_x86</OutputPath>
+        <PlatformTarget>x86</PlatformTarget>
         <Prefer32Bit>true</Prefer32Bit>
-        <OutputPath>bin\Release\x86</OutputPath>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
 </Project>

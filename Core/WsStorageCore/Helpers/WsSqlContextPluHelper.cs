@@ -37,9 +37,56 @@ public sealed class WsSqlContextPluHelper
         return AccessItem.GetItemNotNullable<PluModel>(sqlCrudConfig);
     }
 
+    public PluModel GetItemByNumber(short number)
+    {
+        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
+            { new() { Name = nameof(PluModel.Number), Value = number } },
+            true, false, false, false, false);
+        return AccessItem.GetItemNotNullable<PluModel>(sqlCrudConfig);
+    }
+
     public PluModel GetNewItem() => AccessItem.GetItemNewEmpty<PluModel>();
 
     public List<PluModel> GetList() => ContextList.GetListNotNullablePlus(new());
 
+    public List<PluModel> GetListByNumber(short number)
+    {
+        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
+                { new() { Name = nameof(PluModel.Number), Value = number } },
+            true, false, false, false, false);
+        sqlCrudConfig.IsResultOrder = true;
+        return ContextList.GetListNotNullablePlus(sqlCrudConfig);
+    }
+
+    public List<PluModel> GetListByNumbers(List<short> numbers)
+    {
+        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
+            { new() { Name = nameof(PluModel.Number), Comparer = WsSqlFieldComparer.In, 
+                Values = numbers.Cast<object>().ToList() } },
+            true, false, false, false, false);
+        sqlCrudConfig.IsResultOrder = true;
+        return ContextList.GetListNotNullablePlus(sqlCrudConfig);
+    }
+
+    public List<PluModel> GetListByNumbers(short minNumber, short maxNumber)
+    {
+        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
+            { new() { Name = nameof(PluModel.Number), Comparer = WsSqlFieldComparer.MoreOrEqual, Value = minNumber } },
+            true, false, false, false, false);
+        sqlCrudConfig.AddFilters(new SqlFieldFilterModel()
+        { Name = nameof(PluModel.Number), Comparer = WsSqlFieldComparer.LessOrEqual, Value = maxNumber });
+        sqlCrudConfig.IsResultOrder = true;
+        return ContextList.GetListNotNullablePlus(sqlCrudConfig);
+    }
+
+    public List<PluModel> GetListByUid1c(Guid uid)
+    {
+        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
+                { new() { Name = nameof(PluModel.Uid1c), Value = uid } },
+            true, false, false, false, false);
+        sqlCrudConfig.IsResultOrder = true;
+        return ContextList.GetListNotNullablePlus(sqlCrudConfig);
+    }
+    
     #endregion
 }

@@ -6,32 +6,11 @@
         <Product>WeightService</Product>
         <Copyright>Copyright © 2020 - 2023</Copyright>
         <Authors />
-        <Version>0.9.250.0</Version>
+        <Version>0.9.300.0</Version>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <Platforms>AnyCPU;x64;x86</Platforms>
         <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)'=='DevelopAleksandrov'">
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)'=='DevelopMorozov'">
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)'=='DevelopVS'">
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)'=='ReleaseAleksandrov'">
-        <DebugType>none</DebugType>
-        <DebugSymbols>false</DebugSymbols>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)'=='ReleaseMorozov'">
-        <DebugType>none</DebugType>
-        <DebugSymbols>false</DebugSymbols>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)'=='ReleaseVS'">
-        <DebugType>none</DebugType>
-        <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="FluentNHibernate" Version="3.2.0" />

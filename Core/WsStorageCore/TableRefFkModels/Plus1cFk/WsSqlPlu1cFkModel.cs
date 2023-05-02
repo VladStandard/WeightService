@@ -9,7 +9,7 @@ namespace WsStorageCore.TableRefFkModels.Plus1cFk;
 /// Table "REF.PLUS_1C_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(Plu1cFkModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPlu1cFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

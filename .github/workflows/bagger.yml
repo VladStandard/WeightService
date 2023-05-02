@@ -1,9 +1,9 @@
-name: Main branch
+name: Bagger branch
 
 on:
   push:
     branches:
-      - main
+      - bagger
     paths:
       - '**.csproj'
       - '**.razor'

@@ -40,6 +40,7 @@ public static class WsSqlExtensions
                 WsSqlFieldComparer.MoreOrEqual => Restrictions.Ge(filter.Name, filter.Value),
                 WsSqlFieldComparer.Equal => Restrictions.Eq(filter.Name, filter.Value),
                 WsSqlFieldComparer.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
+                WsSqlFieldComparer.In => Restrictions.In(filter.Name, filter.Values),
                 _ => throw new ArgumentOutOfRangeException()
             };
             if (criterion is not null)

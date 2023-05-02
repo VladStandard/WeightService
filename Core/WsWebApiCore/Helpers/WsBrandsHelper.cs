@@ -40,22 +40,22 @@ public sealed class WsBrandsHelper : WsContentBase
     {
         try
         {
-            // Find by Uid1C -> Update exists.
+            // Найдено по Uid1C -> Обновить найденную запись.
             BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1c, brandXml.IdentityValueUid));
             if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
-            // Find by Code -> Update exists.
+            // Найдено по Code -> Обновить найденную запись.
             brandDb = brandsDb.Find(item => Equals(item.Code, brandXml.Code));
             if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
-            // Find by Name -> Update exists.
+            // Найдено по Name -> Обновить найденную запись.
             brandDb = brandsDb.Find(item => Equals(item.Name, brandXml.Name));
             if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
-            // Not find -> Add new.
+            // Не найдено -> Добавить новую запись.
             bool isSave = SaveItemDb(response, brandXml, true);
 
-            // Update db list.
+            // Обновить список БД.
             if (brandDb is not null && isSave && !brandsDb.Select(x => x.IdentityValueUid).Contains(brandDb.IdentityValueUid))
                 brandsDb.Add(brandDb);
         }
@@ -76,7 +76,8 @@ public sealed class WsBrandsHelper : WsContentBase
     public ContentResult NewResponse1cBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1cCore<WsResponse1cShortModel>(response =>
         {
-            List<BrandModel> itemsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
+            // Прогреть кеш.
+            Cache.Load();
             List<WsXmlContentRecord<BrandModel>> itemsXml = GetXmlBrandList(xml);
             foreach (WsXmlContentRecord<BrandModel> record in itemsXml)
             {
@@ -84,7 +85,7 @@ public sealed class WsBrandsHelper : WsContentBase
                 switch (brandXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cBrand(response, itemsDb, brandXml);
+                        AddResponse1cBrand(response, Cache.BrandsDb, brandXml);
                         break;
                     case ParseStatus.Error:
                         AddResponse1cException(response, brandXml);

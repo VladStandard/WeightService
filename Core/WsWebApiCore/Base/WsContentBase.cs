@@ -2,7 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-using WsStorageCore.Helpers;
+using Microsoft.VisualBasic;
+using WsWebApiCore.Helpers;
 
 namespace WsWebApiCore.Base;
 
@@ -27,6 +28,7 @@ public class WsContentBase : ControllerBase
     internal SqlCrudConfigModel SqlCrudConfig => new(new List<SqlFieldFilterModel>(), 
         true, false, false, true, false);
     private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
+    protected WsWebApiCacheHelper Cache => WsWebApiCacheHelper.Instance;
 
     public WsContentBase(ISessionFactory sessionFactory)
     {
@@ -287,37 +289,34 @@ public class WsContentBase : ControllerBase
     /// Проверить наличие ПЛУ в БД.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="number"></param>
     /// <param name="uid1cException"></param>
     /// <param name="refName"></param>
     /// <param name="isCheckGroup"></param>
     /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool CheckExistsPluDb(WsResponse1cShortModel response, Guid uid1c, Guid uid1cException,
+    internal bool CheckExistsPluDb(WsResponse1cShortModel response, short number, Guid uid1cException,
         string refName, bool isCheckGroup, out PluModel? itemDb)
     {
         itemDb = null;
-        if (!Equals(uid1c, Guid.Empty))
+        if (number > 0)
         {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTableBase1c.Uid1c), Value = uid1c } },
-                true, false, false, false, false);
-            itemDb = AccessManager.AccessItem.GetItemNullable<PluModel>(sqlCrudConfig);
+            itemDb = ContextManager.ContextPlu.GetItemByNumber(number);
             if (!isCheckGroup)
             {
-                if (itemDb is null || itemDb.IsNew)
+                if (itemDb.IsNew)
                 {
                     AddResponse1cException(response, uid1cException,
-                        new($"{refName} {LocaleCore.WebService.With} '{uid1c}' {LocaleCore.WebService.IsNotFound}!"));
+                        new($"{refName} {LocaleCore.WebService.WithFieldNumber} '{number}' {LocaleCore.WebService.IsNotFound}!"));
                     return false;
                 }
                 return true;
             }
             // isCheckGroup.
-            if (itemDb is null || itemDb.IsNew || !itemDb.IsGroup)
+            if (itemDb.IsNew || !itemDb.IsGroup)
             {
                 AddResponse1cException(response, uid1cException,
-                    new($"{refName} {LocaleCore.WebService.With} '{uid1c}' {LocaleCore.WebService.IsNotFound}!"));
+                    new($"{refName} {LocaleCore.WebService.With} '{number}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -534,8 +533,8 @@ public class WsContentBase : ControllerBase
             response.Errors.Add(responseRecord);
     }
 
-    internal void AddResponse1cException(WsResponse1cShortModel response, Guid uid, Exception? ex) =>
-        AddResponse1cException(response, uid, ex?.Message, ex?.InnerException?.Message);
+    internal void AddResponse1cException(WsResponse1cShortModel response, Guid uid, Exception ex) =>
+        AddResponse1cExceptionString(response, uid, ex.Message, ex.InnerException?.Message);
 
     /// <summary>
     /// Add error for response.
@@ -544,10 +543,11 @@ public class WsContentBase : ControllerBase
     /// <param name="uid"></param>
     /// <param name="exceptionMessage"></param>
     /// <param name="innerExceptionMessage"></param>
-    internal void AddResponse1cException(WsResponse1cShortModel response, Guid uid, string? exceptionMessage, string? innerExceptionMessage)
+    internal void AddResponse1cExceptionString(WsResponse1cShortModel response, Guid uid, string exceptionMessage, 
+        string? innerExceptionMessage = "")
     {
         WsResponse1cErrorModel responseRecord = new(uid,
-            !string.IsNullOrEmpty(innerExceptionMessage) ? innerExceptionMessage : exceptionMessage ?? string.Empty);
+            !string.IsNullOrEmpty(innerExceptionMessage) ? innerExceptionMessage : exceptionMessage);
         if (response.Errors.Select(item => item.Uid).Contains(uid))
         {
             if (response.Errors.Find(item => Equals(item.Uid, uid)) is { } error)
@@ -895,21 +895,180 @@ public class WsContentBase : ControllerBase
         return dbUpdate.IsOk;
     }
 
+    /// <summary>
+    /// Обновить данные списка в таблице связей обмена номенклатуры 1С.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="record"></param>
+    internal List<WsSqlPlu1cFkModel> UpdatePlus1cFksDb<T>(WsResponse1cShortModel response, WsXmlContentRecord<T> record)
+        where T : WsSqlTableBase1c, new()
+    {
+        List<WsSqlPlu1cFkModel> plus1cFksDb = ContextManager.ContextPlu1cFk.GetNewList();
+
+        // Поиск список связей обмена номенклатуры 1С по номеру.
+        if (record is WsXmlContentRecord<PluModel> pluXml)
+            GetPlus1cFksByNumber<T>(plus1cFksDb, pluXml);
+        // Поиск список связей обмена номенклатуры 1С по GUID_1C.
+        else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+            GetPlus1cFksByGuid1c<T>(plus1cFksDb, pluCharacteristicXml);
+
+        // Обновить данные записи в таблице связей обмена номенклатуры 1С.
+        foreach (WsSqlPlu1cFkModel plu1cFkDb in plus1cFksDb)
+        {
+            UpdatePlu1cFkDbCore(response, record, plu1cFkDb);
+        }
+        return plus1cFksDb;
+    }
+
+    /// <summary>
+    /// Поиск список связей обмена номенклатуры 1С по номеру.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="plus1cFksDb"></param>
+    /// <param name="pluXml"></param>
+    private void GetPlus1cFksByNumber<T>(List<WsSqlPlu1cFkModel> plus1cFksDb, WsXmlContentRecord<PluModel> pluXml) where T : WsSqlTableBase1c, new()
+    {
+        plus1cFksDb.Clear();
+        List<PluModel> plusDb = ContextManager.ContextPlu.GetListByNumber(pluXml.Item.Number);
+        foreach (PluModel pluDb in plusDb)
+        {
+            WsSqlPlu1cFkModel plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
+                                          ?? ContextManager.ContextPlu1cFk.GetNewItem();
+            if (plu1cFkDb.IsNotExists)
+                plu1cFkDb.Plu = pluDb;
+            plus1cFksDb.Add(plu1cFkDb);
+        }
+    }
+
+    /// <summary>
+    /// Поиск список связей обмена номенклатуры 1С по GUID_1C.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="plus1cFksDb"></param>
+    /// <param name="pluCharacteristicXml"></param>
+    private void GetPlus1cFksByGuid1c<T>(List<WsSqlPlu1cFkModel> plus1cFksDb, WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+        where T : WsSqlTableBase1c, new()
+    {
+        plus1cFksDb.Clear();
+        List<PluModel> plusDb = ContextManager.ContextPlu.GetListByUid1c(pluCharacteristicXml.Item.NomenclatureGuid);
+        foreach (PluModel pluDb in plusDb)
+        {
+            WsSqlPlu1cFkModel plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
+                                          ?? ContextManager.ContextPlu1cFk.GetNewItem();
+            if (plu1cFkDb.IsNotExists)
+                plu1cFkDb.Plu = pluDb;
+            plus1cFksDb.Add(plu1cFkDb);
+        }
+    }
+
+    /// <summary>
+    /// Обновить данные записи в таблице связей обмена номенклатуры 1С.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="response"></param>
+    /// <param name="record"></param>
+    /// <param name="plu1cFkDb"></param>
+    private void UpdatePlu1cFkDbCore<T>(WsResponse1cShortModel response, WsXmlContentRecord<T> record, WsSqlPlu1cFkModel plu1cFkDb) 
+        where T : WsSqlTableBase1c, new()
+    {
+        plu1cFkDb.UpdateProperties(record.Content);
+
+        // Создать.
+        if (!plu1cFkDb.IsExists)
+        {
+            SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Save(plu1cFkDb);
+            if (dbUpdate is { IsOk: false, Exception: { } })
+            {
+                if (record is WsXmlContentRecord<PluModel> pluXml)
+                    AddResponse1cException(response, pluXml.Item.Uid1c, dbUpdate.Exception);
+                else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+                    AddResponse1cException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdate.Exception);
+            }
+        }
+        // Обновить.
+        else
+        {
+            WsSqlPlu1cFkValidator validator = new();
+            ValidationResult validation = validator.Validate(plu1cFkDb);
+            if (!validation.IsValid)
+            {
+                if (record is WsXmlContentRecord<PluModel> pluXml)
+                    AddResponse1cExceptionString(response, pluXml.Item.Uid1c,
+                        string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
+                else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+                    AddResponse1cExceptionString(response, pluCharacteristicXml.Item.NomenclatureGuid,
+                        string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
+            }
+            else
+            {
+                SqlCrudResultModel dbUpdate = plu1cFkDb.IsExists
+                    ? AccessManager.AccessItem.UpdateForce(plu1cFkDb)
+                    : AccessManager.AccessItem.Save(plu1cFkDb);
+                if (dbUpdate is { IsOk: false, Exception: { } })
+                {
+                    if (record is WsXmlContentRecord<PluModel> pluXml)
+                        AddResponse1cException(response, pluXml.Item.Uid1c, dbUpdate.Exception);
+                    else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+                        AddResponse1cException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdate.Exception);
+                }
+            }
+        }
+    }
+
     #endregion
 
     /// <summary>
-    /// Проверить номер ПЛУ в списке ACL.
+    /// Проверить номер ПЛУ в списке доступа к выгрузке.
     /// </summary>
-    /// <param name="plu"></param>
     /// <param name="itemXml"></param>
-    internal void CheckAclPluNumber(PluModel plu, WsSqlTableBase1c itemXml)
+    /// <param name="plus1cFksDb"></param>
+    internal void CheckIsEnabledPlu(WsSqlTableBase1c itemXml, List<WsSqlPlu1cFkModel> plus1cFksDb)
     {
-        if (plu.IsGroup) return;
-        if (!WsContentUtils.AclPluNumbers.Contains(plu.Number))
+        foreach (WsSqlPlu1cFkModel plu1cFkDb in plus1cFksDb)
+            CheckIsEnabledPluCore(itemXml, plu1cFkDb);
+    }
+
+    /// <summary>
+    /// Проверить номер ПЛУ в списке доступа к выгрузке.
+    /// </summary>
+    /// <param name="itemXml"></param>
+    /// <param name="plu1cFkDb"></param>
+    private void CheckIsEnabledPluCore(WsSqlTableBase1c itemXml, WsSqlPlu1cFkModel plu1cFkDb)
+    {
+        // Пропуск групп с нулевым номером.
+        if (plu1cFkDb.Plu is { IsGroup: true, Number: 0 }) throw new(nameof(plu1cFkDb.Plu));
+        // ПЛУ не найдена.
+        if (plu1cFkDb.IsNotExists)
         {
             itemXml.ParseResult.Status = ParseStatus.Error;
-            itemXml.ParseResult.Exception = 
-                $"{LocaleCore.WebService.FieldPluIsDenyForLoad} '{plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu.Code}'";
+            itemXml.ParseResult.Exception =
+                $"{LocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+        }
+        // UID_1C не совпадает.
+        if (itemXml is PluModel pluXml)
+        {
+            if (!Equals(pluXml.Uid1c, plu1cFkDb.Plu.Uid1c))
+            {
+                itemXml.ParseResult.Status = ParseStatus.Error;
+                itemXml.ParseResult.Exception =
+                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+            }
+        }
+        else if (itemXml is PluCharacteristicModel pluCharacteristicXml)
+        {
+            if (!Equals(pluCharacteristicXml.NomenclatureGuid, plu1cFkDb.Plu.Uid1c))
+            {
+                itemXml.ParseResult.Status = ParseStatus.Error;
+                itemXml.ParseResult.Exception =
+                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+            }
+        }
+        // Загрузка ПЛУ выключена.
+        if (!plu1cFkDb.IsEnabled)
+        {
+            itemXml.ParseResult.Status = ParseStatus.Error;
+            itemXml.ParseResult.Exception =
+                $"{LocaleCore.WebService.FieldNomenclatureIsDenyForLoad} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
         }
     }
 }
