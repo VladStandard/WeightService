@@ -13,7 +13,6 @@ public sealed partial class PlusNestingFks : RazorComponentSectionBase<PluNestin
     {
         ButtonSettings = new(true, true, true,
             true, true, true, false);
-        SqlCrudConfigSection.NativeQuery = WsSqlQueriesScales.Tables.PluNestingFks.GetList(true);
     }
 
     #endregion
@@ -22,11 +21,7 @@ public sealed partial class PlusNestingFks : RazorComponentSectionBase<PluNestin
 
     protected override void SetSqlSectionCast()
     {
-        SqlCrudConfigSection.NativeParameters = new()
-        {
-            new("P_UID", SqlItem?.IdentityValueUid),
-        };
-        base.SetSqlSectionCast();
+        SqlSectionCast = ContextManager.ContextPluNesting.GetListByUid(SqlItem?.IdentityValueUid);
     }
 
     #endregion
