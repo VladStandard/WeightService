@@ -929,12 +929,15 @@ public class WsContentBase : ControllerBase
     private void GetPlus1cFksByNumber<T>(List<WsSqlPlu1cFkModel> plus1cFksDb, WsXmlContentRecord<PluModel> pluXml) where T : WsSqlTableBase1c, new()
     {
         plus1cFksDb.Clear();
-        PluModel pluDb = ContextManager.ContextPlu.GetItemByNumber(pluXml.Item.Number);
-        WsSqlPlu1cFkModel plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
-                                      ?? ContextManager.ContextPlu1cFk.GetNewItem();
-        if (plu1cFkDb.IsNotExists)
-            plu1cFkDb.Plu = pluDb;
-        plus1cFksDb.Add(plu1cFkDb);
+        List<PluModel> plusDb = ContextManager.ContextPlu.GetListByNumber(pluXml.Item.Number);
+        foreach (PluModel pluDb in plusDb)
+        {
+            WsSqlPlu1cFkModel plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
+                                          ?? ContextManager.ContextPlu1cFk.GetNewItem();
+            if (plu1cFkDb.IsNotExists)
+                plu1cFkDb.Plu = pluDb;
+            plus1cFksDb.Add(plu1cFkDb);
+        }
     }
 
     /// <summary>
@@ -1039,21 +1042,33 @@ public class WsContentBase : ControllerBase
         {
             itemXml.ParseResult.Status = ParseStatus.Error;
             itemXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldPluIsNotFound} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+                $"{LocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
         }
         // UID_1C не совпадает.
-        if (!Equals(itemXml.Uid1c, plu1cFkDb.Plu.Uid1c))
+        if (itemXml is PluModel pluXml)
         {
-            itemXml.ParseResult.Status = ParseStatus.Error;
-            itemXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldPluIsErrorUid1c} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+            if (!Equals(pluXml.Uid1c, plu1cFkDb.Plu.Uid1c))
+            {
+                itemXml.ParseResult.Status = ParseStatus.Error;
+                itemXml.ParseResult.Exception =
+                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+            }
+        }
+        else if (itemXml is PluCharacteristicModel pluCharacteristicXml)
+        {
+            if (!Equals(pluCharacteristicXml.NomenclatureGuid, plu1cFkDb.Plu.Uid1c))
+            {
+                itemXml.ParseResult.Status = ParseStatus.Error;
+                itemXml.ParseResult.Exception =
+                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+            }
         }
         // Загрузка ПЛУ выключена.
         if (!plu1cFkDb.IsEnabled)
         {
             itemXml.ParseResult.Status = ParseStatus.Error;
             itemXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldPluIsDenyForLoad} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+                $"{LocaleCore.WebService.FieldNomenclatureIsDenyForLoad} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
         }
     }
 }

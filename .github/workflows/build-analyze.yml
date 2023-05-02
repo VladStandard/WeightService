@@ -2,23 +2,17 @@ name: PVS-Studio build analysis
 on: workflow_dispatch
 jobs:
   build-analyze:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Install tools
         run: |
-          wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
-            | sudo apt-key add -
-          sudo wget -O /etc/apt/sources.list.d/viva64.list \
-            https://files.pvs-studio.com/etc/viva64.list
-          sudo apt update
-          sudo apt install pvs-studio
-          pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
-      - name: Build
-        run: |
-          cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On -B build .
-          cmake --build build -j
+          Invoke-WebRequest -Uri "https://cdn.pvs-studio.com/PVS-Studio_setup.exe" -OutFile "PVS-Studio_setup.exe"
+          PVS-Studio_setup.exe
+          PVS-Studio_Cmd.exe credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
+      - name: Build app for DevelopVS x64
+        run: msbuild WeightService2022.sln -t:rebuild -verbosity:quiet -property:Configuration=DevelopVS -property:Platform=x64
       - name: Analyze
         run: |
           pvs-studio-analyzer analyze -f build/compile_commands.json -j
