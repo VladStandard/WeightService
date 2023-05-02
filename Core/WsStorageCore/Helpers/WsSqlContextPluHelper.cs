@@ -49,5 +49,13 @@ public sealed class WsSqlContextPluHelper
 
     public List<PluModel> GetList() => ContextList.GetListNotNullablePlus(new());
 
+    public List<PluModel> GetListByUid1c(Guid uid)
+    {
+        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
+                { new() { Name = nameof(PluModel.Uid1c), Value = uid } },
+            true, false, false, false, false);
+        return ContextList.GetListNotNullablePlus(sqlCrudConfig);
+    }
+    
     #endregion
 }

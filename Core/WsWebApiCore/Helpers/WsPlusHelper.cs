@@ -613,55 +613,55 @@ public sealed class WsPlusHelper : WsContentBase
             // Цикл по всем XML-номенклатурам.
             foreach (WsXmlContentRecord<PluModel> record in plusXml)
             {
-                PluModel pluXml = record.Item;
-                // Обновить данные в таблице связей номенклатуры 1С.
-                WsSqlPlu1cFkModel plu1cFkDb = UpdatePlu1cFkDb(response, record);
-                // Проверить ПЛУ на группу.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    CheckPluNumberForNonGroup(pluXml);
+                PluModel itemXml = record.Item;
+                // Обновить данные в таблице связей обмена номенклатуры 1С.
+                List<WsSqlPlu1cFkModel> plus1cFksDb = UpdatePlus1cFksDb(response, record);
+                // Проверить ПЛУ на группу с нулевым номером.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    CheckPluNumberForNonGroup(itemXml);
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    CheckIsEnabledPlu(pluXml, plu1cFkDb);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    CheckIsEnabledPlu(itemXml, plus1cFksDb);
                 // Проверить валидацию ПЛУ.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    CheckPluValidation(pluXml, pluValidator);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    CheckPluValidation(itemXml, pluValidator);
                 // Проверить дубликат ПЛУ для не группы.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    CheckPluDublicateForNonGroup(response, pluXml, Cache.PlusDb);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    CheckPluDublicateForNonGroup(response, itemXml, Cache.PlusDb);
                 // Добавить ПЛУ.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPlu(response, Cache.PlusDb, pluXml);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPlu(response, Cache.PlusDb, itemXml);
                 // Добавить связь ПЛУ.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluFks(response, Cache.PluFksDb, pluXml);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPluFks(response, Cache.PluFksDb, itemXml);
                 // Добавить коробку.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluBox(response, Cache.BoxesDb, pluXml);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPluBox(response, Cache.BoxesDb, itemXml);
                 // Добавить пакет.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluBundle(response, Cache.BundlesDb, pluXml);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPluBundle(response, Cache.BundlesDb, itemXml);
                 // Добавить связь бренда.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluBrandFk(response, Cache.PluBrandsFksDb, pluXml);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPluBrandFk(response, Cache.PluBrandsFksDb, itemXml);
                 // Добавить клипсу.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluClip(response, Cache.ClipsDb, pluXml);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPluClip(response, Cache.ClipsDb, itemXml);
                 // Добавить связь клипсы ПЛУ.
-                if (pluXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluClipFk(response, Cache.PluClipsFksDb, pluXml);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPluClipFk(response, Cache.PluClipsFksDb, itemXml);
                 // Успешно.
-                if (pluXml.ParseResult.IsStatusSuccess)
+                if (itemXml.ParseResult.IsStatusSuccess)
                 {
                     // Добавить связь пакета ПЛУ.
-                    PluBundleFkModel pluBundleFk = AddResponse1cPluBundleFk(response, Cache.PluBundlesFksDb, pluXml);
+                    PluBundleFkModel pluBundleFk = AddResponse1cPluBundleFk(response, Cache.PluBundlesFksDb, itemXml);
                     // Добавить связь вложенности ПЛУ.
-                    if (pluXml.ParseResult.IsStatusSuccess)
-                        AddResponse1cPluNestingFk(response, pluBundleFk, Cache.PluNestingFksDb, pluXml);
+                    if (itemXml.ParseResult.IsStatusSuccess)
+                        AddResponse1cPluNestingFk(response, pluBundleFk, Cache.PluNestingFksDb, itemXml);
                 }
                 // Исключение.
-                if (pluXml.ParseResult.IsStatusError)
-                    AddResponse1cExceptionString(response, pluXml.Uid1c,
-                        pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
+                if (itemXml.ParseResult.IsStatusError)
+                    AddResponse1cExceptionString(response, itemXml.Uid1c,
+                        itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);
 
@@ -686,12 +686,11 @@ public sealed class WsPlusHelper : WsContentBase
     }
 
     /// <summary>
-    /// Проверить ПЛУ на группу.
+    /// Проверить ПЛУ на группу с нулевым номером.
     /// </summary>
     /// <param name="pluXml"></param>
     private void CheckPluNumberForNonGroup(PluModel pluXml)
     {
-        // Пропуск групп с нулевым номером.
         if (pluXml is { IsGroup: true, Number: 0 })
         {
             pluXml.ParseResult.Status = ParseStatus.Error;

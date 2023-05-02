@@ -34,6 +34,8 @@ public sealed class WsSqlContextPlu1cFkHelper
     public WsSqlPlu1cFkModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPlu1cFkModel>();
 
     public List<WsSqlPlu1cFkModel> GetList() => ContextList.GetListNotNullablePlus1cFks(new());
+    
+    public List<WsSqlPlu1cFkModel> GetNewList() => new() { GetNewItem() };
 
     #endregion
 }

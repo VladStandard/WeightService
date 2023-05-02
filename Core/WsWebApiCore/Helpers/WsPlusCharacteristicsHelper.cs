@@ -127,22 +127,23 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             List<WsXmlContentRecord<PluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (WsXmlContentRecord<PluCharacteristicModel> record in pluCharacteristicsXml)
             {
-                PluCharacteristicModel pluCharacteristicXml = record.Item;
-                WsSqlPlu1cFkModel plu1cFkDb = UpdatePlu1cFkDb(response, record);
+                PluCharacteristicModel itemXml = record.Item;
+                // Обновить данные в таблице связей обмена номенклатуры 1С.
+                List<WsSqlPlu1cFkModel> plus1cFksDb = UpdatePlus1cFksDb(response, record);
                 PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(record.Item.NomenclatureGuid);
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
-                if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
-                    CheckIsEnabledPlu(pluCharacteristicXml, plu1cFkDb);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    CheckIsEnabledPlu(itemXml, plus1cFksDb);
                 // Добавить характеристику ПЛУ.
-                if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluCharacteristics(response, Cache.PluCharacteristicsDb, pluCharacteristicXml, pluDb);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPluCharacteristics(response, Cache.PluCharacteristicsDb, itemXml, pluDb);
                 // Добавить связь характеристики ПЛУ.
-                if (pluCharacteristicXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluCharacteristicsFks(response, Cache.PluCharacteristicsFksDb, pluCharacteristicXml);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    AddResponse1cPluCharacteristicsFks(response, Cache.PluCharacteristicsFksDb, itemXml);
                 // Исключение.
-                if (pluCharacteristicXml.ParseResult.IsStatusError)
-                    AddResponse1cExceptionString(response, pluCharacteristicXml.Uid1c,
-                        pluCharacteristicXml.ParseResult.Exception, pluCharacteristicXml.ParseResult.InnerException);
+                if (itemXml.ParseResult.IsStatusError)
+                    AddResponse1cExceptionString(response, itemXml.Uid1c,
+                        itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);
 
