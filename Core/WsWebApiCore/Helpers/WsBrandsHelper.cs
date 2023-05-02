@@ -36,28 +36,26 @@ public sealed class WsBrandsHelper : WsContentBase
             WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
         });
 
-    private void AddResponse1cBrand(WsResponse1cShortModel response, List<BrandModel> brandsDb, BrandModel brandXml)
+    private void AddResponse1cBrand(WsResponse1cShortModel response, BrandModel brandXml)
     {
         try
         {
             // Найдено по Uid1C -> Обновить найденную запись.
-            BrandModel? brandDb = brandsDb.Find(item => Equals(item.Uid1c, brandXml.IdentityValueUid));
+            BrandModel? brandDb = Cache.BrandsDb.Find(item => Equals(item.Uid1c, brandXml.IdentityValueUid));
             if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
             // Найдено по Code -> Обновить найденную запись.
-            brandDb = brandsDb.Find(item => Equals(item.Code, brandXml.Code));
+            brandDb = Cache.BrandsDb.Find(item => Equals(item.Code, brandXml.Code));
             if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
             // Найдено по Name -> Обновить найденную запись.
-            brandDb = brandsDb.Find(item => Equals(item.Name, brandXml.Name));
+            brandDb = Cache.BrandsDb.Find(item => Equals(item.Name, brandXml.Name));
             if (UpdateBrandDb(response, brandXml.Uid1c, brandXml, brandDb, true)) return;
 
             // Не найдено -> Добавить новую запись.
-            bool isSave = SaveItemDb(response, brandXml, true);
-
-            // Обновить список БД.
-            if (brandDb is not null && isSave && !brandsDb.Select(x => x.IdentityValueUid).Contains(brandDb.IdentityValueUid))
-                brandsDb.Add(brandDb);
+            if (SaveItemDb(response, brandXml, true))
+                // Обновить список БД.
+                Cache.Load(WsSqlTableName.Brands);
         }
         catch (Exception ex)
         {
@@ -66,7 +64,7 @@ public sealed class WsBrandsHelper : WsContentBase
     }
 
     /// <summary>
-    /// Отправить бренды и получить ответ.
+    /// Загрузить бренды и получить ответ.
     /// </summary>
     /// <param name="xml"></param>
     /// <param name="formatString"></param>
@@ -85,7 +83,7 @@ public sealed class WsBrandsHelper : WsContentBase
                 switch (brandXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cBrand(response, Cache.BrandsDb, brandXml);
+                        AddResponse1cBrand(response, brandXml);
                         break;
                     case ParseStatus.Error:
                         AddResponse1cException(response, brandXml);

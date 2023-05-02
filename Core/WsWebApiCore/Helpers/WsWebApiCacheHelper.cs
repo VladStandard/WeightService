@@ -42,38 +42,38 @@ public sealed class WsWebApiCacheHelper //: WsContentBase
     /// <summary>
     /// Прогреть кеш.
     /// </summary>
-    public void Load()
+    public void Load(WsSqlTableName tableName = WsSqlTableName.All)
     {
-        if (!PlusDb.Any()) 
+        if (!PlusDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus)) 
             PlusDb = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
-        if (!PluFksDb.Any()) 
+        if (!PluFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluFks)) 
             PluFksDb = ContextManager.ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
-        if (!BoxesDb.Any()) 
+        if (!BoxesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Boxes)) 
             BoxesDb = ContextManager.ContextList.GetListNotNullableBoxes(SqlCrudConfig);
-        if (!BundlesDb.Any()) 
+        if (!BundlesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Bundles)) 
             BundlesDb = ContextManager.ContextList.GetListNotNullableBundles(SqlCrudConfig);
-        if (!PluBundlesFksDb.Any()) 
+        if (!PluBundlesFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluBundlesFks)) 
             PluBundlesFksDb = ContextManager.ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
-        if (!PluBrandsFksDb.Any()) 
+        if (!PluBrandsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluBrandsFks)) 
             PluBrandsFksDb = ContextManager.ContextList.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
-        if (!ClipsDb.Any()) 
+        if (!ClipsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Clips)) 
             ClipsDb = ContextManager.ContextList.GetListNotNullableClips(SqlCrudConfig);
-        if (!PluClipsFksDb.Any()) 
+        if (!PluClipsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluClipsFks)) 
             PluClipsFksDb = ContextManager.ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
-        if (!PluNestingFksDb.Any()) 
+        if (!PluNestingFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluNestingFks)) 
             PluNestingFksDb = ContextManager.ContextList.GetListNotNullablePlusNestingFks(
             new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(false), false));
-        if (!Plus1cFksDb.Any()) 
+        if (!Plus1cFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus1cFks)) 
             Plus1cFksDb = ContextManager.ContextPlu1cFk.GetList();
-        if (!PluCharacteristicsDb.Any())
+        if (!PluCharacteristicsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristics)) 
             PluCharacteristicsDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
-        if (!PluCharacteristicsFksDb.Any())
+        if (!PluCharacteristicsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristicsFks)) 
             PluCharacteristicsFksDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
-        if (!PluGroupsDb.Any())
+        if (!PluGroupsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluGroups)) 
             PluGroupsDb = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
-        if (!PluGroupsFksDb.Any())
+        if (!PluGroupsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluGroupsFks)) 
             PluGroupsFksDb = ContextManager.ContextList.GetListNotNullablePlusGroupFks(SqlCrudConfig);
-        if (!BrandsDb.Any())
+        if (!BrandsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Brands)) 
             BrandsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
     }
 

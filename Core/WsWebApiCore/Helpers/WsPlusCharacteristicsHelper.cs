@@ -40,24 +40,21 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     /// Добавить характеристику ПЛУ.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="pluCharacteristicsDb"></param>
     /// <param name="pluCharacteristicXml"></param>
     /// <param name="pluDb"></param>
-    private void AddResponse1cPluCharacteristics(WsResponse1cShortModel response, List<PluCharacteristicModel> pluCharacteristicsDb,
-        PluCharacteristicModel pluCharacteristicXml, PluModel pluDb)
+    private void AddResponse1cPluCharacteristics(WsResponse1cShortModel response, PluCharacteristicModel pluCharacteristicXml, 
+        PluModel pluDb)
     {
         try
         {
             // Найдено по Identity -> Обновить найденную запись.
-            PluCharacteristicModel? itemDb = pluCharacteristicsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
+            PluCharacteristicModel? itemDb = Cache.PluCharacteristicsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
             if (UpdateItem1cDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
 
             // Не найдено -> Добавить новую запись.
-            bool isSave = SaveItemDb(response, pluCharacteristicXml, true);
-
-            // Обновить список БД.
-            if (isSave && !pluCharacteristicsDb.Select(x => x.IdentityValueUid).Contains(pluCharacteristicXml.IdentityValueUid))
-                pluCharacteristicsDb.Add(pluCharacteristicXml);
+            if (SaveItemDb(response, pluCharacteristicXml, true))
+                // Обновить список БД.
+                Cache.Load(WsSqlTableName.PluCharacteristics);
         }
         catch (Exception ex)
         {
@@ -69,10 +66,8 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     /// Добавить связь характеристики ПЛУ.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="pluCharacteristicsFksDb"></param>
     /// <param name="pluCharacteristicXml"></param>
-    private void AddResponse1cPluCharacteristicsFks(WsResponse1cShortModel response,
-        List<PluCharacteristicsFkModel> pluCharacteristicsFksDb, PluCharacteristicModel pluCharacteristicXml)
+    private void AddResponse1cPluCharacteristicsFks(WsResponse1cShortModel response, PluCharacteristicModel pluCharacteristicXml)
     {
         try
         {
@@ -92,18 +87,16 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            PluCharacteristicsFkModel? pluCharacteristicFkDb = pluCharacteristicsFksDb.Find(item =>
+            PluCharacteristicsFkModel? pluCharacteristicFkDb = Cache.PluCharacteristicsFksDb.Find(item =>
                 Equals(item.Plu.Uid1c, pluCharacteristicsFk.Plu.Uid1c) &&
                 Equals(item.Characteristic.Uid1c, pluCharacteristicsFk.Characteristic.Uid1c));
             if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, pluCharacteristicFkDb, 
                     false, pluDb.Number)) return;
 
             // Не найдено -> Добавить новую запись.
-            bool isSave = SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1c);
-
-            // Обновить список БД.
-            if (isSave && !pluCharacteristicsFksDb.Select(x => x.IdentityValueUid).Contains(pluCharacteristicsFk.IdentityValueUid))
-                pluCharacteristicsFksDb.Add(pluCharacteristicsFk);
+            if (SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1c))
+                // Обновить список БД.
+                Cache.Load(WsSqlTableName.PluCharacteristicsFks);
         }
         catch (Exception ex)
         {
@@ -112,7 +105,7 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     }
 
     /// <summary>
-    /// Отправить номенклатурные характеристик и получить ответ.
+    /// Загрузить номенклатурные характеристик и получить ответ.
     /// </summary>
     /// <param name="xml"></param>
     /// <param name="format"></param>
@@ -136,10 +129,10 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
                     CheckIsEnabledPlu(itemXml, plus1cFksDb);
                 // Добавить характеристику ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluCharacteristics(response, Cache.PluCharacteristicsDb, itemXml, pluDb);
+                    AddResponse1cPluCharacteristics(response, itemXml, pluDb);
                 // Добавить связь характеристики ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluCharacteristicsFks(response, Cache.PluCharacteristicsFksDb, itemXml);
+                    AddResponse1cPluCharacteristicsFks(response, itemXml);
                 // Исключение.
                 if (itemXml.ParseResult.IsStatusError)
                     AddResponse1cExceptionString(response, itemXml.Uid1c,

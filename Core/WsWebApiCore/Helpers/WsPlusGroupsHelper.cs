@@ -44,8 +44,7 @@ public sealed class WsPlusGroupsHelper : WsContentBase
             WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
         });
 
-    private void AddResponse1cPluGroupsFks(WsResponse1cShortModel response, List<PluGroupFkModel> itemsDb,
-        PluGroupModel pluGroupXml)
+    private void AddResponse1cPluGroupsFks(WsResponse1cShortModel response, PluGroupModel pluGroupXml)
     {
         try
         {
@@ -74,17 +73,15 @@ public sealed class WsPlusGroupsHelper : WsContentBase
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            PluGroupFkModel? itemDb = itemsDb.Find(x =>
+            PluGroupFkModel? itemDb = Cache.PluGroupsFksDb.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
             if (UpdatePluGroupFkDb(response, pluGroupXml.Uid1c, itemGroupFk, itemDb, false)) return;
 
             // Не найдено -> Добавить новую запись.
-            bool isSave = SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1c);
-
-            // Обновить список БД.
-            if (isSave && !itemsDb.Select(x => x.IdentityValueUid).Contains(itemGroupFk.IdentityValueUid))
-                itemsDb.Add(itemGroupFk);
+            if (SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1c))
+                // Обновить список БД.
+                Cache.Load(WsSqlTableName.PluGroupsFks);
         }
         catch (Exception ex)
         {
@@ -92,28 +89,26 @@ public sealed class WsPlusGroupsHelper : WsContentBase
         }
     }
 
-    private void AddResponse1cPluGroups(WsResponse1cShortModel response, List<PluGroupModel> pluGroupsDb, PluGroupModel pluGroupXml)
+    private void AddResponse1cPluGroups(WsResponse1cShortModel response, PluGroupModel pluGroupXml)
     {
         try
         {
             // Найдено по Uid1C -> Обновить найденную запись.
-            PluGroupModel? pluGroupDb = pluGroupsDb.Find(item => Equals(item.Uid1c, pluGroupXml.IdentityValueUid));
+            PluGroupModel? pluGroupDb = Cache.PluGroupsDb.Find(item => Equals(item.Uid1c, pluGroupXml.IdentityValueUid));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Найдено по Code -> Обновить найденную запись.
-            pluGroupDb = pluGroupsDb.Find(item => Equals(item.Code, pluGroupXml.Code));
+            pluGroupDb = Cache.PluGroupsDb.Find(item => Equals(item.Code, pluGroupXml.Code));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Найдено по Name -> Обновить найденную запись.
-            pluGroupDb = pluGroupsDb.Find(item => Equals(item.Name, pluGroupXml.Name));
+            pluGroupDb = Cache.PluGroupsDb.Find(item => Equals(item.Name, pluGroupXml.Name));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1c, pluGroupXml, pluGroupDb, true)) return;
 
             // Не найдено -> Добавить новую запись.
-            bool isSave = SaveItemDb(response, pluGroupXml, true);
-
-            // Обновить список БД.
-            if (pluGroupDb is not null && isSave && !pluGroupsDb.Select(x => x.IdentityValueUid).Contains(pluGroupDb.IdentityValueUid))
-                pluGroupsDb.Add(pluGroupDb);
+            if (SaveItemDb(response, pluGroupXml, true))
+                // Обновить список БД.
+                Cache.Load(WsSqlTableName.PluGroups);
         }
         catch (Exception ex)
         {
@@ -122,7 +117,7 @@ public sealed class WsPlusGroupsHelper : WsContentBase
     }
 
     /// <summary>
-    /// Отправить номенклатурные группы и получить ответ.
+    /// Загрузить номенклатурные группы и получить ответ.
     /// </summary>
     /// <param name="xml"></param>
     /// <param name="format"></param>
@@ -141,8 +136,8 @@ public sealed class WsPlusGroupsHelper : WsContentBase
                 switch (pluGroup.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cPluGroups(response, Cache.PluGroupsDb, pluGroup);
-                        AddResponse1cPluGroupsFks(response, Cache.PluGroupsFksDb, pluGroup);
+                        AddResponse1cPluGroups(response, pluGroup);
+                        AddResponse1cPluGroupsFks(response, pluGroup);
                         break;
                     case ParseStatus.Error:
                         AddResponse1cExceptionString(response, pluGroup.Uid1c, 
