@@ -24,7 +24,7 @@ using WsStorageCore.TableScaleModels.Scales;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 using WsStorageCore.TableScaleModels.Versions;
 using WsStorageCore.TableScaleModels.WorkShops;
-using WsStorageCore.Xml;
+using WsStorageCore.ViewScaleModels;
 
 namespace WsBlazorCore.Utils;
 
@@ -102,12 +102,12 @@ public static class RazorFieldConfigUtils
     
     public static class LogQuick
 	{
-		public static RazorFieldConfigModel GetApp() => new(nameof(LogQuickModel.App), TextAlign.Left, LocaleCore.Table.App);
-		public static RazorFieldConfigModel GetDevice() => new(nameof(LogQuickModel.Host), TextAlign.Left, LocaleCore.Table.Host, "string");
-		public static RazorFieldConfigModel GetIcon() => new(nameof(LogQuickModel.LogType), TextAlign.Left, LocaleCore.Table.Icon);
-		public static RazorFieldConfigModel GetMessage() => new(nameof(LogQuickModel.Message), TextAlign.Left, LocaleCore.Table.Message);
-		public static RazorFieldConfigModel GetScale() => new(nameof(LogQuickModel.Line), TextAlign.Left, LocaleCore.Table.Line, "string");
-		public static RazorFieldConfigModel GetVersion() => new(nameof(LogQuickModel.Version), TextAlign.Left, LocaleCore.Table.Version);
+		public static RazorFieldConfigModel GetApp() => new(nameof(LogView.App), TextAlign.Left, LocaleCore.Table.App);
+		public static RazorFieldConfigModel GetDevice() => new(nameof(LogView.Host), TextAlign.Left, LocaleCore.Table.Host, "string");
+		public static RazorFieldConfigModel GetIcon() => new(nameof(LogView.LogType), TextAlign.Left, LocaleCore.Table.Icon);
+		public static RazorFieldConfigModel GetMessage() => new(nameof(LogView.Message), TextAlign.Left, LocaleCore.Table.Message);
+		public static RazorFieldConfigModel GetScale() => new(nameof(LogView.Line), TextAlign.Left, LocaleCore.Table.Line, "string");
+		public static RazorFieldConfigModel GetVersion() => new(nameof(LogView.Version), TextAlign.Left, LocaleCore.Table.Version);
 	}
 
 	public static class Organization

@@ -2,11 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
-using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
+using WsStorageCore.ViewScaleModels;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighings;
 
-public sealed partial class PluWeightings : RazorComponentSectionBase<PluWeighingModel>
+public sealed partial class PluWeightings : RazorComponentSectionBase<PluWeightingView>
 {
     #region Public and private fields, properties, constructor
 
@@ -23,14 +23,31 @@ public sealed partial class PluWeightings : RazorComponentSectionBase<PluWeighin
 
     protected override void SetSqlSectionCast()
     {
-        base.SetSqlSectionCast();
-        DeviceScaleFk = ContextManager.AccessManager.AccessList.GetListNotNullable<DeviceScaleFkModel>(new());
-    }
-
-    private string GetDeviceName(PluWeighingModel pluWeighing)
-    {
-        DeviceScaleFkModel? deviceScale = DeviceScaleFk.Find((x) => x.Scale.Equals(pluWeighing.PluScale.Scale));
-        return deviceScale != null ? deviceScale.Device.Name : "";
+        var query = WsSqlQueriesDiags.Tables.Views.GetPluWeightings(SqlCrudConfigSection.IsResultShowOnlyTop
+            ? ContextManager.JsonSettings.Local.SelectTopRowsCount
+            : 0, SqlCrudConfigSection.IsResultShowMarked);
+        object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
+        List<PluWeightingView> items = new();
+        foreach (var obj in objects)
+        {
+            if (obj is not object[] { Length: 8 } item)
+                continue;
+            if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
+            {
+                items.Add(new PluWeightingView
+                {
+                    IdentityValueUid = uid,
+                    IsMarked = Convert.ToBoolean(item[1]),
+                    CreateDt = Convert.ToDateTime(item[2]),
+                    Line = item[3] as string ?? string.Empty,
+                    PluNumber = Convert.ToInt32(item[4]),
+                    PluName = item[5] as string ?? string.Empty,
+                    TareWeight = Convert.ToDecimal(item[6]),
+                    NettoWeight = Convert.ToDecimal(item[7])
+                });
+            }
+        }
+        SqlSectionCast = items;
     }
 
     #endregion

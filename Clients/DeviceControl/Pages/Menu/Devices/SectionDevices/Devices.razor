@@ -1,13 +1,13 @@
 ﻿@page "/section/devices"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Devices
+@using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Devices.DeviceModel>
+@inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.DeviceView>
 
 <SectionReload
-  TItem="@DeviceModel"
+  TItem="@DeviceView"
   Title="@LocaleCore.DeviceControl.SectionHosts"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -16,24 +16,20 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@DeviceModel"
+  TItem="@DeviceView"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@DeviceModel">
+    <TItemContent TItem="@DeviceView">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="15%"
-                            FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LogoutDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Width="20%" Sortable="false">
-        <Template Context="itemCast">
-          @GetDevicePrettyName(itemCast)
-        </Template>
-      </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceIp" Property="Ipv4" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceMac" Property="MacAddress.ValuePrettyLookMinus" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Property="TypeName" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceIp" Property="Ip" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceMac" Property="ValuePrettyLookMinus" Width="20%"/>
     </TItemContent>
   </Columns>
 </RzDataGridLocal>

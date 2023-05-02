@@ -2,11 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.TableDiagModels.LogsTypes;
-using WsStorageCore.Xml;
+using WsStorageCore.ViewScaleModels;
 
 namespace BlazorDeviceControl.Pages.Menu.Logs.SectionLogs;
 
-public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
+public sealed partial class Logs : RazorComponentSectionBase<LogView>
 {
     private string? CurrentLogType { get; set; }
     private List<LogTypeModel> LogTypes { get; set; }
@@ -24,9 +24,9 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetLogs(SqlCrudConfigSection.IsResultShowOnlyTop
             ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, SqlCrudConfigSection.IsResultShowMarked, CurrentLogType);
+            : 0, CurrentLogType);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
-        List<LogQuickModel> items = new();
+        List<LogView> items = new();
         foreach (var obj in objects)
         {
             if (obj is not object[] { Length: 11 } item)
@@ -34,7 +34,7 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
 
             if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
             {
-                items.Add(new LogQuickModel
+                items.Add(new LogView
                 {
                     IdentityValueUid = uid,
                     CreateDt = Convert.ToDateTime(item[1]),
@@ -50,7 +50,6 @@ public sealed partial class Logs : RazorComponentSectionBase<LogQuickModel>
                 });
             }
         }
-
         SqlSectionCast = items;
     }
 

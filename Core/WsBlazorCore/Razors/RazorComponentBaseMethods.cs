@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Net.Sockets;
+using Microsoft.JSInterop;
 using Radzen;
 using WsBlazorCore.Settings;
 using WsBlazorCore.Utils;
@@ -452,6 +453,12 @@ public partial class RazorComponentBase
 			}
         });
 	}
+    
+    protected async void CopyToClipboard(string textToCopy)
+    {
+        if (JsRuntime != null)
+            await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", textToCopy);
+    }
 
 	#endregion
 }

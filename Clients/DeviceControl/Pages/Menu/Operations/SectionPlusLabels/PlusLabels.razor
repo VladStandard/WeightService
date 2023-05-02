@@ -1,13 +1,13 @@
 @page "/section/plus_labels"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleFkModels.PlusLabels
+@using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusLabels.PluLabelModel>
+@inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.PlusLabelView>
 
 <SectionReload
-  TItem="@PluLabelModel"
+  TItem="@PlusLabelView"
   Title="@LocaleCore.DeviceControl.SectionLabels"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -16,27 +16,23 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@PluLabelModel"
+  TItem="@PlusLabelView"
   Data="@SqlSectionCast"
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@PluLabelModel">
+    <TItemContent TItem="@PlusLabelView">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighing" Property="PluWeighing.CreateDt" Width="8%" FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDt" Width="8%" FormatString="@StrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ExpirationDt" Property="ExpirationDt" Width="8%" FormatString="@StrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="PluScale.Scale.Description" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluScale.Plu.Number" Width="8%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluScale.Plu.Name" Width="25%"/>
-      <RadzenDataGridColumn TItem="@PluLabelModel" Title="@LocaleCore.Table.Template" Width="14%" Sortable="@false">
-        <Template Context="itemCast">
-          @ContextManager.ContextItem.GetItemTemplateNotNullable(itemCast.PluScale).Title
-        </Template>
-      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighing" Property="WeightingDate" Width="8%" FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDate" Width="8%" FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ExpirationDt" Property="ExpirationDate" Width="8%" FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="8%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluName" Width="25%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Template" Property="Template" Width="14%" />
     </TItemContent>
   </Columns>
 </RzDataGridLocal>
