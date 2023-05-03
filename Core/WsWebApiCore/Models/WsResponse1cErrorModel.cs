@@ -1,11 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Record, Namespace = "", IsNullable = false)]
-public class WsResponse1cErrorModel : SerializeBase
+public class WsResponse1CErrorModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -15,19 +14,19 @@ public class WsResponse1cErrorModel : SerializeBase
     [XmlAttribute(nameof(Message))]
     public string Message { get; set; }
 
-    public WsResponse1cErrorModel()
+    public WsResponse1CErrorModel()
     {
         Uid = Guid.Empty;
         Message = string.Empty;
     }
 
-    public WsResponse1cErrorModel(Guid uid, string message)
+    public WsResponse1CErrorModel(Guid uid, string message)
     {
         Uid = uid;
         Message = message;
     }
 
-    public WsResponse1cErrorModel(Exception ex)
+    public WsResponse1CErrorModel(Exception ex)
     {
         Uid = Guid.Empty;
         Message = ex.Message;
@@ -38,7 +37,7 @@ public class WsResponse1cErrorModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private WsResponse1cErrorModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponse1CErrorModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         object? uid = info.GetValue(nameof(Uid), typeof(Guid));
         Uid = uid is not null ? (Guid)uid : Guid.Empty;

@@ -1,4 +1,4 @@
-name: Bagger branch
+name: Branch Bagger 
 
 on:
   push:

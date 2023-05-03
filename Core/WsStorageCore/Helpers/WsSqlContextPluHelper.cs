@@ -1,6 +1,5 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
 namespace WsStorageCore.Helpers;
 
@@ -32,7 +31,7 @@ public sealed class WsSqlContextPluHelper
     public PluModel GetItemByUid1c(Guid uid)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
-                { new() { Name = nameof(PluModel.Uid1c), Value = uid } },
+                { new() { Name = nameof(PluModel.Uid1C), Value = uid } },
             true, false, false, false, false);
         return AccessItem.GetItemNotNullable<PluModel>(sqlCrudConfig);
     }
@@ -82,7 +81,7 @@ public sealed class WsSqlContextPluHelper
     public List<PluModel> GetListByUid1c(Guid uid)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>()
-                { new() { Name = nameof(PluModel.Uid1c), Value = uid } },
+                { new() { Name = nameof(PluModel.Uid1C), Value = uid } },
             true, false, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);

@@ -6,7 +6,7 @@ namespace WsWebApiCore.Models;
 [XmlRoot(WsWebConstants.Info, Namespace = "", IsNullable = false)]
 public class WsServiceReplyModel : SerializeBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     /// <summary>
     /// Message.

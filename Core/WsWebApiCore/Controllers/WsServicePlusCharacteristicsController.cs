@@ -1,23 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
-namespace WsWebApiCore.Helpers;
+namespace WsWebApiCore.Controllers;
 
-public sealed class WsPlusCharacteristicsHelper : WsContentBase
+/// <summary>
+/// Веб-контроллер номенклатурных характеристик.
+/// </summary>
+public sealed class WsServicePlusCharacteristicsController : WsServiceControllerBase
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsPlusCharacteristicsHelper _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsPlusCharacteristicsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private fields, properties, constructor
 
-    internal WsPlusCharacteristicsHelper(ISessionFactory sessionFactory) : base(sessionFactory)
+    public WsServicePlusCharacteristicsController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -27,13 +20,13 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     #region Public and private methods
 
     private List<WsXmlContentRecord<PluCharacteristicModel>> GetXmlPluCharacteristicsList(XElement xml) =>
-        WsContentUtils.GetNodesListCore<PluCharacteristicModel>(xml, LocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
+        WsServiceContentUtils.GetNodesListCore<PluCharacteristicModel>(xml, LocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
         {
-            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
-            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
-            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
-            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "AttachmentsCount");
-            WsContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "NomenclatureGuid");
+            WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
+            WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
+            WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
+            WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "AttachmentsCount");
+            WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "NomenclatureGuid");
         });
 
     /// <summary>
@@ -42,7 +35,7 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     /// <param name="response"></param>
     /// <param name="pluCharacteristicXml"></param>
     /// <param name="pluDb"></param>
-    private void AddResponse1cPluCharacteristics(WsResponse1cShortModel response, PluCharacteristicModel pluCharacteristicXml, 
+    private void AddResponse1cPluCharacteristics(WsResponse1CShortModel response, PluCharacteristicModel pluCharacteristicXml,
         PluModel pluDb)
     {
         try
@@ -58,7 +51,7 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluCharacteristicXml.Uid1c, ex);
+            AddResponse1CException(response, pluCharacteristicXml.Uid1C, ex);
         }
     }
 
@@ -67,16 +60,16 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluCharacteristicXml"></param>
-    private void AddResponse1cPluCharacteristicsFks(WsResponse1cShortModel response, PluCharacteristicModel pluCharacteristicXml)
+    private void AddResponse1cPluCharacteristicsFks(WsResponse1CShortModel response, PluCharacteristicModel pluCharacteristicXml)
     {
         try
         {
             if (Equals(pluCharacteristicXml.NomenclatureGuid, Guid.Empty)) return;
 
-            if (!GetPluDb(response, pluCharacteristicXml.NomenclatureGuid, pluCharacteristicXml.Uid1c,
-                LocaleCore.WebService.FieldNomenclature, out PluModel? pluDb)) return;
-            if (!GetPluCharacteristicDb(response, pluCharacteristicXml.Uid1c, pluCharacteristicXml.Uid1c,
-                LocaleCore.WebService.FieldNomenclatureCharacteristic, out PluCharacteristicModel? pluCharacteristicDb)) return;
+            if (!GetPluDb(response, pluCharacteristicXml.NomenclatureGuid, pluCharacteristicXml.Uid1C,
+                    LocaleCore.WebService.FieldNomenclature, out PluModel? pluDb)) return;
+            if (!GetPluCharacteristicDb(response, pluCharacteristicXml.Uid1C, pluCharacteristicXml.Uid1C,
+                    LocaleCore.WebService.FieldNomenclatureCharacteristic, out PluCharacteristicModel? pluCharacteristicDb)) return;
             if (pluDb is null || pluCharacteristicDb is null) return;
 
             PluCharacteristicsFkModel pluCharacteristicsFk = new()
@@ -88,19 +81,19 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
 
             // Найдено по Identity -> Обновить найденную запись.
             PluCharacteristicsFkModel? pluCharacteristicFkDb = Cache.PluCharacteristicsFksDb.Find(item =>
-                Equals(item.Plu.Uid1c, pluCharacteristicsFk.Plu.Uid1c) &&
-                Equals(item.Characteristic.Uid1c, pluCharacteristicsFk.Characteristic.Uid1c));
-            if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1c, pluCharacteristicsFk, pluCharacteristicFkDb, 
+                Equals(item.Plu.Uid1C, pluCharacteristicsFk.Plu.Uid1C) &&
+                Equals(item.Characteristic.Uid1C, pluCharacteristicsFk.Characteristic.Uid1C));
+            if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1C, pluCharacteristicsFk, pluCharacteristicFkDb,
                     false, pluDb.Number)) return;
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1c))
+            if (SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1C))
                 // Обновить список БД.
                 Cache.Load(WsSqlTableName.PluCharacteristicsFks);
         }
         catch (Exception ex)
         {
-            AddResponse1cException(response, pluCharacteristicXml.Uid1c, ex);
+            AddResponse1CException(response, pluCharacteristicXml.Uid1C, ex);
         }
     }
 
@@ -113,16 +106,16 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
     /// <param name="sessionFactory"></param>
     /// <returns></returns>
     public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
-        NewResponse1cCore<WsResponse1cShortModel>(response =>
+        NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
-            // Прогреть кеш.
+            // Прогреть кэш.
             Cache.Load();
             List<WsXmlContentRecord<PluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (WsXmlContentRecord<PluCharacteristicModel> record in pluCharacteristicsXml)
             {
                 PluCharacteristicModel itemXml = record.Item;
                 // Обновить данные в таблице связей обмена номенклатуры 1С.
-                List<WsSqlPlu1cFkModel> plus1cFksDb = UpdatePlus1cFksDb(response, record);
+                List<WsSqlPlu1CFkModel> plus1cFksDb = UpdatePlus1cFksDb(response, record);
                 PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(record.Item.NomenclatureGuid);
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
                 if (itemXml.ParseResult.IsStatusSuccess)
@@ -135,7 +128,7 @@ public sealed class WsPlusCharacteristicsHelper : WsContentBase
                     AddResponse1cPluCharacteristicsFks(response, itemXml);
                 // Исключение.
                 if (itemXml.ParseResult.IsStatusError)
-                    AddResponse1cExceptionString(response, itemXml.Uid1c,
+                    AddResponse1CExceptionString(response, itemXml.Uid1C,
                         itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);

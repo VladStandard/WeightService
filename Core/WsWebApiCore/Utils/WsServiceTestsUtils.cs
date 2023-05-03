@@ -6,9 +6,9 @@ namespace WsWebApiCore.Utils;
 /// <summary>
 /// Utilites.
 /// </summary>
-public static class WsTestsUtils
+public static class WsServiceTestsUtils
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     public static List<int> GetListNomenclatureId => new()
     {

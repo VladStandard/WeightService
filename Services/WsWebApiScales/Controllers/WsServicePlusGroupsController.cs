@@ -6,18 +6,16 @@ namespace WsWebApiScales.Controllers;
 /// <summary>
 /// Nomenclatures groups controller.
 /// </summary>
-[Tags(WsWebServiceConsts.Ref1cNomenclaturesGroups)]
-public sealed class PlusGroupsController : WsControllerBase
+[Tags(WsWebServiceConsts.Ref1CNomenclaturesGroups)]
+public sealed class WsServicePlusGroupsController : WsServiceControllerBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="sessionFactory"></param>
-    public PlusGroupsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    private WsServiceControllerHelper ControllerHelper { get; }
+
+    public WsServicePlusGroupsController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
-        //
+        ControllerHelper = new(sessionFactory);
     }
 
     #endregion
@@ -35,9 +33,9 @@ public sealed class PlusGroupsController : WsControllerBase
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
-            WsAcceptVersion.V2 => GetContentResult(() => NewResponse1cIsNotFound(
-                $"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => WsPlusGroups.NewResponse1cPluGroups(xml, format, isDebug, SessionFactory), format)
+            WsAcceptVersion.V2 => GetContentResult(() => // Новый ответ 1С - не найдено.
+                NewResponse1CIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
+            _ => GetContentResult(() => ControllerHelper.PlusGroupsController.NewResponse1cPluGroups(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendNomenclaturesGroups,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.Enums;
@@ -12,9 +12,9 @@ public sealed partial class RazorItemTableBody : LayoutComponentBase
 
     [Parameter] public WsSqlTableBase SqlItem { get; set; }
 
-    private bool IsSqlItem1C => SqlItem is WsSqlTableBase1c;
+    private bool IsSqlItem1C => SqlItem is WsSqlTable1CBase;
 
-    private string Guid1C => IsSqlItem1C ? $"{((WsSqlTableBase1c?)SqlItem)?.Uid1c}" : $"{Guid.Empty}";
+    private string Guid1C => IsSqlItem1C ? $"{((WsSqlTable1CBase?)SqlItem)?.Uid1C}" : $"{Guid.Empty}";
 
     private string IdentityName =>
         SqlItem.Identity.Name switch

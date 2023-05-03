@@ -3,7 +3,7 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsWebXmlUtils
+internal static class WsServiceXmlUtils
 {
     public static XDocument? GetNullOrEmpty(string response)
     {

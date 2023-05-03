@@ -6,7 +6,7 @@ namespace WsWebApiCore.Models;
 [XmlRoot(WsWebConstants.Info, Namespace = "", IsNullable = false)]
 public class WsServiceInfoModel : SerializeBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     public string Server { get; set; } = string.Empty;
     public string App { get; set; } = string.Empty;
@@ -14,12 +14,12 @@ public class WsServiceInfoModel : SerializeBase
     public string WinCurrentDate { get; set; } = string.Empty;
     public string SqlCurrentDate { get; set; } = string.Empty;
     public string ConnectionString { get; set; } = string.Empty;
-    public int ConnectTimeout { get; set; } = 0;
+    public int ConnectTimeout { get; set; }
     public string DataSource { get; set; } = string.Empty;
     public string SqlServerVersion { get; set; } = string.Empty;
     public string Database { get; set; } = string.Empty;
-    public ulong PhysicalMegaBytes { get; set; } = 0;
-    public ulong VirtualMegaBytes { get; set; } = 0;
+    public ulong PhysicalMegaBytes { get; set; }
+    public ulong VirtualMegaBytes { get; set; }
 
     /// <summary>
     /// Constructor.

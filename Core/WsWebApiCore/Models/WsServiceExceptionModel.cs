@@ -6,7 +6,7 @@ namespace WsWebApiCore.Models;
 [XmlRoot(WsWebConstants.Exception, Namespace = "", IsNullable = false)]
 public class WsServiceExceptionModel : SerializeBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     public string FilePath { get; set; }
     public int LineNumber { get; set; }
@@ -52,7 +52,7 @@ public class WsServiceExceptionModel : SerializeBase
     /// <param name="ex"></param>
     public WsServiceExceptionModel(string filePath, int lineNumber, string memberName, Exception ex) :
         this(filePath, lineNumber, memberName, ex.Message, 
-        ex.InnerException is not null ? ex.InnerException.Message : string.Empty) { }
+            ex.InnerException is not null ? ex.InnerException.Message : string.Empty) { }
 
     /// <summary>
     /// Constructor.

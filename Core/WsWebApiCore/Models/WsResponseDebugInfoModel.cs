@@ -1,13 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
 public class WsResponseDebugInfoModel : SerializeDebugBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [XmlElement(WsWebConstants.DebugInfo)]
     public WsServiceInfoModel? Info { get; set; }

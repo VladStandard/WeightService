@@ -6,12 +6,12 @@ namespace WsWebApiCore.Utils;
 /// <summary>
 /// Content utils.
 /// </summary>
-public static class WsContentUtils
+public static class WsServiceContentUtils
 {
     #region Public and private methods
 
     public static List<WsXmlContentRecord<T>> GetNodesListCore<T>(XElement xml, string nodeIdentity, 
-        Action<XmlNode, T> action) where T : WsSqlTableBase1c, new()
+        Action<XmlNode, T> action) where T : WsSqlTable1CBase, new()
     {
         List<WsXmlContentRecord<T>> itemsXml = new();
         XmlDocument xmlDocument = new();
@@ -102,7 +102,7 @@ public static class WsContentUtils
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1c = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
             case "CODE":
                 item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
@@ -115,7 +115,7 @@ public static class WsContentUtils
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1c = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
             case "ISGROUP":
                 item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
@@ -189,7 +189,7 @@ public static class WsContentUtils
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1c = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
             case "ISGROUP":
                 item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
@@ -208,7 +208,7 @@ public static class WsContentUtils
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1c = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
                 break;
             case "NOMENCLATUREGUID":
                 item.NomenclatureGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);

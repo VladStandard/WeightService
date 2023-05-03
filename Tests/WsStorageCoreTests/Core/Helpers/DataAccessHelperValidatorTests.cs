@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.TableRefFkModels.Plus1cFk;
+using WsStorageCore.TableRefFkModels.Plus1CFk;
 
 namespace WsStorageCoreTests.Core.Helpers;
 
@@ -428,7 +428,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlPlu1cFkValidator validator = new();
+            WsSqlPlu1CFkValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }

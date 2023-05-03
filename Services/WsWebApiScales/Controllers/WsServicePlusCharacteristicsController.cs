@@ -6,18 +6,16 @@ namespace WsWebApiScales.Controllers;
 /// <summary>
 /// Nomenclatures characteristics controller.
 /// </summary>
-[Tags(WsWebServiceConsts.Ref1cNomenclaturesCharacteristics)]
-public sealed class PlusCharacteristicsController : WsControllerBase
+[Tags(WsWebServiceConsts.Ref1CNomenclaturesCharacteristics)]
+public sealed class WsServicePlusCharacteristicsController : WsServiceControllerBase
 {
-    #region Public and public fields and properties
+    #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="sessionFactory"></param>
-    public PlusCharacteristicsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    private WsServiceControllerHelper ControllerHelper { get; }
+
+    public WsServicePlusCharacteristicsController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
-        //
+        ControllerHelper = new(sessionFactory);
     }
 
     #endregion
@@ -35,9 +33,9 @@ public sealed class PlusCharacteristicsController : WsControllerBase
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
-            WsAcceptVersion.V2 => GetContentResult(() => NewResponse1cIsNotFound(
-                $"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => WsPlusCharacteristics.NewResponse1cPluCharacteristics(xml, format, isDebug, SessionFactory), format)
+            WsAcceptVersion.V2 => GetContentResult(() => // Новый ответ 1С - не найдено.
+                NewResponse1CIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
+            _ => GetContentResult(() => ControllerHelper.PlusCharacteristicsController.NewResponse1cPluCharacteristics(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendNomenclaturesCharacteristics,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

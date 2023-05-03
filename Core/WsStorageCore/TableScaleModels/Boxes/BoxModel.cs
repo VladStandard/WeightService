@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleModels.Boxes;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(BoxModel)} | {ToString()}")]
-public class BoxModel : WsSqlTableBase1c
+public class BoxModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
@@ -34,7 +34,7 @@ public class BoxModel : WsSqlTableBase1c
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{Uid1c} | {Name} | {Weight}";
+        $"{Uid1C} | {Name} | {Weight}";
 
     public override bool Equals(object obj)
     {
@@ -71,12 +71,12 @@ public class BoxModel : WsSqlTableBase1c
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public override void UpdateProperties(WsSqlTableBase1c item)
+    public override void UpdateProperties(WsSqlTable1CBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) throw new ArgumentException();
-        Uid1c = plu.BoxTypeGuid;
+        Uid1C = plu.BoxTypeGuid;
         
         Name = plu.BoxTypeName;
         Weight = plu.BoxTypeWeight;

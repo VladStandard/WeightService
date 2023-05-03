@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleModels.Bundles;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(BundleModel)} | {ToString()}")]
-public class BundleModel : WsSqlTableBase1c
+public class BundleModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
@@ -34,7 +34,7 @@ public class BundleModel : WsSqlTableBase1c
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{Name} | {Weight} | {Uid1c}";
+        $"{Name} | {Weight} | {Uid1C}";
 
     public override bool Equals(object obj)
     {
@@ -70,12 +70,12 @@ public class BundleModel : WsSqlTableBase1c
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public override void UpdateProperties(WsSqlTableBase1c item)
+    public override void UpdateProperties(WsSqlTable1CBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) throw new ArgumentException();
-        Uid1c = plu.PackageTypeGuid;
+        Uid1C = plu.PackageTypeGuid;
 
         Name = plu.PackageTypeName;
         Weight = plu.PackageTypeWeight;

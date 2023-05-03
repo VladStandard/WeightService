@@ -4,7 +4,7 @@
 namespace WsWebApiCore.Models;
 
 [Serializable]
-public class WsResponseBarCodeModel : SerializeBase, ICloneable, ISerializable // BarCodeModel
+public class WsResponseBarCodeModel : SerializeBase, ICloneable
 {
     #region Public and private fields, properties, constructor
     [XmlElement(WsWebConstants.Guid)]

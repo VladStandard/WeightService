@@ -5,7 +5,7 @@ namespace WsWebApiCore.Models;
 
 [Serializable]
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
-public class WsResponseBarCodeListModel : SerializeBase, ISerializable
+public class WsResponseBarCodeListModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 

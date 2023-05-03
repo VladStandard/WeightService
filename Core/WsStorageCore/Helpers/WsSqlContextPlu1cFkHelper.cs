@@ -1,8 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
-using WsStorageCore.TableRefFkModels.Plus1cFk;
+using WsStorageCore.TableRefFkModels.Plus1CFk;
 
 namespace WsStorageCore.Helpers;
 
@@ -31,11 +30,11 @@ public sealed class WsSqlContextPlu1cFkHelper
 
     #region Public and private methods
 
-    public WsSqlPlu1cFkModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPlu1cFkModel>();
+    public WsSqlPlu1CFkModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPlu1CFkModel>();
 
-    public List<WsSqlPlu1cFkModel> GetList() => ContextList.GetListNotNullablePlus1cFks(new());
+    public List<WsSqlPlu1CFkModel> GetList() => ContextList.GetListNotNullablePlus1cFks(new());
     
-    public List<WsSqlPlu1cFkModel> GetNewList() => new() { GetNewItem() };
+    public List<WsSqlPlu1CFkModel> GetNewList() => new() { GetNewItem() };
 
     #endregion
 }

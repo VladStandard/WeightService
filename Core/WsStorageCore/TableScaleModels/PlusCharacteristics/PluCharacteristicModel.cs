@@ -7,8 +7,8 @@ namespace WsStorageCore.TableScaleModels.PlusCharacteristics;
 /// Table "NOMENCLATURES_CHARACTERISTICS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluCharacteristicModel)} | {AttachmentsCount} | {Uid1c} ")]
-public class PluCharacteristicModel : WsSqlTableBase1c
+[DebuggerDisplay("{nameof(PluCharacteristicModel)} | {AttachmentsCount} | {Uid1C} ")]
+public class PluCharacteristicModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
@@ -94,12 +94,12 @@ public class PluCharacteristicModel : WsSqlTableBase1c
     
     public new virtual PluCharacteristicModel CloneCast() => (PluCharacteristicModel)Clone();
 
-    public override void UpdateProperties(WsSqlTableBase1c item)
+    public override void UpdateProperties(WsSqlTable1CBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluCharacteristicModel pluCharacteristic) throw new ArgumentException();
-        Uid1c = pluCharacteristic.Uid1c;
+        Uid1C = pluCharacteristic.Uid1C;
 
         if (!Equals(pluCharacteristic.NomenclatureGuid, Guid.Empty))
             NomenclatureGuid = pluCharacteristic.NomenclatureGuid;

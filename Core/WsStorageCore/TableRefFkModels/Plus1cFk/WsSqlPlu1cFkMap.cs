@@ -1,18 +1,17 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
-namespace WsStorageCore.TableRefFkModels.Plus1cFk;
+namespace WsStorageCore.TableRefFkModels.Plus1CFk;
 
 /// <summary>
 /// Table map "REF.PLUS_1C_FK".
 /// </summary>
-public sealed class WsSqlPlu1cFkMap : ClassMap<WsSqlPlu1cFkModel>
+public sealed class WsSqlPlu1CFkMap : ClassMap<WsSqlPlu1CFkModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPlu1cFkMap()
+    public WsSqlPlu1CFkMap()
     {
         Schema(WsSqlSchemasUtils.Ref);
         Table(WsSqlTablesUtils.Plus1cFk);

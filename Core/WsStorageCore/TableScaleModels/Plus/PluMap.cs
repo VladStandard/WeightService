@@ -31,6 +31,6 @@ public sealed class PluMap : ClassMap<PluModel>
         Map(x => x.Itf14).CustomSqlType("NVARCHAR").Column("ITF14").Length(150).Not.Nullable().Default(string.Empty);
         Map(x => x.IsCheckWeight).CustomSqlType("BIT").Column("IS_CHECK_WEIGHT").Not.Nullable().Default("1");
         Map(x => x.Code).CustomSqlType("NVARCHAR").Column("CODE").Length(30).Not.Nullable();
-        Map(x => x.Uid1c).CustomSqlType("UNIQUEIDENTIFIER").Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
+        Map(x => x.Uid1C).CustomSqlType("UNIQUEIDENTIFIER").Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
     }
 }

@@ -9,7 +9,7 @@ namespace WsStorageCore.TableScaleModels.Plus;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluModel)} | {ToString()}")]
-public class PluModel : WsSqlTableBase1c
+public class PluModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
@@ -156,7 +156,7 @@ public class PluModel : WsSqlTableBase1c
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{IsGroup} | {Name} | {Number} | {Code} | {Uid1c}";
+    public override string ToString() => $"{IsGroup} | {Name} | {Number} | {Code} | {Uid1C}";
 
     public override bool Equals(object obj)
     {
@@ -289,12 +289,12 @@ public class PluModel : WsSqlTableBase1c
 
     public new virtual PluModel CloneCast() => (PluModel)Clone();
 
-    public override void UpdateProperties(WsSqlTableBase1c item)
+    public override void UpdateProperties(WsSqlTable1CBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) throw new ArgumentException();
-        Uid1c = plu.Uid1c;
+        Uid1C = plu.Uid1C;
 
         IsGroup = plu.IsGroup;
         if (!IsGroup && Equals(plu.Number, (short)0)) throw new ArgumentException(nameof(Number));

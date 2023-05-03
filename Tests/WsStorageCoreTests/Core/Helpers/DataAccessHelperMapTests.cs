@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.Helpers;
-using WsStorageCore.TableRefFkModels.Plus1cFk;
+using WsStorageCore.TableRefFkModels.Plus1CFk;
 
 namespace WsStorageCoreTests.Core.Helpers;
 
@@ -488,7 +488,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlPlu1cFkMap map = new();
+            WsSqlPlu1CFkMap map = new();
             TestContext.WriteLine(map);
         });
     }

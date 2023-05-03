@@ -3,7 +3,7 @@
 
 namespace WsWebApiCore.Utils;
 
-public static class WsWebResponseUtils
+public static class WsServiceResponseUtils
 {
     #region Public and private fields, properties, constructor
 

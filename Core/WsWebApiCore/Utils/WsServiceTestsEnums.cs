@@ -6,7 +6,7 @@ namespace WsWebApiCore.Utils;
 /// <summary>
 /// Enumeration of values.
 /// </summary>
-internal static class WsTestsEnums
+internal static class WsServiceTestsEnums
 {
     /// <summary>
     /// List of bool values.

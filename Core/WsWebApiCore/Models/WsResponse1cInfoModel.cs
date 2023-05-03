@@ -1,23 +1,22 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Info, Namespace = "", IsNullable = false)]
-public class WsResponse1cInfoModel : SerializeBase
+public class WsResponse1CInfoModel : SerializeBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [XmlAttribute(nameof(Message))]
     public string Message { get; set; }
 
-    public WsResponse1cInfoModel(string message)
+    public WsResponse1CInfoModel(string message)
     {
         Message = message;
     }
 
-    public WsResponse1cInfoModel()
+    public WsResponse1CInfoModel()
     {
         Message = string.Empty;
     }
@@ -27,7 +26,7 @@ public class WsResponse1cInfoModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private WsResponse1cInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponse1CInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Message = info.GetString(nameof(Message)) ?? string.Empty;
     }

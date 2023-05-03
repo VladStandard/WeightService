@@ -3,7 +3,7 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsSqlQueriesNomenclaturesV2
+internal static class WsServiceSqlQueriesNomenclaturesV2
 {
     public static string GetNomenclatureFromCodeProd => @"
 SELECT [IIS].[fnGetNomenclaturesV2] (:code, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)

@@ -14,7 +14,7 @@ internal static class WsWebResponseUtilsTests
 {
     internal static async Task GetExceptionAsync(string url, RestRequest request)
     {
-        await WsWebResponseUtils.GetResponseAsync(url, request, response =>
+        await WsServiceResponseUtils.GetResponseAsync(url, request, response =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.IsNotEmpty(response.Content);
@@ -23,12 +23,12 @@ internal static class WsWebResponseUtilsTests
             if (!string.IsNullOrEmpty(response.Content))
             {
                 WsServiceExceptionModel? serviceException = null;
-                if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatJson()))
+                if (request.Parameters.Contains(WsServiceRequestUtils.GetQueryParameterFormatJson()))
                 {
                     serviceException = JsonConvert.DeserializeObject<WsServiceExceptionModel>(response.Content);
                     Assert.IsTrue(serviceException is not null);
                 }
-                else if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatXml()))
+                else if (request.Parameters.Contains(WsServiceRequestUtils.GetQueryParameterFormatXml()))
                 {
                     serviceException = WsDataFormatUtils.DeserializeFromXml<WsServiceExceptionModel>(response.Content);
                     Assert.IsTrue(serviceException is not null);
@@ -47,7 +47,7 @@ internal static class WsWebResponseUtilsTests
 
     internal static async Task GetInfoAsync(string url, RestRequest request)
     {
-        await WsWebResponseUtils.GetResponseAsync(url, request, response =>
+        await WsServiceResponseUtils.GetResponseAsync(url, request, response =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.IsNotEmpty(response.Content);
@@ -56,12 +56,12 @@ internal static class WsWebResponseUtilsTests
             if (!string.IsNullOrEmpty(response.Content))
             {
                 WsServiceInfoModel? serviceInfo = null;
-                if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatJson()))
+                if (request.Parameters.Contains(WsServiceRequestUtils.GetQueryParameterFormatJson()))
                 {
                     serviceInfo = JsonConvert.DeserializeObject<WsServiceInfoModel>(response.Content);
                     Assert.IsTrue(serviceInfo is not null);
                 }
-                else if (request.Parameters.Contains(WsWebRequestUtils.GetQueryParameterFormatXml()))
+                else if (request.Parameters.Contains(WsServiceRequestUtils.GetQueryParameterFormatXml()))
                 {
                     serviceInfo = WsDataFormatUtils.DeserializeFromXml<WsServiceInfoModel>(response.Content);
                     Assert.IsTrue(serviceInfo is not null);

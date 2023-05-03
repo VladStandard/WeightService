@@ -7,8 +7,8 @@ namespace WsStorageCore.TableScaleModels.Clips;
 /// Table "CLIPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(ClipModel)} | {Name} | {Weight} | {Uid1c} ")]
-public class ClipModel : WsSqlTableBase1c
+[DebuggerDisplay("{nameof(ClipModel)} | {Name} | {Weight} | {Uid1C} ")]
+public class ClipModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
@@ -72,12 +72,12 @@ public class ClipModel : WsSqlTableBase1c
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public override void UpdateProperties(WsSqlTableBase1c item)
+    public override void UpdateProperties(WsSqlTable1CBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
         if (item is not PluModel plu) throw new ArgumentException();
-        Uid1c = plu.ClipTypeGuid;
+        Uid1C = plu.ClipTypeGuid;
 
         Name = plu.ClipTypeName;
         Weight = plu.ClipTypeWeight;

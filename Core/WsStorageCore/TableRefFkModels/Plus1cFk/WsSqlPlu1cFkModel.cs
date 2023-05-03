@@ -1,16 +1,15 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 // ReSharper disable VirtualMemberCallInConstructor
 
-namespace WsStorageCore.TableRefFkModels.Plus1cFk;
+namespace WsStorageCore.TableRefFkModels.Plus1CFk;
 
 /// <summary>
 /// Table "REF.PLUS_1C_FK".
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlPlu1cFkModel : WsSqlTableBase
+public class WsSqlPlu1CFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -21,7 +20,7 @@ public class WsSqlPlu1cFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPlu1cFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPlu1CFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         Plu = new();
         IsEnabled = false;
@@ -33,7 +32,7 @@ public class WsSqlPlu1cFkModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected WsSqlPlu1cFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlPlu1CFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
         IsEnabled = info.GetBoolean(nameof(IsEnabled));
@@ -51,7 +50,7 @@ public class WsSqlPlu1cFkModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((WsSqlPlu1cFkModel)obj);
+        return Equals((WsSqlPlu1CFkModel)obj);
     }
 
     public override int GetHashCode() => (IsEnabled, RequestDataString).GetHashCode();
@@ -66,7 +65,7 @@ public class WsSqlPlu1cFkModel : WsSqlTableBase
 
     public override object Clone()
     {
-        WsSqlPlu1cFkModel item = new();
+        WsSqlPlu1CFkModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Plu = Plu.CloneCast();
         item.IsEnabled = IsEnabled;
@@ -99,13 +98,13 @@ public class WsSqlPlu1cFkModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(WsSqlPlu1cFkModel item) =>
+    public virtual bool Equals(WsSqlPlu1CFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Plu.Equals(item.Plu) &&
         Equals(IsEnabled, item.IsEnabled) &&
         Equals(RequestDataString, item.RequestDataString);
 
-    public new virtual WsSqlPlu1cFkModel CloneCast() => (WsSqlPlu1cFkModel)Clone();
+    public new virtual WsSqlPlu1CFkModel CloneCast() => (WsSqlPlu1CFkModel)Clone();
 
     #endregion
 }

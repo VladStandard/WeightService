@@ -1,6 +1,5 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
 namespace WsStorageCore.Tables;
 
@@ -8,50 +7,50 @@ namespace WsStorageCore.Tables;
 /// DB table model.
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(SqlTableBase1c)} | {Uid1c}")]
-public class WsSqlTableBase1c : WsSqlTableBase
+[DebuggerDisplay("{nameof(SqlTableBase1c)} | {Uid1C}")]
+public class WsSqlTable1CBase : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] public virtual Guid Uid1c { get; set; }
+    [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTableBase1c() : base()
+    public WsSqlTable1CBase() : base()
     {
-        Uid1c = Guid.Empty;
+        Uid1C = Guid.Empty;
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTableBase1c(WsSqlFieldIdentity identityName) : base(identityName)
+    public WsSqlTable1CBase(WsSqlFieldIdentity identityName) : base(identityName)
     {
-        Uid1c = Guid.Empty;
+        Uid1C = Guid.Empty;
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected WsSqlTableBase1c(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlTable1CBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Uid1c = info.GetValue(nameof(Uid1c), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
+        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
     }
 
     #endregion
 
     #region Public and private methods - override
 
-    public virtual bool Equals(WsSqlTableBase1c item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && Equals(Uid1c, item.Uid1c);
+    public virtual bool Equals(WsSqlTable1CBase item) =>
+        ReferenceEquals(this, item) || base.Equals(item) && Equals(Uid1C, item.Uid1C);
 
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((WsSqlTableBase1c)obj);
+        return Equals((WsSqlTable1CBase)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -64,39 +63,39 @@ public class WsSqlTableBase1c : WsSqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Uid1c), Uid1c);
+        info.AddValue(nameof(Uid1C), Uid1C);
     }
 
     #endregion
 
     #region Public and private methods - virtual
 
-    public override bool EqualsNew() => Equals(new WsSqlTableBase1c());
+    public override bool EqualsNew() => Equals(new WsSqlTable1CBase());
 
     public override bool EqualsDefault() =>
-        base.EqualsDefault() && Equals(Uid1c, Guid.Empty);
+        base.EqualsDefault() && Equals(Uid1C, Guid.Empty);
 
     public override object Clone()
     {
-        WsSqlTableBase1c item = new();
+        WsSqlTable1CBase item = new();
         item.CloneSetup(base.CloneCast());
-        item.Uid1c = Uid1c;
+        item.Uid1C = Uid1C;
         return item;
     }
 
-    public new virtual WsSqlTableBase1c CloneCast() =>
-        (WsSqlTableBase1c)Clone();
+    public new virtual WsSqlTable1CBase CloneCast() =>
+        (WsSqlTable1CBase)Clone();
 
-    public virtual void CloneSetup(WsSqlTableBase1c item)
+    public virtual void CloneSetup(WsSqlTable1CBase item)
     {
         if (item is WsSqlTableBase sqlTable)
             base.CloneSetup(sqlTable);
     }
 
-    public virtual void UpdateProperties(WsSqlTableBase1c item)
+    public virtual void UpdateProperties(WsSqlTable1CBase item)
     {
         base.UpdateProperties(item);
-        Uid1c = item.Uid1c;
+        Uid1C = item.Uid1C;
     }
 
     #endregion

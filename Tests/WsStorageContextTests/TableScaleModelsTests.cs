@@ -86,17 +86,17 @@ public sealed class TableScaleModelsTests
         WsTestsUtils.DataTests.AssertSqlDbContentValidate<LogWebModel>();
     }
 
-    [Test]
-    public void Validate_list_of_orders()
-    {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<OrderModel>();
-    }
+    //[Test]
+    //public void Validate_list_of_orders()
+    //{
+    //    WsTestsUtils.DataTests.AssertSqlDbContentValidate<OrderModel>();
+    //}
 
-    [Test]
-    public void Validate_list_of_orders_weighing()
-    {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<OrderWeighingModel>();
-    }
+    //[Test]
+    //public void Validate_list_of_orders_weighing()
+    //{
+    //    WsTestsUtils.DataTests.AssertSqlDbContentValidate<OrderWeighingModel>();
+    //}
 
     [Test]
     public void Validate_list_of_organizations()

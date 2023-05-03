@@ -7,8 +7,8 @@ namespace WsStorageCore.TableScaleModels.PlusGroups;
 /// Table "PLUS_GROUPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluGroupModel)} | {IsMarked} | {IsGroup} | {Code} | {Name} | {Uid1c} ")]
-public class PluGroupModel : WsSqlTableBase1c
+[DebuggerDisplay("{nameof(PluGroupModel)} | {IsMarked} | {IsGroup} | {Code} | {Name} | {Uid1C} ")]
+public class PluGroupModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
@@ -96,12 +96,12 @@ public class PluGroupModel : WsSqlTableBase1c
         Code = LocaleCore.Sql.SqlItemFieldCode;
     }
 
-    public override void UpdateProperties(WsSqlTableBase1c item)
+    public override void UpdateProperties(WsSqlTable1CBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures_groups/.
         if (item is not PluGroupModel pluGroup) throw new ArgumentException();
-        Uid1c = pluGroup.Uid1c;
+        Uid1C = pluGroup.Uid1C;
 
         IsGroup = pluGroup.IsGroup;
         Code = pluGroup.Code;

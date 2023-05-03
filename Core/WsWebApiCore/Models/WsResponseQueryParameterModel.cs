@@ -6,7 +6,7 @@ namespace WsWebApiCore.Models;
 [XmlRoot(WsWebConstants.QueryParameter, Namespace = "", IsNullable = false)]
 public class WsResponseQueryParameterModel : SerializeBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [XmlAttribute(nameof(Name))]
     public string Name { get; set; }

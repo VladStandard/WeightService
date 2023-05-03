@@ -23,6 +23,6 @@ public sealed class PluGroupMap : ClassMap<PluGroupModel>
         Map(x => x.IsGroup).CustomSqlType("BIT").Column("IS_GROUP").Not.Nullable().Default("0");
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(128).Not.Nullable();
         Map(x => x.Code).CustomSqlType("NVARCHAR").Column("CODE").Length(128).Not.Nullable().Default("");
-        Map(x => x.Uid1c).CustomSqlType("UNIQUEIDENTIFIER").Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
+        Map(x => x.Uid1C).CustomSqlType("UNIQUEIDENTIFIER").Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
     }
 }

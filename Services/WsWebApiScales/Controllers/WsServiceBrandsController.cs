@@ -6,18 +6,16 @@ namespace WsWebApiScales.Controllers;
 /// <summary>
 /// Brands controller.
 /// </summary>
-[Tags(WsWebServiceConsts.Ref1cBrands)]
-public sealed class BrandsController : WsControllerBase
+[Tags(WsWebServiceConsts.Ref1CBrands)]
+public sealed class WsServiceBrandsController : WsServiceControllerBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="sessionFactory"></param>
-    public BrandsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    private WsServiceControllerHelper ControllerHelper { get; }
+
+    public WsServiceBrandsController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
-        //
+        ControllerHelper = new(sessionFactory);
     }
 
     #endregion
@@ -35,10 +33,10 @@ public sealed class BrandsController : WsControllerBase
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
-            WsAcceptVersion.V2 =>
-                GetContentResult(() => NewResponse1cIsNotFound(
+            WsAcceptVersion.V2 => // Новый ответ 1С - не найдено.
+                GetContentResult(() => NewResponse1CIsNotFound(
                     $"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => WsBrands.NewResponse1cBrands(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => ControllerHelper.BrandsController.NewResponse1cBrands(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBrands,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

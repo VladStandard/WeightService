@@ -1,23 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using NHibernate;
-using System;
-using System.Data;
-using System.Net;
-using System.Xml.Linq;
-using WebApiTerra1000.Utils;
-using WsLocalizationCore.Utils;
-using WsStorageCore.Utils;
-using WsWebApiCore.Base;
-using WsWebApiCore.Utils;
-
 namespace WebApiTerra1000.Controllers;
 
-public sealed class ShipmentController : WsControllerBase
+public sealed class ShipmentController : WsServiceControllerBase
 {
     #region Constructor and destructor
 
@@ -37,7 +23,7 @@ public sealed class ShipmentController : WsControllerBase
     {
         return GetContentResult(() =>
         {
-            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipment, new SqlParameter("ID", id));
+            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipment, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse($"<{WsWebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
@@ -77,8 +63,8 @@ public sealed class ShipmentController : WsControllerBase
     {
         return GetContentResult(() =>
         {
-            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipments,
-                WsWebSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipments,
+                WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = xml = XDocument.Parse($"<{WsWebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {

@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.TableRefFkModels.Plus1cFk;
+using WsStorageCore.TableRefFkModels.Plus1CFk;
 
 namespace WsStorageCore.Utils;
 
@@ -68,7 +68,7 @@ public class WsSqlValidationUtils
             var cls when cls == typeof(WorkShopModel) => new WorkShopValidator(),
             var cls when cls == typeof(WsSqlAccessModel) => new WsSqlAccessValidator(),
             var cls when cls == typeof(WsSqlAppModel) => new WsSqlAppValidator(),
-            var cls when cls == typeof(WsSqlPlu1cFkModel) => new WsSqlPlu1cFkValidator(),
+            var cls when cls == typeof(WsSqlPlu1CFkModel) => new WsSqlPlu1CFkValidator(),
             _ => throw new NotImplementedException()
         };
 
@@ -124,7 +124,7 @@ public class WsSqlValidationUtils
             WorkShopModel workShop => new WorkShopValidator().Validate(workShop),
             WsSqlAccessModel access => new WsSqlAccessValidator().Validate(access),
             WsSqlAppModel app => new WsSqlAppValidator().Validate(app),
-            WsSqlPlu1cFkModel app => new WsSqlPlu1cFkValidator().Validate(app),
+            WsSqlPlu1CFkModel app => new WsSqlPlu1CFkValidator().Validate(app),
             _ => throw new NotImplementedException()
         };
 

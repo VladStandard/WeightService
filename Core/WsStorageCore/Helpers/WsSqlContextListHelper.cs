@@ -1,8 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
-using WsStorageCore.TableRefFkModels.Plus1cFk;
+using WsStorageCore.TableRefFkModels.Plus1CFk;
 
 namespace WsStorageCore.Helpers;
 
@@ -134,7 +133,7 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(WorkShopModel) => GetListNotNullableWorkShops(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlAccessModel) => GetListNotNullableAccesses(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlAppModel) => GetListNotNullableApps(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPlu1cFkModel) => GetListNotNullablePlus1cFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPlu1CFkModel) => GetListNotNullablePlus1cFks(sqlCrudConfig).Cast<T>().ToList(),
         _ => new()
     };
 
@@ -413,9 +412,9 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<WsSqlPlu1cFkModel> GetListNotNullablePlus1cFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPlu1CFkModel> GetListNotNullablePlus1cFks(SqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlPlu1cFkModel> list = GetListNotNullableCore<WsSqlPlu1cFkModel>(sqlCrudConfig);
+        List<WsSqlPlu1CFkModel> list = GetListNotNullableCore<WsSqlPlu1CFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.Plu.Number).ToList();
         return list;
@@ -602,11 +601,11 @@ public sealed class WsSqlContextListHelper
 
                     // -- UID_1C | 42 - 44
                     if (Guid.TryParse(Convert.ToString(item[42]), out Guid pluUid1c))
-                        pluBundle.Plu.Uid1c = pluUid1c;
+                        pluBundle.Plu.Uid1C = pluUid1c;
                     if (Guid.TryParse(Convert.ToString(item[43]), out Guid boxUid1c))
-                        box.Uid1c = boxUid1c;
+                        box.Uid1C = boxUid1c;
                     if (Guid.TryParse(Convert.ToString(item[44]), out Guid bundleUid1c))
-                        pluBundle.Bundle.Uid1c = bundleUid1c;
+                        pluBundle.Bundle.Uid1C = bundleUid1c;
                     // All.
                     list.Add(new()
                     {

@@ -6,7 +6,7 @@ namespace WsWebApiCore.Models;
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
 public class WsSqlSimpleV4Model : SerializeBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [XmlArray(WsWebConstants.Items), XmlArrayItem(WsWebConstants.Simple, typeof(WsSqlSimpleV1Model))]
     public List<WsSqlSimpleV1Model> Simples { get; set; }
@@ -26,13 +26,11 @@ public class WsSqlSimpleV4Model : SerializeBase
     public override string ToString()
     {
         string result = string.Empty;
-        if (Simples?.Count > 0)
-        {
+        if (Simples.Any())
             foreach (WsSqlSimpleV1Model item in Simples)
             {
                 result += WsDataFormatUtils.SerializeAsText<string>(item) + Environment.NewLine;
             }
-        }
         return result;
     }
 

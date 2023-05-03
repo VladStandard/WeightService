@@ -1,20 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsWebApiCore.Helpers;
+namespace WsWebApiCore.Controllers;
 
 /// <summary>
-/// Test controller v2.
+/// Веб-контроллер тест 2.
 /// </summary>
-public sealed class WsTestV2Helper : WsContentBase
+public sealed class WsServiceTestV2Controller : WsServiceControllerBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="sessionFactory"></param>
-    internal WsTestV2Helper(ISessionFactory sessionFactory) : base(sessionFactory)
+    public WsServiceTestV2Controller(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -34,7 +30,7 @@ public sealed class WsTestV2Helper : WsContentBase
     public ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
         GetContentResult(() =>
             WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(
-            WsWebResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
+                WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
 
     /// <summary>
     /// Get exception.
@@ -48,7 +44,7 @@ public sealed class WsTestV2Helper : WsContentBase
     public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false) =>
         GetContentResult(() =>
         {
-            string response = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetException);
+            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetException);
             WsSqlSimpleV1Model sqlSimpleV1 = new(response, isDebug);
             ContentResult content = WsDataFormatUtils.GetContentResult<WsSqlSimpleV1Model>(sqlSimpleV1, format, HttpStatusCode.OK);
             return content;
@@ -71,19 +67,19 @@ public sealed class WsTestV2Helper : WsContentBase
             switch (version)
             {
                 case 1:
-                    string response1 = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV1);
+                    string response1 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV1);
                     WsSqlSimpleV1Model sqlSimpleV1 = WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV1Model>(response1);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV1Model>(sqlSimpleV1, format, HttpStatusCode.OK);
                 case 2:
-                    string response2 = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV2);
+                    string response2 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV2);
                     WsSqlSimpleV2Model sqlSimpleV2 = WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV2Model>(response2);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV2Model>(sqlSimpleV2, format, HttpStatusCode.OK);
                 case 3:
-                    string response3 = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV3);
+                    string response3 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV3);
                     WsSqlSimpleV3Model sqlSimpleV3 = WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV3Model>(response3);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV3Model>(sqlSimpleV3, format, HttpStatusCode.OK);
                 case 4:
-                    string response4 = WsWebSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV4);
+                    string response4 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV4);
                     WsSqlSimpleV4Model sqlSimpleV4 = WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV4Model>(response4);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV4Model>(sqlSimpleV4, format, HttpStatusCode.OK);
             }

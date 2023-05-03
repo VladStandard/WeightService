@@ -3,7 +3,7 @@
 
 namespace WsWebApiCore.Models;
 
-public sealed record WsXmlContentRecord<T> where T : WsSqlTableBase1c, new()
+public sealed record WsXmlContentRecord<T> where T : WsSqlTable1CBase, new()
 {
     #region Public and private fields, properties, constructor
 

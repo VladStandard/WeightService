@@ -13,7 +13,7 @@ public sealed class ContragentControllerTests
         {
             foreach (string url in new WsWebRequestTerra1000().GetListContragent(WsServerType.All))
             {
-                foreach (long id in WsTestsUtils.GetListContragentId)
+                foreach (long id in WsServiceTestsUtils.GetListContragentId)
                 {
                     await GetContragentAsync(url, null, id);
                     TestContext.WriteLine();
@@ -30,7 +30,7 @@ public sealed class ContragentControllerTests
         {
             foreach (string url in new WsWebRequestTerra1000().GetListContragentV2(WsServerType.All))
             {
-                foreach (long id in WsTestsUtils.GetListContragentId)
+                foreach (long id in WsServiceTestsUtils.GetListContragentId)
                 {
                     await GetContragentAsync(url, null, id);
                     TestContext.WriteLine();
@@ -41,7 +41,7 @@ public sealed class ContragentControllerTests
 
     private async Task GetContragentAsync(string url, string? code, long? id)
     {
-        await WsWebResponseUtils.GetResponseAsync(url, WsWebRequestUtils.GetRequestCodeOrId(code, id), (response) =>
+        await WsServiceResponseUtils.GetResponseAsync(url, WsServiceRequestUtils.GetRequestCodeOrId(code, id), (response) =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);

@@ -8,8 +8,8 @@ namespace WsStorageCore.TableScaleModels.Brands;
 /// </summary>
 [Serializable]
 [XmlRoot("Brand", Namespace = "", IsNullable = false)]
-[DebuggerDisplay("{nameof(BrandModel)} | {Code} | {Name} | {Uid1c} ")]
-public class BrandModel : WsSqlTableBase1c
+[DebuggerDisplay("{nameof(BrandModel)} | {Code} | {Name} | {Uid1C} ")]
+public class BrandModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
@@ -92,12 +92,12 @@ public class BrandModel : WsSqlTableBase1c
 
     public new virtual BrandModel CloneCast() => (BrandModel)Clone();
 
-    public override void UpdateProperties(WsSqlTableBase1c item)
+    public override void UpdateProperties(WsSqlTable1CBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_brands/.
         if (item is not BrandModel brand) throw new ArgumentException();
-        Uid1c = brand.Uid1c;
+        Uid1C = brand.Uid1C;
         
         Code = brand.Code;
     }

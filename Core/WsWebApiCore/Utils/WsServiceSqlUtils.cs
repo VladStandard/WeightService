@@ -3,7 +3,7 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsWebSqlUtils
+internal static class WsServiceSqlUtils
 {
     public static T GetResponse<T>(ISessionFactory sessionFactory, string query)
     {
@@ -122,12 +122,12 @@ internal static class WsWebSqlUtils
     };
 
     public static List<SqlParameter> GetParametersV2(string code) => new()
-        {
-            new("code", code == null ? DBNull.Value : code),
-        };
+    {
+        new("code", code == null ? DBNull.Value : code),
+    };
 
     public static List<SqlParameter> GetParametersV2(long? id) => new()
-        {
-            new("id", id == null ? DBNull.Value : id),
-        };
+    {
+        new("id", id == null ? DBNull.Value : id),
+    };
 }

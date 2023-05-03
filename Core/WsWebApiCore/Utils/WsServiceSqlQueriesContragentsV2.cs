@@ -3,7 +3,7 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsSqlQueriesContragentsV2
+internal static class WsServiceSqlQueriesContragentsV2
 {
     public static string GetContragentFromCodeProd => @"
 SELECT [IIS].[fnGetContragentsV2] (:code, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)

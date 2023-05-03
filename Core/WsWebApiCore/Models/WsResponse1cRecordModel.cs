@@ -1,11 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Record, Namespace = "", IsNullable = false)]
-public class WsResponse1cRecordModel : SerializeBase
+public class WsResponse1CRecordModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -18,23 +17,23 @@ public class WsResponse1cRecordModel : SerializeBase
     [XmlAttribute(nameof(InnerMessage))]
     public string? InnerMessage { get; set; }
 
-    public WsResponse1cRecordModel()
+    public WsResponse1CRecordModel()
     {
         Uid = Guid.Empty;
         Message = string.Empty;
         InnerMessage = null;
     }
 
-    public WsResponse1cRecordModel(Guid uid, string message, string innerMessage)
+    public WsResponse1CRecordModel(Guid uid, string message, string innerMessage)
     {
         Uid = uid;
         Message = message;
         InnerMessage = innerMessage;
     }
 
-    public WsResponse1cRecordModel(Guid uid, string message) : this(uid, message, string.Empty) { }
+    public WsResponse1CRecordModel(Guid uid, string message) : this(uid, message, string.Empty) { }
 
-    public WsResponse1cRecordModel(Exception ex)
+    public WsResponse1CRecordModel(Exception ex)
     {
         Uid = Guid.Empty;
         Message = ex.Message;
@@ -46,7 +45,7 @@ public class WsResponse1cRecordModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private WsResponse1cRecordModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponse1CRecordModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         object? uid = info.GetValue(nameof(Uid), typeof(Guid));
         Uid = uid is not null ? (Guid)uid : Guid.Empty;

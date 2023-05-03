@@ -6,7 +6,7 @@ namespace WsWebApiCore.Models;
 [XmlRoot(WsWebConstants.Simple, Namespace = "", IsNullable = false)]
 public class WsSqlSimpleV1Model : SerializeDebugBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [XmlAttribute]
     public string Description { get; set; }

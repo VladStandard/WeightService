@@ -1,13 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable InconsistentNaming
 
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
-public class WsResponse1cShortModel : WsResponseDebugInfoModel
+public class WsResponse1CShortModel : WsResponseDebugInfoModel
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [XmlAttribute]
     public int SuccessesCount { get => Successes.Count; set => _ = value; }
@@ -18,15 +17,15 @@ public class WsResponse1cShortModel : WsResponseDebugInfoModel
     public WsResponseQueryModel? ResponseQuery { get; set; }
 
     [XmlArray(WsWebConstants.Successes), XmlArrayItem(WsWebConstants.Record)]
-    public List<WsResponse1cSuccessModel> Successes { get; set; }
+    public List<WsResponse1CSuccessModel> Successes { get; set; }
 
     [XmlArray(WsWebConstants.SuccessesPlus), XmlArrayItem(WsWebConstants.Record)]
-    public List<WsResponse1cSuccessPluModel>? SuccessesPlus { get; set; }
+    public List<WsResponse1CSuccessPluModel>? SuccessesPlus { get; set; }
 
     [XmlArray(WsWebConstants.Errors), XmlArrayItem(WsWebConstants.Record)]
-    public List<WsResponse1cErrorModel> Errors { get; set; }
+    public List<WsResponse1CErrorModel> Errors { get; set; }
 
-    public WsResponse1cShortModel()
+    public WsResponse1CShortModel()
     {
         SuccessesCount = 0;
         ErrorsCount = 0;
@@ -36,8 +35,8 @@ public class WsResponse1cShortModel : WsResponseDebugInfoModel
         Errors = new();
     }
 
-    public WsResponse1cShortModel(List<WsResponse1cSuccessModel> successes, List<WsResponse1cSuccessPluModel> successesPlus,
-        List<WsResponse1cErrorModel> errors, WsResponseQueryModel? responseQuery) : this()
+    public WsResponse1CShortModel(List<WsResponse1CSuccessModel> successes, List<WsResponse1CSuccessPluModel> successesPlus,
+        List<WsResponse1CErrorModel> errors, WsResponseQueryModel? responseQuery) : this()
     {
         Successes = successes;
         SuccessesPlus = successesPlus;
@@ -50,14 +49,14 @@ public class WsResponse1cShortModel : WsResponseDebugInfoModel
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private WsResponse1cShortModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponse1CShortModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         SuccessesCount = info.GetInt32(nameof(SuccessesCount));
         ErrorsCount = info.GetInt32(nameof(ErrorsCount));
         ResponseQuery = info.GetValue(nameof(ResponseQuery), typeof(WsResponseQueryModel)) as WsResponseQueryModel ?? null;
-        Successes = info.GetValue(nameof(Successes), typeof(List<WsResponse1cSuccessModel>)) as List<WsResponse1cSuccessModel> ?? new();
-        SuccessesPlus = info.GetValue(nameof(SuccessesPlus), typeof(List<WsResponse1cSuccessPluModel>)) as List<WsResponse1cSuccessPluModel> ?? new();
-        Errors = info.GetValue(nameof(Errors), typeof(List<WsResponse1cErrorModel>)) as List<WsResponse1cErrorModel> ?? new();
+        Successes = info.GetValue(nameof(Successes), typeof(List<WsResponse1CSuccessModel>)) as List<WsResponse1CSuccessModel> ?? new();
+        SuccessesPlus = info.GetValue(nameof(SuccessesPlus), typeof(List<WsResponse1CSuccessPluModel>)) as List<WsResponse1CSuccessPluModel> ?? new();
+        Errors = info.GetValue(nameof(Errors), typeof(List<WsResponse1CErrorModel>)) as List<WsResponse1CErrorModel> ?? new();
     }
 
     #endregion
