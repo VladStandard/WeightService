@@ -35,14 +35,14 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
     /// <param name="response"></param>
     /// <param name="pluCharacteristicXml"></param>
     /// <param name="pluDb"></param>
-    private void AddResponse1cPluCharacteristics(WsResponse1CShortModel response, PluCharacteristicModel pluCharacteristicXml,
+    private void AddResponsePluCharacteristics(WsResponse1CShortModel response, PluCharacteristicModel pluCharacteristicXml,
         PluModel pluDb)
     {
         try
         {
             // Найдено по Identity -> Обновить найденную запись.
             PluCharacteristicModel? itemDb = Cache.PluCharacteristicsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
-            if (UpdateItem1cDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
+            if (UpdateItemDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluCharacteristicXml, true))
@@ -51,7 +51,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         }
         catch (Exception ex)
         {
-            AddResponse1CException(response, pluCharacteristicXml.Uid1C, ex);
+            AddResponseException(response, pluCharacteristicXml.Uid1C, ex);
         }
     }
 
@@ -60,7 +60,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluCharacteristicXml"></param>
-    private void AddResponse1cPluCharacteristicsFks(WsResponse1CShortModel response, PluCharacteristicModel pluCharacteristicXml)
+    private void AddResponsePluCharacteristicsFks(WsResponse1CShortModel response, PluCharacteristicModel pluCharacteristicXml)
     {
         try
         {
@@ -93,7 +93,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         }
         catch (Exception ex)
         {
-            AddResponse1CException(response, pluCharacteristicXml.Uid1C, ex);
+            AddResponseException(response, pluCharacteristicXml.Uid1C, ex);
         }
     }
 
@@ -105,7 +105,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
     /// <param name="isDebug"></param>
     /// <param name="sessionFactory"></param>
     /// <returns></returns>
-    public ContentResult NewResponse1cPluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
+    public ContentResult NewResponsePluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
             // Прогреть кэш.
@@ -115,20 +115,20 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             {
                 PluCharacteristicModel itemXml = record.Item;
                 // Обновить данные в таблице связей обмена номенклатуры 1С.
-                List<WsSqlPlu1CFkModel> plus1cFksDb = UpdatePlus1cFksDb(response, record);
+                List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, record);
                 PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(record.Item.NomenclatureGuid);
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
                 if (itemXml.ParseResult.IsStatusSuccess)
-                    CheckIsEnabledPlu(itemXml, plus1cFksDb);
+                    CheckIsEnabledPlu(itemXml, plus1CFksDb);
                 // Добавить характеристику ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluCharacteristics(response, itemXml, pluDb);
+                    AddResponsePluCharacteristics(response, itemXml, pluDb);
                 // Добавить связь характеристики ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
-                    AddResponse1cPluCharacteristicsFks(response, itemXml);
+                    AddResponsePluCharacteristicsFks(response, itemXml);
                 // Исключение.
                 if (itemXml.ParseResult.IsStatusError)
-                    AddResponse1CExceptionString(response, itemXml.Uid1C,
+                    AddResponseExceptionString(response, itemXml.Uid1C,
                         itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);

@@ -74,18 +74,20 @@ public class WsResponseBarCodeModel : SerializeBase, ICloneable
 
     public object Clone()
     {
-        WsResponseBarCodeModel item = new();
-        item.IdentityValueUid = IdentityValueUid;
-        item.CreateDt = CreateDt;
-        item.ChangeDt = ChangeDt;
-        item.IsMarked = IsMarked;
-        item.TypeTop = TypeTop;
-        item.ValueTop = ValueTop;
-        item.TypeRight = TypeRight;
-        item.ValueRight = ValueRight;
-        item.TypeBottom = TypeBottom;
-        item.ValueBottom = ValueBottom;
-        item.PluLabelGuid = PluLabelGuid;
+        WsResponseBarCodeModel item = new()
+        {
+            IdentityValueUid = IdentityValueUid,
+            CreateDt = CreateDt,
+            ChangeDt = ChangeDt,
+            IsMarked = IsMarked,
+            TypeTop = TypeTop,
+            ValueTop = ValueTop,
+            TypeRight = TypeRight,
+            ValueRight = ValueRight,
+            TypeBottom = TypeBottom,
+            ValueBottom = ValueBottom,
+            PluLabelGuid = PluLabelGuid
+        };
         return item;
     }
 
@@ -93,18 +95,20 @@ public class WsResponseBarCodeModel : SerializeBase, ICloneable
 
     public virtual WsResponseBarCodeModel CloneCast(BarCodeModel barCode)
     {
-        WsResponseBarCodeModel item = new();
-        item.IdentityValueUid = barCode.IdentityValueUid;
-        item.CreateDt = barCode.CreateDt;
-        item.ChangeDt = barCode.ChangeDt;
-        item.IsMarked = barCode.IsMarked;
-        item.TypeTop = barCode.TypeTop;
-        item.ValueTop = barCode.ValueTop;
-        item.TypeRight = barCode.TypeRight;
-        item.ValueRight = barCode.ValueRight;
-        item.TypeBottom = barCode.TypeBottom;
-        item.ValueBottom = barCode.ValueBottom;
-        item.PluLabelGuid = barCode.PluLabel.IdentityValueUid;
+        WsResponseBarCodeModel item = new()
+        {
+            IdentityValueUid = barCode.IdentityValueUid,
+            CreateDt = barCode.CreateDt,
+            ChangeDt = barCode.ChangeDt,
+            IsMarked = barCode.IsMarked,
+            TypeTop = barCode.TypeTop,
+            ValueTop = barCode.ValueTop,
+            TypeRight = barCode.TypeRight,
+            ValueRight = barCode.ValueRight,
+            TypeBottom = barCode.TypeBottom,
+            ValueBottom = barCode.ValueBottom,
+            PluLabelGuid = barCode.PluLabel.IdentityValueUid
+        };
         return item;
     }
 

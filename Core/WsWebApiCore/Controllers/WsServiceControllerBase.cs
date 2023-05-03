@@ -157,24 +157,24 @@ public class WsServiceControllerBase : ControllerBase
             switch (typeof(T))
             {
                 case var cls when cls == typeof(WsResponse1CShortModel):
-                    if (response is WsResponse1CShortModel response1cShort)
+                    if (response is WsResponse1CShortModel response1CShort)
                     {
-                        response1cShort.IsDebug = isDebug;
-                        if (response1cShort.IsDebug)
-                            response1cShort.Info = WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                        response1CShort.IsDebug = isDebug;
+                        if (response1CShort.IsDebug)
+                            response1CShort.Info = WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
                         else
                         {
-                            response1cShort.SuccessesPlus?.Clear();
-                            response1cShort.SuccessesPlus = null;
+                            response1CShort.SuccessesPlus?.Clear();
+                            response1CShort.SuccessesPlus = null;
                         }
                     }
                     break;
                 case var cls when cls == typeof(WsResponse1CModel):
-                    if (response is WsResponse1CModel response1c)
+                    if (response is WsResponse1CModel response1C)
                     {
-                        response1c.IsDebug = isDebug;
-                        if (response1c.IsDebug)
-                            response1c.Info = WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                        response1C.IsDebug = isDebug;
+                        if (response1C.IsDebug)
+                            response1C.Info = WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
                     }
                     break;
             }
@@ -189,8 +189,8 @@ public class WsServiceControllerBase : ControllerBase
                         response1CShort.Errors.Add(new(ex));
                     break;
                 case var cls when cls == typeof(WsResponse1CModel):
-                    if (response is WsResponse1CModel response1c)
-                        response1c.Errors.Add(new(ex));
+                    if (response is WsResponse1CModel response1C)
+                        response1C.Errors.Add(new(ex));
                     break;
             }
         }
@@ -280,12 +280,12 @@ public class WsServiceControllerBase : ControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="number"></param>
-    /// <param name="uid1cException"></param>
+    /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
     /// <param name="isCheckGroup"></param>
     /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool CheckExistsPluDb(WsResponse1CShortModel response, short number, Guid uid1cException,
+    internal bool CheckExistsPluDb(WsResponse1CShortModel response, short number, Guid uid1CException,
         string refName, bool isCheckGroup, out PluModel? itemDb)
     {
         itemDb = null;
@@ -296,7 +296,7 @@ public class WsServiceControllerBase : ControllerBase
             {
                 if (itemDb.IsNew)
                 {
-                    AddResponse1CException(response, uid1cException,
+                    AddResponseException(response, uid1CException,
                         new($"{refName} {LocaleCore.WebService.WithFieldNumber} '{number}' {LocaleCore.WebService.IsNotFound}!"));
                     return false;
                 }
@@ -305,7 +305,7 @@ public class WsServiceControllerBase : ControllerBase
             // isCheckGroup.
             if (itemDb.IsNew || !itemDb.IsGroup)
             {
-                AddResponse1CException(response, uid1cException,
+                AddResponseException(response, uid1CException,
                     new($"{refName} {LocaleCore.WebService.With} '{number}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
@@ -318,22 +318,22 @@ public class WsServiceControllerBase : ControllerBase
     /// Проверить наличие пакета в БД.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
-    /// <param name="uid1cException"></param>
+    /// <param name="uid1C"></param>
+    /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
     /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool CheckExistsBundleDb(WsResponse1CShortModel response, Guid uid1c, Guid uid1cException,
+    internal bool CheckExistsBundleDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
         string refName, out BundleModel? itemDb)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1c } },
+                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<BundleModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
-            AddResponse1CException(response, uid1cException,
-                new($"{refName} {LocaleCore.WebService.With} '{uid1c}' {LocaleCore.WebService.IsNotFound}!"));
+            AddResponseException(response, uid1CException,
+                new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
             return false;
         }
         return true;
@@ -343,25 +343,25 @@ public class WsServiceControllerBase : ControllerBase
     /// Проверить наличие бренда в БД.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
-    /// <param name="uid1cException"></param>
+    /// <param name="uid1C"></param>
+    /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
     /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool CheckExistsBrandDb(WsResponse1CShortModel response, Guid uid1c, Guid uid1cException,
+    internal bool CheckExistsBrandDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
         string refName, out BrandModel? itemDb)
     {
         itemDb = null;
-        if (!Equals(uid1c, Guid.Empty))
+        if (!Equals(uid1C, Guid.Empty))
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                    { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1c } },
+                    { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
                 true, false, false, false, false);
             itemDb = AccessManager.AccessItem.GetItemNullable<BrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
-                AddResponse1CException(response, uid1cException,
-                    new($"{refName} {LocaleCore.WebService.With} '{uid1c}' {LocaleCore.WebService.IsNotFound}!"));
+                AddResponseException(response, uid1CException,
+                    new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -373,22 +373,22 @@ public class WsServiceControllerBase : ControllerBase
     /// Проверить наличие клипсы в БД.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
-    /// <param name="uid1cException"></param>
+    /// <param name="uid1C"></param>
+    /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
     /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool CheckExistsClipDb(WsResponse1CShortModel response, Guid uid1c, Guid uid1cException,
+    internal bool CheckExistsClipDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
         string refName, out ClipModel? itemDb)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1c } },
+                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<ClipModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
-            AddResponse1CException(response, uid1cException,
-                new($"{refName} {LocaleCore.WebService.With} '{uid1c}' {LocaleCore.WebService.IsNotFound}!"));
+            AddResponseException(response, uid1CException,
+                new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
             return false;
         }
         return true;
@@ -412,7 +412,7 @@ public class WsServiceControllerBase : ControllerBase
         itemDb = AccessManager.AccessItem.GetItemNullable<BoxModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
-            AddResponse1CException(response, uid1CException,
+            AddResponseException(response, uid1CException,
                 new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
             return false;
         }
@@ -440,7 +440,7 @@ public class WsServiceControllerBase : ControllerBase
             itemDb = AccessManager.AccessItem.GetItemNullable<PluModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
-                AddResponse1CException(response, uid1CException,
+                AddResponseException(response, uid1CException,
                     new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
@@ -467,7 +467,7 @@ public class WsServiceControllerBase : ControllerBase
         itemDb = AccessManager.AccessItem.GetItemNullable<PluCharacteristicModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
-            AddResponse1CException(response, uid1CException,
+            AddResponseException(response, uid1CException,
                 new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
             return false;
         }
@@ -506,10 +506,10 @@ public class WsServiceControllerBase : ControllerBase
         {
             "V2" => WsAcceptVersion.V2,
             "V3" => WsAcceptVersion.V3,
-            "*/*" or _ => WsAcceptVersion.V1
+            _ => WsAcceptVersion.V1
         };
 
-    internal void AddResponse1CException(WsResponse1CShortModel response, BrandModel brand)
+    internal void AddResponseException(WsResponse1CShortModel response, BrandModel brand)
     {
         WsResponse1CErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception);
         if (!string.IsNullOrEmpty(brand.ParseResult.InnerException))
@@ -523,8 +523,8 @@ public class WsServiceControllerBase : ControllerBase
             response.Errors.Add(responseRecord);
     }
 
-    internal void AddResponse1CException(WsResponse1CShortModel response, Guid uid, Exception ex) =>
-        AddResponse1CExceptionString(response, uid, ex.Message, ex.InnerException?.Message);
+    internal void AddResponseException(WsResponse1CShortModel response, Guid uid, Exception ex) =>
+        AddResponseExceptionString(response, uid, ex.Message, ex.InnerException?.Message);
 
     /// <summary>
     /// Add error for response.
@@ -533,7 +533,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="uid"></param>
     /// <param name="exceptionMessage"></param>
     /// <param name="innerExceptionMessage"></param>
-    internal void AddResponse1CExceptionString(WsResponse1CShortModel response, Guid uid, string exceptionMessage, 
+    internal void AddResponseExceptionString(WsResponse1CShortModel response, Guid uid, string exceptionMessage, 
         string? innerExceptionMessage = "")
     {
         WsResponse1CErrorModel responseRecord = new(uid,
@@ -546,15 +546,15 @@ public class WsServiceControllerBase : ControllerBase
         else
             response.Errors.Add(responseRecord);
 
-        RemoveResponse1CErrorFromSuccess(response, responseRecord);
+        RemoveResponseErrorFromSuccess(response, responseRecord);
     }
 
     /// <summary>
-    /// Remove error from success for resposne.
+    /// Remove error from success for response.
     /// </summary>
     /// <param name="response"></param>
     /// <param name="responseRecord"></param>
-    private static void RemoveResponse1CErrorFromSuccess(WsResponse1CShortModel response, WsResponse1CErrorModel responseRecord)
+    private static void RemoveResponseErrorFromSuccess(WsResponse1CShortModel response, WsResponse1CErrorModel responseRecord)
     {
         bool isFind;
         do
@@ -598,7 +598,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="isCounter"></param>
     /// <param name="description"></param>
     /// <returns></returns>
-    internal bool UpdateItem1cDb<T>(WsResponse1CShortModel response, T itemXml, T? itemDb, bool isCounter, string description = "") 
+    internal bool UpdateItemDb<T>(WsResponse1CShortModel response, T itemXml, T? itemDb, bool isCounter, string description = "") 
         where T : WsSqlTable1CBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
@@ -614,7 +614,7 @@ public class WsServiceControllerBase : ControllerBase
             }
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, itemXml.Uid1C, dbUpdate.Exception);
+            AddResponseException(response, itemXml.Uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -633,8 +633,8 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="response"></param>
     /// <param name="item"></param>
     /// <param name="isCounter"></param>
-    /// <param name="uid1c"></param>
-    internal bool SaveItemDb<T>(WsResponse1CShortModel response, T item, bool isCounter, Guid uid1c) where T : WsSqlTableBase
+    /// <param name="uid1C"></param>
+    internal bool SaveItemDb<T>(WsResponse1CShortModel response, T item, bool isCounter, Guid uid1C) where T : WsSqlTableBase
     {
         SqlCrudResultModel dbSave = AccessManager.AccessItem.Save(item, item.Identity);
         // Add was success.
@@ -642,11 +642,11 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (isCounter)
             {
-                response.Successes.Add(new(uid1c));
+                response.Successes.Add(new(uid1C));
             }
         }
         else if (dbSave.Exception is not null)
-            AddResponse1CException(response, uid1c, dbSave.Exception);
+            AddResponseException(response, uid1C, dbSave.Exception);
         return dbSave.IsOk;
     }
 
@@ -654,12 +654,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Обновить бренд в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdateBrandDb(WsResponse1CShortModel response, Guid uid1c, BrandModel itemXml, BrandModel? itemDb, bool isCounter)
+    internal bool UpdateBrandDb(WsResponse1CShortModel response, Guid uid1C, BrandModel itemXml, BrandModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -668,11 +668,11 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (isCounter)
             {
-                response.Successes.Add(new(uid1c));
+                response.Successes.Add(new(uid1C));
             }
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, uid1c, dbUpdate.Exception);
+            AddResponseException(response, uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -680,12 +680,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Обновить связь ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluFkDb(WsResponse1CShortModel response, Guid uid1c, PluFkModel itemXml, PluFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluFkDb(WsResponse1CShortModel response, Guid uid1C, PluFkModel itemXml, PluFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -694,11 +694,11 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (isCounter)
             {
-                response.Successes.Add(new(uid1c));
+                response.Successes.Add(new(uid1C));
             }
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, uid1c, dbUpdate.Exception);
+            AddResponseException(response, uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -706,12 +706,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Обновить связь клипсы и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluClipFkDb(WsResponse1CShortModel response, Guid uid1c, PluClipFkModel itemXml, PluClipFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluClipFkDb(WsResponse1CShortModel response, Guid uid1C, PluClipFkModel itemXml, PluClipFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -720,11 +720,11 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (isCounter)
             {
-                response.Successes.Add(new(uid1c));
+                response.Successes.Add(new(uid1C));
             }
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, uid1c, dbUpdate.Exception);
+            AddResponseException(response, uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -732,12 +732,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Обновить номенклатурную группу в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluGroupDb(WsResponse1CShortModel response, Guid uid1c, PluGroupModel itemXml, PluGroupModel? itemDb, bool isCounter)
+    internal bool UpdatePluGroupDb(WsResponse1CShortModel response, Guid uid1C, PluGroupModel itemXml, PluGroupModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -746,11 +746,11 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (isCounter)
             {
-                response.Successes.Add(new(uid1c));
+                response.Successes.Add(new(uid1C));
             }
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, uid1c, dbUpdate.Exception);
+            AddResponseException(response, uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -758,12 +758,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Обновить связь номенклатурной группы и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluGroupFkDb(WsResponse1CShortModel response, Guid uid1c, PluGroupFkModel itemXml, PluGroupFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluGroupFkDb(WsResponse1CShortModel response, Guid uid1C, PluGroupFkModel itemXml, PluGroupFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -772,11 +772,11 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (isCounter)
             {
-                response.Successes.Add(new(uid1c));
+                response.Successes.Add(new(uid1C));
             }
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, uid1c, dbUpdate.Exception);
+            AddResponseException(response, uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -784,12 +784,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Обновить связь бренда и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluBrandFkDb(WsResponse1CShortModel response, Guid uid1c, PluBrandFkModel itemXml, PluBrandFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluBrandFkDb(WsResponse1CShortModel response, Guid uid1C, PluBrandFkModel itemXml, PluBrandFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -798,11 +798,11 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (isCounter)
             {
-                response.Successes.Add(new(uid1c));
+                response.Successes.Add(new(uid1C));
             }
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, uid1c, dbUpdate.Exception);
+            AddResponseException(response, uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -810,12 +810,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Обновить связь пакета и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluBundleFkDb(WsResponse1CShortModel response, Guid uid1c, PluBundleFkModel itemXml, PluBundleFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluBundleFkDb(WsResponse1CShortModel response, Guid uid1C, PluBundleFkModel itemXml, PluBundleFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -824,11 +824,11 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (isCounter)
             {
-                response.Successes.Add(new(uid1c));
+                response.Successes.Add(new(uid1C));
             }
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, uid1c, dbUpdate.Exception);
+            AddResponseException(response, uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -836,13 +836,13 @@ public class WsServiceControllerBase : ControllerBase
     /// Обновить связь номенклатурной характеристики и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <param name="pluNumber"></param>
     /// <returns></returns>
-    internal bool UpdatePluCharacteristicFk(WsResponse1CShortModel response, Guid uid1c, PluCharacteristicsFkModel itemXml, 
+    internal bool UpdatePluCharacteristicFk(WsResponse1CShortModel response, Guid uid1C, PluCharacteristicsFkModel itemXml, 
         PluCharacteristicsFkModel? itemDb, bool isCounter, short pluNumber)
     {
         if (itemDb is null || itemDb.IsNew) return false;
@@ -851,11 +851,11 @@ public class WsServiceControllerBase : ControllerBase
         if (dbUpdate.IsOk)
         {
             if (isCounter)
-                response.Successes.Add(new(uid1c));
-            response.SuccessesPlus?.Add(new(uid1c, $"{WsWebConstants.PluNumber}='{pluNumber}'"));
+                response.Successes.Add(new(uid1C));
+            response.SuccessesPlus?.Add(new(uid1C, $"{WsWebConstants.PluNumber}='{pluNumber}'"));
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, uid1c, dbUpdate.Exception);
+            AddResponseException(response, uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -863,12 +863,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Обновить связь вложенности и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1c"></param>
+    /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1c, PluNestingFkModel itemXml, PluNestingFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, PluNestingFkModel itemXml, PluNestingFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -877,11 +877,11 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (isCounter)
             {
-                response.Successes.Add(new(uid1c));
+                response.Successes.Add(new(uid1C));
             }
         }
         else if (dbUpdate.Exception is not null)
-            AddResponse1CException(response, uid1c, dbUpdate.Exception);
+            AddResponseException(response, uid1C, dbUpdate.Exception);
         return dbUpdate.IsOk;
     }
 
@@ -890,61 +890,61 @@ public class WsServiceControllerBase : ControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="record"></param>
-    internal List<WsSqlPlu1CFkModel> UpdatePlus1cFksDb<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> record)
+    internal List<WsSqlPlu1CFkModel> UpdatePlus1CFksDb<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> record)
         where T : WsSqlTable1CBase, new()
     {
-        List<WsSqlPlu1CFkModel> plus1cFksDb = ContextManager.ContextPlu1cFk.GetNewList();
+        List<WsSqlPlu1CFkModel> plus1CFksDb = ContextManager.ContextPlu1cFk.GetNewList();
 
         // Поиск список связей обмена номенклатуры 1С по номеру.
         if (record is WsXmlContentRecord<PluModel> pluXml)
-            GetPlus1cFksByNumber(plus1cFksDb, pluXml);
+            GetPlus1CFksByNumber(plus1CFksDb, pluXml);
         // Поиск список связей обмена номенклатуры 1С по GUID_1C.
         else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
-            GetPlus1cFksByGuid1c(plus1cFksDb, pluCharacteristicXml);
+            GetPlus1CFksByGuid1C(plus1CFksDb, pluCharacteristicXml);
 
         // Обновить данные записи в таблице связей обмена номенклатуры 1С.
-        foreach (WsSqlPlu1CFkModel plu1cFkDb in plus1cFksDb)
+        foreach (WsSqlPlu1CFkModel plu1CFkDb in plus1CFksDb)
         {
-            UpdatePlu1cFkDbCore(response, record, plu1cFkDb);
+            UpdatePlu1CFkDbCore(response, record, plu1CFkDb);
         }
-        return plus1cFksDb;
+        return plus1CFksDb;
     }
 
     /// <summary>
     /// Поиск список связей обмена номенклатуры 1С по номеру.
     /// </summary>
-    /// <param name="plus1cFksDb"></param>
+    /// <param name="plus1CFksDb"></param>
     /// <param name="pluXml"></param>
-    private void GetPlus1cFksByNumber(List<WsSqlPlu1CFkModel> plus1cFksDb, WsXmlContentRecord<PluModel> pluXml)
+    private void GetPlus1CFksByNumber(List<WsSqlPlu1CFkModel> plus1CFksDb, WsXmlContentRecord<PluModel> pluXml)
     {
-        plus1cFksDb.Clear();
+        plus1CFksDb.Clear();
         List<PluModel> plusDb = ContextManager.ContextPlu.GetListByNumber(pluXml.Item.Number);
         foreach (PluModel pluDb in plusDb)
         {
-            WsSqlPlu1CFkModel plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
+            WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
                                           ?? ContextManager.ContextPlu1cFk.GetNewItem();
-            if (plu1cFkDb.IsNotExists)
-                plu1cFkDb.Plu = pluDb;
-            plus1cFksDb.Add(plu1cFkDb);
+            if (plu1CFkDb.IsNotExists)
+                plu1CFkDb.Plu = pluDb;
+            plus1CFksDb.Add(plu1CFkDb);
         }
     }
 
     /// <summary>
     /// Поиск список связей обмена номенклатуры 1С по GUID_1C.
     /// </summary>
-    /// <param name="plus1cFksDb"></param>
+    /// <param name="plus1CFksDb"></param>
     /// <param name="pluCharacteristicXml"></param>
-    private void GetPlus1cFksByGuid1c(List<WsSqlPlu1CFkModel> plus1cFksDb, WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+    private void GetPlus1CFksByGuid1C(List<WsSqlPlu1CFkModel> plus1CFksDb, WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
     {
-        plus1cFksDb.Clear();
+        plus1CFksDb.Clear();
         List<PluModel> plusDb = ContextManager.ContextPlu.GetListByUid1c(pluCharacteristicXml.Item.NomenclatureGuid);
         foreach (PluModel pluDb in plusDb)
         {
-            WsSqlPlu1CFkModel plu1cFkDb = Cache.Plus1cFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
+            WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
                                           ?? ContextManager.ContextPlu1cFk.GetNewItem();
-            if (plu1cFkDb.IsNotExists)
-                plu1cFkDb.Plu = pluDb;
-            plus1cFksDb.Add(plu1cFkDb);
+            if (plu1CFkDb.IsNotExists)
+                plu1CFkDb.Plu = pluDb;
+            plus1CFksDb.Add(plu1CFkDb);
         }
     }
 
@@ -954,49 +954,49 @@ public class WsServiceControllerBase : ControllerBase
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
     /// <param name="record"></param>
-    /// <param name="plu1cFkDb"></param>
-    private void UpdatePlu1cFkDbCore<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> record, WsSqlPlu1CFkModel plu1cFkDb) 
+    /// <param name="plu1CFkDb"></param>
+    private void UpdatePlu1CFkDbCore<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> record, WsSqlPlu1CFkModel plu1CFkDb) 
         where T : WsSqlTable1CBase, new()
     {
-        plu1cFkDb.UpdateProperties(record.Content);
+        plu1CFkDb.UpdateProperties(record.Content);
 
         // Создать.
-        if (!plu1cFkDb.IsExists)
+        if (!plu1CFkDb.IsExists)
         {
-            SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Save(plu1cFkDb);
+            SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Save(plu1CFkDb);
             if (dbUpdate is { IsOk: false, Exception: { } })
             {
                 if (record is WsXmlContentRecord<PluModel> pluXml)
-                    AddResponse1CException(response, pluXml.Item.Uid1C, dbUpdate.Exception);
+                    AddResponseException(response, pluXml.Item.Uid1C, dbUpdate.Exception);
                 else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
-                    AddResponse1CException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdate.Exception);
+                    AddResponseException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdate.Exception);
             }
         }
         // Обновить.
         else
         {
             WsSqlPlu1CFkValidator validator = new();
-            ValidationResult validation = validator.Validate(plu1cFkDb);
+            ValidationResult validation = validator.Validate(plu1CFkDb);
             if (!validation.IsValid)
             {
                 if (record is WsXmlContentRecord<PluModel> pluXml)
-                    AddResponse1CExceptionString(response, pluXml.Item.Uid1C,
+                    AddResponseExceptionString(response, pluXml.Item.Uid1C,
                         string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
                 else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
-                    AddResponse1CExceptionString(response, pluCharacteristicXml.Item.NomenclatureGuid,
+                    AddResponseExceptionString(response, pluCharacteristicXml.Item.NomenclatureGuid,
                         string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
             }
             else
             {
-                SqlCrudResultModel dbUpdate = plu1cFkDb.IsExists
-                    ? AccessManager.AccessItem.UpdateForce(plu1cFkDb)
-                    : AccessManager.AccessItem.Save(plu1cFkDb);
+                SqlCrudResultModel dbUpdate = plu1CFkDb.IsExists
+                    ? AccessManager.AccessItem.UpdateForce(plu1CFkDb)
+                    : AccessManager.AccessItem.Save(plu1CFkDb);
                 if (dbUpdate is { IsOk: false, Exception: { } })
                 {
                     if (record is WsXmlContentRecord<PluModel> pluXml)
-                        AddResponse1CException(response, pluXml.Item.Uid1C, dbUpdate.Exception);
+                        AddResponseException(response, pluXml.Item.Uid1C, dbUpdate.Exception);
                     else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
-                        AddResponse1CException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdate.Exception);
+                        AddResponseException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdate.Exception);
                 }
             }
         }
@@ -1010,54 +1010,54 @@ public class WsServiceControllerBase : ControllerBase
     /// Проверить номер ПЛУ в списке доступа к выгрузке.
     /// </summary>
     /// <param name="itemXml"></param>
-    /// <param name="plus1cFksDb"></param>
-    internal void CheckIsEnabledPlu(WsSqlTable1CBase itemXml, List<WsSqlPlu1CFkModel> plus1cFksDb)
+    /// <param name="plus1CFksDb"></param>
+    internal void CheckIsEnabledPlu(WsSqlTable1CBase itemXml, List<WsSqlPlu1CFkModel> plus1CFksDb)
     {
-        foreach (WsSqlPlu1CFkModel plu1cFkDb in plus1cFksDb)
-            CheckIsEnabledPluForItem(ref itemXml, plu1cFkDb);
+        foreach (WsSqlPlu1CFkModel plu1CFkDb in plus1CFksDb)
+            CheckIsEnabledPluForItem(ref itemXml, plu1CFkDb);
     }
 
     /// <summary>
     /// Проверить номер ПЛУ в списке доступа к выгрузке.
     /// </summary>
     /// <param name="itemXml"></param>
-    /// <param name="plu1cFkDb"></param>
-    private void CheckIsEnabledPluForItem(ref WsSqlTable1CBase itemXml, WsSqlPlu1CFkModel plu1cFkDb)
+    /// <param name="plu1CFkDb"></param>
+    private void CheckIsEnabledPluForItem(ref WsSqlTable1CBase itemXml, WsSqlPlu1CFkModel plu1CFkDb)
     {
         // Пропуск групп с нулевым номером.
-        if (plu1cFkDb.Plu is { IsGroup: true, Number: 0 }) throw new(nameof(plu1cFkDb.Plu));
+        if (plu1CFkDb.Plu is { IsGroup: true, Number: 0 }) throw new(nameof(plu1CFkDb.Plu));
         // ПЛУ не найдена.
-        if (plu1cFkDb.IsNotExists)
+        if (plu1CFkDb.IsNotExists)
         {
             itemXml.ParseResult.Status = ParseStatus.Error;
             itemXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+                $"{LocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
         }
         // UID_1C не совпадает.
         if (itemXml is PluModel pluXml)
         {
-            if (!Equals(pluXml.Uid1C, plu1cFkDb.Plu.Uid1C))
+            if (!Equals(pluXml.Uid1C, plu1CFkDb.Plu.Uid1C))
             {
                 itemXml.ParseResult.Status = ParseStatus.Error;
                 itemXml.ParseResult.Exception =
-                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
         }
         else if (itemXml is PluCharacteristicModel pluCharacteristicXml)
         {
-            if (!Equals(pluCharacteristicXml.NomenclatureGuid, plu1cFkDb.Plu.Uid1C))
+            if (!Equals(pluCharacteristicXml.NomenclatureGuid, plu1CFkDb.Plu.Uid1C))
             {
                 itemXml.ParseResult.Status = ParseStatus.Error;
                 itemXml.ParseResult.Exception =
-                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
         }
         // Загрузка ПЛУ выключена.
-        if (!plu1cFkDb.IsEnabled)
+        if (!plu1CFkDb.IsEnabled)
         {
             itemXml.ParseResult.Status = ParseStatus.Error;
             itemXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldNomenclatureIsDenyForLoad} '{plu1cFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1cFkDb.Plu.Code}'";
+                $"{LocaleCore.WebService.FieldNomenclatureIsDenyForLoad} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
         }
     }
 

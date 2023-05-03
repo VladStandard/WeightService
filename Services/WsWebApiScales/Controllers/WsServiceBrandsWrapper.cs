@@ -7,15 +7,15 @@ namespace WsWebApiScales.Controllers;
 /// Brands controller.
 /// </summary>
 [Tags(WsWebServiceConsts.Ref1CBrands)]
-public sealed class WsServiceBrandsController : WsServiceControllerBase
+public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    private WsServiceControllerHelper ControllerHelper { get; }
+    private WsServiceBrandsController BrandsController { get; }
 
-    public WsServiceBrandsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public WsServiceBrandsWrapper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
-        ControllerHelper = new(sessionFactory);
+        BrandsController = new(sessionFactory);
     }
 
     #endregion
@@ -36,7 +36,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
             WsAcceptVersion.V2 => // Новый ответ 1С - не найдено.
                 GetContentResult(() => NewResponse1CIsNotFound(
                     $"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => ControllerHelper.BrandsController.NewResponse1cBrands(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => BrandsController.NewResponseBrands(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBrands,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

@@ -7,15 +7,15 @@ namespace WsWebApiScales.Controllers;
 /// Nomenclatures controller.
 /// </summary>
 [Tags(WsWebServiceConsts.Ref1CNomenclatures)]
-public sealed class WsServicePlusController : WsServiceControllerBase
+public sealed class WsServicePlusWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    private WsServiceControllerHelper ControllerHelper { get; }
+    private WsServicePlusController PlusController { get; }
 
-    public WsServicePlusController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public WsServicePlusWrapper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
-        ControllerHelper = new(sessionFactory);
+        PlusController = new(sessionFactory);
     }
 
     #endregion
@@ -35,7 +35,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
         {
             WsAcceptVersion.V2 => GetContentResult(() => // Новый ответ 1С - не найдено.
                 NewResponse1CIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => ControllerHelper.PlusController.NewResponsePlus(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => PlusController.NewResponsePlus(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendNomenclatures,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

@@ -31,7 +31,7 @@ public sealed class WsServiceCacheHelper
     public List<ClipModel> ClipsDb { get; private set; } = new();
     public List<PluClipFkModel> PluClipsFksDb { get; private set; } = new();
     public List<PluNestingFkModel> PluNestingFksDb { get; private set; } = new();
-    public List<WsSqlPlu1CFkModel> Plus1cFksDb { get; private set; } = new();
+    public List<WsSqlPlu1CFkModel> Plus1CFksDb { get; private set; } = new();
     public List<PluCharacteristicModel> PluCharacteristicsDb { get; private set; } = new();
     public List<PluCharacteristicsFkModel> PluCharacteristicsFksDb { get; private set; } = new();
     public List<PluGroupModel> PluGroupsDb { get; private set; } = new();
@@ -66,8 +66,8 @@ public sealed class WsServiceCacheHelper
         if (!PluNestingFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluNestingFks)) 
             PluNestingFksDb = ContextManager.ContextList.GetListNotNullablePlusNestingFks(
                 new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(false), false));
-        if (!Plus1cFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus1cFks)) 
-            Plus1cFksDb = ContextManager.ContextPlu1cFk.GetList();
+        if (!Plus1CFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus1cFks)) 
+            Plus1CFksDb = ContextManager.ContextPlu1cFk.GetList();
         if (!PluCharacteristicsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristics)) 
             PluCharacteristicsDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
         if (!PluCharacteristicsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristicsFks)) 

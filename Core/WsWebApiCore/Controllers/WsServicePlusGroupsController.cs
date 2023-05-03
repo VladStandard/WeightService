@@ -37,7 +37,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
         });
 
-    private void AddResponse1cPluGroupsFks(WsResponse1CShortModel response, PluGroupModel pluGroupXml)
+    private void AddResponsePluGroupsFks(WsResponse1CShortModel response, PluGroupModel pluGroupXml)
     {
         try
         {
@@ -47,14 +47,14 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             parent = AccessManager.AccessItem.GetItemNotNullable<PluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
-                AddResponse1CException(response, pluGroupXml.Uid1C, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
+                AddResponseException(response, pluGroupXml.Uid1C, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
                 return;
             }
             PluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
             pluGroup = AccessManager.AccessItem.GetItemNotNullable<PluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
             {
-                AddResponse1CException(response, pluGroupXml.Uid1C, new($"PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
+                AddResponseException(response, pluGroupXml.Uid1C, new($"PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
                 return;
             }
 
@@ -78,11 +78,11 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         }
         catch (Exception ex)
         {
-            AddResponse1CException(response, pluGroupXml.Uid1C, ex);
+            AddResponseException(response, pluGroupXml.Uid1C, ex);
         }
     }
 
-    private void AddResponse1cPluGroups(WsResponse1CShortModel response, PluGroupModel pluGroupXml)
+    private void AddResponsePluGroups(WsResponse1CShortModel response, PluGroupModel pluGroupXml)
     {
         try
         {
@@ -105,7 +105,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         }
         catch (Exception ex)
         {
-            AddResponse1CException(response, pluGroupXml.Uid1C, ex);
+            AddResponseException(response, pluGroupXml.Uid1C, ex);
         }
     }
 
@@ -117,7 +117,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
     /// <param name="isDebug"></param>
     /// <param name="sessionFactory"></param>
     /// <returns></returns>
-    public ContentResult NewResponse1cPluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
+    public ContentResult NewResponsePluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
             // Прогреть кэш.
@@ -129,11 +129,11 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
                 switch (pluGroup.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cPluGroups(response, pluGroup);
-                        AddResponse1cPluGroupsFks(response, pluGroup);
+                        AddResponsePluGroups(response, pluGroup);
+                        AddResponsePluGroupsFks(response, pluGroup);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1CExceptionString(response, pluGroup.Uid1C,
+                        AddResponseExceptionString(response, pluGroup.Uid1C,
                             pluGroup.ParseResult.Exception, pluGroup.ParseResult.InnerException);
                         break;
                 }

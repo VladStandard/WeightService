@@ -7,11 +7,11 @@ namespace WsWebApiScales.Controllers;
 /// Barcodes controller.
 /// </summary>
 [Tags(WsWebServiceConsts.Ref1CBarCodes)]
-public sealed class WsServiceBarCodesController : WsServiceControllerBase
+public sealed class WsServiceBarCodesWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    public WsServiceBarCodesController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public WsServiceBarCodesWrapper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }

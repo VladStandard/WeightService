@@ -7,15 +7,15 @@ namespace WsWebApiScales.Controllers;
 /// Nomenclatures characteristics controller.
 /// </summary>
 [Tags(WsWebServiceConsts.Ref1CNomenclaturesCharacteristics)]
-public sealed class WsServicePlusCharacteristicsController : WsServiceControllerBase
+public sealed class WsServicePlusCharacteristicsWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    private WsServiceControllerHelper ControllerHelper { get; }
+    private WsServicePlusCharacteristicsController PlusCharacteristicsController { get; }
 
-    public WsServicePlusCharacteristicsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public WsServicePlusCharacteristicsWrapper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
-        ControllerHelper = new(sessionFactory);
+        PlusCharacteristicsController = new(sessionFactory);
     }
 
     #endregion
@@ -35,7 +35,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         {
             WsAcceptVersion.V2 => GetContentResult(() => // Новый ответ 1С - не найдено.
                 NewResponse1CIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => ControllerHelper.PlusCharacteristicsController.NewResponse1cPluCharacteristics(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => PlusCharacteristicsController.NewResponsePluCharacteristics(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendNomenclaturesCharacteristics,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

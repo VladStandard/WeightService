@@ -11,9 +11,9 @@ public static class WsServiceRequestUtils
 
     public static QueryParameter GetQueryParameterFormatXml() => new("format", "xml");
 
-    public static RestRequest GetRequestFormatJson() => new RestRequest().AddQueryParameter("format", "json");
+    private static RestRequest GetRequestFormatJson() => new RestRequest().AddQueryParameter("format", "json");
 
-    public static RestRequest GetRequestFormatXml() => new RestRequest().AddQueryParameter("format", "xml");
+    private static RestRequest GetRequestFormatXml() => new RestRequest().AddQueryParameter("format", "xml");
 
     public static List<RestRequest> GetRequestFormats() => new() { GetRequestFormatJson(), GetRequestFormatXml() };
 

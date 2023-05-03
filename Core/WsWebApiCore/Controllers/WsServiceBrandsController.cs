@@ -29,7 +29,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
                 WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
             });
 
-    private void AddResponse1cBrand(WsResponse1CShortModel response, BrandModel brandXml)
+    private void AddResponse1CBrand(WsResponse1CShortModel response, BrandModel brandXml)
     {
         try
         {
@@ -52,7 +52,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
         }
         catch (Exception ex)
         {
-            AddResponse1CException(response, brandXml.Uid1C, ex);
+            AddResponseException(response, brandXml.Uid1C, ex);
         }
     }
 
@@ -64,7 +64,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
     /// <param name="isDebug"></param>
     /// <param name="sessionFactory"></param>
     /// <returns></returns>
-    public ContentResult NewResponse1cBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
+    public ContentResult NewResponseBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
             // Прогреть кэш.
@@ -76,10 +76,10 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
                 switch (brandXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponse1cBrand(response, brandXml);
+                        AddResponse1CBrand(response, brandXml);
                         break;
                     case ParseStatus.Error:
-                        AddResponse1CException(response, brandXml);
+                        AddResponseException(response, brandXml);
                         break;
                 }
             }

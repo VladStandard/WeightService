@@ -78,7 +78,7 @@ public static class WsServiceContentUtils
         }
     }
 
-    public static void SetItemPropertyFromXmlAttributeForBase<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase
+    private static void SetItemPropertyFromXmlAttributeForBase<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase
     {
         switch (xmlPropertyName.ToUpper())
         {
@@ -97,7 +97,7 @@ public static class WsServiceContentUtils
         }
     }
 
-    public static void SetItemPropertyFromXmlAttributeForBrand(XmlNode xmlNode, BrandModel item, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForBrand(XmlNode xmlNode, BrandModel item, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
@@ -110,7 +110,7 @@ public static class WsServiceContentUtils
         }
     }
 
-    public static void SetItemPropertyFromXmlAttributeForPlu(XmlNode xmlNode, PluModel item, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForPlu(XmlNode xmlNode, PluModel item, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
@@ -184,7 +184,7 @@ public static class WsServiceContentUtils
         }
     }
 
-    public static void SetItemPropertyFromXmlAttributeForPluGroup(XmlNode xmlNode, PluGroupModel item, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForPluGroup(XmlNode xmlNode, PluGroupModel item, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
@@ -203,7 +203,7 @@ public static class WsServiceContentUtils
         }
     }
 
-    public static void SetItemPropertyFromXmlAttributeForPluCharacteristic(XmlNode xmlNode, PluCharacteristicModel item, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForPluCharacteristic(XmlNode xmlNode, PluCharacteristicModel item, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
@@ -229,7 +229,7 @@ public static class WsServiceContentUtils
         return default;
     }
 
-    public static string GetAttributeValue(string xml, string nodeIdentity)
+    private static string GetAttributeValue(string xml, string nodeIdentity)
     {
         try
         {
@@ -258,7 +258,7 @@ public static class WsServiceContentUtils
         return string.Empty;
     }
 
-    public static string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName,
+    private static string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName,
         bool isAttributeMustExists = true) where T : WsSqlTableBase
     {
         if (xmlNode?.Attributes is null) return string.Empty;
@@ -275,7 +275,7 @@ public static class WsServiceContentUtils
         return string.Empty;
     }
 
-    public static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
+    private static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
         List<string> valuesFalse, List<string> valuesTrue) where T : WsSqlTableBase
     {
         string value = GetXmlAttributeString(xmlNode, item, xmlPropertyName).ToUpper();
@@ -284,23 +284,23 @@ public static class WsServiceContentUtils
         return default;
     }
 
-    public static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
+    private static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { "0", "FALSE" }, new() { "1", "TRUE" });
 
-    public static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
+    private static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
         string valueFalse, string valueTrue) where T : WsSqlTableBase =>
         GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { valueFalse }, new() { valueTrue });
 
-    public static Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
+    private static Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         Guid.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out Guid uid) ? uid : Guid.Empty;
 
-    public static byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
+    private static byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         byte.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out byte result) ? result : default;
 
-    public static short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
+    private static short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         short.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out short result) ? result : default;
 
-    public static decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
+    private static decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
         decimal.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out decimal result) ? result : default;
 
     public static TResult GetXmlAttributeGeneric<T, TResult>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase where TResult : struct

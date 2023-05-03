@@ -7,15 +7,13 @@ namespace WsWebApiScales.Controllers;
 /// Test controller v3.
 /// </summary>
 [Tags(WsWebServiceConsts.Tests)]
-public sealed class WsServiceTestControllerV3 : WsServiceControllerBase
+public sealed class WsServiceTestWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    private WsServiceControllerHelper ControllerHelper { get; }
-
-    public WsServiceTestControllerV3(ISessionFactory sessionFactory) : base(sessionFactory)
+    public WsServiceTestWrapper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
-        ControllerHelper = new(sessionFactory);
+        //
     }
 
     #endregion

@@ -7,15 +7,15 @@ namespace WsWebApiScales.Controllers;
 /// Nomenclatures groups controller.
 /// </summary>
 [Tags(WsWebServiceConsts.Ref1CNomenclaturesGroups)]
-public sealed class WsServicePlusGroupsController : WsServiceControllerBase
+public sealed class WsServicePlusGroupsWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    private WsServiceControllerHelper ControllerHelper { get; }
+    private WsServicePlusGroupsController PlusGroupsController { get; }
 
-    public WsServicePlusGroupsController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public WsServicePlusGroupsWrapper(ISessionFactory sessionFactory) : base(sessionFactory)
     {
-        ControllerHelper = new(sessionFactory);
+        PlusGroupsController = new(sessionFactory);
     }
 
     #endregion
@@ -35,7 +35,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         {
             WsAcceptVersion.V2 => GetContentResult(() => // Новый ответ 1С - не найдено.
                 NewResponse1CIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => ControllerHelper.PlusGroupsController.NewResponse1cPluGroups(xml, format, isDebug, SessionFactory), format)
+            _ => GetContentResult(() => PlusGroupsController.NewResponsePluGroups(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendNomenclaturesGroups,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
