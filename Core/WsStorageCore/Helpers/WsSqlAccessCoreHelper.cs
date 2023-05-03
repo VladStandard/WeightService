@@ -89,11 +89,15 @@ internal sealed class WsSqlAccessCoreHelper
             SessionFactory = sessionFactory ?? FluentConfiguration.BuildSessionFactory();
         }
     }
+    private ISession? SessionSelect { get; set; }
 
     public void Close()
     {
         SessionFactory.Close();
         SessionFactory.Dispose();
+        SessionSelect?.Disconnect();
+        SessionSelect?.Close();
+        SessionSelect?.Dispose();
     }
 
     #endregion
@@ -189,47 +193,55 @@ internal sealed class WsSqlAccessCoreHelper
         return criteria;
     }
 
-    private SqlCrudResultModel ExecuteCore(Action<ISession> action, bool isTransaction)
+    /// <summary>
+    /// Transaction with action.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <returns></returns>
+    private SqlCrudResultModel ExecuteTransactionCore(Action<ISession> action)
     {
-        ISession? session = null;
-        Exception? exception = null;
-        ITransaction? transaction = null;
-
+        ISession session = SessionFactory.OpenSession();
+        ITransaction transaction = session.BeginTransaction();
         try
         {
-            session = SessionFactory.OpenSession();
-            if (isTransaction)
-                transaction = session.BeginTransaction();
-            session.FlushMode = isTransaction ? FlushMode.Commit : FlushMode.Manual;
+            session.FlushMode = FlushMode.Commit;
             action(session);
-            if (isTransaction)
-                session.Flush();
-            if (isTransaction)
-                transaction?.Commit();
+            session.Flush();
+            transaction.Commit();
             session.Clear();
         }
         catch (Exception ex)
         {
-            if (isTransaction)
-                transaction?.Rollback();
-            exception = ex;
+            transaction.Rollback();
+            return new() { IsOk = false, Exception = ex };
         }
         finally
         {
-            if (isTransaction)
-                transaction?.Dispose();
-            if (session is not null)
-            {
-                session.Disconnect();
-                session.Close();
-                session.Dispose();
-            }
+            transaction.Dispose();
+            session.Disconnect();
+            session.Close();
+            session.Dispose();
         }
+        return new() { IsOk = true, Exception = null };
+    }
 
-        if (exception is not null)
+    /// <summary>
+    /// Quick select in one session.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <returns></returns>
+    private SqlCrudResultModel ExecuteSelectCore(Action<ISession> action)
+    {
+        try
         {
-            return new() { IsOk = false, Exception = exception };
-            //throw exception;
+            SessionSelect = SessionFactory.OpenSession();
+            SessionSelect.FlushMode = FlushMode.Manual;
+            action(SessionSelect);
+            SessionSelect.Clear();
+        }
+        catch (Exception ex)
+        {
+            return new() { IsOk = false, Exception = ex };
         }
         return new() { IsOk = true, Exception = null };
     }
@@ -237,10 +249,10 @@ internal sealed class WsSqlAccessCoreHelper
     public bool IsConnected()
     {
         bool result = false;
-        ExecuteCore(session =>
+        ExecuteSelectCore(session =>
         {
             result = session.IsConnected;
-        }, false);
+        });
         return result;
     }
 
@@ -262,14 +274,14 @@ internal sealed class WsSqlAccessCoreHelper
     public SqlCrudResultModel ExecQueryNative(string query, List<SqlParameter> parameters)
     {
         if (string.IsNullOrEmpty(query)) return new() { IsOk = false, Exception = null };
-        return ExecuteCore(session =>
+        return ExecuteTransactionCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)
             {
                 _ = sqlQuery.ExecuteUpdate();
             }
-        }, true);
+        });
     }
 
     public SqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
@@ -282,7 +294,7 @@ internal sealed class WsSqlAccessCoreHelper
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
-        return ExecuteCore(session => session.Save(item), true);
+        return ExecuteTransactionCore(session => session.Save(item));
     }
 
     public async Task<SqlCrudResultModel> SaveAsync<T>(T? item) where T : WsSqlTableBase
@@ -302,33 +314,24 @@ internal sealed class WsSqlAccessCoreHelper
         if (Equals(identity?.Name, WsSqlFieldIdentity.Uid) && Equals(id, Guid.Empty))
             id = Guid.NewGuid();
         return id is null
-            ? ExecuteCore(session => session.Save(item), true)
-            : ExecuteCore(session => session.Save(item, id), true);
+            ? ExecuteTransactionCore(session => session.Save(item))
+            : ExecuteTransactionCore(session => session.Save(item, id));
     }
 
-    public SqlCrudResultModel SaveOrUpdate<T>(T? item) where T : WsSqlTableBase
+    public SqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteCore(session => session.SaveOrUpdate(item), true);
-    }
-
-    public SqlCrudResultModel UpdateForce<T>(T? item) where T : WsSqlTableBase
-    {
-        if (item is null) return new() { IsOk = false, Exception = null };
-
-        item.ClearNullProperties();
-        item.ChangeDt = DateTime.Now;
-        return ExecuteCore(session => session.Update(item), true);
+        return ExecuteTransactionCore(session => session.Update(item));
     }
 
     public SqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new() { IsOk = false, Exception = null };
 
-        return ExecuteCore(session => session.Delete(item), true);
+        return ExecuteTransactionCore(session => session.Delete(item));
     }
 
     public SqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase
@@ -336,7 +339,7 @@ internal sealed class WsSqlAccessCoreHelper
         if (item is null) return new() { IsOk = false, Exception = null };
 
         item.IsMarked = !item.IsMarked;
-        return ExecuteCore(session => session.SaveOrUpdate(item), true);
+        return ExecuteTransactionCore(session => session.SaveOrUpdate(item));
     }
 
     #endregion
@@ -356,12 +359,13 @@ internal sealed class WsSqlAccessCoreHelper
                 CreateDt = DateTime.Now,
                 ChangeDt = DateTime.Now
             };
+            Save(app);
         }
         else
         {
             app.ChangeDt = DateTime.Now;
+            Update(app);
         }
-        SaveOrUpdate(app);
         return app;
     }
 
@@ -398,11 +402,11 @@ internal sealed class WsSqlAccessCoreHelper
     public T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = null;
-        ExecuteCore(session =>
+        ExecuteSelectCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             item = criteria.UniqueResult<T>();
-        }, false);
+        });
         FillReferences(item, sqlCrudConfig.IsFillReferences);
         return item;
     }
@@ -466,23 +470,23 @@ internal sealed class WsSqlAccessCoreHelper
             return false;
 
         bool result = false;
-        ExecuteCore(session =>
+        ExecuteSelectCore(session =>
         {
             result = session.Query<T>().Any(x => x.IsAny(item));
-        }, false);
+        });
         return result;
     }
 
     public bool IsItemExists<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         bool result = false;
-        ExecuteCore(session =>
+        ExecuteSelectCore(session =>
         {
             int saveCount = JsonSettings.Local.SelectTopRowsCount;
             JsonSettings.Local.SelectTopRowsCount = 1;
             result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Any();
             JsonSettings.Local.SelectTopRowsCount = saveCount;
-        }, false);
+        });
         return result;
     }
 
@@ -500,7 +504,7 @@ internal sealed class WsSqlAccessCoreHelper
     public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T[]? items = null;
-        ExecuteCore(session =>
+        ExecuteSelectCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             items = criteria.List<T>().ToArray();
@@ -508,14 +512,14 @@ internal sealed class WsSqlAccessCoreHelper
             {
                 FillReferences(item, sqlCrudConfig.IsFillReferences);
             }
-        }, false);
+        });
         return items;
     }
 
     public T[]? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
     {
         T[]? result = null;
-        ExecuteCore(session =>
+        ExecuteSelectCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)
@@ -523,14 +527,14 @@ internal sealed class WsSqlAccessCoreHelper
                 //sqlQuery.AddEntity(typeof(T));
                 result = sqlQuery.List<T>().ToArray();
             }
-        }, false);
+        });
         return result;
     }
 
     public T? GetNativeItemNullable<T>(string query, List<SqlParameter> parameters)
     {
         T? result = default;
-        ExecuteCore(session =>
+        ExecuteSelectCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)
@@ -539,14 +543,14 @@ internal sealed class WsSqlAccessCoreHelper
                 IList<T>? list = sqlQuery.List<T>();
                 result = list.First();
             }
-        }, false);
+        });
         return result;
     }
 
     private object[]? GetNativeArrayObjectsNullable(string query, List<SqlParameter> parameters)
     {
         object[]? result = null;
-        ExecuteCore(session =>
+        ExecuteSelectCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)
@@ -561,7 +565,7 @@ internal sealed class WsSqlAccessCoreHelper
                         result[i] = listEntities[i];
                 }
             }
-        }, false);
+        });
         return result;
     }
 

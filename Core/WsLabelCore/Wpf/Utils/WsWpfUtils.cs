@@ -137,7 +137,7 @@ public static class WsWpfUtils
             device.ChangeDt = DateTime.Now;
             device.LoginDt = DateTime.Now;
             device.IsMarked = false;
-            AccessManager.AccessItem.UpdateForce(device);
+            AccessManager.AccessItem.Update(device);
         }
         return device;
     }

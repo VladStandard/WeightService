@@ -160,7 +160,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
         RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
         {
             foreach (TItem item in SqlSectionSave)
-                ContextManager.AccessManager.AccessItem.UpdateForce(item);
+                ContextManager.AccessManager.AccessItem.Update(item);
             SqlSectionSave.Clear();
         });
     }

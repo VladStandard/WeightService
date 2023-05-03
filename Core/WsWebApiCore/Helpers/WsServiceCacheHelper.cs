@@ -22,6 +22,7 @@ public sealed class WsServiceCacheHelper
     private SqlCrudConfigModel SqlCrudConfig => new(new List<SqlFieldFilterModel>(),
         true, false, false, true, false);
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    private WsSqlTableName TableName { get; set; } = WsSqlTableName.All;
     public List<PluModel> PlusDb { get; private set; } = new();
     public List<PluFkModel> PluFksDb { get; private set; } = new();
     public List<BoxModel> BoxesDb { get; private set; } = new();
@@ -45,7 +46,11 @@ public sealed class WsServiceCacheHelper
     /// <summary>
     /// Прогреть кэш.
     /// </summary>
-    public void Load(WsSqlTableName tableName = WsSqlTableName.All)
+    public void Load() => Load(TableName);
+    /// <summary>
+    /// Прогреть кэш.
+    /// </summary>
+    public void Load(WsSqlTableName tableName)
     {
         if (!PlusDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus)) 
             PlusDb = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
@@ -78,6 +83,9 @@ public sealed class WsServiceCacheHelper
             PluGroupsFksDb = ContextManager.ContextList.GetListNotNullablePlusGroupFks(SqlCrudConfig);
         if (!BrandsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Brands)) 
             BrandsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
+        // Optimize.
+        if (TableName.Equals(WsSqlTableName.All))
+            TableName = WsSqlTableName.None;
     }
 
     #endregion

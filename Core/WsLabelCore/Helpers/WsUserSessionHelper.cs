@@ -509,7 +509,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public void AddScaleCounter()
     {
         Scale.Counter++;
-        ContextManager.AccessItem.UpdateForce(Scale);
+        ContextManager.AccessItem.Update(Scale);
     }
 
     /// <summary>
@@ -628,7 +628,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         if (PluWeighing.IsNew)
             ContextManager.AccessItem.Save(PluWeighing);
         else
-            ContextManager.AccessItem.UpdateForce(PluWeighing);
+            ContextManager.AccessItem.Update(PluWeighing);
     }
 
     /// <summary>

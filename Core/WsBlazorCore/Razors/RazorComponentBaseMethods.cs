@@ -183,7 +183,7 @@ public partial class RazorComponentBase
 		else
 		{
 			if (!SqlItemValidate(NotificationService, item)) return;
-            ContextManager.AccessManager.AccessItem.UpdateForce(item);
+            ContextManager.AccessManager.AccessItem.Update(item);
 		}
 	}
 

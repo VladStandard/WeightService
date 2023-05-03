@@ -393,13 +393,14 @@ public sealed class WsSqlContextItemHelper
                 LogoutDt = DateTime.Now,
                 Ipv4 = MdNetUtils.GetLocalIpAddress()
             };
+            AccessManager.AccessItem.Save(device);
         }
         else
         {
             device.ChangeDt = DateTime.Now;
             device.LoginDt = DateTime.Now;
+            AccessManager.AccessItem.Update(device);
         }
-        AccessManager.AccessItem.SaveOrUpdate(device);
         return device;
     }
 

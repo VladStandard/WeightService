@@ -603,7 +603,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -663,7 +663,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -689,7 +689,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -715,7 +715,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -741,7 +741,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -767,7 +767,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -793,7 +793,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -819,7 +819,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -847,7 +847,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -872,7 +872,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(itemDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -895,10 +895,10 @@ public class WsServiceControllerBase : ControllerBase
     {
         List<WsSqlPlu1CFkModel> plus1CFksDb = ContextManager.ContextPlu1cFk.GetNewList();
 
-        // Поиск список связей обмена номенклатуры 1С по номеру.
+        // Получить список связей обмена номенклатуры 1С по номеру.
         if (record is WsXmlContentRecord<PluModel> pluXml)
             GetPlus1CFksByNumber(plus1CFksDb, pluXml);
-        // Поиск список связей обмена номенклатуры 1С по GUID_1C.
+        // Получить список связей обмена номенклатуры 1С по GUID_1C.
         else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
             GetPlus1CFksByGuid1C(plus1CFksDb, pluCharacteristicXml);
 
@@ -911,7 +911,7 @@ public class WsServiceControllerBase : ControllerBase
     }
 
     /// <summary>
-    /// Поиск список связей обмена номенклатуры 1С по номеру.
+    /// Получить список связей обмена номенклатуры 1С по номеру.
     /// </summary>
     /// <param name="plus1CFksDb"></param>
     /// <param name="pluXml"></param>
@@ -930,7 +930,7 @@ public class WsServiceControllerBase : ControllerBase
     }
 
     /// <summary>
-    /// Поиск список связей обмена номенклатуры 1С по GUID_1C.
+    /// Получить список связей обмена номенклатуры 1С по GUID_1C.
     /// </summary>
     /// <param name="plus1CFksDb"></param>
     /// <param name="pluCharacteristicXml"></param>
@@ -989,7 +989,7 @@ public class WsServiceControllerBase : ControllerBase
             else
             {
                 SqlCrudResultModel dbUpdate = plu1CFkDb.IsExists
-                    ? AccessManager.AccessItem.UpdateForce(plu1CFkDb)
+                    ? AccessManager.AccessItem.Update(plu1CFkDb)
                     : AccessManager.AccessItem.Save(plu1CFkDb);
                 if (dbUpdate is { IsOk: false, Exception: { } })
                 {

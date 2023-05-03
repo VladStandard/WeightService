@@ -70,11 +70,8 @@ public sealed class WsSqlAccessItemHelper
     public SqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : WsSqlTableBase =>
         AccessCore.Save(item, identity);
 
-    public SqlCrudResultModel SaveOrUpdate<T>(T? item) where T : WsSqlTableBase =>
-        AccessCore.SaveOrUpdate(item);
-
-    public SqlCrudResultModel UpdateForce<T>(T? item) where T : WsSqlTableBase =>
-        AccessCore.UpdateForce(item);
+    public SqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase =>
+        AccessCore.Update(item);
 
     public SqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase =>
         AccessCore.Delete(item);

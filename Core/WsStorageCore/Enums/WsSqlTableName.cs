@@ -5,7 +5,8 @@ namespace WsStorageCore.Enums;
 
 public enum WsSqlTableName
 {
-    All = 0,
+    None,
+    All,
     Plus,
     PluFks,
     Boxes,
@@ -21,5 +22,4 @@ public enum WsSqlTableName
     PluGroups,
     PluGroupsFks,
     Brands,
-
 }

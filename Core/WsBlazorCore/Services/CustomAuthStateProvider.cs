@@ -24,7 +24,7 @@ public class UserRightsService : IUserRightsService
         if (access is null)
             return rights;
         access.LoginDt = DateTime.Now;
-        AccessManager.AccessItem.UpdateForce(access);
+        AccessManager.AccessItem.Update(access);
         for (int i = access.Rights; i >= 0; --i)
             rights.Add($"{i}");
         return rights;

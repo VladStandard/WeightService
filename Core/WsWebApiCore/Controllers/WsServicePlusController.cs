@@ -23,7 +23,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (boxDb is null || boxDb.IsNew) return false;
         boxDb.UpdateProperties(pluXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(boxDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(boxDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -41,7 +41,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (bundleDb is null || bundleDb.IsNew) return false;
         bundleDb.UpdateProperties(pluXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(bundleDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(bundleDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -59,7 +59,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (clipDb is null || clipDb.IsNew) return false;
         clipDb.UpdateProperties(pluXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.UpdateForce(clipDb);
+        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(clipDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
