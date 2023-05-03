@@ -9,7 +9,6 @@ public sealed partial class WebServiceLogs : RazorComponentSectionBase<LogWebVie
     public WebServiceLogs() : base()
     {
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
-        SqlCrudConfigSection.IsResultShowMarked = true;
         SqlCrudConfigSection.IsResultOrder = true;
         ButtonSettings = new(false, false,  false, false, false, false, false);
     }

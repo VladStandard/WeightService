@@ -21,7 +21,6 @@ public sealed partial class Logs : RazorComponentSectionBase<LogView>
         Lines = ContextManager.AccessManager.AccessList.GetListNotNullable<ScaleModel>(new SqlCrudConfigModel());
         Lines = (from item in Lines orderby item.Description select item).ToList();
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
-        SqlCrudConfigSection.IsResultShowMarked = true;
         SqlCrudConfigSection.IsResultOrder = true;
         ButtonSettings = new(false, false,  false, false, false, false, false);
     }
