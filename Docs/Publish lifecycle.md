@@ -1,4 +1,4 @@
-# Publish life cycle
+# Publish lifecycle
 
 ## Update routing
 VS -> Tools -> Version changer

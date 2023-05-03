@@ -3,6 +3,7 @@
 
 namespace WsStorageCore.TableScaleFkModels.Aggregations;
 
+[DebuggerDisplay("{ToString()}")]
 public sealed record PluAggrModel
 {
     #region Public and private fields, properties, constructor
@@ -40,13 +41,7 @@ public sealed record PluAggrModel
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        string.IsNullOrEmpty(Plu)
-            ? $"{nameof(Line)}: {Line}. " +
-              $"{nameof(Plu)}: {Plu}. " +
-              $"{nameof(Count)}: {Count}. " +
-              $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}."
-            : String.Empty;
+    public override string ToString() => $"{Line} | {Plu} | {Count} {ChangeDt:yyyy-MM-dd}";
 
     #endregion
 }

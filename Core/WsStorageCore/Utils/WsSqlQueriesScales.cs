@@ -73,7 +73,7 @@ LEFT JOIN [DB_SCALES].[BUNDLES] [BU] ON [PBFK].[BUNDLE_UID] = [BU].[UID]
 LEFT JOIN [DB_SCALES].[BOXES] [B] ON [PNFK].[BOX_UID] = [B].[UID]
 {(isSetPluUid ? "WHERE [P].[UID] = :P_UID" : "")}
 ORDER BY [P].[NUMBER];
-            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
         }
 
         public static class PluLabels
@@ -93,7 +93,7 @@ LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
 LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
 GROUP BY CAST([PL].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME]
 ORDER BY [PL_CHANGE_DT] DESC;
-";
+				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
             public static string GetLabelsAggrWithPlu(int topRecords) => $@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
@@ -112,7 +112,7 @@ LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
 LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
 GROUP BY CAST([PL].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME], [P].[NAME]
 ORDER BY [PL_CHANGE_DT] DESC;
-";
+				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
         }
 
         public static class PluWeighings
@@ -128,7 +128,8 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 		,[LINE]
         ,[PLU]
 FROM [db_scales].[VIEW_AGGR_WEIGHTINGS]
-ORDER BY [CHANGE_DT] DESC;";
+ORDER BY [CHANGE_DT] DESC;
+				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             }
         }
     }

@@ -19,12 +19,11 @@ public sealed class SqlQueriesTests
             {
                 if (obj is object[] { Length: 4 } item)
                 {
-                    pluWeighingAggrs.Add(new(
-                        Convert.ToDateTime(item[0]),
-                        Convert.ToInt32(item[1]),
-                        Convert.ToString(item[3]) ?? string.Empty,
-                        Convert.ToString(item[4]) ?? string.Empty)
-                    );
+                    DateTime dt = Convert.ToDateTime(item[0]);
+                    int count = Convert.ToInt32(item[1]);
+                    string line = Convert.ToString(item[2]) ?? string.Empty;
+                    string plu = Convert.ToString(item[3]) ?? string.Empty;
+                    pluWeighingAggrs.Add(new(dt, count, line, plu));
                 }
             }
             for (int i = 0; i < 5; i++)
