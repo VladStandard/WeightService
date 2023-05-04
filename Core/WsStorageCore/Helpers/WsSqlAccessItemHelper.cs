@@ -58,25 +58,25 @@ public sealed class WsSqlAccessItemHelper
     public bool IsItemExists<T>(T? item) where T : WsSqlTableBase, new() =>
         AccessCore.IsItemExists(item);
 
-    public SqlCrudResultModel ExecQueryNative(string query, List<SqlParameter> parameters) =>
+    public WsSqlCrudResultModel ExecQueryNative(string query, List<SqlParameter> parameters) =>
         AccessCore.ExecQueryNative(query, parameters);
 
-    public SqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
+    public WsSqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         AccessCore.ExecQueryNative(query, parameter);
 
-    public SqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase =>
+    public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase =>
         AccessCore.Save<T>(item);
 
-    public SqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : WsSqlTableBase =>
+    public WsSqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : WsSqlTableBase =>
         AccessCore.Save(item, identity);
 
-    public SqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase =>
+    public WsSqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase =>
         AccessCore.Update(item);
 
-    public SqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase =>
+    public WsSqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase =>
         AccessCore.Delete(item);
 
-    public SqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase =>
+    public WsSqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase =>
         AccessCore.Mark(item);
 
     public WsSqlAppModel GetItemAppOrCreateNew(string appName) => AccessCore.GetItemAppOrCreateNew(appName);

@@ -3,7 +3,7 @@
 
 namespace WsStorageCore.Helpers;
 
-public class WsSqlConnectFactory
+public sealed class WsSqlConnectFactory
 {
     #region Design pattern "Lazy Singleton"
 

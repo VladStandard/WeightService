@@ -23,7 +23,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (boxDb is null || boxDb.IsNew) return false;
         boxDb.UpdateProperties(pluXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(boxDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(boxDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -41,7 +41,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (bundleDb is null || bundleDb.IsNew) return false;
         bundleDb.UpdateProperties(pluXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(bundleDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(bundleDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -59,7 +59,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (clipDb is null || clipDb.IsNew) return false;
         clipDb.UpdateProperties(pluXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(clipDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(clipDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -484,10 +484,11 @@ public sealed class WsServicePlusController : WsServiceControllerBase
         {
             if (pluBundleFk.IsNotExists)
             {
-                List<PluBundleFkModel> pluBundleFks = ContextManager.ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
-                if (pluBundleFks.Any())
+                if (Cache.PluBundlesFksDb.Any())
                 {
-                    pluBundleFk = pluBundleFks.Find(item => Equals(item.Plu.Number, pluXml.Number)) ?? new();
+                    pluBundleFk = Cache.PluBundlesFksDb.Find(
+                        item => Equals(item.Plu.Number, pluXml.Number) && 
+                        Equals(item.Plu.Uid1C, pluXml.Uid1C)) ?? new();
                 }
             }
             if (pluBundleFk.IsNotExists) return;
@@ -565,7 +566,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             // Прогреть кэш.
             Cache.Load();
             List<WsXmlContentRecord<PluModel>> plusXml = GetXmlPluList(xml);
-            PluValidator pluValidator = new();
+            PluValidator pluValidator = new(false, false);
             // Цикл по всем XML-номенклатурам.
             foreach (WsXmlContentRecord<PluModel> record in plusXml)
             {
@@ -574,14 +575,14 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, record);
                 // Проверить ПЛУ на группу с нулевым номером.
                 if (itemXml.ParseResult.IsStatusSuccess)
-                    CheckPluNumberForNonGroup(itemXml);
+                    IsCorrectPluNumberForNonGroup(itemXml, true);
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     CheckIsEnabledPlu(itemXml, plus1CFksDb);
                 // Проверить валидацию ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     CheckPluValidation(itemXml, pluValidator);
-                // Проверить дубликат ПЛУ для не группы.
+                // Проверить дубликат номера ПЛУ для не групп.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     CheckPluDublicateForNonGroup(response, itemXml);
                 // Добавить ПЛУ.
@@ -642,29 +643,14 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     }
 
     /// <summary>
-    /// Проверить ПЛУ на группу с нулевым номером.
-    /// </summary>
-    /// <param name="pluXml"></param>
-    private void CheckPluNumberForNonGroup(PluModel pluXml)
-    {
-        if (pluXml is { IsGroup: true, Number: 0 })
-        {
-            pluXml.ParseResult.Status = ParseStatus.Error;
-            pluXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
-                $"{LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} {LocaleCore.WebService.FieldCode} '{pluXml.Code}'";
-        }
-    }
-
-    /// <summary>
-    /// Проверить дубликат ПЛУ для не группы.
+    /// Проверить дубликат номера ПЛУ для не групп.
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
     private void CheckPluDublicateForNonGroup(WsResponse1CShortModel response, PluModel pluXml)
     {
         // Пропуск групп с нулевым номером.
-        if (pluXml is { IsGroup: true, Number: 0 }) throw new(nameof(pluXml));
+        if (Equals(pluXml.Number, (short)0)) return;
         List<PluModel> plusNumberDb = Cache.PlusDb.FindAll(x => Equals(x.Number, pluXml.Number));
         if (plusNumberDb.Count > 1)
         {

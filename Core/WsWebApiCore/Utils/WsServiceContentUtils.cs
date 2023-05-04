@@ -50,171 +50,172 @@ public static class WsServiceContentUtils
         return itemsXml;
     }
 
-    public static void SetItemParseResultException<T>(T item, string xmlPropertyName) where T : WsSqlTableBase
+    public static void SetItemParseResultException<T>(T itemXml, string xmlPropertyName) where T : WsSqlTableBase
     {
-        item.ParseResult.Status = ParseStatus.Error;
-        item.ParseResult.Exception = string.IsNullOrEmpty(item.ParseResult.Exception)
+        itemXml.ParseResult.Status = ParseStatus.Error;
+        itemXml.ParseResult.Exception = string.IsNullOrEmpty(itemXml.ParseResult.Exception)
             ? $"{xmlPropertyName} {LocaleCore.WebService.IsEmpty}!"
-            : $"{item.ParseResult.Exception} | {xmlPropertyName} {LocaleCore.WebService.IsEmpty}!";
+            : $"{itemXml.ParseResult.Exception} | {xmlPropertyName} {LocaleCore.WebService.IsEmpty}!";
     }
 
-    public static void SetItemPropertyFromXmlAttribute<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase
+    public static void SetItemPropertyFromXmlAttribute<T>(XmlNode xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase
     {
-        SetItemPropertyFromXmlAttributeForBase(xmlNode, item, xmlPropertyName);
-        switch (item)
+        SetItemPropertyFromXmlAttributeForBase(xmlNode, itemXml, xmlPropertyName);
+        switch (itemXml)
         {
-            case BrandModel brand:
-                SetItemPropertyFromXmlAttributeForBrand(xmlNode, brand, xmlPropertyName);
+            case BrandModel brandXml:
+                SetItemPropertyFromXmlAttributeForBrand(xmlNode, brandXml, xmlPropertyName);
                 break;
-            case PluModel plu:
-                SetItemPropertyFromXmlAttributeForPlu(xmlNode, plu, xmlPropertyName);
+            case PluModel pluXml:
+                SetItemPropertyFromXmlAttributeForPlu(xmlNode, pluXml, xmlPropertyName);
                 break;
-            case PluGroupModel pluGroup:
-                SetItemPropertyFromXmlAttributeForPluGroup(xmlNode, pluGroup, xmlPropertyName);
+            case PluGroupModel pluGroupXml:
+                SetItemPropertyFromXmlAttributeForPluGroup(xmlNode, pluGroupXml, xmlPropertyName);
                 break;
-            case PluCharacteristicModel pluCharacteristic:
-                SetItemPropertyFromXmlAttributeForPluCharacteristic(xmlNode, pluCharacteristic, xmlPropertyName);
+            case PluCharacteristicModel pluCharacteristicXml:
+                SetItemPropertyFromXmlAttributeForPluCharacteristic(xmlNode, pluCharacteristicXml, xmlPropertyName);
                 break;
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForBase<T>(XmlNode xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase
+    private static void SetItemPropertyFromXmlAttributeForBase<T>(XmlNode xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase
     {
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.IdentityValueUid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                itemXml.IdentityValueUid = GetXmlAttributeGuid(xmlNode, itemXml, xmlPropertyName);
                 break;
             case "ISMARKED":
-                item.IsMarked = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
+                itemXml.IsMarked = GetXmlAttributeBool(xmlNode, itemXml, xmlPropertyName);
                 break;
             case "NAME":
-                item.Name = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                itemXml.Name = GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName);
                 break;
             case "DESCRIPTION":
-                item.Description = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                itemXml.Description = GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName);
                 break;
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForBrand(XmlNode xmlNode, BrandModel item, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForBrand(XmlNode xmlNode, BrandModel brandXml, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                brandXml.Uid1C = GetXmlAttributeGuid(xmlNode, brandXml, xmlPropertyName);
                 break;
             case "CODE":
-                item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                brandXml.Code = GetXmlAttributeString(xmlNode, brandXml, xmlPropertyName);
                 break;
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForPlu(XmlNode xmlNode, PluModel item, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForPlu(XmlNode xmlNode, PluModel pluXml, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluXml.Uid1C = GetXmlAttributeGuid(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "ISGROUP":
-                item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
+                pluXml.IsGroup = GetXmlAttributeBool(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "FULLNAME":
-                item.FullName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                pluXml.FullName = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "CODE":
-                item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                pluXml.Code = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "MEASUREMENTTYPE":
-                item.MeasurementType = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
-                item.IsCheckWeight = GetXmlAttributeBool(xmlNode, item, xmlPropertyName, "ШТ", "КГ");
+                pluXml.MeasurementType = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName);
+                pluXml.IsCheckWeight = GetXmlAttributeBool(xmlNode, pluXml, xmlPropertyName, "ШТ", "КГ");
                 break;
             case "PLUNUMBER":
-                item.Number = GetXmlAttributeShort(xmlNode, item, xmlPropertyName);
+                pluXml.Number = GetXmlAttributeShort(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "SHELFLIFE":
-                item.ShelfLifeDays = GetXmlAttributeByte(xmlNode, item, xmlPropertyName);
+                pluXml.ShelfLifeDays = GetXmlAttributeByte(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "PARENTGROUPGUID":
-                item.ParentGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluXml.ParentGuid = GetXmlAttributeGuid(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "GROUPGUID":
-                item.GroupGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluXml.GroupGuid = GetXmlAttributeGuid(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "CATEGORYGUID":
-                item.CategoryGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluXml.CategoryGuid = GetXmlAttributeGuid(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "BRANDGUID":
-                item.BrandGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluXml.BrandGuid = GetXmlAttributeGuid(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "BOXTYPEGUID":
-                item.BoxTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluXml.BoxTypeGuid = GetXmlAttributeGuid(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "BOXTYPENAME":
-                item.BoxTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                pluXml.BoxTypeName = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "BOXTYPEWEIGHT":
-                item.BoxTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
+                pluXml.BoxTypeWeight = GetXmlAttributeDecimal(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "PACKAGETYPEGUID":
-                item.PackageTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluXml.PackageTypeGuid = GetXmlAttributeGuid(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "PACKAGETYPENAME":
-                item.PackageTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                pluXml.PackageTypeName = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "PACKAGETYPEWEIGHT":
-                item.PackageTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
+                pluXml.PackageTypeWeight = GetXmlAttributeDecimal(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "CLIPTYPEGUID":
-                item.ClipTypeGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluXml.ClipTypeGuid = GetXmlAttributeGuid(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "CLIPTYPENAME":
-                item.ClipTypeName = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                pluXml.ClipTypeName = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "CLIPTYPEWEIGHT":
-                item.ClipTypeWeight = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
+                pluXml.ClipTypeWeight = GetXmlAttributeDecimal(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "ATTACHMENTSCOUNT":
-                item.AttachmentsCount = GetXmlAttributeShort(xmlNode, item, xmlPropertyName);
+                pluXml.AttachmentsCount = GetXmlAttributeShort(xmlNode, pluXml, xmlPropertyName);
                 break;
             case "GTIN":
-                item.Gtin = GetXmlAttributeString(xmlNode, item, xmlPropertyName, false);
+                pluXml.Gtin = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName, false);
                 break;
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForPluGroup(XmlNode xmlNode, PluGroupModel item, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForPluGroup(XmlNode xmlNode, PluGroupModel pluGroupXml, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluGroupXml.Uid1C = GetXmlAttributeGuid(xmlNode, pluGroupXml, xmlPropertyName);
                 break;
             case "ISGROUP":
-                item.IsGroup = GetXmlAttributeBool(xmlNode, item, xmlPropertyName);
+                pluGroupXml.IsGroup = GetXmlAttributeBool(xmlNode, pluGroupXml, xmlPropertyName);
                 break;
             case "CODE":
-                item.Code = GetXmlAttributeString(xmlNode, item, xmlPropertyName);
+                pluGroupXml.Code = GetXmlAttributeString(xmlNode, pluGroupXml, xmlPropertyName);
                 break;
             case "GROUPGUID":
-                item.ParentGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluGroupXml.ParentGuid = GetXmlAttributeGuid(xmlNode, pluGroupXml, xmlPropertyName);
                 break;
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForPluCharacteristic(XmlNode xmlNode, PluCharacteristicModel item, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForPluCharacteristic(XmlNode xmlNode, 
+        PluCharacteristicModel pluCharacteristicXml, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
             case "GUID":
-                item.Uid1C = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluCharacteristicXml.Uid1C = GetXmlAttributeGuid(xmlNode, pluCharacteristicXml, xmlPropertyName);
                 break;
             case "NOMENCLATUREGUID":
-                item.NomenclatureGuid = GetXmlAttributeGuid(xmlNode, item, xmlPropertyName);
+                pluCharacteristicXml.NomenclatureGuid = GetXmlAttributeGuid(xmlNode, pluCharacteristicXml, xmlPropertyName);
                 break;
             case "ATTACHMENTSCOUNT":
-                item.AttachmentsCount = GetXmlAttributeDecimal(xmlNode, item, xmlPropertyName);
+                pluCharacteristicXml.AttachmentsCount = GetXmlAttributeDecimal(xmlNode, pluCharacteristicXml, xmlPropertyName);
                 break;
         }
     }
@@ -258,7 +259,7 @@ public static class WsServiceContentUtils
         return string.Empty;
     }
 
-    private static string GetXmlAttributeString<T>(XmlNode? xmlNode, T item, string attributeName,
+    private static string GetXmlAttributeString<T>(XmlNode? xmlNode, T itemXml, string attributeName,
         bool isAttributeMustExists = true) where T : WsSqlTableBase
     {
         if (xmlNode?.Attributes is null) return string.Empty;
@@ -271,75 +272,75 @@ public static class WsServiceContentUtils
             }
         }
         if (isAttributeMustExists)
-            SetItemParseResultException(item, attributeName);
+            SetItemParseResultException(itemXml, attributeName);
         return string.Empty;
     }
 
-    private static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
+    private static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName,
         List<string> valuesFalse, List<string> valuesTrue) where T : WsSqlTableBase
     {
-        string value = GetXmlAttributeString(xmlNode, item, xmlPropertyName).ToUpper();
+        string value = GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName).ToUpper();
         if (Enumerable.Contains(valuesFalse, value)) return false;
         if (Enumerable.Contains(valuesTrue, value)) return true;
         return default;
     }
 
-    private static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
-        GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { "0", "FALSE" }, new() { "1", "TRUE" });
+    private static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase =>
+        GetXmlAttributeBool(xmlNode, itemXml, xmlPropertyName, new List<string> { "0", "FALSE" }, new() { "1", "TRUE" });
 
-    private static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T item, string xmlPropertyName,
+    private static bool GetXmlAttributeBool<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName,
         string valueFalse, string valueTrue) where T : WsSqlTableBase =>
-        GetXmlAttributeBool(xmlNode, item, xmlPropertyName, new List<string> { valueFalse }, new() { valueTrue });
+        GetXmlAttributeBool(xmlNode, itemXml, xmlPropertyName, new List<string> { valueFalse }, new() { valueTrue });
 
-    private static Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
-        Guid.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out Guid uid) ? uid : Guid.Empty;
+    private static Guid GetXmlAttributeGuid<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase =>
+        Guid.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out Guid uid) ? uid : Guid.Empty;
 
-    private static byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
-        byte.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out byte result) ? result : default;
+    private static byte GetXmlAttributeByte<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase =>
+        byte.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out byte result) ? result : default;
 
-    private static short GetXmlAttributeShort<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
-        short.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out short result) ? result : default;
+    private static short GetXmlAttributeShort<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase =>
+        short.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out short result) ? result : default;
 
-    private static decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase =>
-        decimal.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out decimal result) ? result : default;
+    private static decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase =>
+        decimal.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out decimal result) ? result : default;
 
-    public static TResult GetXmlAttributeGeneric<T, TResult>(XmlNode? xmlNode, T item, string xmlPropertyName) where T : WsSqlTableBase where TResult : struct
+    public static TResult GetXmlAttributeGeneric<T, TResult>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase where TResult : struct
     {
         TResult result = default;
         switch (typeof(TResult))
         {
             case var cls when cls == typeof(Guid):
-                Guid resultGuid = Guid.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out Guid iGuid) ? iGuid : Guid.Empty;
+                Guid resultGuid = Guid.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out Guid iGuid) ? iGuid : Guid.Empty;
                 if (resultGuid is TResult guidResult)
                     result = guidResult;
                 break;
             case var cls when cls == typeof(byte):
-                byte resultByte = byte.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out byte iByte) ? iByte : default;
+                byte resultByte = byte.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out byte iByte) ? iByte : default;
                 if (resultByte is TResult byteResult)
                     result = byteResult;
                 break;
             case var cls when cls == typeof(bool):
-                bool resultBool = bool.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out bool iBool) ? iBool : default;
+                bool resultBool = bool.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out bool iBool) ? iBool : default;
                 if (resultBool is TResult boolResult)
                     result = boolResult;
                 break;
             case var cls when cls == typeof(short):
-                short resultShort = short.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out short iShort) ? iShort : default;
+                short resultShort = short.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out short iShort) ? iShort : default;
                 if (resultShort is TResult shortResult)
                     result = shortResult;
                 break;
             case var cls when cls == typeof(ushort):
-                ushort resultUshort = ushort.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out ushort iUshort) ? iUshort : default;
+                ushort resultUshort = ushort.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out ushort iUshort) ? iUshort : default;
                 if (resultUshort is TResult ushortResult)
                     result = ushortResult;
                 break;
             case var cls when cls == typeof(int):
-                int resultInt = int.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out int iInt) ? iInt : default;
+                int resultInt = int.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out int iInt) ? iInt : default;
                 if (resultInt is TResult intResult)
                     result = intResult;
                 break;
             case var cls when cls == typeof(uint):
-                uint resultUint = uint.TryParse(GetXmlAttributeString(xmlNode, item, xmlPropertyName), out uint iUint) ? iUint : default;
+                uint resultUint = uint.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out uint iUint) ? iUint : default;
                 if (resultUint is TResult uintResult)
                     result = uintResult;
                 break;

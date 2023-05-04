@@ -31,7 +31,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlContextBoxHelper ContextBox => WsSqlContextBoxHelper.Instance;
     public WsSqlContextBundleHelper ContextBundle => WsSqlContextBundleHelper.Instance;
     public WsSqlContextPluHelper ContextPlu => WsSqlContextPluHelper.Instance;
-    public WsSqlContextPlu1cFkHelper ContextPlu1cFk => WsSqlContextPlu1cFkHelper.Instance;
+    public WsSqlPlu1CFkController ContextPlu1CFk => WsSqlPlu1CFkController.Instance;
     public WsSqlContextPluNestingHelper ContextPluNesting => WsSqlContextPluNestingHelper.Instance;
     public WsSqlContextPluStorageHelper ContextPluStorage => WsSqlContextPluStorageHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
@@ -146,7 +146,7 @@ public sealed class WsSqlContextManagerHelper
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
             FileLogger.Setup(localDir, appName);
-            string subDir = Path.Combine(localDir, JsonSettings.BlazorSubDir);
+            string subDir = Path.Combine(localDir, JsonSettings.BinNetSubDir);
             if (Directory.Exists(subDir))
             {
                 // Local folder.
@@ -163,7 +163,7 @@ public sealed class WsSqlContextManagerHelper
                     throw new(LocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            AccessCore.SetupSessionFactory(DebugHelper.Instance.IsDevelop);
+            AccessCore.SetupSessionFactory(false); // DebugHelper.Instance.IsDevelop
             ContextItem.SetupLog(appName);
             ContextItem.SaveLogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
         }

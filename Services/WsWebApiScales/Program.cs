@@ -2,32 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
-//builder.Services.AddAuthorization(options =>
-//{
-//    // By default, all incoming requests will be authorized according to the default policy.
-//    options.FallbackPolicy = options.DefaultPolicy;
-//});
 
 // NHibernate & JsonSettings & DataAccess.
 WsSqlContextManagerHelper.Instance.SetupJsonWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales));
 builder.Services.AddSingleton(WsSqlAccessManagerHelper.Instance.SessionFactory);
-builder.Services.AddScoped(factory => WsSqlAccessManagerHelper.Instance.SessionFactory.OpenSession());
-//ISessionFactory GetSessionFactory(string? connectionString)
-//{
-//    FluentConfiguration configuration = Fluently
-//        .Configure()
-//        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
-//            .ShowSql()
-//            .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
-//        );
-//    configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
-//    return configuration.BuildSessionFactory();
-//}
-//string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//ISessionFactory sessionFactory = GetSessionFactory(connectionString);
-//builder.Services.AddSingleton(sessionFactory);
-//builder.Services.AddScoped(factory => sessionFactory.OpenSession());
+builder.Services.AddScoped(_ => WsSqlAccessManagerHelper.Instance.SessionFactory.OpenSession());
 
 // POST XML from body.
 builder.Services.AddMvc(options =>

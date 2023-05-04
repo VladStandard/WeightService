@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using NHibernate.Hql.Ast;
+
 namespace WsWebApiCore.Controllers;
 
 /// <summary>
@@ -603,7 +605,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -636,7 +638,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="uid1C"></param>
     internal bool SaveItemDb<T>(WsResponse1CShortModel response, T item, bool isCounter, Guid uid1C) where T : WsSqlTableBase
     {
-        SqlCrudResultModel dbSave = AccessManager.AccessItem.Save(item, item.Identity);
+        WsSqlCrudResultModel dbSave = AccessManager.AccessItem.Save(item, item.Identity);
         // Add was success.
         if (dbSave.IsOk)
         {
@@ -663,7 +665,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -689,7 +691,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -715,7 +717,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -741,7 +743,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -767,7 +769,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -793,7 +795,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -819,7 +821,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -847,7 +849,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -872,7 +874,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
+        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
         if (dbUpdate.IsOk)
         {
             if (isCounter)
@@ -886,6 +888,33 @@ public class WsServiceControllerBase : ControllerBase
     }
 
     /// <summary>
+    /// Проверить некорректность группы и номера ПЛУ.
+    /// </summary>
+    /// <param name="pluXml">Номенклатура</param>
+    /// <param name="isGenerateException">Генерировать исключение</param>
+    public bool IsUnCorrectPluNumberForNonGroup(PluModel pluXml, bool isGenerateException) =>
+        !IsCorrectPluNumberForNonGroup(pluXml, isGenerateException);
+
+    /// <summary>
+    /// Проверить корректность группы и номера ПЛУ.
+    /// </summary>
+    /// <param name="pluXml">Номенклатура</param>
+    /// <param name="isGenerateException">Генерировать исключение</param>
+    public bool IsCorrectPluNumberForNonGroup(PluModel pluXml, bool isGenerateException)
+    {
+        if (pluXml is { IsGroup: true, Number: 0 }) return true;
+        if (pluXml is { IsGroup: false, Number: >0 }) return true;
+        if (isGenerateException)
+        {
+            pluXml.ParseResult.Status = ParseStatus.Error;
+            pluXml.ParseResult.Exception =
+                $"{LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
+                $"{LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} {LocaleCore.WebService.FieldCode} '{pluXml.Code}'";
+        }
+        return false;
+    }
+
+    /// <summary>
     /// Обновить данные списка в таблице связей обмена номенклатуры 1С.
     /// </summary>
     /// <param name="response"></param>
@@ -893,14 +922,19 @@ public class WsServiceControllerBase : ControllerBase
     internal List<WsSqlPlu1CFkModel> UpdatePlus1CFksDb<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> record)
         where T : WsSqlTable1CBase, new()
     {
-        List<WsSqlPlu1CFkModel> plus1CFksDb = ContextManager.ContextPlu1cFk.GetNewList();
+        List<WsSqlPlu1CFkModel> plus1CFksDb = ContextManager.ContextPlu1CFk.GetNewList();
 
         // Получить список связей обмена номенклатуры 1С по номеру.
         if (record is WsXmlContentRecord<PluModel> pluXml)
-            GetPlus1CFksByNumber(plus1CFksDb, pluXml);
+        {
+            if (IsCorrectPluNumberForNonGroup(pluXml.Item, false))
+                plus1CFksDb = GetPlus1CFksByGuid1C(pluXml.Item.Uid1C);
+            else
+                plus1CFksDb = GetPlus1CFksByNumber(pluXml);
+        }
         // Получить список связей обмена номенклатуры 1С по GUID_1C.
         else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
-            GetPlus1CFksByGuid1C(plus1CFksDb, pluCharacteristicXml);
+            plus1CFksDb = GetPlus1CFksByGuid1C(pluCharacteristicXml.Item.NomenclatureGuid);
 
         // Обновить данные записи в таблице связей обмена номенклатуры 1С.
         foreach (WsSqlPlu1CFkModel plu1CFkDb in plus1CFksDb)
@@ -913,39 +947,40 @@ public class WsServiceControllerBase : ControllerBase
     /// <summary>
     /// Получить список связей обмена номенклатуры 1С по номеру.
     /// </summary>
-    /// <param name="plus1CFksDb"></param>
     /// <param name="pluXml"></param>
-    private void GetPlus1CFksByNumber(List<WsSqlPlu1CFkModel> plus1CFksDb, WsXmlContentRecord<PluModel> pluXml)
+    private List<WsSqlPlu1CFkModel> GetPlus1CFksByNumber(WsXmlContentRecord<PluModel> pluXml)
     {
-        plus1CFksDb.Clear();
+        List<WsSqlPlu1CFkModel> plus1CFksDb = new();
         List<PluModel> plusDb = ContextManager.ContextPlu.GetListByNumber(pluXml.Item.Number);
         foreach (PluModel pluDb in plusDb)
         {
             WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
-                                          ?? ContextManager.ContextPlu1cFk.GetNewItem();
+                                          ?? ContextManager.ContextPlu1CFk.GetNewItem();
             if (plu1CFkDb.IsNotExists)
                 plu1CFkDb.Plu = pluDb;
             plus1CFksDb.Add(plu1CFkDb);
         }
+        return plus1CFksDb;
     }
 
     /// <summary>
     /// Получить список связей обмена номенклатуры 1С по GUID_1C.
     /// </summary>
-    /// <param name="plus1CFksDb"></param>
-    /// <param name="pluCharacteristicXml"></param>
-    private void GetPlus1CFksByGuid1C(List<WsSqlPlu1CFkModel> plus1CFksDb, WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+    /// <param name="uid1C"></param>
+    private List<WsSqlPlu1CFkModel> GetPlus1CFksByGuid1C(Guid uid1C)
     {
-        plus1CFksDb.Clear();
-        List<PluModel> plusDb = ContextManager.ContextPlu.GetListByUid1c(pluCharacteristicXml.Item.NomenclatureGuid);
+        List<WsSqlPlu1CFkModel> plus1CFksDb = new();
+        List<PluModel> plusDb = ContextManager.ContextPlu.GetListByUid1c(uid1C);
         foreach (PluModel pluDb in plusDb)
         {
-            WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
-                                          ?? ContextManager.ContextPlu1cFk.GetNewItem();
+            WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(
+                item => Equals(item.Plu.Number, pluDb.Number) && Equals(item.Plu.Uid1C, uid1C))
+                                          ?? ContextManager.ContextPlu1CFk.GetNewItem();
             if (plu1CFkDb.IsNotExists)
                 plu1CFkDb.Plu = pluDb;
             plus1CFksDb.Add(plu1CFkDb);
         }
+        return plus1CFksDb;
     }
 
     /// <summary>
@@ -963,7 +998,7 @@ public class WsServiceControllerBase : ControllerBase
         // Создать.
         if (!plu1CFkDb.IsExists)
         {
-            SqlCrudResultModel dbUpdate = AccessManager.AccessItem.Save(plu1CFkDb);
+            WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Save(plu1CFkDb);
             if (dbUpdate is { IsOk: false, Exception: { } })
             {
                 if (record is WsXmlContentRecord<PluModel> pluXml)
@@ -988,7 +1023,7 @@ public class WsServiceControllerBase : ControllerBase
             }
             else
             {
-                SqlCrudResultModel dbUpdate = plu1CFkDb.IsExists
+                WsSqlCrudResultModel dbUpdate = plu1CFkDb.IsExists
                     ? AccessManager.AccessItem.Update(plu1CFkDb)
                     : AccessManager.AccessItem.Save(plu1CFkDb);
                 if (dbUpdate is { IsOk: false, Exception: { } })
@@ -1014,7 +1049,7 @@ public class WsServiceControllerBase : ControllerBase
     internal void CheckIsEnabledPlu(WsSqlTable1CBase itemXml, List<WsSqlPlu1CFkModel> plus1CFksDb)
     {
         foreach (WsSqlPlu1CFkModel plu1CFkDb in plus1CFksDb)
-            CheckIsEnabledPluForItem(ref itemXml, plu1CFkDb);
+            CheckIsEnabledPluForItem(itemXml, plu1CFkDb);
     }
 
     /// <summary>
@@ -1022,10 +1057,10 @@ public class WsServiceControllerBase : ControllerBase
     /// </summary>
     /// <param name="itemXml"></param>
     /// <param name="plu1CFkDb"></param>
-    private void CheckIsEnabledPluForItem(ref WsSqlTable1CBase itemXml, WsSqlPlu1CFkModel plu1CFkDb)
+    private void CheckIsEnabledPluForItem(WsSqlTable1CBase itemXml, WsSqlPlu1CFkModel plu1CFkDb)
     {
         // Пропуск групп с нулевым номером.
-        if (plu1CFkDb.Plu is { IsGroup: true, Number: 0 }) throw new(nameof(plu1CFkDb.Plu));
+        if (IsUnCorrectPluNumberForNonGroup(plu1CFkDb.Plu, true)) return;
         // ПЛУ не найдена.
         if (plu1CFkDb.IsNotExists)
         {

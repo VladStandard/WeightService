@@ -32,11 +32,11 @@ public sealed class WsServiceTestV1Controller : WsServiceControllerBase
             AppVersion.Setup(Assembly.GetExecutingAssembly());
 
             using ISession session = SessionFactory.OpenSession();
-            using ITransaction transaction = session.BeginTransaction();
+            //using ITransaction transaction = session.BeginTransaction();
             ISQLQuery sqlQuery = session.CreateSQLQuery(WsWebSqlQueries.GetDateTimeNow);
             sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
             string response = sqlQuery.UniqueResult<string>();
-            transaction.Commit();
+            //transaction.Commit();
             return WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(new WsServiceInfoModel(Environment.MachineName, AppVersion.App,
                 AppVersion.Version,
                 DateTime.Now.ToString(CultureInfo.InvariantCulture),

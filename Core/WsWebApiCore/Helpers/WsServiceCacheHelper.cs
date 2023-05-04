@@ -71,8 +71,8 @@ public sealed class WsServiceCacheHelper
         if (!PluNestingFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluNestingFks)) 
             PluNestingFksDb = ContextManager.ContextList.GetListNotNullablePlusNestingFks(
                 new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(false), false));
-        if (!Plus1CFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus1cFks)) 
-            Plus1CFksDb = ContextManager.ContextPlu1cFk.GetList();
+        if (!Plus1CFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus1CFks)) 
+            Plus1CFksDb = ContextManager.ContextPlu1CFk.GetList();
         if (!PluCharacteristicsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristics)) 
             PluCharacteristicsDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
         if (!PluCharacteristicsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristicsFks)) 

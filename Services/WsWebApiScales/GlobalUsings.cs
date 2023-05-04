@@ -18,6 +18,5 @@ global using WsStorageCore.Helpers;
 global using WsStorageCore.Utils;
 global using WsStorageCore.WebApiModels.Tables.BarCodes;
 global using WsWebApiCore.Controllers;
-global using WsWebApiCore.Helpers;
 global using WsWebApiCore.Models;
 global using WsWebApiCore.Utils;

@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableRefFkModels.Plus1CFk;
 
 /// <summary>
-/// Table map "REF.PLUS_1C_FK".
+/// Маппинг полей таблицы REF.PLUS_1C_FK.
 /// </summary>
 public sealed class WsSqlPlu1CFkMap : ClassMap<WsSqlPlu1CFkModel>
 {

@@ -5,7 +5,7 @@
 namespace WsStorageCore.TableRefFkModels.Plus1CFk;
 
 /// <summary>
-/// Table "REF.PLUS_1C_FK".
+/// Доменная модель таблицы REF.PLUS_1C_FK.
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]

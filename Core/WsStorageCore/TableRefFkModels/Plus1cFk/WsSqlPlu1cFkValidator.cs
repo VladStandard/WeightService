@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableRefFkModels.Plus1CFk;
 
 /// <summary>
-/// Table validation "REF.PLUS_1C_FK".
+/// Валидатор таблицы REF.PLUS_1C_FK.
 /// </summary>
 public sealed class WsSqlPlu1CFkValidator : WsSqlTableValidator<WsSqlPlu1CFkModel>
 {

@@ -3,8 +3,6 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
-using WsStorageCore.TableRefFkModels.Plus1CFk;
-
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -198,7 +196,7 @@ internal sealed class WsSqlAccessCoreHelper
     /// </summary>
     /// <param name="action"></param>
     /// <returns></returns>
-    private SqlCrudResultModel ExecuteTransactionCore(Action<ISession> action)
+    private WsSqlCrudResultModel ExecuteTransactionCore(Action<ISession> action)
     {
         ISession session = SessionFactory.OpenSession();
         ITransaction transaction = session.BeginTransaction();
@@ -213,7 +211,7 @@ internal sealed class WsSqlAccessCoreHelper
         catch (Exception ex)
         {
             transaction.Rollback();
-            return new() { IsOk = false, Exception = ex };
+            return new(false, ex);
         }
         finally
         {
@@ -222,7 +220,7 @@ internal sealed class WsSqlAccessCoreHelper
             session.Close();
             session.Dispose();
         }
-        return new() { IsOk = true, Exception = null };
+        return new(true);
     }
 
     /// <summary>
@@ -230,20 +228,21 @@ internal sealed class WsSqlAccessCoreHelper
     /// </summary>
     /// <param name="action"></param>
     /// <returns></returns>
-    private SqlCrudResultModel ExecuteSelectCore(Action<ISession> action)
+    private WsSqlCrudResultModel ExecuteSelectCore(Action<ISession> action)
     {
         try
         {
-            SessionSelect = SessionFactory.OpenSession();
+            if (SessionSelect is null || !SessionSelect.IsOpen)
+                SessionSelect = SessionFactory.OpenSession();
             SessionSelect.FlushMode = FlushMode.Manual;
             action(SessionSelect);
             SessionSelect.Clear();
         }
         catch (Exception ex)
         {
-            return new() { IsOk = false, Exception = ex };
+            return new(false, ex);
         }
-        return new() { IsOk = true, Exception = null };
+        return new(true);
     }
 
     public bool IsConnected()
@@ -271,9 +270,9 @@ internal sealed class WsSqlAccessCoreHelper
         return sqlQuery;
     }
 
-    public SqlCrudResultModel ExecQueryNative(string query, List<SqlParameter> parameters)
+    public WsSqlCrudResultModel ExecQueryNative(string query, List<SqlParameter> parameters)
     {
-        if (string.IsNullOrEmpty(query)) return new() { IsOk = false, Exception = null };
+        if (string.IsNullOrEmpty(query)) return new(false, new ArgumentException());
         return ExecuteTransactionCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
@@ -284,12 +283,12 @@ internal sealed class WsSqlAccessCoreHelper
         });
     }
 
-    public SqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
+    public WsSqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         ExecQueryNative(query, new List<SqlParameter> { parameter });
 
-    public SqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase
+    public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase
     {
-        if (item is null) return new() { IsOk = false, Exception = null };
+        if (item is null) return new(false, new ArgumentException());
 
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
@@ -297,15 +296,15 @@ internal sealed class WsSqlAccessCoreHelper
         return ExecuteTransactionCore(session => session.Save(item));
     }
 
-    public async Task<SqlCrudResultModel> SaveAsync<T>(T? item) where T : WsSqlTableBase
+    public async Task<WsSqlCrudResultModel> SaveAsync<T>(T? item) where T : WsSqlTableBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         return Save(item);
     }
 
-    public SqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : WsSqlTableBase
+    public WsSqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : WsSqlTableBase
     {
-        if (item is null) return new() { IsOk = false, Exception = null };
+        if (item is null) return new(false, new ArgumentException());
 
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
@@ -318,25 +317,25 @@ internal sealed class WsSqlAccessCoreHelper
             : ExecuteTransactionCore(session => session.Save(item, id));
     }
 
-    public SqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase
+    public WsSqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase
     {
-        if (item is null) return new() { IsOk = false, Exception = null };
+        if (item is null) return new(false, new ArgumentException());
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
         return ExecuteTransactionCore(session => session.Update(item));
     }
 
-    public SqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase
+    public WsSqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase
     {
-        if (item is null) return new() { IsOk = false, Exception = null };
+        if (item is null) return new(false, new ArgumentException());
 
         return ExecuteTransactionCore(session => session.Delete(item));
     }
 
-    public SqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase
+    public WsSqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase
     {
-        if (item is null) return new() { IsOk = false, Exception = null };
+        if (item is null) return new(false, new ArgumentException());
 
         item.IsMarked = !item.IsMarked;
         return ExecuteTransactionCore(session => session.SaveOrUpdate(item));

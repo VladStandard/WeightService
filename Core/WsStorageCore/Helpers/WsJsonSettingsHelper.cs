@@ -3,7 +3,7 @@
 
 namespace WsStorageCore.Helpers;
 
-public class WsJsonSettingsHelper
+public sealed class WsJsonSettingsHelper
 {
     #region Design pattern "Lazy Singleton"
 
@@ -76,8 +76,7 @@ public class WsJsonSettingsHelper
             WsConfiguration.ReleaseVS => FileNameReleaseVs,
             _ => FileNameDevelopVs,
         };
-    //public string BlazorSubDir => DebugHelper.Instance.IsDevelop ? @"bin\x64\Debug\net7.0\" : @"bin\x64\Release\net7.0\";
-    public string BlazorSubDir => DebugHelper.Instance.IsDevelop ? @"bin\Develop\x64\net7.0\" : @"bin\Release\x64\net7.0\";
+    public string BinNetSubDir => DebugHelper.Instance.IsDevelop ? @"bin\Develop_x64\net7.0\" : @"bin\Release_x64\net7.0\";
 
 	#endregion
 }

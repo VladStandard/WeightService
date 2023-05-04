@@ -1,15 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using NHibernate.Util;
-using System.Linq;
-using WsStorageCore.TableScaleFkModels.PlusNestingFks;
-
 namespace ScalesUI.Forms;
 
-/// <summary>
-/// Main form.
-/// </summary>
 public partial class MainForm : Form
 {
     #region Public and private fields, properties, constructor
@@ -36,13 +29,10 @@ public partial class MainForm : Form
     private KneadingUserControl KneadingControl { get; set; }
     private WaitUserControl WaitControl { get; set; }
     /// <summary>
-    /// Отладочный флаг. Необходим для сквозных тестов печати, без диалогов.
+    /// Отладочный флаг для сквозных тестов печати, без диалогов.
     /// </summary>
-    private const bool IsReleaseForce = false;
+    private const bool IsSkipDialogs = false;
 
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
     public MainForm()
     {
         InitializeComponent();
@@ -517,13 +507,19 @@ public partial class MainForm : Form
         MdInvokeControl.SetText(fieldTemplateTitle, $"{LocaleCore.Print.Template}");
     }
 
-    private void LoadLocalizationDynamic(Lang lang)
+    #endregion
+
+    #region Public and private methods - UI
+
+    private void FinallyAction()
     {
-        LocaleCore.Lang = LocaleData.Lang = lang;
+        MdInvokeControl.Select(ButtonPrint);
+        // LoadLocalizationDynamic(Lang.Russian);
+        LocaleCore.Lang = LocaleData.Lang = Lang.Russian;
         string area = UserSession.Scale.WorkShop is null
             ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
-        MdInvokeControl.SetText(ButtonLine, $"{UserSession.Scale.Description} | {UserSession.Scale.Number}" +
-            Environment.NewLine + area);
+        MdInvokeControl.SetText(ButtonLine, 
+            $"{UserSession.Scale.Description} | {UserSession.Scale.Number}{Environment.NewLine}{area}");
         if (UserSession.PluNestingView.Item.IsNew)
             MdInvokeControl.SetText(ButtonPluNestingFk, LocaleCore.Table.FieldPackageIsNotSelected);
         else
@@ -534,16 +530,6 @@ public partial class MainForm : Form
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
         TemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
         MdInvokeControl.SetText(fieldTemplateValue, template.Title);
-    }
-
-    #endregion
-
-    #region Public and private methods - UI
-
-    private void FinallyAction()
-    {
-        MdInvokeControl.Select(ButtonPrint);
-        LoadLocalizationDynamic(Lang.Russian);
     }
 
     private void NavigateToControl(UserControlBase userControlBase, Action returnBack, bool isJoinReturnBackAction, string message = "")
@@ -743,7 +729,7 @@ public partial class MainForm : Form
                 //    UserSession.PluginMassa.ResetMassa();
                 //}
                 // Проверить наличие весовой платформы Масса-К.
-                if (IsReleaseForce || Debug.IsRelease)
+                if (IsSkipDialogs || Debug.IsRelease)
                     UserSession.CheckWeightMassaDeviceExists();
                 UserSession.PluScale = new();
 
@@ -886,15 +872,15 @@ public partial class MainForm : Form
             // Проверить наличие вложенности ПЛУ.
             if (!UserSession.PluNestingView.SetAndCheckList(UserSession.PluScale.Plu, fieldWarning)) return;
             // Проверить наличие весовой платформы Масса-К.
-            if (IsReleaseForce || Debug.IsRelease)
+            if (IsSkipDialogs || Debug.IsRelease)
                 if (!UserSession.CheckWeightMassaDeviceExists()) return;
             // Проверить стабилизацию весовой платформы Масса-К.
-            if (IsReleaseForce || Debug.IsRelease)
+            if (IsSkipDialogs || Debug.IsRelease)
                 if (!UserSession.CheckWeightMassaIsStable(fieldWarning)) return;
             // Проверить ГТИН ПЛУ.
             if (!UserSession.CheckPluGtin(fieldWarning)) return;
             // Задать фейк данные веса ПЛУ для режима разработки.
-            if (!IsReleaseForce && Debug.IsDevelop)
+            if (!IsSkipDialogs && Debug.IsDevelop)
                 UserSession.SetPluWeighingFakeForDevelop(this);
             // Проверить отрицательный вес.
             if (!UserSession.CheckWeightIsNegative(fieldWarning)) return;
@@ -904,7 +890,7 @@ public partial class MainForm : Form
             if (!UserSession.CheckWeightThresholds(fieldWarning)) return;
             // Проверить подключение принтера.
             bool isSkipPrintCheckAccess = false;
-            if (!IsReleaseForce && Debug.IsDevelop)
+            if (!IsSkipDialogs && Debug.IsDevelop)
             {
                 DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(
                     LocaleCore.Print.QuestionPrintCheckAccess, true, LogType.Question,
