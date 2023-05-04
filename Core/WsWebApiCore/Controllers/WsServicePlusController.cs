@@ -165,7 +165,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             //if (UpdateItem1cDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Найдено по Number -> Обновить найденную запись.
-            PluModel? pluDb = Cache.PlusDb.Find(item => Equals(item.Number, pluXml.Number) && !Equals(item.Number, (short)0));
+            PluModel pluDb = Cache.PlusDb.Find(item => 
+                Equals(item.Number, pluXml.Number) && Equals(item.Uid1C, pluXml.Uid1C)) ?? ContextManager.ContextPlu.GetNewItem();
             if (UpdateItemDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Не найдено -> Добавить новую запись.

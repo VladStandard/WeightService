@@ -13,6 +13,8 @@ public sealed record WsSqlCrudResultModel(bool IsOk, Exception? Exception = null
 
     public WsSqlCrudResultModel() : this(true) { }
 
+    public WsSqlCrudResultModel(Exception exception) : this(false, exception) { }
+
     #endregion
 
     #region Public and private methods
