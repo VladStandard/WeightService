@@ -29,19 +29,19 @@ public partial class RazorComponentBase
                 case WsSqlAccessModel access:
                     OnChangeItemAccess(access, filterName, value);
                     break;
-                case PrinterModel printer:
+                case WsSqlPrinterModel printer:
                     OnChangeItemPrinter(printer, filterName, value);
                     break;
                 case WsSqlPrinterResourceFkModel printerResource:
                     OnChangeItemPrinterResource(printerResource, filterName, value);
                     break;
-                case ScaleModel scale:
+                case WsSqlScaleModel scale:
                     OnChangeItemScale(scale, filterName, value);
                     break;
-                case TemplateModel template:
+                case WsSqlTemplateModel template:
                     OnChangeItemTemplate(template, filterName, value);
                     break;
-                case WorkShopModel workShop:
+                case WsSqlWorkShopModel workShop:
                     OnChangeItemWorkShop(workShop, filterName, value);
                     break;
             }
@@ -56,11 +56,11 @@ public partial class RazorComponentBase
         }
     }
 
-    private void OnChangeItemPrinter(PrinterModel item, string filterName, object? value)
+    private void OnChangeItemPrinter(WsSqlPrinterModel item, string filterName, object? value)
     {
         if (filterName == nameof(item.PrinterType) && value is long printerTypeId)
         {
-            item.PrinterType = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterTypeModel>(printerTypeId);
+            item.PrinterType = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterTypeModel>(printerTypeId);
         }
     }
 
@@ -69,21 +69,21 @@ public partial class RazorComponentBase
         switch (filterName)
         {
             case nameof(item.Printer) when value is long printerId:
-                item.Printer = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterModel>(printerId);
+                item.Printer = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterModel>(printerId);
                 break;
             case nameof(item.TemplateResource) when value is long resourceId:
-                item.TemplateResource = ContextManager.AccessManager.AccessItem.GetItemNotNullable<TemplateResourceModel>(resourceId);
+                item.TemplateResource = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlTemplateResourceModel>(resourceId);
                 break;
         }
     }
 
-    private void OnChangeItemScale(ScaleModel item, string filterName, object? value)
+    private void OnChangeItemScale(WsSqlScaleModel item, string filterName, object? value)
     {
-        if (filterName == nameof(ScaleModel.IdentityValueId) && value is long id)
+        if (filterName == nameof(WsSqlScaleModel.IdentityValueId) && value is long id)
         {
-            item = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ScaleModel>(id);
+            item = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlScaleModel>(id);
         }
-        if (filterName == nameof(ScaleModel.DeviceComPort) && value is string deviceComPort)
+        if (filterName == nameof(WsSqlScaleModel.DeviceComPort) && value is string deviceComPort)
         {
             item.DeviceComPort = deviceComPort;
         }
@@ -91,17 +91,17 @@ public partial class RazorComponentBase
         //{
         //    item.Host = AppSettings.DataAccess.GetItemById<HostModel>(hostId);
         //}
-        if (filterName == nameof(ScaleModel.PrinterMain) && value is long printerId)
+        if (filterName == nameof(WsSqlScaleModel.PrinterMain) && value is long printerId)
         {
-            item.PrinterMain = ContextManager.AccessManager.AccessItem.GetItemNullableById<PrinterModel>(printerId);
+            item.PrinterMain = ContextManager.AccessManager.AccessItem.GetItemNullableById<WsSqlPrinterModel>(printerId);
         }
-        if (filterName == nameof(ScaleModel.WorkShop) && value is long workShopId)
+        if (filterName == nameof(WsSqlScaleModel.WorkShop) && value is long workShopId)
         {
-            item.WorkShop = ContextManager.AccessManager.AccessItem.GetItemNullableById<WorkShopModel>(workShopId);
+            item.WorkShop = ContextManager.AccessManager.AccessItem.GetItemNullableById<WsSqlWorkShopModel>(workShopId);
         }
     }
 
-    private void OnChangeItemTemplate(TemplateModel item, string filterName, object? value)
+    private void OnChangeItemTemplate(WsSqlTemplateModel item, string filterName, object? value)
     {
         if (filterName == nameof(item.CategoryId) && value is string categoryId)
         {
@@ -109,11 +109,11 @@ public partial class RazorComponentBase
         }
     }
 
-    private void OnChangeItemWorkShop(WorkShopModel item, string filterName, object? value)
+    private void OnChangeItemWorkShop(WsSqlWorkShopModel item, string filterName, object? value)
     {
         if (filterName == nameof(item.ProductionFacility) && value is int productionFacilityId)
         {
-            item.ProductionFacility = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ProductionFacilityModel>(productionFacilityId);
+            item.ProductionFacility = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlProductionFacilityModel>(productionFacilityId);
         }
     }
 

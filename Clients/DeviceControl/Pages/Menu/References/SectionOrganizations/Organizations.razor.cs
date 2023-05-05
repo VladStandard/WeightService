@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Organizations;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionOrganizations;
 
-public sealed partial class Organizations : RazorComponentSectionBase<OrganizationModel>
+public sealed partial class Organizations : RazorComponentSectionBase<WsSqlOrganizationModel>
 {
     #region Public and private fields, properties, constructor
 

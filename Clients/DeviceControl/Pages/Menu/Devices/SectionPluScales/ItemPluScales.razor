@@ -4,9 +4,9 @@
 @using WsStorageCore.TableScaleModels.PlusScales
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusScales.PluScaleModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusScales.WsSqlPluScaleModel>
 
-<RazorItemReload TItem="@PluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale"/>
+<RazorItemReload TItem="@WsSqlPluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
@@ -39,7 +39,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@PluScaleModel"
+  TItem="@WsSqlPluScaleModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

@@ -8,7 +8,7 @@ public class XmlDeviceModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    public virtual ScaleModel Scale { get; set; }
+    public virtual WsSqlScaleModel Scale { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -25,7 +25,7 @@ public class XmlDeviceModel : WsSqlTableBase
     /// <param name="context"></param>
     private XmlDeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
+        Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));
     }
 
     #endregion

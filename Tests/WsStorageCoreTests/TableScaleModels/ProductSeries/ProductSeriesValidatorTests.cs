@@ -9,14 +9,14 @@ public sealed class ProductSeriesValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ProductSeriesModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ProductSeriesModel>(false);
+        WsSqlProductSeriesModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlProductSeriesModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     { 
-        ProductSeriesModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ProductSeriesModel>(true);
+        WsSqlProductSeriesModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlProductSeriesModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

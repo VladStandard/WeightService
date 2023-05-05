@@ -12,8 +12,8 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual PrinterModel Printer { get; set; }
-    [XmlElement] public virtual TemplateResourceModel TemplateResource { get; set; }
+    [XmlElement] public virtual WsSqlPrinterModel Printer { get; set; }
+    [XmlElement] public virtual WsSqlTemplateResourceModel TemplateResource { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -31,8 +31,8 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
     /// <param name="context"></param>
     protected WsSqlPrinterResourceFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Printer = (PrinterModel)info.GetValue(nameof(Printer), typeof(PrinterModel));
-        TemplateResource = (TemplateResourceModel)info.GetValue(nameof(TemplateResource), typeof(TemplateResourceModel));
+        Printer = (WsSqlPrinterModel)info.GetValue(nameof(Printer), typeof(WsSqlPrinterModel));
+        TemplateResource = (WsSqlTemplateResourceModel)info.GetValue(nameof(TemplateResource), typeof(WsSqlTemplateResourceModel));
     }
 
     #endregion

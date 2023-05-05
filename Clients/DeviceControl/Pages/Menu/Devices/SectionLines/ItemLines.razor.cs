@@ -14,20 +14,20 @@ namespace BlazorDeviceControl.Pages.Menu.Devices.SectionLines;
 /// <summary>
 /// Scale item page.
 /// </summary>
-public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
+public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
 {
     #region Public and private fields, properties, constructor
 
-	private DeviceModel _device;
-	private DeviceModel Device { get => _device; set { _device = value; SqlLinkedItems = new() { Device }; } }
+	private WsSqlDeviceModel _device;
+	private WsSqlDeviceModel Device { get => _device; set { _device = value; SqlLinkedItems = new() { Device }; } }
 	private WsSqlDeviceScaleFkModel DeviceScaleFk { get; set; }
 	private List<TypeModel<string>> ComPorts { get; set; }
     
-    private List<PrinterModel> PrinterModels { get; set; }
+    private List<WsSqlPrinterModel> PrinterModels { get; set; }
 
-    private List<DeviceModel> HostModels { get; set; }
+    private List<WsSqlDeviceModel> HostModels { get; set; }
     
-    private List<WorkShopModel> WorkShopModels { get; set; }
+    private List<WsSqlWorkShopModel> WorkShopModels { get; set; }
     
 	public ItemLines() : base()
 	{
@@ -49,17 +49,17 @@ public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
 		{
 			() =>
 			{
-                PrinterModels = ContextManager.ContextList.GetListNotNullable<PrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-                HostModels = ContextManager.ContextList.GetListNotNullable<DeviceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-		        WorkShopModels = ContextManager.ContextList.GetListNotNullable<WorkShopModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                PrinterModels = ContextManager.ContextList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                HostModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+		        WorkShopModels = ContextManager.ContextList.GetListNotNullable<WsSqlWorkShopModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
-				SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ScaleModel>(IdentityId);
-				SqlItemCast.PrinterMain ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<PrinterModel>();
-				SqlItemCast.PrinterShipping ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<PrinterModel>();
-                SqlItemCast.WorkShop ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WorkShopModel>();
+				SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlScaleModel>(IdentityId);
+				SqlItemCast.PrinterMain ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlPrinterModel>();
+				SqlItemCast.PrinterShipping ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlPrinterModel>();
+                SqlItemCast.WorkShop ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlWorkShopModel>();
                 
 				DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(SqlItemCast);
-				Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<DeviceModel>();
+				Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceModel>();
 
                 // ComPorts
                 ComPorts = MdSerialPortsUtils.GetListTypeComPorts(Lang.English);

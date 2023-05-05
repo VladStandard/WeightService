@@ -6,11 +6,11 @@ using WsStorageCore.TableScaleModels.PrintersTypes;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrinters;
 
-public sealed partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
+public sealed partial class ItemPrinter : RazorComponentItemBase<WsSqlPrinterModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<PrinterTypeModel> PrinterTypeModels { get; set; }
+    private List<WsSqlPrinterTypeModel> PrinterTypeModels { get; set; }
 
     #endregion
 
@@ -22,11 +22,11 @@ public sealed partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterModel>(IdentityId);
-                PrinterTypeModels = ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterTypeModel>(WsSqlCrudConfigUtils
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterModel>(IdentityId);
+                PrinterTypeModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterTypeModel>(WsSqlCrudConfigUtils
                     .GetCrudConfigComboBox());
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<PrinterModel>();
+                    SqlItemCast = SqlItemNew<WsSqlPrinterModel>();
             }
         });
     }

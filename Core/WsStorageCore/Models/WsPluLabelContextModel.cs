@@ -15,9 +15,9 @@ public class WsPluLabelContextModel : SerializeBase
 
     [XmlIgnore] private WsSqlPluLabelModel PluLabel { get; set; }
     [XmlIgnore] private WsSqlPluNestingFkModel PluNestingFk { get; set; }
-    [XmlIgnore] private PluScaleModel PluScale { get; set; }
+    [XmlIgnore] private WsSqlPluScaleModel PluScale { get; set; }
     [XmlIgnore] private WsSqlPluWeighingModel PluWeighing { get; set; }
-    [XmlIgnore] private ProductionFacilityModel ProductionFacility { get; set; }
+    [XmlIgnore] private WsSqlProductionFacilityModel ProductionFacility { get; set; }
 
     #endregion
 
@@ -130,7 +130,7 @@ public class WsPluLabelContextModel : SerializeBase
     /// Constructor.
     /// </summary>
     public WsPluLabelContextModel(WsSqlPluLabelModel pluLabel, WsSqlPluNestingFkModel pluNestingFk,
-        PluScaleModel pluScale, ProductionFacilityModel productionFacility, WsSqlPluWeighingModel pluWeighing)
+        WsSqlPluScaleModel pluScale, WsSqlProductionFacilityModel productionFacility, WsSqlPluWeighingModel pluWeighing)
     {
         PluLabel = pluLabel;
         PluNestingFk = pluNestingFk;
@@ -148,9 +148,9 @@ public class WsPluLabelContextModel : SerializeBase
     {
         PluLabel = (WsSqlPluLabelModel)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelModel));
         PluNestingFk = (WsSqlPluNestingFkModel)info.GetValue(nameof(PluNestingFk), typeof(WsSqlPluNestingFkModel));
-        PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
+        PluScale = (WsSqlPluScaleModel)info.GetValue(nameof(PluScale), typeof(WsSqlPluScaleModel));
         PluWeighing = (WsSqlPluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
-        ProductionFacility = (ProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(ProductionFacilityModel));
+        ProductionFacility = (WsSqlProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(WsSqlProductionFacilityModel));
 
         //Address = info.GetString(nameof(Address));
         //BarCodeGtin14 = info.GetString(nameof(BarCodeGtin14));

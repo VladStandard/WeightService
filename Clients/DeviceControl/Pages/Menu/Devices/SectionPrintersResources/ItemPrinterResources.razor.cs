@@ -14,9 +14,9 @@ public sealed partial class ItemPrinterResources : RazorComponentItemBase<WsSqlP
 {
     #region Public and private fields, properties, constructor
 
-    private List<PrinterModel> PrinterModels { get; set; }
+    private List<WsSqlPrinterModel> PrinterModels { get; set; }
     
-    private List<TemplateResourceModel> TemplateResourceModels { get; set; }
+    private List<WsSqlTemplateResourceModel> TemplateResourceModels { get; set; }
     #endregion
 
     #region Public and private methods
@@ -30,9 +30,9 @@ public sealed partial class ItemPrinterResources : RazorComponentItemBase<WsSqlP
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterResourceFkModel>(IdentityId);
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<WsSqlPrinterResourceFkModel>();
-                PrinterModels = ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterModel>(WsSqlCrudConfigUtils
+                PrinterModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils
                     .GetCrudConfigComboBox());
-                TemplateResourceModels = ContextManager.AccessManager.AccessList.GetListNotNullable<TemplateResourceModel>(WsSqlCrudConfigUtils
+                TemplateResourceModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlTemplateResourceModel>(WsSqlCrudConfigUtils
                     .GetCrudConfigComboBox());
             }
         });

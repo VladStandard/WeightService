@@ -12,7 +12,7 @@ public sealed class ProductSeriesDirect : SqlSerializeBase
 
 	[XmlElement] public long Id { get; set; }
 	[XmlElement] public Guid Uuid { get; set; }
-	[XmlElement] public ScaleModel Scale { get; set; }
+	[XmlElement] public WsSqlScaleModel Scale { get; set; }
 	[XmlElement] public DateTime CreateDate { get; set; }
 	[XmlElement] public SsccDirect Sscc { get; set; }
 	[XmlElement] public int CountUnit { get; set; }
@@ -37,7 +37,7 @@ public sealed class ProductSeriesDirect : SqlSerializeBase
         Scale = new();
     }
 
-    public ProductSeriesDirect(ScaleModel scale) : this()
+    public ProductSeriesDirect(WsSqlScaleModel scale) : this()
     {
         Scale = scale;
         Load();

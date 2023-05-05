@@ -3,10 +3,10 @@
 @using WsStorageCore.TableScaleModels.TemplatesResources
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.TemplatesResources.TemplateResourceModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
 
 <SectionReload
-  TItem="@TemplateResourceModel"
+  TItem="@WsSqlTemplateResourceModel"
   Title="@LocaleCore.DeviceControl.SectionTemplateResources"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -15,13 +15,13 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@TemplateResourceModel"
+  TItem="@WsSqlTemplateResourceModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@TemplateResourceModel">
+    <TItemContent TItem="@WsSqlTemplateResourceModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Property="Type" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="55%"/>

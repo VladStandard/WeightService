@@ -27,9 +27,9 @@ public sealed class WsSqlContextBoxHelper
 
     #region Public and private methods
 
-    public BoxModel GetNewItem() => AccessItem.GetItemNewEmpty<BoxModel>();
+    public WsSqlBoxModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlBoxModel>();
 
-    public List<BoxModel> GetList() => ContextList.GetListNotNullableBoxes(new());
+    public List<WsSqlBoxModel> GetList() => ContextList.GetListNotNullableBoxes(new());
 
     #endregion
 }

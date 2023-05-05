@@ -20,10 +20,10 @@ public sealed class WsSqlPluStorageMethodFkValidator : WsSqlTableValidator<WsSql
         RuleFor(item => item.Method)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluStorageMethodValidator());
+            .SetValidator(new WsSqlPluStorageMethodValidator());
         RuleFor(item => item.Resource)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new TemplateResourceValidator());
+            .SetValidator(new WsSqlTemplateResourceValidator());
     }
 }

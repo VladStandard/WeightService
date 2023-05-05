@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.ProductionFacilities;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionProductionFacilities;
 
-public sealed partial class ItemProductionFacility : RazorComponentItemBase<ProductionFacilityModel>
+public sealed partial class ItemProductionFacility : RazorComponentItemBase<WsSqlProductionFacilityModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public sealed partial class ItemProductionFacility : RazorComponentItemBase<Prod
 		{
 			() =>
 			{
-				SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ProductionFacilityModel>(IdentityId);
+				SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlProductionFacilityModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
             }

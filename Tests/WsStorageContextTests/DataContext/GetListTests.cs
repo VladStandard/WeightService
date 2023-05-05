@@ -26,43 +26,43 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_BarCodeModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<BarCodeModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlBarCodeModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_BoxModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<BoxModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlBoxModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_BrandModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<BrandModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlBrandModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_BundleModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<BundleModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlBundleModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ClipModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<ClipModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlClipModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ContragentModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<ContragentModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlContragentModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_DeviceModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<DeviceModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlDeviceModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -74,7 +74,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_DeviceTypeModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<DeviceTypeModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlDeviceTypeModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -116,19 +116,19 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_OrderModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<OrderModel>(SqlCrudConfig, Configurations, false);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlOrderModel>(SqlCrudConfig, Configurations, false);
     }
 
     [Test]
     public void DataContext_AssertGetList_OrderWeighingModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<OrderWeighingModel>(SqlCrudConfig, Configurations, false);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlOrderWeighingModel>(SqlCrudConfig, Configurations, false);
     }
 
     [Test]
     public void DataContext_AssertGetList_OrganizationModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<OrganizationModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlOrganizationModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -152,7 +152,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluCharacteristicModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluCharacteristicModel>(SqlCrudConfig, ConfigurationsDev);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluCharacteristicModel>(SqlCrudConfig, ConfigurationsDev);
     }
 
     [Test]
@@ -176,7 +176,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluGroupModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluGroupModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluGroupModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -203,13 +203,13 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluScaleModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluScaleModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluScaleModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluStorageMethodModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluStorageMethodModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluStorageMethodModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -233,19 +233,19 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_ProductionFacilityModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<ProductionFacilityModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlProductionFacilityModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ProductSeriesModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<ProductSeriesModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlProductSeriesModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_ScaleModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<ScaleModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlScaleModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -257,37 +257,37 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_TaskModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<TaskModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlTaskModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_TaskTypeModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<TaskTypeModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlTaskTypeModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_TemplateModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<TemplateModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlTemplateModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_TemplateResourceModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<TemplateResourceModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlTemplateResourceModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_WorkShopModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<WorkShopModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlWorkShopModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PrinterModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PrinterModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPrinterModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -299,6 +299,6 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PrinterTypeModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PrinterTypeModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPrinterTypeModel>(SqlCrudConfig, Configurations);
     }
 }

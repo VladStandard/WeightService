@@ -16,11 +16,11 @@ public sealed class WsSqlDeviceTypeFkValidator : WsSqlTableValidator<WsSqlDevice
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new DeviceValidator());
+            .SetValidator(new WsSqlDeviceValidator());
         RuleFor(item => item.Type)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new DeviceTypeValidator());
+            .SetValidator(new WsSqlDeviceTypeValidator());
         RuleFor(item => item.Description)
             .NotNull();
     }

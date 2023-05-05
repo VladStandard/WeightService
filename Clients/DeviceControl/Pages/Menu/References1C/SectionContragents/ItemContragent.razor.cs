@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Contragents;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionContragents;
 
-public sealed partial class ItemContragent : RazorComponentItemBase<ContragentModel>
+public sealed partial class ItemContragent : RazorComponentItemBase<WsSqlContragentModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -21,10 +21,10 @@ public sealed partial class ItemContragent : RazorComponentItemBase<ContragentMo
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<ContragentModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlContragentModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
-                    SqlItemCast = SqlItemNew<ContragentModel>();
+                    SqlItemCast = SqlItemNew<WsSqlContragentModel>();
                 }
             }
         });

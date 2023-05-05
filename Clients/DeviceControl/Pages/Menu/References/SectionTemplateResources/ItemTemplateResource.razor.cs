@@ -8,7 +8,7 @@ using WsStorageCore.TableScaleModels.TemplatesResources;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionTemplateResources;
 
-public sealed partial class ItemTemplateResource : RazorComponentItemBase<TemplateResourceModel>
+public sealed partial class ItemTemplateResource : RazorComponentItemBase<WsSqlTemplateResourceModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -26,7 +26,7 @@ public sealed partial class ItemTemplateResource : RazorComponentItemBase<Templa
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<TemplateResourceModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlTemplateResourceModel>(IdentityUid);
                 //if (IdentityId is not null && TableAction == DbTableAction.New)
                 //    SqlItemCast.IdentityValueId = (long)IdentityId;
             }

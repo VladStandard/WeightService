@@ -6,7 +6,7 @@ using WsStorageCore.TableScaleModels.Bundles;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionBundles;
 
-public sealed partial class Bundles : RazorComponentSectionBase<BundleModel>
+public sealed partial class Bundles : RazorComponentSectionBase<WsSqlBundleModel>
 {
     #region Public and private fields, properties, constructor
 

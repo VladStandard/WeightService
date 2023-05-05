@@ -106,7 +106,7 @@ public static class WsWpfUtils
         }
     }
 
-    public static DeviceModel SetNewDeviceWithQuestion(DeviceModel device, string ip, string mac)
+    public static WsSqlDeviceModel SetNewDeviceWithQuestion(WsSqlDeviceModel device, string ip, string mac)
     {
         if (device.IsNew)
         {

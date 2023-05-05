@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Versions;
 
 namespace BlazorDeviceControl.Pages.Menu.Admins;
 
-public sealed partial class SectionVersions : RazorComponentSectionBase<VersionModel>
+public sealed partial class SectionVersions : RazorComponentSectionBase<WsSqlVersionModel>
 {
     #region Public and private fields, properties, constructor
 

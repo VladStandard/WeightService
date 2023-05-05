@@ -4,9 +4,9 @@
 @using WsStorageCore.TableScaleModels.Templates
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Templates.TemplateModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Templates.WsSqlTemplateModel>
 
-<RazorItemReload TItem="@TemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate"/>
+<RazorItemReload TItem="@WsSqlTemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
@@ -36,7 +36,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@TemplateModel"
+  TItem="@WsSqlTemplateModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

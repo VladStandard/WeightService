@@ -16,10 +16,10 @@ public sealed class WsSqlDeviceScaleFkValidator : WsSqlTableValidator<WsSqlDevic
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new DeviceValidator());
+            .SetValidator(new WsSqlDeviceValidator());
         RuleFor(item => item.Scale)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new ScaleValidator());
+            .SetValidator(new WsSqlScaleValidator());
     }
 }

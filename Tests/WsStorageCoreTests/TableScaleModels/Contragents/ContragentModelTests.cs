@@ -9,26 +9,26 @@ public sealed class ContragentModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<ContragentModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<ContragentModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<ContragentModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlContragentModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlContragentModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlContragentModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<ContragentModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlContragentModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<ContragentModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlContragentModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<ContragentModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlContragentModel>();
     }
 }

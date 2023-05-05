@@ -6,14 +6,14 @@ namespace MDSoft.BarcodePrintUtils.Utils;
 #nullable enable
 public static class DataFormatUtils
 {
-    private static List<TemplateResourceModel> _templateResources = new();
+    private static List<WsSqlTemplateResourceModel> _templateResources = new();
 
-    public static List<TemplateResourceModel> LoadTemplatesResources(bool isForceUpdate)
+    public static List<WsSqlTemplateResourceModel> LoadTemplatesResources(bool isForceUpdate)
     {
         if (!isForceUpdate && _templateResources.Any()) return _templateResources;
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceModel.Type), "ZPL"),
-            new SqlFieldOrderModel() { Name = nameof(TemplateResourceModel.Name), Direction = WsSqlOrderDirection.Asc }, false, false);
-        TemplateResourceModel[]? templateResources = WsSqlAccessManagerHelper.Instance.AccessList.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
+        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(WsSqlTemplateResourceModel.Type), "ZPL"),
+            new SqlFieldOrderModel() { Name = nameof(WsSqlTemplateResourceModel.Name), Direction = WsSqlOrderDirection.Asc }, false, false);
+        WsSqlTemplateResourceModel[]? templateResources = WsSqlAccessManagerHelper.Instance.AccessList.GetArrayNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
         return _templateResources = templateResources is not null ? templateResources.ToList() : new();
     }
 
@@ -32,7 +32,7 @@ public static class DataFormatUtils
             throw new ArgumentException("Value must be fill!", nameof(zpl));
 
         LoadTemplatesResources(false);
-        foreach (TemplateResourceModel resource in _templateResources)
+        foreach (WsSqlTemplateResourceModel resource in _templateResources)
         {
             if (zpl.Contains($"[{resource.Name}]"))
             {

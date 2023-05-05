@@ -9,14 +9,14 @@ public sealed class OrderValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        OrderModel item = WsTestsUtils.DataTests.CreateNewSubstitute<OrderModel>(false);
+        WsSqlOrderModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlOrderModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        OrderModel item = WsTestsUtils.DataTests.CreateNewSubstitute<OrderModel>(true);
+        WsSqlOrderModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlOrderModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

@@ -7,7 +7,7 @@ using WsStorageCore.WebApiModels.Tables.BarCodes;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionBarcodes;
 
-public sealed partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
+public sealed partial class ItemBarCode : RazorComponentItemBase<WsSqlBarCodeModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -27,10 +27,10 @@ public sealed partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<BarCodeModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlBarCodeModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
-                    SqlItemCast = SqlItemNew<BarCodeModel>();
+                    SqlItemCast = SqlItemNew<WsSqlBarCodeModel>();
                 }
             }
         });

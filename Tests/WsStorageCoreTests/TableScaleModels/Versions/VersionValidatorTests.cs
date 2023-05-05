@@ -9,14 +9,14 @@ public sealed class VersionValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        VersionModel item = WsTestsUtils.DataTests.CreateNewSubstitute<VersionModel>(false);
+        WsSqlVersionModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlVersionModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        VersionModel item = WsTestsUtils.DataTests.CreateNewSubstitute<VersionModel>(true);
+        WsSqlVersionModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlVersionModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

@@ -9,14 +9,14 @@ public sealed class PluScaleValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluScaleModel>(false);
+        WsSqlPluScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluScaleModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluScaleModel>(true);
+        WsSqlPluScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluScaleModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

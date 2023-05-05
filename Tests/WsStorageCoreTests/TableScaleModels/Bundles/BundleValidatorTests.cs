@@ -9,14 +9,14 @@ public sealed class BundleValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        BundleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BundleModel>(false);
+        WsSqlBundleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlBundleModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        BundleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<BundleModel>(true);
+        WsSqlBundleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlBundleModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

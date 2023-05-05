@@ -9,14 +9,14 @@ public sealed class PrinterTypeValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PrinterTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PrinterTypeModel>(false);
+        WsSqlPrinterTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPrinterTypeModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PrinterTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PrinterTypeModel>(true);
+        WsSqlPrinterTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPrinterTypeModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

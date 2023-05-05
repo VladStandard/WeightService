@@ -4,9 +4,9 @@
 @using WsStorageCore.TableScaleModels.WorkShops
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.WorkShops.WorkShopModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.WorkShops.WsSqlWorkShopModel>
 
-<RazorItemReload TItem="@WorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop"/>
+<RazorItemReload TItem="@WsSqlWorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
@@ -35,7 +35,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@WorkShopModel"
+  TItem="@WsSqlWorkShopModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

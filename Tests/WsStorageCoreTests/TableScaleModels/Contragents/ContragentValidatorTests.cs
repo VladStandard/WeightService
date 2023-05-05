@@ -9,14 +9,14 @@ public sealed class ContragentValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ContragentModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ContragentModel>(false);
+        WsSqlContragentModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlContragentModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        ContragentModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ContragentModel>(true);
+        WsSqlContragentModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlContragentModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

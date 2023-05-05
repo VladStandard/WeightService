@@ -9,26 +9,26 @@ public sealed class TaskModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<TaskModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<TaskModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<TaskModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlTaskModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlTaskModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlTaskModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<TaskModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlTaskModel>();
     }
     
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<TaskModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlTaskModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<TaskModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlTaskModel>();
     }
 }

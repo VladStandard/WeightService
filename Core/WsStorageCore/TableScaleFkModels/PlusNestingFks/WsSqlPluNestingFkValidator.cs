@@ -19,7 +19,7 @@ public sealed class WsSqlPluNestingFkValidator : WsSqlTableValidator<WsSqlPluNes
         RuleFor(item => item.Box)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new BoxValidator());
+            .SetValidator(new WsSqlBoxValidator());
         RuleFor(item => item.WeightMax)
             .NotNull()
             .GreaterThanOrEqualTo(0)

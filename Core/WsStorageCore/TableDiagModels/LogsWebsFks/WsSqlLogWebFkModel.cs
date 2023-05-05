@@ -22,8 +22,8 @@ public class WsSqlLogWebFkModel : Tables.WsSqlTableBase
     [XmlElement] public virtual WsSqlAppModel App { get => _app; set => _app = value; }
     private WsSqlLogTypeModel _logType;
     [XmlElement] public virtual WsSqlLogTypeModel LogType { get => _logType; set => _logType = value; }
-    private DeviceModel _device;
-    [XmlElement] public virtual DeviceModel Device { get => _device; set => _device = value; }
+    private WsSqlDeviceModel _device;
+    [XmlElement] public virtual WsSqlDeviceModel Device { get => _device; set => _device = value; }
 
     /// <summary>
     /// Constructor.
@@ -48,7 +48,7 @@ public class WsSqlLogWebFkModel : Tables.WsSqlTableBase
         _logWebResponse = (WsSqlLogWebModel)info.GetValue(nameof(LogWebResponse), typeof(WsSqlLogWebModel));
         _app = (WsSqlAppModel)info.GetValue(nameof(App), typeof(WsSqlAppModel));
         _logType = (WsSqlLogTypeModel)info.GetValue(nameof(LogType), typeof(WsSqlLogTypeModel));
-        _device = (DeviceModel)info.GetValue(nameof(DeviceModel), typeof(DeviceModel));
+        _device = (WsSqlDeviceModel)info.GetValue(nameof(WsSqlDeviceModel), typeof(WsSqlDeviceModel));
     }
 
     #endregion

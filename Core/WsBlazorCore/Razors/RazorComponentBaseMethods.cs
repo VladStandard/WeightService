@@ -56,69 +56,69 @@ public partial class RazorComponentBase
 	protected string GetItemTitle(WsSqlTableBase? item) => item switch
 		{
 			WsSqlAccessModel => LocaleCore.Strings.ItemAccess,
-			BarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
-			BoxModel => LocaleCore.DeviceControl.ItemBox,
-			BundleModel => LocaleCore.DeviceControl.ItemBundle,
-			ContragentModel => LocaleCore.DeviceControl.ItemContragent,
-			DeviceModel => LocaleCore.DeviceControl.ItemDevice,
+			WsSqlBarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
+			WsSqlBoxModel => LocaleCore.DeviceControl.ItemBox,
+			WsSqlBundleModel => LocaleCore.DeviceControl.ItemBundle,
+			WsSqlContragentModel => LocaleCore.DeviceControl.ItemContragent,
+			WsSqlDeviceModel => LocaleCore.DeviceControl.ItemDevice,
 			WsSqlDeviceScaleFkModel => LocaleCore.DeviceControl.ItemDeviceScaleFk,
 			WsSqlDeviceTypeFkModel => LocaleCore.DeviceControl.ItemDeviceTypeFk,
-			DeviceTypeModel => LocaleCore.DeviceControl.ItemDeviceType,
+			WsSqlDeviceTypeModel => LocaleCore.DeviceControl.ItemDeviceType,
 			WsSqlLogModel => LocaleCore.Strings.ItemLog,
-            PluGroupModel => LocaleCore.DeviceControl.ItemNomenclatureGroup,
-            OrderModel => LocaleCore.DeviceControl.ItemOrder,
-			OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
-			OrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
+            WsSqlPluGroupModel => LocaleCore.DeviceControl.ItemNomenclatureGroup,
+            WsSqlOrderModel => LocaleCore.DeviceControl.ItemOrder,
+			WsSqlOrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
+			WsSqlOrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
 			WsSqlPluBundleFkModel => LocaleCore.DeviceControl.ItemPluBundleFk,
 			WsSqlPluLabelModel => LocaleCore.DeviceControl.ItemLabel,
 			WsSqlPluModel => LocaleCore.DeviceControl.ItemPlu,
-			PluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
+			WsSqlPluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
 			WsSqlPluWeighingModel => LocaleCore.DeviceControl.ItemPluWeighing,
-			PrinterModel => LocaleCore.Print.Name,
+			WsSqlPrinterModel => LocaleCore.Print.Name,
 			WsSqlPrinterResourceFkModel => LocaleCore.Print.Resources,
-			PrinterTypeModel => LocaleCore.Print.Types,
-			ProductionFacilityModel => LocaleCore.DeviceControl.ItemProductionFacility,
-			ProductSeriesModel => LocaleCore.DeviceControl.ItemProductSeries,
-			ScaleModel => LocaleCore.DeviceControl.ItemScale,
+			WsSqlPrinterTypeModel => LocaleCore.Print.Types,
+			WsSqlProductionFacilityModel => LocaleCore.DeviceControl.ItemProductionFacility,
+			WsSqlProductSeriesModel => LocaleCore.DeviceControl.ItemProductSeries,
+			WsSqlScaleModel => LocaleCore.DeviceControl.ItemScale,
 			WsSqlScaleScreenShotModel => LocaleCore.DeviceControl.ItemScreenShot,
-			TemplateModel => LocaleCore.DeviceControl.ItemTemplate,
-			TemplateResourceModel => LocaleCore.DeviceControl.ItemTemplateResource,
-			WorkShopModel => LocaleCore.DeviceControl.ItemWorkShop,
+			WsSqlTemplateModel => LocaleCore.DeviceControl.ItemTemplate,
+			WsSqlTemplateResourceModel => LocaleCore.DeviceControl.ItemTemplateResource,
+			WsSqlWorkShopModel => LocaleCore.DeviceControl.ItemWorkShop,
 			_ => string.Empty
         };
 
 	protected string GetSectionTitle(WsSqlTableBase? item) => item switch
 		{
-            PluGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
-            OrderModel => LocaleCore.DeviceControl.SectionOrders,
+            WsSqlPluGroupModel => LocaleCore.DeviceControl.SectionNomenclaturesGroups,
+            WsSqlOrderModel => LocaleCore.DeviceControl.SectionOrders,
             WsSqlScaleScreenShotModel => LocaleCore.DeviceControl.SectionScreenShots,
-            TemplateModel => LocaleCore.DeviceControl.SectionTemplates,
+            WsSqlTemplateModel => LocaleCore.DeviceControl.SectionTemplates,
 			WsSqlAccessModel => LocaleCore.Strings.SectionAccess,
-			BarCodeModel => LocaleCore.DeviceControl.SectionBarCodes,
-			BoxModel => LocaleCore.DeviceControl.SectionBoxes,
-			BundleModel => LocaleCore.DeviceControl.SectionBundles,
-			ContragentModel => LocaleCore.DeviceControl.SectionContragents,
-			DeviceModel => LocaleCore.DeviceControl.SectionDevices,
+			WsSqlBarCodeModel => LocaleCore.DeviceControl.SectionBarCodes,
+			WsSqlBoxModel => LocaleCore.DeviceControl.SectionBoxes,
+			WsSqlBundleModel => LocaleCore.DeviceControl.SectionBundles,
+			WsSqlContragentModel => LocaleCore.DeviceControl.SectionContragents,
+			WsSqlDeviceModel => LocaleCore.DeviceControl.SectionDevices,
 			WsSqlDeviceScaleFkModel => LocaleCore.DeviceControl.SectionDevicesScalesFk,
 			WsSqlDeviceTypeFkModel => LocaleCore.DeviceControl.SectionDevicesTypesFk,
-			DeviceTypeModel => LocaleCore.DeviceControl.SectionDevicesTypes,
+			WsSqlDeviceTypeModel => LocaleCore.DeviceControl.SectionDevicesTypes,
 			WsSqlLogModel => LocaleCore.Strings.SectionLog,
-			OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
-			OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
+			WsSqlOrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
+			WsSqlOrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
 			WsSqlPluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,
 			WsSqlPluLabelModel => LocaleCore.DeviceControl.SectionLabels,
 			WsSqlPluModel => LocaleCore.DeviceControl.SectionPlus,
 			WsSqlPluNestingFkModel => LocaleCore.DeviceControl.SectionPlusNestingFk,
-			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
+			WsSqlPluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
 			WsSqlPluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeightings,
-			PrinterModel => LocaleCore.Print.Name,
+			WsSqlPrinterModel => LocaleCore.Print.Name,
 			WsSqlPrinterResourceFkModel => LocaleCore.Print.Resources,
-			PrinterTypeModel => LocaleCore.Print.Types,
-			ProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
-			ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
-			ScaleModel => LocaleCore.DeviceControl.SectionScales,
-			TemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
-			WorkShopModel => LocaleCore.DeviceControl.SectionWorkShops,
+			WsSqlPrinterTypeModel => LocaleCore.Print.Types,
+			WsSqlProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
+			WsSqlProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
+			WsSqlScaleModel => LocaleCore.DeviceControl.SectionScales,
+			WsSqlTemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
+			WsSqlWorkShopModel => LocaleCore.DeviceControl.SectionWorkShops,
 			_ => string.Empty
 		};
 
@@ -210,7 +210,7 @@ public partial class RazorComponentBase
         {
             switch (SqlItem)
             {
-                case DeviceModel device:
+                case WsSqlDeviceModel device:
                     SqlItemSave(SqlItem);
                     SqlItemSaveDevice(device);
                     break;
@@ -228,7 +228,7 @@ public partial class RazorComponentBase
                     //SqlItemSave(SqlItem);
                     SqlItemSavePluNestingFk(pluNestingFk);
                     break;
-                case ScaleModel scale:
+                case WsSqlScaleModel scale:
                     SqlItemSave(SqlItem);
                     SqlItemSaveScale(scale);
                     break;
@@ -240,12 +240,12 @@ public partial class RazorComponentBase
         });
     }
 
-    private void SqlItemSaveScale(ScaleModel scale)
+    private void SqlItemSaveScale(WsSqlScaleModel scale)
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
         foreach (WsSqlTableBase item in SqlLinkedItems)
         {
-            if (item is DeviceModel device)
+            if (item is WsSqlDeviceModel device)
             {
                 WsSqlDeviceScaleFkModel? deviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNullable(scale);
                 if (device.IsNotNew)
@@ -271,7 +271,7 @@ public partial class RazorComponentBase
         {
             foreach (WsSqlTableBase item in SqlLinkedItems)
             {
-                if (item is TemplateModel template)
+                if (item is WsSqlTemplateModel template)
                 {
                     WsSqlPluTemplateFkModel? pluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNullable(plu);
                     if (template.IsNotNew)
@@ -296,7 +296,7 @@ public partial class RazorComponentBase
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
         WsSqlPluModel? plu = SqlLinkedItems.First(x => x is WsSqlPluModel) as WsSqlPluModel;
-        BundleModel? bundle = SqlLinkedItems.First(x => x is BundleModel) as BundleModel;
+        WsSqlBundleModel? bundle = SqlLinkedItems.First(x => x is WsSqlBundleModel) as WsSqlBundleModel;
 		if (plu is null || bundle is null) return;
         pluBundleFk.Plu = plu;
         pluBundleFk.Bundle = bundle;
@@ -307,7 +307,7 @@ public partial class RazorComponentBase
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
         WsSqlPluBundleFkModel? pluBundleFk = SqlLinkedItems.First(x => x is WsSqlPluBundleFkModel) as WsSqlPluBundleFkModel;
-        BoxModel? box = SqlLinkedItems.First(x => x is BoxModel) as BoxModel;
+        WsSqlBoxModel? box = SqlLinkedItems.First(x => x is WsSqlBoxModel) as WsSqlBoxModel;
         if (pluBundleFk is null) return;
         if (box is null) return;
         pluNestingFk.PluBundle = pluBundleFk;
@@ -315,12 +315,12 @@ public partial class RazorComponentBase
         SqlItemSave(pluNestingFk);
     }
 
-    private void SqlItemSaveDevice(DeviceModel device)
+    private void SqlItemSaveDevice(WsSqlDeviceModel device)
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
         foreach (WsSqlTableBase item in SqlLinkedItems)
         {
-            if (item is DeviceTypeModel deviceType)
+            if (item is WsSqlDeviceTypeModel deviceType)
             {
                 WsSqlDeviceTypeFkModel? deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNullable(device);
                 if (deviceType.IsNotNew)
@@ -403,7 +403,7 @@ public partial class RazorComponentBase
         });
 	}
 
-	protected async Task SqlItemPrinterResourcesClear(PrinterModel printer)
+	protected async Task SqlItemPrinterResourcesClear(WsSqlPrinterModel printer)
 	{
         if (User?.IsInRole(UserAccessStr.Write) == false) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -411,8 +411,8 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
 		{
 			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(false, false);
-			List<TemplateResourceModel> templateResources = ContextManager.ContextList.GetListNotNullableTemplateResources(sqlCrudConfig);
-			foreach (TemplateResourceModel templateResource in templateResources)
+			List<WsSqlTemplateResourceModel> templateResources = ContextManager.ContextList.GetListNotNullableTemplateResources(sqlCrudConfig);
+			foreach (WsSqlTemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains("TTF"))
 				{
@@ -428,7 +428,7 @@ public partial class RazorComponentBase
         });
 	}
 
-	protected async Task SqlItemPrinterResourcesLoad(PrinterModel printer, string fileType)
+	protected async Task SqlItemPrinterResourcesLoad(WsSqlPrinterModel printer, string fileType)
 	{
         if (User?.IsInRole(UserAccessStr.Write) == false) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -437,8 +437,8 @@ public partial class RazorComponentBase
 		{
 			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
                 new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc}, false, false);
-			List<TemplateResourceModel> templateResources = ContextManager.ContextList.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
-			foreach (TemplateResourceModel templateResource in templateResources)
+			List<WsSqlTemplateResourceModel> templateResources = ContextManager.ContextList.GetListNotNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
+			foreach (WsSqlTemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains(fileType))
 				{

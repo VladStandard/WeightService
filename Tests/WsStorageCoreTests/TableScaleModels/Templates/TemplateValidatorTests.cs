@@ -9,14 +9,14 @@ public sealed class TemplateValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        TemplateModel item = WsTestsUtils.DataTests.CreateNewSubstitute<TemplateModel>(false);
+        WsSqlTemplateModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlTemplateModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        TemplateModel item = WsTestsUtils.DataTests.CreateNewSubstitute<TemplateModel>(true);
+        WsSqlTemplateModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlTemplateModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

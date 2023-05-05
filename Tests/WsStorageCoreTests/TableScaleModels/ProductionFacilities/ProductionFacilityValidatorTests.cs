@@ -9,14 +9,14 @@ public sealed class ProductionFacilityValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ProductionFacilityModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ProductionFacilityModel>(false);
+        WsSqlProductionFacilityModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlProductionFacilityModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        ProductionFacilityModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ProductionFacilityModel>(true);
+        WsSqlProductionFacilityModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlProductionFacilityModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

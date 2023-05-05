@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.PrintersTypes;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionPrinterTypes;
 
-public sealed partial class ItemPrinterType : RazorComponentItemBase<PrinterTypeModel>
+public sealed partial class ItemPrinterType : RazorComponentItemBase<WsSqlPrinterTypeModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -21,9 +21,9 @@ public sealed partial class ItemPrinterType : RazorComponentItemBase<PrinterType
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterTypeModel>(IdentityId);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterTypeModel>(IdentityId);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<PrinterTypeModel>();
+                    SqlItemCast = SqlItemNew<WsSqlPrinterTypeModel>();
             }
         });
     }

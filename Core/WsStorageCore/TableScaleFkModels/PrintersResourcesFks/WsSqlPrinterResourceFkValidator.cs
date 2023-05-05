@@ -16,10 +16,10 @@ public sealed class WsSqlPrinterResourceFkValidator : WsSqlTableValidator<WsSqlP
         RuleFor(item => item.Printer)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PrinterValidator());
+            .SetValidator(new WsSqlPrinterValidator());
         RuleFor(item => item.TemplateResource)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new TemplateResourceValidator());
+            .SetValidator(new WsSqlTemplateResourceValidator());
     }
 }

@@ -19,7 +19,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
     #region Public and private methods
 
-    private bool UpdateBoxDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, BoxModel? boxDb, bool isCounter)
+    private bool UpdateBoxDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, WsSqlBoxModel? boxDb, bool isCounter)
     {
         if (boxDb is null || boxDb.IsNew) return false;
         boxDb.UpdateProperties(pluXml);
@@ -37,7 +37,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
         return dbResult.IsOk;
     }
 
-    private bool UpdateBundleDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, BundleModel? bundleDb, bool isCounter)
+    private bool UpdateBundleDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, WsSqlBundleModel? bundleDb, bool isCounter)
     {
         if (bundleDb is null || bundleDb.IsNew) return false;
         bundleDb.UpdateProperties(pluXml);
@@ -55,7 +55,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
         return dbResult.IsOk;
     }
 
-    private bool UpdateClipDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, ClipModel? clipDb, bool isCounter)
+    private bool UpdateClipDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, WsSqlClipModel? clipDb, bool isCounter)
     {
         if (clipDb is null || clipDb.IsNew) return false;
         clipDb.UpdateProperties(pluXml);
@@ -248,7 +248,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             }
 
             // Найдено по Uid1C -> Обновить найденную запись.
-            BoxModel? boxDb = Cache.BoxesDb.Find(item => Equals(item.Uid1C, pluXml.BoxTypeGuid));
+            WsSqlBoxModel? boxDb = Cache.BoxesDb.Find(item => Equals(item.Uid1C, pluXml.BoxTypeGuid));
             if (UpdateBoxDb(response, pluXml, boxDb, false)) return;
 
             // Найдено по Name -> Обновить найденную запись.
@@ -292,7 +292,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             }
 
             // Найдено по Uid1C -> Обновить найденную запись.
-            BundleModel? bundleDb = Cache.BundlesDb.Find(item => Equals(item.Uid1C, pluXml.PackageTypeGuid));
+            WsSqlBundleModel? bundleDb = Cache.BundlesDb.Find(item => Equals(item.Uid1C, pluXml.PackageTypeGuid));
             if (UpdateBundleDb(response, pluXml, bundleDb, false)) return;
 
             // Найдено по Name -> Обновить найденную запись.
@@ -325,7 +325,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             // Проверить наличие ПЛУ в БД.
             if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out WsSqlPluModel? pluDb)) return;
             // Проверить наличие бренда в БД.
-            if (!CheckExistsBrandDb(response, pluXml.BrandGuid, pluXml.Uid1C, LocaleCore.WebService.FieldBrand, out BrandModel? brandDb)) return;
+            if (!CheckExistsBrandDb(response, pluXml.BrandGuid, pluXml.Uid1C, LocaleCore.WebService.FieldBrand, out WsSqlBrandModel? brandDb)) return;
             if (pluDb is null || brandDb is null) return;
 
             WsSqlPluBrandFkModel pluBrandFk = new()
@@ -374,7 +374,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             }
 
             // Найдено по Uid1C -> Обновить найденную запись.
-            ClipModel? clipDb = Cache.ClipsDb.Find(item => Equals(item.Uid1C, pluXml.ClipTypeGuid));
+            WsSqlClipModel? clipDb = Cache.ClipsDb.Find(item => Equals(item.Uid1C, pluXml.ClipTypeGuid));
             if (UpdateClipDb(response, pluXml, clipDb, false)) return;
 
             // Найдено по Name -> Обновить найденную запись.
@@ -407,7 +407,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             // Проверить наличие ПЛУ в БД.
             if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out WsSqlPluModel? pluDb)) return;
             // Проверить наличие клипсы в БД.
-            if (!CheckExistsClipDb(response, pluXml.ClipTypeGuid, pluXml.Uid1C, LocaleCore.WebService.FieldClip, out ClipModel? clipDb)) return;
+            if (!CheckExistsClipDb(response, pluXml.ClipTypeGuid, pluXml.Uid1C, LocaleCore.WebService.FieldClip, out WsSqlClipModel? clipDb)) return;
             if (pluDb is null || clipDb is null) return;
 
             WsSqlPluClipFkModel pluClipFk = new()
@@ -446,7 +446,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             // Проверить наличие ПЛУ в БД.
             if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out WsSqlPluModel? pluDb)) return pluBundleFk;
             // Проверить наличие пакета в БД.
-            if (!CheckExistsBundleDb(response, pluXml.PackageTypeGuid, pluXml.Uid1C, LocaleCore.WebService.FieldBundle, out BundleModel? bundleDb)) return pluBundleFk;
+            if (!CheckExistsBundleDb(response, pluXml.PackageTypeGuid, pluXml.Uid1C, LocaleCore.WebService.FieldBundle, out WsSqlBundleModel? bundleDb)) return pluBundleFk;
             if (pluDb is null || bundleDb is null) return pluBundleFk;
 
             pluBundleFk = new()
@@ -494,7 +494,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             }
             if (pluBundleFk.IsNotExists) return;
 
-            if (!GetBoxDb(response, pluXml.BoxTypeGuid, pluXml.Uid1C, "Box", out BoxModel? boxDb)) return;
+            if (!GetBoxDb(response, pluXml.BoxTypeGuid, pluXml.Uid1C, "Box", out WsSqlBoxModel? boxDb)) return;
             if (boxDb is null) return;
 
             WsSqlPluNestingFkModel pluNestingFk = new()

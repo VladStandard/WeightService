@@ -32,6 +32,6 @@ public sealed class WsSqlLogWebFkValidator : WsSqlTableValidator<WsSqlLogWebFkMo
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new DeviceValidator());
+            .SetValidator(new WsSqlDeviceValidator());
     }
 }

@@ -8,7 +8,7 @@ namespace WsLabelCore.Gui;
 /// </summary>
 public static class WsSerialPortsUtils
 {
-    public static void DefaultComPortName(ScaleModel scale, System.Windows.Controls.ComboBox fieldComPort, List<string> listComPorts)
+    public static void DefaultComPortName(WsSqlScaleModel scale, System.Windows.Controls.ComboBox fieldComPort, List<string> listComPorts)
     {
         try
         {

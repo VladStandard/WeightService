@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Contragents
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Contragents.ContragentModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Contragents.WsSqlContragentModel>
 
-<RazorItemReload TItem="@ContragentModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
+<RazorItemReload TItem="@WsSqlContragentModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -40,7 +40,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@ContragentModel"
+  TItem="@WsSqlContragentModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

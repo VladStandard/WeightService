@@ -11,26 +11,26 @@ public sealed class PluStorageMethodModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluStorageMethodModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluStorageMethodModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<PluStorageMethodModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluStorageMethodModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluStorageMethodModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlPluStorageMethodModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<PluStorageMethodModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlPluStorageMethodModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<PluStorageMethodModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlPluStorageMethodModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<PluStorageMethodModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlPluStorageMethodModel>();
     }
 }

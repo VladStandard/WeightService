@@ -16,8 +16,8 @@ public sealed class WsDataContextModelTests
             string deviceName1 = MdNetUtils.GetLocalDeviceName(false);
             string deviceName2 = MdNetUtils.GetLocalDeviceName(false);
 
-            DeviceModel device1 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceNotNullable(deviceName1);
-            DeviceModel device2 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceOrCreateNew(deviceName2);
+            WsSqlDeviceModel device1 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceNotNullable(deviceName1);
+            WsSqlDeviceModel device2 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceOrCreateNew(deviceName2);
             TestContext.WriteLine($"{nameof(device1)}: {device1}");
             TestContext.WriteLine($"{nameof(device2)}: {device2}");
 

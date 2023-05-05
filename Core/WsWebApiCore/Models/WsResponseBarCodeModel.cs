@@ -93,7 +93,7 @@ public class WsResponseBarCodeModel : SerializeBase, ICloneable
 
     public virtual WsResponseBarCodeModel CloneCast() => (WsResponseBarCodeModel)Clone();
 
-    public virtual WsResponseBarCodeModel CloneCast(BarCodeModel barCode)
+    public virtual WsResponseBarCodeModel CloneCast(WsSqlBarCodeModel barCode)
     {
         WsResponseBarCodeModel item = new()
         {

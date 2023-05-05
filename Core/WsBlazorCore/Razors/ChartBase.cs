@@ -26,7 +26,7 @@ public class ChartBase
 		ChartCountModel[] result = Array.Empty<ChartCountModel>();
 		SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Asc }, false, false);
-		ContragentModel[]? contragents = BlazorAppSettings.AccessManager.AccessList.GetArrayNullable<ContragentModel>(sqlCrudConfig);
+		WsSqlContragentModel[]? contragents = BlazorAppSettings.AccessManager.AccessList.GetArrayNullable<WsSqlContragentModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)
 		{
@@ -34,7 +34,7 @@ public class ChartBase
 				List<ChartCountModel> entitiesDateCreated = new();
 				if (contragents?.Any() == true)
 				{
-					foreach (ContragentModel item in contragents)
+					foreach (WsSqlContragentModel item in contragents)
 					{
 						entitiesDateCreated.Add(new(item.CreateDt.Date, 1));
 						i++;
@@ -53,7 +53,7 @@ public class ChartBase
 				List<ChartCountModel> entitiesDateModified = new();
 				if (contragents?.Any() == true)
 				{
-					foreach (ContragentModel item in contragents)
+					foreach (WsSqlContragentModel item in contragents)
 					{
 						entitiesDateModified.Add(new(item.ChangeDt.Date, 1));
 						i++;

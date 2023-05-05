@@ -28,6 +28,6 @@ public sealed class WsSqlLogMemoryValidator : WsSqlTableValidator<WsSqlLogMemory
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new DeviceValidator());
+            .SetValidator(new WsSqlDeviceValidator());
     }
 }

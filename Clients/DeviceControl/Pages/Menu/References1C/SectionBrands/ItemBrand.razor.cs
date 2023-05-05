@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Brands;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionBrands;
 
-public sealed partial class ItemBrand : RazorComponentItemBase<BrandModel>
+public sealed partial class ItemBrand : RazorComponentItemBase<WsSqlBrandModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -21,10 +21,10 @@ public sealed partial class ItemBrand : RazorComponentItemBase<BrandModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<BrandModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlBrandModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
-                    SqlItemCast = SqlItemNew<BrandModel>();
+                    SqlItemCast = SqlItemNew<WsSqlBrandModel>();
                 }
             }
         });

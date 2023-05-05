@@ -63,16 +63,16 @@ public static class WsServiceContentUtils
         SetItemPropertyFromXmlAttributeForBase(xmlNode, itemXml, xmlPropertyName);
         switch (itemXml)
         {
-            case BrandModel brandXml:
+            case WsSqlBrandModel brandXml:
                 SetItemPropertyFromXmlAttributeForBrand(xmlNode, brandXml, xmlPropertyName);
                 break;
             case WsSqlPluModel pluXml:
                 SetItemPropertyFromXmlAttributeForPlu(xmlNode, pluXml, xmlPropertyName);
                 break;
-            case PluGroupModel pluGroupXml:
+            case WsSqlPluGroupModel pluGroupXml:
                 SetItemPropertyFromXmlAttributeForPluGroup(xmlNode, pluGroupXml, xmlPropertyName);
                 break;
-            case PluCharacteristicModel pluCharacteristicXml:
+            case WsSqlPluCharacteristicModel pluCharacteristicXml:
                 SetItemPropertyFromXmlAttributeForPluCharacteristic(xmlNode, pluCharacteristicXml, xmlPropertyName);
                 break;
         }
@@ -97,7 +97,7 @@ public static class WsServiceContentUtils
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForBrand(XmlNode xmlNode, BrandModel brandXml, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForBrand(XmlNode xmlNode, WsSqlBrandModel brandXml, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
@@ -184,7 +184,7 @@ public static class WsServiceContentUtils
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForPluGroup(XmlNode xmlNode, PluGroupModel pluGroupXml, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForPluGroup(XmlNode xmlNode, WsSqlPluGroupModel pluGroupXml, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {
@@ -204,7 +204,7 @@ public static class WsServiceContentUtils
     }
 
     private static void SetItemPropertyFromXmlAttributeForPluCharacteristic(XmlNode xmlNode, 
-        PluCharacteristicModel pluCharacteristicXml, string xmlPropertyName)
+        WsSqlPluCharacteristicModel pluCharacteristicXml, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {

@@ -13,7 +13,7 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual ScaleModel Scale { get; set; }
+    [XmlElement] public virtual WsSqlScaleModel Scale { get; set; }
     [XmlElement] public virtual byte[] ScreenShot { get; set; }
 
     /// <summary>
@@ -32,7 +32,7 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
     /// <param name="context"></param>
     protected WsSqlScaleScreenShotModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
+        Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));
         ScreenShot = (byte[])info.GetValue(nameof(ScreenShot), typeof(byte));
     }
 

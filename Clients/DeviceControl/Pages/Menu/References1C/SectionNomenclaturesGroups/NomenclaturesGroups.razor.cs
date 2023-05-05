@@ -6,11 +6,11 @@ using WsStorageCore.TableScaleModels.PlusGroups;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups;
 
-public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluGroupModel>
+public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<WsSqlPluGroupModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<PluGroupModel> AllData { get; set; }
+    private List<WsSqlPluGroupModel> AllData { get; set; }
 
     public NomenclaturesGroups() : base()
     {
@@ -25,8 +25,8 @@ public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluG
     protected override void SetSqlSectionCast()
     {
         var pluGroupsFk = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluGroupFkModel>(new SqlCrudConfigModel());
-        AllData = ContextManager.AccessManager.AccessList.GetListNotNullable<PluGroupModel>(new SqlCrudConfigModel() {IsResultOrder = true});
-        foreach (PluGroupModel pluGroup in AllData)
+        AllData = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluGroupModel>(new SqlCrudConfigModel() {IsResultOrder = true});
+        foreach (WsSqlPluGroupModel pluGroup in AllData)
         {
             var temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();
             if (temp.Any())
@@ -36,12 +36,12 @@ public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<PluG
         SqlSectionCast = AllData.Where(e => e.ParentGuid == Guid.Empty).ToList();
     }
 
-    private new void RowRender(RowRenderEventArgs<PluGroupModel> args)
+    private new void RowRender(RowRenderEventArgs<WsSqlPluGroupModel> args)
     {
         args.Expandable = AllData.Any(e => e.ParentGuid == args.Data.IdentityValueUid);
     }
 
-    private void LoadChildData(DataGridLoadChildDataEventArgs<PluGroupModel> args)
+    private void LoadChildData(DataGridLoadChildDataEventArgs<WsSqlPluGroupModel> args)
     {
         args.Data = AllData.Where(e => e.ParentGuid == args.Item.IdentityValueUid);
     }

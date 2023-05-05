@@ -9,14 +9,14 @@ public sealed class TaskTypeValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        TaskTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<TaskTypeModel>(false);
+        WsSqlTaskTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlTaskTypeModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        TaskTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<TaskTypeModel>(true);
+        WsSqlTaskTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlTaskTypeModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

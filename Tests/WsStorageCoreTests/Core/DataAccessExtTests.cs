@@ -17,18 +17,18 @@ public sealed class DataAccessExtTests
 		{
 			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<ScaleModel> scales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullableScales(sqlCrudConfig);
+			List<WsSqlScaleModel> scales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullableScales(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
 			// Assert.
 			Assert.IsTrue(scales.Count > 0);
-			foreach (ScaleModel scale in scales)
+			foreach (WsSqlScaleModel scale in scales)
 			{
 				if (scale.IdentityValueId == 5)
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
-					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(scale, nameof(PluScaleModel.Scale),
+					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(scale, nameof(WsSqlPluScaleModel.Scale),
                         false, true, false, false);
-					List<PluScaleModel> pluScales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
+					List<WsSqlPluScaleModel> pluScales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}

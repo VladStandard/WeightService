@@ -6,7 +6,7 @@ using WsStorageCore.TableScaleModels.Templates;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionTemplates;
 
-public sealed partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
+public sealed partial class ItemTemplate : RazorComponentItemBase<WsSqlTemplateModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -27,9 +27,9 @@ public sealed partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<TemplateModel>(IdentityId);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlTemplateModel>(IdentityId);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<TemplateModel>();
+                    SqlItemCast = SqlItemNew<WsSqlTemplateModel>();
             }
         });
     }

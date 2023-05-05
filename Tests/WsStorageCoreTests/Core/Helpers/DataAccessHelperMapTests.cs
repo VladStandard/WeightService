@@ -68,7 +68,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            BarCodeMap map = new();
+            WsSqlBarCodeMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -78,7 +78,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            BoxMap map = new();
+            WsSqlBoxMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -88,7 +88,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            BrandMap map = new();
+            WsSqlBrandMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -98,7 +98,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            BundleMap map = new();
+            WsSqlBundleMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -108,7 +108,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            ClipMap map = new();
+            WsSqlClipMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -118,7 +118,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            ContragentMap map = new();
+            WsSqlContragentMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -128,7 +128,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceMap map = new();
+            WsSqlDeviceMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -158,7 +158,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceTypeMap map = new();
+            WsSqlDeviceTypeMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -218,7 +218,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluGroupMap map = new();
+            WsSqlPluGroupMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -238,7 +238,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluCharacteristicMap map = new();
+            WsSqlPluCharacteristicMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -258,7 +258,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            OrderMap map = new();
+            WsSqlOrderMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -268,7 +268,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            OrderWeighingMap map = new();
+            WsSqlOrderWeighingMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -278,7 +278,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            OrganizationMap map = new();
+            WsSqlOrganizationMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -328,7 +328,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluScaleMap map = new();
+            WsSqlPluScaleMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -358,7 +358,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterMap map = new();
+            WsSqlPrinterMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -378,7 +378,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterTypeMap map = new();
+            WsSqlPrinterTypeMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -388,7 +388,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            ProductionFacilityMap map = new();
+            WsSqlProductionFacilityMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -398,7 +398,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            ProductSeriesMap map = new();
+            WsSqlProductSeriesMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -408,7 +408,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            ScaleMap map = new();
+            WsSqlScaleMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -428,7 +428,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TaskMap map = new();
+            WsSqlTaskMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -438,7 +438,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TaskTypeMap map = new();
+            WsSqlTaskTypeMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -448,7 +448,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TemplateMap map = new();
+            WsSqlTemplateMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -458,7 +458,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TemplateResourceMap map = new();
+            WsSqlTemplateResourceMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -468,7 +468,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            VersionMap map = new();
+            WsSqlVersionMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -478,7 +478,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WorkShopMap map = new();
+            WsSqlWorkshopMap map = new();
             TestContext.WriteLine(map);
         });
     }

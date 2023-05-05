@@ -9,26 +9,26 @@ public sealed class NomenclaturesCharacteristicModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluCharacteristicModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluCharacteristicModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<PluCharacteristicModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluCharacteristicModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluCharacteristicModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlPluCharacteristicModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<PluCharacteristicModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlPluCharacteristicModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<PluCharacteristicModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlPluCharacteristicModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<PluCharacteristicModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlPluCharacteristicModel>();
     }
 }

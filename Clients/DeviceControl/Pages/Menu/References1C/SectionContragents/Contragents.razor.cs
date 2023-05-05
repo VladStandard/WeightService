@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Contragents;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionContragents;
 
-public sealed partial class Contragents : RazorComponentSectionBase<ContragentModel>
+public sealed partial class Contragents : RazorComponentSectionBase<WsSqlContragentModel>
 {
     #region Public and private fields, properties, constructor
 

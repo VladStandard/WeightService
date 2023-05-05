@@ -246,12 +246,12 @@ public class WsServiceControllerBase : ControllerBase
         {
             List<SqlFieldFilterModel> sqlFilters = new()
             {
-                new() { Name = nameof(BarCodeModel.CreateDt), Comparer = WsSqlFieldComparer.MoreOrEqual, Value = dtStart },
-                new() { Name = nameof(BarCodeModel.CreateDt), Comparer = WsSqlFieldComparer.LessOrEqual, Value = dtEnd },
+                new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlFieldComparer.MoreOrEqual, Value = dtStart },
+                new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlFieldComparer.LessOrEqual, Value = dtEnd },
             };
             SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
             sqlCrudConfig.AddFilters(sqlFilters);
-            List<BarCodeModel> barcodesDb = ContextManager.ContextList.GetListNotNullableBarCodes(sqlCrudConfig);
+            List<WsSqlBarCodeModel> barcodesDb = ContextManager.ContextList.GetListNotNullableBarCodes(sqlCrudConfig);
             response.ResponseBarCodes = WsServiceResponseUtils.CastBarCodes(barcodesDb);
             response.StartDate = dtStart;
             response.EndDate = dtEnd;
@@ -326,12 +326,12 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <returns></returns>
     internal bool CheckExistsBundleDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out BundleModel? itemDb)
+        string refName, out WsSqlBundleModel? itemDb)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
-        itemDb = AccessManager.AccessItem.GetItemNullable<BundleModel>(sqlCrudConfig);
+        itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlBundleModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
@@ -351,7 +351,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <returns></returns>
     internal bool CheckExistsBrandDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out BrandModel? itemDb)
+        string refName, out WsSqlBrandModel? itemDb)
     {
         itemDb = null;
         if (!Equals(uid1C, Guid.Empty))
@@ -359,7 +359,7 @@ public class WsServiceControllerBase : ControllerBase
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
                 true, false, false, false, false);
-            itemDb = AccessManager.AccessItem.GetItemNullable<BrandModel>(sqlCrudConfig);
+            itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlBrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
                 AddResponseException(response, uid1CException,
@@ -381,12 +381,12 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <returns></returns>
     internal bool CheckExistsClipDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out ClipModel? itemDb)
+        string refName, out WsSqlClipModel? itemDb)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
-        itemDb = AccessManager.AccessItem.GetItemNullable<ClipModel>(sqlCrudConfig);
+        itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlClipModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
@@ -406,12 +406,12 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <returns></returns>
     internal bool GetBoxDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out BoxModel? itemDb)
+        string refName, out WsSqlBoxModel? itemDb)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
-        itemDb = AccessManager.AccessItem.GetItemNullable<BoxModel>(sqlCrudConfig);
+        itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlBoxModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
@@ -461,12 +461,12 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <returns></returns>
     internal bool GetPluCharacteristicDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out PluCharacteristicModel? itemDb)
+        string refName, out WsSqlPluCharacteristicModel? itemDb)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
-        itemDb = AccessManager.AccessItem.GetItemNullable<PluCharacteristicModel>(sqlCrudConfig);
+        itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
@@ -511,7 +511,7 @@ public class WsServiceControllerBase : ControllerBase
             _ => WsAcceptVersion.V1
         };
 
-    internal void AddResponseException(WsResponse1CShortModel response, BrandModel brand)
+    internal void AddResponseException(WsResponse1CShortModel response, WsSqlBrandModel brand)
     {
         WsResponse1CErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception);
         if (!string.IsNullOrEmpty(brand.ParseResult.InnerException))
@@ -661,7 +661,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdateBrandDb(WsResponse1CShortModel response, Guid uid1C, BrandModel itemXml, BrandModel? itemDb, bool isCounter)
+    internal bool UpdateBrandDb(WsResponse1CShortModel response, Guid uid1C, WsSqlBrandModel itemXml, WsSqlBrandModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -739,7 +739,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluGroupDb(WsResponse1CShortModel response, Guid uid1C, PluGroupModel itemXml, PluGroupModel? itemDb, bool isCounter)
+    internal bool UpdatePluGroupDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluGroupModel itemXml, WsSqlPluGroupModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -935,7 +935,7 @@ public class WsServiceControllerBase : ControllerBase
                 plus1CFksDb = GetPlus1CFksByNumber(pluXml);
         }
         // Получить список связей обмена номенклатуры 1С по GUID_1C.
-        else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+        else if (record is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
             plus1CFksDb = GetPlus1CFksByGuid1C(pluCharacteristicXml.Item.NomenclatureGuid);
 
         // Обновить данные записи в таблице связей обмена номенклатуры 1С.
@@ -1005,7 +1005,7 @@ public class WsServiceControllerBase : ControllerBase
             {
                 if (record is WsXmlContentRecord<WsSqlPluModel> pluXml)
                     AddResponseException(response, pluXml.Item.Uid1C, dbUpdateResult.Exception);
-                else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+                else if (record is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
                     AddResponseException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdateResult.Exception);
             }
         }
@@ -1019,7 +1019,7 @@ public class WsServiceControllerBase : ControllerBase
                 if (record is WsXmlContentRecord<WsSqlPluModel> pluXml)
                     AddResponseExceptionString(response, pluXml.Item.Uid1C,
                         string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
-                else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+                else if (record is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
                     AddResponseExceptionString(response, pluCharacteristicXml.Item.NomenclatureGuid,
                         string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
             }
@@ -1032,7 +1032,7 @@ public class WsServiceControllerBase : ControllerBase
                 {
                     if (record is WsXmlContentRecord<WsSqlPluModel> pluXml)
                         AddResponseException(response, pluXml.Item.Uid1C, dbUpdateResult.Exception);
-                    else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
+                    else if (record is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
                         AddResponseException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdateResult.Exception);
                 }
             }
@@ -1080,7 +1080,7 @@ public class WsServiceControllerBase : ControllerBase
                     $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
         }
-        else if (itemXml is PluCharacteristicModel pluCharacteristicXml)
+        else if (itemXml is WsSqlPluCharacteristicModel pluCharacteristicXml)
         {
             if (!Equals(pluCharacteristicXml.NomenclatureGuid, plu1CFkDb.Plu.Uid1C))
             {

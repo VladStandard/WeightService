@@ -24,7 +24,7 @@ public sealed class WsUserSessionHelperTests
         WsTestsUtils.DataCore.AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(true, true, true, true, true);
-            List<DeviceModel> devices = UserSession.ContextManager.ContextList.GetListNotNullableDevices(sqlCrudConfig);
+            List<WsSqlDeviceModel> devices = UserSession.ContextManager.ContextList.GetListNotNullableDevices(sqlCrudConfig);
             Assert.Greater(devices.Count, 0);
         }, false);
     }

@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Brands
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Brands.BrandModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Brands.WsSqlBrandModel>
 
-<RazorItemReload TItem="@BrandModel" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
+<RazorItemReload TItem="@WsSqlBrandModel" Title="@LocaleCore.DeviceControl.ItemBarCodeType"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -22,7 +22,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@BrandModel"
+  TItem="@WsSqlBrandModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

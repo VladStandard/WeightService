@@ -6,7 +6,7 @@ using WsStorageCore.TableScaleModels.Boxes;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionBoxes;
 
-public sealed partial class Boxes : RazorComponentSectionBase<BoxModel>
+public sealed partial class Boxes : RazorComponentSectionBase<WsSqlBoxModel>
 {
     #region Public and private fields, properties, constructor
 

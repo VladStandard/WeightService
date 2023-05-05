@@ -12,7 +12,7 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual BundleModel Bundle { get; set; }
+    [XmlElement] public virtual WsSqlBundleModel Bundle { get; set; }
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
     protected WsSqlPluBundleFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
-        Bundle = (BundleModel)info.GetValue(nameof(Bundle), typeof(BundleModel));
+        Bundle = (WsSqlBundleModel)info.GetValue(nameof(Bundle), typeof(WsSqlBundleModel));
     }
 
     #endregion

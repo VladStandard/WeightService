@@ -91,7 +91,7 @@ public partial class MainForm : Form
         LoadFonts();
     }
 
-    private MdPrinterModel GetMdPrinter(PrinterModel scalePrinter) => new()
+    private MdPrinterModel GetMdPrinter(WsSqlPrinterModel scalePrinter) => new()
     {
         Name = scalePrinter.Name,
         Ip = scalePrinter.Ip,
@@ -528,7 +528,7 @@ public partial class MainForm : Form
             UserSession.PluScale.IsNotNew
                 ? $"{UserSession.PluNestingView.Item.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
-        TemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
+        WsSqlTemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
         MdInvokeControl.SetText(fieldTemplateValue, template.Title);
     }
 
@@ -789,7 +789,7 @@ public partial class MainForm : Form
         }
         else
         {
-            UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
+            UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
         }
     }
 
@@ -806,7 +806,7 @@ public partial class MainForm : Form
                 ResetWarning();
                 MdInvokeControl.SetVisible(labelNettoWeight, false);
                 MdInvokeControl.SetVisible(fieldNettoWeight, false);
-                UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
+                UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
                 //if (UserSession.CheckWeightMassaDeviceExists())
                 //{
                 //    if (!UserSession.CheckWeightIsNegative(this) || !UserSession.CheckWeightIsPositive(this))

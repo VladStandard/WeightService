@@ -4,9 +4,9 @@
 @using WsStorageCore.TableScaleModels.Printers
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Printers.PrinterModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
 
-<RazorItemReload TItem="@PrinterModel" Title="@LocaleCore.Print.Name"/>
+<RazorItemReload TItem="@WsSqlPrinterModel" Title="@LocaleCore.Print.Name"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
@@ -69,7 +69,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@PrinterModel"
+  TItem="@WsSqlPrinterModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

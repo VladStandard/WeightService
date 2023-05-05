@@ -12,7 +12,7 @@ public class WsSqlLogModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement(IsNullable = true)] public virtual DeviceModel? Device { get; set; }
+    [XmlElement(IsNullable = true)] public virtual WsSqlDeviceModel? Device { get; set; }
     [XmlElement(IsNullable = true)] public virtual WsSqlAppModel? App { get; set; }
     [XmlElement(IsNullable = true)] public virtual WsSqlLogTypeModel? LogType { get; set; }
     [XmlElement] public virtual string Version { get; set; }
@@ -43,7 +43,7 @@ public class WsSqlLogModel : WsSqlTableBase
     /// <param name="context"></param>
     protected WsSqlLogModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Device = (DeviceModel?)info.GetValue(nameof(Device), typeof(DeviceModel));
+        Device = (WsSqlDeviceModel?)info.GetValue(nameof(Device), typeof(WsSqlDeviceModel));
         App = (WsSqlAppModel?)info.GetValue(nameof(App), typeof(WsSqlAppModel));
         LogType = (WsSqlLogTypeModel?)info.GetValue(nameof(LogType), typeof(WsSqlLogTypeModel));
         Version = info.GetString(nameof(Version));

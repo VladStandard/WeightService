@@ -38,7 +38,7 @@ public class FileUpload : IFileUpload
         ms.WriteTo(file);
     }
 
-    public async Task UploadAsync(TemplateResourceModel? item, Stream stream)
+    public async Task UploadAsync(WsSqlTemplateResourceModel? item, Stream stream)
     {
         if (item == null)
             return;

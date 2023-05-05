@@ -8,11 +8,11 @@ using WsStorageCore.TableScaleModels.Scales;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPluScales;
 
-public sealed partial class PlusScales : RazorComponentSectionBase<PluScaleModel>
+public sealed partial class PlusScales : RazorComponentSectionBase<WsSqlPluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
-    [Parameter] public ScaleModel Scale { get; set; }
+    [Parameter] public WsSqlScaleModel Scale { get; set; }
     public bool HideNoneActivePlu { get; set; }
 
     public PlusScales() : base()
@@ -30,16 +30,16 @@ public sealed partial class PlusScales : RazorComponentSectionBase<PluScaleModel
     protected override void SetSqlSectionCast()
     {
         if (HideNoneActivePlu)
-            SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
+            SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
         else
-            SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel { Name = nameof(PluScaleModel.IsActive), Value = true });
-        SqlCrudConfigSection.AddFilters(nameof(PluScaleModel.Scale), Scale);
+            SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
+        SqlCrudConfigSection.AddFilters(nameof(WsSqlPluScaleModel.Scale), Scale);
         base.SetSqlSectionCast();
     }
 
     private string GetPluPackagesCount(WsSqlPluModel plu)
 	{
-		SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu),
+		SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
             false, true, false, false);
         return ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}

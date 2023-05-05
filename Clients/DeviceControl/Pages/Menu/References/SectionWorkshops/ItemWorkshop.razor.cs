@@ -6,11 +6,11 @@ using WsStorageCore.TableScaleModels.WorkShops;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionWorkshops;
 
-public sealed partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
+public sealed partial class ItemWorkshop : RazorComponentItemBase<WsSqlWorkShopModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<ProductionFacilityModel> ProductionFacilityModels { get; set; }
+    private List<WsSqlProductionFacilityModel> ProductionFacilityModels { get; set; }
 
     #endregion
 
@@ -22,9 +22,9 @@ public sealed partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WorkShopModel>(IdentityId);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlWorkShopModel>(IdentityId);
                 ProductionFacilityModels = ContextManager.AccessManager.AccessList.
-                    GetListNotNullable<ProductionFacilityModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                    GetListNotNullable<WsSqlProductionFacilityModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
             }
         });
     }

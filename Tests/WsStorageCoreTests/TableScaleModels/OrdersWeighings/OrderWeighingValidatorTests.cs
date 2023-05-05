@@ -9,14 +9,14 @@ public sealed class OrderWeighingValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        OrderWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<OrderWeighingModel>(false);
+        WsSqlOrderWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlOrderWeighingModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        OrderWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<OrderWeighingModel>(true);
+        WsSqlOrderWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlOrderWeighingModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

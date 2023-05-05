@@ -9,14 +9,14 @@ public sealed class NomenclaturesCharacteristicsValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluCharacteristicModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluCharacteristicModel>(false);
+        WsSqlPluCharacteristicModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluCharacteristicModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluCharacteristicModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluCharacteristicModel>(true);
+        WsSqlPluCharacteristicModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluCharacteristicModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

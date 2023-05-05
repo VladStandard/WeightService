@@ -20,6 +20,6 @@ public sealed class WsSqlPluCharacteristicsFkValidator : WsSqlTableValidator<WsS
         RuleFor(item => item.Characteristic)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluCharacteristicValidator());
+            .SetValidator(new WsSqlPluCharacteristicValidator());
     }
 }

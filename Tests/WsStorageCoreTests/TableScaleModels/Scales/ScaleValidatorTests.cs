@@ -9,14 +9,14 @@ public sealed class ScaleValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ScaleModel>(false);
+        WsSqlScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlScaleModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        ScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ScaleModel>(true);
+        WsSqlScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlScaleModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

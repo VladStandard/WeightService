@@ -7,13 +7,13 @@ using WsStorageCore.TableScaleModels.DeviceTypes;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionDevices;
 
-public sealed partial class ItemDevice : RazorComponentItemBase<DeviceModel>
+public sealed partial class ItemDevice : RazorComponentItemBase<WsSqlDeviceModel>
 {
     #region Public and private fields, properties, constructor
 
-    private DeviceTypeModel _deviceType;
-    private List<DeviceTypeModel> DeviceTypeFkModels { get; set; }
-    private DeviceTypeModel DeviceType { get => _deviceType; set { _deviceType = value; SqlLinkedItems = new() { DeviceType }; } }
+    private WsSqlDeviceTypeModel _deviceType;
+    private List<WsSqlDeviceTypeModel> DeviceTypeFkModels { get; set; }
+    private WsSqlDeviceTypeModel DeviceType { get => _deviceType; set { _deviceType = value; SqlLinkedItems = new() { DeviceType }; } }
     private WsSqlDeviceTypeFkModel DeviceTypeFk { get; set; }
 
     #endregion
@@ -32,12 +32,12 @@ public sealed partial class ItemDevice : RazorComponentItemBase<DeviceModel>
         {
             () =>
             {
-                DeviceTypeFkModels = ContextManager.ContextList.GetListNotNullable<DeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<DeviceModel>(IdentityUid);
+                DeviceTypeFkModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<WsSqlDeviceModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<DeviceModel>();
+                    SqlItemCast = SqlItemNew<WsSqlDeviceModel>();
                 DeviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(SqlItemCast);
-                DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<DeviceTypeModel>();
+                DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceTypeModel>();
             }
         });
     }

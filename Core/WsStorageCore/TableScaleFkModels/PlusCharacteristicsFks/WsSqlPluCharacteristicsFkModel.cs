@@ -13,7 +13,7 @@ public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-    [XmlElement] public virtual PluCharacteristicModel Characteristic { get; set; }
+    [XmlElement] public virtual WsSqlPluCharacteristicModel Characteristic { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -32,7 +32,7 @@ public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
     protected WsSqlPluCharacteristicsFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
-        Characteristic = (PluCharacteristicModel)info.GetValue(nameof(Characteristic),  typeof(PluCharacteristicModel));
+        Characteristic = (WsSqlPluCharacteristicModel)info.GetValue(nameof(Characteristic),  typeof(WsSqlPluCharacteristicModel));
     }
 
     #endregion

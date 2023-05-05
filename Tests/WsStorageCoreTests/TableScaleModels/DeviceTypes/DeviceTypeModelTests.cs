@@ -9,26 +9,26 @@ public sealed class DeviceTypeModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<DeviceTypeModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<DeviceTypeModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<DeviceTypeModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlDeviceTypeModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlDeviceTypeModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlDeviceTypeModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<DeviceTypeModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlDeviceTypeModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<DeviceTypeModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlDeviceTypeModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<DeviceTypeModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlDeviceTypeModel>();
     }
 }

@@ -13,7 +13,7 @@ public sealed partial class Lines : RazorComponentSectionBase<LineView>
 
     public Lines() : base()
     {
-        SqlCrudConfigSection.AddOrders(new() { Name = nameof(ScaleModel.Description), Direction = WsSqlOrderDirection.Asc });
+        SqlCrudConfigSection.AddOrders(new() { Name = nameof(WsSqlScaleModel.Description), Direction = WsSqlOrderDirection.Asc });
     }
 
     #endregion

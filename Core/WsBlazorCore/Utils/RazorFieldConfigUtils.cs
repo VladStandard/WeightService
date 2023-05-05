@@ -46,58 +46,58 @@ public static class RazorFieldConfigUtils
 
 	public static class BarCode
 	{
-		public static RazorFieldConfigModel GetTypeTop() => new(nameof(BarCodeModel.TypeTop), TextAlign.Left, LocaleCore.Table.Type);
-		public static RazorFieldConfigModel GetValueTop() => new(nameof(BarCodeModel.ValueTop), TextAlign.Left, LocaleCore.Table.Value);
-		public static RazorFieldConfigModel GetValueRight() => new(nameof(BarCodeModel.ValueRight), TextAlign.Left, LocaleCore.Table.Value);
-		public static RazorFieldConfigModel GetValueBottom() => new(nameof(BarCodeModel.ValueBottom), TextAlign.Left, LocaleCore.Table.Value);
-		public static RazorFieldConfigModel GetPluLabelChangeDt() => new(nameof(BarCodeModel.PluLabel.ChangeDt), TextAlign.Center, LocaleCore.Table.Label);
+		public static RazorFieldConfigModel GetTypeTop() => new(nameof(WsSqlBarCodeModel.TypeTop), TextAlign.Left, LocaleCore.Table.Type);
+		public static RazorFieldConfigModel GetValueTop() => new(nameof(WsSqlBarCodeModel.ValueTop), TextAlign.Left, LocaleCore.Table.Value);
+		public static RazorFieldConfigModel GetValueRight() => new(nameof(WsSqlBarCodeModel.ValueRight), TextAlign.Left, LocaleCore.Table.Value);
+		public static RazorFieldConfigModel GetValueBottom() => new(nameof(WsSqlBarCodeModel.ValueBottom), TextAlign.Left, LocaleCore.Table.Value);
+		public static RazorFieldConfigModel GetPluLabelChangeDt() => new(nameof(WsSqlBarCodeModel.PluLabel.ChangeDt), TextAlign.Center, LocaleCore.Table.Label);
 	}
 
     public static class Device
     {
-        public static RazorFieldConfigModel GetLoginDt() => new(nameof(DeviceModel.LoginDt), TextAlign.Left, LocaleCore.Table.LoginDt);
-        public static RazorFieldConfigModel GetLogoutDt() => new(nameof(DeviceModel.LogoutDt), TextAlign.Left, LocaleCore.Table.LogoutDt);
-        public static RazorFieldConfigModel GetIpv4() => new(nameof(DeviceModel.Ipv4), TextAlign.Left, LocaleCore.Table.DeviceIp);
-        public static RazorFieldConfigModel GetMacAddress() => new(nameof(DeviceModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
-        public static RazorFieldConfigModel GetPrettyName() => new(nameof(DeviceModel.PrettyName), TextAlign.Left, LocaleCore.Table.PrettyName);
+        public static RazorFieldConfigModel GetLoginDt() => new(nameof(WsSqlDeviceModel.LoginDt), TextAlign.Left, LocaleCore.Table.LoginDt);
+        public static RazorFieldConfigModel GetLogoutDt() => new(nameof(WsSqlDeviceModel.LogoutDt), TextAlign.Left, LocaleCore.Table.LogoutDt);
+        public static RazorFieldConfigModel GetIpv4() => new(nameof(WsSqlDeviceModel.Ipv4), TextAlign.Left, LocaleCore.Table.DeviceIp);
+        public static RazorFieldConfigModel GetMacAddress() => new(nameof(WsSqlDeviceModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
+        public static RazorFieldConfigModel GetPrettyName() => new(nameof(WsSqlDeviceModel.PrettyName), TextAlign.Left, LocaleCore.Table.PrettyName);
         public static RazorFieldConfigModel GetTypePrettyName() => new(
-            $"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.Type);
+            $"{nameof(WsSqlDeviceTypeModel)}.{nameof(WsSqlDeviceTypeModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.Type);
     }
     
     public static class DeviceScaleFk
 	{
-		public static RazorFieldConfigModel GetDeviceIp() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.Ipv4)}", TextAlign.Left, LocaleCore.Table.DeviceIp);
-		public static RazorFieldConfigModel GetDeviceLoginDt() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.LoginDt)}", TextAlign.Center, LocaleCore.Table.LoginDt);
-		public static RazorFieldConfigModel GetDeviceLogoutDt() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}", TextAlign.Center, LocaleCore.Table.LogoutDt);
-		public static RazorFieldConfigModel GetDeviceMacAddress() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.MacAddress)}", TextAlign.Center, LocaleCore.Table.DeviceMac);
-		public static RazorFieldConfigModel GetDeviceName() => new(new DeviceModel(), $"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Device, LocaleCore.Table.Name);
-		public static RazorFieldConfigModel GetDevicePrettyName() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
+		public static RazorFieldConfigModel GetDeviceIp() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(WsSqlDeviceModel.Ipv4)}", TextAlign.Left, LocaleCore.Table.DeviceIp);
+		public static RazorFieldConfigModel GetDeviceLoginDt() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(WsSqlDeviceModel.LoginDt)}", TextAlign.Center, LocaleCore.Table.LoginDt);
+		public static RazorFieldConfigModel GetDeviceLogoutDt() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(WsSqlDeviceModel.LogoutDt)}", TextAlign.Center, LocaleCore.Table.LogoutDt);
+		public static RazorFieldConfigModel GetDeviceMacAddress() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(WsSqlDeviceModel.MacAddress)}", TextAlign.Center, LocaleCore.Table.DeviceMac);
+		public static RazorFieldConfigModel GetDeviceName() => new(new WsSqlDeviceModel(), $"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(WsSqlDeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Device, LocaleCore.Table.Name);
+		public static RazorFieldConfigModel GetDevicePrettyName() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(WsSqlDeviceModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
 	}
 
 	public static class DeviceType
 	{
-		public static RazorFieldConfigModel GetPrettyName() => new(nameof(DeviceTypeModel.PrettyName), TextAlign.Left, LocaleCore.Table.PrettyName);
+		public static RazorFieldConfigModel GetPrettyName() => new(nameof(WsSqlDeviceTypeModel.PrettyName), TextAlign.Left, LocaleCore.Table.PrettyName);
 	}
 
 	public static class DeviceTypeFk
 	{
 		public static RazorFieldConfigModel GetDeviceLoginDt() => new(
-			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.LoginDt)}",
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(WsSqlDeviceModel.LoginDt)}",
 			TextAlign.Center, LocaleCore.Table.LoginDt, nameof(DateTime));
 		public static RazorFieldConfigModel GetDeviceLogoutDt() => new(
-			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}", TextAlign.Center, LocaleCore.Table.LogoutDt);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(WsSqlDeviceModel.LogoutDt)}", TextAlign.Center, LocaleCore.Table.LogoutDt);
 		public static RazorFieldConfigModel GetDeviceName() => new(
-			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Name);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(WsSqlDeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Name);
 		public static RazorFieldConfigModel GetDevicePrettyName() => new(
-			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(WsSqlDeviceModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
 		public static RazorFieldConfigModel GetDeviceIpv4() => new(
-			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.Ipv4)}", TextAlign.Left, LocaleCore.Table.DeviceIp);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(WsSqlDeviceModel.Ipv4)}", TextAlign.Left, LocaleCore.Table.DeviceIp);
 		public static RazorFieldConfigModel GetDeviceMacAddress() => new(
-			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.MacAddress)}", TextAlign.Center, LocaleCore.Table.DeviceMac);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(WsSqlDeviceModel.MacAddress)}", TextAlign.Center, LocaleCore.Table.DeviceMac);
 		public static RazorFieldConfigModel GetDeviceTypeName() => new(
-			$"{nameof(WsSqlDeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.Name)}", TextAlign.Left, LocaleCore.Table.Type);
+			$"{nameof(WsSqlDeviceTypeFkModel.Type)}.{nameof(WsSqlDeviceTypeModel.Name)}", TextAlign.Left, LocaleCore.Table.Type);
 		public static RazorFieldConfigModel GetDeviceTypePrettyName() => new(
-			$"{nameof(WsSqlDeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.Type);
+			$"{nameof(WsSqlDeviceTypeFkModel.Type)}.{nameof(WsSqlDeviceTypeModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.Type);
 	}
     
     public static class LogQuick
@@ -112,19 +112,19 @@ public static class RazorFieldConfigUtils
 
 	public static class Organization
 	{
-		public static RazorFieldConfigModel GetGln() => new(nameof(OrganizationModel.Gln), TextAlign.Center, LocaleCore.Table.Gln);
+		public static RazorFieldConfigModel GetGln() => new(nameof(WsSqlOrganizationModel.Gln), TextAlign.Center, LocaleCore.Table.Gln);
 	}
 
     public static class Box
     {
-        public static RazorFieldConfigModel GetName() => new(nameof(BoxModel.Name), TextAlign.Left, LocaleCore.Table.Name);
-        public static RazorFieldConfigModel GetWeight() => new(nameof(BoxModel.Weight), TextAlign.Center, LocaleCore.Table.BoxWeight);
+        public static RazorFieldConfigModel GetName() => new(nameof(WsSqlBoxModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+        public static RazorFieldConfigModel GetWeight() => new(nameof(WsSqlBoxModel.Weight), TextAlign.Center, LocaleCore.Table.BoxWeight);
     }
 
     public static class Bundle
     {
-        public static RazorFieldConfigModel GetName() => new(nameof(BundleModel.Name), TextAlign.Left, LocaleCore.Table.Name);
-        public static RazorFieldConfigModel GetWeight() => new(nameof(BundleModel.Weight), TextAlign.Center, LocaleCore.Table.BundleWeight);
+        public static RazorFieldConfigModel GetName() => new(nameof(WsSqlBundleModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+        public static RazorFieldConfigModel GetWeight() => new(nameof(WsSqlBundleModel.Weight), TextAlign.Center, LocaleCore.Table.BundleWeight);
     }
 
     public static class BundleFk
@@ -147,47 +147,47 @@ public static class RazorFieldConfigUtils
 
     public static class PluScale
 	{
-		public static RazorFieldConfigModel GetScaleNumber() => new(nameof(PluScaleModel.Scale.Number), TextAlign.Left, LocaleCore.Table.NumberShort);
-		public static RazorFieldConfigModel GetPluNumber() => new(nameof(PluScaleModel.Plu.Number), TextAlign.Left, LocaleCore.Table.NumberShort);
-		public static RazorFieldConfigModel GetActive() => new(nameof(PluScaleModel.IsActive), TextAlign.Left, LocaleCore.Table.ActiveShort, "bool");
+		public static RazorFieldConfigModel GetScaleNumber() => new(nameof(WsSqlPluScaleModel.Scale.Number), TextAlign.Left, LocaleCore.Table.NumberShort);
+		public static RazorFieldConfigModel GetPluNumber() => new(nameof(WsSqlPluScaleModel.Plu.Number), TextAlign.Left, LocaleCore.Table.NumberShort);
+		public static RazorFieldConfigModel GetActive() => new(nameof(WsSqlPluScaleModel.IsActive), TextAlign.Left, LocaleCore.Table.ActiveShort, "bool");
 	}
 
 	public static class Printer
 	{
-		public static RazorFieldConfigModel GetIp() => new(nameof(PrinterModel.Ip), TextAlign.Left, LocaleCore.Print.Ip);
-		public static RazorFieldConfigModel GetMacAddress() => new(nameof(PrinterModel.MacAddress), TextAlign.Left, LocaleCore.Print.Mac);
-		public static RazorFieldConfigModel GetPrinterType() => new(new PrinterTypeModel(), $"{nameof(PrinterModel.PrinterType)}.{nameof(PrinterTypeModel.Name)}", TextAlign.Left, LocaleCore.Print.Type, "string");
+		public static RazorFieldConfigModel GetIp() => new(nameof(WsSqlPrinterModel.Ip), TextAlign.Left, LocaleCore.Print.Ip);
+		public static RazorFieldConfigModel GetMacAddress() => new(nameof(WsSqlPrinterModel.MacAddress), TextAlign.Left, LocaleCore.Print.Mac);
+		public static RazorFieldConfigModel GetPrinterType() => new(new WsSqlPrinterTypeModel(), $"{nameof(WsSqlPrinterModel.PrinterType)}.{nameof(WsSqlPrinterTypeModel.Name)}", TextAlign.Left, LocaleCore.Print.Type, "string");
 	}
 
 	public static class PrinterResource
 	{
-		public static RazorFieldConfigModel GetName() => new(new WsSqlPrinterResourceFkModel(), $"{nameof(WsSqlPrinterResourceFkModel.TemplateResource)}.{nameof(TemplateResourceModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
-		public static RazorFieldConfigModel GetPrinter() => new(new PrinterModel(), $"{nameof(WsSqlPrinterResourceFkModel.Printer)}.{nameof(PrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
+		public static RazorFieldConfigModel GetName() => new(new WsSqlPrinterResourceFkModel(), $"{nameof(WsSqlPrinterResourceFkModel.TemplateResource)}.{nameof(WsSqlTemplateResourceModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
+		public static RazorFieldConfigModel GetPrinter() => new(new WsSqlPrinterModel(), $"{nameof(WsSqlPrinterResourceFkModel.Printer)}.{nameof(WsSqlPrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
 	}
 
 	public static class ProductionFacility
 	{
-		public static RazorFieldConfigModel GetAddress() => new(nameof(ProductionFacilityModel.Address), TextAlign.Left, LocaleCore.Table.Address);
+		public static RazorFieldConfigModel GetAddress() => new(nameof(WsSqlProductionFacilityModel.Address), TextAlign.Left, LocaleCore.Table.Address);
 	}
 
 	public static class Scale
 	{
-		public static RazorFieldConfigModel GetNumber() => new($"{nameof(ScaleModel.Number)}", 
+		public static RazorFieldConfigModel GetNumber() => new($"{nameof(WsSqlScaleModel.Number)}", 
             TextAlign.Center, LocaleCore.Table.Number);
-		public static RazorFieldConfigModel GetPrinterMain() => new(new PrinterModel(), 
-            $"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}",
+		public static RazorFieldConfigModel GetPrinterMain() => new(new WsSqlPrinterModel(), 
+            $"{nameof(WsSqlScaleModel.PrinterMain)}.{nameof(WsSqlScaleModel.PrinterMain.Name)}",
 			TextAlign.Left, LocaleCore.Print.NameMain, "string");
-		public static RazorFieldConfigModel GetPrinterShipping() => new(new PrinterModel(), 
-            $"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}",
+		public static RazorFieldConfigModel GetPrinterShipping() => new(new WsSqlPrinterModel(), 
+            $"{nameof(WsSqlScaleModel.PrinterShipping)}.{nameof(WsSqlScaleModel.PrinterShipping.Name)}",
 			TextAlign.Left, LocaleCore.Print.NameShipping, "string");
-		public static RazorFieldConfigModel GetWorkShop() => new(new WorkShopModel(), 
-            $"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}",
+		public static RazorFieldConfigModel GetWorkShop() => new(new WsSqlWorkShopModel(), 
+            $"{nameof(WsSqlScaleModel.WorkShop)}.{nameof(WsSqlWorkShopModel.Name)}",
 			TextAlign.Left, LocaleCore.Table.WorkShop, "string");
     }
 
     public static class TemplateResource
     {
-        public static RazorFieldConfigModel GetDataType() => new($"{nameof(TemplateResourceModel.Type)}", 
+        public static RazorFieldConfigModel GetDataType() => new($"{nameof(WsSqlTemplateResourceModel.Type)}", 
             TextAlign.Left, LocaleCore.Table.Type, "string");
         public static RazorFieldConfigModel GetDataSize() => new($"{nameof(LocaleCore.Table.Size)}",
             TextAlign.Left, LocaleCore.Table.Size, "string");
@@ -195,12 +195,12 @@ public static class RazorFieldConfigUtils
 
     public static class Version
 	{
-		public static RazorFieldConfigModel GetReleaseDt() => new(nameof(VersionModel.ReleaseDt), TextAlign.Center, LocaleCore.Table.ReleaseDt);
-		public static RazorFieldConfigModel GetVersion() => new(nameof(VersionModel.Version), TextAlign.Center, LocaleCore.Table.Version);
+		public static RazorFieldConfigModel GetReleaseDt() => new(nameof(WsSqlVersionModel.ReleaseDt), TextAlign.Center, LocaleCore.Table.ReleaseDt);
+		public static RazorFieldConfigModel GetVersion() => new(nameof(WsSqlVersionModel.Version), TextAlign.Center, LocaleCore.Table.Version);
 	}
 
 	public static class WorkShop
 	{
-		public static RazorFieldConfigModel GetProductionFacility() => new(new ProductionFacilityModel(), $"{nameof(WorkShopModel.ProductionFacility)}.{nameof(ProductionFacilityModel.Name)}", TextAlign.Left, LocaleCore.Table.ProductionFacility, "string");
+		public static RazorFieldConfigModel GetProductionFacility() => new(new WsSqlProductionFacilityModel(), $"{nameof(WsSqlWorkShopModel.ProductionFacility)}.{nameof(WsSqlProductionFacilityModel.Name)}", TextAlign.Left, LocaleCore.Table.ProductionFacility, "string");
 	}
 }

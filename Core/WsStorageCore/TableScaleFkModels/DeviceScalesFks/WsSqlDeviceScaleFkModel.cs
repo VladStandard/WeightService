@@ -14,8 +14,8 @@ public class WsSqlDeviceScaleFkModel : Tables.WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual DeviceModel Device { get; set; }
-    [XmlElement] public virtual ScaleModel Scale { get; set; }
+    [XmlElement] public virtual WsSqlDeviceModel Device { get; set; }
+    [XmlElement] public virtual WsSqlScaleModel Scale { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -33,8 +33,8 @@ public class WsSqlDeviceScaleFkModel : Tables.WsSqlTableBase
     /// <param name="context"></param>
     protected WsSqlDeviceScaleFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Device = (DeviceModel)info.GetValue(nameof(Device), typeof(DeviceModel));
-        Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
+        Device = (WsSqlDeviceModel)info.GetValue(nameof(Device), typeof(WsSqlDeviceModel));
+        Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));
     }
 
     #endregion

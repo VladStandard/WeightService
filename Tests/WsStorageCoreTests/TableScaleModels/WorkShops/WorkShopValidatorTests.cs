@@ -9,14 +9,14 @@ public sealed class WorkShopValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        WorkShopModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WorkShopModel>(false);
+        WsSqlWorkShopModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlWorkShopModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        WorkShopModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WorkShopModel>(true);
+        WsSqlWorkShopModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlWorkShopModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

@@ -255,34 +255,34 @@ public sealed class DataCoreHelper
 			case WsSqlAppModel app:
 				app.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
-			case BarCodeModel barCode:
-				barCode.TypeTop.Returns(BarcodeType.Default.ToString());
+			case WsSqlBarCodeModel barCode:
+				barCode.TypeTop.Returns(WsSqlBarcodeType.Default.ToString());
 				barCode.ValueTop.Returns(LocaleCore.Sql.SqlItemFieldValue);
-				barCode.TypeRight.Returns(BarcodeType.Default.ToString());
+				barCode.TypeRight.Returns(WsSqlBarcodeType.Default.ToString());
 				barCode.ValueRight.Returns(LocaleCore.Sql.SqlItemFieldValue);
-				barCode.TypeBottom.Returns(BarcodeType.Default.ToString());
+				barCode.TypeBottom.Returns(WsSqlBarcodeType.Default.ToString());
 				barCode.ValueBottom.Returns(LocaleCore.Sql.SqlItemFieldValue);
 				break;
-            case BoxModel box:
+            case WsSqlBoxModel box:
                 box.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 box.Weight.Returns(3);
                 break;
-            case BrandModel brand:
+            case WsSqlBrandModel brand:
                 brand.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 brand.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
 				break;
-			case BundleModel bundle:
+			case WsSqlBundleModel bundle:
                 bundle.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 bundle.Weight.Returns(3);
                 break;
-            case ClipModel clip:
+            case WsSqlClipModel clip:
                 clip.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 clip.Weight.Returns(2);
                 break;
-            case ContragentModel contragent:
+            case WsSqlContragentModel contragent:
 				contragent.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
-			case DeviceModel device:
+			case WsSqlDeviceModel device:
                 device.LoginDt.Returns(DateTime.Now);
 				device.LogoutDt.Returns(DateTime.Now);
 				device.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
@@ -290,17 +290,17 @@ public sealed class DataCoreHelper
 				device.Ipv4.Returns(LocaleCore.Sql.SqlItemFieldIp);
 				device.MacAddressValue.Returns(LocaleCore.Sql.SqlItemFieldMac);
 				break;
-			case DeviceTypeModel deviceType:
+			case WsSqlDeviceTypeModel deviceType:
                 deviceType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				deviceType.PrettyName.Returns(LocaleCore.Sql.SqlItemFieldPrettyName);
 				break;
 			case WsSqlDeviceTypeFkModel deviceTypeFk:
-                deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
-				deviceTypeFk.Type = CreateNewSubstitute<DeviceTypeModel>(isNotDefault);
+                deviceTypeFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
+				deviceTypeFk.Type = CreateNewSubstitute<WsSqlDeviceTypeModel>(isNotDefault);
 				break;
 			case WsSqlDeviceScaleFkModel deviceScaleFk:
-                deviceScaleFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
-				deviceScaleFk.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
+                deviceScaleFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
+				deviceScaleFk.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
 				break;
 			case WsSqlLogModel log:
 				log.Version.Returns(LocaleCore.Sql.SqlItemFieldVersion);
@@ -332,38 +332,38 @@ public sealed class DataCoreHelper
                 logWebFk.LogWebResponse.Direction.Returns((byte)1);
                 logWebFk.App = CreateNewSubstitute<WsSqlAppModel>(isNotDefault);
                 logWebFk.LogType = CreateNewSubstitute<WsSqlLogTypeModel>(isNotDefault);
-                logWebFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
+                logWebFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
 				break;
-			case PluGroupModel pluGroup:
+			case WsSqlPluGroupModel pluGroup:
                 pluGroup.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 pluGroup.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
                 break;
-            case PluCharacteristicModel nomenclatureCharacteristic:
+            case WsSqlPluCharacteristicModel nomenclatureCharacteristic:
                 nomenclatureCharacteristic.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 nomenclatureCharacteristic.AttachmentsCount.Returns(3);
                 break;
             case WsSqlPluCharacteristicsFkModel nomenclatureCharacteristicFk:
                 nomenclatureCharacteristicFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-                nomenclatureCharacteristicFk.Characteristic = CreateNewSubstitute<PluCharacteristicModel>(isNotDefault);
+                nomenclatureCharacteristicFk.Characteristic = CreateNewSubstitute<WsSqlPluCharacteristicModel>(isNotDefault);
                 break;
             case WsSqlPluFkModel pluFk:
                 pluFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluFk.Parent = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 break;
             case WsSqlPluGroupFkModel pluGroupFk:
-                pluGroupFk.PluGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
-                pluGroupFk.Parent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
+                pluGroupFk.PluGroup = CreateNewSubstitute<WsSqlPluGroupModel>(isNotDefault);
+                pluGroupFk.Parent = CreateNewSubstitute<WsSqlPluGroupModel>(isNotDefault);
                 break;
-			case OrderModel order:
+			case WsSqlOrderModel order:
 				order.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				order.BoxCount.Returns(1);
 				order.PalletCount.Returns(1);
 				break;
-			case OrderWeighingModel orderWeighing:
-				orderWeighing.Order = CreateNewSubstitute<OrderModel>(isNotDefault);
+			case WsSqlOrderWeighingModel orderWeighing:
+				orderWeighing.Order = CreateNewSubstitute<WsSqlOrderModel>(isNotDefault);
 				orderWeighing.PluWeighing = CreateNewSubstitute<WsSqlPluWeighingModel>(isNotDefault);
 				break;
-			case OrganizationModel organization:
+			case WsSqlOrganizationModel organization:
 				organization.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				organization.Gln.Returns(1);
 				break;
@@ -378,36 +378,36 @@ public sealed class DataCoreHelper
                 break;
 			case WsSqlPluBundleFkModel pluBundle:
                 pluBundle.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-                pluBundle.Bundle = CreateNewSubstitute<BundleModel>(isNotDefault);
+                pluBundle.Bundle = CreateNewSubstitute<WsSqlBundleModel>(isNotDefault);
 				break;
 			case WsSqlPluClipFkModel pluClips:
                 pluClips.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-                pluClips.Clip = CreateNewSubstitute<ClipModel>(isNotDefault);
+                pluClips.Clip = CreateNewSubstitute<WsSqlClipModel>(isNotDefault);
                 break;
             case WsSqlPluLabelModel pluLabel:
 				pluLabel.Zpl.Returns(LocaleCore.Sql.SqlItemFieldZpl);
 				pluLabel.PluWeighing = CreateNewSubstitute<WsSqlPluWeighingModel>(isNotDefault);
-				pluLabel.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
+				pluLabel.PluScale = CreateNewSubstitute<WsSqlPluScaleModel>(isNotDefault);
 				pluLabel.ProductDt.Returns(DateTime.Now);
 				pluLabel.ExpirationDt.Returns(DateTime.Now);
 				break;
-			case PluScaleModel pluScale:
+			case WsSqlPluScaleModel pluScale:
 				pluScale.IsActive.Returns(true);
 				pluScale.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-				pluScale.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
+				pluScale.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
 				break;
-            case PluStorageMethodModel plusStorageMethod:
+            case WsSqlPluStorageMethodModel plusStorageMethod:
                 plusStorageMethod.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 plusStorageMethod.MinTemp.Returns((short)0);
                 plusStorageMethod.MaxTemp.Returns((short)0);
                 break;
             case WsSqlPluStorageMethodFkModel pluStorageMethodFk:
                 pluStorageMethodFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-                pluStorageMethodFk.Method = CreateNewSubstitute<PluStorageMethodModel>(isNotDefault);
+                pluStorageMethodFk.Method = CreateNewSubstitute<WsSqlPluStorageMethodModel>(isNotDefault);
                 break;
 			case WsSqlPluTemplateFkModel pluTemplateFk:
                 pluTemplateFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-                pluTemplateFk.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
+                pluTemplateFk.Template = CreateNewSubstitute<WsSqlTemplateModel>(isNotDefault);
 				break;
 			case WsSqlPluWeighingModel pluWeighing:
 				pluWeighing.Sscc.Returns(LocaleCore.Sql.SqlItemFieldSscc);
@@ -415,67 +415,67 @@ public sealed class DataCoreHelper
 				pluWeighing.WeightTare.Returns(0.25M);
 				pluWeighing.RegNum.Returns(1);
 				pluWeighing.Kneading.Returns((short)1);
-				pluWeighing.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
-				pluWeighing.Series = CreateNewSubstitute<ProductSeriesModel>(isNotDefault);
+				pluWeighing.PluScale = CreateNewSubstitute<WsSqlPluScaleModel>(isNotDefault);
+				pluWeighing.Series = CreateNewSubstitute<WsSqlProductSeriesModel>(isNotDefault);
 				break;
             case WsSqlPluNestingFkModel pluNestingFk:
                 pluNestingFk.IsDefault.Returns(false);
 				pluNestingFk.PluBundle = CreateNewSubstitute<WsSqlPluBundleFkModel>(isNotDefault);
-                pluNestingFk.Box = CreateNewSubstitute<BoxModel>(isNotDefault);
+                pluNestingFk.Box = CreateNewSubstitute<WsSqlBoxModel>(isNotDefault);
                 pluNestingFk.BundleCount.Returns((short)0);
                 break;
-            case PrinterModel printer:
+            case WsSqlPrinterModel printer:
 				printer.DarknessLevel.Returns((short)1);
-				printer.PrinterType = CreateNewSubstitute<PrinterTypeModel>(isNotDefault);
+				printer.PrinterType = CreateNewSubstitute<WsSqlPrinterTypeModel>(isNotDefault);
 				break;
 			case WsSqlPrinterResourceFkModel printerResource:
-				printerResource.Printer = CreateNewSubstitute<PrinterModel>(isNotDefault);
-				printerResource.TemplateResource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
+				printerResource.Printer = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
+				printerResource.TemplateResource = CreateNewSubstitute<WsSqlTemplateResourceModel>(isNotDefault);
 				break;
-			case PrinterTypeModel printerType:
+			case WsSqlPrinterTypeModel printerType:
 				printerType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
-			case ProductionFacilityModel productionFacility:
+			case WsSqlProductionFacilityModel productionFacility:
 				productionFacility.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				productionFacility.Address.Returns(LocaleCore.Sql.SqlItemFieldAddress);
 				break;
-			case ProductSeriesModel productSeries:
+			case WsSqlProductSeriesModel productSeries:
 				productSeries.Sscc.Returns(LocaleCore.Sql.SqlItemFieldSscc);
 				productSeries.IsClose.Returns(false);
-				productSeries.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
+				productSeries.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
 				break;
-			case ScaleModel scale:
-                scale.WorkShop = CreateNewSubstitute<WorkShopModel>(isNotDefault);
-				scale.PrinterMain = CreateNewSubstitute<PrinterModel>(isNotDefault);
-				scale.PrinterShipping = CreateNewSubstitute<PrinterModel>(isNotDefault);
+			case WsSqlScaleModel scale:
+                scale.WorkShop = CreateNewSubstitute<WsSqlWorkShopModel>(isNotDefault);
+				scale.PrinterMain = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
+				scale.PrinterShipping = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
                 scale.Number.Returns(10000);
                 break;
 			case WsSqlScaleScreenShotModel scaleScreenShot:
-				scaleScreenShot.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
+				scaleScreenShot.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
 				scaleScreenShot.ScreenShot.Returns(new byte[] { 0x00 });
 				break;
-			case TaskModel task:
-				task.TaskType = CreateNewSubstitute<TaskTypeModel>(isNotDefault);
-				task.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
+			case WsSqlTaskModel task:
+				task.TaskType = CreateNewSubstitute<WsSqlTaskTypeModel>(isNotDefault);
+				task.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
 				break;
-			case TaskTypeModel taskType:
+			case WsSqlTaskTypeModel taskType:
 				taskType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				break;
-			case TemplateModel template:
+			case WsSqlTemplateModel template:
 				template.Title.Returns(LocaleCore.Sql.SqlItemFieldTitle);
 				break;
-			case TemplateResourceModel templateResource:
+			case WsSqlTemplateResourceModel templateResource:
                 templateResource.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 templateResource.Type.Returns(LocaleCore.Sql.SqlItemFieldTemplateResourceType);
                 templateResource.DataValue.Returns(new byte[] { 0x00 } );
                 break;
-			case VersionModel version:
+			case WsSqlVersionModel version:
 				version.Version.Returns((short)1);
 				version.ReleaseDt.Returns(DateTime.Now);
 				break;
-			case WorkShopModel workShop:
+			case WsSqlWorkShopModel workShop:
 				workShop.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-				workShop.ProductionFacility = CreateNewSubstitute<ProductionFacilityModel>(isNotDefault);
+				workShop.ProductionFacility = CreateNewSubstitute<WsSqlProductionFacilityModel>(isNotDefault);
 				break;
 		}
 		return item;

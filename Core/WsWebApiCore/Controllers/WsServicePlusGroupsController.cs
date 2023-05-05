@@ -19,8 +19,8 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
 
     #region Public and private methods
 
-    private List<WsXmlContentRecord<PluGroupModel>> GetXmlPluGroupsList(XElement xml) =>
-        WsServiceContentUtils.GetNodesListCore<PluGroupModel>(xml, LocaleCore.WebService.XmlItemNomenclatureGroup, (xmlNode, itemXml) =>
+    private List<WsXmlContentRecord<WsSqlPluGroupModel>> GetXmlPluGroupsList(XElement xml) =>
+        WsServiceContentUtils.GetNodesListCore<WsSqlPluGroupModel>(xml, LocaleCore.WebService.XmlItemNomenclatureGroup, (xmlNode, itemXml) =>
         {
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
@@ -37,21 +37,21 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
         });
 
-    private void AddResponsePluGroupsFks(WsResponse1CShortModel response, PluGroupModel pluGroupXml)
+    private void AddResponsePluGroupsFks(WsResponse1CShortModel response, WsSqlPluGroupModel pluGroupXml)
     {
         try
         {
             if (Equals(pluGroupXml.ParentGuid, Guid.Empty)) return;
 
-            PluGroupModel parent = new() { IdentityValueUid = pluGroupXml.ParentGuid };
-            parent = AccessManager.AccessItem.GetItemNotNullable<PluGroupModel>(parent.Identity);
+            WsSqlPluGroupModel parent = new() { IdentityValueUid = pluGroupXml.ParentGuid };
+            parent = AccessManager.AccessItem.GetItemNotNullable<WsSqlPluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
                 AddResponseException(response, pluGroupXml.Uid1C, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
                 return;
             }
-            PluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
-            pluGroup = AccessManager.AccessItem.GetItemNotNullable<PluGroupModel>(pluGroup.Identity);
+            WsSqlPluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
+            pluGroup = AccessManager.AccessItem.GetItemNotNullable<WsSqlPluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
             {
                 AddResponseException(response, pluGroupXml.Uid1C, new($"PLU group for '{pluGroupXml.ParentGuid}' {LocaleCore.WebService.IsNotFound}!"));
@@ -82,12 +82,12 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         }
     }
 
-    private void AddResponsePluGroups(WsResponse1CShortModel response, PluGroupModel pluGroupXml)
+    private void AddResponsePluGroups(WsResponse1CShortModel response, WsSqlPluGroupModel pluGroupXml)
     {
         try
         {
             // Найдено по Uid1C -> Обновить найденную запись.
-            PluGroupModel? pluGroupDb = Cache.PluGroupsDb.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
+            WsSqlPluGroupModel? pluGroupDb = Cache.PluGroupsDb.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Найдено по Code -> Обновить найденную запись.
@@ -122,10 +122,10 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         {
             // Прогреть кэш.
             Cache.Load();
-            List<WsXmlContentRecord<PluGroupModel>> itemsXml = GetXmlPluGroupsList(xml);
-            foreach (WsXmlContentRecord<PluGroupModel> record in itemsXml)
+            List<WsXmlContentRecord<WsSqlPluGroupModel>> itemsXml = GetXmlPluGroupsList(xml);
+            foreach (WsXmlContentRecord<WsSqlPluGroupModel> record in itemsXml)
             {
-                PluGroupModel pluGroup = record.Item;
+                WsSqlPluGroupModel pluGroup = record.Item;
                 switch (pluGroup.ParseResult.Status)
                 {
                     case ParseStatus.Success:

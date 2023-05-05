@@ -56,7 +56,7 @@ public sealed class WsSqlPluNestingFkController
     /// <param name="bundle"></param>
     /// <param name="box"></param>
     /// <returns></returns>
-    public WsSqlPluNestingFkModel GetPluNestingFk(List<WsSqlPluNestingFkModel> pluNestingFks, WsSqlPluModel plu, BundleModel bundle, BoxModel box)
+    public WsSqlPluNestingFkModel GetPluNestingFk(List<WsSqlPluNestingFkModel> pluNestingFks, WsSqlPluModel plu, WsSqlBundleModel bundle, WsSqlBoxModel box)
     {
         WsSqlPluNestingFkModel pluNestingFk = pluNestingFks.Find(item => Equals(item.PluBundle.Plu, plu) &&
                                                                     Equals(item.PluBundle.Bundle, bundle) && Equals(item.Box, box));
@@ -72,7 +72,7 @@ public sealed class WsSqlPluNestingFkController
     /// <param name="bundle"></param>
     /// <param name="box"></param>
     /// <returns></returns>
-    public short GetPluNestingFkBundleCount(List<WsSqlPluNestingFkModel> pluNestingFks, WsSqlPluModel plu, BundleModel bundle, BoxModel box) =>
+    public short GetPluNestingFkBundleCount(List<WsSqlPluNestingFkModel> pluNestingFks, WsSqlPluModel plu, WsSqlBundleModel bundle, WsSqlBoxModel box) =>
         GetPluNestingFk(pluNestingFks, plu, bundle, box).BundleCount;
 
     /// <summary>

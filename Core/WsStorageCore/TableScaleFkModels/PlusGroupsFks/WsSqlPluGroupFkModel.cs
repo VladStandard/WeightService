@@ -12,10 +12,10 @@ public class WsSqlPluGroupFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
-    private PluGroupModel _pluGroup;
-    [XmlElement] public virtual PluGroupModel PluGroup { get => _pluGroup; set => _pluGroup = value; }
-    private PluGroupModel _parent;
-    [XmlElement] public virtual PluGroupModel Parent { get => _parent; set => _parent = value; }
+    private WsSqlPluGroupModel _pluGroup;
+    [XmlElement] public virtual WsSqlPluGroupModel PluGroup { get => _pluGroup; set => _pluGroup = value; }
+    private WsSqlPluGroupModel _parent;
+    [XmlElement] public virtual WsSqlPluGroupModel Parent { get => _parent; set => _parent = value; }
 
     /// <summary>
     /// Constructor.
@@ -33,8 +33,8 @@ public class WsSqlPluGroupFkModel : WsSqlTableBase
     /// <param name="context"></param>
     protected WsSqlPluGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        _pluGroup = (PluGroupModel)info.GetValue(nameof(_pluGroup), typeof(PluGroupModel));
-        _parent = (PluGroupModel)info.GetValue(nameof(_parent), typeof(PluGroupModel));
+        _pluGroup = (WsSqlPluGroupModel)info.GetValue(nameof(_pluGroup), typeof(WsSqlPluGroupModel));
+        _parent = (WsSqlPluGroupModel)info.GetValue(nameof(_parent), typeof(WsSqlPluGroupModel));
     }
 
     #endregion

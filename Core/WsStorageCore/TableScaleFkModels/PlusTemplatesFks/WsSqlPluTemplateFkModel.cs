@@ -13,7 +13,7 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-    [XmlElement] public virtual TemplateModel Template { get; set; }
+    [XmlElement] public virtual WsSqlTemplateModel Template { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -32,7 +32,7 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
     protected WsSqlPluTemplateFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
-        Template = (TemplateModel)info.GetValue(nameof(Template), typeof(TemplateModel));
+        Template = (WsSqlTemplateModel)info.GetValue(nameof(Template), typeof(WsSqlTemplateModel));
     }
 
     #endregion

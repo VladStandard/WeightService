@@ -5,11 +5,11 @@ using WsStorageCore.TableScaleModels.PlusGroups;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups;
 
-public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<PluGroupModel>
+public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<WsSqlPluGroupModel>
 {
     #region Public and private fields, properties, constructor
 
-    private PluGroupModel? ParentGroup { get; set; }
+    private WsSqlPluGroupModel? ParentGroup { get; set; }
 
     #endregion
 
@@ -21,9 +21,9 @@ public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<PluGr
 		{
 			() =>
 			{
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluGroupModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluGroupModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<PluGroupModel>();
+                    SqlItemCast = SqlItemNew<WsSqlPluGroupModel>();
 
                 ParentGroup = ContextManager.ContextItem.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
             }

@@ -19,10 +19,10 @@ public sealed class WsSqlPluGroupFkValidator : WsSqlTableValidator<WsSqlPluGroup
         RuleFor(item => item.PluGroup)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluGroupValidator());
+            .SetValidator(new WsSqlPluGroupValidator());
         RuleFor(item => item.Parent)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluGroupValidator());
+            .SetValidator(new WsSqlPluGroupValidator());
     }
 }

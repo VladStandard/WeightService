@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Templates;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionTemplates;
 
-public sealed partial class Templates : RazorComponentSectionBase<TemplateModel>
+public sealed partial class Templates : RazorComponentSectionBase<WsSqlTemplateModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -13,7 +13,7 @@ public sealed partial class Templates : RazorComponentSectionBase<TemplateModel>
 
     #region Public and private methods
 
-    private string ConvertBytes(TemplateModel templateModel)
+    private string ConvertBytes(WsSqlTemplateModel templateModel)
     {
         return templateModel.Data.Length > 1024
             ? $"{templateModel.Data.Length / 1024:### ##0} {LocaleCore.Strings.DataSizeKBytes}"

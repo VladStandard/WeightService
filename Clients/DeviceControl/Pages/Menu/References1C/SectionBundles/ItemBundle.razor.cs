@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Bundles;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionBundles;
 
-public sealed partial class ItemBundle : RazorComponentItemBase<BundleModel>
+public sealed partial class ItemBundle : RazorComponentItemBase<WsSqlBundleModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -21,10 +21,10 @@ public sealed partial class ItemBundle : RazorComponentItemBase<BundleModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<BundleModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlBundleModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
-                    SqlItemCast = SqlItemNew<BundleModel>();
+                    SqlItemCast = SqlItemNew<WsSqlBundleModel>();
                 }
             }
         });

@@ -16,7 +16,7 @@ public sealed class WsSqlScaleScreenShotValidator : WsSqlTableValidator<WsSqlSca
         RuleFor(item => item.Scale)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new ScaleValidator());
+            .SetValidator(new WsSqlScaleValidator());
         RuleFor(item => item.ScreenShot)
             .NotEmpty()
             .NotNull();

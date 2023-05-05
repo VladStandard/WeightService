@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Brands;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionBrands;
 
-public sealed partial class Brands : RazorComponentSectionBase<BrandModel>
+public sealed partial class Brands : RazorComponentSectionBase<WsSqlBrandModel>
 {
     #region Public and private fields, properties, constructor
 

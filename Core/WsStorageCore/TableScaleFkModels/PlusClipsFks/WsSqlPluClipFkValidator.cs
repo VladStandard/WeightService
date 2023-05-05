@@ -17,6 +17,6 @@ public sealed class WsSqlPluClipFkValidator : WsSqlTableValidator<WsSqlPluClipFk
         RuleFor(item => item.Clip)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new ClipValidator());
+            .SetValidator(new WsSqlClipValidator());
     }
 }

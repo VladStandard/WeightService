@@ -20,6 +20,6 @@ public sealed class WsSqlPluTemplateFkValidator : WsSqlTableValidator<WsSqlPluTe
         RuleFor(item => item.Template)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new TemplateValidator());
+            .SetValidator(new WsSqlTemplateValidator());
     }
 }

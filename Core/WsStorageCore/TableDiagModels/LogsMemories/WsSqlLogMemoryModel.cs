@@ -16,7 +16,7 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
     [XmlElement] public virtual short SizeAppMb { get; set; }
     [XmlElement] public virtual short SizeFreeMb { get; set; }
     [XmlElement] public virtual WsSqlAppModel App { get; set; }
-    [XmlElement] public virtual DeviceModel Device { get; set; }
+    [XmlElement] public virtual WsSqlDeviceModel Device { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -39,7 +39,7 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
         SizeAppMb = info.GetInt16(nameof(SizeAppMb));
         SizeFreeMb = info.GetInt16(nameof(SizeAppMb));
         App = (WsSqlAppModel)info.GetValue(nameof(App), typeof(WsSqlAppModel));
-        Device = (DeviceModel)info.GetValue(nameof(Device), typeof(DeviceModel));
+        Device = (WsSqlDeviceModel)info.GetValue(nameof(Device), typeof(WsSqlDeviceModel));
     }
 
     #endregion

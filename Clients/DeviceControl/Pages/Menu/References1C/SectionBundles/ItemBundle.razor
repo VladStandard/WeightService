@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Bundles
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Bundles.BundleModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Bundles.WsSqlBundleModel>
 
-<RazorItemReload TItem="BundleModel" Title="@LocaleCore.DeviceControl.ItemBundle"/>
+<RazorItemReload TItem="WsSqlBundleModel" Title="@LocaleCore.DeviceControl.ItemBundle"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -22,7 +22,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@BundleModel"
+  TItem="@WsSqlBundleModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

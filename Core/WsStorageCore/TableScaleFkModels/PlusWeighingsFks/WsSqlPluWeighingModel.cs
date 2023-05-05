@@ -13,8 +13,8 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual PluScaleModel PluScale { get; set; }
-    [XmlElement(IsNullable = true)] public virtual ProductSeriesModel? Series { get; set; }
+    [XmlElement] public virtual WsSqlPluScaleModel PluScale { get; set; }
+    [XmlElement(IsNullable = true)] public virtual WsSqlProductSeriesModel? Series { get; set; }
     [XmlElement] public virtual short Kneading { get; set; }
     [XmlElement] public virtual string Sscc { get; set; }
     [XmlElement] public virtual decimal NettoWeight { get; set; }
@@ -42,8 +42,8 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
     /// <param name="context"></param>
     protected WsSqlPluWeighingModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
-        Series = (ProductSeriesModel?)info.GetValue(nameof(Series), typeof(ProductSeriesModel));
+        PluScale = (WsSqlPluScaleModel)info.GetValue(nameof(PluScale), typeof(WsSqlPluScaleModel));
+        Series = (WsSqlProductSeriesModel?)info.GetValue(nameof(Series), typeof(WsSqlProductSeriesModel));
         Kneading = info.GetInt16(nameof(Kneading));
         Sscc = info.GetString(nameof(Sscc));
         NettoWeight = info.GetDecimal(nameof(NettoWeight));

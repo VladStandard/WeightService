@@ -14,7 +14,7 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement(IsNullable = true)] public virtual WsSqlPluWeighingModel? PluWeighing { get; set; }
-    [XmlElement] public virtual PluScaleModel PluScale { get; set; }
+    [XmlElement] public virtual WsSqlPluScaleModel PluScale { get; set; }
     [XmlElement] public virtual string Zpl { get; set; }
     [XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
     [XmlElement] public virtual DateTime ProductDt { get; set; }
@@ -47,7 +47,7 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     protected WsSqlPluLabelModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PluWeighing = (WsSqlPluWeighingModel?)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
-        PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
+        PluScale = (WsSqlPluScaleModel)info.GetValue(nameof(PluScale), typeof(WsSqlPluScaleModel));
         Zpl = info.GetString(nameof(Zpl));
         Xml = (XmlDocument)info.GetValue(nameof(Xml), typeof(XmlDocument));
         ProductDt = info.GetDateTime(nameof(ProductDt));

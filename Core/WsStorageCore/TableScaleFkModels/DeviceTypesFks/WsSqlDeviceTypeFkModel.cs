@@ -14,8 +14,8 @@ public class WsSqlDeviceTypeFkModel : Tables.WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual DeviceModel Device { get; set; }
-    [XmlElement] public virtual DeviceTypeModel Type { get; set; }
+    [XmlElement] public virtual WsSqlDeviceModel Device { get; set; }
+    [XmlElement] public virtual WsSqlDeviceTypeModel Type { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -33,8 +33,8 @@ public class WsSqlDeviceTypeFkModel : Tables.WsSqlTableBase
     /// <param name="context"></param>
     protected WsSqlDeviceTypeFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Device = (DeviceModel)info.GetValue(nameof(Device), typeof(DeviceModel));
-        Type = (DeviceTypeModel)info.GetValue(nameof(DeviceTypeModel), typeof(DeviceTypeModel));
+        Device = (WsSqlDeviceModel)info.GetValue(nameof(Device), typeof(WsSqlDeviceModel));
+        Type = (WsSqlDeviceTypeModel)info.GetValue(nameof(WsSqlDeviceTypeModel), typeof(WsSqlDeviceTypeModel));
     }
 
     #endregion

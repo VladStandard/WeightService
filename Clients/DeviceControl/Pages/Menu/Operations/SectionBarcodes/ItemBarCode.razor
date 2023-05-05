@@ -4,9 +4,9 @@
 @using WsStorageCore.TableScaleModels.BarCodes
 @using WsDataCore.Enums
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.BarCodes.BarCodeModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.BarCodes.WsSqlBarCodeModel>
 
-<RazorItemReload TItem="@BarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarcode"/>
+<RazorItemReload TItem="@WsSqlBarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarcode"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -82,7 +82,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@BarCodeModel"
+  TItem="@WsSqlBarCodeModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

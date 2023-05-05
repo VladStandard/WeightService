@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Printers;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrinters;
 
-public sealed partial class Printers : RazorComponentSectionBase<PrinterModel>
+public sealed partial class Printers : RazorComponentSectionBase<WsSqlPrinterModel>
 {
     #region Public and private fields, properties, constructor
 

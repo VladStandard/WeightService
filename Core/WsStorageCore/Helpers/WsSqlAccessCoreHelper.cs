@@ -157,53 +157,53 @@ internal sealed class WsSqlAccessCoreHelper
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlAccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlAppMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BoxMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BrandMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BundleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ClipMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBarCodeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBoxMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBrandMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBundleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlClipMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlContragentMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceScaleFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMemoryMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogWebFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogWebMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderWeighingMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrganizationMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluBrandFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluBundleFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluCharacteristicMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluCharacteristicMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluCharacteristicsFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluClipFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluGroupFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluGroupMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluGroupMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluLabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluNestingFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluStorageMethodFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluStorageMethodMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluTemplateFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluWeighingMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterResourceFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductSeriesMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ScaleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductionFacilityMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductSeriesMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleScreenShotMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateResourceMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<VersionMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WorkShopMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTaskMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTaskTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTemplateMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTemplateResourceMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlVersionMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlWorkshopMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPlu1CFkMap>());
     }
 
@@ -646,35 +646,35 @@ internal sealed class WsSqlAccessCoreHelper
         switch (item)
         {
             case XmlDeviceModel xmlDevice:
-                xmlDevice.Scale = GetItemNotNullable<ScaleModel>(xmlDevice.Scale.IdentityValueId);
+                xmlDevice.Scale = GetItemNotNullable<WsSqlScaleModel>(xmlDevice.Scale.IdentityValueId);
                 break;
             case WsSqlLogModel log:
                 log.App = GetItemNotNullable<WsSqlAppModel>(log.App?.IdentityValueUid);
-                log.Device = GetItemNullable<DeviceModel>(log.Device?.IdentityValueUid);
+                log.Device = GetItemNullable<WsSqlDeviceModel>(log.Device?.IdentityValueUid);
                 log.LogType = GetItemNotNullable<WsSqlLogTypeModel>(log.LogType?.IdentityValueUid);
                 break;
             // Scales.
-            case BarCodeModel barcode:
+            case WsSqlBarCodeModel barcode:
                 barcode.PluLabel = GetItemNotNullable<WsSqlPluLabelModel>(barcode.PluLabel.IdentityValueUid);
                 break;
             case WsSqlDeviceTypeFkModel deviceTypeFk:
-                deviceTypeFk.Device = GetItemNotNullable<DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
-                deviceTypeFk.Type = GetItemNotNullable<DeviceTypeModel>(deviceTypeFk.Type.IdentityValueUid);
+                deviceTypeFk.Device = GetItemNotNullable<WsSqlDeviceModel>(deviceTypeFk.Device.IdentityValueUid);
+                deviceTypeFk.Type = GetItemNotNullable<WsSqlDeviceTypeModel>(deviceTypeFk.Type.IdentityValueUid);
                 break;
             case WsSqlDeviceScaleFkModel deviceScaleFk:
-                deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
-                deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
+                deviceScaleFk.Device = GetItemNotNullable<WsSqlDeviceModel>(deviceScaleFk.Device.IdentityValueUid);
+                deviceScaleFk.Scale = GetItemNotNullable<WsSqlScaleModel>(deviceScaleFk.Scale.IdentityValueId);
                 break;
             case WsSqlLogMemoryModel logMemory:
                 logMemory.App = GetItemNotNullable<WsSqlAppModel>(logMemory.App.IdentityValueUid);
-                logMemory.Device = GetItemNotNullable<DeviceModel>(logMemory.Device.IdentityValueUid);
+                logMemory.Device = GetItemNotNullable<WsSqlDeviceModel>(logMemory.Device.IdentityValueUid);
                 break;
             case WsSqlLogWebFkModel logWebFk:
                 logWebFk.LogWebRequest = GetItemNotNullable<WsSqlLogWebModel>(logWebFk.LogWebRequest.IdentityValueUid);
                 logWebFk.LogWebResponse = GetItemNotNullable<WsSqlLogWebModel>(logWebFk.LogWebResponse.IdentityValueUid);
                 logWebFk.App = GetItemNotNullable<WsSqlAppModel>(logWebFk.App.IdentityValueUid);
                 logWebFk.LogType = GetItemNotNullable<WsSqlLogTypeModel>(logWebFk.LogType.IdentityValueUid);
-                logWebFk.Device = GetItemNotNullable<DeviceModel>(logWebFk.Device.IdentityValueUid);
+                logWebFk.Device = GetItemNotNullable<WsSqlDeviceModel>(logWebFk.Device.IdentityValueUid);
                 break;
             case WsSqlPluFkModel pluFk:
                 pluFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluFk.Plu.IdentityValueUid);
@@ -683,50 +683,50 @@ internal sealed class WsSqlAccessCoreHelper
                 break;
             case WsSqlPluBrandFkModel pluBrandFk:
                 pluBrandFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluBrandFk.Plu.IdentityValueUid);
-                pluBrandFk.Brand = GetItemNotNullable<BrandModel>(pluBrandFk.Brand.IdentityValueUid);
+                pluBrandFk.Brand = GetItemNotNullable<WsSqlBrandModel>(pluBrandFk.Brand.IdentityValueUid);
                 break;
             case WsSqlPluBundleFkModel pluBundle:
                 pluBundle.Plu = GetItemNotNullable<WsSqlPluModel>(pluBundle.Plu.IdentityValueUid);
-                pluBundle.Bundle = GetItemNotNullable<BundleModel>(pluBundle.Bundle.IdentityValueUid);
+                pluBundle.Bundle = GetItemNotNullable<WsSqlBundleModel>(pluBundle.Bundle.IdentityValueUid);
                 break;
             case WsSqlPluClipFkModel pluClip:
-                pluClip.Clip = GetItemNotNullable<ClipModel>(pluClip.Clip.IdentityValueUid);
+                pluClip.Clip = GetItemNotNullable<WsSqlClipModel>(pluClip.Clip.IdentityValueUid);
                 pluClip.Plu = GetItemNotNullable<WsSqlPluModel>(pluClip.Plu.IdentityValueUid);
                 break;
             case WsSqlPluLabelModel pluLabel:
                 pluLabel.PluWeighing = GetItemNullable<WsSqlPluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
-                pluLabel.PluScale = GetItemNotNullable<PluScaleModel>(pluLabel.PluScale.IdentityValueUid);
+                pluLabel.PluScale = GetItemNotNullable<WsSqlPluScaleModel>(pluLabel.PluScale.IdentityValueUid);
                 break;
-            case PluScaleModel pluScale:
+            case WsSqlPluScaleModel pluScale:
                 pluScale.Plu = GetItemNotNullable<WsSqlPluModel>(pluScale.Plu.IdentityValueUid);
-                pluScale.Scale = GetItemNotNullable<ScaleModel>(pluScale.Scale.IdentityValueId);
+                pluScale.Scale = GetItemNotNullable<WsSqlScaleModel>(pluScale.Scale.IdentityValueId);
                 break;
             case WsSqlPluTemplateFkModel pluTemplateFk:
                 pluTemplateFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluTemplateFk.Plu.IdentityValueUid);
-                pluTemplateFk.Template = GetItemNotNullable<TemplateModel>(pluTemplateFk.Template.IdentityValueId);
+                pluTemplateFk.Template = GetItemNotNullable<WsSqlTemplateModel>(pluTemplateFk.Template.IdentityValueId);
                 break;
             case WsSqlPluWeighingModel pluWeighing:
-                pluWeighing.PluScale = GetItemNotNullable<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
-                pluWeighing.Series = GetItemNullable<ProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
+                pluWeighing.PluScale = GetItemNotNullable<WsSqlPluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
+                pluWeighing.Series = GetItemNullable<WsSqlProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
                 break;
             case WsSqlPluNestingFkModel pluNestingFk:
                 pluNestingFk.PluBundle = GetItemNotNullable<WsSqlPluBundleFkModel>(pluNestingFk.PluBundle.IdentityValueUid);
-                pluNestingFk.Box = GetItemNotNullable<BoxModel>(pluNestingFk.Box.IdentityValueUid);
+                pluNestingFk.Box = GetItemNotNullable<WsSqlBoxModel>(pluNestingFk.Box.IdentityValueUid);
                 break;
             case WsSqlPluGroupFkModel pluGroupFk:
-                pluGroupFk.PluGroup = GetItemNotNullable<PluGroupModel>(pluGroupFk.PluGroup.IdentityValueUid);
-                pluGroupFk.Parent = GetItemNotNullable<PluGroupModel>(pluGroupFk.Parent.IdentityValueUid);
+                pluGroupFk.PluGroup = GetItemNotNullable<WsSqlPluGroupModel>(pluGroupFk.PluGroup.IdentityValueUid);
+                pluGroupFk.Parent = GetItemNotNullable<WsSqlPluGroupModel>(pluGroupFk.Parent.IdentityValueUid);
                 break;
             case WsSqlPluCharacteristicsFkModel pluCharacteristicsFk:
                 pluCharacteristicsFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluCharacteristicsFk.Plu.IdentityValueUid);
-                pluCharacteristicsFk.Characteristic = GetItemNotNullable<PluCharacteristicModel>(pluCharacteristicsFk.Characteristic.IdentityValueUid);
+                pluCharacteristicsFk.Characteristic = GetItemNotNullable<WsSqlPluCharacteristicModel>(pluCharacteristicsFk.Characteristic.IdentityValueUid);
                 break;
             case WsSqlPluStorageMethodFkModel pluStorageMethod:
                 if (isFillReferences)
                 {
                     pluStorageMethod.Plu = GetItemNotNullable<WsSqlPluModel>(pluStorageMethod.Plu.IdentityValueUid);
-                    pluStorageMethod.Method = GetItemNotNullable<PluStorageMethodModel>(pluStorageMethod.Method.IdentityValueUid);
-                    pluStorageMethod.Resource = GetItemNotNullable<TemplateResourceModel>(pluStorageMethod.Resource.IdentityValueUid);
+                    pluStorageMethod.Method = GetItemNotNullable<WsSqlPluStorageMethodModel>(pluStorageMethod.Method.IdentityValueUid);
+                    pluStorageMethod.Resource = GetItemNotNullable<WsSqlTemplateResourceModel>(pluStorageMethod.Resource.IdentityValueUid);
                 }
                 else
                 {
@@ -736,36 +736,36 @@ internal sealed class WsSqlAccessCoreHelper
                     pluStorageMethod.Resource = new();
                 }
                 break;
-            case OrderWeighingModel orderWeighing:
-                orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);
+            case WsSqlOrderWeighingModel orderWeighing:
+                orderWeighing.Order = GetItemNotNullable<WsSqlOrderModel>(orderWeighing.Order.IdentityValueUid);
                 orderWeighing.PluWeighing = GetItemNotNullable<WsSqlPluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
                 break;
-            case PrinterModel printer:
-                printer.PrinterType = GetItemNotNullable<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
+            case WsSqlPrinterModel printer:
+                printer.PrinterType = GetItemNotNullable<WsSqlPrinterTypeModel>(printer.PrinterType.IdentityValueId);
                 break;
             case WsSqlPrinterResourceFkModel printerResource:
-                printerResource.Printer = GetItemNotNullable<PrinterModel>(printerResource.Printer.IdentityValueId);
-                printerResource.TemplateResource = GetItemNotNullable<TemplateResourceModel>(printerResource.TemplateResource.IdentityValueUid);
+                printerResource.Printer = GetItemNotNullable<WsSqlPrinterModel>(printerResource.Printer.IdentityValueId);
+                printerResource.TemplateResource = GetItemNotNullable<WsSqlTemplateResourceModel>(printerResource.TemplateResource.IdentityValueUid);
                 if (string.IsNullOrEmpty(printerResource.TemplateResource.Description))
                     printerResource.TemplateResource.Description = printerResource.TemplateResource.Name;
                 break;
-            case ProductSeriesModel product:
-                product.Scale = GetItemNotNullable<ScaleModel>(product.Scale.IdentityValueId);
+            case WsSqlProductSeriesModel product:
+                product.Scale = GetItemNotNullable<WsSqlScaleModel>(product.Scale.IdentityValueId);
                 break;
-            case ScaleModel scale:
-                scale.PrinterMain = GetItemNullable<PrinterModel>(scale.PrinterMain?.IdentityValueId);
-                scale.PrinterShipping = GetItemNullable<PrinterModel>(scale.PrinterShipping?.IdentityValueId);
-                scale.WorkShop = GetItemNullable<WorkShopModel>(scale.WorkShop?.IdentityValueId);
+            case WsSqlScaleModel scale:
+                scale.PrinterMain = GetItemNullable<WsSqlPrinterModel>(scale.PrinterMain?.IdentityValueId);
+                scale.PrinterShipping = GetItemNullable<WsSqlPrinterModel>(scale.PrinterShipping?.IdentityValueId);
+                scale.WorkShop = GetItemNullable<WsSqlWorkShopModel>(scale.WorkShop?.IdentityValueId);
                 break;
             case WsSqlScaleScreenShotModel scaleScreenShot:
-                scaleScreenShot.Scale = GetItemNotNullable<ScaleModel>(scaleScreenShot.Scale.IdentityValueId);
+                scaleScreenShot.Scale = GetItemNotNullable<WsSqlScaleModel>(scaleScreenShot.Scale.IdentityValueId);
                 break;
-            case TaskModel task:
-                task.TaskType = GetItemNotNullable<TaskTypeModel>(task.TaskType.IdentityValueUid);
-                task.Scale = GetItemNotNullable<ScaleModel>(task.Scale.IdentityValueId);
+            case WsSqlTaskModel task:
+                task.TaskType = GetItemNotNullable<WsSqlTaskTypeModel>(task.TaskType.IdentityValueUid);
+                task.Scale = GetItemNotNullable<WsSqlScaleModel>(task.Scale.IdentityValueId);
                 break;
-            case WorkShopModel workshop:
-                workshop.ProductionFacility = GetItemNotNullable<ProductionFacilityModel>(workshop.ProductionFacility.IdentityValueId);
+            case WsSqlWorkShopModel workshop:
+                workshop.ProductionFacility = GetItemNotNullable<WsSqlProductionFacilityModel>(workshop.ProductionFacility.IdentityValueId);
                 break;
             case WsSqlPlu1CFkModel plu1cFk:
                 plu1cFk.Plu = GetItemNotNullable<WsSqlPluModel>(plu1cFk.Plu.IdentityValueUid);

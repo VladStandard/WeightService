@@ -17,7 +17,7 @@ public static class WsActionUtils
 
     #region Public and private methods
 
-    private static void MakeScreenShot(IWin32Window win32Window, ScaleModel scale)
+    private static void MakeScreenShot(IWin32Window win32Window, WsSqlScaleModel scale)
     {
         if (win32Window is not Form form) return;
         using MemoryStream memoryStream = new();
@@ -30,7 +30,7 @@ public static class WsActionUtils
         AccessManager.AccessItem.Save(scaleScreenShot);
     }
 
-    public static void ActionTryCatchFinally(IWin32Window win32Window, ScaleModel scale, Action action, Action actionFinally)
+    public static void ActionTryCatchFinally(IWin32Window win32Window, WsSqlScaleModel scale, Action action, Action actionFinally)
     {
         try
         {
@@ -59,7 +59,7 @@ public static class WsActionUtils
         }
     }
 
-    public static void ActionTryCatch(IWin32Window win32Window, ScaleModel scale, Action action)
+    public static void ActionTryCatch(IWin32Window win32Window, WsSqlScaleModel scale, Action action)
     {
         try
         {
@@ -72,7 +72,7 @@ public static class WsActionUtils
         }
     }
 
-    public static void ActionMakeScreenShot(IWin32Window win32Window, ScaleModel scale)
+    public static void ActionMakeScreenShot(IWin32Window win32Window, WsSqlScaleModel scale)
     {
         try
         {

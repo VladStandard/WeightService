@@ -27,9 +27,9 @@ public sealed class WsSqlContextBundleHelper
 
     #region Public and private methods
 
-    public BundleModel GetNewItem() => AccessItem.GetItemNewEmpty<BundleModel>();
+    public WsSqlBundleModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlBundleModel>();
 
-    public List<BundleModel> GetList() => ContextList.GetListNotNullableBundles(new());
+    public List<WsSqlBundleModel> GetList() => ContextList.GetListNotNullableBundles(new());
 
     #endregion
 }

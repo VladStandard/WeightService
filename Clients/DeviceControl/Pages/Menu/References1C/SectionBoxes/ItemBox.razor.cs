@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Boxes;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionBoxes;
 
-public sealed partial class ItemBox : RazorComponentItemBase<BoxModel>
+public sealed partial class ItemBox : RazorComponentItemBase<WsSqlBoxModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -21,10 +21,10 @@ public sealed partial class ItemBox : RazorComponentItemBase<BoxModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<BoxModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlBoxModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
-                    SqlItemCast = SqlItemNew<BoxModel>();
+                    SqlItemCast = SqlItemNew<WsSqlBoxModel>();
                 }
             }
         });

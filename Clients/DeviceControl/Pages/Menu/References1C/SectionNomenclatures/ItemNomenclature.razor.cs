@@ -11,8 +11,8 @@ public sealed partial class ItemNomenclature : RazorComponentItemBase<WsSqlPluMo
 {
     #region Public and private fields, properties, constructor
 
-    private TemplateModel _template;
-    private TemplateModel Template { get => _template; set { _template = value; SqlLinkedItems = new() { Template }; } }
+    private WsSqlTemplateModel _template;
+    private WsSqlTemplateModel Template { get => _template; set { _template = value; SqlLinkedItems = new() { Template }; } }
     private WsSqlPluTemplateFkModel PluTemplateFk { get; set; }
 
     public ItemNomenclature() : base()
@@ -38,13 +38,13 @@ public sealed partial class ItemNomenclature : RazorComponentItemBase<WsSqlPluMo
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNullableByUid<WsSqlPluModel>(IdentityUid)
                               ?? SqlItemNew<WsSqlPluModel>();
 
-                ContextManager.AccessManager.AccessList.GetListNotNullable<TemplateModel>(WsSqlCrudConfigUtils
+                ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlTemplateModel>(WsSqlCrudConfigUtils
                     .GetCrudConfigComboBox());
 
                 PluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNotNullable(SqlItemCast);
                 Template = PluTemplateFk.Template.IsNotNew
                     ? PluTemplateFk.Template
-                    : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<TemplateModel>();
+                    : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlTemplateModel>();
             }
         });
     }

@@ -7,7 +7,7 @@ using WsStorageCore.TableScaleModels.Scales;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPluScales;
 
-public sealed partial class ItemPluScales : RazorComponentItemBase<PluScaleModel>
+public sealed partial class ItemPluScales : RazorComponentItemBase<WsSqlPluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -23,11 +23,11 @@ public sealed partial class ItemPluScales : RazorComponentItemBase<PluScaleModel
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluScaleModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluScaleModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<PluScaleModel>();
+                    SqlItemCast = SqlItemNew<WsSqlPluScaleModel>();
                 ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-	            ContextManager.AccessManager.AccessList.GetListNotNullable<ScaleModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+	            ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlScaleModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
             }
         });
     }

@@ -47,8 +47,8 @@ public sealed class DataAccessTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceTypeModel> deviceTypes = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypes(true, false, false);
-	        foreach (DeviceTypeModel deviceType in deviceTypes)
+	        List<WsSqlDeviceTypeModel> deviceTypes = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypes(true, false, false);
+	        foreach (WsSqlDeviceTypeModel deviceType in deviceTypes)
 	        {
 		        Assert.That(GetDeviceTypesEnums().Contains(deviceType.Name), Is.EqualTo(true));
 	        }
@@ -60,10 +60,10 @@ public sealed class DataAccessTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceTypeModel> deviceTypes = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypes(true, false, false);
-	        foreach (DeviceTypeModel deviceType1 in deviceTypes)
+	        List<WsSqlDeviceTypeModel> deviceTypes = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypes(true, false, false);
+	        foreach (WsSqlDeviceTypeModel deviceType1 in deviceTypes)
 	        {
-		        DeviceTypeModel deviceType2 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceTypeNotNullable(deviceType1.Name);
+		        WsSqlDeviceTypeModel deviceType2 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceTypeNotNullable(deviceType1.Name);
 		        Assert.That(deviceType2, Is.EqualTo(deviceType1));
 	        }
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
@@ -74,8 +74,8 @@ public sealed class DataAccessTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceModel> devices = WsTestsUtils.ContextManager.ContextList.GetListDevices(true, false, false);
-	        foreach (DeviceModel device in devices)
+	        List<WsSqlDeviceModel> devices = WsTestsUtils.ContextManager.ContextList.GetListDevices(true, false, false);
+	        foreach (WsSqlDeviceModel device in devices)
 	        {
 		        TestContext.WriteLine(device);
 		        //Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
@@ -88,8 +88,8 @@ public sealed class DataAccessTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceModel> devices = WsTestsUtils.ContextManager.ContextList.GetListDevices(true, false, false);
-	        foreach (DeviceModel device in devices)
+	        List<WsSqlDeviceModel> devices = WsTestsUtils.ContextManager.ContextList.GetListDevices(true, false, false);
+	        foreach (WsSqlDeviceModel device in devices)
 	        {
 		        WsSqlDeviceScaleFkModel deviceScaleFks = WsTestsUtils.ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(device);
 		        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");

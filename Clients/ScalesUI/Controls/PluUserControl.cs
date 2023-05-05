@@ -45,7 +45,7 @@ public sealed partial class PluUserControl : UserControlBase
 
     private WsControlPluModel[,] CreateControls()
     {
-        List<PluScaleModel> plus = UserSession.GetCurrentPlus();
+        List<WsSqlPluScaleModel> plus = UserSession.GetCurrentPlus();
         WsControlPluModel[,] controls = new WsControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
@@ -63,7 +63,7 @@ public sealed partial class PluUserControl : UserControlBase
         return controls;
     }
 
-    private WsControlPluModel NewControlGroup(PluScaleModel pluScale, int pageNumber, ushort buttonNumber)
+    private WsControlPluModel NewControlGroup(WsSqlPluScaleModel pluScale, int pageNumber, ushort buttonNumber)
     {
         int tabIndex = buttonNumber + pageNumber * UserSession.PageSize;
         Button buttonPlu = NewButtonPlu(pluScale.Plu, tabIndex);
@@ -101,7 +101,7 @@ public sealed partial class PluUserControl : UserControlBase
         return buttonPlu;
     }
 
-    private Label NewLabelPluNumber(PluScaleModel pluScale, int tabIndex, Control buttonPlu)
+    private Label NewLabelPluNumber(WsSqlPluScaleModel pluScale, int tabIndex, Control buttonPlu)
     {
         Label labelPluNumber = new()
         {
@@ -202,10 +202,10 @@ public sealed partial class PluUserControl : UserControlBase
     //	return labelPluDescription;
     //}
 
-    private Label NewLabelPluTemplate(PluScaleModel pluScale, int tabIndex, Control buttonPlu)
+    private Label NewLabelPluTemplate(WsSqlPluScaleModel pluScale, int tabIndex, Control buttonPlu)
     {
         //TemplateModel template = UserSession.DataAccess.GetItemNotNullable<TemplateModel>(pluScale.Plu.Template.IdentityValueId);
-        TemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(pluScale);
+        WsSqlTemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(pluScale);
         Label labelPluTemplate = new()
         {
             Name = $@"{nameof(labelPluTemplate)}{tabIndex}",

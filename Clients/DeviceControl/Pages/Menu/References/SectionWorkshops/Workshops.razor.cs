@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.WorkShops;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionWorkshops;
 
-public sealed partial class Workshops : RazorComponentSectionBase<WorkShopModel>
+public sealed partial class Workshops : RazorComponentSectionBase<WsSqlWorkShopModel>
 {
     #region Public and private fields, properties, constructor
 

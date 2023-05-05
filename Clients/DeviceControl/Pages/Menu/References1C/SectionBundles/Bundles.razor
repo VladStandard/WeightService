@@ -3,10 +3,10 @@
 @using WsStorageCore.TableScaleModels.Bundles
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Bundles.BundleModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Bundles.WsSqlBundleModel>
 
 <SectionReload
-  TItem="@BundleModel"
+  TItem="@WsSqlBundleModel"
   Title="@LocaleCore.DeviceControl.SectionBundles"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -15,13 +15,13 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@BundleModel"
+  TItem="@WsSqlBundleModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@BundleModel">
+    <TItemContent TItem="@WsSqlBundleModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.BundleWeight" Property="Weight"/>

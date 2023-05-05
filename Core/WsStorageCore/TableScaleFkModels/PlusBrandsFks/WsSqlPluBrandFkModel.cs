@@ -15,7 +15,7 @@ public class WsSqlPluBrandFkModel : Tables.WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-    [XmlElement] public virtual BrandModel Brand { get; set; }
+    [XmlElement] public virtual WsSqlBrandModel Brand { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -34,7 +34,7 @@ public class WsSqlPluBrandFkModel : Tables.WsSqlTableBase
     protected WsSqlPluBrandFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
-        Brand = (BrandModel)info.GetValue(nameof(Brand), typeof(BrandModel));
+        Brand = (WsSqlBrandModel)info.GetValue(nameof(Brand), typeof(WsSqlBrandModel));
     }
 
     #endregion

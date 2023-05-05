@@ -2,12 +2,12 @@
 @using WsStorageCore.TableScaleModels.PlusScales
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PlusScales.PluScaleModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PlusScales.WsSqlPluScaleModel>
 
 @if (SqlSectionCast.Count != 0)
 {
   <SectionReload
-    TItem="@PluScaleModel"
+    TItem="@WsSqlPluScaleModel"
     Title="@LocaleCore.DeviceControl.SectionPlusScales"
     OnSectionUpdate="@GetSectionData"
     SectionCount="@SqlSectionCast.Count"
@@ -19,14 +19,14 @@
 
   <RzDataGridLocal
     @bind-Value="@SelectedRow"
-    TItem="@PluScaleModel"
+    TItem="@WsSqlPluScaleModel"
     Data="@SqlSectionCast"
     IsLoading="@IsLoading"
     CellContextMenu="@OnCellContextMenu"
     RowSelect="@SqlItemSet"
     RowDoubleClick="@SqlItemEditAsync">
     <Columns>
-      <TItemContent TItem="@PluScaleModel">
+      <TItemContent TItem="@WsSqlPluScaleModel">
         <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="30%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.NumberShort" Property="Plu.Number" Width="10%"/>

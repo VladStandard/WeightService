@@ -7,5 +7,5 @@ namespace WsBlazorCore.Services;
 
 public interface IFileDownload
 {
-    Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceModel? item);
+    Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, WsSqlTemplateResourceModel? item);
 }

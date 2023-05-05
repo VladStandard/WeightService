@@ -20,6 +20,6 @@ public sealed class WsSqlPluBundleFkValidator : WsSqlTableValidator<WsSqlPluBund
         RuleFor(item => item.Bundle)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new BundleValidator());
+            .SetValidator(new WsSqlBundleValidator());
     }
 }

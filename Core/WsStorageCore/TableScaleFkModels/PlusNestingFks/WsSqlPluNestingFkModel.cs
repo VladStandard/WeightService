@@ -12,7 +12,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 public class WsSqlPluNestingFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
-    [XmlElement] public virtual BoxModel Box { get; set; }
+    [XmlElement] public virtual WsSqlBoxModel Box { get; set; }
     [XmlElement] public virtual WsSqlPluBundleFkModel PluBundle { get; set; }
     [XmlElement] public virtual bool IsDefault { get; set; }
     [XmlElement] public virtual short BundleCount { get; set; }
@@ -45,7 +45,7 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
     /// <param name="context"></param>
     protected WsSqlPluNestingFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Box = (BoxModel)info.GetValue(nameof(Box), typeof(BoxModel));
+        Box = (WsSqlBoxModel)info.GetValue(nameof(Box), typeof(WsSqlBoxModel));
         //Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
         PluBundle = (WsSqlPluBundleFkModel)info.GetValue(nameof(PluBundle), typeof(WsSqlPluBundleFkModel));
         IsDefault = info.GetBoolean(nameof(IsDefault));

@@ -3,10 +3,10 @@
 @using WsStorageCore.TableScaleModels.PrintersTypes
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PrintersTypes.PrinterTypeModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PrintersTypes.WsSqlPrinterTypeModel>
 
 <SectionReload
-  TItem="@PrinterTypeModel"
+  TItem="@WsSqlPrinterTypeModel"
   Title="@LocaleCore.Print.Types"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -15,13 +15,13 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@PrinterTypeModel"
+  TItem="@WsSqlPrinterTypeModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@PrinterTypeModel">
+    <TItemContent TItem="@WsSqlPrinterTypeModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name"/>
     </TItemContent>

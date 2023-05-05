@@ -9,26 +9,26 @@ public sealed class PrinterTypeModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PrinterTypeModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PrinterTypeModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<PrinterTypeModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPrinterTypeModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPrinterTypeModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlPrinterTypeModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<PrinterTypeModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlPrinterTypeModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<PrinterTypeModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlPrinterTypeModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<PrinterTypeModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlPrinterTypeModel>();
     }       
 }

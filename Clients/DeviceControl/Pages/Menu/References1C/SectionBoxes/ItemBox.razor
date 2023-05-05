@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Boxes
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Boxes.BoxModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Boxes.WsSqlBoxModel>
 
-<RazorItemReload TItem="BoxModel" Title="@LocaleCore.DeviceControl.ItemBox"/>
+<RazorItemReload TItem="WsSqlBoxModel" Title="@LocaleCore.DeviceControl.ItemBox"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -22,7 +22,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@BoxModel"
+  TItem="@WsSqlBoxModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

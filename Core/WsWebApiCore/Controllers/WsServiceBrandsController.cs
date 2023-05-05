@@ -19,8 +19,8 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
 
     #region Public and private methods
 
-    private List<WsXmlContentRecord<BrandModel>> GetXmlBrandList(XElement xml) =>
-        WsServiceContentUtils.GetNodesListCore<BrandModel>(xml, LocaleCore.WebService.XmlItemBrand,
+    private List<WsXmlContentRecord<WsSqlBrandModel>> GetXmlBrandList(XElement xml) =>
+        WsServiceContentUtils.GetNodesListCore<WsSqlBrandModel>(xml, LocaleCore.WebService.XmlItemBrand,
             (xmlNode, itemXml) =>
             {
                 WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -29,12 +29,12 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
                 WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
             });
 
-    private void AddResponse1CBrand(WsResponse1CShortModel response, BrandModel brandXml)
+    private void AddResponse1CBrand(WsResponse1CShortModel response, WsSqlBrandModel brandXml)
     {
         try
         {
             // Найдено по Uid1C -> Обновить найденную запись.
-            BrandModel? brandDb = Cache.BrandsDb.Find(item => Equals(item.Uid1C, brandXml.IdentityValueUid));
+            WsSqlBrandModel? brandDb = Cache.BrandsDb.Find(item => Equals(item.Uid1C, brandXml.IdentityValueUid));
             if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
 
             // Найдено по Code -> Обновить найденную запись.
@@ -69,10 +69,10 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
         {
             // Прогреть кэш.
             Cache.Load();
-            List<WsXmlContentRecord<BrandModel>> itemsXml = GetXmlBrandList(xml);
-            foreach (WsXmlContentRecord<BrandModel> record in itemsXml)
+            List<WsXmlContentRecord<WsSqlBrandModel>> itemsXml = GetXmlBrandList(xml);
+            foreach (WsXmlContentRecord<WsSqlBrandModel> record in itemsXml)
             {
-                BrandModel brandXml = record.Item;
+                WsSqlBrandModel brandXml = record.Item;
                 switch (brandXml.ParseResult.Status)
                 {
                     case ParseStatus.Success:

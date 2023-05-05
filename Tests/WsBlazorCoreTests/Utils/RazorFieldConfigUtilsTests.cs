@@ -85,8 +85,8 @@ public sealed class RazorFieldConfigUtilsTests
 		{
 			RazorComponentBase razorPage = BlazorCore.CreateNewSubstituteRazorComponentBase();
 			//DeviceScaleFkModel host = BlazorCore.DataCore.CreateNewSubstitute<HostModel>(true);
-			PrinterModel printer = BlazorCore.DataCore.CreateNewSubstitute<PrinterModel>(true);
-			WorkShopModel workShop = BlazorCore.DataCore.CreateNewSubstitute<WorkShopModel>(true);
+			WsSqlPrinterModel printer = BlazorCore.DataCore.CreateNewSubstitute<WsSqlPrinterModel>(true);
+			WsSqlWorkShopModel workShop = BlazorCore.DataCore.CreateNewSubstitute<WsSqlWorkShopModel>(true);
 			// Arrange & Act & Assert.
 			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Scale.GetNumber();
 			TestContext.WriteLine(razorFieldConfig);

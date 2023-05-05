@@ -20,7 +20,7 @@ public sealed class WsSqlPluWeighingValidator : WsSqlTableValidator<WsSqlPluWeig
         RuleFor(item => item.PluScale)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluScaleValidator());
+            .SetValidator(new WsSqlPluScaleValidator());
         //RuleFor(item => item.Series)
         //	.NotEmpty()
         //	.NotNull()

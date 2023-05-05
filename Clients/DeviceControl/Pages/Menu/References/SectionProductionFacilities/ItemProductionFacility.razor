@@ -4,9 +4,9 @@
 @using WsStorageCore.TableScaleModels.ProductionFacilities
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.ProductionFacilities.ProductionFacilityModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
 
-<RazorItemReload TItem="@ProductionFacilityModel" Title="@LocaleCore.DeviceControl.ItemProductionFacility"/>
+<RazorItemReload TItem="@WsSqlProductionFacilityModel" Title="@LocaleCore.DeviceControl.ItemProductionFacility"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -32,7 +32,7 @@
 
 
 <RazorItemActions
-  TItem="@ProductionFacilityModel"
+  TItem="@WsSqlProductionFacilityModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

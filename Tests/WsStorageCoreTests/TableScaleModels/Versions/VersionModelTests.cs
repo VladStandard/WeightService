@@ -9,29 +9,29 @@ public sealed class VersionModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<VersionModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<VersionModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckString<VersionModel>(nameof(WsSqlTableBase.Description));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<VersionModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlVersionModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlVersionModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlVersionModel>(nameof(WsSqlVersionModel.ReleaseDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckString<WsSqlVersionModel>(nameof(WsSqlTableBase.Description));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckString<WsSqlVersionModel>(nameof(WsSqlVersionModel.Version));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlVersionModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<VersionModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlVersionModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<VersionModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlVersionModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<VersionModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlVersionModel>();
     }
 }

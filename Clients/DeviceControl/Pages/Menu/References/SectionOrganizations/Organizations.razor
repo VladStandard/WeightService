@@ -3,10 +3,10 @@
 @using WsStorageCore.TableScaleModels.Organizations
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Organizations.OrganizationModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Organizations.WsSqlOrganizationModel>
 
 <SectionReload
-  TItem="@OrganizationModel"
+  TItem="@WsSqlOrganizationModel"
   Title="@LocaleCore.DeviceControl.SectionOrganizations"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -15,13 +15,13 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@OrganizationModel"
+  TItem="@WsSqlOrganizationModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@OrganizationModel">
+    <TItemContent TItem="@WsSqlOrganizationModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Gln" Property="Gln" Width="25%"/>

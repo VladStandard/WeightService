@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleModels.Organizations;
 
 namespace BlazorDeviceControl.Pages.Menu.References.SectionOrganizations;
 
-public sealed partial class ItemOrganization : RazorComponentItemBase<OrganizationModel>
+public sealed partial class ItemOrganization : RazorComponentItemBase<WsSqlOrganizationModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -20,9 +20,9 @@ public sealed partial class ItemOrganization : RazorComponentItemBase<Organizati
             () =>
             {
                 SqlItemCast =
-                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<OrganizationModel>(IdentityUid);
+                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlOrganizationModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<OrganizationModel>();
+                    SqlItemCast = SqlItemNew<WsSqlOrganizationModel>();
             }
         });
     }

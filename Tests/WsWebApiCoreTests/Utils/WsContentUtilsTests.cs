@@ -69,7 +69,7 @@ public sealed class WsContentUtilsTests
             Assert.That(xElement, Is.Not.Null);
             if (xElement is not null)
             {
-                List<WsXmlContentRecord<BrandModel>> brands = WsServiceContentUtils.GetNodesListCore<BrandModel>(xElement, LocaleCore.WebService.XmlItemBrand,
+                List<WsXmlContentRecord<WsSqlBrandModel>> brands = WsServiceContentUtils.GetNodesListCore<WsSqlBrandModel>(xElement, LocaleCore.WebService.XmlItemBrand,
                     (xmlNode, itemXml) =>
                     {
                         WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
@@ -77,7 +77,7 @@ public sealed class WsContentUtilsTests
                         WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
                         WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
                     });
-                foreach (WsXmlContentRecord<BrandModel> brand in brands)
+                foreach (WsXmlContentRecord<WsSqlBrandModel> brand in brands)
                 {
                     TestContext.WriteLine(brand.Item);
                     TestContext.WriteLine(brand.Content);

@@ -9,26 +9,26 @@ public sealed class TemplateResourceModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<TemplateResourceModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlTemplateResourceModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlTemplateResourceModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlTemplateResourceModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<TemplateResourceModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlTemplateResourceModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<TemplateResourceModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlTemplateResourceModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<TemplateResourceModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlTemplateResourceModel>();
     }
 }

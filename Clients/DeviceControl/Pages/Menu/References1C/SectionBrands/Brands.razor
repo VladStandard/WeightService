@@ -4,10 +4,10 @@
 @using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Brands.BrandModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Brands.WsSqlBrandModel>
 
 <SectionReload
-  TItem="@BrandModel"
+  TItem="@WsSqlBrandModel"
   Title="@LocaleCore.DeviceControl.SectionBrands"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -16,13 +16,13 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@BrandModel"
+  TItem="@WsSqlBrandModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@BrandModel">
+    <TItemContent TItem="@WsSqlBrandModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.ChangeDt" Property="ChangeDt" Width="33%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="43%"/>

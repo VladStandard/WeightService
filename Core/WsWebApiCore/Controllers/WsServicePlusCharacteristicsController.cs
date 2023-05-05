@@ -19,8 +19,8 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
 
     #region Public and private methods
 
-    private List<WsXmlContentRecord<PluCharacteristicModel>> GetXmlPluCharacteristicsList(XElement xml) =>
-        WsServiceContentUtils.GetNodesListCore<PluCharacteristicModel>(xml, LocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
+    private List<WsXmlContentRecord<WsSqlPluCharacteristicModel>> GetXmlPluCharacteristicsList(XElement xml) =>
+        WsServiceContentUtils.GetNodesListCore<WsSqlPluCharacteristicModel>(xml, LocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
         {
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
@@ -35,13 +35,13 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
     /// <param name="response"></param>
     /// <param name="pluCharacteristicXml"></param>
     /// <param name="pluDb"></param>
-    private void AddResponsePluCharacteristics(WsResponse1CShortModel response, PluCharacteristicModel pluCharacteristicXml,
+    private void AddResponsePluCharacteristics(WsResponse1CShortModel response, WsSqlPluCharacteristicModel pluCharacteristicXml,
         WsSqlPluModel pluDb)
     {
         try
         {
             // Найдено по Identity -> Обновить найденную запись.
-            PluCharacteristicModel? itemDb = Cache.PluCharacteristicsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
+            WsSqlPluCharacteristicModel? itemDb = Cache.PluCharacteristicsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
             if (UpdateItemDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
 
             // Не найдено -> Добавить новую запись.
@@ -60,7 +60,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluCharacteristicXml"></param>
-    private void AddResponsePluCharacteristicsFks(WsResponse1CShortModel response, PluCharacteristicModel pluCharacteristicXml)
+    private void AddResponsePluCharacteristicsFks(WsResponse1CShortModel response, WsSqlPluCharacteristicModel pluCharacteristicXml)
     {
         try
         {
@@ -69,7 +69,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             if (!GetPluDb(response, pluCharacteristicXml.NomenclatureGuid, pluCharacteristicXml.Uid1C,
                     LocaleCore.WebService.FieldNomenclature, out WsSqlPluModel? pluDb)) return;
             if (!GetPluCharacteristicDb(response, pluCharacteristicXml.Uid1C, pluCharacteristicXml.Uid1C,
-                    LocaleCore.WebService.FieldNomenclatureCharacteristic, out PluCharacteristicModel? pluCharacteristicDb)) return;
+                    LocaleCore.WebService.FieldNomenclatureCharacteristic, out WsSqlPluCharacteristicModel? pluCharacteristicDb)) return;
             if (pluDb is null || pluCharacteristicDb is null) return;
 
             WsSqlPluCharacteristicsFkModel pluCharacteristicsFk = new()
@@ -110,10 +110,10 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         {
             // Прогреть кэш.
             Cache.Load();
-            List<WsXmlContentRecord<PluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
-            foreach (WsXmlContentRecord<PluCharacteristicModel> record in pluCharacteristicsXml)
+            List<WsXmlContentRecord<WsSqlPluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
+            foreach (WsXmlContentRecord<WsSqlPluCharacteristicModel> record in pluCharacteristicsXml)
             {
-                PluCharacteristicModel itemXml = record.Item;
+                WsSqlPluCharacteristicModel itemXml = record.Item;
                 // Обновить данные в таблице связей обмена номенклатуры 1С.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, record);
                 WsSqlPluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(record.Item.NomenclatureGuid);
