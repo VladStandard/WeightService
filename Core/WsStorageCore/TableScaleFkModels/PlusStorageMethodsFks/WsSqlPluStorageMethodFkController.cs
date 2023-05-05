@@ -60,8 +60,9 @@ public sealed class WsSqlPluStorageMethodFkController
     public WsSqlTemplateResourceModel GetPluStorageResource(WsSqlPluModel plu, List<WsSqlPluStorageMethodFkModel> pluStorageMethodsFks)
     {
         WsSqlPluStorageMethodFkModel pluStorageMethodFk = new();
-        if (pluStorageMethodsFks.Exists(item => Equals(item.Plu, plu)))
-            pluStorageMethodFk = pluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
+        if (pluStorageMethodsFks.Exists(item => Equals(item.Plu.Identity, plu.Identity)))
+            pluStorageMethodFk = pluStorageMethodsFks.Find(
+                item => Equals(item.Plu.Identity, plu.Identity));
         return pluStorageMethodFk.Resource;
     }
 
