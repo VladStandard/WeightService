@@ -238,7 +238,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluBundleFkValidator validator = new();
+            WsSqlPluBundleFkValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }

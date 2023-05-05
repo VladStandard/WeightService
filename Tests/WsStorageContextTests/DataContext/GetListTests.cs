@@ -146,7 +146,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluBundleFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluBundleFkModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluBundleFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -197,7 +197,7 @@ public sealed class GetListTests
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
         sqlCrudConfig.NativeQuery = WsSqlQueriesScales.Tables.PluNestingFks.GetList(true);
         sqlCrudConfig.NativeParameters = new() { new("P_UID", new Guid("5B24E604-C550-43C9-91DD-74989A5E9D6C")), };
-        WsTestsUtils.DataTests.AssertGetList<PluNestingFkModel>(sqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluNestingFkModel>(sqlCrudConfig, Configurations);
     }
 
     [Test]

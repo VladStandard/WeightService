@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionPlusBundlesFks;
 
-public sealed partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFkModel>
+public sealed partial class ItemPluBundleFk : RazorComponentItemBase<WsSqlPluBundleFkModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -18,9 +18,9 @@ public sealed partial class ItemPluBundleFk : RazorComponentItemBase<PluBundleFk
         RunActionsParametersSetJustOne(
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluBundleFkModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluBundleFkModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<PluBundleFkModel>();
+                    SqlItemCast = SqlItemNew<WsSqlPluBundleFkModel>();
             }
         );
     }

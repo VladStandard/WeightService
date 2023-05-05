@@ -52,9 +52,9 @@ public sealed class DataAccessExtTests
 				if (plu.Number == 113)
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
-					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluBundleFkModel.Plu),
+					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluBundleFkModel.Plu),
                         false, true, false, false);
-                    List<PluBundleFkModel> pluPackages = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlusBundlesFks(sqlCrudConfig);
+                    List<WsSqlPluBundleFkModel> pluPackages = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlusBundlesFks(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}

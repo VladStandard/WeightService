@@ -3,10 +3,10 @@
 @using WsStorageCore.TableScaleFkModels.PlusBundlesFks
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
 
 <SectionReload
-  TItem="@PluBundleFkModel"
+  TItem="@WsSqlPluBundleFkModel"
   Title="@LocaleCore.DeviceControl.SectionPlusBundlesFk"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -15,16 +15,16 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@PluBundleFkModel"
+  TItem="@WsSqlPluBundleFkModel"
   Data="@SqlSectionCast"
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@PluBundleFkModel">
+    <TItemContent TItem="@WsSqlPluBundleFkModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn TItem="PluBundleFkModel" Title="@LocaleCore.Table.Weighted" SortProperty="Plu.IsCheckWeight" Width="7%">
+      <RadzenDataGridColumn TItem="WsSqlPluBundleFkModel" Title="@LocaleCore.Table.Weighted" SortProperty="Plu.IsCheckWeight" Width="7%">
         <Template Context="itemCast">
           <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
         </Template>

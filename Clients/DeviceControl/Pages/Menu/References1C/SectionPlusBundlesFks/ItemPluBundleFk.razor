@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusBundlesFks
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.PluBundleFkModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
 
-<RazorItemReload TItem="@PluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk"/>
+<RazorItemReload TItem="@WsSqlPluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>
@@ -32,7 +32,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@PluBundleFkModel"
+  TItem="@WsSqlPluBundleFkModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

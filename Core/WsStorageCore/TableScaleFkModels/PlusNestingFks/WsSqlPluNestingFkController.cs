@@ -25,15 +25,15 @@ public sealed class WsSqlPluNestingFkController
     private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     private WsSqlContextBoxHelper ContextBox => WsSqlContextBoxHelper.Instance;
     private WsSqlPluController ContextPlu => WsSqlPluController.Instance;
-    private WsSqlContextPluBundleHelper ContextPluBundle => WsSqlContextPluBundleHelper.Instance;
+    private WsSqlPluBundleFkController ContextPluBundle => WsSqlPluBundleFkController.Instance;
 
     #endregion
 
     #region Public and private methods
 
-    public PluNestingFkModel GetNewItem()
+    public WsSqlPluNestingFkModel GetNewItem()
     {
-        PluNestingFkModel item = AccessItem.GetItemNewEmpty<PluNestingFkModel>();
+        WsSqlPluNestingFkModel item = AccessItem.GetItemNewEmpty<WsSqlPluNestingFkModel>();
         item.Box = ContextBox.GetNewItem();
         item.PluBundle = ContextPluBundle.GetNewItem();
         return item;
@@ -44,7 +44,7 @@ public sealed class WsSqlPluNestingFkController
     /// </summary>
     /// <param name="pluNestingFks"></param>
     /// <param name="sqlCrudConfig"></param>
-    public List<PluNestingFkModel> UpdatePluNestingFks(SqlCrudConfigModel sqlCrudConfig, out List<PluNestingFkModel> pluNestingFks) =>
+    public List<WsSqlPluNestingFkModel> UpdatePluNestingFks(SqlCrudConfigModel sqlCrudConfig, out List<WsSqlPluNestingFkModel> pluNestingFks) =>
         pluNestingFks = ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
 
     /// <summary>
@@ -56,9 +56,9 @@ public sealed class WsSqlPluNestingFkController
     /// <param name="bundle"></param>
     /// <param name="box"></param>
     /// <returns></returns>
-    public PluNestingFkModel GetPluNestingFk(List<PluNestingFkModel> pluNestingFks, WsSqlPluModel plu, BundleModel bundle, BoxModel box)
+    public WsSqlPluNestingFkModel GetPluNestingFk(List<WsSqlPluNestingFkModel> pluNestingFks, WsSqlPluModel plu, BundleModel bundle, BoxModel box)
     {
-        PluNestingFkModel pluNestingFk = pluNestingFks.Find(item => Equals(item.PluBundle.Plu, plu) &&
+        WsSqlPluNestingFkModel pluNestingFk = pluNestingFks.Find(item => Equals(item.PluBundle.Plu, plu) &&
                                                                     Equals(item.PluBundle.Bundle, bundle) && Equals(item.Box, box));
         return pluNestingFk.IsExists ? pluNestingFk : new();
     }
@@ -72,7 +72,7 @@ public sealed class WsSqlPluNestingFkController
     /// <param name="bundle"></param>
     /// <param name="box"></param>
     /// <returns></returns>
-    public short GetPluNestingFkBundleCount(List<PluNestingFkModel> pluNestingFks, WsSqlPluModel plu, BundleModel bundle, BoxModel box) =>
+    public short GetPluNestingFkBundleCount(List<WsSqlPluNestingFkModel> pluNestingFks, WsSqlPluModel plu, BundleModel bundle, BoxModel box) =>
         GetPluNestingFk(pluNestingFks, plu, bundle, box).BundleCount;
 
     /// <summary>
@@ -81,11 +81,11 @@ public sealed class WsSqlPluNestingFkController
     /// </summary>
     /// <param name="pluNestingFk"></param>
     /// <returns></returns>
-    public short GetPluNestingFkBundleCount(PluNestingFkModel pluNestingFk) => pluNestingFk.BundleCount;
+    public short GetPluNestingFkBundleCount(WsSqlPluNestingFkModel pluNestingFk) => pluNestingFk.BundleCount;
 
-    public List<PluNestingFkModel> GetList() => ContextList.GetListNotNullablePlusNestingFks(new());
+    public List<WsSqlPluNestingFkModel> GetList() => ContextList.GetListNotNullablePlusNestingFks(new());
 
-    public List<PluNestingFkModel> GetListByUid(Guid? uid)
+    public List<WsSqlPluNestingFkModel> GetListByUid(Guid? uid)
     {
         uid ??= Guid.Empty;
         SqlCrudConfigModel sqlCrudConfig = new()
@@ -93,11 +93,11 @@ public sealed class WsSqlPluNestingFkController
             NativeParameters = new() { new("P_UID", uid) },
             NativeQuery = PluNestingFks.GetList(true)
         };
-        List<PluNestingFkModel> result = ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
+        List<WsSqlPluNestingFkModel> result = ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
         return result;
     }
 
-    public List<PluNestingFkModel> GetListByNumber(short number)
+    public List<WsSqlPluNestingFkModel> GetListByNumber(short number)
     {
         WsSqlPluModel plu = ContextPlu.GetItemByNumber(number);
         return GetListByUid(plu.IdentityValueUid);

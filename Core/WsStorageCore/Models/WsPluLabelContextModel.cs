@@ -14,7 +14,7 @@ public class WsPluLabelContextModel : SerializeBase
     #region Public and private properties - References
 
     [XmlIgnore] private PluLabelModel PluLabel { get; set; }
-    [XmlIgnore] private PluNestingFkModel PluNestingFk { get; set; }
+    [XmlIgnore] private WsSqlPluNestingFkModel PluNestingFk { get; set; }
     [XmlIgnore] private PluScaleModel PluScale { get; set; }
     [XmlIgnore] private PluWeighingModel PluWeighing { get; set; }
     [XmlIgnore] private ProductionFacilityModel ProductionFacility { get; set; }
@@ -129,7 +129,7 @@ public class WsPluLabelContextModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsPluLabelContextModel(PluLabelModel pluLabel, PluNestingFkModel pluNestingFk,
+    public WsPluLabelContextModel(PluLabelModel pluLabel, WsSqlPluNestingFkModel pluNestingFk,
         PluScaleModel pluScale, ProductionFacilityModel productionFacility, PluWeighingModel pluWeighing)
     {
         PluLabel = pluLabel;
@@ -147,7 +147,7 @@ public class WsPluLabelContextModel : SerializeBase
     protected WsPluLabelContextModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PluLabel = (PluLabelModel)info.GetValue(nameof(PluLabel), typeof(PluLabelModel));
-        PluNestingFk = (PluNestingFkModel)info.GetValue(nameof(PluNestingFk), typeof(PluNestingFkModel));
+        PluNestingFk = (WsSqlPluNestingFkModel)info.GetValue(nameof(PluNestingFk), typeof(WsSqlPluNestingFkModel));
         PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
         PluWeighing = (PluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
         ProductionFacility = (ProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(ProductionFacilityModel));

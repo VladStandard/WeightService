@@ -6,14 +6,14 @@ namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 /// <summary>
 /// Валидатор таблицы "PLUS_NESTING_FK".
 /// </summary>
-public sealed class PluNestingFkValidator : WsSqlTableValidator<PluNestingFkModel>
+public sealed class WsSqlPluNestingFkValidator : WsSqlTableValidator<WsSqlPluNestingFkModel>
 {
-    public PluNestingFkValidator() : base(true, true)
+    public WsSqlPluNestingFkValidator() : base(true, true)
     {
         RuleFor(item => item.PluBundle)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluBundleFkValidator());
+            .SetValidator(new WsSqlPluBundleFkValidator());
         RuleFor(item => item.BundleCount)
             .NotNull();
         RuleFor(item => item.Box)

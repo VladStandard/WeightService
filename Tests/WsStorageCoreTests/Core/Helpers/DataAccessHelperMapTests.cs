@@ -298,7 +298,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluBundleFkMap map = new();
+            WsSqlPluBundleFkMap map = new();
             TestContext.WriteLine(map);
         });
     }

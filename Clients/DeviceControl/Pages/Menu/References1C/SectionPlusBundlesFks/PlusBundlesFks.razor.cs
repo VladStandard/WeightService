@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionPlusBundlesFks;
 
-public sealed partial class PlusBundlesFks : RazorComponentSectionBase<PluBundleFkModel>
+public sealed partial class PlusBundlesFks : RazorComponentSectionBase<WsSqlPluBundleFkModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -21,7 +21,7 @@ public sealed partial class PlusBundlesFks : RazorComponentSectionBase<PluBundle
 
     protected override void SetSqlSectionCast()
     {
-        SqlCrudConfigSection.AddFilters(nameof(PluBundleFkModel.Plu), SqlItem);
+        SqlCrudConfigSection.AddFilters(nameof(WsSqlPluBundleFkModel.Plu), SqlItem);
         base.SetSqlSectionCast();
     }
 

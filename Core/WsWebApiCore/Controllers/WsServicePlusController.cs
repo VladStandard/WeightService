@@ -438,9 +438,9 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
     /// <returns></returns>
-    private PluBundleFkModel AddResponsePluBundleFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
+    private WsSqlPluBundleFkModel AddResponsePluBundleFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
-        PluBundleFkModel pluBundleFk = new();
+        WsSqlPluBundleFkModel pluBundleFk = new();
         try
         {
             // Проверить наличие ПЛУ в БД.
@@ -457,7 +457,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Update exists | UQ_BUNDLES_FK.
-            PluBundleFkModel? pluBundleFkDb = Cache.PluBundlesFksDb.Find(item => Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C));
+            WsSqlPluBundleFkModel? pluBundleFkDb = Cache.PluBundlesFksDb.Find(item => Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C));
             if (pluBundleFkDb is not null)
                 if (UpdatePluBundleFkDb(response, pluXml.Uid1C, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
 
@@ -479,7 +479,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// <param name="response"></param>
     /// <param name="pluBundleFk"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluNestingFk(WsResponse1CShortModel response, PluBundleFkModel pluBundleFk, WsSqlPluModel pluXml)
+    private void AddResponsePluNestingFk(WsResponse1CShortModel response, WsSqlPluBundleFkModel pluBundleFk, WsSqlPluModel pluXml)
     {
         try
         {
@@ -497,7 +497,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             if (!GetBoxDb(response, pluXml.BoxTypeGuid, pluXml.Uid1C, "Box", out BoxModel? boxDb)) return;
             if (boxDb is null) return;
 
-            PluNestingFkModel pluNestingFk = new()
+            WsSqlPluNestingFkModel pluNestingFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
                 PluBundle = pluBundleFk,
@@ -507,7 +507,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Update exists | UQ_PLUS_NESTING_FK.
-            PluNestingFkModel? pluNestingFkDb = Cache.PluNestingFksDb.FirstOrDefault(item =>
+            WsSqlPluNestingFkModel? pluNestingFkDb = Cache.PluNestingFksDb.FirstOrDefault(item =>
                 Equals(item.Box.Uid1C, pluNestingFk.Box.Uid1C) &&
                 Equals(item.PluBundle.Plu.Uid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
                 Equals(item.PluBundle.Bundle.Uid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
@@ -611,7 +611,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 if (itemXml.ParseResult.IsStatusSuccess)
                 {
                     // Добавить связь пакета ПЛУ.
-                    PluBundleFkModel pluBundleFk = AddResponsePluBundleFk(response, itemXml);
+                    WsSqlPluBundleFkModel pluBundleFk = AddResponsePluBundleFk(response, itemXml);
                     // Добавить связь вложенности ПЛУ.
                     if (itemXml.ParseResult.IsStatusSuccess)
                         AddResponsePluNestingFk(response, pluBundleFk, itemXml);

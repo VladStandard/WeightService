@@ -51,9 +51,9 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlPluModel> Plus { get; set; } = new();
     public List<PluFkModel> PlusFks { get; set; } = new();
     public List<PluBrandFkModel> PluBrandFks { get; set; } = new();
-    public List<PluBundleFkModel> PluBundleFks { get; set; } = new();
+    public List<WsSqlPluBundleFkModel> PluBundleFks { get; set; } = new();
     public List<PluClipFkModel> PluClipFks { get; set; } = new();
-    public List<PluNestingFkModel> PluNestingFks { get; set; } = new();
+    public List<WsSqlPluNestingFkModel> PluNestingFks { get; set; } = new();
     public List<PluScaleModel> PluScales { get; set; } = new();
     public List<PluStorageMethodModel> PluStorageMethods { get; set; } = new();
     public List<PluStorageMethodFkModel> PluStorageMethodsFks { get; set; } = new();
@@ -101,7 +101,7 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(OrderWeighingModel) => GetListNotNullableOrdersWeighings(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(OrganizationModel) => GetListNotNullableOrganizations(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluBrandFkModel) => GetListNotNullablePlusBrandsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluBundleFkModel) => GetListNotNullablePlusBundlesFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluBundleFkModel) => GetListNotNullablePlusBundlesFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluCharacteristicModel) => GetListNotNullablePlusCharacteristics(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluCharacteristicsFkModel) => GetListNotNullablePlusCharacteristicsFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluClipFkModel) => GetListNotNullablePlusClipsFks(sqlCrudConfig).Cast<T>().ToList(),
@@ -110,7 +110,7 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(PluGroupModel) => GetListNotNullablePlusGroups(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluLabelModel) => GetListNotNullablePluLabels(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPluModel) => GetListNotNullablePlus(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluNestingFkModel) => GetListNotNullablePlusNestingFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluNestingFkModel) => GetListNotNullablePlusNestingFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluScaleModel) => GetListNotNullablePlusScales(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluStorageMethodFkModel) => GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluStorageMethodModel) => GetListNotNullablePlusStoragesMethods(sqlCrudConfig).Cast<T>().ToList(),
@@ -436,14 +436,14 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluBundleFkModel> GetListNotNullablePlusBundlesFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluBundleFkModel> GetListNotNullablePlusBundlesFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluBundleFkModel.Bundle)}.{nameof(BundleModel.Name)}", SqlOrderDirection.Asc));
-        List<PluBundleFkModel> list = GetListNotNullableCore<PluBundleFkModel>(sqlCrudConfig);
+        List<WsSqlPluBundleFkModel> list = GetListNotNullableCore<WsSqlPluBundleFkModel>(sqlCrudConfig);
         if (list.Count > 0)
         {
-            PluBundleFkModel bundleFk = list.First();
+            WsSqlPluBundleFkModel bundleFk = list.First();
             if (bundleFk.Plu.IsNew)
                 bundleFk.Plu = AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluModel>();
             if (bundleFk.Bundle.IsNew)
@@ -527,12 +527,12 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluNestingFkModel> GetListNotNullablePlusNestingFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluNestingFkModel> GetListNotNullablePlusNestingFks(SqlCrudConfigModel sqlCrudConfig)
     {
-        List<PluNestingFkModel> list = new();
+        List<WsSqlPluNestingFkModel> list = new();
         if (sqlCrudConfig.IsResultAddFieldEmpty)
         {
-            list.Add(AccessManager.AccessItem.GetItemNewEmpty<PluNestingFkModel>());
+            list.Add(AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluNestingFkModel>());
         }
         if (string.IsNullOrEmpty(sqlCrudConfig.NativeQuery))
         {
@@ -546,7 +546,7 @@ public sealed class WsSqlContextListHelper
             {
                 if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                 {
-                    PluBundleFkModel pluBundle = new();
+                    WsSqlPluBundleFkModel pluBundle = new();
                     // -- [DB_SCALES].[PLUS_BUNDLES_FK] | 11 - 16
                     if (Guid.TryParse(Convert.ToString(item[11]), out Guid pluBundleUid))
                     {
@@ -872,17 +872,17 @@ public sealed class WsSqlContextListHelper
         return result;
     }
 
-    public List<PluBundleFkModel> GetListPluBundles(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlPluBundleFkModel> GetListPluBundles(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        List<PluBundleFkModel> result = new();
+        List<WsSqlPluBundleFkModel> result = new();
         if (isAddFieldNull)
-            result.Add(AccessManager.AccessItem.GetItemNewEmpty<PluBundleFkModel>());
-        List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
+            result.Add(AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluBundleFkModel>());
+        List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
 
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
-            new SqlFieldOrderModel { Name = nameof(PluBundleFkModel.Plu), Direction = WsSqlOrderDirection.Asc },
+            new SqlFieldOrderModel { Name = nameof(WsSqlPluBundleFkModel.Plu), Direction = WsSqlOrderDirection.Asc },
             isShowMarked, isShowOnlyTop);
-        result.AddRange(GetListNotNullableCore<PluBundleFkModel>(sqlCrudConfig));
+        result.AddRange(GetListNotNullableCore<WsSqlPluBundleFkModel>(sqlCrudConfig));
         result = result.OrderBy(x => x.Bundle.Name).ToList();
         result = result.OrderBy(x => x.Plu.Number).ToList();
         return result;

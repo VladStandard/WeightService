@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusNestingFks
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.PluNestingFkModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
 
-<RazorItemReload TItem="@PluNestingFkModel" Title="@LocaleCore.DeviceControl.ItemPluNestingFk"/>
+<RazorItemReload TItem="@WsSqlPluNestingFkModel" Title="@LocaleCore.DeviceControl.ItemPluNestingFk"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -60,7 +60,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@PluNestingFkModel"
+  TItem="@WsSqlPluNestingFkModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

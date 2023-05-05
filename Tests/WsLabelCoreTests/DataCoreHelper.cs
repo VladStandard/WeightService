@@ -376,7 +376,7 @@ public sealed class DataCoreHelper
 				plu.Itf14.Returns(LocaleCore.Sql.SqlItemFieldItf14);
                 plu.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
                 break;
-			case PluBundleFkModel pluBundle:
+			case WsSqlPluBundleFkModel pluBundle:
                 pluBundle.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluBundle.Bundle = CreateNewSubstitute<BundleModel>(isNotDefault);
 				break;
@@ -418,9 +418,9 @@ public sealed class DataCoreHelper
 				pluWeighing.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
 				pluWeighing.Series = CreateNewSubstitute<ProductSeriesModel>(isNotDefault);
 				break;
-            case PluNestingFkModel pluNestingFk:
+            case WsSqlPluNestingFkModel pluNestingFk:
                 pluNestingFk.IsDefault.Returns(false);
-				pluNestingFk.PluBundle = CreateNewSubstitute<PluBundleFkModel>(isNotDefault);
+				pluNestingFk.PluBundle = CreateNewSubstitute<WsSqlPluBundleFkModel>(isNotDefault);
                 pluNestingFk.Box = CreateNewSubstitute<BoxModel>(isNotDefault);
                 pluNestingFk.BundleCount.Returns((short)0);
                 break;

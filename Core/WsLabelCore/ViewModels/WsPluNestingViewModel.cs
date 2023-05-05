@@ -9,8 +9,8 @@ public sealed class WsPluNestingViewModel : WsSqlBaseViewModel
 
     private WsSqlPluNestingFkController Helper => WsSqlPluNestingFkController.Instance;
     
-    private PluNestingFkModel _item;
-    public PluNestingFkModel Item
+    private WsSqlPluNestingFkModel _item;
+    public WsSqlPluNestingFkModel Item
     {
         get => _item;
         set
@@ -20,8 +20,8 @@ public sealed class WsPluNestingViewModel : WsSqlBaseViewModel
         }
     }
     
-    private List<PluNestingFkModel> _list;
-    public List<PluNestingFkModel> List
+    private List<WsSqlPluNestingFkModel> _list;
+    public List<WsSqlPluNestingFkModel> List
     {
         get => _list;
         private set

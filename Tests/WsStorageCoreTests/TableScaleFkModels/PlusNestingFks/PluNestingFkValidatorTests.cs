@@ -11,14 +11,14 @@ public sealed class PluNestingFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluNestingFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluNestingFkModel>(false);
+        WsSqlPluNestingFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluNestingFkModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluNestingFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluNestingFkModel>(true);
+        WsSqlPluNestingFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluNestingFkModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

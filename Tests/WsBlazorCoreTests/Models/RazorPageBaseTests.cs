@@ -35,7 +35,7 @@ public sealed class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrderModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrderWeighingModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrganizationModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<PluBundleFkModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<WsSqlPluBundleFkModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<PluLabelModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<WsSqlPluModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<PluScaleModel>();
@@ -72,7 +72,7 @@ public sealed class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrderModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrderWeighingModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrganizationModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<PluBundleFkModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<WsSqlPluBundleFkModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<PluLabelModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<WsSqlPluModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<PluScaleModel>();

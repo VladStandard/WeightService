@@ -69,7 +69,7 @@ public partial class RazorComponentBase
             OrderModel => LocaleCore.DeviceControl.ItemOrder,
 			OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
 			OrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
-			PluBundleFkModel => LocaleCore.DeviceControl.ItemPluBundleFk,
+			WsSqlPluBundleFkModel => LocaleCore.DeviceControl.ItemPluBundleFk,
 			PluLabelModel => LocaleCore.DeviceControl.ItemLabel,
 			WsSqlPluModel => LocaleCore.DeviceControl.ItemPlu,
 			PluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
@@ -105,10 +105,10 @@ public partial class RazorComponentBase
 			LogModel => LocaleCore.Strings.SectionLog,
 			OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
 			OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
-			PluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,
+			WsSqlPluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,
 			PluLabelModel => LocaleCore.DeviceControl.SectionLabels,
 			WsSqlPluModel => LocaleCore.DeviceControl.SectionPlus,
-			PluNestingFkModel => LocaleCore.DeviceControl.SectionPlusNestingFk,
+			WsSqlPluNestingFkModel => LocaleCore.DeviceControl.SectionPlusNestingFk,
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
 			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeightings,
 			PrinterModel => LocaleCore.Print.Name,
@@ -218,12 +218,12 @@ public partial class RazorComponentBase
                     SqlItemSave(SqlItem);
                     SqlItemSavePlu(plu);
                     break;
-                case PluBundleFkModel pluBundleFk:
+                case WsSqlPluBundleFkModel pluBundleFk:
                     // Don't do it!
                     //SqlItemSave(SqlItem);
                     SqlItemSavePluBundleFk(pluBundleFk);
                     break;
-                case PluNestingFkModel pluNestingFk:
+                case WsSqlPluNestingFkModel pluNestingFk:
                     // Don't do it!
                     //SqlItemSave(SqlItem);
                     SqlItemSavePluNestingFk(pluNestingFk);
@@ -292,7 +292,7 @@ public partial class RazorComponentBase
         }
     }
 
-    private void SqlItemSavePluBundleFk(PluBundleFkModel pluBundleFk)
+    private void SqlItemSavePluBundleFk(WsSqlPluBundleFkModel pluBundleFk)
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
         WsSqlPluModel? plu = SqlLinkedItems.First(x => x is WsSqlPluModel) as WsSqlPluModel;
@@ -303,10 +303,10 @@ public partial class RazorComponentBase
         SqlItemSave(pluBundleFk);
     }
     
-    private void SqlItemSavePluNestingFk(PluNestingFkModel pluNestingFk)
+    private void SqlItemSavePluNestingFk(WsSqlPluNestingFkModel pluNestingFk)
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
-        PluBundleFkModel? pluBundleFk = SqlLinkedItems.First(x => x is PluBundleFkModel) as PluBundleFkModel;
+        WsSqlPluBundleFkModel? pluBundleFk = SqlLinkedItems.First(x => x is WsSqlPluBundleFkModel) as WsSqlPluBundleFkModel;
         BoxModel? box = SqlLinkedItems.First(x => x is BoxModel) as BoxModel;
         if (pluBundleFk is null) return;
         if (box is null) return;

@@ -6,12 +6,12 @@ namespace WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 /// <summary>
 /// Table validation "PLUS_BUNDLES_FK".
 /// </summary>
-public sealed class PluBundleFkValidator : WsSqlTableValidator<PluBundleFkModel>
+public sealed class WsSqlPluBundleFkValidator : WsSqlTableValidator<WsSqlPluBundleFkModel>
 {    
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluBundleFkValidator() : base(true, true)
+    public WsSqlPluBundleFkValidator() : base(true, true)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()

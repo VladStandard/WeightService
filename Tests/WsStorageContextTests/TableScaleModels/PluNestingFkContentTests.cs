@@ -11,7 +11,7 @@ public sealed class PluNestingFkContentTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<PluNestingFkModel> plusNestingFks = WsTestsUtils.DataTests.ContextManager.ContextPluNesting.GetListByNumber(312);
+            List<WsSqlPluNestingFkModel> plusNestingFks = WsTestsUtils.DataTests.ContextManager.ContextPluNesting.GetListByNumber(312);
             TestContext.WriteLine($"{nameof(plusNestingFks)}.{nameof(plusNestingFks.Count)}: {plusNestingFks.Count}");
             WsTestsUtils.DataTests.PrintTopRecords(plusNestingFks, 10, false, true);
         }, false, new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS });
@@ -22,7 +22,7 @@ public sealed class PluNestingFkContentTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<PluNestingFkModel> plusNestingFks = WsTestsUtils.DataTests.ContextManager.ContextPluNesting.GetListByUid(Guid.Parse("030914a7-9d01-11eb-bcd7-00155d8a4603"));
+            List<WsSqlPluNestingFkModel> plusNestingFks = WsTestsUtils.DataTests.ContextManager.ContextPluNesting.GetListByUid(Guid.Parse("030914a7-9d01-11eb-bcd7-00155d8a4603"));
             TestContext.WriteLine($"{nameof(plusNestingFks)}.{nameof(plusNestingFks.Count)}: {plusNestingFks.Count}");
             WsTestsUtils.DataTests.PrintTopRecords(plusNestingFks, 10, false, true);
         }, false, new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS });

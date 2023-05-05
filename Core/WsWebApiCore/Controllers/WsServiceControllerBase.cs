@@ -817,7 +817,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluBundleFkDb(WsResponse1CShortModel response, Guid uid1C, PluBundleFkModel itemXml, PluBundleFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluBundleFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluBundleFkModel itemXml, WsSqlPluBundleFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -870,8 +870,8 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, PluNestingFkModel itemXml, 
-        PluNestingFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluNestingFkModel itemXml, 
+        WsSqlPluNestingFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);

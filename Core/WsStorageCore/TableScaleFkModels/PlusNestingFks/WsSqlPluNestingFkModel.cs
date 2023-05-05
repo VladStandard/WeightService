@@ -9,11 +9,11 @@ namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluNestingFkModel)} | {ToString()}")]
-public class PluNestingFkModel : WsSqlTableBase
+public class WsSqlPluNestingFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     [XmlElement] public virtual BoxModel Box { get; set; }
-    [XmlElement] public virtual PluBundleFkModel PluBundle { get; set; }
+    [XmlElement] public virtual WsSqlPluBundleFkModel PluBundle { get; set; }
     [XmlElement] public virtual bool IsDefault { get; set; }
     [XmlElement] public virtual short BundleCount { get; set; }
     [XmlElement] public virtual decimal WeightMax { get; set; }
@@ -26,7 +26,7 @@ public class PluNestingFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluNestingFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluNestingFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         Box = new();
         //Plu = new();
@@ -43,11 +43,11 @@ public class PluNestingFkModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected PluNestingFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlPluNestingFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Box = (BoxModel)info.GetValue(nameof(Box), typeof(BoxModel));
         //Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
-        PluBundle = (PluBundleFkModel)info.GetValue(nameof(PluBundle), typeof(PluBundleFkModel));
+        PluBundle = (WsSqlPluBundleFkModel)info.GetValue(nameof(PluBundle), typeof(WsSqlPluBundleFkModel));
         IsDefault = info.GetBoolean(nameof(IsDefault));
         BundleCount = info.GetInt16(nameof(BundleCount));
         WeightMax = info.GetDecimal(nameof(WeightMax));
@@ -74,7 +74,7 @@ public class PluNestingFkModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((PluNestingFkModel)obj);
+        return Equals((WsSqlPluNestingFkModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -94,7 +94,7 @@ public class PluNestingFkModel : WsSqlTableBase
 
     public override object Clone()
     {
-        PluNestingFkModel item = new();
+        WsSqlPluNestingFkModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Box = Box.CloneCast();
         item.PluBundle = PluBundle.CloneCast();
@@ -138,7 +138,7 @@ public class PluNestingFkModel : WsSqlTableBase
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluNestingFkModel pluNestingFk) return;
+        if (item is not WsSqlPluNestingFkModel pluNestingFk) return;
         PluBundle = pluNestingFk.PluBundle;
         Box = pluNestingFk.Box;
         IsDefault = pluNestingFk.IsDefault;
@@ -148,7 +148,7 @@ public class PluNestingFkModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(PluNestingFkModel item) =>
+    public virtual bool Equals(WsSqlPluNestingFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Box.Equals(item.Box) &&
         //Plu.Equals(item.Plu) && 
@@ -160,7 +160,7 @@ public class PluNestingFkModel : WsSqlTableBase
         Equals(BundleCount, item.BundleCount);
     
 
-    public new virtual PluNestingFkModel CloneCast() => (PluNestingFkModel)Clone();
+    public new virtual WsSqlPluNestingFkModel CloneCast() => (WsSqlPluNestingFkModel)Clone();
 
     #endregion
 }

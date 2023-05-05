@@ -33,7 +33,7 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_plu_bundle_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluBundleFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluBundleFkModel>();
     }
 
     [Test]
@@ -63,7 +63,7 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_plu_nesting_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluNestingFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluNestingFkModel>();
     }
 
     [Test]

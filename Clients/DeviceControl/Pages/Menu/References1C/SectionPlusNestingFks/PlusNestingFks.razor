@@ -2,10 +2,10 @@
 @using WsStorageCore.TableScaleFkModels.PlusNestingFks
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.PluNestingFkModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
 
 <SectionReload
-  TItem="@PluNestingFkModel"
+  TItem="@WsSqlPluNestingFkModel"
   Title="@LocaleCore.DeviceControl.SectionPlusNestingFk"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -14,13 +14,13 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@PluNestingFkModel"
+  TItem="@WsSqlPluNestingFkModel"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@PluNestingFkModel">
+    <TItemContent TItem="@WsSqlPluNestingFkModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" SortProperty="PluBundle.Plu.IsCheckWeight" Width="5%">
         <Template Context="itemCast">

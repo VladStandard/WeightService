@@ -1,20 +1,20 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.Helpers;
+namespace WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 
 /// <summary>
 /// SQL-помощник табличных записей таблицы PLUS_BUNDLES_FK.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlContextPluBundleHelper
+public sealed class WsSqlPluBundleFkController
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlContextPluBundleHelper _instance;
+    private static WsSqlPluBundleFkController _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlContextPluBundleHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluBundleFkController Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -29,15 +29,15 @@ public sealed class WsSqlContextPluBundleHelper
 
     #region Public and private methods
 
-    public PluBundleFkModel GetNewItem()
+    public WsSqlPluBundleFkModel GetNewItem()
     {
-        PluBundleFkModel item = AccessItem.GetItemNewEmpty<PluBundleFkModel>();
+        WsSqlPluBundleFkModel item = AccessItem.GetItemNewEmpty<WsSqlPluBundleFkModel>();
         item.Plu = ContextPlu.GetNewItem();
         item.Bundle = ContextBundle.GetNewItem();
         return item;
     }
 
-    public List<PluBundleFkModel> GetList() => ContextList.GetListNotNullablePlusBundlesFks(new());
+    public List<WsSqlPluBundleFkModel> GetList() => ContextList.GetListNotNullablePlusBundlesFks(new());
 
     #endregion
 }

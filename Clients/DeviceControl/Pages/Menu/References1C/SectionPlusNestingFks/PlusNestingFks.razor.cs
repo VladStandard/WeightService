@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionPlusNestingFks;
 
-public sealed partial class PlusNestingFks : RazorComponentSectionBase<PluNestingFkModel>
+public sealed partial class PlusNestingFks : RazorComponentSectionBase<WsSqlPluNestingFkModel>
 {
     #region Public and private fields, properties, constructor
 

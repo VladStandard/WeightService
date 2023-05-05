@@ -9,14 +9,14 @@ public sealed class PluBrandFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluBundleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluBundleFkModel>(false);
+        WsSqlPluBundleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluBundleFkModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluBundleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluBundleFkModel>(true);
+        WsSqlPluBundleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluBundleFkModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

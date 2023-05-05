@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluBundleFkModel)} | {ToString()}")]
-public class PluBundleFkModel : WsSqlTableBase
+public class WsSqlPluBundleFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -18,7 +18,7 @@ public class PluBundleFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluBundleFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluBundleFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         Bundle = new();
         Plu = new();
@@ -30,7 +30,7 @@ public class PluBundleFkModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected PluBundleFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlPluBundleFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
         Bundle = (BundleModel)info.GetValue(nameof(Bundle), typeof(BundleModel));
@@ -48,7 +48,7 @@ public class PluBundleFkModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((PluBundleFkModel)obj);
+        return Equals((WsSqlPluBundleFkModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -62,7 +62,7 @@ public class PluBundleFkModel : WsSqlTableBase
 
     public override object Clone()
     {
-        PluBundleFkModel item = new();
+        WsSqlPluBundleFkModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Bundle = Bundle.CloneCast();
         item.Plu = Plu.CloneCast();
@@ -92,7 +92,7 @@ public class PluBundleFkModel : WsSqlTableBase
     {
         base.UpdateProperties(item, true);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluBundleFkModel pluBundleFk) return;
+        if (item is not WsSqlPluBundleFkModel pluBundleFk) return;
         Plu = pluBundleFk.Plu;
         Bundle = pluBundleFk.Bundle;
     }
@@ -101,12 +101,12 @@ public class PluBundleFkModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(PluBundleFkModel item) =>
+    public virtual bool Equals(WsSqlPluBundleFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Bundle.Equals(item.Bundle) &&
         Plu.Equals(item.Plu);
 
-    public new virtual PluBundleFkModel CloneCast() => (PluBundleFkModel)Clone();
+    public new virtual WsSqlPluBundleFkModel CloneCast() => (WsSqlPluBundleFkModel)Clone();
 
     #endregion
 }

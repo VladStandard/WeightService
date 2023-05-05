@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionPlusNestingFks;
 
-public sealed partial class ItemPluNestingFk : RazorComponentItemBase<PluNestingFkModel>
+public sealed partial class ItemPluNestingFk : RazorComponentItemBase<WsSqlPluNestingFkModel>
 {
     #region Public and private methods
 
@@ -15,9 +15,9 @@ public sealed partial class ItemPluNestingFk : RazorComponentItemBase<PluNesting
             () =>
             {
                 SqlItemCast =
-                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluNestingFkModel>(IdentityUid);
+                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluNestingFkModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<PluNestingFkModel>();
+                    SqlItemCast = SqlItemNew<WsSqlPluNestingFkModel>();
             }
         );
     }

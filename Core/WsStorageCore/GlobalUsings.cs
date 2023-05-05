@@ -14,7 +14,7 @@ global using Newtonsoft.Json.Linq;
 global using Newtonsoft.Json;
 global using NHibernate.Criterion;
 global using NHibernate;
-global using PluBundleFkValidator = WsStorageCore.TableScaleFkModels.PlusBundlesFks.PluBundleFkValidator;
+global using PluBundleFkValidator = WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkValidator;
 global using static WsStorageCore.Utils.WsSqlQueriesScales.Tables;
 global using System.Collections.Generic;
 global using System.ComponentModel;

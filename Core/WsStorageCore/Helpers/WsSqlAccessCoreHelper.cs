@@ -176,7 +176,7 @@ internal sealed class WsSqlAccessCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluBrandFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluBundleFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluBundleFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluCharacteristicMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluCharacteristicsFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluClipFkMap>());
@@ -185,7 +185,7 @@ internal sealed class WsSqlAccessCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluGroupMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluLabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluNestingFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluNestingFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodMap>());
@@ -685,7 +685,7 @@ internal sealed class WsSqlAccessCoreHelper
                 pluBrandFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluBrandFk.Plu.IdentityValueUid);
                 pluBrandFk.Brand = GetItemNotNullable<BrandModel>(pluBrandFk.Brand.IdentityValueUid);
                 break;
-            case PluBundleFkModel pluBundle:
+            case WsSqlPluBundleFkModel pluBundle:
                 pluBundle.Plu = GetItemNotNullable<WsSqlPluModel>(pluBundle.Plu.IdentityValueUid);
                 pluBundle.Bundle = GetItemNotNullable<BundleModel>(pluBundle.Bundle.IdentityValueUid);
                 break;
@@ -709,8 +709,8 @@ internal sealed class WsSqlAccessCoreHelper
                 pluWeighing.PluScale = GetItemNotNullable<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
                 pluWeighing.Series = GetItemNullable<ProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
                 break;
-            case PluNestingFkModel pluNestingFk:
-                pluNestingFk.PluBundle = GetItemNotNullable<PluBundleFkModel>(pluNestingFk.PluBundle.IdentityValueUid);
+            case WsSqlPluNestingFkModel pluNestingFk:
+                pluNestingFk.PluBundle = GetItemNotNullable<WsSqlPluBundleFkModel>(pluNestingFk.PluBundle.IdentityValueUid);
                 pluNestingFk.Box = GetItemNotNullable<BoxModel>(pluNestingFk.Box.IdentityValueUid);
                 break;
             case PluGroupFkModel pluGroupFk:

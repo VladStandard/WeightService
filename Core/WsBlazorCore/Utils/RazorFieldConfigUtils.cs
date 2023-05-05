@@ -129,8 +129,8 @@ public static class RazorFieldConfigUtils
 
     public static class BundleFk
 	{
-        public static RazorFieldConfigModel GetBoxName() => new(nameof(PluNestingFkModel.Box.Name), TextAlign.Center, LocaleCore.Table.BundleCount);
-        public static RazorFieldConfigModel GetBundleCount() => new(nameof(PluNestingFkModel.BundleCount), TextAlign.Center, LocaleCore.Table.BundleCount);
+        public static RazorFieldConfigModel GetBoxName() => new(nameof(WsSqlPluNestingFkModel.Box.Name), TextAlign.Center, LocaleCore.Table.BundleCount);
+        public static RazorFieldConfigModel GetBundleCount() => new(nameof(WsSqlPluNestingFkModel.BundleCount), TextAlign.Center, LocaleCore.Table.BundleCount);
     }
 
     public static class PluBundleFk

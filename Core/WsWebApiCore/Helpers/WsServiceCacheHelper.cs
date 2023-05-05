@@ -27,11 +27,11 @@ public sealed class WsServiceCacheHelper
     public List<PluFkModel> PluFksDb { get; private set; } = new();
     public List<BoxModel> BoxesDb { get; private set; } = new();
     public List<BundleModel> BundlesDb { get; private set; } = new();
-    public List<PluBundleFkModel> PluBundlesFksDb { get; private set; } = new();
+    public List<WsSqlPluBundleFkModel> PluBundlesFksDb { get; private set; } = new();
     public List<PluBrandFkModel> PluBrandsFksDb { get; private set; } = new();
     public List<ClipModel> ClipsDb { get; private set; } = new();
     public List<PluClipFkModel> PluClipsFksDb { get; private set; } = new();
-    public List<PluNestingFkModel> PluNestingFksDb { get; private set; } = new();
+    public List<WsSqlPluNestingFkModel> PluNestingFksDb { get; private set; } = new();
     public List<WsSqlPlu1CFkModel> Plus1CFksDb { get; private set; } = new();
     public List<PluCharacteristicModel> PluCharacteristicsDb { get; private set; } = new();
     public List<PluCharacteristicsFkModel> PluCharacteristicsFksDb { get; private set; } = new();

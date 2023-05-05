@@ -6,12 +6,12 @@ namespace WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 /// <summary>
 /// Table map "PLUS_BUNDLES_FK".
 /// </summary>
-public sealed class PluBundleFkMap : ClassMap<PluBundleFkModel>
+public sealed class WsSqlPluBundleFkMap : ClassMap<WsSqlPluBundleFkModel>
 {   
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluBundleFkMap()
+    public WsSqlPluBundleFkMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.PlusBundlesFks);
