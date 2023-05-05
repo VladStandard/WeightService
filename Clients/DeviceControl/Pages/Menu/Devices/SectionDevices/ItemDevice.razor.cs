@@ -14,7 +14,7 @@ public sealed partial class ItemDevice : RazorComponentItemBase<DeviceModel>
     private DeviceTypeModel _deviceType;
     private List<DeviceTypeModel> DeviceTypeFkModels { get; set; }
     private DeviceTypeModel DeviceType { get => _deviceType; set { _deviceType = value; SqlLinkedItems = new() { DeviceType }; } }
-    private DeviceTypeFkModel DeviceTypeFk { get; set; }
+    private WsSqlDeviceTypeFkModel DeviceTypeFk { get; set; }
 
     #endregion
 

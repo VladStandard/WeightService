@@ -13,10 +13,10 @@ public class WsPluLabelContextModel : SerializeBase
 {
     #region Public and private properties - References
 
-    [XmlIgnore] private PluLabelModel PluLabel { get; set; }
+    [XmlIgnore] private WsSqlPluLabelModel PluLabel { get; set; }
     [XmlIgnore] private WsSqlPluNestingFkModel PluNestingFk { get; set; }
     [XmlIgnore] private PluScaleModel PluScale { get; set; }
-    [XmlIgnore] private PluWeighingModel PluWeighing { get; set; }
+    [XmlIgnore] private WsSqlPluWeighingModel PluWeighing { get; set; }
     [XmlIgnore] private ProductionFacilityModel ProductionFacility { get; set; }
 
     #endregion
@@ -129,8 +129,8 @@ public class WsPluLabelContextModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsPluLabelContextModel(PluLabelModel pluLabel, WsSqlPluNestingFkModel pluNestingFk,
-        PluScaleModel pluScale, ProductionFacilityModel productionFacility, PluWeighingModel pluWeighing)
+    public WsPluLabelContextModel(WsSqlPluLabelModel pluLabel, WsSqlPluNestingFkModel pluNestingFk,
+        PluScaleModel pluScale, ProductionFacilityModel productionFacility, WsSqlPluWeighingModel pluWeighing)
     {
         PluLabel = pluLabel;
         PluNestingFk = pluNestingFk;
@@ -146,10 +146,10 @@ public class WsPluLabelContextModel : SerializeBase
     /// <param name="context"></param>
     protected WsPluLabelContextModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        PluLabel = (PluLabelModel)info.GetValue(nameof(PluLabel), typeof(PluLabelModel));
+        PluLabel = (WsSqlPluLabelModel)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelModel));
         PluNestingFk = (WsSqlPluNestingFkModel)info.GetValue(nameof(PluNestingFk), typeof(WsSqlPluNestingFkModel));
         PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
-        PluWeighing = (PluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
+        PluWeighing = (WsSqlPluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
         ProductionFacility = (ProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(ProductionFacilityModel));
 
         //Address = info.GetString(nameof(Address));

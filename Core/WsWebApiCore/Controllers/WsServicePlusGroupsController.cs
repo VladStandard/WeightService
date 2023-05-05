@@ -58,7 +58,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
                 return;
             }
 
-            PluGroupFkModel itemGroupFk = new()
+            WsSqlPluGroupFkModel itemGroupFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
                 PluGroup = pluGroup,
@@ -66,7 +66,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            PluGroupFkModel? itemDb = Cache.PluGroupsFksDb.Find(x =>
+            WsSqlPluGroupFkModel? itemDb = Cache.PluGroupsFksDb.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
             if (UpdatePluGroupFkDb(response, pluGroupXml.Uid1C, itemGroupFk, itemDb, false)) return;

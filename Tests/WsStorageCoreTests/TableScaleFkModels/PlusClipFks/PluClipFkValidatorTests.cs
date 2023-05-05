@@ -11,14 +11,14 @@ public sealed class PluClipFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluClipFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluClipFkModel>(false);
+        WsSqlPluClipFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluClipFkModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluClipFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluClipFkModel>(true);
+        WsSqlPluClipFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluClipFkModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

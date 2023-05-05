@@ -46,9 +46,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
         Scale.PrinterMain is not null && Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
     public PrintBrand PrintBrandShipping =>
         Scale.PrinterShipping is not null && Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
-    private PluWeighingModel _pluWeighing;
+    private WsSqlPluWeighingModel _pluWeighing;
     [XmlElement]
-    public PluWeighingModel PluWeighing
+    public WsSqlPluWeighingModel PluWeighing
     {
         get => _pluWeighing;
         private set
@@ -96,13 +96,13 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public readonly ushort PageRowCount = 5;
     public int PageNumber { get; set; }
     public List<PluScaleModel> PluScales { get; private set; }
-    private List<PluStorageMethodFkModel> PluStorageMethodFks { get; set; }
+    private List<WsSqlPluStorageMethodFkModel> PluStorageMethodFks { get; set; }
 
-    [XmlElement] public PluStorageMethodFkModel PluStorageMethodFk { get; set; }
+    [XmlElement] public WsSqlPluStorageMethodFkModel PluStorageMethodFk { get; set; }
 
-    private DeviceScaleFkModel _deviceScaleFk;
+    private WsSqlDeviceScaleFkModel _deviceScaleFk;
     [XmlElement]
-    public DeviceScaleFkModel DeviceScaleFk
+    public WsSqlDeviceScaleFkModel DeviceScaleFk
     {
         get => _deviceScaleFk;
         private set
@@ -191,11 +191,11 @@ public sealed class WsUserSessionHelper : BaseViewModel
     {
         // Items.
         _pluScale = ContextManager.AccessItem.GetItemNewEmpty<PluScaleModel>();
-        _pluWeighing = ContextManager.AccessItem.GetItemNewEmpty<PluWeighingModel>();
-        _deviceScaleFk = ContextManager.AccessItem.GetItemNewEmpty<DeviceScaleFkModel>();
+        _pluWeighing = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluWeighingModel>();
+        _deviceScaleFk = ContextManager.AccessItem.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
         _productionFacility = ContextManager.AccessItem.GetItemNewEmpty<ProductionFacilityModel>();
         _scale = ContextManager.AccessItem.GetItemNewEmpty<ScaleModel>();
-        PluStorageMethodFk = ContextManager.AccessItem.GetItemNewEmpty<PluStorageMethodFkModel>();
+        PluStorageMethodFk = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluStorageMethodFkModel>();
         // Lists.
         _productionFacilities = new();
         _productSeries = new();
@@ -244,7 +244,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             DeviceModel device = ContextManager.ContextItem.GetItemDeviceNotNullable(DeviceName);
             device = WsWpfUtils.SetNewDeviceWithQuestion(device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
-            DeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);
+            WsSqlDeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)
             {
                 // DeviceType.
@@ -588,7 +588,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     {
         try
         {
-            (PluLabelModel PluLabel, WsPluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
+            (WsSqlPluLabelModel PluLabel, WsPluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
 
             // Print.
@@ -636,11 +636,11 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="template"></param>
     /// <returns></returns>
-    private (PluLabelModel, WsPluLabelContextModel) CreateAndSavePluLabel(TemplateModel template)
+    private (WsSqlPluLabelModel, WsPluLabelContextModel) CreateAndSavePluLabel(TemplateModel template)
     {
-        PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
+        WsSqlPluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
 
-        pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<PluLabelModel>(pluLabel, true, true);
+        pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelModel>(pluLabel, true, true);
 
         XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<ProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
@@ -668,7 +668,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="pluLabel"></param>
     /// <returns></returns>
-    private Action<string> ActionReplaceStorageMethod(PluLabelModel pluLabel) =>
+    private Action<string> ActionReplaceStorageMethod(WsSqlPluLabelModel pluLabel) =>
         zpl =>
         {
             // Patch for using table `PLUS_STORAGE_METHODS_FK`.
@@ -687,7 +687,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="pluLabel"></param>
     /// <param name="pluLabelContext"></param>
-    private void CreateAndSaveBarCodes(PluLabelModel pluLabel, WsPluLabelContextModel pluLabelContext)
+    private void CreateAndSaveBarCodes(WsSqlPluLabelModel pluLabel, WsPluLabelContextModel pluLabelContext)
     {
         BarCodeModel barCode = new(pluLabel);
         BarCode.SetBarCodeTop(barCode, pluLabelContext);

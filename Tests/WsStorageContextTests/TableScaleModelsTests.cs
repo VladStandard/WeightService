@@ -125,7 +125,7 @@ public sealed class TableScaleModelsTests
     [Test]
     public void Validate_list_of_plus_labels()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluLabelModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluLabelModel>();
     }
 
     [Test]
@@ -143,7 +143,7 @@ public sealed class TableScaleModelsTests
     [Test]
     public void Validate_list_of_plus_Weighing()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluWeighingModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluWeighingModel>();
     }
 
     [Test]

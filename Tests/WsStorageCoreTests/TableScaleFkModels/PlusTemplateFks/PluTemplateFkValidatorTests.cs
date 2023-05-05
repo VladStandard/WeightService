@@ -9,14 +9,14 @@ public sealed class PluTemplateFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluTemplateFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluTemplateFkModel>(false);
+        WsSqlPluTemplateFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluTemplateFkModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluTemplateFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluTemplateFkModel>(true);
+        WsSqlPluTemplateFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluTemplateFkModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

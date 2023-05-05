@@ -13,7 +13,7 @@ public class OrderWeighingModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual OrderModel Order { get; set; }
-    [XmlElement] public virtual PluWeighingModel PluWeighing { get; set; }
+    [XmlElement] public virtual WsSqlPluWeighingModel PluWeighing { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -32,7 +32,7 @@ public class OrderWeighingModel : WsSqlTableBase
     protected OrderWeighingModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Order = (OrderModel)info.GetValue(nameof(Order), typeof(OrderModel));
-        PluWeighing = (PluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
+        PluWeighing = (WsSqlPluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
     }
 
     #endregion

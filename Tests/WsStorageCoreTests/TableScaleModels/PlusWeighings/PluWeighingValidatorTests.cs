@@ -9,14 +9,14 @@ public sealed class PluWeighingValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluWeighingModel>(false);
+        WsSqlPluWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluWeighingModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluWeighingModel>(true);
+        WsSqlPluWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluWeighingModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

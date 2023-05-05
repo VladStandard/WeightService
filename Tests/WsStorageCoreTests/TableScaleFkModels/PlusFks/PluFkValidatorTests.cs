@@ -11,14 +11,14 @@ public sealed class PluFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluFkModel>(false);
+        WsSqlPluFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluFkModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluFkModel>(true);
+        WsSqlPluFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluFkModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

@@ -68,7 +68,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_DeviceScaleFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<DeviceScaleFkModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlDeviceScaleFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -80,7 +80,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_DeviceTypeFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<DeviceTypeFkModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlDeviceTypeFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -140,7 +140,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluBrandFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluBrandFkModel>(SqlCrudConfig, ConfigurationsDev);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluBrandFkModel>(SqlCrudConfig, ConfigurationsDev);
     }
 
     [Test]
@@ -158,19 +158,19 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluCharacteristicsFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluCharacteristicsFkModel>(SqlCrudConfig, ConfigurationsDev);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluCharacteristicsFkModel>(SqlCrudConfig, ConfigurationsDev);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluClipFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluClipFkModel>(SqlCrudConfig, Configurations, false);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluClipFkModel>(SqlCrudConfig, Configurations, false);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluFkModel>(SqlCrudConfig, Configurations, false);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluFkModel>(SqlCrudConfig, Configurations, false);
     }
 
     [Test]
@@ -182,13 +182,13 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluGroupFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluGroupFkModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluGroupFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluLabelModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluLabelModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluLabelModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -215,19 +215,19 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluStorageMethodFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluStorageMethodFkModel>(SqlCrudConfigFk, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluStorageMethodFkModel>(SqlCrudConfigFk, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluTemplateFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluTemplateFkModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluTemplateFkModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_PluWeighingModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluWeighingModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluWeighingModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
@@ -293,7 +293,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PrinterResourceFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PrinterResourceFkModel>(SqlCrudConfigFk, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPrinterResourceFkModel>(SqlCrudConfigFk, Configurations);
     }
 
     [Test]

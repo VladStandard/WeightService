@@ -11,7 +11,7 @@ public sealed class SqlQueriesTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<PluAggrModel> pluWeighingAggrs = new();
+            List<WsSqlPluAggrModel> pluWeighingAggrs = new();
             object[] objects = WsTestsUtils.DataTests.ContextManager.AccessList.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggr(200));
             Assert.That(objects.Any());
@@ -39,7 +39,7 @@ public sealed class SqlQueriesTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<PluAggrModel> pluWeighingAggrs = new();
+            List<WsSqlPluAggrModel> pluWeighingAggrs = new();
             object[] objects = WsTestsUtils.DataTests.ContextManager.AccessList.GetArrayObjectsNotNullable(
                 WsSqlQueriesScales.Tables.PluLabels.GetLabelsAggrWithoutPlu(200));
             Assert.That(objects.Any());

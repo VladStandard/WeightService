@@ -198,7 +198,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             if (!CheckExistsPluDb(response, pluCategorytDb.Number, pluXml.Uid1C, LocaleCore.WebService.FieldGroup1Level, true, out WsSqlPluModel? categoryDb)) return;
             if (pluDb is null || parentDb is null) return;
 
-            PluFkModel pluFk = new()
+            WsSqlPluFkModel pluFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
                 Plu = pluDb,
@@ -207,7 +207,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            PluFkModel? pluFkDb = Cache.PluFksDb.Find(item =>
+            WsSqlPluFkModel? pluFkDb = Cache.PluFksDb.Find(item =>
                 Equals(item.Plu.Uid1C, pluFk.Plu.Uid1C) &&
                 Equals(item.Parent.Uid1C, pluFk.Parent.Uid1C) &&
                 Equals(item.Category?.Uid1C, pluFk.Category?.Uid1C));
@@ -328,7 +328,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             if (!CheckExistsBrandDb(response, pluXml.BrandGuid, pluXml.Uid1C, LocaleCore.WebService.FieldBrand, out BrandModel? brandDb)) return;
             if (pluDb is null || brandDb is null) return;
 
-            PluBrandFkModel pluBrandFk = new()
+            WsSqlPluBrandFkModel pluBrandFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
                 Plu = pluDb,
@@ -336,7 +336,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
-            PluBrandFkModel? pluBrandFkDb = Cache.PluBrandsFksDb.Find(item => Equals(item.Plu.Uid1C, pluBrandFk.Plu.Uid1C));
+            WsSqlPluBrandFkModel? pluBrandFkDb = Cache.PluBrandsFksDb.Find(item => Equals(item.Plu.Uid1C, pluBrandFk.Plu.Uid1C));
             if (UpdatePluBrandFkDb(response, pluXml.Uid1C, pluBrandFk, pluBrandFkDb, false)) return;
 
             // Не найдено -> Добавить новую запись.
@@ -410,7 +410,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             if (!CheckExistsClipDb(response, pluXml.ClipTypeGuid, pluXml.Uid1C, LocaleCore.WebService.FieldClip, out ClipModel? clipDb)) return;
             if (pluDb is null || clipDb is null) return;
 
-            PluClipFkModel pluClipFk = new()
+            WsSqlPluClipFkModel pluClipFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
                 Plu = pluDb,
@@ -418,7 +418,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
-            PluClipFkModel? pluClipFkDb = Cache.PluClipsFksDb.Find(item => Equals(item.Plu.Uid1C, pluClipFk.Plu.Uid1C));
+            WsSqlPluClipFkModel? pluClipFkDb = Cache.PluClipsFksDb.Find(item => Equals(item.Plu.Uid1C, pluClipFk.Plu.Uid1C));
             if (UpdatePluClipFkDb(response, pluXml.Uid1C, pluClipFk, pluClipFkDb, false)) return;
 
             // Не найдено -> Добавить новую запись.

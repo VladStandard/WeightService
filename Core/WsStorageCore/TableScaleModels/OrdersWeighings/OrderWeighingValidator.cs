@@ -20,6 +20,6 @@ public sealed class OrderWeighingValidator : WsSqlTableValidator<OrderWeighingMo
         RuleFor(item => item.PluWeighing)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluWeighingValidator());
+            .SetValidator(new WsSqlPluWeighingValidator());
     }
 }

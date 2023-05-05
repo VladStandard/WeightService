@@ -72,7 +72,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                     LocaleCore.WebService.FieldNomenclatureCharacteristic, out PluCharacteristicModel? pluCharacteristicDb)) return;
             if (pluDb is null || pluCharacteristicDb is null) return;
 
-            PluCharacteristicsFkModel pluCharacteristicsFk = new()
+            WsSqlPluCharacteristicsFkModel pluCharacteristicsFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
                 Plu = pluDb,
@@ -80,7 +80,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            PluCharacteristicsFkModel? pluCharacteristicFkDb = Cache.PluCharacteristicsFksDb.Find(item =>
+            WsSqlPluCharacteristicsFkModel? pluCharacteristicFkDb = Cache.PluCharacteristicsFksDb.Find(item =>
                 Equals(item.Plu.Uid1C, pluCharacteristicsFk.Plu.Uid1C) &&
                 Equals(item.Characteristic.Uid1C, pluCharacteristicsFk.Characteristic.Uid1C));
             if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1C, pluCharacteristicsFk, pluCharacteristicFkDb,

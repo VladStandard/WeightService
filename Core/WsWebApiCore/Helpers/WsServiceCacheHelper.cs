@@ -24,19 +24,19 @@ public sealed class WsServiceCacheHelper
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlTableName TableName { get; set; } = WsSqlTableName.All;
     public List<WsSqlPluModel> PlusDb { get; private set; } = new();
-    public List<PluFkModel> PluFksDb { get; private set; } = new();
+    public List<WsSqlPluFkModel> PluFksDb { get; private set; } = new();
     public List<BoxModel> BoxesDb { get; private set; } = new();
     public List<BundleModel> BundlesDb { get; private set; } = new();
     public List<WsSqlPluBundleFkModel> PluBundlesFksDb { get; private set; } = new();
-    public List<PluBrandFkModel> PluBrandsFksDb { get; private set; } = new();
+    public List<WsSqlPluBrandFkModel> PluBrandsFksDb { get; private set; } = new();
     public List<ClipModel> ClipsDb { get; private set; } = new();
-    public List<PluClipFkModel> PluClipsFksDb { get; private set; } = new();
+    public List<WsSqlPluClipFkModel> PluClipsFksDb { get; private set; } = new();
     public List<WsSqlPluNestingFkModel> PluNestingFksDb { get; private set; } = new();
     public List<WsSqlPlu1CFkModel> Plus1CFksDb { get; private set; } = new();
     public List<PluCharacteristicModel> PluCharacteristicsDb { get; private set; } = new();
-    public List<PluCharacteristicsFkModel> PluCharacteristicsFksDb { get; private set; } = new();
+    public List<WsSqlPluCharacteristicsFkModel> PluCharacteristicsFksDb { get; private set; } = new();
     public List<PluGroupModel> PluGroupsDb { get; private set; } = new();
-    public List<PluGroupFkModel> PluGroupsFksDb { get; private set; } = new();
+    public List<WsSqlPluGroupFkModel> PluGroupsFksDb { get; private set; } = new();
     public List<BrandModel> BrandsDb { get; private set; } = new();
 
     #endregion

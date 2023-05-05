@@ -10,7 +10,7 @@ namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrintersResources;
 /// <summary>
 /// Item PrinterResource page.
 /// </summary>
-public sealed partial class ItemPrinterResources : RazorComponentItemBase<PrinterResourceFkModel>
+public sealed partial class ItemPrinterResources : RazorComponentItemBase<WsSqlPrinterResourceFkModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -27,9 +27,9 @@ public sealed partial class ItemPrinterResources : RazorComponentItemBase<Printe
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PrinterResourceFkModel>(IdentityId);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterResourceFkModel>(IdentityId);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<PrinterResourceFkModel>();
+                    SqlItemCast = SqlItemNew<WsSqlPrinterResourceFkModel>();
                 PrinterModels = ContextManager.AccessManager.AccessList.GetListNotNullable<PrinterModel>(WsSqlCrudConfigUtils
                     .GetCrudConfigComboBox());
                 TemplateResourceModels = ContextManager.AccessManager.AccessList.GetListNotNullable<TemplateResourceModel>(WsSqlCrudConfigUtils

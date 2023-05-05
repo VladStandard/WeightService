@@ -10,7 +10,7 @@ public sealed partial class Devices : RazorComponentSectionBase<DeviceView>
 {
     #region Public and private fields, properties, constructor
 
-    private List<DeviceTypeFkModel> DeviceTypesFk { get; set; }
+    private List<WsSqlDeviceTypeFkModel> DeviceTypesFk { get; set; }
 
     #endregion
 

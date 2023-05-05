@@ -9,14 +9,14 @@ public sealed class DeviceScaleFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        DeviceScaleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<DeviceScaleFkModel>(false);
+        WsSqlDeviceScaleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlDeviceScaleFkModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        DeviceScaleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<DeviceScaleFkModel>(true);
+        WsSqlDeviceScaleFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlDeviceScaleFkModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

@@ -10,7 +10,7 @@ public sealed partial class PluWeightings : RazorComponentSectionBase<PluWeighti
 {
     #region Public and private fields, properties, constructor
 
-    private List<DeviceScaleFkModel> DeviceScaleFk { get; set; }
+    private List<WsSqlDeviceScaleFkModel> DeviceScaleFk { get; set; }
 
     public PluWeightings() : base()
 	{

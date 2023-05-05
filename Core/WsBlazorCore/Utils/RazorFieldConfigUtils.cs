@@ -66,12 +66,12 @@ public static class RazorFieldConfigUtils
     
     public static class DeviceScaleFk
 	{
-		public static RazorFieldConfigModel GetDeviceIp() => new($"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.Ipv4)}", TextAlign.Left, LocaleCore.Table.DeviceIp);
-		public static RazorFieldConfigModel GetDeviceLoginDt() => new($"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.LoginDt)}", TextAlign.Center, LocaleCore.Table.LoginDt);
-		public static RazorFieldConfigModel GetDeviceLogoutDt() => new($"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}", TextAlign.Center, LocaleCore.Table.LogoutDt);
-		public static RazorFieldConfigModel GetDeviceMacAddress() => new($"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.MacAddress)}", TextAlign.Center, LocaleCore.Table.DeviceMac);
-		public static RazorFieldConfigModel GetDeviceName() => new(new DeviceModel(), $"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Device, LocaleCore.Table.Name);
-		public static RazorFieldConfigModel GetDevicePrettyName() => new($"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
+		public static RazorFieldConfigModel GetDeviceIp() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.Ipv4)}", TextAlign.Left, LocaleCore.Table.DeviceIp);
+		public static RazorFieldConfigModel GetDeviceLoginDt() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.LoginDt)}", TextAlign.Center, LocaleCore.Table.LoginDt);
+		public static RazorFieldConfigModel GetDeviceLogoutDt() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}", TextAlign.Center, LocaleCore.Table.LogoutDt);
+		public static RazorFieldConfigModel GetDeviceMacAddress() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.MacAddress)}", TextAlign.Center, LocaleCore.Table.DeviceMac);
+		public static RazorFieldConfigModel GetDeviceName() => new(new DeviceModel(), $"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Device, LocaleCore.Table.Name);
+		public static RazorFieldConfigModel GetDevicePrettyName() => new($"{nameof(WsSqlDeviceScaleFkModel.Device)}.{nameof(DeviceModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
 	}
 
 	public static class DeviceType
@@ -82,22 +82,22 @@ public static class RazorFieldConfigUtils
 	public static class DeviceTypeFk
 	{
 		public static RazorFieldConfigModel GetDeviceLoginDt() => new(
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.LoginDt)}",
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.LoginDt)}",
 			TextAlign.Center, LocaleCore.Table.LoginDt, nameof(DateTime));
 		public static RazorFieldConfigModel GetDeviceLogoutDt() => new(
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}", TextAlign.Center, LocaleCore.Table.LogoutDt);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.LogoutDt)}", TextAlign.Center, LocaleCore.Table.LogoutDt);
 		public static RazorFieldConfigModel GetDeviceName() => new(
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Name);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Name);
 		public static RazorFieldConfigModel GetDevicePrettyName() => new(
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
 		public static RazorFieldConfigModel GetDeviceIpv4() => new(
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.Ipv4)}", TextAlign.Left, LocaleCore.Table.DeviceIp);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.Ipv4)}", TextAlign.Left, LocaleCore.Table.DeviceIp);
 		public static RazorFieldConfigModel GetDeviceMacAddress() => new(
-			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.MacAddress)}", TextAlign.Center, LocaleCore.Table.DeviceMac);
+			$"{nameof(WsSqlDeviceTypeFkModel.Device)}.{nameof(DeviceModel.MacAddress)}", TextAlign.Center, LocaleCore.Table.DeviceMac);
 		public static RazorFieldConfigModel GetDeviceTypeName() => new(
-			$"{nameof(DeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.Name)}", TextAlign.Left, LocaleCore.Table.Type);
+			$"{nameof(WsSqlDeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.Name)}", TextAlign.Left, LocaleCore.Table.Type);
 		public static RazorFieldConfigModel GetDeviceTypePrettyName() => new(
-			$"{nameof(DeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.Type);
+			$"{nameof(WsSqlDeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.Type);
 	}
     
     public static class LogQuick
@@ -161,8 +161,8 @@ public static class RazorFieldConfigUtils
 
 	public static class PrinterResource
 	{
-		public static RazorFieldConfigModel GetName() => new(new PrinterResourceFkModel(), $"{nameof(PrinterResourceFkModel.TemplateResource)}.{nameof(TemplateResourceModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
-		public static RazorFieldConfigModel GetPrinter() => new(new PrinterModel(), $"{nameof(PrinterResourceFkModel.Printer)}.{nameof(PrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
+		public static RazorFieldConfigModel GetName() => new(new WsSqlPrinterResourceFkModel(), $"{nameof(WsSqlPrinterResourceFkModel.TemplateResource)}.{nameof(TemplateResourceModel.Name)}", TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
+		public static RazorFieldConfigModel GetPrinter() => new(new PrinterModel(), $"{nameof(WsSqlPrinterResourceFkModel.Printer)}.{nameof(PrinterModel.Name)}", TextAlign.Left, LocaleCore.Print.Name, "string");
 	}
 
 	public static class ProductionFacility

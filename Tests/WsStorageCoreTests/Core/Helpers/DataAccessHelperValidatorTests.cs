@@ -118,7 +118,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceScaleFkValidator validator = new();
+            WsSqlDeviceScaleFkValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }
@@ -128,7 +128,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceTypeFkValidator validator = new();
+            WsSqlDeviceTypeFkValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }
@@ -178,7 +178,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluCharacteristicsFkValidator validator = new();
+            WsSqlPluCharacteristicsFkValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }
@@ -198,7 +198,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluGroupFkValidator validator = new();
+            WsSqlPluGroupFkValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }
@@ -248,7 +248,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluLabelValidator validator = new();
+            WsSqlPluLabelValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }
@@ -278,7 +278,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluTemplateFkValidator validator = new();
+            WsSqlPluTemplateFkValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }
@@ -288,7 +288,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluWeighingValidator validator = new();
+            WsSqlPluWeighingValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }
@@ -308,7 +308,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterResourceFkValidator validator = new();
+            WsSqlPrinterResourceFkValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }

@@ -2,12 +2,12 @@
 @using WsStorageCore.TableScaleFkModels.PrintersResourcesFks
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.PrinterResourceFkModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
 
 @if (SqlSectionCast.Count > 0)
 {
   <SectionReload
-    TItem="@PrinterResourceFkModel"
+    TItem="@WsSqlPrinterResourceFkModel"
     Title="@LocaleCore.Print.Resources"
     OnSectionUpdate="@GetSectionData"
     SectionCount="@SqlSectionCast.Count"
@@ -16,13 +16,13 @@
 
   <RzDataGridLocal
     @bind-Value="@SelectedRow"
-    TItem="@PrinterResourceFkModel"
+    TItem="@WsSqlPrinterResourceFkModel"
     Data="@SqlSectionCast"
     CellContextMenu="@OnCellContextMenu"
     RowSelect="@SqlItemSet"
     RowDoubleClick="@SqlItemEditAsync">
     <Columns>
-      <TItemContent TItem="@PrinterResourceFkModel">
+      <TItemContent TItem="@WsSqlPrinterResourceFkModel">
         <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Printer.Name" Width="32%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Print.TemplateResource" Property="TemplateResource.Name" Width="32%"/>

@@ -20,7 +20,7 @@ public sealed partial class ItemLines : RazorComponentItemBase<ScaleModel>
 
 	private DeviceModel _device;
 	private DeviceModel Device { get => _device; set { _device = value; SqlLinkedItems = new() { Device }; } }
-	private DeviceScaleFkModel DeviceScaleFk { get; set; }
+	private WsSqlDeviceScaleFkModel DeviceScaleFk { get; set; }
 	private List<TypeModel<string>> ComPorts { get; set; }
     
     private List<PrinterModel> PrinterModels { get; set; }

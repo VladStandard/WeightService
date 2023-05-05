@@ -92,11 +92,11 @@ public sealed class WsSqlPluController
         if (pluModel.Gtin == "" || pluModel.Ean13 == "" || pluModel.Itf14 == "")
             return false;
 
-        List<SqlFieldFilterModel> sqlFilters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PluTemplateFkModel.Plu), pluModel.IdentityValueUid);
+        List<SqlFieldFilterModel> sqlFilters = SqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPluTemplateFkModel.Plu), pluModel.IdentityValueUid);
         SqlCrudConfigModel sqlCrudConfig = new(sqlFilters,
             true, false, false, true, false);
 
-        List<PluTemplateFkModel> pluTemplateFks = ContextList.GetListNotNullablePlusTemplatesFks(sqlCrudConfig);
+        List<WsSqlPluTemplateFkModel> pluTemplateFks = ContextList.GetListNotNullablePlusTemplatesFks(sqlCrudConfig);
 
         return pluTemplateFks.Count != 0;
     }

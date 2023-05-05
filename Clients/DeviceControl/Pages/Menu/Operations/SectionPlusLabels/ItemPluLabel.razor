@@ -4,9 +4,9 @@
 @using WsStorageCore.TableScaleFkModels.PlusLabels
 @using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusLabels.PluLabelModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusLabels.WsSqlPluLabelModel>
 
-<RazorItemReload TItem="@PluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel"/>
+<RazorItemReload TItem="@WsSqlPluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -82,7 +82,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@PluLabelModel"
+  TItem="@WsSqlPluLabelModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

@@ -13,7 +13,7 @@ public sealed partial class ItemNomenclature : RazorComponentItemBase<WsSqlPluMo
 
     private TemplateModel _template;
     private TemplateModel Template { get => _template; set { _template = value; SqlLinkedItems = new() { Template }; } }
-    private PluTemplateFkModel PluTemplateFk { get; set; }
+    private WsSqlPluTemplateFkModel PluTemplateFk { get; set; }
 
     public ItemNomenclature() : base()
     {

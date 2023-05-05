@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusWeighingsFks
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.PluWeighingModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.WsSqlPluWeighingModel>
 
-<RazorItemReload TItem="@PluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing"/>
+<RazorItemReload TItem="@WsSqlPluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -42,7 +42,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@PluWeighingModel"
+  TItem="@WsSqlPluWeighingModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

@@ -687,7 +687,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluFkDb(WsResponse1CShortModel response, Guid uid1C, PluFkModel itemXml, PluFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluFkModel itemXml, WsSqlPluFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -713,7 +713,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluClipFkDb(WsResponse1CShortModel response, Guid uid1C, PluClipFkModel itemXml, PluClipFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluClipFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluClipFkModel itemXml, WsSqlPluClipFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -765,7 +765,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluGroupFkDb(WsResponse1CShortModel response, Guid uid1C, PluGroupFkModel itemXml, PluGroupFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluGroupFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluGroupFkModel itemXml, WsSqlPluGroupFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -791,7 +791,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluBrandFkDb(WsResponse1CShortModel response, Guid uid1C, PluBrandFkModel itemXml, PluBrandFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluBrandFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluBrandFkModel itemXml, WsSqlPluBrandFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
@@ -844,8 +844,8 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="isCounter"></param>
     /// <param name="pluNumber"></param>
     /// <returns></returns>
-    internal bool UpdatePluCharacteristicFk(WsResponse1CShortModel response, Guid uid1C, PluCharacteristicsFkModel itemXml, 
-        PluCharacteristicsFkModel? itemDb, bool isCounter, short pluNumber)
+    internal bool UpdatePluCharacteristicFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluCharacteristicsFkModel itemXml, 
+        WsSqlPluCharacteristicsFkModel? itemDb, bool isCounter, short pluNumber)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);

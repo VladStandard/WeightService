@@ -65,7 +65,7 @@ public sealed class BlazorCoreHelper
     public RazorComponentBase CreateNewSubstituteRazorComponentBase()
     {
         RazorComponentBase razorPage = Substitute.For<RazorComponentBase>();
-        razorPage.GetRouteItemPathShort<DeviceScaleFkModel>();
+        razorPage.GetRouteItemPathShort<WsSqlDeviceScaleFkModel>();
         return razorPage;
     }
 

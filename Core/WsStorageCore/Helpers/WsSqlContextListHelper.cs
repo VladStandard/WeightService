@@ -33,34 +33,34 @@ public sealed class WsSqlContextListHelper
     public List<ContragentModel> Contragents { get; set; } = new();
     public List<DeviceModel> Devices { get; set; } = new();
     public List<DeviceTypeModel> DeviceTypes { get; set; } = new();
-    public List<DeviceTypeFkModel> DeviceTypeFks { get; set; } = new();
-    public List<DeviceScaleFkModel> DeviceScaleFks { get; set; } = new();
+    public List<WsSqlDeviceTypeFkModel> DeviceTypeFks { get; set; } = new();
+    public List<WsSqlDeviceScaleFkModel> DeviceScaleFks { get; set; } = new();
     public List<LogModel> Logs { get; set; } = new();
     public List<LogMemoryModel> LogsMemories { get; set; } = new();
     public List<LogTypeModel> LogTypes { get; set; } = new();
     public List<LogWebModel> LogsWebs { get; set; } = new();
     public List<LogWebFkModel> LogsWebsFks { get; set; } = new();
     public List<PluGroupModel> NomenclaturesGroups { get; set; } = new();
-    public List<PluGroupFkModel> NomenclaturesGroupsFk { get; set; } = new();
+    public List<WsSqlPluGroupFkModel> NomenclaturesGroupsFk { get; set; } = new();
     public List<PluCharacteristicModel> NomenclaturesCharacteristics { get; set; } = new();
-    public List<PluCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; } = new();
+    public List<WsSqlPluCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; } = new();
     public List<OrderModel> Orders { get; set; } = new();
     public List<OrderWeighingModel> OrderWeighings { get; set; } = new();
     public List<OrganizationModel> Organizations { get; set; } = new();
-    public List<PluLabelModel> PluLabels { get; set; } = new();
+    public List<WsSqlPluLabelModel> PluLabels { get; set; } = new();
     public List<WsSqlPluModel> Plus { get; set; } = new();
-    public List<PluFkModel> PlusFks { get; set; } = new();
-    public List<PluBrandFkModel> PluBrandFks { get; set; } = new();
+    public List<WsSqlPluFkModel> PlusFks { get; set; } = new();
+    public List<WsSqlPluBrandFkModel> PluBrandFks { get; set; } = new();
     public List<WsSqlPluBundleFkModel> PluBundleFks { get; set; } = new();
-    public List<PluClipFkModel> PluClipFks { get; set; } = new();
+    public List<WsSqlPluClipFkModel> PluClipFks { get; set; } = new();
     public List<WsSqlPluNestingFkModel> PluNestingFks { get; set; } = new();
     public List<PluScaleModel> PluScales { get; set; } = new();
     public List<PluStorageMethodModel> PluStorageMethods { get; set; } = new();
-    public List<PluStorageMethodFkModel> PluStorageMethodsFks { get; set; } = new();
-    public List<PluTemplateFkModel> PluTemplateFks { get; set; } = new();
-    public List<PluWeighingModel> PluWeighings { get; set; } = new();
+    public List<WsSqlPluStorageMethodFkModel> PluStorageMethodsFks { get; set; } = new();
+    public List<WsSqlPluTemplateFkModel> PluTemplateFks { get; set; } = new();
+    public List<WsSqlPluWeighingModel> PluWeighings { get; set; } = new();
     public List<PrinterModel> Printers { get; set; } = new();
-    public List<PrinterResourceFkModel> PrinterResources { get; set; } = new();
+    public List<WsSqlPrinterResourceFkModel> PrinterResources { get; set; } = new();
     public List<PrinterTypeModel> PrinterTypes { get; set; } = new();
     public List<ProductionFacilityModel> ProductionFacilities { get; set; } = new();
     public List<ProductSeriesModel> ProductSeries { get; set; } = new();
@@ -89,8 +89,8 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(ClipModel) => GetListNotNullableClips(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(ContragentModel) => GetListNotNullableContragents(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(DeviceModel) => GetListNotNullableDevices(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(DeviceScaleFkModel) => GetListNotNullableDeviceScalesFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(DeviceTypeFkModel) => GetListNotNullableDeviceTypesFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlDeviceScaleFkModel) => GetListNotNullableDeviceScalesFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlDeviceTypeFkModel) => GetListNotNullableDeviceTypesFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(DeviceTypeModel) => GetListNotNullableDeviceTypes(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(LogMemoryModel) => GetListNotNullableLogsMemories(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(LogModel) => GetListNotNullableLogs(sqlCrudConfig).Cast<T>().ToList(),
@@ -100,24 +100,24 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(OrderModel) => GetListNotNullableOrders(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(OrderWeighingModel) => GetListNotNullableOrdersWeighings(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(OrganizationModel) => GetListNotNullableOrganizations(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluBrandFkModel) => GetListNotNullablePlusBrandsFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluBrandFkModel) => GetListNotNullablePlusBrandsFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPluBundleFkModel) => GetListNotNullablePlusBundlesFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluCharacteristicModel) => GetListNotNullablePlusCharacteristics(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluCharacteristicsFkModel) => GetListNotNullablePlusCharacteristicsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluClipFkModel) => GetListNotNullablePlusClipsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluFkModel) => GetListNotNullablePlusFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluGroupFkModel) => GetListNotNullablePlusGroupFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluCharacteristicsFkModel) => GetListNotNullablePlusCharacteristicsFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluClipFkModel) => GetListNotNullablePlusClipsFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluFkModel) => GetListNotNullablePlusFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluGroupFkModel) => GetListNotNullablePlusGroupFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluGroupModel) => GetListNotNullablePlusGroups(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluLabelModel) => GetListNotNullablePluLabels(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluLabelModel) => GetListNotNullablePluLabels(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPluModel) => GetListNotNullablePlus(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPluNestingFkModel) => GetListNotNullablePlusNestingFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluScaleModel) => GetListNotNullablePlusScales(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluStorageMethodFkModel) => GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluStorageMethodFkModel) => GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluStorageMethodModel) => GetListNotNullablePlusStoragesMethods(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluTemplateFkModel) => GetListNotNullablePlusTemplatesFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluWeighingModel) => GetListNotNullablePlusWeighings(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluTemplateFkModel) => GetListNotNullablePlusTemplatesFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluWeighingModel) => GetListNotNullablePlusWeighings(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PrinterModel) => GetListNotNullablePrinters(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PrinterResourceFkModel) => GetListNotNullablePrintersResources(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPrinterResourceFkModel) => GetListNotNullablePrintersResources(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PrinterTypeModel) => GetListNotNullablePrintersTypes(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(ProductionFacilityModel) => GetListNotNullableProductionFacilities(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(ProductSeriesModel) => GetListNotNullableProductSeries(sqlCrudConfig).Cast<T>().ToList(),
@@ -225,11 +225,11 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<DeviceScaleFkModel> GetListNotNullableDeviceScalesFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlDeviceScaleFkModel> GetListNotNullableDeviceScalesFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name) ));
-        List<DeviceScaleFkModel> list = GetListNotNullableCore<DeviceScaleFkModel>(sqlCrudConfig);
+        List<WsSqlDeviceScaleFkModel> list = GetListNotNullableCore<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list
                 .OrderBy(item => item.Device.Name).ToList()
@@ -247,11 +247,11 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<DeviceTypeFkModel> GetListNotNullableDeviceTypesFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlDeviceTypeFkModel> GetListNotNullableDeviceTypesFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name)));
-        List<DeviceTypeFkModel> list = GetListNotNullableCore<DeviceTypeFkModel>(sqlCrudConfig);
+        List<WsSqlDeviceTypeFkModel> list = GetListNotNullableCore<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list
                 .OrderBy(item => item.Type.Name).ToList()
@@ -325,9 +325,9 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluCharacteristicsFkModel> GetListNotNullablePlusCharacteristicsFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluCharacteristicsFkModel> GetListNotNullablePlusCharacteristicsFks(SqlCrudConfigModel sqlCrudConfig)
     {
-        return GetListNotNullableCore<PluCharacteristicsFkModel>(sqlCrudConfig);
+        return GetListNotNullableCore<WsSqlPluCharacteristicsFkModel>(sqlCrudConfig);
     }
 
     public List<PluGroupModel> GetListNotNullablePlusGroups(SqlCrudConfigModel sqlCrudConfig)
@@ -340,11 +340,11 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluGroupFkModel> GetListNotNullablePlusGroupFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluGroupFkModel> GetListNotNullablePlusGroupFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name), SqlOrderDirection.Asc));
-        List<PluGroupFkModel> list = GetListNotNullableCore<PluGroupFkModel>(sqlCrudConfig);
+        List<WsSqlPluGroupFkModel> list = GetListNotNullableCore<WsSqlPluGroupFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list
                 .OrderBy(item => item.PluGroup.Name).ToList()
@@ -382,11 +382,11 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluLabelModel> GetListNotNullablePluLabels(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluLabelModel> GetListNotNullablePluLabels(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
-        List<PluLabelModel> list = GetListNotNullableCore<PluLabelModel>(sqlCrudConfig);
+        List<WsSqlPluLabelModel> list = GetListNotNullableCore<WsSqlPluLabelModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.ChangeDt).ToList();
         return list;
@@ -402,9 +402,9 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluFkModel> GetListNotNullablePlusFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluFkModel> GetListNotNullablePlusFks(SqlCrudConfigModel sqlCrudConfig)
     {
-        List<PluFkModel> list = GetListNotNullableCore<PluFkModel>(sqlCrudConfig);
+        List<WsSqlPluFkModel> list = GetListNotNullableCore<WsSqlPluFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.Plu.Number).ToList();
         return list;
@@ -418,14 +418,14 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluBrandFkModel> GetListNotNullablePlusBrandsFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluBrandFkModel> GetListNotNullablePlusBrandsFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.ClearNullProperties), SqlOrderDirection.Asc));
-        List<PluBrandFkModel> list = GetListNotNullableCore<PluBrandFkModel>(sqlCrudConfig);
+        List<WsSqlPluBrandFkModel> list = GetListNotNullableCore<WsSqlPluBrandFkModel>(sqlCrudConfig);
         if (list.Any())
         {
-            PluBrandFkModel bundleFk = list.First();
+            WsSqlPluBrandFkModel bundleFk = list.First();
             if (bundleFk.Plu.IsNew)
                 bundleFk.Plu = AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluModel>();
             if (bundleFk.Brand.IsNew)
@@ -454,14 +454,14 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluClipFkModel> GetListNotNullablePlusClipsFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluClipFkModel> GetListNotNullablePlusClipsFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluClipFkModel.Clip)}.{nameof(ClipModel.Name)}", SqlOrderDirection.Asc));
-        List<PluClipFkModel> list = GetListNotNullableCore<PluClipFkModel>(sqlCrudConfig);
+        List<WsSqlPluClipFkModel> list = GetListNotNullableCore<WsSqlPluClipFkModel>(sqlCrudConfig);
         if (list.Count > 0)
         {
-            PluClipFkModel pluClipFk = list.First();
+            WsSqlPluClipFkModel pluClipFk = list.First();
             if (pluClipFk.Plu.IsNew)
                 pluClipFk.Plu = AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluModel>();
             if (pluClipFk.Clip.IsNew)
@@ -494,22 +494,22 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluStorageMethodFkModel> GetListNotNullablePlusStoragesMethodsFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluStorageMethodFkModel> GetListNotNullablePlusStoragesMethodsFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
-        List<PluStorageMethodFkModel> list = GetListNotNullableCore<PluStorageMethodFkModel>(sqlCrudConfig);
+        List<WsSqlPluStorageMethodFkModel> list = GetListNotNullableCore<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list
                 .OrderBy(item => item.Plu.Number).ToList();
         return list;
     }
 
-    public List<PluTemplateFkModel> GetListNotNullablePlusTemplatesFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluTemplateFkModel> GetListNotNullablePlusTemplatesFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.Number)}", SqlOrderDirection.Asc));
-        List<PluTemplateFkModel> list = GetListNotNullableCore<PluTemplateFkModel>(sqlCrudConfig);
+        List<WsSqlPluTemplateFkModel> list = GetListNotNullableCore<WsSqlPluTemplateFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list
                 .OrderBy(item => item.Template.Title).ToList()
@@ -517,11 +517,11 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluWeighingModel> GetListNotNullablePlusWeighings(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluWeighingModel> GetListNotNullablePlusWeighings(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
-        List<PluWeighingModel> list = GetListNotNullableCore<PluWeighingModel>(sqlCrudConfig);
+        List<WsSqlPluWeighingModel> list = GetListNotNullableCore<WsSqlPluWeighingModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.ChangeDt).ToList();
         return list;
@@ -637,11 +637,11 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PrinterResourceFkModel> GetListNotNullablePrintersResources(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPrinterResourceFkModel> GetListNotNullablePrintersResources(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name), SqlOrderDirection.Asc));
-        List<PrinterResourceFkModel> list = GetListNotNullableCore<PrinterResourceFkModel>(sqlCrudConfig);
+        List<WsSqlPrinterResourceFkModel> list = GetListNotNullableCore<WsSqlPrinterResourceFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list
                 .OrderBy(item => item.Printer.Name).ToList()
@@ -788,27 +788,27 @@ public sealed class WsSqlContextListHelper
         return result;
     }
 
-    public List<DeviceTypeFkModel> GetListDevicesTypesFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFks(SqlCrudConfigModel sqlCrudConfig)
     {
-        List<DeviceTypeFkModel> result = new();
+        List<WsSqlDeviceTypeFkModel> result = new();
         if (sqlCrudConfig.IsResultAddFieldEmpty)
             result.Add(new() { Device = AccessManager.AccessItem.GetItemNewEmpty<DeviceModel>(), 
                 Type = AccessManager.AccessItem.GetItemNewEmpty<DeviceTypeModel>() });
-        List<DeviceTypeFkModel> list = GetListNotNullableCore<DeviceTypeFkModel>(sqlCrudConfig);
+        List<WsSqlDeviceTypeFkModel> list = GetListNotNullableCore<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
         result = result.OrderBy(x => x.Type.Name).ToList();
         result = result.OrderBy(x => x.Device.Name).ToList();
         result.AddRange(list);
         return result;
     }
 
-    public List<DeviceScaleFkModel> GetListDevicesScalesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceScaleFkModel> GetListDevicesScalesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
-        List<DeviceScaleFkModel> result = new();
+        List<WsSqlDeviceScaleFkModel> result = new();
         if (isAddFieldNull)
             result.Add(new() { Device = AccessManager.AccessItem.GetItemNewEmpty<DeviceModel>(), 
                 Scale = AccessManager.AccessItem.GetItemNewEmpty<ScaleModel>() });
-        List<DeviceScaleFkModel> list = GetListNotNullableCore<DeviceScaleFkModel>(sqlCrudConfig);
+        List<WsSqlDeviceScaleFkModel> list = GetListNotNullableCore<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
         result = result.OrderBy(x => x.Scale.Description).ToList();
         result = result.OrderBy(x => x.Device.Name).ToList();
         result.AddRange(list);
@@ -829,37 +829,37 @@ public sealed class WsSqlContextListHelper
         return devices;
     }
 
-    public List<DeviceTypeFkModel> GetListDevicesTypesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<DeviceTypeFkModel> deviceTypesFks = GetListDevicesTypesFks(sqlCrudConfig);
+        List<WsSqlDeviceTypeFkModel> deviceTypesFks = GetListDevicesTypesFks(sqlCrudConfig);
         return deviceTypesFks;
     }
 
-    public List<DeviceTypeFkModel> GetListDevicesTypesFkFree(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFkFree(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
+        List<WsSqlDeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
         List<DeviceModel> devices = GetListNotNullableCore<DeviceModel>(sqlCrudConfig);
         deviceTypeFks = deviceTypeFks.Where(x => !devices.Contains(x.Device)).ToList();
         return deviceTypeFks;
     }
 
     [Obsolete(@"Use DataContext")]
-    public List<DeviceTypeFkModel> GetListDevicesTypesFkBusy(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFkBusy(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
+        List<WsSqlDeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
         List<DeviceModel> devices = GetListNotNullableCore<DeviceModel>(sqlCrudConfig);
         deviceTypeFks = deviceTypeFks.Where(x => devices.Contains(x.Device)).ToList();
         return deviceTypeFks;
     }
 
-    public List<PluLabelModel> GetListPluLabels(bool isShowMarked, bool isShowOnlyTop)
+    public List<WsSqlPluLabelModel> GetListPluLabels(bool isShowMarked, bool isShowOnlyTop)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
-        sqlCrudConfig.Orders.Add(new() { Name = nameof(PluWeighingModel.ChangeDt), Direction = WsSqlOrderDirection.Desc });
-        return GetListNotNullableCore<PluLabelModel>(sqlCrudConfig);
+        sqlCrudConfig.Orders.Add(new() { Name = nameof(WsSqlPluWeighingModel.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+        return GetListNotNullableCore<WsSqlPluLabelModel>(sqlCrudConfig);
     }
 
     public List<ScaleScreenShotModel> GetListScalesScreenShots(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
@@ -888,13 +888,13 @@ public sealed class WsSqlContextListHelper
         return result;
     }
 
-    public List<PrinterResourceFkModel> GetListPrinterResources(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
+    public List<WsSqlPrinterResourceFkModel> GetListPrinterResources(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
     {
-        List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(PrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
+        List<SqlFieldFilterModel> filters = SqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
             new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc },
             isShowMarked, isShowOnlyTop);
-        return GetListNotNullableCore<PrinterResourceFkModel>(sqlCrudConfig);
+        return GetListNotNullableCore<WsSqlPrinterResourceFkModel>(sqlCrudConfig);
     }
 
     public List<PrinterTypeModel> GetListPrinterTypes(bool isShowMarked, bool isShowOnlyTop)

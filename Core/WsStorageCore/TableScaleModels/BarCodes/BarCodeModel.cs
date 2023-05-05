@@ -21,7 +21,7 @@ public class BarCodeModel : WsSqlTableBase
     [XmlElement] public virtual string ValueRight { get; set; }
     [XmlElement] public virtual string TypeBottom { get; set; }
     [XmlElement] public virtual string ValueBottom { get; set; }
-    [XmlIgnore] public virtual PluLabelModel PluLabel { get; set; }
+    [XmlIgnore] public virtual WsSqlPluLabelModel PluLabel { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -41,7 +41,7 @@ public class BarCodeModel : WsSqlTableBase
     /// Constructor with parameters.
     /// </summary>
     /// <param name="pluLabel"></param>
-    public BarCodeModel(PluLabelModel pluLabel) : this()
+    public BarCodeModel(WsSqlPluLabelModel pluLabel) : this()
     {
         PluLabel = pluLabel;
     }
@@ -59,7 +59,7 @@ public class BarCodeModel : WsSqlTableBase
         ValueRight = info.GetString(nameof(ValueRight));
         TypeBottom = info.GetString(nameof(TypeBottom));
         ValueBottom = info.GetString(nameof(ValueBottom));
-        PluLabel = (PluLabelModel)info.GetValue(nameof(PluLabel), typeof(PluLabelModel));
+        PluLabel = (WsSqlPluLabelModel)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelModel));
     }
 
 	#endregion

@@ -12,7 +12,7 @@ public sealed class PluStorageMethodContentTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false, false);
-            List<PluStorageMethodFkModel> pluStorageMethodFks = WsTestsUtils.DataTests.ContextManager.ContextPluStorage.UpdatePluStorageMethodFks(sqlCrudConfig);
+            List<WsSqlPluStorageMethodFkModel> pluStorageMethodFks = WsTestsUtils.DataTests.ContextManager.ContextPluStorage.UpdatePluStorageMethodFks(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(pluStorageMethodFks)}.{nameof(pluStorageMethodFks.Count)}: {pluStorageMethodFks.Count}");
             
             List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlus(sqlCrudConfig);

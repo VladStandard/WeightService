@@ -32,7 +32,7 @@ public partial class RazorComponentBase
                 case PrinterModel printer:
                     OnChangeItemPrinter(printer, filterName, value);
                     break;
-                case PrinterResourceFkModel printerResource:
+                case WsSqlPrinterResourceFkModel printerResource:
                     OnChangeItemPrinterResource(printerResource, filterName, value);
                     break;
                 case ScaleModel scale:
@@ -64,7 +64,7 @@ public partial class RazorComponentBase
         }
     }
 
-    private void OnChangeItemPrinterResource(PrinterResourceFkModel item, string filterName, object? value)
+    private void OnChangeItemPrinterResource(WsSqlPrinterResourceFkModel item, string filterName, object? value)
     {
         switch (filterName)
         {

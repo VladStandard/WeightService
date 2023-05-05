@@ -9,13 +9,13 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_device_scale_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<DeviceScaleFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlDeviceScaleFkModel>();
     }
 
     [Test]
     public void Validate_list_of_device_type_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<DeviceTypeFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlDeviceTypeFkModel>();
     }
 
     [Test]
@@ -27,7 +27,7 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_plu_brand_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluBrandFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluBrandFkModel>();
     }
 
     [Test]
@@ -39,25 +39,25 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_plu_characteristics_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluCharacteristicsFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluCharacteristicsFkModel>();
     }
 
     [Test]
     public void Validate_list_of_plu_clip_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluClipFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluClipFkModel>();
     }
 
     [Test]
     public void Validate_list_of_plu_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluFkModel>();
     }
 
     [Test]
     public void Validate_list_of_plu_group_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluGroupFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluGroupFkModel>();
     }
 
     [Test]
@@ -69,18 +69,18 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_plu_storage_method_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluStorageMethodFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluStorageMethodFkModel>(true);
     }
 
     [Test]
     public void Validate_list_of_plu_template_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluTemplateFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluTemplateFkModel>();
     }
 
     [Test]
     public void Validate_list_of_printers_resources_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PrinterResourceFkModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPrinterResourceFkModel>();
     }
 }

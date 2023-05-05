@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleFkModels.PlusLabels;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusLabels;
 
-public sealed partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
+public sealed partial class ItemPluLabel : RazorComponentItemBase<WsSqlPluLabelModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -26,10 +26,10 @@ public sealed partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluLabelModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluLabelModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
-                    SqlItemCast = SqlItemNew<PluLabelModel>();
+                    SqlItemCast = SqlItemNew<WsSqlPluLabelModel>();
                 }
             }
         });

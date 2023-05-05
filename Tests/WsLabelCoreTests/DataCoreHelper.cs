@@ -294,11 +294,11 @@ public sealed class DataCoreHelper
                 deviceType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
 				deviceType.PrettyName.Returns(LocaleCore.Sql.SqlItemFieldPrettyName);
 				break;
-			case DeviceTypeFkModel deviceTypeFk:
+			case WsSqlDeviceTypeFkModel deviceTypeFk:
                 deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				deviceTypeFk.Type = CreateNewSubstitute<DeviceTypeModel>(isNotDefault);
 				break;
-			case DeviceScaleFkModel deviceScaleFk:
+			case WsSqlDeviceScaleFkModel deviceScaleFk:
                 deviceScaleFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				deviceScaleFk.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
@@ -342,15 +342,15 @@ public sealed class DataCoreHelper
                 nomenclatureCharacteristic.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 nomenclatureCharacteristic.AttachmentsCount.Returns(3);
                 break;
-            case PluCharacteristicsFkModel nomenclatureCharacteristicFk:
+            case WsSqlPluCharacteristicsFkModel nomenclatureCharacteristicFk:
                 nomenclatureCharacteristicFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 nomenclatureCharacteristicFk.Characteristic = CreateNewSubstitute<PluCharacteristicModel>(isNotDefault);
                 break;
-            case PluFkModel pluFk:
+            case WsSqlPluFkModel pluFk:
                 pluFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluFk.Parent = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 break;
-            case PluGroupFkModel pluGroupFk:
+            case WsSqlPluGroupFkModel pluGroupFk:
                 pluGroupFk.PluGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
                 pluGroupFk.Parent = CreateNewSubstitute<PluGroupModel>(isNotDefault);
                 break;
@@ -361,7 +361,7 @@ public sealed class DataCoreHelper
 				break;
 			case OrderWeighingModel orderWeighing:
 				orderWeighing.Order = CreateNewSubstitute<OrderModel>(isNotDefault);
-				orderWeighing.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
+				orderWeighing.PluWeighing = CreateNewSubstitute<WsSqlPluWeighingModel>(isNotDefault);
 				break;
 			case OrganizationModel organization:
 				organization.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
@@ -380,13 +380,13 @@ public sealed class DataCoreHelper
                 pluBundle.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluBundle.Bundle = CreateNewSubstitute<BundleModel>(isNotDefault);
 				break;
-			case PluClipFkModel pluClips:
+			case WsSqlPluClipFkModel pluClips:
                 pluClips.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluClips.Clip = CreateNewSubstitute<ClipModel>(isNotDefault);
                 break;
-            case PluLabelModel pluLabel:
+            case WsSqlPluLabelModel pluLabel:
 				pluLabel.Zpl.Returns(LocaleCore.Sql.SqlItemFieldZpl);
-				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
+				pluLabel.PluWeighing = CreateNewSubstitute<WsSqlPluWeighingModel>(isNotDefault);
 				pluLabel.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
 				pluLabel.ProductDt.Returns(DateTime.Now);
 				pluLabel.ExpirationDt.Returns(DateTime.Now);
@@ -401,15 +401,15 @@ public sealed class DataCoreHelper
                 plusStorageMethod.MinTemp.Returns((short)0);
                 plusStorageMethod.MaxTemp.Returns((short)0);
                 break;
-            case PluStorageMethodFkModel pluStorageMethodFk:
+            case WsSqlPluStorageMethodFkModel pluStorageMethodFk:
                 pluStorageMethodFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluStorageMethodFk.Method = CreateNewSubstitute<PluStorageMethodModel>(isNotDefault);
                 break;
-			case PluTemplateFkModel pluTemplateFk:
+			case WsSqlPluTemplateFkModel pluTemplateFk:
                 pluTemplateFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluTemplateFk.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				break;
-			case PluWeighingModel pluWeighing:
+			case WsSqlPluWeighingModel pluWeighing:
 				pluWeighing.Sscc.Returns(LocaleCore.Sql.SqlItemFieldSscc);
 				pluWeighing.NettoWeight.Returns(1.1M);
 				pluWeighing.WeightTare.Returns(0.25M);
@@ -428,7 +428,7 @@ public sealed class DataCoreHelper
 				printer.DarknessLevel.Returns((short)1);
 				printer.PrinterType = CreateNewSubstitute<PrinterTypeModel>(isNotDefault);
 				break;
-			case PrinterResourceFkModel printerResource:
+			case WsSqlPrinterResourceFkModel printerResource:
 				printerResource.Printer = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				printerResource.TemplateResource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
 				break;

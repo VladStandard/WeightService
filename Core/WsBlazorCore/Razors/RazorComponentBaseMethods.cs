@@ -61,8 +61,8 @@ public partial class RazorComponentBase
 			BundleModel => LocaleCore.DeviceControl.ItemBundle,
 			ContragentModel => LocaleCore.DeviceControl.ItemContragent,
 			DeviceModel => LocaleCore.DeviceControl.ItemDevice,
-			DeviceScaleFkModel => LocaleCore.DeviceControl.ItemDeviceScaleFk,
-			DeviceTypeFkModel => LocaleCore.DeviceControl.ItemDeviceTypeFk,
+			WsSqlDeviceScaleFkModel => LocaleCore.DeviceControl.ItemDeviceScaleFk,
+			WsSqlDeviceTypeFkModel => LocaleCore.DeviceControl.ItemDeviceTypeFk,
 			DeviceTypeModel => LocaleCore.DeviceControl.ItemDeviceType,
 			LogModel => LocaleCore.Strings.ItemLog,
             PluGroupModel => LocaleCore.DeviceControl.ItemNomenclatureGroup,
@@ -70,12 +70,12 @@ public partial class RazorComponentBase
 			OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
 			OrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
 			WsSqlPluBundleFkModel => LocaleCore.DeviceControl.ItemPluBundleFk,
-			PluLabelModel => LocaleCore.DeviceControl.ItemLabel,
+			WsSqlPluLabelModel => LocaleCore.DeviceControl.ItemLabel,
 			WsSqlPluModel => LocaleCore.DeviceControl.ItemPlu,
 			PluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
-			PluWeighingModel => LocaleCore.DeviceControl.ItemPluWeighing,
+			WsSqlPluWeighingModel => LocaleCore.DeviceControl.ItemPluWeighing,
 			PrinterModel => LocaleCore.Print.Name,
-			PrinterResourceFkModel => LocaleCore.Print.Resources,
+			WsSqlPrinterResourceFkModel => LocaleCore.Print.Resources,
 			PrinterTypeModel => LocaleCore.Print.Types,
 			ProductionFacilityModel => LocaleCore.DeviceControl.ItemProductionFacility,
 			ProductSeriesModel => LocaleCore.DeviceControl.ItemProductSeries,
@@ -99,20 +99,20 @@ public partial class RazorComponentBase
 			BundleModel => LocaleCore.DeviceControl.SectionBundles,
 			ContragentModel => LocaleCore.DeviceControl.SectionContragents,
 			DeviceModel => LocaleCore.DeviceControl.SectionDevices,
-			DeviceScaleFkModel => LocaleCore.DeviceControl.SectionDevicesScalesFk,
-			DeviceTypeFkModel => LocaleCore.DeviceControl.SectionDevicesTypesFk,
+			WsSqlDeviceScaleFkModel => LocaleCore.DeviceControl.SectionDevicesScalesFk,
+			WsSqlDeviceTypeFkModel => LocaleCore.DeviceControl.SectionDevicesTypesFk,
 			DeviceTypeModel => LocaleCore.DeviceControl.SectionDevicesTypes,
 			LogModel => LocaleCore.Strings.SectionLog,
 			OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
 			OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
 			WsSqlPluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,
-			PluLabelModel => LocaleCore.DeviceControl.SectionLabels,
+			WsSqlPluLabelModel => LocaleCore.DeviceControl.SectionLabels,
 			WsSqlPluModel => LocaleCore.DeviceControl.SectionPlus,
 			WsSqlPluNestingFkModel => LocaleCore.DeviceControl.SectionPlusNestingFk,
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
-			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeightings,
+			WsSqlPluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeightings,
 			PrinterModel => LocaleCore.Print.Name,
-			PrinterResourceFkModel => LocaleCore.Print.Resources,
+			WsSqlPrinterResourceFkModel => LocaleCore.Print.Resources,
 			PrinterTypeModel => LocaleCore.Print.Types,
 			ProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
 			ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
@@ -247,7 +247,7 @@ public partial class RazorComponentBase
         {
             if (item is DeviceModel device)
             {
-                DeviceScaleFkModel? deviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNullable(scale);
+                WsSqlDeviceScaleFkModel? deviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNullable(scale);
                 if (device.IsNotNew)
                 {
                     if (deviceScaleFk is null)
@@ -273,7 +273,7 @@ public partial class RazorComponentBase
             {
                 if (item is TemplateModel template)
                 {
-                    PluTemplateFkModel? pluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNullable(plu);
+                    WsSqlPluTemplateFkModel? pluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNullable(plu);
                     if (template.IsNotNew)
                     {
                         if (pluTemplateFk is null)
@@ -322,7 +322,7 @@ public partial class RazorComponentBase
         {
             if (item is DeviceTypeModel deviceType)
             {
-                DeviceTypeFkModel? deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNullable(device);
+                WsSqlDeviceTypeFkModel? deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNullable(device);
                 if (deviceType.IsNotNew)
                 {
                     if (deviceTypeFk is null)

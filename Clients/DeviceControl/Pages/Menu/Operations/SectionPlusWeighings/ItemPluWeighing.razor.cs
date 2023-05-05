@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
 
 namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighings;
 
-public sealed partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
+public sealed partial class ItemPluWeighing : RazorComponentItemBase<WsSqlPluWeighingModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -24,10 +24,10 @@ public sealed partial class ItemPluWeighing : RazorComponentItemBase<PluWeighing
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluWeighingModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluWeighingModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                 {
-                    SqlItemCast = SqlItemNew<PluWeighingModel>();
+                    SqlItemCast = SqlItemNew<WsSqlPluWeighingModel>();
                 }
             }
         });

@@ -15,7 +15,7 @@ public sealed class DataAccessTests
 		{
 			foreach (bool isMarked in DataCoreEnums.GetBool())
 			{
-				List<DeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypesFkFree(isMarked, false, false);
+				List<WsSqlDeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
@@ -27,7 +27,7 @@ public sealed class DataAccessTests
 		{
 			foreach (bool isMarked in DataCoreEnums.GetBool())
 			{
-				List<DeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypesFkFree(isMarked, false, false);
+				List<WsSqlDeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
@@ -91,7 +91,7 @@ public sealed class DataAccessTests
 	        List<DeviceModel> devices = WsTestsUtils.ContextManager.ContextList.GetListDevices(true, false, false);
 	        foreach (DeviceModel device in devices)
 	        {
-		        DeviceScaleFkModel deviceScaleFks = WsTestsUtils.ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(device);
+		        WsSqlDeviceScaleFkModel deviceScaleFks = WsTestsUtils.ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(device);
 		        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
 		        TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
 	        }
@@ -103,12 +103,12 @@ public sealed class DataAccessTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-	        List<DeviceTypeFkModel> deviceTypesFks = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypesFks(true, false, false);
-	        foreach (DeviceTypeFkModel deviceTypeFk in deviceTypesFks)
+	        List<WsSqlDeviceTypeFkModel> deviceTypesFks = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypesFks(true, false, false);
+	        foreach (WsSqlDeviceTypeFkModel deviceTypeFk in deviceTypesFks)
 	        {
 		        if (deviceTypeFk.Device.IsNotNew)
 		        {
-			        DeviceScaleFkModel deviceScaleFks = WsTestsUtils.ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
+			        WsSqlDeviceScaleFkModel deviceScaleFks = WsTestsUtils.ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
 			        if (deviceTypeFk.Device.Name.Equals("SCALES-MON-101"))
 			        {
 				        TestContext.WriteLine($"{nameof(deviceTypeFk.Device)}: {deviceTypeFk.Device}");

@@ -138,7 +138,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceScaleFkMap map = new();
+            WsSqlDeviceScaleFkMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -148,7 +148,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            DeviceTypeFkMap map = new();
+            WsSqlDeviceTypeFkMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -228,7 +228,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluCharacteristicsFkMap map = new();
+            WsSqlPluCharacteristicsFkMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -248,7 +248,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluGroupFkMap map = new();
+            WsSqlPluGroupFkMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -288,7 +288,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluBrandFkMap map = new();
+            WsSqlPluBrandFkMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -308,7 +308,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluLabelMap map = new();
+            WsSqlPluLabelMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -338,7 +338,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluTemplateFkMap map = new();
+            WsSqlPluTemplateFkMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -348,7 +348,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PluWeighingMap map = new();
+            WsSqlPluWeighingMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -368,7 +368,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            PrinterResourceFkMap map = new();
+            WsSqlPrinterResourceFkMap map = new();
             TestContext.WriteLine(map);
         });
     }

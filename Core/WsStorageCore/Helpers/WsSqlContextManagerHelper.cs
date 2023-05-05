@@ -33,7 +33,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlPluController ContextPlu => WsSqlPluController.Instance;
     public WsSqlPlu1CFkController ContextPlu1CFk => WsSqlPlu1CFkController.Instance;
     public WsSqlPluNestingFkController ContextPluNesting => WsSqlPluNestingFkController.Instance;
-    public WsSqlContextPluStorageHelper ContextPluStorage => WsSqlContextPluStorageHelper.Instance;
+    public WsSqlPluStorageMethodFkController ContextPluStorage => WsSqlPluStorageMethodFkController.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     private AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;

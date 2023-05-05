@@ -244,7 +244,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         ZebraPeelerStatus = string.Empty;
     }
 
-    public void SendCmd(PluLabelModel pluLabel)
+    public void SendCmd(WsSqlPluLabelModel pluLabel)
     {
         if (string.IsNullOrEmpty(pluLabel.Zpl))
             return;
@@ -263,7 +263,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         }
     }
 
-    private void SendCmdToZebra(PluLabelModel pluLabel) => SendCmdToZebra(pluLabel.Zpl);
+    private void SendCmdToZebra(WsSqlPluLabelModel pluLabel) => SendCmdToZebra(pluLabel.Zpl);
 
     private void SendCmdToZebra(string cmd)
     {
@@ -294,7 +294,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         }
     }
 
-    private void SendCmdToTsc(PluLabelModel pluLabel) => SendCmdToTsc(pluLabel.Zpl);
+    private void SendCmdToTsc(WsSqlPluLabelModel pluLabel) => SendCmdToTsc(pluLabel.Zpl);
 
     private void SendCmdToTsc(string cmd)
     {
@@ -312,7 +312,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         }
     }
 
-    private void SendCmdToTcp(PluLabelModel pluLabel) => SendCmdToTcp(pluLabel.Zpl);
+    private void SendCmdToTcp(WsSqlPluLabelModel pluLabel) => SendCmdToTcp(pluLabel.Zpl);
 
     private void SendCmdToTcp(string cmd)
     {

@@ -164,8 +164,8 @@ internal sealed class WsSqlAccessCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ClipMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceScaleFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceScaleFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMemoryMap>());
@@ -175,24 +175,24 @@ internal sealed class WsSqlAccessCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluBrandFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluBrandFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluBundleFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluCharacteristicMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluCharacteristicsFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluClipFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluGroupFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluCharacteristicsFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluClipFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluGroupFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluGroupMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluLabelMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluLabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluNestingFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluStorageMethodFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluStorageMethodMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluTemplateFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluWeighingMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluTemplateFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterResourceFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterResourceFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductSeriesMap>());
@@ -655,13 +655,13 @@ internal sealed class WsSqlAccessCoreHelper
                 break;
             // Scales.
             case BarCodeModel barcode:
-                barcode.PluLabel = GetItemNotNullable<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
+                barcode.PluLabel = GetItemNotNullable<WsSqlPluLabelModel>(barcode.PluLabel.IdentityValueUid);
                 break;
-            case DeviceTypeFkModel deviceTypeFk:
+            case WsSqlDeviceTypeFkModel deviceTypeFk:
                 deviceTypeFk.Device = GetItemNotNullable<DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
                 deviceTypeFk.Type = GetItemNotNullable<DeviceTypeModel>(deviceTypeFk.Type.IdentityValueUid);
                 break;
-            case DeviceScaleFkModel deviceScaleFk:
+            case WsSqlDeviceScaleFkModel deviceScaleFk:
                 deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
                 deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
                 break;
@@ -676,12 +676,12 @@ internal sealed class WsSqlAccessCoreHelper
                 logWebFk.LogType = GetItemNotNullable<LogTypeModel>(logWebFk.LogType.IdentityValueUid);
                 logWebFk.Device = GetItemNotNullable<DeviceModel>(logWebFk.Device.IdentityValueUid);
                 break;
-            case PluFkModel pluFk:
+            case WsSqlPluFkModel pluFk:
                 pluFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluFk.Plu.IdentityValueUid);
                 pluFk.Parent = GetItemNotNullable<WsSqlPluModel>(pluFk.Parent.IdentityValueUid);
                 pluFk.Category = GetItemNotNullable<WsSqlPluModel>(pluFk.Category?.IdentityValueUid);
                 break;
-            case PluBrandFkModel pluBrandFk:
+            case WsSqlPluBrandFkModel pluBrandFk:
                 pluBrandFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluBrandFk.Plu.IdentityValueUid);
                 pluBrandFk.Brand = GetItemNotNullable<BrandModel>(pluBrandFk.Brand.IdentityValueUid);
                 break;
@@ -689,23 +689,23 @@ internal sealed class WsSqlAccessCoreHelper
                 pluBundle.Plu = GetItemNotNullable<WsSqlPluModel>(pluBundle.Plu.IdentityValueUid);
                 pluBundle.Bundle = GetItemNotNullable<BundleModel>(pluBundle.Bundle.IdentityValueUid);
                 break;
-            case PluClipFkModel pluClip:
+            case WsSqlPluClipFkModel pluClip:
                 pluClip.Clip = GetItemNotNullable<ClipModel>(pluClip.Clip.IdentityValueUid);
                 pluClip.Plu = GetItemNotNullable<WsSqlPluModel>(pluClip.Plu.IdentityValueUid);
                 break;
-            case PluLabelModel pluLabel:
-                pluLabel.PluWeighing = GetItemNullable<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
+            case WsSqlPluLabelModel pluLabel:
+                pluLabel.PluWeighing = GetItemNullable<WsSqlPluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
                 pluLabel.PluScale = GetItemNotNullable<PluScaleModel>(pluLabel.PluScale.IdentityValueUid);
                 break;
             case PluScaleModel pluScale:
                 pluScale.Plu = GetItemNotNullable<WsSqlPluModel>(pluScale.Plu.IdentityValueUid);
                 pluScale.Scale = GetItemNotNullable<ScaleModel>(pluScale.Scale.IdentityValueId);
                 break;
-            case PluTemplateFkModel pluTemplateFk:
+            case WsSqlPluTemplateFkModel pluTemplateFk:
                 pluTemplateFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluTemplateFk.Plu.IdentityValueUid);
                 pluTemplateFk.Template = GetItemNotNullable<TemplateModel>(pluTemplateFk.Template.IdentityValueId);
                 break;
-            case PluWeighingModel pluWeighing:
+            case WsSqlPluWeighingModel pluWeighing:
                 pluWeighing.PluScale = GetItemNotNullable<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
                 pluWeighing.Series = GetItemNullable<ProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
                 break;
@@ -713,15 +713,15 @@ internal sealed class WsSqlAccessCoreHelper
                 pluNestingFk.PluBundle = GetItemNotNullable<WsSqlPluBundleFkModel>(pluNestingFk.PluBundle.IdentityValueUid);
                 pluNestingFk.Box = GetItemNotNullable<BoxModel>(pluNestingFk.Box.IdentityValueUid);
                 break;
-            case PluGroupFkModel pluGroupFk:
+            case WsSqlPluGroupFkModel pluGroupFk:
                 pluGroupFk.PluGroup = GetItemNotNullable<PluGroupModel>(pluGroupFk.PluGroup.IdentityValueUid);
                 pluGroupFk.Parent = GetItemNotNullable<PluGroupModel>(pluGroupFk.Parent.IdentityValueUid);
                 break;
-            case PluCharacteristicsFkModel pluCharacteristicsFk:
+            case WsSqlPluCharacteristicsFkModel pluCharacteristicsFk:
                 pluCharacteristicsFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluCharacteristicsFk.Plu.IdentityValueUid);
                 pluCharacteristicsFk.Characteristic = GetItemNotNullable<PluCharacteristicModel>(pluCharacteristicsFk.Characteristic.IdentityValueUid);
                 break;
-            case PluStorageMethodFkModel pluStorageMethod:
+            case WsSqlPluStorageMethodFkModel pluStorageMethod:
                 if (isFillReferences)
                 {
                     pluStorageMethod.Plu = GetItemNotNullable<WsSqlPluModel>(pluStorageMethod.Plu.IdentityValueUid);
@@ -738,12 +738,12 @@ internal sealed class WsSqlAccessCoreHelper
                 break;
             case OrderWeighingModel orderWeighing:
                 orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);
-                orderWeighing.PluWeighing = GetItemNotNullable<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
+                orderWeighing.PluWeighing = GetItemNotNullable<WsSqlPluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
                 break;
             case PrinterModel printer:
                 printer.PrinterType = GetItemNotNullable<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
                 break;
-            case PrinterResourceFkModel printerResource:
+            case WsSqlPrinterResourceFkModel printerResource:
                 printerResource.Printer = GetItemNotNullable<PrinterModel>(printerResource.Printer.IdentityValueId);
                 printerResource.TemplateResource = GetItemNotNullable<TemplateResourceModel>(printerResource.TemplateResource.IdentityValueUid);
                 if (string.IsNullOrEmpty(printerResource.TemplateResource.Description))
