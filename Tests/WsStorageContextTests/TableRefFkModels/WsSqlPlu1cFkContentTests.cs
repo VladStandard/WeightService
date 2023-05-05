@@ -1,9 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.TableRefFkModels.Plus1CFk;
+using WsStorageCore.TableRefModels.Plus1CFk;
 
-namespace WsStorageContextTests.TableRefFkModels;
+namespace WsStorageContextTests.TableRefModels;
 
 [TestFixture]
 public sealed class WsSqlPlu1CFkContentTests

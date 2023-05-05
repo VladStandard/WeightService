@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
-namespace WsStorageCore.TableRefFkModels.Plus1CFk;
+namespace WsStorageCore.TableRefModels.Plus1CFk;
 
 /// <summary>
 /// Доменная модель таблицы REF.PLUS_1C_FK.
@@ -59,7 +59,7 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
-        Plu.EqualsDefault() && 
+        Plu.EqualsDefault() &&
         Equals(IsEnabled, default) &&
         Equals(RequestDataString, string.Empty);
 

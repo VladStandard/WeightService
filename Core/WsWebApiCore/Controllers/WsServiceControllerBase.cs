@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using NHibernate.Hql.Ast;
+using WsStorageCore.TableRefModels.Plus1CFk;
 
 namespace WsWebApiCore.Controllers;
 

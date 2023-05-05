@@ -30,7 +30,7 @@ global using WsLocalizationCore.Utils;
 global using WsStorageCore.Enums;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
-global using WsStorageCore.TableRefFkModels.Plus1CFk;
+global using WsStorageCore.TableRefModels.Plus1CFk;
 global using WsStorageCore.Tables;
 global using WsStorageCore.TableScaleFkModels.PlusBrandsFks;
 global using WsStorageCore.TableScaleFkModels.PlusBundlesFks;

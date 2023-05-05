@@ -7,4 +7,4 @@ WsSqlPlu1CFkMap         # Маппинг полей таблицы SCHEMA.TABLE.
 WsSqlPlu1CFkModel       # Доменная модель таблицы SCHEMA.TABLE.
 WsSqlPlu1CFkValidator   # Валидатор таблицы REF.PLUS_1C_FK.
 ```
-Code example: `namespace WsStorageCore.TableRefFkModels.Plus1CFk;`
+Code example: `namespace WsStorageCore.TableRefModels.Plus1CFk;`
