@@ -9,7 +9,7 @@ namespace WsStorageCore.TableDiagModels.LogsMemories;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogMemoryModel)} | {Device.Description} | {SizeAppMb} | SizeFreeMb")]
-public class LogMemoryModel : WsSqlTableBase
+public class WsSqlLogMemoryModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -21,7 +21,7 @@ public class LogMemoryModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogMemoryModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogMemoryModel() : base(WsSqlFieldIdentity.Uid)
     {
         SizeAppMb = default;
         SizeFreeMb = default;
@@ -34,7 +34,7 @@ public class LogMemoryModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected LogMemoryModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlLogMemoryModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         SizeAppMb = info.GetInt16(nameof(SizeAppMb));
         SizeFreeMb = info.GetInt16(nameof(SizeAppMb));
@@ -58,7 +58,7 @@ public class LogMemoryModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((LogMemoryModel)obj);
+        return Equals((WsSqlLogMemoryModel)obj);
     }
 
     public override int GetHashCode() => (App, Device, SizeAppMb, SizeFreeMb).GetHashCode();
@@ -75,7 +75,7 @@ public class LogMemoryModel : WsSqlTableBase
 
     public override object Clone()
     {
-        LogMemoryModel item = new();
+        WsSqlLogMemoryModel item = new();
         item.CloneSetup(base.CloneCast());
         item.SizeAppMb = SizeAppMb;
         item.SizeFreeMb = SizeFreeMb;
@@ -104,7 +104,7 @@ public class LogMemoryModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(LogMemoryModel item) =>
+    public virtual bool Equals(WsSqlLogMemoryModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(SizeAppMb, item.SizeAppMb) &&
         Equals(SizeFreeMb, item.SizeFreeMb) &&
@@ -112,7 +112,7 @@ public class LogMemoryModel : WsSqlTableBase
         Equals(App, item.App) &&
         Equals(Device, item.Device);
 
-    public new virtual LogMemoryModel CloneCast() => (LogMemoryModel)Clone();
+    public new virtual WsSqlLogMemoryModel CloneCast() => (WsSqlLogMemoryModel)Clone();
 
     #endregion
 }

@@ -4,9 +4,9 @@
 @using WsStorageCore.TableDiagModels.ScalesScreenshots
 @using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.ScalesScreenshots.ScaleScreenShotModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
-<RazorItemReload TItem="@ScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot"/>
+<RazorItemReload TItem="@WsSqlScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
@@ -33,7 +33,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@ScaleScreenShotModel"
+  TItem="@WsSqlScaleScreenShotModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

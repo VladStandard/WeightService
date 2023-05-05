@@ -1,34 +1,30 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.TableDiagModels.LogsWebsFks;
+namespace WsStorageCore.TableDiagModels.LogsMemories;
 
 /// <summary>
-/// Table validation "LOGS_WEBS_FK".
+/// Table validation "diag.LOGS_MEMORIES".
 /// </summary>
-public sealed class LogWebFkValidator : WsSqlTableValidator<LogWebFkModel>
+public sealed class WsSqlLogMemoryValidator : WsSqlTableValidator<WsSqlLogMemoryModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogWebFkValidator() : base(false, false)
+    public WsSqlLogMemoryValidator() : base(true, false)
     {
-        RuleFor(item => item.LogWebRequest)
+        RuleFor(item => item.SizeAppMb)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new LogWebValidator());
-        RuleFor(item => item.LogWebResponse)
+            .GreaterThanOrEqualTo((short)0);
+        RuleFor(item => item.SizeFreeMb)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new LogWebValidator());
+            .GreaterThanOrEqualTo((short)0);
         RuleFor(item => item.App)
             .NotEmpty()
             .NotNull()
             .SetValidator(new WsSqlAppValidator());
-        RuleFor(item => item.LogType)
-            .NotEmpty()
-            .NotNull()
-            .SetValidator(new LogTypeValidator());
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()

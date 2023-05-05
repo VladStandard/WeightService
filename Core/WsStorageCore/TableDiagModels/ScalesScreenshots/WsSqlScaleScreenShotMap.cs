@@ -6,12 +6,12 @@ namespace WsStorageCore.TableDiagModels.ScalesScreenshots;
 /// <summary>
 /// Table map "diag.SCALES_SCREENSHOTS".
 /// </summary>
-public sealed class ScaleScreenShotMap : ClassMap<ScaleScreenShotModel>
+public sealed class WsSqlScaleScreenShotMap : ClassMap<WsSqlScaleScreenShotModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleScreenShotMap()
+    public WsSqlScaleScreenShotMap()
     {
         Schema(WsSqlSchemasUtils.Diag);
         Table(WsSqlTablesUtils.ScalesScreenshots);

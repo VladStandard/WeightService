@@ -26,7 +26,7 @@ public static class WsActionUtils
         graphics.CopyFromScreen(form.Location.X, form.Location.Y, 0, 0, form.Size);
         using Image img = bitmap;
         img.Save(memoryStream, ImageFormat.Png);
-        ScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
+        WsSqlScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
         AccessManager.AccessItem.Save(scaleScreenShot);
     }
 

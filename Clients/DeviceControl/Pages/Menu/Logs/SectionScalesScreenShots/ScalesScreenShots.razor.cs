@@ -6,7 +6,7 @@ using WsStorageCore.TableDiagModels.ScalesScreenshots;
 
 namespace BlazorDeviceControl.Pages.Menu.Logs.SectionScalesScreenShots;
 
-public sealed partial class ScalesScreenShots : RazorComponentSectionBase<ScaleScreenShotModel>
+public sealed partial class ScalesScreenShots : RazorComponentSectionBase<WsSqlScaleScreenShotModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -21,11 +21,11 @@ public sealed partial class ScalesScreenShots : RazorComponentSectionBase<ScaleS
 
     protected override void SetSqlSectionCast()
     {
-        SqlCrudConfigSection.AddFilters(nameof(ScaleScreenShotModel.Scale), SqlItem);
+        SqlCrudConfigSection.AddFilters(nameof(WsSqlScaleScreenShotModel.Scale), SqlItem);
         base.SetSqlSectionCast();
     }
 
-    private string GetByteLength(ScaleScreenShotModel screenshot) =>
+    private string GetByteLength(WsSqlScaleScreenShotModel screenshot) =>
         DataUtils.GetBytesLength(screenshot.ScreenShot, false);
     
     #endregion

@@ -11,13 +11,13 @@ public sealed partial class Logs : RazorComponentSectionBase<LogView>
 {
     private string? CurrentLogType { get; set; }
     private string? CurrentLine { get; set; }
-    private List<LogTypeModel> LogTypes { get; set; }
+    private List<WsSqlLogTypeModel> LogTypes { get; set; }
     private List<ScaleModel> Lines { get; set; }
 
 
     public Logs() : base()
     {
-        LogTypes = ContextManager.AccessManager.AccessList.GetListNotNullable<LogTypeModel>(new SqlCrudConfigModel());
+        LogTypes = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlLogTypeModel>(new SqlCrudConfigModel());
         Lines = ContextManager.AccessManager.AccessList.GetListNotNullable<ScaleModel>(new SqlCrudConfigModel());
         Lines = (from item in Lines orderby item.Description select item).ToList();
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;

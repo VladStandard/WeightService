@@ -148,7 +148,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            LogValidator validator = new();
+            WsSqlLogValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }
@@ -158,7 +158,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            LogTypeValidator validator = new();
+            WsSqlLogTypeValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }
@@ -358,7 +358,7 @@ public sealed class DataAccessHelperValidatorTests
     {
         Assert.DoesNotThrow(() =>
         {
-            ScaleScreenShotValidator validator = new();
+            WsSqlScaleScreenShotValidator validator = new();
             TestContext.WriteLine(validator);
         });
     }

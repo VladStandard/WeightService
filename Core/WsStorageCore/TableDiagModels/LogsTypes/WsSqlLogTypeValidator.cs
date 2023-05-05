@@ -6,12 +6,12 @@ namespace WsStorageCore.TableDiagModels.LogsTypes;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public sealed class LogTypeValidator : WsSqlTableValidator<LogTypeModel>
+public sealed class WsSqlLogTypeValidator : WsSqlTableValidator<WsSqlLogTypeModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogTypeValidator() : base(false, false)
+    public WsSqlLogTypeValidator() : base(false, false)
     {
         RuleFor(item => item.Number)
             .NotNull()

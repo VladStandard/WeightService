@@ -203,9 +203,9 @@ public sealed class WsSqlContextItemHelper
         StrUtils.SetStringValueTrim(ref filePath, 32, true);
         StrUtils.SetStringValueTrim(ref memberName, 32);
         StrUtils.SetStringValueTrim(ref message, 1024);
-        LogTypeModel? logTypeItem = AccessCore.GetItemLogTypeNullable(logType);
+        WsSqlLogTypeModel? logTypeItem = AccessCore.GetItemLogTypeNullable(logType);
 
-        LogModel log = new()
+        WsSqlLogModel log = new()
         {
             CreateDt = DateTime.Now,
             ChangeDt = DateTime.Now,
@@ -268,7 +268,7 @@ public sealed class WsSqlContextItemHelper
     /// <param name="sizeFreeMb"></param>
     public void SaveLogMemory(short sizeAppMb, short sizeFreeMb)
     {
-        LogMemoryModel logMemory = new()
+        WsSqlLogMemoryModel logMemory = new()
         {
             CreateDt = DateTime.Now,
             SizeAppMb = sizeAppMb,
@@ -300,7 +300,7 @@ public sealed class WsSqlContextItemHelper
         string url, string parameters, string headers,
         byte formatType, int countAll, int countSuccess, int countErrors)
     {
-        LogWebModel logWebRequest = new()
+        WsSqlLogWebModel logWebRequest = new()
         {
             CreateDt = DateTime.Now,
             StampDt = requestStampDt,
@@ -318,7 +318,7 @@ public sealed class WsSqlContextItemHelper
         };
         AccessManager.AccessItem.Save(logWebRequest);
 
-        LogWebModel logWebResponse = new()
+        WsSqlLogWebModel logWebResponse = new()
         {
             CreateDt = DateTime.Now,
             StampDt = responseStampDt,
@@ -336,8 +336,8 @@ public sealed class WsSqlContextItemHelper
         };
         AccessManager.AccessItem.Save(logWebResponse);
 
-        LogTypeModel logTypeItem = AccessCore.GetItemLogTypeNotNullable(logType);
-        LogWebFkModel logWebFk = new()
+        WsSqlLogTypeModel logTypeItem = AccessCore.GetItemLogTypeNotNullable(logType);
+        WsSqlLogWebFkModel logWebFk = new()
         {
             LogWebRequest = logWebRequest,
             LogWebResponse = logWebResponse,

@@ -6,12 +6,12 @@ namespace WsStorageCore.TableDiagModels.LogsWebs;
 /// <summary>
 /// Table validation "LOGS_WEBS".
 /// </summary>
-public sealed class LogWebValidator : WsSqlTableValidator<LogWebModel>
+public sealed class WsSqlLogWebValidator : WsSqlTableValidator<WsSqlLogWebModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogWebValidator() : base(true, false)
+    public WsSqlLogWebValidator() : base(true, false)
     {
         RuleFor(item => item.StampDt)
             .NotEmpty()

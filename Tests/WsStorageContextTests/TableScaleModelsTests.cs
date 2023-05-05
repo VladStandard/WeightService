@@ -71,19 +71,19 @@ public sealed class TableScaleModelsTests
     [Test]
     public void Validate_list_of_logs()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<LogModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlLogModel>();
     }
 
     [Test]
     public void Validate_list_of_logs_types()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<LogTypeModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlLogTypeModel>();
     }
 
     [Test]
     public void Validate_list_of_logs_webs()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<LogWebModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlLogWebModel>();
     }
 
     //[Test]

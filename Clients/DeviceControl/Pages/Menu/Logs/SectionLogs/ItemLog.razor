@@ -2,9 +2,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableDiagModels.Logs
 @using BlazorDeviceControl.Pages.ItemComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.Logs.LogModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.Logs.WsSqlLogModel>
 
-<RazorItemReload TItem="LogModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
+<RazorItemReload TItem="WsSqlLogModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
@@ -62,7 +62,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@LogModel"
+  TItem="@WsSqlLogModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

@@ -6,12 +6,12 @@ namespace WsStorageCore.TableDiagModels.LogsTypes;
 /// <summary>
 /// Table map "LOG_TYPES".
 /// </summary>
-public sealed class LogTypeMap : ClassMap<LogTypeModel>
+public sealed class WsSqlLogTypeMap : ClassMap<WsSqlLogTypeModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogTypeMap()
+    public WsSqlLogTypeMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.LogsTypes);

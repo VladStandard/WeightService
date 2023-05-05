@@ -86,31 +86,31 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_LogTypeModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<LogTypeModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlLogTypeModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_LogModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<LogModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlLogModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_LogMemoryModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<LogMemoryModel>(SqlCrudConfigFk, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlLogMemoryModel>(SqlCrudConfigFk, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_LogWebModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<LogWebModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlLogWebModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]
     public void DataContext_AssertGetList_LogWebFkModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<LogWebFkModel>(SqlCrudConfigFk, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlLogWebFkModel>(SqlCrudConfigFk, Configurations);
     }
 
     [Test]
@@ -251,7 +251,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_ScaleScreenShotModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<ScaleScreenShotModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlScaleScreenShotModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]

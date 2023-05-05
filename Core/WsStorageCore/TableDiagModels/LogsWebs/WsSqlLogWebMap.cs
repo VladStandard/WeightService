@@ -6,12 +6,12 @@ namespace WsStorageCore.TableDiagModels.LogsWebs;
 /// <summary>
 /// Table map "LOGS_WEBS".
 /// </summary>
-public sealed class LogWebMap : ClassMap<LogWebModel>
+public sealed class WsSqlLogWebMap : ClassMap<WsSqlLogWebModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogWebMap()
+    public WsSqlLogWebMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.LogsWebs);

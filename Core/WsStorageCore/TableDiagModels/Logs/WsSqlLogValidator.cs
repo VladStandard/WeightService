@@ -6,12 +6,12 @@ namespace WsStorageCore.TableDiagModels.Logs;
 /// <summary>
 /// Table validation "LOGS".
 /// </summary>
-public sealed class LogValidator : WsSqlTableValidator<LogModel>
+public sealed class WsSqlLogValidator : WsSqlTableValidator<WsSqlLogModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogValidator() : base(true, false)
+    public WsSqlLogValidator() : base(true, false)
     {
         RuleFor(item => item.Version)
             .NotNull();

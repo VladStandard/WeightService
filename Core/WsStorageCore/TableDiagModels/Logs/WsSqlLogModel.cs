@@ -8,13 +8,13 @@ namespace WsStorageCore.TableDiagModels.Logs;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogModel)}")]
-public class LogModel : WsSqlTableBase
+public class WsSqlLogModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement(IsNullable = true)] public virtual DeviceModel? Device { get; set; }
     [XmlElement(IsNullable = true)] public virtual WsSqlAppModel? App { get; set; }
-    [XmlElement(IsNullable = true)] public virtual LogTypeModel? LogType { get; set; }
+    [XmlElement(IsNullable = true)] public virtual WsSqlLogTypeModel? LogType { get; set; }
     [XmlElement] public virtual string Version { get; set; }
     [XmlElement] public virtual string File { get; set; }
     [XmlElement] public virtual int Line { get; set; }
@@ -24,7 +24,7 @@ public class LogModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogModel() : base(WsSqlFieldIdentity.Uid)
     {
         Device = null;
         App = null;
@@ -41,11 +41,11 @@ public class LogModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected LogModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlLogModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Device = (DeviceModel?)info.GetValue(nameof(Device), typeof(DeviceModel));
         App = (WsSqlAppModel?)info.GetValue(nameof(App), typeof(WsSqlAppModel));
-        LogType = (LogTypeModel?)info.GetValue(nameof(LogType), typeof(LogTypeModel));
+        LogType = (WsSqlLogTypeModel?)info.GetValue(nameof(LogType), typeof(WsSqlLogTypeModel));
         Version = info.GetString(nameof(Version));
         File = info.GetString(nameof(File));
         Line = info.GetInt32(nameof(Line));
@@ -73,7 +73,7 @@ public class LogModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((LogModel)obj);
+        return Equals((WsSqlLogModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -93,7 +93,7 @@ public class LogModel : WsSqlTableBase
 
     public override object Clone()
     {
-        LogModel item = new();
+        WsSqlLogModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Device = Device?.CloneCast();
         item.App = App?.CloneCast();
@@ -152,7 +152,7 @@ public class LogModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(LogModel item) =>
+    public virtual bool Equals(WsSqlLogModel item) =>
         ReferenceEquals(this, item) ||
         base.Equals(item) &&
         Equals(Version, item.Version) &&
@@ -164,7 +164,7 @@ public class LogModel : WsSqlTableBase
         (App is null && item.App is null || App is not null && item.App is not null && App.Equals(item.App)) &&
         (LogType is null && item.LogType is null || LogType is not null && item.LogType is not null && LogType.Equals(item.LogType));
 
-    public new virtual LogModel CloneCast() => (LogModel)Clone();
+    public new virtual WsSqlLogModel CloneCast() => (WsSqlLogModel)Clone();
 
     #endregion
 }

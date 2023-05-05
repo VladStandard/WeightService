@@ -9,7 +9,7 @@ namespace WsStorageCore.TableDiagModels.ScalesScreenshots;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(ScaleScreenShotModel)} | {Scale.Description}")]
-public class ScaleScreenShotModel : WsSqlTableBase
+public class WsSqlScaleScreenShotModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public class ScaleScreenShotModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleScreenShotModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlScaleScreenShotModel() : base(WsSqlFieldIdentity.Uid)
     {
         Scale = new();
         ScreenShot = Array.Empty<byte>();
@@ -30,7 +30,7 @@ public class ScaleScreenShotModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected ScaleScreenShotModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlScaleScreenShotModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
         ScreenShot = (byte[])info.GetValue(nameof(ScreenShot), typeof(byte));
@@ -50,7 +50,7 @@ public class ScaleScreenShotModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((ScaleScreenShotModel)obj);
+        return Equals((WsSqlScaleScreenShotModel)obj);
     }
 
     public override int GetHashCode() => (Scale, ScreenShot.Length).GetHashCode();
@@ -64,7 +64,7 @@ public class ScaleScreenShotModel : WsSqlTableBase
 
     public override object Clone()
     {
-        ScaleScreenShotModel item = new();
+        WsSqlScaleScreenShotModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Scale = Scale.CloneCast();
         item.ScreenShot = ScreenShot;
@@ -88,13 +88,13 @@ public class ScaleScreenShotModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(ScaleScreenShotModel item) =>
+    public virtual bool Equals(WsSqlScaleScreenShotModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Scale, item.Scale) &&
         Equals(ScreenShot, item.ScreenShot) &&
         Scale.Equals(item.Scale);
 
-    public new virtual ScaleScreenShotModel CloneCast() => (ScaleScreenShotModel)Clone();
+    public new virtual WsSqlScaleScreenShotModel CloneCast() => (WsSqlScaleScreenShotModel)Clone();
 
     #endregion
 }

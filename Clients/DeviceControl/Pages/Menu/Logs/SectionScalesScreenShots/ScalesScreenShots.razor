@@ -4,10 +4,10 @@
 @using WsDataCore.Utils
 @using BlazorDeviceControl.Pages.SectionComponents
 @using BlazorDeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<WsStorageCore.TableDiagModels.ScalesScreenshots.ScaleScreenShotModel>
+@inherits RazorComponentSectionBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
 <SectionReload
-  TItem="@ScaleScreenShotModel"
+  TItem="@WsSqlScaleScreenShotModel"
   Title="@LocaleCore.DeviceControl.SectionScreenShots"
   OnSectionUpdate="@GetSectionData"
   SectionCount="@SqlSectionCast.Count"
@@ -16,14 +16,14 @@
 
 <RzDataGridLocal
   @bind-Value="@SelectedRow"
-  TItem="@ScaleScreenShotModel"
+  TItem="@WsSqlScaleScreenShotModel"
   Data="@SqlSectionCast"
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
-    <TItemContent TItem="@ScaleScreenShotModel">
+    <TItemContent TItem="@WsSqlScaleScreenShotModel">
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
                             FormatString="@StrUtils.FormatDtLong"/>

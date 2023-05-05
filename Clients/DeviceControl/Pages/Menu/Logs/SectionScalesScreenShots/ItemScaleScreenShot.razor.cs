@@ -6,7 +6,7 @@ using WsStorageCore.TableDiagModels.ScalesScreenshots;
 
 namespace BlazorDeviceControl.Pages.Menu.Logs.SectionScalesScreenShots;
 
-public sealed partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleScreenShotModel>
+public sealed partial class ItemScaleScreenShot : RazorComponentItemBase<WsSqlScaleScreenShotModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -29,7 +29,7 @@ public sealed partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleSc
             () =>
             {
                 SqlItemCast =
-                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<ScaleScreenShotModel>(IdentityUid);
+                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlScaleScreenShotModel>(IdentityUid);
                 if (SqlItemCast.ScreenShot.Length > 1)
                 {
                     ImagePath = "data:image/png;base64, " + Convert.ToBase64String(SqlItemCast.ScreenShot);
@@ -37,7 +37,7 @@ public sealed partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleSc
 
                 if (SqlItemCast.IsNew)
                 {
-                    SqlItemCast = SqlItemNew<ScaleScreenShotModel>();
+                    SqlItemCast = SqlItemNew<WsSqlScaleScreenShotModel>();
                 }
             }
         });

@@ -6,12 +6,12 @@ namespace WsStorageCore.TableDiagModels.LogsWebsFks;
 /// <summary>
 /// Table map "LOGS_WEBS_FK".
 /// </summary>
-public sealed class LogWebFkMap : ClassMap<LogWebFkModel>
+public sealed class WsSqlLogWebFkMap : ClassMap<WsSqlLogWebFkModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogWebFkMap()
+    public WsSqlLogWebFkMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.LogWebFks);

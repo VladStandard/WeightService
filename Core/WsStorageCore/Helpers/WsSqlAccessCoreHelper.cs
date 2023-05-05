@@ -167,11 +167,11 @@ internal sealed class WsSqlAccessCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceScaleFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMemoryMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogWebMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMemoryMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogWebFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogWebMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
@@ -197,7 +197,7 @@ internal sealed class WsSqlAccessCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductSeriesMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ScaleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ScaleScreenShotMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleScreenShotMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateMap>());
@@ -404,23 +404,23 @@ internal sealed class WsSqlAccessCoreHelper
         return GetItemNullable<WsSqlAppModel>(sqlCrudConfig);
     }
 
-    public LogTypeModel? GetItemLogTypeNullable(LogType logType)
+    public WsSqlLogTypeModel? GetItemLogTypeNullable(LogType logType)
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
-                { new() { Name = nameof(LogTypeModel.Number), Value = (byte)logType } },
+                { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
             true, true, false, false, false);
-        return GetItemNullable<LogTypeModel>(sqlCrudConfig);
+        return GetItemNullable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
 
-    public LogTypeModel GetItemLogTypeNotNullable(LogType logType) =>
+    public WsSqlLogTypeModel GetItemLogTypeNotNullable(LogType logType) =>
         GetItemLogTypeNullable(logType) ?? new();
 
-    public List<LogTypeModel> GetListLogTypesNotNullable()
+    public List<WsSqlLogTypeModel> GetListLogTypesNotNullable()
     {
         SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(),
             false, false, false, true, false);
-        sqlCrudConfig.AddOrders(new() { Name = nameof(LogTypeModel.Number), Direction = WsSqlOrderDirection.Asc });
-        return GetListNotNullable<LogTypeModel>(sqlCrudConfig);
+        sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlLogTypeModel.Number), Direction = WsSqlOrderDirection.Asc });
+        return GetListNotNullable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
 
     #endregion
@@ -648,10 +648,10 @@ internal sealed class WsSqlAccessCoreHelper
             case XmlDeviceModel xmlDevice:
                 xmlDevice.Scale = GetItemNotNullable<ScaleModel>(xmlDevice.Scale.IdentityValueId);
                 break;
-            case LogModel log:
+            case WsSqlLogModel log:
                 log.App = GetItemNotNullable<WsSqlAppModel>(log.App?.IdentityValueUid);
                 log.Device = GetItemNullable<DeviceModel>(log.Device?.IdentityValueUid);
-                log.LogType = GetItemNotNullable<LogTypeModel>(log.LogType?.IdentityValueUid);
+                log.LogType = GetItemNotNullable<WsSqlLogTypeModel>(log.LogType?.IdentityValueUid);
                 break;
             // Scales.
             case BarCodeModel barcode:
@@ -665,15 +665,15 @@ internal sealed class WsSqlAccessCoreHelper
                 deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
                 deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
                 break;
-            case LogMemoryModel logMemory:
+            case WsSqlLogMemoryModel logMemory:
                 logMemory.App = GetItemNotNullable<WsSqlAppModel>(logMemory.App.IdentityValueUid);
                 logMemory.Device = GetItemNotNullable<DeviceModel>(logMemory.Device.IdentityValueUid);
                 break;
-            case LogWebFkModel logWebFk:
-                logWebFk.LogWebRequest = GetItemNotNullable<LogWebModel>(logWebFk.LogWebRequest.IdentityValueUid);
-                logWebFk.LogWebResponse = GetItemNotNullable<LogWebModel>(logWebFk.LogWebResponse.IdentityValueUid);
+            case WsSqlLogWebFkModel logWebFk:
+                logWebFk.LogWebRequest = GetItemNotNullable<WsSqlLogWebModel>(logWebFk.LogWebRequest.IdentityValueUid);
+                logWebFk.LogWebResponse = GetItemNotNullable<WsSqlLogWebModel>(logWebFk.LogWebResponse.IdentityValueUid);
                 logWebFk.App = GetItemNotNullable<WsSqlAppModel>(logWebFk.App.IdentityValueUid);
-                logWebFk.LogType = GetItemNotNullable<LogTypeModel>(logWebFk.LogType.IdentityValueUid);
+                logWebFk.LogType = GetItemNotNullable<WsSqlLogTypeModel>(logWebFk.LogType.IdentityValueUid);
                 logWebFk.Device = GetItemNotNullable<DeviceModel>(logWebFk.Device.IdentityValueUid);
                 break;
             case WsSqlPluFkModel pluFk:
@@ -757,7 +757,7 @@ internal sealed class WsSqlAccessCoreHelper
                 scale.PrinterShipping = GetItemNullable<PrinterModel>(scale.PrinterShipping?.IdentityValueId);
                 scale.WorkShop = GetItemNullable<WorkShopModel>(scale.WorkShop?.IdentityValueId);
                 break;
-            case ScaleScreenShotModel scaleScreenShot:
+            case WsSqlScaleScreenShotModel scaleScreenShot:
                 scaleScreenShot.Scale = GetItemNotNullable<ScaleModel>(scaleScreenShot.Scale.IdentityValueId);
                 break;
             case TaskModel task:

@@ -9,14 +9,14 @@ public sealed class LogTypeValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        LogTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<LogTypeModel>(false);
+        WsSqlLogTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlLogTypeModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        LogTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<LogTypeModel>(true);
+        WsSqlLogTypeModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlLogTypeModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

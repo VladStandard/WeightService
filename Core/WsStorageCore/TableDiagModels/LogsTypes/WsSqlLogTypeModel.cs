@@ -8,7 +8,7 @@ namespace WsStorageCore.TableDiagModels.LogsTypes;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogTypeModel)}")]
-public class LogTypeModel : WsSqlTableBase
+public class WsSqlLogTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -18,7 +18,7 @@ public class LogTypeModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogTypeModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogTypeModel() : base(WsSqlFieldIdentity.Uid)
     {
         Number = 0x00;
         Icon = string.Empty;
@@ -29,7 +29,7 @@ public class LogTypeModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected LogTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlLogTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Number = info.GetByte(nameof(Number));
         Icon = info.GetString(nameof(Icon));
@@ -49,7 +49,7 @@ public class LogTypeModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((LogTypeModel)obj);
+        return Equals((WsSqlLogTypeModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -63,7 +63,7 @@ public class LogTypeModel : WsSqlTableBase
 
     public override object Clone()
     {
-        LogTypeModel item = new();
+        WsSqlLogTypeModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Number = Number;
         item.Icon = Icon;
@@ -92,12 +92,12 @@ public class LogTypeModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(LogTypeModel item) =>
+    public virtual bool Equals(WsSqlLogTypeModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Number, item.Number) &&
         Equals(Icon, item.Icon);
 
-    public new virtual LogTypeModel CloneCast() => (LogTypeModel)Clone();
+    public new virtual WsSqlLogTypeModel CloneCast() => (WsSqlLogTypeModel)Clone();
 
     #endregion
 }

@@ -6,12 +6,12 @@ namespace WsStorageCore.TableDiagModels.ScalesScreenshots;
 /// <summary>
 /// Table validation "diag.SCALES_SCREENSHOTS".
 /// </summary>
-public sealed class ScaleScreenShotValidator : WsSqlTableValidator<ScaleScreenShotModel>
+public sealed class WsSqlScaleScreenShotValidator : WsSqlTableValidator<WsSqlScaleScreenShotModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleScreenShotValidator() : base(true, true)
+    public WsSqlScaleScreenShotValidator() : base(true, true)
     {
         RuleFor(item => item.Scale)
             .NotEmpty()

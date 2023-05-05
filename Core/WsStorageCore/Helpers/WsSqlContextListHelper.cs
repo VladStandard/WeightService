@@ -35,11 +35,11 @@ public sealed class WsSqlContextListHelper
     public List<DeviceTypeModel> DeviceTypes { get; set; } = new();
     public List<WsSqlDeviceTypeFkModel> DeviceTypeFks { get; set; } = new();
     public List<WsSqlDeviceScaleFkModel> DeviceScaleFks { get; set; } = new();
-    public List<LogModel> Logs { get; set; } = new();
-    public List<LogMemoryModel> LogsMemories { get; set; } = new();
-    public List<LogTypeModel> LogTypes { get; set; } = new();
-    public List<LogWebModel> LogsWebs { get; set; } = new();
-    public List<LogWebFkModel> LogsWebsFks { get; set; } = new();
+    public List<WsSqlLogModel> Logs { get; set; } = new();
+    public List<WsSqlLogMemoryModel> LogsMemories { get; set; } = new();
+    public List<WsSqlLogTypeModel> LogTypes { get; set; } = new();
+    public List<WsSqlLogWebModel> LogsWebs { get; set; } = new();
+    public List<WsSqlLogWebFkModel> LogsWebsFks { get; set; } = new();
     public List<PluGroupModel> NomenclaturesGroups { get; set; } = new();
     public List<WsSqlPluGroupFkModel> NomenclaturesGroupsFk { get; set; } = new();
     public List<PluCharacteristicModel> NomenclaturesCharacteristics { get; set; } = new();
@@ -65,7 +65,7 @@ public sealed class WsSqlContextListHelper
     public List<ProductionFacilityModel> ProductionFacilities { get; set; } = new();
     public List<ProductSeriesModel> ProductSeries { get; set; } = new();
     public List<ScaleModel> Scales { get; set; } = new();
-    public List<ScaleScreenShotModel> ScaleScreenShots { get; set; } = new();
+    public List<WsSqlScaleScreenShotModel> ScaleScreenShots { get; set; } = new();
     public List<TaskModel> Tasks { get; set; } = new();
     public List<TaskTypeModel> TaskTypes { get; set; } = new();
     public List<TemplateModel> Templates { get; set; } = new();
@@ -92,11 +92,11 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(WsSqlDeviceScaleFkModel) => GetListNotNullableDeviceScalesFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlDeviceTypeFkModel) => GetListNotNullableDeviceTypesFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(DeviceTypeModel) => GetListNotNullableDeviceTypes(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(LogMemoryModel) => GetListNotNullableLogsMemories(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(LogModel) => GetListNotNullableLogs(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(LogTypeModel) => GetListNotNullableLogsTypes(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(LogWebFkModel) => GetListNotNullableLogsWebsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(LogWebModel) => GetListNotNullableLogsWebs(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlLogMemoryModel) => GetListNotNullableLogsMemories(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlLogModel) => GetListNotNullableLogs(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlLogTypeModel) => GetListNotNullableLogsTypes(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlLogWebFkModel) => GetListNotNullableLogsWebsFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlLogWebModel) => GetListNotNullableLogsWebs(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(OrderModel) => GetListNotNullableOrders(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(OrderWeighingModel) => GetListNotNullableOrdersWeighings(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(OrganizationModel) => GetListNotNullableOrganizations(sqlCrudConfig).Cast<T>().ToList(),
@@ -122,7 +122,7 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(ProductionFacilityModel) => GetListNotNullableProductionFacilities(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(ProductSeriesModel) => GetListNotNullableProductSeries(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(ScaleModel) => GetListNotNullableScales(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(ScaleScreenShotModel) => GetListNotNullableScaleScreenShots(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlScaleScreenShotModel) => GetListNotNullableScaleScreenShots(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(TaskModel) => GetListNotNullableTasks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(TaskTypeModel) => GetListNotNullableTasksTypes(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(TemplateModel) => GetListNotNullableTemplates(sqlCrudConfig).Cast<T>().ToList(),
@@ -259,57 +259,57 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<LogTypeModel> GetListNotNullableLogsTypes(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlLogTypeModel> GetListNotNullableLogsTypes(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(LogTypeModel.Number) });
-        List<LogTypeModel> list = GetListNotNullableCore<LogTypeModel>(sqlCrudConfig);
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlLogTypeModel.Number) });
+        List<WsSqlLogTypeModel> list = GetListNotNullableCore<WsSqlLogTypeModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.Number).ToList();
         return list;
     }
 
-    public List<LogModel> GetListNotNullableLogs(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlLogModel> GetListNotNullableLogs(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
-        List<LogModel> list = GetListNotNullableCore<LogModel>(sqlCrudConfig);
+        List<WsSqlLogModel> list = GetListNotNullableCore<WsSqlLogModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.CreateDt).ToList();
         return list;
     }
 
-    public List<LogMemoryModel> GetListNotNullableLogsMemories(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlLogMemoryModel> GetListNotNullableLogsMemories(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
-        List<LogMemoryModel> list = GetListNotNullableCore<LogMemoryModel>(sqlCrudConfig);
+        List<WsSqlLogMemoryModel> list = GetListNotNullableCore<WsSqlLogMemoryModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.CreateDt).ToList();
         return list;
     }
 
-    public List<LogWebModel> GetListNotNullableLogsWebs(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlLogWebModel> GetListNotNullableLogsWebs(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt) });
-        List<LogWebModel> list = GetListNotNullableCore<LogWebModel>(sqlCrudConfig);
+        List<WsSqlLogWebModel> list = GetListNotNullableCore<WsSqlLogWebModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.CreateDt).ToList();
         return list;
     }
 
-    public List<LogWebFkModel> GetListNotNullableLogsWebsFks(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlLogWebFkModel> GetListNotNullableLogsWebsFks(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new() { 
         //        Name = $"{nameof(LogWebFkModel.LogWebRequest)}.{nameof(LogWebModel.CreateDt)}", Direction = SqlOrderDirection.Desc });
         sqlCrudConfig.IsReadUncommitted = true;
-        List<LogWebFkModel> list = GetListNotNullableCore<LogWebFkModel>(sqlCrudConfig);
+        List<WsSqlLogWebFkModel> list = GetListNotNullableCore<WsSqlLogWebFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.LogWebRequest.CreateDt).ToList();
         return list;
@@ -689,12 +689,12 @@ public sealed class WsSqlContextListHelper
         return scales;
     }
 
-    public List<ScaleScreenShotModel> GetListNotNullableScaleScreenShots(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlScaleScreenShotModel> GetListNotNullableScaleScreenShots(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
-        List<ScaleScreenShotModel> list = GetListNotNullableCore<ScaleScreenShotModel>(sqlCrudConfig);
+        List<WsSqlScaleScreenShotModel> list = GetListNotNullableCore<WsSqlScaleScreenShotModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.ChangeDt).ToList();
         return list;
@@ -862,12 +862,12 @@ public sealed class WsSqlContextListHelper
         return GetListNotNullableCore<WsSqlPluLabelModel>(sqlCrudConfig);
     }
 
-    public List<ScaleScreenShotModel> GetListScalesScreenShots(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlScaleScreenShotModel> GetListScalesScreenShots(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFiltersIdentity(nameof(ScaleScreenShotModel.Scale), itemFilter?.IdentityValueId),
+            SqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlScaleScreenShotModel.Scale), itemFilter?.IdentityValueId),
             isShowMarked, isShowOnlyTop, isAddFieldNull);
-        List<ScaleScreenShotModel> result = GetListNotNullableCore<ScaleScreenShotModel>(sqlCrudConfig);
+        List<WsSqlScaleScreenShotModel> result = GetListNotNullableCore<WsSqlScaleScreenShotModel>(sqlCrudConfig);
         result = result.OrderByDescending(x => x.CreateDt).ToList();
         return result;
     }

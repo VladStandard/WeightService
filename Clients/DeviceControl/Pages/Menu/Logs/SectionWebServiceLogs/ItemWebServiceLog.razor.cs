@@ -5,7 +5,7 @@ using WsStorageCore.TableDiagModels.LogsWebsFks;
 
 namespace BlazorDeviceControl.Pages.Menu.Logs.SectionWebServiceLogs;
 
-public sealed partial class ItemWebServiceLog : RazorComponentItemBase<LogWebFkModel>
+public sealed partial class ItemWebServiceLog : RazorComponentItemBase<WsSqlLogWebFkModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -24,9 +24,9 @@ public sealed partial class ItemWebServiceLog : RazorComponentItemBase<LogWebFkM
 		{
 			() =>
 			{
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<LogWebFkModel>(IdentityUid);
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlLogWebFkModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<LogWebFkModel>();
+                    SqlItemCast = SqlItemNew<WsSqlLogWebFkModel>();
             }
         });
     }

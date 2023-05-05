@@ -168,7 +168,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            LogMap map = new();
+            WsSqlLogMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -178,7 +178,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            LogMemoryMap map = new();
+            WsSqlLogMemoryMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -188,7 +188,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            LogTypeMap map = new();
+            WsSqlLogTypeMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -198,7 +198,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            LogWebMap map = new();
+            WsSqlLogWebMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -208,7 +208,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            LogWebFkMap map = new();
+            WsSqlLogWebFkMap map = new();
             TestContext.WriteLine(map);
         });
     }
@@ -418,7 +418,7 @@ public sealed class DataAccessHelperMapTests
     {
         Assert.DoesNotThrow(() =>
         {
-            ScaleScreenShotMap map = new();
+            WsSqlScaleScreenShotMap map = new();
             TestContext.WriteLine(map);
         });
     }

@@ -9,6 +9,6 @@ public sealed class ScaleScreenShotContentTests
     [Test]
     public void Validate_screenshots()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<ScaleScreenShotModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlScaleScreenShotModel>();
     }
 }

@@ -6,12 +6,12 @@ namespace WsStorageCore.TableDiagModels.LogsMemories;
 /// <summary>
 /// Table map "diag.LOGS_MEMORIES".
 /// </summary>
-public sealed class LogMemoryMap : ClassMap<LogMemoryModel>
+public sealed class WsSqlLogMemoryMap : ClassMap<WsSqlLogMemoryModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogMemoryMap()
+    public WsSqlLogMemoryMap()
     {
         Schema(WsSqlSchemasUtils.Diag);
         Table(WsSqlTablesUtils.LogsMemories);

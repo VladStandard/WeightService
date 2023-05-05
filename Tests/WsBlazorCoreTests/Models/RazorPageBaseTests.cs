@@ -30,8 +30,8 @@ public sealed class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<WsSqlDeviceScaleFkModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<WsSqlDeviceTypeFkModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<DeviceTypeModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogTypeModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<WsSqlLogModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<WsSqlLogTypeModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrderModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrderWeighingModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<OrganizationModel>();
@@ -67,8 +67,8 @@ public sealed class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<WsSqlDeviceScaleFkModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<WsSqlDeviceTypeFkModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<DeviceTypeModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogTypeModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<WsSqlLogModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<WsSqlLogTypeModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrderModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrderWeighingModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<OrganizationModel>();

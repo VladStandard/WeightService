@@ -9,6 +9,6 @@ public sealed class LogMemoryContentTests
     [Test]
     public void Validate_logs_memories()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<LogMemoryModel>(true);
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlLogMemoryModel>(true);
     }
 }

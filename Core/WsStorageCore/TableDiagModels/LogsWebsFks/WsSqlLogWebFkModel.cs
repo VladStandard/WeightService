@@ -10,25 +10,25 @@ namespace WsStorageCore.TableDiagModels.LogsWebsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogWebFkModel)} | {ToString()}")]
-public class LogWebFkModel : Tables.WsSqlTableBase
+public class WsSqlLogWebFkModel : Tables.WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
-    private LogWebModel _logWebRequest;
-    [XmlElement] public virtual LogWebModel LogWebRequest { get => _logWebRequest; set => _logWebRequest = value; }
-    private LogWebModel _logWebResponse;
-    [XmlElement] public virtual LogWebModel LogWebResponse { get => _logWebResponse; set => _logWebResponse = value; }
+    private WsSqlLogWebModel _logWebRequest;
+    [XmlElement] public virtual WsSqlLogWebModel LogWebRequest { get => _logWebRequest; set => _logWebRequest = value; }
+    private WsSqlLogWebModel _logWebResponse;
+    [XmlElement] public virtual WsSqlLogWebModel LogWebResponse { get => _logWebResponse; set => _logWebResponse = value; }
     private WsSqlAppModel _app;
     [XmlElement] public virtual WsSqlAppModel App { get => _app; set => _app = value; }
-    private LogTypeModel _logType;
-    [XmlElement] public virtual LogTypeModel LogType { get => _logType; set => _logType = value; }
+    private WsSqlLogTypeModel _logType;
+    [XmlElement] public virtual WsSqlLogTypeModel LogType { get => _logType; set => _logType = value; }
     private DeviceModel _device;
     [XmlElement] public virtual DeviceModel Device { get => _device; set => _device = value; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogWebFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogWebFkModel() : base(WsSqlFieldIdentity.Uid)
     {
         _logWebRequest = new();
         _logWebResponse = new();
@@ -42,12 +42,12 @@ public class LogWebFkModel : Tables.WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected LogWebFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlLogWebFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        _logWebRequest = (LogWebModel)info.GetValue(nameof(LogWebRequest), typeof(LogWebModel));
-        _logWebResponse = (LogWebModel)info.GetValue(nameof(LogWebResponse), typeof(LogWebModel));
+        _logWebRequest = (WsSqlLogWebModel)info.GetValue(nameof(LogWebRequest), typeof(WsSqlLogWebModel));
+        _logWebResponse = (WsSqlLogWebModel)info.GetValue(nameof(LogWebResponse), typeof(WsSqlLogWebModel));
         _app = (WsSqlAppModel)info.GetValue(nameof(App), typeof(WsSqlAppModel));
-        _logType = (LogTypeModel)info.GetValue(nameof(LogType), typeof(LogTypeModel));
+        _logType = (WsSqlLogTypeModel)info.GetValue(nameof(LogType), typeof(WsSqlLogTypeModel));
         _device = (DeviceModel)info.GetValue(nameof(DeviceModel), typeof(DeviceModel));
     }
 
@@ -65,7 +65,7 @@ public class LogWebFkModel : Tables.WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((LogWebFkModel)obj);
+        return Equals((WsSqlLogWebFkModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -82,7 +82,7 @@ public class LogWebFkModel : Tables.WsSqlTableBase
 
     public override object Clone()
     {
-        LogWebFkModel item = new();
+        WsSqlLogWebFkModel item = new();
         item.CloneSetup(base.CloneCast());
         item.LogWebRequest = LogWebRequest.CloneCast();
         item.LogWebResponse = LogWebResponse.CloneCast();
@@ -121,7 +121,7 @@ public class LogWebFkModel : Tables.WsSqlTableBase
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not LogWebFkModel logWebFk) return;
+        if (item is not WsSqlLogWebFkModel logWebFk) return;
         LogWebRequest = logWebFk.LogWebRequest;
         LogWebResponse = logWebFk.LogWebResponse;
         App = logWebFk.App;
@@ -133,7 +133,7 @@ public class LogWebFkModel : Tables.WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(LogWebFkModel item) =>
+    public virtual bool Equals(WsSqlLogWebFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         LogWebRequest.Equals(item.LogWebRequest) &&
         LogWebResponse.Equals(item.LogWebResponse) &&
@@ -141,7 +141,7 @@ public class LogWebFkModel : Tables.WsSqlTableBase
         LogType.Equals(item.LogType) &&
         Device.Equals(item.Device);
 
-    public new virtual LogWebFkModel CloneCast() => (LogWebFkModel)Clone();
+    public new virtual WsSqlLogWebFkModel CloneCast() => (WsSqlLogWebFkModel)Clone();
 
     #endregion
 }

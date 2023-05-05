@@ -332,18 +332,18 @@ public class WsDataTestsHelper
                 deviceScaleFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
                 deviceScaleFk.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
                 break;
-            case LogModel log:
+            case WsSqlLogModel log:
                 log.Version.Returns(LocaleCore.Sql.SqlItemFieldVersion);
                 log.File.Returns(LocaleCore.Sql.SqlItemFieldFile);
                 log.Line.Returns(1);
                 log.Member.Returns(LocaleCore.Sql.SqlItemFieldMember);
-                log.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
+                log.LogType = CreateNewSubstitute<WsSqlLogTypeModel>(isNotDefault);
                 log.Message.Returns(LocaleCore.Sql.SqlItemFieldMessage);
                 break;
-            case LogTypeModel logType:
+            case WsSqlLogTypeModel logType:
                 logType.Icon.Returns(LocaleCore.Sql.SqlItemFieldIcon);
                 break;
-            case LogWebModel logWeb:
+            case WsSqlLogWebModel logWeb:
                 logWeb.StampDt.Returns(DateTime.Now);
                 logWeb.Version.Returns(LocaleCore.Sql.SqlItemFieldVersion);
                 logWeb.Direction.Returns((byte)0);
@@ -356,12 +356,12 @@ public class WsDataTestsHelper
                 logWeb.CountSuccess.Returns(1);
                 logWeb.CountErrors.Returns(1);
                 break;
-            case LogWebFkModel logWebFk:
-                logWebFk.LogWebRequest = CreateNewSubstitute<LogWebModel>(isNotDefault);
-                logWebFk.LogWebResponse = CreateNewSubstitute<LogWebModel>(isNotDefault);
+            case WsSqlLogWebFkModel logWebFk:
+                logWebFk.LogWebRequest = CreateNewSubstitute<WsSqlLogWebModel>(isNotDefault);
+                logWebFk.LogWebResponse = CreateNewSubstitute<WsSqlLogWebModel>(isNotDefault);
                 logWebFk.LogWebResponse.Direction.Returns((byte)1);
                 logWebFk.App = CreateNewSubstitute<WsSqlAppModel>(isNotDefault);
-                logWebFk.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
+                logWebFk.LogType = CreateNewSubstitute<WsSqlLogTypeModel>(isNotDefault);
                 logWebFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
                 break;
             case PluGroupModel pluGroup:
@@ -481,7 +481,7 @@ public class WsDataTestsHelper
                 scale.PrinterShipping = CreateNewSubstitute<PrinterModel>(isNotDefault);
                 scale.Number.Returns(10000);
                 break;
-            case ScaleScreenShotModel scaleScreenShot:
+            case WsSqlScaleScreenShotModel scaleScreenShot:
                 scaleScreenShot.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
                 scaleScreenShot.ScreenShot.Returns(new byte[] { 0x00 });
                 break;

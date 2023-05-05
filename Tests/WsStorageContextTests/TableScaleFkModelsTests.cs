@@ -21,7 +21,7 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_log_web_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<LogWebFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlLogWebFkModel>(true);
     }
 
     [Test]

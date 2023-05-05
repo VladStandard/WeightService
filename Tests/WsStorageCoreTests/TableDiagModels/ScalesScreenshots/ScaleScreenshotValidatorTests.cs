@@ -9,14 +9,14 @@ public sealed class ScaleScreenShotValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        ScaleScreenShotModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ScaleScreenShotModel>(false);
+        WsSqlScaleScreenShotModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlScaleScreenShotModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        ScaleScreenShotModel item = WsTestsUtils.DataTests.CreateNewSubstitute<ScaleScreenShotModel>(true);
+        WsSqlScaleScreenShotModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlScaleScreenShotModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }

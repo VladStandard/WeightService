@@ -8,7 +8,7 @@ namespace WsStorageCore.TableDiagModels.LogsWebs;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(LogWebModel)} | {Identity}")]
-public class LogWebModel : WsSqlTableBase
+public class WsSqlLogWebModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -27,7 +27,7 @@ public class LogWebModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LogWebModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogWebModel() : base(WsSqlFieldIdentity.Uid)
     {
         Version = string.Empty;
         Direction = default;
@@ -46,7 +46,7 @@ public class LogWebModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected LogWebModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlLogWebModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Version = info.GetString(nameof(Version));
         Direction = info.GetByte(nameof(Direction));
@@ -75,7 +75,7 @@ public class LogWebModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((LogWebModel)obj);
+        return Equals((WsSqlLogWebModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -98,7 +98,7 @@ public class LogWebModel : WsSqlTableBase
 
     public override object Clone()
     {
-        LogWebModel item = new();
+        WsSqlLogWebModel item = new();
         item.CloneSetup(base.CloneCast());
         item.StampDt = StampDt;
         item.Version = Version;
@@ -151,7 +151,7 @@ public class LogWebModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(LogWebModel item) =>
+    public virtual bool Equals(WsSqlLogWebModel item) =>
         ReferenceEquals(this, item) ||
         base.Equals(item) &&
         Equals(StampDt, item.StampDt) &&
@@ -166,7 +166,7 @@ public class LogWebModel : WsSqlTableBase
         Equals(CountSuccess, item.CountSuccess) &&
         Equals(CountErrors, item.CountErrors);
 
-    public new virtual LogWebModel CloneCast() => (LogWebModel)Clone();
+    public new virtual WsSqlLogWebModel CloneCast() => (WsSqlLogWebModel)Clone();
 
     #endregion
 }

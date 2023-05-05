@@ -9,14 +9,14 @@ public sealed class LogWebFkValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        LogWebFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<LogWebFkModel>(false);
+        WsSqlLogWebFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlLogWebFkModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        LogWebFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<LogWebFkModel>(true);
+        WsSqlLogWebFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlLogWebFkModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }
