@@ -23,7 +23,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     #region Public and private fields and properties
 
     public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private WsBarCodeHelper BarCode => WsBarCodeHelper.Instance;
+    private WsSqlBarCodeHelper BarCode => WsSqlBarCodeHelper.Instance;
     public DebugHelper Debug => DebugHelper.Instance;
     public WsPluginLabelsHelper PluginLabels => WsPluginLabelsHelper.Instance;
     public WsPluginMassaHelper PluginMassa => WsPluginMassaHelper.Instance;
@@ -227,7 +227,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         SetSqlPublish();
         SetScale(scaleId, productionFacilityName);
 
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
         sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlScaleModel.Description), Direction = WsSqlOrderDirection.Asc });
         Scales = ContextManager.ContextList.GetListNotNullableScales(sqlCrudConfig);
 
@@ -588,7 +588,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     {
         try
         {
-            (WsSqlPluLabelModel PluLabel, WsPluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
+            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
 
             // Print.
@@ -636,7 +636,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="template"></param>
     /// <returns></returns>
-    private (WsSqlPluLabelModel, WsPluLabelContextModel) CreateAndSavePluLabel(WsSqlTemplateModel template)
+    private (WsSqlPluLabelModel, WsSqlPluLabelContextModel) CreateAndSavePluLabel(WsSqlTemplateModel template)
     {
         WsSqlPluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
 
@@ -645,12 +645,12 @@ public sealed class WsUserSessionHelper : BaseViewModel
         XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
-        WsPluLabelContextModel pluLabelContext = new(pluLabel, PluNestingView.Item, pluLabel.PluScale, ProductionFacility, PluWeighing);
-        XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsPluLabelContextModel>(pluLabelContext, true, true);
+        WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, PluNestingView.Item, pluLabel.PluScale, ProductionFacility, PluWeighing);
+        XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelContextModel>(pluLabelContext, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
 
         // Патч шаблона: PluLabelContextModel -> WsPluLabelContextModel
-        template.Data = template.Data.Replace("PluLabelContextModel", nameof(WsPluLabelContextModel));
+        template.Data = template.Data.Replace("PluLabelContextModel", nameof(WsSqlPluLabelContextModel));
 
         pluLabel.Zpl = WsDataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = WsDataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
@@ -687,7 +687,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="pluLabel"></param>
     /// <param name="pluLabelContext"></param>
-    private void CreateAndSaveBarCodes(WsSqlPluLabelModel pluLabel, WsPluLabelContextModel pluLabelContext)
+    private void CreateAndSaveBarCodes(WsSqlPluLabelModel pluLabel, WsSqlPluLabelContextModel pluLabelContext)
     {
         WsSqlBarCodeModel barCode = new(pluLabel);
         BarCode.SetBarCodeTop(barCode, pluLabelContext);
@@ -710,9 +710,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
 
     public void SetPluScales()
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(Scale, nameof(WsSqlPluScaleModel.Scale),
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(Scale, nameof(WsSqlPluScaleModel.Scale),
             false, false, false, false);
-        sqlCrudConfig.AddFilters(new SqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
+        sqlCrudConfig.AddFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
         sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlPluScaleModel.Plu), Direction = WsSqlOrderDirection.Asc });
         sqlCrudConfig.IsResultOrder = true;
         PluScales = ContextManager.ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
@@ -720,7 +720,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
 
     public void SetPluStorageMethodsFks()
     {
-        SqlCrudConfigModel sqlCrudConfig = new(true, false, false, false, false);// { IsFillReferences = false };
+        WsSqlCrudConfigModel sqlCrudConfig = new(true, false, false, false, false);// { IsFillReferences = false };
         ContextManager.ContextList.PluStorageMethodsFks = PluStorageMethodFks = ContextManager.ContextPluStorage.UpdatePluStorageMethodFks(sqlCrudConfig);
     }
 

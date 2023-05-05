@@ -44,7 +44,7 @@ public sealed class WsSqlPluNestingFkController
     /// </summary>
     /// <param name="pluNestingFks"></param>
     /// <param name="sqlCrudConfig"></param>
-    public List<WsSqlPluNestingFkModel> UpdatePluNestingFks(SqlCrudConfigModel sqlCrudConfig, out List<WsSqlPluNestingFkModel> pluNestingFks) =>
+    public List<WsSqlPluNestingFkModel> UpdatePluNestingFks(WsSqlCrudConfigModel sqlCrudConfig, out List<WsSqlPluNestingFkModel> pluNestingFks) =>
         pluNestingFks = ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
 
     /// <summary>
@@ -88,7 +88,7 @@ public sealed class WsSqlPluNestingFkController
     public List<WsSqlPluNestingFkModel> GetListByUid(Guid? uid)
     {
         uid ??= Guid.Empty;
-        SqlCrudConfigModel sqlCrudConfig = new()
+        WsSqlCrudConfigModel sqlCrudConfig = new()
         {
             NativeParameters = new() { new("P_UID", uid) },
             NativeQuery = PluNestingFks.GetList(true)

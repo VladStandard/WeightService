@@ -3,12 +3,12 @@
 
 namespace WsStorageCore.Models;
 
-public class SqlFieldIdentityValidator : AbstractValidator<SqlFieldIdentityModel>
+public class WsSqlFieldIdentityValidator : AbstractValidator<WsSqlFieldIdentityModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlFieldIdentityValidator()
+    public WsSqlFieldIdentityValidator()
     {
         RuleFor(item => item.Id)
             .NotEmpty()

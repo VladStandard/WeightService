@@ -4,39 +4,24 @@
 namespace WsStorageCore.Xml;
 
 /// <summary>
-/// XML-класс коробки.
+/// XML-класс юнита продукта.
 /// </summary>
 [Serializable]
-public class XmlProductBoxModel : ISerializable, IWsSqlDbBase
+public class WsXmlProductUnitModel : ISerializable, IWsSqlDbBase
 {
 	#region Public and private fields, properties, constructor
 
-	public string Description { get; set; }
-	/// <summary>
-	/// Вес.
-	/// </summary>
 	public decimal Heft { get; set; }
-	/// <summary>
-	/// .
-	/// </summary>
 	public decimal Capacity { get; set; }
-	/// <summary>
-	/// .
-	/// </summary>
 	public decimal Rate { get; set; }
 	public int Threshold { get; set; }
 	public string Okei { get; set; }
-	public string Unit { get; set; }
+	public string Description { get; set; }
 
-	public XmlProductBoxModel()
+	public WsXmlProductUnitModel()
 	{
-		Description = string.Empty;
-		Heft = 0;
-		Capacity = 0;
-		Rate = 0;
-		Threshold = 0;
-		Okei = string.Empty;
-		Unit = string.Empty;
+		Heft = 0; Capacity = 0; Rate = 0; Threshold = 0; 
+		Okei = string.Empty; Description = string.Empty;
 	}
 
 	/// <summary>
@@ -44,15 +29,14 @@ public class XmlProductBoxModel : ISerializable, IWsSqlDbBase
 	/// </summary>
 	/// <param name="info"></param>
 	/// <param name="context"></param>
-	private XmlProductBoxModel(SerializationInfo info, StreamingContext context)
+	private WsXmlProductUnitModel(SerializationInfo info, StreamingContext context)
 	{
-		Description = info.GetString(nameof(Description));
 		Heft = info.GetDecimal(nameof(Heft));
 		Capacity = info.GetDecimal(nameof(Capacity));
 		Rate = info.GetDecimal(nameof(Rate));
 		Threshold = info.GetInt32(nameof(Threshold));
 		Okei = info.GetString(nameof(Okei));
-		Unit = info.GetString(nameof(Unit));
+		Description = info.GetString(nameof(Description));
 	}
 
 	#endregion
@@ -60,24 +44,22 @@ public class XmlProductBoxModel : ISerializable, IWsSqlDbBase
 	#region Public and private methods
 
 	public override string ToString() =>
-		$"{nameof(Description)}: {Description}. " +
 		$"{nameof(Heft)}: {Heft}. " +
 		$"{nameof(Capacity)}: {Capacity}. " +
 		$"{nameof(Rate)}: {Rate}. " +
 		$"{nameof(Threshold)}: {Threshold}. " +
 		$"{nameof(Okei)}: {Okei}. " +
-		$"{nameof(Unit)}: {Unit}. ";
+		$"{nameof(Description)}: {Description}. ";
 
-	public virtual bool Equals(XmlProductBoxModel item) =>
-		ReferenceEquals(this, item) || Equals(Description, item.Description) && //-V3130
-		Equals(Heft, item.Heft) &&
+	public bool Equals(WsXmlProductUnitModel item) =>
+		ReferenceEquals(this, item) || Equals(Heft, item.Heft) && //-V3130
 		Equals(Capacity, item.Capacity) &&
 		Equals(Rate, item.Rate) &&
 		Equals(Threshold, item.Threshold) &&
 		Equals(Okei, item.Okei) &&
-		Equals(Unit, item.Unit);
+		Equals(Description, item.Description);
 
-	public virtual bool EqualsNew()
+	public bool EqualsNew()
 	{
 		return Equals(new());
 	}
@@ -88,14 +70,13 @@ public class XmlProductBoxModel : ISerializable, IWsSqlDbBase
 	/// <returns></returns>
 	public object Clone()
 	{
-		XmlProductBoxModel item = new();
-		item.Description = Description;
+		WsXmlProductUnitModel item = new();
 		item.Heft = Heft;
 		item.Capacity = Capacity;
 		item.Rate = Rate;
 		item.Threshold = Threshold;
 		item.Okei = Okei;
-		item.Unit = Unit;
+		item.Description = Description;
 		return item;
 	}
 
@@ -106,13 +87,12 @@ public class XmlProductBoxModel : ISerializable, IWsSqlDbBase
 	/// <param name="context"></param>
 	public void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
-		info.AddValue(nameof(Description), Description);
 		info.AddValue(nameof(Heft), Heft);
 		info.AddValue(nameof(Capacity), Capacity);
 		info.AddValue(nameof(Rate), Rate);
 		info.AddValue(nameof(Threshold), Threshold);
 		info.AddValue(nameof(Okei), Okei);
-		info.AddValue(nameof(Unit), Unit);
+		info.AddValue(nameof(Description), Description);
 	}
 
 	public void ClearNullProperties()

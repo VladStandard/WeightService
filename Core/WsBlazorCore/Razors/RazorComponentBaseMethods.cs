@@ -410,7 +410,7 @@ public partial class RazorComponentBase
 
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
 		{
-			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(false, false);
+			WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(false, false);
 			List<WsSqlTemplateResourceModel> templateResources = ContextManager.ContextList.GetListNotNullableTemplateResources(sqlCrudConfig);
 			foreach (WsSqlTemplateResourceModel templateResource in templateResources)
 			{
@@ -435,8 +435,8 @@ public partial class RazorComponentBase
 
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesLoadTtf, GetQuestionAdd(), () =>
 		{
-			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-                new SqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc}, false, false);
+			WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+                new WsSqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc}, false, false);
 			List<WsSqlTemplateResourceModel> templateResources = ContextManager.ContextList.GetListNotNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
 			foreach (WsSqlTemplateResourceModel templateResource in templateResources)
 			{

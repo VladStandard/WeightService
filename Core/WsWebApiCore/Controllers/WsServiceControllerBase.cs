@@ -17,7 +17,7 @@ public class WsServiceControllerBase : ControllerBase
 
     internal WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
     internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    internal SqlCrudConfigModel SqlCrudConfig => new(new List<SqlFieldFilterModel>(), 
+    internal WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(), 
         true, false, false, true, false);
     private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
     protected WsServiceCacheHelper Cache => WsServiceCacheHelper.Instance;
@@ -244,12 +244,12 @@ public class WsServiceControllerBase : ControllerBase
     {
         return NewResponse1CCore<WsResponseBarCodeListModel>(response =>
         {
-            List<SqlFieldFilterModel> sqlFilters = new()
+            List<WsSqlFieldFilterModel> sqlFilters = new()
             {
                 new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlFieldComparer.MoreOrEqual, Value = dtStart },
                 new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlFieldComparer.LessOrEqual, Value = dtEnd },
             };
-            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
+            WsSqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
             sqlCrudConfig.AddFilters(sqlFilters);
             List<WsSqlBarCodeModel> barcodesDb = ContextManager.ContextList.GetListNotNullableBarCodes(sqlCrudConfig);
             response.ResponseBarCodes = WsServiceResponseUtils.CastBarCodes(barcodesDb);
@@ -328,7 +328,7 @@ public class WsServiceControllerBase : ControllerBase
     internal bool CheckExistsBundleDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
         string refName, out WsSqlBundleModel? itemDb)
     {
-        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlBundleModel>(sqlCrudConfig);
@@ -356,7 +356,7 @@ public class WsServiceControllerBase : ControllerBase
         itemDb = null;
         if (!Equals(uid1C, Guid.Empty))
         {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
+            WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
                 true, false, false, false, false);
             itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlBrandModel>(sqlCrudConfig);
@@ -383,7 +383,7 @@ public class WsServiceControllerBase : ControllerBase
     internal bool CheckExistsClipDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
         string refName, out WsSqlClipModel? itemDb)
     {
-        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlClipModel>(sqlCrudConfig);
@@ -408,7 +408,7 @@ public class WsServiceControllerBase : ControllerBase
     internal bool GetBoxDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
         string refName, out WsSqlBoxModel? itemDb)
     {
-        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlBoxModel>(sqlCrudConfig);
@@ -436,7 +436,7 @@ public class WsServiceControllerBase : ControllerBase
         itemDb = null;
         if (!Equals(uid1C, Guid.Empty))
         {
-            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
+            WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
                 true, false, false, false, false);
             itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlPluModel>(sqlCrudConfig);
@@ -463,7 +463,7 @@ public class WsServiceControllerBase : ControllerBase
     internal bool GetPluCharacteristicDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
         string refName, out WsSqlPluCharacteristicModel? itemDb)
     {
-        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             true, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig);
@@ -503,12 +503,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Get AcceptVersion from string value.
     /// </summary>
     /// <returns></returns>
-    protected WsAcceptVersion GetAcceptVersion(string value) =>
+    protected WsSqlAcceptVersion GetAcceptVersion(string value) =>
         value.ToUpper() switch
         {
-            "V2" => WsAcceptVersion.V2,
-            "V3" => WsAcceptVersion.V3,
-            _ => WsAcceptVersion.V1
+            "V2" => WsSqlAcceptVersion.V2,
+            "V3" => WsSqlAcceptVersion.V3,
+            _ => WsSqlAcceptVersion.V1
         };
 
     internal void AddResponseException(WsResponse1CShortModel response, WsSqlBrandModel brand)

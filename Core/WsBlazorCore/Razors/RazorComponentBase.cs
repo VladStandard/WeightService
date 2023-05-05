@@ -53,7 +53,7 @@ public partial class RazorComponentBase : LayoutComponentBase
     }
 
     [Parameter] public string Title { get; set; }
-    [Parameter] public SqlCrudConfigModel SqlCrudConfigItem { get; set; }
+    [Parameter] public WsSqlCrudConfigModel SqlCrudConfigItem { get; set; }
 
     #endregion
 

@@ -6,7 +6,7 @@ using System.Data;
 namespace WsStorageCore.TableDirectModels;
 
 [Serializable]
-public sealed class ProductSeriesDirect : SqlSerializeBase
+public sealed class ProductSeriesDirect : WsSqlSerializeBase
 {
 	#region Public and private fields, properties, constructor
 

@@ -211,7 +211,7 @@ internal sealed class WsSqlAccessCoreHelper
 
     #region Public and private methods - Base
 
-    private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
+    private ICriteria GetCriteria<T>(ISession session, WsSqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
         if (JsonSettings.Local.MaxCount > 0 && sqlCrudConfig.IsResultShowOnlyTop || JsonSettings.Local.MaxCount == 1)
@@ -220,7 +220,7 @@ internal sealed class WsSqlAccessCoreHelper
             criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
         if (sqlCrudConfig.Orders.Any())
         {
-            List<SqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(x => !string.IsNullOrEmpty(x.Name)).ToList();
+            List<WsSqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(x => !string.IsNullOrEmpty(x.Name)).ToList();
             if (orders.Any())
                 criteria.SetCriteriaOrder(orders);
         }
@@ -331,7 +331,7 @@ internal sealed class WsSqlAccessCoreHelper
         return Save(item);
     }
 
-    public WsSqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : WsSqlTableBase
+    public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase
     {
         if (item is null) return new(new ArgumentException());
 
@@ -376,7 +376,7 @@ internal sealed class WsSqlAccessCoreHelper
 
     public WsSqlAppModel GetItemAppOrCreateNew(string appName)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), appName, false, false);
         WsSqlAppModel app = GetItemNotNullable<WsSqlAppModel>(sqlCrudConfig);
         if (app.IsNew)
@@ -399,14 +399,14 @@ internal sealed class WsSqlAccessCoreHelper
 
     public WsSqlAppModel? GetItemAppNullable(string appName)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), appName, false, false);
         return GetItemNullable<WsSqlAppModel>(sqlCrudConfig);
     }
 
     public WsSqlLogTypeModel? GetItemLogTypeNullable(LogType logType)
     {
-        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
             true, true, false, false, false);
         return GetItemNullable<WsSqlLogTypeModel>(sqlCrudConfig);
@@ -417,7 +417,7 @@ internal sealed class WsSqlAccessCoreHelper
 
     public List<WsSqlLogTypeModel> GetListLogTypesNotNullable()
     {
-        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(),
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>(),
             false, false, false, true, false);
         sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlLogTypeModel.Number), Direction = WsSqlOrderDirection.Asc });
         return GetListNotNullable<WsSqlLogTypeModel>(sqlCrudConfig);
@@ -427,7 +427,7 @@ internal sealed class WsSqlAccessCoreHelper
 
     #region Public and private methods - GetItem
 
-    public T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public T? GetItemNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = null;
         WsSqlCrudResultModel crudResult = ExecuteSelectCore(session =>
@@ -442,18 +442,18 @@ internal sealed class WsSqlAccessCoreHelper
 
     public T? GetItemNullable<T>(object? value) where T : WsSqlTableBase, new()
     {
-        SqlCrudConfigModel? sqlCrudConfig = value switch
+        WsSqlCrudConfigModel? sqlCrudConfig = value switch
         {
-            Guid uid => new(new List<SqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
+            Guid uid => new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
                 true, false, false, false, false),
-            long id => new(new List<SqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
+            long id => new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
                 true, false, false, false, false),
             _ => null
         };
         return sqlCrudConfig is not null ? GetItemNullable<T>(sqlCrudConfig) : null;
     }
 
-    public T GetItemNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public T GetItemNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = GetItemNullable<T>(sqlCrudConfig);
         return item ?? new();
@@ -470,7 +470,7 @@ internal sealed class WsSqlAccessCoreHelper
         return item ?? new();
     }
 
-    public T? GetItemNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
+    public T? GetItemNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         identity.Name switch
         {
             WsSqlFieldIdentity.Uid => GetItemNullable<T>(identity.Uid),
@@ -478,7 +478,7 @@ internal sealed class WsSqlAccessCoreHelper
             _ => new()
         };
 
-    public T GetItemNotNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
+    public T GetItemNotNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         GetItemNullable<T>(identity) ?? new();
 
     public T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
@@ -505,7 +505,7 @@ internal sealed class WsSqlAccessCoreHelper
         return result;
     }
 
-    public bool IsItemExists<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public bool IsItemExists<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         bool result = false;
         WsSqlCrudResultModel crudResult = ExecuteSelectCore(session =>
@@ -530,7 +530,7 @@ internal sealed class WsSqlAccessCoreHelper
 
     #region Public and private methods - GetArray
 
-    public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public T[]? GetArrayNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T[]? items = null;
         WsSqlCrudResultModel crudResult = ExecuteSelectCore(session =>
@@ -608,14 +608,14 @@ internal sealed class WsSqlAccessCoreHelper
     public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>
         GetNativeArrayObjectsNullable(query, parameters) ?? Array.Empty<object>();
 
-    public object[] GetArrayObjectsNotNullable(SqlCrudConfigModel sqlCrudConfig) =>
+    public object[] GetArrayObjectsNotNullable(WsSqlCrudConfigModel sqlCrudConfig) =>
         GetNativeArrayObjectsNullable(sqlCrudConfig.NativeQuery, sqlCrudConfig.NativeParameters) ?? Array.Empty<object>();
 
     #endregion
 
     #region Public and private methods - GetList
 
-    public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public List<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         List<T> result = new();
         if (sqlCrudConfig.IsResultAddFieldEmpty)
@@ -645,7 +645,7 @@ internal sealed class WsSqlAccessCoreHelper
     {
         switch (item)
         {
-            case XmlDeviceModel xmlDevice:
+            case WsXmlDeviceModel xmlDevice:
                 xmlDevice.Scale = GetItemNotNullable<WsSqlScaleModel>(xmlDevice.Scale.IdentityValueId);
                 break;
             case WsSqlLogModel log:

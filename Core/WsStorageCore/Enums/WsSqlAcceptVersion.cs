@@ -3,9 +3,9 @@
 
 namespace WsStorageCore.Enums;
 
-public enum WsServerType
+public enum WsSqlAcceptVersion
 {
-    Develop,
-    Product,
-    All
+    V1,
+    V2,
+    V3
 }

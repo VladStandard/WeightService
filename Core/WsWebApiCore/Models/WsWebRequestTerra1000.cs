@@ -7,19 +7,19 @@ public class WsWebRequestTerra1000 : IWsWebRequest
 {
     #region Public and private methods
 
-    public List<string> GetListCore(WsServerType serverType, string request) => serverType switch
+    public List<string> GetListCore(WsSqlServerType serverType, string request) => serverType switch
     {
-        WsServerType.Product => new()
+        WsSqlServerType.Product => new()
         {
             $"https://t1000-preview.kolbasa-vs.local:443/api/{request}",
             $"https://t1000.kolbasa-vs.local:443/api/{request}",
         },
-        WsServerType.Develop => new()
+        WsSqlServerType.Develop => new()
         {
             $"https://t1000-dev-preview.kolbasa-vs.local:443/api/{request}",
             $"https://t1000-dev.kolbasa-vs.local:443/api/{request}",
         },
-        WsServerType.All => new()
+        WsSqlServerType.All => new()
         {
             $"https://t1000-preview.kolbasa-vs.local:443/api/{request}",
             $"https://t1000.kolbasa-vs.local:443/api/{request}",
@@ -30,13 +30,13 @@ public class WsWebRequestTerra1000 : IWsWebRequest
     };
 
 
-    public List<string> GetListNomenclature(WsServerType serverType) => GetListCore(serverType, "nomenclature/");
+    public List<string> GetListNomenclature(WsSqlServerType serverType) => GetListCore(serverType, "nomenclature/");
 
-    public List<string> GetListNomenclatureV2(WsServerType serverType) => GetListCore(serverType, "v2/nomenclature/");
+    public List<string> GetListNomenclatureV2(WsSqlServerType serverType) => GetListCore(serverType, "v2/nomenclature/");
 
-    public List<string> GetListContragent(WsServerType serverType) => GetListCore(serverType, "contragent/");
+    public List<string> GetListContragent(WsSqlServerType serverType) => GetListCore(serverType, "contragent/");
 
-    public List<string> GetListContragentV2(WsServerType serverType) => GetListCore(serverType, "v2/contragent/");
+    public List<string> GetListContragentV2(WsSqlServerType serverType) => GetListCore(serverType, "v2/contragent/");
 
     #endregion
 }

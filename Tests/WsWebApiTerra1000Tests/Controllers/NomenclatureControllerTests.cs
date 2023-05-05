@@ -11,7 +11,7 @@ public sealed class NomenclatureControllerTests
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in new WsWebRequestTerra1000().GetListNomenclature(WsServerType.All))
+            foreach (string url in new WsWebRequestTerra1000().GetListNomenclature(WsSqlServerType.All))
             {
                 foreach (long id in WsServiceTestsUtils.GetListNomenclatureId)
                 {
@@ -28,7 +28,7 @@ public sealed class NomenclatureControllerTests
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in new WsWebRequestTerra1000().GetListNomenclatureV2(WsServerType.All))
+            foreach (string url in new WsWebRequestTerra1000().GetListNomenclatureV2(WsSqlServerType.All))
             {
                 foreach (long id in WsServiceTestsUtils.GetListNomenclatureId)
                 {

@@ -13,9 +13,9 @@ public sealed class GetDbSizeInfosTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlDbFileSizeInfoModel> infos = WsTestsUtils.DataTests.ContextManager.GetDbFileSizeInfos();
+            List<WsSqlDbFileSizeInfoModel> infos = WsTestsUtils.DataTests.ContextManager.GetDbFileSizeInfos();
             Assert.That(Equals(true, infos.Any()));
-            foreach (SqlDbFileSizeInfoModel info in infos)
+            foreach (WsSqlDbFileSizeInfoModel info in infos)
             {
                 Assert.IsNotEmpty(info.ToString());
                 TestContext.WriteLine(info);

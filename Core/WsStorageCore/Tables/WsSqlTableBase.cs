@@ -12,7 +12,7 @@ public class WsSqlTableBase : SerializeBase, ICloneable
 {
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] public virtual SqlFieldIdentityModel Identity { get; set; }
+    [XmlIgnore] public virtual WsSqlFieldIdentityModel Identity { get; set; }
     [XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
     [XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
     [XmlIgnore] public virtual bool IsExists => Identity.IsExists;
@@ -47,9 +47,9 @@ public class WsSqlTableBase : SerializeBase, ICloneable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTableBase(SqlFieldIdentityModel identity) : this()
+    public WsSqlTableBase(WsSqlFieldIdentityModel identity) : this()
     {
-        Identity = (SqlFieldIdentityModel)identity.Clone();
+        Identity = (WsSqlFieldIdentityModel)identity.Clone();
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ public class WsSqlTableBase : SerializeBase, ICloneable
     /// </summary>
     protected WsSqlTableBase(SerializationInfo info, StreamingContext context)
     {
-        Identity = (SqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(SqlFieldIdentityModel));
+        Identity = (WsSqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(WsSqlFieldIdentityModel));
         CreateDt = info.GetDateTime(nameof(CreateDt));
         ChangeDt = info.GetDateTime(nameof(ChangeDt));
         IsMarked = info.GetBoolean(nameof(IsMarked));

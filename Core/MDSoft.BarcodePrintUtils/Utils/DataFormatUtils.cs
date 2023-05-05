@@ -11,8 +11,8 @@ public static class DataFormatUtils
     public static List<WsSqlTemplateResourceModel> LoadTemplatesResources(bool isForceUpdate)
     {
         if (!isForceUpdate && _templateResources.Any()) return _templateResources;
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(WsSqlTemplateResourceModel.Type), "ZPL"),
-            new SqlFieldOrderModel() { Name = nameof(WsSqlTemplateResourceModel.Name), Direction = WsSqlOrderDirection.Asc }, false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlCrudConfigModel.GetFilters(nameof(WsSqlTemplateResourceModel.Type), "ZPL"),
+            new WsSqlFieldOrderModel() { Name = nameof(WsSqlTemplateResourceModel.Name), Direction = WsSqlOrderDirection.Asc }, false, false);
         WsSqlTemplateResourceModel[]? templateResources = WsSqlAccessManagerHelper.Instance.AccessList.GetArrayNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
         return _templateResources = templateResources is not null ? templateResources.ToList() : new();
     }

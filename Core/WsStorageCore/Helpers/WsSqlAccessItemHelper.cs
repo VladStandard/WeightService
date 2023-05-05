@@ -28,19 +28,19 @@ public sealed class WsSqlAccessItemHelper
 
     public T GetItemNewEmpty<T>() where T : WsSqlTableBase, new() => AccessCore.GetItemNewEmpty<T>();
 
-    public T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
+    public T? GetItemNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
         AccessCore.GetItemNullable<T>(sqlCrudConfig);
 
-    public T GetItemNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
+    public T GetItemNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
         AccessCore.GetItemNotNullable<T>(sqlCrudConfig);
 
     public T GetItemNotNullable<T>(object? value) where T : WsSqlTableBase, new() =>
         AccessCore.GetItemNotNullable<T>(value);
 
-    public T? GetItemNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
+    public T? GetItemNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         AccessCore.GetItemNullable<T>(identity);
 
-    public T GetItemNotNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
+    public T GetItemNotNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         AccessCore.GetItemNotNullable<T>(identity);
 
     public T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
@@ -67,7 +67,7 @@ public sealed class WsSqlAccessItemHelper
     public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase =>
         AccessCore.Save<T>(item);
 
-    public WsSqlCrudResultModel Save<T>(T? item, SqlFieldIdentityModel? identity) where T : WsSqlTableBase =>
+    public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase =>
         AccessCore.Save(item, identity);
 
     public WsSqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase =>

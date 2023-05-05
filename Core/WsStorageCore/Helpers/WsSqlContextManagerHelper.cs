@@ -260,7 +260,7 @@ public sealed class WsSqlContextManagerHelper
         return 0;
     }
 
-    public List<SqlDbFileSizeInfoModel> GetDbFileSizeInfos() => ContextCore.GetDbFileSizeInfos();
+    public List<WsSqlDbFileSizeInfoModel> GetDbFileSizeInfos() => ContextCore.GetDbFileSizeInfos();
     
     public ushort GetDbFileSizeAll() => ContextCore.GetDbFileSizeAll();
 

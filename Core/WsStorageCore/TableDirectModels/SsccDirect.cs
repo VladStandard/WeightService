@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableDirectModels;
 
 [Serializable]
-public sealed class SsccDirect : SqlSerializeBase
+public sealed class SsccDirect : WsSqlSerializeBase
 {
 	#region Public and private fields, properties, constructor
 

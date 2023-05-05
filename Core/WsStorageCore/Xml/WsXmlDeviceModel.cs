@@ -4,7 +4,7 @@
 namespace WsStorageCore.Xml;
 
 [Serializable]
-public class XmlDeviceModel : WsSqlTableBase
+public class WsXmlDeviceModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -13,7 +13,7 @@ public class XmlDeviceModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public XmlDeviceModel() : base(WsSqlFieldIdentity.Id)
+    public WsXmlDeviceModel() : base(WsSqlFieldIdentity.Id)
     {
         Scale = new();
     }
@@ -23,7 +23,7 @@ public class XmlDeviceModel : WsSqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private XmlDeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsXmlDeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));
     }
@@ -39,7 +39,7 @@ public class XmlDeviceModel : WsSqlTableBase
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj is XmlDeviceModel item)
+        if (obj is WsXmlDeviceModel item)
         {
             return
                Scale.Equals(item.Scale);
@@ -57,7 +57,7 @@ public class XmlDeviceModel : WsSqlTableBase
 
     public override object Clone()
     {
-        XmlDeviceModel item = new();
+        WsXmlDeviceModel item = new();
         item.CloneSetup(base.CloneCast());
         item.Scale = Scale.CloneCast();
         return item;
@@ -78,11 +78,11 @@ public class XmlDeviceModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(XmlDeviceModel item) =>
+    public virtual bool Equals(WsXmlDeviceModel item) =>
 	    ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 	    Equals(Scale, item.Scale);
 
-    public new virtual XmlDeviceModel CloneCast() => (XmlDeviceModel)Clone();
+    public new virtual WsXmlDeviceModel CloneCast() => (WsXmlDeviceModel)Clone();
 
     #endregion
 }

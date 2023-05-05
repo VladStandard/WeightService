@@ -7,7 +7,7 @@ namespace WsStorageCore.Models;
 /// SQL order model.
 /// </summary>
 [DebuggerDisplay("Type = {nameof(SqlFieldOrderModel)} | {ToString} | {Direction}")]
-public sealed record SqlFieldOrderModel
+public sealed record WsSqlFieldOrderModel
 {
     public string Name { get; init; } = "";
     public WsSqlOrderDirection Direction { get; init; } = WsSqlOrderDirection.Asc;

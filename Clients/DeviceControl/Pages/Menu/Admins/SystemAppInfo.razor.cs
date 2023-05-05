@@ -14,7 +14,7 @@ public sealed partial class SystemAppInfo : RazorComponentBase
     private string VerLibBlazorCore => BlazorCoreUtils.GetLibVersion();
     private string VerLibDataCore => AssemblyUtils.GetLibVersion();
     private uint DbFileSizeAll { get; set; }
-    private List<SqlDbFileSizeInfoModel> DbSizeInfos { get; set; } = new();
+    private List<WsSqlDbFileSizeInfoModel> DbSizeInfos { get; set; } = new();
 	private string DbCurSizeAsString => $"{LocaleCore.Sql.SqlDbCurSize}: {DbFileSizeAll:### ###} MB {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
 	private uint DbMaxSize => 10_240;
 	private uint DbFillSize => DbFileSizeAll == 0 ? 0 : DbFileSizeAll * 100 / DbMaxSize;

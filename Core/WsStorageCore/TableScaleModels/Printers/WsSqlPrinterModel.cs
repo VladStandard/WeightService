@@ -18,7 +18,7 @@ public class WsSqlPrinterModel : WsSqlTableBase
     [XmlElement] public virtual short Port { get; set; }
     [XmlElement] public virtual string Password { get; set; }
     [XmlElement] public virtual WsSqlPrinterTypeModel PrinterType { get; set; }
-    [XmlElement] public virtual SqlFieldMacAddressModel MacAddress { get; set; }
+    [XmlElement] public virtual WsSqlFieldMacAddressModel MacAddress { get; set; }
     [XmlElement] public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
     [XmlElement] public virtual bool PeelOffSet { get; set; }
     [XmlElement] public virtual short DarknessLevel { get; set; }
@@ -57,7 +57,7 @@ public class WsSqlPrinterModel : WsSqlTableBase
         Port = info.GetInt16(nameof(Port));
         Password = info.GetString(nameof(Password));
         PrinterType = (WsSqlPrinterTypeModel)info.GetValue(nameof(PrinterType), typeof(WsSqlPrinterTypeModel));
-        MacAddress = (SqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(SqlFieldMacAddressModel));
+        MacAddress = (WsSqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(WsSqlFieldMacAddressModel));
         PeelOffSet = info.GetBoolean(nameof(PeelOffSet));
         DarknessLevel = info.GetInt16(nameof(DarknessLevel));
     }

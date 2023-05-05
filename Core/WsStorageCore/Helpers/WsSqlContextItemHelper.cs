@@ -31,15 +31,15 @@ public sealed class WsSqlContextItemHelper
 
     public WsSqlAccessModel? GetItemAccessNullable(string? userName)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), userName, false, false);
         return AccessManager.AccessItem.GetItemNullable<WsSqlAccessModel>(sqlCrudConfig);
     }
 
     public WsSqlProductSeriesModel? GetItemProductSeriesNullable(WsSqlScaleModel scale)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            new List<SqlFieldFilterModel>
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            new List<WsSqlFieldFilterModel>
             {
                 new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false },
                 new() { Name = $"{nameof(WsSqlProductSeriesModel.Scale)}.{nameof(WsSqlScaleModel.IdentityValueId)}", Value = scale.IdentityValueId }
@@ -54,7 +54,7 @@ public sealed class WsSqlContextItemHelper
     {
         if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return null;
 
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, false, false);
         return AccessManager.AccessItem.GetItemNullable<WsSqlPluModel>(sqlCrudConfig);
     }
@@ -65,7 +65,7 @@ public sealed class WsSqlContextItemHelper
     public WsSqlPluTemplateFkModel? GetItemPluTemplateFkNullable(WsSqlPluModel plu)
     {
         if (plu.IsNew) return null;
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             $"{nameof(WsSqlPluTemplateFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
             false, false);
         return AccessManager.AccessItem.GetItemNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
@@ -77,9 +77,9 @@ public sealed class WsSqlContextItemHelper
     public WsSqlPluBundleFkModel? GetItemPluBundleFkNullable(WsSqlPluModel plu, WsSqlBundleModel bundle)
     {
         if (plu.IsNew) return null;
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             $"{nameof(WsSqlPluBundleFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, false, false);
-        SqlCrudConfigModel sqlCrudConfigBundle = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfigBundle = WsSqlCrudConfigUtils.GetCrudConfig(
             $"{nameof(WsSqlPluBundleFkModel.Bundle)}.{nameof(WsSqlTableBase.IdentityValueUid)}", bundle.IdentityValueUid, false, false);
         sqlCrudConfig.Filters.Add(sqlCrudConfigBundle.Filters.First());
         return AccessManager.AccessItem.GetItemNullable<WsSqlPluBundleFkModel>(sqlCrudConfig);
@@ -100,7 +100,7 @@ public sealed class WsSqlContextItemHelper
 
     private WsSqlScaleModel GetItemScaleNullable(WsSqlDeviceModel device)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFiltersIdentity(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlCrudConfigModel.GetFiltersIdentity(
             $"{nameof(WsSqlDeviceScaleFkModel.Device)}", device.IdentityValueUid), false, false);
         return AccessManager.AccessItem.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Scale;
     }
@@ -110,8 +110,8 @@ public sealed class WsSqlContextItemHelper
 
     public WsSqlDeviceScaleFkModel? GetItemDeviceScaleFkNullable(WsSqlDeviceModel device)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Device), device.IdentityValueUid), false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Device), device.IdentityValueUid), false, false);
         return AccessManager.AccessItem.GetItemNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
     }
 
@@ -120,8 +120,8 @@ public sealed class WsSqlContextItemHelper
 
     public WsSqlDeviceScaleFkModel? GetItemDeviceScaleFkNullable(WsSqlScaleModel scale)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
         return AccessManager.AccessItem.GetItemNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
     }
 
@@ -153,21 +153,21 @@ public sealed class WsSqlContextItemHelper
 
     public WsSqlScaleModel GetScaleNotNullable(long id)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.IdentityValueId), id, false, false, false, false);
         return AccessManager.AccessItem.GetItemNotNullable<WsSqlScaleModel>(sqlCrudConfig);
     }
 
     public WsSqlProductionFacilityModel GetProductionFacilityNotNullable(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlProductionFacilityModel.Name), name, false, false);
         return AccessManager.AccessItem.GetItemNotNullable<WsSqlProductionFacilityModel>(sqlCrudConfig);
     }
 
     public WsSqlPluGroupModel? GetItemNomenclatureGroupParentNullable(WsSqlPluGroupModel nomenclatureGroup)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlCrudConfigModel.GetFilters(
             $"{nameof(WsSqlPluGroupFkModel.PluGroup)}.{nameof(WsSqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
             false, false);
         WsSqlPluGroupModel? result = AccessManager.AccessItem.GetItemNullable<WsSqlPluGroupFkModel>(sqlCrudConfig)?.Parent;
@@ -354,8 +354,8 @@ public sealed class WsSqlContextItemHelper
 
     public WsSqlDeviceTypeModel? GetItemDeviceTypeNullable(string typeName)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFilters(nameof(WsSqlDeviceTypeModel.Name), typeName), false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            WsSqlCrudConfigModel.GetFilters(nameof(WsSqlDeviceTypeModel.Name), typeName), false, false);
         return AccessManager.AccessItem.GetItemNullable<WsSqlDeviceTypeModel>(sqlCrudConfig);
     }
 
@@ -364,8 +364,8 @@ public sealed class WsSqlContextItemHelper
 
     public WsSqlDeviceTypeFkModel? GetItemDeviceTypeFkNullable(WsSqlDeviceModel device)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceTypeFkModel.Device), device.IdentityValueUid), false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceTypeFkModel.Device), device.IdentityValueUid), false, false);
         return AccessManager.AccessItem.GetItemNullable<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
     }
 
@@ -378,7 +378,7 @@ public sealed class WsSqlContextItemHelper
 
     public WsSqlDeviceModel GetItemDeviceOrCreateNew(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), name, true, false);
         WsSqlDeviceModel device = AccessManager.AccessItem.GetItemNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
         if (device.IsNew)
@@ -406,22 +406,22 @@ public sealed class WsSqlContextItemHelper
 
     private WsSqlDeviceModel? GetItemDeviceNullable(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), name, true, false);
         return AccessManager.AccessItem.GetItemNullable<WsSqlDeviceModel>(sqlCrudConfig);
     }
 
     public WsSqlDeviceModel GetItemDeviceNotNullable(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), name, true, false);
         return AccessManager.AccessItem.GetItemNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
     }
 
     public WsSqlDeviceModel? GetItemDeviceNullable(WsSqlScaleModel scale)
     {
-        SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
         return AccessManager.AccessItem.GetItemNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig)?.Device;
     }
 

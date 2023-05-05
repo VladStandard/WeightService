@@ -136,7 +136,7 @@ public class WsDataTestsHelper
     {
         AssertAction(() =>
         {
-            SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
+            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
             List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 5, true);
@@ -150,7 +150,7 @@ public class WsDataTestsHelper
     {
         AssertAction(() =>
         {
-            SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
+            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
             List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 10, true, true);
@@ -241,7 +241,7 @@ public class WsDataTestsHelper
         }
     }
 
-    public void AssertGetList<T>(SqlCrudConfigModel sqlCrudConfig, List<WsConfiguration> publishTypes, bool isGreater = true)
+    public void AssertGetList<T>(WsSqlCrudConfigModel sqlCrudConfig, List<WsConfiguration> publishTypes, bool isGreater = true)
         where T : WsSqlTableBase, new()
     {
         AssertAction(() =>
@@ -261,7 +261,7 @@ public class WsDataTestsHelper
 
     public T CreateNewSubstitute<T>(bool isNotDefault) where T : WsSqlTableBase, new()
     {
-        SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(WsSqlFieldIdentity.Empty);
+        WsSqlFieldIdentityModel fieldIdentity = Substitute.For<WsSqlFieldIdentityModel>(WsSqlFieldIdentity.Empty);
         fieldIdentity.Name.Returns(WsSqlFieldIdentity.Test);
         fieldIdentity.Uid.Returns(Guid.NewGuid());
         fieldIdentity.Id.Returns(-1);
@@ -527,13 +527,13 @@ public class WsDataTestsHelper
         });
     }
 
-    public void FieldBaseModelAssertEqualsNew<T>() where T : SqlFieldBase, new()
+    public void FieldBaseModelAssertEqualsNew<T>() where T : WsSqlFieldBase, new()
     {
         Assert.DoesNotThrow(() =>
         {
             // Arrange.
             T item = new();
-            SqlFieldBase baseItem = new();
+            WsSqlFieldBase baseItem = new();
             // Act.
             bool itemEqualsNew = item.EqualsNew();
             bool baseEqualsNew = baseItem.EqualsNew();
@@ -581,13 +581,13 @@ public class WsDataTestsHelper
         });
     }
 
-    public void FieldBaseModelAssertToString<T>() where T : SqlFieldBase, new()
+    public void FieldBaseModelAssertToString<T>() where T : WsSqlFieldBase, new()
     {
         Assert.DoesNotThrow(() =>
         {
             // Arrange.
             T item = new();
-            SqlFieldBase baseItem = new();
+            WsSqlFieldBase baseItem = new();
             // Act.
             string itemString = item.ToString();
             string baseString = baseItem.ToString();

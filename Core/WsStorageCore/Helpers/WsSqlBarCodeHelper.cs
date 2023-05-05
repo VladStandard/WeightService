@@ -6,14 +6,14 @@ namespace WsStorageCore.Helpers;
 /// <summary>
 /// Barcode helper.
 /// </summary>
-public class WsBarCodeHelper : IWsBarCodeHelper
+public class WsSqlBarCodeHelper : IWsSqlBarCodeHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsBarCodeHelper _instance;
+    private static WsSqlBarCodeHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsBarCodeHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlBarCodeHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -83,15 +83,15 @@ public class WsBarCodeHelper : IWsBarCodeHelper
         return (10 - sum % 10) % 10;
     }
 
-    public string GetGtinWithCheckDigit(string code, WsGtinVariant gtinVariant = WsGtinVariant.Var3)
+    public string GetGtinWithCheckDigit(string code, WsSqlGtinVariant gtinVariant = WsSqlGtinVariant.Var3)
     {
         if (string.IsNullOrEmpty(code))
             return string.Empty;
 
         return gtinVariant switch
         {
-            WsGtinVariant.Var1 => $"{code}{GetGtinCheckDigitV3(code)}",
-            WsGtinVariant.Var2 => $"{code}{GetGtinCheckDigitV2(code)}",
+            WsSqlGtinVariant.Var1 => $"{code}{GetGtinCheckDigitV3(code)}",
+            WsSqlGtinVariant.Var2 => $"{code}{GetGtinCheckDigitV2(code)}",
             _ => $"{code}{GetGtinCheckDigitV3(code)}"
         };
     }
@@ -102,7 +102,7 @@ public class WsBarCodeHelper : IWsBarCodeHelper
     /// </summary>
     /// <param name="barCode"></param>
     /// <param name="pluLabelContext"></param>
-    public void SetBarCodeTop(WsSqlBarCodeModel barCode, WsPluLabelContextModel pluLabelContext)
+    public void SetBarCodeTop(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeTop = TypeBarCodeTop;
         barCode.ValueTop = pluLabelContext.BarCodeTop;
@@ -114,7 +114,7 @@ public class WsBarCodeHelper : IWsBarCodeHelper
     /// </summary>
     /// <param name="barCode"></param>
     /// <param name="pluLabelContext"></param>
-    public void SetBarCodeRight(WsSqlBarCodeModel barCode, WsPluLabelContextModel pluLabelContext)
+    public void SetBarCodeRight(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeRight = TypeBarCodeGs128;
         barCode.ValueRight = pluLabelContext.BarCodeRight;
@@ -126,7 +126,7 @@ public class WsBarCodeHelper : IWsBarCodeHelper
     ///  </summary>
     ///  <param name="barCode"></param>
     ///  <param name="pluLabelContext"></param>
-    public void SetBarCodeBottom(WsSqlBarCodeModel barCode, WsPluLabelContextModel pluLabelContext)
+    public void SetBarCodeBottom(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeBottom = TypeBarCodeGs128;
         barCode.ValueBottom = pluLabelContext.BarCodeBottom;

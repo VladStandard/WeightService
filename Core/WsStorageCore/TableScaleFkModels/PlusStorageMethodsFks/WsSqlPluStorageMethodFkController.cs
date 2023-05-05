@@ -32,7 +32,7 @@ public sealed class WsSqlPluStorageMethodFkController
     /// </summary>
     /// <param name="sqlCrudConfig"></param>
     /// <param name="pluStorageMethodsFks"></param>
-    public List<WsSqlPluStorageMethodFkModel> UpdatePluStorageMethodFks(SqlCrudConfigModel sqlCrudConfig) =>
+    public List<WsSqlPluStorageMethodFkModel> UpdatePluStorageMethodFks(WsSqlCrudConfigModel sqlCrudConfig) =>
         ContextList.GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig);
 
     /// <summary>

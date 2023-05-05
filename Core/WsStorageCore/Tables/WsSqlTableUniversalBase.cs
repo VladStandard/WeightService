@@ -11,7 +11,7 @@ public class WsSqlTableUniversalBase : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] public virtual SqlFieldIdentityModel Identity { get; set; }
+    [XmlIgnore] public virtual WsSqlFieldIdentityModel Identity { get; set; }
     [XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
     [XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
     [XmlIgnore] public virtual bool IsExists => Identity.IsExists;
@@ -40,9 +40,9 @@ public class WsSqlTableUniversalBase : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTableUniversalBase(SqlFieldIdentityModel identity) : this()
+    public WsSqlTableUniversalBase(WsSqlFieldIdentityModel identity) : this()
     {
-        Identity = (SqlFieldIdentityModel)identity.Clone();
+        Identity = (WsSqlFieldIdentityModel)identity.Clone();
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class WsSqlTableUniversalBase : SerializeBase
     /// </summary>
     protected WsSqlTableUniversalBase(SerializationInfo info, StreamingContext context)
     {
-        Identity = (SqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(SqlFieldIdentityModel));
+        Identity = (WsSqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(WsSqlFieldIdentityModel));
     }
 
     #endregion

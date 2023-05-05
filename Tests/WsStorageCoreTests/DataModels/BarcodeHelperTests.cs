@@ -9,7 +9,7 @@ namespace WsStorageCoreTests.DataModels;
 [TestFixture]
 public sealed class BarcodeHelperTests
 {
-    private WsBarCodeHelper Barcode { get; } = WsBarCodeHelper.Instance;
+    private WsSqlBarCodeHelper Barcode { get; } = WsSqlBarCodeHelper.Instance;
 
     [Test]
     public void BarcodeHelper_GetEanCheckDigit_Throws()
@@ -28,7 +28,7 @@ public sealed class BarcodeHelperTests
     [Test]
     public void SubstituteBarcode_GetEanCheckDigit_Throws()
     {
-        IWsBarCodeHelper barcode = Substitute.For<IWsBarCodeHelper>();
+        IWsSqlBarCodeHelper barcode = Substitute.For<IWsSqlBarCodeHelper>();
         barcode.GetEanCheckDigit("01234546789012").Returns(1);
 
         Assert.Throws<ArgumentOutOfRangeException>(() =>
@@ -112,19 +112,19 @@ public sealed class BarcodeHelperTests
     {
         Assert.DoesNotThrow(() =>
         {
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477", WsGtinVariant.Var1), Is.EqualTo("46071002354776"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsGtinVariant.Var1), Is.EqualTo("46071002358668"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsGtinVariant.Var1), Is.EqualTo("46071002358668"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235873", WsGtinVariant.Var1), Is.EqualTo("46071002358736"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235859", WsGtinVariant.Var1), Is.EqualTo("46071002358590"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100234869", WsGtinVariant.Var1), Is.EqualTo("46071002348690"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477", WsSqlGtinVariant.Var1), Is.EqualTo("46071002354776"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlGtinVariant.Var1), Is.EqualTo("46071002358668"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlGtinVariant.Var1), Is.EqualTo("46071002358668"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235873", WsSqlGtinVariant.Var1), Is.EqualTo("46071002358736"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235859", WsSqlGtinVariant.Var1), Is.EqualTo("46071002358590"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100234869", WsSqlGtinVariant.Var1), Is.EqualTo("46071002348690"));
 
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477", WsGtinVariant.Var2), Is.EqualTo("46071002354776"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsGtinVariant.Var2), Is.EqualTo("46071002358668"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsGtinVariant.Var2), Is.EqualTo("46071002358668"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235873", WsGtinVariant.Var2), Is.EqualTo("46071002358736"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235859", WsGtinVariant.Var2), Is.EqualTo("46071002358590"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100234869", WsGtinVariant.Var2), Is.EqualTo("46071002348690"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477", WsSqlGtinVariant.Var2), Is.EqualTo("46071002354776"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlGtinVariant.Var2), Is.EqualTo("46071002358668"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlGtinVariant.Var2), Is.EqualTo("46071002358668"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235873", WsSqlGtinVariant.Var2), Is.EqualTo("46071002358736"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235859", WsSqlGtinVariant.Var2), Is.EqualTo("46071002358590"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100234869", WsSqlGtinVariant.Var2), Is.EqualTo("46071002348690"));
 
             Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477"), Is.EqualTo("46071002354776"));
             Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866"), Is.EqualTo("46071002358668"));

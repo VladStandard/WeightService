@@ -1,9 +1,9 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Models;
 
-public class StringWriterUtf8Model : StringWriter
+public class WsSqlStringWriterUtf8Model : StringWriter
 {
 	#region Public and private fields, properties, constructor
 
@@ -12,7 +12,7 @@ public class StringWriterUtf8Model : StringWriter
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public StringWriterUtf8Model()
+	public WsSqlStringWriterUtf8Model()
 	{
 		//
 	}
@@ -20,7 +20,7 @@ public class StringWriterUtf8Model : StringWriter
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public StringWriterUtf8Model(IFormatProvider formatProvider) : base(formatProvider)
+	public WsSqlStringWriterUtf8Model(IFormatProvider formatProvider) : base(formatProvider)
 	{
 		//
 	}
@@ -28,7 +28,7 @@ public class StringWriterUtf8Model : StringWriter
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public StringWriterUtf8Model(StringBuilder sb) : base(sb)
+	public WsSqlStringWriterUtf8Model(StringBuilder sb) : base(sb)
 	{
 		//
 	}
@@ -36,7 +36,7 @@ public class StringWriterUtf8Model : StringWriter
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public StringWriterUtf8Model(StringBuilder sb, IFormatProvider formatProvider) : base(sb, formatProvider)
+	public WsSqlStringWriterUtf8Model(StringBuilder sb, IFormatProvider formatProvider) : base(sb, formatProvider)
 	{
 		//
 	}

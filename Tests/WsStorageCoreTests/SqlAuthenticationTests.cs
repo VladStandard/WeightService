@@ -30,7 +30,7 @@ public class SqlAuthenticationTests
                                     {
                                         Assert.DoesNotThrow(() =>
                                         {
-                                            SqlAuthenticationModel sqlAu = new(server, database,
+                                            WsSqlAuthenticationModel sqlAu = new(server, database,
                                             persistSecurityInfo, integratedSecurity, userId, password, encrypt, port);
                                         });
                                         TestContext.WriteLine($@"new SqlAuthentication({persistSecurityInfo}, {integratedSecurity}, {userId}, {password}, {encrypt})");
@@ -47,7 +47,7 @@ public class SqlAuthenticationTests
     [Test]
     public void Exists_Execute_Assert()
     {
-        SqlAuthenticationModel sqlAuthentication = new();
+        WsSqlAuthenticationModel sqlAuthentication = new();
         Assert.IsFalse(sqlAuthentication.Exists());
     }
 

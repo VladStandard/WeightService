@@ -1,13 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.WebApiModels.Tables.BarCodes;
+namespace WsStorageCore.WebApiModels.BarCodes;
 
 /// <summary>
 /// Barcode down entity.
 /// </summary>
 [XmlRoot(WsWebConstants.BarcodeTop, Namespace = "", IsNullable = false)]
-public class BarcodeTopModel : SerializeBase
+public class WsSqlBarcodeTopModel : SerializeBase
 {
     #region Public and private fields and properties
 
@@ -33,7 +33,7 @@ public class BarcodeTopModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeTopModel()
+    public WsSqlBarcodeTopModel()
     {
         //
     }
@@ -41,7 +41,7 @@ public class BarcodeTopModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeTopModel(string const1, string armNumber, string counter, string date, string time, string plu, string weight,
+    public WsSqlBarcodeTopModel(string const1, string armNumber, string counter, string date, string time, string plu, string weight,
         string zames, string crc)
     {
         Const1 = const1;
@@ -58,7 +58,7 @@ public class BarcodeTopModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeTopModel(string barcode, bool useCrc)
+    public WsSqlBarcodeTopModel(string barcode, bool useCrc)
     {
         // 0  -3    -8       -16    -22    -28 -31   -36 -39
         // 298-00428-00000018-220722-164810-106-01475-001-0
@@ -82,7 +82,7 @@ public class BarcodeTopModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private BarcodeTopModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsSqlBarcodeTopModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Const1 = info.GetString(nameof(Const1)) ?? string.Empty;
         ArmNumber = info.GetString(nameof(ArmNumber)) ?? string.Empty;

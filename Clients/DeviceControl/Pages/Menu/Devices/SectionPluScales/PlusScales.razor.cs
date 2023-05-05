@@ -30,16 +30,16 @@ public sealed partial class PlusScales : RazorComponentSectionBase<WsSqlPluScale
     protected override void SetSqlSectionCast()
     {
         if (HideNoneActivePlu)
-            SqlCrudConfigSection.AddFilters(new SqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
+            SqlCrudConfigSection.AddFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
         else
-            SqlCrudConfigSection.RemoveFilters(new SqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
+            SqlCrudConfigSection.RemoveFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
         SqlCrudConfigSection.AddFilters(nameof(WsSqlPluScaleModel.Scale), Scale);
         base.SetSqlSectionCast();
     }
 
     private string GetPluPackagesCount(WsSqlPluModel plu)
 	{
-		SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
+		WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
             false, true, false, false);
         return ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}

@@ -1,13 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.WebApiModels.Tables.BarCodes;
+namespace WsStorageCore.WebApiModels.BarCodes;
 
 /// <summary>
 /// Barcode down entity.
 /// </summary>
 [XmlRoot(WsWebConstants.BarcodeRight, Namespace = "", IsNullable = false)]
-public class BarcodeRightModel : SerializeBase
+public class WsSqlBarcodeRightModel : SerializeBase
 {
     #region Public and private fields and properties
 
@@ -21,7 +21,7 @@ public class BarcodeRightModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeRightModel()
+    public WsSqlBarcodeRightModel()
     {
         //
     }
@@ -29,7 +29,7 @@ public class BarcodeRightModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeRightModel(string const1, string armNumber, string counter)
+    public WsSqlBarcodeRightModel(string const1, string armNumber, string counter)
     {
         Const1 = const1;
         ArmNumber = armNumber;
@@ -39,7 +39,7 @@ public class BarcodeRightModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeRightModel(string barcode)
+    public WsSqlBarcodeRightModel(string barcode)
     {
         // 0  -3    -8
         // 299-00011-00000019
@@ -55,7 +55,7 @@ public class BarcodeRightModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private BarcodeRightModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsSqlBarcodeRightModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Const1 = info.GetString(nameof(Const1)) ?? string.Empty;
         ArmNumber = info.GetString(nameof(ArmNumber)) ?? string.Empty;

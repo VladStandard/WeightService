@@ -9,7 +9,7 @@ namespace WsStorageCore.Models;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(WsPluLabelContextModel)}")]
-public class WsPluLabelContextModel : SerializeBase
+public class WsSqlPluLabelContextModel : SerializeBase
 {
     #region Public and private properties - References
 
@@ -55,7 +55,7 @@ public class WsPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string PluWeighingKneading { get => $"{PluWeighing.Kneading:000}"; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKneadingWithCaption { get => $"{LocaleCore.Scales.LabelContextKneading}: {PluWeighingKneading}"; set => _ = value; }
     [XmlElement] public virtual string BarCodeEan13 { get => PluScale.Plu.Ean13; set => _ = value; }
-    [XmlElement] public virtual string BarCodeGtin14 { get => PluScale.Plu.Gtin.Length switch { 13 => WsBarCodeHelper.Instance.GetGtinWithCheckDigit(PluScale.Plu.Gtin[..13]), 14 => PluScale.Plu.Gtin, _ => "ERROR" }; set => _ = value; }
+    [XmlElement] public virtual string BarCodeGtin14 { get => PluScale.Plu.Gtin.Length switch { 13 => WsSqlBarCodeHelper.Instance.GetGtinWithCheckDigit(PluScale.Plu.Gtin[..13]), 14 => PluScale.Plu.Gtin, _ => "ERROR" }; set => _ = value; }
     [XmlElement] public virtual string BarCodeItf14 { get => PluScale.Plu.Itf14; set => _ = value; }
     [XmlElement]
     public virtual string BarCodeTop
@@ -121,7 +121,7 @@ public class WsPluLabelContextModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsPluLabelContextModel() : this(new(), new(), new(), new(), new())
+    public WsSqlPluLabelContextModel() : this(new(), new(), new(), new(), new())
     {
         //
     }
@@ -129,7 +129,7 @@ public class WsPluLabelContextModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsPluLabelContextModel(WsSqlPluLabelModel pluLabel, WsSqlPluNestingFkModel pluNestingFk,
+    public WsSqlPluLabelContextModel(WsSqlPluLabelModel pluLabel, WsSqlPluNestingFkModel pluNestingFk,
         WsSqlPluScaleModel pluScale, WsSqlProductionFacilityModel productionFacility, WsSqlPluWeighingModel pluWeighing)
     {
         PluLabel = pluLabel;
@@ -144,7 +144,7 @@ public class WsPluLabelContextModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected WsPluLabelContextModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlPluLabelContextModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PluLabel = (WsSqlPluLabelModel)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelModel));
         PluNestingFk = (WsSqlPluNestingFkModel)info.GetValue(nameof(PluNestingFk), typeof(WsSqlPluNestingFkModel));

@@ -15,7 +15,7 @@ public sealed class DataAccessExtTests
 	{
         WsTestsUtils.DataTests.AssertAction(() =>
 		{
-			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(true, true);
+			WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
 			List<WsSqlScaleModel> scales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullableScales(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
@@ -41,7 +41,7 @@ public sealed class DataAccessExtTests
 	{
 		WsTestsUtils.DataTests.AssertAction(() =>
 		{
-			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(true, true);
+			WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
 			List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlus(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");

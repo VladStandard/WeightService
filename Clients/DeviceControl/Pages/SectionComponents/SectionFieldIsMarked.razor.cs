@@ -9,7 +9,7 @@ public partial class SectionFieldIsMarked<TItem> : LayoutComponentBase where TIt
 {
     #region Public and private fields, properties, constructor
 
-    [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
+    [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
 
     public string Width { get; set; }
 

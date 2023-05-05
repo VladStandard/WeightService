@@ -26,11 +26,11 @@ public static class WsSqlExtensions
         return false;
     }
 
-    public static void SetCriteriaFilters(this ICriteria criteria, List<SqlFieldFilterModel>? filters)
+    public static void SetCriteriaFilters(this ICriteria criteria, List<WsSqlFieldFilterModel>? filters)
     {
         if (filters is null) return;
 
-        foreach (SqlFieldFilterModel filter in filters)
+        foreach (WsSqlFieldFilterModel filter in filters)
         {
             AbstractCriterion? criterion = filter.Comparer switch
             {
@@ -48,11 +48,11 @@ public static class WsSqlExtensions
         }
     }
 
-    public static void SetCriteriaOrder(this ICriteria criteria, List<SqlFieldOrderModel>? orders)
+    public static void SetCriteriaOrder(this ICriteria criteria, List<WsSqlFieldOrderModel>? orders)
     {
         if (orders is null) return;
 
-        foreach (SqlFieldOrderModel order in orders)
+        foreach (WsSqlFieldOrderModel order in orders)
         {
             switch (order.Direction)
             {

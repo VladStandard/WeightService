@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Xml;
@@ -7,14 +7,14 @@ namespace WsStorageCore.Xml;
 /// XML-класс штрих-кода.
 /// </summary>
 [Serializable]
-public class XmlProductBarcodeModel : ISerializable, IWsSqlDbBase
+public class WsXmlProductBarcodeModel : ISerializable, IWsSqlDbBase
 {
 	#region Public and private fields, properties, constructor
 
 	public string Type { get; set; }
 	public string Barcode { get; set; }
 
-	public XmlProductBarcodeModel()
+	public WsXmlProductBarcodeModel()
 	{
 		Type = string.Empty;
 		Barcode = string.Empty;
@@ -25,7 +25,7 @@ public class XmlProductBarcodeModel : ISerializable, IWsSqlDbBase
 	/// </summary>
 	/// <param name="info"></param>
 	/// <param name="context"></param>
-	private XmlProductBarcodeModel(SerializationInfo info, StreamingContext context)
+	private WsXmlProductBarcodeModel(SerializationInfo info, StreamingContext context)
 	{
 		Type = info.GetString(nameof(Type));
 		Barcode = info.GetString(nameof(Barcode));
@@ -39,7 +39,7 @@ public class XmlProductBarcodeModel : ISerializable, IWsSqlDbBase
 		$"{nameof(Type)}: {Type}. " +
 		$"{nameof(Barcode)}: {Barcode}. ";
 
-	public virtual bool Equals(XmlProductBarcodeModel item) =>
+	public virtual bool Equals(WsXmlProductBarcodeModel item) =>
 		ReferenceEquals(this, item) || Equals(Type, item.Type) && //-V3130
 		Equals(Barcode, item.Barcode);
 
@@ -54,7 +54,7 @@ public class XmlProductBarcodeModel : ISerializable, IWsSqlDbBase
 	/// <returns></returns>
 	public object Clone()
 	{
-		XmlProductBarcodeModel item = new();
+		WsXmlProductBarcodeModel item = new();
 		item.Type = Type;
 		item.Barcode = Barcode;
 		return item;

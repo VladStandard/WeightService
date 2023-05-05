@@ -8,7 +8,7 @@ namespace WsStorageCore.Models;
 /// DB table model.
 /// </summary>
 [Serializable]
-public class SqlFieldBase : SerializeBase, ICloneable, IWsSqlDbBase, ISerializable
+public class WsSqlFieldBase : SerializeBase, ICloneable, IWsSqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -17,15 +17,15 @@ public class SqlFieldBase : SerializeBase, ICloneable, IWsSqlDbBase, ISerializab
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlFieldBase()
+    public WsSqlFieldBase()
     {
-        FieldName = nameof(SqlFieldBase);
+        FieldName = nameof(WsSqlFieldBase);
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected SqlFieldBase(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlFieldBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         FieldName = info.GetString(nameof(FieldName));
     }
@@ -41,7 +41,7 @@ public class SqlFieldBase : SerializeBase, ICloneable, IWsSqlDbBase, ISerializab
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((SqlFieldBase)obj);
+        return Equals((WsSqlFieldBase)obj);
     }
 
     public override int GetHashCode() => FieldName.GetHashCode();
@@ -63,19 +63,19 @@ public class SqlFieldBase : SerializeBase, ICloneable, IWsSqlDbBase, ISerializab
 
     public virtual bool EqualsNew() => Equals(new());
 
-    public virtual bool Equals(SqlFieldBase item) =>
+    public virtual bool Equals(WsSqlFieldBase item) =>
         ReferenceEquals(this, item) || Equals(FieldName, item.FieldName);
 
     public virtual bool EqualsDefault() => Equals(FieldName, string.Empty);
 
-    public virtual object Clone() => new SqlFieldBase()
+    public virtual object Clone() => new WsSqlFieldBase()
     {
         FieldName = FieldName
     };
 
-    public virtual SqlFieldBase CloneCast() => (SqlFieldBase)Clone();
+    public virtual WsSqlFieldBase CloneCast() => (WsSqlFieldBase)Clone();
 
-    public virtual void CloneSetup(SqlFieldBase item)
+    public virtual void CloneSetup(WsSqlFieldBase item)
     {
         FieldName = item.FieldName;
     }

@@ -14,7 +14,7 @@ public sealed class FieldMacAddressModelTests
 	        foreach (string? address in DataCoreEnums.GetString())
 	        {
                 if (address is not null)
-					_ = new SqlFieldMacAddressModel(address);
+					_ = new WsSqlFieldMacAddressModel(address);
 	        }
         }));
     }

@@ -4,7 +4,7 @@
 namespace WsStorageCore.Models;
 
 [Serializable]
-public class SqlSerializeBase : SerializeBase
+public class WsSqlSerializeBase : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -13,7 +13,7 @@ public class SqlSerializeBase : SerializeBase
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public SqlSerializeBase()
+	public WsSqlSerializeBase()
     {
 	    //
     }
@@ -23,7 +23,7 @@ public class SqlSerializeBase : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected SqlSerializeBase(SerializationInfo info, StreamingContext context)
+    protected WsSqlSerializeBase(SerializationInfo info, StreamingContext context)
     {
         //SqlConnect = (SqlConnectFactory)info.GetValue(nameof(SqlConnect), typeof(SqlConnectFactory));
     }

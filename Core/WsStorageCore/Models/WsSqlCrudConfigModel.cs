@@ -6,15 +6,15 @@ namespace WsStorageCore.Models;
 /// <summary>
 /// SQL config for CRUD operations.
 /// </summary>
-public class SqlCrudConfigModel : ICloneable
+public class WsSqlCrudConfigModel : ICloneable
 {
     #region Public and private fields, properties, constructor
 
     public string NativeQuery { get; set; }
     public bool IsFillReferences { get; set; }
     public List<SqlParameter> NativeParameters { get; set; }
-    public List<SqlFieldFilterModel> Filters { get; private set; }
-    public List<SqlFieldOrderModel> Orders { get; private set; }
+    public List<WsSqlFieldFilterModel> Filters { get; private set; }
+    public List<WsSqlFieldOrderModel> Orders { get; private set; }
     public bool IsGuiShowFilterAdditional { get; set; }
     public bool IsGuiShowFilterMarked { get; set; }
     public bool IsGuiShowFilterOnlyTop { get; set; }
@@ -40,7 +40,7 @@ public class SqlCrudConfigModel : ICloneable
     /// </summary>
     public bool IsReadUncommitted { get; set; }
     
-    public SqlCrudConfigModel()
+    public WsSqlCrudConfigModel()
     {
         NativeQuery = string.Empty;
         NativeParameters = new();
@@ -60,25 +60,25 @@ public class SqlCrudConfigModel : ICloneable
         IsReadUncommitted = false;
     }
 
-    public SqlCrudConfigModel(string query, List<SqlParameter> parameters) : this()
+    public WsSqlCrudConfigModel(string query, List<SqlParameter> parameters) : this()
     {
         NativeQuery = query;
         NativeParameters = parameters;
     }
 
-    public SqlCrudConfigModel(string query, SqlParameter parameter, bool isResultAddFieldEmpty) :
+    public WsSqlCrudConfigModel(string query, SqlParameter parameter, bool isResultAddFieldEmpty) :
         this(query, new List<SqlParameter> { parameter })
     {
         IsResultAddFieldEmpty = isResultAddFieldEmpty;
     }
 
-    public SqlCrudConfigModel(string query, bool isResultAddFieldEmpty) :
+    public WsSqlCrudConfigModel(string query, bool isResultAddFieldEmpty) :
         this(query, new List<SqlParameter>())
     {
         IsResultAddFieldEmpty = isResultAddFieldEmpty;
     }
 
-    public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders,
+    public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters, List<WsSqlFieldOrderModel> orders,
         bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) : this()
     {
         Filters = filters;
@@ -91,19 +91,19 @@ public class SqlCrudConfigModel : ICloneable
         IsReadUncommitted = isReadUncommitted;
     }
 
-    public SqlCrudConfigModel(List<SqlFieldFilterModel> filters,
+    public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters,
         bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
         this(filters, new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, 
             isOrder, isReadUncommitted)
     { }
 
-    public SqlCrudConfigModel(List<SqlFieldOrderModel> orders,
+    public WsSqlCrudConfigModel(List<WsSqlFieldOrderModel> orders,
         bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
         this(new(), orders, isShowMarked, isShowOnlyTop, 
             isAddFieldEmpty, isOrder, isReadUncommitted)
     { }
 
-    public SqlCrudConfigModel(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
+    public WsSqlCrudConfigModel(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
         this(new(), new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, isReadUncommitted)
     { }
 
@@ -111,14 +111,14 @@ public class SqlCrudConfigModel : ICloneable
 
     #region Public and private methods - Filters
 
-    public static List<SqlFieldFilterModel> GetFilters(string className, WsSqlTableBase? item) =>
+    public static List<WsSqlFieldFilterModel> GetFilters(string className, WsSqlTableBase? item) =>
         item is null || string.IsNullOrEmpty(className) ? new()
             : GetFiltersIdentity(className, item.Identity.Name == WsSqlFieldIdentity.Uid ? item.IdentityValueUid : item.IdentityValueId);
 
-    public static List<SqlFieldFilterModel> GetFilters(string className, object? value) =>
+    public static List<WsSqlFieldFilterModel> GetFilters(string className, object? value) =>
         new() { new() { Name = className, Value = value } };
 
-    public static List<SqlFieldFilterModel> GetFiltersIdentity(string className, object? value) =>
+    public static List<WsSqlFieldFilterModel> GetFiltersIdentity(string className, object? value) =>
         value switch
         {
             Guid uid => new() { 
@@ -128,10 +128,10 @@ public class SqlCrudConfigModel : ICloneable
             _ => new()
         };
 
-    private List<SqlFieldFilterModel> GetFiltersIsResultShowMarked(bool isShowMarked) =>
+    private List<WsSqlFieldFilterModel> GetFiltersIsResultShowMarked(bool isShowMarked) =>
         new() { new() { Name = nameof(WsSqlTableBase.IsMarked), Value = isShowMarked } };
 
-    public void AddFilters(List<SqlFieldFilterModel> filters)
+    public void AddFilters(List<WsSqlFieldFilterModel> filters)
     {
         if (!Filters.Any())
         {
@@ -139,25 +139,25 @@ public class SqlCrudConfigModel : ICloneable
             return;
         }
 
-        foreach (SqlFieldFilterModel filter in filters)
+        foreach (WsSqlFieldFilterModel filter in filters)
         {
             if (!Filters.Contains(filter))
                 Filters.Add(filter);
         }
     }
 
-    public void AddFilters(SqlFieldFilterModel filter) => AddFilters(new List<SqlFieldFilterModel> { filter });
+    public void AddFilters(WsSqlFieldFilterModel filter) => AddFilters(new List<WsSqlFieldFilterModel> { filter });
 
     public void AddFilters(string className, WsSqlTableBase? item) => AddFilters(GetFilters(className, item));
 
     public void ClearFilters() => Filters.Clear();
 
-    public void RemoveFilters(List<SqlFieldFilterModel> filters)
+    public void RemoveFilters(List<WsSqlFieldFilterModel> filters)
     {
         if (!Filters.Any())
             return;
 
-        foreach (SqlFieldFilterModel filter in filters)
+        foreach (WsSqlFieldFilterModel filter in filters)
         {
             if (Filters.Contains(filter))
             {
@@ -167,7 +167,7 @@ public class SqlCrudConfigModel : ICloneable
         }
     }
 
-    public void RemoveFilters(SqlFieldFilterModel filter) => RemoveFilters(new List<SqlFieldFilterModel> { filter });
+    public void RemoveFilters(WsSqlFieldFilterModel filter) => RemoveFilters(new List<WsSqlFieldFilterModel> { filter });
 
     public void RemoveFilters(string className, WsSqlTableBase? item) => RemoveFilters(GetFilters(className, item));
 
@@ -175,27 +175,27 @@ public class SqlCrudConfigModel : ICloneable
 
     #region Public and private methods - Orders
 
-    private void AddOrders(List<SqlFieldOrderModel> orders)
+    private void AddOrders(List<WsSqlFieldOrderModel> orders)
     {
         if (!Orders.Any())
             Orders = orders;
         else
-            foreach (SqlFieldOrderModel order in orders.Where(order => !Orders.Contains(order)))
+            foreach (WsSqlFieldOrderModel order in orders.Where(order => !Orders.Contains(order)))
             {
                 Orders.Add(order);
             }
     }
 
-    public void AddOrders(SqlFieldOrderModel order) => AddOrders(new List<SqlFieldOrderModel> { order });
+    public void AddOrders(WsSqlFieldOrderModel order) => AddOrders(new List<WsSqlFieldOrderModel> { order });
 
-    private void RemoveOrders(List<SqlFieldOrderModel> orders)
+    private void RemoveOrders(List<WsSqlFieldOrderModel> orders)
     {
         if (!Orders.Any()) return;
         bool isExists = true;
         while (isExists)
         {
             isExists = false;
-            foreach (SqlFieldOrderModel order in orders)
+            foreach (WsSqlFieldOrderModel order in orders)
             {
                 if (Orders.Contains(order))
                 {
@@ -207,11 +207,11 @@ public class SqlCrudConfigModel : ICloneable
         }
     }
 
-    public void RemoveOrders(SqlFieldOrderModel order) => RemoveOrders(new List<SqlFieldOrderModel> { order });
+    public void RemoveOrders(WsSqlFieldOrderModel order) => RemoveOrders(new List<WsSqlFieldOrderModel> { order });
 
     public object Clone()
     {
-        SqlCrudConfigModel item = new();
+        WsSqlCrudConfigModel item = new();
         item.Filters = new(Filters);
         item.Orders = new(Orders);
         item.IsGuiShowFilterAdditional = IsGuiShowFilterAdditional;
@@ -223,7 +223,7 @@ public class SqlCrudConfigModel : ICloneable
         return item;
     }
 
-    public SqlCrudConfigModel CloneCast() => (SqlCrudConfigModel)Clone();
+    public WsSqlCrudConfigModel CloneCast() => (WsSqlCrudConfigModel)Clone();
 
     #endregion
 }

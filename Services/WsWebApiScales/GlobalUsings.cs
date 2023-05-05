@@ -16,7 +16,7 @@ global using WsLocalizationCore.Utils;
 global using WsStorageCore.Enums;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Utils;
-global using WsStorageCore.WebApiModels.Tables.BarCodes;
+global using WsStorageCore.WebApiModels.BarCodes;
 global using WsWebApiCore.Controllers;
 global using WsWebApiCore.Models;
 global using WsWebApiCore.Utils;

@@ -5,5 +5,5 @@ namespace WsWebApiCore.Models;
 
 internal interface IWsWebRequest
 {
-    List<string> GetListCore(WsServerType serverType, string request);
+    List<string> GetListCore(WsSqlServerType serverType, string request);
 }

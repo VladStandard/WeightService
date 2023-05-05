@@ -1,13 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.WebApiModels.Tables.BarCodes;
+namespace WsStorageCore.WebApiModels.BarCodes;
 
 /// <summary>
 /// Barcode down entity.
 /// </summary>
 [XmlRoot(WsWebConstants.BarcodeBottom, Namespace = "", IsNullable = false)]
-public class BarcodeBottomModel : SerializeBase
+public class WsSqlBarcodeBottomModel : SerializeBase
 {
     #region Public and private fields and properties
 
@@ -31,7 +31,7 @@ public class BarcodeBottomModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeBottomModel()
+    public WsSqlBarcodeBottomModel()
     {
         //
     }
@@ -39,7 +39,7 @@ public class BarcodeBottomModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeBottomModel(string const1, string gtin, string const2, string weight, string const3, string date, string const4, string partNumber)
+    public WsSqlBarcodeBottomModel(string const1, string gtin, string const2, string weight, string const3, string date, string const4, string partNumber)
     {
         Const1 = const1;
         Gtin = gtin;
@@ -54,7 +54,7 @@ public class BarcodeBottomModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeBottomModel(string barcode)
+    public WsSqlBarcodeBottomModel(string barcode)
     {
         // 0 -2             -16  -20    -26-28    -34-36
         // 01-12600076000000-3103-007440-11-221021-10-2210
@@ -78,7 +78,7 @@ public class BarcodeBottomModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected BarcodeBottomModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlBarcodeBottomModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Const1 = info.GetString(nameof(Const1)) ?? string.Empty;
         Gtin = info.GetString(nameof(Gtin)) ?? string.Empty;

@@ -6,8 +6,8 @@ namespace WsStorageContextTests.DataContext;
 [TestFixture]
 public sealed class GetListTests
 {
-    private static SqlCrudConfigModel SqlCrudConfig => new(false, true, false, true, false);
-    private static SqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfig => new(false, true, false, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true, false);
     private static List<WsConfiguration> Configurations => new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS };
     private static readonly List<WsConfiguration> ConfigurationsDev = new() { WsConfiguration.DevelopVS };
 
@@ -194,7 +194,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluNestingFkModel()
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
+        WsSqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
         sqlCrudConfig.NativeQuery = WsSqlQueriesScales.Tables.PluNestingFks.GetList(true);
         sqlCrudConfig.NativeParameters = new() { new("P_UID", new Guid("5B24E604-C550-43C9-91DD-74989A5E9D6C")), };
         WsTestsUtils.DataTests.AssertGetList<WsSqlPluNestingFkModel>(sqlCrudConfig, Configurations);

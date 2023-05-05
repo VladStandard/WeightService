@@ -6,7 +6,7 @@ namespace WsStorageCore.Enums;
 /// <summary>
 /// GTIN enum.
 /// </summary>
-public enum WsGtinVariant
+public enum WsSqlGtinVariant
 {
     /// <summary>
     /// Variant 1.

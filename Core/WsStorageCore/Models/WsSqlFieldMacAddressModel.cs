@@ -7,7 +7,7 @@ namespace WsStorageCore.Models;
 /// MAC address.
 /// </summary>
 [Serializable]
-public class SqlFieldMacAddressModel : SqlFieldBase
+public class WsSqlFieldMacAddressModel : WsSqlFieldBase
 {
     #region Public and private fields, properties, constructor
 
@@ -43,9 +43,9 @@ public class SqlFieldMacAddressModel : SqlFieldBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlFieldMacAddressModel()
+    public WsSqlFieldMacAddressModel()
     {
-        FieldName = nameof(SqlFieldMacAddressModel);
+        FieldName = nameof(WsSqlFieldMacAddressModel);
         _value = string.Empty;
     }
 
@@ -53,7 +53,7 @@ public class SqlFieldMacAddressModel : SqlFieldBase
     /// Constructor.
     /// </summary>
     /// <param name="address"></param>
-    public SqlFieldMacAddressModel(string address) : this()
+    public WsSqlFieldMacAddressModel(string address) : this()
     {
         _value = address;
     }
@@ -63,7 +63,7 @@ public class SqlFieldMacAddressModel : SqlFieldBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected SqlFieldMacAddressModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlFieldMacAddressModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         _value = info.GetString(nameof(Value));
     }
@@ -80,7 +80,7 @@ public class SqlFieldMacAddressModel : SqlFieldBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((SqlFieldMacAddressModel)obj);
+        return Equals((WsSqlFieldMacAddressModel)obj);
     }
 
     public override int GetHashCode() => Value.GetHashCode();
@@ -91,7 +91,7 @@ public class SqlFieldMacAddressModel : SqlFieldBase
 
     public override object Clone()
     {
-        SqlFieldMacAddressModel item = new()
+        WsSqlFieldMacAddressModel item = new()
         {
             Value = Value
         };
@@ -140,10 +140,10 @@ public class SqlFieldMacAddressModel : SqlFieldBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(SqlFieldMacAddressModel item) =>
+    public virtual bool Equals(WsSqlFieldMacAddressModel item) =>
         ReferenceEquals(this, item) || Equals(Value, item.Value);
 
-    public new virtual SqlFieldMacAddressModel CloneCast() => (SqlFieldMacAddressModel)Clone();
+    public new virtual WsSqlFieldMacAddressModel CloneCast() => (WsSqlFieldMacAddressModel)Clone();
 
     #endregion
 }

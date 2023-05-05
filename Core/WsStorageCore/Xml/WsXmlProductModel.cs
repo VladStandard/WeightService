@@ -7,7 +7,7 @@ namespace WsStorageCore.Xml;
 /// XML-класс продукта.
 /// </summary>
 [Serializable]
-public class XmlProductModel : ISerializable, IWsSqlDbBase
+public class WsXmlProductModel : ISerializable, IWsSqlDbBase
 {
     #region Public and private fields, properties, constructor
 
@@ -36,17 +36,17 @@ public class XmlProductModel : ISerializable, IWsSqlDbBase
         set => ProductShelfLife = $"{value}  сут.";
     }
     public string Brand { get; set; }
-    public List<XmlProductUnitModel> Units { get; set; }
-    public List<XmlProductBarcodeModel> Barcodes { get; set; }
-    public List<XmlProductBoxModel> Boxes { get; set; }
-    public List<XmlProductBoxModel> Packs { get; set; }
+    public List<WsXmlProductUnitModel> Units { get; set; }
+    public List<WsXmlProductBarcodeModel> Barcodes { get; set; }
+    public List<WsXmlProductBoxModel> Boxes { get; set; }
+    public List<WsXmlProductBoxModel> Packs { get; set; }
     public string NameFull { get; set; }
     public string AdditionalDescriptionOfNomenclature { get; set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public XmlProductModel()
+    public WsXmlProductModel()
     {
 	    Category = string.Empty;
 	    Code = string.Empty;
@@ -71,7 +71,7 @@ public class XmlProductModel : ISerializable, IWsSqlDbBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private XmlProductModel(SerializationInfo info, StreamingContext context)
+    private WsXmlProductModel(SerializationInfo info, StreamingContext context)
     {
 	    Category = info.GetString(nameof(Category));
 	    Code = info.GetString(nameof(Code));
@@ -83,10 +83,10 @@ public class XmlProductModel : ISerializable, IWsSqlDbBase
 	    Temperature = info.GetString(nameof(Temperature));
 	    ProductShelfLife = info.GetString(nameof(ProductShelfLife));
 	    Brand = info.GetString(nameof(Brand));
-	    Units = (List<XmlProductUnitModel>)info.GetValue(nameof(Units), typeof(List<XmlProductUnitModel>));
-	    Barcodes = (List<XmlProductBarcodeModel>)info.GetValue(nameof(Barcodes), typeof(List<XmlProductBarcodeModel>));
-	    Boxes = (List<XmlProductBoxModel>)info.GetValue(nameof(Boxes), typeof(List<XmlProductBoxModel>));
-	    Packs = (List<XmlProductBoxModel>)info.GetValue(nameof(Packs), typeof(List<XmlProductBoxModel>));
+	    Units = (List<WsXmlProductUnitModel>)info.GetValue(nameof(Units), typeof(List<WsXmlProductUnitModel>));
+	    Barcodes = (List<WsXmlProductBarcodeModel>)info.GetValue(nameof(Barcodes), typeof(List<WsXmlProductBarcodeModel>));
+	    Boxes = (List<WsXmlProductBoxModel>)info.GetValue(nameof(Boxes), typeof(List<WsXmlProductBoxModel>));
+	    Packs = (List<WsXmlProductBoxModel>)info.GetValue(nameof(Packs), typeof(List<WsXmlProductBoxModel>));
 	    NameFull = info.GetString(nameof(NameFull));
 	    AdditionalDescriptionOfNomenclature = info.GetString(nameof(AdditionalDescriptionOfNomenclature));
 	}
@@ -98,25 +98,25 @@ public class XmlProductModel : ISerializable, IWsSqlDbBase
 	public override string ToString()
     {
         string? strUnits = $"{Units.Count}. ";
-        foreach (XmlProductUnitModel? unit in Units)
+        foreach (WsXmlProductUnitModel? unit in Units)
         {
 	        strUnits += $"{unit}. ";
         }
 
         string strBarcodes = $"{Barcodes.Count}. ";
-        foreach (XmlProductBarcodeModel? barcode in Barcodes)
+        foreach (WsXmlProductBarcodeModel? barcode in Barcodes)
         {
 	        strBarcodes += $"{barcode}. ";
         }
 
         string strBoxes = $"{Boxes.Count}. ";
-        foreach (XmlProductBoxModel? box in Boxes)
+        foreach (WsXmlProductBoxModel? box in Boxes)
         {
 	        strBoxes += $"{box}. ";
         }
 
         string strPacks = $"{Packs.Count}. ";
-        foreach (XmlProductBoxModel? pack in Packs)
+        foreach (WsXmlProductBoxModel? pack in Packs)
         {
 	        strPacks += $"{pack}. ";
         }
@@ -140,7 +140,7 @@ public class XmlProductModel : ISerializable, IWsSqlDbBase
             $"{nameof(Packs)}: {strPacks}";
     }
 
-    public bool Equals(XmlProductModel item)
+    public bool Equals(WsXmlProductModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         if (Units.Count != item.Units.Count)
@@ -172,7 +172,7 @@ public class XmlProductModel : ISerializable, IWsSqlDbBase
 
     public object Clone()
     {
-	    XmlProductModel item = new();
+	    WsXmlProductModel item = new();
 	    item.Category = Category;
 	    item.Code = Code;
 	    item.Description = Description;

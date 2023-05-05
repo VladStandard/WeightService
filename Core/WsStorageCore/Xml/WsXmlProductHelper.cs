@@ -3,20 +3,20 @@
 
 namespace WsStorageCore.Xml;
 
-public class XmlProductHelper
+public class WsXmlProductHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static XmlProductHelper _instance;
+    private static WsXmlProductHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static XmlProductHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsXmlProductHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
 	#endregion
 
 	#region Public and private fields, properties, constructor
 
-	private WsBarCodeHelper Barcode { get; set; } = WsBarCodeHelper.Instance;
+	private WsSqlBarCodeHelper Barcode { get; set; } = WsSqlBarCodeHelper.Instance;
 
 	#endregion
 
@@ -40,9 +40,9 @@ public class XmlProductHelper
         return value;
     }
 
-    public List<XmlProductUnitModel> GetProductUnitEntities(XElement xmlElement, string nameSection, string nameElement)
+    public List<WsXmlProductUnitModel> GetProductUnitEntities(XElement xmlElement, string nameSection, string nameElement)
     {
-        List<XmlProductUnitModel>? entities = new();
+        List<WsXmlProductUnitModel>? entities = new();
         List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
         if (xmlEntities.Any())
         {
@@ -53,7 +53,7 @@ public class XmlProductHelper
                 {
                     foreach (XElement? xmlChild in xmlChilds)
                     {
-                        XmlProductUnitModel? item = new()
+                        WsXmlProductUnitModel? item = new()
                         {
                             Heft = StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
                             Capacity = StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
@@ -70,9 +70,9 @@ public class XmlProductHelper
         return entities;
     }
 
-    public List<XmlProductBarcodeModel> GetProductBarcodeEntities(XElement xmlElement, string nameSection, string nameElement)
+    public List<WsXmlProductBarcodeModel> GetProductBarcodeEntities(XElement xmlElement, string nameSection, string nameElement)
     {
-        List<XmlProductBarcodeModel>? entities = new();
+        List<WsXmlProductBarcodeModel>? entities = new();
         List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
         if (xmlEntities.Any())
         {
@@ -83,7 +83,7 @@ public class XmlProductHelper
                 {
                     foreach (XElement? xmlChild in xmlChilds)
                     {
-                        XmlProductBarcodeModel? item = new()
+                        WsXmlProductBarcodeModel? item = new()
                         {
                             Type = GetAttribute<string>(xmlChild, "Type") ?? string.Empty,
                             Barcode = GetAttribute<string>(xmlChild, "Barcode") ?? string.Empty
@@ -96,9 +96,9 @@ public class XmlProductHelper
         return entities;
     }
 
-    public List<XmlProductBoxModel> GetProductBoxEntities(XElement xmlElement, string nameSection, string nameElement)
+    public List<WsXmlProductBoxModel> GetProductBoxEntities(XElement xmlElement, string nameSection, string nameElement)
     {
-        List<XmlProductBoxModel>? items = new();
+        List<WsXmlProductBoxModel>? items = new();
         List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
         if (xmlEntities.Any())
         {
@@ -109,7 +109,7 @@ public class XmlProductHelper
                 {
                     foreach (XElement? xmlChild in xmlChilds)
                     {
-	                    XmlProductBoxModel? item = new()
+	                    WsXmlProductBoxModel? item = new()
                         {
                             Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty,
                             Heft = StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
@@ -128,9 +128,9 @@ public class XmlProductHelper
         return items;
     }
 
-    public XmlProductModel GetXmlProduct(string? value)
+    public WsXmlProductModel GetXmlProduct(string? value)
     {
-        XmlProductModel productEntity = new();
+        WsXmlProductModel productEntity = new();
         if (string.IsNullOrEmpty(value))
             return productEntity;
 
@@ -249,7 +249,7 @@ public class XmlProductHelper
         return items;
     }
 
-	public T GetXmlValue<T>(XmlProductModel xmlProduct, string name,
+	public T GetXmlValue<T>(WsXmlProductModel xmlProduct, string name,
 	[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		try
@@ -269,7 +269,7 @@ public class XmlProductHelper
 				case "GTIN":
 					if (xmlProduct.Barcodes is not null && xmlProduct.Barcodes.Count > 0)
 					{
-						XmlProductBarcodeModel barcodeGtin = xmlProduct.Barcodes.FirstOrDefault(
+						WsXmlProductBarcodeModel barcodeGtin = xmlProduct.Barcodes.FirstOrDefault(
 							x => x.Type.Equals("EAN13"));
 						if (barcodeGtin is not null)
 						{
@@ -280,7 +280,7 @@ public class XmlProductHelper
 				case "EAN13":
 					if (xmlProduct.Barcodes is not null && xmlProduct.Barcodes.Count > 0)
 					{
-						XmlProductBarcodeModel barcodeEan13 = xmlProduct.Barcodes.FirstOrDefault(
+						WsXmlProductBarcodeModel barcodeEan13 = xmlProduct.Barcodes.FirstOrDefault(
 							x => x.Type.Equals("EAN13"));
 						if (barcodeEan13 is not null)
 						{
@@ -291,7 +291,7 @@ public class XmlProductHelper
 				case "ITF14":
 					if (xmlProduct.Barcodes is not null && xmlProduct.Barcodes.Count > 0)
 					{
-						XmlProductBarcodeModel barcodeItf14 = xmlProduct.Barcodes.FirstOrDefault(
+						WsXmlProductBarcodeModel barcodeItf14 = xmlProduct.Barcodes.FirstOrDefault(
 						x => x.Type.Equals("ITF14"));
 						if (barcodeItf14 is not null)
 							return (T)Convert.ChangeType(barcodeItf14.Barcode, typeof(string));
@@ -438,7 +438,7 @@ public class XmlProductHelper
 	/// Вес коробки.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodWeightBox(WsSqlPluModel plu, XmlProductModel xmlProduct)
+	public decimal CalcGoodWeightBox(WsSqlPluModel plu, WsXmlProductModel xmlProduct)
 	{
 		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
@@ -456,7 +456,7 @@ public class XmlProductHelper
 	/// Вес пакета.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodWeightPack(WsSqlPluModel plu, XmlProductModel xmlProduct)
+	public decimal CalcGoodWeightPack(WsSqlPluModel plu, WsXmlProductModel xmlProduct)
 	{
 		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
@@ -474,7 +474,7 @@ public class XmlProductHelper
 	/// Кол-во вложений.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodRateUnit(WsSqlPluModel plu, XmlProductModel xmlProduct)
+	public decimal CalcGoodRateUnit(WsSqlPluModel plu, WsXmlProductModel xmlProduct)
 	{
 		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{

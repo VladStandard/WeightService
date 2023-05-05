@@ -13,7 +13,7 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual string Type { get; set; }
-    [XmlElement] public virtual SqlFieldBinaryModel Data { get; set; }
+    [XmlElement] public virtual WsSqlFieldBinaryModel Data { get; set; }
     [XmlIgnore] public virtual byte[] DataValue { get => Data.Value; set => Data.Value = value; }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
     protected WsSqlTemplateResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Type = info.GetString(nameof(Type));
-        Data = (SqlFieldBinaryModel)info.GetValue(nameof(Data), typeof(SqlFieldBinaryModel));
+        Data = (WsSqlFieldBinaryModel)info.GetValue(nameof(Data), typeof(WsSqlFieldBinaryModel));
     }
 
     #endregion

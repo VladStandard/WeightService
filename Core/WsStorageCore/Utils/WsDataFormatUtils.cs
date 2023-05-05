@@ -238,7 +238,7 @@ public static class WsDataFormatUtils
         try
         {
             XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-            using StringWriter stringWriter = isUtf16 ? new StringWriter() : new StringWriterUtf8Model();
+            using StringWriter stringWriter = isUtf16 ? new StringWriter() : new WsSqlStringWriterUtf8Model();
             switch (isAddEmptyNamespace)
             {
                 case true:
@@ -267,7 +267,7 @@ public static class WsDataFormatUtils
     {
         XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(string) })[0];
 
-        using StringWriter stringWriter = isUtf16 ? new StringWriter() : new StringWriterUtf8Model();
+        using StringWriter stringWriter = isUtf16 ? new StringWriter() : new WsSqlStringWriterUtf8Model();
 
         switch (isAddEmptyNamespace)
         {

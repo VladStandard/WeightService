@@ -4,7 +4,7 @@
 namespace WsStorageCore.Models;
 
 [DebuggerDisplay("Type = {nameof(SqlDataConfigurationModel)} | {OrderAsc} | {PageNo} | {PageSize}")]
-public sealed record SqlDataConfigurationModel
+public sealed record WsSqlDataConfigurationModel
 {
     public bool OrderAsc { get; init; } = true;
     public int PageNo { get; init; } = 0;

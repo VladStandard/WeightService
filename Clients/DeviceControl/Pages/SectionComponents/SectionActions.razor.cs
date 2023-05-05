@@ -9,7 +9,7 @@ public partial class SectionActions : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
+    [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
 
     [Parameter] public EventCallback OnSectionSave { get; set; }

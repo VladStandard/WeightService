@@ -4,7 +4,7 @@
 namespace WsStorageCore.Models;
 
 [Serializable]
-public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, IWsSqlDbBase, ISerializable
+public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -29,9 +29,9 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, IWsSqlDbBase, ISeri
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlFieldBinaryModel()
+    public WsSqlFieldBinaryModel()
     {
-        FieldName = nameof(SqlFieldBinaryModel);
+        FieldName = nameof(WsSqlFieldBinaryModel);
         Value = Array.Empty<byte>();
     }
 
@@ -40,7 +40,7 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, IWsSqlDbBase, ISeri
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected SqlFieldBinaryModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlFieldBinaryModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Value = (byte[])info.GetValue(nameof(Value), typeof(byte[]));
     }
@@ -57,7 +57,7 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, IWsSqlDbBase, ISeri
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((SqlFieldBinaryModel)obj);
+        return Equals((WsSqlFieldBinaryModel)obj);
     }
 
     public override int GetHashCode() => Value.GetHashCode();
@@ -68,7 +68,7 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, IWsSqlDbBase, ISeri
 
     public override object Clone()
     {
-        SqlFieldBinaryModel item = new()
+        WsSqlFieldBinaryModel item = new()
         {
             Value = DataUtils.ByteClone(Value)
         };
@@ -90,10 +90,10 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, IWsSqlDbBase, ISeri
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(SqlFieldBinaryModel item) =>
+    public virtual bool Equals(WsSqlFieldBinaryModel item) =>
         item.Value is not null && Value is not null && (ReferenceEquals(this, item) || DataUtils.ByteEquals(Value, item.Value));
 
-    public new virtual SqlFieldBinaryModel CloneCast() => (SqlFieldBinaryModel)Clone();
+    public new virtual WsSqlFieldBinaryModel CloneCast() => (WsSqlFieldBinaryModel)Clone();
 
     #endregion
 }

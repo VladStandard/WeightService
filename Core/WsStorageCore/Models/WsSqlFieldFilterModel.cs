@@ -7,7 +7,7 @@ namespace WsStorageCore.Models;
 /// SQL field comparing model.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public sealed record SqlFieldFilterModel
+public sealed record WsSqlFieldFilterModel
 {
     #region Public and private fields, properties, constructor
 

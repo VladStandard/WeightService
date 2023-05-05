@@ -26,10 +26,10 @@ public sealed class WsSqlAccessListHelper
 
     #region Public and private methods
 
-    public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
+    public T[]? GetArrayNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
         AccessCore.GetArrayNullable<T>(sqlCrudConfig);
 
-    public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
+    public List<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
         AccessCore.GetListNotNullable<T>(sqlCrudConfig);
 
     public object[] GetArrayObjectsNotNullable(string query) =>
@@ -38,7 +38,7 @@ public sealed class WsSqlAccessListHelper
     public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>
         AccessCore.GetArrayObjectsNotNullable(query, parameters);
 
-    public object[] GetArrayObjectsNotNullable(SqlCrudConfigModel sqlCrudConfig) =>
+    public object[] GetArrayObjectsNotNullable(WsSqlCrudConfigModel sqlCrudConfig) =>
         AccessCore.GetArrayObjectsNotNullable(sqlCrudConfig);
 
     #endregion

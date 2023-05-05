@@ -7,7 +7,7 @@ namespace WsStorageContextTests.DataContext;
 public sealed class LogMemoryTests
 {
     private static List<WsConfiguration> Configurations => new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS };
-    private static SqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true, false);
 
     [Test]
     public void DataContext_GetDbFileSizeInfos_Assert()

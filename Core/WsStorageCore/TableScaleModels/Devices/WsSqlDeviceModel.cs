@@ -16,7 +16,7 @@ public class WsSqlDeviceModel : WsSqlTableBase
     [XmlElement] public virtual DateTime LogoutDt { get; set; }
     [XmlElement] public virtual string PrettyName { get; set; }
     [XmlElement] public virtual string Ipv4 { get; set; }
-    [XmlElement] public virtual SqlFieldMacAddressModel MacAddress { get; set; }
+    [XmlElement] public virtual WsSqlFieldMacAddressModel MacAddress { get; set; }
     
     [XmlElement]
     public virtual string MacAddressValue
@@ -49,7 +49,7 @@ public class WsSqlDeviceModel : WsSqlTableBase
         LogoutDt = info.GetDateTime(nameof(LogoutDt));
         PrettyName = info.GetString(nameof(PrettyName));
         Ipv4 = info.GetString(nameof(Ipv4));
-        MacAddress = (SqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(SqlFieldMacAddressModel));
+        MacAddress = (WsSqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(WsSqlFieldMacAddressModel));
     }
 
     #endregion

@@ -9,7 +9,7 @@ public enum DbFileType
     LogDataFile
 }
 
-public sealed record SqlDbFileSizeInfoModel
+public sealed record WsSqlDbFileSizeInfoModel
 {
     #region Public and private fields, properties, constructor
 
@@ -20,7 +20,7 @@ public sealed record SqlDbFileSizeInfoModel
     public string DisplayName => $"{SizeMb} из {MaxSizeMb} MB";
     public double DbFillSize => Math.Round(((double)SizeMb / MaxSizeMb) * 100, 2);
     
-    public SqlDbFileSizeInfoModel(byte type, string fileName, ushort sizeMb, ushort maxSizeMb)
+    public WsSqlDbFileSizeInfoModel(byte type, string fileName, ushort sizeMb, ushort maxSizeMb)
     {
         Type = type == 0 ? DbFileType.MasterDataFile : DbFileType.LogDataFile;
         FileName = fileName;

@@ -6,11 +6,11 @@ namespace WsStorageCore.Helpers;
 /// <summary>
 /// Barcode interface.
 /// </summary>
-public interface IWsBarCodeHelper
+public interface IWsSqlBarCodeHelper
 {
     int GetEanCheckDigit(string code);
     int GetGtinCheckDigitV1(string code);
     int GetGtinCheckDigitV2(string code);
     int GetGtinCheckDigitV3(string code);
-    string GetGtinWithCheckDigit(string code, WsGtinVariant gtinVariant = WsGtinVariant.Var3);
+    string GetGtinWithCheckDigit(string code, WsSqlGtinVariant gtinVariant = WsSqlGtinVariant.Var3);
 }

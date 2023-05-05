@@ -6,14 +6,14 @@ namespace WsStorageCore.Models;
 /// <summary>
 /// SQL-авторизация.
 /// </summary>
-public class SqlAuthenticationModel
+public class WsSqlAuthenticationModel
 {
     #region Public and private fields, properties, constructor
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlAuthenticationModel()
+    public WsSqlAuthenticationModel()
     {
         Server = string.Empty;
         Database = string.Empty;
@@ -36,7 +36,7 @@ public class SqlAuthenticationModel
     /// <param name="password"></param>
     /// <param name="encrypt"></param>
     /// <param name="port"></param>
-    public SqlAuthenticationModel(string server, string database, bool persistSecurityInfo, bool integratedSecurity,
+    public WsSqlAuthenticationModel(string server, string database, bool persistSecurityInfo, bool integratedSecurity,
         string userId, string password, bool encrypt, ushort port)
     {
         Server = server;

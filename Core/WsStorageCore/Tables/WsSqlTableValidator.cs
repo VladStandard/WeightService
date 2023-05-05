@@ -13,7 +13,7 @@ public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableB
     /// </summary>
     protected WsSqlTableValidator(bool isCheckCreateDt, bool isCheckChangeDt)
     {
-	    RuleFor(item => item.Identity).SetValidator(new SqlFieldIdentityValidator());
+	    RuleFor(item => item.Identity).SetValidator(new WsSqlFieldIdentityValidator());
         if (isCheckCreateDt)
             RuleFor(item => item.CreateDt)
                 .NotEmpty()

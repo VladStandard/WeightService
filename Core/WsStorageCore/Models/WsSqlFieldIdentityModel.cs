@@ -8,7 +8,7 @@ namespace WsStorageCore.Models;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{GetValue()}")]
-public class SqlFieldIdentityModel : SqlFieldBase
+public class WsSqlFieldIdentityModel : WsSqlFieldBase
 {
     #region Public and private fields, properties, constructor
 
@@ -19,9 +19,9 @@ public class SqlFieldIdentityModel : SqlFieldBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlFieldIdentityModel()
+    public WsSqlFieldIdentityModel()
     {
-        FieldName = nameof(SqlFieldIdentityModel);
+        FieldName = nameof(WsSqlFieldIdentityModel);
         Name = WsSqlFieldIdentity.Empty;
         Id = 0;
         Uid = Guid.Empty;
@@ -31,7 +31,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
     /// Constructor.
     /// </summary>
     /// <param name="identityName"></param>
-    public SqlFieldIdentityModel(WsSqlFieldIdentity identityName) : this()
+    public WsSqlFieldIdentityModel(WsSqlFieldIdentity identityName) : this()
     {
         Name = identityName;
     }
@@ -39,7 +39,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    private SqlFieldIdentityModel(WsSqlFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
+    private WsSqlFieldIdentityModel(WsSqlFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
     {
         Id = identityId;
         Uid = identityUid;
@@ -50,7 +50,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected SqlFieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlFieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Name = (WsSqlFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlFieldIdentity));
         Id = info.GetInt64(nameof(Id));
@@ -96,7 +96,7 @@ public class SqlFieldIdentityModel : SqlFieldBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((SqlFieldIdentityModel)obj);
+        return Equals((WsSqlFieldIdentityModel)obj);
     }
 
     public override int GetHashCode() => Name switch
@@ -120,18 +120,18 @@ public class SqlFieldIdentityModel : SqlFieldBase
         Equals(Id, (long)0) &&
         Equals(Uid, Guid.Empty);
 
-    public override object Clone() => new SqlFieldIdentityModel(Name, Id, Uid);
+    public override object Clone() => new WsSqlFieldIdentityModel(Name, Id, Uid);
 
     #endregion
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(SqlFieldIdentityModel item) =>
+    public virtual bool Equals(WsSqlFieldIdentityModel item) =>
         ReferenceEquals(this, item) || Equals(Name, item.Name) && //-V3130
         Id.Equals(item.Id) &&
         Uid.Equals(item.Uid);
 
-    public new virtual SqlFieldIdentityModel CloneCast() => (SqlFieldIdentityModel)Clone();
+    public new virtual WsSqlFieldIdentityModel CloneCast() => (WsSqlFieldIdentityModel)Clone();
 
     public virtual void SetId(long value) => Id = value;
 

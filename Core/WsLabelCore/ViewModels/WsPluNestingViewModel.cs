@@ -71,7 +71,7 @@ public sealed class WsPluNestingViewModel : WsSqlBaseViewModel
         // For exists item.
         else
         {
-            SqlCrudConfigModel sqlCrudConfig = new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(true), 
+            WsSqlCrudConfigModel sqlCrudConfig = new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(true), 
                 new("P_UID", plu.IdentityValueUid), true);
             List = ContextManager.ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
             SetItemFromList();

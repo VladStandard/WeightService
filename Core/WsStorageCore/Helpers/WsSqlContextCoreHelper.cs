@@ -32,10 +32,10 @@ internal sealed class WsSqlContextCoreHelper
     [Obsolete(@"Use GetItemNotNullable(SqlFieldIdentityModel) or GetItemNullableByUid(Guid?) or GetItemNullableById(long?)")]
     public T GetItemNotNullable<T>(object? value) where T : WsSqlTableBase, new() => AccessCore.GetItemNotNullable<T>(value);
 
-    public T? GetItemNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
+    public T? GetItemNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         AccessCore.GetItemNullable<T>(identity);
 
-    public T GetItemNotNullable<T>(SqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
+    public T GetItemNotNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         AccessCore.GetItemNotNullable<T>(identity);
 
     public T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
@@ -309,9 +309,9 @@ internal sealed class WsSqlContextCoreHelper
     /// Get list of db files infos.
     /// </summary>
     /// <returns></returns>
-    public List<SqlDbFileSizeInfoModel> GetDbFileSizeInfos()
+    public List<WsSqlDbFileSizeInfoModel> GetDbFileSizeInfos()
     {
-        List<SqlDbFileSizeInfoModel> result = new();
+        List<WsSqlDbFileSizeInfoModel> result = new();
         object[] objects = AccessCore.GetArrayObjectsNotNullable(WsSqlQueriesSystem.Properties.GetDbFileSizes);
         foreach (object obj in objects)
         {

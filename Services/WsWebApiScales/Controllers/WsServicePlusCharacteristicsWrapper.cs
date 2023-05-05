@@ -33,7 +33,7 @@ public sealed class WsServicePlusCharacteristicsWrapper : WsServiceControllerBas
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
-            WsAcceptVersion.V2 => GetContentResult(() => // Новый ответ 1С - не найдено.
+            WsSqlAcceptVersion.V2 => GetContentResult(() => // Новый ответ 1С - не найдено.
                 NewResponse1CIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => PlusCharacteristicsController.NewResponsePluCharacteristics(xml, format, isDebug, SessionFactory), format)
         };

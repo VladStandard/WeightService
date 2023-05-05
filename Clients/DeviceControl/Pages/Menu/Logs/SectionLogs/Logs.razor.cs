@@ -17,8 +17,8 @@ public sealed partial class Logs : RazorComponentSectionBase<LogView>
 
     public Logs() : base()
     {
-        LogTypes = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlLogTypeModel>(new SqlCrudConfigModel());
-        Lines = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlScaleModel>(new SqlCrudConfigModel());
+        LogTypes = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlLogTypeModel>(new WsSqlCrudConfigModel());
+        Lines = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlScaleModel>(new WsSqlCrudConfigModel());
         Lines = (from item in Lines orderby item.Description select item).ToList();
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
