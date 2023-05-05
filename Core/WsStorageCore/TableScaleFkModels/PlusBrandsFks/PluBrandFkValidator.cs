@@ -16,7 +16,7 @@ public sealed class PluBrandFkValidator : WsSqlTableValidator<PluBrandFkModel>
         RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluValidator());
+            .SetValidator(new WsSqlPluValidator());
         RuleFor(item => item.Brand)
             .NotEmpty()
             .NotNull()

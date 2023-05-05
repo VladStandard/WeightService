@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 /// <summary>
-/// Table map "PLUS_NESTING_FK".
+/// Маппинг полей таблицы PLUS_NESTING_FK.
 /// </summary>
 public sealed class PluNestingFkMap : ClassMap<PluNestingFkModel>
 {   

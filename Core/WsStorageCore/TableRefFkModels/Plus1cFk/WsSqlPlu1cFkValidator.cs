@@ -16,6 +16,6 @@ public sealed class WsSqlPlu1CFkValidator : WsSqlTableValidator<WsSqlPlu1CFkMode
         RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluValidator());
+            .SetValidator(new WsSqlPluValidator());
     }
 }

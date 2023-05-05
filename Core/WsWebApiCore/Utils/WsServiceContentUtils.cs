@@ -66,7 +66,7 @@ public static class WsServiceContentUtils
             case BrandModel brandXml:
                 SetItemPropertyFromXmlAttributeForBrand(xmlNode, brandXml, xmlPropertyName);
                 break;
-            case PluModel pluXml:
+            case WsSqlPluModel pluXml:
                 SetItemPropertyFromXmlAttributeForPlu(xmlNode, pluXml, xmlPropertyName);
                 break;
             case PluGroupModel pluGroupXml:
@@ -110,7 +110,7 @@ public static class WsServiceContentUtils
         }
     }
 
-    private static void SetItemPropertyFromXmlAttributeForPlu(XmlNode xmlNode, PluModel pluXml, string xmlPropertyName)
+    private static void SetItemPropertyFromXmlAttributeForPlu(XmlNode xmlNode, WsSqlPluModel pluXml, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
         {

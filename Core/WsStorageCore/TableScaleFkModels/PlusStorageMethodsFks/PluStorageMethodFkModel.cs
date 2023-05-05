@@ -12,7 +12,7 @@ public class PluStorageMethodFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual PluModel Plu { get; set; }
+    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
     [XmlElement] public virtual PluStorageMethodModel Method { get; set; }
     [XmlElement] public virtual TemplateResourceModel Resource { get; set; }
 
@@ -33,7 +33,7 @@ public class PluStorageMethodFkModel : WsSqlTableBase
     /// <param name="context"></param>
     protected PluStorageMethodFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
+        Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
         Method = (PluStorageMethodModel)info.GetValue(nameof(Method),  typeof(PluStorageMethodModel));
         Resource = (TemplateResourceModel)info.GetValue(nameof(Resource),  typeof(TemplateResourceModel));
     }

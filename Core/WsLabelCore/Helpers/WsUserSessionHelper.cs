@@ -731,7 +731,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         return plusTake.ToList();
     }
 
-    private void SetPluStorageMethodFks(PluModel plu)
+    private void SetPluStorageMethodFks(WsSqlPluModel plu)
     {
         if (plu.IsNotExists) return;
         PluStorageMethodFk = ContextManager.ContextPluStorage.GetPluStorageMethodFk(plu, ContextManager.ContextList.PluStorageMethodsFks);

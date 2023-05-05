@@ -48,7 +48,7 @@ public sealed class WsSqlContextListHelper
     public List<OrderWeighingModel> OrderWeighings { get; set; } = new();
     public List<OrganizationModel> Organizations { get; set; } = new();
     public List<PluLabelModel> PluLabels { get; set; } = new();
-    public List<PluModel> Plus { get; set; } = new();
+    public List<WsSqlPluModel> Plus { get; set; } = new();
     public List<PluFkModel> PlusFks { get; set; } = new();
     public List<PluBrandFkModel> PluBrandFks { get; set; } = new();
     public List<PluBundleFkModel> PluBundleFks { get; set; } = new();
@@ -109,7 +109,7 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(PluGroupFkModel) => GetListNotNullablePlusGroupFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluGroupModel) => GetListNotNullablePlusGroups(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluLabelModel) => GetListNotNullablePluLabels(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(PluModel) => GetListNotNullablePlus(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluModel) => GetListNotNullablePlus(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluNestingFkModel) => GetListNotNullablePlusNestingFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluScaleModel) => GetListNotNullablePlusScales(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(PluStorageMethodFkModel) => GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig).Cast<T>().ToList(),
@@ -392,11 +392,11 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<PluModel> GetListNotNullablePlus(SqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluModel> GetListNotNullablePlus(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(PluModel.Number) });
-        List<PluModel> list = GetListNotNullableCore<PluModel>(sqlCrudConfig);
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlPluModel.Number) });
+        List<WsSqlPluModel> list = GetListNotNullableCore<WsSqlPluModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.Number).ToList();
         return list;
@@ -427,7 +427,7 @@ public sealed class WsSqlContextListHelper
         {
             PluBrandFkModel bundleFk = list.First();
             if (bundleFk.Plu.IsNew)
-                bundleFk.Plu = AccessManager.AccessItem.GetItemNewEmpty<PluModel>();
+                bundleFk.Plu = AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluModel>();
             if (bundleFk.Brand.IsNew)
                 bundleFk.Brand = AccessManager.AccessItem.GetItemNewEmpty<BrandModel>();
         }
@@ -445,7 +445,7 @@ public sealed class WsSqlContextListHelper
         {
             PluBundleFkModel bundleFk = list.First();
             if (bundleFk.Plu.IsNew)
-                bundleFk.Plu = AccessManager.AccessItem.GetItemNewEmpty<PluModel>();
+                bundleFk.Plu = AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluModel>();
             if (bundleFk.Bundle.IsNew)
                 bundleFk.Bundle = AccessManager.AccessItem.GetItemNewEmpty<BundleModel>();
         }
@@ -463,7 +463,7 @@ public sealed class WsSqlContextListHelper
         {
             PluClipFkModel pluClipFk = list.First();
             if (pluClipFk.Plu.IsNew)
-                pluClipFk.Plu = AccessManager.AccessItem.GetItemNewEmpty<PluModel>();
+                pluClipFk.Plu = AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluModel>();
             if (pluClipFk.Clip.IsNew)
                 pluClipFk.Clip = AccessManager.AccessItem.GetItemNewEmpty<ClipModel>();
         }

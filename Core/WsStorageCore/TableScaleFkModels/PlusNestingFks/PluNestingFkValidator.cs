@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 /// <summary>
-/// Table validation "PLUS_NESTING_FK".
+/// Валидатор таблицы "PLUS_NESTING_FK".
 /// </summary>
 public sealed class PluNestingFkValidator : WsSqlTableValidator<PluNestingFkModel>
 {

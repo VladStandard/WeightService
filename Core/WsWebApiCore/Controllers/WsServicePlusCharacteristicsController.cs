@@ -36,7 +36,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
     /// <param name="pluCharacteristicXml"></param>
     /// <param name="pluDb"></param>
     private void AddResponsePluCharacteristics(WsResponse1CShortModel response, PluCharacteristicModel pluCharacteristicXml,
-        PluModel pluDb)
+        WsSqlPluModel pluDb)
     {
         try
         {
@@ -67,7 +67,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             if (Equals(pluCharacteristicXml.NomenclatureGuid, Guid.Empty)) return;
 
             if (!GetPluDb(response, pluCharacteristicXml.NomenclatureGuid, pluCharacteristicXml.Uid1C,
-                    LocaleCore.WebService.FieldNomenclature, out PluModel? pluDb)) return;
+                    LocaleCore.WebService.FieldNomenclature, out WsSqlPluModel? pluDb)) return;
             if (!GetPluCharacteristicDb(response, pluCharacteristicXml.Uid1C, pluCharacteristicXml.Uid1C,
                     LocaleCore.WebService.FieldNomenclatureCharacteristic, out PluCharacteristicModel? pluCharacteristicDb)) return;
             if (pluDb is null || pluCharacteristicDb is null) return;
@@ -116,7 +116,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                 PluCharacteristicModel itemXml = record.Item;
                 // Обновить данные в таблице связей обмена номенклатуры 1С.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, record);
-                PluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(record.Item.NomenclatureGuid);
+                WsSqlPluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(record.Item.NomenclatureGuid);
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     CheckIsEnabledPlu(itemXml, plus1CFksDb);

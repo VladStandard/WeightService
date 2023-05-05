@@ -140,9 +140,9 @@ public static class RazorFieldConfigUtils
 
 	public static class Plu
 	{
-		public static RazorFieldConfigModel GetNumber() => new(nameof(PluModel.Number), TextAlign.Center, LocaleCore.Table.Number);
-		public static RazorFieldConfigModel GetShelfLifeDays() => new(nameof(PluModel.ShelfLifeDays), TextAlign.Center, LocaleCore.Table.ShelfLifeDaysShort);
-        public static RazorFieldConfigModel GetCode() => new(nameof(PluModel.Code), TextAlign.Center, LocaleCore.Table.Code);
+		public static RazorFieldConfigModel GetNumber() => new(nameof(WsSqlPluModel.Number), TextAlign.Center, LocaleCore.Table.Number);
+		public static RazorFieldConfigModel GetShelfLifeDays() => new(nameof(WsSqlPluModel.ShelfLifeDays), TextAlign.Center, LocaleCore.Table.ShelfLifeDaysShort);
+        public static RazorFieldConfigModel GetCode() => new(nameof(WsSqlPluModel.Code), TextAlign.Center, LocaleCore.Table.Code);
     }
 
     public static class PluScale

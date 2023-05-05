@@ -4,9 +4,9 @@
 @using WsStorageCore.TableScaleModels.Plus
 @using BlazorDeviceControl.Pages.ItemComponents
 @using BlazorDeviceControl.Pages.Menu.References1C.SectionPlusNestingFks
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Plus.PluModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Plus.WsSqlPluModel>
 
-<RazorItemReload TItem="@PluModel" Title="@LocaleCore.DeviceControl.ItemNomenclature"/>
+<RazorItemReload TItem="@WsSqlPluModel" Title="@LocaleCore.DeviceControl.ItemNomenclature"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
 
@@ -64,7 +64,7 @@
 </MudSimpleTable>
 
 <RazorItemActions
-  TItem="@PluModel"
+  TItem="@WsSqlPluModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>

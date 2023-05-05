@@ -6,12 +6,12 @@ namespace WsStorageCore.TableScaleModels.Plus;
 /// <summary>
 /// Table map "PLUS".
 /// </summary>
-public sealed class PluMap : ClassMap<PluModel>
+public sealed class WsSqlPluMap : ClassMap<WsSqlPluModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluMap()
+    public WsSqlPluMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Plus);

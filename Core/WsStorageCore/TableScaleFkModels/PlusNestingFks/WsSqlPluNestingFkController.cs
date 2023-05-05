@@ -1,20 +1,19 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.Helpers;
+namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы PLUS_NESTING_FK.
-/// Клиентский слой доступа к БД.
+/// Контроллер таблицы PLUS_NESTING_FK.
 /// </summary>
-public sealed class WsSqlContextPluNestingHelper
+public sealed class WsSqlPluNestingFkController
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlContextPluNestingHelper _instance;
+    private static WsSqlPluNestingFkController _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlContextPluNestingHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluNestingFkController Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -25,7 +24,7 @@ public sealed class WsSqlContextPluNestingHelper
     private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     private WsSqlContextBoxHelper ContextBox => WsSqlContextBoxHelper.Instance;
-    private WsSqlContextPluHelper ContextPlu => WsSqlContextPluHelper.Instance;
+    private WsSqlPluController ContextPlu => WsSqlPluController.Instance;
     private WsSqlContextPluBundleHelper ContextPluBundle => WsSqlContextPluBundleHelper.Instance;
 
     #endregion
@@ -57,7 +56,7 @@ public sealed class WsSqlContextPluNestingHelper
     /// <param name="bundle"></param>
     /// <param name="box"></param>
     /// <returns></returns>
-    public PluNestingFkModel GetPluNestingFk(List<PluNestingFkModel> pluNestingFks, PluModel plu, BundleModel bundle, BoxModel box)
+    public PluNestingFkModel GetPluNestingFk(List<PluNestingFkModel> pluNestingFks, WsSqlPluModel plu, BundleModel bundle, BoxModel box)
     {
         PluNestingFkModel pluNestingFk = pluNestingFks.Find(item => Equals(item.PluBundle.Plu, plu) &&
                                                                     Equals(item.PluBundle.Bundle, bundle) && Equals(item.Box, box));
@@ -73,7 +72,7 @@ public sealed class WsSqlContextPluNestingHelper
     /// <param name="bundle"></param>
     /// <param name="box"></param>
     /// <returns></returns>
-    public short GetPluNestingFkBundleCount(List<PluNestingFkModel> pluNestingFks, PluModel plu, BundleModel bundle, BoxModel box) =>
+    public short GetPluNestingFkBundleCount(List<PluNestingFkModel> pluNestingFks, WsSqlPluModel plu, BundleModel bundle, BoxModel box) =>
         GetPluNestingFk(pluNestingFks, plu, bundle, box).BundleCount;
 
     /// <summary>
@@ -100,7 +99,7 @@ public sealed class WsSqlContextPluNestingHelper
 
     public List<PluNestingFkModel> GetListByNumber(short number)
     {
-        PluModel plu = ContextPlu.GetItemByNumber(number);
+        WsSqlPluModel plu = ContextPlu.GetItemByNumber(number);
         return GetListByUid(plu.IdentityValueUid);
     }
 

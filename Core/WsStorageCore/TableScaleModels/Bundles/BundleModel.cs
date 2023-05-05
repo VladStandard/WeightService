@@ -74,7 +74,7 @@ public class BundleModel : WsSqlTable1CBase
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluModel plu) throw new ArgumentException();
+        if (item is not WsSqlPluModel plu) throw new ArgumentException();
         Uid1C = plu.PackageTypeGuid;
 
         Name = plu.PackageTypeName;

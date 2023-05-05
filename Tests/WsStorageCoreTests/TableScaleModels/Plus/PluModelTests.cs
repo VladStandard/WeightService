@@ -9,26 +9,26 @@ public sealed class PluModelTests
     [Test]
     public void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<PluModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<PluModel>(nameof(WsSqlTableBase.IsMarked));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluModel>(nameof(WsSqlTableBase.CreateDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluModel>(nameof(WsSqlTableBase.ChangeDt));
+        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlPluModel>(nameof(WsSqlTableBase.IsMarked));
     }
 
     [Test]
     public void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<PluModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlPluModel>();
     }
 
     [Test]
     public void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<PluModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlPluModel>();
     }
 
     [Test]
     public void Model_Serialize()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<PluModel>();
+        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlPluModel>();
     }
 }

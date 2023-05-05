@@ -14,7 +14,7 @@ public class PluScaleModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual bool IsActive { get; set; }
-    [XmlElement] public virtual PluModel Plu { get; set; }
+    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
     [XmlElement] public virtual ScaleModel Scale { get; set; }
 
     /// <summary>
@@ -35,7 +35,7 @@ public class PluScaleModel : WsSqlTableBase
     protected PluScaleModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsActive = info.GetBoolean(nameof(IsActive));
-        Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
+        Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
         Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
     }
 

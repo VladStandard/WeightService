@@ -23,7 +23,7 @@ public sealed class WsServiceCacheHelper
         true, false, false, true, false);
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlTableName TableName { get; set; } = WsSqlTableName.All;
-    public List<PluModel> PlusDb { get; private set; } = new();
+    public List<WsSqlPluModel> PlusDb { get; private set; } = new();
     public List<PluFkModel> PluFksDb { get; private set; } = new();
     public List<BoxModel> BoxesDb { get; private set; } = new();
     public List<BundleModel> BundlesDb { get; private set; } = new();

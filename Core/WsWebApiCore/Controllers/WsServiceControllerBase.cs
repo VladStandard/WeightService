@@ -288,7 +288,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <returns></returns>
     internal bool CheckExistsPluDb(WsResponse1CShortModel response, short number, Guid uid1CException,
-        string refName, bool isCheckGroup, out PluModel? itemDb)
+        string refName, bool isCheckGroup, out WsSqlPluModel? itemDb)
     {
         itemDb = null;
         if (number > 0)
@@ -431,7 +431,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <returns></returns>
     internal bool GetPluDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out PluModel? itemDb)
+        string refName, out WsSqlPluModel? itemDb)
     {
         itemDb = null;
         if (!Equals(uid1C, Guid.Empty))
@@ -439,7 +439,7 @@ public class WsServiceControllerBase : ControllerBase
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
                 true, false, false, false, false);
-            itemDb = AccessManager.AccessItem.GetItemNullable<PluModel>(sqlCrudConfig);
+            itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlPluModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
                 AddResponseException(response, uid1CException,
@@ -605,19 +605,19 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(itemXml.Uid1C));
-                if (!string.IsNullOrEmpty(description) && itemXml is PluModel pluXml)
+                if (!string.IsNullOrEmpty(description) && itemXml is WsSqlPluModel pluXml)
                     response.SuccessesPlus?.Add(new(itemXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, itemXml.Uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, itemXml.Uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -638,18 +638,18 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="uid1C"></param>
     internal bool SaveItemDb<T>(WsResponse1CShortModel response, T item, bool isCounter, Guid uid1C) where T : WsSqlTableBase
     {
-        WsSqlCrudResultModel dbSave = AccessManager.AccessItem.Save(item, item.Identity);
+        WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Save(item, item.Identity);
         // Add was success.
-        if (dbSave.IsOk)
+        if (dbResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(uid1C));
             }
         }
-        else if (dbSave.Exception is not null)
-            AddResponseException(response, uid1C, dbSave.Exception);
-        return dbSave.IsOk;
+        else if (dbResult.Exception is not null)
+            AddResponseException(response, uid1C, dbResult.Exception);
+        return dbResult.IsOk;
     }
 
     /// <summary>
@@ -665,17 +665,17 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(uid1C));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -691,17 +691,17 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(uid1C));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -717,17 +717,17 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(uid1C));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -743,17 +743,17 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(uid1C));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -769,17 +769,17 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(uid1C));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -795,17 +795,17 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(uid1C));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -821,17 +821,17 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(uid1C));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -849,16 +849,16 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
                 response.Successes.Add(new(uid1C));
             response.SuccessesPlus?.Add(new(uid1C, $"{WsWebConstants.PluNumber}='{pluNumber}'"));
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -870,21 +870,23 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, PluNestingFkModel itemXml, PluNestingFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, PluNestingFkModel itemXml, 
+        PluNestingFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return false;
         itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(itemDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbUpdateResult = ContextManager.AccessItem.Update(itemDb);
+        //WsSqlCrudResultModel dbUpdateResult = ContextManager.ContextPluNesting.Update(itemDb);
+        if (dbUpdateResult.IsOk)
         {
             if (isCounter)
             {
                 response.Successes.Add(new(uid1C));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbUpdateResult.Exception is not null)
+            AddResponseException(response, uid1C, dbUpdateResult.Exception);
+        return dbUpdateResult.IsOk;
     }
 
     /// <summary>
@@ -892,7 +894,7 @@ public class WsServiceControllerBase : ControllerBase
     /// </summary>
     /// <param name="pluXml">Номенклатура</param>
     /// <param name="isGenerateException">Генерировать исключение</param>
-    public bool IsUnCorrectPluNumberForNonGroup(PluModel pluXml, bool isGenerateException) =>
+    public bool IsUnCorrectPluNumberForNonGroup(WsSqlPluModel pluXml, bool isGenerateException) =>
         !IsCorrectPluNumberForNonGroup(pluXml, isGenerateException);
 
     /// <summary>
@@ -900,7 +902,7 @@ public class WsServiceControllerBase : ControllerBase
     /// </summary>
     /// <param name="pluXml">Номенклатура</param>
     /// <param name="isGenerateException">Генерировать исключение</param>
-    public bool IsCorrectPluNumberForNonGroup(PluModel pluXml, bool isGenerateException)
+    public bool IsCorrectPluNumberForNonGroup(WsSqlPluModel pluXml, bool isGenerateException)
     {
         if (pluXml is { IsGroup: true, Number: 0 }) return true;
         if (pluXml is { IsGroup: false, Number: >0 }) return true;
@@ -925,7 +927,7 @@ public class WsServiceControllerBase : ControllerBase
         List<WsSqlPlu1CFkModel> plus1CFksDb = ContextManager.ContextPlu1CFk.GetNewList();
 
         // Получить список связей обмена номенклатуры 1С по номеру.
-        if (record is WsXmlContentRecord<PluModel> pluXml)
+        if (record is WsXmlContentRecord<WsSqlPluModel> pluXml)
         {
             if (IsCorrectPluNumberForNonGroup(pluXml.Item, false))
                 plus1CFksDb = GetPlus1CFksByGuid1C(pluXml.Item.Uid1C);
@@ -948,11 +950,11 @@ public class WsServiceControllerBase : ControllerBase
     /// Получить список связей обмена номенклатуры 1С по номеру.
     /// </summary>
     /// <param name="pluXml"></param>
-    private List<WsSqlPlu1CFkModel> GetPlus1CFksByNumber(WsXmlContentRecord<PluModel> pluXml)
+    private List<WsSqlPlu1CFkModel> GetPlus1CFksByNumber(WsXmlContentRecord<WsSqlPluModel> pluXml)
     {
         List<WsSqlPlu1CFkModel> plus1CFksDb = new();
-        List<PluModel> plusDb = ContextManager.ContextPlu.GetListByNumber(pluXml.Item.Number);
-        foreach (PluModel pluDb in plusDb)
+        List<WsSqlPluModel> plusDb = ContextManager.ContextPlu.GetListByNumber(pluXml.Item.Number);
+        foreach (WsSqlPluModel pluDb in plusDb)
         {
             WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
                                           ?? ContextManager.ContextPlu1CFk.GetNewItem();
@@ -970,8 +972,8 @@ public class WsServiceControllerBase : ControllerBase
     private List<WsSqlPlu1CFkModel> GetPlus1CFksByGuid1C(Guid uid1C)
     {
         List<WsSqlPlu1CFkModel> plus1CFksDb = new();
-        List<PluModel> plusDb = ContextManager.ContextPlu.GetListByUid1c(uid1C);
-        foreach (PluModel pluDb in plusDb)
+        List<WsSqlPluModel> plusDb = ContextManager.ContextPlu.GetListByUid1c(uid1C);
+        foreach (WsSqlPluModel pluDb in plusDb)
         {
             WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(
                 item => Equals(item.Plu.Number, pluDb.Number) && Equals(item.Plu.Uid1C, uid1C))
@@ -998,13 +1000,13 @@ public class WsServiceControllerBase : ControllerBase
         // Создать.
         if (!plu1CFkDb.IsExists)
         {
-            WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Save(plu1CFkDb);
-            if (dbUpdate is { IsOk: false, Exception: { } })
+            WsSqlCrudResultModel dbUpdateResult = AccessManager.AccessItem.Save(plu1CFkDb);
+            if (dbUpdateResult is { IsOk: false, Exception: { } })
             {
-                if (record is WsXmlContentRecord<PluModel> pluXml)
-                    AddResponseException(response, pluXml.Item.Uid1C, dbUpdate.Exception);
+                if (record is WsXmlContentRecord<WsSqlPluModel> pluXml)
+                    AddResponseException(response, pluXml.Item.Uid1C, dbUpdateResult.Exception);
                 else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
-                    AddResponseException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdate.Exception);
+                    AddResponseException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdateResult.Exception);
             }
         }
         // Обновить.
@@ -1014,7 +1016,7 @@ public class WsServiceControllerBase : ControllerBase
             ValidationResult validation = validator.Validate(plu1CFkDb);
             if (!validation.IsValid)
             {
-                if (record is WsXmlContentRecord<PluModel> pluXml)
+                if (record is WsXmlContentRecord<WsSqlPluModel> pluXml)
                     AddResponseExceptionString(response, pluXml.Item.Uid1C,
                         string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
                 else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
@@ -1023,15 +1025,15 @@ public class WsServiceControllerBase : ControllerBase
             }
             else
             {
-                WsSqlCrudResultModel dbUpdate = plu1CFkDb.IsExists
+                WsSqlCrudResultModel dbUpdateResult = plu1CFkDb.IsExists
                     ? AccessManager.AccessItem.Update(plu1CFkDb)
                     : AccessManager.AccessItem.Save(plu1CFkDb);
-                if (dbUpdate is { IsOk: false, Exception: { } })
+                if (dbUpdateResult is { IsOk: false, Exception: { } })
                 {
-                    if (record is WsXmlContentRecord<PluModel> pluXml)
-                        AddResponseException(response, pluXml.Item.Uid1C, dbUpdate.Exception);
+                    if (record is WsXmlContentRecord<WsSqlPluModel> pluXml)
+                        AddResponseException(response, pluXml.Item.Uid1C, dbUpdateResult.Exception);
                     else if (record is WsXmlContentRecord<PluCharacteristicModel> pluCharacteristicXml)
-                        AddResponseException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdate.Exception);
+                        AddResponseException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbUpdateResult.Exception);
                 }
             }
         }
@@ -1069,7 +1071,7 @@ public class WsServiceControllerBase : ControllerBase
                 $"{LocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
         }
         // UID_1C не совпадает.
-        if (itemXml is PluModel pluXml)
+        if (itemXml is WsSqlPluModel pluXml)
         {
             if (!Equals(pluXml.Uid1C, plu1CFkDb.Plu.Uid1C))
             {

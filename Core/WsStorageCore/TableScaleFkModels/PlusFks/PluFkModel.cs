@@ -12,12 +12,12 @@ public class PluFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
-    private PluModel _plu;
-    [XmlElement] public virtual PluModel Plu { get => _plu; set => _plu = value; }
-    private PluModel _parent;
-    [XmlElement] public virtual PluModel Parent { get => _parent; set => _parent = value; }
-    private PluModel? _category;
-    [XmlElement] public virtual PluModel? Category { get => _category; set => _category = value; }
+    private WsSqlPluModel _plu;
+    [XmlElement] public virtual WsSqlPluModel Plu { get => _plu; set => _plu = value; }
+    private WsSqlPluModel _parent;
+    [XmlElement] public virtual WsSqlPluModel Parent { get => _parent; set => _parent = value; }
+    private WsSqlPluModel? _category;
+    [XmlElement] public virtual WsSqlPluModel? Category { get => _category; set => _category = value; }
 
     /// <summary>
     /// Constructor.
@@ -36,9 +36,9 @@ public class PluFkModel : WsSqlTableBase
     /// <param name="context"></param>
     protected PluFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        _plu = (PluModel)info.GetValue(nameof(_plu), typeof(PluModel));
-        _parent = (PluModel)info.GetValue(nameof(_parent), typeof(PluModel));
-        _category = (PluModel)info.GetValue(nameof(_category), typeof(PluModel));
+        _plu = (WsSqlPluModel)info.GetValue(nameof(_plu), typeof(WsSqlPluModel));
+        _parent = (WsSqlPluModel)info.GetValue(nameof(_parent), typeof(WsSqlPluModel));
+        _category = (WsSqlPluModel)info.GetValue(nameof(_category), typeof(WsSqlPluModel));
     }
 
     #endregion

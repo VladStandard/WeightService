@@ -30,9 +30,9 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
     public WsSqlContextBoxHelper ContextBox => WsSqlContextBoxHelper.Instance;
     public WsSqlContextBundleHelper ContextBundle => WsSqlContextBundleHelper.Instance;
-    public WsSqlContextPluHelper ContextPlu => WsSqlContextPluHelper.Instance;
+    public WsSqlPluController ContextPlu => WsSqlPluController.Instance;
     public WsSqlPlu1CFkController ContextPlu1CFk => WsSqlPlu1CFkController.Instance;
-    public WsSqlContextPluNestingHelper ContextPluNesting => WsSqlContextPluNestingHelper.Instance;
+    public WsSqlPluNestingFkController ContextPluNesting => WsSqlPluNestingFkController.Instance;
     public WsSqlContextPluStorageHelper ContextPluStorage => WsSqlContextPluStorageHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     private AppVersionHelper AppVersion => AppVersionHelper.Instance;

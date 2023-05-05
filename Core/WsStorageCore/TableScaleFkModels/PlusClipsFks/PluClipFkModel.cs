@@ -14,7 +14,7 @@ public class PluClipFkModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual ClipModel Clip { get; set; }
-    [XmlElement] public virtual PluModel Plu { get; set; }
+    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -33,7 +33,7 @@ public class PluClipFkModel : WsSqlTableBase
     /// <param name="context"></param>
     protected PluClipFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
+        Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
         Clip = (ClipModel)info.GetValue(nameof(Clip), typeof(ClipModel));
     }
 

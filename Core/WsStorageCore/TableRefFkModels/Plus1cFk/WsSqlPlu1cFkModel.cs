@@ -13,7 +13,7 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual PluModel Plu { get; set; }
+    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
     [XmlElement] public virtual bool IsEnabled { get; set; }
     [XmlElement] public virtual string RequestDataString { get; set; }
 
@@ -34,7 +34,7 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
     /// <param name="context"></param>
     protected WsSqlPlu1CFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
+        Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
         IsEnabled = info.GetBoolean(nameof(IsEnabled));
         RequestDataString = info.GetString(nameof(RequestDataString));
     }

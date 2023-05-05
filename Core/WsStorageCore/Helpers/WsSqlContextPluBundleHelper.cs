@@ -23,7 +23,7 @@ public sealed class WsSqlContextPluBundleHelper
     private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
     private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     private WsSqlContextBundleHelper ContextBundle => WsSqlContextBundleHelper.Instance;
-    private WsSqlContextPluHelper ContextPlu => WsSqlContextPluHelper.Instance;
+    private WsSqlPluController ContextPlu => WsSqlPluController.Instance;
 
     #endregion
 

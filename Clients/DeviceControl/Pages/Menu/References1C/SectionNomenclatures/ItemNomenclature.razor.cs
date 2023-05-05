@@ -7,7 +7,7 @@ using WsStorageCore.TableScaleModels.Templates;
 
 namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclatures;
 
-public sealed partial class ItemNomenclature : RazorComponentItemBase<PluModel>
+public sealed partial class ItemNomenclature : RazorComponentItemBase<WsSqlPluModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -35,8 +35,8 @@ public sealed partial class ItemNomenclature : RazorComponentItemBase<PluModel>
         {
             () =>
             {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNullableByUid<PluModel>(IdentityUid)
-                              ?? SqlItemNew<PluModel>();
+                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNullableByUid<WsSqlPluModel>(IdentityUid)
+                              ?? SqlItemNew<WsSqlPluModel>();
 
                 ContextManager.AccessManager.AccessList.GetListNotNullable<TemplateModel>(WsSqlCrudConfigUtils
                     .GetCrudConfigComboBox());

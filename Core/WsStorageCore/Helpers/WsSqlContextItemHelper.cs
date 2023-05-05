@@ -50,19 +50,19 @@ public sealed class WsSqlContextItemHelper
     public ProductSeriesModel GetItemProductSeriesNotNullable(ScaleModel scale) =>
         GetItemProductSeriesNullable(scale) ?? AccessManager.AccessItem.GetItemNewEmpty<ProductSeriesModel>();
 
-    private PluModel? GetItemPluNullable(PluScaleModel pluScale)
+    private WsSqlPluModel? GetItemPluNullable(PluScaleModel pluScale)
     {
         if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return null;
 
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, false, false);
-        return AccessManager.AccessItem.GetItemNullable<PluModel>(sqlCrudConfig);
+        return AccessManager.AccessItem.GetItemNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
-    public PluModel GetItemPluNotNullable(PluScaleModel pluScale) =>
+    public WsSqlPluModel GetItemPluNotNullable(PluScaleModel pluScale) =>
         GetItemPluNullable(pluScale) ?? new();
 
-    public PluTemplateFkModel? GetItemPluTemplateFkNullable(PluModel plu)
+    public PluTemplateFkModel? GetItemPluTemplateFkNullable(WsSqlPluModel plu)
     {
         if (plu.IsNew) return null;
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
@@ -71,10 +71,10 @@ public sealed class WsSqlContextItemHelper
         return AccessManager.AccessItem.GetItemNullable<PluTemplateFkModel>(sqlCrudConfig);
     }
 
-    public PluTemplateFkModel GetItemPluTemplateFkNotNullable(PluModel plu) =>
+    public PluTemplateFkModel GetItemPluTemplateFkNotNullable(WsSqlPluModel plu) =>
         GetItemPluTemplateFkNullable(plu) ?? new();
 
-    public PluBundleFkModel? GetItemPluBundleFkNullable(PluModel plu, BundleModel bundle)
+    public PluBundleFkModel? GetItemPluBundleFkNullable(WsSqlPluModel plu, BundleModel bundle)
     {
         if (plu.IsNew) return null;
         SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
@@ -85,13 +85,13 @@ public sealed class WsSqlContextItemHelper
         return AccessManager.AccessItem.GetItemNullable<PluBundleFkModel>(sqlCrudConfig);
     }
 
-    public PluBundleFkModel GetItemPluBundleFkNotNullable(PluModel plu, BundleModel bundle) =>
+    public PluBundleFkModel GetItemPluBundleFkNotNullable(WsSqlPluModel plu, BundleModel bundle) =>
         GetItemPluBundleFkNullable(plu, bundle) ?? new();
 
     private TemplateModel? GetItemTemplateNullable(PluScaleModel pluScale)
     {
         if (pluScale.IsNew || pluScale.Plu.IsNew) return null;
-        PluModel plu = GetItemPluNotNullable(pluScale);
+        WsSqlPluModel plu = GetItemPluNotNullable(pluScale);
         return GetItemPluTemplateFkNullable(plu)?.Template;
     }
 

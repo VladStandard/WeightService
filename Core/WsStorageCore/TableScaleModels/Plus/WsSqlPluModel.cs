@@ -9,7 +9,7 @@ namespace WsStorageCore.TableScaleModels.Plus;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluModel)} | {ToString()}")]
-public class PluModel : WsSqlTable1CBase
+public class WsSqlPluModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
@@ -88,7 +88,7 @@ public class PluModel : WsSqlTable1CBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluModel() : base(WsSqlFieldIdentity.Uid)
     {
         BoxTypeGuid = Guid.Empty;
         BoxTypeName = string.Empty;
@@ -121,7 +121,7 @@ public class PluModel : WsSqlTable1CBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected PluModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlPluModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsGroup = info.GetBoolean(nameof(IsGroup));
         Number = info.GetInt16(nameof(Number));
@@ -163,7 +163,7 @@ public class PluModel : WsSqlTable1CBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((PluModel)obj);
+        return Equals((WsSqlPluModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -196,7 +196,7 @@ public class PluModel : WsSqlTable1CBase
 
     public override object Clone()
     {
-        PluModel item = new();
+        WsSqlPluModel item = new();
         item.CloneSetup(base.CloneCast());
         item.IsGroup = IsGroup;
         item.ParentGuid = ParentGuid;
@@ -263,7 +263,7 @@ public class PluModel : WsSqlTable1CBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(PluModel item) =>
+    public virtual bool Equals(WsSqlPluModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(IsGroup, item.IsGroup) &&
         Equals(ParentGuid, item.ParentGuid) &&
@@ -287,13 +287,13 @@ public class PluModel : WsSqlTable1CBase
         Equals(IsCheckWeight, item.IsCheckWeight) &&
         Equals(AttachmentsCount, item.AttachmentsCount);
 
-    public new virtual PluModel CloneCast() => (PluModel)Clone();
+    public new virtual WsSqlPluModel CloneCast() => (WsSqlPluModel)Clone();
 
     public override void UpdateProperties(WsSqlTable1CBase item)
     {
         base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not PluModel plu) throw new ArgumentException();
+        if (item is not WsSqlPluModel plu) throw new ArgumentException();
         Uid1C = plu.Uid1C;
 
         IsGroup = plu.IsGroup;

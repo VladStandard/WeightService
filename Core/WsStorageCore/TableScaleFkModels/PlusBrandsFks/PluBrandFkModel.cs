@@ -14,7 +14,7 @@ public class PluBrandFkModel : Tables.WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual PluModel Plu { get; set; }
+    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
     [XmlElement] public virtual BrandModel Brand { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class PluBrandFkModel : Tables.WsSqlTableBase
     /// <param name="context"></param>
     protected PluBrandFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
+        Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
         Brand = (BrandModel)info.GetValue(nameof(Brand), typeof(BrandModel));
     }
 

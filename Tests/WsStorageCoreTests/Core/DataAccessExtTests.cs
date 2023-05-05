@@ -43,11 +43,11 @@ public sealed class DataAccessExtTests
 		{
 			SqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<PluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlus(sqlCrudConfig);
+			List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlus(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 			// Assert.
 			Assert.IsTrue(plus.Count > 0);
-			foreach (PluModel plu in plus)
+			foreach (WsSqlPluModel plu in plus)
 			{
 				if (plu.Number == 113)
 				{

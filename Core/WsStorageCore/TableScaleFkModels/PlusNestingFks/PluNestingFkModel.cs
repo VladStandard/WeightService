@@ -5,7 +5,7 @@
 namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 /// <summary>
-/// Table "PLUS_NESTING_FK".
+/// Доменная модель таблицы PLUS_NESTING_FK.
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{nameof(PluNestingFkModel)} | {ToString()}")]

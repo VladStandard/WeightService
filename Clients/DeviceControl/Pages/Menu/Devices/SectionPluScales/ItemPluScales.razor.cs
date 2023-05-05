@@ -26,7 +26,7 @@ public sealed partial class ItemPluScales : RazorComponentItemBase<PluScaleModel
                 SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<PluScaleModel>(IdentityUid);
                 if (SqlItemCast.IsNew)
                     SqlItemCast = SqlItemNew<PluScaleModel>();
-                ContextManager.AccessManager.AccessList.GetListNotNullable<PluModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+                ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 	            ContextManager.AccessManager.AccessList.GetListNotNullable<ScaleModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
             }
         });

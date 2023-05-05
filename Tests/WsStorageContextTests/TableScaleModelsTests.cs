@@ -113,7 +113,7 @@ public sealed class TableScaleModelsTests
     [Test]
     public void Validate_list_of_plus()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<PluModel>();
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluModel>();
     }
 
     [Test]

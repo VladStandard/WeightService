@@ -134,7 +134,7 @@ public sealed class GetListTests
     [Test]
     public void DataContext_AssertGetList_PluModel()
     {
-        WsTestsUtils.DataTests.AssertGetList<PluModel>(SqlCrudConfig, Configurations);
+        WsTestsUtils.DataTests.AssertGetList<WsSqlPluModel>(SqlCrudConfig, Configurations);
     }
 
     [Test]

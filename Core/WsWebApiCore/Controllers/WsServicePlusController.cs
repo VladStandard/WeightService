@@ -19,12 +19,12 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
     #region Public and private methods
 
-    private bool UpdateBoxDb(WsResponse1CShortModel response, PluModel pluXml, BoxModel? boxDb, bool isCounter)
+    private bool UpdateBoxDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, BoxModel? boxDb, bool isCounter)
     {
         if (boxDb is null || boxDb.IsNew) return false;
         boxDb.UpdateProperties(pluXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(boxDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Update(boxDb);
+        if (dbResult.IsOk)
         {
             if (isCounter)
             {
@@ -32,17 +32,17 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, pluXml.Uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbResult.Exception is not null)
+            AddResponseException(response, pluXml.Uid1C, dbResult.Exception);
+        return dbResult.IsOk;
     }
 
-    private bool UpdateBundleDb(WsResponse1CShortModel response, PluModel pluXml, BundleModel? bundleDb, bool isCounter)
+    private bool UpdateBundleDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, BundleModel? bundleDb, bool isCounter)
     {
         if (bundleDb is null || bundleDb.IsNew) return false;
         bundleDb.UpdateProperties(pluXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(bundleDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Update(bundleDb);
+        if (dbResult.IsOk)
         {
             if (isCounter)
             {
@@ -50,17 +50,17 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, pluXml.Uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbResult.Exception is not null)
+            AddResponseException(response, pluXml.Uid1C, dbResult.Exception);
+        return dbResult.IsOk;
     }
 
-    private bool UpdateClipDb(WsResponse1CShortModel response, PluModel pluXml, ClipModel? clipDb, bool isCounter)
+    private bool UpdateClipDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, ClipModel? clipDb, bool isCounter)
     {
         if (clipDb is null || clipDb.IsNew) return false;
         clipDb.UpdateProperties(pluXml);
-        WsSqlCrudResultModel dbUpdate = AccessManager.AccessItem.Update(clipDb);
-        if (dbUpdate.IsOk)
+        WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Update(clipDb);
+        if (dbResult.IsOk)
         {
             if (isCounter)
             {
@@ -68,9 +68,9 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
             }
         }
-        else if (dbUpdate.Exception is not null)
-            AddResponseException(response, pluXml.Uid1C, dbUpdate.Exception);
-        return dbUpdate.IsOk;
+        else if (dbResult.Exception is not null)
+            AddResponseException(response, pluXml.Uid1C, dbResult.Exception);
+        return dbResult.IsOk;
     }
 
     //private bool UpdatePluDb(WsResponse1CShortModel response, PluModel pluXml, PluModel? pluDb, bool isCounter)
@@ -79,14 +79,14 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     //    pluDb.Identity = pluXml.Identity;
     //    pluDb.UpdateProperties(pluXml);
     //    // Native update -> Be careful, good luck.
-    //    SqlCrudResultModel dbUpdate = AccessManager.AccessItem.ExecQueryNative(
+    //    SqlCrudResultModel dbResult = AccessManager.AccessItem.ExecQueryNative(
     //        WsWebSqlQueries.UpdatePlu, new List<SqlParameter>
     //        {
     //            new("uid", pluXml.IdentityValueUid),
     //            new("code", pluDb.Code),
     //            new("number", pluDb.Number),
     //        });
-    //    if (dbUpdate.IsOk)
+    //    if (dbResult.IsOk)
     //    {
     //        if (isCounter)
     //        {
@@ -94,9 +94,9 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     //            response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
     //        }
     //    }
-    //    else if (dbUpdate.Exception is not null)
-    //        AddResponseException(response, pluXml.IdentityValueUid, dbUpdate.Exception);
-    //    return dbUpdate.IsOk;
+    //    else if (dbResult.Exception is not null)
+    //        AddResponseException(response, pluXml.IdentityValueUid, dbResult.Exception);
+    //    return dbResult.IsOk;
     //}
 
     #endregion
@@ -108,8 +108,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="xml"></param>
     /// <returns></returns>
-    private List<WsXmlContentRecord<PluModel>> GetXmlPluList(XElement xml) =>
-        WsServiceContentUtils.GetNodesListCore<PluModel>(xml, LocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
+    private List<WsXmlContentRecord<WsSqlPluModel>> GetXmlPluList(XElement xml) =>
+        WsServiceContentUtils.GetNodesListCore<WsSqlPluModel>(xml, LocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
         {
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
@@ -144,7 +144,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePlu(WsResponse1CShortModel response, PluModel pluXml)
+    private void AddResponsePlu(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
@@ -165,7 +165,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             //if (UpdateItem1cDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Найдено по Number -> Обновить найденную запись.
-            PluModel pluDb = Cache.PlusDb.Find(item => 
+            WsSqlPluModel pluDb = Cache.PlusDb.Find(item => 
                 Equals(item.Number, pluXml.Number) && Equals(item.Uid1C, pluXml.Uid1C)) ?? ContextManager.ContextPlu.GetNewItem();
             if (UpdateItemDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
@@ -185,17 +185,17 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluFks(WsResponse1CShortModel response, PluModel pluXml)
+    private void AddResponsePluFks(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
             if (Equals(pluXml.ParentGuid, Guid.Empty)) return;
             // Проверить наличие ПЛУ в БД.
-            if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
-            PluModel pluParentDb = ContextManager.ContextPlu.GetItemByUid1c(pluXml.ParentGuid);
-            if (!CheckExistsPluDb(response, pluParentDb.Number, pluXml.Uid1C, LocaleCore.WebService.FieldGroup, true, out PluModel? parentDb)) return;
-            PluModel pluCategorytDb = ContextManager.ContextPlu.GetItemByUid1c(pluXml.CategoryGuid);
-            if (!CheckExistsPluDb(response, pluCategorytDb.Number, pluXml.Uid1C, LocaleCore.WebService.FieldGroup1Level, true, out PluModel? categoryDb)) return;
+            if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out WsSqlPluModel? pluDb)) return;
+            WsSqlPluModel pluParentDb = ContextManager.ContextPlu.GetItemByUid1c(pluXml.ParentGuid);
+            if (!CheckExistsPluDb(response, pluParentDb.Number, pluXml.Uid1C, LocaleCore.WebService.FieldGroup, true, out WsSqlPluModel? parentDb)) return;
+            WsSqlPluModel pluCategorytDb = ContextManager.ContextPlu.GetItemByUid1c(pluXml.CategoryGuid);
+            if (!CheckExistsPluDb(response, pluCategorytDb.Number, pluXml.Uid1C, LocaleCore.WebService.FieldGroup1Level, true, out WsSqlPluModel? categoryDb)) return;
             if (pluDb is null || parentDb is null) return;
 
             PluFkModel pluFk = new()
@@ -229,7 +229,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluBox(WsResponse1CShortModel response, PluModel pluXml)
+    private void AddResponsePluBox(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
@@ -273,7 +273,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluBundle(WsResponse1CShortModel response, PluModel pluXml)
+    private void AddResponsePluBundle(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
@@ -317,13 +317,13 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluBrandFk(WsResponse1CShortModel response, PluModel pluXml)
+    private void AddResponsePluBrandFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
             if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
             // Проверить наличие ПЛУ в БД.
-            if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
+            if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out WsSqlPluModel? pluDb)) return;
             // Проверить наличие бренда в БД.
             if (!CheckExistsBrandDb(response, pluXml.BrandGuid, pluXml.Uid1C, LocaleCore.WebService.FieldBrand, out BrandModel? brandDb)) return;
             if (pluDb is null || brandDb is null) return;
@@ -355,7 +355,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluClip(WsResponse1CShortModel response, PluModel pluXml)
+    private void AddResponsePluClip(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
@@ -399,13 +399,13 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluClipFk(WsResponse1CShortModel response, PluModel pluXml)
+    private void AddResponsePluClipFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
             if (Equals(pluXml.ClipTypeGuid, Guid.Empty)) return;
             // Проверить наличие ПЛУ в БД.
-            if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return;
+            if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out WsSqlPluModel? pluDb)) return;
             // Проверить наличие клипсы в БД.
             if (!CheckExistsClipDb(response, pluXml.ClipTypeGuid, pluXml.Uid1C, LocaleCore.WebService.FieldClip, out ClipModel? clipDb)) return;
             if (pluDb is null || clipDb is null) return;
@@ -438,13 +438,13 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
     /// <returns></returns>
-    private PluBundleFkModel AddResponsePluBundleFk(WsResponse1CShortModel response, PluModel pluXml)
+    private PluBundleFkModel AddResponsePluBundleFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         PluBundleFkModel pluBundleFk = new();
         try
         {
             // Проверить наличие ПЛУ в БД.
-            if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out PluModel? pluDb)) return pluBundleFk;
+            if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out WsSqlPluModel? pluDb)) return pluBundleFk;
             // Проверить наличие пакета в БД.
             if (!CheckExistsBundleDb(response, pluXml.PackageTypeGuid, pluXml.Uid1C, LocaleCore.WebService.FieldBundle, out BundleModel? bundleDb)) return pluBundleFk;
             if (pluDb is null || bundleDb is null) return pluBundleFk;
@@ -479,7 +479,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// <param name="response"></param>
     /// <param name="pluBundleFk"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluNestingFk(WsResponse1CShortModel response, PluBundleFkModel pluBundleFk, PluModel pluXml)
+    private void AddResponsePluNestingFk(WsResponse1CShortModel response, PluBundleFkModel pluBundleFk, WsSqlPluModel pluXml)
     {
         try
         {
@@ -527,30 +527,30 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
     private string[] GetPluPropertiesArray() => new[]
     {
-        nameof(PluModel.BoxTypeGuid),
-        nameof(PluModel.BoxTypeName),
-        nameof(PluModel.BoxTypeWeight),
-        nameof(PluModel.BrandGuid),
-        nameof(PluModel.CategoryGuid),
-        nameof(PluModel.ClipTypeGuid),
-        nameof(PluModel.ClipTypeName),
-        nameof(PluModel.ClipTypeWeight),
-        nameof(PluModel.Code),
-        nameof(PluModel.Description),
-        nameof(PluModel.FullName),
-        nameof(PluModel.GroupGuid),
-        nameof(PluModel.IdentityValueUid),
-        nameof(PluModel.IsCheckWeight),
-        nameof(PluModel.IsGroup),
-        nameof(PluModel.IsMarked),
-        nameof(PluModel.MeasurementType),
-        nameof(PluModel.Name),
-        nameof(PluModel.Number),
-        nameof(PluModel.PackageTypeGuid),
-        nameof(PluModel.PackageTypeName),
-        nameof(PluModel.PackageTypeWeight),
-        nameof(PluModel.ParentGuid),
-        nameof(PluModel.ShelfLifeDays),
+        nameof(WsSqlPluModel.BoxTypeGuid),
+        nameof(WsSqlPluModel.BoxTypeName),
+        nameof(WsSqlPluModel.BoxTypeWeight),
+        nameof(WsSqlPluModel.BrandGuid),
+        nameof(WsSqlPluModel.CategoryGuid),
+        nameof(WsSqlPluModel.ClipTypeGuid),
+        nameof(WsSqlPluModel.ClipTypeName),
+        nameof(WsSqlPluModel.ClipTypeWeight),
+        nameof(WsSqlPluModel.Code),
+        nameof(WsSqlPluModel.Description),
+        nameof(WsSqlPluModel.FullName),
+        nameof(WsSqlPluModel.GroupGuid),
+        nameof(WsSqlPluModel.IdentityValueUid),
+        nameof(WsSqlPluModel.IsCheckWeight),
+        nameof(WsSqlPluModel.IsGroup),
+        nameof(WsSqlPluModel.IsMarked),
+        nameof(WsSqlPluModel.MeasurementType),
+        nameof(WsSqlPluModel.Name),
+        nameof(WsSqlPluModel.Number),
+        nameof(WsSqlPluModel.PackageTypeGuid),
+        nameof(WsSqlPluModel.PackageTypeName),
+        nameof(WsSqlPluModel.PackageTypeWeight),
+        nameof(WsSqlPluModel.ParentGuid),
+        nameof(WsSqlPluModel.ShelfLifeDays),
     };
 
     /// <summary>
@@ -566,12 +566,12 @@ public sealed class WsServicePlusController : WsServiceControllerBase
         {
             // Прогреть кэш.
             Cache.Load();
-            List<WsXmlContentRecord<PluModel>> plusXml = GetXmlPluList(xml);
-            PluValidator pluValidator = new(false, false);
+            List<WsXmlContentRecord<WsSqlPluModel>> plusXml = GetXmlPluList(xml);
+            WsSqlPluValidator pluValidator = new(false, false);
             // Цикл по всем XML-номенклатурам.
-            foreach (WsXmlContentRecord<PluModel> record in plusXml)
+            foreach (WsXmlContentRecord<WsSqlPluModel> record in plusXml)
             {
-                PluModel itemXml = record.Item;
+                WsSqlPluModel itemXml = record.Item;
                 // Обновить данные в таблице связей обмена номенклатуры 1С.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, record);
                 // Проверить ПЛУ на группу с нулевым номером.
@@ -628,7 +628,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="itemXml"></param>
     /// <param name="pluValidator"></param>
-    private void CheckPluValidation(PluModel itemXml, PluValidator pluValidator)
+    private void CheckPluValidation(WsSqlPluModel itemXml, WsSqlPluValidator pluValidator)
     {
         ValidationResult validation = pluValidator.Validate(itemXml);
         if (!validation.IsValid)
@@ -648,11 +648,11 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void CheckPluDublicateForNonGroup(WsResponse1CShortModel response, PluModel pluXml)
+    private void CheckPluDublicateForNonGroup(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         // Пропуск групп с нулевым номером.
         if (Equals(pluXml.Number, (short)0)) return;
-        List<PluModel> plusNumberDb = Cache.PlusDb.FindAll(x => Equals(x.Number, pluXml.Number));
+        List<WsSqlPluModel> plusNumberDb = Cache.PlusDb.FindAll(x => Equals(x.Number, pluXml.Number));
         if (plusNumberDb.Count > 1)
         {
             AddResponseExceptionString(response, pluXml.Uid1C,

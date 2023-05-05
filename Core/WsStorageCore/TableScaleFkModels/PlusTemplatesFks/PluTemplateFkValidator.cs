@@ -16,7 +16,7 @@ public sealed class PluTemplateFkValidator : WsSqlTableValidator<PluTemplateFkMo
         RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new PluValidator());
+            .SetValidator(new WsSqlPluValidator());
         RuleFor(item => item.Template)
             .NotEmpty()
             .NotNull()

@@ -373,12 +373,12 @@ public class WsDataTestsHelper
                 nomenclatureCharacteristic.AttachmentsCount.Returns(3);
                 break;
             case PluCharacteristicsFkModel nomenclatureCharacteristicFk:
-                nomenclatureCharacteristicFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                nomenclatureCharacteristicFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 nomenclatureCharacteristicFk.Characteristic = CreateNewSubstitute<PluCharacteristicModel>(isNotDefault);
                 break;
             case PluFkModel pluFk:
-                pluFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
-                pluFk.Parent = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
+                pluFk.Parent = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 break;
             case PluGroupFkModel pluGroupFk:
                 pluGroupFk.PluGroup = CreateNewSubstitute<PluGroupModel>(isNotDefault);
@@ -397,7 +397,7 @@ public class WsDataTestsHelper
                 organization.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 organization.Gln.Returns(1);
                 break;
-            case PluModel plu:
+            case WsSqlPluModel plu:
                 plu.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
                 plu.Number.Returns((short)100);
                 plu.FullName.Returns(LocaleCore.Sql.SqlItemFieldFullName);
@@ -407,11 +407,11 @@ public class WsDataTestsHelper
                 plu.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
                 break;
             case PluBundleFkModel pluBundle:
-                pluBundle.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluBundle.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluBundle.Bundle = CreateNewSubstitute<BundleModel>(isNotDefault);
                 break;
             case PluClipFkModel pluClips:
-                pluClips.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluClips.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluClips.Clip = CreateNewSubstitute<ClipModel>(isNotDefault);
                 break;
             case PluLabelModel pluLabel:
@@ -423,7 +423,7 @@ public class WsDataTestsHelper
                 break;
             case PluScaleModel pluScale:
                 pluScale.IsActive.Returns(true);
-                pluScale.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluScale.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluScale.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
                 break;
             case PluStorageMethodModel pluStorageMethod:
@@ -432,12 +432,12 @@ public class WsDataTestsHelper
                 pluStorageMethod.MaxTemp.Returns((short)0);
                 break;
             case PluStorageMethodFkModel pluStorageMethodFk:
-                pluStorageMethodFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluStorageMethodFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluStorageMethodFk.Method = CreateNewSubstitute<PluStorageMethodModel>(isNotDefault);
                 pluStorageMethodFk.Resource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
                 break;
             case PluTemplateFkModel pluTemplateFk:
-                pluTemplateFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluTemplateFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluTemplateFk.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
                 break;
             case PluWeighingModel pluWeighing:

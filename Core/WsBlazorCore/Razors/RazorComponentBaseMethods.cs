@@ -71,7 +71,7 @@ public partial class RazorComponentBase
 			OrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
 			PluBundleFkModel => LocaleCore.DeviceControl.ItemPluBundleFk,
 			PluLabelModel => LocaleCore.DeviceControl.ItemLabel,
-			PluModel => LocaleCore.DeviceControl.ItemPlu,
+			WsSqlPluModel => LocaleCore.DeviceControl.ItemPlu,
 			PluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
 			PluWeighingModel => LocaleCore.DeviceControl.ItemPluWeighing,
 			PrinterModel => LocaleCore.Print.Name,
@@ -107,7 +107,7 @@ public partial class RazorComponentBase
 			OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
 			PluBundleFkModel => LocaleCore.DeviceControl.SectionPlusBundlesFk,
 			PluLabelModel => LocaleCore.DeviceControl.SectionLabels,
-			PluModel => LocaleCore.DeviceControl.SectionPlus,
+			WsSqlPluModel => LocaleCore.DeviceControl.SectionPlus,
 			PluNestingFkModel => LocaleCore.DeviceControl.SectionPlusNestingFk,
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
 			PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeightings,
@@ -214,7 +214,7 @@ public partial class RazorComponentBase
                     SqlItemSave(SqlItem);
                     SqlItemSaveDevice(device);
                     break;
-                case PluModel plu:
+                case WsSqlPluModel plu:
                     SqlItemSave(SqlItem);
                     SqlItemSavePlu(plu);
                     break;
@@ -265,7 +265,7 @@ public partial class RazorComponentBase
         }
     }
 
-    private void SqlItemSavePlu(PluModel plu)
+    private void SqlItemSavePlu(WsSqlPluModel plu)
     {
         if (SqlLinkedItems is not null && SqlLinkedItems.Any())
         {
@@ -295,7 +295,7 @@ public partial class RazorComponentBase
     private void SqlItemSavePluBundleFk(PluBundleFkModel pluBundleFk)
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
-        PluModel? plu = SqlLinkedItems.First(x => x is PluModel) as PluModel;
+        WsSqlPluModel? plu = SqlLinkedItems.First(x => x is WsSqlPluModel) as WsSqlPluModel;
         BundleModel? bundle = SqlLinkedItems.First(x => x is BundleModel) as BundleModel;
 		if (plu is null || bundle is null) return;
         pluBundleFk.Plu = plu;

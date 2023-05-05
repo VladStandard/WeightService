@@ -76,7 +76,7 @@ public sealed partial class PluUserControl : UserControlBase
         return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelTemplate, labelPluValidate);
     }
 
-    private Button NewButtonPlu(PluModel plu, int tabIndex)
+    private Button NewButtonPlu(WsSqlPluModel plu, int tabIndex)
     {
         const ushort buttonWidth = 150;
         const ushort buttonHeight = 30;
@@ -120,10 +120,10 @@ public sealed partial class PluUserControl : UserControlBase
         return labelPluNumber;
     }
 
-    private Label NewPluValidLabel(PluModel pluModel, int tabIndex, Control buttonPlu)
+    private Label NewPluValidLabel(WsSqlPluModel pluModel, int tabIndex, Control buttonPlu)
     {
 
-        bool valid = PluController.IsFullValid(pluModel);
+        bool valid = WsSqlPluController.Instance.IsFullValid(pluModel);
 
         Label labelPluNumber = new()
         {
@@ -142,7 +142,7 @@ public sealed partial class PluUserControl : UserControlBase
         return labelPluNumber;
     }
 
-    private Label NewLabelPluType(PluModel plu, int tabIndex, Control buttonPlu)
+    private Label NewLabelPluType(WsSqlPluModel plu, int tabIndex, Control buttonPlu)
     {
         Label labelPluType = new()
         {
@@ -161,7 +161,7 @@ public sealed partial class PluUserControl : UserControlBase
         return labelPluType;
     }
 
-    private Label NewLabelPluCode(PluModel plu, int tabIndex, Control buttonPlu)
+    private Label NewLabelPluCode(WsSqlPluModel plu, int tabIndex, Control buttonPlu)
     {
         Label labelPluCode = new()
         {

@@ -7,7 +7,7 @@ public sealed class WsPluNestingViewModel : WsSqlBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlContextPluNestingHelper Helper => WsSqlContextPluNestingHelper.Instance;
+    private WsSqlPluNestingFkController Helper => WsSqlPluNestingFkController.Instance;
     
     private PluNestingFkModel _item;
     public PluNestingFkModel Item
@@ -63,7 +63,7 @@ public sealed class WsPluNestingViewModel : WsSqlBaseViewModel
         List = new() { Item };
     }
 
-    public void SetList(PluModel plu)
+    public void SetList(WsSqlPluModel plu)
     {
         // For not exists item.
         if (plu.IsNew)
@@ -84,7 +84,7 @@ public sealed class WsPluNestingViewModel : WsSqlBaseViewModel
     /// <param name="plu"></param>
     /// <param name="fieldWarning"></param>
     /// <returns></returns>
-    public bool SetAndCheckList(PluModel plu, Label fieldWarning)
+    public bool SetAndCheckList(WsSqlPluModel plu, Label fieldWarning)
     {
         SetList(plu);
         if (Item.IsNew && List.Any())

@@ -438,7 +438,7 @@ public class XmlProductHelper
 	/// Вес коробки.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodWeightBox(PluModel plu, XmlProductModel xmlProduct)
+	public decimal CalcGoodWeightBox(WsSqlPluModel plu, XmlProductModel xmlProduct)
 	{
 		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
@@ -456,7 +456,7 @@ public class XmlProductHelper
 	/// Вес пакета.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodWeightPack(PluModel plu, XmlProductModel xmlProduct)
+	public decimal CalcGoodWeightPack(WsSqlPluModel plu, XmlProductModel xmlProduct)
 	{
 		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
@@ -474,7 +474,7 @@ public class XmlProductHelper
 	/// Кол-во вложений.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodRateUnit(PluModel plu, XmlProductModel xmlProduct)
+	public decimal CalcGoodRateUnit(WsSqlPluModel plu, XmlProductModel xmlProduct)
 	{
 		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{

@@ -9,14 +9,14 @@ public sealed class PluValidatorTests
     [Test]
     public void Model_Validate_IsFalse()
     {
-        PluModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluModel>(false);
+        WsSqlPluModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluModel>(false);
         WsTestsUtils.DataTests.AssertSqlValidate(item, false);
     }
 
     [Test]
     public void Model_Validate_IsTrue()
     {
-        PluModel item = WsTestsUtils.DataTests.CreateNewSubstitute<PluModel>(true);
+        WsSqlPluModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluModel>(true);
         WsTestsUtils.DataTests.AssertSqlValidate(item, true);
     }
 }
