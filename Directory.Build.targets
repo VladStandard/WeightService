@@ -10,11 +10,10 @@
     <Target Name="AfterBuild">
         <!-- Insert tasks to run after build here -->
     </Target>
-    <!-- Uncomment this for clean.
-    <Target Name="ClearObj" BeforeTargets="Clean">
+    <!-- Uncomment this for clean -->
+    <!--<Target Name="ClearObj" BeforeTargets="Clean">
         <RemoveDir Directories="./obj" />
-    </Target>
-    -->
+    </Target>-->
     <Target Name="ClearBin" BeforeTargets="Clean">
         <RemoveDir Directories="./bin" />
     </Target>

@@ -14,7 +14,7 @@
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="bunit" Version="1.18.4" />
+    <PackageReference Include="bunit" Version="1.19.14" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.5" />

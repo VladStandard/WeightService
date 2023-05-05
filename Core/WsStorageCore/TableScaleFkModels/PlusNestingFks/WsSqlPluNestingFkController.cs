@@ -103,5 +103,9 @@ public sealed class WsSqlPluNestingFkController
         return GetListByUid(plu.IdentityValueUid);
     }
 
+    public WsSqlCrudResultModel Update(WsSqlPluNestingFkModel item) => AccessItem.Update(item);
+
+    public WsSqlCrudResultModel UpdateWithCheck(WsSqlPluNestingFkModel item) => AccessItem.UpdateWithCheck(item);
+
     #endregion
 }

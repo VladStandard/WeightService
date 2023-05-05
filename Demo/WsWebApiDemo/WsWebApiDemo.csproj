@@ -15,12 +15,10 @@
     <_WebToolingArtifacts Remove="Properties\PublishProfiles\DEMO-PROD.pubxml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FluentNHibernate" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
-    <PackageReference Include="NHibernate" Version="5.4.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 </Project>

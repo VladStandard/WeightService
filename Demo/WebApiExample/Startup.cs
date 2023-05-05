@@ -25,7 +25,7 @@ public class Startup
 	{
 
 		var connStr = Configuration.GetConnectionString("DefaultConnection");
-		services.AddNHibernate(connStr);
+		//services.AddNHibernate(connStr);
 
  
 

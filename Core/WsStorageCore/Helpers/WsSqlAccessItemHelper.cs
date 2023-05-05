@@ -55,8 +55,7 @@ public sealed class WsSqlAccessItemHelper
     public T GetItemNotNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
         AccessCore.GetItemNotNullableById<T>(id) ?? new();
 
-    public bool IsItemExists<T>(T? item) where T : WsSqlTableBase, new() =>
-        AccessCore.IsItemExists(item);
+    public WsSqlCrudResultModel IsItemExists<T>(T? item) where T : WsSqlTableBase => AccessCore.IsItemExists(item);
 
     public WsSqlCrudResultModel ExecQueryNative(string query, List<SqlParameter> parameters) =>
         AccessCore.ExecQueryNative(query, parameters);
@@ -64,20 +63,23 @@ public sealed class WsSqlAccessItemHelper
     public WsSqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         AccessCore.ExecQueryNative(query, parameter);
 
-    public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase =>
-        AccessCore.Save<T>(item);
+    public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase => AccessCore.Save<T>(item);
 
     public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase =>
         AccessCore.Save(item, identity);
 
-    public WsSqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase =>
-        AccessCore.Update(item);
+    public WsSqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase => AccessCore.Update(item);
 
-    public WsSqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase =>
-        AccessCore.Delete(item);
+    public WsSqlCrudResultModel UpdateWithCheck<T>(T? item) where T : WsSqlTableBase
+    {
+        WsSqlCrudResultModel dbResult = IsItemExists(item);
+        if (!dbResult.IsOk) return dbResult;
+        return AccessCore.Update(item);
+    }
 
-    public WsSqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase =>
-        AccessCore.Mark(item);
+    public WsSqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase => AccessCore.Delete(item);
+
+    public WsSqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase => AccessCore.Mark(item);
 
     public WsSqlAppModel GetItemAppOrCreateNew(string appName) => AccessCore.GetItemAppOrCreateNew(appName);
 

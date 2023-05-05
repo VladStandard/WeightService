@@ -72,9 +72,6 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentNHibernate, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentNHibernate.3.2.0\lib\net461\FluentNHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="Gma.System.MouseKeyHook, Version=5.7.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MouseKeyHook.5.7.1\lib\net48\Gma.System.MouseKeyHook.dll</HintPath>
     </Reference>
@@ -103,29 +100,26 @@
     <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=2.29.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Identity.Client.Extensions.Msal.2.29.0\lib\net45\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.29.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.Abstractions.6.29.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Abstractions.6.30.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.29.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.JsonWebTokens.6.29.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.JsonWebTokens.6.30.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.29.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.Logging.6.29.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Logging.6.30.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.29.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.Protocols.6.29.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Protocols.6.30.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.29.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.29.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.30.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.29.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.Tokens.6.29.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Tokens.6.30.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
     <Reference Include="MvvmHelpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Refractored.MvvmHelpers.1.6.2\lib\net461\MvvmHelpers.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=5.4.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NHibernate.5.4.2\lib\net48\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -145,6 +139,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.6.30.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>

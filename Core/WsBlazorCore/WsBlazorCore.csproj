@@ -32,7 +32,6 @@
   <ItemGroup>
     <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
     <PackageReference Include="BlazorInputFile" Version="0.2.0" />
-    <PackageReference Include="FluentNHibernate" Version="3.2.0" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="IndexRange" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
@@ -40,10 +39,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
-    <PackageReference Include="MudBlazor" Version="6.2.2" />
+    <PackageReference Include="MudBlazor" Version="6.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NHibernate" Version="5.4.2" />
-    <PackageReference Include="Radzen.Blazor" Version="4.10.0" />
+    <PackageReference Include="Radzen.Blazor" Version="4.10.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj" />

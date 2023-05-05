@@ -15,6 +15,8 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="NHibernate" Version="5.4.2" />
     <PackageReference Include="Quartz" Version="3.6.2" />
+    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
+    <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj" />
