@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.Scales;
 /// Table "SCALES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(ScaleModel)} | Name = {Description}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlScaleModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

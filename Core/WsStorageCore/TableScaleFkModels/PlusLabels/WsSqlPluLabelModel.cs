@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusLabels;
 /// Table "PLUS_LABELS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluLabelModel)} | {ProductDt} | {PluScale.Plu.Number}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluLabelModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -16,7 +16,7 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     [XmlElement(IsNullable = true)] public virtual WsSqlPluWeighingModel? PluWeighing { get; set; }
     [XmlElement] public virtual WsSqlPluScaleModel PluScale { get; set; }
     [XmlElement] public virtual string Zpl { get; set; }
-    [XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
+    [XmlIgnore] public virtual XmlDocument? Xml { get; set; }
     [XmlElement] public virtual DateTime ProductDt { get; set; }
     [XmlElement]
     public virtual DateTime ExpirationDt

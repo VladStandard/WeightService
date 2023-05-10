@@ -9,7 +9,7 @@ namespace WsStorageCore.TableDiagModels.LogsWebsFks;
 /// Table "LOGS_WEBS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(LogWebFkModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlLogWebFkModel : Tables.WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk

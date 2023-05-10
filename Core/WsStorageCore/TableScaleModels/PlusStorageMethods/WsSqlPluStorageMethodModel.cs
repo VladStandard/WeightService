@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleModels.PlusStorageMethods;
 /// Table "PLUS_STORAGE_METHODS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PlusStorageMethodModel)} | {IsMarked} | {Name} | {MinTemp} | {MaxTemp}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluStorageMethodModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

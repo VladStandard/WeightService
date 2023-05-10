@@ -9,7 +9,7 @@ namespace WsStorageCore.TableScaleModels.Printers;
 /// Table "ZebraPrinter".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PrinterModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPrinterModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

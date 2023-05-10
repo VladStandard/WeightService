@@ -9,7 +9,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusBrandsFks;
 /// Table "PLUS_BRANDS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluBrandFkModel)} | {Plu.Number} | {Plu.Name} | {Brand.Name} ")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluBrandFkModel : Tables.WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

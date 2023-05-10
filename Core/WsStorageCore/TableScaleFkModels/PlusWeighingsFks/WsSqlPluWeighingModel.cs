@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
 /// Table "PLUS_WEIGHINGS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluWeighingModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluWeighingModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

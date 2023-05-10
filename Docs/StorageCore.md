@@ -12,5 +12,5 @@ WsSqlPlu1CFkValidator   # Валидатор таблицы REF.PLUS_1C_FK.
 ## Template for SQL cache
 ```
 namespace WsWebApiCore.Helpers;
-public sealed class WsServiceCacheHelper
+public sealed class WsSqlCacheHelper
 ```

@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 /// Table "PLUS_BUNDLES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluBundleFkModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluBundleFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

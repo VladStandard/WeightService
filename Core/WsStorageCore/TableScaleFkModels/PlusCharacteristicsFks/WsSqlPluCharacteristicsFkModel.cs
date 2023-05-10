@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusCharacteristicsFks;
 /// Table "PLUS_CHARACTERISTICS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluCharacteristicsFkModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

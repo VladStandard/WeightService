@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.DeviceTypes;
 /// Table "DEVICES_TYPES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(DeviceTypeModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlDeviceTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

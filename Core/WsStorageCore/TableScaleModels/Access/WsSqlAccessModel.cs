@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.Access;
 /// Table "ACCESS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(WsSqlAccessModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlAccessModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

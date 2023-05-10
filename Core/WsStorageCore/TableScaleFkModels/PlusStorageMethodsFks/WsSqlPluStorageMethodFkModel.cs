@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusStorageMethodsFks;
 /// Table "PLUS_STORAGE_METHODS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluStorageMethodFkModel)} | {Plu.Name} | {Method.Name} | {Resource.Name}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

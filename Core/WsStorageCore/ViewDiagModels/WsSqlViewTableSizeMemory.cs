@@ -3,7 +3,7 @@
 
 namespace WsStorageCore.ViewDiagModels;
 
-[DebuggerDisplay("Type = {nameof(WsSqlViewTableSizeMemory)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public sealed record WsSqlViewTableSizeMemory
 {
     #region Public and private fields, properties, constructor

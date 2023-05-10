@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.Boxes;
 /// Table "BOXES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(BoxModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlBoxModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor

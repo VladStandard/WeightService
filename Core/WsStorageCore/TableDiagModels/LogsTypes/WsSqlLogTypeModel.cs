@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.TableDiagModels.LogsTypes;
@@ -7,7 +7,7 @@ namespace WsStorageCore.TableDiagModels.LogsTypes;
 /// Table "LOG_TYPES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(LogTypeModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlLogTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

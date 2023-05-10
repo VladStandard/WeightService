@@ -9,7 +9,7 @@ namespace WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 /// Table "DEVICES_SCALES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(DeviceScaleFkModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlDeviceScaleFkModel : Tables.WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

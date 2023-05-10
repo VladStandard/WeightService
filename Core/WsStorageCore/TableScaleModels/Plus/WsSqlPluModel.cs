@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleModels.Plus;
 /// Table "PLUS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
@@ -82,7 +82,6 @@ public class WsSqlPluModel : WsSqlTable1CBase
     /// Кол-во вложений.
     /// </summary>
     [XmlElement] public virtual short AttachmentsCount { get; set; }
-
     [XmlIgnore] public virtual string DisplayName => $"{Number} | {Name}";
     
     /// <summary>

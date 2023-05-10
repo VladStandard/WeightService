@@ -3,6 +3,7 @@
 #nullable enable
 
 using System.Windows.Forms;
+using WsStorageCore.TableScaleModels.Clips;
 
 namespace WsLabelCore.Helpers;
 
@@ -72,6 +73,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
 
     public WsPluNestingViewModel PluNestingView { get; }
 
+    private List<WsSqlPluStorageMethodFkModel> PluStorageMethodsFks { get; set; }
+
     private WsSqlPluScaleModel _pluScale;
     [XmlElement]
     public WsSqlPluScaleModel PluScale
@@ -80,9 +83,32 @@ public sealed class WsUserSessionHelper : BaseViewModel
         set
         {
             _pluScale = value;
-            if (value.IsNotNew)
+            if (_pluScale.IsNotNew)
+            {
                 ContextManager.ContextItem.SaveLogInformation(
-                    $"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}");
+                $"{LocaleCore.Scales.PluSet(_pluScale.Plu.IdentityValueId, _pluScale.Plu.Number, _pluScale.Plu.Name)}");
+                //WsSqlBoxModel box = WsSqlContextManagerHelper.Instance.ContextBox.GetItem(pluScale.Plu);
+                //if (box.IsExists)
+                //{
+                //    pluScale.Plu.BoxTypeGuid = box.IdentityValueUid;
+                //    pluScale.Plu.BoxTypeName = box.Name;
+                //    pluScale.Plu.BoxTypeWeight = box.Weight;
+                //}
+                WsSqlBundleModel bundle = ContextManager.ContextBundle.GetItem(_pluScale.Plu);
+                if (bundle.IsExists)
+                {
+                    _pluScale.Plu.PackageTypeGuid = bundle.IdentityValueUid;
+                    _pluScale.Plu.PackageTypeName = bundle.Name;
+                    _pluScale.Plu.PackageTypeWeight = bundle.Weight;
+                }
+                WsSqlClipModel clip = WsSqlContextManagerHelper.Instance.ContextClip.GetItem(_pluScale.Plu);
+                if (clip.IsExists)
+                {
+                    _pluScale.Plu.ClipTypeGuid = clip.IdentityValueUid;
+                    _pluScale.Plu.ClipTypeName = clip.Name;
+                    _pluScale.Plu.ClipTypeWeight = clip.Weight;
+                }
+            }
             PluginPrintMain.LabelPrintedCount = 1;
             PluginPrintShipping.LabelPrintedCount = 1;
             PluNestingView.SetList(value.Plu);
@@ -96,8 +122,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public readonly ushort PageRowCount = 5;
     public int PageNumber { get; set; }
     public List<WsSqlPluScaleModel> PluScales { get; private set; }
-    private List<WsSqlPluStorageMethodFkModel> PluStorageMethodFks { get; set; }
-
+    
     [XmlElement] public WsSqlPluStorageMethodFkModel PluStorageMethodFk { get; set; }
 
     private WsSqlDeviceScaleFkModel _deviceScaleFk;
@@ -201,7 +226,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         _productSeries = new();
         _scales = new();
         PluScales = new();
-        PluStorageMethodFks = new();
+        PluStorageMethodsFks = new();
         // Strings
         _publishDescription = string.Empty;
         // Others.
@@ -639,7 +664,21 @@ public sealed class WsUserSessionHelper : BaseViewModel
     private (WsSqlPluLabelModel, WsSqlPluLabelContextModel) CreateAndSavePluLabel(WsSqlTemplateModel template)
     {
         WsSqlPluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
+        //pluLabel.PluWeighing.PluScale = PluScale;
+        //pluLabel.PluWeighing.PluScale.Scale = Scale;
+        //pluLabel.PluScale.Scale = Scale;
+        string str;
 
+        str = WsDataFormatUtils.SerializeAsXmlString<WsSqlScaleModel>(Scale, true, true);
+        pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlScaleModel>(Scale, true, true);
+
+        str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluScaleModel>(PluScale, true, true);
+        pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluScaleModel>(PluScale, true, true);
+
+        str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluWeighingModel>(PluWeighing, true, true);
+        pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluWeighingModel>(PluWeighing, true, true);
+
+        str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluLabelModel>(pluLabel, true, true);
         pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelModel>(pluLabel, true, true);
 
         XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionFacilityModel>(ProductionFacility, true, true);
@@ -673,10 +712,10 @@ public sealed class WsUserSessionHelper : BaseViewModel
         zpl =>
         {
             // Patch for using table `PLUS_STORAGE_METHODS_FK`.
-            if (PluStorageMethodFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
+            if (PluStorageMethodsFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
-                WsSqlTemplateResourceModel resource = ContextManager.ContextPluStorage.GetPluStorageResource(
-                    pluLabel.PluScale.Plu, ContextManager.ContextList.PluStorageMethodsFks);
+                WsSqlTemplateResourceModel resource = ContextManager.ContextPluStorage.GetItemResource(
+                    pluLabel.PluScale.Plu, PluStorageMethodsFks);
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
                 zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
             }
@@ -722,7 +761,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public void SetPluStorageMethodsFks()
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(true, false, false, false, false);// { IsFillReferences = false };
-        ContextManager.ContextList.PluStorageMethodsFks = PluStorageMethodFks = ContextManager.ContextPluStorage.UpdatePluStorageMethodFks(sqlCrudConfig);
+        PluStorageMethodsFks = ContextManager.ContextPluStorage.GetListFks(sqlCrudConfig);
     }
 
     public List<WsSqlPluScaleModel> GetCurrentPlus()
@@ -735,7 +774,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     private void SetPluStorageMethodFks(WsSqlPluModel plu)
     {
         if (plu.IsNotExists) return;
-        PluStorageMethodFk = ContextManager.ContextPluStorage.GetPluStorageMethodFk(plu, ContextManager.ContextList.PluStorageMethodsFks);
+        PluStorageMethodFk = ContextManager.ContextPluStorage.GetItemFk(plu, PluStorageMethodsFks);
         if (PluStorageMethodFk.IsNotExists)
             PluStorageMethodFk.FillProperties();
     }

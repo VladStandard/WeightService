@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.TableScaleModels.ProductSeries;
@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.ProductSeries;
 /// Table "ProductSeries".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(ProductSeriesModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlProductSeriesModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

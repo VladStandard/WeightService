@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusTemplatesFks;
 /// Table "PLUS_TEMPLATES_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluTemplateFkModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluTemplateFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

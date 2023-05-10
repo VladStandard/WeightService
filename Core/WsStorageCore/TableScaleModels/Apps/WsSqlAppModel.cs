@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.Apps;
 /// Table "APPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(WsSqlAppModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlAppModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

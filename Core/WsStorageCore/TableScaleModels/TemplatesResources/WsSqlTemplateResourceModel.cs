@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.TemplatesResources;
 /// Table "TEMPLATES_RESOURCES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(TemplateResourceModel)} | {Type} | {Name}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlTemplateResourceModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

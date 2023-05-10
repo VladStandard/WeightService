@@ -7,10 +7,7 @@ namespace WsStorageCore.TableScaleModels.BarCodes;
 /// Table "BARCODES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(BarCodeModel)} | " +
-                 "{nameof(ValueTop)} = {ValueTop} | {nameof(ValueRight)} = {ValueRight} | " +
-                 "{nameof(ValueBottom)} = {ValueBottom} | " +
-                 "{nameof(PluLabel)} = {PluLabel}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlBarCodeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.Clips;
 /// Table "CLIPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(ClipModel)} | {Name} | {Weight} | {Uid1C} ")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlClipModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor

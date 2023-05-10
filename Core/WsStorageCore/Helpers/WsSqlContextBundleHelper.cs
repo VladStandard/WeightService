@@ -21,6 +21,7 @@ public sealed class WsSqlContextBundleHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
 
     #endregion
@@ -29,6 +30,8 @@ public sealed class WsSqlContextBundleHelper
 
     public WsSqlBundleModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlBundleModel>();
 
+    public WsSqlBundleModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluBundleFkNotNullable(plu).Bundle;
+    
     public List<WsSqlBundleModel> GetList() => ContextList.GetListNotNullableBundles(new());
 
     #endregion

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.TableScaleModels.Orders;
@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.Orders;
 /// Table "ORDERS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(OrderModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlOrderModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

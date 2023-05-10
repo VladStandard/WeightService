@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 /// Доменная модель таблицы PLUS_NESTING_FK.
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluNestingFkModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluNestingFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

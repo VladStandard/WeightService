@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.WorkShops;
 /// Table "WorkShop".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(WorkShopModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlWorkShopModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

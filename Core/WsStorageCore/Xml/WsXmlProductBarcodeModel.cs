@@ -7,6 +7,7 @@ namespace WsStorageCore.Xml;
 /// XML-класс штрих-кода.
 /// </summary>
 [Serializable]
+[DebuggerDisplay("{ToString()}")]
 public class WsXmlProductBarcodeModel : ISerializable, IWsSqlDbBase
 {
 	#region Public and private fields, properties, constructor

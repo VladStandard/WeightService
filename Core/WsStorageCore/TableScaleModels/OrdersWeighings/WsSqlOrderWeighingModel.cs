@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.OrdersWeighings;
 /// Table "ORDERS_WEIGHINGS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(OrderWeighingModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlOrderWeighingModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

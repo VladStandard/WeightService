@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusGroupsFks;
 /// Table "PLUS_GROUPS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluGroupFkModel)} | {PluGroup.Code} | {Parent.Code}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluGroupFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk

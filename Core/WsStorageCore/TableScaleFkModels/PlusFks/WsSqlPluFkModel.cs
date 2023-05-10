@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusFks;
 /// Table "PLUS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluFkModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk

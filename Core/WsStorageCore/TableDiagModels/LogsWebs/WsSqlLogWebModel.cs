@@ -7,7 +7,7 @@ namespace WsStorageCore.TableDiagModels.LogsWebs;
 /// Table "LOGS_WEBS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(LogWebModel)} | {Identity}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlLogWebModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

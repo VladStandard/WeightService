@@ -23,56 +23,6 @@ public sealed class WsSqlContextListHelper
     private WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
     private WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
 
-    public List<WsSqlAccessModel> Accesses { get; set; } = new();
-    public List<WsSqlAppModel> Apps { get; set; } = new();
-    public List<WsSqlBarCodeModel> BarCodes { get; set; } = new();
-    public List<WsSqlBoxModel> Boxes { get; set; } = new();
-    public List<WsSqlBrandModel> Brands { get; set; } = new();
-    public List<WsSqlBundleModel> Bundles { get; set; } = new();
-    public List<WsSqlClipModel> Clips { get; set; } = new();
-    public List<WsSqlContragentModel> Contragents { get; set; } = new();
-    public List<WsSqlDeviceModel> Devices { get; set; } = new();
-    public List<WsSqlDeviceTypeModel> DeviceTypes { get; set; } = new();
-    public List<WsSqlDeviceTypeFkModel> DeviceTypeFks { get; set; } = new();
-    public List<WsSqlDeviceScaleFkModel> DeviceScaleFks { get; set; } = new();
-    public List<WsSqlLogModel> Logs { get; set; } = new();
-    public List<WsSqlLogMemoryModel> LogsMemories { get; set; } = new();
-    public List<WsSqlLogTypeModel> LogTypes { get; set; } = new();
-    public List<WsSqlLogWebModel> LogsWebs { get; set; } = new();
-    public List<WsSqlLogWebFkModel> LogsWebsFks { get; set; } = new();
-    public List<WsSqlPluGroupModel> NomenclaturesGroups { get; set; } = new();
-    public List<WsSqlPluGroupFkModel> NomenclaturesGroupsFk { get; set; } = new();
-    public List<WsSqlPluCharacteristicModel> NomenclaturesCharacteristics { get; set; } = new();
-    public List<WsSqlPluCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; } = new();
-    public List<WsSqlOrderModel> Orders { get; set; } = new();
-    public List<WsSqlOrderWeighingModel> OrderWeighings { get; set; } = new();
-    public List<WsSqlOrganizationModel> Organizations { get; set; } = new();
-    public List<WsSqlPluLabelModel> PluLabels { get; set; } = new();
-    public List<WsSqlPluModel> Plus { get; set; } = new();
-    public List<WsSqlPluFkModel> PlusFks { get; set; } = new();
-    public List<WsSqlPluBrandFkModel> PluBrandFks { get; set; } = new();
-    public List<WsSqlPluBundleFkModel> PluBundleFks { get; set; } = new();
-    public List<WsSqlPluClipFkModel> PluClipFks { get; set; } = new();
-    public List<WsSqlPluNestingFkModel> PluNestingFks { get; set; } = new();
-    public List<WsSqlPluScaleModel> PluScales { get; set; } = new();
-    public List<WsSqlPluStorageMethodModel> PluStorageMethods { get; set; } = new();
-    public List<WsSqlPluStorageMethodFkModel> PluStorageMethodsFks { get; set; } = new();
-    public List<WsSqlPluTemplateFkModel> PluTemplateFks { get; set; } = new();
-    public List<WsSqlPluWeighingModel> PluWeighings { get; set; } = new();
-    public List<WsSqlPrinterModel> Printers { get; set; } = new();
-    public List<WsSqlPrinterResourceFkModel> PrinterResources { get; set; } = new();
-    public List<WsSqlPrinterTypeModel> PrinterTypes { get; set; } = new();
-    public List<WsSqlProductionFacilityModel> ProductionFacilities { get; set; } = new();
-    public List<WsSqlProductSeriesModel> ProductSeries { get; set; } = new();
-    public List<WsSqlScaleModel> Scales { get; set; } = new();
-    public List<WsSqlScaleScreenShotModel> ScaleScreenShots { get; set; } = new();
-    public List<WsSqlTaskModel> Tasks { get; set; } = new();
-    public List<WsSqlTaskTypeModel> TaskTypes { get; set; } = new();
-    public List<WsSqlTemplateModel> Templates { get; set; } = new();
-    public List<WsSqlTemplateResourceModel> TemplateResources { get; set; } = new();
-    public List<WsSqlVersionModel> Versions { get; set; } = new();
-    public List<WsSqlWorkShopModel> WorkShops { get; set; } = new();
-
     #endregion
 
     #region Public and private methods

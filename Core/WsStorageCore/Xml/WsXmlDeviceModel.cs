@@ -4,6 +4,7 @@
 namespace WsStorageCore.Xml;
 
 [Serializable]
+[DebuggerDisplay("{ToString()}")]
 public class WsXmlDeviceModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

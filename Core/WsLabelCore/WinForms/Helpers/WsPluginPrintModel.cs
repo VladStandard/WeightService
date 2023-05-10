@@ -1,6 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using SuperSimpleTcp;
+using DataReceivedEventArgs = SuperSimpleTcp.DataReceivedEventArgs;
+
 namespace WsLabelCore.WinForms.Helpers;
 
 #nullable enable
@@ -21,6 +24,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     private ZebraPrinter ZebraDriver { get { if (ZebraConnection is not null && _zebraDriver is null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
     private ZebraPrinterStatus ZebraStatus { get; set; }
     private bool IsMain { get; set; }
+    private SimpleTcpClient? WsTcpClient { get; set; }
 
     #endregion
 
@@ -30,6 +34,23 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     {
         TskType = TaskType.TaskPrint;
         LabelPrintedCount = 0;
+    }
+
+    ~WsPluginPrintModel()
+    {
+        //// Close WsNetworkStream.
+        //if (WsNetworkStream is not null)
+        //{
+        //    WsNetworkStream.Close();
+        //    WsNetworkStream.Dispose();
+        //}
+        // Close WsTcpClient.
+        if (WsTcpClient is not null)
+        {
+            if (WsTcpClient.IsConnected)
+                WsTcpClient.Disconnect();
+            WsTcpClient.Dispose();
+        }
     }
 
     #endregion
@@ -258,7 +279,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
                 break;
             case PrintBrand.Tsc:
                 //SendCmdToTsc(pluLabel);
-                SendCmdToTcp(pluLabel);
+                SendCmdToTcp(pluLabel.Zpl);
                 break;
         }
     }
@@ -294,43 +315,81 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         }
     }
 
-    private void SendCmdToTsc(WsSqlPluLabelModel pluLabel) => SendCmdToTsc(pluLabel.Zpl);
-
-    private void SendCmdToTsc(string cmd)
-    {
-        try
-        {
-            cmd = cmd.Replace("|", "\\&");
-            if (!cmd.Equals("^XA~JA^XZ") && !cmd.Contains("odometer.user_label_count"))
-            {
-                TscDriver.SendCmd(cmd);
-            }
-        }
-        catch (Exception ex)
-        {
-            WsWpfUtils.CatchException(ex, true, true);
-        }
-    }
-
-    private void SendCmdToTcp(WsSqlPluLabelModel pluLabel) => SendCmdToTcp(pluLabel.Zpl);
+    //private void SendCmdToTsc(string cmd)
+    //{
+    //    try
+    //    {
+    //        cmd = cmd.Replace("|", "\\&");
+    //        if (!cmd.Equals("^XA~JA^XZ") && !cmd.Contains("odometer.user_label_count"))
+    //        {
+    //            TscDriver.SendCmd(cmd);
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        WsWpfUtils.CatchException(ex, true, true);
+    //    }
+    //}
 
     private void SendCmdToTcp(string cmd)
     {
         cmd = cmd.Replace("|", "\\&");
 
         // Open connection.
-        using TcpClient tcpClient = new();
+        //using TcpClient tcpClient = new();
         //tcpClient.Connect(TscDriver.Properties.PrintIp, TscDriver.Properties.PrintPort);
-        tcpClient.Connect(TscDriver.Properties.PrintIp, 9100);
+        if (WsTcpClient is null)
+        {
+            WsTcpClient = new(TscDriver.Properties.PrintIp, 9100);
+            WsTcpClient.Events.Connected += WsTcpClientConnected;
+            WsTcpClient.Events.DataReceived += WsTcpClientDataReceived;
+            WsTcpClient.Events.DataSent += WsTcpClientDataSent;
+            WsTcpClient.Events.Disconnected += WsTcpClientDisconnected;
+            // TCP keepalives are disabled by default. To enable them:
+            WsTcpClient.Keepalive.EnableTcpKeepAlives = true;
+            WsTcpClient.Keepalive.TcpKeepAliveInterval = 5;      // seconds to wait before sending subsequent keepalive
+            WsTcpClient.Keepalive.TcpKeepAliveTime = 5;          // seconds to wait before sending a keepalive
+            WsTcpClient.Keepalive.TcpKeepAliveRetryCount = 5;    // number of failed keepalive probes before terminating connection
+        }
+        if (!WsTcpClient.IsConnected)
+            WsTcpClient.ConnectWithRetries(1_000);
 
         // Send Zpl data to printer.
-        using StreamWriter writer = new(tcpClient.GetStream());
-        writer.Write(cmd);
-        writer.Flush();
-
+        //using StreamWriter writer = new(WsTcpClient.GetStream());
+        //writer.Write(cmd);
         // Close Connection.
-        writer.Close();
-        tcpClient.Close();
+        //Write.Close();
+        //Write.Close();
+
+        // Send Zpl data to printer.
+        //WsTcpClient.Send(Encoding.UTF8.GetBytes(cmd), 0, cmd.Length);
+        WsTcpClient.Send(cmd);
+    }
+
+    private void WsTcpClientConnected(object sender, ConnectionEventArgs e)
+    {
+        if (!DebugHelper.Instance.IsDevelop) return;
+        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} connected");
+    }
+
+    private void WsTcpClientDataReceived(object sender, DataReceivedEventArgs e)
+    {
+        if (!DebugHelper.Instance.IsDevelop) return;
+        string received = e.Data.Array is null ? string.Empty : Encoding.UTF8.GetString(e.Data.Array, 0, e.Data.Count);
+        received = string.IsNullOrEmpty(received) ? "0" : $"{received.Length} bytes with data '{received}'";
+        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} data received {received}");
+    }
+
+    private void WsTcpClientDataSent(object sender, DataSentEventArgs e)
+    {
+        if (!DebugHelper.Instance.IsDevelop) return;
+        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} data sent {e.BytesSent} bytes");
+    }
+
+    private void WsTcpClientDisconnected(object sender, ConnectionEventArgs e)
+    {
+        if (!DebugHelper.Instance.IsDevelop) return;
+        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} disconnected by {e.Reason} reason");
     }
 
     public void ClearPrintBuffer(int odometerValue = -1)

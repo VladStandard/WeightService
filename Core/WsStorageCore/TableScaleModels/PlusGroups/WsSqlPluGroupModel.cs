@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.PlusGroups;
 /// Table "PLUS_GROUPS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluGroupModel)} | {IsMarked} | {IsGroup} | {Code} | {Name} | {Uid1C} ")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluGroupModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor

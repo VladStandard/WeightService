@@ -4,17 +4,17 @@
 namespace WsStorageCore.Helpers;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы BOXES.
+/// SQL-помощник табличных записей таблицы CLIPS.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlContextBoxHelper
+public sealed class WsSqlContextClipHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlContextBoxHelper _instance;
+    private static WsSqlContextClipHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlContextBoxHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlContextClipHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -28,11 +28,11 @@ public sealed class WsSqlContextBoxHelper
 
     #region Public and private methods
 
-    public WsSqlBoxModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlBoxModel>();
+    public WsSqlClipModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlClipModel>();
 
-    //public WsSqlBoxModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluBundleFkNotNullable(plu);
-
-    public List<WsSqlBoxModel> GetList() => ContextList.GetListNotNullableBoxes(new());
+    public WsSqlClipModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu).Clip;
+    
+    public List<WsSqlClipModel> GetList() => ContextList.GetListNotNullableClips(new());
 
     #endregion
 }

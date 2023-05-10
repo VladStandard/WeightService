@@ -263,32 +263,32 @@ public static class WsDataFormatUtils
         }
     }
 
-    public static string SerializeAsXmlString(string item, bool isAddEmptyNamespace, bool isUtf16)
-    {
-        XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(string) })[0];
+    //public static string SerializeAsXmlString(string item, bool isAddEmptyNamespace, bool isUtf16)
+    //{
+    //    XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(string) })[0];
 
-        using StringWriter stringWriter = isUtf16 ? new StringWriter() : new WsSqlStringWriterUtf8Model();
+    //    using StringWriter stringWriter = isUtf16 ? new StringWriter() : new WsSqlStringWriterUtf8Model();
 
-        switch (isAddEmptyNamespace)
-        {
-            case true:
-            {
-                XmlSerializerNamespaces emptyNamespaces = new();
-                emptyNamespaces.Add(string.Empty, string.Empty);
-                using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
-                xmlSerializer.Serialize(xmlWriter, item, emptyNamespaces);
-                xmlWriter.Flush();
-                xmlWriter.Close();
-                break;
-            }
-            default:
-                xmlSerializer.Serialize(stringWriter, item);
-                break;
-        }
-        return stringWriter.ToString();
-    }
+    //    switch (isAddEmptyNamespace)
+    //    {
+    //        case true:
+    //        {
+    //            XmlSerializerNamespaces emptyNamespaces = new();
+    //            emptyNamespaces.Add(string.Empty, string.Empty);
+    //            using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
+    //            xmlSerializer.Serialize(xmlWriter, item, emptyNamespaces);
+    //            xmlWriter.Flush();
+    //            xmlWriter.Close();
+    //            break;
+    //        }
+    //        default:
+    //            xmlSerializer.Serialize(stringWriter, item);
+    //            break;
+    //    }
+    //    return stringWriter.ToString();
+    //}
 
-    public static string SerializeAsHtml<T>(T item) => @$"
+    private static string SerializeAsHtml<T>(T item) => @$"
 <html>
 <body>
     {item}

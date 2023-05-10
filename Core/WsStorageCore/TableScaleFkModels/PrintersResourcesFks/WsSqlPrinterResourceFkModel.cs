@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
 /// Table "ZebraPrinterResourceRef".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PrinterResourceFkModel)} {Printer.Name}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPrinterResourceFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

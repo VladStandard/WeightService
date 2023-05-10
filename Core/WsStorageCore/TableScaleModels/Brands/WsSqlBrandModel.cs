@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleModels.Brands;
 /// </summary>
 [Serializable]
 [XmlRoot("Brand", Namespace = "", IsNullable = false)]
-[DebuggerDisplay("{nameof(BrandModel)} | {Code} | {Name} | {Uid1C} ")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlBrandModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor

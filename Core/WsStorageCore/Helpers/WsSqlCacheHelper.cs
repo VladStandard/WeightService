@@ -1,19 +1,19 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsWebApiCore.Helpers;
+namespace WsStorageCore.Helpers;
 
 /// <summary>
 /// Помощник кэша веб-сервисов.
 /// </summary>
-public sealed class WsServiceCacheHelper
+public sealed class WsSqlCacheHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsServiceCacheHelper _instance;
+    private static WsSqlCacheHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsServiceCacheHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlCacheHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -23,21 +23,22 @@ public sealed class WsServiceCacheHelper
         true, false, false, true, false);
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlTableName TableName { get; set; } = WsSqlTableName.All;
-    public List<WsSqlPluModel> PlusDb { get; private set; } = new();
-    public List<WsSqlPluFkModel> PluFksDb { get; private set; } = new();
     public List<WsSqlBoxModel> BoxesDb { get; private set; } = new();
+    public List<WsSqlBrandModel> BrandsDb { get; private set; } = new();
     public List<WsSqlBundleModel> BundlesDb { get; private set; } = new();
-    public List<WsSqlPluBundleFkModel> PluBundlesFksDb { get; private set; } = new();
-    public List<WsSqlPluBrandFkModel> PluBrandsFksDb { get; private set; } = new();
     public List<WsSqlClipModel> ClipsDb { get; private set; } = new();
-    public List<WsSqlPluClipFkModel> PluClipsFksDb { get; private set; } = new();
-    public List<WsSqlPluNestingFkModel> PluNestingFksDb { get; private set; } = new();
     public List<WsSqlPlu1CFkModel> Plus1CFksDb { get; private set; } = new();
+    public List<WsSqlPluBrandFkModel> PluBrandsFksDb { get; private set; } = new();
+    public List<WsSqlPluBundleFkModel> PluBundlesFksDb { get; private set; } = new();
     public List<WsSqlPluCharacteristicModel> PluCharacteristicsDb { get; private set; } = new();
     public List<WsSqlPluCharacteristicsFkModel> PluCharacteristicsFksDb { get; private set; } = new();
-    public List<WsSqlPluGroupModel> PluGroupsDb { get; private set; } = new();
+    public List<WsSqlPluClipFkModel> PluClipsFksDb { get; private set; } = new();
+    public List<WsSqlPluFkModel> PluFksDb { get; private set; } = new();
     public List<WsSqlPluGroupFkModel> PluGroupsFksDb { get; private set; } = new();
-    public List<WsSqlBrandModel> BrandsDb { get; private set; } = new();
+    public List<WsSqlPluGroupModel> PluGroupsDb { get; private set; } = new();
+    public List<WsSqlPluModel> PlusDb { get; private set; } = new();
+    public List<WsSqlPluNestingFkModel> PluNestingFksDb { get; private set; } = new();
+    public List<WsSqlScaleModel> ScalesDb { get; private set; } = new();
 
     #endregion
 
@@ -54,6 +55,8 @@ public sealed class WsServiceCacheHelper
     {
         if (!PlusDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus)) 
             PlusDb = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
+        if (!ScalesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Scales))
+            ScalesDb = ContextManager.ContextList.GetListNotNullableScales(SqlCrudConfig);
         if (!PluFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluFks)) 
             PluFksDb = ContextManager.ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
         if (!BoxesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Boxes)) 

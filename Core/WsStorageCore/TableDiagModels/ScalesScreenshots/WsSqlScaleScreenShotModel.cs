@@ -8,7 +8,7 @@ namespace WsStorageCore.TableDiagModels.ScalesScreenshots;
 /// Table "diag.SCALES_SCREENSHOTS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(ScaleScreenShotModel)} | {Scale.Description}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlScaleScreenShotModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

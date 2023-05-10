@@ -3,7 +3,7 @@
 
 namespace WsStorageCore.ViewDiagModels;
 
-[DebuggerDisplay("Type = {nameof(WsSqlViewLogMemory)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public sealed record WsSqlViewLogMemory
 {
     #region Public and private fields, properties, constructor

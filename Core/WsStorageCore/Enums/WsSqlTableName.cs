@@ -22,4 +22,5 @@ public enum WsSqlTableName
     PluNestingFks,
     Plus,
     Plus1CFks,
+    Scales,
 }

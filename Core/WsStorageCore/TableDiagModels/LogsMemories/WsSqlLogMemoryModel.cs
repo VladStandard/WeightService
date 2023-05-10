@@ -8,7 +8,7 @@ namespace WsStorageCore.TableDiagModels.LogsMemories;
 /// Table "diag.LOGS_MEMORIES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(LogMemoryModel)} | {Device.Description} | {SizeAppMb} | SizeFreeMb")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlLogMemoryModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -46,7 +46,7 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    public override string ToString() =>
+    public override string ToString() => 
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(App)}: {App.Name}. " +
         $"{nameof(Device)}: {Device.Name}. " +

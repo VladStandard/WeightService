@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleModels.PlusScales;
 /// Table "PLUS_SCALES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluScaleModel)} | Scale = {Scale.Description} | Plu.Number = {Plu.Number} | Plu = {Plu.Name}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluScaleModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

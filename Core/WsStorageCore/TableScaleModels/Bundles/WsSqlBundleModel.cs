@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.Bundles;
 /// Table "BUNDLES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(BundleModel)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlBundleModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor

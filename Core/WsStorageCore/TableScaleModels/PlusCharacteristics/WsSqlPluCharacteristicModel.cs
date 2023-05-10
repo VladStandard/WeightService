@@ -7,7 +7,7 @@ namespace WsStorageCore.TableScaleModels.PlusCharacteristics;
 /// Table "NOMENCLATURES_CHARACTERISTICS".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluCharacteristicModel)} | {AttachmentsCount} | {Uid1C} ")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor

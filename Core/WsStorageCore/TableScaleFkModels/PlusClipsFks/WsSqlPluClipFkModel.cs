@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusClipsFks;
 /// Table "PLUS_CLIPS_FK".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(PluClipFkModel)} | {Plu.Number} | {Plu.Name} | {Clip.Name} | {Clip.Weight}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluClipFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
