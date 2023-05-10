@@ -1,10 +1,16 @@
 # SQL Storage Core
 
-## Code structure for table
+## Template for SQL tables structure
 ```
+namespace WsStorageCore.TableRefModels.Plus1CFk;
 WsSqlPlu1CFkController  # Контроллер таблицы SCHEMA.TABLE.
 WsSqlPlu1CFkMap         # Маппинг полей таблицы SCHEMA.TABLE.
 WsSqlPlu1CFkModel       # Доменная модель таблицы SCHEMA.TABLE.
 WsSqlPlu1CFkValidator   # Валидатор таблицы REF.PLUS_1C_FK.
 ```
-Code example: `namespace WsStorageCore.TableRefModels.Plus1CFk;`
+
+## Template for SQL cache
+```
+namespace WsWebApiCore.Helpers;
+public sealed class WsServiceCacheHelper
+```
