@@ -6,14 +6,14 @@ namespace WsStorageCore.Helpers;
 /// <summary>
 /// Помощник кэша веб-сервисов.
 /// </summary>
-public sealed class WsSqlCacheHelper
+public sealed class WsSqlContextCacheHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlCacheHelper _instance;
+    private static WsSqlContextCacheHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlCacheHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlContextCacheHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -22,13 +22,14 @@ public sealed class WsSqlCacheHelper
     private WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
         true, false, false, true, false);
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private WsSqlTableName TableName { get; set; } = WsSqlTableName.All;
+    private WsSqlTableName TableName { get; set; } = WsSqlTableName.None;
     public List<WsSqlBoxModel> BoxesDb { get; private set; } = new();
     public List<WsSqlBrandModel> BrandsDb { get; private set; } = new();
     public List<WsSqlBundleModel> BundlesDb { get; private set; } = new();
     public List<WsSqlClipModel> ClipsDb { get; private set; } = new();
     public List<WsSqlPlu1CFkModel> Plus1CFksDb { get; private set; } = new();
     public List<WsSqlPluBrandFkModel> PluBrandsFksDb { get; private set; } = new();
+    public List<WsSqlPluStorageMethodFkModel> PluStorageMethodsFks { get; private set; } = new();
     public List<WsSqlPluBundleFkModel> PluBundlesFksDb { get; private set; } = new();
     public List<WsSqlPluCharacteristicModel> PluCharacteristicsDb { get; private set; } = new();
     public List<WsSqlPluCharacteristicsFkModel> PluCharacteristicsFksDb { get; private set; } = new();
@@ -39,6 +40,7 @@ public sealed class WsSqlCacheHelper
     public List<WsSqlPluModel> PlusDb { get; private set; } = new();
     public List<WsSqlPluNestingFkModel> PluNestingFksDb { get; private set; } = new();
     public List<WsSqlScaleModel> ScalesDb { get; private set; } = new();
+    //public List<WsSqlPluScaleModel> PlusScalesDb { get; private set; } = new();
 
     #endregion
 
@@ -48,6 +50,7 @@ public sealed class WsSqlCacheHelper
     /// Прогреть кэш.
     /// </summary>
     public void Load() => Load(TableName);
+
     /// <summary>
     /// Прогреть кэш.
     /// </summary>
@@ -55,6 +58,8 @@ public sealed class WsSqlCacheHelper
     {
         if (!PlusDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus)) 
             PlusDb = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
+        //if (!PlusScalesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PlusScales))
+        //    PlusScalesDb = ContextManager.ContextList.GetListNotNullablePlusScales(SqlCrudConfig);
         if (!ScalesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Scales))
             ScalesDb = ContextManager.ContextList.GetListNotNullableScales(SqlCrudConfig);
         if (!PluFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluFks)) 
@@ -73,7 +78,7 @@ public sealed class WsSqlCacheHelper
             PluClipsFksDb = ContextManager.ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
         if (!PluNestingFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluNestingFks)) 
             PluNestingFksDb = ContextManager.ContextList.GetListNotNullablePlusNestingFks(
-                new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(false), false));
+                new(PluNestingFks.GetList(false), false));
         if (!Plus1CFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus1CFks)) 
             Plus1CFksDb = ContextManager.ContextPlu1CFk.GetList();
         if (!PluCharacteristicsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristics)) 
@@ -86,6 +91,8 @@ public sealed class WsSqlCacheHelper
             PluGroupsFksDb = ContextManager.ContextList.GetListNotNullablePlusGroupFks(SqlCrudConfig);
         if (!BrandsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Brands)) 
             BrandsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
+        if (!PluStorageMethodsFks.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluStorageMethodsFks))
+            PluStorageMethodsFks = ContextManager.ContextPluStorage.GetListFks(SqlCrudConfig);
         // Optimize.
         if (TableName.Equals(WsSqlTableName.All))
             TableName = WsSqlTableName.None;

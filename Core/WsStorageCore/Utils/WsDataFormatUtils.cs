@@ -1,9 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Runtime.Serialization.Formatters.Binary;
-using WsPrintCore.Zpl;
-
 namespace WsStorageCore.Utils;
 
 public static class WsDataFormatUtils
@@ -288,13 +285,13 @@ public static class WsDataFormatUtils
     //    return stringWriter.ToString();
     //}
 
-    private static string SerializeAsHtml<T>(T item) => @$"
+    private static string SerializeAsHtml<T>(T item) => WsSqlQueries.TrimQuery(@$"
 <html>
 <body>
     {item}
 </body>
 </html>
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+        ");
 
     public static XmlDocument SerializeAsXmlDocument<T>(ISerializable item, bool isAddEmptyNamespace, bool isUtf16)
     {

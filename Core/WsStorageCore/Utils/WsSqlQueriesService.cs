@@ -9,7 +9,7 @@ public static class WsSqlQueriesService
     {
         public static class Access
         {
-            public static string GetAccessRightsAll => @"
+            public static string GetAccessRightsAll => WsSqlQueries.TrimQuery(@"
 -- Table Access
 SELECT
 [UID]
@@ -19,10 +19,9 @@ SELECT
 ,[USER]
 ,[RIGHTS]
 FROM [DB_SCALES].[ACCESS]
-ORDER BY [USER] ASC
-".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+ORDER BY [USER] ASC;");
 
-            public static string GetAccessRights(string userName) => @$"
+            public static string GetAccessRights(string userName) => WsSqlQueries.TrimQuery(@$"
 -- Table Access
 SELECT
 [UID]
@@ -32,20 +31,18 @@ SELECT
 ,[USER]
 ,[RIGHTS]
 FROM [DB_SCALES].[ACCESS]
-WHERE [USER] = N'{userName}'
-".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+WHERE [USER] = N'{userName}'");
         }
 
         public static class Apps
         {
-            public static string AddApp => @"
+            public static string AddApp => WsSqlQueries.TrimQuery(@"
 if not exists (select 1 from [db_scales].[APPS] where [NAME] = @app) begin
 insert into [db_scales].[APPS]([NAME]) values(@app)
 end
 select [UID]
 from [db_scales].[APPS]
-where [NAME] = @app
-	".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+where [NAME] = @app");
         }
     }
 }

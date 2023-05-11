@@ -35,5 +35,4 @@ public class BarcodeView: WsSqlTableBase
 		$"{nameof(ValueBottom)}: {ValueBottom}.";
 
     #endregion
-    
 }

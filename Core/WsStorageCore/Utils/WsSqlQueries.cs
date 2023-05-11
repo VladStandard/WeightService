@@ -10,13 +10,16 @@ public static class WsSqlQueries
     public static string GetTopRecords(int topRecords) =>
             topRecords == 0 ? string.Empty : $"TOP {topRecords}";
 
-    public static string GetWhereIsMarked(bool isShowMarkedItems, string alias) =>
-        isShowMarkedItems ? string.Empty : $"WHERE {alias}.[IS_MARKED] = 0";
+    public static string GetWhereIsMarked(bool isShowMarked) =>
+        isShowMarked ? string.Empty : $"WHERE [IS_MARKED]=0";
 
-    public static string GetWhereIsMarkedAndNumber(bool isShowMarkedItems, string aliasLog, string aliasLogType,
+    public static string GetWhereIsMarked(bool isShowMarked, string alias) =>
+        isShowMarked ? string.Empty : $"WHERE {alias}.[IS_MARKED]=0";
+
+    public static string GetWhereIsMarkedAndNumber(bool isShowMarked, string aliasLog, string aliasLogType,
         Guid logTypeUid)
     {
-        if (isShowMarkedItems)
+        if (isShowMarked)
         {
             if (logTypeUid != Guid.Empty)
                 return $"WHERE {aliasLogType}.[UID] = '{logTypeUid}'";
@@ -30,6 +33,9 @@ public static class WsSqlQueries
 
         return string.Empty;
     }
+
+    public static string TrimQuery(string queryString) =>
+        queryString.TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
     #endregion
 }

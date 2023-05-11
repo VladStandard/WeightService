@@ -5,71 +5,55 @@ namespace WsStorageCore.Utils;
 
 public static class WsWebSqlQueries
 {
-    public static string GetDateTimeNow => @"
-SELECT CAST(SYSDATETIME() AS NVARCHAR(255)) [CURRENT_TIME]
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetDateTimeNow => WsSqlQueries.TrimQuery(@"
+SELECT CAST(SYSDATETIME() AS NVARCHAR(255)) [CURRENT_TIME]");
 
-    public static string GetXmlSimpleV1 => @"
-SELECT [dbo].[fnGetXmlSimpleV1]() [fnGetXmlSimpleV1]
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetXmlSimpleV1 => WsSqlQueries.TrimQuery(@"
+SELECT [dbo].[fnGetXmlSimpleV1]() [fnGetXmlSimpleV1]");
 
-    public static string GetXmlSimpleV2 => @"
-SELECT [dbo].[fnGetXmlSimpleV2]() [fnGetXmlSimpleV2]
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetXmlSimpleV2 => WsSqlQueries.TrimQuery(@"
+SELECT [dbo].[fnGetXmlSimpleV2]() [fnGetXmlSimpleV2]");
 
-    public static string GetXmlSimpleV3 => @"
-SELECT [dbo].[fnGetXmlSimpleV3]() [fnGetXmlSimpleV3]
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetXmlSimpleV3 => WsSqlQueries.TrimQuery(@"
+SELECT [dbo].[fnGetXmlSimpleV3]() [fnGetXmlSimpleV3]");
 
-    public static string GetXmlSimpleV4 => @"
-SELECT [dbo].[fnGetXmlSimpleV4]() [fnGetXmlSimpleV4]
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetXmlSimpleV4 => WsSqlQueries.TrimQuery(@"
+SELECT [dbo].[fnGetXmlSimpleV4]() [fnGetXmlSimpleV4]");
 
-    public static string GetException => @"
-SELECT [dbo].[fnGetException123]() [fnGetException]
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetException => WsSqlQueries.TrimQuery(@"
+SELECT [dbo].[fnGetException123]() [fnGetException]");
 
-    public static string GetDeliveryPlaces => @"
-SELECT[IIS].[fnGetDeliveryPlaces] (:StartDate, :EndDate, :Offset, :RowCount)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetDeliveryPlaces => WsSqlQueries.TrimQuery(@"
+SELECT[IIS].[fnGetDeliveryPlaces] (:StartDate, :EndDate, :Offset, :RowCount)");
 
-    public static string GetContragent => @"
-SELECT [IIS].[fnGetContragentByID] (:ID)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetContragent => WsSqlQueries.TrimQuery(@"
+SELECT [IIS].[fnGetContragentByID] (:ID)");
 
-    public static string GetContragents => @"
-SELECT[IIS].[fnGetContragentChangesList] (:StartDate, :EndDate, :Offset, :RowCount)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetContragents => WsSqlQueries.TrimQuery(@"
+SELECT[IIS].[fnGetContragentChangesList] (:StartDate, :EndDate, :Offset, :RowCount)");
 
-    public static string GetNomenclatureFromCode => @"
-SELECT [IIS].[fnGetNomenclatureByCode] (:code)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetNomenclatureFromCode => WsSqlQueries.TrimQuery(@"
+SELECT [IIS].[fnGetNomenclatureByCode] (:code)");
 
-    public static string GetNomenclatureFromId => @"
-SELECT [IIS].[fnGetNomenclatureByID] (:id)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetNomenclatureFromId => WsSqlQueries.TrimQuery(@"
+SELECT [IIS].[fnGetNomenclatureByID] (:id)");
 
-    public static string GetNomenclatures => @"
-SELECT [IIS].[fnGetNomenclatureChangesList] (:StartDate, :EndDate, :Offset, :RowCount)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetNomenclatures => WsSqlQueries.TrimQuery(@"
+SELECT [IIS].[fnGetNomenclatureChangesList] (:StartDate, :EndDate, :Offset, :RowCount)");
 
-    public static string GetNomenclaturesCosts => @"
-SELECT [IIS].[fnGetNomenclatureList] (:StartDate, :EndDate, :Offset, :RowCount)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetNomenclaturesCosts => WsSqlQueries.TrimQuery(@"
+SELECT [IIS].[fnGetNomenclatureList] (:StartDate, :EndDate, :Offset, :RowCount)");
 
-    public static string GetShipment => @"
-SELECT [IIS].[GetRefShipmentsById] (:ID)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetShipment => WsSqlQueries.TrimQuery(@"
+SELECT [IIS].[GetRefShipmentsById] (:ID)");
 
-    public static string GetShipments => @"
-SELECT [IIS].[GetRefShipmentsByDocDate] (:StartDate,:EndDate,:Offset,:RowCount)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetShipments => WsSqlQueries.TrimQuery(@"
+SELECT [IIS].[GetRefShipmentsByDocDate] (:StartDate,:EndDate,:Offset,:RowCount)");
 
-    public static string GetSummary => @"
-SELECT [IIS].[fnGetSummaryList] (:StartDate, :EndDate)
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+    public static string GetSummary => WsSqlQueries.TrimQuery(@"
+SELECT [IIS].[fnGetSummaryList] (:StartDate, :EndDate)");
 
-    public static string UpdatePlu => @"
+    public static string UpdatePlu => WsSqlQueries.TrimQuery(@"
 IF EXISTS(SELECT 1 FROM [DB_SCALES].[PLUS] WHERE [UID] = :uid) BEGIN
 	IF (NOT EXISTS(SELECT 1 FROM [DB_SCALES].[PLUS_FK] WHERE [PLU_UID] = :uid) AND 
 	    NOT EXISTS(SELECT 1 FROM [DB_SCALES].[PLUS_FK] WHERE [PARENT_UID] = :uid) AND
@@ -77,6 +61,5 @@ IF EXISTS(SELECT 1 FROM [DB_SCALES].[PLUS] WHERE [UID] = :uid) BEGIN
 		DELETE FROM [DB_SCALES].[PLUS] WHERE [UID] = :uid;
 	END;
 END;
-UPDATE [DB_SCALES].[PLUS] SET [UID] = :uid WHERE [CODE] = :code AND [NUMBER] = :number;
-        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+UPDATE [DB_SCALES].[PLUS] SET [UID] = :uid WHERE [CODE] = :code AND [NUMBER] = :number;");
 }

@@ -18,7 +18,7 @@ public class WsServiceControllerBase : ControllerBase
     internal WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(), 
         true, false, false, true, false);
     private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
-    protected WsSqlCacheServiceHelper Cache => WsSqlCacheServiceHelper.Instance;
+    protected WsSqlContextCacheHelper Cache => WsSqlContextCacheHelper.Instance;
 
     public WsServiceControllerBase(ISessionFactory sessionFactory)
     {

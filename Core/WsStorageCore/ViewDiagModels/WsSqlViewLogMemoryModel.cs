@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewDiagModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewLogMemory
+public sealed record WsSqlViewLogMemoryModel
 {
     #region Public and private fields, properties, constructor
 
@@ -18,7 +18,7 @@ public sealed record WsSqlViewLogMemory
     /// <summary>
     /// Empty constructor.
     /// </summary>
-    public WsSqlViewLogMemory() : this(DateTime.MinValue)
+    public WsSqlViewLogMemoryModel() : this(DateTime.MinValue)
     {
         //
     }
@@ -32,7 +32,7 @@ public sealed record WsSqlViewLogMemory
     /// <param name="scaleName"></param>
     /// <param name="sizeAppMb"></param>
     /// <param name="sizeFreeMb"></param>
-    public WsSqlViewLogMemory(DateTime createDt, string appName = "", string deviceName = "", string scaleName = "",
+    public WsSqlViewLogMemoryModel(DateTime createDt, string appName = "", string deviceName = "", string scaleName = "",
         short sizeAppMb = 0, short sizeFreeMb = 0)
     {
         CreateDt = createDt;
@@ -49,10 +49,10 @@ public sealed record WsSqlViewLogMemory
 
     public override string ToString() =>
         string.IsNullOrEmpty(ScaleName)
-            ? $"{nameof(AppName)}: {AppName}. {nameof(DeviceName)}: {DeviceName}. " +
-              $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. {nameof(SizeAppMb)}: {SizeAppMb}. {nameof(SizeFreeMb)}: {SizeFreeMb}"
-            : $"{nameof(AppName)}: {AppName}. {nameof(DeviceName)}: {DeviceName}. {nameof(ScaleName)}: {ScaleName}. " +
-              $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. {nameof(SizeAppMb)}: {SizeAppMb}. {nameof(SizeFreeMb)}: {SizeFreeMb}";
+            ? $"{AppName} | {DeviceName} | " +
+              $"{CreateDt:yyyy-MM-dd} | {SizeAppMb} | {SizeFreeMb}"
+            : $"{AppName} | {DeviceName} | {ScaleName} | " +
+              $"{CreateDt:yyyy-MM-dd} | {SizeAppMb} | {SizeFreeMb}";
 
     #endregion
 }

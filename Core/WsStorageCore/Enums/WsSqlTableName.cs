@@ -22,5 +22,7 @@ public enum WsSqlTableName
     PluNestingFks,
     Plus,
     Plus1CFks,
+    //PlusScales, // Не использовать, большой запрос.
+    PluStorageMethodsFks,
     Scales,
 }

@@ -3,6 +3,9 @@
 
 namespace ScalesUI.Controls;
 
+/// <summary>
+/// Базовый класс контрола.
+/// </summary>
 public class UserControlBase : UserControl
 {
     #region Public and private fields, properties, constructor
@@ -15,25 +18,15 @@ public class UserControlBase : UserControl
 
     protected UserControlBase()
     {
+        SuspendLayout();
         Result = DialogResult.None;
         ReturnBackAction = () => { };
-        //RefreshAction = () => { };
+        ResumeLayout(false);
     }
 
     #endregion
 
     #region Public and private methods
-
-    private void InitializeComponent()
-    {
-        SuspendLayout();
-        // 
-        // UserControlBase
-        // 
-        BackColor = Color.Transparent;
-        Name = "UserControlBase";
-        ResumeLayout(false);
-    }
 
     public virtual void RefreshAction() { }
 

@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewDiagModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewTableSizeMemory
+public sealed record WsSqlViewTableSizeMemoryModel
 {
     #region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public sealed record WsSqlViewTableSizeMemory
     /// <summary>
     /// Empty constructor.
     /// </summary>
-    public WsSqlViewTableSizeMemory() : this("", "", "", 0, 0, 0)
+    public WsSqlViewTableSizeMemoryModel() : this("", "", "", 0, 0, 0)
     {
         //
     }
@@ -34,7 +34,7 @@ public sealed record WsSqlViewTableSizeMemory
     /// <param name="usedSpaceMb"></param>
     /// <param name="unusedSpaceMb"></param>
     /// <param name="totalSpaceMb"></param>
-    public WsSqlViewTableSizeMemory(string schemaTable = "", string schema = "", string table = "",
+    public WsSqlViewTableSizeMemoryModel(string schemaTable = "", string schema = "", string table = "",
         uint rowsCount = 0, ushort usedSpaceMb = 0, ushort unusedSpaceMb = 0, ushort totalSpaceMb = 0)
     {
         SchemaTable = schemaTable;
@@ -50,9 +50,7 @@ public sealed record WsSqlViewTableSizeMemory
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{nameof(Schema)}: {Schema}. {nameof(Table)}: {Table}. {nameof(RowsCount)}: {RowsCount}. " +
-        $"{nameof(UsedSpaceMb)}: {UsedSpaceMb}. {nameof(UnusedSpaceMb)}: {UnusedSpaceMb}. {nameof(TotalSpaceMb)}: {TotalSpaceMb}";
+    public override string ToString() => $"{Schema} | {Table} | {RowsCount} | {UsedSpaceMb} | {UnusedSpaceMb} | {TotalSpaceMb}";
 
     #endregion
 }

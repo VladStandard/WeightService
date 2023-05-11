@@ -23,6 +23,5 @@ global using WsDataCore.Utils;
 global using WsLocalizationCore.Utils;
 global using WsStorageCore.Utils;
 global using WsWebApiCore.Controllers;
-global using WsWebApiCore.Helpers;
 global using WsWebApiCore.Models;
 global using WsWebApiCore.Utils;

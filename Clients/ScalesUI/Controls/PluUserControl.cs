@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Enums;
+
 namespace ScalesUI.Controls;
 
 public sealed partial class PluUserControl : UserControlBase
@@ -29,7 +31,7 @@ public sealed partial class PluUserControl : UserControlBase
             {
                 PreviousScaleId = UserSession.Scale.IdentityValueId;
                 UserSession.SetPluScales();
-                UserSession.SetPluStorageMethodsFks();
+                UserSession.ContextCache.Load(WsSqlTableName.PluStorageMethodsFks);
                 LoadFormControlsText();
             }
             SetupLayoutPanel();
@@ -233,7 +235,8 @@ public sealed partial class PluUserControl : UserControlBase
                 tabIndex = (ushort)control.TabIndex;
             if (UserSession.PluScales.Count >= tabIndex)
             {
-                UserSession.PluScale = UserSession.PluScales[tabIndex];
+                //UserSession.PluScale = UserSession.PluScales[tabIndex];
+                UserSession.PluScale = UserSession.ContextManager.ContextPluScale.GetItem(UserSession.PluScales[tabIndex].Plu.Number);
                 Result = DialogResult.OK;
             }
             ReturnBackAction();

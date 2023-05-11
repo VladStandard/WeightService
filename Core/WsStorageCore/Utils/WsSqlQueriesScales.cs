@@ -12,7 +12,7 @@ public static class WsSqlQueriesScales
     {
         public static class PluNestingFks
         {
-            public static string GetList(bool isSetPluUid) => @$"
+            public static string GetList(bool isSetPluUid) => WsSqlQueries.TrimQuery(@$"
 -- PLUS_NESTING_FK SELECT AS OBJECTS
 SELECT 
 -- [DB_SCALES].[PLUS_NESTING_FK] | 0 - 10
@@ -72,13 +72,12 @@ LEFT JOIN [DB_SCALES].[PLUS] [P] ON [PBFK].[PLU_UID] = [P].[UID]
 LEFT JOIN [DB_SCALES].[BUNDLES] [BU] ON [PBFK].[BUNDLE_UID] = [BU].[UID]
 LEFT JOIN [DB_SCALES].[BOXES] [B] ON [PNFK].[BOX_UID] = [B].[UID]
 {(isSetPluUid ? "WHERE [P].[UID] = :P_UID" : "")}
-ORDER BY [P].[NUMBER];
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+ORDER BY [P].[NUMBER];");
         }
 
         public static class PluLabels
         {
-            public static string GetLabelsAggrWithoutPlu(int topRecords) => $@"
+            public static string GetLabelsAggrWithoutPlu(int topRecords) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- PLUS_LABELS_SELECT_AGGR_WITHOUT_PLU | АГРЕГИРОВАННЫЕ ЭТИКЕТКИ БЕЗ ПЛУ
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
@@ -92,10 +91,9 @@ LEFT JOIN [DB_SCALES].[SCALES] [S] ON [S].[ID] = [PS].[SCALE_ID]
 LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
 LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
 GROUP BY CAST([PL].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME]
-ORDER BY [PL_CHANGE_DT] DESC;
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+ORDER BY [PL_CHANGE_DT] DESC;");
 
-            public static string GetLabelsAggrWithPlu(int topRecords) => $@"
+            public static string GetLabelsAggrWithPlu(int topRecords) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- PLUS_LABELS_SELECT_AGGR_WITH_PLU | АГРЕГИРОВАННЫЕ ЭТИКЕТКИ С ПЛУ
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
@@ -111,15 +109,12 @@ LEFT JOIN [DB_SCALES].[SCALES] [S] ON [S].[ID] = [PS].[SCALE_ID]
 LEFT JOIN [DB_SCALES].[DEVICES_SCALES_FK] [DFK] ON [S].[ID]=[DFK].[SCALE_ID]
 LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
 GROUP BY CAST([PL].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME], [P].[NAME]
-ORDER BY [PL_CHANGE_DT] DESC;
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+ORDER BY [PL_CHANGE_DT] DESC;");
         }
 
         public static class PluWeighings
         {
-            public static string GetWeighingsAggr(int topRecords)
-            {
-                return $@"
+            public static string GetWeighingsAggr(int topRecords) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- VIEW_AGGR_WEIGHTINGS | АГРЕГИРОВАННЫЕ ВЗВЕШИВАНИЯ БЕЗ ПЛУ
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
@@ -128,15 +123,13 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 		,[LINE]
         ,[PLU]
 FROM [db_scales].[VIEW_AGGR_WEIGHTINGS]
-ORDER BY [CHANGE_DT] DESC;
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-            }
+ORDER BY [CHANGE_DT] DESC;");
         }
     }
 
     public static class Functions
-        {
-            public static string GetCurrentProductSeriesV2 => @"
+    {
+        public static string GetCurrentProductSeriesV2 => WsSqlQueries.TrimQuery(@"
 DECLARE @SSCC VARCHAR(50)
 DECLARE @WeithingDate DATETIME
 DECLARE @XML XML
@@ -144,7 +137,6 @@ DECLARE @XML XML
 EXECUTE [db_scales].[SP_SET_PRODUCT_SERIES_V2] @SCALE_ID, @SSCC OUTPUT, @XML OUTPUT
 
 SELECT [ID], [CREATE_DT], [UUID], [SSCC], [COUNT_UNIT],[TOTAL_NET_WEIGHT], [TOTAL_TARE_WEIGHT], [IS_MARKED]
-FROM [db_scales].[FN_GET_PRODUCT_SERIES_V2](@SCALE_ID)
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-        }
+FROM [db_scales].[FN_GET_PRODUCT_SERIES_V2](@SCALE_ID)");
     }
+}
