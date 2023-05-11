@@ -101,4 +101,5 @@ global using WsStorageCore.TableScaleModels.Versions;
 global using WsStorageCore.TableScaleModels.WorkShops;
 global using WsStorageCore.Utils;
 global using WsStorageCore.ViewDiagModels;
+global using WsStorageCore.ViewRefModels;
 global using WsStorageCore.Xml;

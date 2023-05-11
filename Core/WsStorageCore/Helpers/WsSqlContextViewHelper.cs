@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.ViewRefModels;
-
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -39,8 +37,7 @@ public sealed class WsSqlContextViewHelper
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 6 } item)
-                break;
+            if (obj is not object[] { Length: 6 } item) break;
             result.Add(new(
                 Convert.ToDateTime(item[0]),
                 item[1] as string ?? string.Empty,
@@ -64,8 +61,7 @@ public sealed class WsSqlContextViewHelper
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 7 } item)
-                break;
+            if (obj is not object[] { Length: 7 } item) break;
             result.Add(new(
                 Convert.ToString(item[0]),
                 Convert.ToString(item[1]),
@@ -79,32 +75,29 @@ public sealed class WsSqlContextViewHelper
         return result;
     }
 
-    ///// <summary>
-    /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
+    /// <summary>
+    /// Получить список ПЛУ линий из представления[REF].[VIEW_PLUS_SCALES].
     /// </summary>
     /// <param name="topRecords"></param>
     /// <returns></returns>
-    //public List<WsSqlViewPluScaleModel> GetListViewPlusScales(int topRecords)
-    //{
-    //    List<WsSqlViewPluScaleModel> result = new();
-    //    string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusScales(topRecords);
-    //    object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
-    //    foreach (object obj in objects)
-    //    {
-    //        if (obj is not object[] { Length: 7 } item)
-    //            break;
-    //        result.Add(new(
-    //            Convert.ToString(item[0]),
-    //            Convert.ToString(item[1]),
-    //            Convert.ToString(item[2]),
-    //            Convert.ToUInt32(item[3]),
-    //            Convert.ToUInt16(item[4]),
-    //            Convert.ToUInt16(item[5]),
-    //            Convert.ToUInt16(item[6])
-    //        ));
-    //    }
-    //    return result;
-    //}
+    public List<WsSqlViewPluScaleModel> GetListViewPlusScales(int topRecords)
+    {
+        List<WsSqlViewPluScaleModel> result = new();
+        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusScales(topRecords);
+        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        foreach (object obj in objects)
+        {
+            if (obj is not object[] { Length: 12 } item) break;
+            result.Add(new(Guid.Parse(Convert.ToString(item[0])), 
+                Convert.ToDateTime(item[1]), Convert.ToDateTime(item[2]),
+                Convert.ToBoolean(item[3]), Convert.ToBoolean(item[4]),
+                Convert.ToUInt16(item[5]), Convert.ToBoolean(item[6]), Convert.ToString(item[7]),
+                Guid.Parse(Convert.ToString(item[8])), Convert.ToBoolean(item[9]), 
+                Convert.ToUInt16(item[10]), Convert.ToString(item[11])
+            ));
+        }
+        return result;
+    }
 
     #endregion
 }

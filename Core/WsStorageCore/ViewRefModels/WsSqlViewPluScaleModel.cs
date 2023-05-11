@@ -22,6 +22,13 @@ public sealed record WsSqlViewPluScaleModel
     public string PluName { get; init; }
 
     /// <summary>
+    /// Empty constructor.
+    /// </summary>
+    public WsSqlViewPluScaleModel() : this(Guid.Empty, DateTime.MinValue, DateTime.MinValue, 
+        false, false, 0, false, "", 
+        Guid.Empty, false, 0, "") { }
+
+    /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="uid"></param>

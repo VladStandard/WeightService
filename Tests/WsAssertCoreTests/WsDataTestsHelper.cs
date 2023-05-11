@@ -598,7 +598,8 @@ public class WsDataTestsHelper
         });
     }
 
-    public void PrintTopRecords<T>(List<T> items, ushort count = 0, bool isValidate = false, bool isSerialize = false) where T : class, new()
+    public void PrintTopRecords<T>(List<T> items, ushort count = 0, bool isValidate = false, bool isSerialize = false) 
+        where T : class, new()
     {
         checked
         {
@@ -610,7 +611,7 @@ public class WsDataTestsHelper
             {
                 if (i < count)
                 {
-                    TestContext.WriteLine(item);
+                    TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString() ?? string.Empty));
                     if (isValidate)
                     {
                         AssertSqlTablesValidate(item, true);
