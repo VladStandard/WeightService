@@ -3,12 +3,10 @@
 
 namespace WsDataCore.Enums;
 
-public enum LogType
+public enum WsEnumProgramState
 {
-    None = 0,
-    Error = 1,
-    Stop = 2,
-    Question = 3,
-    Warning = 4,
-    Information = 5
+    Default,
+    IsLoad,
+    IsRun,
+    IsExit
 }

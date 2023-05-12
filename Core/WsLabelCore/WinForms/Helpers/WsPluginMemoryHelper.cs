@@ -29,7 +29,7 @@ public sealed class WsPluginMemoryHelper : WsPluginHelperBase
     /// </summary>
     public WsPluginMemoryHelper()
     {
-        TskType = TaskType.TaskMemory;
+        TskType = WsEnumTaskType.TaskMemory;
         FieldMemory = new();
         FieldMemoryExt = new();
         MemorySize = new();

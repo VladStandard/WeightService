@@ -5,7 +5,7 @@ using WsPrintCore.Enums;
 
 namespace WsDataCore.Models;
 
-public class WeighingSettingsModel
+public class WsWeighingSettingsModel
 {
     #region Public and private fields and properties
 
@@ -59,7 +59,7 @@ public class WeighingSettingsModel
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WeighingSettingsModel()
+    public WsWeighingSettingsModel()
     {
         Kneading = KneadingMinValue;
         LabelsCountMain = LabelsCountMinValue;

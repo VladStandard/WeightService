@@ -432,7 +432,7 @@ internal sealed class WsSqlAccessCoreHelper
         return GetItemNullable<WsSqlAppModel>(sqlCrudConfig);
     }
 
-    public WsSqlLogTypeModel? GetItemLogTypeNullable(LogType logType)
+    public WsSqlLogTypeModel? GetItemLogTypeNullable(WsEnumLogType logType)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
@@ -440,7 +440,7 @@ internal sealed class WsSqlAccessCoreHelper
         return GetItemNullable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
 
-    public WsSqlLogTypeModel GetItemLogTypeNotNullable(LogType logType) =>
+    public WsSqlLogTypeModel GetItemLogTypeNotNullable(WsEnumLogType logType) =>
         GetItemLogTypeNullable(logType) ?? new();
 
     public List<WsSqlLogTypeModel> GetListLogTypesNotNullable()

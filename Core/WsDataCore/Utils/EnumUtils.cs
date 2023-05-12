@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Models;
+using WsDataCore.Enums;
 
 namespace WsDataCore.Utils;
 
@@ -46,13 +46,13 @@ public static class EnumUtils
         };
     }
 
-    public static RelevanceStatusEnum GetEnumRelevanceStatusEng(short? value)
+    public static WsEnumRelevanceStatus GetEnumRelevanceStatusEng(short? value)
     {
         return value switch
         {
-            1 => RelevanceStatusEnum.Actual,
-            2 => RelevanceStatusEnum.NoActual,
-            _ => RelevanceStatusEnum.Unknown
+            1 => WsEnumRelevanceStatus.Actual,
+            2 => WsEnumRelevanceStatus.NoActual,
+            _ => WsEnumRelevanceStatus.Unknown
         };
     }
 
@@ -66,14 +66,14 @@ public static class EnumUtils
         };
     }
 
-    public static NormilizationStatusEnum GetEnumNormalizationStatusEng(short? value)
+    public static WsEnumNormilizationStatus GetEnumNormalizationStatusEng(short? value)
     {
         return value switch
         {
-            1 => NormilizationStatusEnum.NormilizedFull,
-            2 => NormilizationStatusEnum.NormilizedPart,
-            3 => NormilizationStatusEnum.NotSubjectNormalization,
-            _ => NormilizationStatusEnum.NotNormilized
+            1 => WsEnumNormilizationStatus.NormilizedFull,
+            2 => WsEnumNormilizationStatus.NormilizedPart,
+            3 => WsEnumNormilizationStatus.NotSubjectNormalization,
+            _ => WsEnumNormilizationStatus.NotNormilized
         };
     }
 
@@ -88,14 +88,14 @@ public static class EnumUtils
         };
     }
 
-    public static IEnumerable<RelevanceStatusEnum> GetEnumRelevenaceStatusesEng()
+    public static IEnumerable<WsEnumRelevanceStatus> GetEnumRelevenaceStatusesEng()
     {
-        return (RelevanceStatusEnum[])Enum.GetValues(typeof(RelevanceStatusEnum));
+        return (WsEnumRelevanceStatus[])Enum.GetValues(typeof(WsEnumRelevanceStatus));
     }
 
-    public static IEnumerable<TypeModel<short>> GetEnumRelevenaceStatusesRus()
+    public static IEnumerable<WsEnumTypeModel<short>> GetEnumRelevenaceStatusesRus()
     {
-        List<TypeModel<short>>? result = new()
+        List<WsEnumTypeModel<short>>? result = new()
         {
             new("Неизвестно", 0),
             new("Актуально", 1),
@@ -104,14 +104,14 @@ public static class EnumUtils
         return result;
     }
 
-    public static IEnumerable<NormilizationStatusEnum> GetEnumNormilizationStatusesEng()
+    public static IEnumerable<WsEnumNormilizationStatus> GetEnumNormilizationStatusesEng()
     {
-        return (NormilizationStatusEnum[])Enum.GetValues(typeof(NormilizationStatusEnum));
+        return (WsEnumNormilizationStatus[])Enum.GetValues(typeof(WsEnumNormilizationStatus));
     }
 
-    public static IEnumerable<TypeModel<short>> GetEnumNormilizationStatusesRus()
+    public static IEnumerable<WsEnumTypeModel<short>> GetEnumNormilizationStatusesRus()
     {
-        List<TypeModel<short>>? result = new()
+        List<WsEnumTypeModel<short>>? result = new()
         {
             new("Ненормализована", 0),
             new("Нормализована полностью", 1),

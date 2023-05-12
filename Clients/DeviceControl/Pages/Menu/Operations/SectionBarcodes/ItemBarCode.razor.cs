@@ -36,19 +36,19 @@ public sealed partial class ItemBarCode : RazorComponentItemBase<WsSqlBarCodeMod
         });
     }
 
-    private string GetBarcodeTop(FormatType formatType)
+    private string GetBarcodeTop(WsEnumFormatType formatType)
     {
         WsSqlBarcodeTopModel barcodeTop = new(SqlItemCast.ValueTop, false);
         return WsDataFormatUtils.GetContent<WsSqlBarcodeTopModel>(barcodeTop, formatType, true);
     }
 
-    private string GetBarcodeRight(FormatType formatType)
+    private string GetBarcodeRight(WsEnumFormatType formatType)
     {
         WsSqlBarcodeRightModel barcodeRight = new(SqlItemCast.ValueRight);
         return WsDataFormatUtils.GetContent<WsSqlBarcodeRightModel>(barcodeRight, formatType, true);
     }
 
-    private string GetBarcodeBottom(FormatType formatType)
+    private string GetBarcodeBottom(WsEnumFormatType formatType)
     {
         WsSqlBarcodeBottomModel barcodeBottom = new(SqlItemCast.ValueBottom);
         return WsDataFormatUtils.GetContent<WsSqlBarcodeBottomModel>(barcodeBottom, formatType, true);

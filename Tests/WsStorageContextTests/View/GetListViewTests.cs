@@ -16,7 +16,7 @@ public sealed class GetListViewTests
             List<WsSqlViewLogMemoryModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewLogsMemories(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
     
     [Test]
@@ -27,7 +27,7 @@ public sealed class GetListViewTests
             List<WsSqlViewTableSizeMemoryModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewTablesSizes(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items);
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
     
     [Test]
@@ -38,7 +38,7 @@ public sealed class GetListViewTests
             List<WsSqlViewPluScaleModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusScales(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items);
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
     
     [Test]
@@ -49,6 +49,6 @@ public sealed class GetListViewTests
             List<WsSqlViewPluStorageMethodModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusStorageMethods(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items);
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

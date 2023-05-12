@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Models;
+using WsDataCore.Enums;
 
 namespace WsDataCore.Settings.Helpers;
 
@@ -37,16 +37,16 @@ public sealed class AppVersionHelper
 
     #region Public and private methods
 
-    private string GetCurrentVersion(Assembly assembly, AppVerCountDigitsEnum countDigits, List<AppVerStringFormatEnum>? stringFormats = null)
+    private string GetCurrentVersion(Assembly assembly, WsEnumAppVerCountDigits countDigits, List<WsEnumAppVerStringFormat>? stringFormats = null)
     {
         if (stringFormats is null || stringFormats.Count is 0)
             stringFormats = new() {
-                AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2 };
+                WsEnumAppVerStringFormat.Use1, WsEnumAppVerStringFormat.Use2, WsEnumAppVerStringFormat.Use2 };
 
-        AppVerStringFormatEnum formatMajor = stringFormats.First();
-        AppVerStringFormatEnum formatMinor = AppVerStringFormatEnum.AsString;
-        AppVerStringFormatEnum formatBuild = AppVerStringFormatEnum.AsString;
-        AppVerStringFormatEnum formatRevision = AppVerStringFormatEnum.AsString;
+        WsEnumAppVerStringFormat formatMajor = stringFormats.First();
+        WsEnumAppVerStringFormat formatMinor = WsEnumAppVerStringFormat.AsString;
+        WsEnumAppVerStringFormat formatBuild = WsEnumAppVerStringFormat.AsString;
+        WsEnumAppVerStringFormat formatRevision = WsEnumAppVerStringFormat.AsString;
         if (stringFormats.Count > 1)
             formatMinor = stringFormats[1];
         if (stringFormats.Count > 2)
@@ -64,9 +64,9 @@ public sealed class AppVersionHelper
         string version2 = $"{major}.{minor}";
         string version1 = $"{major}";
 
-        return countDigits == AppVerCountDigitsEnum.Use1
-            ? version1 : countDigits == AppVerCountDigitsEnum.Use2
-            ? version2 : countDigits == AppVerCountDigitsEnum.Use3
+        return countDigits == WsEnumAppVerCountDigits.Use1
+            ? version1 : countDigits == WsEnumAppVerCountDigits.Use2
+            ? version2 : countDigits == WsEnumAppVerCountDigits.Use3
             ? version3 : version4;
     }
 
@@ -79,14 +79,14 @@ public sealed class AppVersionHelper
         return result;
     }
 
-    private string GetCurrentVersionFormat(int input, AppVerStringFormatEnum format)
+    private string GetCurrentVersionFormat(int input, WsEnumAppVerStringFormat format)
     {
         return format switch
         {
-            AppVerStringFormatEnum.Use1 => $"{input:D}",
-            AppVerStringFormatEnum.Use2 => $"{input:D}",
-            AppVerStringFormatEnum.Use3 => $"{input:D}",
-            AppVerStringFormatEnum.Use4 => $"{input:D}",
+            WsEnumAppVerStringFormat.Use1 => $"{input:D}",
+            WsEnumAppVerStringFormat.Use2 => $"{input:D}",
+            WsEnumAppVerStringFormat.Use3 => $"{input:D}",
+            WsEnumAppVerStringFormat.Use4 => $"{input:D}",
             _ => $"{input:D}"
         };
     }
@@ -118,8 +118,8 @@ public sealed class AppVersionHelper
     public void Setup(Assembly assembly, string appTitle = "")
     {
         AppTitle = string.IsNullOrEmpty(appTitle)
-            ? $"{GetTitle(assembly)} {GetCurrentVersion(assembly, AppVerCountDigitsEnum.Use3)}"
-            : $"{appTitle} {GetCurrentVersion(assembly, AppVerCountDigitsEnum.Use3)}";
+            ? $"{GetTitle(assembly)} {GetCurrentVersion(assembly, WsEnumAppVerCountDigits.Use3)}"
+            : $"{appTitle} {GetCurrentVersion(assembly, WsEnumAppVerCountDigits.Use3)}";
         if (AppTitle.Split(' ').Length > 1)
         {
             App = AppTitle.Split(' ').First();

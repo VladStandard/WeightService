@@ -31,7 +31,7 @@ public sealed class SqlQueriesTests
                 if (i < pluWeighingAggrs.Count)
                     TestContext.WriteLine(pluWeighingAggrs[i]);
             }
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
     
     [Test]
@@ -58,6 +58,6 @@ public sealed class SqlQueriesTests
                 if (i < pluWeighingAggrs.Count)
                     TestContext.WriteLine(pluWeighingAggrs[i]);
             }
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

@@ -3,12 +3,9 @@
 
 namespace WsDataCore.Enums;
 
-public enum WsConfiguration
+public enum WsEnumTemplateResourceType
 {
-    DevelopAleksandrov,
-    DevelopMorozov,
-    DevelopVS,
-    ReleaseAleksandrov,
-    ReleaseMorozov,
-    ReleaseVS,
+    Grf,
+    Ttf,
+    Zpl,
 }

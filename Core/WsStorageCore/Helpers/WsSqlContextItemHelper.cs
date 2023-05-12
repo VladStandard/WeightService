@@ -171,19 +171,19 @@ public sealed class WsSqlContextItemHelper
     public WsSqlDeviceScaleFkModel GetItemDeviceScaleFkNotNullable(WsSqlScaleModel scale) =>
         GetItemDeviceScaleFkNullable(scale) ?? new();
 
-    public string GetAccessRightsDescription(AccessRightsEnum? accessRights)
+    public string GetAccessRightsDescription(WsEnumAccessRights? accessRights)
     {
         return accessRights switch
         {
-            AccessRightsEnum.Read => LocaleCore.Strings.AccessRightsRead,
-            AccessRightsEnum.Write => LocaleCore.Strings.AccessRightsWrite,
-            AccessRightsEnum.Admin => LocaleCore.Strings.AccessRightsAdmin,
+            WsEnumAccessRights.Read => LocaleCore.Strings.AccessRightsRead,
+            WsEnumAccessRights.Write => LocaleCore.Strings.AccessRightsWrite,
+            WsEnumAccessRights.Admin => LocaleCore.Strings.AccessRightsAdmin,
             _ => LocaleCore.Strings.AccessRightsNone
         };
     }
 
     public string GetAccessRightsDescription(byte accessRights) =>
-        GetAccessRightsDescription((AccessRightsEnum)accessRights);
+        GetAccessRightsDescription((WsEnumAccessRights)accessRights);
 
     public string GetAccessRightsDescription(ClaimsPrincipal? user)
     {
@@ -191,7 +191,7 @@ public sealed class WsSqlContextItemHelper
             return string.Empty;
         string right = user.Claims.Where(c => c.Type == ClaimTypes.Role).
             Select(c => c.Value).OrderByDescending(int.Parse).First();
-        return GetAccessRightsDescription((AccessRightsEnum)int.Parse(right));
+        return GetAccessRightsDescription((WsEnumAccessRights)int.Parse(right));
     }
 
     public WsSqlScaleModel GetScaleNotNullable(long id)
@@ -241,7 +241,7 @@ public sealed class WsSqlContextItemHelper
         }
     }
 
-    private void SaveLogCore(string message, LogType logType, string filePath, int lineNumber, string memberName)
+    private void SaveLogCore(string message, WsEnumLogType logType, string filePath, int lineNumber, string memberName)
     {
         StrUtils.SetStringValueTrim(ref filePath, 32, true);
         StrUtils.SetStringValueTrim(ref memberName, 32);
@@ -267,13 +267,13 @@ public sealed class WsSqlContextItemHelper
 
     public void SaveLogErrorWithInfo(Exception ex, string filePath, int lineNumber, string memberName)
     {
-        SaveLogCore(ex.Message, LogType.Error, filePath, lineNumber, memberName);
+        SaveLogCore(ex.Message, WsEnumLogType.Error, filePath, lineNumber, memberName);
         if (ex.InnerException is not null)
-            SaveLogCore(ex.InnerException.Message, LogType.Error, filePath, lineNumber, memberName);
+            SaveLogCore(ex.InnerException.Message, WsEnumLogType.Error, filePath, lineNumber, memberName);
     }
 
     public void SaveLogErrorWithInfo(string message, string filePath, int lineNumber, string memberName) =>
-        SaveLogCore(message, LogType.Error, filePath, lineNumber, memberName);
+        SaveLogCore(message, WsEnumLogType.Error, filePath, lineNumber, memberName);
 
     public void SaveLogError(Exception ex,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
@@ -281,23 +281,23 @@ public sealed class WsSqlContextItemHelper
 
     public void SaveLogError(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Error, filePath, lineNumber, memberName);
+        SaveLogCore(message, WsEnumLogType.Error, filePath, lineNumber, memberName);
 
     public void SaveLogStop(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Stop, filePath, lineNumber, memberName);
+        SaveLogCore(message, WsEnumLogType.Stop, filePath, lineNumber, memberName);
 
     public void SaveLogInformation(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Information, filePath, lineNumber, memberName);
+        SaveLogCore(message, WsEnumLogType.Information, filePath, lineNumber, memberName);
 
     public void SaveLogWarning(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Warning, filePath, lineNumber, memberName);
+        SaveLogCore(message, WsEnumLogType.Warning, filePath, lineNumber, memberName);
 
     public void SaveLogQuestion(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogType.Question, filePath, lineNumber, memberName);
+        SaveLogCore(message, WsEnumLogType.Question, filePath, lineNumber, memberName);
 
     #endregion
 
@@ -327,19 +327,19 @@ public sealed class WsSqlContextItemHelper
     #region Public and private methods - LogWeb
 
     public void SaveLogWebService(DateTime requestStampDt, string requestDataString,
-        DateTime responseStampDt, string responseDataString, LogType logType,
-        string url, string parameters, string headers, FormatType formatType, int countAll, int countSuccess, int countErrors) =>
+        DateTime responseStampDt, string responseDataString, WsEnumLogType logType,
+        string url, string parameters, string headers, WsEnumFormatType formatType, int countAll, int countSuccess, int countErrors) =>
         SaveLogWebService(requestStampDt, requestDataString, responseStampDt, responseDataString, logType,
             url, parameters, headers, (byte)formatType, countAll, countSuccess, countErrors);
 
     public void SaveLogWebService(DateTime requestStampDt, string requestDataString,
-        DateTime responseStampDt, string responseDataString, LogType logType,
+        DateTime responseStampDt, string responseDataString, WsEnumLogType logType,
         string url, string parameters, string headers, string format, int countAll, int countSuccess, int countErrors) =>
         SaveLogWebService(requestStampDt, requestDataString, responseStampDt, responseDataString, logType,
             url, parameters, headers, (byte)WsDataFormatUtils.GetFormatType(format), countAll, countSuccess, countErrors);
 
     private void SaveLogWebService(DateTime requestStampDt, string requestDataString,
-        DateTime responseStampDt, string responseDataString, LogType logType,
+        DateTime responseStampDt, string responseDataString, WsEnumLogType logType,
         string url, string parameters, string headers,
         byte formatType, int countAll, int countSuccess, int countErrors)
     {
@@ -349,7 +349,7 @@ public sealed class WsSqlContextItemHelper
             StampDt = requestStampDt,
             IsMarked = false,
             Version = AppVersionHelper.Instance.Version,
-            Direction = (byte)ServiceLogDirection.Request,
+            Direction = (byte)WsEnumServiceLogDirection.Request,
             Url = url,
             Params = parameters,
             Headers = headers,
@@ -367,7 +367,7 @@ public sealed class WsSqlContextItemHelper
             StampDt = responseStampDt,
             IsMarked = false,
             Version = AppVersionHelper.Instance.Version,
-            Direction = (byte)ServiceLogDirection.Response,
+            Direction = (byte)WsEnumServiceLogDirection.Response,
             Url = url,
             Params = parameters,
             Headers = headers,

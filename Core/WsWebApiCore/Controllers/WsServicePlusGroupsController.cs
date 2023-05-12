@@ -128,11 +128,11 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
                 WsSqlPluGroupModel pluGroup = record.Item;
                 switch (pluGroup.ParseResult.Status)
                 {
-                    case ParseStatus.Success:
+                    case WsEnumParseStatus.Success:
                         AddResponsePluGroups(response, pluGroup);
                         AddResponsePluGroupsFks(response, pluGroup);
                         break;
-                    case ParseStatus.Error:
+                    case WsEnumParseStatus.Error:
                         AddResponseExceptionString(response, pluGroup.Uid1C,
                             pluGroup.ParseResult.Exception, pluGroup.ParseResult.InnerException);
                         break;

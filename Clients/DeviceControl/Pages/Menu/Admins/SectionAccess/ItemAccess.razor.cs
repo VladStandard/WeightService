@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Models;
+using WsDataCore.Enums;
 using WsStorageCore.TableScaleModels.Access;
 
 namespace BlazorDeviceControl.Pages.Menu.Admins.SectionAccess;
@@ -10,11 +10,11 @@ public sealed partial class ItemAccess : RazorComponentItemBase<WsSqlAccessModel
 {
     #region Public and private fields, properties, constructor
 
-    private List<TypeModel<AccessRightsEnum>> TemplateAccessRights { get; set; }
+    private List<WsEnumTypeModel<WsEnumAccessRights>> TemplateAccessRights { get; set; }
 
-    private AccessRightsEnum Rights
+    private WsEnumAccessRights Rights
     {
-        get => (AccessRightsEnum)SqlItemCast.Rights;
+        get => (WsEnumAccessRights)SqlItemCast.Rights;
         set => SqlItemCast.Rights = (byte)value;
     }
 

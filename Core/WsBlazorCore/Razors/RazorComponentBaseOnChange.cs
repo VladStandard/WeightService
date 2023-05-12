@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Models;
+using WsDataCore.Enums;
 using WsStorageCore.Tables;
 using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
 using WsStorageCore.TableScaleModels.Access;
@@ -50,7 +50,7 @@ public partial class RazorComponentBase
 
     private void OnChangeItemAccess(WsSqlAccessModel item, string filterName, object? value)
     {
-        if (filterName == nameof(item.Rights) && value is AccessRightsEnum rights)
+        if (filterName == nameof(item.Rights) && value is WsEnumAccessRights rights)
         {
             item.Rights = (byte)rights;
         }

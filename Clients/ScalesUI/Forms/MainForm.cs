@@ -86,7 +86,7 @@ public partial class MainForm : Form
         // Buttons.
         SetButtonsSettings();
         // Form properties: resolution, position, fonts.
-        this.SwitchResolution(Debug.IsDevelop ? WsScreenResolution.Value1366x768 : WsScreenResolution.FullScreen);
+        this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         CenterToScreen();
         LoadFonts();
     }
@@ -106,7 +106,7 @@ public partial class MainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
             {
                 UserSession.StopwatchMain = Stopwatch.StartNew();
                 UserSession.StopwatchMain.Restart();
@@ -180,7 +180,7 @@ public partial class MainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
             {
                 UserSession.ContextManager.ContextItem.SaveLogMemory(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
@@ -401,7 +401,7 @@ public partial class MainForm : Form
 
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
-        using WsWpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
+        using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
         wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Caption = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Message = GetPrintInfo(UserSession.PluginPrintMain, true);
@@ -453,7 +453,7 @@ public partial class MainForm : Form
 
     private void FieldSscc_Click(object sender, EventArgs e)
     {
-        using WsWpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
+        using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
         wpfPageLoader.Text = LocaleCore.Scales.FieldSsccShort;
         wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.FieldSscc;
         wpfPageLoader.MessageBox.Message =
@@ -479,7 +479,7 @@ public partial class MainForm : Form
                 $"{LocaleCore.Scales.ThreadState}: {thread.ThreadState}. " +
                 $"{LocaleCore.Scales.ThreadStartTime}: {thread.StartTime}. " + Environment.NewLine;
         }
-        using WsWpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog,
+        using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog,
             20, 14, 18, 0, 12)
         { Width = Width - 50, Height = Height - 50 };
         wpfPageLoader.Text = $@"{LocaleCore.Scales.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}";
@@ -571,7 +571,7 @@ public partial class MainForm : Form
                 ResetWarning();
                 DialogResult result = WsWpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionCloseApp}?",
-                    true, LogType.Question,
+                    true, WsEnumLogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 FinallyAction();
                 if (result is not DialogResult.Yes)
@@ -589,11 +589,11 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionSwitchLine(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
-                using WsWpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 800, Height = 500 };
+                using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.Device, false) { Width = 800, Height = 500 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 // Here is another instance of wpfPageLoader.PageDevice.UserSession.
@@ -618,14 +618,14 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionSwitchPluNesting(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
                 // Проверить наличие ПЛУ.
                 if (!ActionCheckPluIdentityIsNew()) return;
 
-                using WsWpfPageLoader wpfPageLoader = new(PageEnum.PluNestingFk, false) { Width = 800, Height = 300 };
+                using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.PluNestingFk, false) { Width = 800, Height = 300 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 // Here is another instance of wpfPageLoader.PagePluNestingFk.UserSession.
@@ -664,13 +664,13 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionScalesTerminal(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
                 DialogResult result = WsWpfUtils.ShowNewOperationControl(this,
                     $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
-                    true, LogType.Question,
+                    true, WsEnumLogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result is not DialogResult.Yes)
                     return;
@@ -686,7 +686,7 @@ public partial class MainForm : Form
                 {
                     WsWpfUtils.ShowNewOperationControl(this,
                         LocaleCore.Scales.ProgramNotFound(
-                            LocaleData.Paths.ScalesTerminal), true, LogType.Warning,
+                            LocaleData.Paths.ScalesTerminal), true, WsEnumLogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                 }
             }, FinallyAction);
@@ -699,26 +699,26 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionScalesInit(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
                 if (!UserSession.PluScale.Plu.IsCheckWeight)
                 {
                     WsWpfUtils.ShowNewOperationControl(this,
-                        LocaleCore.Scales.PluNotSelectWeight, true, LogType.Warning,
+                        LocaleCore.Scales.PluNotSelectWeight, true, WsEnumLogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
                 }
                 if (!UserSession.PluginMassa.MassaDevice.IsOpenPort)
                 {
-                    WsWpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogType.Warning,
+                    WsWpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, WsEnumLogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
                 }
 
                 DialogResult result = WsWpfUtils.ShowNewOperationControl(this,
-                    LocaleCore.Scales.QuestionPerformOperation, true, LogType.Question,
+                    LocaleCore.Scales.QuestionPerformOperation, true, WsEnumLogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result is not DialogResult.Yes)
                     return;
@@ -745,7 +745,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionNewPallet(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
@@ -769,7 +769,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionKneading(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
         {
             NavigateToControl(KneadingControl, ReturnBackKneading, true);
         }, FinallyAction);
@@ -800,7 +800,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionSwitchPlu(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
@@ -828,15 +828,14 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionMore(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale,
-            () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
             {
                 // Сброс предупреждения.
                 ResetWarning();
                 if (UserSession.PluScale.IsNew)
                 {
                     WsWpfUtils.ShowNewOperationControl(this,
-                        LocaleCore.Scales.PluNotSelect, true, LogType.Warning,
+                        LocaleCore.Scales.PluNotSelect, true, WsEnumLogType.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible });
                     return;
                 }
@@ -861,7 +860,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void ActionPreparePrint(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
         {
             // Сброс предупреждения.
             ResetWarning();
@@ -893,7 +892,7 @@ public partial class MainForm : Form
             if (!IsSkipDialogs && Debug.IsDevelop)
             {
                 DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(
-                    LocaleCore.Print.QuestionPrintCheckAccess, true, LogType.Question,
+                    LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 isSkipPrintCheckAccess = dialogResult != DialogResult.Yes;
             }

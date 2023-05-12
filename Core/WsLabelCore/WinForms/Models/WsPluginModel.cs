@@ -11,7 +11,7 @@ public sealed class WsPluginModel : HelperBase
     private CancellationTokenSource Cts { get; set; }
     private Task Tsk { get; set; }
     public WsConfigModel Config { get; set; }
-    public TaskType TskType { get; set; }
+    public WsEnumTaskType TskType { get; set; }
     private ushort _counter;
     public ushort Counter
     {
@@ -21,7 +21,7 @@ public sealed class WsPluginModel : HelperBase
 
     public WsPluginModel()
     {
-        TskType = TaskType.Default;
+        TskType = WsEnumTaskType.Default;
         Mutex = new();
         Cts = new();
         Tsk = Task.Run(() => { });

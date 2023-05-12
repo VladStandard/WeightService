@@ -22,7 +22,7 @@ public sealed class WsSqlAccessValidator : WsSqlTableValidator<WsSqlAccessModel>
             .NotNull();
         RuleFor(item => item.Rights)
             .NotNull()
-            .LessThanOrEqualTo((byte)AccessRightsEnum.Admin)
-            .GreaterThanOrEqualTo((byte)AccessRightsEnum.None);
+            .LessThanOrEqualTo((byte)WsEnumAccessRights.Admin)
+            .GreaterThanOrEqualTo((byte)WsEnumAccessRights.None);
     }
 }

@@ -17,7 +17,7 @@ public sealed class DataAccessTests
 			{
 				List<WsSqlDeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
 	[Test]
@@ -29,7 +29,7 @@ public sealed class DataAccessTests
 			{
 				List<WsSqlDeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.ContextList.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
     private IEnumerable<string> GetDeviceTypesEnums() => 
@@ -52,7 +52,7 @@ public sealed class DataAccessTests
 	        {
 		        Assert.That(GetDeviceTypesEnums().Contains(deviceType.Name), Is.EqualTo(true));
 	        }
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -66,7 +66,7 @@ public sealed class DataAccessTests
 		        WsSqlDeviceTypeModel deviceType2 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceTypeNotNullable(deviceType1.Name);
 		        Assert.That(deviceType2, Is.EqualTo(deviceType1));
 	        }
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -80,7 +80,7 @@ public sealed class DataAccessTests
 		        TestContext.WriteLine(device);
 		        //Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
 	        }
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -95,7 +95,7 @@ public sealed class DataAccessTests
 		        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
 		        TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
 	        }
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
     [Test]
@@ -117,7 +117,7 @@ public sealed class DataAccessTests
 			        }
 		        }
 	        }
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
     #endregion

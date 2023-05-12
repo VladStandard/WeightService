@@ -20,24 +20,24 @@ public class DebugHelper
 
     public bool IsDevelop => Config switch
     {
-        WsConfiguration.DevelopAleksandrov => true,
-        WsConfiguration.DevelopMorozov => true,
-        WsConfiguration.DevelopVS => true,
-        WsConfiguration.ReleaseAleksandrov => false,
-        WsConfiguration.ReleaseMorozov => false,
-        WsConfiguration.ReleaseVS => false,
+        WsEnumConfiguration.DevelopAleksandrov => true,
+        WsEnumConfiguration.DevelopMorozov => true,
+        WsEnumConfiguration.DevelopVS => true,
+        WsEnumConfiguration.ReleaseAleksandrov => false,
+        WsEnumConfiguration.ReleaseMorozov => false,
+        WsEnumConfiguration.ReleaseVS => false,
         _ => throw new ArgumentOutOfRangeException()
     };
 
     public bool IsRelease => !IsDevelop;
 
-    public WsConfiguration Config =>
+    public WsEnumConfiguration Config =>
 #if DEVELOPALEKSANDROV
         WsConfiguration.DevelopAleksandrov;
 #elif DEVELOPMOROZOV
         WsConfiguration.DevelopMorozov;
 #elif DEVELOPVS
-        WsConfiguration.DevelopVS;
+        WsEnumConfiguration.DevelopVS;
 #elif RELEASEALEKSANDROV
         WsConfiguration.ReleaseAleksandrov;
 #elif RELEASEMOROZOV

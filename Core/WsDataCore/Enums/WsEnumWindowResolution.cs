@@ -3,13 +3,11 @@
 
 namespace WsDataCore.Enums;
 
-public enum FormatType
+public enum WsEnumWindowResolution
 {
-    Text,
-    JavaScript,
-    Json,
-    Html,
-    Xml,
-    XmlUtf8,
-    XmlUtf16
+    Default,
+    Res800X600,
+    Res1024X768,
+    Res1366Х768,
+    Res1920Х1080
 }

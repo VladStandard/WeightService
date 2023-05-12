@@ -3,11 +3,8 @@
 
 namespace WsDataCore.Enums;
 
-public enum TaskType
+public enum WsEnumTemplateResourceBlackType
 {
-    Default,
-    TaskMassa,
-    TaskMemory,
-    TaskPrint,
-    TaskLabel,
+    Grf,
+    Ttf,
 }

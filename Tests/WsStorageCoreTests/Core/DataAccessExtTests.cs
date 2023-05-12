@@ -33,7 +33,7 @@ public sealed class DataAccessExtTests
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}
 			}
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
 	[Test]
@@ -59,7 +59,7 @@ public sealed class DataAccessExtTests
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}
 			}
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
 	#endregion

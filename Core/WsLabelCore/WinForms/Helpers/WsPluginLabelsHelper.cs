@@ -26,7 +26,7 @@ public sealed class WsPluginLabelsHelper : WsPluginHelperBase
 
     public WsPluginLabelsHelper()
     {
-        TskType = TaskType.TaskLabel;
+        TskType = WsEnumTaskType.TaskLabel;
     }
 
     #endregion

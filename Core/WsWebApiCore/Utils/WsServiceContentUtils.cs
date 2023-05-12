@@ -22,7 +22,7 @@ public static class WsServiceContentUtils
         if (xmlNodes.Count <= 0) return itemsXml;
         foreach (XmlNode xmlNode in xmlNodes)
         {
-            T itemXml = new() { ParseResult = { Status = ParseStatus.Success, Exception = string.Empty } };
+            T itemXml = new() { ParseResult = { Status = WsEnumParseStatus.Success, Exception = string.Empty } };
             if (xmlNode.Name.Equals(nodeIdentity, StringComparison.InvariantCultureIgnoreCase))
             {
                 try
@@ -33,7 +33,7 @@ public static class WsServiceContentUtils
                 }
                 catch (Exception ex)
                 {
-                    itemXml.ParseResult.Status = ParseStatus.Error;
+                    itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                     itemXml.ParseResult.Exception = ex.Message;
                     if (ex.InnerException is not null)
                         itemXml.ParseResult.InnerException = ex.InnerException.Message;
@@ -41,7 +41,7 @@ public static class WsServiceContentUtils
             }
             else
             {
-                itemXml.ParseResult.Status = ParseStatus.Error;
+                itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
                     $"{LocaleCore.WebService.Node} `{nodeIdentity}` {LocaleCore.WebService.With} `{xmlNode.Name}` {LocaleCore.WebService.IsNotIdent}!";
             }
@@ -52,7 +52,7 @@ public static class WsServiceContentUtils
 
     public static void SetItemParseResultException<T>(T itemXml, string xmlPropertyName) where T : WsSqlTableBase
     {
-        itemXml.ParseResult.Status = ParseStatus.Error;
+        itemXml.ParseResult.Status = WsEnumParseStatus.Error;
         itemXml.ParseResult.Exception = string.IsNullOrEmpty(itemXml.ParseResult.Exception)
             ? $"{xmlPropertyName} {LocaleCore.WebService.IsEmpty}!"
             : $"{itemXml.ParseResult.Exception} | {xmlPropertyName} {LocaleCore.WebService.IsEmpty}!";

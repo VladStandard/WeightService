@@ -341,7 +341,7 @@ public static class WsDataFormatUtils
 
     public static string SerializeAsText(string item) => item?.ToString() ?? string.Empty;
 
-    private static ContentResult GetContentResultCore(FormatType formatType, object content, HttpStatusCode statusCode) => new()
+    private static ContentResult GetContentResultCore(WsEnumFormatType formatType, object content, HttpStatusCode statusCode) => new()
     {
         ContentType = DataUtils.GetContentType(formatType),
         StatusCode = (int)statusCode,
@@ -351,29 +351,29 @@ public static class WsDataFormatUtils
     private static ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) =>
         GetContentResultCore(DataUtils.GetFormatType(formatString), content, statusCode);
 
-    private static ContentResult GetContentResult(FormatType formatType, object content, HttpStatusCode statusCode) =>
+    private static ContentResult GetContentResult(WsEnumFormatType formatType, object content, HttpStatusCode statusCode) =>
         GetContentResultCore(formatType, content, statusCode);
 
     public static ContentResult GetContentResult<T>(ISerializable item, string format, HttpStatusCode statusCode) =>
         GetFormatType(format) switch
         {
-            FormatType.Text => GetContentResult(FormatType.Text, SerializeAsText<T>(item), statusCode),
-            FormatType.JavaScript => GetContentResult(FormatType.JavaScript, SerializeAsText<T>(item), statusCode),
-            FormatType.Json => GetContentResult(FormatType.Json, SerializeAsJson(item), statusCode),
-            FormatType.Html => GetContentResult(FormatType.Html, SerializeAsHtml(item), statusCode),
-            FormatType.Xml or FormatType.XmlUtf8 => GetContentResult(FormatType.XmlUtf8, SerializeAsXmlString<T>(item, true, false), statusCode),
-            FormatType.XmlUtf16 => GetContentResult(FormatType.XmlUtf16, SerializeAsXmlString<T>(item, true, true), statusCode),
+            WsEnumFormatType.Text => GetContentResult(WsEnumFormatType.Text, SerializeAsText<T>(item), statusCode),
+            WsEnumFormatType.JavaScript => GetContentResult(WsEnumFormatType.JavaScript, SerializeAsText<T>(item), statusCode),
+            WsEnumFormatType.Json => GetContentResult(WsEnumFormatType.Json, SerializeAsJson(item), statusCode),
+            WsEnumFormatType.Html => GetContentResult(WsEnumFormatType.Html, SerializeAsHtml(item), statusCode),
+            WsEnumFormatType.Xml or WsEnumFormatType.XmlUtf8 => GetContentResult(WsEnumFormatType.XmlUtf8, SerializeAsXmlString<T>(item, true, false), statusCode),
+            WsEnumFormatType.XmlUtf16 => GetContentResult(WsEnumFormatType.XmlUtf16, SerializeAsXmlString<T>(item, true, true), statusCode),
             _ => throw DataUtils.GetArgumentException(nameof(format))
         };
 
-    public static FormatType GetFormatType(string format) => format.ToUpper() switch
+    public static WsEnumFormatType GetFormatType(string format) => format.ToUpper() switch
     {
-        "TEXT" => FormatType.Text,
-        "JAVASCRIPT" => FormatType.JavaScript,
-        "JSON" => FormatType.Json,
-        "HTML" => FormatType.Html,
-        "XML" or "" or "XMLUTF8" => FormatType.Xml,
-        "XMLUTF16" => FormatType.XmlUtf16,
+        "TEXT" => WsEnumFormatType.Text,
+        "JAVASCRIPT" => WsEnumFormatType.JavaScript,
+        "JSON" => WsEnumFormatType.Json,
+        "HTML" => WsEnumFormatType.Html,
+        "XML" or "" or "XMLUTF8" => WsEnumFormatType.Xml,
+        "XMLUTF16" => WsEnumFormatType.XmlUtf16,
         _ => throw DataUtils.GetArgumentException(nameof(format))
     };
 
@@ -391,14 +391,14 @@ public static class WsDataFormatUtils
         return result;
     }
 
-    public static string GetContent<T>(ISerializable item, FormatType formatType, bool isAddEmptyNamespace) => formatType switch
+    public static string GetContent<T>(ISerializable item, WsEnumFormatType formatType, bool isAddEmptyNamespace) => formatType switch
     {
-        FormatType.Text => SerializeAsText<T>(item),
-        FormatType.JavaScript => GetPrettyXmlOrJson(SerializeAsJson(item)),
-        FormatType.Json => GetPrettyXmlOrJson(SerializeAsJson(item)),
-        FormatType.Html => SerializeAsHtml(item),
-        FormatType.Xml or FormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, false)),
-        FormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, true)),
+        WsEnumFormatType.Text => SerializeAsText<T>(item),
+        WsEnumFormatType.JavaScript => GetPrettyXmlOrJson(SerializeAsJson(item)),
+        WsEnumFormatType.Json => GetPrettyXmlOrJson(SerializeAsJson(item)),
+        WsEnumFormatType.Html => SerializeAsHtml(item),
+        WsEnumFormatType.Xml or WsEnumFormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, false)),
+        WsEnumFormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, true)),
         _ => throw DataUtils.GetArgumentException(nameof(formatType))
     };
 

@@ -23,6 +23,6 @@ public sealed class WsDataContextModelTests
 
             Assert.IsTrue(device1.IsExists);
             Assert.IsTrue(device2.IsExists);
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

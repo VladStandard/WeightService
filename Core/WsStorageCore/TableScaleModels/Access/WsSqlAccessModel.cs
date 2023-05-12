@@ -14,7 +14,7 @@ public class WsSqlAccessModel : WsSqlTableBase
 
     [XmlElement] public virtual DateTime LoginDt { get; set; }
     [XmlElement] public virtual byte Rights { get; set; }
-    [XmlIgnore] public virtual AccessRightsEnum RightsEnum => (AccessRightsEnum)Rights;
+    [XmlIgnore] public virtual WsEnumAccessRights RightsEnum => (WsEnumAccessRights)Rights;
 
     /// <summary>
     /// Constructor.
@@ -87,7 +87,7 @@ public class WsSqlAccessModel : WsSqlTableBase
     {
         base.FillProperties();
         LoginDt = DateTime.Now;
-        Rights = (byte)AccessRightsEnum.None;
+        Rights = (byte)WsEnumAccessRights.None;
     }
 
     #endregion

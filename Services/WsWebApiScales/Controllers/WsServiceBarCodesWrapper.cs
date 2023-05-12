@@ -156,7 +156,7 @@ public sealed class WsServiceBarCodesWrapper : WsServiceControllerBase
             NewResponse1CFromQuery(WsServiceSqlQueriesBarcodes.FindBottom, new("VALUE_BOTTOM", barcodeBottom.GetValue()), 
                 format, isDebug, SessionFactory), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBarcodeBottom, 
-            requestStampDt, WsDataFormatUtils.GetContent<WsSqlBarcodeBottomModel>(barcodeBottom, FormatType.XmlUtf8, true),
+            requestStampDt, WsDataFormatUtils.GetContent<WsSqlBarcodeBottomModel>(barcodeBottom, WsEnumFormatType.XmlUtf8, true),
             result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }
@@ -173,7 +173,7 @@ public sealed class WsServiceBarCodesWrapper : WsServiceControllerBase
             NewResponse1CFromQuery(WsServiceSqlQueriesBarcodes.FindRight, new("VALUE_RIGHT", barcodeRight.GetValue()), 
                 format, isDebug, SessionFactory), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBarcodeRight, 
-            requestStampDt, WsDataFormatUtils.GetContent<WsSqlBarcodeRightModel>(barcodeRight, FormatType.XmlUtf8, true),
+            requestStampDt, WsDataFormatUtils.GetContent<WsSqlBarcodeRightModel>(barcodeRight, WsEnumFormatType.XmlUtf8, true),
             result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }
@@ -190,7 +190,7 @@ public sealed class WsServiceBarCodesWrapper : WsServiceControllerBase
             NewResponse1CFromQuery(WsServiceSqlQueriesBarcodes.FindTop, new("VALUE_TOP", barcodeTop.GetValue()), 
                 format, isDebug, SessionFactory), format);
         LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBarcodeTop,
-            requestStampDt, WsDataFormatUtils.GetContent<WsSqlBarcodeTopModel>(barcodeTop, FormatType.XmlUtf8, true),
+            requestStampDt, WsDataFormatUtils.GetContent<WsSqlBarcodeTopModel>(barcodeTop, WsEnumFormatType.XmlUtf8, true),
             result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }

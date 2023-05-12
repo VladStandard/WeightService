@@ -13,7 +13,7 @@ public sealed class WsJsonSettingsFileModelTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             //
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
     #endregion

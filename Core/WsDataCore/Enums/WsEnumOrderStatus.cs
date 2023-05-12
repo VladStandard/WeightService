@@ -1,0 +1,13 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+namespace WsDataCore.Enums;
+
+public enum WsEnumOrderStatus
+{
+    New = 0,
+    InProgress = 1,
+    Paused = 2,
+    Performed = 3,
+    Canceled = 4
+}

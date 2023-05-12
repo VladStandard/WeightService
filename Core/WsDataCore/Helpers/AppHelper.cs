@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Security.Principal;
-using WsDataCore.Models;
+using WsDataCore.Enums;
 
 namespace WsDataCore.Helpers;
 
@@ -41,8 +41,8 @@ public sealed class AppHelper : BaseViewModel
 		return result;
 	}
 
-	public string GetCurrentVersion(AppVerCountDigitsEnum countDigits, 
-		List<AppVerStringFormatEnum>? stringFormats = null, Version? version = null)
+	public string GetCurrentVersion(WsEnumAppVerCountDigits countDigits, 
+		List<WsEnumAppVerStringFormat>? stringFormats = null, Version? version = null)
 	{
 		if (version is null)
 			version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -51,12 +51,12 @@ public sealed class AppHelper : BaseViewModel
 		string version3 = string.Empty;
 		string version4 = string.Empty;
 		if (stringFormats is null || stringFormats.Count == 0)
-			stringFormats = new() { AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2 };
+			stringFormats = new() { WsEnumAppVerStringFormat.Use1, WsEnumAppVerStringFormat.Use2, WsEnumAppVerStringFormat.Use2 };
 
-		AppVerStringFormatEnum formatMajor = stringFormats[0];
-		AppVerStringFormatEnum formatMinor = AppVerStringFormatEnum.AsString;
-		AppVerStringFormatEnum formatBuild = AppVerStringFormatEnum.AsString;
-		AppVerStringFormatEnum formatRevision = AppVerStringFormatEnum.AsString;
+		WsEnumAppVerStringFormat formatMajor = stringFormats[0];
+		WsEnumAppVerStringFormat formatMinor = WsEnumAppVerStringFormat.AsString;
+		WsEnumAppVerStringFormat formatBuild = WsEnumAppVerStringFormat.AsString;
+		WsEnumAppVerStringFormat formatRevision = WsEnumAppVerStringFormat.AsString;
 		if (stringFormats.Count > 1)
 			formatMinor = stringFormats[1];
 		if (stringFormats.Count > 2)
@@ -73,9 +73,9 @@ public sealed class AppHelper : BaseViewModel
 		version2 = $"{major}.{minor}";
 		version1 = $"{major}";
 
-		return countDigits == AppVerCountDigitsEnum.Use1
-			? version1 : countDigits == AppVerCountDigitsEnum.Use2
-				? version2 : countDigits == AppVerCountDigitsEnum.Use3
+		return countDigits == WsEnumAppVerCountDigits.Use1
+			? version1 : countDigits == WsEnumAppVerCountDigits.Use2
+				? version2 : countDigits == WsEnumAppVerCountDigits.Use3
 					? version3 : version4;
 	}
 
@@ -94,14 +94,14 @@ public sealed class AppHelper : BaseViewModel
 	/// <param name="input"></param>
 	/// <param name="format"></param>
 	/// <returns></returns>
-	private string GetCurrentVersionFormat(int input, AppVerStringFormatEnum format)
+	private string GetCurrentVersionFormat(int input, WsEnumAppVerStringFormat format)
 	{
 		return format switch
 		{
-			AppVerStringFormatEnum.Use1 => $"{input:D1}",
-			AppVerStringFormatEnum.Use2 => $"{input:D2}",
-			AppVerStringFormatEnum.Use3 => $"{input:D3}",
-			AppVerStringFormatEnum.Use4 => $"{input:D4}",
+			WsEnumAppVerStringFormat.Use1 => $"{input:D1}",
+			WsEnumAppVerStringFormat.Use2 => $"{input:D2}",
+			WsEnumAppVerStringFormat.Use3 => $"{input:D3}",
+			WsEnumAppVerStringFormat.Use4 => $"{input:D4}",
 			_ => $"{input:D}"
         };
 	}

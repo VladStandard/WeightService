@@ -181,13 +181,13 @@ public sealed class WsSqlContextManagerHelper
     {
         switch (DebugHelper.Instance.Config)
         {
-            case WsConfiguration.DevelopAleksandrov:
-            case WsConfiguration.DevelopMorozov:
-            case WsConfiguration.ReleaseAleksandrov:
-            case WsConfiguration.ReleaseMorozov:
+            case WsEnumConfiguration.DevelopAleksandrov:
+            case WsEnumConfiguration.DevelopMorozov:
+            case WsEnumConfiguration.ReleaseAleksandrov:
+            case WsEnumConfiguration.ReleaseMorozov:
                 return;
-            case WsConfiguration.DevelopVS:
-            case WsConfiguration.ReleaseVS:
+            case WsEnumConfiguration.DevelopVS:
+            case WsEnumConfiguration.ReleaseVS:
                 break;
         }
 

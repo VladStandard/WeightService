@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsDataCore.Enums;
+
 namespace WsLabelCoreTests;
 
 public sealed class DataCoreHelper
@@ -249,7 +251,7 @@ public sealed class DataCoreHelper
 		{
 			case WsSqlAccessModel access:
 				access.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-				access.Rights.Returns((byte)AccessRightsEnum.None);
+				access.Rights.Returns((byte)WsEnumAccessRights.None);
 				access.LoginDt.Returns(DateTime.Now);
 				break;
 			case WsSqlAppModel app:

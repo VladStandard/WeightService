@@ -10,13 +10,13 @@ public class SerializeDeprecatedModel<T> where T : new()
 
     public static ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
 
-    private static string GetContentType(FormatType formatType) => formatType switch
+    private static string GetContentType(WsEnumFormatType formatType) => formatType switch
     {
-        FormatType.Text => "application/text",
-        FormatType.JavaScript => "application/js",
-        FormatType.Json => "application/json",
-        FormatType.Html => "application/html",
-        FormatType.Xml => "application/xml",
+        WsEnumFormatType.Text => "application/text",
+        WsEnumFormatType.JavaScript => "application/js",
+        WsEnumFormatType.Json => "application/json",
+        WsEnumFormatType.Html => "application/html",
+        WsEnumFormatType.Xml => "application/xml",
         _ => throw GetArgumentException(nameof(formatType)),
     };
 

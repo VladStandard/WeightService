@@ -3,9 +3,15 @@
 
 namespace WsDataCore.Enums;
 
-public enum ServiceLogDirection
+public enum WsEnumDefaultSetting
 {
-    Request,
-    Response,
-    MetaData,
+    All,
+    ComPortName,
+    SendTimeout,
+    ReceiveTimeout,
+    ZebraTcpAddress,
+    ZebraTcpPort,
+    Description,
+    Guid,
+    ConnectionString
 }

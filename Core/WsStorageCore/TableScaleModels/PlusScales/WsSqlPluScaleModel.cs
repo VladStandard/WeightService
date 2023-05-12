@@ -43,11 +43,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(IsActive)}: {IsActive}. " +
-        $"{nameof(Plu)}: {Plu}. " +
-        $"{nameof(Scale)}: {Scale.Description}. ";
+    public override string ToString() => $"{IsMarked} | {IsActive} | {Plu} | {Scale}";
 
     public override bool Equals(object obj)
     {

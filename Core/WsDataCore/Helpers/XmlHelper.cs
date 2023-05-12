@@ -24,14 +24,14 @@ public class XmlHelper
 	/// <param name="inputUri"></param>
 	/// <param name="elements"></param>
 	/// <param name="value"></param>
-	public void Checks(string inputUri, Collection<XmlTag> elements, string? value = null)
+	public void Checks(string inputUri, Collection<WsXmlTag> elements, string? value = null)
 	{
 		if (!File.Exists(inputUri))
 			throw new FileNotFoundException(@"FileName is not exists!");
 		if (string.IsNullOrEmpty(inputUri))
 			throw new ArgumentNullException(inputUri);
 
-		foreach (XmlTag elementName in elements)
+		foreach (WsXmlTag elementName in elements)
 		{
 			if (string.IsNullOrEmpty(elementName.ElementName))
 				throw new ArgumentNullException(elementName.ElementName);
@@ -51,7 +51,7 @@ public class XmlHelper
 	/// <param name="elements"></param>
 	/// <param name="getValueFromName"></param>
 	/// <returns></returns>
-	public ResultXmlRead Read(string inputUri, Collection<XmlTag> elements, string? getValueFromName = null)
+	public ResultXmlRead Read(string inputUri, Collection<WsXmlTag> elements, string? getValueFromName = null)
 	{
 		Collection<string> str = new();
 		string value = string.Empty;
@@ -75,16 +75,16 @@ public class XmlHelper
 	/// <param name="getValueFromName"></param>
 	/// <param name="value"></param>
 	/// <param name="str"></param>
-    private void ReadInside(XmlTextReader xmlReader, Collection<XmlTag> elements, string getValueFromName, ref string value,
+    private void ReadInside(XmlTextReader xmlReader, Collection<WsXmlTag> elements, string getValueFromName, ref string value,
 		Collection<string> str)
 	{
-		XmlTag? elementCur = null;
+		WsXmlTag? elementCur = null;
 		string? attr = null;
 
-		Collection<XmlTag> elementsTrim = new();
+		Collection<WsXmlTag> elementsTrim = new();
 		if (elements.Count > 0)
 		{
-			foreach (XmlTag element in elements)
+			foreach (WsXmlTag element in elements)
 			{
 				if (elementCur is null)
 					elementCur = element;
@@ -182,7 +182,7 @@ public class XmlHelper
 	/// <param name="key"></param>
 	/// <param name="value"></param>
 	/// <returns></returns>
-	public ResultXmlRead Write(string fileName, Collection<XmlTag> elements, string key, string value)
+	public ResultXmlRead Write(string fileName, Collection<WsXmlTag> elements, string key, string value)
 	{
 		StringBuilder sb = new();
 		// Проверки.

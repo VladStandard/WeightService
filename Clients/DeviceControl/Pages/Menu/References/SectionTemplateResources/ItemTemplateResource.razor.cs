@@ -66,7 +66,7 @@ public sealed partial class ItemTemplateResource : RazorComponentItemBase<WsSqlT
 
     private bool IsNotBlackType(string type)
     {
-        foreach (TemplateResourceBlackType value in Enum.GetValues(typeof(TemplateResourceBlackType)))
+        foreach (WsEnumTemplateResourceBlackType value in Enum.GetValues(typeof(WsEnumTemplateResourceBlackType)))
         {
             if (type.Equals(value.ToString(), StringComparison.InvariantCultureIgnoreCase))
                 return false;

@@ -74,41 +74,41 @@ public class WsDataTestsHelper
         TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
-    public void AssertAction(Action action, bool isShowSql, List<WsConfiguration> publishTypes)
+    public void AssertAction(Action action, bool isShowSql, List<WsEnumConfiguration> publishTypes)
     {
         Assert.DoesNotThrow(() =>
         {
-            if (publishTypes.Contains(WsConfiguration.DevelopAleksandrov))
+            if (publishTypes.Contains(WsEnumConfiguration.DevelopAleksandrov))
             {
                 SetupDevelopAleksandrov(isShowSql);
                 action();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(WsConfiguration.DevelopMorozov))
+            if (publishTypes.Contains(WsEnumConfiguration.DevelopMorozov))
             {
                 SetupDevelopMorozov(isShowSql);
                 action();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(WsConfiguration.DevelopVS))
+            if (publishTypes.Contains(WsEnumConfiguration.DevelopVS))
             {
                 SetupDevelopVs(isShowSql);
                 action();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(WsConfiguration.ReleaseAleksandrov))
+            if (publishTypes.Contains(WsEnumConfiguration.ReleaseAleksandrov))
             {
                 SetupReleaseAleksandrov(isShowSql);
                 action();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(WsConfiguration.ReleaseMorozov))
+            if (publishTypes.Contains(WsEnumConfiguration.ReleaseMorozov))
             {
                 SetupReleaseMorozov(isShowSql);
                 action();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(WsConfiguration.ReleaseVS))
+            if (publishTypes.Contains(WsEnumConfiguration.ReleaseVS))
             {
                 SetupReleaseVs(isShowSql);
                 action();
@@ -140,7 +140,7 @@ public class WsDataTestsHelper
             List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 5, true);
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
     public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
@@ -154,7 +154,7 @@ public class WsDataTestsHelper
             List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 10, true, true);
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
     public void AssertSqlTablesValidate<T>(T item, bool assertResult) where T : class, new()
@@ -241,7 +241,7 @@ public class WsDataTestsHelper
         }
     }
 
-    public void AssertGetList<T>(WsSqlCrudConfigModel sqlCrudConfig, List<WsConfiguration> publishTypes, bool isGreater = true)
+    public void AssertGetList<T>(WsSqlCrudConfigModel sqlCrudConfig, List<WsEnumConfiguration> publishTypes, bool isGreater = true)
         where T : WsSqlTableBase, new()
     {
         AssertAction(() =>
@@ -279,7 +279,7 @@ public class WsDataTestsHelper
         {
             case WsSqlAccessModel access:
                 access.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-                access.Rights.Returns((byte)AccessRightsEnum.None);
+                access.Rights.Returns((byte)WsEnumAccessRights.None);
                 access.LoginDt.Returns(DateTime.Now);
                 break;
             case WsSqlAppModel app:

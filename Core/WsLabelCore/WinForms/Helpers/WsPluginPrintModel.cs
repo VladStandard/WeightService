@@ -32,7 +32,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
 
     public WsPluginPrintModel()
     {
-        TskType = TaskType.TaskPrint;
+        TskType = WsEnumTaskType.TaskPrint;
         LabelPrintedCount = 0;
     }
 

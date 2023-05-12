@@ -29,7 +29,7 @@ public sealed partial class KneadingUserControl : UserControlBase
     public override void RefreshAction()
     {
         base.RefreshAction();
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, () =>
+        WsActionUtils.ActionTryCatchFinally(this, () =>
         {
             if (!UserSession.PluScale.IdentityValueUid.Equals(PreviousPluScaleUid))
             {
@@ -101,7 +101,7 @@ public sealed partial class KneadingUserControl : UserControlBase
     {
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
-            UserSession.RotateProductDate(DirectionEnum.Right);
+            UserSession.RotateProductDate(WsEnumDirection.Right);
             RefreshControlsText();
         });
     }
@@ -110,7 +110,7 @@ public sealed partial class KneadingUserControl : UserControlBase
     {
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
-            UserSession.RotateProductDate(DirectionEnum.Left);
+            UserSession.RotateProductDate(WsEnumDirection.Left);
             RefreshControlsText();
         });
     }

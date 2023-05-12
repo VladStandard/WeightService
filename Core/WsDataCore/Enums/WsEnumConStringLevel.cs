@@ -3,9 +3,13 @@
 
 namespace WsDataCore.Enums;
 
-public enum ParseStatus
+/// <summary>
+/// Уровень подробности строки подключения.
+/// </summary>
+public enum WsEnumConStringLevel
 {
-    Unknown,
-    Success,
-    Error
+    Basic,
+    Low,
+    Middle,
+    Full
 }

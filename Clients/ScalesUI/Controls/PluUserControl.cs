@@ -1,5 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+#nullable enable
 
 namespace ScalesUI.Controls;
 
@@ -28,28 +29,28 @@ public sealed partial class PluUserControl : UserControlBase
     {
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
-            if (!UserSession.Scale.IdentityValueId.Equals(LastScaleId))
+            if (!Equals(UserSession.Scale.IdentityValueId, LastScaleId))
             {
                 LastScaleId = UserSession.Scale.IdentityValueId;
-                //UserSession.ContextCache.Load(WsSqlTableName.ViewPlusScales);
+                // Обновить кэш.
+                UserSession.ContextCache.Load(WsSqlTableName.ViewPlusScales);
                 UserSession.ContextCache.Load(WsSqlTableName.ViewPluStorageMethods);
-                LoadFormControlsText();
+                // Обновить метки.
+                labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
+                buttonLeftRoll.Text = LocaleCore.Buttons.Previous;
+                buttonRightRoll.Text = LocaleCore.Buttons.Next;
             }
-            SetupLayoutPanel();
+            // Настроить контролы.
+            SetupControls();
         });
     }
 
-    private void LoadFormControlsText()
+    private WsControlPluModel?[,] CreateControls()
     {
-        labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
-        buttonLeftRoll.Text = LocaleCore.Buttons.Previous;
-        buttonRightRoll.Text = LocaleCore.Buttons.Next;
-    }
-
-    private WsControlPluModel[,] CreateControls()
-    {
-        List<WsSqlViewPluScaleModel> plus = UserSession.GetCurrentPlus();
-        WsControlPluModel[,] controls = new WsControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
+        List<WsSqlViewPluScaleModel> plus = UserSession.GetCurrentPlus().ToList();
+        WsControlPluModel?[,] controls = new WsControlPluModel?[0, 0];
+        if (!plus.Any()) return controls;
+        controls = new WsControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < UserSession.PageRowCount; ++rowNumber)
@@ -211,10 +212,8 @@ public sealed partial class PluUserControl : UserControlBase
     {
         int saveCurrentPage = UserSession.PageNumber;
         UserSession.PageNumber = UserSession.PageNumber > 0 ? UserSession.PageNumber - 1 : 0;
-        if (UserSession.PageNumber == saveCurrentPage)
-            return;
-
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, SetupLayoutPanel, () => { layoutPanel.Visible = true; }); 
+        if (UserSession.PageNumber == saveCurrentPage) return;
+        WsActionUtils.ActionTryCatchFinally(this, SetupControls, () => { layoutPanel.Visible = true; }); 
     }
 
     private void ButtonNextRoll_Click(object sender, EventArgs e)
@@ -224,10 +223,8 @@ public sealed partial class PluUserControl : UserControlBase
         UserSession.PageNumber = UserSession.PageNumber < countPage ? UserSession.PageNumber + 1 : countPage;
         if (UserSession.PageNumber > countPage)
             UserSession.PageNumber = countPage - 1;
-        if (UserSession.PageNumber == saveCurrentPage)
-            return;
-
-        WsActionUtils.ActionTryCatchFinally(this, UserSession.Scale, SetupLayoutPanel, () => { layoutPanel.Visible = true; });
+        if (UserSession.PageNumber == saveCurrentPage) return;
+        WsActionUtils.ActionTryCatchFinally(this, SetupControls, () => { layoutPanel.Visible = true; });
     }
 
     private void SetupPanel(ushort columnCount, ushort rowCount)
@@ -236,8 +233,8 @@ public sealed partial class PluUserControl : UserControlBase
         layoutPanel.RowStyles.Clear();
         layoutPanel.ColumnCount = 0;
         layoutPanel.RowCount = 0;
-        AddColumns(layoutPanel, columnCount);
-        AddRows(layoutPanel, rowCount);
+        if (columnCount > 0) AddColumns(layoutPanel, columnCount);
+        if (rowCount > 0) AddRows(layoutPanel, rowCount);
     }
 
     private void AddColumns(TableLayoutPanel panel, ushort columnCount)
@@ -263,68 +260,60 @@ public sealed partial class PluUserControl : UserControlBase
         }
     }
 
-    private void ClearPanel()
+    /// <summary>
+    /// Очистить контролы.
+    /// </summary>
+    private void ClearControls()
     {
-        layoutPanel.Visible = false;
-        foreach (object control in layoutPanel.Controls)
-        {
-            if (control is TableLayoutPanel subPanel)
-            {
-                layoutPanelActions = subPanel;
-                layoutPanelActions.Parent = null;
-            }
-        }
+        //foreach (object control in layoutPanel.Controls)
+        //{
+        //    if (control is TableLayoutPanel subPanel)
+        //    {
+        //        layoutPanelActions = subPanel;
+        //        layoutPanelActions.Parent = null;
+        //    }
+        //}
         layoutPanel.Controls.Clear();
     }
 
     /// <summary>
-    /// Выровнять панели.
+    /// Настроить контролы.
     /// </summary>
-    private void SetupLayoutPanel()
+    private void SetupControls()
     {
         layoutPanel.Visible = false;
         labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PageNumber}";
 
-        WsControlPluModel[,] controls = CreateControls();
-
-        ClearPanel();
+        // Очистить контролы.
+        ClearControls();
+        
+        WsControlPluModel?[,] controls = CreateControls();
         ushort columnCount = (ushort)(controls.GetUpperBound(0) + 1);
         ushort rowCount = (ushort)(controls.GetUpperBound(1) + 1);
         SetupPanel(columnCount, rowCount);
-
-        for (ushort column = 0; column < columnCount; column++)
+        // Проверка на наличие ПЛУ линии.
+        if (!Equals(columnCount, (ushort)0) && !Equals(rowCount, (ushort)0))
         {
-            for (ushort row = 0; row < rowCount; row++)
+            for (ushort column = 0; column < columnCount; column++)
             {
-                WsControlPluModel control = controls[column, row];
-                if (control is not null)
+                for (ushort row = 0; row < rowCount; row++)
                 {
-                    layoutPanel.Controls.Add(control.ButtonPlu, column, row);
+                    if (controls[column, row] is { } control)
+                        layoutPanel.Controls.Add(control.ButtonPlu, column, row);
                 }
             }
         }
 
-        if (layoutPanelActions is not null)
-        {
-            AddRows(layoutPanel, 1);
-            layoutPanelActions.Parent = layoutPanel;
-            layoutPanel.SetColumn(layoutPanelActions, 0);
-            layoutPanel.SetRow(layoutPanelActions, layoutPanel.RowCount - 1);
-            layoutPanel.SetColumnSpan(layoutPanelActions, layoutPanel.ColumnCount);
-            layoutPanelActions.Dock = DockStyle.Fill;
-        }
+        //AddRows(layoutPanel, 1);
+        layoutPanelActions.Parent = layoutPanel;
+        layoutPanel.SetColumn(layoutPanelActions, 0);
+        if (rowCount > 0) layoutPanel.SetRow(layoutPanelActions, layoutPanel.RowCount - 1);
+        if (columnCount > 0) layoutPanel.SetColumnSpan(layoutPanelActions, layoutPanel.ColumnCount);
+        layoutPanelActions.Dock = DockStyle.Fill;
 
         layoutPanel.Visible = true;
 
-        SetupSizes(controls);
-    }
-
-    private void SetupSizes(WsControlPluModel[,] controls)
-    {
-        foreach (WsControlPluModel control in controls)
-        {
-            control?.SetupSizes();
-        }
+        foreach (WsControlPluModel? control in controls) control?.SetupSizes();
     }
 
     #endregion

@@ -30,7 +30,7 @@ public static class WsActionUtils
         AccessManager.AccessItem.Save(scaleScreenShot);
     }
 
-    public static void ActionTryCatchFinally(IWin32Window win32Window, WsSqlScaleModel scale, Action action, Action actionFinally)
+    public static void ActionTryCatchFinally(IWin32Window win32Window, Action action, Action actionFinally)
     {
         try
         {
@@ -38,7 +38,7 @@ public static class WsActionUtils
         }
         catch (Exception ex)
         {
-            ActionMakeScreenShot(win32Window, scale);
+            ActionMakeScreenShot(win32Window, WsUserSessionHelper.Instance.Scale);
             WsWpfUtils.CatchException(ex, win32Window, true, true);
         }
         finally

@@ -92,28 +92,28 @@ public class WsSqlAuthenticationModel
     /// </summary>
     /// <param name="conStringLevel"></param>
     /// <returns></returns>
-    public string AsString(ConStringLevelEnum conStringLevel)
+    public string AsString(WsEnumConStringLevel conStringLevel)
     {
         if (Port <= 0)
         {
-            if (conStringLevel == ConStringLevelEnum.Full)
+            if (conStringLevel == WsEnumConStringLevel.Full)
                 return $@"Data Source={Server}; Initial Catalog={Database}; Persist Security Info={PersistSecurityInfo}; Encrypt={Encrypt}; {GetStringIntegratedSecurity()}";
-            if (conStringLevel == ConStringLevelEnum.Middle)
+            if (conStringLevel == WsEnumConStringLevel.Middle)
                 return $@"Server={Server}; Database={Database}; {GetStringIntegratedSecurity()}";
-            if (conStringLevel == ConStringLevelEnum.Low)
+            if (conStringLevel == WsEnumConStringLevel.Low)
                 return $@"Server={Server}; Database={Database}; {GetStringIntegratedSecurity(true)}";
-            if (conStringLevel == ConStringLevelEnum.Basic)
+            if (conStringLevel == WsEnumConStringLevel.Basic)
                 return $@"Server={Server}; Database={Database}";
         }
         else
         {
-            if (conStringLevel == ConStringLevelEnum.Full)
+            if (conStringLevel == WsEnumConStringLevel.Full)
                 return $@"Data Source={Server},{Port}; Initial Catalog={Database}; Persist Security Info={PersistSecurityInfo}; Encrypt={Encrypt}; {GetStringIntegratedSecurity()}";
-            if (conStringLevel == ConStringLevelEnum.Middle)
+            if (conStringLevel == WsEnumConStringLevel.Middle)
                 return $@"Server={Server},{Port}; Database={Database}; {GetStringIntegratedSecurity()}";
-            if (conStringLevel == ConStringLevelEnum.Low)
+            if (conStringLevel == WsEnumConStringLevel.Low)
                 return $@"Server={Server}; Database={Database}; {GetStringIntegratedSecurity(true)}";
-            if (conStringLevel == ConStringLevelEnum.Basic)
+            if (conStringLevel == WsEnumConStringLevel.Basic)
                 return $@"Server={Server}; Database={Database}";
         }
         return string.Empty;

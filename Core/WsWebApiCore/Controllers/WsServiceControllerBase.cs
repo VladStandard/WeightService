@@ -38,7 +38,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="stampDt"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    private static void LogToFileCore(ServiceLogDirection serviceLogType, string appName, string api, DateTime stampDt, string text)
+    private static void LogToFileCore(WsEnumServiceLogDirection serviceLogType, string appName, string api, DateTime stampDt, string text)
     {
         string dtString = StrUtils.FormatDtEng(stampDt, true).Replace(':', '.');
         // Get directory name.
@@ -57,9 +57,9 @@ public class WsServiceControllerBase : ControllerBase
         // Get file name.
         string filePath = serviceLogType switch
         {
-            ServiceLogDirection.Request => @$"{directory}\{dtString}_request.txt",
-            ServiceLogDirection.Response => @$"{directory}\{dtString}_response.txt",
-            ServiceLogDirection.MetaData => @$"{directory}\{dtString}_metadata.txt",
+            WsEnumServiceLogDirection.Request => @$"{directory}\{dtString}_request.txt",
+            WsEnumServiceLogDirection.Response => @$"{directory}\{dtString}_response.txt",
+            WsEnumServiceLogDirection.MetaData => @$"{directory}\{dtString}_metadata.txt",
             _ => @$"{directory}\{dtString}_default.txt"
         };
 
@@ -99,7 +99,7 @@ public class WsServiceControllerBase : ControllerBase
         int countErrors = WsServiceContentUtils.GetAttributeValueAsInt(responseData, nameof(WsResponse1CShortModel.ErrorsCount));
 
         // Log into DB.
-        ContextManager.ContextItem.SaveLogWebService(requestStampDt, requestData, responseStampDt, responseData, LogType.Information,
+        ContextManager.ContextItem.SaveLogWebService(requestStampDt, requestData, responseStampDt, responseData, WsEnumLogType.Information,
             $"{host}/{url}", "", "", format, countAll, countSuccess, countErrors);
 
         // Add meta data.
@@ -117,8 +117,8 @@ public class WsServiceControllerBase : ControllerBase
         metaDataResponse += "Response body:" + Environment.NewLine;
 
         // Логирование в файл.
-        LogToFileCore(ServiceLogDirection.Request, appName, url, requestStampDt, metaDataRequest + requestData);
-        LogToFileCore(ServiceLogDirection.Response, appName, url, responseStampDt, metaDataResponse + responseData);
+        LogToFileCore(WsEnumServiceLogDirection.Request, appName, url, requestStampDt, metaDataRequest + requestData);
+        LogToFileCore(WsEnumServiceLogDirection.Response, appName, url, responseStampDt, metaDataResponse + responseData);
 
         // Log memory into DB.
         //PluginMemory.MemorySize.Execute();
@@ -905,7 +905,7 @@ public class WsServiceControllerBase : ControllerBase
         if (pluXml is { IsGroup: false, Number: >0 }) return true;
         if (isGenerateException)
         {
-            pluXml.ParseResult.Status = ParseStatus.Error;
+            pluXml.ParseResult.Status = WsEnumParseStatus.Error;
             pluXml.ParseResult.Exception =
                 $"{LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
                 $"{LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} {LocaleCore.WebService.FieldCode} '{pluXml.Code}'";
@@ -1063,7 +1063,7 @@ public class WsServiceControllerBase : ControllerBase
         // ПЛУ не найдена.
         if (plu1CFkDb.IsNotExists)
         {
-            itemXml.ParseResult.Status = ParseStatus.Error;
+            itemXml.ParseResult.Status = WsEnumParseStatus.Error;
             itemXml.ParseResult.Exception =
                 $"{LocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
         }
@@ -1072,7 +1072,7 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (!Equals(pluXml.Uid1C, plu1CFkDb.Plu.Uid1C))
             {
-                itemXml.ParseResult.Status = ParseStatus.Error;
+                itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
                     $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
@@ -1081,7 +1081,7 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (!Equals(pluCharacteristicXml.NomenclatureGuid, plu1CFkDb.Plu.Uid1C))
             {
-                itemXml.ParseResult.Status = ParseStatus.Error;
+                itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
                     $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
@@ -1089,7 +1089,7 @@ public class WsServiceControllerBase : ControllerBase
         // Загрузка ПЛУ выключена.
         if (!plu1CFkDb.IsEnabled)
         {
-            itemXml.ParseResult.Status = ParseStatus.Error;
+            itemXml.ParseResult.Status = WsEnumParseStatus.Error;
             itemXml.ParseResult.Exception =
                 $"{LocaleCore.WebService.FieldNomenclatureIsDenyForLoad} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
         }

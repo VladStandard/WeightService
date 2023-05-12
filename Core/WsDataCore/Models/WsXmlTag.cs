@@ -3,13 +3,13 @@
 
 namespace WsDataCore.Models;
 
-public class XmlTag
+public class WsXmlTag
 {
 	public string ElementName { get; }
 	public string? AttributeName { get; }
 	public string? AttributeValue { get; }
 
-	public XmlTag(string elementName, string? attributeName = null, string? attributeValue = null)
+	public WsXmlTag(string elementName, string? attributeName = null, string? attributeValue = null)
 	{
 		ElementName = elementName;
 		AttributeName = attributeName;

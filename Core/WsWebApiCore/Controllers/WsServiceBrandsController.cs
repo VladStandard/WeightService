@@ -75,10 +75,10 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
                 WsSqlBrandModel brandXml = record.Item;
                 switch (brandXml.ParseResult.Status)
                 {
-                    case ParseStatus.Success:
+                    case WsEnumParseStatus.Success:
                         AddResponse1CBrand(response, brandXml);
                         break;
-                    case ParseStatus.Error:
+                    case WsEnumParseStatus.Error:
                         AddResponseException(response, brandXml);
                         break;
                 }

@@ -10,7 +10,7 @@ public class WsPluginHelperBase : HelperBase
     protected WsPluginModel ReopenItem { get; }
     protected WsPluginModel RequestItem { get; }
     protected WsPluginModel ResponseItem { get; }
-    protected TaskType TskType { get; set; }
+    protected WsEnumTaskType TskType { get; set; }
     protected int ReopenCounter => ReopenItem.Counter;
     protected int RequestCounter => RequestItem.Counter;
     protected int ResponseCounter => ResponseItem.Counter;
@@ -21,7 +21,7 @@ public class WsPluginHelperBase : HelperBase
 
     protected WsPluginHelperBase()
     {
-        TskType = TaskType.Default;
+        TskType = WsEnumTaskType.Default;
         ReopenItem = new() { Config = new(waitExecute: 0_250, waitClose: 0_250) };
         RequestItem = new() { Config = new(waitExecute: 0_250, waitClose: 0_250) };
         ResponseItem = new() { Config = new(waitExecute: 0_250, waitClose: 0_250) };

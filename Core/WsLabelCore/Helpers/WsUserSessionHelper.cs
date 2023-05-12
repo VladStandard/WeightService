@@ -59,9 +59,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    private WeighingSettingsModel _weighingSettings;
+    private WsWeighingSettingsModel _weighingSettings;
     [XmlElement]
-    public WeighingSettingsModel WeighingSettings
+    public WsWeighingSettingsModel WeighingSettings
     {
         get => _weighingSettings;
         set
@@ -284,18 +284,18 @@ public sealed class WsUserSessionHelper : BaseViewModel
         ProductSeries.Load();
     }
 
-    public void RotateProductDate(DirectionEnum direction)
+    public void RotateProductDate(WsEnumDirection direction)
     {
         switch (direction)
         {
-            case DirectionEnum.Left:
+            case WsEnumDirection.Left:
             {
                 ProductDate = ProductDate.AddDays(-1);
                 if (ProductDate < ProductDateMinValue)
                     ProductDate = ProductDateMinValue;
                 break;
             }
-            case DirectionEnum.Right:
+            case WsEnumDirection.Right:
             {
                 ProductDate = ProductDate.AddDays(1);
                 if (ProductDate > ProductDateMaxValue)
@@ -580,7 +580,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
 
         DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(owner,
             LocaleCore.Print.QuestionUseFakeData,
-            true, LogType.Question,
+            true, WsEnumLogType.Question,
             new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
         if (dialogResult is DialogResult.Yes)
         {
@@ -613,7 +613,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             if (Debug.IsDevelop)
             {
                 DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(
-                    LocaleCore.Print.QuestionPrintSendCmd, true, LogType.Question,
+                    LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (dialogResult != DialogResult.Yes)
                     return;
@@ -652,20 +652,18 @@ public sealed class WsUserSessionHelper : BaseViewModel
         //pluLabel.PluWeighing.PluScale = PluScale;
         //pluLabel.PluWeighing.PluScale.Scale = Scale;
         //pluLabel.PluScale.Scale = Scale;
-        string str;
 
-        str = WsDataFormatUtils.SerializeAsXmlString<WsSqlScaleModel>(Scale, true, true);
-        pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlScaleModel>(Scale, true, true);
+        // Пригодится при повторной ошибке сериализации.
+        //string str = WsDataFormatUtils.SerializeAsXmlString<WsSqlScaleModel>(Scale, true, true);
+        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlScaleModel>(Scale, true, true);
+        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluScaleModel>(PluScale, true, true);
+        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluScaleModel>(PluScale, true, true);
+        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluWeighingModel>(PluWeighing, true, true);
+        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluWeighingModel>(PluWeighing, true, true);
+        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluLabelModel>(pluLabel, true, true);
 
-        str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluScaleModel>(PluScale, true, true);
-        pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluScaleModel>(PluScale, true, true);
-
-        str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluWeighingModel>(PluWeighing, true, true);
-        pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluWeighingModel>(PluWeighing, true, true);
-
-        str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluLabelModel>(pluLabel, true, true);
         pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelModel>(pluLabel, true, true);
-
+        
         XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
@@ -723,20 +721,22 @@ public sealed class WsUserSessionHelper : BaseViewModel
     private void SetSqlPublish() =>
         PublishDescription = Debug.Config switch
         {
-            WsConfiguration.DevelopAleksandrov => LocaleCore.Sql.SqlServerDevelopAleksandrov,
-            WsConfiguration.DevelopMorozov => LocaleCore.Sql.SqlServerDevelopMorozov,
-            WsConfiguration.DevelopVS => LocaleCore.Sql.SqlServerVS,
-            WsConfiguration.ReleaseAleksandrov => LocaleCore.Sql.SqlServerReleaseAleksandrov,
-            WsConfiguration.ReleaseMorozov => LocaleCore.Sql.SqlServerReleaseMorozov,
-            WsConfiguration.ReleaseVS => LocaleCore.Sql.SqlServerReleaseVS,
+            WsEnumConfiguration.DevelopAleksandrov => LocaleCore.Sql.SqlServerDevelopAleksandrov,
+            WsEnumConfiguration.DevelopMorozov => LocaleCore.Sql.SqlServerDevelopMorozov,
+            WsEnumConfiguration.DevelopVS => LocaleCore.Sql.SqlServerVS,
+            WsEnumConfiguration.ReleaseAleksandrov => LocaleCore.Sql.SqlServerReleaseAleksandrov,
+            WsEnumConfiguration.ReleaseMorozov => LocaleCore.Sql.SqlServerReleaseMorozov,
+            WsEnumConfiguration.ReleaseVS => LocaleCore.Sql.SqlServerReleaseVS,
             _ => throw new ArgumentOutOfRangeException()
         };
 
-    public List<WsSqlViewPluScaleModel> GetCurrentPlus()
+    public IEnumerable<WsSqlViewPluScaleModel> GetCurrentPlus()
     {
-        IEnumerable<WsSqlViewPluScaleModel> plusSkip = ContextCache.ViewPlusScalesDb.Skip(PageNumber * PageSize);
-        IEnumerable<WsSqlViewPluScaleModel> plusTake = plusSkip.Take(PageSize);
-        return plusTake.ToList();
+        if (Scale.IsNotExists) return new List<WsSqlViewPluScaleModel>();
+        IEnumerable<WsSqlViewPluScaleModel> viewPlusScales = ContextCache.ViewPlusScalesDb.Where(
+            item => Equals(item.ScaleId, (ushort)Scale.IdentityValueId) && item.IsActive);
+        viewPlusScales = viewPlusScales.Skip(PageNumber * PageSize);
+        return viewPlusScales.Take(PageSize);
     }
 
     #endregion

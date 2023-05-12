@@ -8,8 +8,8 @@ public sealed class GetListTests
 {
     private static WsSqlCrudConfigModel SqlCrudConfig => new(false, true, false, true, false);
     private static WsSqlCrudConfigModel SqlCrudConfigFk => new(true, true, false, true, false);
-    private static List<WsConfiguration> Configurations => new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS };
-    private static readonly List<WsConfiguration> ConfigurationsDev = new() { WsConfiguration.DevelopVS };
+    private static List<WsEnumConfiguration> Configurations => new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS };
+    private static readonly List<WsEnumConfiguration> ConfigurationsDev = new() { WsEnumConfiguration.DevelopVS };
 
     [Test]
     public void DataContext_AssertGetList_AccessModel()

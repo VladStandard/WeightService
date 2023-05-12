@@ -3,8 +3,12 @@
 
 namespace WsDataCore.Enums;
 
-public enum TemplateResourceBlackType
+public enum WsEnumScreenResolution
 {
-    Grf,
-    Ttf,
+    FullScreen,
+    Value800x600,
+    Value1024x768,
+    Value1366x768,
+    Value1600x1024,
+    Value1920x1080
 }

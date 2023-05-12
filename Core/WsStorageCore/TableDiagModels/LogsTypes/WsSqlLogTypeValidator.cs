@@ -15,8 +15,8 @@ public sealed class WsSqlLogTypeValidator : WsSqlTableValidator<WsSqlLogTypeMode
     {
         RuleFor(item => item.Number)
             .NotNull()
-            .GreaterThanOrEqualTo((byte)LogType.None)
-            .LessThanOrEqualTo((byte)LogType.Information);
+            .GreaterThanOrEqualTo((byte)WsEnumLogType.None)
+            .LessThanOrEqualTo((byte)WsEnumLogType.Information);
         RuleFor(item => item.Icon)
             .NotEmpty()
             .NotNull();

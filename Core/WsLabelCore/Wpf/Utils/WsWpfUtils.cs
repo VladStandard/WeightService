@@ -33,7 +33,7 @@ public static class WsWpfUtils
     {
         WpfPage.Close();
 
-        WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
+        WpfPage = new(WsEnumPage.MessageBox, false) { Width = 700, Height = 400 };
         WpfPage.MessageBox.Caption = caption;
         WpfPage.MessageBox.Message = message;
         WpfPage.MessageBox.VisibilitySettings = visibilitySettings;
@@ -47,7 +47,7 @@ public static class WsWpfUtils
     {
         WpfPage.Close();
 
-        WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
+        WpfPage = new(WsEnumPage.MessageBox, false) { Width = 700, Height = 400 };
         WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
         WpfPage.MessageBox.Message = message;
         WpfPage.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
@@ -68,7 +68,7 @@ public static class WsWpfUtils
     /// <param name="visibility"></param>
     /// <returns></returns>
     public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog,
-        LogType logType, WsVisibilitySettingsModel visibility)
+        WsEnumLogType logType, WsVisibilitySettingsModel visibility)
     {
         if (isLog)
             ShowNewOperationControlLogType(message, logType);
@@ -76,29 +76,29 @@ public static class WsWpfUtils
     }
 
     public static DialogResult ShowNewOperationControl(string message, bool isLog,
-        LogType logType, WsVisibilitySettingsModel visibility)
+        WsEnumLogType logType, WsVisibilitySettingsModel visibility)
     {
         if (isLog)
             ShowNewOperationControlLogType(message, logType);
         return ShowNew(null, LocaleCore.Scales.OperationControl, message, visibility);
     }
 
-    private static void ShowNewOperationControlLogType(string message, LogType logType,
+    private static void ShowNewOperationControlLogType(string message, WsEnumLogType logType,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         switch (logType)
         {
-            case LogType.Error:
+            case WsEnumLogType.Error:
                 ContextManager.ContextItem.SaveLogErrorWithInfo(message, filePath, lineNumber, memberName);
                 break;
-            case LogType.Question:
+            case WsEnumLogType.Question:
                 ContextManager.ContextItem.SaveLogQuestion(message);
                 break;
-            case LogType.Warning:
+            case WsEnumLogType.Warning:
                 ContextManager.ContextItem.SaveLogWarning(message);
                 break;
-            case LogType.None:
-            case LogType.Information:
+            case WsEnumLogType.None:
+            case WsEnumLogType.Information:
                 ContextManager.ContextItem.SaveLogInformation(message);
                 break;
             default:
@@ -112,7 +112,7 @@ public static class WsWpfUtils
         {
             DialogResult result = ShowNewOperationControl(
                 LocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
-                false, LogType.Information,
+                false, WsEnumLogType.Information,
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
             if (result == DialogResult.Yes)
             {

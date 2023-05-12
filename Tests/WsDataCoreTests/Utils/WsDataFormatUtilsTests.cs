@@ -19,7 +19,7 @@ public sealed class WsDataFormatUtilsTests
             {
                 TestContext.WriteLine(templateResource);
             }
-        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.DevelopVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.DevelopVS });
     }
 
     #endregion

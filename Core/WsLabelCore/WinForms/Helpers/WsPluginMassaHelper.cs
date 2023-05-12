@@ -44,7 +44,7 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
     /// </summary>
     public WsPluginMassaHelper()
     {
-        TskType = TaskType.TaskMassa;
+        TskType = WsEnumTaskType.TaskMassa;
         FieldMassa = new();
         FieldMassaExt = new();
         FieldNettoWeight = new();

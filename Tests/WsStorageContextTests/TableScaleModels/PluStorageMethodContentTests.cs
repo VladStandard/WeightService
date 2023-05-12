@@ -32,6 +32,6 @@ public sealed class PluStorageMethodContentTests
                     WsTestsUtils.DataTests.AssertSqlValidate(resource, true);
             }
 
-        }, false, new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS });
+        }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
 	}
 }

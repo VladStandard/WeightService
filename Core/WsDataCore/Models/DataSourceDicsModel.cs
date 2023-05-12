@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsDataCore.Enums;
+
 namespace WsDataCore.Models;
 
 /// <summary>
@@ -24,7 +26,7 @@ public class DataSourceDicsHelper
         $"{nameof(GetTemplateLanguagesEng)}: {GetTemplateLanguagesEng().Count}. " +
         $"{nameof(GetTemplateLanguagesRus)}: {GetTemplateLanguagesRus().Count}";
 
-    public List<TypeModel<string>> GetTemplateCategories() =>
+    public List<WsEnumTypeModel<string>> GetTemplateCategories() =>
         new()
         {
             new("", ""),
@@ -38,33 +40,33 @@ public class DataSourceDicsHelper
             new("zpl", "zpl")
         };
 
-    public List<TypeModel<AccessRightsEnum>> GetTemplateAccessRights(byte? accessRights = null)
+    public List<WsEnumTypeModel<WsEnumAccessRights>> GetTemplateAccessRights(byte? accessRights = null)
     {
-        List<TypeModel<AccessRightsEnum>> result = new()
+        List<WsEnumTypeModel<WsEnumAccessRights>> result = new()
         {
-            new($"{AccessRightsEnum.None}", AccessRightsEnum.None),
-            new($"{AccessRightsEnum.Read}", AccessRightsEnum.Read),
-            new($"{AccessRightsEnum.Write}", AccessRightsEnum.Write)
+            new($"{WsEnumAccessRights.None}", WsEnumAccessRights.None),
+            new($"{WsEnumAccessRights.Read}", WsEnumAccessRights.Read),
+            new($"{WsEnumAccessRights.Write}", WsEnumAccessRights.Write)
         };
-        if (accessRights >= (byte)AccessRightsEnum.Admin)
-            result.Add(new($"{AccessRightsEnum.Admin}", AccessRightsEnum.Admin));
+        if (accessRights >= (byte)WsEnumAccessRights.Admin)
+            result.Add(new($"{WsEnumAccessRights.Admin}", WsEnumAccessRights.Admin));
         return result;
     }
 
-    public List<TypeModel<Lang>> GetTemplateLanguages() => LocaleCore.Lang switch
+    public List<WsEnumTypeModel<Lang>> GetTemplateLanguages() => LocaleCore.Lang switch
     {
         Lang.English => GetTemplateLanguagesEng(),
         Lang.Russian => GetTemplateLanguagesRus(),
         _ => new()
     };
 
-    private List<TypeModel<Lang>> GetTemplateLanguagesEng() => new()
+    private List<WsEnumTypeModel<Lang>> GetTemplateLanguagesEng() => new()
     {
         new($"{Lang.English}", Lang.English),
         new($"{Lang.Russian}", Lang.Russian)
     };
 
-    private List<TypeModel<Lang>> GetTemplateLanguagesRus() => new()
+    private List<WsEnumTypeModel<Lang>> GetTemplateLanguagesRus() => new()
     {
         new("Английский", Lang.English),
         new("Русский", Lang.Russian)

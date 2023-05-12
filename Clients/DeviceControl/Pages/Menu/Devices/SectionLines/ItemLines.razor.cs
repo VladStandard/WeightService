@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Models;
+using WsDataCore.Enums;
 using WsDataCore.Protocols;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.TableScaleModels.Devices;
@@ -21,7 +21,7 @@ public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
 	private WsSqlDeviceModel _device;
 	private WsSqlDeviceModel Device { get => _device; set { _device = value; SqlLinkedItems = new() { Device }; } }
 	private WsSqlDeviceScaleFkModel DeviceScaleFk { get; set; }
-	private List<TypeModel<string>> ComPorts { get; set; }
+	private List<WsEnumTypeModel<string>> ComPorts { get; set; }
     
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
 

@@ -92,24 +92,24 @@ public static class DataUtils
         return Image.FromStream(ms, true);
     }
 
-    public static FormatType GetFormatType(string formatString) => formatString.ToUpper() switch
+    public static WsEnumFormatType GetFormatType(string formatString) => formatString.ToUpper() switch
     {
-        "TEXT" => FormatType.Text,
-        "JAVASCRIPT" => FormatType.JavaScript,
-        "JSON" => FormatType.Json,
-        "HTML" => FormatType.Html,
-        "XML" or "" or "XMLUTF8" => FormatType.Xml,
-        "XMLUTF16" => FormatType.XmlUtf16,
+        "TEXT" => WsEnumFormatType.Text,
+        "JAVASCRIPT" => WsEnumFormatType.JavaScript,
+        "JSON" => WsEnumFormatType.Json,
+        "HTML" => WsEnumFormatType.Html,
+        "XML" or "" or "XMLUTF8" => WsEnumFormatType.Xml,
+        "XMLUTF16" => WsEnumFormatType.XmlUtf16,
         _ => throw GetArgumentException(nameof(formatString))
     };
 
-    public static string GetContentType(FormatType formatType) => formatType switch
+    public static string GetContentType(WsEnumFormatType formatType) => formatType switch
     {
-        FormatType.Text => "application/text",
-        FormatType.JavaScript => "application/js",
-        FormatType.Json => "application/json",
-        FormatType.Html => "application/html",
-        FormatType.Xml or FormatType.XmlUtf8 or FormatType.XmlUtf16 => "application/xml",
+        WsEnumFormatType.Text => "application/text",
+        WsEnumFormatType.JavaScript => "application/js",
+        WsEnumFormatType.Json => "application/json",
+        WsEnumFormatType.Html => "application/html",
+        WsEnumFormatType.Xml or WsEnumFormatType.XmlUtf8 or WsEnumFormatType.XmlUtf16 => "application/xml",
         _ => throw GetArgumentException(nameof(formatType))
     };
 

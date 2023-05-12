@@ -3,9 +3,8 @@
 
 namespace WsDataCore.Enums;
 
-public enum TemplateResourceType
+public enum WsEnumDirection
 {
-    Grf,
-    Ttf,
-    Zpl,
+    Left,
+    Right
 }

@@ -6,7 +6,7 @@ namespace WsStorageContextTests.DataContext;
 [TestFixture]
 public sealed class GetDbSizeInfosTests
 {
-    private static List<WsConfiguration> Configurations => new() { WsConfiguration.ReleaseVS, WsConfiguration.DevelopVS };
+    private static List<WsEnumConfiguration> Configurations => new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS };
 
     [Test]
     public void DataContext_GetDbFileSizeInfos_Assert()

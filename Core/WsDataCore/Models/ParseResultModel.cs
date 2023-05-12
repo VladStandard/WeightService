@@ -12,9 +12,9 @@ public class ParseResultModel : SerializeBase, ICloneable
 {
     #region Public and private fields, properties, constructor
 
-    [XmlAttribute] public virtual ParseStatus Status { get; set; }
-    [XmlIgnore] public virtual bool IsStatusSuccess => Equals(Status, ParseStatus.Success);
-    [XmlIgnore] public virtual bool IsStatusError => Equals(Status, ParseStatus.Error);
+    [XmlAttribute] public virtual WsEnumParseStatus Status { get; set; }
+    [XmlIgnore] public virtual bool IsStatusSuccess => Equals(Status, WsEnumParseStatus.Success);
+    [XmlIgnore] public virtual bool IsStatusError => Equals(Status, WsEnumParseStatus.Error);
     [XmlAttribute] public virtual string Message { get; set; }
     [XmlAttribute] public virtual string Exception { get; set; }
     [XmlAttribute] public virtual string InnerException { get; set; }
@@ -24,7 +24,7 @@ public class ParseResultModel : SerializeBase, ICloneable
     /// </summary>
     public ParseResultModel()
     {
-        Status = ParseStatus.Unknown;
+        Status = WsEnumParseStatus.Unknown;
         Message = string.Empty;
         Exception = string.Empty;
         InnerException = string.Empty;
@@ -37,7 +37,7 @@ public class ParseResultModel : SerializeBase, ICloneable
     /// <param name="context"></param>
     private ParseResultModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Status = (ParseStatus)info.GetValue(nameof(Status), typeof(ParseStatus));
+        Status = (WsEnumParseStatus)info.GetValue(nameof(Status), typeof(WsEnumParseStatus));
         Message = info.GetString(nameof(Message));
         Exception = info.GetString(nameof(Exception));
         InnerException = info.GetString(nameof(InnerException));
@@ -68,7 +68,7 @@ public class ParseResultModel : SerializeBase, ICloneable
     public bool EqualsNew() => Equals(new());
 
     public bool EqualsDefault() =>
-        Equals(Status, ParseStatus.Unknown) &&
+        Equals(Status, WsEnumParseStatus.Unknown) &&
         Equals(Message, string.Empty) &&
         Equals(Exception, string.Empty) &&
         Equals(InnerException, string.Empty);

@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Models;
+using WsDataCore.Enums;
 
 namespace WsDataCore.Protocols;
 
@@ -27,9 +27,9 @@ public static class MdSerialPortsUtils
         return result;
     }
 
-    public static List<TypeModel<string>> GetListTypeComPorts(Lang lang)
+    public static List<WsEnumTypeModel<string>> GetListTypeComPorts(Lang lang)
     {
-        List<TypeModel<string>> result = new();
+        List<WsEnumTypeModel<string>> result = new();
         for (int i = 1; i < 256; i++)
         {
             switch (lang)

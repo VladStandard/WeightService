@@ -27,13 +27,13 @@ public sealed class AppHelperTests
     public void AppHelper_GetCurrentVersion_Default()
     {
         string result = string.Empty;
-        foreach (AppVerStringFormatEnum strFormat in Enum.GetValues(typeof(AppVerStringFormatEnum)))
+        foreach (WsEnumAppVerStringFormat strFormat in Enum.GetValues(typeof(WsEnumAppVerStringFormat)))
         {
-            foreach (AppVerCountDigitsEnum countDigits in Enum.GetValues(typeof(AppVerCountDigitsEnum)))
+            foreach (WsEnumAppVerCountDigits countDigits in Enum.GetValues(typeof(WsEnumAppVerCountDigits)))
             {
                 Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, null));
                 TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, null) = {result}");
-                Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, new List<AppVerStringFormatEnum>()));
+                Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, new List<WsEnumAppVerStringFormat>()));
                 TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, new List<AppVerStringFormat>()) = {result}");
             }
         }
@@ -44,8 +44,8 @@ public sealed class AppHelperTests
     {
         string result = string.Empty;
 
-        List<AppVerStringFormatEnum> strFormats = new() { AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use3 };
-        foreach (AppVerCountDigitsEnum countDigits in Enum.GetValues(typeof(AppVerCountDigitsEnum)))
+        List<WsEnumAppVerStringFormat> strFormats = new() { WsEnumAppVerStringFormat.Use2, WsEnumAppVerStringFormat.Use2, WsEnumAppVerStringFormat.Use3 };
+        foreach (WsEnumAppVerCountDigits countDigits in Enum.GetValues(typeof(WsEnumAppVerCountDigits)))
         {
             Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, strFormats));
             TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, {strFormats}) = {result}");
@@ -58,33 +58,33 @@ public sealed class AppHelperTests
         string result = string.Empty;
         Version version = new(0, 1, 5, 123);
 
-        List<AppVerStringFormatEnum> strFormats = new() { AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2 };
-        foreach (AppVerCountDigitsEnum countDigits in Enum.GetValues(typeof(AppVerCountDigitsEnum)))
+        List<WsEnumAppVerStringFormat> strFormats = new() { WsEnumAppVerStringFormat.Use2, WsEnumAppVerStringFormat.Use2, WsEnumAppVerStringFormat.Use2 };
+        foreach (WsEnumAppVerCountDigits countDigits in Enum.GetValues(typeof(WsEnumAppVerCountDigits)))
         {
             Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, strFormats, version));
             TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, {strFormats}) = {result}");
-            if (countDigits == AppVerCountDigitsEnum.Use1)
+            if (countDigits == WsEnumAppVerCountDigits.Use1)
                 Assert.AreEqual("00", result);
-            if (countDigits == AppVerCountDigitsEnum.Use2)
+            if (countDigits == WsEnumAppVerCountDigits.Use2)
                 Assert.AreEqual("00.01", result);
-            if (countDigits == AppVerCountDigitsEnum.Use3)
+            if (countDigits == WsEnumAppVerCountDigits.Use3)
                 Assert.AreEqual("00.01.05", result);
-            if (countDigits == AppVerCountDigitsEnum.Use4)
+            if (countDigits == WsEnumAppVerCountDigits.Use4)
                 Assert.AreEqual("00.01.05.123", result);
         }
 
-        strFormats = new List<AppVerStringFormatEnum>() { AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use1 };
-        foreach (AppVerCountDigitsEnum countDigits in Enum.GetValues(typeof(AppVerCountDigitsEnum)))
+        strFormats = new List<WsEnumAppVerStringFormat>() { WsEnumAppVerStringFormat.Use1, WsEnumAppVerStringFormat.Use1, WsEnumAppVerStringFormat.Use1 };
+        foreach (WsEnumAppVerCountDigits countDigits in Enum.GetValues(typeof(WsEnumAppVerCountDigits)))
         {
             Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, strFormats, version));
             TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, {strFormats}) = {result}");
-            if (countDigits == AppVerCountDigitsEnum.Use1)
+            if (countDigits == WsEnumAppVerCountDigits.Use1)
                 Assert.AreEqual("0", result);
-            if (countDigits == AppVerCountDigitsEnum.Use2)
+            if (countDigits == WsEnumAppVerCountDigits.Use2)
                 Assert.AreEqual("0.1", result);
-            if (countDigits == AppVerCountDigitsEnum.Use3)
+            if (countDigits == WsEnumAppVerCountDigits.Use3)
                 Assert.AreEqual("0.1.5", result);
-            if (countDigits == AppVerCountDigitsEnum.Use4)
+            if (countDigits == WsEnumAppVerCountDigits.Use4)
                 Assert.AreEqual("0.1.5.123", result);
         }
     }

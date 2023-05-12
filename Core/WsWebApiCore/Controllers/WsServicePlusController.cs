@@ -659,7 +659,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 $"{LocaleCore.WebService.Dublicate} {LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
                 $"{LocaleCore.WebService.WithFieldCode} '{pluXml.Code}' {LocaleCore.WebService.ForDbRecord} " +
                 $"{LocaleCore.WebService.WithFieldCode} '{string.Join(',', plusNumberDb.Select(x => x.Code).ToList())}'");
-            pluXml.ParseResult.Status = ParseStatus.Error;
+            pluXml.ParseResult.Status = WsEnumParseStatus.Error;
         }
     }
 

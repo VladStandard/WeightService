@@ -155,7 +155,7 @@ public class WsSqlPluModel : WsSqlTable1CBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{IsGroup} | {Name} | {Number} | {Code} | {Uid1C}";
+    public override string ToString() => $"{IsMarked} | {IsGroup} | {Name} | {Number} | {Code} | {Uid1C}";
 
     public override bool Equals(object obj)
     {

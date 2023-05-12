@@ -20,7 +20,7 @@ public sealed partial class WsWpfPageLoader : Form
     private WsWpfPagePinCode? PagePinCode { get; set; }
     public WsWpfPageLine? PageDevice { get; private set; }
     public WsWpfPagePluNesting? PagePluNestingFk { get; private set; }
-    private PageEnum Page { get; }
+    private WsEnumPage Page { get; }
 
     public WsWpfPageLoader()
     {
@@ -28,10 +28,10 @@ public sealed partial class WsWpfPageLoader : Form
 
         ElementHost = new() { Dock = DockStyle.Fill };
         MessageBox = new();
-        Page = PageEnum.Default;
+        Page = WsEnumPage.Default;
     }
 
-    public WsWpfPageLoader(PageEnum page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None,
+    public WsWpfPageLoader(WsEnumPage page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None,
         double fontSizeCaption = 30, double fontSizeMessage = 26, double fontSizeButton = 22,
         ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1) : this()
     {
@@ -88,7 +88,7 @@ public sealed partial class WsWpfPageLoader : Form
             }
 
             // WPF element.
-            if (Page is not PageEnum.Default)
+            if (Page is not WsEnumPage.Default)
                 panelMain.Controls.Add(ElementHost);
             SetElementHostChild();
         }
@@ -102,26 +102,26 @@ public sealed partial class WsWpfPageLoader : Form
     {
         switch (Page)
         {
-            case PageEnum.MessageBox:
+            case WsEnumPage.MessageBox:
                 PageMessageBox = new();
                 PageMessageBox.InitializeComponent();
                 ElementHost.Child = PageMessageBox;
                 PageMessageBox.MessageBox = MessageBox;
                 PageMessageBox.OnClose += WpfPageLoader_OnClose;
                 break;
-            case PageEnum.Device:
+            case WsEnumPage.Device:
                 PageDevice = new();
                 PageDevice.InitializeComponent();
                 ElementHost.Child = PageDevice;
                 PageDevice.OnClose += WpfPageLoader_OnClose;
                 break;
-            case PageEnum.PluNestingFk:
+            case WsEnumPage.PluNestingFk:
                 PagePluNestingFk = new();
                 PagePluNestingFk.InitializeComponent();
                 ElementHost.Child = PagePluNestingFk;
                 PagePluNestingFk.OnClose += WpfPageLoader_OnClose;
                 break;
-            case PageEnum.PinCode:
+            case WsEnumPage.PinCode:
                 PagePinCode = new();
                 PagePinCode.InitializeComponent();
                 ElementHost.Child = PagePinCode;
@@ -148,10 +148,10 @@ public sealed partial class WsWpfPageLoader : Form
         {
             DialogResult = Page switch
             {
-                PageEnum.MessageBox => MessageBox.Result,
-                PageEnum.Device => PageDevice?.Result ?? DialogResult.Cancel,
-                PageEnum.PluNestingFk => PagePluNestingFk?.Result ?? DialogResult.Cancel,
-                PageEnum.PinCode => PagePinCode?.Result ?? DialogResult.Cancel,
+                WsEnumPage.MessageBox => MessageBox.Result,
+                WsEnumPage.Device => PageDevice?.Result ?? DialogResult.Cancel,
+                WsEnumPage.PluNestingFk => PagePluNestingFk?.Result ?? DialogResult.Cancel,
+                WsEnumPage.PinCode => PagePinCode?.Result ?? DialogResult.Cancel,
                 _ => DialogResult
             };
         }
