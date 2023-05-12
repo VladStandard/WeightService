@@ -9,7 +9,7 @@ namespace WsStorageCoreTests.DataModels;
 [TestFixture]
 public sealed class BarcodeHelperTests
 {
-    private WsSqlBarCodeHelper Barcode { get; } = WsSqlBarCodeHelper.Instance;
+    private WsSqlBarCodeController Barcode { get; } = WsSqlBarCodeController.Instance;
 
     [Test]
     public void BarcodeHelper_GetEanCheckDigit_Throws()

@@ -16,7 +16,7 @@ public class WsXmlProductHelper
 
 	#region Public and private fields, properties, constructor
 
-	private WsSqlBarCodeHelper Barcode { get; set; } = WsSqlBarCodeHelper.Instance;
+	private WsSqlBarCodeController Barcode { get; set; } = WsSqlBarCodeController.Instance;
 
 	#endregion
 

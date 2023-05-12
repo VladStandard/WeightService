@@ -78,7 +78,7 @@ public sealed class WsSqlPluController
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
 
-    public List<WsSqlPluModel> GetListByUid1c(Guid uid)
+    public List<WsSqlPluModel> GetListByUid1C(Guid uid)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>()
                 { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
@@ -87,12 +87,12 @@ public sealed class WsSqlPluController
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
 
-    public bool IsFullValid(WsSqlPluModel pluModel)
+    public bool IsFullValid(WsSqlViewPluScaleModel viewPluScale)
     {
-        if (pluModel.Gtin == "" || pluModel.Ean13 == "" || pluModel.Itf14 == "")
+        if (viewPluScale.PluGtin == "" || viewPluScale.PluEan13 == "" || viewPluScale.PluItf14 == "")
             return false;
 
-        List<WsSqlFieldFilterModel> sqlFilters = WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPluTemplateFkModel.Plu), pluModel.IdentityValueUid);
+        List<WsSqlFieldFilterModel> sqlFilters = WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPluTemplateFkModel.Plu), viewPluScale.PluUid);
         WsSqlCrudConfigModel sqlCrudConfig = new(sqlFilters,
             true, false, false, true, false);
 

@@ -21,21 +21,23 @@ public sealed class WsSqlContextManagerHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
-    public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
     public WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
     public WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
-    private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
+    public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    public WsSqlBoxController ContextBox => WsSqlBoxController.Instance;
+    public WsSqlBundleController ContextBundle => WsSqlBundleController.Instance;
+    public WsSqlClipController ContextClip => WsSqlClipController.Instance;
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
-    public WsSqlContextBoxHelper ContextBox => WsSqlContextBoxHelper.Instance;
-    public WsSqlContextBundleHelper ContextBundle => WsSqlContextBundleHelper.Instance;
-    public WsSqlContextClipHelper ContextClip => WsSqlContextClipHelper.Instance;
-    public WsSqlPluController ContextPlu => WsSqlPluController.Instance;
-    public WsSqlPluScaleController ContextPluScale => WsSqlPluScaleController.Instance;
     public WsSqlPlu1CController ContextPlu1CFk => WsSqlPlu1CController.Instance;
+    public WsSqlPluController ContextPlu => WsSqlPluController.Instance;
     public WsSqlPluNestingFkController ContextPluNesting => WsSqlPluNestingFkController.Instance;
+    public WsSqlPluScaleController ContextPluScale => WsSqlPluScaleController.Instance;
     public WsSqlPluStorageMethodFkController ContextPluStorage => WsSqlPluStorageMethodFkController.Instance;
+    public WsSqlTemplateController ContextTemplate => WsSqlTemplateController.Instance;
+    
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     private AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;

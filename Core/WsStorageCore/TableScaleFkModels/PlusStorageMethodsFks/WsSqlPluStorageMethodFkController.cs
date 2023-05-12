@@ -20,7 +20,9 @@ public sealed class WsSqlPluStorageMethodFkController
 
     #region Public and private fields, properties, constructor
 
+    private static WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     private static WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
+    private static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
 
     #endregion
 
@@ -53,14 +55,14 @@ public sealed class WsSqlPluStorageMethodFkController
     /// Use UpdatePluStorageMethodFks for force update.
     /// </summary>
     /// <param name="plu"></param>
-    /// <param name="pluStorageMethodsFks"></param>
     /// <returns></returns>
-    public WsSqlTemplateResourceModel GetItemResource(WsSqlPluModel plu, List<WsSqlPluStorageMethodFkModel> pluStorageMethodsFks)
+    public WsSqlTemplateResourceModel GetItemResource(WsSqlPluModel plu)
     {
         WsSqlPluStorageMethodFkModel pluStorageMethodFk = new();
-        if (pluStorageMethodsFks.Exists(item => Equals(item.Plu.Identity, plu.Identity)))
-            pluStorageMethodFk = pluStorageMethodsFks.Find(
-                item => Equals(item.Plu.Identity, plu.Identity));
+        if (ContextCache.ViewPlusStorageMethodsFks.Exists(item => Equals(item.PluNumber, (ushort)plu.Number)))
+        {
+            pluStorageMethodFk = ContextItem.GetItemPluStorageMethodFkNotNullable(plu.IdentityValueUid);
+        }
         return pluStorageMethodFk.Resource;
     }
 

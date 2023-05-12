@@ -40,4 +40,15 @@ public sealed class GetListViewTests
             WsTestsUtils.DataTests.PrintTopRecords(items);
         }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
     }
+    
+    [Test]
+    public void Get_view_plus_storage_methods()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlViewPluStorageMethodModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusStorageMethods(200);
+            Assert.IsTrue(items.Any());
+            WsTestsUtils.DataTests.PrintTopRecords(items);
+        }, false, new() { WsConfiguration.DevelopVS, WsConfiguration.ReleaseVS });
+    }
 }

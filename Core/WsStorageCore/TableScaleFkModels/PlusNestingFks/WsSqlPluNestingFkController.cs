@@ -23,7 +23,7 @@ public sealed class WsSqlPluNestingFkController
     private WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
     private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    private WsSqlContextBoxHelper ContextBox => WsSqlContextBoxHelper.Instance;
+    private WsSqlBoxController ContextBox => WsSqlBoxController.Instance;
     private WsSqlPluController ContextPlu => WsSqlPluController.Instance;
     private WsSqlPluBundleFkController ContextPluBundle => WsSqlPluBundleFkController.Instance;
 

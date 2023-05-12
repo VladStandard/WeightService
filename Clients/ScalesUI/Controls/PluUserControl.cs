@@ -1,21 +1,22 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Enums;
-
 namespace ScalesUI.Controls;
 
 public sealed partial class PluUserControl : UserControlBase
 {
     #region Public and private fields, properties, constructor
 
-    private long PreviousScaleId { get; set; }
+    /// <summary>
+    /// ID последней линии (для производительности).
+    /// </summary>
+    private long LastScaleId { get; set; }
 
     public PluUserControl()
     {
         InitializeComponent();
 
-        PreviousScaleId = 0;
+        LastScaleId = 0;
     }
 
     #endregion
@@ -27,11 +28,11 @@ public sealed partial class PluUserControl : UserControlBase
     {
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
-            if (!UserSession.Scale.IdentityValueId.Equals(PreviousScaleId))
+            if (!UserSession.Scale.IdentityValueId.Equals(LastScaleId))
             {
-                PreviousScaleId = UserSession.Scale.IdentityValueId;
-                UserSession.SetPluScales();
-                UserSession.ContextCache.Load(WsSqlTableName.PluStorageMethodsFks);
+                LastScaleId = UserSession.Scale.IdentityValueId;
+                //UserSession.ContextCache.Load(WsSqlTableName.ViewPlusScales);
+                UserSession.ContextCache.Load(WsSqlTableName.ViewPluStorageMethods);
                 LoadFormControlsText();
             }
             SetupLayoutPanel();
@@ -47,7 +48,7 @@ public sealed partial class PluUserControl : UserControlBase
 
     private WsControlPluModel[,] CreateControls()
     {
-        List<WsSqlPluScaleModel> plus = UserSession.GetCurrentPlus();
+        List<WsSqlViewPluScaleModel> plus = UserSession.GetCurrentPlus();
         WsControlPluModel[,] controls = new WsControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
@@ -65,32 +66,35 @@ public sealed partial class PluUserControl : UserControlBase
         return controls;
     }
 
-    private WsControlPluModel NewControlGroup(WsSqlPluScaleModel pluScale, int pageNumber, ushort buttonNumber)
+    private WsControlPluModel NewControlGroup(WsSqlViewPluScaleModel viewPluScale, int pageNumber, ushort buttonNumber)
     {
         int tabIndex = buttonNumber + pageNumber * UserSession.PageSize;
-        Button buttonPlu = NewButtonPlu(pluScale.Plu, tabIndex);
-        Label labelPluNumber = NewLabelPluNumber(pluScale, tabIndex, buttonPlu);
-        Label labelPluType = NewLabelPluType(pluScale.Plu, tabIndex, buttonPlu);
-        Label labelPluCode = NewLabelPluCode(pluScale.Plu, tabIndex, buttonPlu);
-        Label labelPluValidate = NewPluValidLabel(pluScale.Plu, tabIndex, buttonPlu);
-        Label labelTemplate = NewLabelPluTemplate(pluScale, tabIndex, buttonPlu);
+        Button buttonPlu = NewButtonPlu(viewPluScale, tabIndex);
+        Label labelPluNumber = NewLabelPluNumber(viewPluScale, tabIndex, buttonPlu);
+        Label labelPluType = NewLabelPluType(viewPluScale, tabIndex, buttonPlu);
+        Label labelPluCode = NewLabelPluCode(viewPluScale, tabIndex, buttonPlu);
+        Label labelPluValidate = NewPluValidLabel(viewPluScale, tabIndex, buttonPlu);
+        Label labelPluTemplate = NewLabelPluTemplate(viewPluScale, tabIndex, buttonPlu);
 
-        return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelTemplate, labelPluValidate);
+        buttonPlu.Click += ActionPluSelect_Click;
+        labelPluNumber.MouseClick += ActionPluSelect_Click;
+        labelPluType.MouseClick += ActionPluSelect_Click;
+        labelPluCode.MouseClick += ActionPluSelect_Click;
+        labelPluValidate.MouseClick += ActionPluSelect_Click;
+        labelPluTemplate.MouseClick += ActionPluSelect_Click;
+
+        return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelPluTemplate, labelPluValidate);
     }
 
-    private Button NewButtonPlu(WsSqlPluModel plu, int tabIndex)
-    {
-        const ushort buttonWidth = 150;
-        const ushort buttonHeight = 30;
-
-        Button buttonPlu = new()
+    private Button NewButtonPlu(WsSqlViewPluScaleModel viewPluScale, int tabIndex) =>
+        new()
         {
-            Name = $@"{nameof(buttonPlu)}{tabIndex}",
+            Name = $@"buttonPlu{tabIndex}",
             Font = FontsSettings.FontLabelsBlack,
             AutoSize = false,
-            Text = plu.Name,
+            Text = viewPluScale.PluName,
             Dock = DockStyle.Fill,
-            Size = new(buttonWidth, buttonHeight),
+            Size = new(150, 30),
             Visible = true,
             Parent = layoutPanel,
             FlatStyle = FlatStyle.Flat,
@@ -99,18 +103,14 @@ public sealed partial class PluUserControl : UserControlBase
             BackColor = System.Drawing.SystemColors.Control,
             TabIndex = tabIndex,
         };
-        buttonPlu.Click += ButtonPluSelect_Click;
-        return buttonPlu;
-    }
 
-    private Label NewLabelPluNumber(WsSqlPluScaleModel pluScale, int tabIndex, Control buttonPlu)
-    {
-        Label labelPluNumber = new()
+    private Label NewLabelPluNumber(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu) =>
+        new()
         {
-            Name = $@"{nameof(labelPluNumber)}{tabIndex}",
+            Name = $@"labelPluNumber{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
-            Text = Text = Width > 1024 ? $@"{LocaleCore.Table.Number} {pluScale.Plu.Number}" : $@"{pluScale.Plu.Number}",
+            Text = Text = Width > 1024 ? $@"{LocaleCore.Table.Number} {viewPluScale.PluNumber}" : $@"{viewPluScale.PluNumber}",
             TextAlign = ContentAlignment.MiddleCenter,
             Parent = buttonPlu,
             Dock = DockStyle.None,
@@ -118,18 +118,13 @@ public sealed partial class PluUserControl : UserControlBase
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluNumber.MouseClick += ButtonPluSelect_Click;
-        return labelPluNumber;
-    }
 
-    private Label NewPluValidLabel(WsSqlPluModel pluModel, int tabIndex, Control buttonPlu)
+    private Label NewPluValidLabel(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu)
     {
-
-        bool valid = WsSqlPluController.Instance.IsFullValid(pluModel);
-
-        Label labelPluNumber = new()
+        bool valid = WsSqlPluController.Instance.IsFullValid(viewPluScale);
+        return new()
         {
-            Name = $@"{nameof(labelPluNumber)}{tabIndex}",
+            Name = $@"labelPluNumber{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = valid == false ? "!" : "OK",
@@ -140,103 +135,72 @@ public sealed partial class PluUserControl : UserControlBase
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluNumber.MouseClick += ButtonPluSelect_Click;
-        return labelPluNumber;
     }
 
-    private Label NewLabelPluType(WsSqlPluModel plu, int tabIndex, Control buttonPlu)
-    {
-        Label labelPluType = new()
+    private Label NewLabelPluType(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu) =>
+        new()
         {
-            Name = $@"{nameof(labelPluType)}{tabIndex}",
+            Name = $@"labelPluType{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
-            Text = plu.IsCheckWeight == false ? LocaleCore.Scales.PluIsPiece : LocaleCore.Scales.PluIsWeight,
+            Text = viewPluScale.PluIsWeight == false ? LocaleCore.Scales.PluIsPiece : LocaleCore.Scales.PluIsWeight,
             TextAlign = ContentAlignment.MiddleCenter,
             Parent = buttonPlu,
             Dock = DockStyle.None,
-            BackColor = plu.IsCheckWeight ? Color.LightGray : Color.Transparent,
+            BackColor = viewPluScale.PluIsWeight ? Color.LightGray : Color.Transparent,
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluType.MouseClick += ButtonPluSelect_Click;
-        return labelPluType;
-    }
 
-    private Label NewLabelPluCode(WsSqlPluModel plu, int tabIndex, Control buttonPlu)
-    {
-        Label labelPluCode = new()
+    private Label NewLabelPluCode(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu) =>
+        new()
         {
-            Name = $@"{nameof(labelPluCode)}{tabIndex}",
+            Name = $@"labelPluCode{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = Width > 1024
-                ? !string.IsNullOrEmpty(plu.Gtin) ? @$"{LocaleCore.Scales.PluCode} {plu.Gtin}" : LocaleCore.Scales.PluCodeNotSet
-                : !string.IsNullOrEmpty(plu.Gtin) ? @$"{plu.Gtin}" : LocaleCore.Scales.PluCodeNotSet,
+                ? !string.IsNullOrEmpty(viewPluScale.PluGtin) ? @$"{LocaleCore.Scales.PluCode} {viewPluScale.PluGtin}" : LocaleCore.Scales.PluCodeNotSet
+                : !string.IsNullOrEmpty(viewPluScale.PluGtin) ? @$"{viewPluScale.PluGtin}" : LocaleCore.Scales.PluCodeNotSet,
             TextAlign = ContentAlignment.MiddleCenter,
             Parent = buttonPlu,
             Dock = DockStyle.None,
-            BackColor = !string.IsNullOrEmpty(plu.Gtin) ? Color.Transparent : Color.LightGray,
+            BackColor = !string.IsNullOrEmpty(viewPluScale.PluGtin) ? Color.Transparent : Color.LightGray,
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluCode.MouseClick += ButtonPluSelect_Click;
-        return labelPluCode;
-    }
 
-    //private Label NewLabelPluDescription(PluModel plu, int tabIndex, Control buttonPlu)
-    //{
-    //	Label labelPluDescription = new()
-    //	{
-    //		Name = $@"{nameof(labelPluDescription)}{tabIndex}",
-    //		Font = FontsSettings.FontMinimum,
-    //		AutoSize = false,
-    //		Text = !string.IsNullOrEmpty(plu.Description) ? LocaleCore.Scales.PluDescriptionSet : LocaleCore.Scales.PluDescriptionNotSet,
-    //		TextAlign = ContentAlignment.MiddleCenter,
-    //		Parent = buttonPlu,
-    //		Dock = DockStyle.None,
-    //		BackColor = !string.IsNullOrEmpty(plu.Description) ? Color.Transparent : Color.LightGray,
-    //		Visible = string.IsNullOrEmpty(plu.Description),
-    //		BorderStyle = BorderStyle.FixedSingle,
-    //		TabIndex = tabIndex,
-    //	};
-    //	labelPluDescription.MouseClick += ButtonPlu_Click;
-    //	return labelPluDescription;
-    //}
-
-    private Label NewLabelPluTemplate(WsSqlPluScaleModel pluScale, int tabIndex, Control buttonPlu)
-    {
-        //TemplateModel template = UserSession.DataAccess.GetItemNotNullable<TemplateModel>(pluScale.Plu.Template.IdentityValueId);
-        WsSqlTemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(pluScale);
-        Label labelPluTemplate = new()
+    private Label NewLabelPluTemplate(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu) =>
+        new()
         {
-            Name = $@"{nameof(labelPluTemplate)}{tabIndex}",
+            Name = $@"labelPluTemplate{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
-            Text = !string.IsNullOrEmpty(template.Title) ? LocaleCore.Scales.PluTemplateSet : LocaleCore.Scales.PluTemplateNotSet,
+            Text = !string.IsNullOrEmpty(viewPluScale.TemplateName) ? LocaleCore.Scales.PluTemplateSet : LocaleCore.Scales.PluTemplateNotSet,
             TextAlign = ContentAlignment.MiddleCenter,
             Parent = buttonPlu,
             Dock = DockStyle.None,
-            BackColor = !string.IsNullOrEmpty(template.Title) ? Color.Transparent : Color.LightGray,
+            BackColor = !string.IsNullOrEmpty(viewPluScale.TemplateName) ? Color.Transparent : Color.LightGray,
             Visible = true,
             BorderStyle = BorderStyle.FixedSingle,
             TabIndex = tabIndex,
         };
-        labelPluTemplate.MouseClick += ButtonPluSelect_Click;
-        return labelPluTemplate;
-    }
 
-    private void ButtonPluSelect_Click(object sender, EventArgs e)
+    /// <summary>
+    /// Выбор ПЛУ.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ActionPluSelect_Click(object sender, EventArgs e)
     {
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             ushort tabIndex = 0;
             if (sender is Control control)
                 tabIndex = (ushort)control.TabIndex;
-            if (UserSession.PluScales.Count >= tabIndex)
+            if (UserSession.ContextCache.ViewPlusScalesDb.Count >= tabIndex)
             {
-                //UserSession.PluScale = UserSession.PluScales[tabIndex];
-                UserSession.PluScale = UserSession.ContextManager.ContextPluScale.GetItem(UserSession.PluScales[tabIndex].Plu.Number);
+                UserSession.PluScale = UserSession.ContextManager.ContextPluScale.GetItem(
+                    UserSession.ContextCache.ViewPlusScalesDb[tabIndex].PluNumber);
                 Result = DialogResult.OK;
             }
             ReturnBackAction();
@@ -256,7 +220,7 @@ public sealed partial class PluUserControl : UserControlBase
     private void ButtonNextRoll_Click(object sender, EventArgs e)
     {
         int saveCurrentPage = UserSession.PageNumber;
-        int countPage = UserSession.PluScales.Count / UserSession.PageSize;
+        int countPage = UserSession.ContextCache.ViewPlusScalesDb.Count / UserSession.PageSize;
         UserSession.PageNumber = UserSession.PageNumber < countPage ? UserSession.PageNumber + 1 : countPage;
         if (UserSession.PageNumber > countPage)
             UserSession.PageNumber = countPage - 1;
@@ -313,6 +277,9 @@ public sealed partial class PluUserControl : UserControlBase
         layoutPanel.Controls.Clear();
     }
 
+    /// <summary>
+    /// Выровнять панели.
+    /// </summary>
     private void SetupLayoutPanel()
     {
         layoutPanel.Visible = false;

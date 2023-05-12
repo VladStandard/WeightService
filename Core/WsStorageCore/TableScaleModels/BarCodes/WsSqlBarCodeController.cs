@@ -1,19 +1,19 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.Helpers;
+namespace WsStorageCore.TableScaleModels.BarCodes;
 
 /// <summary>
 /// Barcode helper.
 /// </summary>
-public class WsSqlBarCodeHelper : IWsSqlBarCodeHelper
+public class WsSqlBarCodeController : IWsSqlBarCodeHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlBarCodeHelper _instance;
+    private static WsSqlBarCodeController _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlBarCodeHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlBarCodeController Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

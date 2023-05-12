@@ -25,8 +25,8 @@ public sealed class PluStorageMethodContentTests
                     WsTestsUtils.DataTests.AssertSqlValidate(method, true);
             }
 
-            foreach (WsSqlTemplateResourceModel resource in plus.Select(plu => WsTestsUtils.ContextManager.ContextPluStorage
-                         .GetItemResource(plu, pluStorageMethodFks)))
+            foreach (WsSqlTemplateResourceModel resource in plus.Select(
+                plu => WsTestsUtils.ContextManager.ContextPluStorage.GetItemResource(plu)))
             {
                 if (resource.IsExists)
                     WsTestsUtils.DataTests.AssertSqlValidate(resource, true);

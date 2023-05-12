@@ -23,6 +23,7 @@ public sealed class WsSqlPluScaleController
     private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
     private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
+    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
 
     #endregion
 
@@ -32,10 +33,10 @@ public sealed class WsSqlPluScaleController
 
     public WsSqlPluScaleModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(uid);
 
-    public WsSqlPluScaleModel GetItem(short pluNumber)
+    public WsSqlPluScaleModel GetItem(ushort pluNumber)
     {
-        WsSqlPluModel plu = WsSqlPluController.Instance.GetItemByNumber(pluNumber);
-        return AccessItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(plu.IdentityValueUid);
+        WsSqlViewPluScaleModel viewPluScale = ContextCache.ViewPlusScalesDb.Find(x => Equals(x.PluNumber, (ushort)pluNumber));
+        return AccessItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(viewPluScale.Uid);
     }
 
     public List<WsSqlPluScaleModel> GetList() => ContextList.GetListNotNullablePlusScales(new());

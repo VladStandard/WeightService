@@ -110,6 +110,27 @@ public sealed class WsSqlContextItemHelper
     public WsSqlPluClipFkModel GetItemPluClipFkNotNullable(WsSqlPluModel plu) =>
         GetItemPluClipFkNullable(plu) ?? new();
 
+    public WsSqlPluStorageMethodFkModel? GetItemPluStorageMethodFkNullable(WsSqlPluModel plu)
+    {
+        if (plu.IsNew) return null;
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            $"{nameof(WsSqlPluStorageMethodFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, true, false);
+        return AccessManager.AccessItem.GetItemNullable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
+    }
+
+    public WsSqlPluStorageMethodFkModel GetItemPluStorageMethodFkNotNullable(WsSqlPluModel plu) =>
+        GetItemPluStorageMethodFkNullable(plu) ?? new();
+
+    public WsSqlPluStorageMethodFkModel? GetItemPluStorageMethodFkNullable(Guid pluUid)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            $"{nameof(WsSqlPluStorageMethodFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", pluUid, true, false);
+        return AccessManager.AccessItem.GetItemNullable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
+    }
+
+    public WsSqlPluStorageMethodFkModel GetItemPluStorageMethodFkNotNullable(Guid pluUid) =>
+        GetItemPluStorageMethodFkNullable(pluUid) ?? new();
+
     private WsSqlTemplateModel? GetItemTemplateNullable(WsSqlPluScaleModel pluScale)
     {
         if (pluScale.IsNew || pluScale.Plu.IsNew) return null;

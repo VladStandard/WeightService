@@ -30,7 +30,7 @@ public sealed class WsSqlContextViewHelper
     /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
     /// </summary>
     /// <returns></returns>
-    public List<WsSqlViewLogMemoryModel> GetListViewLogsMemories(int topRecords)
+    public List<WsSqlViewLogMemoryModel> GetListViewLogsMemories(int topRecords = 0)
     {
         List<WsSqlViewLogMemoryModel> result = new();
         string query = WsSqlQueriesDiags.Tables.Views.GetViewLogsMemories(topRecords);
@@ -54,7 +54,7 @@ public sealed class WsSqlContextViewHelper
     /// Получить логи размеров таблиц из представления [diag].[VIEW_TABLES_SIZES].
     /// </summary>
     /// <returns></returns>
-    public List<WsSqlViewTableSizeMemoryModel> GetListViewTablesSizes(int topRecords)
+    public List<WsSqlViewTableSizeMemoryModel> GetListViewTablesSizes(int topRecords = 0)
     {
         List<WsSqlViewTableSizeMemoryModel> result = new();
         string query = WsSqlQueriesDiags.Tables.Views.GetViewTablesSizes(topRecords);
@@ -76,24 +76,51 @@ public sealed class WsSqlContextViewHelper
     }
 
     /// <summary>
-    /// Получить список ПЛУ линий из представления[REF].[VIEW_PLUS_SCALES].
+    /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
     /// </summary>
     /// <param name="topRecords"></param>
     /// <returns></returns>
-    public List<WsSqlViewPluScaleModel> GetListViewPlusScales(int topRecords)
+    public List<WsSqlViewPluScaleModel> GetListViewPlusScales(int topRecords = 0)
     {
         List<WsSqlViewPluScaleModel> result = new();
         string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusScales(topRecords);
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 12 } item) break;
+            if (obj is not object[] { Length: 19 } item) break;
             result.Add(new(Guid.Parse(Convert.ToString(item[0])), 
                 Convert.ToDateTime(item[1]), Convert.ToDateTime(item[2]),
                 Convert.ToBoolean(item[3]), Convert.ToBoolean(item[4]),
                 Convert.ToUInt16(item[5]), Convert.ToBoolean(item[6]), Convert.ToString(item[7]),
-                Guid.Parse(Convert.ToString(item[8])), Convert.ToBoolean(item[9]), 
-                Convert.ToUInt16(item[10]), Convert.ToString(item[11])
+                Guid.Parse(Convert.ToString(item[8])), Convert.ToBoolean(item[9]), Convert.ToBoolean(item[10]),
+                Convert.ToUInt16(item[11]), Convert.ToString(item[12]),
+                Convert.ToString(item[13]), Convert.ToString(item[14]), Convert.ToString(item[15]),
+                Convert.ToUInt16(item[16]), Convert.ToBoolean(item[17]), Convert.ToString(item[18])
+            ));
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Получить список способов хранения ПЛУ из представления [REF].[VIEW_PLUS_STORAGE_METHODS].
+    /// </summary>
+    /// <param name="topRecords"></param>
+    /// <returns></returns>
+    public List<WsSqlViewPluStorageMethodModel> GetListViewPlusStorageMethods(int topRecords = 0)
+    {
+        List<WsSqlViewPluStorageMethodModel> result = new();
+        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusStorageMethods(topRecords);
+        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        foreach (object obj in objects)
+        {
+            if (obj is not object[] { Length: 21 } item) break;
+            result.Add(new(Guid.Parse(Convert.ToString(item[0])),
+                Convert.ToBoolean(item[1]), Convert.ToBoolean(item[2]), Convert.ToUInt16(item[3]), Convert.ToString(item[4]),
+                Convert.ToString(item[5]), Convert.ToString(item[6]), Convert.ToString(item[7]),
+                Guid.Parse(Convert.ToString(item[8])), Convert.ToBoolean(item[9]), Convert.ToString(item[10]),
+                Convert.ToInt16(item[11]), Convert.ToInt16(item[12]), Convert.ToBoolean(item[13]), Convert.ToBoolean(item[14]),
+                Guid.Parse(Convert.ToString(item[15])), Convert.ToBoolean(item[16]), Convert.ToString(item[17]),
+                Convert.ToUInt16(item[18]), Convert.ToBoolean(item[19]), Convert.ToString(item[20])
             ));
         }
         return result;

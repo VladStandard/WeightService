@@ -969,7 +969,7 @@ public class WsServiceControllerBase : ControllerBase
     private List<WsSqlPlu1CFkModel> GetPlus1CFksByGuid1C(Guid uid1C)
     {
         List<WsSqlPlu1CFkModel> plus1CFksDb = new();
-        List<WsSqlPluModel> plusDb = ContextManager.ContextPlu.GetListByUid1c(uid1C);
+        List<WsSqlPluModel> plusDb = ContextManager.ContextPlu.GetListByUid1C(uid1C);
         foreach (WsSqlPluModel pluDb in plusDb)
         {
             WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(

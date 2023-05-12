@@ -4,6 +4,7 @@
 
 using System.Windows.Forms;
 using WsStorageCore.TableScaleModels.Clips;
+using WsStorageCore.ViewRefModels;
 
 namespace WsLabelCore.Helpers;
 
@@ -25,7 +26,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
 
     public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    private WsSqlBarCodeHelper BarCode => WsSqlBarCodeHelper.Instance;
+    private WsSqlBarCodeController BarCode => WsSqlBarCodeController.Instance;
     public DebugHelper Debug => DebugHelper.Instance;
     public WsPluginLabelsHelper PluginLabels => WsPluginLabelsHelper.Instance;
     public WsPluginMassaHelper PluginMassa => WsPluginMassaHelper.Instance;
@@ -73,14 +74,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
 
     public WsPluNestingViewModel PluNestingView { get; }
 
-    private List<WsSqlPluStorageMethodFkModel> PluStorageMethodsFks
-    {
-        get
-        {
-            return ContextCache.PluStorageMethodsFks;
-        }
-    }
-
     private WsSqlPluScaleModel _pluScale;
     [XmlElement]
     public WsSqlPluScaleModel PluScale
@@ -93,13 +86,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
             {
                 ContextManager.ContextItem.SaveLogInformation(
                 $"{LocaleCore.Scales.PluSet(_pluScale.Plu.IdentityValueId, _pluScale.Plu.Number, _pluScale.Plu.Name)}");
-                //WsSqlBoxModel box = WsSqlContextManagerHelper.Instance.ContextBox.GetItem(pluScale.Plu);
-                //if (box.IsExists)
-                //{
-                //    pluScale.Plu.BoxTypeGuid = box.IdentityValueUid;
-                //    pluScale.Plu.BoxTypeName = box.Name;
-                //    pluScale.Plu.BoxTypeWeight = box.Weight;
-                //}
                 WsSqlBundleModel bundle = ContextManager.ContextBundle.GetItem(_pluScale.Plu);
                 if (bundle.IsExists)
                 {
@@ -126,25 +112,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public readonly ushort PageSize = 20;
     public readonly ushort PageRowCount = 5;
     public int PageNumber { get; set; }
-    public List<WsSqlPluScaleModel> PluScales { get; private set; }
-
-    //public WsSqlPluStorageMethodFkModel PluStorageMethodFk
-    //{
-    //    get
-    //    {
-    //        if (PluScale.Plu.IsNotExists)
-    //            return ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluStorageMethodFkModel>();
-    //        if (!ContextCache.PluStorageMethodsFks.Any())
-    //            return ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluStorageMethodFkModel>();
-
-    //        WsSqlPluStorageMethodFkModel result = ContextCache.PluStorageMethodsFks.Find(
-    //            x => Equals(x.Plu.Number, PluScale.Plu.Number));
-    //            //ContextManager.ContextPluStorage.GetItemFk(plu, PluStorageMethodsFks);
-    //        if (result.IsNotExists)
-    //            result.FillProperties();
-    //        return result;
-    //    }
-    //}
 
     private WsSqlDeviceScaleFkModel _deviceScaleFk;
     [XmlElement]
@@ -245,7 +212,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
         _productionFacilities = new();
         _productSeries = new();
         _scales = new();
-        PluScales = new();
         // Strings
         _publishDescription = string.Empty;
         // Others.
@@ -731,10 +697,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
         zpl =>
         {
             // Patch for using table `PLUS_STORAGE_METHODS_FK`.
-            if (PluStorageMethodsFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
+            if (ContextCache.ViewPlusStorageMethodsFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
-                WsSqlTemplateResourceModel resource = ContextManager.ContextPluStorage.GetItemResource(
-                    pluLabel.PluScale.Plu, PluStorageMethodsFks);
+                WsSqlTemplateResourceModel resource = ContextManager.ContextPluStorage.GetItemResource(pluLabel.PluScale.Plu);
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
                 zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
             }
@@ -767,20 +732,10 @@ public sealed class WsUserSessionHelper : BaseViewModel
             _ => throw new ArgumentOutOfRangeException()
         };
 
-    public void SetPluScales()
+    public List<WsSqlViewPluScaleModel> GetCurrentPlus()
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(Scale, nameof(WsSqlPluScaleModel.Scale),
-            false, false, false, false);
-        sqlCrudConfig.AddFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
-        sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlPluScaleModel.Plu), Direction = WsSqlOrderDirection.Asc });
-        sqlCrudConfig.IsResultOrder = true;
-        PluScales = ContextManager.ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
-    }
-
-    public List<WsSqlPluScaleModel> GetCurrentPlus()
-    {
-        IEnumerable<WsSqlPluScaleModel> plusSkip = PluScales.Skip(PageNumber * PageSize);
-        IEnumerable<WsSqlPluScaleModel> plusTake = plusSkip.Take(PageSize);
+        IEnumerable<WsSqlViewPluScaleModel> plusSkip = ContextCache.ViewPlusScalesDb.Skip(PageNumber * PageSize);
+        IEnumerable<WsSqlViewPluScaleModel> plusTake = plusSkip.Take(PageSize);
         return plusTake.ToList();
     }
 

@@ -4,18 +4,10 @@
 namespace WsStorageCore.ViewRefModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewPluScaleModel
+public sealed record WsSqlViewPluStorageMethodModel
 {
     #region Public and private fields, properties, constructor
 
-    public Guid Uid { get; init; }
-    public DateTime CreateDt { get; init; }
-    public DateTime ChangeDt { get; init; }
-    public bool IsMarked { get; init; }
-    public bool IsActive { get; init; }
-    public ushort ScaleId { get; init; }
-    public bool ScaleIsMarked { get; init; }
-    public string ScaleName { get; init; }
     public Guid PluUid { get; init; }
     public bool PluIsMarked { get; init; }
     public bool PluIsWeight { get; init; }
@@ -24,6 +16,16 @@ public sealed record WsSqlViewPluScaleModel
     public string PluGtin { get; init; }
     public string PluEan13 { get; init; }
     public string PluItf14 { get; init; }
+    public Guid StorageMethodUid { get; init; }
+    public bool StorageMethodIsMarked { get; init; }
+    public string StorageMethodName { get; init; }
+    public short MinTemp { get; init; }
+    public short MaxTemp { get; init; }
+    public bool IsLeft { get; init; }
+    public bool IsRight { get; init; }
+    public Guid ResourceUid { get; init; }
+    public bool ResourceIsMarked { get; init; }
+    public string ResourceName { get; init; }
     public ushort TemplateId { get; init; }
     public bool TemplateIsMarked { get; init; }
     public string TemplateName { get; init; }
@@ -31,22 +33,15 @@ public sealed record WsSqlViewPluScaleModel
     /// <summary>
     /// Empty constructor.
     /// </summary>
-    public WsSqlViewPluScaleModel() : this(Guid.Empty, DateTime.MinValue, DateTime.MinValue, 
-        false, false, 0, false, "", 
-        Guid.Empty, false, false, 0, "", "", "", "",
+    public WsSqlViewPluStorageMethodModel() : this(Guid.Empty, false, false, 0, "",
+        "", "", "", Guid.Empty, false, "", 
+        0, 0, false, false,
+        Guid.Empty, false, "",
         0, false, "") { }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="createDt"></param>
-    /// <param name="changeDt"></param>
-    /// <param name="isMarked"></param>
-    /// <param name="isActive"></param>
-    /// <param name="scaleId"></param>
-    /// <param name="scaleIsMarked"></param>
-    /// <param name="scaleName"></param>
     /// <param name="pluUid"></param>
     /// <param name="pluIsMarked"></param>
     /// <param name="pluIsWeight"></param>
@@ -55,23 +50,26 @@ public sealed record WsSqlViewPluScaleModel
     /// <param name="pluGtin"></param>
     /// <param name="pluEan13"></param>
     /// <param name="pluItf14"></param>
+    /// <param name="storageMethodUid"></param>
+    /// <param name="storageMethodIsMarked"></param>
+    /// <param name="storageMethodName"></param>
+    /// <param name="minTemp"></param>
+    /// <param name="maxTemp"></param>
+    /// <param name="isLeft"></param>
+    /// <param name="isRight"></param>
+    /// <param name="resourceUid"></param>
+    /// <param name="resourceIsMarked"></param>
+    /// <param name="resourceName"></param>
     /// <param name="templateId"></param>
     /// <param name="templateIsMarked"></param>
     /// <param name="templateName"></param>
-    public WsSqlViewPluScaleModel(Guid uid, DateTime createDt, DateTime changeDt, bool isMarked, bool isActive,
-        ushort scaleId, bool scaleIsMarked, string scaleName, 
-        Guid pluUid, bool pluIsMarked, bool pluIsWeight, ushort pluNumber, string pluName,
+    public WsSqlViewPluStorageMethodModel(Guid pluUid, bool pluIsMarked, bool pluIsWeight, ushort pluNumber, string pluName,
         string pluGtin, string pluEan13, string pluItf14,
+        Guid storageMethodUid, bool storageMethodIsMarked, string storageMethodName, 
+        short minTemp, short maxTemp, bool isLeft, bool isRight,
+        Guid resourceUid, bool resourceIsMarked, string resourceName,
         ushort templateId, bool templateIsMarked, string templateName)
     {
-        Uid = uid;
-        CreateDt = createDt;
-        ChangeDt = changeDt;
-        IsMarked = isMarked;
-        IsActive = isActive;
-        ScaleId = scaleId;
-        ScaleIsMarked = scaleIsMarked;
-        ScaleName = scaleName;
         PluUid = pluUid;
         PluIsMarked = pluIsMarked;
         PluIsWeight = pluIsWeight;
@@ -80,6 +78,16 @@ public sealed record WsSqlViewPluScaleModel
         PluGtin = pluGtin;
         PluEan13 = pluEan13;
         PluItf14 = pluItf14;
+        StorageMethodUid = storageMethodUid;
+        StorageMethodIsMarked = storageMethodIsMarked;
+        StorageMethodName = storageMethodName;
+        MinTemp = minTemp;
+        MaxTemp = maxTemp;
+        IsLeft = isLeft;
+        IsRight = isRight;
+        ResourceUid = resourceUid;
+        ResourceIsMarked = resourceIsMarked;
+        ResourceName = resourceName;
         TemplateId = templateId;
         TemplateIsMarked = templateIsMarked;
         TemplateName = templateName;
@@ -89,7 +97,7 @@ public sealed record WsSqlViewPluScaleModel
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{Uid} | {ScaleId} {ScaleName} | {PluNumber} {PluName} | {TemplateName}";
+    public override string ToString() => $"{PluUid} | {PluNumber} {PluName} | {StorageMethodName} | {ResourceName} | {TemplateName}";
 
     #endregion
 }

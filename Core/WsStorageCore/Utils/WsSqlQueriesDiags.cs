@@ -40,11 +40,11 @@ order by [NUMBER]");
         public static class Views
         {
             /// <summary>
-            /// Получить логи памяти.
+            /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
             /// </summary>
             /// <param name="topRecords"></param>
             /// <returns></returns>
-            public static string GetViewLogsMemories(int topRecords) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewLogsMemories(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	 [CREATE_DT]
@@ -57,11 +57,11 @@ FROM [diag].[VIEW_LOGS_MEMORIES]
 ORDER BY [CREATE_DT] DESC;");
 
             /// <summary>
-            /// Получить логи размеров таблиц.
+            /// Получить логи размеров таблиц из представления [diag].[VIEW_TABLES_SIZES].
             /// </summary>
             /// <param name="topRecords"></param>
             /// <returns></returns>
-            public static string GetViewTablesSizes(int topRecords) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewTablesSizes(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	 [SCHEMA_TABLE]
@@ -75,27 +75,66 @@ FROM [diag].[VIEW_TABLES_SIZES]
 ORDER BY [SCHEMA], [TABLE];");
 
             /// <summary>
-            /// Получить ПЛУ линий.
+            /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
             /// </summary>
             /// <param name="topRecords"></param>
             /// <returns></returns>
-            public static string GetViewPlusScales(int topRecords) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewPlusScales(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
      [UID]
-    ,[CREATE_DT]
-    ,[CHANGE_DT]
-    ,[IS_MARKED]
-    ,[IS_ACTIVE]
-    ,[SCALE_ID]
-    ,[SCALE_IS_MARKED]
-    ,[SCALE_NAME]
-    ,[PLU_UID]
-    ,[PLU_IS_MARKED]
-    ,[PLU_NUMBER]
-    ,[PLU_NAME]
+	,[CREATE_DT]
+	,[CHANGE_DT]
+	,[IS_MARKED]
+	,[IS_ACTIVE]
+	,[SCALE_ID]
+	,[SCALE_IS_MARKED]
+	,[SCALE_NAME]
+	,[PLU_UID]
+	,[PLU_IS_MARKED]
+	,[PLU_IS_WEIGHT]
+	,[PLU_NUMBER]
+	,[PLU_NAME]
+	,[PLU_GTIN]
+	,[PLU_EAN13]
+	,[PLU_ITF14]
+    ,[TEMPLATE_ID]
+    ,[TEMPLATE_IS_MARKED]
+    ,[TEMPLATE_NAME]
 FROM [REF].[VIEW_PLUS_SCALES]
 ORDER BY [SCALE_ID], [PLU_NUMBER];");
+
+            /// <summary>
+            /// Получить список способов хранения ПЛУ из представления [REF].[VIEW_PLUS_STORAGE_METHODS].
+            /// </summary>
+            /// <param name="topRecords"></param>
+            /// <returns></returns>
+            public static string GetViewPlusStorageMethods(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
+     [PLU_UID]
+	,[PLU_IS_MARKED]
+	,[PLU_IS_WEIGHT]
+	,[PLU_NUMBER]
+	,[PLU_NAME]
+	,[PLU_GTIN]
+	,[PLU_EAN13]
+	,[PLU_ITF14]
+	,[STORAGE_METHOD_UID]
+	,[STORAGE_METHOD_IS_MARKED]
+	,[STORAGE_METHOD_NAME]
+	,[MIN_TEMP]
+	,[MAX_TEMP]
+	,[IS_LEFT]
+	,[IS_RIGHT]
+	,[RESOURCE_UID]
+	,[RESOURCE_IS_MARKED]
+	,[RESOURCE_NAME]
+	,[TEMPLATE_ID]
+	,[TEMPLATE_IS_MARKED]
+	,[TEMPLATE_NAME]
+FROM [REF].[VIEW_PLUS_STORAGE_METHODS]
+ORDER BY [PLU_NUMBER], [PLU_NAME];");
 
             public static string GetLogs(int topRecords, string? logType, string? currentLine)
             {
