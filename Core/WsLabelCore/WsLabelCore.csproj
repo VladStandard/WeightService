@@ -29,7 +29,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalUsings.cs" />
-    <Compile Include="Gui\WsControlPluModel.cs" />
+    <Compile Include="Gui\WsControlPluModel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Gui\WsWinFormUtils.cs" />
     <Compile Include="Gui\WsMessageBoxModel.cs" />
     <Compile Include="Gui\WsNumberInputForm.cs">

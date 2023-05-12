@@ -49,7 +49,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public PrintBrand PrintBrandShipping =>
         Scale.PrinterShipping is not null && Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
     private WsSqlPluWeighingModel _pluWeighing;
-    [XmlElement]
+    //[XmlElement]
     public WsSqlPluWeighingModel PluWeighing
     {
         get => _pluWeighing;
@@ -60,7 +60,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
     private WsWeighingSettingsModel _weighingSettings;
-    [XmlElement]
+    //[XmlElement]
     public WsWeighingSettingsModel WeighingSettings
     {
         get => _weighingSettings;
@@ -75,7 +75,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public WsPluNestingViewModel PluNestingView { get; }
 
     private WsSqlPluScaleModel _pluScale;
-    [XmlElement]
+    //[XmlElement]
     public WsSqlPluScaleModel PluScale
     {
         get => _pluScale;
@@ -114,7 +114,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public int PageNumber { get; set; }
 
     private WsSqlDeviceScaleFkModel _deviceScaleFk;
-    [XmlElement]
+    //[XmlElement]
     public WsSqlDeviceScaleFkModel DeviceScaleFk
     {
         get => _deviceScaleFk;
@@ -125,7 +125,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
     private WsSqlScaleModel _scale;
-    [XmlElement]
+    //[XmlElement]
     public WsSqlScaleModel Scale
     {
         get => _scale;
@@ -138,7 +138,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
     private List<WsSqlScaleModel> _scales;
-    [XmlElement]
+    //[XmlElement]
     public List<WsSqlScaleModel> Scales
     {
         get => _scales;
@@ -150,7 +150,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     }
 
     private WsSqlProductionFacilityModel _productionFacility;
-    [XmlElement]
+    //[XmlElement]
     public WsSqlProductionFacilityModel ProductionFacility
     {
         get =>
@@ -163,7 +163,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
     private List<WsSqlProductionFacilityModel> _productionFacilities;
-    [XmlElement]
+    //[XmlElement]
     public List<WsSqlProductionFacilityModel> ProductionFacilities
     {
         get => _productionFacilities;
@@ -174,7 +174,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
     private string _publishDescription;
-    [XmlElement]
+    //[XmlElement]
     public string PublishDescription
     {
         get => _publishDescription;
@@ -730,13 +730,13 @@ public sealed class WsUserSessionHelper : BaseViewModel
             _ => throw new ArgumentOutOfRangeException()
         };
 
-    public IEnumerable<WsSqlViewPluScaleModel> GetCurrentPlus()
+    public List<WsSqlViewPluScaleModel> GetCurrentViewPlusScales()
     {
-        if (Scale.IsNotExists) return new List<WsSqlViewPluScaleModel>();
+        if (Scale.IsNotExists) return new();
         IEnumerable<WsSqlViewPluScaleModel> viewPlusScales = ContextCache.ViewPlusScalesDb.Where(
             item => Equals(item.ScaleId, (ushort)Scale.IdentityValueId) && item.IsActive);
         viewPlusScales = viewPlusScales.Skip(PageNumber * PageSize);
-        return viewPlusScales.Take(PageSize);
+        return viewPlusScales.Take(PageSize).ToList();
     }
 
     #endregion

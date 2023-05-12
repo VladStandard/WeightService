@@ -33,19 +33,19 @@ public class DebugHelper
 
     public WsEnumConfiguration Config =>
 #if DEVELOPALEKSANDROV
-        WsConfiguration.DevelopAleksandrov;
+        WsEnumConfiguration.DevelopAleksandrov;
 #elif DEVELOPMOROZOV
-        WsConfiguration.DevelopMorozov;
+        WsEnumConfiguration.DevelopMorozov;
 #elif DEVELOPVS
         WsEnumConfiguration.DevelopVS;
 #elif RELEASEALEKSANDROV
-        WsConfiguration.ReleaseAleksandrov;
+        WsEnumConfiguration.ReleaseAleksandrov;
 #elif RELEASEMOROZOV
-        WsConfiguration.ReleaseMorozov;
+        WsEnumConfiguration.ReleaseMorozov;
 #elif RELEASEVS
-        WsConfiguration.ReleaseVS;
+        WsEnumConfiguration.ReleaseVS;
 #else
-        WsConfiguration.DevelopVS;
+        WsEnumConfiguration.DevelopVS;
 #endif
 
     #endregion

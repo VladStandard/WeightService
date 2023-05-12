@@ -47,9 +47,9 @@ public sealed partial class PluUserControl : UserControlBase
 
     private WsControlPluModel?[,] CreateControls()
     {
-        List<WsSqlViewPluScaleModel> plus = UserSession.GetCurrentPlus().ToList();
+        List<WsSqlViewPluScaleModel> viewPlusScales = UserSession.GetCurrentViewPlusScales();
         WsControlPluModel?[,] controls = new WsControlPluModel?[0, 0];
-        if (!plus.Any()) return controls;
+        if (!viewPlusScales.Any()) return controls;
         controls = new WsControlPluModel[UserSession.PageColumnCount, UserSession.PageRowCount];
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
@@ -57,8 +57,8 @@ public sealed partial class PluUserControl : UserControlBase
             {
                 for (ushort columnNumber = 0; columnNumber < UserSession.PageColumnCount; ++columnNumber)
                 {
-                    if (buttonNumber >= plus.Count) break;
-                    WsControlPluModel control = NewControlGroup(plus[buttonNumber], UserSession.PageNumber, buttonNumber);
+                    if (buttonNumber >= viewPlusScales.Count) break;
+                    WsControlPluModel control = NewControlGroup(viewPlusScales[buttonNumber], UserSession.PageNumber, buttonNumber);
                     controls[columnNumber, rowNumber] = control;
                     buttonNumber++;
                 }
@@ -69,13 +69,13 @@ public sealed partial class PluUserControl : UserControlBase
 
     private WsControlPluModel NewControlGroup(WsSqlViewPluScaleModel viewPluScale, int pageNumber, ushort buttonNumber)
     {
-        int tabIndex = buttonNumber + pageNumber * UserSession.PageSize;
-        Button buttonPlu = NewButtonPlu(viewPluScale, tabIndex);
-        Label labelPluNumber = NewLabelPluNumber(viewPluScale, tabIndex, buttonPlu);
-        Label labelPluType = NewLabelPluType(viewPluScale, tabIndex, buttonPlu);
-        Label labelPluCode = NewLabelPluCode(viewPluScale, tabIndex, buttonPlu);
-        Label labelPluValidate = NewPluValidLabel(viewPluScale, tabIndex, buttonPlu);
-        Label labelPluTemplate = NewLabelPluTemplate(viewPluScale, tabIndex, buttonPlu);
+        //int tabIndex = buttonNumber + pageNumber * UserSession.PageSize;
+        Button buttonPlu = NewButtonPlu(viewPluScale);
+        Label labelPluNumber = NewLabelPluNumber(viewPluScale, buttonPlu);
+        Label labelPluType = NewLabelPluType(viewPluScale, buttonPlu);
+        Label labelPluCode = NewLabelPluCode(viewPluScale, buttonPlu);
+        Label labelPluValidate = NewPluValidLabel(viewPluScale, buttonPlu);
+        Label labelPluTemplate = NewLabelPluTemplate(viewPluScale, buttonPlu);
 
         buttonPlu.Click += ActionPluSelect_Click;
         labelPluNumber.MouseClick += ActionPluSelect_Click;
@@ -84,13 +84,13 @@ public sealed partial class PluUserControl : UserControlBase
         labelPluValidate.MouseClick += ActionPluSelect_Click;
         labelPluTemplate.MouseClick += ActionPluSelect_Click;
 
-        return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelPluTemplate, labelPluValidate);
+        return new(viewPluScale, buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelPluTemplate, labelPluValidate);
     }
 
-    private Button NewButtonPlu(WsSqlViewPluScaleModel viewPluScale, int tabIndex) =>
+    private Button NewButtonPlu(WsSqlViewPluScaleModel viewPluScale) =>
         new()
         {
-            Name = $@"buttonPlu{tabIndex}",
+            //Name = $@"buttonPlu{tabIndex}",
             Font = FontsSettings.FontLabelsBlack,
             AutoSize = false,
             Text = viewPluScale.PluName,
@@ -102,13 +102,13 @@ public sealed partial class PluUserControl : UserControlBase
             Location = new(0, 0),
             UseVisualStyleBackColor = true,
             BackColor = System.Drawing.SystemColors.Control,
-            TabIndex = tabIndex,
+            //TabIndex = tabIndex,
         };
 
-    private Label NewLabelPluNumber(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu) =>
+    private Label NewLabelPluNumber(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
         new()
         {
-            Name = $@"labelPluNumber{tabIndex}",
+            //Name = $@"labelPluNumber{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = Text = Width > 1024 ? $@"{LocaleCore.Table.Number} {viewPluScale.PluNumber}" : $@"{viewPluScale.PluNumber}",
@@ -117,15 +117,15 @@ public sealed partial class PluUserControl : UserControlBase
             Dock = DockStyle.None,
             BackColor = Color.Transparent,
             BorderStyle = BorderStyle.FixedSingle,
-            TabIndex = tabIndex,
+            //TabIndex = tabIndex,
         };
 
-    private Label NewPluValidLabel(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu)
+    private Label NewPluValidLabel(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu)
     {
         bool valid = WsSqlPluController.Instance.IsFullValid(viewPluScale);
         return new()
         {
-            Name = $@"labelPluNumber{tabIndex}",
+            //Name = $@"labelPluNumber{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = valid == false ? "!" : "OK",
@@ -134,14 +134,14 @@ public sealed partial class PluUserControl : UserControlBase
             Dock = DockStyle.None,
             BackColor = valid == false ? Color.Gold : Color.Transparent,
             BorderStyle = BorderStyle.FixedSingle,
-            TabIndex = tabIndex,
+            //TabIndex = tabIndex,
         };
     }
 
-    private Label NewLabelPluType(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu) =>
+    private Label NewLabelPluType(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
         new()
         {
-            Name = $@"labelPluType{tabIndex}",
+            //Name = $@"labelPluType{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = viewPluScale.PluIsWeight == false ? LocaleCore.Scales.PluIsPiece : LocaleCore.Scales.PluIsWeight,
@@ -150,13 +150,13 @@ public sealed partial class PluUserControl : UserControlBase
             Dock = DockStyle.None,
             BackColor = viewPluScale.PluIsWeight ? Color.LightGray : Color.Transparent,
             BorderStyle = BorderStyle.FixedSingle,
-            TabIndex = tabIndex,
+            //TabIndex = tabIndex,
         };
 
-    private Label NewLabelPluCode(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu) =>
+    private Label NewLabelPluCode(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
         new()
         {
-            Name = $@"labelPluCode{tabIndex}",
+            //Name = $@"labelPluCode{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = Width > 1024
@@ -167,13 +167,13 @@ public sealed partial class PluUserControl : UserControlBase
             Dock = DockStyle.None,
             BackColor = !string.IsNullOrEmpty(viewPluScale.PluGtin) ? Color.Transparent : Color.LightGray,
             BorderStyle = BorderStyle.FixedSingle,
-            TabIndex = tabIndex,
+            //TabIndex = tabIndex,
         };
 
-    private Label NewLabelPluTemplate(WsSqlViewPluScaleModel viewPluScale, int tabIndex, Control buttonPlu) =>
+    private Label NewLabelPluTemplate(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
         new()
         {
-            Name = $@"labelPluTemplate{tabIndex}",
+            //Name = $@"labelPluTemplate{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = !string.IsNullOrEmpty(viewPluScale.TemplateName) ? LocaleCore.Scales.PluTemplateSet : LocaleCore.Scales.PluTemplateNotSet,
@@ -183,7 +183,7 @@ public sealed partial class PluUserControl : UserControlBase
             BackColor = !string.IsNullOrEmpty(viewPluScale.TemplateName) ? Color.Transparent : Color.LightGray,
             Visible = true,
             BorderStyle = BorderStyle.FixedSingle,
-            TabIndex = tabIndex,
+            //TabIndex = tabIndex,
         };
 
     /// <summary>
@@ -195,14 +195,14 @@ public sealed partial class PluUserControl : UserControlBase
     {
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
-            ushort tabIndex = 0;
-            if (sender is Control control)
-                tabIndex = (ushort)control.TabIndex;
-            if (UserSession.ContextCache.ViewPlusScalesDb.Count >= tabIndex)
+            if (sender is Control { Tag: WsSqlViewPluScaleModel viewPluScale })
             {
-                UserSession.PluScale = UserSession.ContextManager.ContextPluScale.GetItem(
-                    UserSession.ContextCache.ViewPlusScalesDb[tabIndex].PluNumber);
-                Result = DialogResult.OK;
+                if (UserSession.ContextCache.ViewPlusScalesDb.Any())
+                {
+                    UserSession.PluScale = UserSession.ContextManager.ContextPluScale.GetItem(
+                        UserSession.Scale.IdentityValueId, viewPluScale.PluNumber);
+                    Result = UserSession.PluScale.IsExists ? DialogResult.OK : DialogResult.Abort;
+                }
             }
             ReturnBackAction();
         });
@@ -303,12 +303,13 @@ public sealed partial class PluUserControl : UserControlBase
                 }
             }
         }
+        else { rowCount = 1; columnCount = 1; }
 
         //AddRows(layoutPanel, 1);
         layoutPanelActions.Parent = layoutPanel;
         layoutPanel.SetColumn(layoutPanelActions, 0);
-        if (rowCount > 0) layoutPanel.SetRow(layoutPanelActions, layoutPanel.RowCount - 1);
-        if (columnCount > 0) layoutPanel.SetColumnSpan(layoutPanelActions, layoutPanel.ColumnCount);
+        layoutPanel.SetRow(layoutPanelActions, rowCount - 1);
+        layoutPanel.SetColumnSpan(layoutPanelActions, columnCount);
         layoutPanelActions.Dock = DockStyle.Fill;
 
         layoutPanel.Visible = true;

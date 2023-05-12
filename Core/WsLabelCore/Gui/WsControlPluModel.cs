@@ -2,13 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
+using WsStorageCore.ViewRefModels;
 
 namespace WsLabelCore.Gui;
 
-public sealed class WsControlPluModel
+public sealed class WsControlPluModel : Control
 {
     #region Public and private fields, properties, constructor
 
+    public WsSqlViewPluScaleModel ViewPluScale { get; }
     public Button ButtonPlu { get; }
     private Label LabelPluNumber { get; }
     private Label LabelPluType { get; }
@@ -19,15 +21,18 @@ public sealed class WsControlPluModel
     /// <summary>
     /// Constructor.
     /// </summary>
+    /// <param name="viewPluScale"></param>
     /// <param name="buttonPlu"></param>
     /// <param name="labelPluNumber"></param>
     /// <param name="labelPluType"></param>
     /// <param name="labelPluCode"></param>
     /// <param name="labelPluTemplate"></param>
     /// <param name="labelPluValidate"></param>
-    public WsControlPluModel(Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluTemplate, Label labelPluValidate)
+    public WsControlPluModel(WsSqlViewPluScaleModel viewPluScale, 
+        Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluTemplate, Label labelPluValidate)
     {
         ButtonPlu = buttonPlu;
+        ButtonPlu.Tag = ViewPluScale = viewPluScale;
         LabelPluNumber = labelPluNumber;
         LabelPluType = labelPluType;
         LabelPluCode = labelPluCode;
