@@ -16,7 +16,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
-    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Preview-Versions\0.9.360-Preview\</PublishUrl>
+    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Versions\0.9.360-Release\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -189,9 +189,7 @@
     <Compile Include="Controls\KneadingUserControl.Designer.cs">
       <DependentUpon>KneadingUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WaitUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Controls\WaitUserControl.cs" />
     <Compile Include="Controls\WaitUserControl.Designer.cs">
       <DependentUpon>WaitUserControl.cs</DependentUpon>
     </Compile>

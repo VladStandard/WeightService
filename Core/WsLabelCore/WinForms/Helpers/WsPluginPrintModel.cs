@@ -347,9 +347,9 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
             WsTcpClient.Events.Disconnected += WsTcpClientDisconnected;
             // TCP keepalives are disabled by default. To enable them:
             WsTcpClient.Keepalive.EnableTcpKeepAlives = true;
-            WsTcpClient.Keepalive.TcpKeepAliveInterval = 5;      // seconds to wait before sending subsequent keepalive
-            WsTcpClient.Keepalive.TcpKeepAliveTime = 5;          // seconds to wait before sending a keepalive
-            WsTcpClient.Keepalive.TcpKeepAliveRetryCount = 5;    // number of failed keepalive probes before terminating connection
+            WsTcpClient.Keepalive.TcpKeepAliveInterval = 2;      // seconds to wait before sending subsequent keepalive
+            WsTcpClient.Keepalive.TcpKeepAliveTime = 2;          // seconds to wait before sending a keepalive
+            WsTcpClient.Keepalive.TcpKeepAliveRetryCount = 2;    // number of failed keepalive probes before terminating connection
         }
         if (!WsTcpClient.IsConnected)
             WsTcpClient.ConnectWithRetries(1_000);

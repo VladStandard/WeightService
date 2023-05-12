@@ -69,7 +69,6 @@ public sealed partial class PluUserControl : UserControlBase
 
     private WsControlPluModel NewControlGroup(WsSqlViewPluScaleModel viewPluScale, int pageNumber, ushort buttonNumber)
     {
-        //int tabIndex = buttonNumber + pageNumber * UserSession.PageSize;
         Button buttonPlu = NewButtonPlu(viewPluScale);
         Label labelPluNumber = NewLabelPluNumber(viewPluScale, buttonPlu);
         Label labelPluType = NewLabelPluType(viewPluScale, buttonPlu);
@@ -90,7 +89,6 @@ public sealed partial class PluUserControl : UserControlBase
     private Button NewButtonPlu(WsSqlViewPluScaleModel viewPluScale) =>
         new()
         {
-            //Name = $@"buttonPlu{tabIndex}",
             Font = FontsSettings.FontLabelsBlack,
             AutoSize = false,
             Text = viewPluScale.PluName,
@@ -102,13 +100,11 @@ public sealed partial class PluUserControl : UserControlBase
             Location = new(0, 0),
             UseVisualStyleBackColor = true,
             BackColor = System.Drawing.SystemColors.Control,
-            //TabIndex = tabIndex,
         };
 
     private Label NewLabelPluNumber(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
         new()
         {
-            //Name = $@"labelPluNumber{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = Text = Width > 1024 ? $@"{LocaleCore.Table.Number} {viewPluScale.PluNumber}" : $@"{viewPluScale.PluNumber}",
@@ -117,7 +113,6 @@ public sealed partial class PluUserControl : UserControlBase
             Dock = DockStyle.None,
             BackColor = Color.Transparent,
             BorderStyle = BorderStyle.FixedSingle,
-            //TabIndex = tabIndex,
         };
 
     private Label NewPluValidLabel(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu)
@@ -125,7 +120,6 @@ public sealed partial class PluUserControl : UserControlBase
         bool valid = WsSqlPluController.Instance.IsFullValid(viewPluScale);
         return new()
         {
-            //Name = $@"labelPluNumber{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = valid == false ? "!" : "OK",
@@ -134,14 +128,12 @@ public sealed partial class PluUserControl : UserControlBase
             Dock = DockStyle.None,
             BackColor = valid == false ? Color.Gold : Color.Transparent,
             BorderStyle = BorderStyle.FixedSingle,
-            //TabIndex = tabIndex,
         };
     }
 
     private Label NewLabelPluType(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
         new()
         {
-            //Name = $@"labelPluType{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = viewPluScale.PluIsWeight == false ? LocaleCore.Scales.PluIsPiece : LocaleCore.Scales.PluIsWeight,
@@ -150,13 +142,11 @@ public sealed partial class PluUserControl : UserControlBase
             Dock = DockStyle.None,
             BackColor = viewPluScale.PluIsWeight ? Color.LightGray : Color.Transparent,
             BorderStyle = BorderStyle.FixedSingle,
-            //TabIndex = tabIndex,
         };
 
     private Label NewLabelPluCode(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
         new()
         {
-            //Name = $@"labelPluCode{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = Width > 1024
@@ -167,13 +157,11 @@ public sealed partial class PluUserControl : UserControlBase
             Dock = DockStyle.None,
             BackColor = !string.IsNullOrEmpty(viewPluScale.PluGtin) ? Color.Transparent : Color.LightGray,
             BorderStyle = BorderStyle.FixedSingle,
-            //TabIndex = tabIndex,
         };
 
     private Label NewLabelPluTemplate(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
         new()
         {
-            //Name = $@"labelPluTemplate{tabIndex}",
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
             Text = !string.IsNullOrEmpty(viewPluScale.TemplateName) ? LocaleCore.Scales.PluTemplateSet : LocaleCore.Scales.PluTemplateNotSet,
@@ -183,7 +171,6 @@ public sealed partial class PluUserControl : UserControlBase
             BackColor = !string.IsNullOrEmpty(viewPluScale.TemplateName) ? Color.Transparent : Color.LightGray,
             Visible = true,
             BorderStyle = BorderStyle.FixedSingle,
-            //TabIndex = tabIndex,
         };
 
     /// <summary>
