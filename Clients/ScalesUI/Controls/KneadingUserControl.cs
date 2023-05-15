@@ -28,7 +28,6 @@ public sealed partial class KneadingUserControl : UserControlBase
 
     public override void RefreshAction()
     {
-        base.RefreshAction();
         WsActionUtils.ActionTryCatchFinally(this, () =>
         {
             if (!UserSession.PluScale.IdentityValueUid.Equals(PreviousPluScaleUid))

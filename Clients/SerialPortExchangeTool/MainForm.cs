@@ -17,8 +17,8 @@ public partial class MainForm : Form
 {
     #region Public and private fields and properties
 
-    private BytesHelper Bytes { get; } = BytesHelper.Instance;
-    private SerialPortHelper PortController { get; }
+    private WsBytesHelper Bytes { get; } = WsBytesHelper.Instance;
+    private WsSerialPortHelper SerialPort { get; }
     private int SendBytesCount { get; set; }
     private int ReceiveBytesCount { get; set; }
 
@@ -31,7 +31,7 @@ public partial class MainForm : Form
         InitializeComponent();
 
         Initialize();
-        PortController = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
+        SerialPort = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
         statusTimeLabel.Text = StrUtils.FormatDtRus(DateTime.Now, true);
         toolStripStatusTx.Text = @"Sent: 0";
         toolStripStatusRx.Text = @"Received: 0";
@@ -224,11 +224,11 @@ public partial class MainForm : Form
     {
         if (openCloseSpbtn.Text == @"Open")
         {
-            PortController.Open(comListCbx.Text, baudRateCbx.Text, parityCbx.Text, dataBitsCbx.Text, stopBitsCbx.Text, handshakingcbx.Text);
+            SerialPort.Open(comListCbx.Text, baudRateCbx.Text, parityCbx.Text, dataBitsCbx.Text, stopBitsCbx.Text, handshakingcbx.Text);
         }
         else
         {
-            PortController.Close();
+            SerialPort.Close();
         }
     }
 
@@ -236,7 +236,7 @@ public partial class MainForm : Form
     {
         comListCbx.Items.Clear();
         //Com Ports
-        string[] arrayComPortsNames = SerialPort.GetPortNames();
+        string[] arrayComPortsNames = System.IO.Ports.SerialPort.GetPortNames();
         if (arrayComPortsNames.Length == 0)
         {
             statuslabel.Text = @"No COM found !";
@@ -272,7 +272,7 @@ public partial class MainForm : Form
             //send bytes to serial port
             byte[] bytes = Bytes.Hex2Bytes(sendText);
             sendbtn.Enabled = false;//wait return
-            flag = PortController.Send(bytes);
+            flag = SerialPort.Send(bytes);
             sendbtn.Enabled = true;
             SendBytesCount += bytes.Length;
         }
@@ -280,7 +280,7 @@ public partial class MainForm : Form
         {
             //send String to serial port
             sendbtn.Enabled = false;//wait return
-            flag = PortController.Send(sendText);
+            flag = SerialPort.Send(sendText);
             sendbtn.Enabled = true;
             SendBytesCount += sendText.Length;
         }

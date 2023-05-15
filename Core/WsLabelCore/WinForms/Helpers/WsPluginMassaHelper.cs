@@ -16,9 +16,9 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
 
     #region Public and private fields and properties
 
-    private MassaRequestHelper MassaRequest => MassaRequestHelper.Instance;
-    private MassaExchangeHelper MassaExchange => MassaExchangeHelper.Instance;
-    public MassaDeviceHelper MassaDevice => MassaDeviceHelper.Instance;
+    private WsMassaRequestHelper MassaRequest => WsMassaRequestHelper.Instance;
+    private WsMassaExchangeHelper MassaExchange => WsMassaExchangeHelper.Instance;
+    public WsMassaDeviceHelper MassaDevice => WsMassaDeviceHelper.Instance;
     private Label FieldMassa { get; set; }
     private Label FieldMassaExt { get; set; }
     private Label FieldNettoWeight { get; set; }
@@ -136,7 +136,7 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
     /// </summary>
     private void SetLabelsText()
     {
-        switch (MassaDevice.PortController.AdapterStatus)
+        switch (MassaDevice.SerialPort.AdapterStatus)
         {
             case UsbAdapterStatus.IsNotConnectWithMassa:
                 MdInvokeControl.SetText(FieldMassa, 
@@ -148,7 +148,7 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
                 break;
             case UsbAdapterStatus.IsException:
                 MdInvokeControl.SetText(FieldMassa,
-                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsException(MassaDevice.PortController.Exception.Message)}");
+                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsException(MassaDevice.SerialPort.Exception.Message)}");
                 break;
             default:
                 MdInvokeControl.SetText(FieldMassa, $"{(MassaDevice.IsOpenPort
@@ -227,68 +227,51 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
     {
         lock (_locker)
         {
-            if (response.Length == 0)
-                return;
-
+            if (response.Length == 0) return;
             MassaExchange.ResponseParse = new(MassaExchange.CmdType, response);
-            ParseSetResponse();
-            ParseMassa();
-        }
-    }
-
-    private void ParseSetResponse()
-    {
-        switch (MassaExchange.CmdType)
-        {
-            case MassaCmdType.GetMassa:
-                ResponseParseGet = MassaExchange.ResponseParse;
-                break;
-            case MassaCmdType.GetScalePar:
-                ResponseParseScalePar = MassaExchange.ResponseParse;
-                break;
-            case MassaCmdType.SetWiFiSsid:
-                ResponseParseSet = MassaExchange.ResponseParse;
-                break;
-            case MassaCmdType.SetDatetime:
-                ResponseParseSet = MassaExchange.ResponseParse;
-                break;
-            case MassaCmdType.SetName:
-                ResponseParseSet = MassaExchange.ResponseParse;
-                break;
-            case MassaCmdType.SetRegnum:
-                ResponseParseSet = MassaExchange.ResponseParse;
-                break;
-            case MassaCmdType.SetTare:
-                ResponseParseSet = MassaExchange.ResponseParse;
-                break;
-            case MassaCmdType.SetZero:
-                ResponseParseSet = MassaExchange.ResponseParse;
-                break;
-        }
-    }
-
-    private void ParseMassa()
-    {
-        switch (MassaExchange.CmdType)
-        {
-            case MassaCmdType.GetMassa:
-                // 1 байт. Цена деления в значении массы нетто и массы тары:
-                // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
-                ScaleFactor = MassaExchange.ResponseParse.Massa.ScaleFactor;
-                // 4 байта. Текущая масса нетто со знаком
-                WeightNet = MassaExchange.ResponseParse.Massa.Weight / (decimal)ScaleFactor;
-                // 4 байта. Текущая масса тары со знаком
-                //decimal weightTare = MassaExchange.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
-                // 4 байта. Текущая масса тары со знаком
-                //WeightGross = WeightNet + weightTare;
-                // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
-                //MassaStable = new(0_100, MassaExchange.ResponseParse.Massa.IsStable == 0x01);
-                IsStable = MassaExchange.ResponseParse.Massa.IsStable;
-                if (IsStable)
-                    ResetWarning();
-                // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
-                //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
-                break;
+            switch (MassaExchange.CmdType)
+            {
+                case MassaCmdType.GetScalePar:
+                    ResponseParseScalePar = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetWiFiSsid:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetDatetime:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetName:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetRegnum:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetTare:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetZero:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.GetMassa:
+                    ResponseParseGet = MassaExchange.ResponseParse;
+                    // 1 байт. Цена деления в значении массы нетто и массы тары:
+                    // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
+                    ScaleFactor = MassaExchange.ResponseParse.Massa.ScaleFactor;
+                    // 4 байта. Текущая масса нетто со знаком
+                    // #HotFix для ошибки "Попытка деления на нуль"
+                    WeightNet = ScaleFactor.Equals(0) ? 0 : MassaExchange.ResponseParse.Massa.Weight / (decimal)ScaleFactor;
+                    // 4 байта. Текущая масса тары со знаком
+                    //decimal weightTare = MassaExchange.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
+                    // 4 байта. Текущая масса тары со знаком
+                    //WeightGross = WeightNet + weightTare;
+                    // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
+                    //MassaStable = new(0_100, MassaExchange.ResponseParse.Massa.IsStable == 0x01);
+                    IsStable = MassaExchange.ResponseParse.Massa.IsStable;
+                    if (IsStable) ResetWarning();
+                    // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
+                    //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
+                    break;
+            }
         }
     }
 

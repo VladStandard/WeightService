@@ -35,7 +35,7 @@ public sealed class WsSqlPluScaleController
 
     public WsSqlPluScaleModel GetItem(long scaleId, ushort pluNumber)
     {
-        WsSqlViewPluScaleModel viewPluScale = ContextCache.ViewPlusScalesDb.Find(
+        WsSqlViewPluScaleModel viewPluScale = ContextCache.CurrentViewPlusScalesDb.Find(
             item => Equals(item.ScaleId, (ushort)scaleId) && Equals(item.PluNumber, pluNumber));
         return AccessItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(viewPluScale.Uid);
     }

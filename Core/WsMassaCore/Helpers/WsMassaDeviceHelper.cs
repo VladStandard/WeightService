@@ -3,20 +3,20 @@
 
 namespace WsMassaCore.Helpers;
 
-public class MassaDeviceHelper : HelperBase
+public class WsMassaDeviceHelper : HelperBase
 {
 	#region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	private static MassaDeviceHelper _instance;
+	private static WsMassaDeviceHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	public static MassaDeviceHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+	public static WsMassaDeviceHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
 	#endregion
 
 	#region Public and private fields and properties
 
-	public bool IsOpenPort => PortController.SerialPort.IsOpen;
+	public bool IsOpenPort => SerialPort.SerialPort.IsOpen;
     private bool IsOpenResult { get; set; }
     private bool IsCloseResult { get; set; }
     private bool IsResponseResult { get; set; }
@@ -24,17 +24,17 @@ public class MassaDeviceHelper : HelperBase
     private int ReadTimeout { get; set; }
     private int WriteTimeout { get; set; }
     private string PortName { get; set; }
-	public SerialPortHelper PortController { get; private set; }
+	public WsSerialPortHelper SerialPort { get; private set; }
     private int SendBytesCount { get; set; }
     private int ReceiveBytesCount { get; set; }
 	public delegate void MassaResponseCallback(byte[] response);
 	private MassaResponseCallback _massaResponseCallback;
 	private readonly object _locker = new();
 
-    public MassaDeviceHelper()
+    public WsMassaDeviceHelper()
     {
         PortName = string.Empty;
-        PortController = new();
+        SerialPort = new();
 		_massaResponseCallback = _ => { };
     }
 
@@ -45,7 +45,7 @@ public class MassaDeviceHelper : HelperBase
 		ReadTimeout = readTimeout ?? 0_100;
 		WriteTimeout = writeTimeout ?? 0_100;
 		_massaResponseCallback = massaCallback;
-		PortController = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
+		SerialPort = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
 		IsOpenResult = false;
 		IsCloseResult = false;
 		IsResponseResult = false;
@@ -56,9 +56,9 @@ public class MassaDeviceHelper : HelperBase
 
 	#region Public and private methods - ISerialPortView
 
-	public void SetController(SerialPortHelper controller)
+	public void SetController(WsSerialPortHelper controller)
 	{
-		PortController = controller;
+		SerialPort = controller;
 	}
 
     private void PortOpenCallback(object sender, SerialPortEventArgs e)
@@ -113,19 +113,19 @@ public class MassaDeviceHelper : HelperBase
 	{
 		base.Execute();
 		if (IsOpenPort) return;
-		PortController.Open(PortName, ReadTimeout, WriteTimeout);
+		SerialPort.Open(PortName, ReadTimeout, WriteTimeout);
 	}
 
 	public void SendData()
 	{
-		PortController.Send(MassaExchangeHelper.Instance.Request);
-		SendBytesCount += MassaExchangeHelper.Instance.Request.Length;
+		SerialPort.Send(WsMassaExchangeHelper.Instance.Request);
+		SendBytesCount += WsMassaExchangeHelper.Instance.Request.Length;
 	}
 
     public override void Close()
 	{
 		base.Close();
-		PortController.Close();
+		SerialPort.Close();
 	}
 
 	#endregion

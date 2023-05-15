@@ -30,9 +30,10 @@ public static class WsSqlQueries
                 return $"WHERE {aliasLog}.[IS_MARKED] = 0 AND {aliasLogType}.[UID] = '{logTypeUid}'";
             return $"WHERE {aliasLog}.[IS_MARKED] = 0";
         }
-
         return string.Empty;
     }
+
+    public static string GetWhereScaleId(ushort scaleId) => scaleId > 0 ? $"WHERE [SCALE_ID]={scaleId}" : string.Empty;
 
     public static string TrimQuery(string queryString) =>
         queryString.TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');

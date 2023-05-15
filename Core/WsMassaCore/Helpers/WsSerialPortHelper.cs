@@ -3,7 +3,7 @@
 
 namespace WsMassaCore.Helpers;
 
-public class SerialPortHelper
+public class WsSerialPortHelper
 {
 	#region Public and private fields and properties
 
@@ -16,7 +16,7 @@ public class SerialPortHelper
 	public UsbAdapterStatus AdapterStatus { get; private set; }
 	public Exception Exception { get; private set; }
 
-    public SerialPortHelper()
+    public WsSerialPortHelper()
     {
         SerialPort = new();
         AdapterStatus = UsbAdapterStatus.Default;
@@ -26,7 +26,7 @@ public class SerialPortHelper
         ExceptionAction = (_, _, _, _) => { };
     }
 
-    public SerialPortHelper(Action<object, SerialPortEventArgs> openCallback, Action<object, SerialPortEventArgs> closeCallback,
+    public WsSerialPortHelper(Action<object, SerialPortEventArgs> openCallback, Action<object, SerialPortEventArgs> closeCallback,
         Action<object, SerialPortEventArgs> responseCallback, 
         Action<Exception, string, int, string> exceptionAction) : this()
     {
@@ -124,8 +124,7 @@ public class SerialPortHelper
     private void DataReceivedCore(
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
-        if (!SerialPort.IsOpen || SerialPort.BytesToRead <= 0)
-            return;
+        if (!SerialPort.IsOpen || SerialPort.BytesToRead <= 0) return;
 
         try
         {
@@ -139,7 +138,7 @@ public class SerialPortHelper
                 ReceivedBytes = data
             };
             AdapterStatus = data.All(x => x == 0x00) ? UsbAdapterStatus.IsDataNotExists : UsbAdapterStatus.IsDataExists;
-            ResponseCallback?.Invoke(this, args);
+            ResponseCallback(this, args);
         }
         catch (Exception ex)
         {

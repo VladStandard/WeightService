@@ -3,21 +3,21 @@
 
 namespace WsMassaCore.Helpers;
 
-public class MassaRequestHelper
+public class WsMassaRequestHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static MassaRequestHelper _instance;
+    private static WsMassaRequestHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static MassaRequestHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsMassaRequestHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields and properties
 
-    private BytesHelper Bytes { get; } = BytesHelper.Instance;
-    private MassaCrcHelper MassaCrc { get; } = MassaCrcHelper.Instance;
+    private WsBytesHelper Bytes { get; } = WsBytesHelper.Instance;
+    private WsMassaCrcHelper MassaCrc { get; } = WsMassaCrcHelper.Instance;
 
     public readonly byte[] Header = { 0xF8, 0x55, 0xCE };
 

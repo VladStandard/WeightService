@@ -3,27 +3,27 @@
 
 namespace WsMassaCore.Helpers;
 
-public class MassaExchangeHelper
+public class WsMassaExchangeHelper
 {
 	#region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	private static MassaExchangeHelper _instance;
+	private static WsMassaExchangeHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	public static MassaExchangeHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+	public static WsMassaExchangeHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
 	#endregion
 
 	#region Public and private fields and properties
 
-	private MassaRequestHelper MassaRequest { get; } = MassaRequestHelper.Instance;
+	private WsMassaRequestHelper MassaRequest { get; } = WsMassaRequestHelper.Instance;
 	public byte[] Request { get; set; }
     private int ScaleFactor { get; set; } = 1_000;
     private int WeightTare { get; set; }
 	public MassaCmdType CmdType { get; set; }
 	public ResponseParseModel ResponseParse { get; set; }
 
-	public MassaExchangeHelper()
+	public WsMassaExchangeHelper()
 	{
         Request = Array.Empty<byte>();
         CmdType = MassaCmdType.Nack;

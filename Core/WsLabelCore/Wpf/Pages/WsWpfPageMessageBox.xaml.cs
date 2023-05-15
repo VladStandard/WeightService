@@ -3,7 +3,6 @@
 // ReSharper disable MismatchedFileName
 
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;

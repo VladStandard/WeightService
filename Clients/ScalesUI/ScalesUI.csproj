@@ -16,7 +16,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
-    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Versions\0.9.360-Release\</PublishUrl>
+    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Kamni\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -189,7 +189,9 @@
     <Compile Include="Controls\KneadingUserControl.Designer.cs">
       <DependentUpon>KneadingUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WaitUserControl.cs" />
+    <Compile Include="Controls\WaitUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\WaitUserControl.Designer.cs">
       <DependentUpon>WaitUserControl.cs</DependentUpon>
     </Compile>
@@ -208,11 +210,11 @@
     <Compile Include="Controls\NavigationUserControl.Designer.cs">
       <DependentUpon>NavigationUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PluUserControl.cs">
+    <Compile Include="Controls\PlusControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\PluUserControl.Designer.cs">
-      <DependentUpon>PluUserControl.cs</DependentUpon>
+    <Compile Include="Controls\PlusControl.Designer.cs">
+      <DependentUpon>PlusControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\WsSchedulerHelper.cs" />
@@ -241,8 +243,8 @@
     <EmbeddedResource Include="Controls\WaitUserControl.resx">
       <DependentUpon>WaitUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\PluUserControl.resx">
-      <DependentUpon>PluUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\PlusControl.resx">
+      <DependentUpon>PlusControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\UserControlBase.resx">
       <DependentUpon>UserControlBase.cs</DependentUpon>

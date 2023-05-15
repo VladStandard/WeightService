@@ -25,7 +25,7 @@ public partial class MainForm : Form
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
     private NavigationUserControl NavigationControl { get; set; }
-    private PluUserControl PluControl { get; set; }
+    private PlusControl PluControl { get; set; }
     private KneadingUserControl KneadingControl { get; set; }
     private WaitUserControl WaitControl { get; set; }
     /// <summary>
@@ -79,9 +79,7 @@ public partial class MainForm : Form
         WaitControl = new();
 
         PluControl = new();
-        PluControl.RefreshAction();
         KneadingControl = new();
-        KneadingControl.RefreshAction();
 
         // Buttons.
         SetButtonsSettings();

@@ -78,17 +78,18 @@ public sealed class WsSqlContextViewHelper
     /// <summary>
     /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
     /// </summary>
+    /// <param name="scaleId"></param>
     /// <param name="topRecords"></param>
     /// <returns></returns>
-    public List<WsSqlViewPluScaleModel> GetListViewPlusScales(int topRecords = 0)
+    public List<WsSqlViewPluScaleModel> GetListViewPlusScales(ushort scaleId = 0, int topRecords = 0)
     {
         List<WsSqlViewPluScaleModel> result = new();
-        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusScales(topRecords);
+        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusScales(scaleId, topRecords);
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
             if (obj is not object[] { Length: 19 } item) break;
-            result.Add(new(Guid.Parse(Convert.ToString(item[0])), 
+            result.Add(new(Guid.Parse(Convert.ToString(item[0])),
                 Convert.ToDateTime(item[1]), Convert.ToDateTime(item[2]),
                 Convert.ToBoolean(item[3]), Convert.ToBoolean(item[4]),
                 Convert.ToUInt16(item[5]), Convert.ToBoolean(item[6]), Convert.ToString(item[7]),

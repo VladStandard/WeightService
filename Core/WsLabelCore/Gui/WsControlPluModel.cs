@@ -1,9 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Windows.Forms;
-using WsStorageCore.ViewRefModels;
-
 namespace WsLabelCore.Gui;
 
 public sealed class WsControlPluModel : Control
@@ -32,12 +29,13 @@ public sealed class WsControlPluModel : Control
         Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluTemplate, Label labelPluValidate)
     {
         ButtonPlu = buttonPlu;
-        ButtonPlu.Tag = ViewPluScale = viewPluScale;
         LabelPluNumber = labelPluNumber;
         LabelPluType = labelPluType;
         LabelPluCode = labelPluCode;
         LabelPluTemplate = labelPluTemplate;
         LabelPluValidate = labelPluValidate;
+        LabelPluValidate.Tag = LabelPluTemplate.Tag = LabelPluCode.Tag = LabelPluType.Tag = LabelPluNumber.Tag = 
+            ButtonPlu.Tag = ViewPluScale = viewPluScale;
     }
 
     #endregion

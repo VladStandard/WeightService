@@ -18,7 +18,6 @@ public sealed partial class WaitUserControl : UserControlBase
 
     public override void RefreshAction()
     {
-        base.RefreshAction();
         WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
         {
             labelMessage.Text = Message;

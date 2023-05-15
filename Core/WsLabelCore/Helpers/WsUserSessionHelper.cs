@@ -2,10 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #nullable enable
 
-using System.Windows.Forms;
-using WsStorageCore.TableScaleModels.Clips;
-using WsStorageCore.ViewRefModels;
-
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -49,7 +45,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public PrintBrand PrintBrandShipping =>
         Scale.PrinterShipping is not null && Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
     private WsSqlPluWeighingModel _pluWeighing;
-    //[XmlElement]
     public WsSqlPluWeighingModel PluWeighing
     {
         get => _pluWeighing;
@@ -60,7 +55,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
     private WsWeighingSettingsModel _weighingSettings;
-    //[XmlElement]
     public WsWeighingSettingsModel WeighingSettings
     {
         get => _weighingSettings;
@@ -75,7 +69,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public WsPluNestingViewModel PluNestingView { get; }
 
     private WsSqlPluScaleModel _pluScale;
-    //[XmlElement]
     public WsSqlPluScaleModel PluScale
     {
         get => _pluScale;
@@ -108,13 +101,12 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
 
-    public readonly ushort PageColumnCount = 4;
-    public readonly ushort PageSize = 20;
-    public readonly ushort PageRowCount = 5;
-    public int PageNumber { get; set; }
+    public const ushort PlusPageColumnCount = 4;
+    public const ushort PlusPageSize = 16;
+    public const ushort PlusPageRowCount = 4;
+    public int PlusPageNumber { get; set; }
 
     private WsSqlDeviceScaleFkModel _deviceScaleFk;
-    //[XmlElement]
     public WsSqlDeviceScaleFkModel DeviceScaleFk
     {
         get => _deviceScaleFk;
@@ -125,20 +117,21 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
     private WsSqlScaleModel _scale;
-    //[XmlElement]
     public WsSqlScaleModel Scale
     {
         get => _scale;
         set
         {
             _scale = value;
+            // Обновить кэш.
+            ContextCache.LoadCurrentViewPlusScales((ushort)_scale.IdentityValueId);
+            ContextCache.Load(WsSqlTableName.ViewPluStorageMethods);
             _ = ProductionFacility;
             PluScale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
             OnPropertyChanged();
         }
     }
     private List<WsSqlScaleModel> _scales;
-    //[XmlElement]
     public List<WsSqlScaleModel> Scales
     {
         get => _scales;
@@ -150,7 +143,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
     }
 
     private WsSqlProductionFacilityModel _productionFacility;
-    //[XmlElement]
     public WsSqlProductionFacilityModel ProductionFacility
     {
         get =>
@@ -163,7 +155,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
     private List<WsSqlProductionFacilityModel> _productionFacilities;
-    //[XmlElement]
     public List<WsSqlProductionFacilityModel> ProductionFacilities
     {
         get => _productionFacilities;
@@ -174,7 +165,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
     private string _publishDescription;
-    //[XmlElement]
     public string PublishDescription
     {
         get => _publishDescription;
@@ -339,7 +329,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, $"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
-            ContextManager.ContextItem.SaveLogError($"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
+            ContextManager.ContextItem.SaveLogWarning($"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
             return false;
         }
         return true;
@@ -573,16 +563,16 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// Задать фейк данные веса ПЛУ для режима разработки.
     /// </summary>
     /// <param name="owner"></param>
-    public void SetPluWeighingFakeForDevelop(IWin32Window owner)
+    public void SetPluWeighingFakeForDevelop(System.Windows.Forms.IWin32Window owner)
     {
         if (!PluScale.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
 
-        DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(owner,
+        System.Windows.Forms.DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(owner,
             LocaleCore.Print.QuestionUseFakeData,
             true, WsEnumLogType.Question,
             new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-        if (dialogResult is DialogResult.Yes)
+        if (dialogResult is System.Windows.Forms.DialogResult.Yes)
         {
             PluginMassa.WeightNet = StrUtils.NextDecimal(PluNestingView.Item.WeightMin, PluNestingView.Item.WeightMax);
             PluginMassa.IsWeightNetFake = true;
@@ -612,10 +602,10 @@ public sealed class WsUserSessionHelper : BaseViewModel
             // Send cmd to the print.
             if (Debug.IsDevelop)
             {
-                DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(
+                System.Windows.Forms.DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(
                     LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                if (dialogResult != DialogResult.Yes)
+                if (dialogResult != System.Windows.Forms.DialogResult.Yes)
                     return;
             }
 
@@ -718,6 +708,10 @@ public sealed class WsUserSessionHelper : BaseViewModel
         ContextManager.AccessItem.Save(barCode);
     }
 
+    /// <summary>
+    /// Задать настройки публикации.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private void SetSqlPublish() =>
         PublishDescription = Debug.Config switch
         {
@@ -730,14 +724,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
             _ => throw new ArgumentOutOfRangeException()
         };
 
-    public List<WsSqlViewPluScaleModel> GetCurrentViewPlusScales()
-    {
-        if (Scale.IsNotExists) return new();
-        IEnumerable<WsSqlViewPluScaleModel> viewPlusScales = ContextCache.ViewPlusScalesDb.Where(
-            item => Equals(item.ScaleId, (ushort)Scale.IdentityValueId) && item.IsActive);
-        viewPlusScales = viewPlusScales.Skip(PageNumber * PageSize);
-        return viewPlusScales.Take(PageSize).ToList();
-    }
+    public int GetPlusPageCount() => 
+        ContextCache.CurrentViewPlusScalesDb.Where(item => item.IsActive).ToList().Count / PlusPageSize;
 
     #endregion
 }

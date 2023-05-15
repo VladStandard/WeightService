@@ -77,9 +77,10 @@ ORDER BY [SCHEMA], [TABLE];");
             /// <summary>
             /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
             /// </summary>
+            /// <param name="scaleId"></param>
             /// <param name="topRecords"></param>
             /// <returns></returns>
-            public static string GetViewPlusScales(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewPlusScales(ushort scaleId, int topRecords = 0) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
      [UID]
@@ -101,7 +102,7 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
     ,[TEMPLATE_ID]
     ,[TEMPLATE_IS_MARKED]
     ,[TEMPLATE_NAME]
-FROM [REF].[VIEW_PLUS_SCALES]
+FROM [REF].[VIEW_PLUS_SCALES] {WsSqlQueries.GetWhereScaleId(scaleId)}
 ORDER BY [SCALE_ID], [PLU_NUMBER];");
 
             /// <summary>

@@ -4,7 +4,7 @@
 namespace WsStorageCore.Helpers;
 
 /// <summary>
-/// Помощник кэша веб-сервисов.
+/// Помощник кэша.
 /// </summary>
 public sealed class WsSqlContextCacheHelper
 {
@@ -40,7 +40,9 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlPluNestingFkModel> PluNestingFksDb { get; private set; } = new();
     public List<WsSqlScaleModel> ScalesDb { get; private set; } = new();
     public List<WsSqlViewPluScaleModel> ViewPlusScalesDb { get; private set; } = new();
+    public List<WsSqlViewPluScaleModel> CurrentViewPlusScalesDb { get; private set; } = new();
     public List<WsSqlViewPluStorageMethodModel> ViewPlusStorageMethodsFks { get; private set; } = new();
+    //public List<WsSqlViewPluStorageMethodModel> CurrentViewPlusStorageMethodsFks { get; private set; } = new();
 
     #endregion
 
@@ -101,6 +103,31 @@ public sealed class WsSqlContextCacheHelper
         if (TableName.Equals(WsSqlTableName.All))
             TableName = WsSqlTableName.None;
     }
+
+    public List<WsSqlViewPluScaleModel> GetViewPlusScalesDb(ushort scaleId) => 
+        ViewPlusScalesDb.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive).ToList();
+
+    public List<WsSqlViewPluScaleModel> GetViewPlusScalesDb(ushort scaleId, int pageNumber, ushort pageSize) =>
+        ViewPlusScalesDb.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive)
+            .Skip(pageNumber * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+    public void LoadCurrentViewPlusScales(ushort scaleId)
+    {
+        CurrentViewPlusScalesDb = ContextManager.ContextView.GetListViewPlusScales(scaleId);
+    }
+
+    public List<WsSqlViewPluScaleModel> GetCurrentViewPlusScalesDb(int pageNumber, ushort pageSize) =>
+        CurrentViewPlusScalesDb.Where(item => item.IsActive)
+            .Skip(pageNumber * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+    //public void LoadCurrentViewPlusStorageMethodsFks(ushort scaleId)
+    //{
+    //    CurrentViewPlusStorageMethodsFks = ContextManager.ContextView.GetListViewPlusStorageMethods();
+    //}
 
     #endregion
 }

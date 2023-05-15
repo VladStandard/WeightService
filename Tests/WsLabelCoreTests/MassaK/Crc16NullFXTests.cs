@@ -8,7 +8,7 @@ namespace WsLabelCoreTests.MassaK;
 public sealed class Crc16NullFxTests
 {
     // WRITE	F8 55 CE 01 00 23 23 00
-    private readonly byte[] getMassaRequest = MassaRequestHelper.Instance.CMD_GET_MASSA;
+    private readonly byte[] getMassaRequest = WsMassaRequestHelper.Instance.CMD_GET_MASSA;
     // READ	    F8 55 CE 0D 00 24 00 00 00 00 01 01 00 01 00 00 00 00 FC 23
     private readonly byte[] getMassaResponse = new byte[] { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
 
