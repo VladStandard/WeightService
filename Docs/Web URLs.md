@@ -13,11 +13,6 @@ PALYCH\LUTON (10.0.204.24)		ScalesDB
 SQLSRSP01\LEEDS (10.0.204.15)	VSDWH
 DEV1C\DVLP (10.0.204.20)		1C-PROD
 
-## Десктоп-приложение "Печать этикеток" / ScalesUI
-Разработка						\\palych\Install\VSSoft\Scales-1-Develop\
-Предварительное тестирование	\\palych\Install\VSSoft\Scales-2-Preview\
-Рабочий релиз					\\palych\Install\VSSoft\Scales-3-Release\
-
 ## Веб-сервис "Обмен с весовыми постами" / WsWebApiScales
 ✓ IIS-DEV (10.0.204.17)
 Предварительное тестирование	https://scales-dev-preview.kolbasa-vs.local:443/
@@ -25,15 +20,6 @@ DEV1C\DVLP (10.0.204.20)		1C-PROD
 ✓ IIS: IIS-PROD (10.0.24.19)
 Предварительный релиз			https://scales-prod-preview.kolbasa-vs.local:443/
 Рабочий релиз					https://scales-prod.kolbasa-vs.local:443/
-
-## Веб-сервис "Демо погода" / WebApiDemo
-✓ IIS-DEV (10.0.204.17)
-Предварительное тестирование	https://web-api-demo-dev-preview.kolbasa-vs.local:443/
-Рабочее тестирование			https://web-api-demo-dev.kolbasa-vs.local:443/
-
-✓ IIS: IIS-PROD (10.0.24.19)
-Предварительный релиз			https://web-api-demo-prod-preview.kolbasa-vs.local:443/
-Рабочий релиз					https://web-api-demo-prod.kolbasa-vs.local:443/
 
 ## Веб-сервис "Обмен с DWH" / WebApiTerra1000
 ✓ IIS-DEV (10.0.204.17)
@@ -43,7 +29,7 @@ DEV1C\DVLP (10.0.204.20)		1C-PROD
 Предварительный релиз			https://t1000-preview.kolbasa-vs.local:443/
 Рабочий релиз					https://t1000.kolbasa-vs.local:443/
 
-## Веб-приложение "Управление устройствами" / BlazorDeviceControl
+## Веб-приложение "Управление устройствами" / DeviceControl
 ✓ IIS: IIS-DEV (10.0.204.17)
 Предварительное тестирование	https://device-control-dev-preview.kolbasa-vs.local/
 Рабочее тестирование			https://device-control-dev.kolbasa-vs.local/

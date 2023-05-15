@@ -541,6 +541,7 @@ internal sealed class WsSqlAccessCoreHelper
 
     public bool IsItemExists<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
+        throw new Exception("FIX HERE!");
         bool result = false;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {

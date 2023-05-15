@@ -35,7 +35,7 @@ public sealed class GetListViewTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewPluScaleModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusScales(200);
+            List<WsSqlViewPluScaleModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusScales(0 ,200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });

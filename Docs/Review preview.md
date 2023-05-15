@@ -10,5 +10,5 @@
 
 ## Остальное
 - Пустые поля
-	- https://device-control-dev-preview.kolbasa-vs.local/item/barcode/9bd8c96d-7062-4285-9c43-846db570d2ce
+- https://device-control-dev-preview.kolbasa-vs.local/item/barcode/9bd8c96d-7062-4285-9c43-846db570d2ce
 - Не отрисовывается полностью интерфейс при печате с весом (чаще всего при смене ПЛУ)
