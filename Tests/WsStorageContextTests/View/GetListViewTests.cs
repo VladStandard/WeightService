@@ -51,4 +51,15 @@ public sealed class GetListViewTests
             WsTestsUtils.DataTests.PrintTopRecords(items);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
+    
+    [Test]
+    public void Get_view_plus_nesting()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlViewPluNestingModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusNesting(200);
+            Assert.IsTrue(items.Any());
+            WsTestsUtils.DataTests.PrintTopRecords(items);
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+    }
 }

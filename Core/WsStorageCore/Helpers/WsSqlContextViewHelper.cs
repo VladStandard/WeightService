@@ -127,5 +127,34 @@ public sealed class WsSqlContextViewHelper
         return result;
     }
 
+    /// <summary>
+    /// Получить список вложенностей ПЛУ из представления [REF].[VIEW_PLUS_NESTING].
+    /// </summary>
+    /// <param name="topRecords"></param>
+    /// <returns></returns>
+    public List<WsSqlViewPluNestingModel> GetListViewPlusNesting(int topRecords = 0)
+    {
+        List<WsSqlViewPluNestingModel> result = new();
+        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusNesting(topRecords);
+        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        foreach (object obj in objects)
+        {
+            if (obj is not object[] { Length: 25 } item) break;
+            result.Add(new(Guid.Parse(Convert.ToString(item[0])),
+                Convert.ToBoolean(item[1]), Convert.ToBoolean(item[2]),
+                Convert.ToInt16(item[3]), Convert.ToDecimal(item[4]), Convert.ToDecimal(item[5]), 
+                Convert.ToDecimal(item[6]),
+                Guid.Parse(Convert.ToString(item[7])), Convert.ToBoolean(item[8]),
+                Convert.ToBoolean(item[9]), Convert.ToUInt16(item[10]), Convert.ToString(item[11]),
+                Convert.ToInt16(item[12]), Convert.ToString(item[13]), Convert.ToString(item[14]),
+                Convert.ToString(item[15]), Guid.Parse(Convert.ToString(item[16])), Convert.ToBoolean(item[17]), 
+                Convert.ToString(item[18]), Convert.ToDecimal(item[19]),
+                Guid.Parse(Convert.ToString(item[20])), Convert.ToBoolean(item[21]),
+                Convert.ToString(item[22]), Convert.ToDecimal(item[23]), Convert.ToDecimal(item[24])
+            ));
+        }
+        return result;
+    }
+
     #endregion
 }

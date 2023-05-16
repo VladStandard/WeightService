@@ -41,7 +41,8 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlScaleModel> ScalesDb { get; private set; } = new();
     public List<WsSqlViewPluScaleModel> ViewPlusScalesDb { get; private set; } = new();
     public List<WsSqlViewPluScaleModel> CurrentViewPlusScalesDb { get; private set; } = new();
-    public List<WsSqlViewPluStorageMethodModel> ViewPlusStorageMethodsFks { get; private set; } = new();
+    public List<WsSqlViewPluStorageMethodModel> ViewPlusStorageMethods { get; private set; } = new();
+    public List<WsSqlViewPluNestingModel> ViewPlusNesting { get; set; }
     //public List<WsSqlViewPluStorageMethodModel> CurrentViewPlusStorageMethodsFks { get; private set; } = new();
 
     #endregion
@@ -96,8 +97,10 @@ public sealed class WsSqlContextCacheHelper
         // Views.
         if (!ViewPlusScalesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusScales))
             ViewPlusScalesDb = ContextManager.ContextView.GetListViewPlusScales();
-        if (!ViewPlusStorageMethodsFks.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPluStorageMethods))
-            ViewPlusStorageMethodsFks = ContextManager.ContextView.GetListViewPlusStorageMethods();
+        if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPluStorageMethods))
+            ViewPlusStorageMethods = ContextManager.ContextView.GetListViewPlusStorageMethods();
+        if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPluStorageMethods))
+            ViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting();
         
         // Optimize.
         if (TableName.Equals(WsSqlTableName.All))

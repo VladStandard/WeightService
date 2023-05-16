@@ -687,7 +687,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         zpl =>
         {
             // Patch for using table `PLUS_STORAGE_METHODS_FK`.
-            if (ContextCache.ViewPlusStorageMethodsFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
+            if (ContextCache.ViewPlusStorageMethods.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
                 WsSqlTemplateResourceModel resource = ContextManager.ContextPluStorage.GetItemResource(pluLabel.PluScale.Plu);
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);

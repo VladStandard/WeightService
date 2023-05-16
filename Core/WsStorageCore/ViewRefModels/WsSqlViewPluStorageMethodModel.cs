@@ -33,11 +33,11 @@ public sealed record WsSqlViewPluStorageMethodModel
     /// <summary>
     /// Empty constructor.
     /// </summary>
-    public WsSqlViewPluStorageMethodModel() : this(Guid.Empty, false, false, 0, "",
-        "", "", "", Guid.Empty, false, "", 
-        0, 0, false, false,
-        Guid.Empty, false, "",
-        0, false, "") { }
+    public WsSqlViewPluStorageMethodModel() : this(Guid.Empty, default, default, default, string.Empty,
+        string.Empty, string.Empty, string.Empty, Guid.Empty, default, string.Empty,
+        default, default, default, default,
+        Guid.Empty, default, string.Empty,
+        default, default, string.Empty) { }
 
     /// <summary>
     /// Constructor.

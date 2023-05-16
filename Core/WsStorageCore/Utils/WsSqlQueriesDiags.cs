@@ -137,6 +137,42 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 FROM [REF].[VIEW_PLUS_STORAGE_METHODS]
 ORDER BY [PLU_NUMBER], [PLU_NAME];");
 
+            /// <summary>
+            /// Получить список вложенностей ПЛУ из представления [REF].[VIEW_PLUS_NESTING].
+            /// </summary>
+            /// <param name="topRecords"></param>
+            /// <returns></returns>
+            public static string GetViewPlusNesting(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
+	 [UID]
+	,[IS_MARKED]
+	,[IS_DEFAULT]
+	,[BUNDLE_COUNT]
+	,[WEIGHT_MAX]
+	,[WEIGHT_MIN]
+	,[WEIGHT_NOM]
+	,[PLU_UID]
+	,[PLU_IS_MARKED]
+	,[PLU_IS_WEIGHT]
+	,[PLU_NUMBER]
+	,[PLU_NAME]
+	,[PLU_SHELF_LIFE_DAYS]
+	,[PLU_GTIN]
+	,[PLU_EAN13]
+	,[PLU_ITF14]
+	,[BUNDLE_UID]
+	,[BUNDLE_IS_MARKED]
+	,[BUNDLE_NAME]
+	,[BUNDLE_WEIGHT]
+	,[BOX_UID]
+	,[BOX_IS_MARKED]
+	,[BOX_NAME]
+	,[BOX_WEIGHT]
+	,[TARE_WEIGHT]
+FROM [REF].[VIEW_PLUS_NESTING]
+ORDER BY [PLU_NUMBER], [PLU_NAME];");
+
             public static string GetLogs(int topRecords, string? logType, string? currentLine)
             {
                 logType = logType != null ? $"LOG_TYPE = '{logType}'" : "1=1"; 

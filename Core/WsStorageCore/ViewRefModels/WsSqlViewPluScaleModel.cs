@@ -31,10 +31,11 @@ public sealed record WsSqlViewPluScaleModel
     /// <summary>
     /// Empty constructor.
     /// </summary>
-    public WsSqlViewPluScaleModel() : this(Guid.Empty, DateTime.MinValue, DateTime.MinValue, 
-        false, false, 0, false, "", 
-        Guid.Empty, false, false, 0, "", "", "", "",
-        0, false, "") { }
+    public WsSqlViewPluScaleModel() : this(Guid.Empty, DateTime.MinValue, DateTime.MinValue,
+        default, default, default, default, string.Empty, 
+        Guid.Empty, default, default, default, string.Empty, 
+        string.Empty, string.Empty, string.Empty,
+        default, default, string.Empty) { }
 
     /// <summary>
     /// Constructor.

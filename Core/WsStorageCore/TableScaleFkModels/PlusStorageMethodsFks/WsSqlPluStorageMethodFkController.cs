@@ -59,7 +59,7 @@ public sealed class WsSqlPluStorageMethodFkController
     public WsSqlTemplateResourceModel GetItemResource(WsSqlPluModel plu)
     {
         WsSqlPluStorageMethodFkModel pluStorageMethodFk = new();
-        if (ContextCache.ViewPlusStorageMethodsFks.Exists(item => Equals(item.PluNumber, (ushort)plu.Number)))
+        if (ContextCache.ViewPlusStorageMethods.Exists(item => Equals(item.PluNumber, (ushort)plu.Number)))
         {
             pluStorageMethodFk = ContextItem.GetItemPluStorageMethodFkNotNullable(plu.IdentityValueUid);
         }
