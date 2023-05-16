@@ -21,6 +21,7 @@ public sealed class LocaleScale : WsLocalizationBase
     public readonly decimal MassaThresholdNegative = -1.000M;
     public readonly decimal MassaThresholdPositive = 0.050M;
     public readonly decimal MassaThresholdValue = 0.010M;
+    
     public string AlreadyRunning => Lang == Lang.English ? "already running" : "уже запущено";
     public string AppTitle => Lang == Lang.English ? "Label print" : "Печать этикеток";
     public string AppWaitExit => Lang == Lang.English ? "Wait for the program to complete" : "Подождите завершения программы";
@@ -80,11 +81,11 @@ public sealed class LocaleScale : WsLocalizationBase
     public string IsDataNotExists => Lang == Lang.English ? "Check the connection of the scales!" : "Проверьте подключение весов!";
     public string IsException(string? message) => Lang == Lang.English ? $"Error! {message}" : $"Ошибка! {message}";
     public string IsNotConnectWithMassa => Lang == Lang.English ? "Check the connection of the USB-adapter!" : "Проверьте подключение ЮСБ-адапетра!";
+    public string LabelContextExpirationDt => Lang == Lang.English ? "Good to" : "Годен до";
     public string LabelContextKneading => Lang == Lang.English ? "Kneading" : "Замес";
     public string LabelContextNesting => Lang == Lang.English ? "Nesting" : "Вложенность";
     public string LabelContextPlu => Lang == Lang.English ? "PLU" : "ПЛУ";
     public string LabelContextProductDt => Lang == Lang.English ? "Date of production" : "Дата изготовления";
-    public string LabelContextExpirationDt => Lang == Lang.English ? "Good to" : "Годен до";
     public string LabelContextWeight => Lang == Lang.English ? "Weight" : "Вес";
     public string LabelContextWorkShop => Lang == Lang.English ? "WorkShop/Line" : "Цех/Линия";
     public string Labels => Lang == Lang.English ? "Labels" : "Этикетки";
@@ -122,7 +123,6 @@ public sealed class LocaleScale : WsLocalizationBase
     public string PluNotSelectWeight => Lang == Lang.English ? "Weight PLU is not selected!" : "Весовая ПЛУ не выбрана!";
     public string PluPackageNotSelect => Lang == Lang.English ? "PLU nesting is not selected!" : "Тара ПЛУ не выбрана!";
     public string PluPage => Lang == Lang.English ? "Page" : "Страница";
-    public string PluSet(long id, int number, string name) => Lang == Lang.English ? $"Selected PLU: {id} | {number} | {name}" : $"Выбрана ПЛУ: {id} | {number} | {name}";
     public string PluTemplateNotSet => Lang == Lang.English ? "Template is not set!" : "Шаблон не задан!";
     public string PluTemplateSet => Lang == Lang.English ? "Template is not set" : "Шаблон задан";
     public string PluWeight => Lang == Lang.English ? "PLU (weight)" : "ПЛУ (вес)";
@@ -145,6 +145,9 @@ public sealed class LocaleScale : WsLocalizationBase
     public string ScheduleForNextDay => Lang == Lang.English ? "Schedule for the next day" : "Расписание на следующий день";
     public string ScheduleForNextHour => Lang == Lang.English ? "Schedule for the next hour" : "Расписание на следующий час";
     public string ScreenResolution => Lang == Lang.English ? "Screen resolution" : "Разрешение экрана";
+    public string SetPlu(int number, string name) => Lang == Lang.English ? $"Switch PLU {number} | {name}" : $"Смена ПЛУ {number} | {name}";
+    public string SetPluNesting(int number, string name, short bundleCount) => Lang == Lang.English ? $"Switch PLU nesting {number} | {name} | {bundleCount}" : $"Смена вложенности ПЛУ {number} | {name} | {bundleCount}";
+    public string SetLine(long id, string name) => Lang == Lang.English ? $"Switch Line {id} | {name}" : $"Смена линии {id} | {name}";
     public string ShippingLabels => Lang == Lang.English ? "Shipping labels" : "Транспортные этикетки";
     public string StateCorrect => Lang == Lang.English ? "correct" : "верна";
     public string StateDisable => Lang == Lang.English ? "disable" : "отключено";

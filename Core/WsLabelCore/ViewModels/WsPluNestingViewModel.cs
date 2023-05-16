@@ -16,6 +16,9 @@ public sealed class WsPluNestingViewModel : WsSqlBaseViewModel
         set
         {
             _item = value;
+            // Журналирование смены вложенности ПЛУ.
+            ContextManager.ContextItem.SaveLogInformation(
+                $"{LocaleCore.Scales.SetPluNesting(_item.PluBundle.Plu.Number, _item.PluBundle.Plu.Name, _item.BundleCount)}");
             OnPropertyChanged();
         }
     }

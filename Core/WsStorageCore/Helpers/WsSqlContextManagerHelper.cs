@@ -144,7 +144,7 @@ public sealed class WsSqlContextManagerHelper
     public void SetupJsonTestsReleaseVs(string localDir, string deviceName, string appName, bool isShowSql) =>
         SetupJsonTestsCore(localDir, deviceName, appName, JsonSettings.FileNameReleaseVs, isShowSql);
 
-    public void SetupJsonWebApp(string localDir, string appName)
+    public void SetupJsonWebApp(string localDir, string appName, bool isShowSql)
     {
         try
         {
@@ -167,7 +167,7 @@ public sealed class WsSqlContextManagerHelper
                     throw new(LocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            AccessCore.SetupSessionFactory(false); // DebugHelper.Instance.IsDevelop
+            AccessCore.SetupSessionFactory(isShowSql); // DebugHelper.Instance.IsDevelop
             ContextItem.SetupLog(appName);
             ContextItem.SaveLogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
         }

@@ -34,7 +34,7 @@ public sealed class WsPluginModel : HelperBase
 
     public void Init(WsConfigModel config)
     {
-        base.Init();
+        Init();
         Config = config;
     }
 
@@ -45,7 +45,7 @@ public sealed class WsPluginModel : HelperBase
     public void Execute(Action action)
     {
         Close();
-        base.Execute();
+        Execute();
         Cts = new();
 
         Tsk = Task.Run(async () =>

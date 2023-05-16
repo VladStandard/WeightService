@@ -75,10 +75,10 @@ public sealed class WsUserSessionHelper : BaseViewModel
         set
         {
             _pluScale = value;
+            // Журналирование смены ПЛУ на линии.
+            ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetPlu(_pluScale.Plu.Number, _pluScale.Plu.Name)}");
             if (_pluScale.IsNotNew)
             {
-                ContextManager.ContextItem.SaveLogInformation(
-                $"{LocaleCore.Scales.PluSet(_pluScale.Plu.IdentityValueId, _pluScale.Plu.Number, _pluScale.Plu.Name)}");
                 WsSqlBundleModel bundle = ContextManager.ContextBundle.GetItem(_pluScale.Plu);
                 if (bundle.IsExists)
                 {
@@ -123,6 +123,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
         set
         {
             _scale = value;
+            // Журналирование смены линии.
+            ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetLine(_scale.IdentityValueId, _scale.Description)}");
             // Обновить кэш.
             ContextCache.LoadCurrentViewPlusScales((ushort)_scale.IdentityValueId);
             ContextCache.Load(WsSqlTableName.ViewPluStorageMethods);

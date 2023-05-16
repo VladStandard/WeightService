@@ -4,7 +4,7 @@
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // NHibernate & JsonSettings & DataAccess.
-WsSqlContextManagerHelper.Instance.SetupJsonWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales));
+WsSqlContextManagerHelper.Instance.SetupJsonWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales), false);
 builder.Services.AddSingleton(WsSqlAccessManagerHelper.Instance.SessionFactory);
 builder.Services.AddScoped(_ => WsSqlAccessManagerHelper.Instance.SessionFactory.OpenSession());
 

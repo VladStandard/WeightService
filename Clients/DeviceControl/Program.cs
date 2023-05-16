@@ -61,7 +61,7 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-WsSqlContextManagerHelper.Instance.SetupJsonWebApp(app.Environment.ContentRootPath, nameof(BlazorDeviceControl));
+WsSqlContextManagerHelper.Instance.SetupJsonWebApp(app.Environment.ContentRootPath, nameof(BlazorDeviceControl), true);
 try
 {
     app.Run();
