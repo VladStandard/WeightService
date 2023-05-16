@@ -27,7 +27,6 @@ public partial class RazorComponentBase : LayoutComponentBase
     [Inject] protected TooltipService? TooltipService { get; set; }
     [Inject] protected IHttpContextAccessor? HttpContextAccess { get; set; }
     [Inject] protected ContextMenuService? ContextMenuService { get; set; }
-    [Inject] protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
     #endregion
 
@@ -41,7 +40,8 @@ public partial class RazorComponentBase : LayoutComponentBase
     #endregion
 
     #region Parameters
-
+    
+    [CascadingParameter] private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
     [Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
     [Parameter] public Guid? IdentityUid { get; set; }
     [Parameter] public long? IdentityId { get; set; }
@@ -79,7 +79,10 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        User = authState.User;
+        if (AuthenticationStateTask is not null)
+        {
+            AuthenticationState authState = await AuthenticationStateTask;
+            User = authState?.User;
+        }
     }
 }
