@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLabelCore.Utils;
-
 namespace ScalesUI;
 
 internal static class Program
@@ -48,7 +46,7 @@ internal static class Program
                 ContextManager.ContextItem.SaveLogInformation(
                     LocaleCore.Scales.RegistrationSuccess(WsUserSessionHelper.Instance.DeviceName, WsUserSessionHelper.Instance.DeviceScaleFk.Scale.Description));
                 // Запуск.
-                System.Windows.Forms.Application.Run(new MainForm());
+                System.Windows.Forms.Application.Run(new WsMainForm());
             }
         }
         catch (Exception ex)

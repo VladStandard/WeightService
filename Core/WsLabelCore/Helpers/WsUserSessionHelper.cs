@@ -66,8 +66,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
     }
     public Stopwatch StopwatchMain { get; set; } = new();
 
-    public WsPageLineViewModel PageLineView { get; }
-    public WsPagePluNestingViewModel PagePluNestingView { get; }
+    public WsLineViewModel PageLineView { get; }
+    public WsPluNestingViewModel PagePluNestingView { get; }
     
     private WsSqlPluScaleModel _pluScale;
     public WsSqlPluScaleModel PluScale
@@ -228,13 +228,13 @@ public sealed class WsUserSessionHelper : BaseViewModel
         PluginLabels.Close();
     }
 
-    public void SetMain(long scaleId = -1, string productionFacilityName = "")
+    public void SetMain(long scaleId = -1, WsSqlProductionFacilityModel? area = null)
     {
         SetSqlPublish();
-        SetScale(scaleId, productionFacilityName);
+        SetScale(scaleId, area);
     }
 
-    private void SetScale(long scaleId, string productionFacilityName)
+    private void SetScale(long scaleId, WsSqlProductionFacilityModel? area)
     {
         lock (_locker)
         {
@@ -257,7 +257,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
             // Scale.
             Scale = scaleId <= 0 ? DeviceScaleFk.Scale : ContextManager.ContextItem.GetScaleNotNullable(scaleId);
             // Area.
-            ProductionFacility = ContextManager.ContextItem.GetProductionFacilityNotNullable(productionFacilityName);
+            //ProductionFacility = ContextManager.ContextItem.GetProductionFacilityNotNullable(productionFacilityName);
+            ProductionFacility = area ?? ContextManager.ContextItem.GetProductionFacilityNotNullable(string.Empty);
             // Other.
             ProductDate = DateTime.Now;
             // Новая серия, упаковка продукции, новая паллета.

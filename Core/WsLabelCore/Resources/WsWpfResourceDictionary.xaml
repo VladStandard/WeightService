@@ -4,7 +4,7 @@
 	xmlns:helpers="clr-namespace:WsLabelCore.Helpers"
 	xmlns:localization="clr-namespace:WsLocalizationCore.Models;assembly=WsLocalizationCore">
 
-	<SolidColorBrush x:Key="brush" Color="Red" />
+	<SolidColorBrush x:Key="Brush" Color="Red" />
 	<localization:LocaleAction x:Key="LocaleAction" />
 	<localization:LocaleButtons x:Key="LocaleButtons" />
 	<localization:LocaleConvert x:Key="LocaleConvert" />
@@ -18,5 +18,5 @@
 	<localization:LocaleSql x:Key="LocaleSql" />
 	<localization:LocaleSystem x:Key="LocaleSystem" />
 	<localization:LocaleTable x:Key="LocaleTable" />
-	<x:Static x:Key="UserSession" Member="helpers:WsUserSessionHelper.Instance" />
+	<!--<x:Static x:Key="UserSession" Member="helpers:WsUserSessionHelper.Instance" />-->
 </ResourceDictionary>

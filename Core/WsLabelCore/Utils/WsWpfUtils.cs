@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLabelCore.Controls;
+
 namespace WsLabelCore.Utils;
 
 #nullable enable
@@ -13,11 +15,24 @@ public static class WsWpfUtils
 
     private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private static WsWpfPageLoader WpfPage { get; set; } = new();
 
     #endregion
 
     #region Public and private methods
+
+    /// <summary>
+    /// Навигация.
+    /// </summary>
+    /// <param name="userControl"></param>
+    /// <param name="message"></param>
+    public void NavigateToControl(WsBaseUserControl userControl, string message = "")
+    {
+        layoutPanel.Visible = false;
+
+        userControl.Message = message;
+        userControl.RefreshAction();
+        NavigationUserControl.AddUserControl(userControl);
+    }
 
     /// <summary>
     /// Show new form.
@@ -25,17 +40,15 @@ public static class WsWpfUtils
     /// <param name="owner"></param>
     /// <param name="caption"></param>
     /// <param name="message"></param>
-    /// <param name="visibilitySettings"></param>
+    /// <param name="buttonVisibility"></param>
     private static DialogResult ShowNew(IWin32Window? owner, string caption, string message,
-        WsVisibilitySettingsViewModel visibilitySettings)
+        WsButtonVisibilityModel buttonVisibility)
     {
-        WpfPage.Close();
-
         WpfPage = new(WsEnumPage.MessageBox, false) { Width = 700, Height = 400 };
-        WpfPage.MessageBox.Caption = caption;
-        WpfPage.MessageBox.Message = message;
-        WpfPage.MessageBox.VisibilitySettings = visibilitySettings;
-        WpfPage.MessageBox.VisibilitySettings.Localization();
+        WpfPage.MessageBoxViewModel.Caption = caption;
+        WpfPage.MessageBoxViewModel.Message = message;
+        WpfPage.MessageBoxViewModel.ButtonVisibility = buttonVisibility;
+        WpfPage.MessageBoxViewModel.ButtonVisibility.Localization();
         DialogResult resultWpf = owner is not null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
         WpfPage.Close();
         return resultWpf;
@@ -43,16 +56,20 @@ public static class WsWpfUtils
 
     public static DialogResult ShowNewRegistration(string message)
     {
+        DialogResult result = DialogResult.Cancel;
         WpfPage.Close();
 
         WpfPage = new(WsEnumPage.MessageBox, false) { Width = 700, Height = 400 };
-        WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
-        WpfPage.MessageBox.Message = message;
-        WpfPage.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
-        WpfPage.MessageBox.VisibilitySettings.Localization();
-        WpfPage.ShowDialog();
-        DialogResult result = WpfPage.MessageBox.Result;
-        WpfPage.Close();
+        if (WpfPage.MessageBoxViewModel is not null)
+        {
+            WpfPage.MessageBoxViewModel.Caption = LocaleCore.Scales.Registration;
+            WpfPage.MessageBoxViewModel.Message = message;
+            WpfPage.MessageBoxViewModel.ButtonVisibility.ButtonOkVisibility = Visibility.Visible;
+            WpfPage.MessageBoxViewModel.ButtonVisibility.Localization();
+            WpfPage.ShowDialog();
+            result = WpfPage.MessageBoxViewModel.Result;
+            WpfPage.Close();
+        }
         return result;
     }
 
@@ -63,18 +80,18 @@ public static class WsWpfUtils
     /// <param name="message"></param>
     /// <param name="isLog"></param>
     /// <param name="logType"></param>
-    /// <param name="visibility"></param>
+    /// <param name="buttonVisibility"></param>
     /// <returns></returns>
     public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog,
-        WsEnumLogType logType, WsVisibilitySettingsViewModel visibility)
+        WsEnumLogType logType, WsButtonVisibilityModel buttonVisibility)
     {
         if (isLog)
             ShowNewOperationControlLogType(message, logType);
-        return ShowNew(owner, LocaleCore.Scales.OperationControl, message, visibility);
+        return ShowNew(owner, LocaleCore.Scales.OperationControl, message, buttonVisibility);
     }
 
     public static DialogResult ShowNewOperationControl(string message, bool isLog,
-        WsEnumLogType logType, WsVisibilitySettingsViewModel visibility)
+        WsEnumLogType logType, WsButtonVisibilityModel visibility)
     {
         if (isLog)
             ShowNewOperationControlLogType(message, logType);

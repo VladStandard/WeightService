@@ -28,12 +28,74 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\WsBaseUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsKneadingUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsKneadingUserControl.Designer.cs">
+      <DependentUpon>WsKneadingUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsPinCodeUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsPinCodeUserControl.Designer.cs">
+      <DependentUpon>WsPinCodeUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsPluNestingUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsPluNestingUserControl.Designer.cs">
+      <DependentUpon>WsPluNestingUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsLinesUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsLinesUserControl.Designer.cs">
+      <DependentUpon>WsLinesUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsMessageBoxUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsMessageBoxUserControl.Designer.cs">
+      <DependentUpon>WsMessageBoxUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsMoreUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsMoreUserControl.Designer.cs">
+      <DependentUpon>WsMoreUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsNavigationUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsNavigationUserControl.Designer.cs">
+      <DependentUpon>WsNavigationUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsPlusUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsPlusUserControl.Designer.cs">
+      <DependentUpon>WsPlusUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsWaitUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsWaitUserControl.Designer.cs">
+      <DependentUpon>WsWaitUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalUsings.cs" />
-    <Compile Include="Controls\WsControlPluModel.cs">
+    <Compile Include="Controls\WsPluControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\WsWinFormUtils.cs" />
-    <Compile Include="ViewModels\WsPageMessageBoxViewModel.cs" />
+    <Compile Include="ViewModels\WsNavigationViewModel.cs" />
+    <Compile Include="ViewModels\WsWaitViewModel.cs" />
+    <Compile Include="ViewModels\WsPlusViewModel.cs" />
+    <Compile Include="ViewModels\WsMoreViewModel.cs" />
+    <Compile Include="ViewModels\WsKneadingViewModel.cs" />
+    <Compile Include="ViewModels\WsMessageBoxViewModel.cs" />
     <Compile Include="Forms\WsNumberInputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -47,7 +109,7 @@
       <DependentUpon>WsPasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\WsSerialPortsUtils.cs" />
-    <Compile Include="ViewModels\WsVisibilitySettingsViewModel.cs" />
+    <Compile Include="Models\WsButtonVisibilityModel.cs" />
     <Compile Include="Helpers\WsHardwareHelper.cs" />
     <Compile Include="Helpers\WsUacHelper.cs" />
     <Compile Include="Helpers\WsUserSessionHelper.cs" />
@@ -58,9 +120,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\WsPageLineViewModel.cs" />
-    <Compile Include="ViewModels\WsPagePluNestingViewModel.cs" />
-    <Compile Include="ViewModels\WsPageBaseViewModel.cs" />
+    <Compile Include="ViewModels\WsLineViewModel.cs" />
+    <Compile Include="ViewModels\WsPinCodeViewModel.cs" />
+    <Compile Include="ViewModels\WsPluNestingViewModel.cs" />
+    <Compile Include="ViewModels\WsBaseViewModel.cs" />
     <Compile Include="Helpers\WsFontsSettingsHelper.cs" />
     <Compile Include="Helpers\WsPluginLabelsHelper.cs" />
     <Compile Include="Helpers\WsPluginMassaHelper.cs" />
@@ -73,28 +136,25 @@
     <Compile Include="Utils\WsComboBoxExtensions.cs" />
     <Compile Include="Utils\WsFormUtils.cs" />
     <Compile Include="Helpers\WsXamlHelper.cs" />
-    <Compile Include="Pages\WsWpfPageBase.cs" />
-    <Compile Include="Pages\WsWpfPageLine.xaml.cs">
-      <DependentUpon>WsWpfPageLine.xaml</DependentUpon>
+    <Compile Include="Pages\WsBasePage.cs" />
+    <Compile Include="Pages\WsLinePage.xaml.cs">
+      <DependentUpon>WsLinePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\WsWpfPageMessageBox.xaml.cs">
-      <DependentUpon>WsWpfPageMessageBox.xaml</DependentUpon>
+    <Compile Include="Pages\WsMessageBoxPage.xaml.cs">
+      <DependentUpon>WsMessageBoxPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\WsWpfPagePinCode.xaml.cs">
-      <DependentUpon>WsWpfPagePinCode.xaml</DependentUpon>
+    <Compile Include="Pages\WsPinCodePage.xaml.cs">
+      <DependentUpon>WsPinCodePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\WsWpfPagePluNesting.xaml.cs">
-      <DependentUpon>WsWpfPagePluNesting.xaml</DependentUpon>
+    <Compile Include="Pages\WsPluNestingPage.xaml.cs">
+      <DependentUpon>WsPluNestingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\WsWpfUtils.cs" />
-    <Compile Include="WsWpfPageLoader.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WsWpfPageLoader.Designer.cs">
-      <DependentUpon>WsWpfPageLoader.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm">
+      <Version>8.2.0</Version>
+    </PackageReference>
     <PackageReference Include="MDSoft.NetUtils">
       <Version>0.2.50</Version>
     </PackageReference>
@@ -119,8 +179,41 @@
     <PackageReference Include="SuperSimpleTcp">
       <Version>3.0.10</Version>
     </PackageReference>
+    <PackageReference Include="WPF-UI">
+      <Version>2.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\WsBaseUserControl.resx">
+      <DependentUpon>WsBaseUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsKneadingUserControl.resx">
+      <DependentUpon>WsKneadingUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsPinCodeUserControl.resx">
+      <DependentUpon>WsPinCodeUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsPluNestingUserControl.resx">
+      <DependentUpon>WsPluNestingUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsLinesUserControl.resx">
+      <DependentUpon>WsLinesUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsMessageBoxUserControl.resx">
+      <DependentUpon>WsMessageBoxUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsMoreUserControl.resx">
+      <DependentUpon>WsMoreUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsNavigationUserControl.resx">
+      <DependentUpon>WsNavigationUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsPlusUserControl.resx">
+      <DependentUpon>WsPlusUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsWaitUserControl.resx">
+      <DependentUpon>WsWaitUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\WsNumberInputForm.resx">
       <DependentUpon>WsNumberInputForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,24 +224,21 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="WsWpfPageLoader.resx">
-      <DependentUpon>WsWpfPageLoader.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Pages\WsWpfPageLine.xaml">
+    <Page Include="Pages\WsLinePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\WsWpfPageMessageBox.xaml">
+    <Page Include="Pages\WsMessageBoxPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\WsWpfPagePinCode.xaml">
+    <Page Include="Pages\WsPinCodePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\WsWpfPagePluNesting.xaml">
+    <Page Include="Pages\WsPluNestingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -201,6 +291,8 @@
       <Name>WsStorageCore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\left_1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

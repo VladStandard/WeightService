@@ -3,7 +3,6 @@
 #nullable enable
 
 using SuperSimpleTcp;
-using WsLabelCore.Models;
 
 namespace WsLabelCore.Helpers;
 
