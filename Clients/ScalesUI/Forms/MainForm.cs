@@ -598,11 +598,11 @@ public partial class MainForm : Form
                 switch (dialogResult)
                 {
                     case DialogResult.OK:
-                        if (wpfPageLoader.PageDevice is not null)
+                        if (wpfPageLoader.PageLine is not null)
                             UserSession.SetMain(wpfPageLoader.UserSession.Scale.IdentityValueId, UserSession.ProductionFacility.Name);
                         break;
                     case DialogResult.Cancel:
-                        if (wpfPageLoader.PageDevice is not null)
+                        if (wpfPageLoader.PageLine is not null)
                             UserSession.SetMain(wpfPageLoader.UserSession.Scale.IdentityValueId, string.Empty);
                         break;
                 }

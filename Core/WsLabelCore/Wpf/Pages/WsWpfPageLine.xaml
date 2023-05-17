@@ -7,7 +7,7 @@
 	xmlns:pages="clr-namespace:WsLabelCore.Wpf.Pages"
 	d:DesignHeight="500"
 	d:DesignWidth="800"
-	DataContext="{DynamicResource ViewModel}"
+	d:DataContext="{d:DesignInstance pages:WsWpfPageLine, IsDesignTimeCreatable=False}"
 	FontSize="26"
 	mc:Ignorable="d">
 	<pages:WsWpfPageBase.Resources>
@@ -46,7 +46,7 @@
 				Margin="2"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
-				Content="{Binding Path=DeviceScaleFk.Device.Name}" />
+				Content="{Binding Path=ViewModel.DeviceScaleFk.Device.Name}" />
 			<Label
 				Grid.Row="1"
 				Grid.Column="0"

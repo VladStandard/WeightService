@@ -33,10 +33,4 @@ public sealed class WsPageLineViewModel : WsPageBaseViewModel
     }
 
     #endregion
-
-    #region Public and private methods
-
-    //
-
-    #endregion
 }

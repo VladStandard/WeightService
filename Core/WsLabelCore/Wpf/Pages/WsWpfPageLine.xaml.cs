@@ -30,7 +30,7 @@ public partial class WsWpfPageLine
     {
         // Didn't work! Go here: MainForm -> ActionDevice
         //UserSession.SetMain(UserSession.Scale.IdentityValueId, UserSession.ProductionFacility.Name);
-        Result = System.Windows.Forms.DialogResult.OK;
+        Result = DialogResult.OK;
         OnClose?.Invoke(sender, e);
     }
 
@@ -38,7 +38,7 @@ public partial class WsWpfPageLine
     {
         // Didn't work! Go here: MainForm -> ActionDevice
         //UserSession.SetMain(UserSession.Scale.IdentityValueId, string.Empty);
-        Result = System.Windows.Forms.DialogResult.Cancel;
+        Result = DialogResult.Cancel;
         OnClose?.Invoke(sender, e);
     }
 

@@ -11,16 +11,13 @@ public class WsWpfPageBase : System.Windows.Controls.UserControl
     #region Public and private fields, properties, constructor
 
     public WsUserSessionHelper UserSession { get; private set; }
-    public System.Windows.Forms.DialogResult Result { get; protected set; }
+    public DialogResult Result { get; protected set; }
     public RoutedEventHandler? OnClose { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     protected WsWpfPageBase()
     {
         UserSession = WsUserSessionHelper.Instance;
-        Result = System.Windows.Forms.DialogResult.Cancel;
+        Result = DialogResult.Cancel;
         OnClose = null;
 
         if (!Resources.Contains(nameof(UserSession)))

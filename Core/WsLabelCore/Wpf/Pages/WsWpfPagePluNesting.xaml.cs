@@ -28,14 +28,14 @@ public partial class WsWpfPagePluNesting
 	private void ButtonApply_OnClick(object sender, RoutedEventArgs e)
 	{
         // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
-        Result = System.Windows.Forms.DialogResult.OK;
+        Result = DialogResult.OK;
 		OnClose?.Invoke(sender, e);
 	}
 
 	private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
 	{
         // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
-        Result = System.Windows.Forms.DialogResult.Cancel;
+        Result = DialogResult.Cancel;
 		OnClose?.Invoke(sender, e);
 	}
 

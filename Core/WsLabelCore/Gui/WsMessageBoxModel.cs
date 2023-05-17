@@ -28,8 +28,8 @@ public sealed class WsMessageBoxModel : BaseViewModel
 		}
 	}
 
-	private System.Windows.Forms.DialogResult _result;
-	public System.Windows.Forms.DialogResult Result
+	private DialogResult _result;
+	public DialogResult Result
 	{
 		get => _result;
 		set
@@ -98,7 +98,7 @@ public sealed class WsMessageBoxModel : BaseViewModel
 		FontSizeMessage = 26;
 		FontSizeButton = 22;
 		VisibilitySettings = new();
-		Result = System.Windows.Forms.DialogResult.Cancel;
+		Result = DialogResult.Cancel;
 	}
 
 	#endregion

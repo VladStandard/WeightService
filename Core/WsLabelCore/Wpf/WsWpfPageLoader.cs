@@ -12,16 +12,16 @@ public sealed partial class WsWpfPageLoader : Form
     #region Public and private fields, properties, constructor
 
     public WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
-    public WsPageLineViewModel PageLineView { get; } = new();
-    public WsPagePluNestingViewModel PagePluNestingView { get; } = new();
     private ElementHost ElementHost { get; }
     private bool UseOwnerSize { get; }
     public WsMessageBoxModel MessageBox { get; }
     private WsWpfPageMessageBox? PageMessageBox { get; set; }
     private WsWpfPagePinCode? PagePinCode { get; set; }
-    public WsWpfPageLine? PageDevice { get; private set; }
     public WsWpfPagePluNesting? PagePluNestingFk { get; private set; }
     private WsEnumPage Page { get; }
+    public WsWpfPageLine? PageLine { get; private set; }
+    public WsPageLineViewModel? PageLineViewModel { get; set; }
+    public WsPagePluNestingViewModel? PagePluNestingView { get; private set; }
 
     public WsWpfPageLoader()
     {
@@ -111,10 +111,10 @@ public sealed partial class WsWpfPageLoader : Form
                 PageMessageBox.OnClose += WpfPageLoader_OnClose;
                 break;
             case WsEnumPage.Device:
-                PageDevice = new();
-                PageDevice.InitializeComponent();
-                ElementHost.Child = PageDevice;
-                PageDevice.OnClose += WpfPageLoader_OnClose;
+                PageLine = new(PageLineViewModel = new());
+                PageLine.InitializeComponent();
+                ElementHost.Child = PageLine;
+                PageLine.OnClose += WpfPageLoader_OnClose;
                 break;
             case WsEnumPage.PluNestingFk:
                 PagePluNestingFk = new();
@@ -147,14 +147,26 @@ public sealed partial class WsWpfPageLoader : Form
     {
         try
         {
-            DialogResult = Page switch
+            switch (Page)
             {
-                WsEnumPage.MessageBox => MessageBox.Result,
-                WsEnumPage.Device => PageDevice?.Result ?? DialogResult.Cancel,
-                WsEnumPage.PluNestingFk => PagePluNestingFk?.Result ?? DialogResult.Cancel,
-                WsEnumPage.PinCode => PagePinCode?.Result ?? DialogResult.Cancel,
-                _ => DialogResult
-            };
+                case WsEnumPage.MessageBox:
+                    DialogResult = MessageBox.Result;
+                    break;
+                case WsEnumPage.Device:
+                    DialogResult = PageLine?.Result ?? DialogResult.Cancel;
+                    PageLineViewModel = null;
+                    PageLine = null;
+                    break;
+                case WsEnumPage.PluNestingFk:
+                    DialogResult = PagePluNestingFk?.Result ?? DialogResult.Cancel;
+                    break;
+                case WsEnumPage.PinCode:
+                    DialogResult = PagePinCode?.Result ?? DialogResult.Cancel;
+                    break;
+                default:
+                    DialogResult = DialogResult;
+                    break;
+            }
         }
         catch (Exception ex)
         {
