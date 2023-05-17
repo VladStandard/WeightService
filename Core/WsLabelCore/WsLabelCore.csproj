@@ -29,25 +29,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalUsings.cs" />
-    <Compile Include="Gui\WsControlPluModel.cs">
+    <Compile Include="Controls\WsControlPluModel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Gui\WsWinFormUtils.cs" />
-    <Compile Include="Gui\WsMessageBoxModel.cs" />
-    <Compile Include="Gui\WsNumberInputForm.cs">
+    <Compile Include="Utils\WsWinFormUtils.cs" />
+    <Compile Include="ViewModels\WsPageMessageBoxViewModel.cs" />
+    <Compile Include="Forms\WsNumberInputForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\WsNumberInputForm.Designer.cs">
+    <Compile Include="Forms\WsNumberInputForm.Designer.cs">
       <DependentUpon>WsNumberInputForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\WsPasswordForm.cs">
+    <Compile Include="Forms\WsPasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\WsPasswordForm.Designer.cs">
+    <Compile Include="Forms\WsPasswordForm.Designer.cs">
       <DependentUpon>WsPasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\WsSerialPortsUtils.cs" />
-    <Compile Include="Gui\WsVisibilitySettingsModel.cs" />
+    <Compile Include="Utils\WsSerialPortsUtils.cs" />
+    <Compile Include="ViewModels\WsVisibilitySettingsViewModel.cs" />
     <Compile Include="Helpers\WsHardwareHelper.cs" />
     <Compile Include="Helpers\WsUacHelper.cs" />
     <Compile Include="Helpers\WsUserSessionHelper.cs" />
@@ -61,36 +61,36 @@
     <Compile Include="ViewModels\WsPageLineViewModel.cs" />
     <Compile Include="ViewModels\WsPagePluNestingViewModel.cs" />
     <Compile Include="ViewModels\WsPageBaseViewModel.cs" />
-    <Compile Include="WinForms\Helpers\WsFontsSettingsHelper.cs" />
-    <Compile Include="WinForms\Helpers\WsPluginLabelsHelper.cs" />
-    <Compile Include="WinForms\Helpers\WsPluginMassaHelper.cs" />
-    <Compile Include="WinForms\Helpers\WsPluginMemoryHelper.cs" />
-    <Compile Include="WinForms\Helpers\WsPluginPrintModel.cs" />
-    <Compile Include="WinForms\Models\WsConfigModel.cs" />
-    <Compile Include="WinForms\Helpers\WsPluginHelperBase.cs" />
-    <Compile Include="WinForms\Models\WsPluginModel.cs" />
-    <Compile Include="WinForms\Utils\WsActionUtils.cs" />
-    <Compile Include="WinForms\Utils\WsComboBoxExtensions.cs" />
-    <Compile Include="WinForms\Utils\WsFormUtils.cs" />
-    <Compile Include="Wpf\Helpers\WsXamlHelper.cs" />
-    <Compile Include="Wpf\Pages\WsWpfPageBase.cs" />
-    <Compile Include="Wpf\Pages\WsWpfPageLine.xaml.cs">
+    <Compile Include="Helpers\WsFontsSettingsHelper.cs" />
+    <Compile Include="Helpers\WsPluginLabelsHelper.cs" />
+    <Compile Include="Helpers\WsPluginMassaHelper.cs" />
+    <Compile Include="Helpers\WsPluginMemoryHelper.cs" />
+    <Compile Include="Helpers\WsPluginPrintModel.cs" />
+    <Compile Include="Models\WsConfigModel.cs" />
+    <Compile Include="Helpers\WsPluginHelperBase.cs" />
+    <Compile Include="Models\WsPluginModel.cs" />
+    <Compile Include="Utils\WsActionUtils.cs" />
+    <Compile Include="Utils\WsComboBoxExtensions.cs" />
+    <Compile Include="Utils\WsFormUtils.cs" />
+    <Compile Include="Helpers\WsXamlHelper.cs" />
+    <Compile Include="Pages\WsWpfPageBase.cs" />
+    <Compile Include="Pages\WsWpfPageLine.xaml.cs">
       <DependentUpon>WsWpfPageLine.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Pages\WsWpfPageMessageBox.xaml.cs">
+    <Compile Include="Pages\WsWpfPageMessageBox.xaml.cs">
       <DependentUpon>WsWpfPageMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Pages\WsWpfPagePinCode.xaml.cs">
+    <Compile Include="Pages\WsWpfPagePinCode.xaml.cs">
       <DependentUpon>WsWpfPagePinCode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Pages\WsWpfPagePluNesting.xaml.cs">
+    <Compile Include="Pages\WsWpfPagePluNesting.xaml.cs">
       <DependentUpon>WsWpfPagePluNesting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Utils\WsWpfUtils.cs" />
-    <Compile Include="Wpf\WsWpfPageLoader.cs">
+    <Compile Include="Utils\WsWpfUtils.cs" />
+    <Compile Include="WsWpfPageLoader.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Wpf\WsWpfPageLoader.Designer.cs">
+    <Compile Include="WsWpfPageLoader.Designer.cs">
       <DependentUpon>WsWpfPageLoader.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -121,42 +121,38 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Gui\WsNumberInputForm.resx">
+    <EmbeddedResource Include="Forms\WsNumberInputForm.resx">
       <DependentUpon>WsNumberInputForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Gui\WsPasswordForm.resx">
+    <EmbeddedResource Include="Forms\WsPasswordForm.resx">
       <DependentUpon>WsPasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wpf\WsWpfPageLoader.resx">
+    <EmbeddedResource Include="WsWpfPageLoader.resx">
       <DependentUpon>WsWpfPageLoader.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Gui\ResourceDictionarySql.xaml">
+    <Page Include="Pages\WsWpfPageLine.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Pages\WsWpfPageLine.xaml">
+    <Page Include="Pages\WsWpfPageMessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Pages\WsWpfPageMessageBox.xaml">
+    <Page Include="Pages\WsWpfPagePinCode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Pages\WsWpfPagePinCode.xaml">
+    <Page Include="Pages\WsWpfPagePluNesting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Pages\WsWpfPagePluNesting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Wpf\Resources\WsWpfResourceDictionary.xaml">
+    <Page Include="Resources\WsWpfResourceDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

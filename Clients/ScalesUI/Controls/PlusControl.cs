@@ -2,6 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #nullable enable
 
+using WsLabelCore.Controls;
+using WsLabelCore.Utils;
+
 namespace ScalesUI.Controls;
 
 public sealed partial class PlusControl : UserControlBase

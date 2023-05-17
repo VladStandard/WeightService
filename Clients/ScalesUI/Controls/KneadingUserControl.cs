@@ -1,6 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLabelCore.Forms;
+using WsLabelCore.Utils;
+
 namespace ScalesUI.Controls;
 
 public sealed partial class KneadingUserControl : UserControlBase

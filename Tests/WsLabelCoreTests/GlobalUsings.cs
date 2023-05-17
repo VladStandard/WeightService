@@ -14,7 +14,6 @@ global using System.Threading;
 global using WsDataCore.Helpers;
 global using WsDataCore.Models;
 global using WsLabelCore.Helpers;
-global using WsLabelCore.WinForms.Helpers;
 global using WsLocalizationCore.Models;
 global using WsMassaCore.Helpers;
 global using WsPrintCore.Zpl;
