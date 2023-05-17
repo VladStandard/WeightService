@@ -6,7 +6,7 @@
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusScales.WsSqlPluScaleModel>
 
-<RazorItemReload TItem="@WsSqlPluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale"/>
+<RazorItemReload TItem="@WsSqlPluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>

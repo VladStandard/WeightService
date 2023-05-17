@@ -7,7 +7,7 @@
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Scales.WsSqlScaleModel>
 
-<RazorItemReload TItem="@WsSqlScaleModel" Title="@LocaleCore.DeviceControl.ItemScale"/>
+<RazorItemReload TItem="@WsSqlScaleModel" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>
@@ -38,8 +38,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterMain)"
-                  Text="@LocaleCore.Print.NameMain"/>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterMain)" Text="@LocaleCore.Print.NameMain"/>
     </td>
     <td>
       <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName"/>
@@ -51,8 +50,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterShipping)"
-                  Text="@LocaleCore.Print.NameShipping"/>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterShipping)" Text="@LocaleCore.Print.NameShipping"/>
     </td>
     <td>
       <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterShipping" Data="@PrinterModels" TextProperty="DisplayName"/>

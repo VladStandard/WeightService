@@ -21,26 +21,16 @@ public sealed partial class ItemPrinter : RazorComponentItemBase<WsSqlPrinterMod
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlItemCast()
     {
-        RunActionsParametersSet(
-            new List<Action>
-            {
-                () =>
-                {
-                    SqlItemCast =
-                        ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterModel>(
-                            IdentityId
-                        );
-                    PrinterTypeModels =
-                        ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterTypeModel>(
-                            WsSqlCrudConfigUtils.GetCrudConfigComboBox()
-                        );
-                    if (SqlItemCast.IsNew)
-                        SqlItemCast = SqlItemNew<WsSqlPrinterModel>();
-                }
-            }
-        );
+        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterModel>(IdentityId);
+        if (SqlItemCast.IsNew)
+            SqlItemCast = SqlItemNew<WsSqlPrinterModel>();
+        PrinterTypeModels =
+            ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterTypeModel>(
+                WsSqlCrudConfigUtils.GetCrudConfigComboBox()
+            );
+        
     }
 
     private async Task SqlItemPrinterResourcesClear(WsSqlPrinterModel printer)

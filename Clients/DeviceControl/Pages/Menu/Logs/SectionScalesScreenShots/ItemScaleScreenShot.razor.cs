@@ -22,25 +22,14 @@ public sealed partial class ItemScaleScreenShot : RazorComponentItemBase<WsSqlSc
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlItemCast()
     {
-        RunActionsParametersSet(new List<Action>
-        {
-            () =>
-            {
-                SqlItemCast =
-                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlScaleScreenShotModel>(IdentityUid);
-                if (SqlItemCast.ScreenShot.Length > 1)
-                {
-                    ImagePath = "data:image/png;base64, " + Convert.ToBase64String(SqlItemCast.ScreenShot);
-                }
-
-                if (SqlItemCast.IsNew)
-                {
-                    SqlItemCast = SqlItemNew<WsSqlScaleScreenShotModel>();
-                }
-            }
-        });
+        SqlItemCast =
+            ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlScaleScreenShotModel>(IdentityUid);
+        if (SqlItemCast.ScreenShot.Length > 1)
+            ImagePath = "data:image/png;base64, " + Convert.ToBase64String(SqlItemCast.ScreenShot);
+        if (SqlItemCast.IsNew)
+            SqlItemCast = SqlItemNew<WsSqlScaleScreenShotModel>();
     }
 
     #endregion

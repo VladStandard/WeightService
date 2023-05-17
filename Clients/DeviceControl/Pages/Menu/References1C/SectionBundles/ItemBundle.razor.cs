@@ -14,21 +14,6 @@ public sealed partial class ItemBundle : RazorComponentItemBase<WsSqlBundleModel
     #endregion
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlBundleModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                {
-                    SqlItemCast = SqlItemNew<WsSqlBundleModel>();
-                }
-            }
-        });
-    }
-
+    
     #endregion
 }

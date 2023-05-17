@@ -16,21 +16,11 @@ public sealed partial class ItemPluScales : RazorComponentItemBase<WsSqlPluScale
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlItemCast()
     {
-        RunActionsParametersSet(new List<Action>
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluScaleModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlPluScaleModel>();
-                //ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-	            //ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlScaleModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-                ContextCache.Load(WsSqlTableName.Plus);
-                ContextCache.Load(WsSqlTableName.Scales);
-            }
-        });
+        base.SetSqlItemCast();
+        ContextCache.Load(WsSqlTableName.Plus);
+        ContextCache.Load(WsSqlTableName.Scales);
     }
 
     #endregion

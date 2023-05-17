@@ -6,7 +6,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.BarCodes.WsSqlBarCodeModel>
 
-<RazorItemReload TItem="@WsSqlBarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarcode"/>
+<RazorItemReload TItem="@WsSqlBarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarcode" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>

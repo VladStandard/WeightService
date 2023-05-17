@@ -6,7 +6,7 @@
 @using BlazorDeviceControl.Pages.Menu.References1C.SectionPlusNestingFks
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Plus.WsSqlPluModel>
 
-<RazorItemReload TItem="@WsSqlPluModel" Title="@LocaleCore.DeviceControl.ItemNomenclature"/>
+<RazorItemReload TItem="@WsSqlPluModel" Title="@LocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
 

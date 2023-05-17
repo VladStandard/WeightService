@@ -5,7 +5,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.LogsWebsFks.WsSqlLogWebFkModel>
 
-<RazorItemReload TItem="WsSqlLogWebFkModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
+<RazorItemReload TItem="WsSqlLogWebFkModel" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 10, 35, 15, 35 })"/>

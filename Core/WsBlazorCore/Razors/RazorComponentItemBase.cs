@@ -193,7 +193,29 @@ public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : Ws
             }
         }
     }
-
+    
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            return;
+        }
+        GetItemData();
+    }
+    
+    protected void GetItemData()
+    {
+        RunActionsSafe(string.Empty, SetSqlItemCast);
+        StateHasChanged();
+    }
+    
+    protected virtual void SetSqlItemCast()
+    {
+        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<TItem>(IdentityUid);
+        if (SqlItemCast.IsNew)
+            SqlItemCast = SqlItemNew<TItem>();
+    }
     
 	#endregion
 }

@@ -33,21 +33,13 @@ public sealed partial class ItemDevice : RazorComponentItemBase<WsSqlDeviceModel
     }
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
+    
+    protected override void SetSqlItemCast()
     {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                DeviceTypeFkModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<WsSqlDeviceModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlDeviceModel>();
-                DeviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(SqlItemCast);
-                DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceTypeModel>();
-            }
-        });
+        base.SetSqlItemCast();
+        DeviceTypeFkModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+        DeviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(SqlItemCast);
+        DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceTypeModel>();
     }
 
     #endregion

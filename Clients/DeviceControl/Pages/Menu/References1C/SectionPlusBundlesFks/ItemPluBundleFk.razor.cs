@@ -13,17 +13,5 @@ public sealed partial class ItemPluBundleFk : RazorComponentItemBase<WsSqlPluBun
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSetJustOne(
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluBundleFkModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlPluBundleFkModel>();
-            }
-        );
-    }
-
     #endregion
 }

@@ -6,7 +6,7 @@
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.WorkShops.WsSqlWorkShopModel>
 
-<RazorItemReload TItem="@WsSqlWorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop"/>
+<RazorItemReload TItem="@WsSqlWorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>

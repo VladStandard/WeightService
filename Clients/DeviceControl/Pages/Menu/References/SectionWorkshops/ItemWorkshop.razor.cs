@@ -16,17 +16,11 @@ public sealed partial class ItemWorkshop : RazorComponentItemBase<WsSqlWorkShopM
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlItemCast()
     {
-        RunActionsParametersSet(new List<Action>
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlWorkShopModel>(IdentityId);
-                ProductionFacilityModels = ContextManager.AccessManager.AccessList.
-                    GetListNotNullable<WsSqlProductionFacilityModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-            }
-        });
+        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlWorkShopModel>(IdentityId);
+        ProductionFacilityModels = ContextManager.AccessManager.AccessList.
+            GetListNotNullable<WsSqlProductionFacilityModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
     }
 
     #endregion

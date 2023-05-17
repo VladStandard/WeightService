@@ -41,11 +41,11 @@
           </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Title="@LocaleCore.Table.ShelfLifeDaysShort" Property="Plu.ShelfLifeDays" Width="10%"/>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.PluPackage" Width="10%" Sortable="false">
-          <Template Context="itemCast">
-            @GetPluPackagesCount(itemCast.Plu)
-          </Template>
-        </RadzenDataGridColumn>
+        @* <RadzenDataGridColumn Title="@LocaleCore.Table.PluPackage" Width="10%" Sortable="false"> *@
+        @*   <Template Context="itemCast"> *@
+        @*     @GetPluPackagesCount(itemCast.Plu) *@
+        @*   </Template> *@
+        @* </RadzenDataGridColumn> *@
       </TItemContent>
     </Columns>
   </RzDataGridLocal>

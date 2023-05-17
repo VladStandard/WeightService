@@ -21,21 +21,15 @@ public sealed partial class ItemPrinterResources : RazorComponentItemBase<WsSqlP
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlItemCast()
     {
-        RunActionsParametersSet(new List<Action>
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterResourceFkModel>(IdentityId);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlPrinterResourceFkModel>();
-                PrinterModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils
-                    .GetCrudConfigComboBox());
-                TemplateResourceModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlTemplateResourceModel>(WsSqlCrudConfigUtils
-                    .GetCrudConfigComboBox());
-            }
-        });
+        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterResourceFkModel>(IdentityId);
+        if (SqlItemCast.IsNew)
+            SqlItemCast = SqlItemNew<WsSqlPrinterResourceFkModel>();
+        PrinterModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils
+            .GetCrudConfigComboBox());
+        TemplateResourceModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlTemplateResourceModel>(WsSqlCrudConfigUtils
+            .GetCrudConfigComboBox());
     }
 
     #endregion

@@ -21,17 +21,11 @@ public sealed partial class ItemTemplate : RazorComponentItemBase<WsSqlTemplateM
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlItemCast()
     {
-        RunActionsParametersSet(new List<Action>
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlTemplateModel>(IdentityId);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlTemplateModel>();
-            }
-        });
+        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlTemplateModel>(IdentityId);
+        if (SqlItemCast.IsNew)
+            SqlItemCast = SqlItemNew<WsSqlTemplateModel>();
     }
 
     #endregion

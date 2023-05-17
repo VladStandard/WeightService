@@ -38,24 +38,16 @@ public sealed partial class ItemNomenclature : RazorComponentItemBase<WsSqlPluMo
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNullableByUid<WsSqlPluModel>(IdentityUid)
-                              ?? SqlItemNew<WsSqlPluModel>();
+    protected override void SetSqlItemCast()
+    {   
+        base.SetSqlItemCast();
+        ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlTemplateModel>(WsSqlCrudConfigUtils
+            .GetCrudConfigComboBox());
 
-                ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlTemplateModel>(WsSqlCrudConfigUtils
-                    .GetCrudConfigComboBox());
-
-                PluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNotNullable(SqlItemCast);
-                Template = PluTemplateFk.Template.IsNotNew
-                    ? PluTemplateFk.Template
-                    : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlTemplateModel>();
-            }
-        });
+        PluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNotNullable(SqlItemCast);
+        Template = PluTemplateFk.Template.IsNotNew
+            ? PluTemplateFk.Template
+            : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlTemplateModel>();
     }
 
     #endregion

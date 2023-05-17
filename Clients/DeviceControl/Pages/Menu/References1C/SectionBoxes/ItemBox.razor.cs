@@ -15,20 +15,5 @@ public sealed partial class ItemBox : RazorComponentItemBase<WsSqlBoxModel>
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlBoxModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                {
-                    SqlItemCast = SqlItemNew<WsSqlBoxModel>();
-                }
-            }
-        });
-    }
-
     #endregion
 }

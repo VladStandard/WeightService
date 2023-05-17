@@ -17,7 +17,10 @@ public partial class RazorItemActions<TItem> : RazorComponentItemBase<TItem> whe
 
     #region Public and private methods
 
-    //
+    protected override void SetSqlItemCast()
+    {
+        
+    }
 
     #endregion
 }

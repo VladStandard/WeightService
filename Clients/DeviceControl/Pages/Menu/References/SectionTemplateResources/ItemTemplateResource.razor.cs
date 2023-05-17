@@ -19,20 +19,7 @@ public sealed partial class ItemTemplateResource : RazorComponentItemBase<WsSqlT
     #endregion
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlTemplateResourceModel>(IdentityUid);
-                //if (IdentityId is not null && TableAction == DbTableAction.New)
-                //    SqlItemCast.IdentityValueId = (long)IdentityId;
-            }
-        });
-    }
-
+    
     private void OnError(UploadErrorEventArgs args, string name)
     {
         NotificationMessage msg = new()
