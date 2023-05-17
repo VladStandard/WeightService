@@ -1,12 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.Tables;
+namespace WsStorageCore.Models;
 
 /// <summary>
-/// DB table universal model.
+/// SQL table universal model.
 /// </summary>
-[DebuggerDisplay("{nameof(WsSqlTableUniversalBase)} | {ToString()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlTableUniversalBase : SerializeBase
 {
     #region Public and private fields, properties, constructor
@@ -57,7 +57,7 @@ public class WsSqlTableUniversalBase : SerializeBase
 
     #region Public and private methods - override
 
-    public override string ToString() => 
+    public override string ToString() =>
         IsIdentityUid ? IdentityValueUid.ToString() : IdentityValueId.ToString();
 
     public virtual bool Equals(WsSqlTableUniversalBase item) =>

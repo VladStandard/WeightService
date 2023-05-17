@@ -18,7 +18,7 @@ public partial class WsWpfPagePluNesting
 	{
 		InitializeComponent();
 
-		SetPluNestingFk(comboBoxPluNestingFks);
+		SetPluNesting(comboBoxPluNestingFks);
     }
 
     #endregion

@@ -16,8 +16,8 @@ public sealed class WsSqlPrinterTypeMap : ClassMap<WsSqlPrinterTypeModel>
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.PrintersTypes);
         LazyLoad();
-        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(100).Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Id(item => item.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Map(item => item.Name).CustomSqlType("NVARCHAR").Column("Name").Length(100).Nullable();
+        Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
     }
 }

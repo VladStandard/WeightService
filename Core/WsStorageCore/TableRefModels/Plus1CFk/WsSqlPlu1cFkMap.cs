@@ -16,11 +16,11 @@ public sealed class WsSqlPlu1CFkMap : ClassMap<WsSqlPlu1CFkModel>
         Schema(WsSqlSchemasUtils.Ref);
         Table(WsSqlTablesUtils.Plus1cFk);
         LazyLoad();
-        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        References(x => x.Plu).Column("PLU_UID").Not.Nullable();
-        Map(x => x.IsEnabled).CustomSqlType("BIT").Column("IS_ENABLED").Not.Nullable().Default("0");
-        Map(x => x.RequestDataString).CustomSqlType("NVARCHAR").Column("REQUEST_DATA_STRING").Not.Nullable().Default("");
+        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(item => item.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
+        Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        References(item => item.Plu).Column("PLU_UID").Not.Nullable();
+        Map(item => item.IsEnabled).CustomSqlType("BIT").Column("IS_ENABLED").Not.Nullable().Default("0");
+        Map(item => item.RequestDataString).CustomSqlType("NVARCHAR").Column("REQUEST_DATA_STRING").Not.Nullable().Default("");
     }
 }

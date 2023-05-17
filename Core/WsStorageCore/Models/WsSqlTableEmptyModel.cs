@@ -1,11 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.Tables;
+namespace WsStorageCore.Models;
 
 /// <summary>
-/// DB empty table model.
+/// SQL empty table model.
 /// </summary>
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlTableEmptyModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
@@ -28,17 +29,17 @@ public class WsSqlTableEmptyModel : WsSqlTableBase
         //
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods - override
+    #region Public and private methods - override
 
-	public override string ToString() => base.ToString();
+    public override string ToString() => base.ToString();
 
-	public override bool Equals(object obj)
-	{
-		if (ReferenceEquals(null, obj)) return false;
-		if (ReferenceEquals(this, obj)) return true;
-		if (obj.GetType() != GetType()) return false;
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
         return Equals((WsSqlTableEmptyModel)obj);
     }
 
@@ -52,17 +53,17 @@ public class WsSqlTableEmptyModel : WsSqlTableBase
     {
         WsSqlTableEmptyModel item = new();
         item.CloneSetup(base.CloneCast());
-		return item;
+        return item;
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods - virtual
+    #region Public and private methods - virtual
 
-	public virtual bool Equals(WsSqlTableEmptyModel item) => 
-		ReferenceEquals(this, item) || base.Equals(item);
+    public virtual bool Equals(WsSqlTableEmptyModel item) =>
+        ReferenceEquals(this, item) || base.Equals(item);
 
-	public new virtual WsSqlTableEmptyModel CloneCast() => (WsSqlTableEmptyModel)Clone();
+    public new virtual WsSqlTableEmptyModel CloneCast() => (WsSqlTableEmptyModel)Clone();
 
     #endregion
 }

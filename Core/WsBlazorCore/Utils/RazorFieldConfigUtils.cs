@@ -3,7 +3,7 @@
 
 using Radzen;
 using WsBlazorCore.Razors;
-using WsStorageCore.Tables;
+using WsStorageCore.Models;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
 using WsStorageCore.TableScaleFkModels.PlusNestingFks;

@@ -1,11 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.Tables;
+namespace WsStorageCore.Models;
 
 /// <summary>
-/// Table validation.
+/// SQL table validation.
 /// </summary>
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableBase
 {
     /// <summary>
@@ -13,7 +14,7 @@ public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableB
     /// </summary>
     protected WsSqlTableValidator(bool isCheckCreateDt, bool isCheckChangeDt)
     {
-	    RuleFor(item => item.Identity).SetValidator(new WsSqlFieldIdentityValidator());
+        RuleFor(item => item.Identity).SetValidator(new WsSqlFieldIdentityValidator());
         if (isCheckCreateDt)
             RuleFor(item => item.CreateDt)
                 .NotEmpty()
@@ -27,11 +28,11 @@ public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableB
     }
 
     protected bool PreValidateSubEntity<TItem>(TItem? item, ref ValidationResult result) where TItem : WsSqlTableBase, new()
-	{
+    {
         if (item is not null)
         {
-	        ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult<TItem>(item);
-	        if (!result.IsValid) return result.IsValid;
+            ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
+            if (!result.IsValid) return result.IsValid;
         }
         return result.IsValid;
     }

@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.ViewRefModels;
+
 namespace WsWebApiCore.Controllers;
 
 /// <summary>
@@ -868,22 +870,24 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    internal bool UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluNestingFkModel itemXml, 
-        WsSqlPluNestingFkModel? itemDb, bool isCounter)
+    internal bool UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluNestingFkModel itemXml,
+        WsSqlViewPluNestingModel? itemDb, bool isCounter)
     {
-        if (itemDb is null || itemDb.IsNew) return false;
-        itemDb.UpdateProperties(itemXml);
-        WsSqlCrudResultModel dbResult = ContextManager.ContextPluNesting.Update(itemDb);
-        if (dbResult.IsOk)
-        {
-            if (isCounter)
-            {
-                response.Successes.Add(new(uid1C));
-            }
-        }
-        else if (dbResult.Exception is not null)
-            AddResponseException(response, uid1C, dbResult.Exception);
-        return dbResult.IsOk;
+        throw new Exception("FIX HERE");
+        //if (itemDb is null || itemDb.IsNew) return false;
+        //itemDb.UpdateProperties(itemXml);
+        //WsSqlCrudResultModel dbResult = ContextManager.ContextPluNesting.Update(itemDb);
+        //if (dbResult.IsOk)
+        //{
+        //    if (isCounter)
+        //    {
+        //        response.Successes.Add(new(uid1C));
+        //    }
+        //}
+        //else if (dbResult.Exception is not null)
+        //    AddResponseException(response, uid1C, dbResult.Exception);
+        //return dbResult.IsOk;
+        return true;
     }
 
     /// <summary>
@@ -1015,10 +1019,10 @@ public class WsServiceControllerBase : ControllerBase
             {
                 if (record is WsXmlContentRecord<WsSqlPluModel> pluXml)
                     AddResponseExceptionString(response, pluXml.Item.Uid1C,
-                        string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
+                        string.Join(',', validation.Errors.Select(item => item.ErrorMessage).ToList()));
                 else if (record is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
                     AddResponseExceptionString(response, pluCharacteristicXml.Item.NomenclatureGuid,
-                        string.Join(',', validation.Errors.Select(x => x.ErrorMessage).ToList()));
+                        string.Join(',', validation.Errors.Select(item => item.ErrorMessage).ToList()));
             }
             else
             {

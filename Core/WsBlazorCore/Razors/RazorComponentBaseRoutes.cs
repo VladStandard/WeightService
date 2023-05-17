@@ -1,11 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Models;
 using WsStorageCore.TableDiagModels.Logs;
 using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableDiagModels.LogsWebsFks;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
-using WsStorageCore.Tables;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;

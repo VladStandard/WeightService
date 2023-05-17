@@ -1,7 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Tables;
 using ComboBox = System.Windows.Controls.ComboBox;
 
 namespace WsLabelCore.Wpf.Pages;
@@ -39,7 +38,6 @@ public class WsWpfPageBase : System.Windows.Controls.UserControl
 
     private void SetItemFromList<T>(ComboBox comboBox, List<T> list, T item) where T : WsSqlTableBase, new()
     {
-        //PluNestingView.SetList(UserSession.PluScale.Plu);
         int i = 0;
         foreach (T it in list)
         {
@@ -66,14 +64,42 @@ public class WsWpfPageBase : System.Windows.Controls.UserControl
             comboBox.SelectedIndex = 0;
     }
 
-    protected void SetLine(ComboBox comboBox) => 
-        SetItemFromList(comboBox, UserSession.Scales, UserSession.Scale);
+    private void SetItemViewFromList<T>(ComboBox comboBox, List<T> list, T item) where T : WsSqlViewBase, new()
+    {
+        int i = 0;
+        foreach (T it in list)
+        {
+            switch (item.Identity.IsUid)
+            {
+                case true:
+                    if (Equals(item.Identity.Uid, it.Identity.Uid))
+                    {
+                        comboBox.SelectedIndex = i;
+                        return;
+                    }
+                    break;
+                default:
+                    if (Equals(item.Identity.Id, it.Identity.Id))
+                    {
+                        comboBox.SelectedIndex = i;
+                        return;
+                    }
+                    break;
+            }
+            i++;
+        }
+        if (comboBox.SelectedIndex == -1)
+            comboBox.SelectedIndex = 0;
+    }
 
     protected void SetProductionFacility(ComboBox comboBox) => 
-        SetItemFromList(comboBox, UserSession.ProductionFacilities, UserSession.ProductionFacility);
+        SetItemFromList(comboBox, UserSession.PageLineView.ProductionFacilities, UserSession.ProductionFacility);
     
-    protected void SetPluNestingFk(ComboBox comboBox) =>
-        SetItemFromList(comboBox, UserSession.PluNestingView.List, UserSession.PluNestingView.Item);
+    protected void SetLine(ComboBox comboBox) => 
+        SetItemFromList(comboBox, UserSession.PageLineView.Scales, UserSession.Scale);
+
+    protected void SetPluNesting(ComboBox comboBox) =>
+        SetItemViewFromList(comboBox, UserSession.PagePluNestingView.ViewPluNestings, UserSession.ViewPluNesting);
 
     #endregion
 }

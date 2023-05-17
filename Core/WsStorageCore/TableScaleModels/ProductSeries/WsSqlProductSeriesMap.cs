@@ -16,12 +16,12 @@ public sealed class WsSqlProductSeriesMap : ClassMap<WsSqlProductSeriesModel>
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.ProductSeries);
         LazyLoad();
-        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME(2,7)").Column("CreateDate").Not.Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UUID").Nullable();
-        Map(x => x.IsClose).CustomSqlType("BIT").Column("IsClose").Not.Nullable().Default("0");
-        Map(x => x.Sscc).CustomSqlType("VARCHAR").Column("SSCC").Length(50).Nullable();
-        References(x => x.Scale).Column("ScaleID").Not.Nullable();
+        Id(item => item.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Map(item => item.CreateDt).CustomSqlType("DATETIME(2,7)").Column("CreateDate").Not.Nullable();
+        Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(item => item.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UUID").Nullable();
+        Map(item => item.IsClose).CustomSqlType("BIT").Column("IsClose").Not.Nullable().Default("0");
+        Map(item => item.Sscc).CustomSqlType("VARCHAR").Column("SSCC").Length(50).Nullable();
+        References(item => item.Scale).Column("ScaleID").Not.Nullable();
     }
 }

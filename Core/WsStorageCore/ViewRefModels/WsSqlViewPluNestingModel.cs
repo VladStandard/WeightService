@@ -4,11 +4,10 @@
 namespace WsStorageCore.ViewRefModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewPluNestingModel
+public sealed record WsSqlViewPluNestingModel : WsSqlViewBase
 {
     #region Public and private fields, properties, constructor
 
-    public Guid Uid { get; init; }
     public bool IsMarked { get; init; }
     public bool IsDefault { get; init; }
     public short BundleCount { get; init; }
@@ -16,8 +15,10 @@ public sealed record WsSqlViewPluNestingModel
     public decimal WeightMin { get; init; }
     public decimal WeightNom { get; init; }
     public Guid PluUid { get; init; }
+    public Guid PluUid1C { get; init; }
     public bool PluIsMarked { get; init; }
     public bool PluIsWeight { get; init; }
+    public bool PluIsGroup { get; init; }
     public ushort PluNumber { get; init; }
     public string PluName { get; init; }
     public short PluShelfLifeDays { get; init; }
@@ -25,61 +26,30 @@ public sealed record WsSqlViewPluNestingModel
     public string PluEan13 { get; init; }
     public string PluItf14 { get; init; }
     public Guid BundleUid { get; init; }
+    public Guid BundleUid1C { get; init; }
     public bool BundleIsMarked { get; init; }
     public string BundleName { get; init; }
     public decimal BundleWeight { get; init; }
     public Guid BoxUid { get; init; }
+    public Guid BoxUid1C { get; init; }
     public bool BoxIsMarked { get; init; }
     public string BoxName { get; init; }
     public decimal BoxWeight { get; init; }
     public decimal TareWeight { get; init; }
 
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
     public WsSqlViewPluNestingModel() : this(Guid.Empty, default, default, default,
-        default, default, default,
-        Guid.Empty, default, default, default, string.Empty,
+        default, default, default, Guid.Empty, Guid.Empty, default, default, default, default, string.Empty,
         default, string.Empty, string.Empty, string.Empty,
-        Guid.Empty, default, string.Empty, default,
-        Guid.Empty, default, string.Empty, default, default) { }
+        Guid.Empty, Guid.Empty, default, string.Empty, default,
+        Guid.Empty, Guid.Empty, default, string.Empty, default, default) { }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="isMarked"></param>
-    /// <param name="isDefault"></param>
-    /// <param name="bundleCount"></param>
-    /// <param name="weightMax"></param>
-    /// <param name="weightMin"></param>
-    /// <param name="weightNom"></param>
-    /// <param name="pluUid"></param>
-    /// <param name="pluIsMarked"></param>
-    /// <param name="pluIsWeight"></param>
-    /// <param name="pluNumber"></param>
-    /// <param name="pluName"></param>
-    /// <param name="pluShelfLifeDays"></param>
-    /// <param name="pluGtin"></param>
-    /// <param name="pluEan13"></param>
-    /// <param name="pluItf14"></param>
-    /// <param name="bundleUid"></param>
-    /// <param name="bundleIsMarked"></param>
-    /// <param name="bundleName"></param>
-    /// <param name="bundleWeight"></param>
-    /// <param name="boxUid"></param>
-    /// <param name="boxIsMarked"></param>
-    /// <param name="boxName"></param>
-    /// <param name="boxWeight"></param>
-    /// <param name="tareWeight"></param>
     public WsSqlViewPluNestingModel(Guid uid, bool isMarked, bool isDefault, short bundleCount,
         decimal weightMax, decimal weightMin, decimal weightNom,
-        Guid pluUid, bool pluIsMarked, bool pluIsWeight, ushort pluNumber, string pluName,
+        Guid pluUid, Guid pluUid1C, bool pluIsMarked, bool pluIsWeight, bool pluIsGroup, ushort pluNumber, string pluName,
         short pluShelfLifeDays, string pluGtin, string pluEan13, string pluItf14,
-        Guid bundleUid, bool bundleIsMarked, string bundleName, decimal bundleWeight,
-        Guid boxUid, bool boxIsMarked, string boxName, decimal boxWeight, decimal tareWeight)
+        Guid bundleUid, Guid bundleUid1C, bool bundleIsMarked, string bundleName, decimal bundleWeight,
+        Guid boxUid, Guid boxUid1C, bool boxIsMarked, string boxName, decimal boxWeight, decimal tareWeight) : base(uid)
     {
-        Uid = uid;
         IsMarked = isMarked;
         IsDefault = isDefault;
         BundleCount = bundleCount;
@@ -87,8 +57,10 @@ public sealed record WsSqlViewPluNestingModel
         WeightMin = weightMin;
         WeightNom = weightNom;
         PluUid = pluUid;
+        PluUid1C = pluUid1C;
         PluIsMarked = pluIsMarked;
         PluIsWeight = pluIsWeight;
+        PluIsGroup = pluIsGroup;
         PluNumber = pluNumber;
         PluName = pluName;
         PluShelfLifeDays = pluShelfLifeDays;
@@ -96,10 +68,12 @@ public sealed record WsSqlViewPluNestingModel
         PluEan13 = pluEan13;
         PluItf14 = pluItf14;
         BundleUid = bundleUid;
+        BundleUid1C = bundleUid1C;
         BundleIsMarked = bundleIsMarked;
         BundleName = bundleName;
         BundleWeight = bundleWeight;
         BoxUid = boxUid;
+        BoxUid1C = boxUid1C;
         BoxIsMarked = boxIsMarked;
         BoxName = boxName;
         BoxWeight = boxWeight;
@@ -111,6 +85,8 @@ public sealed record WsSqlViewPluNestingModel
     #region Public and private methods - override
 
     public override string ToString() => $"{TareWeight} | {BoxWeight} + {BundleCount} * {BundleWeight} | {BoxName} + {BundleName} * {BundleWeight}";
+
+    public string GetSmartName() => TareWeight > 0 ? $"{TareWeight} {LocaleCore.Scales.WeightUnitKg} | {PluName}" : "- 0 -";
 
     #endregion
 }

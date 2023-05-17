@@ -14,7 +14,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
     #region Public and private properties - References
 
     [XmlIgnore] private WsSqlPluLabelModel PluLabel { get; set; }
-    [XmlIgnore] private WsSqlPluNestingFkModel PluNestingFk { get; set; }
+    [XmlIgnore] private WsSqlViewPluNestingModel ViewPluNesting { get; set; }
     [XmlIgnore] private WsSqlPluScaleModel PluScale { get; set; }
     [XmlIgnore] private WsSqlPluWeighingModel PluWeighing { get; set; }
     [XmlIgnore] private WsSqlProductionFacilityModel ProductionFacility { get; set; }
@@ -30,14 +30,14 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string ProductTimeBarCodeFormat { get => $"{PluLabel.ProductDt:HHmmss}"; set => _ = value; }
     [XmlElement] public virtual string CurrentDateBarCode { get => $"{DateTime.Now:yyMMdd}"; set => _ = value; }
     [XmlElement] public virtual string CurrentTimeBarCode { get => $"{DateTime.Now:HHmmss}"; set => _ = value; }
-    [XmlElement] public virtual string Nesting { get => $"{LocaleCore.Scales.LabelContextNesting}: {PluNestingFk.BundleCount}{LocaleCore.Table.NestingMeasurement}"; set => _ = value; }
+    [XmlElement] public virtual string Nesting { get => $"{LocaleCore.Scales.LabelContextNesting}: {ViewPluNesting.BundleCount}{LocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string Address { get => ProductionFacility.Address; set => _ = value; }
     [XmlElement] public virtual string PluDescription { get => PluScale.Plu.Description; set => _ = value; }
     [XmlElement] public virtual string PluFullName { get => PluScale.Plu.FullName; set => _ = value; }
     [XmlElement] public virtual string PluName { get => PluScale.Plu.Name; set => _ = value; }
     [XmlElement] public virtual string PluNumber { get => $"{PluScale.Plu.Number:000}"; set => _ = value; }
     [XmlElement] public virtual string PluScaleNumber { get => $"{LocaleCore.Scales.LabelContextPlu}: {PluNumber} / {ScaleNumber}"; set => _ = value; }
-    [XmlElement] public virtual string PluNestingWeightTare { get => $"{PluNestingFk.WeightTare:000}"; set => _ = value; }
+    [XmlElement] public virtual string PluNestingWeightTare { get => $"{ViewPluNesting.TareWeight:000}"; set => _ = value; }
     [XmlElement] public virtual string ExpirationDt { get => $"{PluLabel.ExpirationDt:dd.MM.yyyy}"; set => _ = value; }
     [XmlElement] public virtual string ExpirationDtWithCaption { get => $"{LocaleCore.Scales.LabelContextExpirationDt}: {ExpirationDt}"; set => _ = value; }
     [XmlElement] public virtual string ScaleNumber { get => $"{PluScale.Scale.Number:00000}"; set => _ = value; }
@@ -118,22 +118,11 @@ public class WsSqlPluLabelContextModel : SerializeBase
         set => _ = value;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public WsSqlPluLabelContextModel() : this(new(), new(), new(), new(), new())
-    {
-        //
-    }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public WsSqlPluLabelContextModel(WsSqlPluLabelModel pluLabel, WsSqlPluNestingFkModel pluNestingFk,
+    public WsSqlPluLabelContextModel(WsSqlPluLabelModel pluLabel, WsSqlViewPluNestingModel viewPluNesting,
         WsSqlPluScaleModel pluScale, WsSqlProductionFacilityModel productionFacility, WsSqlPluWeighingModel pluWeighing)
     {
         PluLabel = pluLabel;
-        PluNestingFk = pluNestingFk;
+        ViewPluNesting = viewPluNesting;
         PluScale = pluScale;
         ProductionFacility = productionFacility;
         PluWeighing = pluWeighing;
@@ -147,7 +136,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
     protected WsSqlPluLabelContextModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PluLabel = (WsSqlPluLabelModel)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelModel));
-        PluNestingFk = (WsSqlPluNestingFkModel)info.GetValue(nameof(PluNestingFk), typeof(WsSqlPluNestingFkModel));
+        ViewPluNesting = (WsSqlViewPluNestingModel)info.GetValue(nameof(ViewPluNesting), typeof(WsSqlViewPluNestingModel));
         PluScale = (WsSqlPluScaleModel)info.GetValue(nameof(PluScale), typeof(WsSqlPluScaleModel));
         PluWeighing = (WsSqlPluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
         ProductionFacility = (WsSqlProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(WsSqlProductionFacilityModel));
@@ -176,7 +165,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         base.GetObjectData(info, context);
 
         info.AddValue(nameof(PluLabel), PluLabel);
-        info.AddValue(nameof(PluNestingFk), PluNestingFk);
+        info.AddValue(nameof(ViewPluNesting), ViewPluNesting);
         info.AddValue(nameof(PluScale), PluScale);
         info.AddValue(nameof(ProductionFacility), ProductionFacility);
         info.AddValue(nameof(PluWeighing), PluWeighing);

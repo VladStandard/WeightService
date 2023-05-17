@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.ViewRefModels;
+
 namespace WsWebApiCore.Controllers;
 
 /// <summary>
@@ -507,17 +509,17 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Update exists | UQ_PLUS_NESTING_FK.
-            WsSqlPluNestingFkModel? pluNestingFkDb = Cache.PluNestingFksDb.FirstOrDefault(item =>
-                Equals(item.Box.Uid1C, pluNestingFk.Box.Uid1C) &&
-                Equals(item.PluBundle.Plu.Uid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
-                Equals(item.PluBundle.Bundle.Uid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
+            WsSqlViewPluNestingModel? pluNestingFkDb = Cache.ViewPlusNesting.FirstOrDefault(item =>
+                Equals(item.BoxUid1C, pluNestingFk.Box.Uid1C) &&
+                Equals(item.PluUid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
+                Equals(item.BundleUid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
                 Equals(item.BundleCount, pluXml.AttachmentsCount));
             if (UpdatePluNestingFk(response, pluXml.Uid1C, pluNestingFk, pluNestingFkDb, false)) return;
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluNestingFk, false, pluXml.Uid1C))
                 // Обновить список БД.
-                Cache.Load(WsSqlTableName.PluNestingFks);
+                Cache.Load(WsSqlTableName.ViewPluNesting);
         }
         catch (Exception ex)
         {
@@ -652,13 +654,13 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         // Пропуск групп с нулевым номером.
         if (Equals(pluXml.Number, (short)0)) return;
-        List<WsSqlPluModel> plusNumberDb = Cache.PlusDb.FindAll(x => Equals(x.Number, pluXml.Number));
+        List<WsSqlPluModel> plusNumberDb = Cache.PlusDb.FindAll(item => Equals(item.Number, pluXml.Number));
         if (plusNumberDb.Count > 1)
         {
             AddResponseExceptionString(response, pluXml.Uid1C,
                 $"{LocaleCore.WebService.Dublicate} {LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
                 $"{LocaleCore.WebService.WithFieldCode} '{pluXml.Code}' {LocaleCore.WebService.ForDbRecord} " +
-                $"{LocaleCore.WebService.WithFieldCode} '{string.Join(',', plusNumberDb.Select(x => x.Code).ToList())}'");
+                $"{LocaleCore.WebService.WithFieldCode} '{string.Join(',', plusNumberDb.Select(item => item.Code).ToList())}'");
             pluXml.ParseResult.Status = WsEnumParseStatus.Error;
         }
     }

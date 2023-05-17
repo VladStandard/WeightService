@@ -16,17 +16,17 @@ public sealed class WsSqlPluNestingFkMap : ClassMap<WsSqlPluNestingFkModel>
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.PlusNestingFks);
         LazyLoad();
-        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
-        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(x => x.IsDefault).CustomSqlType("BIT").Column("IS_DEFAULT").Not.Nullable().Default("0");
-        Map(x => x.BundleCount).CustomSqlType("SMALLINT").Column("BUNDLE_COUNT").Not.Nullable().Default("0").Unique();
-        Map(x => x.WeightMax).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_MAX").Not.Nullable().Unique();
-        Map(x => x.WeightMin).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_MIN").Not.Nullable().Unique();
-        Map(x => x.WeightNom).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_NOM").Not.Nullable().Unique();
-        References(x => x.Box).Column("BOX_UID").Unique().Not.Nullable();
-        //References(x => x.Plu).Column("PLU_BUNDLE_FK.PLU_UID").Unique().Not.Nullable();
-        References(x => x.PluBundle).Column("PLU_BUNDLE_FK").Unique().Not.Nullable();
+        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(item => item.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+        Map(item => item.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
+        Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(item => item.IsDefault).CustomSqlType("BIT").Column("IS_DEFAULT").Not.Nullable().Default("0");
+        Map(item => item.BundleCount).CustomSqlType("SMALLINT").Column("BUNDLE_COUNT").Not.Nullable().Default("0").Unique();
+        Map(item => item.WeightMax).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_MAX").Not.Nullable().Unique();
+        Map(item => item.WeightMin).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_MIN").Not.Nullable().Unique();
+        Map(item => item.WeightNom).CustomSqlType("DECIMAL(10,3)").Column("WEIGHT_NOM").Not.Nullable().Unique();
+        References(item => item.Box).Column("BOX_UID").Unique().Not.Nullable();
+        //References(item => item.Plu).Column("PLU_BUNDLE_FK.PLU_UID").Unique().Not.Nullable();
+        References(item => item.PluBundle).Column("PLU_BUNDLE_FK").Unique().Not.Nullable();
     }
 }

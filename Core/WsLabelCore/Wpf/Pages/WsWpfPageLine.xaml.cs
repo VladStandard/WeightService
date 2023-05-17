@@ -11,14 +11,15 @@ public partial class WsWpfPageLine
 {
     #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public WsWpfPageLine()
+    public WsPageLineViewModel ViewModel { get; }
+
+    public WsWpfPageLine(WsPageLineViewModel viewModel)
     {
         InitializeComponent();
-        SetLine(comboBoxScale);
+        ViewModel = viewModel;
+        
         SetProductionFacility(comboBoxArea);
+        SetLine(comboBoxScale);
     }
 
     #endregion

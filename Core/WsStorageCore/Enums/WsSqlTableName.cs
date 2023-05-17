@@ -19,10 +19,11 @@ public enum WsSqlTableName
     PluFks,
     PluGroups,
     PluGroupsFks,
-    PluNestingFks,
     Plus,
     Plus1CFks,
     Scales,
+    ProductionFacilities,
     ViewPlusScales, // вместо PlusScales
     ViewPluStorageMethods, // вместо PluStorageMethodsFks
+    ViewPluNesting, // вместо PluNestingFks
 }

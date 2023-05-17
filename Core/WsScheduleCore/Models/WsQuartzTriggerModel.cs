@@ -59,31 +59,31 @@ public sealed class WsQuartzTriggerModel
                 {
                     case WsQuartzInterval.TimeSpan:
                         if (RepeatForever)
-                            _ = triggerBuilder.WithSimpleSchedule(x => x.WithInterval(TimeSpanValue).RepeatForever());
+                            _ = triggerBuilder.WithSimpleSchedule(item => item.WithInterval(TimeSpanValue).RepeatForever());
                         else
-                            _ = triggerBuilder.WithSimpleSchedule(x => x.WithInterval(TimeSpanValue));
+                            _ = triggerBuilder.WithSimpleSchedule(item => item.WithInterval(TimeSpanValue));
                         break;
                     case WsQuartzInterval.Seconds:
                         if (RepeatForever)
-                            _ = triggerBuilder.WithSimpleSchedule(x => x.WithIntervalInSeconds(IntervalLength).RepeatForever());
+                            _ = triggerBuilder.WithSimpleSchedule(item => item.WithIntervalInSeconds(IntervalLength).RepeatForever());
                         else
-                            _ = triggerBuilder.WithSimpleSchedule(x => x.WithIntervalInSeconds(IntervalLength));
+                            _ = triggerBuilder.WithSimpleSchedule(item => item.WithIntervalInSeconds(IntervalLength));
                         break;
                     case WsQuartzInterval.Minutes:
                         if (RepeatForever)
-                            _ = triggerBuilder.WithSimpleSchedule(x => x.WithIntervalInMinutes(IntervalLength).RepeatForever());
+                            _ = triggerBuilder.WithSimpleSchedule(item => item.WithIntervalInMinutes(IntervalLength).RepeatForever());
                         else
-                            _ = triggerBuilder.WithSimpleSchedule(x => x.WithIntervalInMinutes(IntervalLength));
+                            _ = triggerBuilder.WithSimpleSchedule(item => item.WithIntervalInMinutes(IntervalLength));
                         break;
                     case WsQuartzInterval.Hours:
                         if (RepeatForever)
-                            _ = triggerBuilder.WithSimpleSchedule(x => x.WithIntervalInHours(IntervalLength).RepeatForever());
+                            _ = triggerBuilder.WithSimpleSchedule(item => item.WithIntervalInHours(IntervalLength).RepeatForever());
                         else
-                            _ = triggerBuilder.WithSimpleSchedule(x => x.WithIntervalInHours(IntervalLength));
+                            _ = triggerBuilder.WithSimpleSchedule(item => item.WithIntervalInHours(IntervalLength));
                         break;
                     case WsQuartzInterval.Cron:
                         _ = triggerBuilder
-                            .WithCronSchedule(CronExpression, x => x
+                            .WithCronSchedule(CronExpression, item => item
                                 .WithMisfireHandlingInstructionFireAndProceed()
                             );
                         break;

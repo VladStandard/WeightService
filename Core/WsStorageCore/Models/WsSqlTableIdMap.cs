@@ -1,26 +1,25 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.TableScaleFkModels.PlusGroupsFks;
+namespace WsStorageCore.Models;
 
 /// <summary>
-/// Table map "PLUS_GROUPS_FK".
+/// SQL table map "EMPTY".
 /// </summary>
-public sealed class WsSqlPluGroupFkMap : ClassMap<WsSqlPluGroupFkModel>
+[DebuggerDisplay("{ToString()}")]
+public class WsSqlTableIdMap : ClassMap<WsSqlTableEmptyModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluGroupFkMap()
+    public WsSqlTableIdMap()
     {
-        Schema(WsSqlSchemasUtils.DbScales);
-        Table(WsSqlTablesUtils.PlusGroupsFks);
+        //Schema("");
+        //Table("");
         LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Id(item => item.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(item => item.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(item => item.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        References(item => item.PluGroup).Column("PLU_GROUP_UID").Not.Nullable();
-        References(item => item.Parent).Column("PARENT_UID").Not.Nullable();
     }
 }

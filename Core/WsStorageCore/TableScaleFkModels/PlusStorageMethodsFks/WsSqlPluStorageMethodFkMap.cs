@@ -16,9 +16,9 @@ public sealed class WsSqlPluStorageMethodFkMap : ClassMap<WsSqlPluStorageMethodF
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.PlusStorageMethodsFks);
         LazyLoad();
-        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        References(x => x.Plu).Column("PLU_UID").Not.Nullable();
-        References(x => x.Method).Column("METHOD_UID").Not.Nullable();
-        References(x => x.Resource).Column("RESOURCE_UID").Not.Nullable();
+        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        References(item => item.Plu).Column("PLU_UID").Not.Nullable();
+        References(item => item.Method).Column("METHOD_UID").Not.Nullable();
+        References(item => item.Resource).Column("RESOURCE_UID").Not.Nullable();
     }
 }

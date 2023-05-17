@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 //using CoreTests;
@@ -91,8 +91,8 @@
 //        public GetTemplateResourcesMap()
 //        {
 //            //LazyLoad();
-//            Map(x => x.Name).CustomSqlType("NVARCHAR(MAX)").Column("Name").Not.Nullable();
-//            Map(x => x.ImageData).CustomSqlType("NVARCHAR(MAX)").Column("ImageData").Not.Nullable();
+//            Map(item => item.Name).CustomSqlType("NVARCHAR(MAX)").Column("Name").Not.Nullable();
+//            Map(item => item.ImageData).CustomSqlType("NVARCHAR(MAX)").Column("ImageData").Not.Nullable();
 //        }
 //    }
 //}

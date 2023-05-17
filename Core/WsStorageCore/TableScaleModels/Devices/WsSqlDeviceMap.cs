@@ -16,16 +16,16 @@ public sealed class WsSqlDeviceMap : ClassMap<WsSqlDeviceModel>
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Devices);
         LazyLoad();
-        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
-        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
-        Map(x => x.LoginDt).CustomSqlType("DATETIME").Column("LOGIN_DT").Not.Nullable();
-        Map(x => x.LogoutDt).CustomSqlType("DATETIME").Column("LOGOUT_DT").Not.Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(128).Not.Nullable();
-        Map(x => x.PrettyName).CustomSqlType("NVARCHAR").Column("PRETTY_NAME").Length(128).Not.Nullable();
-        Map(x => x.Description).CustomSqlType("NVARCHAR").Column("DESCRIPTION").Length(1024).Not.Nullable();
-        Map(x => x.Ipv4).CustomSqlType("VARCHAR").Column("IP_V4").Length(15).Nullable();
-        Map(x => x.MacAddressValue).CustomSqlType("VARCHAR").Column("MAC").Length(12).Nullable();
+        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(item => item.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+        Map(item => item.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
+        Map(item => item.LoginDt).CustomSqlType("DATETIME").Column("LOGIN_DT").Not.Nullable();
+        Map(item => item.LogoutDt).CustomSqlType("DATETIME").Column("LOGOUT_DT").Not.Nullable();
+        Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(item => item.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(128).Not.Nullable();
+        Map(item => item.PrettyName).CustomSqlType("NVARCHAR").Column("PRETTY_NAME").Length(128).Not.Nullable();
+        Map(item => item.Description).CustomSqlType("NVARCHAR").Column("DESCRIPTION").Length(1024).Not.Nullable();
+        Map(item => item.Ipv4).CustomSqlType("VARCHAR").Column("IP_V4").Length(15).Nullable();
+        Map(item => item.MacAddressValue).CustomSqlType("VARCHAR").Column("MAC").Length(12).Nullable();
     }
 }

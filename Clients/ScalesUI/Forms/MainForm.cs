@@ -518,13 +518,13 @@ public partial class MainForm : Form
             ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
         MdInvokeControl.SetText(ButtonLine, 
             $"{UserSession.Scale.Description} | {UserSession.Scale.Number}{Environment.NewLine}{area}");
-        if (UserSession.PluNestingView.Item.IsNew)
-            MdInvokeControl.SetText(ButtonPluNestingFk, LocaleCore.Table.FieldPackageIsNotSelected);
-        else
-            MdInvokeControl.SetText(ButtonPluNestingFk, $"{UserSession.PluNestingView.Item.WeightTare} {LocaleCore.Scales.WeightUnitKg} | {UserSession.PluNestingView.Item.Name}");
+        //if (UserSession.PluNestingView.ItemView.IsNew)
+        //    MdInvokeControl.SetText(ButtonPluNestingFk, LocaleCore.Table.FieldPackageIsNotSelected);
+        //else
+            MdInvokeControl.SetText(ButtonPluNestingFk, UserSession.ViewPluNesting.GetSmartName());
         MdInvokeControl.SetText(fieldPackageWeight,
             UserSession.PluScale.IsNotNew
-                ? $"{UserSession.PluNestingView.Item.WeightTare:0.000} {LocaleCore.Scales.WeightUnitKg}"
+                ? $"{UserSession.ViewPluNesting.TareWeight:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
         WsSqlTemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
         MdInvokeControl.SetText(fieldTemplateValue, template.Title);
@@ -630,10 +630,10 @@ public partial class MainForm : Form
                 switch (dialogResult)
                 {
                     case DialogResult.OK:
-                        UserSession.PluNestingView.Item = wpfPageLoader.UserSession.PluNestingView.Item;
+                        UserSession.ViewPluNesting = wpfPageLoader.UserSession.ViewPluNesting;
                         break;
                     case DialogResult.Cancel:
-                        UserSession.PluNestingView.Item = UserSession.PluNestingView.List.First();
+                        UserSession.ViewPluNesting = UserSession.PagePluNestingView.ViewPluNestings.First();
                         break;
                 }
             }, FinallyAction);
@@ -867,7 +867,7 @@ public partial class MainForm : Form
             // Проверить наличие ПЛУ.
             if (!UserSession.CheckPluIsEmpty(fieldWarning)) return;
             // Проверить наличие вложенности ПЛУ.
-            if (!UserSession.PluNestingView.SetAndCheckList(UserSession.PluScale.Plu, fieldWarning)) return;
+            if (!UserSession.SetAndCheckListViewPlusNesting(UserSession.PluScale.Plu, fieldWarning)) return;
             // Проверить наличие весовой платформы Масса-К.
             if (IsSkipDialogs || Debug.IsRelease)
                 if (!UserSession.CheckWeightMassaDeviceExists()) return;

@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewDiagModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewLogMemoryModel
+public sealed record WsSqlViewLogMemoryModel : WsSqlViewBase
 {
     #region Public and private fields, properties, constructor
 
@@ -15,25 +15,11 @@ public sealed record WsSqlViewLogMemoryModel
     public short SizeAppMb { get; init; }
     public short SizeFreeMb { get; init; }
 
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
-    public WsSqlViewLogMemoryModel() : this(DateTime.MinValue)
-    {
-        //
-    }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="createDt"></param>
-    /// <param name="appName"></param>
-    /// <param name="deviceName"></param>
-    /// <param name="scaleName"></param>
-    /// <param name="sizeAppMb"></param>
-    /// <param name="sizeFreeMb"></param>
-    public WsSqlViewLogMemoryModel(DateTime createDt, string appName = "", string deviceName = "", string scaleName = "",
-        short sizeAppMb = 0, short sizeFreeMb = 0)
+    public WsSqlViewLogMemoryModel() : this(Guid.Empty, DateTime.MinValue, string.Empty, 
+        string.Empty, string.Empty) { }
+    
+    public WsSqlViewLogMemoryModel(Guid uid, DateTime createDt, string appName = "", string deviceName = "", string scaleName = "",
+        short sizeAppMb = 0, short sizeFreeMb = 0) : base(uid)
     {
         CreateDt = createDt;
         AppName = appName;

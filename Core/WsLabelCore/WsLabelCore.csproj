@@ -58,8 +58,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\WsPluNestingViewModel.cs" />
-    <Compile Include="ViewModels\WsSqlBaseViewModel.cs" />
+    <Compile Include="ViewModels\WsPageLineViewModel.cs" />
+    <Compile Include="ViewModels\WsPagePluNestingViewModel.cs" />
+    <Compile Include="ViewModels\WsPageBaseViewModel.cs" />
     <Compile Include="WinForms\Helpers\WsFontsSettingsHelper.cs" />
     <Compile Include="WinForms\Helpers\WsPluginLabelsHelper.cs" />
     <Compile Include="WinForms\Helpers\WsPluginMassaHelper.cs" />

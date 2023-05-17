@@ -16,16 +16,16 @@ public sealed class WsSqlPluWeighingMap : ClassMap<WsSqlPluWeighingModel>
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.PlusWeighings);
         LazyLoad();
-        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
-        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(x => x.Kneading).CustomSqlType("INT").Column("KNEADING").Not.Nullable().Default("0");
-        Map(x => x.Sscc).CustomSqlType("VARCHAR").Column("SSCC").Length(50).Not.Nullable().Default("");
-        Map(x => x.NettoWeight).CustomSqlType("DECIMAL(10,3)").Column("NETTO_WEIGHT").Not.Nullable().Default("0");
-        Map(x => x.WeightTare).CustomSqlType("DECIMAL(10,3)").Column("TARE_WEIGHT").Not.Nullable().Default("0");
-        Map(x => x.RegNum).CustomSqlType("INT)").Column("REG_NUM").Not.Nullable().Default("0");
-        References(x => x.PluScale).Column("PLU_SCALE_UID").Not.Nullable();
-        References(x => x.Series).Column("SERIES_ID").Nullable();
+        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(item => item.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+        Map(item => item.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
+        Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(item => item.Kneading).CustomSqlType("INT").Column("KNEADING").Not.Nullable().Default("0");
+        Map(item => item.Sscc).CustomSqlType("VARCHAR").Column("SSCC").Length(50).Not.Nullable().Default("");
+        Map(item => item.NettoWeight).CustomSqlType("DECIMAL(10,3)").Column("NETTO_WEIGHT").Not.Nullable().Default("0");
+        Map(item => item.WeightTare).CustomSqlType("DECIMAL(10,3)").Column("TARE_WEIGHT").Not.Nullable().Default("0");
+        Map(item => item.RegNum).CustomSqlType("INT)").Column("REG_NUM").Not.Nullable().Default("0");
+        References(item => item.PluScale).Column("PLU_SCALE_UID").Not.Nullable();
+        References(item => item.Series).Column("SERIES_ID").Nullable();
     }
 }

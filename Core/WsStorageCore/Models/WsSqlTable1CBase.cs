@@ -1,13 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.Tables;
+namespace WsStorageCore.Models;
 
 /// <summary>
-/// DB table model.
+/// SQL table 1C model.
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(SqlTableBase1c)} | {Uid1C}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlTable1CBase : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor

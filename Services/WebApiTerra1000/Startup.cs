@@ -20,7 +20,7 @@ public class Startup
             .ShowSql()
             .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
             );
-        configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
+        configuration.ExposeConfiguration(item => item.SetProperty("hbm2ddl.keywords", "auto-quote"));
         return configuration.BuildSessionFactory();
     }
 

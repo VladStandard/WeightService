@@ -5,7 +5,7 @@ using FluentValidation;
 using System;
 using System.Threading;
 using WsBlazorCore.Razors;
-using WsSqlTableBase = WsStorageCore.Tables.WsSqlTableBase;
+using WsSqlTableBase = WsStorageCore.Models.WsSqlTableBase;
 
 namespace WsBlazorCoreTests;
 

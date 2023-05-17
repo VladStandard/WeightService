@@ -31,7 +31,6 @@ global using WsStorageCore.Enums;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
 global using WsStorageCore.TableRefModels.Plus1CFk;
-global using WsStorageCore.Tables;
 global using WsStorageCore.TableScaleFkModels.PlusBrandsFks;
 global using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 global using WsStorageCore.TableScaleFkModels.PlusCharacteristicsFks;

@@ -39,16 +39,19 @@ public sealed class WsSqlPluNestingFkController
         return item;
     }
 
+    public WsSqlViewPluNestingModel GetNewView() => new();
+
     /// <summary>
-    /// Force update list PluStorageMethodFks.
+    /// Force update list.
     /// </summary>
     /// <param name="pluNestingFks"></param>
     /// <param name="sqlCrudConfig"></param>
-    public List<WsSqlPluNestingFkModel> UpdatePluNestingFks(WsSqlCrudConfigModel sqlCrudConfig, out List<WsSqlPluNestingFkModel> pluNestingFks) =>
+    public List<WsSqlPluNestingFkModel> UpdatePluNestingFks(WsSqlCrudConfigModel sqlCrudConfig, 
+        out List<WsSqlPluNestingFkModel> pluNestingFks) =>
         pluNestingFks = ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
 
     /// <summary>
-    /// Get item PluStorageMethod by Plu.
+    /// Get item by Plu.
     /// Use UpdatePluStorageMethodFks for force update.
     /// </summary>
     /// <param name="pluNestingFks"></param>
@@ -64,7 +67,7 @@ public sealed class WsSqlPluNestingFkController
     }
 
     /// <summary>
-    /// Get item PluStorageMethod by Plu.
+    /// Get item by Plu.
     /// Use UpdatePluStorageMethodFks for force update.
     /// </summary>
     /// <param name="pluNestingFks"></param>

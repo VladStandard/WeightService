@@ -10,7 +10,6 @@ using WsDataCore.Protocols;
 using WsStorageCore.Models;
 using WsStorageCore.TableDiagModels.Logs;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
-using WsStorageCore.Tables;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
@@ -295,8 +294,8 @@ public partial class RazorComponentBase
     private void SqlItemSavePluBundleFk(WsSqlPluBundleFkModel pluBundleFk)
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
-        WsSqlPluModel? plu = SqlLinkedItems.First(x => x is WsSqlPluModel) as WsSqlPluModel;
-        WsSqlBundleModel? bundle = SqlLinkedItems.First(x => x is WsSqlBundleModel) as WsSqlBundleModel;
+        WsSqlPluModel? plu = SqlLinkedItems.First(item => item is WsSqlPluModel) as WsSqlPluModel;
+        WsSqlBundleModel? bundle = SqlLinkedItems.First(item => item is WsSqlBundleModel) as WsSqlBundleModel;
 		if (plu is null || bundle is null) return;
         pluBundleFk.Plu = plu;
         pluBundleFk.Bundle = bundle;
@@ -306,8 +305,8 @@ public partial class RazorComponentBase
     private void SqlItemSavePluNestingFk(WsSqlPluNestingFkModel pluNestingFk)
     {
         if (SqlLinkedItems is null || !SqlLinkedItems.Any()) return;
-        WsSqlPluBundleFkModel? pluBundleFk = SqlLinkedItems.First(x => x is WsSqlPluBundleFkModel) as WsSqlPluBundleFkModel;
-        WsSqlBoxModel? box = SqlLinkedItems.First(x => x is WsSqlBoxModel) as WsSqlBoxModel;
+        WsSqlPluBundleFkModel? pluBundleFk = SqlLinkedItems.First(item => item is WsSqlPluBundleFkModel) as WsSqlPluBundleFkModel;
+        WsSqlBoxModel? box = SqlLinkedItems.First(item => item is WsSqlBoxModel) as WsSqlBoxModel;
         if (pluBundleFk is null) return;
         if (box is null) return;
         pluNestingFk.PluBundle = pluBundleFk;

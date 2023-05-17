@@ -270,7 +270,7 @@ public class WsXmlProductHelper
 					if (xmlProduct.Barcodes is not null && xmlProduct.Barcodes.Count > 0)
 					{
 						WsXmlProductBarcodeModel barcodeGtin = xmlProduct.Barcodes.FirstOrDefault(
-							x => x.Type.Equals("EAN13"));
+							item => item.Type.Equals("EAN13"));
 						if (barcodeGtin is not null)
 						{
 							return (T)Convert.ChangeType(barcodeGtin.Barcode, typeof(string));
@@ -281,7 +281,7 @@ public class WsXmlProductHelper
 					if (xmlProduct.Barcodes is not null && xmlProduct.Barcodes.Count > 0)
 					{
 						WsXmlProductBarcodeModel barcodeEan13 = xmlProduct.Barcodes.FirstOrDefault(
-							x => x.Type.Equals("EAN13"));
+							item => item.Type.Equals("EAN13"));
 						if (barcodeEan13 is not null)
 						{
 							return (T)Convert.ChangeType(barcodeEan13.Barcode, typeof(string));
@@ -292,32 +292,32 @@ public class WsXmlProductHelper
 					if (xmlProduct.Barcodes is not null && xmlProduct.Barcodes.Count > 0)
 					{
 						WsXmlProductBarcodeModel barcodeItf14 = xmlProduct.Barcodes.FirstOrDefault(
-						x => x.Type.Equals("ITF14"));
+						item => item.Type.Equals("ITF14"));
 						if (barcodeItf14 is not null)
 							return (T)Convert.ChangeType(barcodeItf14.Barcode, typeof(string));
 					}
 					break;
 				case "GoodsBoxQuantly":
 					decimal? rate1 = xmlProduct.Units
-						.OrderByDescending(x => x.Rate)
-						.FirstOrDefault(x => x.Description.Equals("Кор"))?
+						.OrderByDescending(item => item.Rate)
+						.FirstOrDefault(item => item.Description.Equals("Кор"))?
 						.Rate;
 					if (decimal.TryParse(rate1.ToString(), out decimal goodsBoxQuantly2))
 						return (T)Convert.ChangeType((int)goodsBoxQuantly2, typeof(int));
 					break;
 				case "GoodsWeightTare":
 					decimal? rate = xmlProduct.Units
-						.OrderByDescending(x => x.Rate)
-						.FirstOrDefault(x => x.Description.Equals("Кор"))?
+						.OrderByDescending(item => item.Rate)
+						.FirstOrDefault(item => item.Description.Equals("Кор"))?
 						.Rate;
 					if (decimal.TryParse(rate.ToString(), out decimal rate2))
 					{
 						decimal? boxHeft = xmlProduct.Boxes.FirstOrDefault(
-							x => x.Unit.Equals("шт"))?.Heft;
+							item => item.Unit.Equals("шт"))?.Heft;
 						if (decimal.TryParse(boxHeft.ToString(), out decimal boxHeft2))
 						{
 							decimal? packHeft = xmlProduct.Packs.FirstOrDefault(
-								x => x.Unit.Equals("шт"))?.Heft;
+								item => item.Unit.Equals("шт"))?.Heft;
 							if (decimal.TryParse(packHeft.ToString(), out decimal packHeft2))
 							{
 								decimal brutto = packHeft2 * rate2 + boxHeft2;
@@ -443,8 +443,8 @@ public class WsXmlProductHelper
 		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
 			decimal? weightBoxSource = xmlProduct.Boxes
-				.OrderByDescending(x => x.Heft)
-				.FirstOrDefault(x => x.Unit.Equals("шт"))?
+				.OrderByDescending(item => item.Heft)
+				.FirstOrDefault(item => item.Unit.Equals("шт"))?
 				.Heft;
 			if (decimal.TryParse(weightBoxSource.ToString(), out decimal weightBox))
 				return weightBox;
@@ -461,8 +461,8 @@ public class WsXmlProductHelper
 		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
 			decimal? weightPackSource = xmlProduct.Packs
-				.OrderByDescending(x => x.Heft)
-				.FirstOrDefault(x => x.Unit.Equals("шт"))?
+				.OrderByDescending(item => item.Heft)
+				.FirstOrDefault(item => item.Unit.Equals("шт"))?
 				.Heft;
 			if (decimal.TryParse(weightPackSource.ToString(), out decimal weightPack))
 				return weightPack;
@@ -479,8 +479,8 @@ public class WsXmlProductHelper
 		if (!xmlProduct.EqualsNew() && !plu.EqualsNew())
 		{
 			decimal? rateUnitSource = xmlProduct.Units
-				.OrderByDescending(x => x.Rate)
-				.FirstOrDefault(x => x.Description.Equals("Кор"))?
+				.OrderByDescending(item => item.Rate)
+				.FirstOrDefault(item => item.Description.Equals("Кор"))?
 				.Rate;
 			if (decimal.TryParse(rateUnitSource.ToString(), out decimal rateUnit))
 				return rateUnit;

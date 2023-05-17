@@ -3,7 +3,6 @@
 
 using WsBlazorCore.Settings;
 using WsStorageCore.Models;
-using WsStorageCore.Tables;
 using WsStorageCore.TableScaleModels.Contragents;
 using WsStorageCore.Utils;
 

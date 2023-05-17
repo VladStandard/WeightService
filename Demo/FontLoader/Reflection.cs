@@ -35,7 +35,7 @@ public class Reflection
                 var parameters = method.GetParameters();
                 var parameterDescriptions = string.Join
                 (", ", method.GetParameters()
-                    .Select(x => x.ParameterType + " " + x.Name)
+                    .Select(item => item.ParameterType + " " + item.Name)
                     .ToArray());
                 outMsg.AppendLine($"{method.ReturnType} {method.Name} ({parameterDescriptions})");
             }

@@ -1,13 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.Tables;
+namespace WsStorageCore.Models;
 
 /// <summary>
-/// DB table model.
+/// SQL table model.
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(WsSqlTableBase)} | {Identity}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlTableBase : SerializeBase, ICloneable
 {
     #region Public and private fields, properties, constructor
@@ -19,8 +19,8 @@ public class WsSqlTableBase : SerializeBase, ICloneable
     [XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
     [XmlIgnore] public virtual bool IsNew => IsNotExists;
     [XmlIgnore] public virtual bool IsNotNew => IsExists;
-    [XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, WsSqlFieldIdentity.Id);
-    [XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, WsSqlFieldIdentity.Uid);
+    [XmlIgnore] public virtual bool IsIdentityId => Identity.IsId;
+    [XmlIgnore] public virtual bool IsIdentityUid => Identity.IsUid;
     [XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual bool IsMarked { get; set; } = false;

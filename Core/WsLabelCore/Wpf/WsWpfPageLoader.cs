@@ -12,6 +12,8 @@ public sealed partial class WsWpfPageLoader : Form
     #region Public and private fields, properties, constructor
 
     public WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
+    public WsPageLineViewModel PageLineView { get; } = new();
+    public WsPagePluNestingViewModel PagePluNestingView { get; } = new();
     private ElementHost ElementHost { get; }
     private bool UseOwnerSize { get; }
     public WsMessageBoxModel MessageBox { get; }

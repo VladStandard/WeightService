@@ -47,7 +47,8 @@ order by [NUMBER]");
             public static string GetViewLogsMemories(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
-	 [CREATE_DT]
+	 [UID]
+	,[CREATE_DT]
 	,[APP_NAME]
 	,[DEVICE_NAME]
 	,[SCALE_NAME]
@@ -113,7 +114,8 @@ ORDER BY [SCALE_ID], [PLU_NUMBER];");
             public static string GetViewPlusStorageMethods(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
-     [PLU_UID]
+     [UID]
+	,[PLU_UID]
 	,[PLU_IS_MARKED]
 	,[PLU_IS_WEIGHT]
 	,[PLU_NUMBER]
@@ -153,8 +155,10 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	,[WEIGHT_MIN]
 	,[WEIGHT_NOM]
 	,[PLU_UID]
+	,[PLU_UID_1C]
 	,[PLU_IS_MARKED]
 	,[PLU_IS_WEIGHT]
+	,[PLU_IS_GROUP]
 	,[PLU_NUMBER]
 	,[PLU_NAME]
 	,[PLU_SHELF_LIFE_DAYS]
@@ -162,10 +166,12 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	,[PLU_EAN13]
 	,[PLU_ITF14]
 	,[BUNDLE_UID]
+	,[BUNDLE_UID_1C]
 	,[BUNDLE_IS_MARKED]
 	,[BUNDLE_NAME]
 	,[BUNDLE_WEIGHT]
 	,[BOX_UID]
+	,[BOX_UID_1C]
 	,[BOX_IS_MARKED]
 	,[BOX_NAME]
 	,[BOX_WEIGHT]

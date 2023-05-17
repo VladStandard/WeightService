@@ -231,7 +231,7 @@ internal sealed class WsSqlAccessCoreHelper
             criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
         if (sqlCrudConfig.Orders.Any())
         {
-            List<WsSqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(x => !string.IsNullOrEmpty(x.Name)).ToList();
+            List<WsSqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(item => !string.IsNullOrEmpty(item.Name)).ToList();
             if (orders.Any())
                 criteria.SetCriteriaOrder(orders);
         }
@@ -246,7 +246,7 @@ internal sealed class WsSqlAccessCoreHelper
             criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
         if (sqlCrudConfig.Orders.Any())
         {
-            List<WsSqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(x => !string.IsNullOrEmpty(x.Name)).ToList();
+            List<WsSqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(item => !string.IsNullOrEmpty(item.Name)).ToList();
             if (orders.Any())
                 criteria.SetCriteriaOrder(orders);
         }
@@ -527,11 +527,11 @@ internal sealed class WsSqlAccessCoreHelper
         bool result = false;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
-            result = session.Query<T>().Any(x => x.IsAny(item));
+            result = session.Query<T>().Any(item => item.IsAny(item));
 
-            //result = session.Query<T>().Any(x => x.Identity.Equals(item.Identity));
+            //result = session.Query<T>().Any(item => item.Identity.Equals(item.Identity));
 
-            //IQueryable<T> query = session.Query<T>().Where(x => x.Equals(item));
+            //IQueryable<T> query = session.Query<T>().Where(item => item.Equals(item));
             //result = query.IsAny();
         });
         if (!result) 

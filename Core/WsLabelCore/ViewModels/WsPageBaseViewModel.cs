@@ -3,11 +3,12 @@
 
 namespace WsLabelCore.ViewModels;
 
-public class WsSqlBaseViewModel : BaseViewModel
+public class WsPageBaseViewModel : BaseViewModel
 {
     #region Public and private fields, properties, constructor
 
     protected WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    protected WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
 
     #endregion
 }

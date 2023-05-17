@@ -480,15 +480,8 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlPluNestingFkModel> GetListNotNullablePlusNestingFks(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlPluNestingFkModel> list = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty)
-        {
-            list.Add(AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluNestingFkModel>());
-        }
-        if (string.IsNullOrEmpty(sqlCrudConfig.NativeQuery))
-        {
-            sqlCrudConfig.NativeQuery = WsSqlQueriesScales.Tables.PluNestingFks.GetList(false);
-            //new("P_UID", plu.IdentityValueUid), true);
-        }
+        if (sqlCrudConfig.IsResultAddFieldEmpty) list.Add(AccessManager.AccessItem.GetItemNewEmpty<WsSqlPluNestingFkModel>());
+        if (string.IsNullOrEmpty(sqlCrudConfig.NativeQuery)) sqlCrudConfig.NativeQuery = PluNestingFks.GetList(false);
         object[] objects = AccessCore.GetArrayObjectsNotNullable(sqlCrudConfig);
         foreach (object obj in objects)
         {
@@ -722,7 +715,7 @@ public sealed class WsSqlContextListHelper
         if (sqlCrudConfig.IsResultAddFieldEmpty)
             result.Add(AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceModel>());
         List<WsSqlDeviceModel> list = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
-        result = result.OrderBy(x => x.Name).ToList();
+        result = result.OrderBy(item => item.Name).ToList();
         result.AddRange(list);
         return result;
     }
@@ -733,7 +726,7 @@ public sealed class WsSqlContextListHelper
         if (sqlCrudConfig.IsResultAddFieldEmpty)
             result.Add(AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceTypeModel>());
         List<WsSqlDeviceTypeModel> list = GetListNotNullableCore<WsSqlDeviceTypeModel>(sqlCrudConfig);
-        result = result.OrderBy(x => x.Name).ToList();
+        result = result.OrderBy(item => item.Name).ToList();
         result.AddRange(list);
         return result;
     }
@@ -745,8 +738,8 @@ public sealed class WsSqlContextListHelper
             result.Add(new() { Device = AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceModel>(), 
                 Type = AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceTypeModel>() });
         List<WsSqlDeviceTypeFkModel> list = GetListNotNullableCore<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
-        result = result.OrderBy(x => x.Type.Name).ToList();
-        result = result.OrderBy(x => x.Device.Name).ToList();
+        result = result.OrderBy(item => item.Type.Name).ToList();
+        result = result.OrderBy(item => item.Device.Name).ToList();
         result.AddRange(list);
         return result;
     }
@@ -759,8 +752,8 @@ public sealed class WsSqlContextListHelper
             result.Add(new() { Device = AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceModel>(), 
                 Scale = AccessManager.AccessItem.GetItemNewEmpty<WsSqlScaleModel>() });
         List<WsSqlDeviceScaleFkModel> list = GetListNotNullableCore<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
-        result = result.OrderBy(x => x.Scale.Description).ToList();
-        result = result.OrderBy(x => x.Device.Name).ToList();
+        result = result.OrderBy(item => item.Scale.Description).ToList();
+        result = result.OrderBy(item => item.Device.Name).ToList();
         result.AddRange(list);
         return result;
     }
@@ -791,7 +784,7 @@ public sealed class WsSqlContextListHelper
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
         List<WsSqlDeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
         List<WsSqlDeviceModel> devices = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
-        deviceTypeFks = deviceTypeFks.Where(x => !devices.Contains(x.Device)).ToList();
+        deviceTypeFks = deviceTypeFks.Where(item => !devices.Contains(item.Device)).ToList();
         return deviceTypeFks;
     }
 
@@ -801,7 +794,7 @@ public sealed class WsSqlContextListHelper
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
         List<WsSqlDeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
         List<WsSqlDeviceModel> devices = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
-        deviceTypeFks = deviceTypeFks.Where(x => devices.Contains(x.Device)).ToList();
+        deviceTypeFks = deviceTypeFks.Where(item => devices.Contains(item.Device)).ToList();
         return deviceTypeFks;
     }
 
@@ -818,7 +811,7 @@ public sealed class WsSqlContextListHelper
             WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlScaleScreenShotModel.Scale), itemFilter?.IdentityValueId),
             isShowMarked, isShowOnlyTop, isAddFieldNull);
         List<WsSqlScaleScreenShotModel> result = GetListNotNullableCore<WsSqlScaleScreenShotModel>(sqlCrudConfig);
-        result = result.OrderByDescending(x => x.CreateDt).ToList();
+        result = result.OrderByDescending(item => item.CreateDt).ToList();
         return result;
     }
 
@@ -833,8 +826,8 @@ public sealed class WsSqlContextListHelper
             new WsSqlFieldOrderModel { Name = nameof(WsSqlPluBundleFkModel.Plu), Direction = WsSqlOrderDirection.Asc },
             isShowMarked, isShowOnlyTop);
         result.AddRange(GetListNotNullableCore<WsSqlPluBundleFkModel>(sqlCrudConfig));
-        result = result.OrderBy(x => x.Bundle.Name).ToList();
-        result = result.OrderBy(x => x.Plu.Number).ToList();
+        result = result.OrderBy(item => item.Bundle.Name).ToList();
+        result = result.OrderBy(item => item.Plu.Number).ToList();
         return result;
     }
 
