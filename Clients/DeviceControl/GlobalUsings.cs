@@ -11,7 +11,6 @@ global using Microsoft.AspNetCore.Components.Forms;
 global using Microsoft.AspNetCore.Components;
 global using MudBlazor;
 global using Radzen;
-global using RazorFieldConfigUtils = WsBlazorCore.Utils.RazorFieldConfigUtils;
 global using System.Globalization;
 global using WsLocalizationCore.Enums;
 global using WsLocalizationCore.Models;

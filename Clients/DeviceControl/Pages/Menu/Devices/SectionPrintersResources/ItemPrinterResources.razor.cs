@@ -15,7 +15,7 @@ public sealed partial class ItemPrinterResources : RazorComponentItemBase<WsSqlP
     #region Public and private fields, properties, constructor
 
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
-    
+
     private List<WsSqlTemplateResourceModel> TemplateResourceModels { get; set; }
     #endregion
 

@@ -67,21 +67,16 @@ public partial class RazorComponentBase
 
     public string GetRouteItemPathCombine<TItem>(string page, TItem? item) where TItem : WsSqlTableBase, new()
     {
-        if (item is not null)
+        if (item is null || string.IsNullOrEmpty(page))
+            return string.Empty;
+        return item.Identity.Name switch
         {
-            if (!string.IsNullOrEmpty(page))
-                return item.Identity.Name switch
-                {
-                    WsSqlFieldIdentity.Id => $"{page}/{item.IdentityValueId}",
-                    WsSqlFieldIdentity.Uid => $"{page}/{item.IdentityValueUid}",
-                    WsSqlFieldIdentity.Test => $"{page}/{nameof(WsSqlFieldIdentity.Test)}",
-                    _ => string.Empty
-                };
-        }
-        return string.Empty;
+            WsSqlFieldIdentity.Id => $"{page}/{item.IdentityValueId}",
+            WsSqlFieldIdentity.Uid => $"{page}/{item.IdentityValueUid}",
+            WsSqlFieldIdentity.Test => $"{page}/{nameof(WsSqlFieldIdentity.Test)}",
+            _ => string.Empty
+        };
     }
-
-    public string GetRouteItemPathShort<TItem>() where TItem : WsSqlTableBase, new() => GetRouteSectionPath(new TItem());
 
     protected string GetRouteSectionPath<TItem>(TItem? item) where TItem : WsSqlTableBase, new() =>
         item switch
@@ -134,13 +129,14 @@ public partial class RazorComponentBase
             _ => string.Empty
         };
 
-    public string GetRouteSectionPath<TItem>() where TItem : WsSqlTableBase, new() => GetRouteSectionPath(new TItem());
-    
     protected void SetRouteItemNavigate<TItem>(TItem? item) where TItem : WsSqlTableBase, new()
     {
-        if (item is null) return;
+        if (item is null) 
+            return;
+        
         string page = GetRouteSectionPath(item);
-        if (string.IsNullOrEmpty(page)) return;
+        if (string.IsNullOrEmpty(page))
+            return;
 
         page = item.Identity.Name switch
         {
@@ -151,12 +147,7 @@ public partial class RazorComponentBase
         NavigationManager?.NavigateTo(page);
     }
 
-    public void SetRouteSectionNavigateToRoot()
-    {
-        NavigationManager?.NavigateTo(LocaleCore.DeviceControl.RouteSystemRoot);
-    }
-
-    private void SetRouteSectionNavigate()
+    protected void SetRouteSectionNavigate()
     {
         string page = GetRouteSectionPath(SqlItem);
         if (string.IsNullOrEmpty(page))

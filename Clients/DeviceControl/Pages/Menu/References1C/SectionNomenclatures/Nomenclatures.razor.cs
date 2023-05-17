@@ -13,7 +13,9 @@ public sealed partial class Nomenclatures : RazorComponentSectionBase<WsSqlPluMo
     public Nomenclatures() : base()
     {
         SqlCrudConfigSection.IsResultOrder = false;
-		SqlCrudConfigSection.AddOrders(new() { Name = nameof(WsSqlPluModel.Number), Direction = WsSqlOrderDirection.Asc });
+        SqlCrudConfigSection.AddOrders(
+            new() { Name = nameof(WsSqlPluModel.Number), Direction = WsSqlOrderDirection.Asc }
+        );
         ButtonSettings = new(false, false, true, true, false, false, false);
     }
 

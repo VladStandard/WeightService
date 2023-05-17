@@ -93,7 +93,7 @@ public partial class RazorComponentBase
     }
 
 	// https://blazor.radzen.com/dialog
-	private async Task ShowDialog(string title, string message)
+	protected async Task ShowDialog(string title, string message)
     {
 	    try
 	    {

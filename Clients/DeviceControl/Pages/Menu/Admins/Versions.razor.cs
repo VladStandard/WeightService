@@ -13,7 +13,9 @@ public sealed partial class Versions : RazorComponentSectionBase<WsSqlVersionMod
     public Versions() : base()
     {
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
-        SqlCrudConfigSection.AddOrders(new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlOrderDirection.Desc });
+        SqlCrudConfigSection.AddOrders(
+            new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlOrderDirection.Desc }
+        );
         ButtonSettings = new(false, false, false, false, false, false, false);
     }
 

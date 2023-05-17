@@ -12,15 +12,24 @@ public sealed partial class ItemNomenclature : RazorComponentItemBase<WsSqlPluMo
     #region Public and private fields, properties, constructor
 
     private WsSqlTemplateModel _template;
-    private WsSqlTemplateModel Template { get => _template; set { _template = value; SqlLinkedItems = new() { Template }; } }
+    private WsSqlTemplateModel Template
+    {
+        get => _template;
+        set
+        {
+            _template = value;
+            SqlLinkedItems = new() { Template };
+        }
+    }
     private WsSqlPluTemplateFkModel PluTemplateFk { get; set; }
 
-    public ItemNomenclature() : base()
+    public ItemNomenclature()
+        : base()
     {
-	    SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
-	    SqlCrudConfigItem.IsGuiShowFilterMarked = true;
-	    _template = new();
-	    PluTemplateFk = new();
+        SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
+        SqlCrudConfigItem.IsGuiShowFilterMarked = true;
+        _template = new();
+        PluTemplateFk = new();
 
         ButtonSettings = new(true, true, true, true, true, true, true);
     }

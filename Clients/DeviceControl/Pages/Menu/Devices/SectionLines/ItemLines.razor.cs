@@ -18,15 +18,23 @@ public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
 {
     #region Public and private fields, properties, constructor
 
-	private WsSqlDeviceModel _device;
-	private WsSqlDeviceModel Device { get => _device; set { _device = value; SqlLinkedItems = new() { Device }; } }
-	private WsSqlDeviceScaleFkModel DeviceScaleFk { get; set; }
-	private List<WsEnumTypeModel<string>> ComPorts { get; set; }
-    
+    private WsSqlDeviceModel _device;
+    private WsSqlDeviceModel Device
+    {
+        get => _device;
+        set
+        {
+            _device = value;
+            SqlLinkedItems = new() { Device };
+        }
+    }
+    private WsSqlDeviceScaleFkModel DeviceScaleFk { get; set; }
+    private List<WsEnumTypeModel<string>> ComPorts { get; set; }
+
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
 
     private List<WsSqlDeviceModel> HostModels { get; set; }
-    
+
     private List<WsSqlWorkShopModel> WorkShopModels { get; set; }
     
 	public ItemLines() : base()
@@ -35,7 +43,7 @@ public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
 		SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
 		SqlCrudConfigItem.IsGuiShowFilterMarked = true;
         _device = new();
-		DeviceScaleFk = new();
+        DeviceScaleFk = new();
         ComPorts = new();
     }
 

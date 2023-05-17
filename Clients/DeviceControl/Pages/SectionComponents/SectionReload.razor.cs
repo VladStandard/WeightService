@@ -18,9 +18,7 @@ public partial class SectionReload<TItem> : RazorComponentSectionBase<TItem>
 
     #region Public and private methods
 
-    protected override void OnAfterRender(bool firstRender)
-    {
-    }
+    protected override void OnAfterRender(bool firstRender) { }
 
     #endregion
 }

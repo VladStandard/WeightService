@@ -12,18 +12,19 @@ public partial class Profile : RazorComponentBase
     private List<WsEnumTypeModel<Lang>>? TemplateLanguages { get; set; }
     private List<Lang> Langs { get; set; }
 
-    private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null
-        ? string.Empty
-        : HttpContext.Connection.RemoteIpAddress.ToString();
+    private string IpAddress =>
+        HttpContext?.Connection.RemoteIpAddress is null
+            ? string.Empty
+            : HttpContext.Connection.RemoteIpAddress.ToString();
 
     public Profile()
-	{
-		Langs = new();
-		foreach (Lang lang in Enum.GetValues(typeof(Lang)))
-			Langs.Add(lang);
-		TemplateLanguages = BlazorAppSettings.DataSourceDics.GetTemplateLanguages();
-	}
-    
+    {
+        Langs = new();
+        foreach (Lang lang in Enum.GetValues(typeof(Lang)))
+            Langs.Add(lang);
+        TemplateLanguages = BlazorAppSettings.DataSourceDics.GetTemplateLanguages();
+    }
+
     #endregion
 
     #region Public and private methods

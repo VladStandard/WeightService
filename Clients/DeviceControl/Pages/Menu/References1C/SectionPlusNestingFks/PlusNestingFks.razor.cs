@@ -11,8 +11,7 @@ public sealed partial class PlusNestingFks : RazorComponentSectionBase<WsSqlPluN
 
     public PlusNestingFks() : base()
     {
-        ButtonSettings = new(true, true, true,
-            true, true, true, false);
+        ButtonSettings = new(true, true, true, true, true, true, false);
     }
 
     #endregion

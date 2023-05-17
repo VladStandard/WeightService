@@ -24,9 +24,7 @@ public partial class RazorComponentBase : LayoutComponentBase
     [Inject] protected IJSRuntime? JsRuntime { get; set; }
     [Inject] protected NavigationManager? NavigationManager { get; set; }
     [Inject] protected NotificationService? NotificationService { get; set; }
-    [Inject] protected TooltipService? TooltipService { get; set; }
     [Inject] protected IHttpContextAccessor? HttpContextAccess { get; set; }
-    [Inject] protected ContextMenuService? ContextMenuService { get; set; }
 
     #endregion
 
@@ -59,7 +57,6 @@ public partial class RazorComponentBase : LayoutComponentBase
     #endregion
 
     [Parameter] public WsSqlTableBase? SqlItem { get; set; }
-    public WsSqlTableBase? SqlItemFilter { get; set; }
     public List<WsSqlTableBase>? SqlLinkedItems { get; set; }
     public ClaimsPrincipal? User { get; set; }
     
@@ -68,7 +65,6 @@ public partial class RazorComponentBase : LayoutComponentBase
         Title = string.Empty;
 
 		SqlItem = null;
-        SqlItemFilter = null;
         SqlLinkedItems = null;
 
 		RazorFieldConfig = new();

@@ -13,7 +13,6 @@ public sealed partial class ItemBarCode : RazorComponentItemBase<WsSqlBarCodeMod
 
     public ItemBarCode() : base()
     {
-
         ButtonSettings = new(false, false, false, false, false, false, true);
     }
 

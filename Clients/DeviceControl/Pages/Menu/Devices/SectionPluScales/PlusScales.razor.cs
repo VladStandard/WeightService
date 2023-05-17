@@ -19,30 +19,50 @@ public sealed partial class PlusScales : RazorComponentSectionBase<WsSqlPluScale
     {
         HideNoneActivePlu = true;
         SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
-		SqlCrudConfigSection.IsResultOrder = true;
+        SqlCrudConfigSection.IsResultOrder = true;
         ButtonSettings = new(true, true, true, true, true, true, false);
-	}
-    
-	#endregion
+    }
+
+    #endregion
 
     #region Public and private methods
 
     protected override void SetSqlSectionCast()
     {
         if (HideNoneActivePlu)
-            SqlCrudConfigSection.AddFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
+            SqlCrudConfigSection.AddFilters(
+                new WsSqlFieldFilterModel
+                {
+                    Name = nameof(WsSqlPluScaleModel.IsActive),
+                    Value = true
+                }
+            );
         else
-            SqlCrudConfigSection.RemoveFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluScaleModel.IsActive), Value = true });
+            SqlCrudConfigSection.RemoveFilters(
+                new WsSqlFieldFilterModel
+                {
+                    Name = nameof(WsSqlPluScaleModel.IsActive),
+                    Value = true
+                }
+            );
         SqlCrudConfigSection.AddFilters(nameof(WsSqlPluScaleModel.Scale), Scale);
         base.SetSqlSectionCast();
     }
 
     private string GetPluPackagesCount(WsSqlPluModel plu)
-	{
-		WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
-            false, true, false, false);
-        return ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Count.ToString();
-	}
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            plu,
+            nameof(WsSqlPluScaleModel.Plu),
+            false,
+            true,
+            false,
+            false
+        );
+        return ContextManager.AccessManager.AccessList
+            .GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig)
+            .Count.ToString();
+    }
 
     protected override async Task OnSqlSectionSaveAsync()
     {

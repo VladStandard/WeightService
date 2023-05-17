@@ -11,8 +11,8 @@ public partial class SectionActions : LayoutComponentBase
 
     [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
-
     [Parameter] public EventCallback OnSectionSave { get; set; }
+    
     public string Width { get; set; }
 
     public SectionActions()

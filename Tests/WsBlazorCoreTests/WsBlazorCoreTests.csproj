@@ -30,4 +30,10 @@
     <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
     <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Utils\RazorFieldConfigUtilsTests.cs" />
+  </ItemGroup>
 </Project>

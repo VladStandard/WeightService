@@ -13,19 +13,30 @@ public sealed partial class Lines : RazorComponentSectionBase<LineView>
 
     public Lines() : base()
     {
-        SqlCrudConfigSection.AddOrders(new() { Name = nameof(WsSqlScaleModel.Description), Direction = WsSqlOrderDirection.Asc });
+        SqlCrudConfigSection.AddOrders(
+            new()
+            {
+                Name = nameof(WsSqlScaleModel.Description),
+                Direction = WsSqlOrderDirection.Asc
+            }
+        );
     }
 
     #endregion
 
     #region Public and private
-    
+
     protected override void SetSqlSectionCast()
     {
-        var query = WsSqlQueriesDiags.Tables.Views.GetLines(SqlCrudConfigSection.IsResultShowOnlyTop
-            ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, SqlCrudConfigSection.IsResultShowMarked);
-        object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
+        var query = WsSqlQueriesDiags.Tables.Views.GetLines(
+            SqlCrudConfigSection.IsResultShowOnlyTop
+                ? ContextManager.JsonSettings.Local.SelectTopRowsCount
+                : 0,
+            SqlCrudConfigSection.IsResultShowMarked
+        );
+        object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(
+            query
+        );
         List<LineView> items = new();
         foreach (var obj in objects)
         {
@@ -45,6 +56,6 @@ public sealed partial class Lines : RazorComponentSectionBase<LineView>
         }
         SqlSectionCast = items;
     }
-    
+
     #endregion
 }
