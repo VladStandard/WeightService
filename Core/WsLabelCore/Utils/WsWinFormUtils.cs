@@ -3,6 +3,7 @@
 
 namespace WsLabelCore.Utils;
 
+#nullable enable
 public static class WsWinFormUtils
 {
     #region Public and private methods

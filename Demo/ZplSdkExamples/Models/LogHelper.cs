@@ -77,7 +77,7 @@ public class LogHelper
                 MdInvokeTextBox.AddTextFormat(_textBox, dt, "Warn. " + message);
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
+                throw new ArgumentOutOfRangeException(nameof(logType), logType.ToString());
         }
         if (isDebug)
         {

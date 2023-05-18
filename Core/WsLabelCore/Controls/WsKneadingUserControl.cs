@@ -31,7 +31,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     public override void RefreshAction()
     {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             if (!UserSession.PluScale.IdentityValueUid.Equals(PreviousPluScaleUid))
             {
@@ -41,7 +41,8 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
                 SetGuiLocalize();
                 RefreshControlsText();
             }
-        }, buttonOk.Select);
+        });
+        buttonOk.Select();
     }
 
     private void RefreshControlsText()
@@ -52,7 +53,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void ButtonKneadingLeft_Click(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             WsNumberInputForm numberInputForm = new() { InputValue = 0 };
             DialogResult result = numberInputForm.ShowDialog(this);
@@ -66,7 +67,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void ButtonClose_Click(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
             UserSession.ProductDate = SaveProductDate;
@@ -90,7 +91,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void ButtonOk_Click(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
             ViewModel.ActionReturnOk();
@@ -99,7 +100,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void ButtonDtRight_Click(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             UserSession.RotateProductDate(WsEnumDirection.Right);
             RefreshControlsText();
@@ -108,7 +109,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void ButtonDtLeft_Click(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             UserSession.RotateProductDate(WsEnumDirection.Left);
             RefreshControlsText();
@@ -122,7 +123,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             UserSession.WeighingSettings.LabelsCountMain++;
             ShowPalletSize();
@@ -131,7 +132,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void ButtonPalletSizePrev_Click(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             UserSession.WeighingSettings.LabelsCountMain--;
             ShowPalletSize();
@@ -145,7 +146,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void ButtonPalletSizeSet10_Click(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             int n = UserSession.WeighingSettings.LabelsCountMain == 1 ? 9 : 10;
             for (int i = 0; i < n; i++)
@@ -173,7 +174,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void SetLabelsCount(byte count)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             UserSession.WeighingSettings.LabelsCountMain = count;
             ShowPalletSize();
@@ -182,7 +183,7 @@ public sealed partial class WsKneadingUserControl : WsBaseUserControl
 
     private void KneadingUserControl_KeyUp(object sender, KeyEventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             if (e.KeyCode == Keys.Escape)
             {

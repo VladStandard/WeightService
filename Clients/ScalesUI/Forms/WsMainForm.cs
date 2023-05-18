@@ -25,13 +25,6 @@ public partial class WsMainForm : Form
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
     
-    private WsKneadingUserControl KneadingUserControl { get; set; }
-    private WsMoreUserControl MoreUserControl { get; set; }
-    private WsLinesUserControl LinesUserControl { get; set; }
-    private WsNavigationUserControl NavigationUserControl { get; set; }
-    private WsPlusUserControl PlusUserControl { get; set; }
-    private WsWaitUserControl WaitUserControl { get; set; }
-    
     /// <summary>
     /// Отладочный флаг для сквозных тестов печати, без диалогов.
     /// </summary>
@@ -46,7 +39,10 @@ public partial class WsMainForm : Form
 
     #region Public and private methods - MainForm
 
-    private void MainFormLongLoad()
+    /// <summary>
+    /// Загрузка в фоне.
+    /// </summary>
+    private void MainFormLoadAtBackground()
     {
         FormBorderStyle = Debug.IsDevelop ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         TopMost = !Debug.IsDevelop;
@@ -60,7 +56,7 @@ public partial class WsMainForm : Form
         // Quartz.
         WsScheduler.Load(this);
 
-        WsActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
+        WsWinFormNavigationUtils.ActionMakeScreenShot(this, UserSession.Scale);
         UserSession.StopwatchMain.Stop();
 
         UserSession.ContextManager.ContextItem.SaveLogMemory(
@@ -76,42 +72,7 @@ public partial class WsMainForm : Form
         // Mouse hook.
         KeyboardMouseEvents = Hook.AppEvents();
         KeyboardMouseEvents.MouseDownExt += MouseDownExt;
-        // Navigation user control.
-        NavigationUserControl = new();
-        NavigationUserControl.ViewModel.ActionReturnOk = ReturnBackDefault;
-        NavigationUserControl.ViewModel.ActionReturnCancel = ReturnBackDefault;
-        NavigationUserControl.Parent = this;
-        NavigationUserControl.Dock = DockStyle.Fill;
-        // KneadingUserControl.
-        KneadingUserControl = new();
-        KneadingUserControl.ViewModel.ActionReturnOk = ReturnBackFromKneading;
-        KneadingUserControl.ViewModel.ActionReturnOk += ReturnBackDefault;
-        KneadingUserControl.ViewModel.ActionReturnCancel = ReturnBackFromKneading;
-        KneadingUserControl.ViewModel.ActionReturnCancel += ReturnBackDefault;
-        // MoreUserControl.
-        MoreUserControl = new();
-        MoreUserControl.ViewModel.ActionReturnOk = ReturnBackFromMore;
-        MoreUserControl.ViewModel.ActionReturnOk += ReturnBackDefault;
-        MoreUserControl.ViewModel.ActionReturnCancel = ReturnBackFromMore;
-        MoreUserControl.ViewModel.ActionReturnCancel += ReturnBackDefault;
-        // LinesUserControl.
-        LinesUserControl = new();
-        LinesUserControl.ViewModel.ActionReturnOk = ReturnOkBackFromLines;
-        LinesUserControl.ViewModel.ActionReturnOk += ReturnBackDefault;
-        LinesUserControl.ViewModel.ActionReturnCancel = ReturnCancelBackFromLines;
-        LinesUserControl.ViewModel.ActionReturnCancel += ReturnBackDefault;
-        // PlusUserControl.
-        PlusUserControl = new();
-        PlusUserControl.ViewModel.ActionReturnOk = ReturnOkBackFromPlus;
-        PlusUserControl.ViewModel.ActionReturnOk += ReturnBackDefault;
-        PlusUserControl.ViewModel.ActionReturnCancel = ReturnCancelBackFromPlus;
-        PlusUserControl.ViewModel.ActionReturnCancel += ReturnBackDefault;
-        // WaitUserControl.
-        WaitUserControl = new();
-        //WaitUserControl.ViewModel.ActionReturnOk = ;
-        WaitUserControl.ViewModel.ActionReturnOk = ReturnBackDefault;
-        //WaitUserControl.ViewModel.ActionReturnCancel = ;
-        WaitUserControl.ViewModel.ActionReturnCancel = ReturnBackDefault;
+        PreLoadNavigation();
         // Buttons.
         SetButtonsSettings();
         // Form properties: resolution, position, fonts.
@@ -135,18 +96,18 @@ public partial class WsMainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(this, () =>
             {
                 UserSession.StopwatchMain = Stopwatch.StartNew();
                 UserSession.StopwatchMain.Restart();
                 // Load controls.
                 PreLoadControls();
                 // Навигация.
-                NavigateToControl(WaitUserControl, LocaleCore.Scales.AppWaitLoad);
-                MainFormLongLoad();
+                WsWinFormNavigationUtils.NavigateToControlWait(LocaleCore.Scales.AppWaitLoad);
+                MainFormLoadAtBackground();
                 // Авто-возврат из контрола на главную форму.
-                WaitUserControl.ViewModel.ActionReturnOk();
-            }, FinallyAction);
+                WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk();
+            });
     }
 
     private void LoadMainControls()
@@ -205,28 +166,24 @@ public partial class WsMainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-            {
-                UserSession.ContextManager.ContextItem.SaveLogMemory(
-                    UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
-                UserSession.StopwatchMain.Restart();
-                WsActionUtils.ActionMakeScreenShot(this, UserSession.Scale);
-                // Навигация.
-                NavigateToControl(WaitUserControl, LocaleCore.Scales.AppWaitExit);
-                // Quartz.
-                WsScheduler.Close();
-                UserSession.PluginsClose();
-                // FontsSettings.
-                FontsSettings.Close();
-            },
-            () =>
-            {
-                UserSession.StopwatchMain.Stop();
-                UserSession.ContextManager.ContextItem.SaveLogInformation(
-                    LocaleData.Program.IsClosed + Environment.NewLine +
-                    $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
-            }
-        );
+        WsWinFormNavigationUtils.ActionTryCatch(this, () =>
+        {
+            UserSession.ContextManager.ContextItem.SaveLogMemory(
+                UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
+            UserSession.StopwatchMain.Restart();
+            WsWinFormNavigationUtils.ActionMakeScreenShot(this, UserSession.Scale);
+            // Навигация.
+            WsWinFormNavigationUtils.NavigateToControlWait(LocaleCore.Scales.AppWaitExit);
+            // Quartz.
+            WsScheduler.Close();
+            UserSession.PluginsClose();
+            // FontsSettings.
+            FontsSettings.Close();
+        });
+        UserSession.StopwatchMain.Stop();
+        UserSession.ContextManager.ContextItem.SaveLogInformation(
+            LocaleData.Program.IsClosed + Environment.NewLine +
+            $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
         // Mouse unhook.
         KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
         KeyboardMouseEvents.Dispose();
@@ -426,27 +383,27 @@ public partial class WsMainForm : Form
 
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
-        using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
-        wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
-        wpfPageLoader.MessageBoxViewModel.Caption = LocaleCore.Print.InfoCaption;
-        wpfPageLoader.MessageBoxViewModel.Message = GetPrintInfo(UserSession.PluginPrintMain, true);
-        if (UserSession.Scale.IsShipping)
-        {
-            wpfPageLoader.MessageBoxViewModel.Message += Environment.NewLine + Environment.NewLine +
-                GetPrintInfo(UserSession.PluginPrintShipping, false);
-            wpfPageLoader.Height = 700;
-        }
-        wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonOkVisibility = Visibility.Visible;
-        wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonCustomVisibility = Visibility.Visible;
-        wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonCustomContent = LocaleCore.Print.ClearQueue;
-        DialogResult result = wpfPageLoader.ShowDialog(this);
-        wpfPageLoader.Close();
-        if (result == DialogResult.Retry)
-        {
-            UserSession.PluginPrintMain.ClearPrintBuffer(1);
-            if (UserSession.Scale.IsShipping)
-                UserSession.PluginPrintShipping.ClearPrintBuffer(1);
-        }
+        //using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
+        //wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
+        //wpfPageLoader.MessageBoxViewModel.Caption = LocaleCore.Print.InfoCaption;
+        //wpfPageLoader.MessageBoxViewModel.Message = GetPrintInfo(UserSession.PluginPrintMain, true);
+        //if (UserSession.Scale.IsShipping)
+        //{
+        //    wpfPageLoader.MessageBoxViewModel.Message += Environment.NewLine + Environment.NewLine +
+        //        GetPrintInfo(UserSession.PluginPrintShipping, false);
+        //    wpfPageLoader.Height = 700;
+        //}
+        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonOkVisibility = Visibility.Visible;
+        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonCustomVisibility = Visibility.Visible;
+        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonCustomContent = LocaleCore.Print.ClearQueue;
+        //DialogResult result = wpfPageLoader.ShowDialog(this);
+        //wpfPageLoader.Close();
+        //if (result == DialogResult.Retry)
+        //{
+        //    UserSession.PluginPrintMain.ClearPrintBuffer(1);
+        //    if (UserSession.Scale.IsShipping)
+        //        UserSession.PluginPrintShipping.ClearPrintBuffer(1);
+        //}
     }
 
     private string GetPrintInfo(WsPluginPrintModel pluginPrint, bool isMain)
@@ -496,23 +453,23 @@ public partial class WsMainForm : Form
 
     private void FieldTasks_Click(object sender, EventArgs e)
     {
-        string message = string.Empty;
-        foreach (ProcessThread thread in Process.GetCurrentProcess().Threads)
-        {
-            message += $"{LocaleCore.Scales.ThreadId}: {thread.Id}. " +
-                $"{LocaleCore.Scales.ThreadPriorityLevel}: {thread.PriorityLevel}. " +
-                $"{LocaleCore.Scales.ThreadState}: {thread.ThreadState}. " +
-                $"{LocaleCore.Scales.ThreadStartTime}: {thread.StartTime}. " + Environment.NewLine;
-        }
-        using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog,
-            20, 14, 18, 0, 12)
-        { Width = Width - 50, Height = Height - 50 };
-        wpfPageLoader.Text = $@"{LocaleCore.Scales.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}";
-        wpfPageLoader.MessageBoxViewModel.Message = message;
-        wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonOkVisibility = Visibility.Visible;
-        wpfPageLoader.MessageBoxViewModel.ButtonVisibility.Localization();
-        wpfPageLoader.ShowDialog(this);
-        wpfPageLoader.Close();
+        //string message = string.Empty;
+        //foreach (ProcessThread thread in Process.GetCurrentProcess().Threads)
+        //{
+        //    message += $"{LocaleCore.Scales.ThreadId}: {thread.Id}. " +
+        //        $"{LocaleCore.Scales.ThreadPriorityLevel}: {thread.PriorityLevel}. " +
+        //        $"{LocaleCore.Scales.ThreadState}: {thread.ThreadState}. " +
+        //        $"{LocaleCore.Scales.ThreadStartTime}: {thread.StartTime}. " + Environment.NewLine;
+        //}
+        //using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog,
+        //    20, 14, 18, 0, 12)
+        //{ Width = Width - 50, Height = Height - 50 };
+        //wpfPageLoader.Text = $@"{LocaleCore.Scales.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}";
+        //wpfPageLoader.MessageBoxViewModel.Message = message;
+        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonOkVisibility = Visibility.Visible;
+        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.Localization();
+        //wpfPageLoader.ShowDialog(this);
+        //wpfPageLoader.Close();
     }
 
     private void LoadLocalizationStatic(Lang lang)
@@ -530,404 +487,6 @@ public partial class WsMainForm : Form
         MdInvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
         MdInvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
         MdInvokeControl.SetText(fieldTemplateTitle, $"{LocaleCore.Print.Template}");
-    }
-
-    #endregion
-
-    #region Public and private methods - UI
-
-    private void FinallyAction()
-    {
-        MdInvokeControl.Select(ButtonPrint);
-        // LoadLocalizationDynamic(Lang.Russian);
-        LocaleCore.Lang = LocaleData.Lang = Lang.Russian;
-        string area = UserSession.Scale.WorkShop is null
-            ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
-        MdInvokeControl.SetText(ButtonLine, 
-            $"{UserSession.Scale.Description} | {UserSession.Scale.Number}{Environment.NewLine}{area}");
-        //if (UserSession.PluNestingView.ItemView.IsNew)
-        //    MdInvokeControl.SetText(ButtonPluNestingFk, LocaleCore.Table.FieldPackageIsNotSelected);
-        //else
-            MdInvokeControl.SetText(ButtonPluNestingFk, UserSession.ViewPluNesting.GetSmartName());
-        MdInvokeControl.SetText(fieldPackageWeight,
-            UserSession.PluScale.IsNotNew
-                ? $"{UserSession.ViewPluNesting.TareWeight:0.000} {LocaleCore.Scales.WeightUnitKg}"
-                : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
-        WsSqlTemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
-        MdInvokeControl.SetText(fieldTemplateValue, template.Title);
-    }
-
-    private void ReturnBackDefault()
-    {
-        NavigationUserControl.Visible = false;
-        foreach (Control control in NavigationUserControl.Controls)
-        {
-            if (control is TableLayoutPanel tableLayoutPanel)
-            {
-                foreach (Control control2 in tableLayoutPanel.Controls)
-                {
-                    if (control2 is WsBaseUserControl userControl)
-                    {
-                        userControl.Visible = false;
-                    }
-                }
-            }
-        }
-
-        layoutPanel.Visible = true;
-        System.Windows.Forms.Application.DoEvents();
-    }
-
-    #endregion
-
-    #region Public and private methods - Actions
-
-    /// <summary>
-    /// Закрыть программу.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionClose(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
-            {
-                // Сброс предупреждения.
-                ResetWarning();
-                DialogResult result = WsWpfUtils.ShowNewOperationControl(this,
-                    $"{LocaleCore.Scales.QuestionCloseApp}?",
-                    true, WsEnumLogType.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                FinallyAction();
-                if (result is not DialogResult.Yes)
-                    return;
-                // See the MainForm_FormClosing() method.
-                Close();
-            }
-        );
-    }
-
-    private void ReturnOkBackFromLines()
-    {
-        UserSession.SetMain(LinesUserControl.ViewModel.Line.IdentityValueId, LinesUserControl.ViewModel.Area);
-        ActionMore(null, null);
-    }
-    
-    private void ReturnCancelBackFromLines()
-    {
-        ActionMore(null, null);
-    }
-    
-    /// <summary>
-    /// Сменить линию.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionSwitchLine(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-            {
-                // Сброс предупреждения.
-                ResetWarning();
-                // Обновить кэш.
-                UserSession.ContextCache.Load(WsSqlTableName.ProductionFacilities);
-                UserSession.ContextCache.Load(WsSqlTableName.Scales);
-                // Навигация.
-                NavigateToControl(LinesUserControl);
-            }, FinallyAction);
-    }
-
-    /// <summary>
-    /// Сменить вложенность ПЛУ.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionSwitchPluNesting(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-            {
-                // Сброс предупреждения.
-                ResetWarning();
-                // Проверить наличие ПЛУ.
-                if (!ActionCheckPluIdentityIsNew()) return;
-                // Обновить кэш.
-                UserSession.ContextCache.Load(WsSqlTableName.ViewPluNesting);
-                // Загрузить UI.
-                using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.PluNestingFk, false) { Width = 800, Height = 300 };
-                DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
-                wpfPageLoader.Close();
-                // Here is another instance of wpfPageLoader.PagePluNestingFk.UserSession.
-                if (wpfPageLoader.PluNestingViewModel is not null)
-                {
-                    switch (dialogResult)
-                    {
-                        case DialogResult.OK:
-                            UserSession.ViewPluNesting = wpfPageLoader.PluNestingViewModel.ViewPluNesting;
-                            break;
-                    }
-                }
-            }, FinallyAction);
-    }
-
-    /// <summary>
-    /// Проверить наличие ПЛУ.
-    /// </summary>
-    /// <returns></returns>
-    private bool ActionCheckPluIdentityIsNew()
-    {
-        if (UserSession.PluScale.Plu.IsNew)
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, LocaleCore.Table.FieldPluIsNotSelected);
-            UserSession.ContextManager.ContextItem.SaveLogError(LocaleCore.Table.FieldPluIsNotSelected);
-            return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Запустить ПО.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionScalesTerminal(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-            {
-                // Сброс предупреждения.
-                ResetWarning();
-                DialogResult result = WsWpfUtils.ShowNewOperationControl(this,
-                    $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
-                    true, WsEnumLogType.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                if (result is not DialogResult.Yes)
-                    return;
-
-                // Run app.
-                if (File.Exists(LocaleData.Paths.ScalesTerminal))
-                {
-                    UserSession.PluginMassa.Close();
-                    Proc.Run(LocaleData.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
-                    UserSession.PluginMassa.Execute();
-                }
-                else
-                {
-                    WsWpfUtils.ShowNewOperationControl(this,
-                        LocaleCore.Scales.ProgramNotFound(
-                            LocaleData.Paths.ScalesTerminal), true, WsEnumLogType.Warning,
-                        new() { ButtonOkVisibility = Visibility.Visible });
-                }
-            }, FinallyAction);
-    }
-
-    /// <summary>
-    /// Инициализировать весовую платформу Масса-К.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionScalesInit(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-            {
-                // Сброс предупреждения.
-                ResetWarning();
-                if (!UserSession.PluScale.Plu.IsCheckWeight)
-                {
-                    WsWpfUtils.ShowNewOperationControl(this,
-                        LocaleCore.Scales.PluNotSelectWeight, true, WsEnumLogType.Warning,
-                        new() { ButtonOkVisibility = Visibility.Visible });
-                    return;
-                }
-                if (!UserSession.PluginMassa.MassaDevice.IsOpenPort)
-                {
-                    WsWpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, WsEnumLogType.Warning,
-                        new() { ButtonOkVisibility = Visibility.Visible });
-                    return;
-                }
-
-                DialogResult result = WsWpfUtils.ShowNewOperationControl(this,
-                    LocaleCore.Scales.QuestionPerformOperation, true, WsEnumLogType.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                if (result is not DialogResult.Yes)
-                    return;
-
-                // Fix negative weight.
-                //if (UserSession.PluginMassa.WeightNet < 0)
-                //{
-                //    UserSession.PluginMassa.ResetMassa();
-                //}
-                // Проверить наличие весовой платформы Масса-К.
-                if (IsSkipDialogs || Debug.IsRelease)
-                    UserSession.CheckWeightMassaDeviceExists();
-                UserSession.PluScale = new();
-
-                UserSession.PluginMassa.Execute();
-                UserSession.PluginMassa.GetInit();
-            }, FinallyAction);
-    }
-
-    /// <summary>
-    /// Новая паллета.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionNewPallet(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-            {
-                // Сброс предупреждения.
-                ResetWarning();
-                UserSession.NewPallet();
-            }, FinallyAction);
-    }
-
-    private void ReturnBackFromKneading()
-    {
-        using WsNumberInputForm numberInputForm = new() { InputValue = 0 };
-        DialogResult result = numberInputForm.ShowDialog(this);
-        numberInputForm.Close();
-        if (result == DialogResult.OK)
-            UserSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
-    }
-
-    /// <summary>
-    /// Сменить замес.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionKneading(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-        {
-            // Навигация.
-            NavigateToControl(KneadingUserControl);
-        }, FinallyAction);
-    }
-
-    private void ReturnOkBackFromPlus()
-    {
-        UserSession.WeighingSettings.Kneading = 1;
-        UserSession.ProductDate = DateTime.Now;
-        UserSession.NewPallet();
-        MdInvokeControl.SetVisible(labelNettoWeight, UserSession.PluScale.Plu.IsCheckWeight);
-        MdInvokeControl.SetVisible(fieldNettoWeight, UserSession.PluScale.Plu.IsCheckWeight);
-        ActionMore(null, null);
-    }
-
-    private void ReturnCancelBackFromPlus() => 
-        UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
-
-    /// <summary>
-    /// Сменить ПЛУ.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionSwitchPlu(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-        {
-            // Сброс предупреждения.
-            ResetWarning();
-            MdInvokeControl.SetVisible(labelNettoWeight, false);
-            MdInvokeControl.SetVisible(fieldNettoWeight, false);
-            UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
-            // Навигация.
-            NavigateToControl(PlusUserControl);
-        }, FinallyAction);
-    }
-
-    private void ReturnBackFromMore() => UserSession.PluginMassa.Execute();
-
-    /// <summary>
-    /// Ещё.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionMore(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-            {
-                // Сброс предупреждения.
-                ResetWarning();
-                if (UserSession.PluScale.IsNew)
-                {
-                    WsWpfUtils.ShowNewOperationControl(this,
-                        LocaleCore.Scales.PluNotSelect, true, WsEnumLogType.Warning,
-                        new() { ButtonOkVisibility = Visibility.Visible });
-                    return;
-                }
-                // Навигация.
-                NavigateToControl(MoreUserControl);
-            }, FinallyAction);
-    }
-
-    /// <summary>
-    /// Сброс предупреждения.
-    /// </summary>
-    private void ResetWarning()
-    {
-        MdInvokeControl.SetVisible(fieldWarning, false);
-        MdInvokeControl.SetText(fieldWarning, string.Empty);
-    }
-
-    /// <summary>
-    /// Подготовка к печати.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionPreparePrint(object sender, EventArgs e)
-    {
-        WsActionUtils.ActionTryCatchFinally(this, () =>
-        {
-            // Сброс предупреждения.
-            ResetWarning();
-            // Инкремент счётчика этикеток.
-            UserSession.AddScaleCounter();
-            // Проверить наличие ПЛУ.
-            if (!UserSession.CheckPluIsEmpty(fieldWarning)) return;
-            // Проверить наличие вложенности ПЛУ.
-            if (!UserSession.SetAndCheckListViewPlusNesting(UserSession.PluScale.Plu, fieldWarning)) return;
-            // Проверить наличие весовой платформы Масса-К.
-            if (IsSkipDialogs || Debug.IsRelease)
-                if (!UserSession.CheckWeightMassaDeviceExists()) return;
-            // Проверить стабилизацию весовой платформы Масса-К.
-            if (IsSkipDialogs || Debug.IsRelease)
-                if (!UserSession.CheckWeightMassaIsStable(fieldWarning)) return;
-            // Проверить ГТИН ПЛУ.
-            if (!UserSession.CheckPluGtin(fieldWarning)) return;
-            // Задать фейк данные веса ПЛУ для режима разработки.
-            if (!IsSkipDialogs && Debug.IsDevelop)
-                UserSession.SetPluWeighingFakeForDevelop(this);
-            // Проверить отрицательный вес.
-            if (!UserSession.CheckWeightIsNegative(fieldWarning)) return;
-            // Создать новое взвешивание ПЛУ.
-            UserSession.NewPluWeighing();
-            // Проверить границы веса.
-            if (!UserSession.CheckWeightThresholds(fieldWarning)) return;
-            // Проверить подключение принтера.
-            bool isSkipPrintCheckAccess = false;
-            if (!IsSkipDialogs && Debug.IsDevelop)
-            {
-                DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(
-                    LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                isSkipPrintCheckAccess = dialogResult != DialogResult.Yes;
-            }
-            if (!isSkipPrintCheckAccess)
-            {
-                // Проверить подключение и готовность основного принтера.
-                if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, UserSession.PluginPrintMain, true)) return;
-                // Проверить подключение и готовность транспортного принтера.
-                if (UserSession.Scale.IsShipping)
-                    if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, UserSession.PluginPrintShipping, false)) return;
-            }
-            // Печать этикетки.
-            UserSession.PrintLabel(fieldWarning, false);
-        },
-            () =>
-            {
-                FinallyAction();
-                UserSession.PluginMassa.IsWeightNetFake = false;
-            });
     }
 
     #endregion

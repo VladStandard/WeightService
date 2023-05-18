@@ -8,7 +8,7 @@ public sealed partial class WsNavigationUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsNavigationViewModel ViewModel { get; set; }
+    public WsNavigationViewModel ViewModel { get; }
 
     public WsNavigationUserControl()
     {
@@ -23,14 +23,12 @@ public sealed partial class WsNavigationUserControl : WsBaseUserControl
     public void AddUserControl(UserControl userControl)
     {
         userControl.Visible = false;
+        foreach (Control control in layoutPanel.Controls) control.Visible = false;
         if (!layoutPanel.Controls.Contains(userControl))
             layoutPanel.Controls.Add(userControl, 1, 1);
-
         //layoutPanel.SetColumnSpan(userControl, 3);
         userControl.Dock = DockStyle.Fill;
-        
         userControl.Visible = true;
-
         Visible = true;
     }
 

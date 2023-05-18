@@ -4,7 +4,7 @@
 namespace WsLabelCore.Controls;
 
 #nullable enable
-public sealed partial class WsPluNestingUserControl : WsBaseUserControl
+public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
@@ -12,7 +12,7 @@ public sealed partial class WsPluNestingUserControl : WsBaseUserControl
     public WsPluNestingViewModel ViewModel { get; }
     private WsPluNestingPage Page { get; }
 
-    public WsPluNestingUserControl()
+    public WsPlusNestingUserControl()
     {
         InitializeComponent();
         
@@ -29,7 +29,7 @@ public sealed partial class WsPluNestingUserControl : WsBaseUserControl
 
     public override void RefreshAction()
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             ViewModel.ViewPluNesting = UserSession.ViewPluNesting;
         });

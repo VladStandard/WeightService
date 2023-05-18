@@ -32,7 +32,7 @@ public static class WsSqlExtensions
 
         foreach (WsSqlFieldFilterModel filter in filters)
         {
-            AbstractCriterion? criterion = filter.Comparer switch
+            AbstractCriterion criterion = filter.Comparer switch
             {
                 WsSqlFieldComparer.Less => Restrictions.Lt(filter.Name, filter.Value),
                 WsSqlFieldComparer.More => Restrictions.Gt(filter.Name, filter.Value),
@@ -41,7 +41,7 @@ public static class WsSqlExtensions
                 WsSqlFieldComparer.Equal => Restrictions.Eq(filter.Name, filter.Value),
                 WsSqlFieldComparer.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
                 WsSqlFieldComparer.In => Restrictions.In(filter.Name, filter.Values),
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(nameof(filter.Comparer), filter.Comparer.ToString())
             };
             if (criterion is not null)
                 criteria.Add(criterion);

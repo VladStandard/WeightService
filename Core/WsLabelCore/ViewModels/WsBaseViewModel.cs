@@ -13,17 +13,7 @@ public partial class WsWpfBaseViewModel : BaseViewModel
     protected WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public Action ActionReturnOk { get; set; }
     public Action ActionReturnCancel { get; set; }
-
-    private DialogResult _result;
-    public DialogResult Result
-    {
-        get => _result;
-        set
-        {
-            _result = value;
-            OnPropertyChanged();
-        }
-    }
+    public Action ActionReturnFinally { get; set; }
 
     [RelayCommand]
     public void ReturnOk()

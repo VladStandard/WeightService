@@ -75,7 +75,6 @@ public sealed class WsMessageBoxViewModel : WsWpfBaseViewModel
 		FontSizeMessage = 26;
 		FontSizeButton = 22;
 		ButtonVisibility = new();
-		Result = DialogResult.Cancel;
 	}
 
 	#endregion

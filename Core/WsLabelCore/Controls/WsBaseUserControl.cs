@@ -13,12 +13,7 @@ public class WsBaseUserControl : UserControl
 
     internal WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     internal WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
-    public string Message { get; set; }
-
-    protected WsBaseUserControl()
-    {
-        Message = string.Empty;
-    }
+    public string Message { get; set; } = string.Empty;
 
     #endregion
 

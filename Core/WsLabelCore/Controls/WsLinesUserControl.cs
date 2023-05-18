@@ -29,7 +29,7 @@ public sealed partial class WsLinesUserControl : WsBaseUserControl
 
     public override void RefreshAction()
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             ViewModel.Area = UserSession.ProductionFacility;
             ViewModel.Line = UserSession.Scale;

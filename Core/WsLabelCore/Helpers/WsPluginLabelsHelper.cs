@@ -40,7 +40,7 @@ public sealed class WsPluginLabelsHelper : WsPluginHelperBase
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
-        WsActionUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             FieldPlu = fieldPlu;
             FieldProductDate = fieldProductDate;

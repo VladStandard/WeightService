@@ -8,7 +8,7 @@ public sealed partial class WsWaitUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsWaitViewModel ViewModel { get; set; }
+    public WsWaitViewModel ViewModel { get; }
 
     public WsWaitUserControl()
     {

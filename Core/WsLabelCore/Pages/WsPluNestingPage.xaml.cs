@@ -7,7 +7,7 @@ namespace WsLabelCore.Pages;
 /// <summary>
 /// Interaction logic for WsPluNestingPage.xaml
 /// </summary>
-public partial class WsPluNestingPage : WsBasePage
+public partial class WsPluNestingPage : WsBasePage, INavigableView<WsPluNestingViewModel>
 {
     #region Public and private fields, properties, constructor
     
@@ -27,16 +27,14 @@ public partial class WsPluNestingPage : WsBasePage
     private void ButtonApply_OnClick(object sender, RoutedEventArgs e)
 	{
         // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
-        ViewModel.Result = DialogResult.OK;
-		OnClose?.Invoke(sender, e);
-	}
+        ViewModel.ActionReturnOk();
+    }
 
 	private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
 	{
         // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
-        ViewModel.Result = DialogResult.Cancel;
-		OnClose?.Invoke(sender, e);
-	}
+        ViewModel.ActionReturnCancel();
+}
 
 	#endregion
 }

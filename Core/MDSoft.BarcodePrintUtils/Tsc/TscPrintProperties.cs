@@ -139,7 +139,7 @@ public class TscPrintProperties
                 Height = 110.0;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(size), size, null);
+                throw new ArgumentOutOfRangeException(nameof(size), size.ToString());
         }
         Speed = SpeedDefault;
         Density = DensityDefault;

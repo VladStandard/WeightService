@@ -8,7 +8,7 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsPlusViewModel ViewModel { get; set; }
+    public WsPlusViewModel ViewModel { get; }
 
     /// <summary>
     /// ID последней линии (для производительности).
@@ -32,7 +32,7 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
 
     public override void RefreshAction()
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             if (!LastScaleId.Equals(UserSession.Scale.IdentityValueId))
             {
@@ -54,7 +54,7 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
         WsPluControl?[,] controls = new WsPluControl?[0, 0];
         if (!viewPlusScales.Any()) return controls;
         controls = new WsPluControl[WsUserSessionHelper.PlusPageColumnCount, WsUserSessionHelper.PlusPageRowCount];
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < WsUserSessionHelper.PlusPageRowCount; ++rowNumber)
             {
@@ -183,7 +183,7 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
     /// <param name="e"></param>
     private void ActionPluSelect_Click(object sender, EventArgs e)
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             if (sender is Control { Tag: WsSqlViewPluScaleModel viewPluScale })
             {

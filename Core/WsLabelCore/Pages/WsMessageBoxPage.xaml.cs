@@ -12,7 +12,7 @@ namespace WsLabelCore.Pages;
 /// <summary>
 /// Interaction logic for WsMessageBoxPage.xaml
 /// </summary>
-public partial class WsMessageBoxPage : WsBasePage
+public partial class WsMessageBoxPage : WsBasePage, INavigableView<WsMessageBoxViewModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -367,60 +367,49 @@ public partial class WsMessageBoxPage : WsBasePage
 
     #region Public and private methods - Actions
 
-    private void ButtonCustom_OnClick(object sender, RoutedEventArgs e)
+    private void ButtonOk_OnClick(object sender, RoutedEventArgs e)
     {
-        ViewModel.Result = DialogResult.Retry;
-        OnClose?.Invoke(sender, e);
+        ViewModel.ActionReturnOk();
     }
 
     private void ButtonYes_OnClick(object sender, RoutedEventArgs e)
     {
-        ViewModel.Result = DialogResult.Yes;
-        OnClose?.Invoke(sender, e);
+        ViewModel.ActionReturnOk();
+    }
+
+    private void ButtonCustom_OnClick(object sender, RoutedEventArgs e)
+    {
+        ViewModel.ActionReturnCancel();
     }
 
     private void ButtonRetry_OnClick(object sender, RoutedEventArgs e)
     {
-        ViewModel.Result = DialogResult.Retry;
-        OnClose?.Invoke(sender, e);
+        ViewModel.ActionReturnCancel();
     }
 
     private void ButtonNo_OnClick(object sender, RoutedEventArgs e)
     {
-        ViewModel.Result = DialogResult.No;
-        OnClose?.Invoke(sender, e);
+        ViewModel.ActionReturnCancel();
     }
 
     private void ButtonIgnore_OnClick(object sender, RoutedEventArgs e)
     {
-        ViewModel.Result = DialogResult.Ignore;
-        OnClose?.Invoke(sender, e);
+        ViewModel.ActionReturnCancel();
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
-        ViewModel.Result = DialogResult.Cancel;
-        OnClose?.Invoke(sender, e);
+        ViewModel.ActionReturnCancel();
     }
 
     private void ButtonAbort_OnClick(object sender, RoutedEventArgs e)
     {
-        ViewModel.Result = DialogResult.Abort;
-        OnClose?.Invoke(sender, e);
-    }
-
-    private void ButtonOk_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.Result = DialogResult.OK;
-        OnClose?.Invoke(sender, e);
+        ViewModel.ActionReturnCancel();
     }
 
     private void Button_KeyUp(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.Escape)
-        {
-            ButtonCancel_OnClick(sender, e);
-        }
+        if (e.Key.Equals(Key.Escape)) ButtonCancel_OnClick(sender, e);
     }
 
     #endregion

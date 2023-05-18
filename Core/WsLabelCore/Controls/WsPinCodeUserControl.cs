@@ -29,10 +29,10 @@ public sealed partial class WsPinCodeUserControl : WsBaseUserControl
 
     public override void RefreshAction()
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
-        {
-            //
-        });
+        //WsWinFormNavigationUtils.ActionTryCatch(() =>
+        //{
+        //    //
+        //});
     }
 
     #endregion

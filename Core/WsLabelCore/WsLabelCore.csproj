@@ -43,11 +43,11 @@
     <Compile Include="Controls\WsPinCodeUserControl.Designer.cs">
       <DependentUpon>WsPinCodeUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WsPluNestingUserControl.cs">
+    <Compile Include="Controls\WsPlusNestingUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsPluNestingUserControl.Designer.cs">
-      <DependentUpon>WsPluNestingUserControl.cs</DependentUpon>
+    <Compile Include="Controls\WsPlusNestingUserControl.Designer.cs">
+      <DependentUpon>WsPlusNestingUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\WsLinesUserControl.cs">
       <SubType>UserControl</SubType>
@@ -89,6 +89,7 @@
     <Compile Include="Controls\WsPluControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utils\WsWinFormNavigationUtils.cs" />
     <Compile Include="Utils\WsWinFormUtils.cs" />
     <Compile Include="ViewModels\WsNavigationViewModel.cs" />
     <Compile Include="ViewModels\WsWaitViewModel.cs" />
@@ -132,9 +133,8 @@
     <Compile Include="Models\WsConfigModel.cs" />
     <Compile Include="Helpers\WsPluginHelperBase.cs" />
     <Compile Include="Models\WsPluginModel.cs" />
-    <Compile Include="Utils\WsActionUtils.cs" />
     <Compile Include="Utils\WsComboBoxExtensions.cs" />
-    <Compile Include="Utils\WsFormUtils.cs" />
+    <Compile Include="Utils\WsWinFormExtensions.cs" />
     <Compile Include="Helpers\WsXamlHelper.cs" />
     <Compile Include="Pages\WsBasePage.cs" />
     <Compile Include="Pages\WsLinePage.xaml.cs">
@@ -149,7 +149,6 @@
     <Compile Include="Pages\WsPluNestingPage.xaml.cs">
       <DependentUpon>WsPluNestingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\WsWpfUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm">
@@ -193,8 +192,8 @@
     <EmbeddedResource Include="Controls\WsPinCodeUserControl.resx">
       <DependentUpon>WsPinCodeUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsPluNestingUserControl.resx">
-      <DependentUpon>WsPluNestingUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WsPlusNestingUserControl.resx">
+      <DependentUpon>WsPlusNestingUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\WsLinesUserControl.resx">
       <DependentUpon>WsLinesUserControl.cs</DependentUpon>

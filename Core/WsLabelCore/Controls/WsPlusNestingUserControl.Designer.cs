@@ -1,6 +1,6 @@
 namespace WsLabelCore.Controls;
 
-partial class WsLinesUserControl
+partial class WsPlusNestingUserControl
 {
     /// <summary> 
     /// Required designer variable.

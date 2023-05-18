@@ -17,18 +17,7 @@ public sealed partial class WsMessageBoxUserControl : WsBaseUserControl
         InitializeComponent();
         
         ViewModel = new();
-        double fontSizeCaption = 30;
-        double fontSizeMessage = 26;
-        double fontSizeButton = 22;
-        ushort sizeCaption = 1;
-        ushort sizeMessage = 5;
-        ushort sizeButton = 1;
-        ViewModel.FontSizeCaption = fontSizeCaption;
-        ViewModel.FontSizeMessage = fontSizeMessage;
-        ViewModel.FontSizeButton = fontSizeButton;
-        ViewModel.SizeCaption = sizeCaption;
-        ViewModel.SizeMessage = sizeMessage;
-        ViewModel.SizeButton = sizeButton;
+        SetupViewModel(ViewModel);
         Page = new(ViewModel);
         ElementHost = new() { Dock = DockStyle.Fill };
         ElementHost.Child = Page;
@@ -39,9 +28,19 @@ public sealed partial class WsMessageBoxUserControl : WsBaseUserControl
 
     #region Public and private methods
 
+    public void SetupViewModel(WsMessageBoxViewModel viewModel)
+    {
+        viewModel.FontSizeCaption = 30;
+        viewModel.FontSizeMessage = 26;
+        viewModel.FontSizeButton = 22;
+        viewModel.SizeCaption = 1;
+        viewModel.SizeMessage = 5;
+        viewModel.SizeButton = 1;
+    }
+
     public override void RefreshAction()
     {
-        WsActionUtils.ActionTryCatch(this, UserSession.Scale, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             //
         });

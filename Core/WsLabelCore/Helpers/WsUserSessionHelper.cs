@@ -1,9 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-#nullable enable
 
 namespace WsLabelCore.Helpers;
 
+#nullable enable
 /// <summary>
 /// User session.
 /// </summary>
@@ -240,7 +240,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         {
             // Device.
             WsSqlDeviceModel device = ContextManager.ContextItem.GetItemDeviceNotNullable(DeviceName);
-            device = WsWpfUtils.SetNewDeviceWithQuestion(device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
+            device = WsWinFormNavigationUtils.SetNewDeviceWithQuestion(device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
             WsSqlDeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)
@@ -561,17 +561,16 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <summary>
     /// Задать фейк данные веса ПЛУ для режима разработки.
     /// </summary>
-    /// <param name="owner"></param>
-    public void SetPluWeighingFakeForDevelop(IWin32Window owner)
+    public void SetPluWeighingFakeForDevelop()
     {
         if (!PluScale.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
 
-        DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(owner,
-            LocaleCore.Print.QuestionUseFakeData,
+        WsWinFormNavigationUtils.NavigateToOperationControl(LocaleCore.Print.QuestionUseFakeData,
             true, WsEnumLogType.Question,
-            new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-        if (dialogResult is DialogResult.Yes)
+            new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+            ActionOk, () => { });
+        void ActionOk()
         {
             PluginMassa.WeightNet = StrUtils.NextDecimal(ViewPluNesting.WeightMin, ViewPluNesting.WeightMax);
             PluginMassa.IsWeightNetFake = true;
@@ -587,7 +586,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
     {
         try
         {
-            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
+            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = 
+                CreateAndSavePluLabel(template);
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
 
             // Print.
@@ -601,11 +601,13 @@ public sealed class WsUserSessionHelper : BaseViewModel
             // Send cmd to the print.
             if (Debug.IsDevelop)
             {
-                DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(
+                WsWinFormNavigationUtils.NavigateToOperationControl(
                     LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                if (dialogResult != DialogResult.Yes)
-                    return;
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                    ActionOk, () => { });
+                bool isOk = false;
+                void ActionOk() => isOk = true;
+                if (isOk) return;
             }
 
             // Send cmd to the print.
@@ -613,7 +615,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
         catch (Exception ex)
         {
-            WsWpfUtils.CatchException(ex, true, true);
+            WsWinFormNavigationUtils.CatchException(ex);
         }
     }
 

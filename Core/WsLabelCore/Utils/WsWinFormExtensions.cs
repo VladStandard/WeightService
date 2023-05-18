@@ -3,7 +3,10 @@
 
 namespace WsLabelCore.Utils;
 
-public static class WsFormUtils
+/// <summary>
+/// Extension for win forms.
+/// </summary>
+public static class WsWinFormExtensions
 {
     #region Public and private methods
 
