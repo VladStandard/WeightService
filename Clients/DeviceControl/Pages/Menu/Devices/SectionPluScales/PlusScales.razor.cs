@@ -29,24 +29,19 @@ public sealed partial class PlusScales : RazorComponentSectionBase<WsSqlPluScale
 
     protected override void SetSqlSectionCast()
     {
-        if (HideNoneActivePlu)
-            SqlCrudConfigSection.AddFilters(
-                new WsSqlFieldFilterModel
-                {
-                    Name = nameof(WsSqlPluScaleModel.IsActive),
-                    Value = true
-                }
-            );
+        if (!HideNoneActivePlu) 
+            SqlCrudConfigSection.ClearFilters();
         else
-            SqlCrudConfigSection.RemoveFilters(
-                new WsSqlFieldFilterModel
-                {
-                    Name = nameof(WsSqlPluScaleModel.IsActive),
-                    Value = true
-                }
-            );
+            SqlCrudConfigSection.AddFilters(
+                    new WsSqlFieldFilterModel
+                    {
+                        Name = nameof(WsSqlPluScaleModel.IsActive),
+                        Value = true
+                    }
+                );
         SqlCrudConfigSection.AddFilters(nameof(WsSqlPluScaleModel.Scale), Scale);
         base.SetSqlSectionCast();
+        SqlSectionCast = SqlSectionCast.OrderBy(scale => scale.Plu.Number).ToList();
     }
 
     private string GetPluPackagesCount(WsSqlPluModel plu)

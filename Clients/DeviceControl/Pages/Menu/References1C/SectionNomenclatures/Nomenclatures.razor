@@ -26,7 +26,7 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" SortProperty="IsCheckWeight" Width="5%">
         <Template Context="itemCast">
-          <RadzenCheckBox Disabled="true" ReadOnly="true" TValue="bool" @bind-Value="@itemCast.IsCheckWeight"/>
+          <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.IsCheckWeight"/>
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="25%"/>
