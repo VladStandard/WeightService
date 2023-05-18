@@ -31,12 +31,6 @@
     <Compile Include="Controls\WsBaseUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsKneadingUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\WsKneadingUserControl.Designer.cs">
-      <DependentUpon>WsKneadingUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\WsPinCodeUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -95,19 +89,12 @@
     <Compile Include="ViewModels\WsWaitViewModel.cs" />
     <Compile Include="ViewModels\WsPlusViewModel.cs" />
     <Compile Include="ViewModels\WsMoreViewModel.cs" />
-    <Compile Include="ViewModels\WsKneadingViewModel.cs" />
     <Compile Include="ViewModels\WsMessageBoxViewModel.cs" />
     <Compile Include="Forms\WsNumberInputForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\WsNumberInputForm.Designer.cs">
       <DependentUpon>WsNumberInputForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\WsPasswordForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\WsPasswordForm.Designer.cs">
-      <DependentUpon>WsPasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\WsSerialPortsUtils.cs" />
     <Compile Include="Models\WsButtonVisibilityModel.cs" />
@@ -186,9 +173,6 @@
     <EmbeddedResource Include="Controls\WsBaseUserControl.resx">
       <DependentUpon>WsBaseUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsKneadingUserControl.resx">
-      <DependentUpon>WsKneadingUserControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\WsPinCodeUserControl.resx">
       <DependentUpon>WsPinCodeUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -215,9 +199,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WsNumberInputForm.resx">
       <DependentUpon>WsNumberInputForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WsPasswordForm.resx">
-      <DependentUpon>WsPasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

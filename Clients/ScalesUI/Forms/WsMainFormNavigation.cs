@@ -336,14 +336,8 @@ public partial class WsMainForm
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ActionKneading(object sender, EventArgs e)
-    {
-        WsWinFormNavigationUtils.ActionTryCatch(this, () =>
-        {
-            // Навигация.
-            WsWinFormNavigationUtils.NavigateToControlKneading();
-        });
-    }
+    private void ActionKneading(object sender, EventArgs e) => 
+        WsWinFormNavigationUtils.ActionTryCatch(this, WsWinFormNavigationUtils.NavigateToControlMore);
 
     /// <summary>
     /// Сменить ПЛУ.

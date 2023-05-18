@@ -16,8 +16,8 @@ public static class WsWinFormNavigationUtils
     private static WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
     public static WsNavigationUserControl NavigationUserControl { get; set; } = new();
     public static TableLayoutPanel LayoutPanel { get; set; } = new();
-    public static WsMessageBoxUserControl MessageBoxUserControl { get; set; } = new();
-    public static WsKneadingUserControl KneadingUserControl { get; set; } = new();
+    private static WsMessageBoxUserControl MessageBoxUserControl { get; set; } = new();
+    public static WsMoreUserControl KneadingUserControl { get; set; } = new();
     public static WsMoreUserControl MoreUserControl { get; set; } = new();
     public static WsLinesUserControl LinesUserControl { get; set; } = new();
     public static WsPlusUserControl PlusUserControl { get; set; } = new();
@@ -58,13 +58,6 @@ public static class WsWinFormNavigationUtils
         LayoutPanel.Visible = false;
         switch (navigationPage)
         {
-            case WsNavigationPage.Kneading:
-                KneadingUserControl.Message = message;
-                NavigationUserControl.AddUserControl(KneadingUserControl);
-                KneadingUserControl.RefreshAction();
-                if (!KneadingUserControl.ViewModel.ActionReturnFinally.IsAny())
-                    KneadingUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
-                break;
             case WsNavigationPage.Lines:
                 LinesUserControl.Message = message;
                 NavigationUserControl.AddUserControl(LinesUserControl);
@@ -78,6 +71,13 @@ public static class WsWinFormNavigationUtils
                 MessageBoxUserControl.RefreshAction();
                 if (!MessageBoxUserControl.ViewModel.ActionReturnFinally.IsAny())
                     MessageBoxUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
+                break;
+            case WsNavigationPage.Kneading:
+                KneadingUserControl.Message = message;
+                NavigationUserControl.AddUserControl(KneadingUserControl);
+                KneadingUserControl.RefreshAction();
+                if (!KneadingUserControl.ViewModel.ActionReturnFinally.IsAny())
+                    KneadingUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
                 break;
             case WsNavigationPage.More:
                 MoreUserControl.Message = message;
@@ -132,11 +132,6 @@ public static class WsWinFormNavigationUtils
     /// Навигация в контрол смены линии.
     /// </summary>
     public static void NavigateToControlLines() => NavigateToControl(WsNavigationPage.Lines);
-
-    /// <summary>
-    /// Навигация в контрол смены замеса.
-    /// </summary>
-    public static void NavigateToControlKneading() => NavigateToControl(WsNavigationPage.Kneading);
 
     /// <summary>
     /// Навигация в контрол смены ещё.

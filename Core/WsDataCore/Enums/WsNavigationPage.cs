@@ -6,8 +6,8 @@ namespace WsDataCore.Enums;
 public enum WsNavigationPage
 {
     Wait,
-    Lines,
     Kneading,
+    Lines,
     Plus,
     PlusNesting,
     More,
