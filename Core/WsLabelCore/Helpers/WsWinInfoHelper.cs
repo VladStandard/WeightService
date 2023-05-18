@@ -128,118 +128,119 @@ public sealed class WsWinInfoHelper
 					{
 						switch (ed)
 						{
-							case PRODUCT_BUSINESS:
-								edition = "Business";
-								break;
-							case PRODUCT_BUSINESS_N:
-								edition = "Business N";
-								break;
-							case PRODUCT_CLUSTER_SERVER:
-								edition = "HPC Edition";
-								break;
-							case PRODUCT_DATACENTER_SERVER:
-								edition = "Datacenter Server";
-								break;
-							case PRODUCT_DATACENTER_SERVER_CORE:
-								edition = "Datacenter Server (core installation)";
-								break;
-							case PRODUCT_ENTERPRISE:
-								edition = "Enterprise";
-								break;
-							case PRODUCT_ENTERPRISE_N:
-								edition = "Enterprise N";
-								break;
-							case PRODUCT_ENTERPRISE_SERVER:
-								edition = "Enterprise Server";
-								break;
-							case PRODUCT_ENTERPRISE_SERVER_CORE:
-								edition = "Enterprise Server (core installation)";
-								break;
-							case PRODUCT_ENTERPRISE_SERVER_CORE_V:
-								edition = "Enterprise Server without Hyper-V (core installation)";
-								break;
-							case PRODUCT_ENTERPRISE_SERVER_IA64:
-								edition = "Enterprise Server for Itanium-based Systems";
-								break;
-							case PRODUCT_ENTERPRISE_SERVER_V:
-								edition = "Enterprise Server without Hyper-V";
-								break;
-							case PRODUCT_HOME_BASIC:
-								edition = "Home Basic";
-								break;
-							case PRODUCT_HOME_BASIC_N:
-								edition = "Home Basic N";
-								break;
-							case PRODUCT_HOME_PREMIUM:
-								edition = "Home Premium";
-								break;
-							case PRODUCT_HOME_PREMIUM_N:
-								edition = "Home Premium N";
-								break;
-							case PRODUCT_HYPERV:
-								edition = "Microsoft Hyper-V Server";
-								break;
-							case PRODUCT_MEDIUMBUSINESS_SERVER_MANAGEMENT:
-								edition = "Windows Essential Business Management Server";
-								break;
-							case PRODUCT_MEDIUMBUSINESS_SERVER_MESSAGING:
-								edition = "Windows Essential Business Messaging Server";
-								break;
-							case PRODUCT_MEDIUMBUSINESS_SERVER_SECURITY:
-								edition = "Windows Essential Business Security Server";
-								break;
-							case PRODUCT_SERVER_FOR_SMALLBUSINESS:
-								edition = "Windows Essential Server Solutions";
-								break;
-							case PRODUCT_SERVER_FOR_SMALLBUSINESS_V:
-								edition = "Windows Essential Server Solutions without Hyper-V";
-								break;
-							case PRODUCT_SMALLBUSINESS_SERVER:
-								edition = "Windows Small Business Server";
-								break;
-							case PRODUCT_STANDARD_SERVER:
-								edition = "Standard Server";
-								break;
-							case PRODUCT_STANDARD_SERVER_CORE:
-								edition = "Standard Server (core installation)";
-								break;
-							case PRODUCT_STANDARD_SERVER_CORE_V:
-								edition = "Standard Server without Hyper-V (core installation)";
-								break;
-							case PRODUCT_STANDARD_SERVER_V:
-								edition = "Standard Server without Hyper-V";
-								break;
-							case PRODUCT_STARTER:
-								edition = "Starter";
-								break;
-							case PRODUCT_STORAGE_ENTERPRISE_SERVER:
-								edition = "Enterprise Storage Server";
-								break;
-							case PRODUCT_STORAGE_EXPRESS_SERVER:
-								edition = "Express Storage Server";
-								break;
-							case PRODUCT_STORAGE_STANDARD_SERVER:
-								edition = "Standard Storage Server";
-								break;
-							case PRODUCT_STORAGE_WORKGROUP_SERVER:
-								edition = "Workgroup Storage Server";
-								break;
-							case PRODUCT_UNDEFINED:
-								edition = "Unknown product";
-								break;
-							case PRODUCT_ULTIMATE:
-								edition = "Ultimate";
-								break;
-							case PRODUCT_ULTIMATE_N:
-								edition = "Ultimate N";
-								break;
-							case PRODUCT_WEB_SERVER:
-								edition = "Web Server";
-								break;
-							case PRODUCT_WEB_SERVER_CORE:
-								edition = "Web Server (core installation)";
-								break;
-						}
+                            case PRODUCT_BUSINESS:
+                                edition = "Business";
+                                break;
+                            case PRODUCT_BUSINESS_N:
+                                edition = "Business N";
+                                break;
+                            case PRODUCT_CLUSTER_SERVER:
+                                edition = "HPC Edition";
+                                break;
+                            case PRODUCT_DATACENTER_SERVER:
+                                edition = "Datacenter Server";
+                                break;
+                            case PRODUCT_DATACENTER_SERVER_CORE:
+                                edition = "Datacenter Server (core installation)";
+                                break;
+                            case PRODUCT_ENTERPRISE:
+                                edition = "Enterprise";
+                                break;
+                            case PRODUCT_ENTERPRISE_N:
+                                edition = "Enterprise N";
+                                break;
+                            case PRODUCT_ENTERPRISE_SERVER:
+                                edition = "Enterprise Server";
+                                break;
+                            case PRODUCT_ENTERPRISE_SERVER_CORE:
+                                edition = "Enterprise Server (core installation)";
+                                break;
+                            case PRODUCT_ENTERPRISE_SERVER_CORE_V:
+                                edition = "Enterprise Server without Hyper-V (core installation)";
+                                break;
+                            case PRODUCT_ENTERPRISE_SERVER_IA64:
+                                edition = "Enterprise Server for Itanium-based Systems";
+                                break;
+                            case PRODUCT_ENTERPRISE_SERVER_V:
+                                edition = "Enterprise Server without Hyper-V";
+                                break;
+                            case PRODUCT_HOME_BASIC:
+                                edition = "Home Basic";
+                                break;
+                            case PRODUCT_HOME_BASIC_N:
+                                edition = "Home Basic N";
+                                break;
+                            case PRODUCT_HOME_PREMIUM:
+                                edition = "Home Premium";
+                                break;
+                            case PRODUCT_HOME_PREMIUM_N:
+                                edition = "Home Premium N";
+                                break;
+                            case PRODUCT_HYPERV:
+                                edition = "Microsoft Hyper-V Server";
+                                break;
+                            case PRODUCT_MEDIUMBUSINESS_SERVER_MANAGEMENT:
+                                edition = "Windows Essential Business Management Server";
+                                break;
+                            case PRODUCT_MEDIUMBUSINESS_SERVER_MESSAGING:
+                                edition = "Windows Essential Business Messaging Server";
+                                break;
+                            case PRODUCT_MEDIUMBUSINESS_SERVER_SECURITY:
+                                edition = "Windows Essential Business Security Server";
+                                break;
+                            case PRODUCT_SERVER_FOR_SMALLBUSINESS:
+                                edition = "Windows Essential Server Solutions";
+                                break;
+                            case PRODUCT_SERVER_FOR_SMALLBUSINESS_V:
+                                edition = "Windows Essential Server Solutions without Hyper-V";
+                                break;
+                            case PRODUCT_SMALLBUSINESS_SERVER:
+                                edition = "Windows Small Business Server";
+                                break;
+                            case PRODUCT_STANDARD_SERVER:
+                                edition = "Standard Server";
+                                break;
+                            case PRODUCT_STANDARD_SERVER_CORE:
+                                edition = "Standard Server (core installation)";
+                                break;
+                            case PRODUCT_STANDARD_SERVER_CORE_V:
+                                edition = "Standard Server without Hyper-V (core installation)";
+                                break;
+                            case PRODUCT_STANDARD_SERVER_V:
+                                edition = "Standard Server without Hyper-V";
+                                break;
+                            case PRODUCT_STARTER:
+                                edition = "Starter";
+                                break;
+                            case PRODUCT_STORAGE_ENTERPRISE_SERVER:
+                                edition = "Enterprise Storage Server";
+                                break;
+                            case PRODUCT_STORAGE_EXPRESS_SERVER:
+                                edition = "Express Storage Server";
+                                break;
+                            case PRODUCT_STORAGE_STANDARD_SERVER:
+                                edition = "Standard Storage Server";
+                                break;
+                            case PRODUCT_STORAGE_WORKGROUP_SERVER:
+                                edition = "Workgroup Storage Server";
+                                break;
+                            case PRODUCT_ULTIMATE:
+                                edition = "Ultimate";
+                                break;
+                            case PRODUCT_ULTIMATE_N:
+                                edition = "Ultimate N";
+                                break;
+                            case PRODUCT_UNDEFINED:
+                                edition = "Unknown product";
+                                break;
+                            case PRODUCT_WEB_SERVER:
+                                edition = "Web Server";
+                                break;
+                            case PRODUCT_WEB_SERVER_CORE:
+                                edition = "Web Server (core installation)";
+                                break;
+						
+                        }
 					}
 				}
 				#endregion VERSION 6
@@ -281,79 +282,85 @@ public sealed class WsWinInfoHelper
 
 				switch (osVersion.Platform)
 				{
-					case PlatformID.Win32Windows:
-					{
-						if (majorVersion == 4)
-						{
-							string csdVersion = osVersionInfo.szCSDVersion;
-							switch (minorVersion)
-							{
-								case 0:
-									if (csdVersion == "B" || csdVersion == "C")
-										name = "Windows 95 OSR2";
-									else
-										name = "Windows 95";
-									break;
-								case 10:
-									name = csdVersion == "A" ? "Windows 98 Second Edition" : "Windows 98";
-									break;
-								case 90:
-									name = "Windows Me";
-									break;
-							}
-						}
-						break;
-					}
+                    case PlatformID.Win32NT:
+                    {
+                        byte productType = osVersionInfo.wProductType;
 
-					case PlatformID.Win32NT:
-					{
-						byte productType = osVersionInfo.wProductType;
+                        switch (majorVersion)
+                        {
+                            case 3:
+                                name = "Windows NT 3.51";
+                                break;
+                            case 4:
+                                switch (productType)
+                                {
+                                    case 1:
+                                        name = "Windows NT 4.0";
+                                        break;
+                                    case 3:
+                                        name = "Windows NT 4.0 Server";
+                                        break;
+                                
+                                }
+                                break;
+                            case 5:
+                                switch (minorVersion)
+                                {
+                                    case 0:
+                                        name = "Windows 2000";
+                                        break;
+                                    case 1:
+                                        name = "Windows XP";
+                                        break;
+                                    case 2:
+                                        name = "Windows Server 2003";
+                                        break;
+                                
+                                }
+                                break;
+                            case 6:
+                                switch (productType)
+                                {
+                                    case 1:
+                                        name = "Windows Vista";
+                                        break;
+                                    case 3:
+                                        name = "Windows Server 2008";
+                                        break;
+                                
+                                }
+                                break;
+                        
+                        }
+                        break;
+                    }
 
-						switch (majorVersion)
-						{
-							case 3:
-								name = "Windows NT 3.51";
-								break;
-							case 4:
-								switch (productType)
-								{
-									case 1:
-										name = "Windows NT 4.0";
-										break;
-									case 3:
-										name = "Windows NT 4.0 Server";
-										break;
-								}
-								break;
-							case 5:
-								switch (minorVersion)
-								{
-									case 0:
-										name = "Windows 2000";
-										break;
-									case 1:
-										name = "Windows XP";
-										break;
-									case 2:
-										name = "Windows Server 2003";
-										break;
-								}
-								break;
-							case 6:
-								switch (productType)
-								{
-									case 1:
-										name = "Windows Vista";
-										break;
-									case 3:
-										name = "Windows Server 2008";
-										break;
-								}
-								break;
-						}
-						break;
-					}
-				}
+                    case PlatformID.Win32Windows:
+                    {
+                        if (majorVersion == 4)
+                        {
+                            string csdVersion = osVersionInfo.szCSDVersion;
+                            switch (minorVersion)
+                            {
+                                case 0:
+                                    if (csdVersion == "B" || csdVersion == "C")
+                                        name = "Windows 95 OSR2";
+                                    else
+                                        name = "Windows 95";
+                                    break;
+                                case 10:
+                                    name = csdVersion == "A" ? "Windows 98 Second Edition" : "Windows 98";
+                                    break;
+                                case 90:
+                                    name = "Windows Me";
+                                    break;
+                            
+                            }
+                        }
+                        break;
+                    }
+
+                }
 			}
 
 			s_Name = name;

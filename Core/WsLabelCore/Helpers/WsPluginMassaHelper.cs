@@ -138,10 +138,6 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
     {
         switch (MassaDevice.SerialPort.AdapterStatus)
         {
-            case UsbAdapterStatus.IsNotConnectWithMassa:
-                MdInvokeControl.SetText(FieldMassa, 
-                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsNotConnectWithMassa}");
-                break;
             case UsbAdapterStatus.IsDataNotExists:
                 MdInvokeControl.SetText(FieldMassa,
                     $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsDataNotExists}");
@@ -150,11 +146,17 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
                 MdInvokeControl.SetText(FieldMassa,
                     $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsException(MassaDevice.SerialPort.Exception.Message)}");
                 break;
+
+            case UsbAdapterStatus.IsNotConnectWithMassa:
+                MdInvokeControl.SetText(FieldMassa, 
+                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsNotConnectWithMassa}");
+                break;
             default:
                 MdInvokeControl.SetText(FieldMassa, $"{(MassaDevice.IsOpenPort
                     ? $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.StateIsResponsed} | "
                     : $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.StateIsNotResponsed} | ")} | {ResponseParseGet.Message}");
                 break;
+        
         }
 
         decimal weight = WsUserSessionHelper.Instance.PluScale.IsNew 
@@ -186,20 +188,14 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
     {
         switch (MassaExchange.CmdType)
         {
-            case MassaCmdType.UdpPoll:
-                MassaExchange.Request = MassaRequest.CMD_UDP_POLL;
+            case MassaCmdType.GetEthernet:
+                MassaExchange.Request = MassaRequest.CMD_GET_ETHERNET;
                 break;
             case MassaCmdType.GetInit2:
                 MassaExchange.Request = MassaRequest.CMD_GET_INIT_2;
                 break;
             case MassaCmdType.GetInit3:
                 MassaExchange.Request = MassaRequest.CMD_GET_INIT_3;
-                break;
-            case MassaCmdType.GetEthernet:
-                MassaExchange.Request = MassaRequest.CMD_GET_ETHERNET;
-                break;
-            case MassaCmdType.GetWiFiIp:
-                MassaExchange.Request = MassaRequest.CMD_GET_WIFI_IP;
                 break;
             case MassaCmdType.GetMassa:
                 MassaExchange.Request = MassaRequest.CMD_GET_MASSA;
@@ -212,12 +208,20 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
             case MassaCmdType.GetScaleParAfter:
                 MassaExchange.Request = MassaRequest.CMD_GET_SCALE_PAR_AFTER;
                 break;
+            case MassaCmdType.GetWiFiIp:
+                MassaExchange.Request = MassaRequest.CMD_GET_WIFI_IP;
+                break;
             case MassaCmdType.SetTare:
                 MassaExchange.Request = MassaExchange.CmdSetTare();
                 break;
             case MassaCmdType.SetZero:
                 MassaExchange.Request = MassaRequest.CMD_SET_ZERO;
                 break;
+
+            case MassaCmdType.UdpPoll:
+                MassaExchange.Request = MassaRequest.CMD_UDP_POLL;
+                break;
+            
         }
 
         MassaDevice.SendData();
@@ -231,27 +235,6 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
             MassaExchange.ResponseParse = new(MassaExchange.CmdType, response);
             switch (MassaExchange.CmdType)
             {
-                case MassaCmdType.GetScalePar:
-                    ResponseParseScalePar = MassaExchange.ResponseParse;
-                    break;
-                case MassaCmdType.SetWiFiSsid:
-                    ResponseParseSet = MassaExchange.ResponseParse;
-                    break;
-                case MassaCmdType.SetDatetime:
-                    ResponseParseSet = MassaExchange.ResponseParse;
-                    break;
-                case MassaCmdType.SetName:
-                    ResponseParseSet = MassaExchange.ResponseParse;
-                    break;
-                case MassaCmdType.SetRegnum:
-                    ResponseParseSet = MassaExchange.ResponseParse;
-                    break;
-                case MassaCmdType.SetTare:
-                    ResponseParseSet = MassaExchange.ResponseParse;
-                    break;
-                case MassaCmdType.SetZero:
-                    ResponseParseSet = MassaExchange.ResponseParse;
-                    break;
                 case MassaCmdType.GetMassa:
                     ResponseParseGet = MassaExchange.ResponseParse;
                     // 1 байт. Цена деления в значении массы нетто и массы тары:
@@ -271,6 +254,29 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
                     // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
                     //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
                     break;
+
+                case MassaCmdType.GetScalePar:
+                    ResponseParseScalePar = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetDatetime:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetName:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetRegnum:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetTare:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetWiFiSsid:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                case MassaCmdType.SetZero:
+                    ResponseParseSet = MassaExchange.ResponseParse;
+                    break;
+                
             }
         }
     }

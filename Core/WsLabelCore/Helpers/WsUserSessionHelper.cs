@@ -291,6 +291,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
                     ProductDate = ProductDateMaxValue;
                 break;
             }
+        
         }
     }
 
@@ -497,6 +498,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             default:
                 PrintLabelCount(template, isClearBuffer);
                 break;
+        
         }
 
         PluWeighing = new();

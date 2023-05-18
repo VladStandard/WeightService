@@ -1,12 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using FluentNHibernate.Conventions;
-using WsLabelCore.Controls;
-
 namespace WsLabelCore.Utils;
 
 #nullable enable
+/// <summary>
+/// Утилиты навигациии по контролам.
+/// </summary>
 public static class WsWinFormNavigationUtils
 {
     #region Public and private fields, properties, constructor
@@ -53,62 +53,33 @@ public static class WsWinFormNavigationUtils
     /// </summary>
     /// <param name="navigationPage"></param>
     /// <param name="message"></param>
-    public static void NavigateToControl(WsNavigationPage navigationPage, string message = "")
+    private static void NavigateToControl(WsNavigationPage navigationPage, string message = "")
     {
         LayoutPanel.Visible = false;
         switch (navigationPage)
         {
+            case WsNavigationPage.Kneading:
+                NavigationUserControl.AddUserControl(KneadingUserControl, message);
+                break;
             case WsNavigationPage.Lines:
-                LinesUserControl.Message = message;
-                NavigationUserControl.AddUserControl(LinesUserControl);
-                LinesUserControl.RefreshAction();
-                if (!LinesUserControl.ViewModel.ActionReturnFinally.IsAny())
-                    LinesUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
+                NavigationUserControl.AddUserControl(LinesUserControl, message);
                 break;
             case WsNavigationPage.MessageBox:
-                MessageBoxUserControl.Message = message;
-                NavigationUserControl.AddUserControl(MessageBoxUserControl);
-                MessageBoxUserControl.RefreshAction();
-                if (!MessageBoxUserControl.ViewModel.ActionReturnFinally.IsAny())
-                    MessageBoxUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
-                break;
-            case WsNavigationPage.Kneading:
-                KneadingUserControl.Message = message;
-                NavigationUserControl.AddUserControl(KneadingUserControl);
-                KneadingUserControl.RefreshAction();
-                if (!KneadingUserControl.ViewModel.ActionReturnFinally.IsAny())
-                    KneadingUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
+                NavigationUserControl.AddUserControl(MessageBoxUserControl, message);
                 break;
             case WsNavigationPage.More:
-                MoreUserControl.Message = message;
-                NavigationUserControl.AddUserControl(MoreUserControl);
-                MoreUserControl.RefreshAction();
-                if (!MoreUserControl.ViewModel.ActionReturnFinally.IsAny())
-                    MoreUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
+                NavigationUserControl.AddUserControl(MoreUserControl, message);
                 break;
             case WsNavigationPage.Plus:
-                PlusUserControl.Message = message;
-                NavigationUserControl.AddUserControl(PlusUserControl);
-                PlusUserControl.RefreshAction();
-                if (!PlusUserControl.ViewModel.ActionReturnFinally.IsAny())
-                    PlusUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
+                NavigationUserControl.AddUserControl(PlusUserControl, message);
                 break;
             case WsNavigationPage.PlusNesting:
-                PlusNestingUserControl.Message = message;
-                NavigationUserControl.AddUserControl(PlusNestingUserControl);
-                PlusNestingUserControl.RefreshAction();
-                if (!PlusNestingUserControl.ViewModel.ActionReturnFinally.IsAny())
-                    PlusNestingUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
+                NavigationUserControl.AddUserControl(PlusNestingUserControl, message);
                 break;
             case WsNavigationPage.Wait:
-                WaitUserControl.Message = message;
-                NavigationUserControl.AddUserControl(WaitUserControl);
-                WaitUserControl.RefreshAction();
-                if (!WaitUserControl.ViewModel.ActionReturnFinally.IsAny())
-                    WaitUserControl.ViewModel.ActionReturnFinally = NavigationUserControl.ViewModel.ActionReturnFinally;
+                NavigationUserControl.AddUserControl(WaitUserControl, message);
                 break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(navigationPage), navigationPage.ToString());
+        
         }
     }
 
@@ -210,18 +181,19 @@ public static class WsWinFormNavigationUtils
             case WsEnumLogType.Error:
                 ContextManager.ContextItem.SaveLogErrorWithInfo(message, filePath, lineNumber, memberName);
                 break;
+            case WsEnumLogType.Information:
+            case WsEnumLogType.None:
+                ContextManager.ContextItem.SaveLogInformation(message);
+                break;
             case WsEnumLogType.Question:
                 ContextManager.ContextItem.SaveLogQuestion(message);
                 break;
             case WsEnumLogType.Warning:
                 ContextManager.ContextItem.SaveLogWarning(message);
                 break;
-            case WsEnumLogType.None:
-            case WsEnumLogType.Information:
-                ContextManager.ContextItem.SaveLogInformation(message);
-                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(logType), logType.ToString());
+        
         }
     }
 

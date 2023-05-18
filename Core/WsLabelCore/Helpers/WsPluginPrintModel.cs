@@ -91,16 +91,18 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
             MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
             switch (PrintBrand)
             {
-                case PrintBrand.Zebra:
-                    MdInvokeControl.SetText(FieldPrint,
-                        $"{(IsMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
-                    break;
                 case PrintBrand.Tsc:
                     TscDriver.Setup(PrintChannel.Ethernet, printer.Ip, printer.Port, PrintLabelSize.Size80x100, PrintLabelDpi.Dpi300);
                     MdInvokeControl.SetText(FieldPrint,
                         $"{(IsMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
                     TscDriver.Properties.PrintName = printer.Name;
                     break;
+
+                case PrintBrand.Zebra:
+                    MdInvokeControl.SetText(FieldPrint,
+                        $"{(IsMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
+                    break;
+                
             }
         }
         catch (Exception ex)
@@ -131,6 +133,9 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         {
             switch (PrintBrand)
             {
+                case PrintBrand.Tsc:
+                    break;
+
                 case PrintBrand.Zebra:
                     if (ZebraConnection is null)
                         ZebraConnection = ZebraConnectionBuilder.Build(Printer.Ip);
@@ -151,8 +156,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
                         }
                     }
                     break;
-                case PrintBrand.Tsc:
-                    break;
+                
             }
         }
     }
@@ -192,6 +196,10 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     {
         switch (PrintBrand)
         {
+            case PrintBrand.Tsc:
+                //return IsPrintBusy ? GetPrinterStatusDescription(LocaleCore.Lang, MdWinPrinterStatus.PendingDeletion)
+                return GetPrinterStatusDescription(LocaleCore.Lang, TscWmiPrinter.PrinterStatus);
+
             case PrintBrand.Zebra:
                 if (ZebraStatus is null)
                     return LocaleCore.Print.StatusIsUnavailable;
@@ -217,9 +225,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
                         return LocaleCore.Print.StatusIsRibbonOut;
                 }
                 break;
-            case PrintBrand.Tsc:
-                //return IsPrintBusy ? GetPrinterStatusDescription(LocaleCore.Lang, MdWinPrinterStatus.PendingDeletion)
-                return GetPrinterStatusDescription(LocaleCore.Lang, TscWmiPrinter.PrinterStatus);
+            
         }
         return LocaleCore.Print.StatusIsUnavailable;
     }
@@ -229,12 +235,14 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         string status = GetDeviceStatus();
         switch (PrintBrand)
         {
+            case PrintBrand.Tsc:
+                return status == LocaleCore.Print.StatusIsReadyToPrint;
+
             case PrintBrand.Zebra:
                 if (ZebraStatus is null)
                     return false;
                 return status == LocaleCore.Print.StatusIsReadyToPrint;
-            case PrintBrand.Tsc:
-                return status == LocaleCore.Print.StatusIsReadyToPrint;
+            
         }
         return false;
     }
@@ -285,11 +293,13 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         
         switch (PrintBrand)
         {
+            case PrintBrand.Tsc:
+                break;
+
             case PrintBrand.Zebra:
                 ZebraConnection?.Close();
                 break;
-            case PrintBrand.Tsc:
-                break;
+            
         }
     }
 
@@ -300,13 +310,15 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         
         switch (PrintBrand)
         {
-            case PrintBrand.Zebra:
-                SendCmdToZebra(pluLabel);
-                break;
             case PrintBrand.Tsc:
                 //SendCmdToTsc(pluLabel);
                 SendCmdToTcp(pluLabel.Zpl);
                 break;
+
+            case PrintBrand.Zebra:
+                SendCmdToZebra(pluLabel);
+                break;
+            
         }
     }
 
@@ -391,12 +403,13 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         {
             case PrintBrand.Default:
                 break;
-            case PrintBrand.Zebra:
-                SendCmdToZebra("^XA~JA^XZ");
-                break;
             case PrintBrand.Tsc:
                 TscDriver.SendCmdClearBuffer();
                 break;
+            case PrintBrand.Zebra:
+                SendCmdToZebra("^XA~JA^XZ");
+                break;
+            
         }
         if (odometerValue >= 0)
             SetOdometorUserLabel(odometerValue);
@@ -408,12 +421,13 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         {
             case PrintBrand.Default:
                 break;
+            case PrintBrand.Tsc:
+                break;
             case PrintBrand.Zebra:
                 //SendCmdToZebra($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
                 SendCmdToZebra($@"! U1 setvar ""odometer.user_label_count"" ""{value}""");
                 break;
-            case PrintBrand.Tsc:
-                break;
+            
         }
     }
 
@@ -423,12 +437,13 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         {
             case PrintBrand.Default:
                 break;
+            case PrintBrand.Tsc:
+                break;
             case PrintBrand.Zebra:
                 //SendCmdToZebra($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
                 SendCmdToZebra($@"! U1 getvar ""odometer.user_label_count""");
                 break;
-            case PrintBrand.Tsc:
-                break;
+            
         }
     }
 
