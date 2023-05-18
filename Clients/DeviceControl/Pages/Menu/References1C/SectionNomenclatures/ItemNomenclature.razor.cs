@@ -10,25 +10,15 @@ namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclatures;
 public sealed partial class ItemNomenclature : RazorComponentItemBase<WsSqlPluModel>
 {
     #region Public and private fields, properties, constructor
-
-    private WsSqlTemplateModel _template;
-    private WsSqlTemplateModel Template
-    {
-        get => _template;
-        set
-        {
-            _template = value;
-            SqlLinkedItems = new() { Template };
-        }
-    }
+    
+    private WsSqlTemplateModel Template { get; set; }
     private WsSqlPluTemplateFkModel PluTemplateFk { get; set; }
 
-    public ItemNomenclature()
-        : base()
+    public ItemNomenclature() : base()
     {
         SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
         SqlCrudConfigItem.IsGuiShowFilterMarked = true;
-        _template = new();
+        Template = new();
         PluTemplateFk = new();
 
         ButtonSettings = new(true, true, true, true, true, true, true);
@@ -41,9 +31,6 @@ public sealed partial class ItemNomenclature : RazorComponentItemBase<WsSqlPluMo
     protected override void SetSqlItemCast()
     {   
         base.SetSqlItemCast();
-        ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlTemplateModel>(WsSqlCrudConfigUtils
-            .GetCrudConfigComboBox());
-
         PluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNotNullable(SqlItemCast);
         Template = PluTemplateFk.Template.IsNotNew
             ? PluTemplateFk.Template

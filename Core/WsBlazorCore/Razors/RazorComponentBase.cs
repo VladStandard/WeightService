@@ -57,7 +57,7 @@ public partial class RazorComponentBase : LayoutComponentBase
     #endregion
 
     [Parameter] public WsSqlTableBase? SqlItem { get; set; }
-    public List<WsSqlTableBase>? SqlLinkedItems { get; set; }
+    
     public ClaimsPrincipal? User { get; set; }
     
 	public RazorComponentBase()
@@ -65,9 +65,8 @@ public partial class RazorComponentBase : LayoutComponentBase
         Title = string.Empty;
 
 		SqlItem = null;
-        SqlLinkedItems = null;
-
-		RazorFieldConfig = new();
+        
+        RazorFieldConfig = new();
 		SqlCrudConfigItem = WsSqlCrudConfigUtils.GetCrudConfigItem(true);
     }
 

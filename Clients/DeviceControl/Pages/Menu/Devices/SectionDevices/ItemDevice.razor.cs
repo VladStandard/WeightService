@@ -10,25 +10,15 @@ namespace BlazorDeviceControl.Pages.Menu.Devices.SectionDevices;
 public sealed partial class ItemDevice : RazorComponentItemBase<WsSqlDeviceModel>
 {
     #region Public and private fields, properties, constructor
-
-    private WsSqlDeviceTypeModel _deviceType;
     private List<WsSqlDeviceTypeModel> DeviceTypeFkModels { get; set; }
-    private WsSqlDeviceTypeModel DeviceType
-    {
-        get => _deviceType;
-        set
-        {
-            _deviceType = value;
-            SqlLinkedItems = new() { DeviceType };
-        }
-    }
+    private WsSqlDeviceTypeModel DeviceType { get; set; }
     private WsSqlDeviceTypeFkModel DeviceTypeFk { get; set; }
 
     #endregion
 
     public ItemDevice() : base()
     {
-        _deviceType = new();
+        DeviceType = new();
         DeviceTypeFk = new();
     }
 
@@ -42,5 +32,17 @@ public sealed partial class ItemDevice : RazorComponentItemBase<WsSqlDeviceModel
         DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceTypeModel>();
     }
 
+    protected override void SqlItemSaveAdditional()
+    {
+        if (DeviceType.IsNotNew)
+        {
+            DeviceTypeFk.Type = DeviceType;
+            DeviceTypeFk.Device = SqlItemCast;
+            SqlItemSave(DeviceTypeFk);
+            return;
+        }
+        ContextManager.AccessManager.AccessItem.Delete(DeviceTypeFk);
+    }
+    
     #endregion
 }
