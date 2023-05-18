@@ -28,37 +28,37 @@ partial class WsNavigationUserControl
     /// </summary>
     private void InitializeComponent()
     {
-            this.layoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.layoutPanelUser = new System.Windows.Forms.TableLayoutPanel();
             this.layoutPanelTop = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxReturn = new System.Windows.Forms.PictureBox();
             this.fieldTitle = new System.Windows.Forms.Label();
-            this.layoutPanel.SuspendLayout();
+            this.layoutPanelUser.SuspendLayout();
             this.layoutPanelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReturn)).BeginInit();
             this.SuspendLayout();
             // 
-            // layoutPanel
+            // layoutPanelUser
             // 
-            this.layoutPanel.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanel.ColumnCount = 3;
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 99F));
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
-            this.layoutPanel.Controls.Add(this.layoutPanelTop, 0, 0);
-            this.layoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.layoutPanel.Name = "layoutPanel";
-            this.layoutPanel.RowCount = 2;
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94F));
-            this.layoutPanel.Size = new System.Drawing.Size(1024, 668);
-            this.layoutPanel.TabIndex = 0;
+            this.layoutPanelUser.BackColor = System.Drawing.Color.Transparent;
+            this.layoutPanelUser.ColumnCount = 3;
+            this.layoutPanelUser.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
+            this.layoutPanelUser.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 99F));
+            this.layoutPanelUser.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
+            this.layoutPanelUser.Controls.Add(this.layoutPanelTop, 0, 0);
+            this.layoutPanelUser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutPanelUser.Location = new System.Drawing.Point(0, 0);
+            this.layoutPanelUser.Name = "layoutPanelUser";
+            this.layoutPanelUser.RowCount = 2;
+            this.layoutPanelUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
+            this.layoutPanelUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94F));
+            this.layoutPanelUser.Size = new System.Drawing.Size(1024, 668);
+            this.layoutPanelUser.TabIndex = 0;
             // 
             // layoutPanelTop
             // 
             this.layoutPanelTop.BackColor = System.Drawing.Color.Transparent;
             this.layoutPanelTop.ColumnCount = 5;
-            this.layoutPanel.SetColumnSpan(this.layoutPanelTop, 2);
+            this.layoutPanelUser.SetColumnSpan(this.layoutPanelTop, 2);
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
@@ -71,7 +71,7 @@ partial class WsNavigationUserControl
             this.layoutPanelTop.Name = "layoutPanelTop";
             this.layoutPanelTop.RowCount = 1;
             this.layoutPanelTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.layoutPanelTop.Size = new System.Drawing.Size(1011, 34);
+            this.layoutPanelTop.Size = new System.Drawing.Size(1012, 34);
             this.layoutPanelTop.TabIndex = 70;
             // 
             // pictureBoxReturn
@@ -85,7 +85,7 @@ partial class WsNavigationUserControl
             this.pictureBoxReturn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxReturn.TabIndex = 59;
             this.pictureBoxReturn.TabStop = false;
-            this.pictureBoxReturn.Click += new System.EventHandler(this.pictureBoxReturn_Click);
+            this.pictureBoxReturn.Visible = false;
             // 
             // fieldTitle
             // 
@@ -97,7 +97,7 @@ partial class WsNavigationUserControl
             this.fieldTitle.Location = new System.Drawing.Point(204, 3);
             this.fieldTitle.Margin = new System.Windows.Forms.Padding(3);
             this.fieldTitle.Name = "fieldTitle";
-            this.fieldTitle.Size = new System.Drawing.Size(600, 28);
+            this.fieldTitle.Size = new System.Drawing.Size(601, 28);
             this.fieldTitle.TabIndex = 21;
             this.fieldTitle.Text = "Sub menu";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -108,10 +108,10 @@ partial class WsNavigationUserControl
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.layoutPanel);
+            this.Controls.Add(this.layoutPanelUser);
             this.Name = "WsNavigationUserControl";
             this.Size = new System.Drawing.Size(1024, 668);
-            this.layoutPanel.ResumeLayout(false);
+            this.layoutPanelUser.ResumeLayout(false);
             this.layoutPanelTop.ResumeLayout(false);
             this.layoutPanelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReturn)).EndInit();
@@ -121,7 +121,7 @@ partial class WsNavigationUserControl
 
     #endregion
 
-    private TableLayoutPanel layoutPanel;
+    private TableLayoutPanel layoutPanelUser;
     private TableLayoutPanel layoutPanelTop;
     private PictureBox pictureBoxReturn;
     private Label fieldTitle;

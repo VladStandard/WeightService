@@ -15,8 +15,8 @@ public static class WsWinFormNavigationUtils
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private static WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
     public static WsNavigationUserControl NavigationUserControl { get; set; } = new();
-    public static TableLayoutPanel LayoutPanel { get; set; } = new();
-    private static WsMessageBoxUserControl MessageBoxUserControl { get; set; } = new();
+    public static TableLayoutPanel LayoutPanelMain { get; set; } = new();
+    private static WsMessageBoxUserControl MessageBoxUserControl { get; } = new();
     public static WsMoreUserControl KneadingUserControl { get; set; } = new();
     public static WsMoreUserControl MoreUserControl { get; set; } = new();
     public static WsLinesUserControl LinesUserControl { get; set; } = new();
@@ -30,7 +30,6 @@ public static class WsWinFormNavigationUtils
 
     public static void ReturnBackDefault()
     {
-        NavigationUserControl.Visible = false;
         foreach (Control control in NavigationUserControl.Controls)
         {
             if (control is TableLayoutPanel tableLayoutPanel)
@@ -44,8 +43,6 @@ public static class WsWinFormNavigationUtils
                 }
             }
         }
-        LayoutPanel.Visible = true;
-        System.Windows.Forms.Application.DoEvents();
     }
 
     /// <summary>
@@ -55,7 +52,6 @@ public static class WsWinFormNavigationUtils
     /// <param name="message"></param>
     private static void NavigateToControl(WsNavigationPage navigationPage, string message = "")
     {
-        LayoutPanel.Visible = false;
         switch (navigationPage)
         {
             case WsNavigationPage.Kneading:
@@ -79,8 +75,12 @@ public static class WsWinFormNavigationUtils
             case WsNavigationPage.Wait:
                 NavigationUserControl.AddUserControl(WaitUserControl, message);
                 break;
-        
         }
+
+        // Отобразить user control.
+        LayoutPanelMain.Visible = false;
+        NavigationUserControl.Visible = true;
+        System.Windows.Forms.Application.DoEvents();
     }
 
     /// <summary>
@@ -117,8 +117,8 @@ public static class WsWinFormNavigationUtils
     /// <param name="buttonVisibility"></param>
     /// <param name="actionOk"></param>
     /// <param name="actionCancel"></param>
-    public static void NavigateToControlMessage(string caption, string message, WsButtonVisibilityModel buttonVisibility,
-        Action? actionOk, Action? actionCancel)
+    private static void NavigateToControlMessage(string caption, string message, WsButtonVisibilityModel buttonVisibility,
+        Action actionOk, Action actionCancel)
     {
         WsMessageBoxViewModel viewModel = new();
         MessageBoxUserControl.SetupViewModel(viewModel);
@@ -126,20 +126,10 @@ public static class WsWinFormNavigationUtils
         viewModel.Message = message;
         viewModel.ButtonVisibility = buttonVisibility;
         viewModel.ButtonVisibility.Localization();
-        if (actionOk is not null)
-        {
-            viewModel.ActionReturnOk = actionOk;
-            viewModel.ActionReturnOk += ReturnBackDefault;
-        }
-        else
-            viewModel.ActionReturnOk = ReturnBackDefault;
-        if (actionCancel is not null)
-        {
-            viewModel.ActionReturnCancel = actionCancel;
-            viewModel.ActionReturnCancel += ReturnBackDefault;
-        }
-        else
-            viewModel.ActionReturnCancel = ReturnBackDefault;
+        viewModel.ActionReturnOk = actionOk;
+        viewModel.ActionReturnOk += ReturnBackDefault;
+        viewModel.ActionReturnCancel = actionCancel;
+        viewModel.ActionReturnCancel += ReturnBackDefault;
 
         NavigateToControl(WsNavigationPage.MessageBox);
     }
@@ -244,7 +234,7 @@ public static class WsWinFormNavigationUtils
         NavigateToControlMessage(LocaleCore.Scales.Exception,
             $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
             $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message,
-            new() { ButtonOkVisibility = Visibility.Visible }, null, null);
+            new() { ButtonOkVisibility = Visibility.Visible }, () => { }, () => { });
     }
 
     /// <summary>

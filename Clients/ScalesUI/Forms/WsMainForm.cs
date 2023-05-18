@@ -97,17 +97,17 @@ public partial class WsMainForm : Form
     private void MainForm_Load(object sender, EventArgs e)
     {
         WsWinFormNavigationUtils.ActionTryCatch(this, () =>
-            {
-                UserSession.StopwatchMain = Stopwatch.StartNew();
-                UserSession.StopwatchMain.Restart();
-                // Load controls.
-                PreLoadControls();
-                // Навигация.
-                WsWinFormNavigationUtils.NavigateToControlWait(LocaleCore.Scales.AppWaitLoad);
-                MainFormLoadAtBackground();
-                // Авто-возврат из контрола на главную форму.
-                WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk();
-            });
+        {
+            UserSession.StopwatchMain = Stopwatch.StartNew();
+            UserSession.StopwatchMain.Restart();
+            // Load controls.
+            PreLoadControls();
+            // Навигация.
+            WsWinFormNavigationUtils.NavigateToControlWait(LocaleCore.Scales.AppWaitLoad);
+            MainFormLoadAtBackground();
+            // Авто-возврат из контрола на главную форму.
+            WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk();
+        });
     }
 
     private void LoadMainControls()
@@ -253,7 +253,7 @@ public partial class WsMainForm : Form
 
     private void CreateButtonsDevices()
     {
-        TableLayoutPanel layoutPanelDevice = WsWinFormUtils.NewTableLayoutPanel(layoutPanel, nameof(layoutPanelDevice),
+        TableLayoutPanel layoutPanelDevice = WsWinFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelDevice),
             1, 13, 2, 98);
         int rowCount = 0;
 
@@ -295,8 +295,8 @@ public partial class WsMainForm : Form
 
     private void CreateButtonsActions()
     {
-        TableLayoutPanel layoutPanelActions = WsWinFormUtils.NewTableLayoutPanel(layoutPanel, nameof(layoutPanelActions),
-            3, 13, layoutPanel.ColumnCount - 3, 99);
+        TableLayoutPanel layoutPanelActions = WsWinFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelActions),
+            3, 13, layoutPanelMain.ColumnCount - 3, 99);
         int columnCount = 0;
 
         if (ActionSettings.IsScalesTerminal)

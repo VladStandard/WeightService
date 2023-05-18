@@ -81,11 +81,10 @@
     </Compile>
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Controls\WsPluControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Utils\WsWinFormNavigationUtils.cs" />
     <Compile Include="Utils\WsWinFormUtils.cs" />
-    <Compile Include="ViewModels\WsNavigationViewModel.cs" />
     <Compile Include="ViewModels\WsWaitViewModel.cs" />
     <Compile Include="ViewModels\WsPlusViewModel.cs" />
     <Compile Include="ViewModels\WsMoreViewModel.cs" />

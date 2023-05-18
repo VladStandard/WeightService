@@ -256,8 +256,8 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
         labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PlusPageNumber}";
 
         WsPluControl?[,] controls = CreateControls();
-        int columnSave = controls.GetUpperBound(0) + 1;    // -1 + 1 = 0
-        int rowSave = controls.GetUpperBound(1) + 1;       // -1 + 1 = 0
+        int columnSave = controls.GetUpperBound(0) + 1;     // -1 + 1 = 0
+        int rowSave = controls.GetUpperBound(1) + 1;        // -1 + 1 = 0
         int columnCount = controls.GetUpperBound(0) + 1;    // -1 + 1 = 0
         int rowCount = controls.GetUpperBound(1) + 1;       // -1 + 1 = 0
         if (columnCount < 1) columnCount = 1;

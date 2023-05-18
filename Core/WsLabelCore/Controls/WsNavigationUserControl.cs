@@ -11,12 +11,9 @@ public sealed partial class WsNavigationUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsNavigationViewModel ViewModel { get; }
-
     public WsNavigationUserControl()
     {
         InitializeComponent();
-        ViewModel = new();
     }
 
     #endregion
@@ -27,20 +24,14 @@ public sealed partial class WsNavigationUserControl : WsBaseUserControl
     {
         userControl.Message = message;
         userControl.Visible = false;
-        foreach (Control control in layoutPanel.Controls) control.Visible = false;
-        if (!layoutPanel.Controls.Contains(userControl))
-            layoutPanel.Controls.Add(userControl, 1, 1);
-        layoutPanel.SetRowSpan(userControl, 1);
-        layoutPanel.SetColumnSpan(userControl, 1);
+        foreach (Control control in layoutPanelUser.Controls) control.Visible = false;
+        if (!layoutPanelUser.Controls.Contains(userControl))
+            layoutPanelUser.Controls.Add(userControl, 1, 1);
+        layoutPanelUser.SetRowSpan(userControl, 1);
+        layoutPanelUser.SetColumnSpan(userControl, 1);
         userControl.Dock = DockStyle.Fill;
         userControl.Visible = true;
-        Visible = true;
         userControl.RefreshAction();
-    }
-
-    private void pictureBoxReturn_Click(object sender, EventArgs e)
-    {
-        ViewModel.ActionReturnCancel();
     }
 
     #endregion

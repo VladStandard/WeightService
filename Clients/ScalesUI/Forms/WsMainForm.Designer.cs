@@ -1,4 +1,4 @@
-﻿namespace ScalesUI.Forms
+namespace ScalesUI.Forms
 {
     partial class WsMainForm
     {
@@ -31,7 +31,7 @@
             this.labelNettoWeight = new System.Windows.Forms.Label();
             this.fieldPackageWeight = new System.Windows.Forms.Label();
             this.fieldNettoWeight = new System.Windows.Forms.Label();
-            this.layoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.layoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.fieldTemplateValue = new System.Windows.Forms.Label();
             this.fieldTemplateTitle = new System.Windows.Forms.Label();
             this.fieldPrintShippingExt = new System.Windows.Forms.Label();
@@ -52,7 +52,7 @@
             this.layoutPanelTop = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.fieldTitle = new System.Windows.Forms.Label();
-            this.layoutPanel.SuspendLayout();
+            this.layoutPanelMain.SuspendLayout();
             this.layoutPanelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.SuspendLayout();
@@ -105,63 +105,63 @@
             this.fieldNettoWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldNettoWeight.Visible = false;
             // 
-            // layoutPanel
+            // layoutPanelMain
             // 
-            this.layoutPanel.ColumnCount = 6;
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53F));
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
-            this.layoutPanel.Controls.Add(this.fieldTemplateValue, 2, 9);
-            this.layoutPanel.Controls.Add(this.fieldTemplateTitle, 1, 9);
-            this.layoutPanel.Controls.Add(this.fieldPrintShippingExt, 1, 11);
-            this.layoutPanel.Controls.Add(this.fieldPrintShipping, 2, 11);
-            this.layoutPanel.Controls.Add(this.fieldWarning, 1, 6);
-            this.layoutPanel.Controls.Add(this.fieldMemoryExt, 1, 7);
-            this.layoutPanel.Controls.Add(this.fieldMemory, 2, 7);
-            this.layoutPanel.Controls.Add(this.fieldPrintMainExt, 1, 10);
-            this.layoutPanel.Controls.Add(this.fieldMassaExt, 1, 8);
-            this.layoutPanel.Controls.Add(this.fieldMassa, 2, 8);
-            this.layoutPanel.Controls.Add(this.labelPackageWeight, 2, 3);
-            this.layoutPanel.Controls.Add(this.labelNettoWeight, 2, 2);
-            this.layoutPanel.Controls.Add(this.fieldNettoWeight, 3, 2);
-            this.layoutPanel.Controls.Add(this.fieldPackageWeight, 3, 3);
-            this.layoutPanel.Controls.Add(this.labelKneading, 2, 5);
-            this.layoutPanel.Controls.Add(this.labelProductDate, 2, 4);
-            this.layoutPanel.Controls.Add(this.fieldProductDate, 3, 4);
-            this.layoutPanel.Controls.Add(this.fieldKneading, 3, 5);
-            this.layoutPanel.Controls.Add(this.fieldPrintMain, 2, 10);
-            this.layoutPanel.Controls.Add(this.fieldPlu, 1, 1);
-            this.layoutPanel.Controls.Add(this.layoutPanelTop, 1, 0);
-            this.layoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.layoutPanel.Name = "layoutPanel";
-            this.layoutPanel.RowCount = 14;
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.5F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.5F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.5F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.layoutPanel.Size = new System.Drawing.Size(1024, 668);
-            this.layoutPanel.TabIndex = 7;
+            this.layoutPanelMain.ColumnCount = 6;
+            this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
+            this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
+            this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53F));
+            this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
+            this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
+            this.layoutPanelMain.Controls.Add(this.fieldTemplateValue, 2, 9);
+            this.layoutPanelMain.Controls.Add(this.fieldTemplateTitle, 1, 9);
+            this.layoutPanelMain.Controls.Add(this.fieldPrintShippingExt, 1, 11);
+            this.layoutPanelMain.Controls.Add(this.fieldPrintShipping, 2, 11);
+            this.layoutPanelMain.Controls.Add(this.fieldWarning, 1, 6);
+            this.layoutPanelMain.Controls.Add(this.fieldMemoryExt, 1, 7);
+            this.layoutPanelMain.Controls.Add(this.fieldMemory, 2, 7);
+            this.layoutPanelMain.Controls.Add(this.fieldPrintMainExt, 1, 10);
+            this.layoutPanelMain.Controls.Add(this.fieldMassaExt, 1, 8);
+            this.layoutPanelMain.Controls.Add(this.fieldMassa, 2, 8);
+            this.layoutPanelMain.Controls.Add(this.labelPackageWeight, 2, 3);
+            this.layoutPanelMain.Controls.Add(this.labelNettoWeight, 2, 2);
+            this.layoutPanelMain.Controls.Add(this.fieldNettoWeight, 3, 2);
+            this.layoutPanelMain.Controls.Add(this.fieldPackageWeight, 3, 3);
+            this.layoutPanelMain.Controls.Add(this.labelKneading, 2, 5);
+            this.layoutPanelMain.Controls.Add(this.labelProductDate, 2, 4);
+            this.layoutPanelMain.Controls.Add(this.fieldProductDate, 3, 4);
+            this.layoutPanelMain.Controls.Add(this.fieldKneading, 3, 5);
+            this.layoutPanelMain.Controls.Add(this.fieldPrintMain, 2, 10);
+            this.layoutPanelMain.Controls.Add(this.fieldPlu, 1, 1);
+            this.layoutPanelMain.Controls.Add(this.layoutPanelTop, 1, 0);
+            this.layoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutPanelMain.Location = new System.Drawing.Point(0, 0);
+            this.layoutPanelMain.Name = "layoutPanelMain";
+            this.layoutPanelMain.RowCount = 14;
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.5F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.5F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.5F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.75F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.layoutPanelMain.Size = new System.Drawing.Size(1024, 668);
+            this.layoutPanelMain.TabIndex = 7;
             // 
             // fieldTemplateValue
             // 
             this.fieldTemplateValue.AutoSize = true;
             this.fieldTemplateValue.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanel.SetColumnSpan(this.fieldTemplateValue, 3);
+            this.layoutPanelMain.SetColumnSpan(this.fieldTemplateValue, 3);
             this.fieldTemplateValue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldTemplateValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldTemplateValue.ForeColor = System.Drawing.SystemColors.ButtonShadow;
@@ -210,7 +210,7 @@
             // 
             this.fieldPrintShipping.AutoSize = true;
             this.fieldPrintShipping.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanel.SetColumnSpan(this.fieldPrintShipping, 3);
+            this.layoutPanelMain.SetColumnSpan(this.fieldPrintShipping, 3);
             this.fieldPrintShipping.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintShipping.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintShipping.ForeColor = System.Drawing.SystemColors.ButtonShadow;
@@ -229,7 +229,7 @@
             this.fieldWarning.AutoSize = true;
             this.fieldWarning.BackColor = System.Drawing.Color.LightYellow;
             this.fieldWarning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.layoutPanel.SetColumnSpan(this.fieldWarning, 4);
+            this.layoutPanelMain.SetColumnSpan(this.fieldWarning, 4);
             this.fieldWarning.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldWarning.Enabled = false;
             this.fieldWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -266,7 +266,7 @@
             // 
             this.fieldMemory.AutoSize = true;
             this.fieldMemory.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanel.SetColumnSpan(this.fieldMemory, 3);
+            this.layoutPanelMain.SetColumnSpan(this.fieldMemory, 3);
             this.fieldMemory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMemory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldMemory.ForeColor = System.Drawing.SystemColors.ButtonShadow;
@@ -312,7 +312,7 @@
             // 
             this.fieldMassa.AutoSize = true;
             this.fieldMassa.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanel.SetColumnSpan(this.fieldMassa, 3);
+            this.layoutPanelMain.SetColumnSpan(this.fieldMassa, 3);
             this.fieldMassa.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldMassa.ForeColor = System.Drawing.SystemColors.ButtonShadow;
@@ -406,7 +406,7 @@
             // 
             this.fieldPrintMain.AutoSize = true;
             this.fieldPrintMain.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanel.SetColumnSpan(this.fieldPrintMain, 3);
+            this.layoutPanelMain.SetColumnSpan(this.fieldPrintMain, 3);
             this.fieldPrintMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintMain.ForeColor = System.Drawing.SystemColors.ButtonShadow;
@@ -424,7 +424,7 @@
             this.fieldPlu.AutoSize = true;
             this.fieldPlu.BackColor = System.Drawing.Color.LightYellow;
             this.fieldPlu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.layoutPanel.SetColumnSpan(this.fieldPlu, 4);
+            this.layoutPanelMain.SetColumnSpan(this.fieldPlu, 4);
             this.fieldPlu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPlu.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPlu.ForeColor = System.Drawing.Color.Black;
@@ -439,7 +439,7 @@
             // layoutPanelTop
             // 
             this.layoutPanelTop.ColumnCount = 5;
-            this.layoutPanel.SetColumnSpan(this.layoutPanelTop, 4);
+            this.layoutPanelMain.SetColumnSpan(this.layoutPanelTop, 4);
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
@@ -484,24 +484,24 @@
             this.fieldTitle.Text = "ScalesUI";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // MainForm
+            // WsMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 668);
-            this.Controls.Add(this.layoutPanel);
+            this.Controls.Add(this.layoutPanelMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "MainForm";
+            this.Name = "WsMainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Печать этикеток";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.layoutPanel.ResumeLayout(false);
-            this.layoutPanel.PerformLayout();
+            this.layoutPanelMain.ResumeLayout(false);
+            this.layoutPanelMain.PerformLayout();
             this.layoutPanelTop.ResumeLayout(false);
             this.layoutPanelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
@@ -513,7 +513,7 @@
         private System.Windows.Forms.Label labelNettoWeight;
         private System.Windows.Forms.Label fieldPackageWeight;
         private System.Windows.Forms.Label fieldNettoWeight;
-        private System.Windows.Forms.TableLayoutPanel layoutPanel;
+        private System.Windows.Forms.TableLayoutPanel layoutPanelMain;
         private System.Windows.Forms.Label fieldPlu;
         private System.Windows.Forms.Label labelPackageWeight;
         private System.Windows.Forms.Label labelKneading;

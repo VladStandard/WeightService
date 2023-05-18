@@ -18,7 +18,7 @@ public static class WsWinFormUtils
     /// <param name="columnSpan"></param>
     /// <param name="tabIndex"></param>
     /// <returns></returns>
-    public static TableLayoutPanel NewTableLayoutPanel(TableLayoutPanel tableLayoutPanelParent, string name,
+    public static TableLayoutPanel NewTableLayoutPanel(TableLayoutPanel layoutPanel, string name,
         int column, int row, int columnSpan, int tabIndex)
     {
         TableLayoutPanel tableLayoutPanel = new()
@@ -33,20 +33,20 @@ public static class WsWinFormUtils
         tableLayoutPanel.ColumnStyles.Add(new(SizeType.Percent, 100F));
         tableLayoutPanel.RowStyles.Clear();
         tableLayoutPanel.RowStyles.Add(new(SizeType.Percent, 100F));
-        tableLayoutPanelParent.Controls.Add(tableLayoutPanel, column, row);
-        tableLayoutPanelParent.SetColumnSpan(tableLayoutPanel, columnSpan);
+        layoutPanel.Controls.Add(tableLayoutPanel, column, row);
+        layoutPanel.SetColumnSpan(tableLayoutPanel, columnSpan);
         return tableLayoutPanel;
     }
 
     /// <summary>
     /// Create a Button.
     /// </summary>
-    /// <param name="tableLayoutPanel"></param>
+    /// <param name="layoutPanel"></param>
     /// <param name="name"></param>
     /// <param name="column"></param>
     /// <param name="row"></param>
     /// <returns></returns>
-    public static Button NewTableLayoutPanelButton(TableLayoutPanel tableLayoutPanel, string name, int column, int row)
+    public static Button NewTableLayoutPanelButton(TableLayoutPanel layoutPanel, string name, int column, int row)
     {
         Button button = new()
         {
@@ -61,35 +61,35 @@ public static class WsWinFormUtils
             UseVisualStyleBackColor = false,
             TabIndex = 100 + column,
         };
-        tableLayoutPanel.Controls.Add(button, column - 1, row > 0 ? row : 0);
+        layoutPanel.Controls.Add(button, column - 1, row > 0 ? row : 0);
         return button;
     }
 
     /// <summary>
     /// Set the ColumnStyles for TableLayoutPanel.
     /// </summary>
-    /// <param name="tableLayoutPanel"></param>
-    public static void SetTableLayoutPanelColumnStyles(TableLayoutPanel tableLayoutPanel)
+    /// <param name="layoutPanel"></param>
+    public static void SetTableLayoutPanelColumnStyles(TableLayoutPanel layoutPanel)
     {
-        float columnSize = (float)100 / tableLayoutPanel.ColumnCount;
-        tableLayoutPanel.ColumnStyles.Clear();
-        for (int i = 0; i < tableLayoutPanel.ColumnCount; i++)
+        float columnSize = (float)100 / layoutPanel.ColumnCount;
+        layoutPanel.ColumnStyles.Clear();
+        for (int i = 0; i < layoutPanel.ColumnCount; i++)
         {
-            tableLayoutPanel.ColumnStyles.Add(new(SizeType.Percent, columnSize));
+            layoutPanel.ColumnStyles.Add(new(SizeType.Percent, columnSize));
         }
     }
 
     /// <summary>
     /// Set the ColumnStyles for TableLayoutPanel.
     /// </summary>
-    /// <param name="tableLayoutPanel"></param>
-    public static void SetTableLayoutPanelRowStyles(TableLayoutPanel tableLayoutPanel)
+    /// <param name="layoutPanel"></param>
+    public static void SetTableLayoutPanelRowStyles(TableLayoutPanel layoutPanel)
     {
-        float size = (float)100 / tableLayoutPanel.RowCount;
-        tableLayoutPanel.RowStyles.Clear();
-        for (int i = 0; i < tableLayoutPanel.RowCount; i++)
+        float size = (float)100 / layoutPanel.RowCount;
+        layoutPanel.RowStyles.Clear();
+        for (int i = 0; i < layoutPanel.RowCount; i++)
         {
-            tableLayoutPanel.RowStyles.Add(new(SizeType.Percent, size));
+            layoutPanel.RowStyles.Add(new(SizeType.Percent, size));
         }
     }
 

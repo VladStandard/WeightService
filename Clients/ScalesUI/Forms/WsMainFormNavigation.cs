@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLabelCore.Controls;
+
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -13,15 +15,24 @@ public partial class WsMainForm
     private void PreLoadNavigation()
     {
         // Навигация.
-        WsWinFormNavigationUtils.LayoutPanel = layoutPanel;
         WsWinFormNavigationUtils.NavigationUserControl = new();
+        WsWinFormNavigationUtils.LayoutPanelMain = layoutPanelMain;
         //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnOk = WsWinFormNavigationUtils.ReturnBackDefault;
         //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnOk += ActionFinally;
         //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnCancel = WsWinFormNavigationUtils.ReturnBackDefault;
         //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnCancel += ActionFinally;
         //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnFinally = () => { };  // Sorry, but this is it.
-        WsWinFormNavigationUtils.NavigationUserControl.Parent = this;
+        //WsWinFormNavigationUtils.NavigationUserControl.Parent = this;
+        Controls.Add(WsWinFormNavigationUtils.NavigationUserControl);
         WsWinFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
+        // Ожидание.
+        WsWinFormNavigationUtils.WaitUserControl = new();
+        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk = ReturnFromWait;
+        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackDefault;
+        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk += ActionFinally;
+        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnCancel = ReturnFromWait;
+        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackDefault;
+        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnCancel += ActionFinally;
         // Замес.
         WsWinFormNavigationUtils.KneadingUserControl = new();
         WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionReturnOk = ReturnFromKneading;
@@ -62,14 +73,6 @@ public partial class WsMainForm
         WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnCancel = ReturnCancelFromPlusNesting;
         WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackDefault;
         WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnCancel += ActionFinally;
-        // Ожидание.
-        WsWinFormNavigationUtils.WaitUserControl = new();
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk = ReturnFromWait;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackDefault;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk += ActionFinally;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnCancel = ReturnFromWait;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackDefault;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnCancel += ActionFinally;
     }
 
     private void ReturnFromWait()
@@ -169,6 +172,11 @@ public partial class WsMainForm
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
         WsSqlTemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
         MdInvokeControl.SetText(fieldTemplateValue, template.Title);
+
+        // Отобразить main control.
+        WsWinFormNavigationUtils.NavigationUserControl.Visible = false;
+        WsWinFormNavigationUtils.LayoutPanelMain.Visible = true;
+        System.Windows.Forms.Application.DoEvents();
     }
 
     /// <summary>
@@ -192,8 +200,7 @@ public partial class WsMainForm
             if (!isOk) return;
             // See the MainForm_FormClosing() method.
             Close();
-        }
-        );
+        });
     }
 
     /// <summary>
