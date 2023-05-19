@@ -519,7 +519,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluNestingFk, false, pluXml.Uid1C))
                 // Обновить список БД.
-                Cache.Load(WsSqlTableName.ViewPluNesting);
+                Cache.Load(WsSqlTableName.ViewPlusNesting);
         }
         catch (Exception ex)
         {

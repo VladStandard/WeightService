@@ -38,9 +38,10 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlPluGroupModel> PluGroupsDb { get; private set; } = new();
     public List<WsSqlPluModel> PlusDb { get; private set; } = new();
     public List<WsSqlProductionFacilityModel> ProductionFacilitiesDb { get; private set; } = new();
-    public List<WsSqlScaleModel> ScalesDb { get; private set; } = new();
-    public List<WsSqlViewPluScaleModel> ViewPlusScalesDb { get; private set; } = new();
-    public List<WsSqlViewPluScaleModel> CurrentViewPlusScalesDb { get; private set; } = new();
+    public List<WsSqlScaleModel> Scales { get; private set; } = new();
+    
+    public List<WsSqlViewPluScaleModel> ViewPlusScales { get; private set; } = new();
+    public List<WsSqlViewPluScaleModel> CurrentViewPlusScales { get; private set; } = new();
     public List<WsSqlViewPluStorageMethodModel> ViewPlusStorageMethods { get; private set; } = new();
     public List<WsSqlViewPluNestingModel> ViewPlusNesting { get; set; } = new();
 
@@ -63,8 +64,8 @@ public sealed class WsSqlContextCacheHelper
             PlusDb = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
         if (!ProductionFacilitiesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ProductionFacilities))
             ProductionFacilitiesDb = ContextManager.ContextList.GetListNotNullableProductionFacilities(SqlCrudConfig);
-        if (!ScalesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Scales))
-            ScalesDb = ContextManager.ContextList.GetListNotNullableScales(SqlCrudConfig);
+        if (!Scales.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Scales))
+            Scales = ContextManager.ContextList.GetListNotNullableScales(SqlCrudConfig);
         if (!PluFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluFks)) 
             PluFksDb = ContextManager.ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
         if (!BoxesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Boxes)) 
@@ -93,11 +94,11 @@ public sealed class WsSqlContextCacheHelper
             BrandsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
         
         // Views.
-        if (!ViewPlusScalesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusScales))
-            ViewPlusScalesDb = ContextManager.ContextView.GetListViewPlusScales();
-        if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPluStorageMethods))
+        if (!ViewPlusScales.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusScales))
+            ViewPlusScales = ContextManager.ContextView.GetListViewPlusScales();
+        if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusStorageMethods))
             ViewPlusStorageMethods = ContextManager.ContextView.GetListViewPlusStorageMethods();
-        if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPluNesting))
+        if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusNesting))
             ViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting();
         
         // Optimize.
@@ -106,29 +107,24 @@ public sealed class WsSqlContextCacheHelper
     }
 
     public List<WsSqlViewPluScaleModel> GetViewPlusScalesDb(ushort scaleId) => 
-        ViewPlusScalesDb.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive).ToList();
+        ViewPlusScales.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive).ToList();
 
     public List<WsSqlViewPluScaleModel> GetViewPlusScalesDb(ushort scaleId, int pageNumber, ushort pageSize) =>
-        ViewPlusScalesDb.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive)
+        ViewPlusScales.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive)
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
             .ToList();
 
     public void LoadCurrentViewPlusScales(ushort scaleId)
     {
-        CurrentViewPlusScalesDb = ContextManager.ContextView.GetListViewPlusScales(scaleId);
+        CurrentViewPlusScales = ContextManager.ContextView.GetListViewPlusScales(scaleId);
     }
 
     public List<WsSqlViewPluScaleModel> GetCurrentViewPlusScalesDb(int pageNumber, ushort pageSize) =>
-        CurrentViewPlusScalesDb.Where(item => item.IsActive)
+        CurrentViewPlusScales.Where(item => item.IsActive)
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
             .ToList();
-
-    //public void LoadCurrentViewPlusStorageMethodsFks(ushort scaleId)
-    //{
-    //    CurrentViewPlusStorageMethodsFks = ContextManager.ContextView.GetListViewPlusStorageMethods();
-    //}
 
     #endregion
 }

@@ -721,7 +721,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         };
 
     public int GetPlusPageCount() => 
-        ContextCache.CurrentViewPlusScalesDb.Where(item => item.IsActive).ToList().Count / PlusPageSize;
+        ContextCache.CurrentViewPlusScales.Where(item => item.IsActive).ToList().Count / PlusPageSize;
 
     /// <summary>
     /// Задать список вложенностей ПЛУ.

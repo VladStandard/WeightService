@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableRefModels.Plus1CFk;
 
-namespace WsStorageContextTests.TableRefModels;
+namespace WsStorageContextTests.TableRefFkModels;
 
 [TestFixture]
 public sealed class WsSqlPlu1CFkContentTests

@@ -24,6 +24,6 @@ public enum WsSqlTableName
     Scales,
     ProductionFacilities,
     ViewPlusScales, // вместо PlusScales
-    ViewPluStorageMethods, // вместо PluStorageMethodsFks
-    ViewPluNesting, // вместо PluNestingFks
+    ViewPlusStorageMethods, // вместо PluStorageMethodsFks
+    ViewPlusNesting, // вместо PluNestingFks
 }

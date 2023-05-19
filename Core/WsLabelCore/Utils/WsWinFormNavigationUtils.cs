@@ -57,30 +57,40 @@ public static class WsWinFormNavigationUtils
         switch (navigationPage)
         {
             case WsNavigationPage.Kneading:
+                // Навигация.
                 NavigationUserControl.AddUserControl(KneadingUserControl, message);
                 break;
             case WsNavigationPage.Lines:
                 // Обновить кэш.
+                ContextCache.Load(WsSqlTableName.ViewPlusScales);
                 ContextCache.LoadCurrentViewPlusScales((ushort)UserSession.Scale.IdentityValueId);
                 ContextCache.Load(WsSqlTableName.ProductionFacilities);
                 ContextCache.Load(WsSqlTableName.Scales);
-                ContextCache.Load(WsSqlTableName.ViewPluStorageMethods);
-                ContextCache.Load(WsSqlTableName.ViewPluNesting);
+                // Навигация.
                 NavigationUserControl.AddUserControl(LinesUserControl, message);
                 break;
             case WsNavigationPage.MessageBox:
+                // Навигация.
                 NavigationUserControl.AddUserControl(MessageBoxUserControl, message);
                 break;
             case WsNavigationPage.More:
+                // Навигация.
                 NavigationUserControl.AddUserControl(MoreUserControl, message);
                 break;
             case WsNavigationPage.Plus:
+                // Обновить кэш.
+                ContextCache.Load(WsSqlTableName.ViewPlusScales);
+                ContextCache.Load(WsSqlTableName.ViewPlusStorageMethods);
+                ContextCache.Load(WsSqlTableName.ViewPlusNesting);
+                // Навигация.
                 NavigationUserControl.AddUserControl(PlusUserControl, message);
                 break;
             case WsNavigationPage.PlusNesting:
+                // Навигация.
                 NavigationUserControl.AddUserControl(PlusNestingUserControl, message);
                 break;
             case WsNavigationPage.Wait:
+                // Навигация.
                 NavigationUserControl.AddUserControl(WaitUserControl, message);
                 break;
         }

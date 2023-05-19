@@ -476,7 +476,7 @@ public partial class WsMainForm
             // Проверить наличие ПЛУ.
             if (!ActionCheckPluIdentityIsNew()) return;
             // Обновить кэш.
-            UserSession.ContextCache.Load(WsSqlTableName.ViewPluNesting);
+            UserSession.ContextCache.Load(WsSqlTableName.ViewPlusNesting);
             // Навигация.
             WsWinFormNavigationUtils.NavigateToControlPlusNesting();
         });

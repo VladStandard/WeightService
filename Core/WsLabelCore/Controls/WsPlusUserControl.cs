@@ -120,7 +120,7 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
         {
             if (sender is Control { Tag: WsSqlViewPluScaleModel viewPluScale })
             {
-                if (UserSession.ContextCache.CurrentViewPlusScalesDb.Any())
+                if (UserSession.ContextCache.CurrentViewPlusScales.Any())
                 {
                     UserSession.PluScale = UserSession.ContextManager.ContextPluScale.GetItem(
                         UserSession.Scale.IdentityValueId, viewPluScale.PluNumber);

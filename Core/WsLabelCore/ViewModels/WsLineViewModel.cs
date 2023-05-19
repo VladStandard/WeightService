@@ -38,7 +38,7 @@ public sealed class WsLineViewModel : WsWpfBaseViewModel
     }
     public List<WsSqlScaleModel> Lines
     {
-        get => ContextCache.ScalesDb;
+        get => ContextCache.Scales;
         private set
         {
             _ = value;
