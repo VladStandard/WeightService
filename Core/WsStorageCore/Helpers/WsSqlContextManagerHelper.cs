@@ -37,6 +37,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlPluNestingFkController ContextPluNesting => WsSqlPluNestingFkController.Instance;
     public WsSqlPluScaleController ContextPluScale => WsSqlPluScaleController.Instance;
     public WsSqlPluStorageMethodFkController ContextPluStorage => WsSqlPluStorageMethodFkController.Instance;
+    public WsSqlScaleController ContextScale => WsSqlScaleController.Instance;
     public WsSqlTemplateController ContextTemplate => WsSqlTemplateController.Instance;
     
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;

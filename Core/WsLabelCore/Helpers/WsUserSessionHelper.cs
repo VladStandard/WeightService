@@ -765,5 +765,18 @@ public sealed class WsUserSessionHelper : BaseViewModel
         return true;
     }
 
+    /// <summary>
+    /// Обновить кэш.
+    /// </summary>
+    public void RefreshCache()
+    {
+        ContextCache.Load(WsSqlTableName.ProductionFacilities);
+        ContextCache.Load(WsSqlTableName.Scales);
+        //ContextCache.Load(WsSqlTableName.ViewPlusScales);
+        ContextCache.LoadCurrentViewPlusScales((ushort)Scale.IdentityValueId);
+        ContextCache.Load(WsSqlTableName.ViewPlusStorageMethods);
+        ContextCache.Load(WsSqlTableName.ViewPlusNesting);
+    }
+
     #endregion
 }

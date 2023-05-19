@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLabelCore.Controls;
-
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -14,6 +12,8 @@ public partial class WsMainForm
     /// </summary>
     private void PreLoadNavigation()
     {
+        // Обновить кэш.
+        UserSession.RefreshCache();
         // Навигация.
         WsWinFormNavigationUtils.NavigationUserControl = new();
         WsWinFormNavigationUtils.LayoutPanelMain = layoutPanelMain;

@@ -29,6 +29,28 @@ public sealed class WsSqlContextCacheHelperTests
     }
 
     [Test]
+    public void Get_cache_view_plus_scales_current()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlScaleModel> scales = WsTestsUtils.DataTests.ContextManager.ContextScale.GetList();
+            Assert.IsTrue(scales.Any());
+
+            bool isPrintFirst = false;
+            foreach (WsSqlScaleModel scale in scales)
+            {
+                WsTestsUtils.DataTests.ContextCache.LoadCurrentViewPlusScales((ushort)scale.IdentityValueId);
+                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.CurrentViewPlusScales.Any());
+                if (!isPrintFirst)
+                {
+                    isPrintFirst = true;
+                    WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.CurrentViewPlusScales, 10);
+                }
+            }
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+    }
+
+    [Test]
     public void Get_cache_view_plus_storage_methods()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
