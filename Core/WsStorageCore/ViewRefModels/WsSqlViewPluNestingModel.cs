@@ -36,6 +36,7 @@ public sealed record WsSqlViewPluNestingModel : WsSqlViewBase
     public string BoxName { get; init; }
     public decimal BoxWeight { get; init; }
     public decimal TareWeight { get; init; }
+    public string PrettyName => ToString();
 
     public WsSqlViewPluNestingModel() : this(Guid.Empty, default, default, default,
         default, default, default, Guid.Empty, Guid.Empty, default, default, default, default, string.Empty,

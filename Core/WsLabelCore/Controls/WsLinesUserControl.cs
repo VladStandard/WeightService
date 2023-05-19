@@ -16,7 +16,7 @@ public sealed partial class WsLinesUserControl : WsBaseUserControl
     {
         InitializeComponent();
         
-        ViewModel = new() { Area = UserSession.ProductionFacility, Line = UserSession.Scale };
+        ViewModel = new();
         Page = new(ViewModel);
         ElementHost = new() { Dock = DockStyle.Fill };
         ElementHost.Child = Page;

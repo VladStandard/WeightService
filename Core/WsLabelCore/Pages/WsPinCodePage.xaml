@@ -44,7 +44,7 @@
 		<Button
 			Grid.Row="1"
 			Grid.Column="0"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -53,7 +53,7 @@
 		<Button
 			Grid.Row="1"
 			Grid.Column="1"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -62,7 +62,7 @@
 		<Button
 			Grid.Row="1"
 			Grid.Column="2"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -72,7 +72,7 @@
 		<Button
 			Grid.Row="2"
 			Grid.Column="0"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -81,7 +81,7 @@
 		<Button
 			Grid.Row="2"
 			Grid.Column="1"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -90,7 +90,7 @@
 		<Button
 			Grid.Row="2"
 			Grid.Column="2"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -100,7 +100,7 @@
 		<Button
 			Grid.Row="3"
 			Grid.Column="0"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -109,7 +109,7 @@
 		<Button
 			Grid.Row="3"
 			Grid.Column="1"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -118,7 +118,7 @@
 		<Button
 			Grid.Row="3"
 			Grid.Column="2"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -128,7 +128,7 @@
 		<Button
 			Grid.Row="4"
 			Grid.Column="0"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonNum_Click"
@@ -137,7 +137,7 @@
 		<Button
 			Grid.Row="4"
 			Grid.Column="1"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonClear_Click"
@@ -146,7 +146,7 @@
 		<Button
 			Grid.Row="4"
 			Grid.Column="2"
-			Margin="2"
+			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
 			Click="ButtonEnter_Click"

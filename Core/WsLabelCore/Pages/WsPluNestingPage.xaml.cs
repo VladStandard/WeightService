@@ -2,6 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MismatchedFileName
 
+using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
+using System.Windows.Data;
+
 namespace WsLabelCore.Pages;
 
 /// <summary>
@@ -16,8 +20,15 @@ public partial class WsPluNestingPage : WsBasePage, INavigableView<WsPluNestingV
     public WsPluNestingPage(WsPluNestingViewModel viewModel)
     {
 		InitializeComponent();
-        ViewModel = viewModel;
-        //SetItemViewFromList(comboBoxPluNesting, ViewModel.ViewPluNestings, ViewModel.ViewPluNesting);
+        DataContext = ViewModel = viewModel;
+
+        // Линия.
+        System.Windows.Data.Binding bindingPlusNestings = new(nameof(ViewModel.PlusNestings)) { Mode = BindingMode.OneWay, Source = ViewModel };
+        comboBoxPluNesting.SetBinding(ItemsControl.ItemsSourceProperty, bindingPlusNestings);
+        System.Windows.Data.Binding bindingPluNesting = new(nameof(ViewModel.PluNesting)) { Mode = BindingMode.TwoWay, Source = ViewModel };
+        comboBoxPluNesting.SetBinding(Selector.SelectedItemProperty, bindingPluNesting);
+        System.Windows.Data.Binding bindingPluNestingValue = new(nameof(ViewModel.PluNesting.PrettyName)) { Mode = BindingMode.OneWay, Source = ViewModel };
+        comboBoxPluNesting.SetBinding(Selector.SelectedValueProperty, bindingPluNestingValue);
     }
 
     #endregion

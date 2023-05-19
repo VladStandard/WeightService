@@ -22,7 +22,7 @@
 
 	<Border
 		Name="borderMain"
-		Margin="2"
+		Margin="3"
 		BorderBrush="Blue"
 		BorderThickness="1"
 		KeyUp="Button_KeyUp" />

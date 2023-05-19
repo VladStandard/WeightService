@@ -16,7 +16,7 @@ public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
     {
         InitializeComponent();
         
-        ViewModel = new() { ViewPluNesting = UserSession.ViewPluNesting };
+        ViewModel = new();
         Page = new(ViewModel);
         ElementHost = new() { Dock = DockStyle.Fill };
         ElementHost.Child = Page;
@@ -31,7 +31,8 @@ public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            ViewModel.ViewPluNesting = UserSession.ViewPluNesting;
+            ViewModel.Plu = UserSession.PluScale.Plu;
+            ViewModel.PluNesting = UserSession.ViewPluNesting;
         });
     }
 

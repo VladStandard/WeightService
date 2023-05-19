@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using Wpf.Ui.Mvvm.Interfaces;
+
 namespace WsLabelCore.Utils;
 
 #nullable enable
@@ -60,6 +62,7 @@ public static class WsWinFormNavigationUtils
                 NavigationUserControl.AddUserControl(KneadingUserControl, message);
                 break;
             case WsNavigationPage.Lines:
+                //LinesUserControl.ViewModel = new() { Area = UserSession.ProductionFacility, Line = UserSession.Scale };
                 NavigationUserControl.AddUserControl(LinesUserControl, message);
                 break;
             case WsNavigationPage.MessageBox:
@@ -72,6 +75,7 @@ public static class WsWinFormNavigationUtils
                 NavigationUserControl.AddUserControl(PlusUserControl, message);
                 break;
             case WsNavigationPage.PlusNesting:
+                //PlusNestingUserControl.ViewModel = new() { Plu = UserSession.PluScale.Plu, PluNesting = UserSession.ViewPluNesting };
                 NavigationUserControl.AddUserControl(PlusNestingUserControl, message);
                 break;
             case WsNavigationPage.Wait:

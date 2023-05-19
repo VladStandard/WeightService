@@ -731,17 +731,17 @@ public sealed class WsUserSessionHelper : BaseViewModel
     {
         // Для новой ПЛУ.
         if (plu.IsNew)
-            PagePluNestingView.ViewPluNestings = new() { ViewPluNesting };
+            PagePluNestingView.PlusNestings = new() { ViewPluNesting };
         // Для существующей ПЛУ.
         else
         {
-            PagePluNestingView.ViewPluNestings = ContextCache.ViewPlusNesting.Where(item => item.PluUid.Equals(plu.IdentityValueUid)).ToList();
-            if (!PagePluNestingView.ViewPluNestings.Any())
+            PagePluNestingView.PlusNestings = ContextCache.ViewPlusNesting.Where(item => item.PluUid.Equals(plu.IdentityValueUid)).ToList();
+            if (!PagePluNestingView.PlusNestings.Any())
                 ViewPluNesting = ContextManager.ContextPluNesting.GetNewView();
             else
-                ViewPluNesting = PagePluNestingView.ViewPluNestings.Exists(item => item.IsDefault)
-                    ? PagePluNestingView.ViewPluNestings.Find(item => item.IsDefault)
-                    : PagePluNestingView.ViewPluNestings.First();
+                ViewPluNesting = PagePluNestingView.PlusNestings.Exists(item => item.IsDefault)
+                    ? PagePluNestingView.PlusNestings.Find(item => item.IsDefault)
+                    : PagePluNestingView.PlusNestings.First();
         }
     }
     
@@ -755,7 +755,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     {
         SetListViewPlusNesting(plu);
         //if (Item.IsNew && List.Any())
-        if (PagePluNestingView.ViewPluNestings.Any())
+        if (PagePluNestingView.PlusNestings.Any())
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluPackageNotSelect);

@@ -121,7 +121,7 @@ public partial class WsMainForm
     /// </summary>
     private void ReturnOkFromPlusNesting()
     {
-        UserSession.ViewPluNesting = WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ViewPluNesting;
+        UserSession.ViewPluNesting = WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.PluNesting;
     }
 
     /// <summary>

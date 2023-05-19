@@ -44,6 +44,7 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlViewPluScaleModel> CurrentViewPlusScales { get; private set; } = new();
     public List<WsSqlViewPluStorageMethodModel> ViewPlusStorageMethods { get; private set; } = new();
     public List<WsSqlViewPluNestingModel> ViewPlusNesting { get; set; } = new();
+    public List<WsSqlViewPluNestingModel> CurrentViewPlusNesting { get; private set; } = new();
 
     #endregion
 
@@ -125,6 +126,12 @@ public sealed class WsSqlContextCacheHelper
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
             .ToList();
+
+    public void LoadCurrentViewPlusNesting(ushort pluNumber)
+    {
+        // STOP HERE
+        CurrentViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting();
+    }
 
     #endregion
 }

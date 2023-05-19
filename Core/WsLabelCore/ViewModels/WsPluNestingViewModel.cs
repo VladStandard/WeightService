@@ -7,29 +7,17 @@ public sealed class WsPluNestingViewModel : WsWpfBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlViewPluNestingModel _viewPluNesting;
-    public WsSqlViewPluNestingModel ViewPluNesting
-    {
-        get => _viewPluNesting;
-        set
-        {
-            _viewPluNesting = value;
-            OnPropertyChanged();
-        }
-    }
-    public List<WsSqlViewPluNestingModel> ViewPluNestings
-    {
-        get => ContextCache.ViewPlusNesting;
-        set
-        {
-            _ = value;
-            OnPropertyChanged();
-        }
-    }
+    private WsSqlPluModel _plu;
+    public WsSqlPluModel Plu { get => _plu; set { _plu = value; OnPropertyChanged(); } }
+    private WsSqlViewPluNestingModel _pluNesting;
+    public WsSqlViewPluNestingModel PluNesting { get => _pluNesting; set { _pluNesting = value; OnPropertyChanged(); } }
+    private List<WsSqlViewPluNestingModel> _plusNestings;
+    public List<WsSqlViewPluNestingModel> PlusNestings { get => _plusNestings; set { _plusNestings = value; OnPropertyChanged(); } }
 
     public WsPluNestingViewModel()
     {
-        //
+        //Plu = WsUserSessionHelper.Instance.PluScale.Plu;
+        PlusNestings = ContextCache.CurrentViewPlusScales;
     }
 
     #endregion

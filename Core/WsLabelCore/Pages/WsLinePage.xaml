@@ -5,7 +5,6 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:pages="clr-namespace:WsLabelCore.Pages"
-	d:DataContext="{d:DesignInstance pages:WsLinePage}"
 	d:DesignHeight="500"
 	d:DesignWidth="800"
 	FontSize="26"
@@ -20,7 +19,7 @@
 	</pages:WsBasePage.Resources>
 
 	<Border
-		Margin="2"
+		Margin="3"
 		BorderBrush="Blue"
 		BorderThickness="1">
 		<Grid>
@@ -35,7 +34,7 @@
 			</Grid.RowDefinitions>
 			<Label
 				Grid.Row="0"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Content="{Binding Source={StaticResource LocaleTable}, Path=Area}" />
@@ -43,19 +42,16 @@
 				x:Name="comboBoxArea"
 				Grid.Row="0"
 				Grid.Column="1"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Background="Transparent"
 				DisplayMemberPath="Name"
 				FontSize="26"
-				ItemsSource="{Binding ViewModel.Areas}"
-				SelectedItem="{Binding ViewModel.Area}"
-				SelectedValue="{Binding ViewModel.Area.Name}"
 				SelectedValuePath="Name" />
 			<Label
 				Grid.Row="1"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Content="{Binding Source={StaticResource LocaleTable}, Path=Line}" />
@@ -63,19 +59,16 @@
 				x:Name="comboBoxLine"
 				Grid.Row="1"
 				Grid.Column="1"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Background="Transparent"
 				DisplayMemberPath="NumberWithDescription"
 				FontSize="26"
-				ItemsSource="{Binding ViewModel.Lines, Mode=OneWay}"
-				SelectedItem="{Binding ViewModel.Line, Mode=TwoWay}"
-				SelectedValue="{Binding ViewModel.Line.NumberWithDescription, Mode=TwoWay}"
 				SelectedValuePath="Description" />
 			<Button
 				Grid.Row="2"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Click="ButtonOk_OnClick"
@@ -84,7 +77,7 @@
 			<Button
 				Grid.Row="2"
 				Grid.Column="1"
-				Margin="2"
+				Margin="3"
 				Click="ButtonCancel_OnClick"
 				Command="{Binding ViewModel.ReturnCancelCommand}"
 				Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel}" />

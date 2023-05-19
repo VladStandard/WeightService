@@ -20,7 +20,7 @@
 	</pages:WsBasePage.Resources>
 
 	<Border
-		Margin="2"
+		Margin="3"
 		BorderBrush="Blue"
 		BorderThickness="1">
 		<Grid>
@@ -35,20 +35,20 @@
 				<RowDefinition Height="1*" />
 			</Grid.RowDefinitions>
 			<Label
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Content="{Binding Source={StaticResource LocaleTable}, Path=Plu, Mode=OneWay}" />
 			<Label
 				Grid.Column="1"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
-				Content="{Binding ViewModel.PluScale.Plu.Name, Mode=OneWay}" />
+				Content="{Binding ViewModel.Plu.Name, Mode=OneWay}" />
 			<Label
 				Grid.Row="1"
 				Grid.Column="0"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Content="{Binding Source={StaticResource LocaleTable}, Path=PluNesting, Mode=OneWay}" />
@@ -56,33 +56,31 @@
 				x:Name="comboBoxPluNesting"
 				Grid.Row="1"
 				Grid.Column="1"
+				Margin="3"
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Background="Transparent"
-				DisplayMemberPath="Name"
+				DisplayMemberPath="PrettyName"
 				FontSize="26"
-				ItemsSource="{Binding ViewModel.ViewPluNestings, Mode=OneWay}"
-				SelectedItem="{Binding ViewModel.ViewPluNesting, Mode=TwoWay}"
-				SelectedValue="{Binding ViewModel.ViewPluNesting, Mode=TwoWay}"
-				SelectedValuePath="" />
+				SelectedValuePath="PrettyName" />
 			<Label
 				Grid.Row="2"
 				Grid.Column="0"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Content="{Binding Source={StaticResource LocaleTable}, Path=WeightTare, Mode=OneWay}" />
 			<Label
 				Grid.Row="2"
 				Grid.Column="1"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
-				Content="{Binding ViewModel.PagePluNestingView.ViewPluNesting.WeightTareKg, Mode=OneWay}" />
+				Content="{Binding ViewModel.PluNesting.TareWeight, Mode=OneWay}" />
 			<Button
 				Grid.Row="3"
 				Grid.Column="0"
-				Margin="2"
+				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Click="ButtonApply_OnClick"
@@ -90,7 +88,7 @@
 			<Button
 				Grid.Row="3"
 				Grid.Column="1"
-				Margin="2"
+				Margin="3"
 				Click="ButtonCancel_OnClick"
 				Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel, Mode=OneWay}" />
 		</Grid>
