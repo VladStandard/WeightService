@@ -46,24 +46,24 @@
       <RzTextBoxLocal @bind-Value="@SqlItemCast.Password"/>
     </td>
   </tr>
-  <tr>
-    <td>@LocaleCore.DeviceControl.Actions</td>
-    <td>
-      <RadzenButton Click="@(_ => SqlItemPrinterResourcesClear(SqlItemCast))"
-                    class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!ContextManager.AccessManager.IsConnected())"/>
-    </td>
-    <td>
-      <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "TTF"))
-                    class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!ContextManager.AccessManager.IsConnected())"/>
-    </td>
-    <td>
-      <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF"))
-                    class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!ContextManager.AccessManager.IsConnected())"/>
-    </td>
-  </tr>
+  @* <tr> *@
+  @*   <td>@LocaleCore.DeviceControl.Actions</td> *@
+  @*   <td> *@
+  @*     <RadzenButton Click="@(_ => SqlItemPrinterResourcesClear(SqlItemCast))" *@
+  @*                   class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small" *@
+  @*                   Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!ContextManager.AccessManager.IsConnected())"/> *@
+  @*   </td> *@
+  @*   <td> *@
+  @*     <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "TTF")) *@
+  @*                   class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small" *@
+  @*                   Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!ContextManager.AccessManager.IsConnected())"/> *@
+  @*   </td> *@
+  @*   <td> *@
+  @*     <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF")) *@
+  @*                   class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small" *@
+  @*                   Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!ContextManager.AccessManager.IsConnected())"/> *@
+  @*   </td> *@
+  @* </tr> *@
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>

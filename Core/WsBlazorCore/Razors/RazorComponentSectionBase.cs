@@ -178,7 +178,8 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
 		
         RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
         {
-            ContextManager.AccessManager.AccessItem.Mark(SqlItem); ;
+            // TODO: fix GetSectionData
+            ContextManager.AccessManager.AccessItem.Mark(SqlItem);
         });
     }
 
@@ -195,11 +196,12 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
 		
         RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
         {
+            // TODO: fix GetSectionData
             ContextManager.AccessManager.AccessItem.Delete(SqlItem);
         });
     }
     
-    protected async Task SqlItemNewAsync<TItem>() where TItem : WsSqlTableBase, new()
+    protected async Task SqlItemNewAsync()
     {
         if (User?.IsInRole(UserAccessStr.Write) == false) return;
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);

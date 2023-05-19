@@ -9,7 +9,6 @@ global using WsStorageCore.Models;
 global using WsStorageCore.Utils;
 global using Microsoft.AspNetCore.Components.Forms;
 global using Microsoft.AspNetCore.Components;
-global using MudBlazor;
 global using Radzen;
 global using System.Globalization;
 global using WsLocalizationCore.Enums;

@@ -3,7 +3,7 @@
 
 using Radzen;
 using WsBlazorCore.Settings;
-using WsStorageCore.Tables;
+using WsStorageCore.Models;
 using WsStorageCore.Utils;
 
 namespace WsBlazorCore.Razors;
