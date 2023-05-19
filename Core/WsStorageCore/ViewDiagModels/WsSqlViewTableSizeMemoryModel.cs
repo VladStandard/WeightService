@@ -4,47 +4,13 @@
 namespace WsStorageCore.ViewDiagModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewTableSizeMemoryModel
+public sealed record WsSqlViewTableSizeMemoryModel(string SchemaTable, string Schema, string Table,
+    uint RowsCount, ushort UsedSpaceMb, ushort UnusedSpaceMb, ushort TotalSpaceMb) : WsSqlViewBase(Guid.Empty)
 {
     #region Public and private fields, properties, constructor
 
-    public string SchemaTable { get; init; }
-    public string Schema { get; init; }
-    public string Table { get; init; }
-    public uint RowsCount { get; init; }
-    public ushort UsedSpaceMb { get; init; }
-    public ushort UnusedSpaceMb { get; init; }
-    public ushort TotalSpaceMb { get; init; }
-
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
-    public WsSqlViewTableSizeMemoryModel() : this("", "", "", 0, 0, 0)
-    {
-        //
-    }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="schemaTable"></param>
-    /// <param name="schema"></param>
-    /// <param name="table"></param>
-    /// <param name="rowsCount"></param>
-    /// <param name="usedSpaceMb"></param>
-    /// <param name="unusedSpaceMb"></param>
-    /// <param name="totalSpaceMb"></param>
-    public WsSqlViewTableSizeMemoryModel(string schemaTable = "", string schema = "", string table = "",
-        uint rowsCount = 0, ushort usedSpaceMb = 0, ushort unusedSpaceMb = 0, ushort totalSpaceMb = 0)
-    {
-        SchemaTable = schemaTable;
-        Schema = schema;
-        Table = table;
-        RowsCount = rowsCount;
-        UsedSpaceMb = usedSpaceMb;
-        UnusedSpaceMb = unusedSpaceMb;
-        TotalSpaceMb = totalSpaceMb;
-    }
+    public WsSqlViewTableSizeMemoryModel() : this(string.Empty, string.Empty, string.Empty,
+        default, default, default, default) { }
 
     #endregion
 

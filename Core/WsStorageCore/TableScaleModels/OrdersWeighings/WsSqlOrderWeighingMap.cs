@@ -16,11 +16,11 @@ public sealed class WsSqlOrderWeighingMap : ClassMap<WsSqlOrderWeighingModel>
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.OrdersWeighings);
         LazyLoad();
-        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
-        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        References(x => x.Order).Column("ORDER_UID").Not.Nullable();
-        References(x => x.PluWeighing).Column("PLU_WEIGHING_UID").Not.Nullable();
+        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(item => item.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+        Map(item => item.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
+        Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        References(item => item.Order).Column("ORDER_UID").Not.Nullable();
+        References(item => item.PluWeighing).Column("PLU_WEIGHING_UID").Not.Nullable();
     }
 }

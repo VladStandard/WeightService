@@ -121,7 +121,7 @@ public partial class MainWindow : Window
             PrintLabelDpi.Dpi1000 => 40 * TscDriver.Properties.FeedMm,
             PrintLabelDpi.Dpi1100 => 44 * TscDriver.Properties.FeedMm,
             PrintLabelDpi.Dpi1200 => 48 * TscDriver.Properties.FeedMm,
-            _ => throw new ArgumentOutOfRangeException(nameof(TscDriver.Properties.Dpi), TscDriver.Properties.Dpi, null),
+            _ => throw new ArgumentOutOfRangeException(nameof(TscDriver.Properties.Dpi), TscDriver.Properties.Dpi.ToString()),
         };
         if (value > 0)
             TscDriver.SendCmd($"FEED {value}");

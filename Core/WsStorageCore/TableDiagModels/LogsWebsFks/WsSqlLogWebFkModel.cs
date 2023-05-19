@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsSqlTableBase = WsStorageCore.Tables.WsSqlTableBase;
+using WsSqlTableBase = WsStorageCore.Models.WsSqlTableBase;
 
 namespace WsStorageCore.TableDiagModels.LogsWebsFks;
 
@@ -10,7 +10,7 @@ namespace WsStorageCore.TableDiagModels.LogsWebsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlLogWebFkModel : Tables.WsSqlTableBase
+public class WsSqlLogWebFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 

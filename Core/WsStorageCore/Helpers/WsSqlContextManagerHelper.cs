@@ -26,6 +26,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
     public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
     public WsSqlBoxController ContextBox => WsSqlBoxController.Instance;
+    public WsSqlAccessController ContextAccess => WsSqlAccessController.Instance;
     public WsSqlBundleController ContextBundle => WsSqlBundleController.Instance;
     public WsSqlClipController ContextClip => WsSqlClipController.Instance;
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;

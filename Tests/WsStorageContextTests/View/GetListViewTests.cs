@@ -13,7 +13,8 @@ public sealed class GetListViewTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewLogMemoryModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewLogsMemories(200);
+            List<WsSqlViewLogMemoryModel> items = 
+                WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewLogsMemories(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
@@ -24,7 +25,8 @@ public sealed class GetListViewTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewTableSizeMemoryModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewTablesSizes(200);
+            List<WsSqlViewTableSizeMemoryModel> items = 
+                WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewTablesSizes(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
@@ -35,7 +37,8 @@ public sealed class GetListViewTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewPluScaleModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusScales(0 ,200);
+            List<WsSqlViewPluScaleModel> items = 
+                WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusScales(0 ,200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
@@ -46,7 +49,20 @@ public sealed class GetListViewTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewPluStorageMethodModel> items = WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusStorageMethods(200);
+            List<WsSqlViewPluStorageMethodModel> items = 
+                WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusStorageMethods(200);
+            Assert.IsTrue(items.Any());
+            WsTestsUtils.DataTests.PrintTopRecords(items);
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+    }
+    
+    [Test]
+    public void Get_view_plus_nesting()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlViewPluNestingModel> items = 
+                WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewPlusNesting(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });

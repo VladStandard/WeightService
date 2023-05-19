@@ -16,15 +16,10 @@ public sealed partial class Devices : RazorComponentSectionBase<DeviceView>
 
     protected override void SetSqlSectionCast()
     {
-        var query = WsSqlQueriesDiags.Tables.Views.GetDevices(
-            SqlCrudConfigSection.IsResultShowOnlyTop
-                ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-                : 0,
-            SqlCrudConfigSection.IsResultShowMarked
-        );
-        object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(
-            query
-        );
+        var query = WsSqlQueriesDiags.Tables.Views.GetDevices(SqlCrudConfigSection.IsResultShowOnlyTop
+            ? ContextManager.JsonSettings.Local.SelectTopRowsCount
+            : 0, SqlCrudConfigSection.IsMarked);
+        object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<DeviceView> items = new();
         foreach (var obj in objects)
         {

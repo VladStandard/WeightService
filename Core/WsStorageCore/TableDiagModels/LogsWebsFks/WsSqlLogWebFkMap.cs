@@ -16,11 +16,11 @@ public sealed class WsSqlLogWebFkMap : ClassMap<WsSqlLogWebFkModel>
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.LogWebFks);
         LazyLoad();
-        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        References(x => x.LogWebRequest).Column("LOG_WEB_REQUEST_UID").Not.Nullable();
-        References(x => x.LogWebResponse).Column("LOG_WEB_RESPONSE_UID").Not.Nullable();
-        References(x => x.App).Column("APP_UID").Not.Nullable();
-        References(x => x.LogType).Column("LOG_TYPE_UID").Not.Nullable();
-        References(x => x.Device).Column("DEVICE_UID").Not.Nullable();
+        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        References(item => item.LogWebRequest).Column("LOG_WEB_REQUEST_UID").Not.Nullable();
+        References(item => item.LogWebResponse).Column("LOG_WEB_RESPONSE_UID").Not.Nullable();
+        References(item => item.App).Column("APP_UID").Not.Nullable();
+        References(item => item.LogType).Column("LOG_TYPE_UID").Not.Nullable();
+        References(item => item.Device).Column("DEVICE_UID").Not.Nullable();
     }
 }

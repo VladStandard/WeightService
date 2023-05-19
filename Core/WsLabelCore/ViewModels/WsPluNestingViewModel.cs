@@ -3,101 +3,33 @@
 
 namespace WsLabelCore.ViewModels;
 
-public sealed class WsPluNestingViewModel : WsSqlBaseViewModel
+public sealed class WsPluNestingViewModel : WsWpfBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlPluNestingFkController Helper => WsSqlPluNestingFkController.Instance;
-    
-    private WsSqlPluNestingFkModel _item;
-    public WsSqlPluNestingFkModel Item
+    private WsSqlViewPluNestingModel _viewPluNesting;
+    public WsSqlViewPluNestingModel ViewPluNesting
     {
-        get => _item;
+        get => _viewPluNesting;
         set
         {
-            _item = value;
-            // Журналирование смены вложенности ПЛУ.
-            ContextManager.ContextItem.SaveLogInformation(
-                $"{LocaleCore.Scales.SetPluNesting(_item.PluBundle.Plu.Number, _item.PluBundle.Plu.Name, _item.BundleCount)}");
+            _viewPluNesting = value;
             OnPropertyChanged();
         }
     }
-    
-    private List<WsSqlPluNestingFkModel> _list;
-    public List<WsSqlPluNestingFkModel> List
+    public List<WsSqlViewPluNestingModel> ViewPluNestings
     {
-        get => _list;
-        private set
+        get => ContextCache.ViewPlusNesting;
+        set
         {
-            _list = value;
+            _ = value;
             OnPropertyChanged();
         }
     }
 
     public WsPluNestingViewModel()
     {
-        _item = new();
-        _list = new();
-        SetNewItem();
-        SetNewList();
-    }
-
-    #endregion
-
-    #region Public and private methods
-
-    public void SetNewItem()
-    {
-        Item = Helper.GetNewItem();
-    }
-
-    public void SetItemFromList()
-    {
-        if (!List.Any())
-            SetNewItem();
-        else
-            Item = List.Exists(x => !x.IsNew && x.IsDefault)
-                ? List.Find(x => !x.IsNew && x.IsDefault)
-                : List.First();
-    }
-
-    public void SetNewList()
-    {
-        List = new() { Item };
-    }
-
-    public void SetList(WsSqlPluModel plu)
-    {
-        // For not exists item.
-        if (plu.IsNew)
-            SetNewList();
-        // For exists item.
-        else
-        {
-            WsSqlCrudConfigModel sqlCrudConfig = new(WsSqlQueriesScales.Tables.PluNestingFks.GetList(true), 
-                new("P_UID", plu.IdentityValueUid), true);
-            List = ContextManager.ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
-            SetItemFromList();
-        }
-    }
-
-    /// <summary>
-    /// Проверить наличие вложенности ПЛУ.
-    /// </summary>
-    /// <param name="plu"></param>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
-    public bool SetAndCheckList(WsSqlPluModel plu, Label fieldWarning)
-    {
-        SetList(plu);
-        if (Item.IsNew && List.Any())
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluPackageNotSelect);
-            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluPackageNotSelect);
-            return false;
-        }
-        return true;
+        //
     }
 
     #endregion

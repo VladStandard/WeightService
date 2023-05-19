@@ -37,15 +37,10 @@ public sealed class WsSqlContextViewHelper
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 6 } item) break;
-            result.Add(new(
-                Convert.ToDateTime(item[0]),
-                item[1] as string ?? string.Empty,
-                item[2] as string ?? string.Empty,
-                item[3] as string ?? string.Empty,
-                Convert.ToInt16(item[4]),
-                Convert.ToInt16(item[5])
-            ));
+            if (obj is not object[] { Length: 7 } item) break;
+            result.Add(new(Guid.Parse(Convert.ToString(item[0])), Convert.ToDateTime(item[1]),
+                Convert.ToString(item[2]), Convert.ToString(item[3]), Convert.ToString(item[4]),
+                Convert.ToInt16(item[5]), Convert.ToInt16(item[6])));
         }
         return result;
     }
@@ -114,15 +109,47 @@ public sealed class WsSqlContextViewHelper
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 21 } item) break;
-            result.Add(new(Guid.Parse(Convert.ToString(item[0])),
-                Convert.ToBoolean(item[1]), Convert.ToBoolean(item[2]), Convert.ToUInt16(item[3]), Convert.ToString(item[4]),
-                Convert.ToString(item[5]), Convert.ToString(item[6]), Convert.ToString(item[7]),
-                Guid.Parse(Convert.ToString(item[8])), Convert.ToBoolean(item[9]), Convert.ToString(item[10]),
-                Convert.ToInt16(item[11]), Convert.ToInt16(item[12]), Convert.ToBoolean(item[13]), Convert.ToBoolean(item[14]),
-                Guid.Parse(Convert.ToString(item[15])), Convert.ToBoolean(item[16]), Convert.ToString(item[17]),
-                Convert.ToUInt16(item[18]), Convert.ToBoolean(item[19]), Convert.ToString(item[20])
+            if (obj is not object[] { Length: 22 } item) break;
+            result.Add(new(Guid.Parse(Convert.ToString(item[0])), Guid.Parse(Convert.ToString(item[1])),
+                Convert.ToBoolean(item[2]), Convert.ToBoolean(item[3]), Convert.ToUInt16(item[4]), 
+                Convert.ToString(item[5]), Convert.ToString(item[6]), Convert.ToString(item[7]), 
+                Convert.ToString(item[8]), Guid.Parse(Convert.ToString(item[9])), 
+                Convert.ToBoolean(item[10]), Convert.ToString(item[11]),
+                Convert.ToInt16(item[12]), Convert.ToInt16(item[13]), Convert.ToBoolean(item[14]), 
+                Convert.ToBoolean(item[15]), Guid.Parse(Convert.ToString(item[16])), 
+                Convert.ToBoolean(item[17]), Convert.ToString(item[18]),
+                Convert.ToUInt16(item[19]), Convert.ToBoolean(item[20]), 
+                Convert.ToString(item[21])
             ));
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Получить список вложенностей ПЛУ из представления [REF].[VIEW_PLUS_NESTING].
+    /// </summary>
+    /// <param name="topRecords"></param>
+    /// <returns></returns>
+    public List<WsSqlViewPluNestingModel> GetListViewPlusNesting(int topRecords = 0)
+    {
+        List<WsSqlViewPluNestingModel> result = new();
+        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusNesting(topRecords);
+        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        foreach (object obj in objects)
+        {
+            if (obj is not object[] { Length: 29 } item) break;
+            result.Add(new(Guid.Parse(Convert.ToString(item[0])),
+                Convert.ToBoolean(item[1]), Convert.ToBoolean(item[2]),
+                Convert.ToInt16(item[3]), Convert.ToDecimal(item[4]), Convert.ToDecimal(item[5]), 
+                Convert.ToDecimal(item[6]), Guid.Parse(Convert.ToString(item[7])), Guid.Parse(Convert.ToString(item[8])), 
+                Convert.ToBoolean(item[9]), Convert.ToBoolean(item[10]), Convert.ToBoolean(item[11]), 
+                Convert.ToUInt16(item[12]), Convert.ToString(item[13]), Convert.ToInt16(item[14]), 
+                Convert.ToString(item[15]), Convert.ToString(item[16]), Convert.ToString(item[17]), 
+                Guid.Parse(Convert.ToString(item[18])), Guid.Parse(Convert.ToString(item[19])), 
+                Convert.ToBoolean(item[20]), Convert.ToString(item[21]), Convert.ToDecimal(item[22]),
+                Guid.Parse(Convert.ToString(item[23])), Guid.Parse(Convert.ToString(item[24])), 
+                Convert.ToBoolean(item[25]), Convert.ToString(item[26]), Convert.ToDecimal(item[27]), 
+                Convert.ToDecimal(item[28])));
         }
         return result;
     }

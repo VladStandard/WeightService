@@ -26,7 +26,7 @@ public class DebugHelper
         WsEnumConfiguration.ReleaseAleksandrov => false,
         WsEnumConfiguration.ReleaseMorozov => false,
         WsEnumConfiguration.ReleaseVS => false,
-        _ => throw new ArgumentOutOfRangeException()
+        _ => throw new ArgumentOutOfRangeException(nameof(IsDevelop), IsDevelop.ToString())
     };
 
     public bool IsRelease => !IsDevelop;

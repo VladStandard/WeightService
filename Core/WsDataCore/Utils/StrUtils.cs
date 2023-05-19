@@ -149,8 +149,8 @@ public static class StrUtils
         {
             case 1:
                 return Enumerable.Range(0, hex.Length)
-                    .Where(x => x % 2 == 0)
-                    .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                    .Where(item => item % 2 == 0)
+                    .Select(item => Convert.ToByte(hex.Substring(item, 2), 16))
                     .ToArray();
             default:
                 int NumberChars = hex.Length;

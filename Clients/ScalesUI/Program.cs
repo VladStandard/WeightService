@@ -26,7 +26,7 @@ internal static class Program
             if (WsUserSessionHelper.Instance.DeviceScaleFk.IsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(WsUserSessionHelper.Instance.DeviceName);
-                WsWpfUtils.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
+                WsWinFormNavigationUtils.NavigateToControlRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
                 System.Windows.Forms.Application.Exit();
                 return;
@@ -37,7 +37,7 @@ internal static class Program
             if (!createdNew)
             {
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
-                WsWpfUtils.ShowNewRegistration(message);
+                WsWinFormNavigationUtils.NavigateToControlRegistration(message);
                 ContextManager.ContextItem.SaveLogWarning(message);
                 System.Windows.Forms.Application.Exit();
             }
@@ -46,12 +46,12 @@ internal static class Program
                 ContextManager.ContextItem.SaveLogInformation(
                     LocaleCore.Scales.RegistrationSuccess(WsUserSessionHelper.Instance.DeviceName, WsUserSessionHelper.Instance.DeviceScaleFk.Scale.Description));
                 // Запуск.
-                System.Windows.Forms.Application.Run(new MainForm());
+                System.Windows.Forms.Application.Run(new WsMainForm());
             }
         }
         catch (Exception ex)
         {
-            WsWpfUtils.CatchException(ex, true, true);
+            WsWinFormNavigationUtils.CatchException(ex);
         }
     }
 }

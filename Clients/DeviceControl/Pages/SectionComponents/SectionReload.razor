@@ -12,7 +12,7 @@
     }
     @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
     {
-      <RadzenCheckBox TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowMarked
+      <RadzenCheckBox TValue="WsSqlIsMarked" @bind-Value=@SqlCrudConfigSection.IsMarked
                       Style="margin-left: 20px "
                       Change=@OnSectionUpdate/>
       <RadzenLabel Style="font-size: 13px; margin-left: 5px" Text=@LocaleCore.Action.ActionIsShowMarked/>

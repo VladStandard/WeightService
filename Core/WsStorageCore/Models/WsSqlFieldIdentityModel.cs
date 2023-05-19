@@ -7,18 +7,17 @@ namespace WsStorageCore.Models;
 /// DB field Identity model.
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{GetValue()}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlFieldIdentityModel : WsSqlFieldBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual WsSqlFieldIdentity Name { get; private set; }
-    [XmlElement] public virtual long Id { get; private set; }
     [XmlElement] public virtual Guid Uid { get; private set; }
+    [XmlElement] public virtual long Id { get; private set; }
+    [XmlIgnore] public virtual bool IsUid => Equals(Name, WsSqlFieldIdentity.Uid);
+    [XmlIgnore] public virtual bool IsId => Equals(Name, WsSqlFieldIdentity.Id);
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlFieldIdentityModel()
     {
         FieldName = nameof(WsSqlFieldIdentityModel);
@@ -27,34 +26,22 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
         Uid = Guid.Empty;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="identityName"></param>
     public WsSqlFieldIdentityModel(WsSqlFieldIdentity identityName) : this()
     {
         Name = identityName;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     private WsSqlFieldIdentityModel(WsSqlFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
     {
-        Id = identityId;
         Uid = identityUid;
+        Id = identityId;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     protected WsSqlFieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Name = (WsSqlFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlFieldIdentity));
-        Id = info.GetInt64(nameof(Id));
         Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
+        Id = info.GetInt64(nameof(Id));
     }
 
     #endregion
@@ -62,27 +49,7 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        Name switch
-        {
-            WsSqlFieldIdentity.Id => $"{nameof(Id)}: {Id}. ",
-            WsSqlFieldIdentity.Uid => $"{nameof(Uid)}: {Uid}. ",
-            _ => string.Empty
-        };
-
-    public string GetValue() =>
-        Name switch
-        {
-            WsSqlFieldIdentity.Id => $"{Id}",
-            WsSqlFieldIdentity.Uid => $"{Uid}",
-            _ => string.Empty
-        };
-
-    public virtual string GetValueAsString() => Name switch
-    {
-        WsSqlFieldIdentity.Id => Id.ToString(),
-        WsSqlFieldIdentity.Uid => Uid.ToString(),
-        _ => string.Empty
-    };
+        Name.Equals(WsSqlFieldIdentity.Id) ? $"{Id}" : Name.Equals(WsSqlFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
 
     public virtual object? GetValueAsObjectNullable() => Name switch
     {

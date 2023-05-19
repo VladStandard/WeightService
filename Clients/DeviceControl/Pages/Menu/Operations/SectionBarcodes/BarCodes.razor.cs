@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsBlazorCore.Settings;
@@ -23,7 +23,7 @@ public sealed partial class BarCodes : RazorComponentSectionBase<BarcodeView>
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetBarcodes(SqlCrudConfigSection.IsResultShowOnlyTop
             ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, SqlCrudConfigSection.IsResultShowMarked);
+            : 0, SqlCrudConfigSection.IsMarked);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<BarcodeView> items = new();
         foreach (var obj in objects)

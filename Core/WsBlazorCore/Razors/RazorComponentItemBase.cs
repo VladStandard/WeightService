@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using WsBlazorCore.Settings;
-using WsStorageCore.Tables;
+using WsStorageCore.Models;
 
 namespace WsBlazorCore.Razors;
 

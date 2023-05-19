@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewRefModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewPluStorageMethodModel
+public sealed record WsSqlViewPluStorageMethodModel : WsSqlViewBase
 {
     #region Public and private fields, properties, constructor
 
@@ -30,45 +30,17 @@ public sealed record WsSqlViewPluStorageMethodModel
     public bool TemplateIsMarked { get; init; }
     public string TemplateName { get; init; }
 
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
-    public WsSqlViewPluStorageMethodModel() : this(Guid.Empty, false, false, 0, "",
-        "", "", "", Guid.Empty, false, "", 
-        0, 0, false, false,
-        Guid.Empty, false, "",
-        0, false, "") { }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="pluUid"></param>
-    /// <param name="pluIsMarked"></param>
-    /// <param name="pluIsWeight"></param>
-    /// <param name="pluNumber"></param>
-    /// <param name="pluName"></param>
-    /// <param name="pluGtin"></param>
-    /// <param name="pluEan13"></param>
-    /// <param name="pluItf14"></param>
-    /// <param name="storageMethodUid"></param>
-    /// <param name="storageMethodIsMarked"></param>
-    /// <param name="storageMethodName"></param>
-    /// <param name="minTemp"></param>
-    /// <param name="maxTemp"></param>
-    /// <param name="isLeft"></param>
-    /// <param name="isRight"></param>
-    /// <param name="resourceUid"></param>
-    /// <param name="resourceIsMarked"></param>
-    /// <param name="resourceName"></param>
-    /// <param name="templateId"></param>
-    /// <param name="templateIsMarked"></param>
-    /// <param name="templateName"></param>
-    public WsSqlViewPluStorageMethodModel(Guid pluUid, bool pluIsMarked, bool pluIsWeight, ushort pluNumber, string pluName,
+    public WsSqlViewPluStorageMethodModel() : this(Guid.Empty, Guid.Empty, default, default, default, string.Empty,
+        string.Empty, string.Empty, string.Empty,
+        Guid.Empty, default, string.Empty, default, default, default, default,
+        Guid.Empty, default, string.Empty, default, default, string.Empty) { }
+    
+    public WsSqlViewPluStorageMethodModel(Guid uid, Guid pluUid, bool pluIsMarked, bool pluIsWeight, ushort pluNumber, string pluName,
         string pluGtin, string pluEan13, string pluItf14,
         Guid storageMethodUid, bool storageMethodIsMarked, string storageMethodName, 
         short minTemp, short maxTemp, bool isLeft, bool isRight,
         Guid resourceUid, bool resourceIsMarked, string resourceName,
-        ushort templateId, bool templateIsMarked, string templateName)
+        ushort templateId, bool templateIsMarked, string templateName) : base(uid)
     {
         PluUid = pluUid;
         PluIsMarked = pluIsMarked;

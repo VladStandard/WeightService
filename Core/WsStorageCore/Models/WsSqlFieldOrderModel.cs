@@ -6,11 +6,13 @@ namespace WsStorageCore.Models;
 /// <summary>
 /// SQL order model.
 /// </summary>
-[DebuggerDisplay("Type = {nameof(SqlFieldOrderModel)} | {ToString} | {Direction}")]
+[DebuggerDisplay("{ToString()}")]
 public sealed record WsSqlFieldOrderModel
 {
     public string Name { get; init; } = "";
     public WsSqlOrderDirection Direction { get; init; } = WsSqlOrderDirection.Asc;
 
     public override int GetHashCode() => (Name.ToUpper(), Direction).GetHashCode();
+
+    public override string ToString() => $"{Name} {Direction}";
 }

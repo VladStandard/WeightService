@@ -183,38 +183,14 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\KneadingUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\KneadingUserControl.Designer.cs">
-      <DependentUpon>KneadingUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\WaitUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\WaitUserControl.Designer.cs">
-      <DependentUpon>WaitUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\UserControlBase.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Forms\WsMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="Forms\WsMainForm.Designer.cs">
+      <DependentUpon>WsMainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NavigationUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\NavigationUserControl.Designer.cs">
-      <DependentUpon>NavigationUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PlusControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\PlusControl.Designer.cs">
-      <DependentUpon>PlusControl.cs</DependentUpon>
+    <Compile Include="Forms\WsMainFormNavigation.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\WsSchedulerHelper.cs" />
@@ -237,23 +213,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="Controls\KneadingUserControl.resx">
-      <DependentUpon>KneadingUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WaitUserControl.resx">
-      <DependentUpon>WaitUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\PlusControl.resx">
-      <DependentUpon>PlusControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UserControlBase.resx">
-      <DependentUpon>UserControlBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NavigationUserControl.resx">
-      <DependentUpon>NavigationUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\WsMainForm.resx">
+      <DependentUpon>WsMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -357,6 +318,7 @@
       <Name>WsStorageCore</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
   <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
     <TransformXml Source="App.config" Transform="App.$(Configuration).config" Destination="App.config" StackTrace="true" />

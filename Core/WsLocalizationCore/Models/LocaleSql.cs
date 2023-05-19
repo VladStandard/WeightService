@@ -36,7 +36,7 @@ public sealed class LocaleSql : WsLocalizationBase
     public string SqlItemFieldItf14 => Lang == Lang.English ? "ITF 14" : "ИТФ 14";
     public string SqlItemFieldMac => "001122334455";
     public string SqlItemFieldMeasurementTypeKg => Lang == Lang.English ? "kg" : "кг";
-    public string SqlItemFieldMeasurementTypePirce => Lang == Lang.English ? "pc" : "шт";
+    public string SqlItemFieldMeasurementTypePice => Lang == Lang.English ? "pc" : "шт";
     public string SqlItemFieldMember => Lang == Lang.English ? "Method" : "Метод";
     public string SqlItemFieldMessage => Lang == Lang.English ? "Message" : "Сообщение";
     public string SqlItemFieldName => Lang == Lang.English ? "Name" : "Наименование";

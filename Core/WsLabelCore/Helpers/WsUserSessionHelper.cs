@@ -1,9 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-#nullable enable
 
 namespace WsLabelCore.Helpers;
 
+#nullable enable
 /// <summary>
 /// User session.
 /// </summary>
@@ -66,8 +66,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
     }
     public Stopwatch StopwatchMain { get; set; } = new();
 
-    public WsPluNestingViewModel PluNestingView { get; }
-
+    public WsLineViewModel PageLineView { get; }
+    public WsPluNestingViewModel PagePluNestingView { get; }
+    
     private WsSqlPluScaleModel _pluScale;
     public WsSqlPluScaleModel PluScale
     {
@@ -96,7 +97,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             }
             PluginPrintMain.LabelPrintedCount = 1;
             PluginPrintShipping.LabelPrintedCount = 1;
-            PluNestingView.SetList(value.Plu);
+            SetListViewPlusNesting(value.Plu);
             OnPropertyChanged();
         }
     }
@@ -116,33 +117,6 @@ public sealed class WsUserSessionHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    private WsSqlScaleModel _scale;
-    public WsSqlScaleModel Scale
-    {
-        get => _scale;
-        set
-        {
-            _scale = value;
-            // Журналирование смены линии.
-            ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetLine(_scale.IdentityValueId, _scale.Description)}");
-            // Обновить кэш.
-            ContextCache.LoadCurrentViewPlusScales((ushort)_scale.IdentityValueId);
-            ContextCache.Load(WsSqlTableName.ViewPluStorageMethods);
-            _ = ProductionFacility;
-            PluScale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
-            OnPropertyChanged();
-        }
-    }
-    private List<WsSqlScaleModel> _scales;
-    public List<WsSqlScaleModel> Scales
-    {
-        get => _scales;
-        set
-        {
-            _scales = value;
-            OnPropertyChanged();
-        }
-    }
 
     private WsSqlProductionFacilityModel _productionFacility;
     public WsSqlProductionFacilityModel ProductionFacility
@@ -156,16 +130,24 @@ public sealed class WsUserSessionHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    private List<WsSqlProductionFacilityModel> _productionFacilities;
-    public List<WsSqlProductionFacilityModel> ProductionFacilities
+    
+    private WsSqlScaleModel _scale;
+    public WsSqlScaleModel Scale
     {
-        get => _productionFacilities;
-        set
+        get => _scale;
+        private set
         {
-            _productionFacilities = value;
+            _scale = value;
+            // Журналирование смены линии.
+            ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetLine(_scale.IdentityValueId, _scale.Description)}");
+            // Сбросить ПЛУ линии.
+            PluScale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
+            // Сбросить вложенность.
+            ViewPluNesting = ContextManager.ContextPluNesting.GetNewView();
             OnPropertyChanged();
         }
     }
+
     private string _publishDescription;
     public string PublishDescription
     {
@@ -192,6 +174,20 @@ public sealed class WsUserSessionHelper : BaseViewModel
     private readonly object _locker = new();
     public string DeviceName => MdNetUtils.GetLocalDeviceName(false);
 
+    private WsSqlViewPluNestingModel _viewPluNesting;
+    public WsSqlViewPluNestingModel ViewPluNesting
+    {
+        get => _viewPluNesting;
+        set
+        {
+            _viewPluNesting = value;
+            // Журналирование смены вложенности ПЛУ.
+            ContextManager.ContextItem.SaveLogInformation(
+                $"{LocaleCore.Scales.SetPluNesting(_viewPluNesting.PluNumber, _viewPluNesting.PluName, _viewPluNesting.BundleCount)}");
+            OnPropertyChanged();
+        }
+    }
+
     public WsUserSessionHelper()
     {
         // Items.
@@ -201,14 +197,15 @@ public sealed class WsUserSessionHelper : BaseViewModel
         _productionFacility = ContextManager.AccessItem.GetItemNewEmpty<WsSqlProductionFacilityModel>();
         _scale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlScaleModel>();
         // Lists.
-        _productionFacilities = new();
         _productSeries = new();
-        _scales = new();
         // Strings
         _publishDescription = string.Empty;
         // Others.
         _weighingSettings = new();
-        PluNestingView = new();
+        _viewPluNesting = ContextManager.ContextPluNesting.GetNewView();
+        // View models.
+        PageLineView = new();
+        PagePluNestingView = new();
     }
 
     #endregion
@@ -224,27 +221,19 @@ public sealed class WsUserSessionHelper : BaseViewModel
         PluginLabels.Close();
     }
 
-    public void SetMain(long scaleId = -1, string productionFacilityName = "")
+    public void SetMain(long scaleId = -1, WsSqlProductionFacilityModel? area = null)
     {
         SetSqlPublish();
-        SetScale(scaleId, productionFacilityName);
-
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
-        sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlScaleModel.Description), Direction = WsSqlOrderDirection.Asc });
-        Scales = ContextManager.ContextList.GetListNotNullableScales(sqlCrudConfig);
-
-        sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
-        sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlProductionFacilityModel.Name), Direction = WsSqlOrderDirection.Asc });
-        ProductionFacilities = ContextManager.ContextList.GetListNotNullableProductionFacilities(WsSqlCrudConfigUtils.GetCrudConfigSection(false));
+        SetScale(scaleId, area);
     }
 
-    private void SetScale(long scaleId, string productionFacilityName)
+    private void SetScale(long scaleId, WsSqlProductionFacilityModel? area)
     {
         lock (_locker)
         {
             // Device.
             WsSqlDeviceModel device = ContextManager.ContextItem.GetItemDeviceNotNullable(DeviceName);
-            device = WsWpfUtils.SetNewDeviceWithQuestion(device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
+            device = WsWinFormNavigationUtils.SetNewDeviceWithQuestion(device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
             WsSqlDeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)
@@ -261,7 +250,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
             // Scale.
             Scale = scaleId <= 0 ? DeviceScaleFk.Scale : ContextManager.ContextItem.GetScaleNotNullable(scaleId);
             // Area.
-            ProductionFacility = ContextManager.ContextItem.GetProductionFacilityNotNullable(productionFacilityName);
+            //ProductionFacility = ContextManager.ContextItem.GetProductionFacilityNotNullable(productionFacilityName);
+            ProductionFacility = area ?? ContextManager.ContextItem.GetProductionFacilityNotNullable(string.Empty);
             // Other.
             ProductDate = DateTime.Now;
             // Новая серия, упаковка продукции, новая паллета.
@@ -294,6 +284,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
                     ProductDate = ProductDateMaxValue;
                 break;
             }
+        
         }
     }
 
@@ -406,7 +397,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             return false;
         }
 
-        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingView.Item.WeightTare);
+        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : ViewPluNesting.TareWeight);
         if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
@@ -426,7 +417,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     {
         if (!PluScale.Plu.IsCheckWeight) return true;
 
-        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : PluNestingView.Item.WeightTare);
+        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : ViewPluNesting.TareWeight);
         if (weight > LocaleCore.Scales.MassaThresholdValue)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
@@ -447,17 +438,17 @@ public sealed class WsUserSessionHelper : BaseViewModel
         if (PluginMassa.IsWeightNetFake) return true;
         if (!PluScale.Plu.IsCheckWeight) return true;
 
-        if (PluNestingView.Item is { WeightNom: > 0, WeightMin: not 0, WeightMax: not 0 })
+        if (ViewPluNesting is { WeightNom: > 0, WeightMin: not 0, WeightMax: not 0 })
         {
-            if (!(PluWeighing.NettoWeight >= PluNestingView.Item.WeightMin && PluWeighing.NettoWeight <= PluNestingView.Item.WeightMax))
+            if (!(PluWeighing.NettoWeight >= ViewPluNesting.WeightMin && PluWeighing.NettoWeight <= ViewPluNesting.WeightMax))
             {
                 if (PluWeighing.IsNotNew)
                 {
                     MdInvokeControl.SetVisible(fieldWarning, true);
                     string message = LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight,
-                        PluScale.IsNew ? 0 : PluNestingView.Item.WeightMax,
-                        PluScale.IsNew ? 0 : PluNestingView.Item.WeightNom,
-                        PluScale.IsNew ? 0 : PluNestingView.Item.WeightMin);
+                        PluScale.IsNew ? 0 : ViewPluNesting.WeightMax,
+                        PluScale.IsNew ? 0 : ViewPluNesting.WeightNom,
+                        PluScale.IsNew ? 0 : ViewPluNesting.WeightMin);
                     MdInvokeControl.SetText(fieldWarning, message);
                     ContextManager.ContextItem.SaveLogError(message);
                 }
@@ -500,6 +491,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             default:
                 PrintLabelCount(template, isClearBuffer);
                 break;
+        
         }
 
         PluWeighing = new();
@@ -552,8 +544,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
         {
             PluScale = PluScale,
             Kneading = WeighingSettings.Kneading,
-            NettoWeight = PluScale.Plu.IsCheckWeight ? PluginMassa.WeightNet - PluNestingView.Item.WeightTare : PluNestingView.Item.WeightNom,
-            WeightTare = PluNestingView.Item.WeightTare,
+            NettoWeight = PluScale.Plu.IsCheckWeight ? PluginMassa.WeightNet - ViewPluNesting.TareWeight : ViewPluNesting.WeightNom,
+            WeightTare = ViewPluNesting.TareWeight,
             Series = productSeries,
         };
 
@@ -564,19 +556,18 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <summary>
     /// Задать фейк данные веса ПЛУ для режима разработки.
     /// </summary>
-    /// <param name="owner"></param>
-    public void SetPluWeighingFakeForDevelop(System.Windows.Forms.IWin32Window owner)
+    public void SetPluWeighingFakeForDevelop()
     {
         if (!PluScale.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
 
-        System.Windows.Forms.DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(owner,
-            LocaleCore.Print.QuestionUseFakeData,
+        WsWinFormNavigationUtils.NavigateToOperationControl(LocaleCore.Print.QuestionUseFakeData,
             true, WsEnumLogType.Question,
-            new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-        if (dialogResult is System.Windows.Forms.DialogResult.Yes)
+            new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+            ActionOk, () => { });
+        void ActionOk()
         {
-            PluginMassa.WeightNet = StrUtils.NextDecimal(PluNestingView.Item.WeightMin, PluNestingView.Item.WeightMax);
+            PluginMassa.WeightNet = StrUtils.NextDecimal(ViewPluNesting.WeightMin, ViewPluNesting.WeightMax);
             PluginMassa.IsWeightNetFake = true;
         }
     }
@@ -590,7 +581,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
     {
         try
         {
-            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
+            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = 
+                CreateAndSavePluLabel(template);
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
 
             // Print.
@@ -604,11 +596,13 @@ public sealed class WsUserSessionHelper : BaseViewModel
             // Send cmd to the print.
             if (Debug.IsDevelop)
             {
-                System.Windows.Forms.DialogResult dialogResult = WsWpfUtils.ShowNewOperationControl(
+                WsWinFormNavigationUtils.NavigateToOperationControl(
                     LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                if (dialogResult != System.Windows.Forms.DialogResult.Yes)
-                    return;
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                    ActionOk, () => { });
+                bool isOk = false;
+                void ActionOk() => isOk = true;
+                if (isOk) return;
             }
 
             // Send cmd to the print.
@@ -616,7 +610,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
         catch (Exception ex)
         {
-            WsWpfUtils.CatchException(ex, true, true);
+            WsWinFormNavigationUtils.CatchException(ex);
         }
     }
 
@@ -659,7 +653,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionFacilityModel>(ProductionFacility, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
-        WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, PluNestingView.Item, pluLabel.PluScale, ProductionFacility, PluWeighing);
+        WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, ViewPluNesting, pluLabel.PluScale, ProductionFacility, PluWeighing);
         XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelContextModel>(pluLabelContext, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
 
@@ -687,7 +681,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         zpl =>
         {
             // Patch for using table `PLUS_STORAGE_METHODS_FK`.
-            if (ContextCache.ViewPlusStorageMethodsFks.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
+            if (ContextCache.ViewPlusStorageMethods.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
                 WsSqlTemplateResourceModel resource = ContextManager.ContextPluStorage.GetItemResource(pluLabel.PluScale.Plu);
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
@@ -728,6 +722,48 @@ public sealed class WsUserSessionHelper : BaseViewModel
 
     public int GetPlusPageCount() => 
         ContextCache.CurrentViewPlusScalesDb.Where(item => item.IsActive).ToList().Count / PlusPageSize;
+
+    /// <summary>
+    /// Задать список вложенностей ПЛУ.
+    /// </summary>
+    /// <param name="plu"></param>
+    public void SetListViewPlusNesting(WsSqlPluModel plu)
+    {
+        // Для новой ПЛУ.
+        if (plu.IsNew)
+            PagePluNestingView.ViewPluNestings = new() { ViewPluNesting };
+        // Для существующей ПЛУ.
+        else
+        {
+            PagePluNestingView.ViewPluNestings = ContextCache.ViewPlusNesting.Where(item => item.PluUid.Equals(plu.IdentityValueUid)).ToList();
+            if (!PagePluNestingView.ViewPluNestings.Any())
+                ViewPluNesting = ContextManager.ContextPluNesting.GetNewView();
+            else
+                ViewPluNesting = PagePluNestingView.ViewPluNestings.Exists(item => item.IsDefault)
+                    ? PagePluNestingView.ViewPluNestings.Find(item => item.IsDefault)
+                    : PagePluNestingView.ViewPluNestings.First();
+        }
+    }
+    
+    /// <summary>
+    /// Проверить наличие вложенности ПЛУ.
+    /// </summary>
+    /// <param name="plu"></param>
+    /// <param name="fieldWarning"></param>
+    /// <returns></returns>
+    public bool SetAndCheckListViewPlusNesting(WsSqlPluModel plu, Label fieldWarning)
+    {
+        SetListViewPlusNesting(plu);
+        //if (Item.IsNew && List.Any())
+        if (PagePluNestingView.ViewPluNestings.Any())
+        {
+            MdInvokeControl.SetVisible(fieldWarning, true);
+            MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluPackageNotSelect);
+            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluPackageNotSelect);
+            return false;
+        }
+        return true;
+    }
 
     #endregion
 }

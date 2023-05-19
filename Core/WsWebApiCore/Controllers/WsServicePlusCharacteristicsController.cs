@@ -41,7 +41,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         try
         {
             // Найдено по Identity -> Обновить найденную запись.
-            WsSqlPluCharacteristicModel? itemDb = Cache.PluCharacteristicsDb.Find(x => x.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
+            WsSqlPluCharacteristicModel? itemDb = Cache.PluCharacteristicsDb.Find(item => item.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
             if (UpdateItemDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
 
             // Не найдено -> Добавить новую запись.

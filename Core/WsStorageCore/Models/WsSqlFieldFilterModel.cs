@@ -22,7 +22,7 @@ public sealed record WsSqlFieldFilterModel
 
     public override int GetHashCode() => (Name.ToUpper(), Comparer, Value?.ToString().ToUpper() ?? null).GetHashCode();
     
-    public override string ToString() => $"{Name} | {Comparer} | {Value}";
+    public override string ToString() => $"{Name} {Comparer} {Value}";
 
     #endregion
 }

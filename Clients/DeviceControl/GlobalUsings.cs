@@ -14,3 +14,4 @@ global using Radzen;
 global using System.Globalization;
 global using WsLocalizationCore.Enums;
 global using WsLocalizationCore.Models;
+global using WsStorageCore.Enums;

@@ -32,7 +32,7 @@ public sealed class WsSqlPluController
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>()
                 { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         return AccessItem.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
@@ -40,7 +40,7 @@ public sealed class WsSqlPluController
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>()
             { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         return AccessItem.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
@@ -52,7 +52,7 @@ public sealed class WsSqlPluController
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>()
                 { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
@@ -62,7 +62,7 @@ public sealed class WsSqlPluController
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>()
             { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlFieldComparer.In,
                 Values = numbers.Cast<object>().ToList() } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
@@ -71,7 +71,7 @@ public sealed class WsSqlPluController
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>()
             { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlFieldComparer.MoreOrEqual, Value = minNumber } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         sqlCrudConfig.AddFilters(new WsSqlFieldFilterModel()
         { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlFieldComparer.LessOrEqual, Value = maxNumber });
         sqlCrudConfig.IsResultOrder = true;
@@ -82,7 +82,7 @@ public sealed class WsSqlPluController
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>()
                 { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
@@ -94,7 +94,7 @@ public sealed class WsSqlPluController
 
         List<WsSqlFieldFilterModel> sqlFilters = WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPluTemplateFkModel.Plu), viewPluScale.PluUid);
         WsSqlCrudConfigModel sqlCrudConfig = new(sqlFilters,
-            true, false, false, true, false);
+            WsSqlIsMarked.ShowAll, false, false, true, false);
 
         List<WsSqlPluTemplateFkModel> pluTemplateFks = ContextList.GetListNotNullablePlusTemplatesFks(sqlCrudConfig);
 

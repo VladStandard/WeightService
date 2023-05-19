@@ -27,6 +27,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     [XmlElement] public virtual bool IsShipping { get; set; }
     [XmlElement] public virtual bool IsOrder { get; set; }
     [XmlElement] public virtual bool IsKneading { get; set; }
+    [XmlIgnore] public virtual string NumberWithDescription => $"{Number} | {Description}";
 
     /// <summary>
     /// Constructor.

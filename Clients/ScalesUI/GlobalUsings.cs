@@ -3,7 +3,6 @@
 // Global using directives
 
 global using Gma.System.MouseKeyHook;
-global using ScalesUI.Controls;
 global using ScalesUI.Forms;
 global using ScalesUI.Helpers;
 global using System;
@@ -24,12 +23,11 @@ global using WsDataCore.Enums;
 global using WsDataCore.Helpers;
 global using WsDataCore.Models;
 global using WsDataCore.Settings.Helpers;
-global using WsLabelCore.Gui;
+global using WsLabelCore;
+global using WsLabelCore.Controls;
+global using WsLabelCore.Forms;
 global using WsLabelCore.Helpers;
-global using WsLabelCore.WinForms.Helpers;
-global using WsLabelCore.WinForms.Utils;
-global using WsLabelCore.Wpf;
-global using WsLabelCore.Wpf.Utils;
+global using WsLabelCore.Utils;
 global using WsLocalizationCore.Enums;
 global using WsLocalizationCore.Models;
 global using WsPrintCore.Enums;

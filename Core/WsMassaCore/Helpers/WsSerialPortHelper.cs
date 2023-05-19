@@ -137,7 +137,7 @@ public class WsSerialPortHelper
             {
                 ReceivedBytes = data
             };
-            AdapterStatus = data.All(x => x == 0x00) ? UsbAdapterStatus.IsDataNotExists : UsbAdapterStatus.IsDataExists;
+            AdapterStatus = data.All(item => item == 0x00) ? UsbAdapterStatus.IsDataNotExists : UsbAdapterStatus.IsDataExists;
             ResponseCallback(this, args);
         }
         catch (Exception ex)

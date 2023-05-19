@@ -16,13 +16,13 @@ public sealed class WsSqlTemplateMap : ClassMap<WsSqlTemplateModel>
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Templates);
         LazyLoad();
-        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
-        Map(x => x.CategoryId).CustomSqlType("NVARCHAR").Column("CategoryID").Length(150).Not.Nullable();
-        Map(x => x.Title).CustomSqlType("NVARCHAR").Column("Title").Length(250).Nullable();
-        //Map(x => x.ImageDataValue).CustomSqlType("VARBINARY(MAX)").Column("ImageData").Nullable();
-        Map(x => x.Data).CustomSqlType("NVARCHAR(MAX)").Column("DATA").Not.Nullable();
+        Id(item => item.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Map(item => item.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+        Map(item => item.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+        Map(item => item.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
+        Map(item => item.CategoryId).CustomSqlType("NVARCHAR").Column("CategoryID").Length(150).Not.Nullable();
+        Map(item => item.Title).CustomSqlType("NVARCHAR").Column("Title").Length(250).Nullable();
+        //Map(item => item.ImageDataValue).CustomSqlType("VARBINARY(MAX)").Column("ImageData").Nullable();
+        Map(item => item.Data).CustomSqlType("NVARCHAR(MAX)").Column("DATA").Not.Nullable();
     }
 }

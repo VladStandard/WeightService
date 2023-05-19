@@ -7,7 +7,6 @@ using Radzen;
 using WsBlazorCore.Settings;
 using WsBlazorCore.Utils;
 using WsStorageCore.Models;
-using WsStorageCore.Tables;
 using WsStorageCore.Utils;
 
 namespace WsBlazorCore.Razors;
@@ -37,7 +36,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
         SqlSectionCast = new List<TItem>();
         SelectedRow = new List<TItem>();
         SqlSectionSave = new List<TItem>();
-        SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(false);
+        SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlIsMarked.ShowAll);
         SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;

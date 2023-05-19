@@ -33,8 +33,8 @@ public sealed class WsSqlTemplateController
 
     public WsSqlTemplateModel GetItem(ushort pluNumber)
     {
-        WsSqlViewPluScaleModel viewPluScale = ContextCache.CurrentViewPlusScalesDb.Find(x => Equals(x.PluNumber, (ushort)pluNumber));
-        return AccessItem.GetItemNotNullableByUid<WsSqlTemplateModel>(viewPluScale.Uid);
+        WsSqlViewPluScaleModel viewPluScale = ContextCache.CurrentViewPlusScalesDb.Find(item => Equals(item.PluNumber, (ushort)pluNumber));
+        return AccessItem.GetItemNotNullableByUid<WsSqlTemplateModel>(viewPluScale.Identity.Uid);
     }
 
     public List<WsSqlTemplateModel> GetList() => ContextList.GetListNotNullableTemplates(new());
