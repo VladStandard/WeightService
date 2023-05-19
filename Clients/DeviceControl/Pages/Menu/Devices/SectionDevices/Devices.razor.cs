@@ -20,7 +20,7 @@ public sealed partial class Devices : RazorComponentSectionBase<DeviceView>
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetDevices(SqlCrudConfigSection.IsResultShowOnlyTop
             ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, SqlCrudConfigSection.IsResultShowMarked);
+            : 0, SqlCrudConfigSection.IsMarked);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<DeviceView> items = new();
         foreach (var obj in objects)

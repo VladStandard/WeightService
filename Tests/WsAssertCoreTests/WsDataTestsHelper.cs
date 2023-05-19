@@ -132,11 +132,11 @@ public class WsDataTestsHelper
         }
     }
 
-    public void AssertSqlDbContentValidate<T>(bool isShowMarked = false) where T : WsSqlTableBase, new()
+    public void AssertSqlDbContentValidate<T>(WsSqlIsMarked isMarked = WsSqlIsMarked.ShowAll) where T : WsSqlTableBase, new()
     {
         AssertAction(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
+            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isMarked);
             List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 5, true);
@@ -146,11 +146,11 @@ public class WsDataTestsHelper
     public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
         AssertSqlTablesValidate(item, assertResult);
 
-    public void AssertSqlDbContentSerialize<T>(bool isShowMarked = false) where T : WsSqlTableBase, new()
+    public void AssertSqlDbContentSerialize<T>(WsSqlIsMarked isMarked = WsSqlIsMarked.ShowAll) where T : WsSqlTableBase, new()
     {
         AssertAction(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
+            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isMarked);
             List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             PrintTopRecords(items, 10, true, true);

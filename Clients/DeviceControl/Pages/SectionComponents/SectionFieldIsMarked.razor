@@ -1,9 +1,9 @@
-﻿@typeparam TItem
+@typeparam TItem
 @inherits LayoutComponentBase
 
 <RadzenDataGridColumn TItem="@TItem" Width="5%" TextAlign="TextAlign.Center"
                       SortProperty="IsMarked" Title="@LocaleCore.Table.IsMarkedShort"
-                      Visible="@SqlCrudConfigSection.IsResultShowMarked" >
+                      Visible="@(SqlCrudConfigSection.IsMarked == WsSqlIsMarked.ShowAll)" >
   <Template Context="item">
     @if (item.IsMarked)
     {

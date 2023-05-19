@@ -3,85 +3,77 @@
 
 namespace WsLabelCore.Controls;
 
+[DebuggerDisplay("{ToString()}")]
 public sealed class WsPluControl : UserControl
 {
     #region Public and private fields, properties, constructor
 
-    public Button ButtonPlu { get; }
-    private Label LabelPluNumber { get; }
-    private Label LabelPluType { get; }
-    private Label LabelPluCode { get; }
-    private Label LabelPluTemplate { get; }
-    private Label LabelPluValidate { get; }
+    private Label LabelPlu { get; }
+    private Label LabelTemplateCode { get; }
+    private Action<object, EventArgs> ActionPluSelect { get; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="viewPluScale"></param>
-    /// <param name="buttonPlu"></param>
-    /// <param name="labelPluNumber"></param>
-    /// <param name="labelPluType"></param>
-    /// <param name="labelPluCode"></param>
-    /// <param name="labelPluTemplate"></param>
-    /// <param name="labelPluValidate"></param>
-    public WsPluControl(WsSqlViewPluScaleModel viewPluScale, 
-        Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluTemplate, Label labelPluValidate)
+    /// <param name="labelPlu"></param>
+    /// <param name="labelTemplateCode"></param>
+    /// <param name="actionPluSelect"></param>
+    public WsPluControl(WsSqlViewPluScaleModel viewPluScale, Label labelPlu, Label labelTemplateCode,
+        Action<object, EventArgs> actionPluSelect)
     {
-        ButtonPlu = buttonPlu;
-        LabelPluNumber = labelPluNumber;
-        LabelPluType = labelPluType;
-        LabelPluCode = labelPluCode;
-        LabelPluTemplate = labelPluTemplate;
-        LabelPluValidate = labelPluValidate;
-        LabelPluValidate.Tag = LabelPluTemplate.Tag = LabelPluCode.Tag = LabelPluType.Tag = LabelPluNumber.Tag = 
-            ButtonPlu.Tag = viewPluScale;
+        Font = WsFontsSettingsHelper.Instance.FontLabelsBlack;
+        AutoSize = false;
+        Dock = DockStyle.Fill;
+        Visible = true;
+        Location = new(0, 0);
+        BackColor = System.Drawing.SystemColors.Control;
+
+        ActionPluSelect = actionPluSelect;
+        Tag = viewPluScale;
+        Click += PluSelect;
+
+        LabelPlu = labelPlu;
+        LabelPlu.Parent = this;
+        LabelPlu.Tag = viewPluScale;
+        LabelPlu.Click += PluSelect;
+
+        LabelTemplateCode = labelTemplateCode;
+        LabelTemplateCode.Parent = this;
+        LabelTemplateCode.Tag = viewPluScale;
+        LabelTemplateCode.Click += PluSelect;
+
+        void PluSelect(object sender, EventArgs e) => ActionPluSelect(sender, e);
     }
+
 
     #endregion
 
     #region Public and private methods
 
+    /// <summary>
+    /// Настроить размеры контрола.
+    /// </summary>
     public void SetupSizes()
     {
-        int shiftLeft = 10;
-        int shiftTop = 10;
-        int height = ButtonPlu.Height / 4 - shiftLeft * 2;
-        int width = ButtonPlu.Width / 2 - shiftLeft * 2;
+        int shiftLeft = 4;
+        int shiftTop = 4;
+        int height = Height / 3 - shiftLeft * 2;
+        int width = Width / 2 - shiftLeft * 2;
 
-        LabelPluNumber.Width = width;
-        LabelPluNumber.Height = height;
-        LabelPluNumber.Left = shiftLeft;
-        LabelPluNumber.Top = shiftTop;
+        LabelPlu.Width = Width - shiftLeft * 2;
+        LabelPlu.Height = Height - shiftTop * 2 - height;
+        LabelPlu.Left = shiftLeft;
+        LabelPlu.Top = shiftTop;
 
-        LabelPluType.Height = height;
-        LabelPluType.Top = shiftTop;
-
-        if (LabelPluValidate.Text == @"OK")
-        {
-            LabelPluType.Width = width;
-            LabelPluType.Left = ButtonPlu.Width / 2 + shiftLeft;
-        }
-        else
-        {
-            LabelPluType.Width = (width + shiftLeft * 2) / 2 - shiftLeft * 2;
-            LabelPluType.Left = ButtonPlu.Width / 2 + shiftLeft;
-
-            LabelPluValidate.Width = (width + shiftLeft * 2) / 2 - shiftLeft * 2;
-            LabelPluValidate.Height = height;
-            LabelPluValidate.Left = ButtonPlu.Width / 2 + ButtonPlu.Width / 4 + shiftLeft;
-            LabelPluValidate.Top = shiftTop;
-        }
-
-        LabelPluCode.Width = width;
-        LabelPluCode.Height = height;
-        LabelPluCode.Left = shiftLeft;
-        LabelPluCode.Top = ButtonPlu.Height / 4 * 3 + shiftTop;
-
-        LabelPluTemplate.Width = width;
-        LabelPluTemplate.Height = height;
-        LabelPluTemplate.Left = ButtonPlu.Width / 2 + shiftLeft;
-        LabelPluTemplate.Top = ButtonPlu.Height / 4 * 3 + shiftTop;
+        LabelTemplateCode.Width = Width - shiftLeft * 2;
+        LabelTemplateCode.Height = height;
+        LabelTemplateCode.Left = shiftLeft;
+        LabelTemplateCode.Top = LabelPlu.Top + LabelPlu.Height;
     }
+
+    public override string ToString() =>
+        $"{Left},{Top} {Width}x{Height} | {LabelPlu.Left},{LabelPlu.Top} {LabelPlu.Width} x {LabelPlu.Height} | {LabelTemplateCode.Left},{LabelTemplateCode.Top} {LabelTemplateCode.Width} x {LabelTemplateCode.Height}";
 
     #endregion
 }

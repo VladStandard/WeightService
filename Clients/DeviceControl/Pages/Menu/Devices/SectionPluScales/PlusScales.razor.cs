@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Enums;
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusScales;
@@ -40,7 +41,7 @@ public sealed partial class PlusScales : RazorComponentSectionBase<WsSqlPluScale
     private string GetPluPackagesCount(WsSqlPluModel plu)
 	{
 		WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
-            false, true, false, false);
+            WsSqlIsMarked.ShowAll, true, false, false);
         return ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}
 

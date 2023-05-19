@@ -29,6 +29,12 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
 
     #region Public and private methods
 
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
+        //// Настроить панель действий.
+        //SetupLayoutPanelActions(rowCount, columnCount);
+    }
 
     public override void RefreshAction()
     {
@@ -47,7 +53,11 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
         });
     }
 
-    private WsPluControl?[,] CreateControls()
+    /// <summary>
+    /// Создать массив контролов ПЛУ.
+    /// </summary>
+    /// <returns></returns>
+    private WsPluControl?[,] CreatePluUserControls()
     {
         List<WsSqlViewPluScaleModel> viewPlusScales = 
             UserSession.ContextCache.GetCurrentViewPlusScalesDb(UserSession.PlusPageNumber, WsUserSessionHelper.PlusPageSize);
@@ -56,132 +66,55 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
         controls = new WsPluControl[WsUserSessionHelper.PlusPageColumnCount, WsUserSessionHelper.PlusPageRowCount];
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < WsUserSessionHelper.PlusPageRowCount; ++rowNumber)
+            for (ushort rowNumber = 0, counter = 0; rowNumber < WsUserSessionHelper.PlusPageRowCount; ++rowNumber)
             {
                 for (ushort columnNumber = 0; columnNumber < WsUserSessionHelper.PlusPageColumnCount; ++columnNumber)
                 {
-                    if (buttonNumber >= viewPlusScales.Count) break;
-                    WsPluControl control = NewControlGroup(viewPlusScales[buttonNumber]);
-                    controls[columnNumber, rowNumber] = control;
-                    buttonNumber++;
+                    if (counter >= viewPlusScales.Count) break;
+                    controls[columnNumber, rowNumber] = new(viewPlusScales[counter], CreateLabelPlu(viewPlusScales[counter]),
+                        CreateLabelPluTemplateCode(viewPlusScales[counter]), ActionPluSelect);
+                    counter++;
                 }
             }
         });
         return controls;
     }
 
-    private WsPluControl NewControlGroup(WsSqlViewPluScaleModel viewPluScale)
-    {
-        Button buttonPlu = NewButtonPlu(viewPluScale);
-        Label labelPluNumber = NewLabelPluNumber(viewPluScale, buttonPlu);
-        Label labelPluType = NewLabelPluType(viewPluScale, buttonPlu);
-        Label labelPluCode = NewLabelPluCode(viewPluScale, buttonPlu);
-        Label labelPluValidate = NewPluValidLabel(viewPluScale, buttonPlu);
-        Label labelPluTemplate = NewLabelPluTemplate(viewPluScale, buttonPlu);
-
-        buttonPlu.Click += ActionPluSelect_Click;
-        labelPluNumber.MouseClick += ActionPluSelect_Click;
-        labelPluType.MouseClick += ActionPluSelect_Click;
-        labelPluCode.MouseClick += ActionPluSelect_Click;
-        labelPluValidate.MouseClick += ActionPluSelect_Click;
-        labelPluTemplate.MouseClick += ActionPluSelect_Click;
-
-        return new(viewPluScale, buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelPluTemplate, labelPluValidate);
-    }
-
-    private Button NewButtonPlu(WsSqlViewPluScaleModel viewPluScale) =>
-        new()
+    private Label CreateLabelPlu(WsSqlViewPluScaleModel viewPluScale) => new()
         {
             Font = FontsSettings.FontLabelsBlack,
             AutoSize = false,
-            Text = viewPluScale.PluName,
-            Dock = DockStyle.Fill,
-            Size = new(150, 30),
+            Text = $@"{viewPluScale.PluNumber} | {(viewPluScale.PluIsWeight ? LocaleCore.Scales.PluIsWeight : LocaleCore.Scales.PluIsPiece)} | {viewPluScale.PluName}",
             Visible = true,
-            Parent = layoutPanelPlus,
-            FlatStyle = FlatStyle.Flat,
-            Location = new(0, 0),
-            UseVisualStyleBackColor = true,
-            BackColor = System.Drawing.SystemColors.Control,
-        };
-
-    private Label NewLabelPluNumber(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
-        new()
-        {
-            Font = FontsSettings.FontMinimum,
-            AutoSize = false,
-            Text = Text = Width > 1024 ? $@"{LocaleCore.Table.Number} {viewPluScale.PluNumber}" : $@"{viewPluScale.PluNumber}",
             TextAlign = ContentAlignment.MiddleCenter,
-            Parent = buttonPlu,
+            FlatStyle = FlatStyle.Flat,
             Dock = DockStyle.None,
             BackColor = Color.Transparent,
             BorderStyle = BorderStyle.FixedSingle,
         };
 
-    private Label NewPluValidLabel(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu)
+    private Label CreateLabelPluTemplateCode(WsSqlViewPluScaleModel viewPluScale)
     {
-        bool valid = WsSqlPluController.Instance.IsFullValid(viewPluScale);
+        string gtin = !string.IsNullOrEmpty(viewPluScale.PluGtin) ? @$"{viewPluScale.PluGtin}" : LocaleCore.Scales.PluGtinIsNotSet;
+        string template = !string.IsNullOrEmpty(viewPluScale.TemplateName) ? LocaleCore.Scales.PluTemplateSet : LocaleCore.Scales.PluTemplateNotSet;
         return new()
         {
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
-            Text = valid == false ? "!" : "OK",
+            Text = $@"{gtin} | {template}",
+            Visible = true,
             TextAlign = ContentAlignment.MiddleCenter,
-            Parent = buttonPlu,
+            FlatStyle = FlatStyle.Flat,
             Dock = DockStyle.None,
-            BackColor = valid == false ? Color.Gold : Color.Transparent,
+            BackColor = !string.IsNullOrEmpty(viewPluScale.TemplateName) && WsSqlPluController.Instance.IsFullValid(viewPluScale) ? Color.Transparent : Color.Yellow,
             BorderStyle = BorderStyle.FixedSingle,
         };
     }
 
-    private Label NewLabelPluType(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
-        new()
-        {
-            Font = FontsSettings.FontMinimum,
-            AutoSize = false,
-            Text = viewPluScale.PluIsWeight == false ? LocaleCore.Scales.PluIsPiece : LocaleCore.Scales.PluIsWeight,
-            TextAlign = ContentAlignment.MiddleCenter,
-            Parent = buttonPlu,
-            Dock = DockStyle.None,
-            BackColor = viewPluScale.PluIsWeight ? Color.LightGray : Color.Transparent,
-            BorderStyle = BorderStyle.FixedSingle,
-        };
-
-    private Label NewLabelPluCode(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
-        new()
-        {
-            Font = FontsSettings.FontMinimum,
-            AutoSize = false,
-            Text = Width > 1024
-                ? !string.IsNullOrEmpty(viewPluScale.PluGtin) ? @$"{LocaleCore.Scales.PluCode} {viewPluScale.PluGtin}" : LocaleCore.Scales.PluCodeNotSet
-                : !string.IsNullOrEmpty(viewPluScale.PluGtin) ? @$"{viewPluScale.PluGtin}" : LocaleCore.Scales.PluCodeNotSet,
-            TextAlign = ContentAlignment.MiddleCenter,
-            Parent = buttonPlu,
-            Dock = DockStyle.None,
-            BackColor = !string.IsNullOrEmpty(viewPluScale.PluGtin) ? Color.Transparent : Color.LightGray,
-            BorderStyle = BorderStyle.FixedSingle,
-        };
-
-    private Label NewLabelPluTemplate(WsSqlViewPluScaleModel viewPluScale, Control buttonPlu) =>
-        new()
-        {
-            Font = FontsSettings.FontMinimum,
-            AutoSize = false,
-            Text = !string.IsNullOrEmpty(viewPluScale.TemplateName) ? LocaleCore.Scales.PluTemplateSet : LocaleCore.Scales.PluTemplateNotSet,
-            TextAlign = ContentAlignment.MiddleCenter,
-            Parent = buttonPlu,
-            Dock = DockStyle.None,
-            BackColor = !string.IsNullOrEmpty(viewPluScale.TemplateName) ? Color.Transparent : Color.LightGray,
-            Visible = true,
-            BorderStyle = BorderStyle.FixedSingle,
-        };
-
     /// <summary>
-    /// Выбор ПЛУ.
+    /// Смена ПЛУ.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionPluSelect_Click(object sender, EventArgs e)
+    private void ActionPluSelect(object sender, EventArgs e)
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
@@ -220,6 +153,11 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
         SetupControls();
     }
 
+    /// <summary>
+    /// Настроить панель ПЛУ.
+    /// </summary>
+    /// <param name="columnCount"></param>
+    /// <param name="rowCount"></param>
     private void SetupLayoutPanelPlus(int columnCount, int rowCount)
     {
         layoutPanelPlus.ColumnStyles.Clear();
@@ -243,7 +181,6 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
         }
         else
             layoutPanelPlus.RowStyles.Add(new(SizeType.Percent, 100));
-
     }
 
     /// <summary>
@@ -251,38 +188,48 @@ public sealed partial class WsPlusUserControl : WsBaseUserControl
     /// </summary>
     private void SetupControls()
     {
+        // Скрыть и почтистить панель ПЛУ.
         layoutPanelPlus.Visible = false;
         layoutPanelPlus.Controls.Clear();
         labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PlusPageNumber}";
-
-        WsPluControl?[,] controls = CreateControls();
-        int columnSave = controls.GetUpperBound(0) + 1;     // -1 + 1 = 0
-        int rowSave = controls.GetUpperBound(1) + 1;        // -1 + 1 = 0
-        int columnCount = controls.GetUpperBound(0) + 1;    // -1 + 1 = 0
-        int rowCount = controls.GetUpperBound(1) + 1;       // -1 + 1 = 0
+        // Создать массив контролов ПЛУ.
+        WsPluControl?[,] pluUserControls = CreatePluUserControls();
+        int columnSave = pluUserControls.GetUpperBound(0) + 1;     // -1 + 1 = 0
+        int rowSave = pluUserControls.GetUpperBound(1) + 1;        // -1 + 1 = 0
+        int columnCount = pluUserControls.GetUpperBound(0) + 1;    // -1 + 1 = 0
+        int rowCount = pluUserControls.GetUpperBound(1) + 1;       // -1 + 1 = 0
         if (columnCount < 1) columnCount = 1;
         if (rowCount < 1) rowCount = 1;
-        
+        // Настроить панель ПЛУ.
         SetupLayoutPanelPlus(columnCount, rowCount);
-        
-        // Проверка на наличие ПЛУ линии.
+        // Перебор контролов ПЛУ.
         for (ushort column = 0; column < columnCount; column++)
         {
             for (ushort row = 0; row < rowCount; row++)
-            {
-                if (columnSave > 0 && rowSave > 0)
-                    if (controls[column, row] is { } control)
-                        layoutPanelPlus.Controls.Add(control.ButtonPlu, column, row);
-            }
+                if (columnSave > 0 && rowSave > 0 && pluUserControls[column, row] is { } pluUserControl)
+                    // Добавить контрол ПЛУ на панель ПЛУ в заданную ячейку.
+                    layoutPanelPlus.Controls.Add(pluUserControl, column, row);
         }
+        // Настроить панель действий.
+        SetupLayoutPanelActions(rowCount, columnCount);
+        // Настроить размеры контролов.
+        foreach (WsPluControl? pluUserControl in pluUserControls) pluUserControl?.SetupSizes();
+        // Отобразить панель ПЛУ.
+        layoutPanelPlus.Visible = true;
+    }
 
+    /// <summary>
+    /// Настроить панель действий.
+    /// </summary>
+    /// <param name="rowCount"></param>
+    /// <param name="columnCount"></param>
+    private void SetupLayoutPanelActions(int rowCount, int columnCount)
+    {
         layoutPanelActions.Parent = layoutPanelPlus;
         layoutPanelPlus.SetColumn(layoutPanelActions, 0);
         layoutPanelPlus.SetRow(layoutPanelActions, rowCount);
         layoutPanelPlus.SetColumnSpan(layoutPanelActions, columnCount);
         layoutPanelActions.Dock = DockStyle.Fill;
-        foreach (WsPluControl? control in controls) control?.SetupSizes();
-        layoutPanelPlus.Visible = true;
     }
 
     #endregion

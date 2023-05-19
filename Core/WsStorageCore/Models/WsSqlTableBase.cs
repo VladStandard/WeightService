@@ -72,11 +72,11 @@ public class WsSqlTableBase : SerializeBase, ICloneable
 
     public override string ToString()
     {
-        string strCreateDt = CreateDt != DateTime.MinValue ? $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
-        string strChangeDt = ChangeDt != DateTime.MinValue ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
-        string strIsMarked = $"{nameof(IsMarked)}: {IsMarked}. ";
-        string strName = string.IsNullOrEmpty(Name) ? string.Empty : $"{nameof(Name)}: {Name}. ";
-        string strDescription = string.IsNullOrEmpty(Description) ? string.Empty : $"{nameof(Description)}: {Description}. ";
+        string strCreateDt = CreateDt != DateTime.MinValue ? $"{CreateDt:yyyy-MM-dd} | " : string.Empty;
+        string strChangeDt = ChangeDt != DateTime.MinValue ? $"{ChangeDt:yyyy-MM-dd} | " : string.Empty;
+        string strIsMarked = $"{GetIsMarked()}";
+        string strName = string.IsNullOrEmpty(Name) ? string.Empty : $"{Name} | ";
+        string strDescription = string.IsNullOrEmpty(Description) ? string.Empty : $"{Description} | ";
         return strCreateDt + strChangeDt + strIsMarked + strName + strDescription;
     }
 
@@ -185,6 +185,8 @@ public class WsSqlTableBase : SerializeBase, ICloneable
             Description = item.Description;
         ParseResult = item.ParseResult.CloneCast();
     }
+
+    public virtual string GetIsMarked() => IsMarked ? "Is hide" : "Is actual";
 
     #endregion
 }

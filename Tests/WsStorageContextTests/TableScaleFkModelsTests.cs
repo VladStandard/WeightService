@@ -21,7 +21,7 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_log_web_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlLogWebFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlLogWebFkModel>(WsSqlIsMarked.ShowAll);
     }
 
     [Test]
@@ -69,7 +69,7 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_plu_storage_method_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluStorageMethodFkModel>(true);
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluStorageMethodFkModel>(WsSqlIsMarked.ShowAll);
     }
 
     [Test]

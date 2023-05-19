@@ -13,6 +13,8 @@ public static class WsWinFormNavigationUtils
 
     private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    private static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    private static WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private static WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
     public static WsNavigationUserControl NavigationUserControl { get; set; } = new();
     public static TableLayoutPanel LayoutPanelMain { get; set; } = new();
@@ -58,6 +60,12 @@ public static class WsWinFormNavigationUtils
                 NavigationUserControl.AddUserControl(KneadingUserControl, message);
                 break;
             case WsNavigationPage.Lines:
+                // Обновить кэш.
+                ContextCache.LoadCurrentViewPlusScales((ushort)UserSession.Scale.IdentityValueId);
+                ContextCache.Load(WsSqlTableName.ProductionFacilities);
+                ContextCache.Load(WsSqlTableName.Scales);
+                ContextCache.Load(WsSqlTableName.ViewPluStorageMethods);
+                ContextCache.Load(WsSqlTableName.ViewPluNesting);
                 NavigationUserControl.AddUserControl(LinesUserControl, message);
                 break;
             case WsNavigationPage.MessageBox:

@@ -88,10 +88,10 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlAccessModel> GetListNotNullableAccesses(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name), Direction = WsSqlOrderDirection.Asc });
         List<WsSqlAccessModel> list = GetListNotNullableCore<WsSqlAccessModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderByDescending(item => item.RightsEnum).ThenByDescending(item => item.LoginDt).ToList();
+            list = list.OrderBy(item => item.Name).ToList();
         return list;
     }
 
@@ -744,9 +744,9 @@ public sealed class WsSqlContextListHelper
         return result;
     }
 
-    public List<WsSqlDeviceScaleFkModel> GetListDevicesScalesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceScaleFkModel> GetListDevicesScalesFks(WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop);
         List<WsSqlDeviceScaleFkModel> result = new();
         if (isAddFieldNull)
             result.Add(new() { Device = AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceModel>(), 
@@ -758,30 +758,30 @@ public sealed class WsSqlContextListHelper
         return result;
     }
 
-    public List<WsSqlDeviceTypeModel> GetListDevicesTypes(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceTypeModel> GetListDevicesTypes(WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop, isAddFieldNull);
         List<WsSqlDeviceTypeModel> deviceTypes = GetListDevicesTypes(sqlCrudConfig);
         return deviceTypes;
     }
 
-    public List<WsSqlDeviceModel> GetListDevices(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceModel> GetListDevices(WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop, isAddFieldNull);
         List<WsSqlDeviceModel> devices = GetListDevices(sqlCrudConfig);
         return devices;
     }
 
-    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFks(WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop, isAddFieldNull);
         List<WsSqlDeviceTypeFkModel> deviceTypesFks = GetListDevicesTypesFks(sqlCrudConfig);
         return deviceTypesFks;
     }
 
-    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFkFree(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFkFree(WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop, isAddFieldNull);
         List<WsSqlDeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
         List<WsSqlDeviceModel> devices = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
         deviceTypeFks = deviceTypeFks.Where(item => !devices.Contains(item.Device)).ToList();
@@ -789,33 +789,33 @@ public sealed class WsSqlContextListHelper
     }
 
     [Obsolete(@"Use DataContext")]
-    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFkBusy(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFkBusy(WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop, isAddFieldNull);
         List<WsSqlDeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
         List<WsSqlDeviceModel> devices = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
         deviceTypeFks = deviceTypeFks.Where(item => devices.Contains(item.Device)).ToList();
         return deviceTypeFks;
     }
 
-    public List<WsSqlPluLabelModel> GetListPluLabels(bool isShowMarked, bool isShowOnlyTop)
+    public List<WsSqlPluLabelModel> GetListPluLabels(WsSqlIsMarked isMarked, bool isShowOnlyTop)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop);
         sqlCrudConfig.Orders.Add(new() { Name = nameof(WsSqlPluWeighingModel.ChangeDt), Direction = WsSqlOrderDirection.Desc });
         return GetListNotNullableCore<WsSqlPluLabelModel>(sqlCrudConfig);
     }
 
-    public List<WsSqlScaleScreenShotModel> GetListScalesScreenShots(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlScaleScreenShotModel> GetListScalesScreenShots(WsSqlTableBase? itemFilter, WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlScaleScreenShotModel.Scale), itemFilter?.IdentityValueId),
-            isShowMarked, isShowOnlyTop, isAddFieldNull);
+            isMarked, isShowOnlyTop, isAddFieldNull);
         List<WsSqlScaleScreenShotModel> result = GetListNotNullableCore<WsSqlScaleScreenShotModel>(sqlCrudConfig);
         result = result.OrderByDescending(item => item.CreateDt).ToList();
         return result;
     }
 
-    public List<WsSqlPluBundleFkModel> GetListPluBundles(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    public List<WsSqlPluBundleFkModel> GetListPluBundles(WsSqlTableBase? itemFilter, WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldNull)
     {
         List<WsSqlPluBundleFkModel> result = new();
         if (isAddFieldNull)
@@ -824,26 +824,26 @@ public sealed class WsSqlContextListHelper
 
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
             new WsSqlFieldOrderModel { Name = nameof(WsSqlPluBundleFkModel.Plu), Direction = WsSqlOrderDirection.Asc },
-            isShowMarked, isShowOnlyTop);
+            isMarked, isShowOnlyTop);
         result.AddRange(GetListNotNullableCore<WsSqlPluBundleFkModel>(sqlCrudConfig));
         result = result.OrderBy(item => item.Bundle.Name).ToList();
         result = result.OrderBy(item => item.Plu.Number).ToList();
         return result;
     }
 
-    public List<WsSqlPrinterResourceFkModel> GetListPrinterResources(WsSqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
+    public List<WsSqlPrinterResourceFkModel> GetListPrinterResources(WsSqlTableBase? itemFilter, WsSqlIsMarked isMarked, bool isShowOnlyTop)
     {
         List<WsSqlFieldFilterModel> filters = WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
             new WsSqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc },
-            isShowMarked, isShowOnlyTop);
+            isMarked, isShowOnlyTop);
         return GetListNotNullableCore<WsSqlPrinterResourceFkModel>(sqlCrudConfig);
     }
 
-    public List<WsSqlPrinterTypeModel> GetListPrinterTypes(bool isShowMarked, bool isShowOnlyTop)
+    public List<WsSqlPrinterTypeModel> GetListPrinterTypes(WsSqlIsMarked isMarked, bool isShowOnlyTop)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            new WsSqlFieldOrderModel { Name = nameof(WsSqlPrinterTypeModel.Name), Direction = WsSqlOrderDirection.Asc }, isShowMarked, isShowOnlyTop);
+            new WsSqlFieldOrderModel { Name = nameof(WsSqlPrinterTypeModel.Name), Direction = WsSqlOrderDirection.Asc }, isMarked, isShowOnlyTop);
         return GetListNotNullableCore<WsSqlPrinterTypeModel>(sqlCrudConfig);
     }
 

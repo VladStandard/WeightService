@@ -206,91 +206,91 @@ order by [CREATE_DT] DESC");}
             public static string GetWebLogs(int topRecords) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(topRecords)}
-		 [UID]
-		,[CREATE_DT]
-		,[REQUEST_URL]
-		,[REQUEST_COUNT_ALL]
-		,[RESPONSE_COUNT_SUCCESS]
-		,[RESPONSE_COUNT_ERROR]
-		,[LOG_TYPE]
-		,[APP_VERSION]
+	 [UID]
+	,[CREATE_DT]
+	,[REQUEST_URL]
+	,[REQUEST_COUNT_ALL]
+	,[RESPONSE_COUNT_SUCCESS]
+	,[RESPONSE_COUNT_ERROR]
+	,[LOG_TYPE]
+	,[APP_VERSION]
 FROM [diag].[VIEW_LOGS_WEBS]
 order by [CREATE_DT] DESC");
 
-            public static string GetLines(int topRecords, bool isShowMarked) => WsSqlQueries.TrimQuery($@"
+            public static string GetLines(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(topRecords)}
-		 [ID]
-		,[IS_MARKED]
-		,[NAME]
-		,[NUMBER]
-		,[HOST_NAME]
-		,[PRINTER]
-		,[WORKSHOP]
-	FROM [db_scales].[VIEW_LINES]
-    {WsSqlQueries.GetWhereIsMarked(isShowMarked)}
+	 [ID]
+	,[IS_MARKED]
+	,[NAME]
+	,[NUMBER]
+	,[HOST_NAME]
+	,[PRINTER]
+	,[WORKSHOP]
+FROM [db_scales].[VIEW_LINES]
+{WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [NAME] ASC");
 
-            public static string GetBarcodes(int topRecords, bool isShowMarked) => WsSqlQueries.TrimQuery($@"
+            public static string GetBarcodes(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(topRecords)}
-		 [UID]
-		,[IS_MARKED]
-		,[CREATE_DT]
-		,[PLU_NUMBER]
-		,[VALUE_TOP]
-		,[VALUE_RIGHT]
-		,[VALUE_BOTTOM]
-	FROM [db_scales].[VIEW_BARCODES]
-    {WsSqlQueries.GetWhereIsMarked(isShowMarked)}
+	 [UID]
+	,[IS_MARKED]
+	,[CREATE_DT]
+	,[PLU_NUMBER]
+	,[VALUE_TOP]
+	,[VALUE_RIGHT]
+	,[VALUE_BOTTOM]
+FROM [db_scales].[VIEW_BARCODES]
+{WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [CREATE_DT] DESC");
 
-            public static string GetPluLabels(int topRecords, bool isShowMarked) => WsSqlQueries.TrimQuery($@"
+            public static string GetPluLabels(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- Table LOGS diagram summary
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
-		 [UID]
-		,[CREATE_DT]
-		,[IS_MARKED]
-		,[PROD_DT]
-		,[EXPIRATION_DT]
-		,[WEIGHING_DT]
-		,[LINE]
-		,[PLU_NUMBER]
-		,[PLU_NAME]
-		,[TEMPLATE_TITLE]
-	FROM [db_scales].[VIEW_PLUS_LABELS]
-    {WsSqlQueries.GetWhereIsMarked(isShowMarked)}
-	ORDER BY [CREATE_DT] DESC");
+	 [UID]
+	,[CREATE_DT]
+	,[IS_MARKED]
+	,[PROD_DT]
+	,[EXPIRATION_DT]
+	,[WEIGHING_DT]
+	,[LINE]
+	,[PLU_NUMBER]
+	,[PLU_NAME]
+	,[TEMPLATE_TITLE]
+FROM [db_scales].[VIEW_PLUS_LABELS]
+{WsSqlQueries.GetWhereIsMarked(isMarked)}
+ORDER BY [CREATE_DT] DESC");
 
-            public static string GetPluWeightings(int topRecords, bool isShowMarked) => WsSqlQueries.TrimQuery($@"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-select {WsSqlQueries.GetTopRecords(topRecords)}
-			 [UID]
-		,[IS_MARKED]
-		,[CREATE_DT]
-		,[LINE]
-		,[PLU_NUMBER]
-		,[PLU_NAME]
-		,[TARE_WEIGHT]
-		,[NETTO_WEIGHT]
-	FROM [db_scales].[VIEW_PLUS_WEIGHTINGS]
-    {WsSqlQueries.GetWhereIsMarked(isShowMarked)}
-	ORDER BY [CREATE_DT] DESC");
-
-            public static string GetDevices(int topRecords, bool isShowMarked) => WsSqlQueries.TrimQuery($@"
+            public static string GetPluWeightings(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(topRecords)}
 		 [UID]
-		,[IS_MARKED]
-		,[LOGIN_DT]
-		,[LOGOUT_DT]
-		,[NAME]
-		,[TYPE_NAME]
-		,[IP]
-		,[MAC]
-	FROM [db_scales].[VIEW_DEVICES]
-    {WsSqlQueries.GetWhereIsMarked(isShowMarked)}
+	,[IS_MARKED]
+	,[CREATE_DT]
+	,[LINE]
+	,[PLU_NUMBER]
+	,[PLU_NAME]
+	,[TARE_WEIGHT]
+	,[NETTO_WEIGHT]
+FROM [db_scales].[VIEW_PLUS_WEIGHTINGS]
+{WsSqlQueries.GetWhereIsMarked(isMarked)}
+ORDER BY [CREATE_DT] DESC");
+
+            public static string GetDevices(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+select {WsSqlQueries.GetTopRecords(topRecords)}
+	 [UID]
+	,[IS_MARKED]
+	,[LOGIN_DT]
+	,[LOGOUT_DT]
+	,[NAME]
+	,[TYPE_NAME]
+	,[IP]
+	,[MAC]
+FROM [db_scales].[VIEW_DEVICES]
+{WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [NAME] ASC");
         }
     }

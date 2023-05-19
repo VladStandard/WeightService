@@ -135,18 +135,11 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public WsSqlScaleModel Scale
     {
         get => _scale;
-        set
+        private set
         {
             _scale = value;
             // Журналирование смены линии.
             ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetLine(_scale.IdentityValueId, _scale.Description)}");
-            // Обновить кэш.
-            ContextCache.LoadCurrentViewPlusScales((ushort)_scale.IdentityValueId);
-            ContextCache.Load(WsSqlTableName.ProductionFacilities);
-            ContextCache.Load(WsSqlTableName.Scales);
-            ContextCache.Load(WsSqlTableName.ViewPluStorageMethods);
-            ContextCache.Load(WsSqlTableName.ViewPluNesting);
-            //_ = ProductionFacility;
             // Сбросить ПЛУ линии.
             PluScale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
             // Сбросить вложенность.

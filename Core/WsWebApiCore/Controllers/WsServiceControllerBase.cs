@@ -17,8 +17,8 @@ public class WsServiceControllerBase : ControllerBase
 
     internal WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
     internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    internal WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(), 
-        true, false, false, true, false);
+    internal WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
+        WsSqlIsMarked.ShowAll, false, false, true, false);
     private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
     protected WsSqlContextCacheHelper Cache => WsSqlContextCacheHelper.Instance;
 
@@ -330,7 +330,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlBundleModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
@@ -358,7 +358,7 @@ public class WsServiceControllerBase : ControllerBase
         {
             WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-                true, false, false, false, false);
+                WsSqlIsMarked.ShowAll, false, false, false, false);
             itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlBrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
@@ -385,7 +385,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlClipModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
@@ -410,7 +410,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlBoxModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
@@ -438,7 +438,7 @@ public class WsServiceControllerBase : ControllerBase
         {
             WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-                true, false, false, false, false);
+                WsSqlIsMarked.ShowAll, false, false, false, false);
             itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlPluModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
@@ -465,7 +465,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            true, false, false, false, false);
+            WsSqlIsMarked.ShowAll, false, false, false, false);
         itemDb = AccessManager.AccessItem.GetItemNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {

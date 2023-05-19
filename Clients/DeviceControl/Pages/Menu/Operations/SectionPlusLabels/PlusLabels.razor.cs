@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.ViewScaleModels;
@@ -22,7 +22,7 @@ public sealed partial class PlusLabels : RazorComponentSectionBase<PlusLabelView
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetPluLabels(SqlCrudConfigSection.IsResultShowOnlyTop
             ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, SqlCrudConfigSection.IsResultShowMarked);
+            : 0, SqlCrudConfigSection.IsMarked);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<PlusLabelView> items = new();
         foreach (var obj in objects)

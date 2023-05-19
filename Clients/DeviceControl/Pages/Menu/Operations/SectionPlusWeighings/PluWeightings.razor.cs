@@ -25,7 +25,7 @@ public sealed partial class PluWeightings : RazorComponentSectionBase<PluWeighti
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetPluWeightings(SqlCrudConfigSection.IsResultShowOnlyTop
             ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, SqlCrudConfigSection.IsResultShowMarked);
+            : 0, SqlCrudConfigSection.IsMarked);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<PluWeightingView> items = new();
         foreach (var obj in objects)

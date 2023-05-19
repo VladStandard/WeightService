@@ -20,7 +20,7 @@ public sealed class WsSqlContextCacheHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
-        true, false, false, true, false);
+        WsSqlIsMarked.ShowAll, false, false, true, false);
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlTableName TableName { get; set; } = WsSqlTableName.None;
     public List<WsSqlBoxModel> BoxesDb { get; private set; } = new();
