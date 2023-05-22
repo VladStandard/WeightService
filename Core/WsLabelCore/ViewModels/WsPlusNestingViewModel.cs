@@ -16,8 +16,7 @@ public sealed class WsPluNestingViewModel : WsWpfBaseViewModel
 
     public WsPluNestingViewModel()
     {
-        //Plu = WsUserSessionHelper.Instance.PluScale.Plu;
-        PlusNestings = ContextCache.CurrentViewPlusScales;
+        PlusNestings = ContextCache.LocalViewPlusNesting;
     }
 
     #endregion

@@ -24,7 +24,7 @@ public static class WsWinFormNavigationUtils
     public static WsMoreUserControl KneadingUserControl { get; set; } = new();
     public static WsMoreUserControl MoreUserControl { get; set; } = new();
     public static WsLinesUserControl LinesUserControl { get; set; } = new();
-    public static WsPlusUserControl PlusUserControl { get; set; } = new();
+    public static WsPlusLinesUserControl PlusLineUserControl { get; set; } = new();
     public static WsPlusNestingUserControl PlusNestingUserControl { get; set; } = new();
     public static WsWaitUserControl WaitUserControl { get; set; } = new();
 
@@ -59,30 +59,27 @@ public static class WsWinFormNavigationUtils
         switch (navigationPage)
         {
             case WsNavigationPage.Kneading:
-                NavigationUserControl.AddUserControl(KneadingUserControl, message);
+                NavigationUserControl.SwitchUserControl(KneadingUserControl, LocaleCore.Scales.ButtonSwitchKneading, message);
                 break;
             case WsNavigationPage.Lines:
-                //LinesUserControl.ViewModel = new() { Area = UserSession.ProductionFacility, Line = UserSession.Scale };
-                NavigationUserControl.AddUserControl(LinesUserControl, message);
+                NavigationUserControl.SwitchUserControl(LinesUserControl, LocaleCore.Scales.SwitchLineTitle, message);
                 break;
             case WsNavigationPage.MessageBox:
-                NavigationUserControl.AddUserControl(MessageBoxUserControl, message);
+                NavigationUserControl.SwitchUserControl(MessageBoxUserControl, "", message);
                 break;
             case WsNavigationPage.More:
-                NavigationUserControl.AddUserControl(MoreUserControl, message);
+                NavigationUserControl.SwitchUserControl(MoreUserControl, LocaleCore.Scales.ButtonSwitchMore, message);
                 break;
-            case WsNavigationPage.Plus:
-                NavigationUserControl.AddUserControl(PlusUserControl, message);
+            case WsNavigationPage.PlusLine:
+                NavigationUserControl.SwitchUserControl(PlusLineUserControl, LocaleCore.Scales.ButtonSwitchPlu, message);
                 break;
             case WsNavigationPage.PlusNesting:
-                //PlusNestingUserControl.ViewModel = new() { Plu = UserSession.PluScale.Plu, PluNesting = UserSession.ViewPluNesting };
-                NavigationUserControl.AddUserControl(PlusNestingUserControl, message);
+                NavigationUserControl.SwitchUserControl(PlusNestingUserControl, LocaleCore.Scales.ButtonSwitchPluNesting, message);
                 break;
             case WsNavigationPage.Wait:
-                NavigationUserControl.AddUserControl(WaitUserControl, message);
+                NavigationUserControl.SwitchUserControl(WaitUserControl, "", message);
                 break;
         }
-
         // Отобразить user control.
         LayoutPanelMain.Visible = false;
         NavigationUserControl.Visible = true;
@@ -96,22 +93,28 @@ public static class WsWinFormNavigationUtils
     public static void NavigateToControlWait(string message = "") => NavigateToControl(WsNavigationPage.Wait, message);
 
     /// <summary>
-    /// Навигация в контрол смены ПЛУ.
+    /// Навигация в контрол смены ПЛУ линии.
     /// </summary>
-    public static void NavigateToControlPlus() => NavigateToControl(WsNavigationPage.Plus);
+    public static void NavigateToControlPlusLines()
+    {
+        // Навигация.
+        NavigateToControl(WsNavigationPage.PlusLine);
+    }
 
     /// <summary>
     /// Навигация в контрол смены вложенности ПЛУ.
     /// </summary>
-    public static void NavigateToControlPlusNesting() => NavigateToControl(WsNavigationPage.PlusNesting);
+    public static void NavigateToControlPlusNesting()
+    {
+        // Навигация.
+        NavigateToControl(WsNavigationPage.PlusNesting);
+    }
 
     /// <summary>
     /// Навигация в контрол смены линии.
     /// </summary>
     public static void NavigateToControlLines()
     {
-        // Обновить кэш.
-        UserSession.RefreshCache();
         // Навигация.
         NavigateToControl(WsNavigationPage.Lines);
     }
@@ -119,7 +122,11 @@ public static class WsWinFormNavigationUtils
     /// <summary>
     /// Навигация в контрол смены ещё.
     /// </summary>
-    public static void NavigateToControlMore() => NavigateToControl(WsNavigationPage.More);
+    public static void NavigateToControlMore()
+    {
+        // Навигация.
+        NavigateToControl(WsNavigationPage.More);
+    }
 
     /// <summary>
     /// Навигация в контрол сообщений.

@@ -11,14 +11,14 @@ public static class WsWinFormUtils
     /// <summary>
     /// Create a TableLayoutPanel.
     /// </summary>
-    /// <param name="tableLayoutPanelParent"></param>
+    /// <param name="layoutPanelMain"></param>
     /// <param name="name"></param>
     /// <param name="column"></param>
     /// <param name="row"></param>
     /// <param name="columnSpan"></param>
     /// <param name="tabIndex"></param>
     /// <returns></returns>
-    public static TableLayoutPanel NewTableLayoutPanel(TableLayoutPanel layoutPanel, string name,
+    public static TableLayoutPanel NewTableLayoutPanel(TableLayoutPanel layoutPanelMain, string name,
         int column, int row, int columnSpan, int tabIndex)
     {
         TableLayoutPanel tableLayoutPanel = new()
@@ -33,8 +33,8 @@ public static class WsWinFormUtils
         tableLayoutPanel.ColumnStyles.Add(new(SizeType.Percent, 100F));
         tableLayoutPanel.RowStyles.Clear();
         tableLayoutPanel.RowStyles.Add(new(SizeType.Percent, 100F));
-        layoutPanel.Controls.Add(tableLayoutPanel, column, row);
-        layoutPanel.SetColumnSpan(tableLayoutPanel, columnSpan);
+        layoutPanelMain.Controls.Add(tableLayoutPanel, column, row);
+        layoutPanelMain.SetColumnSpan(tableLayoutPanel, columnSpan);
         return tableLayoutPanel;
     }
 

@@ -7,6 +7,37 @@ namespace WsStorageContextTests.Helpers;
 public sealed class WsSqlContextCacheHelperTests
 {
     [Test]
+    public void Get_cache_view_plus_lines()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            WsTestsUtils.DataTests.ContextCache.Load(WsSqlTableName.ViewPlusLines);
+            Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusLines.Any());
+            WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusLines, 10);
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+    }
+
+    [Test]
+    public void Get_cache_view_plus_lines_current()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlScaleModel> lines = WsTestsUtils.DataTests.ContextManager.ContextScale.GetList();
+            Assert.IsTrue(lines.Any());
+
+            bool isPrintFirst = false;
+            foreach (WsSqlScaleModel line in lines)
+            {
+                if (isPrintFirst) break;
+                isPrintFirst = true;
+                WsTestsUtils.DataTests.ContextCache.LoadLocalViewPlusLines((ushort)line.IdentityValueId);
+                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.LocalViewPlusLines.Any());
+                WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.LocalViewPlusLines, 10);
+            }
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+    }
+
+    [Test]
     public void Get_cache_view_plus_nesting()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
@@ -18,33 +49,27 @@ public sealed class WsSqlContextCacheHelperTests
     }
 
     [Test]
-    public void Get_cache_view_plus_scales()
+    public void Get_cache_view_plus_nesting_current()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsTestsUtils.DataTests.ContextCache.Load(WsSqlTableName.ViewPlusScales);
-            Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusScales.Any());
-            WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusScales, 10);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    }
-
-    [Test]
-    public void Get_cache_view_plus_scales_current()
-    {
-        WsTestsUtils.DataTests.AssertAction(() =>
-        {
-            List<WsSqlScaleModel> scales = WsTestsUtils.DataTests.ContextManager.ContextScale.GetList();
-            Assert.IsTrue(scales.Any());
+            List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextPlu.GetList();
+            Assert.IsTrue(plus.Any());
 
             bool isPrintFirst = false;
-            foreach (WsSqlScaleModel scale in scales)
+            foreach (WsSqlPluModel plu in plus)
             {
-                WsTestsUtils.DataTests.ContextCache.LoadCurrentViewPlusScales((ushort)scale.IdentityValueId);
-                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.CurrentViewPlusScales.Any());
-                if (!isPrintFirst)
+                if (isPrintFirst) break;
+                if (plu.Number > 0)
                 {
-                    isPrintFirst = true;
-                    WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.CurrentViewPlusScales, 10);
+                    WsTestsUtils.DataTests.ContextCache.LoadLocalViewPlusNesting((ushort)plu.Number);
+                    //Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting.Any());
+                    if (WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting.Any())
+                    {
+                        TestContext.WriteLine($"{plu.Number} | {plu.Name}");
+                        isPrintFirst = true;
+                        WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting, 10);
+                    }
                 }
             }
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });

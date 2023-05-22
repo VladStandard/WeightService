@@ -22,7 +22,8 @@ public sealed class PluContentTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextPlu.GetListByNumbers(new() { 301, 1301 });
+            List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextPlu.GetListByNumbers(new() { 301, 1301 }, 
+                WsSqlIsMarked.ShowAll);
             TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
             WsTestsUtils.DataTests.PrintTopRecords(plus, 10, true, true);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });

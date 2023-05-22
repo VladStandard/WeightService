@@ -3,7 +3,7 @@
 
 namespace WsLabelCore.ViewModels;
 
-public sealed class WsLineViewModel : WsWpfBaseViewModel
+public sealed class WsLinesViewModel : WsWpfBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
@@ -16,9 +16,9 @@ public sealed class WsLineViewModel : WsWpfBaseViewModel
     private List<WsSqlScaleModel> _lines;
     public List<WsSqlScaleModel> Lines { get => _lines; private set { _lines = value; OnPropertyChanged(); } }
 
-    public WsLineViewModel()
+    public WsLinesViewModel()
     {
-        Areas = ContextCache.ProductionFacilitiesDb;
+        Areas = ContextCache.ProductionFacilities;
         Lines = ContextCache.Scales;
     }
 

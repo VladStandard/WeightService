@@ -9,8 +9,8 @@ public sealed partial class WsLinesUserControl : WsBaseUserControl
     #region Public and private fields, properties, constructor
 
     private ElementHost ElementHost { get; }
-    public WsLineViewModel ViewModel { get; }
-    private WsLinePage Page { get; }
+    public WsLinesViewModel ViewModel { get; }
+    private WsLinesPage Page { get; }
 
     public WsLinesUserControl()
     {

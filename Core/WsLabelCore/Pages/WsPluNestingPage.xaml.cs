@@ -4,14 +4,13 @@
 
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace WsLabelCore.Pages;
 
 /// <summary>
 /// Interaction logic for WsPluNestingPage.xaml
 /// </summary>
-public partial class WsPluNestingPage : WsBasePage, INavigableView<WsPluNestingViewModel>
+public partial class WsPluNestingPage : INavigableView<WsPluNestingViewModel>
 {
     #region Public and private fields, properties, constructor
     
@@ -20,15 +19,22 @@ public partial class WsPluNestingPage : WsBasePage, INavigableView<WsPluNestingV
     public WsPluNestingPage(WsPluNestingViewModel viewModel)
     {
 		InitializeComponent();
-        DataContext = ViewModel = viewModel;
-
-        // Линия.
-        System.Windows.Data.Binding bindingPlusNestings = new(nameof(ViewModel.PlusNestings)) { Mode = BindingMode.OneWay, Source = ViewModel };
-        comboBoxPluNesting.SetBinding(ItemsControl.ItemsSourceProperty, bindingPlusNestings);
-        System.Windows.Data.Binding bindingPluNesting = new(nameof(ViewModel.PluNesting)) { Mode = BindingMode.TwoWay, Source = ViewModel };
-        comboBoxPluNesting.SetBinding(Selector.SelectedItemProperty, bindingPluNesting);
-        System.Windows.Data.Binding bindingPluNestingValue = new(nameof(ViewModel.PluNesting.PrettyName)) { Mode = BindingMode.OneWay, Source = ViewModel };
-        comboBoxPluNesting.SetBinding(Selector.SelectedValueProperty, bindingPluNestingValue);
+        ViewModel = viewModel;
+        // Вложенности ПЛУ.
+        comboBoxPlusNesting.SetBinding(ItemsControl.ItemsSourceProperty, 
+            new Binding(nameof(ViewModel.PlusNestings)) { Mode = BindingMode.OneWay, Source = ViewModel });
+        comboBoxPlusNesting.SetBinding(Selector.SelectedItemProperty,
+            new Binding(nameof(ViewModel.PluNesting)) { Mode = BindingMode.TwoWay, Source = ViewModel });
+        comboBoxPlusNesting.SetBinding(Selector.SelectedValueProperty, 
+            new Binding(nameof(ViewModel.PluNesting.TareWeightDescription)) { Mode = BindingMode.OneWay, Source = ViewModel });
+        comboBoxPlusNesting.DisplayMemberPath = nameof(ViewModel.PluNesting.TareWeightDescription);
+        comboBoxPlusNesting.SelectedValuePath = nameof(ViewModel.PluNesting.TareWeightDescription);
+        // ПЛУ.
+        BindingOperations.SetBinding(labelPlu, ContentProperty,
+            new Binding(nameof(ViewModel.PluNesting.PluName)) { Mode = BindingMode.OneWay, Source = ViewModel.PluNesting });
+        // Вес тары ПЛУ.
+        BindingOperations.SetBinding(labelTareWeight, ContentProperty,
+            new Binding(nameof(ViewModel.PluNesting.TareWeightWithKg)) { Mode = BindingMode.OneWay, Source = ViewModel.PluNesting });
     }
 
     #endregion

@@ -99,9 +99,8 @@ partial class WsNavigationUserControl
             this.fieldTitle.Name = "fieldTitle";
             this.fieldTitle.Size = new System.Drawing.Size(601, 28);
             this.fieldTitle.TabIndex = 21;
-            this.fieldTitle.Text = "Sub menu";
+            this.fieldTitle.Text = "fieldTitle";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldTitle.Visible = false;
             // 
             // WsNavigationUserControl
             // 

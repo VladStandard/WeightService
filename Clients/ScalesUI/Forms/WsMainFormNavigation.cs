@@ -13,15 +13,9 @@ public partial class WsMainForm
     private void PreLoadNavigation()
     {
         // Обновить кэш.
-        UserSession.RefreshCache();
+        UserSession.RefreshGlobalCache();
         // Навигация.
-        WsWinFormNavigationUtils.NavigationUserControl = new();
         WsWinFormNavigationUtils.LayoutPanelMain = layoutPanelMain;
-        //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnOk = WsWinFormNavigationUtils.ReturnBackDefault;
-        //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnOk += ActionFinally;
-        //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnCancel = WsWinFormNavigationUtils.ReturnBackDefault;
-        //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnCancel += ActionFinally;
-        //WsWinFormNavigationUtils.NavigationUserControl.ViewModel.ActionReturnFinally = () => { };  // Sorry, but this is it.
         //WsWinFormNavigationUtils.NavigationUserControl.Parent = this;
         Controls.Add(WsWinFormNavigationUtils.NavigationUserControl);
         WsWinFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
@@ -58,13 +52,13 @@ public partial class WsMainForm
         WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackDefault;
         WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionReturnCancel += ActionFinally;
         // Смена ПЛУ.
-        WsWinFormNavigationUtils.PlusUserControl = new();
-        WsWinFormNavigationUtils.PlusUserControl.ViewModel.ActionReturnOk = ReturnOkFromPlus;
-        WsWinFormNavigationUtils.PlusUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackDefault;
-        WsWinFormNavigationUtils.PlusUserControl.ViewModel.ActionReturnOk += ActionFinally;
-        WsWinFormNavigationUtils.PlusUserControl.ViewModel.ActionReturnCancel = ReturnCancelFromPlus;
-        WsWinFormNavigationUtils.PlusUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackDefault;
-        WsWinFormNavigationUtils.PlusUserControl.ViewModel.ActionReturnCancel += ActionFinally;
+        WsWinFormNavigationUtils.PlusLineUserControl = new();
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnOk = ReturnOkFromPlusLine;
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackDefault;
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnOk += ActionFinally;
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnCancel = ReturnCancelFromPlusLine;
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackDefault;
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnCancel += ActionFinally;
         // Смена вложенности ПЛУ.
         WsWinFormNavigationUtils.PlusNestingUserControl = new();
         WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnOk = ReturnOkFromPlusNesting;
@@ -100,8 +94,10 @@ public partial class WsMainForm
     /// <summary>
     /// Возврат ОК из контрола смены ПЛУ.
     /// </summary>
-    private void ReturnOkFromPlus()
+    private void ReturnOkFromPlusLine()
     {
+        UserSession.PluScale = WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.PluScale;
+
         UserSession.WeighingSettings.Kneading = 1;
         UserSession.ProductDate = DateTime.Now;
         UserSession.NewPallet();
@@ -113,7 +109,7 @@ public partial class WsMainForm
     /// <summary>
     /// Возврат Отмена из контрола смены ПЛУ.
     /// </summary>
-    private void ReturnCancelFromPlus() =>
+    private void ReturnCancelFromPlusLine() =>
         UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
 
     /// <summary>
@@ -137,7 +133,8 @@ public partial class WsMainForm
     /// </summary>
     private void ReturnOkFromLines()
     {
-        UserSession.SetMain(WsWinFormNavigationUtils.LinesUserControl.ViewModel.Line.IdentityValueId, WsWinFormNavigationUtils.LinesUserControl.ViewModel.Area);
+        UserSession.SetMain(WsWinFormNavigationUtils.LinesUserControl.ViewModel.Line.IdentityValueId, 
+            WsWinFormNavigationUtils.LinesUserControl.ViewModel.Area);
         ActionMore(null, null);
     }
 
@@ -160,18 +157,13 @@ public partial class WsMainForm
         LocaleCore.Lang = LocaleData.Lang = Lang.Russian;
         string area = UserSession.Scale.WorkShop is null
             ? LocaleCore.Table.FieldEmpty : UserSession.ProductionFacility.Name;
-        MdInvokeControl.SetText(ButtonLine,
-            $"{UserSession.Scale.Description} | {UserSession.Scale.Number}{Environment.NewLine}{area}");
-        //if (UserSession.PluNestingView.ItemView.IsNew)
-        //    MdInvokeControl.SetText(ButtonPluNestingFk, LocaleCore.Table.FieldPackageIsNotSelected);
-        //else
+        MdInvokeControl.SetText(ButtonLine, $"{area}{Environment.NewLine}{LocaleCore.Table.Number}: {UserSession.Scale.Number} | {UserSession.Scale.Description}");
         MdInvokeControl.SetText(ButtonPluNestingFk, UserSession.ViewPluNesting.GetSmartName());
-        MdInvokeControl.SetText(fieldPackageWeight,
-            UserSession.PluScale.IsNotNew
+        MdInvokeControl.SetText(fieldPackageWeight, UserSession.PluScale.IsNotNew
                 ? $"{UserSession.ViewPluNesting.TareWeight:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
-        WsSqlTemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
-        MdInvokeControl.SetText(fieldTemplateValue, template.Title);
+        //WsSqlTemplateModel template = UserSession.ContextManager.ContextItem.GetItemTemplateNotNullable(UserSession.PluScale);
+        //MdInvokeControl.SetText(fieldTemplateValue, template.Title);
 
         // Отобразить main control.
         WsWinFormNavigationUtils.NavigationUserControl.Visible = false;
@@ -361,7 +353,7 @@ public partial class WsMainForm
             MdInvokeControl.SetVisible(fieldNettoWeight, false);
             UserSession.PluScale = UserSession.ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
             // Навигация.
-            WsWinFormNavigationUtils.NavigateToControlPlus();
+            WsWinFormNavigationUtils.NavigateToControlPlusLines();
         });
     }
 
@@ -413,7 +405,7 @@ public partial class WsMainForm
             // Проверить наличие ПЛУ.
             if (!UserSession.CheckPluIsEmpty(fieldWarning)) return;
             // Проверить наличие вложенности ПЛУ.
-            if (!UserSession.SetAndCheckListViewPlusNesting(UserSession.PluScale.Plu, fieldWarning)) return;
+            if (!UserSession.CheckViewPluNesting(UserSession.PluScale.Plu, fieldWarning)) return;
             // Проверить наличие весовой платформы Масса-К.
             if (IsSkipDialogs || Debug.IsRelease)
                 if (!UserSession.CheckWeightMassaDeviceExists()) return;

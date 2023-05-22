@@ -67,11 +67,11 @@
     <Compile Include="Controls\WsNavigationUserControl.Designer.cs">
       <DependentUpon>WsNavigationUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WsPlusUserControl.cs">
+    <Compile Include="Controls\WsPlusLinesUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsPlusUserControl.Designer.cs">
-      <DependentUpon>WsPlusUserControl.cs</DependentUpon>
+    <Compile Include="Controls\WsPlusLinesUserControl.Designer.cs">
+      <DependentUpon>WsPlusLinesUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\WsWaitUserControl.cs">
       <SubType>UserControl</SubType>
@@ -86,7 +86,7 @@
     <Compile Include="Utils\WsWinFormNavigationUtils.cs" />
     <Compile Include="Utils\WsWinFormUtils.cs" />
     <Compile Include="ViewModels\WsWaitViewModel.cs" />
-    <Compile Include="ViewModels\WsPlusViewModel.cs" />
+    <Compile Include="ViewModels\WsPlusLineViewModel.cs" />
     <Compile Include="ViewModels\WsMoreViewModel.cs" />
     <Compile Include="ViewModels\WsMessageBoxViewModel.cs" />
     <Compile Include="Forms\WsNumberInputForm.cs">
@@ -107,9 +107,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\WsLineViewModel.cs" />
+    <Compile Include="ViewModels\WsLinesViewModel.cs" />
     <Compile Include="ViewModels\WsPinCodeViewModel.cs" />
-    <Compile Include="ViewModels\WsPluNestingViewModel.cs" />
+    <Compile Include="ViewModels\WsPlusNestingViewModel.cs" />
     <Compile Include="ViewModels\WsBaseViewModel.cs" />
     <Compile Include="Helpers\WsFontsSettingsHelper.cs" />
     <Compile Include="Helpers\WsPluginLabelsHelper.cs" />
@@ -123,8 +123,8 @@
     <Compile Include="Utils\WsWinFormExtensions.cs" />
     <Compile Include="Helpers\WsXamlHelper.cs" />
     <Compile Include="Pages\WsBasePage.cs" />
-    <Compile Include="Pages\WsLinePage.xaml.cs">
-      <DependentUpon>WsLinePage.xaml</DependentUpon>
+    <Compile Include="Pages\WsLinesPage.xaml.cs">
+      <DependentUpon>WsLinesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\WsMessageBoxPage.xaml.cs">
       <DependentUpon>WsMessageBoxPage.xaml</DependentUpon>
@@ -190,8 +190,8 @@
     <EmbeddedResource Include="Controls\WsNavigationUserControl.resx">
       <DependentUpon>WsNavigationUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsPlusUserControl.resx">
-      <DependentUpon>WsPlusUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WsPlusLinesUserControl.resx">
+      <DependentUpon>WsPlusLinesUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\WsWaitUserControl.resx">
       <DependentUpon>WsWaitUserControl.cs</DependentUpon>
@@ -205,7 +205,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Pages\WsLinePage.xaml">
+    <Page Include="Pages\WsLinesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsPrintCore.Enums;
-
 namespace WsDataCore.Models;
 
 public class WsWeighingSettingsModel
@@ -69,22 +67,19 @@ public class WsWeighingSettingsModel
 
     #region Public and private methods
 
-    public string GetPrintName(bool isMain, PrintBrand printBrand)
-    {
-        return isMain
-            ? printBrand switch
-            {
-                PrintBrand.Zebra => LocaleCore.Print.NameMainZebra,
-                PrintBrand.Tsc => LocaleCore.Print.NameMainTsc,
-                _ => LocaleCore.Print.DeviceName
-            }
-            : printBrand switch
-            {
-                PrintBrand.Zebra => LocaleCore.Print.NameShippingZebra,
-                PrintBrand.Tsc => LocaleCore.Print.NameShippingTsc,
-                _ => LocaleCore.Print.DeviceNameIsUnavailable
-            };
-    }
+    public string GetPrintName(bool isMain, PrintBrand printBrand) => isMain
+        ? printBrand switch
+        {
+            PrintBrand.Zebra => LocaleCore.Print.NameMainZebra,
+            PrintBrand.Tsc => LocaleCore.Print.NameMainTsc,
+            _ => LocaleCore.Print.DeviceName
+        }
+        : printBrand switch
+        {
+            PrintBrand.Zebra => LocaleCore.Print.NameShippingZebra,
+            PrintBrand.Tsc => LocaleCore.Print.NameShippingTsc,
+            _ => LocaleCore.Print.DeviceNameIsUnavailable
+        };
 
     public string GetPrintDescription(bool isMain, PrintBrand printBrand, MdPrinterModel printer, int scaleCounter,
         string deviceStatus, int labelPrintedCount, byte labelCount) =>

@@ -145,8 +145,8 @@ public partial class WsMessageBoxPage : WsBasePage, INavigableView<WsMessageBoxV
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
             };
-            System.Windows.Data.Binding binding = new("Caption") { Mode = System.Windows.Data.BindingMode.OneWay, IsAsync = true, Source = ViewModel };
-            System.Windows.Data.BindingOperations.SetBinding(field, TextBlock.TextProperty, binding);
+            Binding binding = new("Caption") { Mode = BindingMode.OneWay, IsAsync = true, Source = ViewModel };
+            BindingOperations.SetBinding(field, TextBlock.TextProperty, binding);
             field.KeyUp += Button_KeyUp;
             Grid.SetColumn(field, 0);
             Grid.SetColumnSpan(field, colCount);
@@ -174,8 +174,8 @@ public partial class WsMessageBoxPage : WsBasePage, INavigableView<WsMessageBoxV
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
             };
-            System.Windows.Data.Binding binding = new("Message") { Mode = System.Windows.Data.BindingMode.OneWay, IsAsync = true, Source = ViewModel };
-            System.Windows.Data.BindingOperations.SetBinding(field, TextBlock.TextProperty, binding);
+            Binding binding = new("Message") { Mode = BindingMode.OneWay, IsAsync = true, Source = ViewModel };
+            BindingOperations.SetBinding(field, TextBlock.TextProperty, binding);
             field.KeyUp += Button_KeyUp;
 
             scrollViewer.Content = field;

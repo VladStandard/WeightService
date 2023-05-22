@@ -20,8 +20,21 @@ public sealed partial class WsNavigationUserControl : WsBaseUserControl
 
     #region Public and private methods
 
-    public void AddUserControl(WsBaseUserControl userControl, string message)
+    /// <summary>
+    /// Перейти в контрол.
+    /// </summary>
+    /// <param name="userControl"></param>
+    /// <param name="title"></param>
+    /// <param name="message"></param>
+    public void SwitchUserControl(WsBaseUserControl userControl, string title, string message)
     {
+        if (!string.IsNullOrEmpty(title))
+        {
+            fieldTitle.Text = title;
+            fieldTitle.Visible = true;
+        }
+        else
+            fieldTitle.Visible = false;
         userControl.Message = message;
         userControl.Visible = false;
         foreach (Control control in layoutPanelUser.Controls) control.Visible = false;

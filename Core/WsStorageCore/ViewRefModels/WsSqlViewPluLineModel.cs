@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewRefModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewPluScaleModel : WsSqlViewBase
+public sealed record WsSqlViewPluLineModel : WsSqlViewBase
 {
     #region Public and private fields, properties, constructor
 
@@ -27,13 +27,13 @@ public sealed record WsSqlViewPluScaleModel : WsSqlViewBase
     public bool TemplateIsMarked { get; init; }
     public string TemplateName { get; init; }
 
-    public WsSqlViewPluScaleModel() : this(Guid.Empty, DateTime.MinValue, DateTime.MinValue, default, default,
+    public WsSqlViewPluLineModel() : this(Guid.Empty, DateTime.MinValue, DateTime.MinValue, default, default,
         default, default, string.Empty,
         Guid.Empty, default, default, default, string.Empty,
         string.Empty, string.Empty, string.Empty,
         default, default, string.Empty) { }
 
-    public WsSqlViewPluScaleModel(Guid uid, DateTime createDt, DateTime changeDt, bool isMarked, bool isActive,
+    public WsSqlViewPluLineModel(Guid uid, DateTime createDt, DateTime changeDt, bool isMarked, bool isActive,
         ushort scaleId, bool scaleIsMarked, string scaleName, 
         Guid pluUid, bool pluIsMarked, bool pluIsWeight, ushort pluNumber, string pluName,
         string pluGtin, string pluEan13, string pluItf14,

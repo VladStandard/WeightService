@@ -116,7 +116,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                 WsSqlPluCharacteristicModel itemXml = record.Item;
                 // Обновить данные в таблице связей обмена номенклатуры 1С.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, record);
-                WsSqlPluModel pluDb = ContextManager.ContextPlu.GetItemByUid1c(record.Item.NomenclatureGuid);
+                WsSqlPluModel pluDb = ContextManager.ContextPlu.GetItemByUid1C(record.Item.NomenclatureGuid);
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     CheckIsEnabledPlu(itemXml, plus1CFksDb);

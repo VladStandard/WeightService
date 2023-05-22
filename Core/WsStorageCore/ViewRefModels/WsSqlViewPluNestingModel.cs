@@ -36,7 +36,9 @@ public sealed record WsSqlViewPluNestingModel : WsSqlViewBase
     public string BoxName { get; init; }
     public decimal BoxWeight { get; init; }
     public decimal TareWeight { get; init; }
-    public string PrettyName => ToString();
+    public string TareWeightWithKg => $"{TareWeight} {LocaleCore.Scales.WeightUnitKg}";
+    public string TareWeightDescription => $"{BoxName} + ({BundleName} * {BundleCount})";
+    public string TareWeightValue => $"{BoxWeight} + ({BundleWeight} * {BundleCount})";
 
     public WsSqlViewPluNestingModel() : this(Guid.Empty, default, default, default,
         default, default, default, Guid.Empty, Guid.Empty, default, default, default, default, string.Empty,
@@ -84,8 +86,6 @@ public sealed record WsSqlViewPluNestingModel : WsSqlViewBase
     #endregion
 
     #region Public and private methods - override
-
-    public override string ToString() => $"{TareWeight} | {BoxWeight} + {BundleCount} * {BundleWeight} | {BoxName} + {BundleName} * {BundleWeight}";
 
     public string GetSmartName() => TareWeight > 0 ? $"{TareWeight} {LocaleCore.Scales.WeightUnitKg} | {PluName}" : "- 0 -";
 

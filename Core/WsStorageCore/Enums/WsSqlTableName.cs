@@ -23,7 +23,7 @@ public enum WsSqlTableName
     Plus1CFks,
     Scales,
     ProductionFacilities,
-    ViewPlusScales, // вместо PlusScales
+    ViewPlusLines, // вместо PlusScales
     ViewPlusStorageMethods, // вместо PluStorageMethodsFks
     ViewPlusNesting, // вместо PluNestingFks
 }

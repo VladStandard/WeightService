@@ -125,8 +125,8 @@ public partial class WsMainForm : Form
         MdInvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
 
         // Шаблон.
-        MdInvokeControl.SetVisible(fieldTemplateTitle, true);
-        MdInvokeControl.SetVisible(fieldTemplateValue, true);
+        //MdInvokeControl.SetVisible(fieldTemplateTitle, true);
+        //MdInvokeControl.SetVisible(fieldTemplateValue, true);
 
         // Основной принтер.
         if (UserSession.Scale.PrinterMain is not null)
@@ -206,8 +206,8 @@ public partial class WsMainForm : Form
         fieldPrintMainExt.Font = FontsSettings.FontLabelsGray;
         fieldPrintShippingExt.Font = FontsSettings.FontLabelsGray;
         fieldMemory.Font = FontsSettings.FontLabelsGray;
-        fieldTemplateTitle.Font = FontsSettings.FontLabelsGray;
-        fieldTemplateValue.Font = FontsSettings.FontLabelsGray;
+        //fieldTemplateTitle.Font = FontsSettings.FontLabelsGray;
+        //fieldTemplateValue.Font = FontsSettings.FontLabelsGray;
 
         fieldWarning.Font = FontsSettings.FontLabelsBlack;
         labelNettoWeight.Font = FontsSettings.FontLabelsBlack;
@@ -262,30 +262,21 @@ public partial class WsMainForm : Form
             ButtonLine = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonLine), 1, rowCount++);
             ButtonLine.Click += ActionSwitchLine;
         }
-        else
-        {
-            ButtonLine = new();
-        }
+        else ButtonLine = new();
 
         if (ActionSettings.IsPlu)
         {
             ButtonPlu = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
             ButtonPlu.Click += ActionSwitchPlu;
         }
-        else
-        {
-            ButtonPlu = new();
-        }
+        else ButtonPlu = new();
 
         if (ActionSettings.IsNesting)
         {
             ButtonPluNestingFk = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPluNestingFk), 1, rowCount++);
             ButtonPluNestingFk.Click += ActionSwitchPluNesting;
         }
-        else
-        {
-            ActionSettings = new();
-        }
+        else ActionSettings = new();
 
         layoutPanelDevice.ColumnCount = 1;
         WsWinFormUtils.SetTableLayoutPanelColumnStyles(layoutPanelDevice);

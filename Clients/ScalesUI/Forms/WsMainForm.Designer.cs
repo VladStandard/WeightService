@@ -114,14 +114,14 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53F));
             this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
             this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
-            this.layoutPanelMain.Controls.Add(this.fieldTemplateValue, 2, 9);
-            this.layoutPanelMain.Controls.Add(this.fieldTemplateTitle, 1, 9);
-            this.layoutPanelMain.Controls.Add(this.fieldPrintShippingExt, 1, 11);
-            this.layoutPanelMain.Controls.Add(this.fieldPrintShipping, 2, 11);
+            this.layoutPanelMain.Controls.Add(this.fieldTemplateValue, 2, 11);
+            this.layoutPanelMain.Controls.Add(this.fieldTemplateTitle, 1, 11);
+            this.layoutPanelMain.Controls.Add(this.fieldPrintShippingExt, 1, 10);
+            this.layoutPanelMain.Controls.Add(this.fieldPrintShipping, 2, 10);
             this.layoutPanelMain.Controls.Add(this.fieldWarning, 1, 6);
             this.layoutPanelMain.Controls.Add(this.fieldMemoryExt, 1, 7);
             this.layoutPanelMain.Controls.Add(this.fieldMemory, 2, 7);
-            this.layoutPanelMain.Controls.Add(this.fieldPrintMainExt, 1, 10);
+            this.layoutPanelMain.Controls.Add(this.fieldPrintMainExt, 1, 9);
             this.layoutPanelMain.Controls.Add(this.fieldMassaExt, 1, 8);
             this.layoutPanelMain.Controls.Add(this.fieldMassa, 2, 8);
             this.layoutPanelMain.Controls.Add(this.labelPackageWeight, 2, 3);
@@ -132,7 +132,7 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.Controls.Add(this.labelProductDate, 2, 4);
             this.layoutPanelMain.Controls.Add(this.fieldProductDate, 3, 4);
             this.layoutPanelMain.Controls.Add(this.fieldKneading, 3, 5);
-            this.layoutPanelMain.Controls.Add(this.fieldPrintMain, 2, 10);
+            this.layoutPanelMain.Controls.Add(this.fieldPrintMain, 2, 9);
             this.layoutPanelMain.Controls.Add(this.fieldPlu, 1, 1);
             this.layoutPanelMain.Controls.Add(this.layoutPanelTop, 1, 0);
             this.layoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -165,7 +165,7 @@ namespace ScalesUI.Forms
             this.fieldTemplateValue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldTemplateValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldTemplateValue.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldTemplateValue.Location = new System.Drawing.Point(141, 402);
+            this.fieldTemplateValue.Location = new System.Drawing.Point(141, 452);
             this.fieldTemplateValue.Margin = new System.Windows.Forms.Padding(3);
             this.fieldTemplateValue.Name = "fieldTemplateValue";
             this.fieldTemplateValue.Size = new System.Drawing.Size(873, 19);
@@ -181,7 +181,7 @@ namespace ScalesUI.Forms
             this.fieldTemplateTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldTemplateTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldTemplateTitle.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldTemplateTitle.Location = new System.Drawing.Point(8, 402);
+            this.fieldTemplateTitle.Location = new System.Drawing.Point(8, 452);
             this.fieldTemplateTitle.Margin = new System.Windows.Forms.Padding(3);
             this.fieldTemplateTitle.Name = "fieldTemplateTitle";
             this.fieldTemplateTitle.Size = new System.Drawing.Size(127, 19);
@@ -197,7 +197,7 @@ namespace ScalesUI.Forms
             this.fieldPrintShippingExt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintShippingExt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintShippingExt.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintShippingExt.Location = new System.Drawing.Point(8, 452);
+            this.fieldPrintShippingExt.Location = new System.Drawing.Point(8, 427);
             this.fieldPrintShippingExt.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintShippingExt.Name = "fieldPrintShippingExt";
             this.fieldPrintShippingExt.Size = new System.Drawing.Size(127, 19);
@@ -214,7 +214,7 @@ namespace ScalesUI.Forms
             this.fieldPrintShipping.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintShipping.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintShipping.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintShipping.Location = new System.Drawing.Point(141, 452);
+            this.fieldPrintShipping.Location = new System.Drawing.Point(141, 427);
             this.fieldPrintShipping.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintShipping.Name = "fieldPrintShipping";
             this.fieldPrintShipping.Size = new System.Drawing.Size(873, 19);
@@ -285,7 +285,7 @@ namespace ScalesUI.Forms
             this.fieldPrintMainExt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintMainExt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintMainExt.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintMainExt.Location = new System.Drawing.Point(8, 427);
+            this.fieldPrintMainExt.Location = new System.Drawing.Point(8, 402);
             this.fieldPrintMainExt.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintMainExt.Name = "fieldPrintMainExt";
             this.fieldPrintMainExt.Size = new System.Drawing.Size(127, 19);
@@ -410,7 +410,7 @@ namespace ScalesUI.Forms
             this.fieldPrintMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintMain.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintMain.Location = new System.Drawing.Point(141, 427);
+            this.fieldPrintMain.Location = new System.Drawing.Point(141, 402);
             this.fieldPrintMain.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintMain.Name = "fieldPrintMain";
             this.fieldPrintMain.Size = new System.Drawing.Size(873, 19);

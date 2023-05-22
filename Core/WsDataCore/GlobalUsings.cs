@@ -1,7 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-global using FluentValidation;
 global using MDSoft.NetUtils;
 global using MDSoft.Wmi.Helpers;
 global using MDSoft.Wmi.Models;
@@ -21,3 +20,4 @@ global using System.Xml;
 global using System.Xml.Serialization;
 global using WsLocalizationCore.Enums;
 global using WsLocalizationCore.Models;
+global using WsPrintCore.Enums;

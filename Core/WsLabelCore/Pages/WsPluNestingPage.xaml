@@ -40,11 +40,11 @@
 				VerticalContentAlignment="Center"
 				Content="{Binding Source={StaticResource LocaleTable}, Path=Plu, Mode=OneWay}" />
 			<Label
+				x:Name="labelPlu"
 				Grid.Column="1"
 				Margin="3"
 				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center"
-				Content="{Binding ViewModel.Plu.Name, Mode=OneWay}" />
+				VerticalContentAlignment="Center" />
 			<Label
 				Grid.Row="1"
 				Grid.Column="0"
@@ -53,16 +53,21 @@
 				VerticalContentAlignment="Center"
 				Content="{Binding Source={StaticResource LocaleTable}, Path=PluNesting, Mode=OneWay}" />
 			<ComboBox
-				x:Name="comboBoxPluNesting"
+				x:Name="comboBoxPlusNesting"
 				Grid.Row="1"
 				Grid.Column="1"
 				Margin="3"
+				Padding="20,0,0,0"
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Background="Transparent"
-				DisplayMemberPath="PrettyName"
-				FontSize="26"
-				SelectedValuePath="PrettyName" />
+				FontSize="26">
+				<ComboBox.ItemContainerStyle>
+					<Style TargetType="ComboBoxItem">
+						<Setter Property="Padding" Value="20,0,0,0" />
+					</Style>
+				</ComboBox.ItemContainerStyle>
+			</ComboBox>
 			<Label
 				Grid.Row="2"
 				Grid.Column="0"
@@ -71,12 +76,12 @@
 				VerticalContentAlignment="Center"
 				Content="{Binding Source={StaticResource LocaleTable}, Path=WeightTare, Mode=OneWay}" />
 			<Label
+				x:Name="labelTareWeight"
 				Grid.Row="2"
 				Grid.Column="1"
 				Margin="3"
 				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center"
-				Content="{Binding ViewModel.PluNesting.TareWeight, Mode=OneWay}" />
+				VerticalContentAlignment="Center" />
 			<Button
 				Grid.Row="3"
 				Grid.Column="0"

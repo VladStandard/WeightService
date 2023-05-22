@@ -36,9 +36,14 @@ public sealed class LocaleScale : WsLocalizationBase
     public string ButtonScalesInitShort => ">0<";
     public string ButtonSelectOrder => Lang == Lang.English ? "Order" : "Заказ";
     public string ButtonSelectPlu(int count) => Lang == Lang.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
-    public string ButtonSetKneading => Lang == Lang.English ? "More" : "Ещё";
+    public string ButtonSetKneading => Lang == Lang.English ? "Set kneading" : "Задать замес";
     public string ButtonSettings => Lang == Lang.English ? "Settings" : "Настройки";
+    public string ButtonSwitchKneading => Lang == Lang.English ? "Switch kneading" : "Смена замеса";
+    public string ButtonSwitchMore => Lang == Lang.English ? "Switch more" : "Смена ещё";
     public string ButtonSwitchPlu => Lang == Lang.English ? "Switch PLU" : "Смена ПЛУ";
+    public string ButtonSwitchPluNesting => Lang == Lang.English ? "Switch PLU nesting" : "Смена вложенности ПЛУ";
+    public string CheckAllPassed => Lang == Lang.English ? "All checks passed" : "Все проверки пройдены";
+    public string CheckPluError => Lang == Lang.English ? "RLU error" : "Ошибка ПЛУ";
     public string CheckPluWeightCount => Lang == Lang.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";
     public string CheckWeightBefore(decimal currentWeight) => Lang == Lang.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {MassaThresholdValue:0.000} {WeightUnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {WeightUnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {MassaThresholdValue:0.000} {WeightUnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {WeightUnitKg}.";
     public string CheckWeightIsEmpty() => Lang == Lang.English ? "For products by weight, put the product on the scale!" : "Для весовой продукции следует положить продукт на весы!";
@@ -89,7 +94,7 @@ public sealed class LocaleScale : WsLocalizationBase
     public string LabelContextWeight => Lang == Lang.English ? "Weight" : "Вес";
     public string LabelContextWorkShop => Lang == Lang.English ? "WorkShop/Line" : "Цех/Линия";
     public string Labels => Lang == Lang.English ? "Labels" : "Этикетки";
-    public string Line => Lang == Lang.English ? "Ling" : "Строка";
+    public string Line => Lang == Lang.English ? "Line" : "Строка";
     public string MassaDevice => Lang == Lang.English ? "Massa-K" : "Масса-К";
     public string MassaExchange => Lang == Lang.English ? "Massa exchange" : "Масса обмен";
     public string MassaIsNotCalc => Lang == Lang.English ? "The weight has not been calculated!" : "Вес не расчитан!";
@@ -117,6 +122,9 @@ public sealed class LocaleScale : WsLocalizationBase
     public string PluDescriptionSet => Lang == Lang.English ? "Descr is not set" : "Описание задано";
     public string PluGtin => Lang == Lang.English ? "GTIN" : "ГТИН";
     public string PluGtinIsNotSet => Lang == Lang.English ? "GTIN is not set" : "ГТИН не задан";
+    public string PluEan13IsNotSet => Lang == Lang.English ? "EAN13 is not set" : "ЕАН13 не задан";
+    public string PluItf14IsNotSet => Lang == Lang.English ? "ITF14 is not set" : "ИТФ14 не задан";
+    public string PluTemplateIsNotSet => Lang == Lang.English ? "PLU template is not set" : "Шаблон не задан";
     public string PluIsPiece => Lang == Lang.English ? "pcs." : "шт";
     public string PluIsWeight => Lang == Lang.English ? "weight" : "вес";
     public string PluNotSelect => Lang == Lang.English ? "PLU is not selected!" : "ПЛУ не выбрана!";
@@ -154,6 +162,7 @@ public sealed class LocaleScale : WsLocalizationBase
     public string StateError => Lang == Lang.English ? "error" : "ошибка";
     public string StateIsNotResponsed => Lang == Lang.English ? "is not responsed" : "нет ответа";
     public string StateIsResponsed => Lang == Lang.English ? "is responsed" : "есть ответ";
+    public string SwitchLineTitle => Lang == Lang.English ? "Switch Line" : "Смена линии";
     public string ThreadId => "ID";
     public string ThreadIsBackground => Lang == Lang.English ? "Is background" : "Фоновый";
     public string ThreadName => Lang == Lang.English ? "Name" : "Имя";

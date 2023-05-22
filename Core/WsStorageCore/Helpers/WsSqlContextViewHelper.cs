@@ -76,10 +76,30 @@ public sealed class WsSqlContextViewHelper
     /// <param name="scaleId"></param>
     /// <param name="topRecords"></param>
     /// <returns></returns>
-    public List<WsSqlViewPluScaleModel> GetListViewPlusScales(ushort scaleId = 0, int topRecords = 0)
+    public List<WsSqlViewPluLineModel> GetListViewPlusScales(ushort scaleId = 0, int topRecords = 0) =>
+        GetListViewPlusScales(scaleId, new List<ushort>(), topRecords);
+
+    /// <summary>
+    /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
+    /// </summary>
+    /// <param name="scaleId"></param>
+    /// <param name="pluNumber"></param>
+    /// <param name="topRecords"></param>
+    /// <returns></returns>
+    public List<WsSqlViewPluLineModel> GetListViewPlusScales(ushort scaleId, ushort pluNumber, int topRecords) =>
+        GetListViewPlusScales(scaleId, new List<ushort> { pluNumber }, topRecords);
+
+    /// <summary>
+    /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
+    /// </summary>
+    /// <param name="scaleId"></param>
+    /// <param name="pluNumbers"></param>
+    /// <param name="topRecords"></param>
+    /// <returns></returns>
+    public List<WsSqlViewPluLineModel> GetListViewPlusScales(ushort scaleId, List<ushort> pluNumbers, int topRecords)
     {
-        List<WsSqlViewPluScaleModel> result = new();
-        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusScales(scaleId, topRecords);
+        List<WsSqlViewPluLineModel> result = new();
+        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusScales(scaleId, pluNumbers, topRecords);
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
@@ -128,12 +148,12 @@ public sealed class WsSqlContextViewHelper
     /// <summary>
     /// Получить список вложенностей ПЛУ из представления [REF].[VIEW_PLUS_NESTING].
     /// </summary>
-    /// <param name="topRecords"></param>
+    /// <param name="pluNumber"></param>
     /// <returns></returns>
-    public List<WsSqlViewPluNestingModel> GetListViewPlusNesting(int topRecords = 0)
+    public List<WsSqlViewPluNestingModel> GetListViewPlusNesting(ushort pluNumber = 0)
     {
         List<WsSqlViewPluNestingModel> result = new();
-        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusNesting(topRecords);
+        string query = WsSqlQueriesDiags.Tables.Views.GetViewPlusNesting(pluNumber);
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {

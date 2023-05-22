@@ -18,11 +18,13 @@ public sealed class LocaleButtons : WsLocalizationBase
 
     public string Abort => Lang == Lang.English ? "Abort" : "Прервать";
     public string Apply => Lang == Lang.English ? "Apply" : "Применить";
+    public string Back => Lang == Lang.English ? "Back" : "Назад";
     public string Cancel => Lang == Lang.English ? "Cancel" : "Отмена";
     public string Clear => Lang == Lang.English ? "Clear" : "Очистить";
     public string Close => Lang == Lang.English ? "Close" : "Закрыть";
     public string Custom => Lang == Lang.English ? "Custom" : "Кастом";
     public string Enter => Lang == Lang.English ? "Enter" : "Ввод";
+    public string Forward => Lang == Lang.English ? "Forward" : "Вперёд";
     public string Ignore => Lang == Lang.English ? "Ignore" : "Игнорировать";
     public string Next => Lang == Lang.English ? "Next" : "Следующие";
     public string No => Lang == Lang.English ? "No" : "Нет";

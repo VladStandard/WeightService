@@ -17,7 +17,7 @@ public sealed class WsSqlContextCacheHelper
 
     #endregion
 
-    #region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor - Глобальный кэш таблиц
 
     private WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
         WsSqlIsMarked.ShowAll, false, false, true, false);
@@ -37,18 +37,27 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlPluGroupFkModel> PluGroupsFksDb { get; private set; } = new();
     public List<WsSqlPluGroupModel> PluGroupsDb { get; private set; } = new();
     public List<WsSqlPluModel> PlusDb { get; private set; } = new();
-    public List<WsSqlProductionFacilityModel> ProductionFacilitiesDb { get; private set; } = new();
+    public List<WsSqlProductionFacilityModel> ProductionFacilities { get; private set; } = new();
     public List<WsSqlScaleModel> Scales { get; private set; } = new();
     
-    public List<WsSqlViewPluScaleModel> ViewPlusScales { get; private set; } = new();
-    public List<WsSqlViewPluScaleModel> CurrentViewPlusScales { get; private set; } = new();
+    #endregion
+
+    #region Public and private fields, properties, constructor - Глобальный кэш представлений
+
+    public List<WsSqlViewPluLineModel> ViewPlusLines { get; private set; } = new();
     public List<WsSqlViewPluStorageMethodModel> ViewPlusStorageMethods { get; private set; } = new();
     public List<WsSqlViewPluNestingModel> ViewPlusNesting { get; set; } = new();
-    public List<WsSqlViewPluNestingModel> CurrentViewPlusNesting { get; private set; } = new();
 
     #endregion
 
-    #region Public and private methods
+    #region Public and private fields, properties, constructor - Локальный кэш представлений
+
+    public List<WsSqlViewPluLineModel> LocalViewPlusLines { get; private set; } = new();
+    public List<WsSqlViewPluNestingModel> LocalViewPlusNesting { get; private set; } = new();
+
+    #endregion
+
+    #region Public and private methods - Глобальный кэш
 
     /// <summary>
     /// Прогреть кэш.
@@ -63,8 +72,8 @@ public sealed class WsSqlContextCacheHelper
         // Tables.
         if (!PlusDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus)) 
             PlusDb = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
-        if (!ProductionFacilitiesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ProductionFacilities))
-            ProductionFacilitiesDb = ContextManager.ContextList.GetListNotNullableProductionFacilities(SqlCrudConfig);
+        if (!ProductionFacilities.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ProductionFacilities))
+            ProductionFacilities = ContextManager.ContextList.GetListNotNullableProductionFacilities(SqlCrudConfig);
         if (!Scales.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Scales))
             Scales = ContextManager.ContextList.GetListNotNullableScales(SqlCrudConfig);
         if (!PluFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluFks)) 
@@ -95,8 +104,8 @@ public sealed class WsSqlContextCacheHelper
             BrandsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
         
         // Views.
-        if (!ViewPlusScales.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusScales))
-            ViewPlusScales = ContextManager.ContextView.GetListViewPlusScales();
+        if (!ViewPlusLines.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusLines))
+            ViewPlusLines = ContextManager.ContextView.GetListViewPlusScales();
         if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusStorageMethods))
             ViewPlusStorageMethods = ContextManager.ContextView.GetListViewPlusStorageMethods();
         if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusNesting))
@@ -107,30 +116,34 @@ public sealed class WsSqlContextCacheHelper
             TableName = WsSqlTableName.None;
     }
 
-    public List<WsSqlViewPluScaleModel> GetViewPlusScalesDb(ushort scaleId) => 
-        ViewPlusScales.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive).ToList();
+    public List<WsSqlViewPluLineModel> GetViewPlusScalesDb(ushort scaleId) => 
+        ViewPlusLines.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive).ToList();
 
-    public List<WsSqlViewPluScaleModel> GetViewPlusScalesDb(ushort scaleId, int pageNumber, ushort pageSize) =>
-        ViewPlusScales.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive)
+    public List<WsSqlViewPluLineModel> GetViewPlusScalesDb(ushort scaleId, int pageNumber, ushort pageSize) =>
+        ViewPlusLines.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive)
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
             .ToList();
 
-    public void LoadCurrentViewPlusScales(ushort scaleId)
+
+    #endregion
+
+    #region Public and private methods - Локальный кэш
+
+    public void LoadLocalViewPlusLines(ushort scaleId)
     {
-        CurrentViewPlusScales = ContextManager.ContextView.GetListViewPlusScales(scaleId);
+        LocalViewPlusLines = ContextManager.ContextView.GetListViewPlusScales(scaleId);
     }
 
-    public List<WsSqlViewPluScaleModel> GetCurrentViewPlusScalesDb(int pageNumber, ushort pageSize) =>
-        CurrentViewPlusScales.Where(item => item.IsActive)
+    public List<WsSqlViewPluLineModel> GetCurrentViewPlusScales(int pageNumber, ushort pageSize) =>
+        LocalViewPlusLines.Where(item => item.IsActive)
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
             .ToList();
 
-    public void LoadCurrentViewPlusNesting(ushort pluNumber)
+    public void LoadLocalViewPlusNesting(ushort pluNumber)
     {
-        // STOP HERE
-        CurrentViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting();
+        LocalViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting(pluNumber);
     }
 
     #endregion

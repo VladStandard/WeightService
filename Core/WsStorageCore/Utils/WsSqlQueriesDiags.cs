@@ -79,9 +79,21 @@ ORDER BY [SCHEMA], [TABLE];");
             /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
             /// </summary>
             /// <param name="scaleId"></param>
+            /// <param name="pluNumber"></param>
             /// <param name="topRecords"></param>
             /// <returns></returns>
-            public static string GetViewPlusScales(ushort scaleId, int topRecords = 0) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewPlusScales(ushort scaleId, ushort pluNumber, int topRecords = 0) =>
+                GetViewPlusScales(scaleId, new List<ushort> { pluNumber }, topRecords);
+
+            /// <summary>
+            /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
+            /// </summary>
+            /// <param name="scaleId"></param>
+            /// <param name="pluNumbers"></param>
+            /// <param name="topRecords"></param>
+            /// <returns></returns>
+            public static string GetViewPlusScales(ushort scaleId, List<ushort> pluNumbers, int topRecords = 0) => 
+                WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
      [UID]
@@ -103,7 +115,7 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
     ,[TEMPLATE_ID]
     ,[TEMPLATE_IS_MARKED]
     ,[TEMPLATE_NAME]
-FROM [REF].[VIEW_PLUS_SCALES] {WsSqlQueries.GetWhereScaleId(scaleId)}
+FROM [REF].[VIEW_PLUS_SCALES] {WsSqlQueries.GetWhereScaleId(scaleId)} {WsSqlQueries.GetWherePluNumbers(pluNumbers, true)}
 ORDER BY [SCALE_ID], [PLU_NUMBER];");
 
             /// <summary>
@@ -142,11 +154,11 @@ ORDER BY [PLU_NUMBER], [PLU_NAME];");
             /// <summary>
             /// Получить список вложенностей ПЛУ из представления [REF].[VIEW_PLUS_NESTING].
             /// </summary>
-            /// <param name="topRecords"></param>
+            /// <param name="pluNumber"></param>
             /// <returns></returns>
-            public static string GetViewPlusNesting(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewPlusNesting(ushort pluNumber) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-SELECT {WsSqlQueries.GetTopRecords(topRecords)}
+SELECT 
 	 [UID]
 	,[IS_MARKED]
 	,[IS_DEFAULT]
@@ -176,7 +188,7 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	,[BOX_NAME]
 	,[BOX_WEIGHT]
 	,[TARE_WEIGHT]
-FROM [REF].[VIEW_PLUS_NESTING]
+FROM [REF].[VIEW_PLUS_NESTING] {WsSqlQueries.GetWherePluNumber(pluNumber)}
 ORDER BY [PLU_NUMBER], [PLU_NAME];");
 
             public static string GetLogs(int topRecords, string? logType, string? currentLine)

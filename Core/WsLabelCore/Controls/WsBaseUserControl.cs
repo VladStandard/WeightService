@@ -11,8 +11,9 @@ public class WsBaseUserControl : UserControl
 {
     #region Public and private fields, properties, constructor
 
-    internal WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     internal WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
+    internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    internal WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public string Message { get; set; } = string.Empty;
 
     #endregion

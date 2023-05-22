@@ -42,7 +42,7 @@ public static class WsSqlCrudConfigUtils
 
     public static WsSqlCrudConfigModel GetCrudConfig(List<WsSqlFieldFilterModel> filters, WsSqlFieldOrderModel order,
         WsSqlIsMarked isMarked, bool isShowOnlyTop = true, bool isAddFieldEmpty = false, bool isOrder = false) =>
-        GetCrudConfig(filters, new List<WsSqlFieldOrderModel>() { order }, isMarked, isShowOnlyTop, isAddFieldEmpty, isOrder);
+        GetCrudConfig(filters, new List<WsSqlFieldOrderModel> { order }, isMarked, isShowOnlyTop, isAddFieldEmpty, isOrder);
 
     public static WsSqlCrudConfigModel GetCrudConfig(WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty = false, bool isOrder = false) =>
         GetCrudConfig(new(), new List<WsSqlFieldOrderModel>(), isMarked, isShowOnlyTop, isAddFieldEmpty, isOrder);
@@ -53,7 +53,7 @@ public static class WsSqlCrudConfigUtils
 
     public static WsSqlCrudConfigModel GetCrudConfig(WsSqlFieldOrderModel order,
         WsSqlIsMarked isMarked, bool isShowOnlyTop = true, bool isAddFieldEmpty = false, bool isOrder = false) =>
-        GetCrudConfig(new(), new List<WsSqlFieldOrderModel>() { order }, isMarked, isShowOnlyTop, isAddFieldEmpty, isOrder);
+        GetCrudConfig(new(), new List<WsSqlFieldOrderModel> { order }, isMarked, isShowOnlyTop, isAddFieldEmpty, isOrder);
 
     #endregion
 }

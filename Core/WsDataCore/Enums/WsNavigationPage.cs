@@ -8,7 +8,7 @@ public enum WsNavigationPage
     Wait,
     Kneading,
     Lines,
-    Plus,
+    PlusLine,
     PlusNesting,
     More,
     MessageBox,

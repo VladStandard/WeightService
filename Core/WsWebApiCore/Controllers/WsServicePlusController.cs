@@ -194,9 +194,9 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             if (Equals(pluXml.ParentGuid, Guid.Empty)) return;
             // Проверить наличие ПЛУ в БД.
             if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out WsSqlPluModel? pluDb)) return;
-            WsSqlPluModel pluParentDb = ContextManager.ContextPlu.GetItemByUid1c(pluXml.ParentGuid);
+            WsSqlPluModel pluParentDb = ContextManager.ContextPlu.GetItemByUid1C(pluXml.ParentGuid);
             if (!CheckExistsPluDb(response, pluParentDb.Number, pluXml.Uid1C, LocaleCore.WebService.FieldGroup, true, out WsSqlPluModel? parentDb)) return;
-            WsSqlPluModel pluCategorytDb = ContextManager.ContextPlu.GetItemByUid1c(pluXml.CategoryGuid);
+            WsSqlPluModel pluCategorytDb = ContextManager.ContextPlu.GetItemByUid1C(pluXml.CategoryGuid);
             if (!CheckExistsPluDb(response, pluCategorytDb.Number, pluXml.Uid1C, LocaleCore.WebService.FieldGroup1Level, true, out WsSqlPluModel? categoryDb)) return;
             if (pluDb is null || parentDb is null) return;
 

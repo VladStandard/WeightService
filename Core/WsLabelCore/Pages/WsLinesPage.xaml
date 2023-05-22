@@ -1,5 +1,5 @@
 <pages:WsBasePage
-	x:Class="WsLabelCore.Pages.WsLinePage"
+	x:Class="WsLabelCore.Pages.WsLinesPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -43,12 +43,17 @@
 				Grid.Row="0"
 				Grid.Column="1"
 				Margin="3"
+				Padding="20,0,0,0"
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Background="Transparent"
-				DisplayMemberPath="Name"
-				FontSize="26"
-				SelectedValuePath="Name" />
+				FontSize="26">
+				<ComboBox.ItemContainerStyle>
+					<Style TargetType="ComboBoxItem">
+						<Setter Property="Padding" Value="20,0,0,0" />
+					</Style>
+				</ComboBox.ItemContainerStyle>
+			</ComboBox>
 			<Label
 				Grid.Row="1"
 				Margin="3"
@@ -60,12 +65,17 @@
 				Grid.Row="1"
 				Grid.Column="1"
 				Margin="3"
+				Padding="20,0,0,0"
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Background="Transparent"
-				DisplayMemberPath="NumberWithDescription"
-				FontSize="26"
-				SelectedValuePath="Description" />
+				FontSize="26">
+				<ComboBox.ItemContainerStyle>
+					<Style TargetType="ComboBoxItem">
+						<Setter Property="Padding" Value="20,0,0,0" />
+					</Style>
+				</ComboBox.ItemContainerStyle>
+			</ComboBox>
 			<Button
 				Grid.Row="2"
 				Margin="3"
