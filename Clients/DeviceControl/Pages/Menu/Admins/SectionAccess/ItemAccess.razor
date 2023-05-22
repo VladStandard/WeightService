@@ -7,7 +7,7 @@
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
 
-<RazorItemReload TItem="@WsSqlAccessModel" Title="@LocaleCore.Strings.AccessRights"/>
+<RazorItemReload TItem="@WsSqlAccessModel" Title="@LocaleCore.Strings.AccessRights" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>

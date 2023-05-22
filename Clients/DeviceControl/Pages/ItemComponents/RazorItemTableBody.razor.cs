@@ -13,7 +13,8 @@ public sealed partial class RazorItemTableBody : LayoutComponentBase
 
     private bool IsSqlItem1C => SqlItem is WsSqlTable1CBase;
 
-    private string Guid1C => IsSqlItem1C ? $"{((WsSqlTable1CBase?)SqlItem)?.Uid1C}" : $"{Guid.Empty}";
+    private string Guid1C =>
+        IsSqlItem1C ? $"{((WsSqlTable1CBase?)SqlItem)?.Uid1C}" : $"{Guid.Empty}";
 
     private string IdentityName =>
         SqlItem.Identity.Name switch

@@ -27,6 +27,6 @@ public sealed partial class ScalesScreenShots : RazorComponentSectionBase<WsSqlS
 
     private string GetByteLength(WsSqlScaleScreenShotModel screenshot) =>
         DataUtils.GetBytesLength(screenshot.ScreenShot, false);
-    
+
     #endregion
 }

@@ -18,18 +18,5 @@ public sealed partial class ItemLog : RazorComponentItemBase<WsSqlLogModel>
 
     #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlLogModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlLogModel>();
-            }
-        });
-    }
-
     #endregion
 }

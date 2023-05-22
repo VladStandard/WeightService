@@ -5,7 +5,6 @@
 <MudSnackbarProvider/>
 
 <RadzenDialog/>
-<RadzenTooltip/>
 <RadzenContextMenu/>
 <RadzenNotification/>
 
@@ -22,13 +21,13 @@
             Icon="people"
             Style="background-color: transparent;"
             Text="@User?.Identity?.Name"
-            Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}") />
+            Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}")/>
           <AuthorizeView Roles="@UserAccessStr.Admin">
             <MudSpacer/>
             <RadzenMenuItem
               Style="background-color: transparent;"
               Text="@VerBlazor"
-              Path=@($"{LocaleCore.DeviceControl.RouteSystemAppInfo}") />
+              Path=@($"{LocaleCore.DeviceControl.RouteSystemAppInfo}")/>
           </AuthorizeView>
         </RadzenMenu>
       </div>

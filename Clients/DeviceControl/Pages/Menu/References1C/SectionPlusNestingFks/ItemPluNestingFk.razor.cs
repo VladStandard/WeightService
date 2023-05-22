@@ -9,18 +9,5 @@ public sealed partial class ItemPluNestingFk : RazorComponentItemBase<WsSqlPluNe
 {
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSetJustOne(
-            () =>
-            {
-                SqlItemCast =
-                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluNestingFkModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlPluNestingFkModel>();
-            }
-        );
-    }
-
     #endregion
 }

@@ -6,7 +6,7 @@
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Organizations.WsSqlOrganizationModel>
 
-<RazorItemReload TItem="WsSqlOrganizationModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
+<RazorItemReload TItem="WsSqlOrganizationModel" Title="@LocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>

@@ -3,9 +3,6 @@
 
 namespace BlazorDeviceControl.Pages.ItemComponents;
 
-/// <summary>
-/// Actions save.
-/// </summary>
 public partial class RazorItemActions<TItem> : RazorComponentItemBase<TItem> where TItem : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
@@ -18,7 +15,10 @@ public partial class RazorItemActions<TItem> : RazorComponentItemBase<TItem> whe
 
     #region Public and private methods
 
-    //
+    protected override void SetSqlItemCast()
+    {
+        
+    }
 
     #endregion
 }

@@ -6,7 +6,7 @@
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PrintersTypes.WsSqlPrinterTypeModel>
 
-<RazorItemReload TItem="@WsSqlPrinterTypeModel" Title="@LocaleCore.Print.Type"/>
+<RazorItemReload TItem="@WsSqlPrinterTypeModel" Title="@LocaleCore.Print.Type" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>

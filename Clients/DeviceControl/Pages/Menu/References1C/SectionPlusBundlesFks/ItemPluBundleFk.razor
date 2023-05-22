@@ -5,7 +5,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
 
-<RazorItemReload TItem="@WsSqlPluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk"/>
+<RazorItemReload TItem="@WsSqlPluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>

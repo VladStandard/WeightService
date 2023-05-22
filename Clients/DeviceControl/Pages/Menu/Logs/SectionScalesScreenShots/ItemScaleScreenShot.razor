@@ -6,7 +6,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
-<RazorItemReload TItem="@WsSqlScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot"/>
+<RazorItemReload TItem="@WsSqlScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>

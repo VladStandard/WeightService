@@ -6,8 +6,7 @@
 @using BlazorDeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
 
-<RazorItemReload TItem="@WsSqlPrinterResourceFkModel" Title="@LocaleCore.Print.Resource"/>
-
+<RazorItemReload TItem="@WsSqlPrinterResourceFkModel" Title="@LocaleCore.Print.Resource" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>

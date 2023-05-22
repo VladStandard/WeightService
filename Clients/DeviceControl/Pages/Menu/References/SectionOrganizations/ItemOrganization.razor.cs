@@ -13,19 +13,5 @@ public sealed partial class ItemOrganization : RazorComponentItemBase<WsSqlOrgan
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new List<Action>
-        {
-            () =>
-            {
-                SqlItemCast =
-                    ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlOrganizationModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlOrganizationModel>();
-            }
-        });
-    }
-
     #endregion
 }

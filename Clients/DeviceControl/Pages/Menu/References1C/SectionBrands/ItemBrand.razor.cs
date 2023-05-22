@@ -15,20 +15,5 @@ public sealed partial class ItemBrand : RazorComponentItemBase<WsSqlBrandModel>
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlBrandModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                {
-                    SqlItemCast = SqlItemNew<WsSqlBrandModel>();
-                }
-            }
-        });
-    }
-
     #endregion
 }

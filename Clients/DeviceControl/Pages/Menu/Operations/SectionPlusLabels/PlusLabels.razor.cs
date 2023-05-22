@@ -17,7 +17,7 @@ public sealed partial class PlusLabels : RazorComponentSectionBase<PlusLabelView
     #endregion
 
     #region Public and private methods
-    
+
     protected override void SetSqlSectionCast()
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetPluLabels(SqlCrudConfigSection.IsResultShowOnlyTop
@@ -48,6 +48,6 @@ public sealed partial class PlusLabels : RazorComponentSectionBase<PlusLabelView
         }
         SqlSectionCast = items;
     }
-    
+
     #endregion
 }

@@ -6,7 +6,6 @@ using Microsoft.JSInterop;
 using Radzen;
 using WsBlazorCore.Settings;
 using WsBlazorCore.Utils;
-using WsStorageCore.Helpers;
 using WsStorageCore.Models;
 using WsStorageCore.Utils;
 
@@ -17,7 +16,8 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     #region Public and private fields, properties, constructor
 
     #region Parameters
-
+    
+    [Inject] protected ContextMenuService? ContextMenuService { get; set; }
     [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
 
@@ -46,21 +46,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
 
     #endregion
     
-    protected void AutoShowFilterOnlyTopSetup()
-    {
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop =
-            SqlSectionCast.Count >= ContextManager.JsonSettings.Local.SelectTopRowsCount;
-    }
-
-    protected void RowRender(RowRenderEventArgs<TItem> args)
-    {
-        //if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
-        //if (args.Data is AccessModel access)
-        //{
-        //	args.Attributes.Add("class", UserSettings.GetColorAccessRights((AccessRightsEnum)access.Rights));
-        //}
-    }
-
+    
     protected async Task SqlItemEditAsync()
     {
         if (User?.IsInRole(UserAccessStr.Read) == false) return;
@@ -134,7 +120,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     protected void GetSectionData()
     {
         RunActionsSafe(string.Empty, SetSqlSectionCast);
-        AutoShowFilterOnlyTopSetup();
+        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = SqlSectionCast.Count >= ContextManager.JsonSettings.Local.SelectTopRowsCount;
         IsLoading = false;
         StateHasChanged();
     }
@@ -144,13 +130,10 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
         SqlSectionCast = ContextManager.AccessManager.AccessList.GetListNotNullable<TItem>(SqlCrudConfigSection);
     }
 
-    protected virtual void SetSqlSectionSave(TItem model)
+    protected void SetSqlSectionSave(TItem model)
     {
-        RunActionsSafe(string.Empty, () =>
-        {
-            if (!SqlSectionSave.Any(item => Equals(item.IdentityValueUid, model.IdentityValueUid)))
+        if (!SqlSectionSave.Any(item => Equals(item.IdentityValueUid, model.IdentityValueUid)))
                 SqlSectionSave.Add(model);
-        });
     }
 
     protected virtual async Task OnSqlSectionSaveAsync()
@@ -161,6 +144,71 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
             foreach (TItem item in SqlSectionSave)
                 ContextManager.AccessManager.AccessItem.Update(item);
             SqlSectionSave.Clear();
+        });
+    }
+    
+    protected async Task SqlItemCopyAsync()
+    {
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+        if (SqlItem is null)
+        {
+            await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
+            return;
+        }
+
+        RunActionsWithQeustion(LocaleCore.Table.TableCopy, GetQuestionAdd(), () =>
+        {
+            SqlItem = SqlItem.CloneCast();
+            SetRouteItemNavigate(SqlItem);
+        });
+    }
+
+    protected async Task SqlItemMarkAsync()
+    {
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+        if (SqlItem is null)
+        {
+            await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
+            return;
+        }
+		
+        RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
+        {
+            // TODO: fix GetSectionData
+            ContextManager.AccessManager.AccessItem.Mark(SqlItem);
+        });
+    }
+
+    protected async Task SqlItemDeleteAsync()
+    {
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+        if (SqlItem is null)
+        {
+            await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
+            return;
+        }
+		
+        RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
+        {
+            // TODO: fix GetSectionData
+            ContextManager.AccessManager.AccessItem.Delete(SqlItem);
+        });
+    }
+    
+    protected async Task SqlItemNewAsync()
+    {
+        if (User?.IsInRole(UserAccessStr.Write) == false) return;
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        RunActionsWithQeustion(LocaleCore.Table.TableNew, GetQuestionAdd(), () =>
+        {
+            SqlItem = SqlItemNew<TItem>();
+            SetRouteItemNavigate(SqlItem);
         });
     }
     

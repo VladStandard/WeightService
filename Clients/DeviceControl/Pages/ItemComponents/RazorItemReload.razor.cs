@@ -8,15 +8,16 @@ public partial class RazorItemReload<TItem> : RazorComponentItemBase<TItem> wher
     #region Public and private fields, properties, constructor
 
     [Parameter] public EventCallback OnItemUpdate { get; set; }
-
-    public TItem GetItem()
-    {
-        return new TItem();
-    }
-
+    
+    
     #endregion
 
     #region Public and private methods
+
+    protected override void SetSqlItemCast()
+    {
+        
+    }
 
     #endregion
 }

@@ -24,7 +24,7 @@
       <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" SortProperty="PluBundle.Plu.IsCheckWeight" Width="5%">
         <Template Context="itemCast">
-          <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.PluBundle.Plu.IsCheckWeight"/>
+          <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.PluBundle.Plu.IsCheckWeight"/>
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluBundle.Plu.Number" Width="5%"/>

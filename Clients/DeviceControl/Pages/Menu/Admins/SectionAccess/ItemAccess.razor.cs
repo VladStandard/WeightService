@@ -27,18 +27,10 @@ public sealed partial class ItemAccess : RazorComponentItemBase<WsSqlAccessModel
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
+    protected override void SetSqlItemCast()
     {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlAccessModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlAccessModel>();
-                TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
-            }
-        });
+        base.SetSqlItemCast();
+        TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
     }
 
     #endregion

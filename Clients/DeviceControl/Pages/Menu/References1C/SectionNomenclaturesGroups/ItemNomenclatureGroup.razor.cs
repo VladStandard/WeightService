@@ -15,19 +15,10 @@ public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<WsSql
 
     #region Public and private methods
 
-	protected override void OnParametersSet()
+	protected override void SetSqlItemCast()
 	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluGroupModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                    SqlItemCast = SqlItemNew<WsSqlPluGroupModel>();
-
-                ParentGroup = ContextManager.ContextItem.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
-            }
-        });
+        base.SetSqlItemCast();
+        ParentGroup = ContextManager.ContextItem.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
     }
 
     #endregion

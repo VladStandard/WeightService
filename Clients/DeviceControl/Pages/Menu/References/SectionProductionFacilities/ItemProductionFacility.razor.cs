@@ -13,18 +13,11 @@ public sealed partial class ItemProductionFacility : RazorComponentItemBase<WsSq
 
     #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlProductionFacilityModel>(IdentityId);
-				//if (TableAction == DbTableAction.New)
-				//	SqlItemCast.IdentityValueId = (long)IdentityId;
-            }
-        });
+    protected override void SetSqlItemCast()
+    {
+        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlProductionFacilityModel>(IdentityId);
+        if (SqlItemCast.IsNew)
+            SqlItemCast = SqlItemNew<WsSqlProductionFacilityModel>();
     }
-
     #endregion
 }

@@ -18,7 +18,7 @@ public sealed partial class BarCodes : RazorComponentSectionBase<BarcodeView>
     #endregion
 
     #region Public and private methods
-    
+
     protected override void SetSqlSectionCast()
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetBarcodes(SqlCrudConfigSection.IsResultShowOnlyTop
@@ -46,6 +46,6 @@ public sealed partial class BarCodes : RazorComponentSectionBase<BarcodeView>
         }
         SqlSectionCast = items;
     }
-    
+
     #endregion
 }

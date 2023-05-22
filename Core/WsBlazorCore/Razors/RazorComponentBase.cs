@@ -23,10 +23,7 @@ public partial class RazorComponentBase : LayoutComponentBase
     [Inject] protected IJSRuntime? JsRuntime { get; set; }
     [Inject] protected NavigationManager? NavigationManager { get; set; }
     [Inject] protected NotificationService? NotificationService { get; set; }
-    [Inject] protected TooltipService? TooltipService { get; set; }
     [Inject] protected IHttpContextAccessor? HttpContextAccess { get; set; }
-    [Inject] protected ContextMenuService? ContextMenuService { get; set; }
-    [Inject] protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
     #endregion
 
@@ -40,7 +37,8 @@ public partial class RazorComponentBase : LayoutComponentBase
     #endregion
 
     #region Parameters
-
+    
+    [CascadingParameter] private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
     [Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
     [Parameter] public Guid? IdentityUid { get; set; }
     [Parameter] public long? IdentityId { get; set; }
@@ -58,8 +56,7 @@ public partial class RazorComponentBase : LayoutComponentBase
     #endregion
 
     [Parameter] public WsSqlTableBase? SqlItem { get; set; }
-    public WsSqlTableBase? SqlItemFilter { get; set; }
-    public List<WsSqlTableBase>? SqlLinkedItems { get; set; }
+    
     public ClaimsPrincipal? User { get; set; }
     
 	public RazorComponentBase()
@@ -67,18 +64,18 @@ public partial class RazorComponentBase : LayoutComponentBase
         Title = string.Empty;
 
 		SqlItem = null;
-        SqlItemFilter = null;
-        SqlLinkedItems = null;
-
-		RazorFieldConfig = new();
-		SqlCrudConfigItem = WsSqlCrudConfigUtils.GetCrudConfigItem(WsSqlIsMarked.ShowAll);
+        RazorFieldConfig = new();
+        SqlCrudConfigItem = WsSqlCrudConfigUtils.GetCrudConfigItem(WsSqlIsMarked.ShowAll);
     }
 
     #endregion
 
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        User = authState.User;
+        if (AuthenticationStateTask is not null)
+        {
+            AuthenticationState authState = await AuthenticationStateTask;
+            User = authState?.User;
+        }
     }
 }

@@ -1,7 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
 using WsStorageCore.ViewScaleModels;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionDevices;
@@ -10,7 +9,6 @@ public sealed partial class Devices : RazorComponentSectionBase<DeviceView>
 {
     #region Public and private fields, properties, constructor
 
-    private List<WsSqlDeviceTypeFkModel> DeviceTypesFk { get; set; }
 
     #endregion
 
@@ -29,7 +27,7 @@ public sealed partial class Devices : RazorComponentSectionBase<DeviceView>
                 continue;
             if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
             {
-                items.Add(new DeviceView
+                items.Add(new ()
                 {
                     IdentityValueUid = uid,
                     IsMarked = Convert.ToBoolean(item[1]),
@@ -44,6 +42,6 @@ public sealed partial class Devices : RazorComponentSectionBase<DeviceView>
         }
         SqlSectionCast = items;
     }
-    
+
     #endregion
 }

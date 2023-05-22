@@ -13,28 +13,12 @@ public sealed partial class ItemBarCode : RazorComponentItemBase<WsSqlBarCodeMod
 
     public ItemBarCode() : base()
     {
-
         ButtonSettings = new(false, false, false, false, false, false, true);
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlBarCodeModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                {
-                    SqlItemCast = SqlItemNew<WsSqlBarCodeModel>();
-                }
-            }
-        });
-    }
 
     private string GetBarcodeTop(WsEnumFormatType formatType)
     {

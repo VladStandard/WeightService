@@ -1,6 +1,5 @@
 @inherits RazorComponentBase
 @using static BlazorCoreUtils
-@using WsDataCore.Helpers
 
 <div class="top-row pl-4 navbar navbar-dark">
   <a class="navbar-brand" href="">
@@ -47,10 +46,6 @@
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBrands" Path="@LocaleBlazor.RouteSectionBrands"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionContragents" Path="@LocaleBlazor.RouteSectionContragents"/>
       </RadzenPanelMenuItem>
-      @*Info *@
-      <RadzenPanelMenuItem Text="@LocaleCore.Menu.MenuHelp">
-        <RadzenPanelMenuItem Icon="info" Text="@LocaleCore.System.UserInfo" Path="@LocaleBlazor.RouteSystemIdentityData"/>
-      </RadzenPanelMenuItem>
       @* Reports *@
       <RadzenPanelMenuItem Text="@LocaleCore.Menu.MenuReports">
         <RadzenPanelMenuItem Icon="article" Text="@LocaleCore.System.SystemLogsAll" Path="@LocaleBlazor.RouteSectionLogs"/>
@@ -64,14 +59,6 @@
         <RadzenPanelMenuItem Icon="info" Text="@LocaleCore.Menu.MenuDbVersionHistory" Path="@LocaleBlazor.RouteSectionVersions"/>
         <RadzenPanelMenuItem Icon="info" Text="@LocaleCore.System.SystemInfo" Path="@LocaleBlazor.RouteSystemAppInfo"/>
       </RadzenPanelMenuItem>
-      @* Develop *@
-      @if (DebugHelper.Instance.IsDevelop)
-      {
-          @* <RadzenPanelMenuItem Text="@LocaleBlazor.SectionReferencesDev"> *@
-          @*   <RadzenPanelMenuItem Text="Radzen" Path="@LocaleBlazor.RouteExampleRadzen" /> *@
-          @*   <RadzenPanelMenuItem Text="NetBarcode" Path="@LocaleBlazor.RouteExampleNetBarcode" /> *@
-          @* </RadzenPanelMenuItem> *@
-      }
     </AuthorizeView>
   </RadzenPanelMenu>
 </div>

@@ -4,7 +4,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.Logs.WsSqlLogModel>
 
-<RazorItemReload TItem="WsSqlLogModel" Title="@LocaleCore.DeviceControl.ItemLog"/>
+<RazorItemReload TItem="WsSqlLogModel" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>

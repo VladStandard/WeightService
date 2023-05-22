@@ -6,7 +6,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusLabels.WsSqlPluLabelModel>
 
-<RazorItemReload TItem="@WsSqlPluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel"/>
+<RazorItemReload TItem="@WsSqlPluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -19,7 +19,7 @@
     <td>@SqlItemCast.PluScale.Scale.Description</td>
     <td>@LocaleCore.Table.CheckWeight</td>
     <td>
-      <RadzenCheckBox TValue="bool" Disabled="true" Value="@IsWeighted"/>
+      <RadzenCheckBox TValue="bool" ReadOnly="true" Value="@IsWeighted"/>
     </td>
   </tr>
   <tr>

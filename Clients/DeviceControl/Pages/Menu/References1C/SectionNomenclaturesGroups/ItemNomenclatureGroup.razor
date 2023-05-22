@@ -5,7 +5,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusGroups.WsSqlPluGroupModel>
 
-<RazorItemReload TItem="@WsSqlPluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup"/>
+<RazorItemReload TItem="@WsSqlPluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>

@@ -5,8 +5,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Contragents.WsSqlContragentModel>
 
-<RazorItemReload TItem="@WsSqlContragentModel" Title="@LocaleCore.DeviceControl.ItemContragent"/>
-
+<RazorItemReload TItem="@WsSqlContragentModel" Title="@LocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>

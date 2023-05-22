@@ -17,21 +17,6 @@ public sealed partial class ItemPluWeighing : RazorComponentItemBase<WsSqlPluWei
     #endregion
 
     #region Public and private methods
-
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluWeighingModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                {
-                    SqlItemCast = SqlItemNew<WsSqlPluWeighingModel>();
-                }
-            }
-        });
-    }
-
+    
     #endregion
 }

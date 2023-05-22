@@ -13,7 +13,7 @@
     SectionCount="@SqlSectionCast.Count"
     SqlCrudConfigSection="@SqlCrudConfigSection"
     ButtonSettings="@ButtonSettings"/>
-  <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@HideNoneActivePlu" Change="GetSectionData"
+  <RadzenCheckBox TValue="bool" @bind-Value="@HideNoneActivePlu" Change="@GetSectionData"
                   Style="margin-top: -3px; margin-left: 20px; "/>
   <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text="@LocaleCore.Action.ActionIsShowActivePlu"/>
 
@@ -32,20 +32,20 @@
         <RadzenDataGridColumn Title="@LocaleCore.Table.NumberShort" Property="Plu.Number" Width="10%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.Active" SortProperty="IsActive" Width="10%">
           <Template Context="itemCast">
-            <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value="@itemCast.IsActive" Change="@(_ => SetSqlSectionSave(itemCast))"/>
+            <RadzenCheckBox TValue="bool" @bind-Value="@itemCast.IsActive" Change="@(_ => SetSqlSectionSave(itemCast))"/>
           </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Title="@LocaleCore.Table.WeightShort" SortProperty="Plu.IsCheckWeight" Width="10%">
           <Template Context="itemCast">
-            <RadzenCheckBox Disabled="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
+            <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
           </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Title="@LocaleCore.Table.ShelfLifeDaysShort" Property="Plu.ShelfLifeDays" Width="10%"/>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.PluPackage" Width="10%" Sortable="false">
-          <Template Context="itemCast">
-            @GetPluPackagesCount(itemCast.Plu)
-          </Template>
-        </RadzenDataGridColumn>
+        @* <RadzenDataGridColumn Title="@LocaleCore.Table.PluPackage" Width="10%" Sortable="false"> *@
+        @*   <Template Context="itemCast"> *@
+        @*     @GetPluPackagesCount(itemCast.Plu) *@
+        @*   </Template> *@
+        @* </RadzenDataGridColumn> *@
       </TItemContent>
     </Columns>
   </RzDataGridLocal>

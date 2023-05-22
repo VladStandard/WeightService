@@ -15,20 +15,5 @@ public sealed partial class ItemContragent : RazorComponentItemBase<WsSqlContrag
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlContragentModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                {
-                    SqlItemCast = SqlItemNew<WsSqlContragentModel>();
-                }
-            }
-        });
-    }
-
     #endregion
 }

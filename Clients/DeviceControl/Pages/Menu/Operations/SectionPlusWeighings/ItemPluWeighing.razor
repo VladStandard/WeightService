@@ -5,7 +5,7 @@
 @using BlazorDeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.WsSqlPluWeighingModel>
 
-<RazorItemReload TItem="@WsSqlPluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing"/>
+<RazorItemReload TItem="@WsSqlPluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>

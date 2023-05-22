@@ -20,20 +20,5 @@ public sealed partial class ItemPluLabel : RazorComponentItemBase<WsSqlPluLabelM
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPluLabelModel>(IdentityUid);
-                if (SqlItemCast.IsNew)
-                {
-                    SqlItemCast = SqlItemNew<WsSqlPluLabelModel>();
-                }
-            }
-        });
-    }
-
     #endregion
 }
