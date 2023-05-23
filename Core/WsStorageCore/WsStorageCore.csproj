@@ -8,12 +8,14 @@
     <Version>0.9.370.0</Version>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="FluentNHibernate" Version="3.2.0" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="Iesi.Collections" Version="4.0.5" />
     <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="NHibernate" Version="5.4.2" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
     <PackageReference Include="Quartz" Version="3.6.2" />
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />

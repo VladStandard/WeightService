@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewRefModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewPluNestingModel : WsSqlViewBase
+public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
 {
     #region Public and private fields, properties, constructor
 
@@ -44,7 +44,8 @@ public sealed record WsSqlViewPluNestingModel : WsSqlViewBase
         default, default, default, Guid.Empty, Guid.Empty, default, default, default, default, string.Empty,
         default, string.Empty, string.Empty, string.Empty,
         Guid.Empty, Guid.Empty, default, string.Empty, default,
-        Guid.Empty, Guid.Empty, default, string.Empty, default, default) { }
+        Guid.Empty, Guid.Empty, default, string.Empty, default, default)
+    { }
 
     public WsSqlViewPluNestingModel(Guid uid, bool isMarked, bool isDefault, short bundleCount,
         decimal weightMax, decimal weightMin, decimal weightNom,

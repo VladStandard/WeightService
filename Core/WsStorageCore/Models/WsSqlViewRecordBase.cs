@@ -7,23 +7,23 @@ namespace WsStorageCore.Models;
 /// SQL view model.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewBase : ObservableObject, INotifyPropertyChanged
+public record WsSqlViewRecordBase
 {
     #region Public and private fields, properties, constructor
 
     public WsSqlViewIdentityModel Identity { get; init; }
 
-    protected WsSqlViewBase(Guid uid)
+    protected WsSqlViewRecordBase(Guid uid)
     {
         Identity = new(uid);
     }
 
-    public WsSqlViewBase(long id)
+    public WsSqlViewRecordBase(long id)
     {
         Identity = new(id);
     }
 
-    protected WsSqlViewBase(SerializationInfo info, StreamingContext context)
+    protected WsSqlViewRecordBase(SerializationInfo info, StreamingContext context)
     {
         Identity = (WsSqlViewIdentityModel)info.GetValue(nameof(Identity), typeof(WsSqlViewIdentityModel));
     }

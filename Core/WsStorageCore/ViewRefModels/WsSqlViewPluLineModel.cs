@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewRefModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewPluLineModel : WsSqlViewBase
+public sealed class WsSqlViewPluLineModel : WsSqlViewBase
 {
     #region Public and private fields, properties, constructor
 

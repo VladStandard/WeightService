@@ -5,7 +5,7 @@ namespace WsStorageCore.ViewDiagModels;
 
 [DebuggerDisplay("{ToString()}")]
 public sealed record WsSqlViewTableSizeMemoryModel(string SchemaTable, string Schema, string Table,
-    uint RowsCount, ushort UsedSpaceMb, ushort UnusedSpaceMb, ushort TotalSpaceMb) : WsSqlViewBase(Guid.Empty)
+    uint RowsCount, ushort UsedSpaceMb, ushort UnusedSpaceMb, ushort TotalSpaceMb) : WsSqlViewRecordBase(Guid.Empty)
 {
     #region Public and private fields, properties, constructor
 

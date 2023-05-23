@@ -7,6 +7,7 @@ using System.Windows.Controls;
 
 namespace WsLabelCore.Pages;
 
+#nullable enable
 /// <summary>
 /// Interaction logic for WsPluNestingPage.xaml
 /// </summary>
@@ -26,15 +27,17 @@ public partial class WsPluNestingPage : INavigableView<WsPluNestingViewModel>
         comboBoxPlusNesting.SetBinding(Selector.SelectedItemProperty,
             new Binding(nameof(ViewModel.PluNesting)) { Mode = BindingMode.TwoWay, Source = ViewModel });
         comboBoxPlusNesting.SetBinding(Selector.SelectedValueProperty, 
-            new Binding(nameof(ViewModel.PluNesting.TareWeightDescription)) { Mode = BindingMode.OneWay, Source = ViewModel });
+            new Binding(nameof(ViewModel.PluNesting.TareWeightDescription)) { Mode = BindingMode.OneWay, Source = ViewModel.PluNesting });
         comboBoxPlusNesting.DisplayMemberPath = nameof(ViewModel.PluNesting.TareWeightDescription);
         comboBoxPlusNesting.SelectedValuePath = nameof(ViewModel.PluNesting.TareWeightDescription);
         // ПЛУ.
-        BindingOperations.SetBinding(labelPlu, ContentProperty,
+        labelPlu.SetBinding(ContentProperty, 
             new Binding(nameof(ViewModel.PluNesting.PluName)) { Mode = BindingMode.OneWay, Source = ViewModel.PluNesting });
+        //labelPlu.Content = ViewModel.PluNesting.PluName;
         // Вес тары ПЛУ.
-        BindingOperations.SetBinding(labelTareWeight, ContentProperty,
+        labelTareWeight.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.PluNesting.TareWeightWithKg)) { Mode = BindingMode.OneWay, Source = ViewModel.PluNesting });
+        //labelTareWeight.Content = ViewModel.PluNesting.TareWeightWithKg;
     }
 
     #endregion

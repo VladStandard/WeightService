@@ -8,6 +8,8 @@
 	d:DesignHeight="500"
 	d:DesignWidth="400"
 	FontSize="24"
+	TextOptions.TextFormattingMode="Ideal"
+	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
 
 	<pages:WsBasePage.Resources>

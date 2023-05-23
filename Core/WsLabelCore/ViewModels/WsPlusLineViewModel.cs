@@ -3,17 +3,16 @@
 
 namespace WsLabelCore.ViewModels;
 
+#nullable enable
 public sealed class WsPlusViewModel : WsWpfBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlPluScaleModel _pluScale;
-    public WsSqlPluScaleModel PluScale { get => _pluScale; set { _pluScale = value; OnPropertyChanged(); }
-    }
+    public WsSqlPluScaleModel PluScale { get; set; }
 
     public WsPlusViewModel()
     {
-        //
+        PluScale = new();
     }
 
     #endregion

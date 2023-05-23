@@ -9,6 +9,8 @@
 	d:DesignWidth="640"
 	FontSize="24"
 	Loaded="UserControl_Loaded"
+	TextOptions.TextFormattingMode="Ideal"
+	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
 
 	<pages:WsBasePage.Resources>

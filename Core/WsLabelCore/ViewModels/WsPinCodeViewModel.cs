@@ -3,6 +3,7 @@
 
 namespace WsLabelCore.ViewModels;
 
+#nullable enable
 public class WsPinCodeViewModel : WsWpfBaseViewModel
 {
     #region Public and private fields, properties, constructor

@@ -3,19 +3,17 @@
 
 namespace WsLabelCore.ViewModels;
 
+#nullable enable
 public sealed class WsPluNestingViewModel : WsWpfBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlPluModel _plu;
-    public WsSqlPluModel Plu { get => _plu; set { _plu = value; OnPropertyChanged(); } }
-    private WsSqlViewPluNestingModel _pluNesting;
-    public WsSqlViewPluNestingModel PluNesting { get => _pluNesting; set { _pluNesting = value; OnPropertyChanged(); } }
-    private List<WsSqlViewPluNestingModel> _plusNestings;
-    public List<WsSqlViewPluNestingModel> PlusNestings { get => _plusNestings; set { _plusNestings = value; OnPropertyChanged(); } }
+    public WsSqlViewPluNestingModel PluNesting { get; set; }
+    public List<WsSqlViewPluNestingModel> PlusNestings { get; set; }
 
     public WsPluNestingViewModel()
     {
+        PluNesting = new();
         PlusNestings = ContextCache.LocalViewPlusNesting;
     }
 

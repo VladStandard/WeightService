@@ -7,17 +7,15 @@ public sealed class WsLinesViewModel : WsWpfBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlProductionFacilityModel _area;
-    public WsSqlProductionFacilityModel Area { get => _area; set { _area = value; OnPropertyChanged(); } }
-    private WsSqlScaleModel _line;
-    public WsSqlScaleModel Line { get => _line; set { _line = value; OnPropertyChanged(); } }
-    private List<WsSqlProductionFacilityModel> _areas;
-    public List<WsSqlProductionFacilityModel> Areas { get => _areas; private set { _areas = value; OnPropertyChanged(); } }
-    private List<WsSqlScaleModel> _lines;
-    public List<WsSqlScaleModel> Lines { get => _lines; private set { _lines = value; OnPropertyChanged(); } }
+    public WsSqlProductionFacilityModel Area { get; set; }
+    public List<WsSqlProductionFacilityModel> Areas { get; set; }
+    public WsSqlScaleModel Line { get; set; }
+    public List<WsSqlScaleModel> Lines { get; set; }
 
     public WsLinesViewModel()
     {
+        Area = new();
+        Line = new();
         Areas = ContextCache.ProductionFacilities;
         Lines = ContextCache.Scales;
     }

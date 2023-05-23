@@ -7,7 +7,7 @@ namespace WsLabelCore.Helpers;
 /// <summary>
 /// User session.
 /// </summary>
-public sealed class WsUserSessionHelper : BaseViewModel
+public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
 {
     #region Design pattern "Lazy Singleton"
 
@@ -30,40 +30,13 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public WsPluginPrintModel PluginPrintMain { get; } = new();
     public WsPluginPrintModel PluginPrintShipping { get; } = new();
 
-    private ProductSeriesDirect _productSeries;
-    public ProductSeriesDirect ProductSeries
-    {
-        get => _productSeries;
-        private set
-        {
-            _productSeries = value;
-            OnPropertyChanged();
-        }
-    }
+    public ProductSeriesDirect ProductSeries { get; private set; }
     public PrintBrand PrintBrandMain =>
         Scale.PrinterMain is not null && Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
     public PrintBrand PrintBrandShipping =>
         Scale.PrinterShipping is not null && Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
-    private WsSqlPluWeighingModel _pluWeighing;
-    public WsSqlPluWeighingModel PluWeighing
-    {
-        get => _pluWeighing;
-        private set
-        {
-            _pluWeighing = value;
-            OnPropertyChanged();
-        }
-    }
-    private WsWeighingSettingsModel _weighingSettings;
-    public WsWeighingSettingsModel WeighingSettings
-    {
-        get => _weighingSettings;
-        set
-        {
-            _weighingSettings = value;
-            OnPropertyChanged();
-        }
-    }
+    public WsSqlPluWeighingModel PluWeighing { get; private set; }
+    public WsWeighingSettingsModel WeighingSettings { get; private set; }
     public Stopwatch StopwatchMain { get; set; } = new();
 
     private WsSqlPluScaleModel _pluScale;
@@ -106,17 +79,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public const ushort PlusPageRowCount = 4;
     public int PlusPageNumber { get; set; }
 
-    private WsSqlDeviceScaleFkModel _deviceScaleFk;
-    public WsSqlDeviceScaleFkModel DeviceScaleFk
-    {
-        get => _deviceScaleFk;
-        private set
-        {
-            _deviceScaleFk = value;
-            OnPropertyChanged();
-        }
-    }
-
+    public WsSqlDeviceScaleFkModel DeviceScaleFk { get; private set; }
     private WsSqlProductionFacilityModel _productionFacility;
     public WsSqlProductionFacilityModel ProductionFacility
     {
@@ -147,29 +110,10 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
     }
 
-    private string _publishDescription;
-    public string PublishDescription
-    {
-        get => _publishDescription;
-        set
-        {
-            _publishDescription = value;
-            OnPropertyChanged();
-        }
-    }
-
+    public string PublishDescription { get; private set; }
     private DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
     private DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
-    private DateTime _productDate;
-    public DateTime ProductDate
-    {
-        get => _productDate;
-        set
-        {
-            _productDate = value;
-            OnPropertyChanged();
-        }
-    }
+    public DateTime ProductDate { get; set; }
     private readonly object _locker = new();
     public string DeviceName => MdNetUtils.GetLocalDeviceName(false);
 
@@ -191,16 +135,16 @@ public sealed class WsUserSessionHelper : BaseViewModel
     {
         // Items.
         _pluScale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
-        _pluWeighing = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluWeighingModel>();
-        _deviceScaleFk = ContextManager.AccessItem.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
+        PluWeighing = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluWeighingModel>();
+        DeviceScaleFk = ContextManager.AccessItem.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
         _productionFacility = ContextManager.AccessItem.GetItemNewEmpty<WsSqlProductionFacilityModel>();
         _scale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlScaleModel>();
         // Lists.
-        _productSeries = new();
+        ProductSeries = new();
         // Strings
-        _publishDescription = string.Empty;
+        PublishDescription = string.Empty;
         // Others.
-        _weighingSettings = new();
+        WeighingSettings = new();
         _viewPluNesting = ContextManager.ContextPluNesting.GetNewView();
     }
 

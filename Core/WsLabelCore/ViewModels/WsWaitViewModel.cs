@@ -3,6 +3,7 @@
 
 namespace WsLabelCore.ViewModels;
 
+#nullable enable
 public sealed class WsWaitViewModel : WsWpfBaseViewModel
 {
     #region Public and private fields, properties, constructor

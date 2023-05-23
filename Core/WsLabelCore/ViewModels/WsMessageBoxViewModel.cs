@@ -3,77 +3,28 @@
 
 namespace WsLabelCore.ViewModels;
 
+#nullable enable
 public sealed class WsMessageBoxViewModel : WsWpfBaseViewModel
 {
 	#region Public and private fields and properties
 
-	private string _caption;
-	public string Caption
-	{
-		get => _caption;
-		set
-		{
-			_caption = value;
-			OnPropertyChanged();
-		}
-	}
-	private string _message;
-	public string Message
-	{
-		get => _message;
-		set
-		{
-			_message = value;
-			OnPropertyChanged();
-		}
-	}
+	public string Caption { get; set; }
+	public string Message { get; set; }
+    public double FontSizeCaption { get; set; }
+	public double FontSizeMessage { get; set; }
+    public double FontSizeButton { get; set; }
+    public double SizeCaption { get; set; }
+    public double SizeMessage { get; set; }
+    public double SizeButton { get; set; }
+    public WsButtonVisibilityModel ButtonVisibility { get; set; }
 
-	private double _fontSizeCaption;
-	public double FontSizeCaption
-	{
-		get { return _fontSizeCaption; }
-		set { _fontSizeCaption = value; }
-	}
-	private double _fontSizeMessage;
-	public double FontSizeMessage
-	{
-		get { return _fontSizeMessage; }
-		set { _fontSizeMessage = value; }
-	}
-	private double _fontSizeButton;
-	public double FontSizeButton
-	{
-		get { return _fontSizeButton; }
-		set { _fontSizeButton = value; }
-	}
-	private double _sizeCaption;
-	public double SizeCaption
-	{
-		get { return _sizeCaption; }
-		set { _sizeCaption = value; }
-	}
-	private double _sizeMessage;
-	public double SizeMessage
-	{
-		get { return _sizeMessage; }
-		set { _sizeMessage = value; }
-	}
-	private double _sizeButton;
-	public double SizeButton
-	{
-		get { return _sizeButton; }
-		set { _sizeButton = value; }
-	}
-
-	public WsButtonVisibilityModel ButtonVisibility { get; set; }
-
-	public WsMessageBoxViewModel()
+    public WsMessageBoxViewModel()
 	{
 		Caption = string.Empty;
 		Message = string.Empty;
 		FontSizeCaption = 30;
-		FontSizeMessage = 26;
-		FontSizeButton = 22;
+        FontSizeMessage = 26;
+        FontSizeButton = 22;
 		ButtonVisibility = new();
 	}
 

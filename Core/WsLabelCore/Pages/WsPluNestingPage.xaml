@@ -8,6 +8,8 @@
 	d:DesignHeight="500"
 	d:DesignWidth="800"
 	FontSize="26"
+	TextOptions.TextFormattingMode="Ideal"
+	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
 
 	<pages:WsBasePage.Resources>
@@ -42,8 +44,10 @@
 				x:Name="labelPlu"
 				Grid.Column="1"
 				Margin="3"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center" />
+				Padding="20,0,0,0"
+				HorizontalContentAlignment="Left"
+				VerticalContentAlignment="Center"
+				Content="PluName" />
 			<Label
 				Grid.Row="1"
 				Grid.Column="0"
@@ -79,8 +83,10 @@
 				Grid.Row="2"
 				Grid.Column="1"
 				Margin="3"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center" />
+				Padding="20,0,0,0"
+				HorizontalContentAlignment="Left"
+				VerticalContentAlignment="Center"
+				Content="TareWeightWithKg" />
 			<Button
 				Grid.Row="3"
 				Grid.Column="0"
