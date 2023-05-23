@@ -72,11 +72,11 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
 
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            if (LabelSession.Scale.IsNotNew)
+            if (LabelSession.Line.IsNotNew)
             {
-                MassaDevice.Init(LabelSession.Scale.DeviceComPort,
-                    LabelSession.Scale.DeviceReceiveTimeout,
-                    LabelSession.Scale.DeviceSendTimeout, GetData);
+                MassaDevice.Init(LabelSession.Line.DeviceComPort,
+                    LabelSession.Line.DeviceReceiveTimeout,
+                    LabelSession.Line.DeviceSendTimeout, GetData);
             }
             SetControlsTextDefault();
         });
@@ -95,16 +95,16 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
     {
         MdInvokeControl.SetText(FieldMassaExt, $"{ReopenCounter} | {RequestCounter} | {ReopenCounter}");
 
-        if (LabelSession.PluScale.Plu.IsNew) return;
-        if (!LabelSession.PluScale.Plu.IsCheckWeight) return;
+        if (LabelSession.PluLine.Plu.IsNew) return;
+        if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
         
         MassaDevice.Execute();
     }
 
     private void Request()
     {
-        if (LabelSession.PluScale.Plu.IsNew) return;
-        if (LabelSession.PluScale.Plu.IsCheckWeight)
+        if (LabelSession.PluLine.Plu.IsNew) return;
+        if (LabelSession.PluLine.Plu.IsCheckWeight)
         {
             if (MassaDevice.IsOpenPort)
             {
@@ -117,7 +117,7 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
 
     private void Response()
     {
-        if (!LabelSession.PluScale.Plu.IsCheckWeight)
+        if (!LabelSession.PluLine.Plu.IsCheckWeight)
             SetControlsTextDefault();
         else
             SetLabelsText();
@@ -158,7 +158,7 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
         
         }
 
-        decimal weight = LabelSession.PluScale.IsNew 
+        decimal weight = LabelSession.PluLine.IsNew 
             ? 0 : WeightNet - LabelSession.ViewPluNesting.TareWeight;
 
         MdInvokeControl.SetText(FieldNettoWeight, IsStable

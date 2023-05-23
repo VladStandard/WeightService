@@ -22,6 +22,6 @@ public sealed class WsSqlPluScaleMap : ClassMap<WsSqlPluScaleModel>
         Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(item => item.IsActive).CustomSqlType("BIT").Column("IS_ACTIVE").Not.Nullable().Default("0");
         References(item => item.Plu).Column("PLU_UID").Not.Nullable();
-        References(item => item.Scale).Column("SCALE_ID").Not.Nullable();
+        References(item => item.Line).Column("SCALE_ID").Not.Nullable();
     }
 }

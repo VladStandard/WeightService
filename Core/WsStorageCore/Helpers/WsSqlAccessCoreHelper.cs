@@ -735,7 +735,7 @@ internal sealed class WsSqlAccessCoreHelper
                 break;
             case WsSqlPluScaleModel pluScale:
                 pluScale.Plu = GetItemNotNullable<WsSqlPluModel>(pluScale.Plu.IdentityValueUid);
-                pluScale.Scale = GetItemNotNullable<WsSqlScaleModel>(pluScale.Scale.IdentityValueId);
+                pluScale.Line = GetItemNotNullable<WsSqlScaleModel>(pluScale.Line.IdentityValueId);
                 break;
             case WsSqlPluTemplateFkModel pluTemplateFk:
                 pluTemplateFk.Plu = GetItemNotNullable<WsSqlPluModel>(pluTemplateFk.Plu.IdentityValueUid);

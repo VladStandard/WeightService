@@ -66,7 +66,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            WsSqlPluGroupFkModel? itemDb = Cache.PluGroupsFksDb.Find(x =>
+            WsSqlPluGroupFkModel? itemDb = Cache.PluGroupsFks.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
             if (UpdatePluGroupFkDb(response, pluGroupXml.Uid1C, itemGroupFk, itemDb, false)) return;
@@ -87,15 +87,15 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         try
         {
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlPluGroupModel? pluGroupDb = Cache.PluGroupsDb.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
+            WsSqlPluGroupModel? pluGroupDb = Cache.PluGroups.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Найдено по Code -> Обновить найденную запись.
-            pluGroupDb = Cache.PluGroupsDb.Find(item => Equals(item.Code, pluGroupXml.Code));
+            pluGroupDb = Cache.PluGroups.Find(item => Equals(item.Code, pluGroupXml.Code));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Найдено по Name -> Обновить найденную запись.
-            pluGroupDb = Cache.PluGroupsDb.Find(item => Equals(item.Name, pluGroupXml.Name));
+            pluGroupDb = Cache.PluGroups.Find(item => Equals(item.Name, pluGroupXml.Name));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Не найдено -> Добавить новую запись.

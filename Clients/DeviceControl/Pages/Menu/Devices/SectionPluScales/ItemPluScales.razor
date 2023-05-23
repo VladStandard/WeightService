@@ -22,16 +22,16 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Line)" Text="@LocaleCore.Table.Line"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.Scale" Data="@ContextCache.Scales" TextProperty="Description"/>
+      <RzDropDownLocal @bind-Value="@SqlItemCast.Line" Data="@ContextCache.Lines" TextProperty="Description"/>
     </td>
     <td>
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>
-                <RzDropDownLocal @bind-Value="@SqlItemCast.Plu" Data="@ContextCache.PlusDb" TextProperty="DisplayName" />
+                <RzDropDownLocal @bind-Value="@SqlItemCast.Plu" Data="@ContextCache.Plus" TextProperty="DisplayName" />
     </td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>

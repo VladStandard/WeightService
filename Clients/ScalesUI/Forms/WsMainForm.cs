@@ -59,7 +59,7 @@ public partial class WsMainForm : Form
         // Quartz.
         WsScheduler.Load(this);
 
-        WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Scale);
+        WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
         UserSession.StopwatchMain.Stop();
 
         ContextManager.ContextItem.SaveLogMemory(
@@ -128,11 +128,11 @@ public partial class WsMainForm : Form
         MdInvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
 
         // Основной принтер.
-        if (LabelSession.Scale.PrinterMain is not null)
+        if (LabelSession.Line.PrinterMain is not null)
         {
             LabelSession.PluginPrintMain.Init(new(0_500, 0_250), new(0_250, 0_250),
                 new(0_250, 0_250),
-                LabelSession.PrintBrandMain, GetMdPrinter(LabelSession.Scale.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
+                LabelSession.PrintBrandMain, GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
             MdInvokeControl.SetVisible(fieldPrintMain, true);
             MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
             LabelSession.PluginPrintMain.Execute();
@@ -140,13 +140,13 @@ public partial class WsMainForm : Form
         }
 
         // Транспортный принтер.
-        if (LabelSession.Scale.IsShipping)
+        if (LabelSession.Line.IsShipping)
         {
-            if (LabelSession.Scale.PrinterShipping is not null)
+            if (LabelSession.Line.PrinterShipping is not null)
             {
                 LabelSession.PluginPrintShipping.Init(new(0_500, 0_250),
                     new(0_250, 0_250), new(0_250, 0_250),
-                    LabelSession.PrintBrandShipping, GetMdPrinter(LabelSession.Scale.PrinterShipping), fieldPrintShipping, fieldPrintShippingExt, false);
+                    LabelSession.PrintBrandShipping, GetMdPrinter(LabelSession.Line.PrinterShipping), fieldPrintShipping, fieldPrintShippingExt, false);
                 MdInvokeControl.SetVisible(fieldPrintShipping, true);
                 MdInvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDevelop);
                 LabelSession.PluginPrintShipping.Execute();
@@ -170,7 +170,7 @@ public partial class WsMainForm : Form
             ContextManager.ContextItem.SaveLogMemory(
                 UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
             UserSession.StopwatchMain.Restart();
-            WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Scale);
+            WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
             // Навигация.
             WsWinFormNavigationUtils.NavigateToControlWait(LocaleCore.Scales.AppWaitExit);
             // Quartz.
@@ -238,7 +238,7 @@ public partial class WsMainForm : Form
             IsKneading = false,
             IsMore = true,
             IsNewPallet = false,
-            IsOrder = LabelSession.Scale.IsOrder,
+            IsOrder = LabelSession.Line.IsOrder,
             IsPrint = true,
             IsScalesInit = false,
             IsScalesTerminal = true,

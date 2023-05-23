@@ -12,21 +12,21 @@ public sealed class PluStorageMethodContentTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new(WsSqlIsMarked.ShowAll, false, false, false, false);
-            List<WsSqlPluStorageMethodFkModel> pluStorageMethodFks = WsTestsUtils.DataTests.ContextManager.ContextPluStorage.GetListFks(sqlCrudConfig);
+            List<WsSqlPluStorageMethodFkModel> pluStorageMethodFks = WsTestsUtils.DataTests.ContextManager.ContextPlusStorages.GetListFks(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(pluStorageMethodFks)}.{nameof(pluStorageMethodFks.Count)}: {pluStorageMethodFks.Count}");
             
             List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlus(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 
             foreach (WsSqlPluStorageMethodModel method in plus.Select(plu => WsTestsUtils.DataTests.ContextManager.
-                ContextPluStorage.GetItem(plu, pluStorageMethodFks)))
+                ContextPlusStorages.GetItem(plu, pluStorageMethodFks)))
             {
                 if (method.IsExists)
                     WsTestsUtils.DataTests.AssertSqlValidate(method, true);
             }
 
             foreach (WsSqlTemplateResourceModel resource in plus.Select(
-                plu => WsTestsUtils.ContextManager.ContextPluStorage.GetItemResource(plu)))
+                plu => WsTestsUtils.ContextManager.ContextPlusStorages.GetItemResource(plu)))
             {
                 if (resource.IsExists)
                     WsTestsUtils.DataTests.AssertSqlValidate(resource, true);

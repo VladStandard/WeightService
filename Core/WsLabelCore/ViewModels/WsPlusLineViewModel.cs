@@ -8,11 +8,11 @@ public sealed class WsPlusViewModel : WsWpfBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlPluScaleModel PluScale { get; set; }
+    public WsSqlPluScaleModel PluLine { get; set; }
 
     public WsPlusViewModel()
     {
-        PluScale = new();
+        PluLine = new();
     }
 
     #endregion

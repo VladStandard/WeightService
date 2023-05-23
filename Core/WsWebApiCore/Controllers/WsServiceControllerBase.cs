@@ -293,7 +293,7 @@ public class WsServiceControllerBase : ControllerBase
         itemDb = null;
         if (number > 0)
         {
-            itemDb = ContextManager.ContextPlu.GetItemByNumber(number);
+            itemDb = ContextManager.ContextPlus.GetItemByNumber(number);
             if (!isCheckGroup)
             {
                 if (itemDb.IsNew)
@@ -954,10 +954,10 @@ public class WsServiceControllerBase : ControllerBase
     private List<WsSqlPlu1CFkModel> GetPlus1CFksByNumber(WsXmlContentRecord<WsSqlPluModel> pluXml)
     {
         List<WsSqlPlu1CFkModel> plus1CFksDb = new();
-        List<WsSqlPluModel> plusDb = ContextManager.ContextPlu.GetListByNumber(pluXml.Item.Number);
+        List<WsSqlPluModel> plusDb = ContextManager.ContextPlus.GetListByNumber(pluXml.Item.Number);
         foreach (WsSqlPluModel pluDb in plusDb)
         {
-            WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(item => Equals(item.Plu.Number, pluDb.Number))
+            WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFks.Find(item => Equals(item.Plu.Number, pluDb.Number))
                                           ?? ContextManager.ContextPlu1CFk.GetNewItem();
             if (plu1CFkDb.IsNotExists)
                 plu1CFkDb.Plu = pluDb;
@@ -973,10 +973,10 @@ public class WsServiceControllerBase : ControllerBase
     private List<WsSqlPlu1CFkModel> GetPlus1CFksByGuid1C(Guid uid1C)
     {
         List<WsSqlPlu1CFkModel> plus1CFksDb = new();
-        List<WsSqlPluModel> plusDb = ContextManager.ContextPlu.GetListByUid1C(uid1C);
+        List<WsSqlPluModel> plusDb = ContextManager.ContextPlus.GetListByUid1C(uid1C);
         foreach (WsSqlPluModel pluDb in plusDb)
         {
-            WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFksDb.Find(
+            WsSqlPlu1CFkModel plu1CFkDb = Cache.Plus1CFks.Find(
                 item => Equals(item.Plu.Number, pluDb.Number) && Equals(item.Plu.Uid1C, uid1C))
                                           ?? ContextManager.ContextPlu1CFk.GetNewItem();
             if (plu1CFkDb.IsNotExists)

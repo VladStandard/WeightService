@@ -63,18 +63,18 @@ public sealed class WsPluginLabelsHelper : WsPluginHelperBase
     private void Reopen()
     {
         //MdInvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {WsUserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
-        MdInvokeControl.SetVisible(FieldKneading, LabelSession.Scale.IsKneading);
+        MdInvokeControl.SetVisible(FieldKneading, LabelSession.Line.IsKneading);
     }
 
     private void Request()
     {
-        if (LabelSession.PluScale.IsNew)
+        if (LabelSession.PluLine.IsNew)
             MdInvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
         else
             MdInvokeControl.SetText(FieldPlu,
-                LabelSession.PluScale.Plu.IsCheckWeight
-                    ? $"{LocaleCore.Scales.PluWeight}: {LabelSession.PluScale.Plu.Number} | {LabelSession.PluScale.Plu.Name}"
-                    : $"{LocaleCore.Scales.PluCount}: {LabelSession.PluScale.Plu.Number} | {LabelSession.PluScale.Plu.Name}");
+                LabelSession.PluLine.Plu.IsCheckWeight
+                    ? $"{LocaleCore.Scales.PluWeight}: {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
+                    : $"{LocaleCore.Scales.PluCount}: {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
         MdInvokeControl.SetText(FieldProductDate, $"{LabelSession.ProductDate:dd.MM.yyyy}");
         MdInvokeControl.SetText(FieldKneading, $"{LabelSession.WeighingSettings.Kneading}");
     }

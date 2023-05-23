@@ -21,6 +21,7 @@ public sealed partial class WsLinesUserControl : WsBaseUserControl
         ElementHost = new() { Dock = DockStyle.Fill };
         ElementHost.Child = Page;
         Controls.Add(ElementHost);
+        RefreshAction();
     }
 
     #endregion
@@ -31,8 +32,9 @@ public sealed partial class WsLinesUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            ViewModel.Area = LabelSession.ProductionFacility;
-            ViewModel.Line = LabelSession.Scale;
+            // Обновить модель представления.
+            ViewModel.Area = LabelSession.Area;
+            ViewModel.Line = LabelSession.Line;
         });
     }
 

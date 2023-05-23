@@ -396,7 +396,7 @@ public sealed class DataCoreHelper
 			case WsSqlPluScaleModel pluScale:
 				pluScale.IsActive.Returns(true);
 				pluScale.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-				pluScale.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
+				pluScale.Line = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
 				break;
             case WsSqlPluStorageMethodModel plusStorageMethod:
                 plusStorageMethod.Name.Returns(LocaleCore.Sql.SqlItemFieldName);

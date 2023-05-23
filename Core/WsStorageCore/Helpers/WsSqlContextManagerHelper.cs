@@ -25,20 +25,25 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
     public WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
     public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
-    public WsSqlBoxController ContextBox => WsSqlBoxController.Instance;
-    public WsSqlAccessController ContextAccess => WsSqlAccessController.Instance;
-    public WsSqlBundleController ContextBundle => WsSqlBundleController.Instance;
-    public WsSqlClipController ContextClip => WsSqlClipController.Instance;
+    
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
+    
+    public WsSqlAccessController ContextAccess => WsSqlAccessController.Instance;
+    public WsSqlAreaController ContextAreas => WsSqlAreaController.Instance;
+    public WsSqlBoxController ContextBoxes => WsSqlBoxController.Instance;
+    public WsSqlBundleController ContextBundles => WsSqlBundleController.Instance;
+    public WsSqlClipController ContextClips => WsSqlClipController.Instance;
+    public WsSqlDeviceLineFkController ContextDevicesLines => WsSqlDeviceLineFkController.Instance;
+    public WsSqlLineController ContextLines => WsSqlLineController.Instance;
     public WsSqlPlu1CController ContextPlu1CFk => WsSqlPlu1CController.Instance;
-    public WsSqlPluController ContextPlu => WsSqlPluController.Instance;
-    public WsSqlPluNestingFkController ContextPluNesting => WsSqlPluNestingFkController.Instance;
-    public WsSqlPluScaleController ContextPluScale => WsSqlPluScaleController.Instance;
-    public WsSqlPluStorageMethodFkController ContextPluStorage => WsSqlPluStorageMethodFkController.Instance;
-    public WsSqlScaleController ContextScale => WsSqlScaleController.Instance;
-    public WsSqlTemplateController ContextTemplate => WsSqlTemplateController.Instance;
+    public WsSqlPluController ContextPlus => WsSqlPluController.Instance;
+    public WsSqlPluLineController ContextPlusLines => WsSqlPluLineController.Instance;
+    public WsSqlPluNestingFkController ContextPlusNesting => WsSqlPluNestingFkController.Instance;
+    public WsSqlPluStorageMethodFkController ContextPlusStorages => WsSqlPluStorageMethodFkController.Instance;
+    public WsSqlPluWeighingController ContextPlusWeighing => WsSqlPluWeighingController.Instance;
+    public WsSqlTemplateController ContextTemplates => WsSqlTemplateController.Instance;
     
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     private AppVersionHelper AppVersion => AppVersionHelper.Instance;
@@ -98,13 +103,11 @@ public sealed class WsSqlContextManagerHelper
     {
         try
         {
-            FileLogger.Setup(localDir, appName);
+            //FileLogger.Setup(localDir, appName);
             CheckJsonUpdates(localDir, JsonSettings.JsonFileName);
 
             if (!SetupJsonSettingsCore(localDir, false, JsonSettings.JsonFileName))
             {
-                //if (isFileLog)
-                //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsLocalFileException);
                 throw new(LocaleCore.System.JsonSettingsLocalFileException);
             }
 

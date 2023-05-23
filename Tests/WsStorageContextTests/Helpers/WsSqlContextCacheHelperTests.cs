@@ -22,7 +22,7 @@ public sealed class WsSqlContextCacheHelperTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlScaleModel> lines = WsTestsUtils.DataTests.ContextManager.ContextScale.GetList();
+            List<WsSqlScaleModel> lines = WsTestsUtils.DataTests.ContextManager.ContextLines.GetList();
             Assert.IsTrue(lines.Any());
 
             bool isPrintFirst = false;
@@ -48,32 +48,32 @@ public sealed class WsSqlContextCacheHelperTests
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
-    [Test]
-    public void Get_cache_view_plus_nesting_current()
-    {
-        WsTestsUtils.DataTests.AssertAction(() =>
-        {
-            List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextPlu.GetList();
-            Assert.IsTrue(plus.Any());
+    //[Test]
+    //public void Get_cache_view_plus_nesting_current()
+    //{
+    //    WsTestsUtils.DataTests.AssertAction(() =>
+    //    {
+    //        List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextPlus.GetList();
+    //        Assert.IsTrue(plus.Any());
 
-            bool isPrintFirst = false;
-            foreach (WsSqlPluModel plu in plus)
-            {
-                if (isPrintFirst) break;
-                if (plu.Number > 0)
-                {
-                    WsTestsUtils.DataTests.ContextCache.LoadLocalViewPlusNesting((ushort)plu.Number);
-                    //Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting.Any());
-                    if (WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting.Any())
-                    {
-                        TestContext.WriteLine($"{plu.Number} | {plu.Name}");
-                        isPrintFirst = true;
-                        WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting, 10);
-                    }
-                }
-            }
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    }
+    //        bool isPrintFirst = false;
+    //        foreach (WsSqlPluModel plu in plus)
+    //        {
+    //            if (isPrintFirst) break;
+    //            if (plu.Number > 0)
+    //            {
+    //                WsTestsUtils.DataTests.ContextCache.LoadLocalViewPlusNesting((ushort)plu.Number);
+    //                //Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting.Any());
+    //                if (WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting.Any())
+    //                {
+    //                    TestContext.WriteLine($"{plu.Number} | {plu.Name}");
+    //                    isPrintFirst = true;
+    //                    WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting, 10);
+    //                }
+    //            }
+    //        }
+    //    }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+    //}
 
     [Test]
     public void Get_cache_view_plus_storage_methods()

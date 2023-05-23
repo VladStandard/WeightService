@@ -24,7 +24,7 @@ public sealed class DataAccessExtTests
 				if (scale.IdentityValueId == 5)
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
-					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(scale, nameof(WsSqlPluScaleModel.Scale),
+					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(scale, nameof(WsSqlPluScaleModel.Line),
                         WsSqlIsMarked.ShowAll, true, false, false);
 					List<WsSqlPluScaleModel> pluScales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
 					// Act.

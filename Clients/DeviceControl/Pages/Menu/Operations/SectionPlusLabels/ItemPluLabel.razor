@@ -14,9 +14,9 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale)" Text="@LocaleCore.Table.Line"/>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Line)" Text="@LocaleCore.Table.Line"/>
     </td>
-    <td>@SqlItemCast.PluScale.Scale.Description</td>
+    <td>@SqlItemCast.PluScale.Line.Description</td>
     <td>@LocaleCore.Table.CheckWeight</td>
     <td>
       <RadzenCheckBox TValue="bool" ReadOnly="true" Value="@IsWeighted"/>
@@ -35,9 +35,9 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale.PrinterMain)" Text="@LocaleCore.Table.Printer"/>
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Line.PrinterMain)" Text="@LocaleCore.Table.Printer"/>
     </td>
-    <td>@SqlItemCast.PluScale.Scale.PrinterMain?.DisplayName</td>
+    <td>@SqlItemCast.PluScale.Line.PrinterMain?.DisplayName</td>
     <td>
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
     </td>

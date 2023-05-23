@@ -34,10 +34,10 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             // Обновить локальный кэш.
-            ContextCache.LoadLocalViewPlusLines((ushort)LabelSession.Scale.IdentityValueId);
+            ContextCache.LoadLocalViewPlusLines((ushort)LabelSession.Line.IdentityValueId);
             // ID линии.
-            if (!LastScaleId.Equals(LabelSession.Scale.IdentityValueId))
-                LastScaleId = LabelSession.Scale.IdentityValueId;
+            if (!LastScaleId.Equals(LabelSession.Line.IdentityValueId))
+                LastScaleId = LabelSession.Line.IdentityValueId;
             // Настроить контролы.
             SetupControls();
         });
@@ -80,11 +80,11 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
             {
                 if (ContextCache.LocalViewPlusLines.Any())
                 {
-                    ViewModel.PluScale = ContextManager.ContextPluScale.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
+                    ViewModel.PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
                 }
             }
 
-            if (ViewModel.PluScale.IsExists)
+            if (ViewModel.PluLine.IsExists)
                 ViewModel.ActionReturnOk();
             else
                 ViewModel.ActionReturnCancel();

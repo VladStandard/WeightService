@@ -33,9 +33,9 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            if (!LabelSession.PluScale.IdentityValueUid.Equals(PreviousPluScaleUid))
+            if (!LabelSession.PluLine.IdentityValueUid.Equals(PreviousPluScaleUid))
             {
-                PreviousPluScaleUid = LabelSession.PluScale.IdentityValueUid;
+                PreviousPluScaleUid = LabelSession.PluLine.IdentityValueUid;
                 ShowPalletSize();
                 SetGuiConfig();
                 SetGuiLocalize();
@@ -79,7 +79,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void CheckWeightCount()
     {
-        if (LabelSession.PluScale is { IsNotNew: true, Plu.IsCheckWeight: true } &&
+        if (LabelSession.PluLine is { IsNotNew: true, Plu.IsCheckWeight: true } &&
             LabelSession.WeighingSettings.LabelsCountMain > 1)
         {
             //WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
@@ -195,11 +195,11 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
     private void SetGuiConfig()
     {
         // Kneading.
-        labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = LabelSession.Scale.IsKneading;
+        labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = LabelSession.Line.IsKneading;
         // Pallet size.
         labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
             buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =
-                LabelSession.PluScale.IsNotNew && !LabelSession.PluScale.Plu.IsCheckWeight;
+                LabelSession.PluLine.IsNotNew && !LabelSession.PluLine.Plu.IsCheckWeight;
     }
 
     private void SetGuiLocalize()

@@ -6,7 +6,7 @@ namespace WsStorageCore.Helpers;
 /// <summary>
 /// Помощник кэша.
 /// </summary>
-public sealed class WsSqlContextCacheHelper
+public sealed class WsSqlContextCacheHelper// : ObservableObject, INotifyPropertyChanged
 {
     #region Design pattern "Lazy Singleton"
 
@@ -23,22 +23,24 @@ public sealed class WsSqlContextCacheHelper
         WsSqlIsMarked.ShowAll, false, false, true, false);
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlTableName TableName { get; set; } = WsSqlTableName.None;
-    public List<WsSqlBoxModel> BoxesDb { get; private set; } = new();
-    public List<WsSqlBrandModel> BrandsDb { get; private set; } = new();
-    public List<WsSqlBundleModel> BundlesDb { get; private set; } = new();
-    public List<WsSqlClipModel> ClipsDb { get; private set; } = new();
-    public List<WsSqlPlu1CFkModel> Plus1CFksDb { get; private set; } = new();
-    public List<WsSqlPluBrandFkModel> PluBrandsFksDb { get; private set; } = new();
-    public List<WsSqlPluBundleFkModel> PluBundlesFksDb { get; private set; } = new();
-    public List<WsSqlPluCharacteristicModel> PluCharacteristicsDb { get; private set; } = new();
-    public List<WsSqlPluCharacteristicsFkModel> PluCharacteristicsFksDb { get; private set; } = new();
-    public List<WsSqlPluClipFkModel> PluClipsFksDb { get; private set; } = new();
-    public List<WsSqlPluFkModel> PluFksDb { get; private set; } = new();
-    public List<WsSqlPluGroupFkModel> PluGroupsFksDb { get; private set; } = new();
-    public List<WsSqlPluGroupModel> PluGroupsDb { get; private set; } = new();
-    public List<WsSqlPluModel> PlusDb { get; private set; } = new();
-    public List<WsSqlProductionFacilityModel> ProductionFacilities { get; private set; } = new();
-    public List<WsSqlScaleModel> Scales { get; private set; } = new();
+    
+    public List<WsSqlBoxModel> Boxes { get; private set; } = new();
+    public List<WsSqlBrandModel> Brands { get; private set; } = new();
+    public List<WsSqlBundleModel> Bundles { get; private set; } = new();
+    public List<WsSqlClipModel> Clips { get; private set; } = new();
+    public List<WsSqlPlu1CFkModel> Plus1CFks { get; private set; } = new();
+    public List<WsSqlPluBrandFkModel> PluBrandsFks { get; private set; } = new();
+    public List<WsSqlPluBundleFkModel> PluBundlesFks { get; private set; } = new();
+    public List<WsSqlPluCharacteristicModel> PluCharacteristics { get; private set; } = new();
+    public List<WsSqlPluCharacteristicsFkModel> PluCharacteristicsFks { get; private set; } = new();
+    public List<WsSqlPluClipFkModel> PluClipsFks { get; private set; } = new();
+    public List<WsSqlPluFkModel> PluFks { get; private set; } = new();
+    public List<WsSqlPluGroupFkModel> PluGroupsFks { get; private set; } = new();
+    public List<WsSqlPluGroupModel> PluGroups { get; private set; } = new();
+    public List<WsSqlPluModel> Plus { get; private set; } = new();
+    public List<WsSqlProductionFacilityModel> Areas { get; private set; } = new();
+    public List<WsSqlWorkShopModel> WorkShops { get; private set; } = new();
+    public List<WsSqlScaleModel> Lines { get; private set; } = new();
     
     #endregion
 
@@ -53,7 +55,6 @@ public sealed class WsSqlContextCacheHelper
     #region Public and private fields, properties, constructor - Локальный кэш представлений
 
     public List<WsSqlViewPluLineModel> LocalViewPlusLines { get; private set; } = new();
-    public List<WsSqlViewPluNestingModel> LocalViewPlusNesting { get; private set; } = new();
 
     #endregion
 
@@ -70,38 +71,40 @@ public sealed class WsSqlContextCacheHelper
     public void Load(WsSqlTableName tableName)
     {
         // Tables.
-        if (!PlusDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus)) 
-            PlusDb = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
-        if (!ProductionFacilities.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ProductionFacilities))
-            ProductionFacilities = ContextManager.ContextList.GetListNotNullableProductionFacilities(SqlCrudConfig);
-        if (!Scales.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Scales))
-            Scales = ContextManager.ContextList.GetListNotNullableScales(SqlCrudConfig);
-        if (!PluFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluFks)) 
-            PluFksDb = ContextManager.ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
-        if (!BoxesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Boxes)) 
-            BoxesDb = ContextManager.ContextList.GetListNotNullableBoxes(SqlCrudConfig);
-        if (!BundlesDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Bundles)) 
-            BundlesDb = ContextManager.ContextList.GetListNotNullableBundles(SqlCrudConfig);
-        if (!PluBundlesFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluBundlesFks)) 
-            PluBundlesFksDb = ContextManager.ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
-        if (!PluBrandsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluBrandsFks)) 
-            PluBrandsFksDb = ContextManager.ContextList.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
-        if (!ClipsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Clips)) 
-            ClipsDb = ContextManager.ContextList.GetListNotNullableClips(SqlCrudConfig);
-        if (!PluClipsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluClipsFks)) 
-            PluClipsFksDb = ContextManager.ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
-        if (!Plus1CFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus1CFks)) 
-            Plus1CFksDb = ContextManager.ContextPlu1CFk.GetList();
-        if (!PluCharacteristicsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristics)) 
-            PluCharacteristicsDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
-        if (!PluCharacteristicsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristicsFks)) 
-            PluCharacteristicsFksDb = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
-        if (!PluGroupsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluGroups)) 
-            PluGroupsDb = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
-        if (!PluGroupsFksDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluGroupsFks)) 
-            PluGroupsFksDb = ContextManager.ContextList.GetListNotNullablePlusGroupFks(SqlCrudConfig);
-        if (!BrandsDb.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Brands)) 
-            BrandsDb = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
+        if (!Areas.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Areas))
+            Areas = ContextManager.ContextList.GetListNotNullableAreas(SqlCrudConfig);
+        if (!WorkShops.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.WorkShops))
+            WorkShops = ContextManager.ContextList.GetListNotNullableWorkShops(SqlCrudConfig);
+        if (!Plus.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus)) 
+            Plus = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
+        if (!Lines.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Lines))
+            Lines = ContextManager.ContextList.GetListNotNullableScales(SqlCrudConfig);
+        if (!PluFks.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluFks)) 
+            PluFks = ContextManager.ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
+        if (!Boxes.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Boxes)) 
+            Boxes = ContextManager.ContextList.GetListNotNullableBoxes(SqlCrudConfig);
+        if (!Bundles.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Bundles)) 
+            Bundles = ContextManager.ContextList.GetListNotNullableBundles(SqlCrudConfig);
+        if (!PluBundlesFks.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluBundlesFks)) 
+            PluBundlesFks = ContextManager.ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
+        if (!PluBrandsFks.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluBrandsFks)) 
+            PluBrandsFks = ContextManager.ContextList.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
+        if (!Clips.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Clips)) 
+            Clips = ContextManager.ContextList.GetListNotNullableClips(SqlCrudConfig);
+        if (!PluClipsFks.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluClipsFks)) 
+            PluClipsFks = ContextManager.ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
+        if (!Plus1CFks.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Plus1CFks)) 
+            Plus1CFks = ContextManager.ContextPlu1CFk.GetList();
+        if (!PluCharacteristics.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristics)) 
+            PluCharacteristics = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
+        if (!PluCharacteristicsFks.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluCharacteristicsFks)) 
+            PluCharacteristicsFks = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
+        if (!PluGroups.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluGroups)) 
+            PluGroups = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
+        if (!PluGroupsFks.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.PluGroupsFks)) 
+            PluGroupsFks = ContextManager.ContextList.GetListNotNullablePlusGroupFks(SqlCrudConfig);
+        if (!Brands.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Brands)) 
+            Brands = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
         
         // Views.
         if (!ViewPlusLines.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusLines))
@@ -119,10 +122,11 @@ public sealed class WsSqlContextCacheHelper
     /// <summary>
     /// Обновить глобальный кэш.
     /// </summary>
-    public void RefreshGlobalCacheForLabelPrint()
+    public void LoadGlobal()
     {
-        Load(WsSqlTableName.ProductionFacilities);
-        Load(WsSqlTableName.Scales);
+        Load(WsSqlTableName.Areas);
+        Load(WsSqlTableName.WorkShops);
+        Load(WsSqlTableName.Lines);
         Load(WsSqlTableName.ViewPlusNesting);
         Load(WsSqlTableName.ViewPlusStorageMethods);
     }
@@ -151,11 +155,6 @@ public sealed class WsSqlContextCacheHelper
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
             .ToList();
-
-    public void LoadLocalViewPlusNesting(ushort pluNumber)
-    {
-        LocalViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting(pluNumber);
-    }
 
     #endregion
 }

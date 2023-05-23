@@ -50,7 +50,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckPluIsEmpty(Label fieldWarning)
     {
-        if (LabelSession.PluScale.IsNew)
+        if (LabelSession.PluLine.IsNew)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluNotSelect);
@@ -64,7 +64,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// Проверить наличие весовой платформы Масса-К.
     /// </summary>
     /// <returns></returns>
-    public bool CheckWeightMassaDeviceExists() => LabelSession.PluScale is { IsNew: false, Plu.IsCheckWeight: false } || true;
+    public bool CheckWeightMassaDeviceExists() => LabelSession.PluLine is { IsNew: false, Plu.IsCheckWeight: false } || true;
 
     /// <summary>
     /// Проверить стабилизацию весовой платформы Масса-К.
@@ -73,7 +73,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckWeightMassaIsStable(Label fieldWarning)
     {
-        if (LabelSession.PluScale.Plu.IsCheckWeight && !PluginMassa.IsStable)
+        if (LabelSession.PluLine.Plu.IsCheckWeight && !PluginMassa.IsStable)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, $"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
@@ -90,7 +90,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckPluGtin(Label fieldWarning)
     {
-        if (string.IsNullOrEmpty(LabelSession.PluScale.Plu.Gtin))
+        if (string.IsNullOrEmpty(LabelSession.PluLine.Plu.Gtin))
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluGtinIsNotSet);
@@ -142,7 +142,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public bool CheckWeightIsNegative(Label fieldWarning)
     {
         if (PluginMassa.IsWeightNetFake) return true;
-        if (!LabelSession.PluScale.Plu.IsCheckWeight) return true;
+        if (!LabelSession.PluLine.Plu.IsCheckWeight) return true;
 
         if (PluginMassa.WeightNet <= 0)
         {
@@ -152,7 +152,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             return false;
         }
 
-        decimal weight = PluginMassa.WeightNet - (LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
+        decimal weight = PluginMassa.WeightNet - (LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
         if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
@@ -170,9 +170,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckWeightIsPositive(Label fieldWarning)
     {
-        if (!LabelSession.PluScale.Plu.IsCheckWeight) return true;
+        if (!LabelSession.PluLine.Plu.IsCheckWeight) return true;
 
-        decimal weight = PluginMassa.WeightNet - (LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
+        decimal weight = PluginMassa.WeightNet - (LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
         if (weight > LocaleCore.Scales.MassaThresholdValue)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
@@ -191,7 +191,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public bool CheckWeightThresholds(Label fieldWarning)
     {
         if (PluginMassa.IsWeightNetFake) return true;
-        if (!LabelSession.PluScale.Plu.IsCheckWeight) return true;
+        if (!LabelSession.PluLine.Plu.IsCheckWeight) return true;
 
         if (LabelSession.ViewPluNesting is { WeightNom: > 0, WeightMin: not 0, WeightMax: not 0 })
         {
@@ -202,9 +202,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
                 {
                     MdInvokeControl.SetVisible(fieldWarning, true);
                     string message = LocaleCore.Scales.CheckWeightThresholds(LabelSession.PluWeighing.NettoWeight,
-                        LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMax,
-                        LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.WeightNom,
-                        LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMin);
+                        LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMax,
+                        LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.WeightNom,
+                        LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMin);
                     MdInvokeControl.SetText(fieldWarning, message);
                     ContextManager.ContextItem.SaveLogError(message);
                 }
@@ -221,13 +221,13 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <param name="isClearBuffer"></param>
     public void PrintLabel(Label fieldWarning, bool isClearBuffer)
     {
-        if (LabelSession.Scale is { IsOrder: true })
+        if (LabelSession.Line is { IsOrder: true })
             throw new("Order under construct!");
 
         // #WS-T-710 Печать этикеток. Исправление счётчика этикеток
-        LabelSession.PluScale.Scale = LabelSession.Scale;
+        LabelSession.PluLine.Line = LabelSession.Line;
         // Получить шаблон этикетки.
-        WsSqlTemplateModel template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluScale);
+        WsSqlTemplateModel template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
         // Проверить наличие шаблона этикетки.
         if (template.IsNew)
         {
@@ -237,7 +237,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             return;
         }
         // Выбор типа ПЛУ.
-        switch (LabelSession.PluScale.Plu.IsCheckWeight)
+        switch (LabelSession.PluLine.Plu.IsCheckWeight)
         {
             // Весовая ПЛУ.
             case true:
@@ -258,8 +258,8 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// </summary>
     public void AddScaleCounter()
     {
-        LabelSession.Scale.Counter++;
-        ContextManager.AccessItem.Update(LabelSession.Scale);
+        LabelSession.Line.Counter++;
+        ContextManager.AccessItem.Update(LabelSession.Line);
     }
 
     /// <summary>
@@ -270,7 +270,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     private void PrintLabelCount(WsSqlTemplateModel template, bool isClearBuffer)
     {
         // Шаблон с указанием кол-ва и не весовой продукт.
-        if (template.Data.Contains("^PQ1") && !LabelSession.PluScale.Plu.IsCheckWeight)
+        if (template.Data.Contains("^PQ1") && !LabelSession.PluLine.Plu.IsCheckWeight)
         {
             // Изменить кол-во этикеток.
             if (LabelSession.WeighingSettings.LabelsCountMain > 1)
@@ -295,13 +295,13 @@ public sealed class WsUserSessionHelper : BaseViewModel
     public void NewPluWeighing()
     {
         WsSqlProductSeriesModel productSeries = ContextManager.ContextItem.GetItemProductSeriesNotNullable(
-            LabelSession.PluScale.Scale);
+            LabelSession.PluLine.Line);
 
         LabelSession.PluWeighing = new()
         {
-            PluScale = LabelSession.PluScale,
+            PluScale = LabelSession.PluLine,
             Kneading = LabelSession.WeighingSettings.Kneading,
-            NettoWeight = LabelSession.PluScale.Plu.IsCheckWeight ? PluginMassa.WeightNet - LabelSession.ViewPluNesting.TareWeight 
+            NettoWeight = LabelSession.PluLine.Plu.IsCheckWeight ? PluginMassa.WeightNet - LabelSession.ViewPluNesting.TareWeight 
                 : LabelSession.ViewPluNesting.WeightNom,
             WeightTare = LabelSession.ViewPluNesting.TareWeight,
             Series = productSeries,
@@ -316,7 +316,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// </summary>
     public void SetPluWeighingFakeForDevelop()
     {
-        if (!LabelSession.PluScale.Plu.IsCheckWeight) return;
+        if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
 
         WsWinFormNavigationUtils.NavigateToOperationControl(LocaleCore.Print.QuestionUseFakeData,
@@ -347,7 +347,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             if (isClearBuffer)
             {
                 LabelSession.PluginPrintMain.ClearPrintBuffer();
-                if (LabelSession.Scale.IsShipping)
+                if (LabelSession.Line.IsShipping)
                     LabelSession.PluginPrintShipping.ClearPrintBuffer();
             }
 
@@ -392,7 +392,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <returns></returns>
     private (WsSqlPluLabelModel, WsSqlPluLabelContextModel) CreateAndSavePluLabel(WsSqlTemplateModel template)
     {
-        WsSqlPluLabelModel pluLabel = new() { PluWeighing = LabelSession.PluWeighing, PluScale = LabelSession.PluScale, 
+        WsSqlPluLabelModel pluLabel = new() { PluWeighing = LabelSession.PluWeighing, PluScale = LabelSession.PluLine, 
             ProductDt = LabelSession.ProductDate };
         //pluLabel.PluWeighing.PluScale = PluScale;
         //pluLabel.PluWeighing.PluScale.Scale = Scale;
@@ -409,11 +409,11 @@ public sealed class WsUserSessionHelper : BaseViewModel
 
         pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelModel>(pluLabel, true, true);
         
-        XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionFacilityModel>(LabelSession.ProductionFacility, true, true);
+        XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionFacilityModel>(LabelSession.Area, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
         WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, LabelSession.ViewPluNesting, pluLabel.PluScale, 
-            LabelSession.ProductionFacility, LabelSession.PluWeighing);
+            LabelSession.Area, LabelSession.PluWeighing);
         XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelContextModel>(pluLabelContext, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
 
@@ -443,7 +443,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             // Patch for using table `PLUS_STORAGE_METHODS_FK`.
             if (ContextCache.ViewPlusStorageMethods.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
-                WsSqlTemplateResourceModel resource = ContextManager.ContextPluStorage.GetItemResource(pluLabel.PluScale.Plu);
+                WsSqlTemplateResourceModel resource = ContextManager.ContextPlusStorages.GetItemResource(pluLabel.PluScale.Plu);
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
                 zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
             }

@@ -13,10 +13,10 @@
   <RazorItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Scale)"
+      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Line)"
                   Text="@LocaleCore.Table.Line"/>
     </td>
-    <td>@SqlItemCast.PluScale.Scale.Description</td>
+    <td>@SqlItemCast.PluScale.Line.Description</td>
 
     <td>@LocaleCore.Table.WeightNetto</td>
     <td>@SqlItemCast.NettoWeight.ToString(CultureInfo.InvariantCulture)</td>

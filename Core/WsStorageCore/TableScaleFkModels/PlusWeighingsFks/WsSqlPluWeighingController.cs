@@ -1,20 +1,20 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.TableScaleModels.PlusScales;
+namespace WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы PLUS_SCALES.
+/// SQL-помощник табличных записей таблицы PLUS_WEIGHINGS.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluScaleController
+public sealed class WsSqlPluWeighingController
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluScaleController _instance;
+    private static WsSqlPluWeighingController _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluScaleController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluWeighingController Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -29,18 +29,11 @@ public sealed class WsSqlPluScaleController
 
     #region Public and private methods
 
-    public WsSqlPluScaleModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
+    public WsSqlPluWeighingModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPluWeighingModel>();
 
-    public WsSqlPluScaleModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(uid);
+    public WsSqlPluWeighingModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlPluWeighingModel>(uid);
 
-    public WsSqlPluScaleModel GetItem(long scaleId, ushort pluNumber)
-    {
-        WsSqlViewPluLineModel viewPluScale = ContextCache.LocalViewPlusLines.Find(
-            item => Equals(item.ScaleId, (ushort)scaleId) && Equals(item.PluNumber, pluNumber));
-        return AccessItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(viewPluScale.Identity.Uid);
-    }
-
-    public List<WsSqlPluScaleModel> GetList() => ContextList.GetListNotNullablePlusScales(new());
+    public List<WsSqlPluWeighingModel> GetList() => ContextList.GetListNotNullablePlusWeighings(new());
 
     #endregion
 }

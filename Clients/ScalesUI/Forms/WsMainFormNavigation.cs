@@ -12,8 +12,6 @@ public partial class WsMainForm
     /// </summary>
     private void PreLoadNavigation()
     {
-        // Обновить кэш.
-        ContextCache.RefreshGlobalCacheForLabelPrint();
         // Навигация.
         WsWinFormNavigationUtils.LayoutPanelMain = layoutPanelMain;
         //WsWinFormNavigationUtils.NavigationUserControl.Parent = this;
@@ -96,13 +94,13 @@ public partial class WsMainForm
     /// </summary>
     private void ReturnOkFromPlusLine()
     {
-        LabelSession.PluScale = WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.PluScale;
+        LabelSession.SetPluLine(WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.PluLine);
 
         LabelSession.WeighingSettings.Kneading = 1;
         LabelSession.ProductDate = DateTime.Now;
         LabelSession.NewPallet();
-        MdInvokeControl.SetVisible(labelNettoWeight, LabelSession.PluScale.Plu.IsCheckWeight);
-        MdInvokeControl.SetVisible(fieldNettoWeight, LabelSession.PluScale.Plu.IsCheckWeight);
+        MdInvokeControl.SetVisible(labelNettoWeight, LabelSession.PluLine.Plu.IsCheckWeight);
+        MdInvokeControl.SetVisible(fieldNettoWeight, LabelSession.PluLine.Plu.IsCheckWeight);
         ActionMore(null, null);
     }
 
@@ -110,15 +108,13 @@ public partial class WsMainForm
     /// Возврат Отмена из контрола смены ПЛУ.
     /// </summary>
     private void ReturnCancelFromPlusLine() =>
-        LabelSession.PluScale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
+        LabelSession.SetPluLine();
 
     /// <summary>
     /// Возврат ОК из контрола смены вложенности ПЛУ.
     /// </summary>
-    private void ReturnOkFromPlusNesting()
-    {
-        LabelSession.ViewPluNesting = WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.PluNesting;
-    }
+    private void ReturnOkFromPlusNesting() => 
+        LabelSession.SetViewPluNesting(WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.PluNesting);
 
     /// <summary>
     /// Возврат Отмена из контрола смены вложенности ПЛУ.
@@ -155,11 +151,11 @@ public partial class WsMainForm
         MdInvokeControl.Select(ButtonPrint);
         // LoadLocalizationDynamic(Lang.Russian);
         LocaleCore.Lang = LocaleData.Lang = Lang.Russian;
-        string area = LabelSession.Scale.WorkShop is null
-            ? LocaleCore.Table.FieldEmpty : LabelSession.ProductionFacility.Name;
-        MdInvokeControl.SetText(ButtonLine, $"{area}{Environment.NewLine}{LocaleCore.Table.Number}: {LabelSession.Scale.Number} | {LabelSession.Scale.Description}");
+        string area = LabelSession.Line.WorkShop is null
+            ? LocaleCore.Table.FieldEmpty : LabelSession.Area.Name;
+        MdInvokeControl.SetText(ButtonLine, $"{area}{Environment.NewLine}{LocaleCore.Table.Number}: {LabelSession.Line.Number} | {LabelSession.Line.Description}");
         MdInvokeControl.SetText(ButtonPluNestingFk, LabelSession.ViewPluNesting.GetSmartName());
-        MdInvokeControl.SetText(fieldPackageWeight, LabelSession.PluScale.IsNotNew
+        MdInvokeControl.SetText(fieldPackageWeight, LabelSession.PluLine.IsNotNew
                 ? $"{LabelSession.ViewPluNesting.TareWeight:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
 
@@ -205,8 +201,8 @@ public partial class WsMainForm
             // Сброс предупреждения.
             ResetWarning();
             // Обновить кэш.
-            ContextCache.Load(WsSqlTableName.ProductionFacilities);
-            ContextCache.Load(WsSqlTableName.Scales);
+            ContextCache.Load(WsSqlTableName.Areas);
+            ContextCache.Load(WsSqlTableName.Lines);
             // Навигация.
             WsWinFormNavigationUtils.NavigateToControlLines();
         });
@@ -218,7 +214,7 @@ public partial class WsMainForm
     /// <returns></returns>
     private bool ActionCheckPluIdentityIsNew()
     {
-        if (LabelSession.PluScale.Plu.IsNew)
+        if (LabelSession.PluLine.Plu.IsNew)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Table.FieldPluIsNotSelected);
@@ -275,7 +271,7 @@ public partial class WsMainForm
         {
             // Сброс предупреждения.
             ResetWarning();
-            if (!LabelSession.PluScale.Plu.IsCheckWeight)
+            if (!LabelSession.PluLine.Plu.IsCheckWeight)
             {
                 WsWinFormNavigationUtils.NavigateToOperationControl(LocaleCore.Scales.PluNotSelectWeight, true, WsEnumLogType.Warning,
                     new() { ButtonOkVisibility = Visibility.Visible },
@@ -306,7 +302,7 @@ public partial class WsMainForm
             // Проверить наличие весовой платформы Масса-К.
             if (IsSkipDialogs || Debug.IsRelease)
                 UserSession.CheckWeightMassaDeviceExists();
-            LabelSession.PluScale = new();
+            LabelSession.SetPluLine();
 
             UserSession.PluginMassa.Execute();
             UserSession.PluginMassa.GetInit();
@@ -349,7 +345,7 @@ public partial class WsMainForm
             ResetWarning();
             MdInvokeControl.SetVisible(labelNettoWeight, false);
             MdInvokeControl.SetVisible(fieldNettoWeight, false);
-            LabelSession.PluScale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
+            LabelSession.SetPluLine();
             // Навигация.
             WsWinFormNavigationUtils.NavigateToControlPlusLines();
         });
@@ -366,7 +362,7 @@ public partial class WsMainForm
         {
             // Сброс предупреждения.
             ResetWarning();
-            if (LabelSession.PluScale.IsNew)
+            if (LabelSession.PluLine.IsNew)
             {
                 WsWinFormNavigationUtils.NavigateToOperationControl(LocaleCore.Scales.PluNotSelect, true, WsEnumLogType.Warning,
                     new() { ButtonOkVisibility = Visibility.Visible },
@@ -403,7 +399,7 @@ public partial class WsMainForm
             // Проверить наличие ПЛУ.
             if (!UserSession.CheckPluIsEmpty(fieldWarning)) return;
             // Проверить наличие вложенности ПЛУ.
-            if (!UserSession.CheckViewPluNesting(LabelSession.PluScale.Plu, fieldWarning)) return;
+            if (!UserSession.CheckViewPluNesting(LabelSession.PluLine.Plu, fieldWarning)) return;
             // Проверить наличие весовой платформы Масса-К.
             if (IsSkipDialogs || Debug.IsRelease)
                 if (!UserSession.CheckWeightMassaDeviceExists()) return;
@@ -443,7 +439,7 @@ public partial class WsMainForm
                 // Проверить подключение и готовность основного принтера.
                 if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintMain, true)) return;
                 // Проверить подключение и готовность транспортного принтера.
-                if (LabelSession.Scale.IsShipping)
+                if (LabelSession.Line.IsShipping)
                     if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintShipping, false)) return;
             }
             // Печать этикетки.

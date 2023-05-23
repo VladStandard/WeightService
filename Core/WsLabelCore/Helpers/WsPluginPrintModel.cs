@@ -167,7 +167,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     {
         MdInvokeControl.SetText(FieldPrint,
             LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintBrand, Printer,
-                LabelSession.Scale.Counter, GetDeviceStatus(), LabelPrintedCount, GetLabelCount()));
+                LabelSession.Line.Counter, GetDeviceStatus(), LabelPrintedCount, GetLabelCount()));
         MdInvokeControl.SetForeColor(FieldPrint,
             Equals(Printer.PingStatus, IPStatus.Success) ? Color.Green : Color.Red);
     }

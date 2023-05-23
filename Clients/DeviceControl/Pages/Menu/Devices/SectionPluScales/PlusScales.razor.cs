@@ -40,7 +40,7 @@ public sealed partial class PlusScales : RazorComponentSectionBase<WsSqlPluScale
                         Value = true
                     }
                 );
-        SqlCrudConfigSection.AddFilters(nameof(WsSqlPluScaleModel.Scale), Scale);
+        SqlCrudConfigSection.AddFilters(nameof(WsSqlPluScaleModel.Line), Scale);
         base.SetSqlSectionCast();
         SqlSectionCast = SqlSectionCast.OrderBy(scale => scale.Plu.Number).ToList();
     }

@@ -34,15 +34,15 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
         try
         {
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlBrandModel? brandDb = Cache.BrandsDb.Find(item => Equals(item.Uid1C, brandXml.IdentityValueUid));
+            WsSqlBrandModel? brandDb = Cache.Brands.Find(item => Equals(item.Uid1C, brandXml.IdentityValueUid));
             if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
 
             // Найдено по Code -> Обновить найденную запись.
-            brandDb = Cache.BrandsDb.Find(item => Equals(item.Code, brandXml.Code));
+            brandDb = Cache.Brands.Find(item => Equals(item.Code, brandXml.Code));
             if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
 
             // Найдено по Name -> Обновить найденную запись.
-            brandDb = Cache.BrandsDb.Find(item => Equals(item.Name, brandXml.Name));
+            brandDb = Cache.Brands.Find(item => Equals(item.Name, brandXml.Name));
             if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
 
             // Не найдено -> Добавить новую запись.

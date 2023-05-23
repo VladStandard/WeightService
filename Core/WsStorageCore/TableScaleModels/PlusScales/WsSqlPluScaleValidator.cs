@@ -17,7 +17,7 @@ public sealed class WsSqlPluScaleValidator : WsSqlTableValidator<WsSqlPluScaleMo
             .NotEmpty()
             .NotNull()
             .SetValidator(new WsSqlPluValidator());
-        RuleFor(item => item.Scale)
+        RuleFor(item => item.Line)
             .NotEmpty()
             .NotNull()
             .SetValidator(new WsSqlScaleValidator());

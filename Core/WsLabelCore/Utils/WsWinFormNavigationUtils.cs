@@ -76,7 +76,7 @@ public static class WsWinFormNavigationUtils
                 NavigationUserControl.SwitchUserControl(PlusNestingUserControl, LocaleCore.Scales.ButtonSwitchPluNesting, message);
                 break;
             case WsNavigationPage.Wait:
-                NavigationUserControl.SwitchUserControl(WaitUserControl, "", message);
+                NavigationUserControl.SwitchUserControl(WaitUserControl, LocaleCore.Scales.AppWaitLoad, message);
                 break;
         }
         // Отобразить user control.
@@ -300,7 +300,7 @@ public static class WsWinFormNavigationUtils
         }
         catch (Exception ex)
         {
-            ActionMakeScreenShot(win32Window, LabelSession.Scale);
+            ActionMakeScreenShot(win32Window, LabelSession.Line);
             CatchException(ex);
         }
     }

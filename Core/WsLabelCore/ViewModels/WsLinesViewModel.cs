@@ -16,8 +16,8 @@ public sealed class WsLinesViewModel : WsWpfBaseViewModel
     {
         Area = new();
         Line = new();
-        Areas = ContextCache.ProductionFacilities;
-        Lines = ContextCache.Scales;
+        Areas = ContextCache.Areas;
+        Lines = ContextCache.Lines;
     }
 
     #endregion

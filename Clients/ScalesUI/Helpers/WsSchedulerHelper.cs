@@ -69,7 +69,7 @@ internal sealed class WsSchedulerHelper
 
         lock (_lockerHours)
         {
-            WsWinFormNavigationUtils.ActionTryCatch(() => WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Scale));
+            WsWinFormNavigationUtils.ActionTryCatch(() => WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Line));
         }
     }
 
@@ -80,7 +80,7 @@ internal sealed class WsSchedulerHelper
         lock (_lockerDays)
         {
             LabelSession.ProductDate = DateTime.Now;
-            WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Scale);
+            WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Line);
         }
     }
 

@@ -425,7 +425,7 @@ public class WsDataTestsHelper
             case WsSqlPluScaleModel pluScale:
                 pluScale.IsActive.Returns(true);
                 pluScale.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-                pluScale.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
+                pluScale.Line = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
                 break;
             case WsSqlPluStorageMethodModel pluStorageMethod:
                 pluStorageMethod.Name.Returns(LocaleCore.Sql.SqlItemFieldName);

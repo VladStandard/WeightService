@@ -34,12 +34,10 @@ public class WsFileLoggerHelper
         streamWriter.Dispose();
     }
 
-    public void StoreMessage(string message)
-    {
+    private void StoreMessage(string message) => 
         StoreCore(streamWriter => {
             streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {message}");
         });
-    }
 
     public void StoreException(Exception ex, [CallerFilePath] string filePath = "", 
         [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")

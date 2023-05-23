@@ -1,7 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Enums;
 using WsStorageCore.TableScaleModels.PlusScales;
 
 namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPluScales;
@@ -20,7 +19,7 @@ public sealed partial class ItemPluScales : RazorComponentItemBase<WsSqlPluScale
     {
         base.SetSqlItemCast();
         ContextCache.Load(WsSqlTableName.Plus);
-        ContextCache.Load(WsSqlTableName.Scales);
+        ContextCache.Load(WsSqlTableName.Lines);
     }
 
     #endregion

@@ -40,9 +40,9 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string PluNestingWeightTare { get => $"{ViewPluNesting.TareWeight:000}"; set => _ = value; }
     [XmlElement] public virtual string ExpirationDt { get => $"{PluLabel.ExpirationDt:dd.MM.yyyy}"; set => _ = value; }
     [XmlElement] public virtual string ExpirationDtWithCaption { get => $"{LocaleCore.Scales.LabelContextExpirationDt}: {ExpirationDt}"; set => _ = value; }
-    [XmlElement] public virtual string ScaleNumber { get => $"{PluScale.Scale.Number:00000}"; set => _ = value; }
-    [XmlElement] public virtual string ScaleDescription { get => $"{LocaleCore.Scales.LabelContextWorkShop}: {PluScale.Scale.Description}"; set => _ = value; }
-    [XmlElement] public virtual string ScaleCounter { get => $"{PluScale.Scale.Counter:00000000}"; set => _ = value; }
+    [XmlElement] public virtual string ScaleNumber { get => $"{PluScale.Line.Number:00000}"; set => _ = value; }
+    [XmlElement] public virtual string ScaleDescription { get => $"{LocaleCore.Scales.LabelContextWorkShop}: {PluScale.Line.Description}"; set => _ = value; }
+    [XmlElement] public virtual string ScaleCounter { get => $"{PluScale.Line.Counter:00000000}"; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg2 { get => $"{PluWeighing.NettoWeight:00.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg3 { get => $"{PluWeighing.NettoWeight:000.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }
     [XmlElement] public virtual string PluWeighing1Dot3Eng { get => $"{PluWeighing.NettoWeight:0.000}".Replace(',', '.'); set => _ = value; }

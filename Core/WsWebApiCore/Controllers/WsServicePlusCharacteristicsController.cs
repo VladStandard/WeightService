@@ -41,7 +41,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         try
         {
             // Найдено по Identity -> Обновить найденную запись.
-            WsSqlPluCharacteristicModel? itemDb = Cache.PluCharacteristicsDb.Find(item => item.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
+            WsSqlPluCharacteristicModel? itemDb = Cache.PluCharacteristics.Find(item => item.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
             if (UpdateItemDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
 
             // Не найдено -> Добавить новую запись.
@@ -80,7 +80,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            WsSqlPluCharacteristicsFkModel? pluCharacteristicFkDb = Cache.PluCharacteristicsFksDb.Find(item =>
+            WsSqlPluCharacteristicsFkModel? pluCharacteristicFkDb = Cache.PluCharacteristicsFks.Find(item =>
                 Equals(item.Plu.Uid1C, pluCharacteristicsFk.Plu.Uid1C) &&
                 Equals(item.Characteristic.Uid1C, pluCharacteristicsFk.Characteristic.Uid1C));
             if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1C, pluCharacteristicsFk, pluCharacteristicFkDb,
@@ -116,7 +116,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                 WsSqlPluCharacteristicModel itemXml = record.Item;
                 // Обновить данные в таблице связей обмена номенклатуры 1С.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, record);
-                WsSqlPluModel pluDb = ContextManager.ContextPlu.GetItemByUid1C(record.Item.NomenclatureGuid);
+                WsSqlPluModel pluDb = ContextManager.ContextPlus.GetItemByUid1C(record.Item.NomenclatureGuid);
                 // Проверить номер ПЛУ в списке доступа к выгрузке.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     CheckIsEnabledPlu(itemXml, plus1CFksDb);

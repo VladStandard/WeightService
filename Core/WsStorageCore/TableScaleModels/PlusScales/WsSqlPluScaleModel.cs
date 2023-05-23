@@ -15,7 +15,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
 
     [XmlElement] public virtual bool IsActive { get; set; }
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-    [XmlElement] public virtual WsSqlScaleModel Scale { get; set; }
+    [XmlElement] public virtual WsSqlScaleModel Line { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -24,7 +24,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
     {
         IsActive = false;
         Plu = new();
-        Scale = new();
+        Line = new();
     }
 
     /// <summary>
@@ -36,14 +36,14 @@ public class WsSqlPluScaleModel : WsSqlTableBase
     {
         IsActive = info.GetBoolean(nameof(IsActive));
         Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
-        Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));
+        Line = (WsSqlScaleModel)info.GetValue(nameof(Line), typeof(WsSqlScaleModel));
     }
 
     #endregion
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{IsMarked} | {IsActive} | {Plu} | {Scale}";
+    public override string ToString() => $"{IsMarked} | {IsActive} | {Plu} | {Line}";
 
     public override bool Equals(object obj)
     {
@@ -53,7 +53,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         return Equals((WsSqlPluScaleModel)obj);
     }
 
-    public override int GetHashCode() => (IsActive, Plu, Scale).GetHashCode();
+    public override int GetHashCode() => (IsActive, Plu, Scale: Line).GetHashCode();
 
     public override bool EqualsNew() => Equals(new());
 
@@ -61,7 +61,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(IsActive, false) &&
         Plu.EqualsDefault() &&
-        Scale.EqualsDefault();
+        Line.EqualsDefault();
 
     public override object Clone()
     {
@@ -69,7 +69,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         item.CloneSetup(base.CloneCast());
         item.IsActive = IsActive;
         item.Plu = Plu.CloneCast();
-        item.Scale = Scale.CloneCast();
+        item.Line = Line.CloneCast();
         return item;
     }
 
@@ -78,7 +78,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         base.GetObjectData(info, context);
         info.AddValue(nameof(IsActive), IsActive);
         info.AddValue(nameof(Plu), Plu);
-        info.AddValue(nameof(Scale), Scale);
+        info.AddValue(nameof(Line), Line);
     }
 
     public override void FillProperties()
@@ -86,7 +86,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         base.FillProperties();
         IsActive = true;
         Plu.FillProperties();
-        Scale.FillProperties();
+        Line.FillProperties();
     }
 
     #endregion
@@ -97,9 +97,9 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(IsActive, item.IsActive) &&
         Equals(Plu, item.Plu) &&
-        Equals(Scale, item.Scale) &&
+        Equals(Line, item.Line) &&
         Plu.Equals(item.Plu) &&
-        Scale.Equals(item.Scale);
+        Line.Equals(item.Line);
 
     public new virtual WsSqlPluScaleModel CloneCast() => (WsSqlPluScaleModel)Clone();
 

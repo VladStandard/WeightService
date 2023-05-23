@@ -69,7 +69,7 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(WsSqlPrinterModel) => GetListNotNullablePrinters(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPrinterResourceFkModel) => GetListNotNullablePrintersResources(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPrinterTypeModel) => GetListNotNullablePrintersTypes(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlProductionFacilityModel) => GetListNotNullableProductionFacilities(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlProductionFacilityModel) => GetListNotNullableAreas(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlProductSeriesModel) => GetListNotNullableProductSeries(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlScaleModel) => GetListNotNullableScales(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlScaleScreenShotModel) => GetListNotNullableScaleScreenShots(sqlCrudConfig).Cast<T>().ToList(),
@@ -602,7 +602,7 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<WsSqlProductionFacilityModel> GetListNotNullableProductionFacilities(WsSqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlProductionFacilityModel> GetListNotNullableAreas(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });

@@ -153,9 +153,10 @@ public sealed class LocaleScale : WsLocalizationBase
     public string ScheduleForNextDay => Lang == Lang.English ? "Schedule for the next day" : "Расписание на следующий день";
     public string ScheduleForNextHour => Lang == Lang.English ? "Schedule for the next hour" : "Расписание на следующий час";
     public string ScreenResolution => Lang == Lang.English ? "Screen resolution" : "Разрешение экрана";
-    public string SetLine(long id, string name) => Lang == Lang.English ? $"Switch Line {id} | {name}" : $"Смена линии {id} | {name}";
-    public string SetPlu(int number, string name) => Lang == Lang.English ? $"Switch PLU {number} | {name}" : $"Смена ПЛУ {number} | {name}";
-    public string SetPluNesting(int number, string name, short bundleCount) => Lang == Lang.English ? $"Switch PLU nesting {number} | {name} | {bundleCount}" : $"Смена вложенности ПЛУ {number} | {name} | {bundleCount}";
+    public string SetArea(long id, string name) => Lang == Lang.English ? $"Switch area: {id} | {name}" : $"Смена площадки: {id} | {name}";
+    public string SetLine(long id, string name) => Lang == Lang.English ? $"Switch line: {id} | {name}" : $"Смена линии: {id} | {name}";
+    public string SetPlu(int number, string name) => Lang == Lang.English ? $"Switch PLU: {number} | {name}" : $"Смена ПЛУ: {number} | {name}";
+    public string SetPluNesting(int number, string name, short bundleCount) => Lang == Lang.English ? $"Switch PLU nesting: {number} | {name} | {bundleCount}" : $"Смена вложенности ПЛУ: {number} | {name} | {bundleCount}";
     public string ShippingLabels => Lang == Lang.English ? "Shipping labels" : "Транспортные этикетки";
     public string StateCorrect => Lang == Lang.English ? "correct" : "верна";
     public string StateDisable => Lang == Lang.English ? "disable" : "отключено";

@@ -14,7 +14,7 @@ public sealed class WsPluNestingViewModel : WsWpfBaseViewModel
     public WsPluNestingViewModel()
     {
         PluNesting = new();
-        PlusNestings = ContextCache.LocalViewPlusNesting;
+        PlusNestings = ContextCache.ViewPlusNesting;
     }
 
     #endregion

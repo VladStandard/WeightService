@@ -88,7 +88,9 @@ public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
 
     #region Public and private methods - override
 
+    public override string ToString() => $"{TareWeightDescription} | {TareWeight}";
+    
     public string GetSmartName() => TareWeight > 0 ? $"{TareWeight} {LocaleCore.Scales.WeightUnitKg} | {PluName}" : "- 0 -";
-
+    
     #endregion
 }

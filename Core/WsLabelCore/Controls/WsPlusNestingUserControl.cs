@@ -21,6 +21,7 @@ public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
         ElementHost = new() { Dock = DockStyle.Fill };
         ElementHost.Child = Page;
         Controls.Add(ElementHost);
+        RefreshAction();
     }
 
     #endregion
@@ -31,11 +32,9 @@ public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            // Обновить локальный кэш.
-            ContextCache.LoadLocalViewPlusNesting((ushort)LabelSession.PluScale.Plu.Number);
-            // 
+            // Обновить модель представления.
             ViewModel.PluNesting = LabelSession.ViewPluNesting;
-            ViewModel.PlusNestings = ContextCache.LocalViewPlusNesting;
+            ViewModel.PlusNestings = ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);
         });
     }
 

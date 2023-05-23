@@ -167,8 +167,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             //if (UpdateItem1cDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Найдено по Number -> Обновить найденную запись.
-            WsSqlPluModel pluDb = Cache.PlusDb.Find(item => 
-                Equals(item.Number, pluXml.Number) && Equals(item.Uid1C, pluXml.Uid1C)) ?? ContextManager.ContextPlu.GetNewItem();
+            WsSqlPluModel pluDb = Cache.Plus.Find(item => 
+                Equals(item.Number, pluXml.Number) && Equals(item.Uid1C, pluXml.Uid1C)) ?? ContextManager.ContextPlus.GetNewItem();
             if (UpdateItemDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Не найдено -> Добавить новую запись.
@@ -194,9 +194,9 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             if (Equals(pluXml.ParentGuid, Guid.Empty)) return;
             // Проверить наличие ПЛУ в БД.
             if (!CheckExistsPluDb(response, pluXml.Number, pluXml.Uid1C, LocaleCore.WebService.FieldNomenclature, false, out WsSqlPluModel? pluDb)) return;
-            WsSqlPluModel pluParentDb = ContextManager.ContextPlu.GetItemByUid1C(pluXml.ParentGuid);
+            WsSqlPluModel pluParentDb = ContextManager.ContextPlus.GetItemByUid1C(pluXml.ParentGuid);
             if (!CheckExistsPluDb(response, pluParentDb.Number, pluXml.Uid1C, LocaleCore.WebService.FieldGroup, true, out WsSqlPluModel? parentDb)) return;
-            WsSqlPluModel pluCategorytDb = ContextManager.ContextPlu.GetItemByUid1C(pluXml.CategoryGuid);
+            WsSqlPluModel pluCategorytDb = ContextManager.ContextPlus.GetItemByUid1C(pluXml.CategoryGuid);
             if (!CheckExistsPluDb(response, pluCategorytDb.Number, pluXml.Uid1C, LocaleCore.WebService.FieldGroup1Level, true, out WsSqlPluModel? categoryDb)) return;
             if (pluDb is null || parentDb is null) return;
 
@@ -209,7 +209,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            WsSqlPluFkModel? pluFkDb = Cache.PluFksDb.Find(item =>
+            WsSqlPluFkModel? pluFkDb = Cache.PluFks.Find(item =>
                 Equals(item.Plu.Uid1C, pluFk.Plu.Uid1C) &&
                 Equals(item.Parent.Uid1C, pluFk.Parent.Uid1C) &&
                 Equals(item.Category?.Uid1C, pluFk.Category?.Uid1C));
@@ -250,11 +250,11 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             }
 
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlBoxModel? boxDb = Cache.BoxesDb.Find(item => Equals(item.Uid1C, pluXml.BoxTypeGuid));
+            WsSqlBoxModel? boxDb = Cache.Boxes.Find(item => Equals(item.Uid1C, pluXml.BoxTypeGuid));
             if (UpdateBoxDb(response, pluXml, boxDb, false)) return;
 
             // Найдено по Name -> Обновить найденную запись.
-            boxDb = Cache.BoxesDb.Find(item => Equals(item.Name, pluXml.BoxTypeName));
+            boxDb = Cache.Boxes.Find(item => Equals(item.Name, pluXml.BoxTypeName));
             if (UpdateBoxDb(response, pluXml, boxDb, false)) return;
 
             // Не найдено -> Добавить новую запись.
@@ -294,11 +294,11 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             }
 
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlBundleModel? bundleDb = Cache.BundlesDb.Find(item => Equals(item.Uid1C, pluXml.PackageTypeGuid));
+            WsSqlBundleModel? bundleDb = Cache.Bundles.Find(item => Equals(item.Uid1C, pluXml.PackageTypeGuid));
             if (UpdateBundleDb(response, pluXml, bundleDb, false)) return;
 
             // Найдено по Name -> Обновить найденную запись.
-            bundleDb = Cache.BundlesDb.Find(item => Equals(item.Name, pluXml.PackageTypeName));
+            bundleDb = Cache.Bundles.Find(item => Equals(item.Name, pluXml.PackageTypeName));
             if (UpdateBundleDb(response, pluXml, bundleDb, false)) return;
 
             // Не найдено -> Добавить новую запись.
@@ -338,7 +338,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
-            WsSqlPluBrandFkModel? pluBrandFkDb = Cache.PluBrandsFksDb.Find(item => Equals(item.Plu.Uid1C, pluBrandFk.Plu.Uid1C));
+            WsSqlPluBrandFkModel? pluBrandFkDb = Cache.PluBrandsFks.Find(item => Equals(item.Plu.Uid1C, pluBrandFk.Plu.Uid1C));
             if (UpdatePluBrandFkDb(response, pluXml.Uid1C, pluBrandFk, pluBrandFkDb, false)) return;
 
             // Не найдено -> Добавить новую запись.
@@ -376,11 +376,11 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             }
 
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlClipModel? clipDb = Cache.ClipsDb.Find(item => Equals(item.Uid1C, pluXml.ClipTypeGuid));
+            WsSqlClipModel? clipDb = Cache.Clips.Find(item => Equals(item.Uid1C, pluXml.ClipTypeGuid));
             if (UpdateClipDb(response, pluXml, clipDb, false)) return;
 
             // Найдено по Name -> Обновить найденную запись.
-            clipDb = Cache.ClipsDb.Find(item => Equals(item.Name, pluXml.ClipTypeName));
+            clipDb = Cache.Clips.Find(item => Equals(item.Name, pluXml.ClipTypeName));
             if (UpdateClipDb(response, pluXml, clipDb, false)) return;
 
             // Не найдено -> Добавить новую запись.
@@ -420,7 +420,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
-            WsSqlPluClipFkModel? pluClipFkDb = Cache.PluClipsFksDb.Find(item => Equals(item.Plu.Uid1C, pluClipFk.Plu.Uid1C));
+            WsSqlPluClipFkModel? pluClipFkDb = Cache.PluClipsFks.Find(item => Equals(item.Plu.Uid1C, pluClipFk.Plu.Uid1C));
             if (UpdatePluClipFkDb(response, pluXml.Uid1C, pluClipFk, pluClipFkDb, false)) return;
 
             // Не найдено -> Добавить новую запись.
@@ -459,7 +459,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             };
 
             // Найдено по Identity -> Update exists | UQ_BUNDLES_FK.
-            WsSqlPluBundleFkModel? pluBundleFkDb = Cache.PluBundlesFksDb.Find(item => Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C));
+            WsSqlPluBundleFkModel? pluBundleFkDb = Cache.PluBundlesFks.Find(item => Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C));
             if (pluBundleFkDb is not null)
                 if (UpdatePluBundleFkDb(response, pluXml.Uid1C, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
 
@@ -487,9 +487,9 @@ public sealed class WsServicePlusController : WsServiceControllerBase
         {
             if (pluBundleFk.IsNotExists)
             {
-                if (Cache.PluBundlesFksDb.Any())
+                if (Cache.PluBundlesFks.Any())
                 {
-                    pluBundleFk = Cache.PluBundlesFksDb.Find(
+                    pluBundleFk = Cache.PluBundlesFks.Find(
                         item => Equals(item.Plu.Number, pluXml.Number) && 
                         Equals(item.Plu.Uid1C, pluXml.Uid1C)) ?? new();
                 }
@@ -654,7 +654,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         // Пропуск групп с нулевым номером.
         if (Equals(pluXml.Number, (short)0)) return;
-        List<WsSqlPluModel> plusNumberDb = Cache.PlusDb.FindAll(item => Equals(item.Number, pluXml.Number));
+        List<WsSqlPluModel> plusNumberDb = Cache.Plus.FindAll(item => Equals(item.Number, pluXml.Number));
         if (plusNumberDb.Count > 1)
         {
             AddResponseExceptionString(response, pluXml.Uid1C,
