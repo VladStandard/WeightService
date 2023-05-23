@@ -34,10 +34,10 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             // Обновить локальный кэш.
-            UserSession.ContextCache.LoadLocalViewPlusLines((ushort)UserSession.Scale.IdentityValueId);
+            ContextCache.LoadLocalViewPlusLines((ushort)LabelSession.Scale.IdentityValueId);
             // ID линии.
-            if (!LastScaleId.Equals(UserSession.Scale.IdentityValueId))
-                LastScaleId = UserSession.Scale.IdentityValueId;
+            if (!LastScaleId.Equals(LabelSession.Scale.IdentityValueId))
+                LastScaleId = LabelSession.Scale.IdentityValueId;
             // Настроить контролы.
             SetupControls();
         });
@@ -50,15 +50,15 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     private WsPluControl?[,] CreatePluUserControls()
     {
         List<WsSqlViewPluLineModel> viewPlusScales = 
-            UserSession.ContextCache.GetCurrentViewPlusScales(UserSession.PlusPageNumber, WsUserSessionHelper.PlusPageSize);
+            ContextCache.GetCurrentViewPlusScales(LabelSession.PlusPageNumber, LabelSession.PlusPageSize);
         if (!viewPlusScales.Any()) return new WsPluControl?[0, 0];
 
-        WsPluControl?[,] pluUserControls = new WsPluControl[WsUserSessionHelper.PlusPageColumnCount, WsUserSessionHelper.PlusPageRowCount];
+        WsPluControl?[,] pluUserControls = new WsPluControl[LabelSession.PlusPageColumnCount, LabelSession.PlusPageRowCount];
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            for (ushort rowNumber = 0, counter = 0; rowNumber < WsUserSessionHelper.PlusPageRowCount; ++rowNumber)
+            for (ushort rowNumber = 0, counter = 0; rowNumber < LabelSession.PlusPageRowCount; ++rowNumber)
             {
-                for (ushort columnNumber = 0; columnNumber < WsUserSessionHelper.PlusPageColumnCount; ++columnNumber)
+                for (ushort columnNumber = 0; columnNumber < LabelSession.PlusPageColumnCount; ++columnNumber)
                 {
                     if (counter >= viewPlusScales.Count) break;
                     pluUserControls[columnNumber, rowNumber] = new(viewPlusScales[counter], ActionPluSelect);
@@ -98,9 +98,9 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     /// <param name="e"></param>
     private void ButtonPreviousScroll_Click(object sender, EventArgs e)
     {
-        UserSession.PlusPageNumber = UserSession.PlusPageNumber > 0 ? UserSession.PlusPageNumber - 1: default;
-        if (UserSession.PlusPageNumber.Equals(LastPageNumber)) return;
-        LastPageNumber = UserSession.PlusPageNumber;
+        LabelSession.PlusPageNumber = LabelSession.PlusPageNumber > 0 ? LabelSession.PlusPageNumber - 1: default;
+        if (LabelSession.PlusPageNumber.Equals(LastPageNumber)) return;
+        LastPageNumber = LabelSession.PlusPageNumber;
         SetupControls(); 
     }
 
@@ -111,12 +111,12 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     /// <param name="e"></param>
     private void ButtonNextScroll_Click(object sender, EventArgs e)
     {
-        int countPage = UserSession.GetPlusPageCount();
-        UserSession.PlusPageNumber = UserSession.PlusPageNumber < countPage ? UserSession.PlusPageNumber + 1: countPage;
-        if (UserSession.PlusPageNumber > countPage)
-            UserSession.PlusPageNumber = countPage - 1;
-        if (UserSession.PlusPageNumber.Equals(LastPageNumber)) return;
-        LastPageNumber = UserSession.PlusPageNumber;
+        int countPage = LabelSession.GetPlusPageCount();
+        LabelSession.PlusPageNumber = LabelSession.PlusPageNumber < countPage ? LabelSession.PlusPageNumber + 1: countPage;
+        if (LabelSession.PlusPageNumber > countPage)
+            LabelSession.PlusPageNumber = countPage - 1;
+        if (LabelSession.PlusPageNumber.Equals(LastPageNumber)) return;
+        LastPageNumber = LabelSession.PlusPageNumber;
         SetupControls();
     }
 
@@ -197,7 +197,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
         }
         // Обновить метки.
         buttonLeftScroll.Text = LocaleCore.Buttons.Back;
-        buttonCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {UserSession.PlusPageNumber + 1}";
+        buttonCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {LabelSession.PlusPageNumber + 1}";
         buttonRightScroll.Text = LocaleCore.Buttons.Forward;
         buttonCancel.Text = LocaleCore.Buttons.Cancel;
         buttonCancel.Select();

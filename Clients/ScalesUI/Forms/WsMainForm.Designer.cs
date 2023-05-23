@@ -32,8 +32,6 @@ namespace ScalesUI.Forms
             this.fieldPackageWeight = new System.Windows.Forms.Label();
             this.fieldNettoWeight = new System.Windows.Forms.Label();
             this.layoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.fieldTemplateValue = new System.Windows.Forms.Label();
-            this.fieldTemplateTitle = new System.Windows.Forms.Label();
             this.fieldPrintShippingExt = new System.Windows.Forms.Label();
             this.fieldPrintShipping = new System.Windows.Forms.Label();
             this.fieldWarning = new System.Windows.Forms.Label();
@@ -114,8 +112,6 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53F));
             this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
             this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
-            this.layoutPanelMain.Controls.Add(this.fieldTemplateValue, 2, 11);
-            this.layoutPanelMain.Controls.Add(this.fieldTemplateTitle, 1, 11);
             this.layoutPanelMain.Controls.Add(this.fieldPrintShippingExt, 1, 10);
             this.layoutPanelMain.Controls.Add(this.fieldPrintShipping, 2, 10);
             this.layoutPanelMain.Controls.Add(this.fieldWarning, 1, 6);
@@ -156,39 +152,6 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.layoutPanelMain.Size = new System.Drawing.Size(1024, 668);
             this.layoutPanelMain.TabIndex = 7;
-            // 
-            // fieldTemplateValue
-            // 
-            this.fieldTemplateValue.AutoSize = true;
-            this.fieldTemplateValue.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanelMain.SetColumnSpan(this.fieldTemplateValue, 3);
-            this.fieldTemplateValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldTemplateValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldTemplateValue.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldTemplateValue.Location = new System.Drawing.Point(141, 452);
-            this.fieldTemplateValue.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldTemplateValue.Name = "fieldTemplateValue";
-            this.fieldTemplateValue.Size = new System.Drawing.Size(873, 19);
-            this.fieldTemplateValue.TabIndex = 71;
-            this.fieldTemplateValue.Text = "fieldTemplateValue";
-            this.fieldTemplateValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldTemplateValue.Visible = false;
-            // 
-            // fieldTemplateTitle
-            // 
-            this.fieldTemplateTitle.AutoSize = true;
-            this.fieldTemplateTitle.BackColor = System.Drawing.Color.Transparent;
-            this.fieldTemplateTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldTemplateTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldTemplateTitle.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldTemplateTitle.Location = new System.Drawing.Point(8, 452);
-            this.fieldTemplateTitle.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldTemplateTitle.Name = "fieldTemplateTitle";
-            this.fieldTemplateTitle.Size = new System.Drawing.Size(127, 19);
-            this.fieldTemplateTitle.TabIndex = 70;
-            this.fieldTemplateTitle.Text = "fieldTemplateTitle";
-            this.fieldTemplateTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldTemplateTitle.Visible = false;
             // 
             // fieldPrintShippingExt
             // 
@@ -532,8 +495,6 @@ namespace ScalesUI.Forms
         private TableLayoutPanel layoutPanelTop;
         private PictureBox pictureBoxClose;
         private Label fieldTitle;
-        private Label fieldTemplateValue;
-        private Label fieldTemplateTitle;
     }
 }
 

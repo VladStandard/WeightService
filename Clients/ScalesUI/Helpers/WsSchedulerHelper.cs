@@ -18,6 +18,8 @@ internal sealed class WsSchedulerHelper
     #region Public and private fields, properties, constructor
 
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
+    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private WsQuartzHelper Quartz => WsQuartzHelper.Instance;
     private readonly object _lockerMinutes10 = new();
     private readonly object _lockerHours = new();
@@ -53,7 +55,7 @@ internal sealed class WsSchedulerHelper
         {
             WsWinFormNavigationUtils.ActionTryCatch(() =>
             {
-                UserSession.ContextManager.ContextItem.SaveLogMemory(
+                ContextManager.ContextItem.SaveLogMemory(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
                 GC.Collect();
             }
@@ -67,7 +69,7 @@ internal sealed class WsSchedulerHelper
 
         lock (_lockerHours)
         {
-            WsWinFormNavigationUtils.ActionTryCatch(() => WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, UserSession.Scale));
+            WsWinFormNavigationUtils.ActionTryCatch(() => WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Scale));
         }
     }
 
@@ -77,8 +79,8 @@ internal sealed class WsSchedulerHelper
 
         lock (_lockerDays)
         {
-            UserSession.ProductDate = DateTime.Now;
-            WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, UserSession.Scale);
+            LabelSession.ProductDate = DateTime.Now;
+            WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Scale);
         }
     }
 

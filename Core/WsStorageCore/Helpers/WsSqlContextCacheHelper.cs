@@ -116,6 +116,17 @@ public sealed class WsSqlContextCacheHelper
             TableName = WsSqlTableName.None;
     }
 
+    /// <summary>
+    /// Обновить глобальный кэш.
+    /// </summary>
+    public void RefreshGlobalCacheForLabelPrint()
+    {
+        Load(WsSqlTableName.ProductionFacilities);
+        Load(WsSqlTableName.Scales);
+        Load(WsSqlTableName.ViewPlusNesting);
+        Load(WsSqlTableName.ViewPlusStorageMethods);
+    }
+
     public List<WsSqlViewPluLineModel> GetViewPlusScalesDb(ushort scaleId) => 
         ViewPlusLines.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive).ToList();
 

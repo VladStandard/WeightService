@@ -22,10 +22,10 @@ internal static class Program
             ContextManager.SetupJsonScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
 
             // Линия.
-            WsUserSessionHelper.Instance.SetMain();
-            if (WsUserSessionHelper.Instance.DeviceScaleFk.IsNew)
+            WsLabelSessionHelper.Instance.SetSessionForLabelPrint();
+            if (WsLabelSessionHelper.Instance.DeviceScaleFk.IsNew)
             {
-                string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(WsUserSessionHelper.Instance.DeviceName);
+                string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(WsLabelSessionHelper.Instance.DeviceName);
                 WsWinFormNavigationUtils.NavigateToControlRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
                 System.Windows.Forms.Application.Exit();
@@ -44,7 +44,8 @@ internal static class Program
             else
             {
                 ContextManager.ContextItem.SaveLogInformation(
-                    LocaleCore.Scales.RegistrationSuccess(WsUserSessionHelper.Instance.DeviceName, WsUserSessionHelper.Instance.DeviceScaleFk.Scale.Description));
+                    LocaleCore.Scales.RegistrationSuccess(WsLabelSessionHelper.Instance.DeviceName,
+                        WsLabelSessionHelper.Instance.DeviceScaleFk.Scale.Description));
                 // Запуск.
                 System.Windows.Forms.Application.Run(new WsMainForm());
             }

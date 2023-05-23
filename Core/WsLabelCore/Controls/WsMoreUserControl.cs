@@ -20,9 +20,9 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
         ViewModel = new();
         PreviousPluScaleUid = Guid.Empty;
-        SaveProductDate = UserSession.ProductDate;
-        SaveKneading = UserSession.WeighingSettings.Kneading;
-        SavePalletSize = UserSession.WeighingSettings.LabelsCountMain;
+        SaveProductDate = LabelSession.ProductDate;
+        SaveKneading = LabelSession.WeighingSettings.Kneading;
+        SavePalletSize = LabelSession.WeighingSettings.LabelsCountMain;
     }
 
     #endregion
@@ -33,9 +33,9 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            if (!UserSession.PluScale.IdentityValueUid.Equals(PreviousPluScaleUid))
+            if (!LabelSession.PluScale.IdentityValueUid.Equals(PreviousPluScaleUid))
             {
-                PreviousPluScaleUid = UserSession.PluScale.IdentityValueUid;
+                PreviousPluScaleUid = LabelSession.PluScale.IdentityValueUid;
                 ShowPalletSize();
                 SetGuiConfig();
                 SetGuiLocalize();
@@ -47,8 +47,8 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void RefreshControlsText()
     {
-        fieldKneading.Text = $@"{UserSession.WeighingSettings.Kneading}";
-        fieldProdDate.Text = UserSession.ProductDate.ToString("dd.MM.yyyy");
+        fieldKneading.Text = $@"{LabelSession.WeighingSettings.Kneading}";
+        fieldProdDate.Text = LabelSession.ProductDate.ToString("dd.MM.yyyy");
     }
 
     private void ButtonKneadingLeft_Click(object sender, EventArgs e)
@@ -60,7 +60,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
             numberInputForm.Close();
             numberInputForm.Dispose();
             if (result == DialogResult.OK)
-                UserSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
+                LabelSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
             RefreshControlsText();
         });
     }
@@ -70,23 +70,23 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
-            UserSession.ProductDate = SaveProductDate;
-            UserSession.WeighingSettings.Kneading = SaveKneading;
-            UserSession.WeighingSettings.LabelsCountMain = SavePalletSize;
+            LabelSession.ProductDate = SaveProductDate;
+            LabelSession.WeighingSettings.Kneading = SaveKneading;
+            LabelSession.WeighingSettings.LabelsCountMain = SavePalletSize;
             ViewModel.ActionReturnCancel();
         });
     }
 
     private void CheckWeightCount()
     {
-        if (UserSession.PluScale is { IsNotNew: true, Plu.IsCheckWeight: true } &&
-            UserSession.WeighingSettings.LabelsCountMain > 1)
+        if (LabelSession.PluScale is { IsNotNew: true, Plu.IsCheckWeight: true } &&
+            LabelSession.WeighingSettings.LabelsCountMain > 1)
         {
             //WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
-            //    UserSession.HostName, nameof(ScalesUI));
-            UserSession.WeighingSettings.LabelsCountMain = 1;
+            //    LabelSession.HostName, nameof(ScalesUI));
+            LabelSession.WeighingSettings.LabelsCountMain = 1;
         }
-        fieldPalletSize.Text = $@"{UserSession.WeighingSettings.LabelsCountMain}";
+        fieldPalletSize.Text = $@"{LabelSession.WeighingSettings.LabelsCountMain}";
     }
 
     private void ButtonOk_Click(object sender, EventArgs e)
@@ -102,7 +102,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            UserSession.RotateProductDate(WsEnumDirection.Right);
+            LabelSession.RotateProductDate(WsEnumDirection.Right);
             RefreshControlsText();
         });
     }
@@ -111,21 +111,21 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            UserSession.RotateProductDate(WsEnumDirection.Left);
+            LabelSession.RotateProductDate(WsEnumDirection.Left);
             RefreshControlsText();
         });
     }
 
     private void ShowPalletSize()
     {
-        fieldPalletSize.Text = UserSession.WeighingSettings.LabelsCountMain.ToString();
+        fieldPalletSize.Text = LabelSession.WeighingSettings.LabelsCountMain.ToString();
     }
 
     private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            UserSession.WeighingSettings.LabelsCountMain++;
+            LabelSession.WeighingSettings.LabelsCountMain++;
             ShowPalletSize();
         });
     }
@@ -134,7 +134,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            UserSession.WeighingSettings.LabelsCountMain--;
+            LabelSession.WeighingSettings.LabelsCountMain--;
             ShowPalletSize();
         });
     }
@@ -148,10 +148,10 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            int n = UserSession.WeighingSettings.LabelsCountMain == 1 ? 9 : 10;
+            int n = LabelSession.WeighingSettings.LabelsCountMain == 1 ? 9 : 10;
             for (int i = 0; i < n; i++)
             {
-                UserSession.WeighingSettings.LabelsCountMain++;
+                LabelSession.WeighingSettings.LabelsCountMain++;
                 ShowPalletSize();
             }
         });
@@ -176,7 +176,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            UserSession.WeighingSettings.LabelsCountMain = count;
+            LabelSession.WeighingSettings.LabelsCountMain = count;
             ShowPalletSize();
         });
     }
@@ -195,11 +195,11 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
     private void SetGuiConfig()
     {
         // Kneading.
-        labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = UserSession.Scale.IsKneading;
+        labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = LabelSession.Scale.IsKneading;
         // Pallet size.
         labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
             buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =
-                UserSession.PluScale.IsNotNew && !UserSession.PluScale.Plu.IsCheckWeight;
+                LabelSession.PluScale.IsNotNew && !LabelSession.PluScale.Plu.IsCheckWeight;
     }
 
     private void SetGuiLocalize()

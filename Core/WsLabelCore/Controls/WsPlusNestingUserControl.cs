@@ -32,10 +32,10 @@ public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
             // Обновить локальный кэш.
-            UserSession.ContextCache.LoadLocalViewPlusNesting((ushort)UserSession.PluScale.Plu.Number);
+            ContextCache.LoadLocalViewPlusNesting((ushort)LabelSession.PluScale.Plu.Number);
             // 
-            ViewModel.PluNesting = UserSession.ViewPluNesting;
-            ViewModel.PlusNestings = UserSession.ContextCache.LocalViewPlusNesting;
+            ViewModel.PluNesting = LabelSession.ViewPluNesting;
+            ViewModel.PlusNestings = ContextCache.LocalViewPlusNesting;
         });
     }
 

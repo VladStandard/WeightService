@@ -1,11 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-#nullable enable
-
-using SuperSimpleTcp;
 
 namespace WsLabelCore.Helpers;
 
+#nullable enable
 public sealed class WsPluginPrintModel : WsPluginHelperBase
 {
     #region Public and private fields and properties
@@ -19,7 +17,8 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     public string ZebraPeelerStatus { get; private set; }
     private TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
     public MdWmiWinPrinterModel TscWmiPrinter => GetWin32Printer(TscDriver.Properties.PrintName);
-    private ZebraPrinter _zebraDriver;
+    private ZebraPrinter? _zebraDriver;
+    private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
 
     private ZebraPrinter ZebraDriver
     {
@@ -162,15 +161,13 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     }
 
     private byte GetLabelCount() =>
-        IsMain
-            ? WsUserSessionHelper.Instance.WeighingSettings.LabelsCountMain
-            : WsUserSessionHelper.Instance.WeighingSettings.LabelsCountShipping;
+        IsMain ? LabelSession.WeighingSettings.LabelsCountMain : LabelSession.WeighingSettings.LabelsCountShipping;
 
     private void Response()
     {
         MdInvokeControl.SetText(FieldPrint,
-            WsUserSessionHelper.Instance.WeighingSettings.GetPrintDescription(IsMain, PrintBrand, Printer,
-                WsUserSessionHelper.Instance.Scale.Counter, GetDeviceStatus(), LabelPrintedCount, GetLabelCount()));
+            LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintBrand, Printer,
+                LabelSession.Scale.Counter, GetDeviceStatus(), LabelPrintedCount, GetLabelCount()));
         MdInvokeControl.SetForeColor(FieldPrint,
             Equals(Printer.PingStatus, IPStatus.Success) ? Color.Green : Color.Red);
     }
@@ -441,7 +438,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
                 break;
             case PrintBrand.Zebra:
                 //SendCmdToZebra($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
-                SendCmdToZebra($@"! U1 getvar ""odometer.user_label_count""");
+                SendCmdToZebra(@"! U1 getvar ""odometer.user_label_count""");
                 break;
             
         }

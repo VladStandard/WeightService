@@ -7,7 +7,7 @@ namespace WsLabelCore.Helpers;
 /// <summary>
 /// User session.
 /// </summary>
-public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
+public sealed class WsUserSessionHelper : BaseViewModel
 {
     #region Design pattern "Lazy Singleton"
 
@@ -20,134 +20,16 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
 
     #region Public and private fields and properties
 
-    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    private DebugHelper Debug => DebugHelper.Instance;
+    private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private WsSqlBarCodeController BarCode => WsSqlBarCodeController.Instance;
-    public DebugHelper Debug => DebugHelper.Instance;
     public WsPluginLabelsHelper PluginLabels => WsPluginLabelsHelper.Instance;
     public WsPluginMassaHelper PluginMassa => WsPluginMassaHelper.Instance;
     public WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
-    public WsPluginPrintModel PluginPrintMain { get; } = new();
-    public WsPluginPrintModel PluginPrintShipping { get; } = new();
-
-    public ProductSeriesDirect ProductSeries { get; private set; }
-    public PrintBrand PrintBrandMain =>
-        Scale.PrinterMain is not null && Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
-    public PrintBrand PrintBrandShipping =>
-        Scale.PrinterShipping is not null && Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
-    public WsSqlPluWeighingModel PluWeighing { get; private set; }
-    public WsWeighingSettingsModel WeighingSettings { get; private set; }
+    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public Stopwatch StopwatchMain { get; set; } = new();
-
-    private WsSqlPluScaleModel _pluScale;
-    public WsSqlPluScaleModel PluScale
-    {
-        get => _pluScale;
-        set
-        {
-            _pluScale = value;
-            // Журналирование смены ПЛУ на линии.
-            ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetPlu(_pluScale.Plu.Number, _pluScale.Plu.Name)}");
-            if (_pluScale.IsNotNew)
-            {
-                WsSqlBundleModel bundle = ContextManager.ContextBundle.GetItem(_pluScale.Plu);
-                if (bundle.IsExists)
-                {
-                    _pluScale.Plu.PackageTypeGuid = bundle.IdentityValueUid;
-                    _pluScale.Plu.PackageTypeName = bundle.Name;
-                    _pluScale.Plu.PackageTypeWeight = bundle.Weight;
-                }
-                WsSqlClipModel clip = WsSqlContextManagerHelper.Instance.ContextClip.GetItem(_pluScale.Plu);
-                if (clip.IsExists)
-                {
-                    _pluScale.Plu.ClipTypeGuid = clip.IdentityValueUid;
-                    _pluScale.Plu.ClipTypeName = clip.Name;
-                    _pluScale.Plu.ClipTypeWeight = clip.Weight;
-                }
-            }
-            PluginPrintMain.LabelPrintedCount = 1;
-            PluginPrintShipping.LabelPrintedCount = 1;
-            ContextCache.LoadLocalViewPlusNesting((ushort)value.Plu.Number);
-            ViewPluNesting = ContextCache.LocalViewPlusNesting.Any() 
-                ? ContextCache.LocalViewPlusNesting.First(item => item.IsDefault) ?? new() : new();
-            OnPropertyChanged();
-        }
-    }
-
-    public const ushort PlusPageColumnCount = 4;
-    public const ushort PlusPageSize = 16;
-    public const ushort PlusPageRowCount = 4;
-    public int PlusPageNumber { get; set; }
-
-    public WsSqlDeviceScaleFkModel DeviceScaleFk { get; private set; }
-    private WsSqlProductionFacilityModel _productionFacility;
-    public WsSqlProductionFacilityModel ProductionFacility
-    {
-        get =>
-            _productionFacility.IsNotNew
-                ? _productionFacility : Scale.WorkShop is not null ? Scale.WorkShop.ProductionFacility : _productionFacility;
-        set
-        {
-            _productionFacility = value;
-            OnPropertyChanged();
-        }
-    }
     
-    private WsSqlScaleModel _scale;
-    public WsSqlScaleModel Scale
-    {
-        get => _scale;
-        private set
-        {
-            _scale = value;
-            // Журналирование смены линии.
-            ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetLine(_scale.IdentityValueId, _scale.Description)}");
-            // Сбросить ПЛУ линии.
-            PluScale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
-            // Сбросить вложенность.
-            ViewPluNesting = ContextManager.ContextPluNesting.GetNewView();
-            OnPropertyChanged();
-        }
-    }
-
-    public string PublishDescription { get; private set; }
-    private DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
-    private DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
-    public DateTime ProductDate { get; set; }
-    private readonly object _locker = new();
-    public string DeviceName => MdNetUtils.GetLocalDeviceName(false);
-
-    private WsSqlViewPluNestingModel _viewPluNesting;
-    public WsSqlViewPluNestingModel ViewPluNesting
-    {
-        get => _viewPluNesting;
-        set
-        {
-            _viewPluNesting = value;
-            // Журналирование смены вложенности ПЛУ.
-            ContextManager.ContextItem.SaveLogInformation(
-                $"{LocaleCore.Scales.SetPluNesting(_viewPluNesting.PluNumber, _viewPluNesting.PluName, _viewPluNesting.BundleCount)}");
-            OnPropertyChanged();
-        }
-    }
-
-    public WsUserSessionHelper()
-    {
-        // Items.
-        _pluScale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
-        PluWeighing = ContextManager.AccessItem.GetItemNewEmpty<WsSqlPluWeighingModel>();
-        DeviceScaleFk = ContextManager.AccessItem.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
-        _productionFacility = ContextManager.AccessItem.GetItemNewEmpty<WsSqlProductionFacilityModel>();
-        _scale = ContextManager.AccessItem.GetItemNewEmpty<WsSqlScaleModel>();
-        // Lists.
-        ProductSeries = new();
-        // Strings
-        PublishDescription = string.Empty;
-        // Others.
-        WeighingSettings = new();
-        _viewPluNesting = ContextManager.ContextPluNesting.GetNewView();
-    }
-
     #endregion
 
     #region Public and private methods
@@ -156,76 +38,9 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     {
         PluginMemory.Close();
         PluginMassa.Close();
-        PluginPrintMain.Close();
-        PluginPrintShipping.Close();
+        LabelSession.PluginPrintMain.Close();
+        LabelSession.PluginPrintShipping.Close();
         PluginLabels.Close();
-    }
-
-    public void SetMain(long scaleId = -1, WsSqlProductionFacilityModel? area = null)
-    {
-        SetSqlPublish();
-        SetScale(scaleId, area);
-    }
-
-    private void SetScale(long scaleId, WsSqlProductionFacilityModel? area)
-    {
-        lock (_locker)
-        {
-            // Device.
-            WsSqlDeviceModel device = ContextManager.ContextItem.GetItemDeviceNotNullable(DeviceName);
-            device = WsWinFormNavigationUtils.SetNewDeviceWithQuestion(device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
-            // DeviceTypeFk.
-            WsSqlDeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);
-            if (deviceTypeFk.IsNew)
-            {
-                // DeviceType.
-                WsSqlDeviceTypeModel deviceType = ContextManager.ContextItem.GetItemDeviceTypeNotNullable("Monoblock");
-                // DeviceTypeFk.
-                deviceTypeFk.Device = device;
-                deviceTypeFk.Type = deviceType;
-                ContextManager.AccessItem.Save(deviceTypeFk);
-            }
-            // DeviceTypeFk.
-            DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
-            // Scale.
-            Scale = scaleId <= 0 ? DeviceScaleFk.Scale : ContextManager.ContextItem.GetScaleNotNullable(scaleId);
-            // Area.
-            //ProductionFacility = ContextManager.ContextItem.GetProductionFacilityNotNullable(productionFacilityName);
-            ProductionFacility = area ?? ContextManager.ContextItem.GetProductionFacilityNotNullable(string.Empty);
-            // Other.
-            ProductDate = DateTime.Now;
-            // Новая серия, упаковка продукции, новая паллета.
-            ProductSeries = new(Scale);
-            WeighingSettings = new();
-        }
-    }
-
-    public void NewPallet()
-    {
-        PluginPrintMain.LabelPrintedCount = 1;
-        ProductSeries.Load();
-    }
-
-    public void RotateProductDate(WsEnumDirection direction)
-    {
-        switch (direction)
-        {
-            case WsEnumDirection.Left:
-            {
-                ProductDate = ProductDate.AddDays(-1);
-                if (ProductDate < ProductDateMinValue)
-                    ProductDate = ProductDateMinValue;
-                break;
-            }
-            case WsEnumDirection.Right:
-            {
-                ProductDate = ProductDate.AddDays(1);
-                if (ProductDate > ProductDateMaxValue)
-                    ProductDate = ProductDateMaxValue;
-                break;
-            }
-        
-        }
     }
 
     /// <summary>
@@ -235,7 +50,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <returns></returns>
     public bool CheckPluIsEmpty(Label fieldWarning)
     {
-        if (PluScale.IsNew)
+        if (LabelSession.PluScale.IsNew)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluNotSelect);
@@ -249,7 +64,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// Проверить наличие весовой платформы Масса-К.
     /// </summary>
     /// <returns></returns>
-    public bool CheckWeightMassaDeviceExists() => PluScale is { IsNew: false, Plu.IsCheckWeight: false } || true;
+    public bool CheckWeightMassaDeviceExists() => LabelSession.PluScale is { IsNew: false, Plu.IsCheckWeight: false } || true;
 
     /// <summary>
     /// Проверить стабилизацию весовой платформы Масса-К.
@@ -258,7 +73,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <returns></returns>
     public bool CheckWeightMassaIsStable(Label fieldWarning)
     {
-        if (PluScale.Plu.IsCheckWeight && !PluginMassa.IsStable)
+        if (LabelSession.PluScale.Plu.IsCheckWeight && !PluginMassa.IsStable)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, $"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
@@ -275,7 +90,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <returns></returns>
     public bool CheckPluGtin(Label fieldWarning)
     {
-        if (string.IsNullOrEmpty(PluScale.Plu.Gtin))
+        if (string.IsNullOrEmpty(LabelSession.PluScale.Plu.Gtin))
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluGtinIsNotSet);
@@ -327,7 +142,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     public bool CheckWeightIsNegative(Label fieldWarning)
     {
         if (PluginMassa.IsWeightNetFake) return true;
-        if (!PluScale.Plu.IsCheckWeight) return true;
+        if (!LabelSession.PluScale.Plu.IsCheckWeight) return true;
 
         if (PluginMassa.WeightNet <= 0)
         {
@@ -337,7 +152,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
             return false;
         }
 
-        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : ViewPluNesting.TareWeight);
+        decimal weight = PluginMassa.WeightNet - (LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
         if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
@@ -355,9 +170,9 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <returns></returns>
     public bool CheckWeightIsPositive(Label fieldWarning)
     {
-        if (!PluScale.Plu.IsCheckWeight) return true;
+        if (!LabelSession.PluScale.Plu.IsCheckWeight) return true;
 
-        decimal weight = PluginMassa.WeightNet - (PluScale.IsNew ? 0 : ViewPluNesting.TareWeight);
+        decimal weight = PluginMassa.WeightNet - (LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
         if (weight > LocaleCore.Scales.MassaThresholdValue)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
@@ -376,19 +191,20 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     public bool CheckWeightThresholds(Label fieldWarning)
     {
         if (PluginMassa.IsWeightNetFake) return true;
-        if (!PluScale.Plu.IsCheckWeight) return true;
+        if (!LabelSession.PluScale.Plu.IsCheckWeight) return true;
 
-        if (ViewPluNesting is { WeightNom: > 0, WeightMin: not 0, WeightMax: not 0 })
+        if (LabelSession.ViewPluNesting is { WeightNom: > 0, WeightMin: not 0, WeightMax: not 0 })
         {
-            if (!(PluWeighing.NettoWeight >= ViewPluNesting.WeightMin && PluWeighing.NettoWeight <= ViewPluNesting.WeightMax))
+            if (!(LabelSession.PluWeighing.NettoWeight >= LabelSession.ViewPluNesting.WeightMin && LabelSession.PluWeighing.NettoWeight <=
+                    LabelSession.ViewPluNesting.WeightMax))
             {
-                if (PluWeighing.IsNotNew)
+                if (LabelSession.PluWeighing.IsNotNew)
                 {
                     MdInvokeControl.SetVisible(fieldWarning, true);
-                    string message = LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight,
-                        PluScale.IsNew ? 0 : ViewPluNesting.WeightMax,
-                        PluScale.IsNew ? 0 : ViewPluNesting.WeightNom,
-                        PluScale.IsNew ? 0 : ViewPluNesting.WeightMin);
+                    string message = LocaleCore.Scales.CheckWeightThresholds(LabelSession.PluWeighing.NettoWeight,
+                        LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMax,
+                        LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.WeightNom,
+                        LabelSession.PluScale.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMin);
                     MdInvokeControl.SetText(fieldWarning, message);
                     ContextManager.ContextItem.SaveLogError(message);
                 }
@@ -405,13 +221,13 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <param name="isClearBuffer"></param>
     public void PrintLabel(Label fieldWarning, bool isClearBuffer)
     {
-        if (Scale is { IsOrder: true })
+        if (LabelSession.Scale is { IsOrder: true })
             throw new("Order under construct!");
 
         // #WS-T-710 Печать этикеток. Исправление счётчика этикеток
-        PluScale.Scale = Scale;
+        LabelSession.PluScale.Scale = LabelSession.Scale;
         // Получить шаблон этикетки.
-        WsSqlTemplateModel template = ContextManager.ContextItem.GetItemTemplateNotNullable(PluScale);
+        WsSqlTemplateModel template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluScale);
         // Проверить наличие шаблона этикетки.
         if (template.IsNew)
         {
@@ -421,7 +237,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
             return;
         }
         // Выбор типа ПЛУ.
-        switch (PluScale.Plu.IsCheckWeight)
+        switch (LabelSession.PluScale.Plu.IsCheckWeight)
         {
             // Весовая ПЛУ.
             case true:
@@ -434,7 +250,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
         
         }
 
-        PluWeighing = new();
+        LabelSession.PluWeighing = new();
     }
 
     /// <summary>
@@ -442,8 +258,8 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     public void AddScaleCounter()
     {
-        Scale.Counter++;
-        ContextManager.AccessItem.Update(Scale);
+        LabelSession.Scale.Counter++;
+        ContextManager.AccessItem.Update(LabelSession.Scale);
     }
 
     /// <summary>
@@ -454,18 +270,18 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     private void PrintLabelCount(WsSqlTemplateModel template, bool isClearBuffer)
     {
         // Шаблон с указанием кол-ва и не весовой продукт.
-        if (template.Data.Contains("^PQ1") && !PluScale.Plu.IsCheckWeight)
+        if (template.Data.Contains("^PQ1") && !LabelSession.PluScale.Plu.IsCheckWeight)
         {
             // Изменить кол-во этикеток.
-            if (WeighingSettings.LabelsCountMain > 1)
-                template.Data = template.Data.Replace("^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
+            if (LabelSession.WeighingSettings.LabelsCountMain > 1)
+                template.Data = template.Data.Replace("^PQ1", $"^PQ{LabelSession.WeighingSettings.LabelsCountMain}");
             // Печать этикетки ПЛУ.
             PrintLabelCore(template, isClearBuffer);
         }
         // Шаблон без указания кол-ва.
         else
         {
-            for (int i = PluginPrintMain.LabelPrintedCount; i <= WeighingSettings.LabelsCountMain; i++)
+            for (int i = LabelSession.PluginPrintMain.LabelPrintedCount; i <= LabelSession.WeighingSettings.LabelsCountMain; i++)
             {
                 // Печать этикетки ПЛУ.
                 PrintLabelCore(template, isClearBuffer);
@@ -478,14 +294,16 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     public void NewPluWeighing()
     {
-        WsSqlProductSeriesModel productSeries = ContextManager.ContextItem.GetItemProductSeriesNotNullable(PluScale.Scale);
+        WsSqlProductSeriesModel productSeries = ContextManager.ContextItem.GetItemProductSeriesNotNullable(
+            LabelSession.PluScale.Scale);
 
-        PluWeighing = new()
+        LabelSession.PluWeighing = new()
         {
-            PluScale = PluScale,
-            Kneading = WeighingSettings.Kneading,
-            NettoWeight = PluScale.Plu.IsCheckWeight ? PluginMassa.WeightNet - ViewPluNesting.TareWeight : ViewPluNesting.WeightNom,
-            WeightTare = ViewPluNesting.TareWeight,
+            PluScale = LabelSession.PluScale,
+            Kneading = LabelSession.WeighingSettings.Kneading,
+            NettoWeight = LabelSession.PluScale.Plu.IsCheckWeight ? PluginMassa.WeightNet - LabelSession.ViewPluNesting.TareWeight 
+                : LabelSession.ViewPluNesting.WeightNom,
+            WeightTare = LabelSession.ViewPluNesting.TareWeight,
             Series = productSeries,
         };
 
@@ -498,7 +316,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     public void SetPluWeighingFakeForDevelop()
     {
-        if (!PluScale.Plu.IsCheckWeight) return;
+        if (!LabelSession.PluScale.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
 
         WsWinFormNavigationUtils.NavigateToOperationControl(LocaleCore.Print.QuestionUseFakeData,
@@ -507,7 +325,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
             ActionOk, () => { });
         void ActionOk()
         {
-            PluginMassa.WeightNet = StrUtils.NextDecimal(ViewPluNesting.WeightMin, ViewPluNesting.WeightMax);
+            PluginMassa.WeightNet = StrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
             PluginMassa.IsWeightNetFake = true;
         }
     }
@@ -521,15 +339,16 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     {
         try
         {
-            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
+            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = 
+                CreateAndSavePluLabel(template);
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
 
             // Print.
             if (isClearBuffer)
             {
-                PluginPrintMain.ClearPrintBuffer();
-                if (Scale.IsShipping)
-                    PluginPrintShipping.ClearPrintBuffer();
+                LabelSession.PluginPrintMain.ClearPrintBuffer();
+                if (LabelSession.Scale.IsShipping)
+                    LabelSession.PluginPrintShipping.ClearPrintBuffer();
             }
 
             // Send cmd to the print.
@@ -545,7 +364,7 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
             }
 
             // Send cmd to the print.
-            PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
+            LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
         }
         catch (Exception ex)
         {
@@ -558,12 +377,12 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     private void SaveOrUpdatePluWeighing()
     {
-        if (!PluWeighing.PluScale.Plu.IsCheckWeight) return;
+        if (!LabelSession.PluWeighing.PluScale.Plu.IsCheckWeight) return;
 
-        if (PluWeighing.IsNew)
-            ContextManager.AccessItem.Save(PluWeighing);
+        if (LabelSession.PluWeighing.IsNew)
+            ContextManager.AccessItem.Save(LabelSession.PluWeighing);
         else
-            ContextManager.AccessItem.Update(PluWeighing);
+            ContextManager.AccessItem.Update(LabelSession.PluWeighing);
     }
 
     /// <summary>
@@ -573,7 +392,8 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <returns></returns>
     private (WsSqlPluLabelModel, WsSqlPluLabelContextModel) CreateAndSavePluLabel(WsSqlTemplateModel template)
     {
-        WsSqlPluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
+        WsSqlPluLabelModel pluLabel = new() { PluWeighing = LabelSession.PluWeighing, PluScale = LabelSession.PluScale, 
+            ProductDt = LabelSession.ProductDate };
         //pluLabel.PluWeighing.PluScale = PluScale;
         //pluLabel.PluWeighing.PluScale.Scale = Scale;
         //pluLabel.PluScale.Scale = Scale;
@@ -589,10 +409,11 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
 
         pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelModel>(pluLabel, true, true);
         
-        XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionFacilityModel>(ProductionFacility, true, true);
+        XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionFacilityModel>(LabelSession.ProductionFacility, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
-        WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, ViewPluNesting, pluLabel.PluScale, ProductionFacility, PluWeighing);
+        WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, LabelSession.ViewPluNesting, pluLabel.PluScale, 
+            LabelSession.ProductionFacility, LabelSession.PluWeighing);
         XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelContextModel>(pluLabelContext, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
 
@@ -644,25 +465,6 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Задать настройки публикации.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private void SetSqlPublish() =>
-        PublishDescription = Debug.Config switch
-        {
-            WsEnumConfiguration.DevelopAleksandrov => LocaleCore.Sql.SqlServerDevelopAleksandrov,
-            WsEnumConfiguration.DevelopMorozov => LocaleCore.Sql.SqlServerDevelopMorozov,
-            WsEnumConfiguration.DevelopVS => LocaleCore.Sql.SqlServerVS,
-            WsEnumConfiguration.ReleaseAleksandrov => LocaleCore.Sql.SqlServerReleaseAleksandrov,
-            WsEnumConfiguration.ReleaseMorozov => LocaleCore.Sql.SqlServerReleaseMorozov,
-            WsEnumConfiguration.ReleaseVS => LocaleCore.Sql.SqlServerReleaseVS,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-    public int GetPlusPageCount() => 
-        ContextCache.LocalViewPlusLines.Where(item => item.IsActive).ToList().Count / PlusPageSize;
-
-    /// <summary>
     /// Проверить наличие вложенности ПЛУ.
     /// </summary>
     /// <param name="plu"></param>
@@ -670,23 +472,12 @@ public sealed class WsUserSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <returns></returns>
     public bool CheckViewPluNesting(WsSqlPluModel plu, Label fieldWarning)
     {
-        if (ViewPluNesting.PluNumber.Equals((ushort)plu.Number)) return true;
+        if (LabelSession.ViewPluNesting.PluNumber.Equals((ushort)plu.Number)) return true;
 
         MdInvokeControl.SetVisible(fieldWarning, true);
         MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluPackageNotSelect);
         ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluPackageNotSelect);
         return false;
-    }
-
-    /// <summary>
-    /// Обновить глобальный кэш.
-    /// </summary>
-    public void RefreshGlobalCache()
-    {
-        ContextCache.Load(WsSqlTableName.ProductionFacilities);
-        ContextCache.Load(WsSqlTableName.Scales);
-        ContextCache.Load(WsSqlTableName.ViewPlusNesting);
-        ContextCache.Load(WsSqlTableName.ViewPlusStorageMethods);
     }
 
     #endregion

@@ -34,6 +34,7 @@ global using CommunityToolkit.Mvvm.Input;
 global using MDSoft.BarcodePrintUtils.Utils;
 global using MDSoft.WinFormsUtils;
 global using MvvmHelpers;
+global using SuperSimpleTcp;
 global using Wpf.Ui.Common.Interfaces;
 global using WsDataCore.Enums;
 global using WsDataCore.Helpers;

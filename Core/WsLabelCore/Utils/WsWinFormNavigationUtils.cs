@@ -15,8 +15,7 @@ public static class WsWinFormNavigationUtils
 
     private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    private static WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
+    private static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private static WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
     public static WsNavigationUserControl NavigationUserControl { get; set; } = new();
     public static TableLayoutPanel LayoutPanelMain { get; set; } = new();
@@ -301,7 +300,7 @@ public static class WsWinFormNavigationUtils
         }
         catch (Exception ex)
         {
-            ActionMakeScreenShot(win32Window, WsUserSessionHelper.Instance.Scale);
+            ActionMakeScreenShot(win32Window, LabelSession.Scale);
             CatchException(ex);
         }
     }

@@ -31,8 +31,8 @@ public sealed partial class WsLinesUserControl : WsBaseUserControl
     {
         WsWinFormNavigationUtils.ActionTryCatch(() =>
         {
-            ViewModel.Area = UserSession.ProductionFacility;
-            ViewModel.Line = UserSession.Scale;
+            ViewModel.Area = LabelSession.ProductionFacility;
+            ViewModel.Line = LabelSession.Scale;
         });
     }
 

@@ -15,6 +15,9 @@ public partial class WsMainForm : Form
     private ProcHelper Proc => ProcHelper.Instance;
     private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
+    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private Button ButtonLine { get; set; }
     private Button ButtonPluNestingFk { get; set; }
     private Button ButtonKneading { get; set; }
@@ -24,7 +27,7 @@ public partial class WsMainForm : Form
     private Button ButtonPrint { get; set; }
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
-    
+
     /// <summary>
     /// Отладочный флаг для сквозных тестов печати, без диалогов.
     /// </summary>
@@ -46,7 +49,7 @@ public partial class WsMainForm : Form
     {
         FormBorderStyle = Debug.IsDevelop ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         TopMost = !Debug.IsDevelop;
-        UserSession.NewPallet();
+        LabelSession.NewPallet();
 
         MdInvokeControl.SetText(this, AppVersion.AppTitle);
         MdInvokeControl.SetText(fieldProductDate, string.Empty);
@@ -56,12 +59,12 @@ public partial class WsMainForm : Form
         // Quartz.
         WsScheduler.Load(this);
 
-        WsWinFormNavigationUtils.ActionMakeScreenShot(this, UserSession.Scale);
+        WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Scale);
         UserSession.StopwatchMain.Stop();
 
-        UserSession.ContextManager.ContextItem.SaveLogMemory(
+        ContextManager.ContextItem.SaveLogMemory(
             UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
-        UserSession.ContextManager.ContextItem.SaveLogInformation(
+        ContextManager.ContextItem.SaveLogInformation(
             $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
             $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
             $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
@@ -124,34 +127,30 @@ public partial class WsMainForm : Form
         UserSession.PluginMassa.Execute();
         MdInvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
 
-        // Шаблон.
-        //MdInvokeControl.SetVisible(fieldTemplateTitle, true);
-        //MdInvokeControl.SetVisible(fieldTemplateValue, true);
-
         // Основной принтер.
-        if (UserSession.Scale.PrinterMain is not null)
+        if (LabelSession.Scale.PrinterMain is not null)
         {
-            UserSession.PluginPrintMain.Init(new(0_500, 0_250), new(0_250, 0_250),
+            LabelSession.PluginPrintMain.Init(new(0_500, 0_250), new(0_250, 0_250),
                 new(0_250, 0_250),
-                UserSession.PrintBrandMain, GetMdPrinter(UserSession.Scale.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
+                LabelSession.PrintBrandMain, GetMdPrinter(LabelSession.Scale.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
             MdInvokeControl.SetVisible(fieldPrintMain, true);
             MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
-            UserSession.PluginPrintMain.Execute();
-            UserSession.PluginPrintMain.SetOdometorUserLabel(1);
+            LabelSession.PluginPrintMain.Execute();
+            LabelSession.PluginPrintMain.SetOdometorUserLabel(1);
         }
 
         // Транспортный принтер.
-        if (UserSession.Scale.IsShipping)
+        if (LabelSession.Scale.IsShipping)
         {
-            if (UserSession.Scale.PrinterShipping is not null)
+            if (LabelSession.Scale.PrinterShipping is not null)
             {
-                UserSession.PluginPrintShipping.Init(new(0_500, 0_250),
+                LabelSession.PluginPrintShipping.Init(new(0_500, 0_250),
                     new(0_250, 0_250), new(0_250, 0_250),
-                    UserSession.PrintBrandShipping, GetMdPrinter(UserSession.Scale.PrinterShipping), fieldPrintShipping, fieldPrintShippingExt, false);
+                    LabelSession.PrintBrandShipping, GetMdPrinter(LabelSession.Scale.PrinterShipping), fieldPrintShipping, fieldPrintShippingExt, false);
                 MdInvokeControl.SetVisible(fieldPrintShipping, true);
                 MdInvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDevelop);
-                UserSession.PluginPrintShipping.Execute();
-                UserSession.PluginPrintShipping.SetOdometorUserLabel(1);
+                LabelSession.PluginPrintShipping.Execute();
+                LabelSession.PluginPrintShipping.SetOdometorUserLabel(1);
             }
         }
 
@@ -160,7 +159,7 @@ public partial class WsMainForm : Form
             new(0_250, 0_250), new(0_250, 0_250),
             new(0_250, 0_250), fieldPlu, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
-        MdInvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {UserSession.PublishDescription}.");
+        MdInvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {LabelSession.PublishDescription}.");
         MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }
 
@@ -168,10 +167,10 @@ public partial class WsMainForm : Form
     {
         WsWinFormNavigationUtils.ActionTryCatch(this, () =>
         {
-            UserSession.ContextManager.ContextItem.SaveLogMemory(
+            ContextManager.ContextItem.SaveLogMemory(
                 UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
             UserSession.StopwatchMain.Restart();
-            WsWinFormNavigationUtils.ActionMakeScreenShot(this, UserSession.Scale);
+            WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Scale);
             // Навигация.
             WsWinFormNavigationUtils.NavigateToControlWait(LocaleCore.Scales.AppWaitExit);
             // Quartz.
@@ -181,7 +180,7 @@ public partial class WsMainForm : Form
             FontsSettings.Close();
         });
         UserSession.StopwatchMain.Stop();
-        UserSession.ContextManager.ContextItem.SaveLogInformation(
+        ContextManager.ContextItem.SaveLogInformation(
             LocaleData.Program.IsClosed + Environment.NewLine +
             $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
         // Mouse unhook.
@@ -206,8 +205,6 @@ public partial class WsMainForm : Form
         fieldPrintMainExt.Font = FontsSettings.FontLabelsGray;
         fieldPrintShippingExt.Font = FontsSettings.FontLabelsGray;
         fieldMemory.Font = FontsSettings.FontLabelsGray;
-        //fieldTemplateTitle.Font = FontsSettings.FontLabelsGray;
-        //fieldTemplateValue.Font = FontsSettings.FontLabelsGray;
 
         fieldWarning.Font = FontsSettings.FontLabelsBlack;
         labelNettoWeight.Font = FontsSettings.FontLabelsBlack;
@@ -241,7 +238,7 @@ public partial class WsMainForm : Form
             IsKneading = false,
             IsMore = true,
             IsNewPallet = false,
-            IsOrder = UserSession.Scale.IsOrder,
+            IsOrder = LabelSession.Scale.IsOrder,
             IsPrint = true,
             IsScalesInit = false,
             IsScalesTerminal = true,
@@ -378,7 +375,7 @@ public partial class WsMainForm : Form
         //wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
         //wpfPageLoader.MessageBoxViewModel.Caption = LocaleCore.Print.InfoCaption;
         //wpfPageLoader.MessageBoxViewModel.Message = GetPrintInfo(UserSession.PluginPrintMain, true);
-        //if (UserSession.Scale.IsShipping)
+        //if (LabelSession.Scale.IsShipping)
         //{
         //    wpfPageLoader.MessageBoxViewModel.Message += Environment.NewLine + Environment.NewLine +
         //        GetPrintInfo(UserSession.PluginPrintShipping, false);
@@ -392,37 +389,37 @@ public partial class WsMainForm : Form
         //if (result == DialogResult.Retry)
         //{
         //    UserSession.PluginPrintMain.ClearPrintBuffer(1);
-        //    if (UserSession.Scale.IsShipping)
+        //    if (LabelSession.Scale.IsShipping)
         //        UserSession.PluginPrintShipping.ClearPrintBuffer(1);
         //}
     }
 
-    private string GetPrintInfo(WsPluginPrintModel pluginPrint, bool isMain)
-    {
-        string peeler = isMain
-            ? UserSession.PluginPrintMain.ZebraPeelerStatus : UserSession.PluginPrintShipping.ZebraPeelerStatus;
-        string printMode = isMain
-            ? UserSession.PluginPrintMain.GetZebraPrintMode() :
-            UserSession.PluginPrintShipping.GetZebraPrintMode();
-        PrintBrand printBrand = isMain ? UserSession.PluginPrintMain.PrintBrand : UserSession.PluginPrintShipping.PrintBrand;
-        MdWmiWinPrinterModel wmiPrinter = pluginPrint.TscWmiPrinter;
-        return
-            $"{UserSession.WeighingSettings.GetPrintName(isMain, printBrand)}" + Environment.NewLine +
-            $"{LocaleCore.Print.DeviceCommunication} ({pluginPrint.Printer.Ip}): {pluginPrint.Printer.PingStatus}" + Environment.NewLine +
-            $"{LocaleCore.Print.PrinterStatus}: {pluginPrint.GetDeviceStatus()}" + Environment.NewLine +
-            Environment.NewLine +
-            $"{LocaleCore.Print.Name}: {wmiPrinter.Name}" + Environment.NewLine +
-            $"{LocaleCore.Print.Driver}: {wmiPrinter.DriverName}" + Environment.NewLine +
-            $"{LocaleCore.Print.Port}: {wmiPrinter.PortName}" + Environment.NewLine +
-            $"{LocaleCore.Print.StateCode}: {wmiPrinter.PrinterState}" + Environment.NewLine +
-            $"{LocaleCore.Print.StatusCode}: {wmiPrinter.PrinterStatus}" + Environment.NewLine +
-            $"{LocaleCore.Print.Status}: {pluginPrint.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
-            $"{LocaleCore.Print.State} (ENG): {wmiPrinter.Status}" + Environment.NewLine +
-            $"{LocaleCore.Print.State}: {MdWmiHelper.Instance.GetStatusDescription(
-                LocaleCore.Lang == Lang.English ? MDSoft.Wmi.Enums.MdLang.English : MDSoft.Wmi.Enums.MdLang.Russian, wmiPrinter.Status)}" + Environment.NewLine +
-            $"{LocaleCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +
-            $"{LocaleCore.Print.Mode}: {printMode}" + Environment.NewLine;
-    }
+    //private string GetPrintInfo(WsPluginPrintModel pluginPrint, bool isMain)
+    //{
+    //    string peeler = isMain
+    //        ? LabelSession.PluginPrintMain.ZebraPeelerStatus : LabelSession.PluginPrintShipping.ZebraPeelerStatus;
+    //    string printMode = isMain
+    //        ? LabelSession.PluginPrintMain.GetZebraPrintMode() :
+    //        LabelSession.PluginPrintShipping.GetZebraPrintMode();
+    //    PrintBrand printBrand = isMain ? LabelSession.PluginPrintMain.PrintBrand : LabelSession.PluginPrintShipping.PrintBrand;
+    //    MdWmiWinPrinterModel wmiPrinter = pluginPrint.TscWmiPrinter;
+    //    return
+    //        $"{LabelSession.WeighingSettings.GetPrintName(isMain, printBrand)}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.DeviceCommunication} ({pluginPrint.Printer.Ip}): {pluginPrint.Printer.PingStatus}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.PrinterStatus}: {pluginPrint.GetDeviceStatus()}" + Environment.NewLine +
+    //        Environment.NewLine +
+    //        $"{LocaleCore.Print.Name}: {wmiPrinter.Name}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.Driver}: {wmiPrinter.DriverName}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.Port}: {wmiPrinter.PortName}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.StateCode}: {wmiPrinter.PrinterState}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.StatusCode}: {wmiPrinter.PrinterStatus}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.Status}: {pluginPrint.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.State} (ENG): {wmiPrinter.Status}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.State}: {MdWmiHelper.Instance.GetStatusDescription(
+    //            LocaleCore.Lang == Lang.English ? MDSoft.Wmi.Enums.MdLang.English : MDSoft.Wmi.Enums.MdLang.Russian, wmiPrinter.Status)}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +
+    //        $"{LocaleCore.Print.Mode}: {printMode}" + Environment.NewLine;
+    //}
 
     private void FieldSscc_Click(object sender, EventArgs e)
     {
@@ -477,7 +474,6 @@ public partial class WsMainForm : Form
         MdInvokeControl.SetText(labelPackageWeight, LocaleCore.Scales.FieldWeightTare);
         MdInvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
         MdInvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
-        MdInvokeControl.SetText(fieldTemplateTitle, $"{LocaleCore.Print.Template}");
     }
 
     #endregion

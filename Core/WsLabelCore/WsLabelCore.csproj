@@ -83,6 +83,7 @@
     <Compile Include="Controls\WsPluControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Helpers\WsLabelSessionHelper.cs" />
     <Compile Include="Utils\WsWinFormNavigationUtils.cs" />
     <Compile Include="Utils\WsWinFormUtils.cs" />
     <Compile Include="ViewModels\WsWaitViewModel.cs" />
@@ -281,6 +282,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-	<Compile Include="..\..\IsExternalInit.cs" Visible="false" />
+    <Compile Include="..\..\IsExternalInit.cs" Visible="false" />
   </ItemGroup>
 </Project>

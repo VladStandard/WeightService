@@ -19,6 +19,7 @@ public sealed class WsPluginLabelsHelper : WsPluginHelperBase
     private Label FieldKneading { get; set; }
     private Label FieldPlu { get; set; }
     private Label FieldProductDate { get; set; }
+    private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     
     #endregion
 
@@ -62,20 +63,20 @@ public sealed class WsPluginLabelsHelper : WsPluginHelperBase
     private void Reopen()
     {
         //MdInvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {WsUserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
-        MdInvokeControl.SetVisible(FieldKneading, WsUserSessionHelper.Instance.Scale.IsKneading);
+        MdInvokeControl.SetVisible(FieldKneading, LabelSession.Scale.IsKneading);
     }
 
     private void Request()
     {
-        if (WsUserSessionHelper.Instance.PluScale.IsNew)
+        if (LabelSession.PluScale.IsNew)
             MdInvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
         else
             MdInvokeControl.SetText(FieldPlu,
-                WsUserSessionHelper.Instance.PluScale.Plu.IsCheckWeight
-                    ? $"{LocaleCore.Scales.PluWeight}: {WsUserSessionHelper.Instance.PluScale.Plu.Number} | {WsUserSessionHelper.Instance.PluScale.Plu.Name}"
-                    : $"{LocaleCore.Scales.PluCount}: {WsUserSessionHelper.Instance.PluScale.Plu.Number} | {WsUserSessionHelper.Instance.PluScale.Plu.Name}");
-        MdInvokeControl.SetText(FieldProductDate, $"{WsUserSessionHelper.Instance.ProductDate:dd.MM.yyyy}");
-        MdInvokeControl.SetText(FieldKneading, $"{WsUserSessionHelper.Instance.WeighingSettings.Kneading}");
+                LabelSession.PluScale.Plu.IsCheckWeight
+                    ? $"{LocaleCore.Scales.PluWeight}: {LabelSession.PluScale.Plu.Number} | {LabelSession.PluScale.Plu.Name}"
+                    : $"{LocaleCore.Scales.PluCount}: {LabelSession.PluScale.Plu.Number} | {LabelSession.PluScale.Plu.Name}");
+        MdInvokeControl.SetText(FieldProductDate, $"{LabelSession.ProductDate:dd.MM.yyyy}");
+        MdInvokeControl.SetText(FieldKneading, $"{LabelSession.WeighingSettings.Kneading}");
     }
 
     #endregion
