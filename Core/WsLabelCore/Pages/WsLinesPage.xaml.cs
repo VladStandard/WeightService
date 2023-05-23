@@ -10,7 +10,7 @@ namespace WsLabelCore.Pages;
 /// <summary>
 /// Interaction logic for WsLinesPage.xaml
 /// </summary>
-public partial class WsLinesPage : WsBasePage, INavigableView<WsLinesViewModel>
+public partial class WsLinesPage : INavigableView<WsLinesViewModel>
 {
     #region Public and private fields, properties, constructor
 

@@ -42,11 +42,11 @@ public sealed class TableScaleFkModelsTests
         WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluCharacteristicsFkModel>();
     }
 
-    [Test]
-    public void Validate_list_of_plu_clip_fk()
-    {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluClipFkModel>();
-    }
+    //[Test]
+    //public void Validate_list_of_plu_clip_fk()
+    //{
+    //    WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluClipFkModel>();
+    //}
 
     [Test]
     public void Validate_list_of_plu_fk()

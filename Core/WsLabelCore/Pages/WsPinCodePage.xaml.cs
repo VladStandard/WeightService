@@ -7,7 +7,7 @@ namespace WsLabelCore.Pages;
 /// <summary>
 /// Interaction logic for WsPinCodePage.xaml
 /// </summary>
-public partial class WsPinCodePage : WsBasePage, INavigableView<WsPinCodeViewModel>
+public partial class WsPinCodePage : INavigableView<WsPinCodeViewModel>
 {
     #region Public and private fields, properties, constructor
 

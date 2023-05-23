@@ -12,7 +12,7 @@ namespace WsLabelCore.Pages;
 /// <summary>
 /// Interaction logic for WsMessageBoxPage.xaml
 /// </summary>
-public partial class WsMessageBoxPage : WsBasePage, INavigableView<WsMessageBoxViewModel>
+public partial class WsMessageBoxPage : INavigableView<WsMessageBoxViewModel>
 {
     #region Public and private fields, properties, constructor
 
