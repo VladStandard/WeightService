@@ -53,13 +53,12 @@ internal sealed class WsSchedulerHelper
 
         lock (_lockerMinutes10)
         {
-            WsWinFormNavigationUtils.ActionTryCatch(() =>
+            WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
             {
                 ContextManager.ContextItem.SaveLogMemory(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
                 GC.Collect();
-            }
-            );
+            });
         }
     }
 
@@ -69,7 +68,7 @@ internal sealed class WsSchedulerHelper
 
         lock (_lockerHours)
         {
-            WsWinFormNavigationUtils.ActionTryCatch(() => WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Line));
+            WsWinFormNavigationUtils.ActionTryCatchSimple(() => WsWinFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Line));
         }
     }
 

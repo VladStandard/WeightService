@@ -99,18 +99,56 @@ public partial class WsMainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(this, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
             // Load controls.
             PreLoadControls();
+            // Проверка линии.
+            LabelSession.SetSessionForLabelPrint(ShowNavigation);
+            if (LabelSession.DeviceScaleFk.IsNew)
+            {
+                string message = LocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
+                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.Setup(
+                    message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
+                    new() { ButtonOkVisibility = Visibility.Visible }, ActionOkFromLineNotFound, () => { },
+                    WsWinFormNavigationUtils.ReturnBackFromNavigation);
+                WsWinFormNavigationUtils.NavigateToControl(ShowNavigation, WsNavigationPage.MessageBox,
+                    LocaleCore.Scales.Registration, message);
+                ContextManager.ContextItem.SaveLogError(new Exception(message));
+                return;
+            }
+            // Проверка повторного запуска.
+            _ = new Mutex(true, System.Windows.Forms.Application.ProductName, out bool isCreatedNew);
+            if (!isCreatedNew)
+            {
+                string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
+                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.Setup(message,
+                    new() { ButtonOkVisibility = Visibility.Visible }, ActionOkFromDuplicateRun, () => { },
+                    WsWinFormNavigationUtils.ReturnBackFromNavigation);
+                WsWinFormNavigationUtils.NavigateToControl(ShowNavigation, WsNavigationPage.MessageBox,
+                    LocaleCore.Scales.Registration, message);
+                ContextManager.ContextItem.SaveLogWarning(message);
+                return;
+            }
             // Навигация.
-            WsWinFormNavigationUtils.NavigateToControlWait(LocaleCore.Scales.AppWaitLoad);
+            WsWinFormNavigationUtils.NavigateToControl(ShowNavigation, WsNavigationPage.Wait, 
+                LocaleCore.Scales.AppLoad, LocaleCore.Scales.AppWaitLoad);
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
             WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk();
         });
+    }
+
+    private static void ActionOkFromLineNotFound()
+    {
+        System.Windows.Forms.Application.Exit();
+    }
+
+    private static void ActionOkFromDuplicateRun()
+    {
+        System.Windows.Forms.Application.Exit();
     }
 
     private void LoadMainControls()
@@ -165,20 +203,34 @@ public partial class WsMainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(this, () =>
+        WsWinFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
         {
-            ContextManager.ContextItem.SaveLogMemory(
-                UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
-            UserSession.StopwatchMain.Restart();
-            WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
-            // Навигация.
-            WsWinFormNavigationUtils.NavigateToControlWait(LocaleCore.Scales.AppWaitExit);
-            // Quartz.
-            WsScheduler.Close();
-            UserSession.PluginsClose();
-            // FontsSettings.
-            FontsSettings.Close();
+            // Сброс предупреждения.
+            ResetWarning();
+            WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation, $"{LocaleCore.Scales.QuestionCloseApp}?",
+                true, WsEnumLogType.Question,
+                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                ActionCloseOk, ActionFinally);
+            e.Cancel = true;
         });
+    }
+
+    private void ActionCloseOk()
+    {
+        ActionFinally();
+        ContextManager.ContextItem.SaveLogMemory(
+            UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
+        UserSession.StopwatchMain.Restart();
+        WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
+        // Навигация.
+        WsWinFormNavigationUtils.NavigateToControl(ShowNavigation, WsNavigationPage.Wait, 
+            LocaleCore.Scales.AppExit, LocaleCore.Scales.AppWaitExit);
+        // Quartz.
+        WsScheduler.Close();
+        UserSession.PluginsClose();
+        // FontsSettings.
+        FontsSettings.Close();
+        // Other.
         UserSession.StopwatchMain.Stop();
         ContextManager.ContextItem.SaveLogInformation(
             LocaleData.Program.IsClosed + Environment.NewLine +

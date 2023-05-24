@@ -30,7 +30,7 @@ public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
 
     public override void RefreshAction()
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             // Обновить модель представления.
             ViewModel.PluNesting = LabelSession.ViewPluNesting;

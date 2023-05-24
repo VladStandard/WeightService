@@ -31,7 +31,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     public override void RefreshAction()
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             if (!LabelSession.PluLine.IdentityValueUid.Equals(PreviousPluScaleUid))
             {
@@ -53,7 +53,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void ButtonKneadingLeft_Click(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             WsNumberInputForm numberInputForm = new() { InputValue = 0 };
             DialogResult result = numberInputForm.ShowDialog(this);
@@ -67,7 +67,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void ButtonClose_Click(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             CheckWeightCount();
             LabelSession.ProductDate = SaveProductDate;
@@ -91,7 +91,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void ButtonOk_Click(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             CheckWeightCount();
             ViewModel.ActionReturnOk();
@@ -100,7 +100,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void ButtonDtRight_Click(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             LabelSession.RotateProductDate(WsEnumDirection.Right);
             RefreshControlsText();
@@ -109,7 +109,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void ButtonDtLeft_Click(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             LabelSession.RotateProductDate(WsEnumDirection.Left);
             RefreshControlsText();
@@ -123,7 +123,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             LabelSession.WeighingSettings.LabelsCountMain++;
             ShowPalletSize();
@@ -132,7 +132,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void ButtonPalletSizePrev_Click(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             LabelSession.WeighingSettings.LabelsCountMain--;
             ShowPalletSize();
@@ -146,7 +146,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void ButtonPalletSizeSet10_Click(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             int n = LabelSession.WeighingSettings.LabelsCountMain == 1 ? 9 : 10;
             for (int i = 0; i < n; i++)
@@ -174,7 +174,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void SetLabelsCount(byte count)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             LabelSession.WeighingSettings.LabelsCountMain = count;
             ShowPalletSize();
@@ -183,7 +183,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 
     private void KneadingUserControl_KeyUp(object sender, KeyEventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             if (e.KeyCode == Keys.Escape)
             {

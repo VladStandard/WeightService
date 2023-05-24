@@ -1,7 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Windows.Shapes;
 using WsStorageCore.TableScaleModels.WorkShops;
 
 namespace WsLabelCore.Helpers;
@@ -97,9 +96,11 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <summary>
     /// Настроить сессию.
     /// </summary>
+    /// <param name="showNavigation"></param>
     /// <param name="lineId"></param>
     /// <param name="area"></param>
-    public void SetSessionForLabelPrint(long lineId = -1, WsSqlProductionFacilityModel? area = null)
+    public void SetSessionForLabelPrint(Action<WsBaseUserControl> showNavigation, long lineId = -1,
+        WsSqlProductionFacilityModel? area = null)
     {
         lock (_locker)
         {
@@ -108,7 +109,8 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             ContextCache.LoadGlobal();
             // Device.
             WsSqlDeviceModel device = ContextManager.ContextItem.GetItemDeviceNotNullable(DeviceName);
-            device = WsWinFormNavigationUtils.SetNewDeviceWithQuestion(device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
+            device = WsWinFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
+                device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
             WsSqlDeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)

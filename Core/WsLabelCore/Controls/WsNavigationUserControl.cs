@@ -25,26 +25,16 @@ public sealed partial class WsNavigationUserControl : WsBaseUserControl
     /// </summary>
     /// <param name="userControl"></param>
     /// <param name="title"></param>
-    /// <param name="message"></param>
-    public void SwitchUserControl(WsBaseUserControl userControl, string title, string message)
+    public void SwitchUserControl(WsBaseUserControl userControl, string title)
     {
-        if (!string.IsNullOrEmpty(title))
-        {
-            fieldTitle.Text = title;
-            fieldTitle.Visible = true;
-        }
-        else
-            fieldTitle.Visible = false;
-        userControl.Message = message;
-        userControl.Visible = false;
+        fieldTitle.Text = title;
+        fieldTitle.Visible = !string.IsNullOrEmpty(title);
+
         foreach (Control control in layoutPanelUser.Controls) control.Visible = false;
         if (!layoutPanelUser.Controls.Contains(userControl))
             layoutPanelUser.Controls.Add(userControl, 1, 1);
         layoutPanelUser.SetRowSpan(userControl, 1);
         layoutPanelUser.SetColumnSpan(userControl, 1);
-        userControl.Dock = DockStyle.Fill;
-        userControl.Visible = true;
-        userControl.RefreshAction();
     }
 
     #endregion

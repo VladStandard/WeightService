@@ -23,9 +23,11 @@ public sealed class LocaleScale : WsLocalizationBase
     public readonly decimal MassaThresholdValue = 0.010M;
     
     public string AlreadyRunning => Lang == Lang.English ? "already running" : "уже запущено";
+    public string AppExit => Lang == Lang.English ? "Exit from the program" : "Завершение программы";
+    public string AppLoad => Lang == Lang.English ? "Program loading" : "Запуск программы";
     public string AppTitle => Lang == Lang.English ? "Label print" : "Печать этикеток";
-    public string AppWaitExit => Lang == Lang.English ? "Wait for the program to complete" : "Подождите завершения программы";
-    public string AppWaitLoad => Lang == Lang.English ? "Wait for the program to start" : "Подождите запуска программы";
+    public string AppWaitExit => Lang == Lang.English ? "Waiting for the exiting..." : "Ожидание завершения...";
+    public string AppWaitLoad => Lang == Lang.English ? "Waiting for the load" : "Ожидание загрузщки...";
     public string Bundle => Lang == Lang.English ? "Bundle" : "Пакет";
     public string ButtonAddKneading => Lang == Lang.English ? "Kneading" : "Замес";
     public string ButtonNewPallet => Lang == Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
@@ -38,10 +40,6 @@ public sealed class LocaleScale : WsLocalizationBase
     public string ButtonSelectPlu(int count) => Lang == Lang.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
     public string ButtonSetKneading => Lang == Lang.English ? "Set kneading" : "Задать замес";
     public string ButtonSettings => Lang == Lang.English ? "Settings" : "Настройки";
-    public string ButtonSwitchKneading => Lang == Lang.English ? "Switch kneading" : "Смена замеса";
-    public string ButtonSwitchMore => Lang == Lang.English ? "Switch more" : "Смена ещё";
-    public string ButtonSwitchPlu => Lang == Lang.English ? "Switch PLU" : "Смена ПЛУ";
-    public string ButtonSwitchPluNesting => Lang == Lang.English ? "Switch PLU nesting" : "Смена вложенности ПЛУ";
     public string CheckAllPassed => Lang == Lang.English ? "All checks passed" : "Все проверки пройдены";
     public string CheckPluError => Lang == Lang.English ? "RLU error" : "Ошибка ПЛУ";
     public string CheckPluWeightCount => Lang == Lang.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";
@@ -120,17 +118,17 @@ public sealed class LocaleScale : WsLocalizationBase
     public string PluCount => Lang == Lang.English ? "PLU (count)" : "ПЛУ (шт)";
     public string PluDescriptionNotSet => Lang == Lang.English ? "Descr is not set" : "Описание не задано";
     public string PluDescriptionSet => Lang == Lang.English ? "Descr is not set" : "Описание задано";
+    public string PluEan13IsNotSet => Lang == Lang.English ? "EAN13 is not set" : "ЕАН13 не задан";
     public string PluGtin => Lang == Lang.English ? "GTIN" : "ГТИН";
     public string PluGtinIsNotSet => Lang == Lang.English ? "GTIN is not set" : "ГТИН не задан";
-    public string PluEan13IsNotSet => Lang == Lang.English ? "EAN13 is not set" : "ЕАН13 не задан";
-    public string PluItf14IsNotSet => Lang == Lang.English ? "ITF14 is not set" : "ИТФ14 не задан";
-    public string PluTemplateIsNotSet => Lang == Lang.English ? "PLU template is not set" : "Шаблон не задан";
     public string PluIsPiece => Lang == Lang.English ? "pcs." : "шт";
     public string PluIsWeight => Lang == Lang.English ? "weight" : "вес";
+    public string PluItf14IsNotSet => Lang == Lang.English ? "ITF14 is not set" : "ИТФ14 не задан";
     public string PluNotSelect => Lang == Lang.English ? "PLU is not selected!" : "ПЛУ не выбрана!";
     public string PluNotSelectWeight => Lang == Lang.English ? "Weight PLU is not selected!" : "Весовая ПЛУ не выбрана!";
     public string PluPackageNotSelect => Lang == Lang.English ? "PLU nesting is not selected!" : "Тара ПЛУ не выбрана!";
     public string PluPage => Lang == Lang.English ? "Page" : "Страница";
+    public string PluTemplateIsNotSet => Lang == Lang.English ? "PLU template is not set" : "Шаблон не задан";
     public string PluTemplateNotSet => Lang == Lang.English ? "Template is not set!" : "Шаблон не задан!";
     public string PluTemplateSet => Lang == Lang.English ? "Template is not set" : "Шаблон задан";
     public string PluWeight => Lang == Lang.English ? "PLU (weight)" : "ПЛУ (вес)";
@@ -145,7 +143,7 @@ public sealed class LocaleScale : WsLocalizationBase
     public string RegistrationSuccess(string deviceName, string scaleName) => Lang == Lang.English ? $"Host '{deviceName}' and ARM '{scaleName}' are found." : $"Хост '{deviceName}' и АРМ '{scaleName}' найдены.";
     public string RegistrationWarning(Guid uid) => Lang == Lang.English ? $"Host UID: {uid}. Before restarting, map the host to an ARM in the DeviceControl application." : $"УИД хоста: {uid}. Перед повторным запуском, сопоставьте хост с АРМом в приложении DeviceControl.";
     public string RegistrationWarningHostNotFound(string deviceName) => Lang == Lang.English ? $"Host '{deviceName}' not found!" : $"Хост '{deviceName}' не найден!";
-    public string RegistrationWarningScaleNotFound(string deviceName) => Lang == Lang.English ? $"ARM for host '{deviceName}' not found!" : $"АРМ для хоста '{deviceName}' не найден!";
+    public string RegistrationWarningLineNotFound(string deviceName) => Lang == Lang.English ? $"Line for host '{deviceName}' not found!" : $"Линия для хоста '{deviceName}' не найдена!";
     public string RequestParameters => Lang == Lang.English ? "Request parameters" : "Запрос параметров";
     public string Restore => Lang == Lang.English ? "Restore" : "Восстановить";
     public string RestoreDevice => Lang == Lang.English ? "Restore device" : "Восстановить устроство";
@@ -163,7 +161,12 @@ public sealed class LocaleScale : WsLocalizationBase
     public string StateError => Lang == Lang.English ? "error" : "ошибка";
     public string StateIsNotResponsed => Lang == Lang.English ? "is not responsed" : "нет ответа";
     public string StateIsResponsed => Lang == Lang.English ? "is responsed" : "есть ответ";
+    public string SwitchKneadingTitle => Lang == Lang.English ? "Switch kneading" : "Смена замеса";
     public string SwitchLineTitle => Lang == Lang.English ? "Switch Line" : "Смена линии";
+    public string SwitchMoreTitle => Lang == Lang.English ? "Switch more" : "Смена ещё";
+    public string SwitchPluLineTitle => Lang == Lang.English ? "Switch PLU line" : "Смена ПЛУ линии";
+    public string SwitchPluNestingTitle => Lang == Lang.English ? "Switch PLU nesting" : "Смена вложенности ПЛУ";
+    public string SwitchPluTitle => Lang == Lang.English ? "Switch PLU" : "Смена ПЛУ";
     public string ThreadId => "ID";
     public string ThreadIsBackground => Lang == Lang.English ? "Is background" : "Фоновый";
     public string ThreadName => Lang == Lang.English ? "Name" : "Имя";

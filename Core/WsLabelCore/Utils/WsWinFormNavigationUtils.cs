@@ -1,13 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Wpf.Ui.Mvvm.Interfaces;
-
 namespace WsLabelCore.Utils;
 
 #nullable enable
 /// <summary>
-/// Утилиты навигациии по контролам.
+/// Утилиты навигации по контролам.
 /// </summary>
 public static class WsWinFormNavigationUtils
 {
@@ -17,9 +15,8 @@ public static class WsWinFormNavigationUtils
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private static WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
-    public static WsNavigationUserControl NavigationUserControl { get; set; } = new();
-    public static TableLayoutPanel LayoutPanelMain { get; set; } = new();
-    private static WsMessageBoxUserControl MessageBoxUserControl { get; } = new();
+    public static WsNavigationUserControl NavigationUserControl { get; } = new();
+    public static WsMessageBoxUserControl MessageBoxUserControl { get; } = new();
     public static WsMoreUserControl KneadingUserControl { get; set; } = new();
     public static WsMoreUserControl MoreUserControl { get; set; } = new();
     public static WsLinesUserControl LinesUserControl { get; set; } = new();
@@ -31,7 +28,7 @@ public static class WsWinFormNavigationUtils
 
     #region Public and private methods
 
-    public static void ReturnBackDefault()
+    public static void ReturnBackFromNavigation()
     {
         foreach (Control control in NavigationUserControl.Controls)
         {
@@ -51,122 +48,73 @@ public static class WsWinFormNavigationUtils
     /// <summary>
     /// Навигация.
     /// </summary>
+    /// <param name="showNavigation"></param>
     /// <param name="navigationPage"></param>
+    /// <param name="title"></param>
     /// <param name="message"></param>
-    private static void NavigateToControl(WsNavigationPage navigationPage, string message = "")
+    public static void NavigateToControl(Action<WsBaseUserControl> showNavigation,
+        WsNavigationPage navigationPage, string title, string message)
     {
         switch (navigationPage)
         {
             case WsNavigationPage.Kneading:
-                NavigationUserControl.SwitchUserControl(KneadingUserControl, LocaleCore.Scales.ButtonSwitchKneading, message);
+                showNavigation(KneadingUserControl);
+                KneadingUserControl.Message = message;
+                NavigationUserControl.SwitchUserControl(KneadingUserControl, LocaleCore.Scales.SwitchKneadingTitle);
                 break;
             case WsNavigationPage.Lines:
-                NavigationUserControl.SwitchUserControl(LinesUserControl, LocaleCore.Scales.SwitchLineTitle, message);
+                showNavigation(LinesUserControl);
+                LinesUserControl.Message = message;
+                NavigationUserControl.SwitchUserControl(LinesUserControl, LocaleCore.Scales.SwitchLineTitle);
                 break;
             case WsNavigationPage.MessageBox:
-                NavigationUserControl.SwitchUserControl(MessageBoxUserControl, "", message);
+                showNavigation(MessageBoxUserControl);
+                NavigationUserControl.SwitchUserControl(MessageBoxUserControl, title);
                 break;
             case WsNavigationPage.More:
-                NavigationUserControl.SwitchUserControl(MoreUserControl, LocaleCore.Scales.ButtonSwitchMore, message);
+                showNavigation(MoreUserControl);
+                MoreUserControl.Message = message;
+                NavigationUserControl.SwitchUserControl(MoreUserControl, LocaleCore.Scales.SwitchMoreTitle);
                 break;
             case WsNavigationPage.PlusLine:
-                NavigationUserControl.SwitchUserControl(PlusLineUserControl, LocaleCore.Scales.ButtonSwitchPlu, message);
+                showNavigation(PlusLineUserControl);
+                PlusLineUserControl.Message = message;
+                NavigationUserControl.SwitchUserControl(PlusLineUserControl, LocaleCore.Scales.SwitchPluTitle);
                 break;
             case WsNavigationPage.PlusNesting:
-                NavigationUserControl.SwitchUserControl(PlusNestingUserControl, LocaleCore.Scales.ButtonSwitchPluNesting, message);
+                showNavigation(PlusNestingUserControl);
+                PlusNestingUserControl.Message = message;
+                NavigationUserControl.SwitchUserControl(PlusNestingUserControl, LocaleCore.Scales.SwitchPluNestingTitle);
                 break;
             case WsNavigationPage.Wait:
-                NavigationUserControl.SwitchUserControl(WaitUserControl, LocaleCore.Scales.AppWaitLoad, message);
+                showNavigation(WaitUserControl);
+                WaitUserControl.Message = message;
+                NavigationUserControl.SwitchUserControl(WaitUserControl, LocaleCore.Scales.AppWaitLoad);
                 break;
         }
-        // Отобразить user control.
-        LayoutPanelMain.Visible = false;
-        NavigationUserControl.Visible = true;
-        System.Windows.Forms.Application.DoEvents();
-    }
-
-    /// <summary>
-    /// Навигация в контрол ожидания.
-    /// </summary>
-    /// <param name="message"></param>
-    public static void NavigateToControlWait(string message = "") => NavigateToControl(WsNavigationPage.Wait, message);
-
-    /// <summary>
-    /// Навигация в контрол смены ПЛУ линии.
-    /// </summary>
-    public static void NavigateToControlPlusLines()
-    {
-        // Навигация.
-        NavigateToControl(WsNavigationPage.PlusLine);
-    }
-
-    /// <summary>
-    /// Навигация в контрол смены вложенности ПЛУ.
-    /// </summary>
-    public static void NavigateToControlPlusNesting()
-    {
-        // Навигация.
-        NavigateToControl(WsNavigationPage.PlusNesting);
-    }
-
-    /// <summary>
-    /// Навигация в контрол смены линии.
-    /// </summary>
-    public static void NavigateToControlLines()
-    {
-        // Навигация.
-        NavigateToControl(WsNavigationPage.Lines);
-    }
-
-    /// <summary>
-    /// Навигация в контрол смены ещё.
-    /// </summary>
-    public static void NavigateToControlMore()
-    {
-        // Навигация.
-        NavigateToControl(WsNavigationPage.More);
     }
 
     /// <summary>
     /// Навигация в контрол сообщений.
     /// </summary>
-    /// <param name="caption"></param>
+    /// <param name="showNavigation"></param>
+    /// <param name="title"></param>
     /// <param name="message"></param>
     /// <param name="buttonVisibility"></param>
     /// <param name="actionOk"></param>
     /// <param name="actionCancel"></param>
-    private static void NavigateToControlMessage(string caption, string message, WsButtonVisibilityModel buttonVisibility,
-        Action actionOk, Action actionCancel)
+    private static void NavigateToControlMessage(Action<WsBaseUserControl> showNavigation, string title,
+        string message,
+        WsButtonVisibilityModel buttonVisibility, Action actionOk, Action actionCancel)
     {
-        WsMessageBoxViewModel viewModel = new();
-        MessageBoxUserControl.SetupViewModel(viewModel);
-        viewModel.Caption = caption;
-        viewModel.Message = message;
-        viewModel.ButtonVisibility = buttonVisibility;
-        viewModel.ButtonVisibility.Localization();
-        viewModel.ActionReturnOk = actionOk;
-        viewModel.ActionReturnOk += ReturnBackDefault;
-        viewModel.ActionReturnCancel = actionCancel;
-        viewModel.ActionReturnCancel += ReturnBackDefault;
-
-        NavigateToControl(WsNavigationPage.MessageBox);
-    }
-
-    public static void NavigateToControlRegistration(string message)
-    {
-        WsMessageBoxViewModel viewModel = new();
-        MessageBoxUserControl.SetupViewModel(viewModel);
-        viewModel.Caption = LocaleCore.Scales.Registration;
-        viewModel.Message = message;
-        viewModel.ButtonVisibility.ButtonOkVisibility = Visibility.Visible;
-        viewModel.ButtonVisibility.Localization();
-
-        NavigateToControl(WsNavigationPage.MessageBox);
+        MessageBoxUserControl.ViewModel.Setup(message, buttonVisibility, actionOk, actionCancel, ReturnBackFromNavigation);
+        NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
     }
 
     /// <summary>
     /// Show new OperationControl form.
     /// </summary>
+    /// <param name="showNavigation"></param>
     /// <param name="message"></param>
     /// <param name="isLog"></param>
     /// <param name="logType"></param>
@@ -174,11 +122,13 @@ public static class WsWinFormNavigationUtils
     /// <param name="actionOk"></param>
     /// <param name="actionCancel"></param>
     /// <returns></returns>
-    public static void NavigateToOperationControl(string message, bool isLog, WsEnumLogType logType, 
+    public static void NavigateToOperationControl(Action<WsBaseUserControl> showNavigation,
+        string message, bool isLog, WsEnumLogType logType, 
         WsButtonVisibilityModel buttonVisibility, Action actionOk, Action actionCancel)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
-        NavigateToControlMessage(LocaleCore.Scales.OperationControl, message, buttonVisibility, actionOk, actionCancel);
+        NavigateToControlMessage(showNavigation,
+            LocaleCore.Scales.OperationControl, message, buttonVisibility, actionOk, actionCancel);
     }
 
     private static void ShowNewOperationControlLogType(string message, WsEnumLogType logType,
@@ -205,11 +155,12 @@ public static class WsWinFormNavigationUtils
         }
     }
 
-    public static WsSqlDeviceModel SetNewDeviceWithQuestion(WsSqlDeviceModel device, string ip, string mac)
+    public static WsSqlDeviceModel SetNewDeviceWithQuestion(Action<WsBaseUserControl> showNavigation,
+        WsSqlDeviceModel device, string ip, string mac)
     {
         if (device.IsNew)
         {
-            NavigateToOperationControl(
+            NavigateToOperationControl(showNavigation,
                 LocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
                 false, WsEnumLogType.Information,
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
@@ -242,30 +193,48 @@ public static class WsWinFormNavigationUtils
         return device;
     }
 
-    private static void CatchExceptionCore(Exception ex, string filePath, int lineNumber, string memberName)
+    private static void CatchExceptionCore(Action<WsBaseUserControl> showNavigation, Exception ex, string filePath, int lineNumber, string memberName)
     {
         ContextManager.ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
 
         string message = ex.InnerException is null
             ? ex.Message
             : ex.Message + Environment.NewLine + ex.InnerException.Message;
-        NavigateToControlMessage(LocaleCore.Scales.Exception,
+        NavigateToControlMessage(showNavigation, LocaleCore.Scales.Exception,
             $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
             $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message,
             new() { ButtonOkVisibility = Visibility.Visible }, () => { }, () => { });
     }
 
+    private static void CatchExceptionSimpleCore(Exception ex, string filePath, int lineNumber, string memberName)
+    {
+        ContextManager.ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
+    }
+
     /// <summary>
-    /// Show catch exception window..
+    /// Show catch exception window.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    /// <param name="ex"></param>
+    /// <param name="filePath"></param>
+    /// <param name="lineNumber"></param>
+    /// <param name="memberName"></param>
+    /// <returns></returns>
+    public static void CatchException(Action<WsBaseUserControl> showNavigation, Exception ex,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+        CatchExceptionCore(showNavigation, ex, filePath, lineNumber, memberName);
+
+    /// <summary>
+    /// Show catch exception window.
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="filePath"></param>
     /// <param name="lineNumber"></param>
     /// <param name="memberName"></param>
     /// <returns></returns>
-    public static void CatchException(Exception ex,
+    public static void CatchExceptionSimple(Exception ex,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        CatchExceptionCore(ex, filePath, lineNumber, memberName);
+        CatchExceptionSimpleCore(ex, filePath, lineNumber, memberName);
 
     private static void MakeScreenShot(IWin32Window win32Window, WsSqlScaleModel scale)
     {
@@ -280,7 +249,7 @@ public static class WsWinFormNavigationUtils
         AccessManager.AccessItem.Save(scaleScreenShot);
     }
 
-    public static void ActionTryCatch(Action action)
+    public static void ActionTryCatch(Action action, Action<WsBaseUserControl> showNavigation)
     {
         try
         {
@@ -288,11 +257,24 @@ public static class WsWinFormNavigationUtils
         }
         catch (Exception ex)
         {
-            CatchException(ex);
+            CatchException(showNavigation, ex);
         }
     }
 
-    public static void ActionTryCatch(IWin32Window win32Window, Action action)
+    public static void ActionTryCatchSimple(Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (Exception ex)
+        {
+            CatchExceptionSimple(ex);
+        }
+    }
+
+    public static void ActionTryCatch(IWin32Window win32Window, Action<WsBaseUserControl> showNavigation, 
+        Action action)
     {
         try
         {
@@ -301,7 +283,7 @@ public static class WsWinFormNavigationUtils
         catch (Exception ex)
         {
             ActionMakeScreenShot(win32Window, LabelSession.Line);
-            CatchException(ex);
+            CatchException(showNavigation, ex);
         }
     }
 
@@ -316,7 +298,7 @@ public static class WsWinFormNavigationUtils
         }
         catch (Exception ex)
         {
-            CatchException(ex);
+            CatchExceptionSimple(ex);
         }
     }
     

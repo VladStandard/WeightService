@@ -30,7 +30,7 @@ public sealed partial class WsLinesUserControl : WsBaseUserControl
 
     public override void RefreshAction()
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             // Обновить модель представления.
             ViewModel.Area = LabelSession.Area;

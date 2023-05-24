@@ -217,9 +217,10 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <summary>
     /// Печать этикетки.
     /// </summary>
+    /// <param name="showNavigation"></param>
     /// <param name="fieldWarning"></param>
     /// <param name="isClearBuffer"></param>
-    public void PrintLabel(Label fieldWarning, bool isClearBuffer)
+    public void PrintLabel(Action<WsBaseUserControl> showNavigation, Label fieldWarning, bool isClearBuffer)
     {
         if (LabelSession.Line is { IsOrder: true })
             throw new("Order under construct!");
@@ -241,11 +242,11 @@ public sealed class WsUserSessionHelper : BaseViewModel
         {
             // Весовая ПЛУ.
             case true:
-                PrintLabelCore(template, isClearBuffer);
+                PrintLabelCore(showNavigation, template, isClearBuffer);
                 break;
             // Штучная ПЛУ.
             default:
-                PrintLabelCount(template, isClearBuffer);
+                PrintLabelCount(showNavigation, template, isClearBuffer);
                 break;
         
         }
@@ -265,9 +266,10 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <summary>
     /// Печать этикетки штучной ПЛУ.
     /// </summary>
+    /// <param name="showNavigation"></param>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCount(WsSqlTemplateModel template, bool isClearBuffer)
+    private void PrintLabelCount(Action<WsBaseUserControl> showNavigation, WsSqlTemplateModel template, bool isClearBuffer)
     {
         // Шаблон с указанием кол-ва и не весовой продукт.
         if (template.Data.Contains("^PQ1") && !LabelSession.PluLine.Plu.IsCheckWeight)
@@ -276,7 +278,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             if (LabelSession.WeighingSettings.LabelsCountMain > 1)
                 template.Data = template.Data.Replace("^PQ1", $"^PQ{LabelSession.WeighingSettings.LabelsCountMain}");
             // Печать этикетки ПЛУ.
-            PrintLabelCore(template, isClearBuffer);
+            PrintLabelCore(showNavigation, template, isClearBuffer);
         }
         // Шаблон без указания кол-ва.
         else
@@ -284,7 +286,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             for (int i = LabelSession.PluginPrintMain.LabelPrintedCount; i <= LabelSession.WeighingSettings.LabelsCountMain; i++)
             {
                 // Печать этикетки ПЛУ.
-                PrintLabelCore(template, isClearBuffer);
+                PrintLabelCore(showNavigation, template, isClearBuffer);
             }
         }
     }
@@ -314,12 +316,13 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <summary>
     /// Задать фейк данные веса ПЛУ для режима разработки.
     /// </summary>
-    public void SetPluWeighingFakeForDevelop()
+    /// <param name="showNavigation"></param>
+    public void SetPluWeighingFakeForDevelop(Action<WsBaseUserControl> showNavigation)
     {
         if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
 
-        WsWinFormNavigationUtils.NavigateToOperationControl(LocaleCore.Print.QuestionUseFakeData,
+        WsWinFormNavigationUtils.NavigateToOperationControl(showNavigation, LocaleCore.Print.QuestionUseFakeData,
             true, WsEnumLogType.Question,
             new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
             ActionOk, () => { });
@@ -333,9 +336,10 @@ public sealed class WsUserSessionHelper : BaseViewModel
     /// <summary>
     /// Печать этикетки ПЛУ.
     /// </summary>
+    /// <param name="showNavigation"></param>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCore(WsSqlTemplateModel template, bool isClearBuffer)
+    private void PrintLabelCore(Action<WsBaseUserControl> showNavigation, WsSqlTemplateModel template, bool isClearBuffer)
     {
         try
         {
@@ -354,7 +358,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
             // Send cmd to the print.
             if (Debug.IsDevelop)
             {
-                WsWinFormNavigationUtils.NavigateToOperationControl(
+                WsWinFormNavigationUtils.NavigateToOperationControl(showNavigation,
                     LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                     ActionOk, () => { });
@@ -368,7 +372,7 @@ public sealed class WsUserSessionHelper : BaseViewModel
         }
         catch (Exception ex)
         {
-            WsWinFormNavigationUtils.CatchException(ex);
+            WsWinFormNavigationUtils.CatchExceptionSimple(ex);
         }
     }
 

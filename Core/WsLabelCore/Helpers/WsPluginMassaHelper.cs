@@ -70,7 +70,7 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
         FieldMassaExt = fieldMassaExt;
         ResetWarning = resetWarning;
 
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             if (LabelSession.Line.IsNotNew)
             {

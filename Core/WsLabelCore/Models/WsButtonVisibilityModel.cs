@@ -15,14 +15,14 @@ public sealed class WsButtonVisibilityModel : BaseViewModel, INotifyPropertyChan
 	public string ButtonOkContent { get; private set; }
 	public string ButtonRetryContent { get; private set; }
 	public string ButtonYesContent { get; private set; }
-	public Visibility ButtonAbortVisibility { get; private set; }
-	public Visibility ButtonCancelVisibility { get; private set; }
-	public Visibility ButtonCustomVisibility { get; private set; }
-    public Visibility ButtonIgnoreVisibility { get; private set; }
-	public Visibility ButtonNoVisibility { get; init; }
+	public Visibility ButtonAbortVisibility { get; set; }
+	public Visibility ButtonCancelVisibility { get; set; }
+	public Visibility ButtonCustomVisibility { get; set; }
+    public Visibility ButtonIgnoreVisibility { get; set; }
+	public Visibility ButtonNoVisibility { get; set; }
 	public Visibility ButtonOkVisibility { get; set; }
-	public Visibility ButtonRetryVisibility { get; private set; }
-	public Visibility ButtonYesVisibility { get; init; }
+	public Visibility ButtonRetryVisibility { get; set; }
+	public Visibility ButtonYesVisibility { get; set; }
 
 	#endregion
 

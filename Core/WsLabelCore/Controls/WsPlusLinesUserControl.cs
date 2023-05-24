@@ -31,7 +31,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
 
     public override void RefreshAction()
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             // Обновить локальный кэш.
             ContextCache.LoadLocalViewPlusLines((ushort)LabelSession.Line.IdentityValueId);
@@ -54,7 +54,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
         if (!viewPlusScales.Any()) return new WsPluControl?[0, 0];
 
         WsPluControl?[,] pluUserControls = new WsPluControl[LabelSession.PlusPageColumnCount, LabelSession.PlusPageRowCount];
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             for (ushort rowNumber = 0, counter = 0; rowNumber < LabelSession.PlusPageRowCount; ++rowNumber)
             {
@@ -74,7 +74,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     /// </summary>
     private void ActionPluSelect(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(() =>
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             if (sender is Control { Tag: WsSqlViewPluLineModel viewPluScale })
             {
