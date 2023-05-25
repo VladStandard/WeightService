@@ -171,11 +171,10 @@ public class WsSqlCrudConfigModel : ICloneable
         if (!Filters.Any()) return;
         foreach (WsSqlFieldFilterModel filter in filters)
         {
-            if (Filters.Exists(item => item.Name.Equals(filter.Name) && item.Comparer.Equals(filter.Comparer)))
-            {
-                Filters.Remove(filter);
-                break;
-            }
+            WsSqlFieldFilterModel? filterRemove = Filters.Find(
+                item => item.Name.Equals(filter.Name) && item.Comparer.Equals(filter.Comparer) &&
+                    ((item.Value is not null && item.Value.Equals(filter.Value)) || item.Values.Equals(filter.Values)));
+            if (filterRemove is not null) Filters.Remove(filterRemove);
         }
     }
 
