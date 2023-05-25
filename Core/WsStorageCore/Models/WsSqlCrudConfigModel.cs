@@ -28,7 +28,8 @@ public class WsSqlCrudConfigModel : ICloneable
     /// </summary>
     public WsSqlIsMarked IsMarked
     {
-        get => _isMarked; set
+        get => _isMarked; 
+        set
         {
             _isMarked = value;
             switch (_isMarked)
@@ -61,7 +62,7 @@ public class WsSqlCrudConfigModel : ICloneable
         IsFillReferences = true;
         Filters = new();
         Orders = new();
-        IsMarked = WsSqlIsMarked.ShowAll;
+        IsMarked = WsSqlIsMarked.ShowOnlyActual;
 
         IsGuiShowFilterAdditional = false;
         IsGuiShowFilterMarked = false;

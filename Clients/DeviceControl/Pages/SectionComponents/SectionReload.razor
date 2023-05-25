@@ -1,21 +1,26 @@
 @typeparam TItem
 @inherits RazorComponentSectionBase<TItem>
+@using BlazorDeviceControl.Pages.CustomComponents
 
 <MudPaper Outlined="true" Class="mb-2">
   <MudToolBar Dense="true">
     <RadzenLabel Style="font-size: 15px;" Text="@Title"/>
+    <AuthorizeView Roles="@UserAccessStr.Write">
+          @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
+          {
+            <RzDropDownLocal Style="margin-left: 20px; width: 10%; display: inline-block;"
+                             @bind-Value="@SqlCrudConfigSection.IsMarked"
+                             Data="@MarkedDict"
+                             ValueProperty="Value"
+                             TextProperty="Key" Change="@OnSectionUpdate">
+            </RzDropDownLocal>
+          }
+    </AuthorizeView>
     @if (SqlCrudConfigSection.IsGuiShowFilterOnlyTop)
     {
       <RadzenCheckBox TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop Style="margin-left: 20px" Change=@OnSectionUpdate/>
       <RadzenLabel Style="font-size: 13px; margin-left: 5px"
                    Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(ContextManager.JsonSettings.Local.SelectTopRowsCount)/>
-    }
-    @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
-    {
-      <RadzenCheckBox TValue="WsSqlIsMarked" @bind-Value=@SqlCrudConfigSection.IsMarked
-                      Style="margin-left: 20px "
-                      Change=@OnSectionUpdate/>
-      <RadzenLabel Style="font-size: 13px; margin-left: 5px" Text=@LocaleCore.Action.ActionIsShowMarked/>
     }
     <RadzenButton
       id="button_loader"

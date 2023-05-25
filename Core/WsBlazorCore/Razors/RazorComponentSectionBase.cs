@@ -37,6 +37,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
         SelectedRow = new List<TItem>();
         SqlSectionSave = new List<TItem>();
         SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlIsMarked.ShowAll);
+        SqlCrudConfigSection.IsMarked = WsSqlIsMarked.ShowOnlyActual;
         SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
@@ -127,7 +128,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
 
     protected virtual void SetSqlSectionCast()
     {
-        SqlSectionCast = ContextManager.AccessManager.AccessList.GetListNotNullable<TItem>(SqlCrudConfigSection);
+        SqlSectionCast = ContextManager.ContextList.GetListNotNullable<TItem>(SqlCrudConfigSection);
     }
 
     protected void SetSqlSectionSave(TItem model)

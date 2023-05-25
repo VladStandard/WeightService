@@ -9,11 +9,6 @@ public sealed partial class Access : RazorComponentSectionBase<WsSqlAccessModel>
 {
     #region Public and private fields, properties, constructor
 
-    public Access() : base()
-    {
-        SqlCrudConfigSection.IsResultOrder = true;
-    }
-
     #endregion
 
     #region Public and private methods

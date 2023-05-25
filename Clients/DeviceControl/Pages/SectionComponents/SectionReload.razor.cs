@@ -12,6 +12,13 @@ public partial class SectionReload<TItem> : RazorComponentSectionBase<TItem>
     [Parameter] public EventCallback OnSectionUpdate { get; set; }
     [Parameter] public int SectionCount { get; set; }
 
+    private static Dictionary<string, WsSqlIsMarked> MarkedDict => new()
+    {
+        { "Актуальные", WsSqlIsMarked.ShowOnlyActual },
+        { "Cкрытые", WsSqlIsMarked.ShowOnlyHide },
+        { "Все", WsSqlIsMarked.ShowAll },
+    };
+
     #endregion
 
     #region Public and private methods
