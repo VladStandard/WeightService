@@ -27,6 +27,7 @@ public sealed partial class LocaleDeviceControl
     public string RouteSectionPlusScales => "/section/plus_scales";
     public string RouteSectionPlusWeighings => "/section/plu_weighings";
     public string RouteSectionPlusWeighingsAggregation => "/section/plus_weighings_aggr";
+    public string RouteSectionPlusStorage => "/section/plus_storage";
     public string RouteSectionPrinterResources => "/section/printers_resources";
     public string RouteSectionPrinters => "/section/printers";
     public string RouteSectionPrinterTypes => "/section/printer_types";

@@ -158,6 +158,7 @@ public sealed class LocaleTable : WsLocalizationBase
     public string PluNumber => Lang == Lang.English ? "# PLU" : "№ ПЛУ";
     public string PluPackage => Lang == Lang.English ? "PLU's package" : "Тара ПЛУ";
     public string PluScale => Lang == Lang.English ? "Device PLU" : "ПЛУ устройства";
+    public string PluStorage => Lang == Lang.English ? "Storage PLU" : "Способ хранения ПЛУ";
     public string PrettyName => Lang == Lang.English ? "Pretty name" : "Красивое наименование";
     public string Printer => Lang == Lang.English ? "Printer" : "Принтер";
     public string PrinterResource => Lang == Lang.English ? "Printer resource" : "Ресурс принтера";
@@ -228,6 +229,8 @@ public sealed class LocaleTable : WsLocalizationBase
     public string Weighted => Lang == Lang.English ? "Weighted" : "Весовая";
     public string WeightMaximal => Lang == Lang.English ? "Maximal weight" : "Максимальный вес";
     public string WeightMinimal => Lang == Lang.English ? "Minimal weight" : "Минимальный вес";
+    public string TempMinimal => Lang == Lang.English ? "Minimal temperature" : "Минимальная температура";
+    public string TempMaximal => Lang == Lang.English ? "Maximal weight" : "Максимальная температура";
     public string WeightNetto => Lang == Lang.English ? "Net weight" : "Вес нетто";
     public string WeightNominal => Lang == Lang.English ? "Nominal weight" : "Номинальный вес";
     public string WeightShort => Lang == Lang.English ? "Weight" : "Вес";

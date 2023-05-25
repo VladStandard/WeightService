@@ -2,7 +2,7 @@
 @page "/section/boxes/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Boxes
-@using BlazorDeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Boxes.WsSqlBoxModel>
 
 <RazorItemReload TItem="WsSqlBoxModel" Title="@LocaleCore.DeviceControl.ItemBox" OnItemUpdate="@GetItemData"/>

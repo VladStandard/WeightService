@@ -2,7 +2,7 @@
 @page "/section/plus_nesting_fks/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusNestingFks
-@using BlazorDeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
 
 <RazorItemReload TItem="@WsSqlPluNestingFkModel" Title="@LocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>

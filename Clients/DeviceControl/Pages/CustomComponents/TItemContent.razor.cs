@@ -1,4 +1,4 @@
-﻿namespace BlazorDeviceControl.Pages.CustomComponents;
+﻿namespace DeviceControl.Pages.CustomComponents;
 
 public partial class TItemContent<TItem>
 {

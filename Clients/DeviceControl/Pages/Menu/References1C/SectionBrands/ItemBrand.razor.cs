@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.Brands;
 
-namespace BlazorDeviceControl.Pages.Menu.References1C.SectionBrands;
+namespace DeviceControl.Pages.Menu.References1C.SectionBrands;
 
 public sealed partial class ItemBrand : RazorComponentItemBase<WsSqlBrandModel>
 {

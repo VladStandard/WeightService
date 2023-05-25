@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
 
-namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrintersResources;
+namespace DeviceControl.Pages.Menu.Devices.SectionPrintersResources;
 
 public sealed partial class PrintersResources : RazorComponentSectionBase<WsSqlPrinterResourceFkModel>
 {

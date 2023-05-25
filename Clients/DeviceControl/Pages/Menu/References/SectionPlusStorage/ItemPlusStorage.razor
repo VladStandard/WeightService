@@ -1,12 +1,13 @@
-﻿@page "/section/organizations/new"
-@page "/section/organizations/{IdentityUidStr}"
+﻿@page "/section/plus_storage/new"
+@page "/section/plus_storage/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Organizations
 @using DeviceControl.Pages.ItemComponents
 @using DeviceControl.Pages.CustomComponents
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Organizations.WsSqlOrganizationModel>
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusStorageMethods.WsSqlPluStorageMethodModel>
 
-<RazorItemReload TItem="WsSqlOrganizationModel" Title="@LocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
+
+<RazorItemReload TItem="WsSqlOrganizationModel" Title="@LocaleCore.DeviceControl.ItemPlusStorage" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -19,16 +20,10 @@
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Description</td>
-    <td colspan="3">
-      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Description"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.Gln</td>
-    <td colspan="3">
-      <RzNumericLocal @bind-Value="@SqlItemCast.Gln"/>
-    </td>
+    <td>@LocaleCore.Table.TempMinimal</td>
+    <td><RzNumericLocal Min="-100" @bind-Value="@SqlItemCast.MinTemp"/></td>
+    <td>@LocaleCore.Table.TempMaximal</td>
+    <td><RzNumericLocal Min="-100" @bind-Value="@SqlItemCast.MaxTemp"/></td>
   </tr>
   <RazorItemDates SqlItem="@SqlItemCast"/>
   </tbody>

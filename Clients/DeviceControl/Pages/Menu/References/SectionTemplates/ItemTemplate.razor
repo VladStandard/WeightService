@@ -2,8 +2,8 @@
 @page "/section/templates/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Templates
-@using BlazorDeviceControl.Pages.ItemComponents
-@using BlazorDeviceControl.Pages.CustomComponents
+@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Templates.WsSqlTemplateModel>
 
 <RazorItemReload TItem="@WsSqlTemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate" OnItemUpdate="@GetItemData"/>

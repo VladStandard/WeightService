@@ -3,7 +3,7 @@
 
 using WsDataCore.Enums;
 
-namespace BlazorDeviceControl.Pages.Menu.Profiles;
+namespace DeviceControl.Pages.Menu.Profiles;
 
 public partial class Profile : RazorComponentBase
 {

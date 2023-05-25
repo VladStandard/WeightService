@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.PlusScales;
 
-namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPluScales;
+namespace DeviceControl.Pages.Menu.Devices.SectionPluScales;
 
 public sealed partial class ItemPluScales : RazorComponentItemBase<WsSqlPluScaleModel>
 {

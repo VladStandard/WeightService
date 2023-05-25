@@ -3,7 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @using WsStorageCore.TableDiagModels.ScalesScreenshots
 @using WsDataCore.Utils
-@using BlazorDeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
 <RazorItemReload TItem="@WsSqlScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot" OnItemUpdate="@GetItemData"/>

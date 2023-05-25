@@ -4,7 +4,7 @@
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.ViewScaleModels;
 
-namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighings;
+namespace DeviceControl.Pages.Menu.Operations.SectionPlusWeighings;
 
 public sealed partial class PluWeightings : RazorComponentSectionBase<PluWeightingView>
 {

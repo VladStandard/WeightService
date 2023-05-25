@@ -4,7 +4,7 @@
 using System.Reflection;
 using WsDataCore.Utils;
 
-namespace BlazorDeviceControl.Pages.Menu.Admins;
+namespace DeviceControl.Pages.Menu.Admins;
 
 public sealed partial class SystemAppInfo : RazorComponentBase
 {

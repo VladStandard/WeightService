@@ -1,0 +1,31 @@
+﻿@page "/section/plus_storage"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@using WsStorageCore.TableScaleModels.PlusStorageMethods
+@using DeviceControl.Pages.SectionComponents
+@using DeviceControl.Pages.CustomComponents
+@inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PlusStorageMethods.WsSqlPluStorageMethodModel>
+
+<SectionReload
+  TItem="@WsSqlPluStorageMethodModel"
+  Title="@LocaleCore.DeviceControl.SectionPlusStorage"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"/>
+
+<RzDataGridLocal
+  @bind-Value="@SelectedRow"
+  TItem="@WsSqlPluStorageMethodModel"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@WsSqlPluStorageMethodModel">
+      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="33%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.TempMinimal" Property="MinTemp" Width="33%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.TempMaximal" Property="MaxTemp" Width="33%"/>
+    </TItemContent>
+  </Columns>
+</RzDataGridLocal>

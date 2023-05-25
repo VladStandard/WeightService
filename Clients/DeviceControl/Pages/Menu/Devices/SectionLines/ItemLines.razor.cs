@@ -9,7 +9,7 @@ using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.Scales;
 using WsStorageCore.TableScaleModels.WorkShops;
 
-namespace BlazorDeviceControl.Pages.Menu.Devices.SectionLines;
+namespace DeviceControl.Pages.Menu.Devices.SectionLines;
 
 /// <summary>
 /// Scale item page.

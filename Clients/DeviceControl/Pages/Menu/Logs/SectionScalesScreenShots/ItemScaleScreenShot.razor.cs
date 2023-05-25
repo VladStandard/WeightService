@@ -4,7 +4,7 @@
 using WsBlazorCore.Settings;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
 
-namespace BlazorDeviceControl.Pages.Menu.Logs.SectionScalesScreenShots;
+namespace DeviceControl.Pages.Menu.Logs.SectionScalesScreenShots;
 
 public sealed partial class ItemScaleScreenShot : RazorComponentItemBase<WsSqlScaleScreenShotModel>
 {

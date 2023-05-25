@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 
-namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrintersResources;
+namespace DeviceControl.Pages.Menu.Devices.SectionPrintersResources;
 
 /// <summary>
 /// Item PrinterResource page.

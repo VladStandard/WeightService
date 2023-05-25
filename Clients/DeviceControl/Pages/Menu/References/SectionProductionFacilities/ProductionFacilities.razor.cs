@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.ProductionFacilities;
 
-namespace BlazorDeviceControl.Pages.Menu.References.SectionProductionFacilities;
+namespace DeviceControl.Pages.Menu.References.SectionProductionFacilities;
 
 public sealed partial class ProductionFacilities : RazorComponentSectionBase<WsSqlProductionFacilityModel>
 {

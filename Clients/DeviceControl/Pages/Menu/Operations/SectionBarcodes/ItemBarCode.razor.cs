@@ -5,7 +5,7 @@ using WsDataCore.Enums;
 using WsStorageCore.TableScaleModels.BarCodes;
 using WsStorageCore.WebApiModels.BarCodes;
 
-namespace BlazorDeviceControl.Pages.Menu.Operations.SectionBarcodes;
+namespace DeviceControl.Pages.Menu.Operations.SectionBarcodes;
 
 public sealed partial class ItemBarCode : RazorComponentItemBase<WsSqlBarCodeModel>
 {

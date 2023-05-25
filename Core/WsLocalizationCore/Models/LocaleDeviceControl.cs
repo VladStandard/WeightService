@@ -52,6 +52,7 @@ public sealed partial class LocaleDeviceControl : WsLocalizationBase
     public string ItemPluNestingFk => Lang == Lang.English ? "PLU's nesting" : "Вложенность ПЛУ";
     public string ItemPluScale => Lang == Lang.English ? "Device PLU" : "ПЛУ устройства";
     public string ItemPluWeighing => Lang == Lang.English ? "Plu weighings" : "Взвешивание ПЛУ";
+    public string ItemPlusStorage => Lang == Lang.English ? "PLU storage" : "Cпособ хранения ПЛУ";
     public string ItemProductionFacilities => Lang == Lang.English ? "Prod. facilities" : "Производственные площадки";
     public string ItemProductionFacility => Lang == Lang.English ? "Prod. facility" : "Произв. площадка";
     public string ItemProductSeries => Lang == Lang.English ? "Product series" : "Серия продукта";
@@ -104,6 +105,7 @@ public sealed partial class LocaleDeviceControl : WsLocalizationBase
     public string SectionOrderTypes => Lang == Lang.English ? "Order types" : "Типы заказов";
     public string SectionOrganizations => Lang == Lang.English ? "Organizations" : "Организации";
     public string SectionPlus => Lang == Lang.English ? "PLUs" : "ПЛУ";
+    public string SectionPlusStorage => Lang == Lang.English ? "PLUs storage" : "Cпособы хранения ПЛУ";
     public string SectionPlusBundlesFk => Lang == Lang.English ? "PLU & bundles" : "Пакеты ПЛУ";
     public string SectionPlusNestingFk => Lang == Lang.English ? "PLU's nesting" : "Вложенности ПЛУ";
     public string SectionPlusScales => Lang == Lang.English ? "PLU & Lines" : "ПЛУ и Линия";

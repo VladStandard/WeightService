@@ -2,8 +2,8 @@
 @page "/section/printers/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Printers
-@using BlazorDeviceControl.Pages.ItemComponents
-@using BlazorDeviceControl.Pages.CustomComponents
+@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
 
 <RazorItemReload TItem="@WsSqlPrinterModel" Title="@LocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>

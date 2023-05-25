@@ -3,7 +3,7 @@
 
 using WsBlazorCore.CssStyles;
 
-namespace BlazorDeviceControl.Pages.ItemComponents;
+namespace DeviceControl.Pages.ItemComponents;
 
 public partial class RazorItemTableHead : LayoutComponentBase
 {

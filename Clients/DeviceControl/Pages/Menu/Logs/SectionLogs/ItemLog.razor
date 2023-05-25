@@ -1,7 +1,7 @@
 @page "/section/logs/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableDiagModels.Logs
-@using BlazorDeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.Logs.WsSqlLogModel>
 
 <RazorItemReload TItem="WsSqlLogModel" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>

@@ -4,7 +4,7 @@
 using Radzen.Blazor;
 using WsStorageCore.Helpers;
 
-namespace BlazorDeviceControl.Pages.CustomComponents;
+namespace DeviceControl.Pages.CustomComponents;
 
 public class RzDataGridLocal<TItem> : RadzenDataGrid<TItem>
 {

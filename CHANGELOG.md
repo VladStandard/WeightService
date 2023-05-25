@@ -740,7 +740,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.710] - 2022-05-23
 ### Changed
-- BlazorDeviceControl
+- DeviceControl
 - ScalesUI
 ### Описание обновления:
 - #WS-T-174 Управление устройствами. Обновление раздела 'Этикетки'
@@ -769,26 +769,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.630] - 2022-05-16
 ## Changed
-- BlazorDeviceControl
+- DeviceControl
 - DataCore
 - ScalesUI
 - WeightCore
 
 ## [0.6.610] - 2022-05-12
 ## Changed
-- BlazorDeviceControl
+- DeviceControl
 - DataCore
 - ScalesUI
 
 ## [0.6.605] - 2022-05-11
 ## Changed
-- BlazorDeviceControl
+- DeviceControl
 - DataCore
 - ScalesUI
 
 ## [0.6.580] - 2022-05-05
 ## Changed
-- BlazorDeviceControl
+- DeviceControl
 - DataCore
 - ScalesUI
 
@@ -798,7 +798,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.540] - 2022-04-26
 ## Changed
-- BlazorDeviceControl
+- DeviceControl
 - DataCore
 - DataCoreTests
 - ScalesUI
@@ -808,7 +808,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.430] - 2022-04-11
 ### Fixed
-- BlazorDeviceControl
+- DeviceControl
 - BlazorCore
 - DataCore
 - WeightCore
@@ -816,7 +816,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.410] - 2022-04-06
 ### Fixed
-- BlazorDeviceControl
+- DeviceControl
 - BlazorCore
 - DataCore
 - WeightCore
@@ -824,7 +824,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.400] - 2022-04-05
 ### Fixed
-- BlazorDeviceControl
+- DeviceControl
 - BlazorCore
 - DataCore
 - WeightCore
@@ -832,7 +832,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.390] - 2022-04-04
 ### Fixed
-- BlazorDeviceControl
+- DeviceControl
 - BlazorCore
 - DataCore
 - WeightCore
@@ -840,11 +840,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.350] - 2022-03-24
 ### Fixed
-- BlazorDeviceControl
+- DeviceControl
 
 ## [0.6.330] - 2022-03-24
 ### Changed
-- BlazorDeviceControl
+- DeviceControl
 - BlazorCore
 - DataCore
 
@@ -864,7 +864,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DataCore v.0.6.250
 - BlazorCore v.0.6.250
 - WeightCore v.0.6.250
-- BlazorDeviceControl v.0.6.250
+- DeviceControl v.0.6.250
 - ScalesUI v.0.6.250
 
 ## [0.6.240] - 2022-02-25
@@ -872,7 +872,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DataCore v.0.6.240
 - BlazorCore v.0.6.240
 - WeightCore v.0.6.240
-- BlazorDeviceControl v.0.6.240
+- DeviceControl v.0.6.240
 - ScalesUI v.0.6.240
 
 ## [0.6.190] - 2022-02-17
@@ -880,7 +880,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DataCore v.0.6.190
 - BlazorCore v.0.6.190
 - WeightCore v.0.6.190
-- BlazorDeviceControl v.0.6.190
+- DeviceControl v.0.6.190
 - ScalesUI v.0.6.190
 
 ## [0.6.180] - 2022-02-16
@@ -900,31 +900,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - BlazorCore v.0.6.120
 - BlazorCoreTests v.0.6.120
-- BlazorDeviceControl v.0.6.120
+- DeviceControl v.0.6.120
 - DataCore v.0.6.120
 - DataCoreTests v.0.6.120
 - DbScales v.0.6.120
 - ScalesUI v.0.6.120
 
-- BlazorDeviceControl v.0.6.110
+- DeviceControl v.0.6.110
 ## [0.6.110] - 2022-02-02
 ### Changed
 - BlazorCore v.0.6.100
-- BlazorDeviceControl v.0.6.110
+- DeviceControl v.0.6.110
 - DataProjectCore v.0.6.100
 - DataShareCore v.0.6.100
 - WeightCore v.0.6.100
 
 ## [0.6.090] - 2022-02-01
 ### Changed
-- BlazorDeviceControl v.0.6.090
+- DeviceControl v.0.6.090
 - BlazorCore v.0.6.090
 - SQL-scripts v.0.6.090
 - README.md
 
 ## [0.6.080] - 2022-01-28
 ### Changed
-- BlazorDeviceControl v.0.6.080
+- DeviceControl v.0.6.080
 - BlazorCore v.0.6.080
 - README.md
 ### Removed
@@ -932,24 +932,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.050] - 2022-01-21
 ### Changed
-- BlazorDeviceControl v.0.6.050
+- DeviceControl v.0.6.050
 - BlazorCore v.0.6.050
 
 ## [0.6.030] - 2022-01-19
 ### Changed
-- BlazorDeviceControl v.0.6.030
+- DeviceControl v.0.6.030
 - BlazorCore v.0.6.030
 - ScalesUI v.0.6.030
 
 ## [0.6.010] - 2022-01-14
 ### Changed
-- BlazorDeviceControl v.0.6.020
+- DeviceControl v.0.6.020
 - BlazorCore v.0.6.020
 
 ## [0.5.950] - 2021-12-20
 ### Changed
 - DbScales v.0.5.950
-- BlazorDeviceControl v.0.5.950
+- DeviceControl v.0.5.950
 - DataProjectsCore v.0.5.950
 
 ## [0.5.930] - 2021-12-13
@@ -970,7 +970,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.910] - 2021-12-03
 ### Changed
-- BlazorDeviceControl v.0.5.910
+- DeviceControl v.0.5.910
 - BlazorProjectsCore v.0.5.910
 - BlazorCore v.0.5.910
 - DataProjectsCore v.0.5.910
@@ -983,7 +983,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - ScalesUI v.0.5.880
 - WeightCore v.0.5.880
-- BlazorDeviceControl v.0.5.880
+- DeviceControl v.0.5.880
 
 ## [0.5.860] - 2021-11-22
 ### Fixed
@@ -1112,7 +1112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.520] - 2021-09-03
 ### Changed
 - BlazorCore v.0.5.520
-- BlazorDeviceControl v.0.5.520
+- DeviceControl v.0.5.520
 - ScalesUI v.0.5.520
 - DataCore v.0.5.520
 ### Added
@@ -1121,7 +1121,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.470] - 2021-09-01
 ### Changed
 - BlazorCore v.0.5.470
-- BlazorDeviceControl v.0.5.470
+- DeviceControl v.0.5.470
 - ScalesUI v.0.5.470
 ### Added
 - DataCore v.0.5.470
@@ -1131,19 +1131,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - SsccWebAPI v.0.5.440
 - BlazorCore v.0.5.440
-- BlazorDeviceControl v.0.5.440
+- DeviceControl v.0.5.440
 
 ## [0.5.430] - 2021-08-20
 ### Changed
 - BlazorCore v.0.5.430
-- BlazorDeviceControl v.0.5.430
+- DeviceControl v.0.5.430
 
 ## [0.5.380] - 2021-08-13
 ### Changed
 - DbScales v.0.5.350
 - ScalesUI v.0.5.372
 - WeightCore v.0.5.372
-- BlazorDeviceControl v.0.5.380
+- DeviceControl v.0.5.380
 
 ## [0.1.320] - 2021-07-28
 ### Changed
@@ -1228,7 +1228,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Hardware v.0.5.80
 - ScalesUI v.0.5.80
-- BlazorDeviceControl v.0.2.200
+- DeviceControl v.0.2.200
 
 ## [0.1.100] - 2021-05-22
 ### Changed

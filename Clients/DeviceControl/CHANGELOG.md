@@ -265,7 +265,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.880] - 2021-11-25
 ### Changed
-- WS-T-32. BlazorDeviceControl. Refactoring
+- WS-T-32. DeviceControl. Refactoring
 
 ## [0.5.470] - 2021-09-01
 ### Changed

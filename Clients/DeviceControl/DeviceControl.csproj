@@ -9,8 +9,8 @@
         <StartupObject></StartupObject>
         <Product>WeightService</Product>
         <Copyright>Copyright © 2020 - 2023</Copyright>
-        <AssemblyName>BlazorDeviceControl</AssemblyName>
-        <RootNamespace>BlazorDeviceControl</RootNamespace>
+        <AssemblyName>DeviceControl</AssemblyName>
+        <RootNamespace>DeviceControl</RootNamespace>
         <NeutralLanguage>ru-RU</NeutralLanguage>
         <FileVersion>0.9.400.0</FileVersion>
         <AssemblyVersion>0.9.400.0</AssemblyVersion>

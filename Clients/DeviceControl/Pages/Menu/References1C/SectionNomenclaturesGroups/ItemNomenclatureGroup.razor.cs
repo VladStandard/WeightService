@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.PlusGroups;
 
-namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups;
+namespace DeviceControl.Pages.Menu.References1C.SectionNomenclaturesGroups;
 
 public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<WsSqlPluGroupModel>
 {

@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.Printers;
 
-namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrinters;
+namespace DeviceControl.Pages.Menu.Devices.SectionPrinters;
 
 public sealed partial class Printers : RazorComponentSectionBase<WsSqlPrinterModel>
 {

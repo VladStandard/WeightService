@@ -3,7 +3,7 @@
 
 using WsStorageCore.ViewScaleModels;
 
-namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusLabels;
+namespace DeviceControl.Pages.Menu.Operations.SectionPlusLabels;
 
 public sealed partial class PlusLabels : RazorComponentSectionBase<PlusLabelView>
 {

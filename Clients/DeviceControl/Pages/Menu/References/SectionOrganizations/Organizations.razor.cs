@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.Organizations;
 
-namespace BlazorDeviceControl.Pages.Menu.References.SectionOrganizations;
+namespace DeviceControl.Pages.Menu.References.SectionOrganizations;
 
 public sealed partial class Organizations : RazorComponentSectionBase<WsSqlOrganizationModel>
 {
