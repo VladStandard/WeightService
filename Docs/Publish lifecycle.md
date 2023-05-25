@@ -22,7 +22,7 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 
 ## Push
 - ✓ push develop:    	`git push all develop && git bra && git st`
-- ✓ push preview:    	`git push preview && git bra && git st`
+- ✓ push preview:    	`git push all preview && git bra && git st`
 - ✓ push main:    		`git push all main && git bra && git st`
 - ✓ push all:    		`git push all develop && git push preview && git push all main && git bra && git st`
 
