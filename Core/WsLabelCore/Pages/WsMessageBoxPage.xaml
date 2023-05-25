@@ -26,10 +26,7 @@
 		BorderBrush="Blue"
 		BorderThickness="1"
 		KeyUp="Button_KeyUp">
-		<Grid
-			x:Name="gridMain"
-			Margin="2"
-			KeyUp="Button_KeyUp">
+		<Grid Margin="2" KeyUp="Button_KeyUp">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*" />
 			</Grid.ColumnDefinitions>
@@ -50,12 +47,7 @@
 				Text="Caption"
 				TextAlignment="Center"
 				TextWrapping="Wrap" />-->
-			<ScrollViewer
-				x:Name="scrollViewerMessage"
-				Grid.Row="1"
-				Grid.Column="0"
-				KeyUp="Button_KeyUp"
-				VerticalScrollBarVisibility="Auto">
+			<ScrollViewer KeyUp="Button_KeyUp" VerticalScrollBarVisibility="Auto">
 				<TextBlock
 					x:Name="fieldMessage"
 					Margin="2"
@@ -69,63 +61,55 @@
 					TextWrapping="Wrap" />
 			</ScrollViewer>
 			<StackPanel
-				Grid.Row="2"
-				Grid.Column="0"
+				x:Name="stackPanelYesNo"
+				Grid.Row="1"
 				Margin="2"
-				VerticalAlignment="Center"
 				Orientation="Horizontal">
-				<Button
-					x:Name="buttonCustom"
-					Margin="2"
-					VerticalAlignment="Center"
-					Click="ButtonCustom_OnClick"
-					FontWeight="Bold"
-					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonYes"
 					Margin="2"
-					VerticalAlignment="Center"
 					Click="ButtonYes_OnClick"
+					FontWeight="Bold"
+					KeyUp="Button_KeyUp" />
+				<Button
+					x:Name="buttonCustom"
+					Margin="2"
+					Click="ButtonCustom_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonRetry"
 					Margin="2"
-					VerticalAlignment="Center"
 					Click="ButtonRetry_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonNo"
 					Margin="2"
-					VerticalAlignment="Center"
 					Click="ButtonNo_OnClick"
+					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonIgnore"
 					Margin="2"
-					VerticalAlignment="Center"
 					Click="ButtonIgnore_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonCancel"
 					Margin="2"
-					VerticalAlignment="Center"
 					Click="ButtonCancel_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonAbort"
 					Margin="2"
-					VerticalAlignment="Center"
 					Click="ButtonAbort_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonOk"
 					Margin="2"
-					VerticalAlignment="Center"
 					Click="ButtonOk_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />

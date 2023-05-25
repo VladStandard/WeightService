@@ -3,10 +3,13 @@
 
 namespace WsStorageCore.Enums;
 
+/// <summary>
+/// Конфигурация поля IS_MARKED.
+/// </summary>
 public enum WsSqlIsMarked
 {
     /// <summary>
-    /// Отображать все записи (например, поле не существует в таблице).
+    /// Отображать все записи, либо поле не существует.
     /// </summary>
     ShowAll,
     /// <summary>

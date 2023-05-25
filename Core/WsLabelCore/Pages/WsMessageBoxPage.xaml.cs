@@ -4,6 +4,7 @@
 
 using System.Windows.Controls;
 using System.Windows.Input;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
@@ -35,51 +36,51 @@ public partial class WsMessageBoxPage : INavigableView<WsMessageBoxViewModel>
         fieldMessage.SetBinding(VisibilityProperty,
             new Binding(nameof(ViewModel.MessageVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel });
         fieldMessage.FontSize = ViewModel.FontSizeMessage;
-        
+
         // Кнопка Custom.
-        buttonCustom.SetBinding(TextBlock.TextProperty,
+        buttonCustom.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonCustomContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonCustom.SetBinding(VisibilityProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonCustomVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonCustom.FontSize = ViewModel.FontSizeButton;
         // Кнопка Yes.
-        buttonYes.SetBinding(TextBlock.TextProperty,
+        buttonYes.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonYesContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonYes.SetBinding(VisibilityProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonYesVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonYes.FontSize = ViewModel.FontSizeButton;
         // Кнопка Retry.
-        buttonRetry.SetBinding(TextBlock.TextProperty,
+        buttonRetry.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonRetryContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonRetry.SetBinding(VisibilityProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonRetryVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonRetry.FontSize = ViewModel.FontSizeButton;
         // Кнопка No.
-        buttonNo.SetBinding(TextBlock.TextProperty,
+        buttonNo.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonNoContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonNo.SetBinding(VisibilityProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonNoVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonNo.FontSize = ViewModel.FontSizeButton;
         // Кнопка Ignore.
-        buttonIgnore.SetBinding(TextBlock.TextProperty,
+        buttonIgnore.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonIgnoreContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonIgnore.SetBinding(VisibilityProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonIgnoreVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonIgnore.FontSize = ViewModel.FontSizeButton;
         // Кнопка Cancel.
-        buttonCancel.SetBinding(TextBlock.TextProperty,
+        buttonCancel.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonCancelContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonCancel.SetBinding(VisibilityProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonCancelVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonCancel.FontSize = ViewModel.FontSizeButton;
         // Кнопка Abort.
-        buttonAbort.SetBinding(TextBlock.TextProperty,
+        buttonAbort.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonAbortContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonAbort.SetBinding(VisibilityProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonAbortVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonAbort.FontSize = ViewModel.FontSizeButton;
         // Кнопка Ok.
-        buttonOk.SetBinding(TextBlock.TextProperty,
+        buttonOk.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonOkContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
         buttonOk.SetBinding(VisibilityProperty,
             new Binding(nameof(ViewModel.ButtonVisibility.ButtonOkVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
