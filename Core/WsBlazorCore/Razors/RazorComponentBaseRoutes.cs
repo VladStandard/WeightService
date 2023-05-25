@@ -28,6 +28,7 @@ using WsStorageCore.TableScaleModels.Organizations;
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusGroups;
 using WsStorageCore.TableScaleModels.PlusScales;
+using WsStorageCore.TableScaleModels.PlusStorageMethods;
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.PrintersTypes;
 using WsStorageCore.TableScaleModels.ProductionFacilities;
@@ -104,6 +105,7 @@ public partial class RazorComponentBase
             WsSqlPluModel => LocaleCore.DeviceControl.RouteSectionPlus,
             WsSqlPluNestingFkModel => LocaleCore.DeviceControl.RouteSectionPlusNestingFks,
             WsSqlPluScaleModel => LocaleCore.DeviceControl.RouteSectionPlusScales,
+            WsSqlPluStorageMethodModel=> LocaleCore.DeviceControl.RouteSectionPlusStorage,
             WsSqlPluWeighingModel => LocaleCore.DeviceControl.RouteSectionPlusWeighings,
             WsSqlPrinterModel => LocaleCore.DeviceControl.RouteSectionPrinters,
             WsSqlPrinterResourceFkModel => LocaleCore.DeviceControl.RouteSectionPrinterResources,

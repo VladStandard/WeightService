@@ -3,6 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Plus
 @using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.Menu.References.SectionPlusStorage
 @using DeviceControl.Pages.Menu.References1C.SectionPlusNestingFks
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Plus.WsSqlPluModel>
 
@@ -32,8 +33,10 @@
       <RadzenLink Path="@GetRouteItemPath(Template)" Text="@LocaleCore.Table.Template"/>
     </td>
     <td>@Template.Title</td>
-    <td>@LocaleCore.Table.Itf14</td>
-    <td>@SqlItemCast.Itf14</td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(StorageMethod)" Text="@LocaleCore.Table.PluStorage"/>
+    </td>
+    <td>@StorageMethod?.Name</td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.Ean13</td>
@@ -42,10 +45,10 @@
     <td>@SqlItemCast.Gtin</td>
   </tr>
   <tr>
+    <td>@LocaleCore.Table.Itf14</td>
+    <td>@SqlItemCast.Itf14</td>
     <td>@LocaleCore.Table.ShelfLifeDays</td>
     <td>@SqlItemCast.ShelfLifeDays</td>
-    <td/>
-    <td/>
   </tr>
   <tr>
     <td>@LocaleCore.Table.FullName</td>
