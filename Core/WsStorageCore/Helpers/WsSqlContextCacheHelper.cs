@@ -6,7 +6,7 @@ namespace WsStorageCore.Helpers;
 /// <summary>
 /// Помощник кэша.
 /// </summary>
-public sealed class WsSqlContextCacheHelper// : ObservableObject, INotifyPropertyChanged
+public sealed class WsSqlContextCacheHelper
 {
     #region Design pattern "Lazy Singleton"
 

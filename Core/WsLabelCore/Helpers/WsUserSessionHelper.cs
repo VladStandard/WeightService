@@ -2,12 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLabelCore.Helpers;
-
 #nullable enable
 /// <summary>
 /// User session.
 /// </summary>
-public sealed class WsUserSessionHelper : BaseViewModel
+public sealed class WsUserSessionHelper //: BaseViewModel
 {
     #region Design pattern "Lazy Singleton"
 
@@ -322,11 +321,9 @@ public sealed class WsUserSessionHelper : BaseViewModel
         if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
 
-        WsWinFormNavigationUtils.NavigateToOperationControl(showNavigation, LocaleCore.Print.QuestionUseFakeData,
-            true, WsEnumLogType.Question,
-            new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-            ActionOk, () => { });
-        void ActionOk()
+        WsWinFormNavigationUtils.NavigateToOperationControlNoYes(showNavigation, LocaleCore.Print.QuestionUseFakeData,
+            true, WsEnumLogType.Question, () => { }, ActionYes);
+        void ActionYes()
         {
             PluginMassa.WeightNet = StrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
             PluginMassa.IsWeightNetFake = true;
@@ -358,17 +355,20 @@ public sealed class WsUserSessionHelper : BaseViewModel
             // Send cmd to the print.
             if (Debug.IsDevelop)
             {
-                WsWinFormNavigationUtils.NavigateToOperationControl(showNavigation,
+                WsWinFormNavigationUtils.NavigateToOperationControlNoYes(showNavigation,
                     LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    ActionOk, () => { });
-                bool isOk = false;
-                void ActionOk() => isOk = true;
-                if (isOk) return;
+                    () => { }, ActionYes);
+                void ActionYes()
+                {
+                    // Send cmd to the print.
+                    LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
+                }
             }
-
-            // Send cmd to the print.
-            LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
+            else
+            {
+                // Send cmd to the print.
+                LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
+            }
         }
         catch (Exception ex)
         {

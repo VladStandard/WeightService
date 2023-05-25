@@ -3,44 +3,45 @@
 
 namespace WsLabelCore.Models;
 
+[DebuggerDisplay("{ToString()}")]
 public sealed class WsConfigModel
 {
-	#region Public and private fields and properties
+    #region Public and private fields and properties
 
-	public ushort WaitClose { get; }
-	public ushort WaitExecute { get; }
+    public ushort WaitClose { get; }
+    public ushort WaitExecute { get; }
     public const ushort WaitSleep = 0_100;
     public const ushort WaitLowLimit = 0_100;
     public const ushort WaitHighLimit = 4_000;
-	public Stopwatch StopwatchExecute { get; }
+    public Stopwatch StopwatchExecute { get; }
 
-	#endregion
+    #endregion
 
-	#region Constructor and destructor
+    #region Constructor and destructor
 
-	public WsConfigModel(ushort waitExecute = 0, ushort waitClose = 0)
-	{
-		WaitExecute = waitExecute == 0 ? (ushort)0_100 : waitExecute;
-		WaitClose = waitClose == 0 ? (ushort)0_500 : waitClose;
-		StopwatchExecute = Stopwatch.StartNew();
-	}
+    public WsConfigModel(ushort waitExecute = 0, ushort waitClose = 0)
+    {
+        WaitExecute = waitExecute == 0 ? (ushort)0_100 : waitExecute;
+        WaitClose = waitClose == 0 ? (ushort)0_500 : waitClose;
+        StopwatchExecute = Stopwatch.StartNew();
+    }
 
-	public WsConfigModel() : this(0) { }
+    public WsConfigModel() : this(0) { }
 
-	public void WaitSync(ushort miliSeconds)
-	{
-		Stopwatch stopwatchSleep = Stopwatch.StartNew();
-		if (miliSeconds < WaitLowLimit)
-			miliSeconds = WaitLowLimit;
-		if (miliSeconds > WaitHighLimit)
-			miliSeconds = WaitHighLimit;
-		stopwatchSleep.Restart();
-		while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
-		{
-			Thread.Sleep(WaitSleep);
+    public void WaitSync(ushort miliSeconds)
+    {
+        Stopwatch stopwatchSleep = Stopwatch.StartNew();
+        if (miliSeconds < WaitLowLimit)
+            miliSeconds = WaitLowLimit;
+        if (miliSeconds > WaitHighLimit)
+            miliSeconds = WaitHighLimit;
+        stopwatchSleep.Restart();
+        while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
+        {
+            Thread.Sleep(WaitSleep);
             System.Windows.Forms.Application.DoEvents();
-		}
-		stopwatchSleep.Stop();
+        }
+        stopwatchSleep.Stop();
     }
 
     public async Task WaitAsync(ushort miliSeconds)
@@ -60,26 +61,26 @@ public sealed class WsConfigModel
     }
 
     public void WaitSync(Stopwatch stopwatch, ushort wait)
-	{
-		stopwatch.Restart();
-		while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)
-		{
-			Thread.Sleep(WaitSleep);
+    {
+        stopwatch.Restart();
+        while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)
+        {
+            Thread.Sleep(WaitSleep);
             System.Windows.Forms.Application.DoEvents();
         }
-		stopwatch.Stop();
-	}
+        stopwatch.Stop();
+    }
 
     public async Task WaitAsync(Stopwatch stopwatch, ushort wait)
-	{
-		stopwatch.Restart();
-		while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)
-		{
+    {
+        stopwatch.Restart();
+        while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)
+        {
             await Task.Delay(TimeSpan.FromMilliseconds(WaitSleep)).ConfigureAwait(true);
             System.Windows.Forms.Application.DoEvents();
         }
-		stopwatch.Stop();
-	}
+        stopwatch.Stop();
+    }
 
-	#endregion
+    #endregion
 }

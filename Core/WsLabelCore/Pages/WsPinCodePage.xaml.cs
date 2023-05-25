@@ -20,28 +20,4 @@ public partial class WsPinCodePage : INavigableView<WsPinCodeViewModel>
     }
 
     #endregion
-
-    #region Private methods
-
-    private void PagePin_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        ButtonClear_Click(sender, e);
-    }
-
-    private void ButtonNum_Click(object sender, EventArgs e)
-    {
-        //
-    }
-
-    private void ButtonClear_Click(object sender, RoutedEventArgs e)
-    {
-        //
-    }
-
-    private void ButtonEnter_Click(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ActionReturnOk();
-    }
-
-    #endregion
 }

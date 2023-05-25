@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLabelCore.Utils;
-
 #nullable enable
 /// <summary>
 /// Утилиты навигации по контролам.
@@ -28,7 +27,7 @@ public static class WsWinFormNavigationUtils
 
     #region Public and private methods
 
-    public static void ReturnBackFromNavigation()
+    public static void ActionBackFromNavigation()
     {
         foreach (Control control in NavigationUserControl.Controls)
         {
@@ -100,35 +99,83 @@ public static class WsWinFormNavigationUtils
     /// <param name="showNavigation"></param>
     /// <param name="title"></param>
     /// <param name="message"></param>
-    /// <param name="buttonVisibility"></param>
-    /// <param name="actionOk"></param>
+    /// <param name="actionAbort"></param>
     /// <param name="actionCancel"></param>
+    /// <param name="actionCustom"></param>
+    /// <param name="actionIgnore"></param>
+    /// <param name="actionNo"></param>
+    /// <param name="actionOk"></param>
+    /// <param name="actionRetry"></param>
+    /// <param name="actionYes"></param>
     private static void NavigateToControlMessage(Action<WsBaseUserControl> showNavigation, string title,
-        string message,
-        WsButtonVisibilityModel buttonVisibility, Action actionOk, Action actionCancel)
+        string message, Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore, Action actionNo,
+        Action actionOk, Action actionRetry, Action actionYes)
     {
-        MessageBoxUserControl.ViewModel.Setup(message, buttonVisibility, actionOk, actionCancel, ReturnBackFromNavigation);
+        MessageBoxUserControl.ViewModel.Setup(message, actionAbort, actionCancel, actionCustom,
+            actionIgnore, actionNo, actionOk, actionRetry, actionYes, ActionBackFromNavigation);
         NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
     }
 
     /// <summary>
-    /// Show new OperationControl form.
+    /// Навигация в контрол сообщений.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    /// <param name="title"></param>
+    /// <param name="message"></param>
+    /// <param name="actionNo"></param>
+    /// <param name="actionYes"></param>
+    private static void NavigateToControlMessageNoYes(Action<WsBaseUserControl> showNavigation, string title,
+        string message, Action actionNo, Action actionYes)
+    {
+        MessageBoxUserControl.ViewModel.SetupNoYes(message, actionNo, actionYes, ActionBackFromNavigation);
+        NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
+    }
+
+    /// <summary>
+    /// Навигация в контрол сообщений.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    /// <param name="title"></param>
+    /// <param name="message"></param>
+    private static void NavigateToControlMessageOk(Action<WsBaseUserControl> showNavigation, string title,
+        string message)
+    {
+        MessageBoxUserControl.ViewModel.SetupOk(message, ActionBackFromNavigation);
+        NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
+    }
+
+    /// <summary>
+    /// Navigate to control.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="message"></param>
     /// <param name="isLog"></param>
     /// <param name="logType"></param>
-    /// <param name="buttonVisibility"></param>
-    /// <param name="actionOk"></param>
-    /// <param name="actionCancel"></param>
+    /// <param name="actionNo"></param>
+    /// <param name="actionYes"></param>
     /// <returns></returns>
-    public static void NavigateToOperationControl(Action<WsBaseUserControl> showNavigation,
-        string message, bool isLog, WsEnumLogType logType, 
-        WsButtonVisibilityModel buttonVisibility, Action actionOk, Action actionCancel)
+    public static void NavigateToOperationControlNoYes(Action<WsBaseUserControl> showNavigation,
+        string message, bool isLog, WsEnumLogType logType, Action actionNo, Action actionYes)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
-        NavigateToControlMessage(showNavigation,
-            LocaleCore.Scales.OperationControl, message, buttonVisibility, actionOk, actionCancel);
+        NavigateToControlMessageNoYes(showNavigation,
+            LocaleCore.Scales.OperationControl, message, actionNo, actionYes);
+    }
+
+    /// <summary>
+    /// Navigate to control.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    /// <param name="message"></param>
+    /// <param name="isLog"></param>
+    /// <param name="logType"></param>
+    /// <returns></returns>
+    public static void NavigateToOperationControlOk(Action<WsBaseUserControl> showNavigation,
+        string message, bool isLog, WsEnumLogType logType)
+    {
+        if (isLog) ShowNewOperationControlLogType(message, logType);
+        NavigateToControlMessageOk(showNavigation,
+            LocaleCore.Scales.OperationControl, message);
     }
 
     private static void ShowNewOperationControlLogType(string message, WsEnumLogType logType,
@@ -160,12 +207,10 @@ public static class WsWinFormNavigationUtils
     {
         if (device.IsNew)
         {
-            NavigateToOperationControl(showNavigation,
+            NavigateToOperationControlNoYes(showNavigation,
                 LocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
-                false, WsEnumLogType.Information,
-                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                ActionOk, () => { });
-            void ActionOk()
+                false, WsEnumLogType.Information, () => { }, ActionYes);
+            void ActionYes()
             {
                 device = new()
                 {
@@ -200,10 +245,9 @@ public static class WsWinFormNavigationUtils
         string message = ex.InnerException is null
             ? ex.Message
             : ex.Message + Environment.NewLine + ex.InnerException.Message;
-        NavigateToControlMessage(showNavigation, LocaleCore.Scales.Exception,
+        NavigateToControlMessageOk(showNavigation, LocaleCore.Scales.Exception,
             $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
-            $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message,
-            new() { ButtonOkVisibility = Visibility.Visible }, () => { }, () => { });
+            $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message);
     }
 
     private static void CatchExceptionSimpleCore(Exception ex, string filePath, int lineNumber, string memberName)

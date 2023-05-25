@@ -3,38 +3,81 @@
 
 namespace WsLabelCore.ViewModels;
 
+/// <summary>
+/// Модель представления сообщений.
+/// </summary>
 #nullable enable
-public sealed class WsMessageBoxViewModel : WsWpfBaseViewModel
+[DebuggerDisplay("{ToString()}")]
+public sealed class WsMessageBoxViewModel : WsViewModelBase, INotifyPropertyChanged
 {
-	#region Public and private fields and properties
+    #region Public and private fields and properties
 
-	public string Message { get; set; }
+    public string Message { get; set; } = "";
     public Visibility MessageVisibility => !string.IsNullOrEmpty(Message) ? Visibility.Visible : Visibility.Hidden;
     public double FontSizeMessage => 26;
     public double FontSizeButton => 24;
-    public WsButtonVisibilityModel ButtonVisibility { get; }
 
     public WsMessageBoxViewModel()
-	{
-		Message = string.Empty;
-		ButtonVisibility = new();
-	}
+    {
+        //
+    }
+
+    public WsMessageBoxViewModel(string message,
+        WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom,
+        WsActionCommandModel cmdIgnore, WsActionCommandModel cmdNo, WsActionCommandModel cmdOk,
+        WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes)
+    {
+        Setup(message, cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes);
+    }
+
+    public WsMessageBoxViewModel(string message,
+        Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore, Action actionNo,
+        Action actionOk, Action actionRetry, Action actionYes, Action actionBack)
+    {
+        Setup(message, actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes, actionBack);
+    }
 
     #endregion
 
     #region Public and private methods
 
-    public void Setup(string message, WsButtonVisibilityModel buttonVisibility,
-        Action actionOk, Action actionCancel, Action actionDefault)
+    public void Setup(string message,
+        WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom, 
+        WsActionCommandModel cmdIgnore, WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, 
+        WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes)
     {
-        ActionReturnOk = actionOk;
-        ActionReturnOk += actionDefault;
-        ActionReturnCancel = actionCancel;
-        ActionReturnCancel += actionDefault;
-
         Message = message;
-        
-        ButtonVisibility.Setup(buttonVisibility, ActionReturnOk, ActionReturnCancel);
+        Setup(cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes);
+    }
+
+    public void Setup(string message, 
+        Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore, Action actionNo,
+        Action actionOk, Action actionRetry, Action actionYes, Action actionBack)
+    {
+        Message = message;
+        actionAbort += actionBack;
+        actionCancel += actionBack;
+        actionCustom += actionBack;
+        actionIgnore += actionBack;
+        actionNo += actionBack;
+        actionOk += actionBack;
+        actionRetry += actionBack;
+        actionYes += actionBack;
+        Setup(actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes);
+    }
+
+    public void SetupNoYes(string message, Action actionNo, Action actionYes, Action actionBack)
+    {
+        Message = message;
+        actionNo += actionBack;
+        actionYes += actionBack;
+        SetupNoYes(actionNo, actionYes);
+    }
+
+    public void SetupOk(string message, Action actionOk)
+    {
+        Message = message;
+        SetupOk(actionOk);
     }
 
     #endregion

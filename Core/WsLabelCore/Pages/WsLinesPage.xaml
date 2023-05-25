@@ -79,19 +79,17 @@
 				</ComboBox.ItemContainerStyle>
 			</ComboBox>
 			<Button
+				x:Name="buttonOk"
 				Grid.Row="2"
 				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
-				Click="ButtonOk_OnClick"
-				Command="{Binding ViewModel.ReturnOkCommand}"
 				Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply}" />
 			<Button
+				x:Name="buttonCancel"
 				Grid.Row="2"
 				Grid.Column="1"
 				Margin="3"
-				Click="ButtonCancel_OnClick"
-				Command="{Binding ViewModel.ReturnCancelCommand}"
 				Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel}" />
 		</Grid>
 	</Border>

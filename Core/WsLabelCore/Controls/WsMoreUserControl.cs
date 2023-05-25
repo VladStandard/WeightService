@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLabelCore.Controls;
-
 #nullable enable
 public sealed partial class WsMoreUserControl : WsBaseUserControl
 {
@@ -73,7 +72,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
             LabelSession.ProductDate = SaveProductDate;
             LabelSession.WeighingSettings.Kneading = SaveKneading;
             LabelSession.WeighingSettings.LabelsCountMain = SavePalletSize;
-            ViewModel.ActionReturnCancel();
+            ViewModel.RelayCancel();
         });
     }
 
@@ -94,7 +93,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
         WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             CheckWeightCount();
-            ViewModel.ActionReturnOk();
+            ViewModel.RelayOk();
         });
     }
 
@@ -181,7 +180,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
         });
     }
 
-    private void KneadingUserControl_KeyUp(object sender, KeyEventArgs e)
+    private void KneadingUserControl_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
     {
         WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {

@@ -48,10 +48,10 @@ public sealed class WsPluginMemoryHelper : WsPluginHelperBase
         ResponseItem.Config = configResponse;
         //ActionUtils.ActionTryCatch(() =>
         //{
-            FieldMemory = fieldMemory;
-            FieldMemoryExt = fieldMemoryExt;
-            MdInvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
-            MdInvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
+        FieldMemory = fieldMemory;
+        FieldMemoryExt = fieldMemoryExt;
+        MdInvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
+        MdInvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
         //});
     }
 

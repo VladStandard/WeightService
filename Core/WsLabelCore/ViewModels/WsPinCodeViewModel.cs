@@ -3,8 +3,12 @@
 
 namespace WsLabelCore.ViewModels;
 
+/// <summary>
+/// Модель представления пин кода.
+/// </summary>
 #nullable enable
-public class WsPinCodeViewModel : WsWpfBaseViewModel
+[DebuggerDisplay("{ToString()}")]
+public class WsPinCodeViewModel : WsViewModelBase, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 

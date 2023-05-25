@@ -3,7 +3,6 @@
 // ReSharper disable MismatchedFileName
 
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 
 namespace WsLabelCore.Pages;
 
@@ -19,7 +18,8 @@ public partial class WsLinesPage : INavigableView<WsLinesViewModel>
     public WsLinesPage(WsLinesViewModel viewModel)
     {
         InitializeComponent();
-        DataContext = ViewModel = viewModel;
+        ViewModel = viewModel;
+        
         // Площадки.
         comboBoxArea.SetBinding(ItemsControl.ItemsSourceProperty,
             new Binding(nameof(ViewModel.Areas)) { Mode = BindingMode.OneWay, Source = ViewModel });
@@ -29,6 +29,7 @@ public partial class WsLinesPage : INavigableView<WsLinesViewModel>
             new Binding(nameof(ViewModel.Area.Name)) { Mode = BindingMode.OneWay, Source = ViewModel.Area });
         comboBoxArea.DisplayMemberPath = nameof(ViewModel.Area.Name);
         comboBoxArea.SelectedValuePath = nameof(ViewModel.Area.Name);
+        
         // Линии.
         comboBoxLine.SetBinding(ItemsControl.ItemsSourceProperty, 
             new Binding(nameof(ViewModel.Lines)) { Mode = BindingMode.OneWay, Source = ViewModel });
@@ -38,17 +39,15 @@ public partial class WsLinesPage : INavigableView<WsLinesViewModel>
             new Binding($"{nameof(ViewModel.Line.NumberWithDescription)}") { Mode = BindingMode.OneWay, Source = ViewModel.Line });
         comboBoxLine.DisplayMemberPath = nameof(ViewModel.Line.NumberWithDescription);
         comboBoxLine.SelectedValuePath = nameof(ViewModel.Line.NumberWithDescription);
+        
+        // Кнопка OK.
+        buttonOk.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayOk)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+        
+        // Кнопка Cancel.
+        buttonCancel.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayCancel)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
     }
 
     #endregion
-
-    private void ButtonOk_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ReturnOk();
-    }
-
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ReturnCancel();
-    }
 }

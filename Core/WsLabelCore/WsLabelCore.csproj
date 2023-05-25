@@ -84,7 +84,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Helpers\WsLabelSessionHelper.cs" />
-    <Compile Include="Models\WsButtonCommandModel.cs" />
+    <Compile Include="Models\WsActionCommandModel.cs" />
     <Compile Include="Utils\WsWinFormNavigationUtils.cs" />
     <Compile Include="Utils\WsWinFormUtils.cs" />
     <Compile Include="ViewModels\WsWaitViewModel.cs" />
@@ -98,7 +98,6 @@
       <DependentUpon>WsNumberInputForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\WsSerialPortsUtils.cs" />
-    <Compile Include="Models\WsButtonVisibilityModel.cs" />
     <Compile Include="Helpers\WsHardwareHelper.cs" />
     <Compile Include="Helpers\WsUacHelper.cs" />
     <Compile Include="Helpers\WsUserSessionHelper.cs" />
@@ -112,7 +111,7 @@
     <Compile Include="ViewModels\WsLinesViewModel.cs" />
     <Compile Include="ViewModels\WsPinCodeViewModel.cs" />
     <Compile Include="ViewModels\WsPlusNestingViewModel.cs" />
-    <Compile Include="ViewModels\WsBaseViewModel.cs" />
+    <Compile Include="Bases\WsViewModelBase.cs" />
     <Compile Include="Helpers\WsFontsSettingsHelper.cs" />
     <Compile Include="Helpers\WsPluginLabelsHelper.cs" />
     <Compile Include="Helpers\WsPluginMassaHelper.cs" />
@@ -285,4 +284,5 @@
   <ItemGroup>
     <Compile Include="..\..\IsExternalInit.cs" Visible="false" />
   </ItemGroup>
+  <ItemGroup />
 </Project>

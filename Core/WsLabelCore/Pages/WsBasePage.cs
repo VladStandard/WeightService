@@ -3,7 +3,6 @@
 //using ComboBox = System.Windows.Controls.ComboBox;
 
 namespace WsLabelCore.Pages;
-
 #nullable enable
 public class WsBasePage : System.Windows.Controls.UserControl
 {

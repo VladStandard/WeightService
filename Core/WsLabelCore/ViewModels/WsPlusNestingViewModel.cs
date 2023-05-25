@@ -3,8 +3,12 @@
 
 namespace WsLabelCore.ViewModels;
 
+/// <summary>
+/// Модель представления вложенности ПЛУ.
+/// </summary>
 #nullable enable
-public sealed class WsPluNestingViewModel : WsWpfBaseViewModel
+[DebuggerDisplay("{ToString()}")]
+public sealed class WsPluNestingViewModel : WsViewModelBase, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 

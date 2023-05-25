@@ -9,7 +9,7 @@ namespace WsDataCore.Helpers;
 /// <summary>
 /// Application helper.
 /// </summary>
-public sealed class AppHelper : BaseViewModel
+public sealed class AppHelper //: BaseViewModel
 {
 	#region Design pattern "Lazy Singleton"
 

@@ -3,15 +3,16 @@
 
 namespace WsLabelCore.ViewModels;
 
+/// <summary>
+/// Модель представления ожидания.
+/// </summary>
 #nullable enable
-public sealed class WsWaitViewModel : WsWpfBaseViewModel
+[DebuggerDisplay("{ToString()}")]
+public sealed class WsWaitViewModel : WsViewModelBase, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    public WsWaitViewModel()
-    {
-        //
-    }
+    //
 
     #endregion
 }

@@ -17,60 +17,48 @@ public partial class WsMainForm
         Controls.Add(WsWinFormNavigationUtils.NavigationUserControl);
         // Ожидание.
         WsWinFormNavigationUtils.WaitUserControl = new();
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk = ReturnFromWait;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk += ActionFinally;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnCancel = ReturnFromWait;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnCancel += ActionFinally;
+        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionOk.Setup1Action(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionOk.AddAction(ActionFinally);
         // Замес.
         WsWinFormNavigationUtils.KneadingUserControl = new();
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionReturnOk = ReturnFromKneading;
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionReturnOk += ActionFinally;
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionReturnCancel = ReturnFromKneading;
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionReturnCancel += ActionFinally;
+        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionNo.Setup1Action(ReturnFromKneading);
+        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionNo.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionNo.AddAction(ActionFinally);
+        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionYes.Setup1Action(ReturnFromKneading);
+        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
         // Ещё.
         WsWinFormNavigationUtils.MoreUserControl = new();
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionReturnOk = ReturnFromMore;
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionReturnOk += ActionFinally;
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionReturnCancel = ReturnFromMore;
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionReturnCancel += ActionFinally;
+        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionNo.Setup1Action(ReturnFromMore);
+        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionNo.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionNo.AddAction(ActionFinally);
+        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionYes.Setup1Action(ReturnFromMore);
+        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
         // Смена линии.
         WsWinFormNavigationUtils.LinesUserControl = new();
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionReturnOk = ReturnOkFromLines;
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionReturnOk += ActionFinally;
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionReturnCancel = ReturnCancelFromLines;
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionReturnCancel += ActionFinally;
+        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionNo.Setup1Action(ReturnCancelFromLines);
+        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionNo.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionNo.AddAction(ActionFinally);
+        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionYes.Setup1Action(ReturnOkFromLines);
+        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
         // Смена ПЛУ.
         WsWinFormNavigationUtils.PlusLineUserControl = new();
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnOk = ReturnOkFromPlusLine;
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnOk += ActionFinally;
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnCancel = ReturnCancelFromPlusLine;
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionReturnCancel += ActionFinally;
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionNo.Setup1Action(ReturnCancelFromPlusLine);
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionNo.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionNo.AddAction(ActionFinally);
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionYes.Setup1Action(ReturnOkFromPlusLine);
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
         // Смена вложенности ПЛУ.
         WsWinFormNavigationUtils.PlusNestingUserControl = new();
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnOk = ReturnOkFromPlusNesting;
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnOk += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnOk += ActionFinally;
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnCancel = ReturnCancelFromPlusNesting;
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnCancel += WsWinFormNavigationUtils.ReturnBackFromNavigation;
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnCancel += ActionFinally;
-    }
-
-    /// <summary>
-    /// Возврат из контрола ожидания.
-    /// </summary>
-    private void ReturnFromWait()
-    {
-        //
+        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionNo.Setup1Action(ReturnCancelFromPlusNesting);
+        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionNo.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionNo.AddAction(ActionFinally);
+        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionYes.Setup1Action(ReturnOkFromPlusNesting);
+        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
+        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
     }
 
     /// <summary>
@@ -108,8 +96,7 @@ public partial class WsMainForm
     /// <summary>
     /// Возврат Отмена из контрола смены ПЛУ.
     /// </summary>
-    private void ReturnCancelFromPlusLine() =>
-        LabelSession.SetPluLine();
+    private void ReturnCancelFromPlusLine() => LabelSession.SetPluLine();
 
     /// <summary>
     /// Возврат ОК из контрола смены вложенности ПЛУ.
@@ -247,11 +234,10 @@ public partial class WsMainForm
         {
             // Сброс предупреждения.
             ResetWarning();
-            WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
-                true, WsEnumLogType.Question,
-                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                ActionOk, () => { });
-            void ActionOk()
+            WsWinFormNavigationUtils.NavigateToOperationControlNoYes(ShowNavigation, 
+                $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
+                true, WsEnumLogType.Question, () => { }, ActionYes);
+            void ActionYes()
             {
                 // Run app.
                 if (File.Exists(LocaleData.Paths.ScalesTerminal))
@@ -262,10 +248,9 @@ public partial class WsMainForm
                 }
                 else
                 {
-                    WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation, 
-                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, WsEnumLogType.Warning,
-                        new() { ButtonOkVisibility = Visibility.Visible },
-                        () => { }, () => { });
+                    WsWinFormNavigationUtils.NavigateToOperationControlOk(ShowNavigation, 
+                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, 
+                        WsEnumLogType.Warning);
                 }
             }
         });
@@ -284,24 +269,21 @@ public partial class WsMainForm
             ResetWarning();
             if (!LabelSession.PluLine.Plu.IsCheckWeight)
             {
-                WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation, LocaleCore.Scales.PluNotSelectWeight, true, WsEnumLogType.Warning,
-                    new() { ButtonOkVisibility = Visibility.Visible },
-                    () => { }, () => { });
+                WsWinFormNavigationUtils.NavigateToOperationControlOk(ShowNavigation, LocaleCore.Scales.PluNotSelectWeight, 
+                    true, WsEnumLogType.Warning);
                 return;
             }
             if (!UserSession.PluginMassa.MassaDevice.IsOpenPort)
             {
-                WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation, LocaleCore.Scales.MassaIsNotRespond, true, WsEnumLogType.Warning,
-                    new() { ButtonOkVisibility = Visibility.Visible },
-                    () => { }, () => { });
+                WsWinFormNavigationUtils.NavigateToOperationControlOk(ShowNavigation, LocaleCore.Scales.MassaIsNotRespond, 
+                    true, WsEnumLogType.Warning);
                 return;
             }
 
-            WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation,
+            WsWinFormNavigationUtils.NavigateToOperationControlNoYes(ShowNavigation,
                 LocaleCore.Scales.QuestionPerformOperation, true, WsEnumLogType.Question,
-                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                ActionOk, () => { });
-            void ActionOk()
+                () => { }, ActionYes);
+            void ActionYes()
             {
                 // Fix negative weight.
                 //if (UserSession.PluginMassa.WeightNet < 0)
@@ -381,9 +363,8 @@ public partial class WsMainForm
             ResetWarning();
             if (LabelSession.PluLine.IsNew)
             {
-                WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation, LocaleCore.Scales.PluNotSelect, true, WsEnumLogType.Warning,
-                    new() { ButtonOkVisibility = Visibility.Visible },
-                    () => { }, () => { });
+                WsWinFormNavigationUtils.NavigateToOperationControlOk(ShowNavigation, LocaleCore.Scales.PluNotSelect, 
+                    true, WsEnumLogType.Warning);
                 return;
             }
             // Навигация.
@@ -434,16 +415,15 @@ public partial class WsMainForm
             // Проверить подключение принтера.
             if (!IsSkipDialogs && Debug.IsDevelop)
             {
-                WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation,
+                WsWinFormNavigationUtils.NavigateToOperationControlNoYes(ShowNavigation,
                     LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    ActionOk, ActionCancel);
-                void ActionOk()
+                    ActionNo, ActionYes);
+                void ActionNo()
                 {
                     // Печать этикетки.
                     UserSession.PrintLabel(ShowNavigation, fieldWarning, false);
                 }
-                void ActionCancel()
+                void ActionYes()
                 {
                     // Проверить подключение и готовность принтеров.
                     if (ActionPreparePrintCheckPrinters())

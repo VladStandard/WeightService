@@ -34,19 +34,6 @@
 				<RowDefinition Height="5*" />
 				<RowDefinition Height="1*" />
 			</Grid.RowDefinitions>
-			<!--<TextBlock
-				x:Name="fieldCaption"
-				Grid.Row="0"
-				Grid.Column="0"
-				Margin="2"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
-				FontStretch="Expanded"
-				FontWeight="Bold"
-				KeyUp="Button_KeyUp"
-				Text="Caption"
-				TextAlignment="Center"
-				TextWrapping="Wrap" />-->
 			<ScrollViewer KeyUp="Button_KeyUp" VerticalScrollBarVisibility="Auto">
 				<TextBlock
 					x:Name="fieldMessage"
@@ -68,49 +55,41 @@
 				<Button
 					x:Name="buttonYes"
 					Margin="2"
-					Click="ButtonYes_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonCustom"
 					Margin="2"
-					Click="ButtonCustom_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonRetry"
 					Margin="2"
-					Click="ButtonRetry_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonNo"
 					Margin="2"
-					Click="ButtonNo_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonIgnore"
 					Margin="2"
-					Click="ButtonIgnore_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonCancel"
 					Margin="2"
-					Click="ButtonCancel_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonAbort"
 					Margin="2"
-					Click="ButtonAbort_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 				<Button
 					x:Name="buttonOk"
 					Margin="2"
-					Click="ButtonOk_OnClick"
 					FontWeight="Bold"
 					KeyUp="Button_KeyUp" />
 			</StackPanel>

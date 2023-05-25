@@ -2,11 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MismatchedFileName
 
-using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 
 namespace WsLabelCore.Pages;
-
 #nullable enable
 /// <summary>
 /// Interaction logic for WsPluNestingPage.xaml
@@ -19,8 +17,9 @@ public partial class WsPluNestingPage : INavigableView<WsPluNestingViewModel>
 
     public WsPluNestingPage(WsPluNestingViewModel viewModel)
     {
-		InitializeComponent();
+        InitializeComponent();
         ViewModel = viewModel;
+        
         // Вложенности ПЛУ.
         comboBoxPlusNesting.SetBinding(ItemsControl.ItemsSourceProperty, 
             new Binding(nameof(ViewModel.PlusNestings)) { Mode = BindingMode.OneWay, Source = ViewModel });
@@ -30,14 +29,16 @@ public partial class WsPluNestingPage : INavigableView<WsPluNestingViewModel>
             new Binding(nameof(ViewModel.PluNesting.TareWeightDescription)) { Mode = BindingMode.OneWay, Source = ViewModel.PluNesting });
         comboBoxPlusNesting.DisplayMemberPath = nameof(ViewModel.PluNesting.TareWeightDescription);
         comboBoxPlusNesting.SelectedValuePath = nameof(ViewModel.PluNesting.TareWeightDescription);
+
         // ПЛУ.
+        labelPlu.DataContext = ViewModel;
         labelPlu.SetBinding(ContentProperty, 
             new Binding(nameof(ViewModel.PluNesting.PluName)) { Mode = BindingMode.OneWay, Source = ViewModel.PluNesting });
-        //labelPlu.Content = ViewModel.PluNesting.PluName;
+
         // Вес тары ПЛУ.
+        labelTareWeight.DataContext = ViewModel;
         labelTareWeight.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.PluNesting.TareWeightWithKg)) { Mode = BindingMode.OneWay, Source = ViewModel.PluNesting });
-        //labelTareWeight.Content = ViewModel.PluNesting.TareWeightWithKg;
     }
 
     #endregion
@@ -45,16 +46,16 @@ public partial class WsPluNestingPage : INavigableView<WsPluNestingViewModel>
     #region Public and private methods
 
     private void ButtonApply_OnClick(object sender, RoutedEventArgs e)
-	{
+    {
         // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
-        ViewModel.ActionReturnOk();
+        ViewModel.RelayOk();
     }
 
-	private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-	{
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+    {
         // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
-        ViewModel.ActionReturnCancel();
-}
+        ViewModel.RelayCancel();
+    }
 
-	#endregion
+    #endregion
 }

@@ -3,10 +3,6 @@
 // ReSharper disable MismatchedFileName
 
 using System.Windows.Controls;
-using System.Windows.Input;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Button = System.Windows.Controls.Button;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace WsLabelCore.Pages;
 
@@ -24,12 +20,6 @@ public partial class WsMessageBoxPage : INavigableView<WsMessageBoxViewModel>
         InitializeComponent();
         ViewModel = viewModel;
         
-        // Заголовок.
-        //fieldCaption.SetBinding(TextBlock.TextProperty,
-        //    new Binding(nameof(ViewModel.Caption)) { Mode = BindingMode.OneWay, Source = ViewModel });
-        //fieldCaption.SetBinding(VisibilityProperty,
-        //    new Binding(nameof(ViewModel.CaptionVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel });
-        //fieldCaption.FontSize = ViewModel.FontSizeCaption;
         // Сообщение.
         fieldMessage.SetBinding(TextBlock.TextProperty,
             new Binding(nameof(ViewModel.Message)) { Mode = BindingMode.OneWay, Source = ViewModel });
@@ -37,54 +27,77 @@ public partial class WsMessageBoxPage : INavigableView<WsMessageBoxViewModel>
             new Binding(nameof(ViewModel.MessageVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel });
         fieldMessage.FontSize = ViewModel.FontSizeMessage;
 
-        // Кнопка Custom.
-        buttonCustom.SetBinding(ContentProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonCustomContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonCustom.SetBinding(VisibilityProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonCustomVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonCustom.FontSize = ViewModel.FontSizeButton;
-        // Кнопка Yes.
-        buttonYes.SetBinding(ContentProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonYesContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonYes.SetBinding(VisibilityProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonYesVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonYes.FontSize = ViewModel.FontSizeButton;
-        // Кнопка Retry.
-        buttonRetry.SetBinding(ContentProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonRetryContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonRetry.SetBinding(VisibilityProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonRetryVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonRetry.FontSize = ViewModel.FontSizeButton;
-        // Кнопка No.
-        buttonNo.SetBinding(ContentProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonNoContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonNo.SetBinding(VisibilityProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonNoVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonNo.FontSize = ViewModel.FontSizeButton;
-        // Кнопка Ignore.
-        buttonIgnore.SetBinding(ContentProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonIgnoreContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonIgnore.SetBinding(VisibilityProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonIgnoreVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonIgnore.FontSize = ViewModel.FontSizeButton;
-        // Кнопка Cancel.
-        buttonCancel.SetBinding(ContentProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonCancelContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonCancel.SetBinding(VisibilityProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonCancelVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
-        buttonCancel.FontSize = ViewModel.FontSizeButton;
         // Кнопка Abort.
         buttonAbort.SetBinding(ContentProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonAbortContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
+            new Binding(nameof(ViewModel.ActionAbort.Content)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionAbort });
         buttonAbort.SetBinding(VisibilityProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonAbortVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
+            new Binding(nameof(ViewModel.ActionAbort.Visibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionAbort });
         buttonAbort.FontSize = ViewModel.FontSizeButton;
+        buttonAbort.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayAbort)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+
+        // Кнопка Cancel.
+        buttonCancel.SetBinding(ContentProperty,
+            new Binding(nameof(ViewModel.ActionCancel.Content)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionCancel });
+        buttonCancel.SetBinding(VisibilityProperty,
+            new Binding(nameof(ViewModel.ActionCancel.Visibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionCancel });
+        buttonCancel.FontSize = ViewModel.FontSizeButton;
+        buttonCancel.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayCancel)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+
+        // Кнопка Custom.
+        buttonCustom.SetBinding(ContentProperty,
+            new Binding(nameof(ViewModel.ActionCustom.Content)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionCustom });
+        buttonCustom.SetBinding(VisibilityProperty,
+            new Binding(nameof(ViewModel.ActionCustom.Visibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionCustom });
+        buttonCustom.FontSize = ViewModel.FontSizeButton;
+        buttonCustom.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayCustom)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+
+        // Кнопка Ignore.
+        buttonIgnore.SetBinding(ContentProperty,
+            new Binding(nameof(ViewModel.ActionIgnore.Content)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionIgnore });
+        buttonIgnore.SetBinding(VisibilityProperty,
+            new Binding(nameof(ViewModel.ActionIgnore.Visibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionIgnore });
+        buttonIgnore.FontSize = ViewModel.FontSizeButton;
+        buttonIgnore.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayIgnore)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+
+        // Кнопка No.
+        buttonNo.SetBinding(ContentProperty,
+            new Binding(nameof(ViewModel.ActionNo.Content)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionNo });
+        buttonNo.SetBinding(VisibilityProperty,
+            new Binding(nameof(ViewModel.ActionNo.Visibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionNo });
+        buttonNo.FontSize = ViewModel.FontSizeButton;
+        buttonNo.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayNo)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+
         // Кнопка Ok.
         buttonOk.SetBinding(ContentProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonOkContent)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
+            new Binding(nameof(ViewModel.ActionOk.Content)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionOk });
         buttonOk.SetBinding(VisibilityProperty,
-            new Binding(nameof(ViewModel.ButtonVisibility.ButtonOkVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ButtonVisibility });
+            new Binding(nameof(ViewModel.ActionOk.Visibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionOk });
         buttonOk.FontSize = ViewModel.FontSizeButton;
+        buttonOk.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayOk)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+
+        // Кнопка Retry.
+        buttonRetry.SetBinding(ContentProperty,
+            new Binding(nameof(ViewModel.ActionRetry.Content)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionRetry });
+        buttonRetry.SetBinding(VisibilityProperty,
+            new Binding(nameof(ViewModel.ActionRetry.Visibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionRetry });
+        buttonRetry.FontSize = ViewModel.FontSizeButton;
+        buttonRetry.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayRetry)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+
+        // Кнопка Yes.
+        buttonYes.SetBinding(ContentProperty,
+            new Binding(nameof(ViewModel.ActionYes.Content)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionYes });
+        buttonYes.SetBinding(VisibilityProperty,
+            new Binding(nameof(ViewModel.ActionYes.Visibility)) { Mode = BindingMode.OneWay, Source = ViewModel.ActionYes });
+        buttonYes.FontSize = ViewModel.FontSizeButton;
+        buttonYes.SetBinding(ButtonBase.CommandProperty,
+            new Binding($"{nameof(ViewModel.RelayYes)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
     }
 
     #endregion
@@ -109,50 +122,17 @@ public partial class WsMessageBoxPage : INavigableView<WsMessageBoxViewModel>
 
     #region Public and private methods - Actions
 
-    private void ButtonOk_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ActionReturnOk();
-    }
-
-    private void ButtonYes_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ActionReturnOk();
-    }
-
-    private void ButtonCustom_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ActionReturnCancel();
-    }
-
-    private void ButtonRetry_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ActionReturnCancel();
-    }
-
-    private void ButtonNo_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ActionReturnCancel();
-    }
-
-    private void ButtonIgnore_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ActionReturnCancel();
-    }
-
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ActionReturnCancel();
-    }
-
-    private void ButtonAbort_OnClick(object sender, RoutedEventArgs e)
-    {
-        ViewModel.ActionReturnCancel();
-    }
-
     private void Button_KeyUp(object sender, KeyEventArgs e)
     {
-        if (e.Key.Equals(Key.Escape)) 
-            ViewModel.ActionReturnCancel();
+        switch (e.Key)
+        {
+            case Key.Escape:
+                ViewModel.RelayCancel();
+                break;
+            case Key.Enter:
+                ViewModel.RelayOk();
+                break;
+        }
     }
 
     #endregion

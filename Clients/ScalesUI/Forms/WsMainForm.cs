@@ -114,10 +114,9 @@ public partial class WsMainForm : Form
             if (LabelSession.DeviceScaleFk.IsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
-                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.Setup(
+                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.SetupOk(
                     message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
-                    new() { ButtonOkVisibility = Visibility.Visible }, ActionOkFromLineNotFound, () => { },
-                    WsWinFormNavigationUtils.ReturnBackFromNavigation);
+                    ActionBackFromLineNotFound);
                 WsWinFormNavigationUtils.NavigateToControl(ShowNavigation, WsNavigationPage.MessageBox,
                     LocaleCore.Scales.Registration, message);
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
@@ -128,9 +127,7 @@ public partial class WsMainForm : Form
             if (!isCreatedNew)
             {
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
-                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.Setup(message,
-                    new() { ButtonOkVisibility = Visibility.Visible }, ActionOkFromDuplicateRun, () => { },
-                    WsWinFormNavigationUtils.ReturnBackFromNavigation);
+                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.SetupOk(message, ActionBackFromDuplicateRun);
                 WsWinFormNavigationUtils.NavigateToControl(ShowNavigation, WsNavigationPage.MessageBox,
                     LocaleCore.Scales.Registration, message);
                 ContextManager.ContextItem.SaveLogWarning(message);
@@ -141,19 +138,13 @@ public partial class WsMainForm : Form
                 LocaleCore.Scales.AppLoad, LocaleCore.Scales.AppWaitLoad);
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
-            WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionReturnOk();
+            WsWinFormNavigationUtils.WaitUserControl.ViewModel.RelayOk();
         });
     }
 
-    private static void ActionOkFromLineNotFound()
-    {
-        System.Windows.Forms.Application.Exit();
-    }
+    private static void ActionBackFromLineNotFound() => System.Windows.Forms.Application.Exit();
 
-    private static void ActionOkFromDuplicateRun()
-    {
-        System.Windows.Forms.Application.Exit();
-    }
+    private static void ActionBackFromDuplicateRun() => System.Windows.Forms.Application.Exit();
 
     private void LoadMainControls()
     {
@@ -217,18 +208,16 @@ public partial class WsMainForm : Form
         {
             // Сброс предупреждения.
             ResetWarning();
-            WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation, $"{LocaleCore.Scales.QuestionCloseApp}?",
-                true, WsEnumLogType.Question,
-                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                ActionCloseOk, ActionCloseCancel);
+            WsWinFormNavigationUtils.NavigateToOperationControlNoYes(ShowNavigation, $"{LocaleCore.Scales.QuestionCloseApp}?",
+                true, WsEnumLogType.Question, ActionCloseNo, ActionCloseYes);
             e.Cancel = true;
         });
     }
 
     /// <summary>
-    /// Возврат OK из контрола закрытия.
+    /// Возврат Да из контрола закрытия.
     /// </summary>
-    private void ActionCloseOk()
+    private void ActionCloseYes()
     {
         ActionFinally();
         ContextManager.ContextItem.SaveLogMemory(
@@ -257,9 +246,9 @@ public partial class WsMainForm : Form
     }
 
     /// <summary>
-    /// Возврат Cancel из контрола закрытия.
+    /// Возврат Нет из контрола закрытия.
     /// </summary>
-    private void ActionCloseCancel()
+    private void ActionCloseNo()
     {
         IsMagicClose = false;
         ActionFinally();

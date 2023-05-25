@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLabelCore.Controls;
-
 #nullable enable
 public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
 {
@@ -85,9 +84,9 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
             }
 
             if (ViewModel.PluLine.IsExists)
-                ViewModel.ActionReturnOk();
+                ViewModel.RelayOk();
             else
-                ViewModel.ActionReturnCancel();
+                ViewModel.RelayCancel();
         });
     }
 
@@ -210,7 +209,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     /// <param name="e"></param>
     private void buttonCancel_Click(object sender, EventArgs e)
     {
-        ViewModel.ActionReturnCancel();
+        ViewModel.RelayCancel();
     }
 
     #endregion

@@ -4,7 +4,6 @@
 using WsStorageCore.TableScaleModels.WorkShops;
 
 namespace WsLabelCore.Helpers;
-
 #nullable enable
 /// <summary>
 /// User session.
@@ -66,7 +65,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     #region Public and private methods
 
     public int GetPlusPageCount() =>
-            ContextCache.LocalViewPlusLines.Where(item => item.IsActive).ToList().Count / PlusPageSize;
+        ContextCache.LocalViewPlusLines.Where(item => item.IsActive).ToList().Count / PlusPageSize;
 
     public void RotateProductDate(WsEnumDirection direction)
     {

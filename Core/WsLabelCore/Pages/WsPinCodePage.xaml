@@ -47,111 +47,77 @@
 			Grid.Column="0"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="7"
-			TabIndex="7" />
+			BorderBrush="Transparent" />
 		<Button
 			Grid.Row="1"
 			Grid.Column="1"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="8"
-			TabIndex="8" />
+			BorderBrush="Transparent" />
 		<Button
 			Grid.Row="1"
 			Grid.Column="2"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="9"
-			TabIndex="9" />
+			BorderBrush="Transparent" />
 		<!--  3 line  -->
 		<Button
 			Grid.Row="2"
 			Grid.Column="0"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="4"
-			TabIndex="4" />
+			BorderBrush="Transparent" />
 		<Button
 			Grid.Row="2"
 			Grid.Column="1"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="5"
-			TabIndex="5" />
+			BorderBrush="Transparent" />
 		<Button
 			Grid.Row="2"
 			Grid.Column="2"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="6"
-			TabIndex="6" />
+			BorderBrush="Transparent" />
 		<!--  4 line  -->
 		<Button
 			Grid.Row="3"
 			Grid.Column="0"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="1"
-			TabIndex="1" />
+			BorderBrush="Transparent" />
 		<Button
 			Grid.Row="3"
 			Grid.Column="1"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="2"
-			TabIndex="2" />
+			BorderBrush="Transparent" />
 		<Button
 			Grid.Row="3"
 			Grid.Column="2"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="3"
-			TabIndex="3" />
+			BorderBrush="Transparent" />
 		<!--  Buttons  -->
 		<Button
 			Grid.Row="4"
 			Grid.Column="0"
 			Margin="3"
 			Background="Transparent"
-			BorderBrush="Transparent"
-			Click="ButtonNum_Click"
-			Content="0"
-			TabIndex="1" />
+			BorderBrush="Transparent" />
 		<Button
 			Grid.Row="4"
 			Grid.Column="1"
 			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
-			Click="ButtonClear_Click"
-			Content="{Binding Source={StaticResource LocaleButtons}, Path=Clear, Mode=OneWay}"
-			TabIndex="2" />
+			Content="{Binding Source={StaticResource LocaleButtons}, Path=Clear, Mode=OneWay}" />
 		<Button
 			Grid.Row="4"
 			Grid.Column="2"
 			Margin="3"
 			Background="Transparent"
 			BorderBrush="Transparent"
-			Click="ButtonEnter_Click"
-			Content="{Binding Source={StaticResource LocaleButtons}, Path=Enter, Mode=OneWay}"
-			TabIndex="3" />
+			Content="{Binding Source={StaticResource LocaleButtons}, Path=Enter, Mode=OneWay}" />
 	</Grid>
 </pages:WsBasePage>

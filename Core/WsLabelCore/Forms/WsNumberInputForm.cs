@@ -23,7 +23,7 @@ public sealed partial class WsNumberInputForm : Form
 
     #region Private methods
 
-    private void PasswordForm_KeyUp(object sender, KeyEventArgs e)
+    private void PasswordForm_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
     {
         switch (e.KeyCode)
         {
