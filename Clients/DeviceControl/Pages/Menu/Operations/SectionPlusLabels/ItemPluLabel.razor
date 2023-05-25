@@ -3,7 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusLabels
 @using WsDataCore.Utils
-@using BlazorDeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusLabels.WsSqlPluLabelModel>
 
 <RazorItemReload TItem="@WsSqlPluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>

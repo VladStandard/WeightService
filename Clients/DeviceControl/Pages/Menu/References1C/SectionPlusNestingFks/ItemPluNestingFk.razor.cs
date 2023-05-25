@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
-namespace BlazorDeviceControl.Pages.Menu.References1C.SectionPlusNestingFks;
+namespace DeviceControl.Pages.Menu.References1C.SectionPlusNestingFks;
 
 public sealed partial class ItemPluNestingFk : RazorComponentItemBase<WsSqlPluNestingFkModel>
 {

@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableDiagModels.LogsWebsFks
 @using WsStorageCore.TableDiagModels.Logs
-@using BlazorDeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.ItemComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.LogsWebsFks.WsSqlLogWebFkModel>
 
 <RazorItemReload TItem="WsSqlLogWebFkModel" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>

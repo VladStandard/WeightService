@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.Bundles;
 
-namespace BlazorDeviceControl.Pages.Menu.References1C.SectionBundles;
+namespace DeviceControl.Pages.Menu.References1C.SectionBundles;
 
 public sealed partial class ItemBundle : RazorComponentItemBase<WsSqlBundleModel>
 {

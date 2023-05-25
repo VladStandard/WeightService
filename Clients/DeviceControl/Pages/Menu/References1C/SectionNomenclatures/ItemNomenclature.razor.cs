@@ -5,7 +5,7 @@ using WsStorageCore.TableScaleFkModels.PlusTemplatesFks;
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.Templates;
 
-namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclatures;
+namespace DeviceControl.Pages.Menu.References1C.SectionNomenclatures;
 
 public sealed partial class ItemNomenclature : RazorComponentItemBase<WsSqlPluModel>
 {

@@ -2,8 +2,8 @@
 @page "/section/organizations/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Organizations
-@using BlazorDeviceControl.Pages.ItemComponents
-@using BlazorDeviceControl.Pages.CustomComponents
+@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Organizations.WsSqlOrganizationModel>
 
 <RazorItemReload TItem="WsSqlOrganizationModel" Title="@LocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>

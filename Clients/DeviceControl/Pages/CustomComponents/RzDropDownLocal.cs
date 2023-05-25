@@ -3,7 +3,7 @@
 
 using Radzen.Blazor;
 
-namespace BlazorDeviceControl.Pages.CustomComponents;
+namespace DeviceControl.Pages.CustomComponents;
 
 public class RzDropDownLocal<T> : RadzenDropDown<T>
 {

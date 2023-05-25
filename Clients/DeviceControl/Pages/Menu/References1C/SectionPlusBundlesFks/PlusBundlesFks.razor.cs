@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 
-namespace BlazorDeviceControl.Pages.Menu.References1C.SectionPlusBundlesFks;
+namespace DeviceControl.Pages.Menu.References1C.SectionPlusBundlesFks;
 
 public sealed partial class PlusBundlesFks : RazorComponentSectionBase<WsSqlPluBundleFkModel>
 {

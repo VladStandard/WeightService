@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.Access;
 
-namespace BlazorDeviceControl.Pages.Menu.Admins.SectionAccess;
+namespace DeviceControl.Pages.Menu.Admins.SectionAccess;
 
 public sealed partial class Access : RazorComponentSectionBase<WsSqlAccessModel>
 {

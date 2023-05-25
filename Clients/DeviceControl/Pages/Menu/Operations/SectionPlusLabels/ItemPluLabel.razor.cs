@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleFkModels.PlusLabels;
 
-namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusLabels;
+namespace DeviceControl.Pages.Menu.Operations.SectionPlusLabels;
 
 public sealed partial class ItemPluLabel : RazorComponentItemBase<WsSqlPluLabelModel>
 {

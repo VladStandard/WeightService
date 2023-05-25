@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
 
-namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighings;
+namespace DeviceControl.Pages.Menu.Operations.SectionPlusWeighings;
 
 public sealed partial class ItemPluWeighing : RazorComponentItemBase<WsSqlPluWeighingModel>
 {

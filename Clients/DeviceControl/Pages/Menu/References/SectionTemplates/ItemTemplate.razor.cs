@@ -4,7 +4,7 @@
 using WsDataCore.Enums;
 using WsStorageCore.TableScaleModels.Templates;
 
-namespace BlazorDeviceControl.Pages.Menu.References.SectionTemplates;
+namespace DeviceControl.Pages.Menu.References.SectionTemplates;
 
 public sealed partial class ItemTemplate : RazorComponentItemBase<WsSqlTemplateModel>
 {

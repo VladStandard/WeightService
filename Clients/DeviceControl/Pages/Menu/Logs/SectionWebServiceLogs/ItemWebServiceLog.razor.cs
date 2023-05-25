@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableDiagModels.LogsWebsFks;
 
-namespace BlazorDeviceControl.Pages.Menu.Logs.SectionWebServiceLogs;
+namespace DeviceControl.Pages.Menu.Logs.SectionWebServiceLogs;
 
 public sealed partial class ItemWebServiceLog : RazorComponentItemBase<WsSqlLogWebFkModel>
 {

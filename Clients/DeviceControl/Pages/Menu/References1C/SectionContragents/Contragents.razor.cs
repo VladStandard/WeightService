@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.Contragents;
 
-namespace BlazorDeviceControl.Pages.Menu.References1C.SectionContragents;
+namespace DeviceControl.Pages.Menu.References1C.SectionContragents;
 
 public sealed partial class Contragents : RazorComponentSectionBase<WsSqlContragentModel>
 {

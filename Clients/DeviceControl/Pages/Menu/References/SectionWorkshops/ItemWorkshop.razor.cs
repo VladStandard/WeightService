@@ -4,7 +4,7 @@
 using WsStorageCore.TableScaleModels.ProductionFacilities;
 using WsStorageCore.TableScaleModels.WorkShops;
 
-namespace BlazorDeviceControl.Pages.Menu.References.SectionWorkshops;
+namespace DeviceControl.Pages.Menu.References.SectionWorkshops;
 
 public sealed partial class ItemWorkshop : RazorComponentItemBase<WsSqlWorkShopModel>
 {

@@ -2,8 +2,8 @@
 @page "/section/workshops/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.WorkShops
-@using BlazorDeviceControl.Pages.ItemComponents
-@using BlazorDeviceControl.Pages.CustomComponents
+@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.WorkShops.WsSqlWorkShopModel>
 
 <RazorItemReload TItem="@WsSqlWorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>

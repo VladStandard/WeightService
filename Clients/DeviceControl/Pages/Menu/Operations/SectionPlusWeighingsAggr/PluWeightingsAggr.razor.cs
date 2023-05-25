@@ -4,7 +4,7 @@
 using WsStorageCore.Helpers;
 using WsStorageCore.TableScaleFkModels.Aggregations;
 
-namespace BlazorDeviceControl.Pages.Menu.Operations.SectionPlusWeighingsAggr;
+namespace DeviceControl.Pages.Menu.Operations.SectionPlusWeighingsAggr;
 
 public sealed partial class PluWeightingsAggr : LayoutComponentBase
 {

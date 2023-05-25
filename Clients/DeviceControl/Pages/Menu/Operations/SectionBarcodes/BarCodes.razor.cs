@@ -4,7 +4,7 @@
 using WsBlazorCore.Settings;
 using WsStorageCore.ViewScaleModels;
 
-namespace BlazorDeviceControl.Pages.Menu.Operations.SectionBarcodes;
+namespace DeviceControl.Pages.Menu.Operations.SectionBarcodes;
 
 public sealed partial class BarCodes : RazorComponentSectionBase<BarcodeView>
 {

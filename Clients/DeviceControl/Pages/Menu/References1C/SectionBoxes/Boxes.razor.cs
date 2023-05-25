@@ -4,7 +4,7 @@
 using WsBlazorCore.Settings;
 using WsStorageCore.TableScaleModels.Boxes;
 
-namespace BlazorDeviceControl.Pages.Menu.References1C.SectionBoxes;
+namespace DeviceControl.Pages.Menu.References1C.SectionBoxes;
 
 public sealed partial class Boxes : RazorComponentSectionBase<WsSqlBoxModel>
 {

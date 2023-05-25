@@ -4,7 +4,7 @@
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.PrintersTypes;
 
-namespace BlazorDeviceControl.Pages.Menu.Devices.SectionPrinters;
+namespace DeviceControl.Pages.Menu.Devices.SectionPrinters;
 
 public sealed partial class ItemPrinter : RazorComponentItemBase<WsSqlPrinterModel>
 {

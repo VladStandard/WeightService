@@ -3,7 +3,7 @@
 
 using WsStorageCore.TableScaleModels.WorkShops;
 
-namespace BlazorDeviceControl.Pages.Menu.References.SectionWorkshops;
+namespace DeviceControl.Pages.Menu.References.SectionWorkshops;
 
 public sealed partial class Workshops : RazorComponentSectionBase<WsSqlWorkShopModel>
 {

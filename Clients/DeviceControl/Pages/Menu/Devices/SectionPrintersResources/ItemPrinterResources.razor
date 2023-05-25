@@ -2,8 +2,8 @@
 @page "/section/printers_resources/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PrintersResourcesFks
-@using BlazorDeviceControl.Pages.ItemComponents
-@using BlazorDeviceControl.Pages.CustomComponents
+@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
 
 <RazorItemReload TItem="@WsSqlPrinterResourceFkModel" Title="@LocaleCore.Print.Resource" OnItemUpdate="@GetItemData"/>

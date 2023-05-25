@@ -2,7 +2,7 @@
 
 ## Projects
 - [ScalesUI](Clients/ScalesUI/README.md)
-- [BlazorDeviceControl](Clients/DeviceControl/README.md)
+- [DeviceControl](Clients/DeviceControl/README.md)
 
 ## Info
 - [Stack](Technology%20Stack.md)

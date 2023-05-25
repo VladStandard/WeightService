@@ -5,7 +5,7 @@ using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableScaleModels.Scales;
 using WsStorageCore.ViewScaleModels;
 
-namespace BlazorDeviceControl.Pages.Menu.Logs.SectionLogs;
+namespace DeviceControl.Pages.Menu.Logs.SectionLogs;
 
 public sealed partial class Logs : RazorComponentSectionBase<LogView>
 {

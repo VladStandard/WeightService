@@ -1,10 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Enums;
 using WsStorageCore.TableScaleModels.Plus;
 
-namespace BlazorDeviceControl.Pages.Menu.References1C.SectionNomenclatures;
+namespace DeviceControl.Pages.Menu.References1C.SectionNomenclatures;
 
 public sealed partial class Nomenclatures : RazorComponentSectionBase<WsSqlPluModel>
 {

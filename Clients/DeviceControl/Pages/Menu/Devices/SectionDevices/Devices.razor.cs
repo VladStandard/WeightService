@@ -3,7 +3,7 @@
 
 using WsStorageCore.ViewScaleModels;
 
-namespace BlazorDeviceControl.Pages.Menu.Devices.SectionDevices;
+namespace DeviceControl.Pages.Menu.Devices.SectionDevices;
 
 public sealed partial class Devices : RazorComponentSectionBase<DeviceView>
 {
