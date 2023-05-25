@@ -1,9 +1,9 @@
 # Publish lifecycle
 
 ## Update routing
-VS -> Tools -> Version changer
-cmd: `git add *.csproj && git add *AssemblyInfo.cs && git add CHANGELOG.md && git cism "#Version update to v0.x.xxx" && git bra && git st`
-# cmd: `git stad && git cism "#Version update to v0.x.xxx"`
+- VS -> Tools -> Version changer
+- cmd: `cls && git add *.csproj && git add *AssemblyInfo.cs && git add CHANGELOG.md && git cism "#Version update to v0.x.xxx" && git bra && git st`
+- cmd: `cls && git stad && git cism "#Version update to v0.x.xxx"`
 
 ## Tag routing
 cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
@@ -19,6 +19,12 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 
 ## Rollback
 - x rollback merge:     `git merge --quit && git reset . && git checkout . && git clean -fd && cls && git bra && git st`
+
+## Push
+- ✓ push develop:    	`git push all develop && git bra && git st`
+- ✓ push preview:    	`git push preview && git bra && git st`
+- ✓ push main:    		`git push all main && git bra && git st`
+- ✓ push all:    		`git push all develop && git push preview && git push all main && git bra && git st`
 
 ## Back version
 Go back: `git co . && git co 79ad47adc && git bra`
