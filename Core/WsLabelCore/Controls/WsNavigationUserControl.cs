@@ -30,7 +30,16 @@ public sealed partial class WsNavigationUserControl : WsBaseUserControl
         fieldTitle.Text = title;
         fieldTitle.Visible = !string.IsNullOrEmpty(title);
 
-        foreach (Control control in layoutPanelUser.Controls) control.Visible = false;
+        foreach (Control control in layoutPanelUser.Controls)
+        {
+            if (control is WsBaseUserControl getControl)
+            {
+                if (!getControl.Name.Equals(userControl.Name))
+                    control.Visible = false;
+            }
+            else
+                control.Visible = false;
+        }
         if (!layoutPanelUser.Controls.Contains(userControl))
             layoutPanelUser.Controls.Add(userControl, 1, 1);
         layoutPanelUser.SetRowSpan(userControl, 1);

@@ -10,7 +10,6 @@ public sealed class WsMessageBoxViewModel : WsWpfBaseViewModel
 
 	public string Message { get; set; }
     public Visibility MessageVisibility => !string.IsNullOrEmpty(Message) ? Visibility.Visible : Visibility.Hidden;
-    public double FontSizeCaption => 30;
     public double FontSizeMessage => 26;
     public double FontSizeButton => 24;
     public WsButtonVisibilityModel ButtonVisibility { get; }
@@ -28,22 +27,14 @@ public sealed class WsMessageBoxViewModel : WsWpfBaseViewModel
     public void Setup(string message, WsButtonVisibilityModel buttonVisibility,
         Action actionOk, Action actionCancel, Action actionDefault)
     {
-        Message = message;
-        
-        ButtonVisibility.ButtonAbortVisibility = buttonVisibility.ButtonAbortVisibility;
-        ButtonVisibility.ButtonCancelVisibility = buttonVisibility.ButtonCancelVisibility;
-        ButtonVisibility.ButtonCustomVisibility = buttonVisibility.ButtonCustomVisibility;
-        ButtonVisibility.ButtonIgnoreVisibility = buttonVisibility.ButtonIgnoreVisibility;
-        ButtonVisibility.ButtonNoVisibility = buttonVisibility.ButtonNoVisibility;
-        ButtonVisibility.ButtonOkVisibility = buttonVisibility.ButtonOkVisibility;
-        ButtonVisibility.ButtonRetryVisibility = buttonVisibility.ButtonRetryVisibility;
-        ButtonVisibility.ButtonYesVisibility = buttonVisibility.ButtonYesVisibility;
-        ButtonVisibility.Localization();
-
         ActionReturnOk = actionOk;
         ActionReturnOk += actionDefault;
         ActionReturnCancel = actionCancel;
         ActionReturnCancel += actionDefault;
+
+        Message = message;
+        
+        ButtonVisibility.Setup(buttonVisibility, ActionReturnOk, ActionReturnCancel);
     }
 
     #endregion

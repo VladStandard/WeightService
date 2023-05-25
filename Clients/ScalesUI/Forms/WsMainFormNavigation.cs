@@ -65,6 +65,9 @@ public partial class WsMainForm
         WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionReturnCancel += ActionFinally;
     }
 
+    /// <summary>
+    /// Возврат из контрола ожидания.
+    /// </summary>
     private void ReturnFromWait()
     {
         //
@@ -392,11 +395,7 @@ public partial class WsMainForm
     /// <summary>
     /// Сброс предупреждения.
     /// </summary>
-    private void ResetWarning()
-    {
-        MdInvokeControl.SetVisible(fieldWarning, false);
-        MdInvokeControl.SetText(fieldWarning, string.Empty);
-    }
+    private void ResetWarning() => MdInvokeControl.SetText(fieldWarning, string.Empty);
 
     /// <summary>
     /// Подготовка к печати.

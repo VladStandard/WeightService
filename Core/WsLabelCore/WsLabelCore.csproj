@@ -84,6 +84,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Helpers\WsLabelSessionHelper.cs" />
+    <Compile Include="Models\WsButtonCommandModel.cs" />
     <Compile Include="Utils\WsWinFormNavigationUtils.cs" />
     <Compile Include="Utils\WsWinFormUtils.cs" />
     <Compile Include="ViewModels\WsWaitViewModel.cs" />

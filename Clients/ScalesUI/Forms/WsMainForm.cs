@@ -32,6 +32,10 @@ public partial class WsMainForm : Form
     /// Отладочный флаг для сквозных тестов печати, без диалогов.
     /// </summary>
     private const bool IsSkipDialogs = false;
+    /// <summary>
+    /// Магический флаг закрытия после нажатия кнопки OK.
+    /// </summary>
+    private bool IsMagicClose { get; set; }
 
     public WsMainForm()
     {
@@ -201,20 +205,29 @@ public partial class WsMainForm : Form
         MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }
 
+    /// <summary>
+    /// Закрытие программы.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        if (IsMagicClose) return;
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             // Сброс предупреждения.
             ResetWarning();
             WsWinFormNavigationUtils.NavigateToOperationControl(ShowNavigation, $"{LocaleCore.Scales.QuestionCloseApp}?",
                 true, WsEnumLogType.Question,
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                ActionCloseOk, ActionFinally);
+                ActionCloseOk, ActionCloseCancel);
             e.Cancel = true;
         });
     }
 
+    /// <summary>
+    /// Возврат OK из контрола закрытия.
+    /// </summary>
     private void ActionCloseOk()
     {
         ActionFinally();
@@ -238,8 +251,23 @@ public partial class WsMainForm : Form
         // Mouse unhook.
         KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
         KeyboardMouseEvents.Dispose();
+        // Магический флаг.
+        IsMagicClose = true;
+        Close();
     }
 
+    /// <summary>
+    /// Возврат Cancel из контрола закрытия.
+    /// </summary>
+    private void ActionCloseCancel()
+    {
+        IsMagicClose = false;
+        ActionFinally();
+    }
+
+    /// <summary>
+    /// Загрузка шрифтов.
+    /// </summary>
     private void LoadFonts()
     {
         fieldTitle.Font = FontsSettings.FontLabelsTitle;
