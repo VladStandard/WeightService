@@ -3,6 +3,10 @@
 
 namespace WsLabelCore.Controls;
 
+/// <summary>
+/// Контрол ПЛУ.
+/// </summary>
+#nullable enable
 [DebuggerDisplay("{ToString()}")]
 public sealed class WsPluControl : UserControl
 {

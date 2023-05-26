@@ -2,10 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLabelCore.Controls;
+
 #nullable enable
 /// <summary>
 /// Корневой контрол навигации.
 /// </summary>
+[DebuggerDisplay("{ToString()}")]
 public sealed partial class WsNavigationUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor

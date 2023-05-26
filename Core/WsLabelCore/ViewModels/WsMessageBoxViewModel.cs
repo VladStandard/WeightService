@@ -14,28 +14,6 @@ public sealed class WsMessageBoxViewModel : WsViewModelBase, INotifyPropertyChan
 
     public string Message { get; set; } = "";
     public Visibility MessageVisibility => !string.IsNullOrEmpty(Message) ? Visibility.Visible : Visibility.Hidden;
-    public double FontSizeMessage => 26;
-    public double FontSizeButton => 24;
-
-    public WsMessageBoxViewModel()
-    {
-        //
-    }
-
-    public WsMessageBoxViewModel(string message,
-        WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom,
-        WsActionCommandModel cmdIgnore, WsActionCommandModel cmdNo, WsActionCommandModel cmdOk,
-        WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes)
-    {
-        Setup(message, cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes);
-    }
-
-    public WsMessageBoxViewModel(string message,
-        Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore, Action actionNo,
-        Action actionOk, Action actionRetry, Action actionYes, Action actionBack)
-    {
-        Setup(message, actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes, actionBack);
-    }
 
     #endregion
 
@@ -46,40 +24,46 @@ public sealed class WsMessageBoxViewModel : WsViewModelBase, INotifyPropertyChan
     public void Setup(string message,
         WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom, 
         WsActionCommandModel cmdIgnore, WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, 
-        WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes)
+        WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes, int controlWidth)
     {
         Message = message;
-        Setup(cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes);
+        SetupCommands(cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes);
+        SetupButtonsWidth(controlWidth);
     }
 
-    public void Setup(string message, 
+    /// <summary>
+    /// Настройка действий.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="actionAbort"></param>
+    /// <param name="actionCancel"></param>
+    /// <param name="actionCustom"></param>
+    /// <param name="actionIgnore"></param>
+    /// <param name="actionNo"></param>
+    /// <param name="actionOk"></param>
+    /// <param name="actionRetry"></param>
+    /// <param name="actionYes"></param>
+    /// <param name="actionBack"></param>
+    /// <param name="controlWidth"></param>
+    public void SetupActions(string message, 
         Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore, Action actionNo,
-        Action actionOk, Action actionRetry, Action actionYes, Action actionBack)
+        Action actionOk, Action actionRetry, Action actionYes, Action actionBack, int controlWidth)
     {
         Message = message;
-        actionAbort += actionBack;
-        actionCancel += actionBack;
-        actionCustom += actionBack;
-        actionIgnore += actionBack;
-        actionNo += actionBack;
-        actionOk += actionBack;
-        actionRetry += actionBack;
-        actionYes += actionBack;
-        Setup(actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes);
+        SetupActions(actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes, 
+            actionBack, controlWidth);
     }
 
-    public void SetupNoYes(string message, Action actionNo, Action actionYes, Action actionBack)
+    public void SetupButtonsNoYes(string message, Action actionNo, Action actionYes, Action actionBack, int controlWidth)
     {
         Message = message;
-        actionNo += actionBack;
-        actionYes += actionBack;
-        SetupNoYes(actionNo, actionYes);
+        SetupButtonsNoYes(actionNo, actionYes, actionBack, controlWidth);
     }
 
-    public void SetupOk(string message, Action actionOk)
+    public void SetupButtonsOk(string message, Action actionOk, int controlWidth)
     {
         Message = message;
-        SetupOk(actionOk);
+        SetupButtonsOk(actionOk, controlWidth);
     }
 
     #endregion

@@ -2,10 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLabelCore.Controls;
+
 #nullable enable
 /// <summary>
 /// Базовый класс контрола.
 /// </summary>
+[DebuggerDisplay("{ToString()}")]
 public class WsBaseUserControl : UserControl
 {
     #region Public and private fields, properties, constructor
@@ -18,6 +20,8 @@ public class WsBaseUserControl : UserControl
     #endregion
 
     #region Public and private methods
+
+    public override string ToString() => Message;
 
     public virtual void RefreshAction() { }
 

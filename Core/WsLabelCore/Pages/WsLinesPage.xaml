@@ -30,8 +30,8 @@
 				<ColumnDefinition Width="2*" />
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="1*" />
-				<RowDefinition Height="1*" />
+				<RowDefinition Height="2.5*" />
+				<RowDefinition Height="2.5*" />
 				<RowDefinition Height="1*" />
 			</Grid.RowDefinitions>
 			<Label
@@ -78,7 +78,12 @@
 					</Style>
 				</ComboBox.ItemContainerStyle>
 			</ComboBox>
-			<Button
+			<ItemsControl
+				x:Name="itemsControl"
+				Grid.Row="2"
+				Grid.ColumnSpan="2"
+				Margin="2" />
+			<!--<Button
 				x:Name="buttonOk"
 				Grid.Row="2"
 				Margin="3"
@@ -90,7 +95,7 @@
 				Grid.Row="2"
 				Grid.Column="1"
 				Margin="3"
-				Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel}" />
+				Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel}" />-->
 		</Grid>
 	</Border>
 </pages:WsBasePage>

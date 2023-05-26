@@ -2,7 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLabelCore.Controls;
+
+/// <summary>
+/// Контрол смены вложенности ПЛУ.
+/// </summary>
 #nullable enable
+[DebuggerDisplay("{ToString()}")]
 public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
@@ -26,6 +31,8 @@ public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
     #endregion
 
     #region Public and private methods
+
+    public override string ToString() => ViewModel.ToString();
 
     public override void RefreshAction()
     {

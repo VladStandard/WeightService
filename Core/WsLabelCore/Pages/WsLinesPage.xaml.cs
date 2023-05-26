@@ -39,14 +39,17 @@ public partial class WsLinesPage : INavigableView<WsLinesViewModel>
             new Binding($"{nameof(ViewModel.Line.NumberWithDescription)}") { Mode = BindingMode.OneWay, Source = ViewModel.Line });
         comboBoxLine.DisplayMemberPath = nameof(ViewModel.Line.NumberWithDescription);
         comboBoxLine.SelectedValuePath = nameof(ViewModel.Line.NumberWithDescription);
+
+        //// Кнопка Да.
+        //buttonOk.SetBinding(ButtonBase.CommandProperty,
+        //    new Binding($"{nameof(ViewModel.ActionOk.Relay)}Command") { Mode = BindingMode.OneWay, Source = ViewModel.ActionOk });
+
+        //// Кнопка Нет.
+        //buttonCancel.SetBinding(ButtonBase.CommandProperty,
+        //    new Binding($"{nameof(ViewModel.ActionCancel.Relay)}Command") { Mode = BindingMode.OneWay, Source = ViewModel.ActionCancel });
         
-        // Кнопка OK.
-        buttonOk.SetBinding(ButtonBase.CommandProperty,
-            new Binding($"{nameof(ViewModel.ActionOk.Relay)}Command") { Mode = BindingMode.OneWay, Source = ViewModel.ActionOk });
-        
-        // Кнопка Cancel.
-        buttonCancel.SetBinding(ButtonBase.CommandProperty,
-            new Binding($"{nameof(ViewModel.ActionCancel.Relay)}Command") { Mode = BindingMode.OneWay, Source = ViewModel.ActionCancel });
+        // Настроить кнопки.
+        SetupButtons(ViewModel, itemsControl);
     }
 
     #endregion

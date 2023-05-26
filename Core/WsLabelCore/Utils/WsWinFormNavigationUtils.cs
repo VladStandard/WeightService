@@ -111,8 +111,8 @@ public static class WsWinFormNavigationUtils
         string message, Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore, Action actionNo,
         Action actionOk, Action actionRetry, Action actionYes)
     {
-        MessageBoxUserControl.ViewModel.Setup(message, actionAbort, actionCancel, actionCustom,
-            actionIgnore, actionNo, actionOk, actionRetry, actionYes, ActionBackFromNavigation);
+        MessageBoxUserControl.ViewModel.SetupActions(message, actionAbort, actionCancel, actionCustom,
+            actionIgnore, actionNo, actionOk, actionRetry, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
         NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
     }
 
@@ -127,7 +127,7 @@ public static class WsWinFormNavigationUtils
     private static void NavigateToControlMessageNoYes(Action<WsBaseUserControl> showNavigation, string title,
         string message, Action actionNo, Action actionYes)
     {
-        MessageBoxUserControl.ViewModel.SetupNoYes(message, actionNo, actionYes, ActionBackFromNavigation);
+        MessageBoxUserControl.ViewModel.SetupButtonsNoYes(message, actionNo, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
         NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
     }
 
@@ -140,7 +140,7 @@ public static class WsWinFormNavigationUtils
     private static void NavigateToControlMessageOk(Action<WsBaseUserControl> showNavigation, string title,
         string message)
     {
-        MessageBoxUserControl.ViewModel.SetupOk(message, ActionBackFromNavigation);
+        MessageBoxUserControl.ViewModel.SetupButtonsOk(message, ActionBackFromNavigation, NavigationUserControl.Width);
         NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
     }
 

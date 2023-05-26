@@ -202,6 +202,7 @@ public partial class WsMainForm
             ContextCache.Load(WsSqlTableName.Areas);
             ContextCache.Load(WsSqlTableName.Lines);
             // Навигация.
+            WsWinFormNavigationUtils.LinesUserControl.ViewModel.SetupButtonsWidth(WsWinFormNavigationUtils.NavigationUserControl.Width);
             WsWinFormNavigationUtils.NavigateToControl(ShowNavigation, WsNavigationPage.Lines,
                 LocaleCore.Scales.SwitchLineTitle, "");
         });

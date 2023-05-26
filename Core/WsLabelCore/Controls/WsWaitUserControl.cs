@@ -3,7 +3,11 @@
 
 namespace WsLabelCore.Controls;
 
+/// <summary>
+/// Контрол ожидания.
+/// </summary>
 #nullable enable
+[DebuggerDisplay("{ToString()}")]
 public sealed partial class WsWaitUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
@@ -20,10 +24,9 @@ public sealed partial class WsWaitUserControl : WsBaseUserControl
 
     #region Public and private methods
 
-    public override void RefreshAction()
-    {
-        labelMessage.Text = Message;
-    }
+    public override string ToString() => ViewModel.ToString();
+
+    public override void RefreshAction() => labelMessage.Text = Message;
 
     #endregion
 }

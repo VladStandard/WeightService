@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLabelCore.Controls;
+
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm : Form
@@ -114,9 +116,9 @@ public partial class WsMainForm : Form
             if (LabelSession.DeviceScaleFk.IsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
-                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.SetupOk(
+                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.SetupButtonsOk(
                     message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
-                    ActionBackFromLineNotFound);
+                    ActionBackFromLineNotFound, WsWinFormNavigationUtils.NavigationUserControl.Width);
                 WsWinFormNavigationUtils.NavigateToControl(ShowNavigation, WsNavigationPage.MessageBox,
                     LocaleCore.Scales.Registration, message);
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
@@ -127,7 +129,8 @@ public partial class WsMainForm : Form
             if (!isCreatedNew)
             {
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
-                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.SetupOk(message, ActionBackFromDuplicateRun);
+                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.SetupButtonsOk(message, ActionBackFromDuplicateRun, 
+                    WsWinFormNavigationUtils.NavigationUserControl.Width);
                 WsWinFormNavigationUtils.NavigateToControl(ShowNavigation, WsNavigationPage.MessageBox,
                     LocaleCore.Scales.Registration, message);
                 ContextManager.ContextItem.SaveLogWarning(message);

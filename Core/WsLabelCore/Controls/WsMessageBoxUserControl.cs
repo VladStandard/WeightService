@@ -3,7 +3,11 @@
 
 namespace WsLabelCore.Controls;
 
+/// <summary>
+/// Контрол сообщений.
+/// </summary>
 #nullable enable
+[DebuggerDisplay("{ToString()}")]
 public sealed partial class WsMessageBoxUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
@@ -26,6 +30,8 @@ public sealed partial class WsMessageBoxUserControl : WsBaseUserControl
     #endregion
 
     #region Public and private methods
+
+    public override string ToString() => ViewModel.ToString();
 
     public override void RefreshAction()
     {
