@@ -29,8 +29,6 @@ partial class WsWaitUserControl
     private void InitializeComponent()
     {
             this.layoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.labelMessage = new System.Windows.Forms.Label();
-            this.layoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // layoutPanel
@@ -39,7 +37,6 @@ partial class WsWaitUserControl
             this.layoutPanel.BackColor = System.Drawing.Color.Transparent;
             this.layoutPanel.ColumnCount = 1;
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.layoutPanel.Controls.Add(this.labelMessage, 0, 0);
             this.layoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutPanel.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.layoutPanel.Location = new System.Drawing.Point(0, 0);
@@ -52,30 +49,14 @@ partial class WsWaitUserControl
             this.layoutPanel.Size = new System.Drawing.Size(900, 500);
             this.layoutPanel.TabIndex = 4;
             // 
-            // labelMessage
-            // 
-            this.labelMessage.BackColor = System.Drawing.Color.Transparent;
-            this.labelMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.labelMessage.Font = new System.Drawing.Font("Cascadia Code", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMessage.Location = new System.Drawing.Point(1, 1);
-            this.labelMessage.Margin = new System.Windows.Forms.Padding(1);
-            this.labelMessage.Name = "labelMessage";
-            this.labelMessage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelMessage.Size = new System.Drawing.Size(898, 498);
-            this.labelMessage.TabIndex = 6;
-            this.labelMessage.Text = "Message";
-            this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // WaitUserControl
+            // WsWaitUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.layoutPanel);
-            this.Name = "WaitUserControl";
+            this.Name = "WsWaitUserControl";
             this.Size = new System.Drawing.Size(900, 500);
-            this.layoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -83,5 +64,4 @@ partial class WsWaitUserControl
 
     #endregion
     private TableLayoutPanel layoutPanel;
-    private Label labelMessage;
 }

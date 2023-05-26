@@ -92,7 +92,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
             }
 
             if (ViewModel.PluLine.IsExists)
-                ViewModel.ActionOk.Relay();
+                ViewModel.ActionYes.Relay();
             else
                 ViewModel.ActionCancel.Relay();
         });

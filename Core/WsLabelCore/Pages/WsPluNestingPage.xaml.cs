@@ -39,15 +39,10 @@ public partial class WsPluNestingPage : INavigableView<WsPluNestingViewModel>
         labelTareWeight.DataContext = ViewModel;
         labelTareWeight.SetBinding(ContentProperty,
             new Binding(nameof(ViewModel.PluNesting.TareWeightWithKg)) { Mode = BindingMode.OneWay, Source = ViewModel.PluNesting });
+
+        // Настроить кнопки.
+        SetupButtons(ViewModel, itemsControl);
     }
-
-    #endregion
-
-    #region Public and private methods
-
-    private void ButtonApply_OnClick(object sender, RoutedEventArgs e) => ViewModel.ActionOk.Relay();
-
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e) => ViewModel.ActionCancel.Relay();
 
     #endregion
 }

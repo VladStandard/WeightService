@@ -12,12 +12,18 @@ public sealed partial class WsWaitUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsWaitViewModel ViewModel { get; }
+    private ElementHost ElementHost { get; }
+    public WsMessageBoxViewModel ViewModel { get; }
+    private WsWaitPage Page { get; }
 
     public WsWaitUserControl()
     {
         InitializeComponent();
         ViewModel = new();
+        Page = new(ViewModel);
+        ElementHost = new() { Dock = DockStyle.Fill };
+        ElementHost.Child = Page;
+        Controls.Add(ElementHost);
     }
 
     #endregion
@@ -26,7 +32,7 @@ public sealed partial class WsWaitUserControl : WsBaseUserControl
 
     public override string ToString() => ViewModel.ToString();
 
-    public override void RefreshAction() => labelMessage.Text = Message;
+    //public override void RefreshAction() => labelMessage.Text = Message;
 
     #endregion
 }

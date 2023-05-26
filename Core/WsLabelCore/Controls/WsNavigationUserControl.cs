@@ -45,6 +45,17 @@ public sealed partial class WsNavigationUserControl : WsBaseUserControl
             layoutPanelUser.Controls.Add(userControl, 1, 1);
         layoutPanelUser.SetRowSpan(userControl, 1);
         layoutPanelUser.SetColumnSpan(userControl, 1);
+
+        //userControl.Update();
+        //userControl.Refresh();
+        //layoutPanelUser.Update();
+        //layoutPanelUser.Refresh();
+        
+        //userControl.Visible = true;
+        //Update();
+        //Refresh();
+        //Visible = true;
+        //System.Windows.Forms.Application.DoEvents();
     }
 
     #endregion

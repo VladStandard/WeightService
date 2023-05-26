@@ -33,13 +33,13 @@ public sealed partial class WsMessageBoxUserControl : WsBaseUserControl
 
     public override string ToString() => ViewModel.ToString();
 
-    public override void RefreshAction()
-    {
-        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
-        {
-            //
-        });
-    }
+    //public override void RefreshAction()
+    //{
+    //    WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
+    //    {
+    //        //
+    //    });
+    //}
 
     #endregion
 }

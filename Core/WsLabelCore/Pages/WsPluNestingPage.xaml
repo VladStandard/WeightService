@@ -87,20 +87,11 @@
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Content="TareWeightWithKg" />
-			<Button
+			<ItemsControl
+				x:Name="itemsControl"
 				Grid.Row="3"
-				Grid.Column="0"
-				Margin="3"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center"
-				Click="ButtonApply_OnClick"
-				Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply, Mode=OneWay}" />
-			<Button
-				Grid.Row="3"
-				Grid.Column="1"
-				Margin="3"
-				Click="ButtonCancel_OnClick"
-				Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel, Mode=OneWay}" />
+				Grid.ColumnSpan="2"
+				Margin="2" />
 		</Grid>
 	</Border>
 

@@ -233,13 +233,31 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     /// </summary>
     /// <param name="actionNo"></param>
     /// <param name="actionYes"></param>
-    protected void SetupActionsNoYes(Action actionNo, Action actionYes)
+    private void SetupActionsNoYes(Action actionNo, Action actionYes)
     {
         ActionAbort.SetupEmpty(nameof(ActionAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
         ActionCancel.SetupEmpty(nameof(ActionCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
         ActionCustom.SetupEmpty(nameof(ActionCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
         ActionIgnore.SetupEmpty(nameof(ActionIgnore), LocaleCore.Buttons.Ignore, Visibility.Hidden);
         ActionNo.Setup(nameof(ActionNo), actionNo, LocaleCore.Buttons.No, Visibility.Visible);
+        ActionOk.SetupEmpty(nameof(ActionOk), LocaleCore.Buttons.Ok, Visibility.Hidden);
+        ActionRetry.SetupEmpty(nameof(ActionRetry), LocaleCore.Buttons.Retry, Visibility.Hidden);
+        ActionYes.Setup(nameof(ActionYes), actionYes, LocaleCore.Buttons.Yes, Visibility.Visible);
+        UpdateCommands();
+    }
+
+    /// <summary>
+    /// Настройка Нет/Да.
+    /// </summary>
+    /// <param name="actionCancel"></param>
+    /// <param name="actionYes"></param>
+    private void SetupActionsCancelYes(Action actionCancel, Action actionYes)
+    {
+        ActionAbort.SetupEmpty(nameof(ActionAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
+        ActionCancel.SetupEmpty(nameof(ActionCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
+        ActionCustom.SetupEmpty(nameof(ActionCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
+        ActionIgnore.SetupEmpty(nameof(ActionIgnore), LocaleCore.Buttons.Ignore, Visibility.Hidden);
+        ActionCancel.Setup(nameof(ActionCancel), actionCancel, LocaleCore.Buttons.No, Visibility.Visible);
         ActionOk.SetupEmpty(nameof(ActionOk), LocaleCore.Buttons.Ok, Visibility.Hidden);
         ActionRetry.SetupEmpty(nameof(ActionRetry), LocaleCore.Buttons.Retry, Visibility.Hidden);
         ActionYes.Setup(nameof(ActionYes), actionYes, LocaleCore.Buttons.Yes, Visibility.Visible);
@@ -263,28 +281,27 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Обновить команды из действий.
+    /// Обновить список команд из действий.
     /// </summary>
-    private void UpdateCommands()
+    public void UpdateCommands()
     {
         Commands.Clear();
-        if (ActionAbort.Visibility.Equals(Visibility.Visible))
+        if (ActionAbort.Action is not null)
             Commands.Add(ActionAbort);
-        if (ActionCustom.Visibility.Equals(Visibility.Visible))
+        if (ActionCustom.Action is not null)
             Commands.Add(ActionCustom);
-        if (ActionIgnore.Visibility.Equals(Visibility.Visible))
+        if (ActionIgnore.Action is not null)
             Commands.Add(ActionIgnore);
-        if (ActionNo.Visibility.Equals(Visibility.Visible))
+        if (ActionNo.Action is not null)
             Commands.Add(ActionNo);
-        if (ActionOk.Visibility.Equals(Visibility.Visible))
+        if (ActionOk.Action is not null)
             Commands.Add(ActionOk);
-        if (ActionRetry.Visibility.Equals(Visibility.Visible))
+        if (ActionRetry.Action is not null)
             Commands.Add(ActionRetry);
-        if (ActionYes.Visibility.Equals(Visibility.Visible))
+        if (ActionYes.Action is not null)
             Commands.Add(ActionYes);
-        if (ActionCancel.Visibility.Equals(Visibility.Visible))
+        if (ActionCancel.Action is not null)
             Commands.Add(ActionCancel);
-        //ButtonWidth = !Commands.Any() ? 100 : 100 / Commands.Count;
     }
 
     /// <summary>
@@ -312,17 +329,32 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     public void SetupButtonsWidth(int controlWidth) => ButtonWidth = !Commands.Any() ? controlWidth - 22 : controlWidth / Commands.Count - 22;
 
     /// <summary>
-    /// Настройка кнопок Да/Нет.
+    /// Настройка кнопок Нет/Да.
     /// </summary>
     /// <param name="actionNo"></param>
     /// <param name="actionYes"></param>
     /// <param name="actionBack"></param>
     /// <param name="controlWidth"></param>
-    public void SetupButtonsNoYes(Action actionNo, Action actionYes, Action actionBack, int controlWidth)
+    protected void SetupButtonsNoYes(Action actionNo, Action actionYes, Action actionBack, int controlWidth)
     {
         actionNo += actionBack;
         actionYes += actionBack;
         SetupActionsNoYes(actionNo, actionYes);
+        SetupButtonsWidth(controlWidth);
+    }
+
+    /// <summary>
+    /// Настройка кнопок Отмена/Да.
+    /// </summary>
+    /// <param name="actionCancel"></param>
+    /// <param name="actionYes"></param>
+    /// <param name="actionBack"></param>
+    /// <param name="controlWidth"></param>
+    protected void SetupButtonsCancelYes(Action actionCancel, Action actionYes, Action actionBack, int controlWidth)
+    {
+        actionCancel += actionBack;
+        actionYes += actionBack;
+        SetupActionsCancelYes(actionCancel, actionYes);
         SetupButtonsWidth(controlWidth);
     }
 

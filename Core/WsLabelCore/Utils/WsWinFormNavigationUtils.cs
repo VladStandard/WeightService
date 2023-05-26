@@ -27,6 +27,9 @@ public static class WsWinFormNavigationUtils
 
     #region Public and private methods
 
+    /// <summary>
+    /// Возврат назад из навигации.
+    /// </summary>
     public static void ActionBackFromNavigation()
     {
         foreach (Control control in NavigationUserControl.Controls)
@@ -45,52 +48,27 @@ public static class WsWinFormNavigationUtils
     }
 
     /// <summary>
-    /// Навигация.
+    /// Навигация в контрол замеса.
     /// </summary>
     /// <param name="showNavigation"></param>
-    /// <param name="navigationPage"></param>
-    /// <param name="title"></param>
-    /// <param name="message"></param>
-    public static void NavigateToControl(Action<WsBaseUserControl> showNavigation,
-        WsNavigationPage navigationPage, string title, string message)
+    public static void NavigateToKneadingUserControl(Action<WsBaseUserControl> showNavigation)
     {
-        switch (navigationPage)
-        {
-            case WsNavigationPage.Kneading:
-                showNavigation(KneadingUserControl);
-                KneadingUserControl.Message = message;
-                NavigationUserControl.SwitchUserControl(KneadingUserControl, LocaleCore.Scales.SwitchKneadingTitle);
-                break;
-            case WsNavigationPage.Lines:
-                showNavigation(LinesUserControl);
-                LinesUserControl.Message = message;
-                NavigationUserControl.SwitchUserControl(LinesUserControl, LocaleCore.Scales.SwitchLineTitle);
-                break;
-            case WsNavigationPage.MessageBox:
-                showNavigation(MessageBoxUserControl);
-                NavigationUserControl.SwitchUserControl(MessageBoxUserControl, title);
-                break;
-            case WsNavigationPage.More:
-                showNavigation(MoreUserControl);
-                MoreUserControl.Message = message;
-                NavigationUserControl.SwitchUserControl(MoreUserControl, LocaleCore.Scales.SwitchMoreTitle);
-                break;
-            case WsNavigationPage.PlusLine:
-                showNavigation(PlusLineUserControl);
-                PlusLineUserControl.Message = message;
-                NavigationUserControl.SwitchUserControl(PlusLineUserControl, LocaleCore.Scales.SwitchPluTitle);
-                break;
-            case WsNavigationPage.PlusNesting:
-                showNavigation(PlusNestingUserControl);
-                PlusNestingUserControl.Message = message;
-                NavigationUserControl.SwitchUserControl(PlusNestingUserControl, LocaleCore.Scales.SwitchPluNestingTitle);
-                break;
-            case WsNavigationPage.Wait:
-                showNavigation(WaitUserControl);
-                WaitUserControl.Message = message;
-                NavigationUserControl.SwitchUserControl(WaitUserControl, LocaleCore.Scales.AppWaitLoad);
-                break;
-        }
+        KneadingUserControl.ViewModel.UpdateCommands();
+        KneadingUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(KneadingUserControl);
+        NavigationUserControl.SwitchUserControl(KneadingUserControl, LocaleCore.Scales.SwitchKneadingTitle);
+    }
+
+    /// <summary>
+    /// Навигация в контрол линии.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    public static void NavigateToLinesUserControl(Action<WsBaseUserControl> showNavigation)
+    {
+        LinesUserControl.ViewModel.UpdateCommands();
+        LinesUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(LinesUserControl);
+        NavigationUserControl.SwitchUserControl(LinesUserControl, LocaleCore.Scales.SwitchLineTitle);
     }
 
     /// <summary>
@@ -107,45 +85,20 @@ public static class WsWinFormNavigationUtils
     /// <param name="actionOk"></param>
     /// <param name="actionRetry"></param>
     /// <param name="actionYes"></param>
-    private static void NavigateToControlMessage(Action<WsBaseUserControl> showNavigation, string title,
+    private static void NavigateToMessageBoxUserControl(Action<WsBaseUserControl> showNavigation, string title,
         string message, Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore, Action actionNo,
         Action actionOk, Action actionRetry, Action actionYes)
     {
+        MessageBoxUserControl.ViewModel.UpdateCommands();
+        MessageBoxUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(MessageBoxUserControl);
         MessageBoxUserControl.ViewModel.SetupActions(message, actionAbort, actionCancel, actionCustom,
             actionIgnore, actionNo, actionOk, actionRetry, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
-        NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
+        NavigationUserControl.SwitchUserControl(MessageBoxUserControl, title);
     }
 
     /// <summary>
     /// Навигация в контрол сообщений.
-    /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="title"></param>
-    /// <param name="message"></param>
-    /// <param name="actionNo"></param>
-    /// <param name="actionYes"></param>
-    private static void NavigateToControlMessageNoYes(Action<WsBaseUserControl> showNavigation, string title,
-        string message, Action actionNo, Action actionYes)
-    {
-        MessageBoxUserControl.ViewModel.SetupButtonsNoYes(message, actionNo, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
-        NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
-    }
-
-    /// <summary>
-    /// Навигация в контрол сообщений.
-    /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="title"></param>
-    /// <param name="message"></param>
-    private static void NavigateToControlMessageOk(Action<WsBaseUserControl> showNavigation, string title,
-        string message)
-    {
-        MessageBoxUserControl.ViewModel.SetupButtonsOk(message, ActionBackFromNavigation, NavigationUserControl.Width);
-        NavigateToControl(showNavigation, WsNavigationPage.MessageBox, title, "");
-    }
-
-    /// <summary>
-    /// Navigate to control.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="message"></param>
@@ -153,29 +106,103 @@ public static class WsWinFormNavigationUtils
     /// <param name="logType"></param>
     /// <param name="actionNo"></param>
     /// <param name="actionYes"></param>
-    /// <returns></returns>
-    public static void NavigateToOperationControlNoYes(Action<WsBaseUserControl> showNavigation,
+    public static void NavigateToMessageBoxUserControlNoYes(Action<WsBaseUserControl> showNavigation,
         string message, bool isLog, WsEnumLogType logType, Action actionNo, Action actionYes)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
-        NavigateToControlMessageNoYes(showNavigation,
-            LocaleCore.Scales.OperationControl, message, actionNo, actionYes);
+        MessageBoxUserControl.ViewModel.UpdateCommands();
+        MessageBoxUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(MessageBoxUserControl);
+        MessageBoxUserControl.ViewModel.SetupButtonsNoYes(message, actionNo, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
+        NavigationUserControl.SwitchUserControl(MessageBoxUserControl, LocaleCore.Scales.OperationControl);
     }
 
     /// <summary>
-    /// Navigate to control.
+    /// Навигация в контрол сообщений.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="message"></param>
     /// <param name="isLog"></param>
     /// <param name="logType"></param>
-    /// <returns></returns>
-    public static void NavigateToOperationControlOk(Action<WsBaseUserControl> showNavigation,
+    /// <param name="actionCancel"></param>
+    /// <param name="actionYes"></param>
+    public static void NavigateToMessageBoxUserControlCancelYes(Action<WsBaseUserControl> showNavigation,
+        string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
+    {
+        if (isLog) ShowNewOperationControlLogType(message, logType);
+        MessageBoxUserControl.ViewModel.UpdateCommands();
+        MessageBoxUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(MessageBoxUserControl);
+        MessageBoxUserControl.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
+        NavigationUserControl.SwitchUserControl(MessageBoxUserControl, LocaleCore.Scales.OperationControl);
+    }
+
+    /// <summary>
+    /// Навигация в контрол сообщений.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    /// <param name="message"></param>
+    /// <param name="isLog"></param>
+    /// <param name="logType"></param>
+    public static void NavigateToMessageBoxUserControlOk(Action<WsBaseUserControl> showNavigation, 
         string message, bool isLog, WsEnumLogType logType)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
-        NavigateToControlMessageOk(showNavigation,
-            LocaleCore.Scales.OperationControl, message);
+        MessageBoxUserControl.ViewModel.UpdateCommands();
+        MessageBoxUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(MessageBoxUserControl);
+        MessageBoxUserControl.ViewModel.SetupButtonsOk(message, ActionBackFromNavigation, NavigationUserControl.Width);
+        NavigationUserControl.SwitchUserControl(MessageBoxUserControl, LocaleCore.Scales.OperationControl);
+    }
+
+    /// <summary>
+    /// Навигация в контрол ешё.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    public static void NavigateToMoreUserControl(Action<WsBaseUserControl> showNavigation)
+    {
+        MoreUserControl.ViewModel.UpdateCommands();
+        MoreUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(MoreUserControl);
+        NavigationUserControl.SwitchUserControl(MoreUserControl, LocaleCore.Scales.SwitchMoreTitle);
+    }
+
+    /// <summary>
+    /// Навигация в контрол смены ПЛУ линии.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    public static void NavigateToPlusLineUserControl(Action<WsBaseUserControl> showNavigation)
+    {
+        PlusLineUserControl.ViewModel.UpdateCommands();
+        PlusLineUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(PlusLineUserControl);
+        NavigationUserControl.SwitchUserControl(PlusLineUserControl, LocaleCore.Scales.SwitchPluTitle);
+    }
+
+    /// <summary>
+    /// Навигация в контрол смены вложенности ПЛУ.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    public static void NavigateToPlusNestingUserControl(Action<WsBaseUserControl> showNavigation)
+    {
+        PlusNestingUserControl.ViewModel.UpdateCommands();
+        PlusNestingUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(PlusNestingUserControl);
+        NavigationUserControl.SwitchUserControl(PlusNestingUserControl, LocaleCore.Scales.SwitchPluNestingTitle);
+    }
+
+    /// <summary>
+    /// Навигация в контрол ожидания.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    /// <param name="message"></param>
+    public static void NavigateToWaitUserControl(Action<WsBaseUserControl> showNavigation, string message)
+    {
+        WaitUserControl.ViewModel.UpdateCommands();
+        WaitUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(WaitUserControl);
+        WaitUserControl.Message = message;
+        NavigationUserControl.SwitchUserControl(WaitUserControl, LocaleCore.Scales.AppWait);
     }
 
     private static void ShowNewOperationControlLogType(string message, WsEnumLogType logType,
@@ -207,7 +234,8 @@ public static class WsWinFormNavigationUtils
     {
         if (device.IsNew)
         {
-            NavigateToOperationControlNoYes(showNavigation,
+            // Навигация в контрол сообщений.
+            NavigateToMessageBoxUserControlCancelYes(showNavigation,
                 LocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
                 false, WsEnumLogType.Information, () => { }, ActionYes);
             void ActionYes()
@@ -245,9 +273,10 @@ public static class WsWinFormNavigationUtils
         string message = ex.InnerException is null
             ? ex.Message
             : ex.Message + Environment.NewLine + ex.InnerException.Message;
-        NavigateToControlMessageOk(showNavigation, LocaleCore.Scales.Exception,
+        // Навигация в контрол сообщений.
+        NavigateToMessageBoxUserControlOk(showNavigation, 
             $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
-            $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message);
+            $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message, true, WsEnumLogType.Error);
     }
 
     private static void CatchExceptionSimpleCore(Exception ex, string filePath, int lineNumber, string memberName)

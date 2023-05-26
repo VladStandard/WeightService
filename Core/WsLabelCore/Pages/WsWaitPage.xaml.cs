@@ -7,15 +7,15 @@ using System.Windows.Controls;
 namespace WsLabelCore.Pages;
 
 /// <summary>
-/// Interaction logic for WsMessageBoxPage.xaml
+/// Interaction logic for WsWaitPage.xaml
 /// </summary>
-public partial class WsMessageBoxPage : INavigableView<WsMessageBoxViewModel>
+public partial class WsWaitPage : INavigableView<WsMessageBoxViewModel>
 {
     #region Public and private fields, properties, constructor
 
     public WsMessageBoxViewModel ViewModel { get; }
 
-    public WsMessageBoxPage(WsMessageBoxViewModel viewModel)
+    public WsWaitPage(WsMessageBoxViewModel viewModel)
     {
         InitializeComponent();
         ViewModel = viewModel;
@@ -23,8 +23,6 @@ public partial class WsMessageBoxPage : INavigableView<WsMessageBoxViewModel>
         // Сообщение.
         fieldMessage.SetBinding(TextBlock.TextProperty,
             new Binding(nameof(ViewModel.Message)) { Mode = BindingMode.OneWay, Source = ViewModel });
-        //fieldMessage.SetBinding(VisibilityProperty,
-        //    new Binding(nameof(ViewModel.MessageVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel });
         fieldMessage.FontSize = ViewModel.FontSizeMessage;
 
         // Настроить кнопки.

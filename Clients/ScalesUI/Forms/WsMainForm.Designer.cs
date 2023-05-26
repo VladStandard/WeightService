@@ -152,6 +152,7 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.layoutPanelMain.Size = new System.Drawing.Size(1024, 668);
             this.layoutPanelMain.TabIndex = 7;
+            this.layoutPanelMain.Visible = false;
             // 
             // fieldPrintShippingExt
             // 

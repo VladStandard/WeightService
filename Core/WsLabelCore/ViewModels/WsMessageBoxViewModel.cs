@@ -13,7 +13,7 @@ public sealed class WsMessageBoxViewModel : WsViewModelBase, INotifyPropertyChan
     #region Public and private fields and properties
 
     public string Message { get; set; } = "";
-    public Visibility MessageVisibility => !string.IsNullOrEmpty(Message) ? Visibility.Visible : Visibility.Hidden;
+    //public Visibility MessageVisibility => !string.IsNullOrEmpty(Message) ? Visibility.Visible : Visibility.Hidden;
 
     #endregion
 
@@ -58,6 +58,12 @@ public sealed class WsMessageBoxViewModel : WsViewModelBase, INotifyPropertyChan
     {
         Message = message;
         SetupButtonsNoYes(actionNo, actionYes, actionBack, controlWidth);
+    }
+
+    public void SetupButtonsCancelYes(string message, Action actionCancel, Action actionYes, Action actionBack, int controlWidth)
+    {
+        Message = message;
+        SetupButtonsCancelYes(actionCancel, actionYes, actionBack, controlWidth);
     }
 
     public void SetupButtonsOk(string message, Action actionOk, int controlWidth)

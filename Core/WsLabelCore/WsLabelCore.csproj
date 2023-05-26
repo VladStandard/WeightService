@@ -85,6 +85,9 @@
     </Compile>
     <Compile Include="Helpers\WsLabelSessionHelper.cs" />
     <Compile Include="Models\WsActionCommandModel.cs" />
+    <Compile Include="Pages\WsWaitPage.xaml.cs">
+      <DependentUpon>WsWaitPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\WsWinFormNavigationUtils.cs" />
     <Compile Include="Utils\WsWinFormUtils.cs" />
     <Compile Include="ViewModels\WsWaitViewModel.cs" />
@@ -213,6 +216,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Pages\WsLinesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\WsWaitPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

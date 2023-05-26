@@ -83,19 +83,6 @@
 				Grid.Row="2"
 				Grid.ColumnSpan="2"
 				Margin="2" />
-			<!--<Button
-				x:Name="buttonOk"
-				Grid.Row="2"
-				Margin="3"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center"
-				Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply}" />
-			<Button
-				x:Name="buttonCancel"
-				Grid.Row="2"
-				Grid.Column="1"
-				Margin="3"
-				Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel}" />-->
 		</Grid>
 	</Border>
 </pages:WsBasePage>
