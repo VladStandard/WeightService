@@ -45,17 +45,9 @@ public partial class WsPluNestingPage : INavigableView<WsPluNestingViewModel>
 
     #region Public and private methods
 
-    private void ButtonApply_OnClick(object sender, RoutedEventArgs e)
-    {
-        // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
-        ViewModel.RelayOk();
-    }
+    private void ButtonApply_OnClick(object sender, RoutedEventArgs e) => ViewModel.ActionOk.Relay();
 
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-    {
-        // Didn't work! Go here: MainForm -> ActionSwitchPluNesting
-        ViewModel.RelayCancel();
-    }
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e) => ViewModel.ActionCancel.Relay();
 
     #endregion
 }

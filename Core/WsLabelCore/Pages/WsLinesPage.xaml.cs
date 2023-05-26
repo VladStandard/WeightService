@@ -42,11 +42,11 @@ public partial class WsLinesPage : INavigableView<WsLinesViewModel>
         
         // Кнопка OK.
         buttonOk.SetBinding(ButtonBase.CommandProperty,
-            new Binding($"{nameof(ViewModel.RelayOk)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+            new Binding($"{nameof(ViewModel.ActionOk.Relay)}Command") { Mode = BindingMode.OneWay, Source = ViewModel.ActionOk });
         
         // Кнопка Cancel.
         buttonCancel.SetBinding(ButtonBase.CommandProperty,
-            new Binding($"{nameof(ViewModel.RelayCancel)}Command") { Mode = BindingMode.OneWay, Source = ViewModel });
+            new Binding($"{nameof(ViewModel.ActionCancel.Relay)}Command") { Mode = BindingMode.OneWay, Source = ViewModel.ActionCancel });
     }
 
     #endregion

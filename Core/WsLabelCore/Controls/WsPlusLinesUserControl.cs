@@ -84,9 +84,9 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
             }
 
             if (ViewModel.PluLine.IsExists)
-                ViewModel.RelayOk();
+                ViewModel.ActionOk.Relay();
             else
-                ViewModel.RelayCancel();
+                ViewModel.ActionCancel.Relay();
         });
     }
 
@@ -207,10 +207,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void buttonCancel_Click(object sender, EventArgs e)
-    {
-        ViewModel.RelayCancel();
-    }
+    private void buttonCancel_Click(object sender, EventArgs e) => ViewModel.ActionCancel.Relay();
 
     #endregion
 }

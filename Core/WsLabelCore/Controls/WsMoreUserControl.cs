@@ -72,7 +72,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
             LabelSession.ProductDate = SaveProductDate;
             LabelSession.WeighingSettings.Kneading = SaveKneading;
             LabelSession.WeighingSettings.LabelsCountMain = SavePalletSize;
-            ViewModel.RelayCancel();
+            ViewModel.ActionCancel.Relay();
         });
     }
 
@@ -93,7 +93,7 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
         WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             CheckWeightCount();
-            ViewModel.RelayOk();
+            ViewModel.ActionOk.Relay();
         });
     }
 

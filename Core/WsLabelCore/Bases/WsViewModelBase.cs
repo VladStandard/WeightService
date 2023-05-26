@@ -51,6 +51,10 @@ public partial class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChang
     /// Список команд.
     /// </summary>
     public ObservableCollection<WsActionCommandModel> Commands { get; } = new();
+    /// <summary>
+    /// Ширина кнопки.
+    /// </summary>
+    public int ButtonWidthPercent { get; set; } = 100;
 
     protected WsViewModelBase()
     {
@@ -69,75 +73,53 @@ public partial class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChang
         Setup(actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes);
     }
 
-    protected WsViewModelBase(Action actionNo, Action actionYes)
-    {
-        SetupNoYes(actionNo, actionYes);
-    }
-
-    protected WsViewModelBase(Action actionOk)
-    {
-        SetupOk(actionOk);
-    }
-
     #endregion
 
     #region Public and private methods - Commands
 
-    /// <summary>
-    /// Прервать.
-    /// </summary>
-    [RelayCommand]
-    public void RelayAbort() => ActionAbort.Action?.Invoke();
+    public override string ToString() => Commands.Any() ? $"{string.Join(" | ", Commands.Select(item => item.Name))}" : "<Empty>";
 
+    ///// <summary>
+    ///// Прервать.
+    ///// </summary>
+    //[RelayCommand]
+    //public void RelayAbort() => ActionAbort.Action?.Invoke();
+    ///// <summary>
+    ///// Отменить.
+    ///// </summary>
+    //[RelayCommand]
+    //public void RelayCancel() => ActionCancel.Action?.Invoke();
+    ///// <summary>
+    ///// Настроить.
+    ///// </summary>
+    //[RelayCommand]
+    //public void RelayCustom() => ActionCustom.Action?.Invoke();
+    ///// <summary>
+    ///// Игнорировать.
+    ///// </summary>
+    //[RelayCommand]
+    //public void RelayIgnore() => ActionIgnore.Action?.Invoke();
+    ///// <summary>
+    ///// Нет.
+    ///// </summary>
+    //[RelayCommand]
+    //public void RelayNo() => ActionNo.Action?.Invoke();
+    ///// <summary>
+    ///// Ок.
+    ///// </summary>
+    //[RelayCommand]
+    //public void RelayOk() => ActionOk.Action?.Invoke();
+    ///// <summary>
+    ///// Повторить.
+    ///// </summary>
+    //[RelayCommand]
+    //public void RelayRetry() => ActionRetry.Action?.Invoke();
 
-    /// <summary>
-    /// Отменить.
-    /// </summary>
-    [RelayCommand]
-    public void RelayCancel() => ActionCancel.Action?.Invoke();
-
-
-    /// <summary>
-    /// Настроить.
-    /// </summary>
-    [RelayCommand]
-    public void RelayCustom() => ActionCustom.Action?.Invoke();
-
-    /// <summary>
-    /// Игнорировать.
-    /// </summary>
-    [RelayCommand]
-    public void RelayIgnore() => ActionIgnore.Action?.Invoke();
-
-    /// <summary>
-    /// Нет.
-    /// </summary>
-    [RelayCommand]
-    public void RelayNo() => ActionNo.Action?.Invoke();
-
-    /// <summary>
-    /// Ок.
-    /// </summary>
-    [RelayCommand]
-    public void RelayOk() => ActionOk.Action?.Invoke();
-
-    /// <summary>
-    /// Повторить.
-    /// </summary>
-    [RelayCommand]
-    public void RelayRetry()
-    {
-        ActionRetry.Action?.Invoke();
-    }
-
-    /// <summary>
-    /// Да.
-    /// </summary>
-    [RelayCommand]
-    public void RelayYes()
-    {
-        ActionYes.Action?.Invoke();
-    }
+    ///// <summary>
+    ///// Да.
+    ///// </summary>
+    //[RelayCommand]
+    //public void RelayYes() => ActionYes.Action?.Invoke();
 
     #endregion
 
@@ -165,8 +147,7 @@ public partial class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChang
         ActionOk = cmdOk;
         ActionRetry = cmdRetry;
         ActionYes = cmdYes;
-        
-        SetupCommands();
+        UpdateCommands();
     }
 
     /// <summary>
@@ -183,16 +164,15 @@ public partial class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChang
     protected void Setup(Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore,
         Action actionNo, Action actionOk, Action actionRetry, Action actionYes)
     {
-        ActionAbort = new(nameof(ActionAbort), actionAbort, LocaleCore.Buttons.Abort, Visibility.Visible);
-        ActionCancel = new(nameof(ActionCancel), actionCancel, LocaleCore.Buttons.Cancel, Visibility.Visible);
-        ActionCustom = new(nameof(ActionCustom), actionCustom, LocaleCore.Buttons.Custom, Visibility.Visible);
-        ActionIgnore = new(nameof(ActionIgnore), actionIgnore, LocaleCore.Buttons.Custom, Visibility.Visible);
-        ActionNo = new(nameof(ActionNo), actionNo, LocaleCore.Buttons.Custom, Visibility.Visible);
-        ActionOk = new(nameof(ActionOk), actionOk, LocaleCore.Buttons.Custom, Visibility.Visible);
-        ActionRetry = new(nameof(ActionRetry), actionRetry, LocaleCore.Buttons.Custom, Visibility.Visible);
-        ActionYes = new(nameof(ActionYes), actionYes, LocaleCore.Buttons.Custom, Visibility.Visible);
-
-        SetupCommands();
+        ActionAbort.Setup(nameof(ActionAbort), actionAbort, LocaleCore.Buttons.Abort, Visibility.Visible);
+        ActionCancel.Setup(nameof(ActionCancel), actionCancel, LocaleCore.Buttons.Cancel, Visibility.Visible);
+        ActionCustom.Setup(nameof(ActionCustom), actionCustom, LocaleCore.Buttons.Custom, Visibility.Visible);
+        ActionIgnore.Setup(nameof(ActionIgnore), actionIgnore, LocaleCore.Buttons.Ignore, Visibility.Visible);
+        ActionNo.Setup(nameof(ActionNo), actionNo, LocaleCore.Buttons.No, Visibility.Visible);
+        ActionOk.Setup(nameof(ActionOk), actionOk, LocaleCore.Buttons.Ok, Visibility.Visible);
+        ActionRetry.Setup(nameof(ActionRetry), actionRetry, LocaleCore.Buttons.Retry, Visibility.Visible);
+        ActionYes.Setup(nameof(ActionYes), actionYes, LocaleCore.Buttons.Yes, Visibility.Visible);
+        UpdateCommands();
     }
 
     /// <summary>
@@ -201,16 +181,15 @@ public partial class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChang
     /// <param name="actionOk"></param>
     protected void SetupOk(Action actionOk)
     {
-        ActionAbort = new(nameof(ActionAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
-        ActionCancel = new(nameof(ActionCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
-        ActionCustom = new(nameof(ActionCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionIgnore = new(nameof(ActionIgnore), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionNo = new(nameof(ActionNo), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionOk = new(nameof(ActionOk), actionOk, LocaleCore.Buttons.Custom, Visibility.Visible);
-        ActionRetry = new(nameof(ActionRetry), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionYes = new(nameof(ActionYes), LocaleCore.Buttons.Custom, Visibility.Hidden);
-
-        SetupCommands();
+        ActionAbort.SetupEmpty(nameof(ActionAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
+        ActionCancel.SetupEmpty(nameof(ActionCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
+        ActionCustom.SetupEmpty(nameof(ActionCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
+        ActionIgnore.SetupEmpty(nameof(ActionIgnore), LocaleCore.Buttons.Ignore, Visibility.Hidden);
+        ActionNo.SetupEmpty(nameof(ActionNo), LocaleCore.Buttons.No, Visibility.Hidden);
+        ActionOk.Setup(nameof(ActionOk), actionOk, LocaleCore.Buttons.Ok, Visibility.Visible);
+        ActionRetry.SetupEmpty(nameof(ActionRetry), LocaleCore.Buttons.Retry, Visibility.Hidden);
+        ActionYes.SetupEmpty(nameof(ActionYes), LocaleCore.Buttons.Yes, Visibility.Hidden);
+        UpdateCommands();
     }
 
     /// <summary>
@@ -220,16 +199,15 @@ public partial class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChang
     /// <param name="actionYes"></param>
     protected void SetupNoYes(Action actionNo, Action actionYes)
     {
-        ActionAbort = new(nameof(ActionAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
-        ActionCancel = new(nameof(ActionCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
-        ActionCustom = new(nameof(ActionCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionIgnore = new(nameof(ActionIgnore), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionNo = new(nameof(ActionNo), actionNo, LocaleCore.Buttons.Custom, Visibility.Visible);
-        ActionOk = new(nameof(ActionOk), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionRetry = new(nameof(ActionRetry), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionYes = new(nameof(ActionYes), actionYes, LocaleCore.Buttons.Custom, Visibility.Visible);
-
-        SetupCommands();
+        ActionAbort.SetupEmpty(nameof(ActionAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
+        ActionCancel.SetupEmpty(nameof(ActionCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
+        ActionCustom.SetupEmpty(nameof(ActionCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
+        ActionIgnore.SetupEmpty(nameof(ActionIgnore), LocaleCore.Buttons.Ignore, Visibility.Hidden);
+        ActionNo.Setup(nameof(ActionNo), actionNo, LocaleCore.Buttons.No, Visibility.Visible);
+        ActionOk.SetupEmpty(nameof(ActionOk), LocaleCore.Buttons.Ok, Visibility.Hidden);
+        ActionRetry.SetupEmpty(nameof(ActionRetry), LocaleCore.Buttons.Retry, Visibility.Hidden);
+        ActionYes.Setup(nameof(ActionYes), actionYes, LocaleCore.Buttons.Yes, Visibility.Visible);
+        UpdateCommands();
     }
 
     /// <summary>
@@ -237,25 +215,20 @@ public partial class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChang
     /// </summary>
     private void SetupEmpty()
     {
-        ActionAbort = new(nameof(ActionAbort), () => { }, LocaleCore.Buttons.Abort, Visibility.Hidden);
-        ActionCancel = new(nameof(ActionCancel), () => { }, LocaleCore.Buttons.Cancel, Visibility.Hidden);
-        ActionCustom = new(nameof(ActionCustom), () => { }, LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionIgnore = new(nameof(ActionIgnore), () => { }, LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionNo = new(nameof(ActionNo), () => { }, LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionOk = new(nameof(ActionOk), () => { }, LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionRetry = new(nameof(ActionRetry), () => { }, LocaleCore.Buttons.Custom, Visibility.Hidden);
-        ActionYes = new(nameof(ActionYes), () => { }, LocaleCore.Buttons.Custom, Visibility.Hidden);
-
-        SetupCommands();
+        ActionAbort = new(nameof(ActionAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
+        ActionCancel = new(nameof(ActionCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
+        ActionCustom = new(nameof(ActionCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
+        ActionIgnore = new(nameof(ActionIgnore), LocaleCore.Buttons.Ignore, Visibility.Hidden);
+        ActionNo = new(nameof(ActionNo), LocaleCore.Buttons.No, Visibility.Hidden);
+        ActionOk = new(nameof(ActionOk), LocaleCore.Buttons.Ok, Visibility.Hidden);
+        ActionRetry = new(nameof(ActionRetry), LocaleCore.Buttons.Retry, Visibility.Hidden);
+        ActionYes = new(nameof(ActionYes), LocaleCore.Buttons.Yes, Visibility.Hidden);
+        UpdateCommands();
     }
 
-    /// <summary>
-    /// Настройка списка команд.
-    /// </summary>
-    private void SetupCommands()
+    private void UpdateCommands()
     {
         Commands.Clear();
-        
         if (ActionAbort.Visibility.Equals(Visibility.Visible))
             Commands.Add(ActionAbort);
         if (ActionCustom.Visibility.Equals(Visibility.Visible))
@@ -272,6 +245,8 @@ public partial class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChang
             Commands.Add(ActionYes);
         if (ActionCancel.Visibility.Equals(Visibility.Visible))
             Commands.Add(ActionCancel);
+
+        ButtonWidthPercent = !Commands.Any() ? 100 : 100 / Commands.Count;
     }
 
     #endregion

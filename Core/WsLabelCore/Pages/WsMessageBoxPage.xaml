@@ -4,11 +4,11 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:models="clr-namespace:WsLabelCore.Models"
 	xmlns:pages="clr-namespace:WsLabelCore.Pages"
 	d:DesignHeight="300"
 	d:DesignWidth="640"
 	FontSize="24"
-	Loaded="UserControl_Loaded"
 	TextOptions.TextFormattingMode="Ideal"
 	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
@@ -47,52 +47,11 @@
 					TextAlignment="Center"
 					TextWrapping="Wrap" />
 			</ScrollViewer>
-			<StackPanel
-				x:Name="stackPanelYesNo"
+			<!--<StackPanel Width="Auto" />-->
+			<ItemsControl
+				x:Name="itemsControl"
 				Grid.Row="1"
-				Margin="2"
-				Orientation="Horizontal">
-				<Button
-					x:Name="buttonYes"
-					Margin="2"
-					FontWeight="Bold"
-					KeyUp="Button_KeyUp" />
-				<Button
-					x:Name="buttonCustom"
-					Margin="2"
-					FontWeight="Bold"
-					KeyUp="Button_KeyUp" />
-				<Button
-					x:Name="buttonRetry"
-					Margin="2"
-					FontWeight="Bold"
-					KeyUp="Button_KeyUp" />
-				<Button
-					x:Name="buttonNo"
-					Margin="2"
-					FontWeight="Bold"
-					KeyUp="Button_KeyUp" />
-				<Button
-					x:Name="buttonIgnore"
-					Margin="2"
-					FontWeight="Bold"
-					KeyUp="Button_KeyUp" />
-				<Button
-					x:Name="buttonCancel"
-					Margin="2"
-					FontWeight="Bold"
-					KeyUp="Button_KeyUp" />
-				<Button
-					x:Name="buttonAbort"
-					Margin="2"
-					FontWeight="Bold"
-					KeyUp="Button_KeyUp" />
-				<Button
-					x:Name="buttonOk"
-					Margin="2"
-					FontWeight="Bold"
-					KeyUp="Button_KeyUp" />
-			</StackPanel>
+				Margin="2" />
 		</Grid>
 	</Border>
 

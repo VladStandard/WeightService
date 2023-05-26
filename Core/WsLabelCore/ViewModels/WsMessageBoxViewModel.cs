@@ -41,6 +41,8 @@ public sealed class WsMessageBoxViewModel : WsViewModelBase, INotifyPropertyChan
 
     #region Public and private methods
 
+    public override string ToString() => string.IsNullOrEmpty(Message) ? $"{base.ToString()}" : $"{base.ToString()} | {Message}";
+
     public void Setup(string message,
         WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom, 
         WsActionCommandModel cmdIgnore, WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, 

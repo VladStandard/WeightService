@@ -138,7 +138,7 @@ public partial class WsMainForm : Form
                 LocaleCore.Scales.AppLoad, LocaleCore.Scales.AppWaitLoad);
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
-            WsWinFormNavigationUtils.WaitUserControl.ViewModel.RelayOk();
+            WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionOk.Relay();
         });
     }
 
