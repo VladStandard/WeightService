@@ -9,39 +9,56 @@ namespace WsLabelCore.Pages;
 /// <summary>
 /// Interaction logic for WsLinesPage.xaml
 /// </summary>
-public partial class WsLinesPage : INavigableView<WsLinesViewModel>
+public partial class WsLinesPage //: INavigableView<WsLinesViewModel>
 {
     #region Public and private fields, properties, constructor
 
-    public WsLinesViewModel ViewModel { get; }
+    private WsLinesViewModel CastViewModel { get; }
 
-    public WsLinesPage(WsLinesViewModel viewModel)
+    public WsLinesPage(WsBaseViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
-        ViewModel = viewModel;
+        if (viewModel is not WsLinesViewModel linesViewModel) return;
+        CastViewModel = linesViewModel;
         
         // Площадки.
         comboBoxArea.SetBinding(ItemsControl.ItemsSourceProperty,
-            new Binding(nameof(ViewModel.Areas)) { Mode = BindingMode.OneWay, Source = ViewModel });
+            new Binding(nameof(CastViewModel.Areas)) { Mode = BindingMode.OneWay, Source = CastViewModel });
         comboBoxArea.SetBinding(Selector.SelectedItemProperty,
-            new Binding(nameof(ViewModel.Area)) { Mode = BindingMode.TwoWay, Source = ViewModel });
+            new Binding(nameof(CastViewModel.Area)) { Mode = BindingMode.TwoWay, Source = CastViewModel });
         comboBoxArea.SetBinding(Selector.SelectedValueProperty,
-            new Binding(nameof(ViewModel.Area.Name)) { Mode = BindingMode.OneWay, Source = ViewModel.Area });
-        comboBoxArea.DisplayMemberPath = nameof(ViewModel.Area.Name);
-        comboBoxArea.SelectedValuePath = nameof(ViewModel.Area.Name);
-        
+            new Binding(nameof(CastViewModel.Area.Name)) { Mode = BindingMode.OneWay, Source = CastViewModel.Area });
+        comboBoxArea.DisplayMemberPath = nameof(CastViewModel.Area.Name);
+        comboBoxArea.SelectedValuePath = nameof(CastViewModel.Area.Name);
+        labelArea.SetBinding(ContentProperty,
+            new Binding(nameof(LocaleCore.Table.Area)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
+
         // Линии.
         comboBoxLine.SetBinding(ItemsControl.ItemsSourceProperty, 
-            new Binding(nameof(ViewModel.Lines)) { Mode = BindingMode.OneWay, Source = ViewModel });
+            new Binding(nameof(CastViewModel.Lines)) { Mode = BindingMode.OneWay, Source = CastViewModel });
         comboBoxLine.SetBinding(Selector.SelectedItemProperty,
-            new Binding(nameof(ViewModel.Line)) { Mode = BindingMode.TwoWay, Source = ViewModel });
+            new Binding(nameof(CastViewModel.Line)) { Mode = BindingMode.TwoWay, Source = CastViewModel });
         comboBoxLine.SetBinding(Selector.SelectedValueProperty,
-            new Binding($"{nameof(ViewModel.Line.NumberWithDescription)}") { Mode = BindingMode.OneWay, Source = ViewModel.Line });
-        comboBoxLine.DisplayMemberPath = nameof(ViewModel.Line.NumberWithDescription);
-        comboBoxLine.SelectedValuePath = nameof(ViewModel.Line.NumberWithDescription);
+            new Binding($"{nameof(CastViewModel.Line.NumberWithDescription)}") { Mode = BindingMode.OneWay, Source = CastViewModel.Line });
+        comboBoxLine.DisplayMemberPath = nameof(CastViewModel.Line.NumberWithDescription);
+        comboBoxLine.SelectedValuePath = nameof(CastViewModel.Line.NumberWithDescription);
+        labelLine.SetBinding(ContentProperty,
+            new Binding(nameof(LocaleCore.Table.Line)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
 
         // Настроить кнопки.
-        SetupButtons(ViewModel, itemsControl);
+        SetupButtons(CastViewModel);
+    }
+
+    /// <summary>
+    /// Обновить модель представления.
+    /// </summary>
+    public override void RefreshViewModel()
+    {
+        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            CastViewModel.Area = LabelSession.Area;
+            CastViewModel.Line = LabelSession.Line;
+        });
     }
 
     #endregion

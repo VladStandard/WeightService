@@ -1,6 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Windows.Forms;
+using Control = System.Windows.Forms.Control;
+
 namespace WsLabelCore.Controls;
 
 /// <summary>
@@ -13,30 +16,32 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsPlusViewModel ViewModel { get; }
-
+    public WsPlusViewModel CastViewModel => (WsPlusViewModel)ViewModel;
     /// <summary>
     /// ID последней линии (для производительности).
     /// </summary>
     private long LastScaleId { get; set; }
     private int LastPageNumber { get; set; }
 
-    public WsPlusLinesUserControl()
+    public WsPlusLinesUserControl() : base(new WsPlusViewModel())
     {
         InitializeComponent();
 
-        ViewModel = new();
         LastScaleId = default;
         LastPageNumber = default;
+        RefreshViewModel();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => ViewModel.ToString();
+    public override string ToString() => CastViewModel.ToString();
 
-    public override void RefreshAction()
+    /// <summary>
+    /// Обновить модель представления.
+    /// </summary>
+    public override void RefreshViewModel()
     {
         WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {
@@ -87,14 +92,14 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
             {
                 if (ContextCache.LocalViewPlusLines.Any())
                 {
-                    ViewModel.PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
+                    CastViewModel.PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
                 }
             }
 
-            if (ViewModel.PluLine.IsExists)
-                ViewModel.ActionYes.Relay();
+            if (CastViewModel.PluLine.IsExists)
+                CastViewModel.ActionYes.Relay();
             else
-                ViewModel.ActionCancel.Relay();
+                CastViewModel.ActionCancel.Relay();
         });
     }
 
@@ -215,7 +220,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void buttonCancel_Click(object sender, EventArgs e) => ViewModel.ActionCancel.Relay();
+    private void buttonCancel_Click(object sender, EventArgs e) => CastViewModel.ActionCancel.Relay();
 
     #endregion
 }

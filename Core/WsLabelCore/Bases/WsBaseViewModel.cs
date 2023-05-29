@@ -7,7 +7,7 @@ namespace WsLabelCore.Bases;
 /// Базовый класс модели представления.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
+public class WsBaseViewModel : WsMvvmViewModelBase, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
@@ -70,24 +70,24 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     /// <summary>
     /// Видимость сообщения.
     /// </summary>
-    public Visibility MessageVisibility => !string.IsNullOrEmpty(Message) ? Visibility.Visible : Visibility.Hidden;
+    public Visibility MessageVisibility => string.IsNullOrEmpty(Message) ? Visibility.Hidden : Visibility.Visible;
 
-    protected WsViewModelBase()
+    public WsBaseViewModel()
     {
         SetupActionsEmpty();
     }
 
-    protected WsViewModelBase(WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom, WsActionCommandModel cmdIgnore,
-        WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes)
-    {
-        SetupCommands(cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes);
-    }
+    //protected WsViewModelBase(WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom, WsActionCommandModel cmdIgnore,
+    //    WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes)
+    //{
+    //    SetupCommands(cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes);
+    //}
 
-    protected WsViewModelBase(Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore,
-        Action actionNo, Action actionOk, Action actionRetry, Action actionYes)
-    {
-        SetupActions(actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes);
-    }
+    //protected WsViewModelBase(Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore,
+    //    Action actionNo, Action actionOk, Action actionRetry, Action actionYes)
+    //{
+    //    SetupActions(actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes);
+    //}
 
     #endregion
 
@@ -97,19 +97,14 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
         (Commands.Any() ? $"{string.Join(" | ", Commands.Select(item => item.Name))}" : "<Empty>") + 
         (string.IsNullOrEmpty(Message) ? string.Empty : $" | {Message}");
 
-    ///// <summary>
-    ///// Прервать.
-    ///// </summary>
-    //[RelayCommand]
-    //public void RelayAbort() => ActionAbort.Action?.Invoke();
-
     #endregion
 
     #region Public and private methods
 
     /// <summary>
-    /// Настройка.
+    /// Настройка команд.
     /// </summary>
+    /// <param name="message"></param>
     /// <param name="cmdAbort"></param>
     /// <param name="cmdCancel"></param>
     /// <param name="cmdCustom"></param>
@@ -118,9 +113,12 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     /// <param name="cmdOk"></param>
     /// <param name="cmdRetry"></param>
     /// <param name="cmdYes"></param>
-    protected void SetupCommands(WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom, WsActionCommandModel cmdIgnore, 
-        WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes)
+    /// <param name="controlWidth"></param>
+    public void SetupCommands(string message, WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, 
+        WsActionCommandModel cmdCustom, WsActionCommandModel cmdIgnore, WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, 
+        WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes, int controlWidth)
     {
+        Message = message;
         ActionAbort = cmdAbort;
         ActionCancel = cmdCancel;
         ActionCustom = cmdCustom;
@@ -130,11 +128,13 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
         ActionRetry = cmdRetry;
         ActionYes = cmdYes;
         UpdateCommands();
+        SetupButtonsWidth(controlWidth);
     }
 
     /// <summary>
     /// Настройка действий.
     /// </summary>
+    /// <param name="message"></param>
     /// <param name="actionAbort"></param>
     /// <param name="actionCancel"></param>
     /// <param name="actionCustom"></param>
@@ -145,9 +145,10 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     /// <param name="actionYes"></param>
     /// <param name="actionBack"></param>
     /// <param name="controlWidth"></param>
-    public void SetupActions(Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore, Action actionNo,
-        Action actionOk, Action actionRetry, Action actionYes, Action actionBack, int controlWidth)
+    public void SetupActions(string message, Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore, 
+        Action actionNo, Action actionOk, Action actionRetry, Action actionYes, Action actionBack, int controlWidth)
     {
+        Message = message;
         actionAbort += actionBack;
         actionCancel += actionBack;
         actionCustom += actionBack;
@@ -305,12 +306,14 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     /// <summary>
     /// Настройка кнопок Нет/Да.
     /// </summary>
+    /// <param name="message"></param>
     /// <param name="actionNo"></param>
     /// <param name="actionYes"></param>
     /// <param name="actionBack"></param>
     /// <param name="controlWidth"></param>
-    protected void SetupButtonsNoYes(Action actionNo, Action actionYes, Action actionBack, int controlWidth)
+    public void SetupButtonsNoYes(string message, Action actionNo, Action actionYes, Action actionBack, int controlWidth)
     {
+        Message = message;
         actionNo += actionBack;
         actionYes += actionBack;
         SetupActionsNoYes(actionNo, actionYes);
@@ -320,12 +323,14 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     /// <summary>
     /// Настройка кнопок Отмена/Да.
     /// </summary>
+    /// <param name="message"></param>
     /// <param name="actionCancel"></param>
     /// <param name="actionYes"></param>
     /// <param name="actionBack"></param>
     /// <param name="controlWidth"></param>
-    protected void SetupButtonsCancelYes(Action actionCancel, Action actionYes, Action actionBack, int controlWidth)
+    public void SetupButtonsCancelYes(string message, Action actionCancel, Action actionYes, Action actionBack, int controlWidth)
     {
+        Message = message;
         actionCancel += actionBack;
         actionYes += actionBack;
         SetupActionsCancelYes(actionCancel, actionYes);
@@ -333,12 +338,14 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Настройка кнопки Ок.
+    /// Настройка кнопок Ок.
     /// </summary>
+    /// <param name="message"></param>
     /// <param name="actionOk"></param>
     /// <param name="controlWidth"></param>
-    public void SetupButtonsOk(Action actionOk, int controlWidth)
+    public void SetupButtonsOk(string message, Action actionOk, int controlWidth)
     {
+        Message = message;
         SetupActionsOk(actionOk);
         SetupButtonsWidth(controlWidth);
     }

@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLabelCore.Bases;
+
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -29,7 +31,7 @@ public partial class WsMainForm
     /// </summary>
     private void ReturnOkFromPlusLine()
     {
-        LabelSession.SetPluLine(WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.PluLine);
+        LabelSession.SetPluLine(WsWinFormNavigationUtils.PlusLineUserControl.CastViewModel.PluLine);
 
         LabelSession.WeighingSettings.Kneading = 1;
         LabelSession.ProductDate = DateTime.Now;
@@ -48,7 +50,7 @@ public partial class WsMainForm
     /// Возврат ОК из контрола смены вложенности ПЛУ.
     /// </summary>
     private void ReturnOkFromPlusNesting() =>
-        LabelSession.SetViewPluNesting(WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.PluNesting);
+        LabelSession.SetViewPluNesting(WsWinFormNavigationUtils.PlusNestingUserControl.CastViewModel.PluNesting);
 
     /// <summary>
     /// Возврат Отмена из контрола смены вложенности ПЛУ.
@@ -64,8 +66,8 @@ public partial class WsMainForm
     private void ReturnOkFromLines()
     {
         LabelSession.SetSessionForLabelPrint(ShowNavigation,
-            WsWinFormNavigationUtils.LinesUserControl.ViewModel.Line.IdentityValueId,
-            WsWinFormNavigationUtils.LinesUserControl.ViewModel.Area);
+            WsWinFormNavigationUtils.LinesUserControl.CastViewModel.Line.IdentityValueId,
+            WsWinFormNavigationUtils.LinesUserControl.CastViewModel.Area);
         ActionMore(null, null);
     }
 
@@ -106,7 +108,7 @@ public partial class WsMainForm
         WsWinFormNavigationUtils.NavigationUserControl.Visible = true;
         userControl.Dock = DockStyle.Fill;
         userControl.Visible = true;
-        userControl.RefreshAction();
+        userControl.Page.RefreshViewModel();
         System.Windows.Forms.Application.DoEvents();
     }
 

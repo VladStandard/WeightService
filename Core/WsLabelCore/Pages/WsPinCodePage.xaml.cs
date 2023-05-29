@@ -7,16 +7,24 @@ namespace WsLabelCore.Pages;
 /// <summary>
 /// Interaction logic for WsPinCodePage.xaml
 /// </summary>
-public partial class WsPinCodePage : INavigableView<WsPinCodeViewModel>
+public partial class WsPinCodePage //: INavigableView<WsPinCodeViewModel>
 {
     #region Public and private fields, properties, constructor
 
-    public WsPinCodeViewModel ViewModel { get; }
+    private WsPinCodeViewModel CastViewModel { get; }
 
-    public WsPinCodePage(WsPinCodeViewModel viewModel)
+    public WsPinCodePage(WsBaseViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
-        ViewModel = viewModel;
+        if (viewModel is not WsPinCodeViewModel pinCodeViewModel) return;
+        CastViewModel = pinCodeViewModel;
+
+        // Очистить.
+        labelClear.SetBinding(ContentProperty,
+            new Binding(nameof(LocaleCore.Buttons.Clear)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
+        // Вввод.
+        labelEnter.SetBinding(ContentProperty,
+            new Binding(nameof(LocaleCore.Buttons.Enter)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
     }
 
     #endregion

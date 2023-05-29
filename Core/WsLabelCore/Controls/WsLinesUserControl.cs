@@ -12,37 +12,20 @@ public sealed partial class WsLinesUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    private ElementHost ElementHost { get; }
-    public WsLinesViewModel ViewModel { get; }
-    private WsLinesPage Page { get; }
+    public WsLinesViewModel CastViewModel => (WsLinesViewModel)ViewModel;
 
-    public WsLinesUserControl()
+    public WsLinesUserControl() : base(new WsLinesViewModel())
     {
         InitializeComponent();
-        
-        ViewModel = new();
-        Page = new(ViewModel);
-        ElementHost = new() { Dock = DockStyle.Fill };
-        ElementHost.Child = Page;
-        Controls.Add(ElementHost);
-        RefreshAction();
+
+        RefreshViewModel();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => ViewModel.ToString();
-
-    public override void RefreshAction()
-    {
-        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
-        {
-            // Обновить модель представления.
-            ViewModel.Area = LabelSession.Area;
-            ViewModel.Line = LabelSession.Line;
-        });
-    }
+    public override string ToString() => CastViewModel.ToString();
 
     #endregion
 }

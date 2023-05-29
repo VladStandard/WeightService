@@ -1,7 +1,6 @@
 <ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:helpers="clr-namespace:WsLabelCore.Helpers"
 	xmlns:localization="clr-namespace:WsLocalizationCore.Models;assembly=WsLocalizationCore">
 
 	<SolidColorBrush x:Key="Brush" Color="Red" />
@@ -18,5 +17,4 @@
 	<localization:LocaleSql x:Key="LocaleSql" />
 	<localization:LocaleSystem x:Key="LocaleSystem" />
 	<localization:LocaleTable x:Key="LocaleTable" />
-	<!--<x:Static x:Key="UserSession" Member="helpers:WsUserSessionHelper.Instance" />-->
 </ResourceDictionary>

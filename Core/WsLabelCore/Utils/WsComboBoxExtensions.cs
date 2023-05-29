@@ -5,7 +5,7 @@ namespace WsLabelCore.Utils;
 
 public static class WsComboBoxExtensions
 {
-    public static void SetEventWithItems(this ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
+    public static void SetEventWithItems(this System.Windows.Forms.ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
     {
         if (!sourceList.Any() || selectedIndex < 0) return;
 
@@ -20,7 +20,8 @@ public static class WsComboBoxExtensions
             SetEventWithItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
     }
 
-    private static void SetEventWithItemsWork(this ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
+    private static void SetEventWithItemsWork(this System.Windows.Forms.ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, 
+        int selectedIndex = 0)
     {
         comboBox.SelectedIndexChanged -= eventHandler;
 

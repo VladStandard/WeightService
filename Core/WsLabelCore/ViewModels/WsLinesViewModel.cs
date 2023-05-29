@@ -8,7 +8,7 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsLinesViewModel : WsViewModelBase, INotifyPropertyChanged
+public sealed class WsLinesViewModel : WsBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
@@ -23,21 +23,21 @@ public sealed class WsLinesViewModel : WsViewModelBase, INotifyPropertyChanged
         Lines = ContextCache.Lines;
     }
 
-    public WsLinesViewModel(WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom, WsActionCommandModel cmdIgnore,
-        WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes) :
-        base(cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes)
-    {
-        Areas = ContextCache.Areas;
-        Lines = ContextCache.Lines;
-    }
+    //public WsLinesViewModel(WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom, WsActionCommandModel cmdIgnore,
+    //    WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes) :
+    //    base(cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes)
+    //{
+    //    Areas = ContextCache.Areas;
+    //    Lines = ContextCache.Lines;
+    //}
 
-    public WsLinesViewModel(Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore,
-        Action actionNo, Action actionOk, Action actionRetry, Action actionYes) :
-        base(actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes)
-    {
-        Areas = ContextCache.Areas;
-        Lines = ContextCache.Lines;
-    }
+    //public WsLinesViewModel(Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore,
+    //    Action actionNo, Action actionOk, Action actionRetry, Action actionYes) :
+    //    base(actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes)
+    //{
+    //    Areas = ContextCache.Areas;
+    //    Lines = ContextCache.Lines;
+    //}
 
     #endregion
 }

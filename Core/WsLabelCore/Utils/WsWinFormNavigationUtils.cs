@@ -1,11 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Windows.Forms;
+
 namespace WsLabelCore.Utils;
-#nullable enable
 /// <summary>
 /// Утилиты навигации по контролам.
 /// </summary>
+#nullable enable
 public static class WsWinFormNavigationUtils
 {
     #region Public and private fields, properties, constructor
@@ -15,13 +17,13 @@ public static class WsWinFormNavigationUtils
     private static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private static WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
     public static WsNavigationUserControl NavigationUserControl { get; } = new();
-    public static WsMessageBoxUserControl MessageBoxUserControl { get; } = new();
+    public static WsBaseUserControl MessageBoxUserControl { get; } = new();
     public static WsMoreUserControl KneadingUserControl { get; set; } = new();
     public static WsMoreUserControl MoreUserControl { get; set; } = new();
     public static WsLinesUserControl LinesUserControl { get; set; } = new();
     public static WsPlusLinesUserControl PlusLineUserControl { get; set; } = new();
     public static WsPlusNestingUserControl PlusNestingUserControl { get; set; } = new();
-    public static WsWaitUserControl WaitUserControl { get; set; } = new();
+    public static WsBaseUserControl WaitUserControl { get; set; } = new();
 
     #endregion
 
@@ -198,10 +200,10 @@ public static class WsWinFormNavigationUtils
     /// <param name="message"></param>
     public static void NavigateToWaitUserControl(Action<WsBaseUserControl> showNavigation, string message)
     {
+        WaitUserControl.ViewModel.Message = message;
         WaitUserControl.ViewModel.UpdateCommands();
         WaitUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
         showNavigation(WaitUserControl);
-        WaitUserControl.Message = message;
         NavigationUserControl.SwitchUserControl(WaitUserControl, LocaleCore.Scales.AppWait);
     }
 

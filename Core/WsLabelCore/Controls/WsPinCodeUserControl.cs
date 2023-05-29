@@ -12,34 +12,20 @@ public sealed partial class WsPinCodeUserControl : WsBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    private ElementHost ElementHost { get; }
-    public WsPinCodeViewModel ViewModel { get; }
-    private WsPinCodePage Page { get; }
+    public WsPinCodeViewModel CastViewModel => (WsPinCodeViewModel)ViewModel;
 
-    public WsPinCodeUserControl()
+    public WsPinCodeUserControl() : base(new WsPinCodeViewModel())
     {
         InitializeComponent();
         
-        ViewModel = new();
-        Page = new(ViewModel);
-        ElementHost = new() { Dock = DockStyle.Fill };
-        ElementHost.Child = Page;
-        Controls.Add(ElementHost);
+        RefreshViewModel();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => ViewModel.ToString();
-
-    public override void RefreshAction()
-    {
-        //WsWinFormNavigationUtils.ActionTryCatch(() =>
-        //{
-        //    //
-        //});
-    }
+    public override string ToString() => CastViewModel.ToString();
 
     #endregion
 }

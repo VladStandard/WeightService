@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Windows.Forms;
+
 namespace WsLabelCore.Controls;
 
 /// <summary>
@@ -12,30 +14,30 @@ public sealed partial class WsMoreUserControl : WsBaseUserControl
 {
     #region Private fields and properties
 
-    public WsMoreViewModel ViewModel { get; }
+    public WsMoreViewModel CastViewModel => (WsMoreViewModel)ViewModel;
     private DateTime SaveProductDate { get; }
     private short SaveKneading { get; }
     private byte SavePalletSize { get; }
     private Guid PreviousPluScaleUid { get; set; }
 
-    public WsMoreUserControl()
+    public WsMoreUserControl() : base(new WsMoreViewModel())
     {
         InitializeComponent();
 
-        ViewModel = new();
         PreviousPluScaleUid = Guid.Empty;
         SaveProductDate = LabelSession.ProductDate;
         SaveKneading = LabelSession.WeighingSettings.Kneading;
         SavePalletSize = LabelSession.WeighingSettings.LabelsCountMain;
+        RefreshViewModel();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => ViewModel.ToString();
+    public override string ToString() => CastViewModel.ToString();
 
-    public override void RefreshAction()
+    public override void RefreshViewModel()
     {
         WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
         {

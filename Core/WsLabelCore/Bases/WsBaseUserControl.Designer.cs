@@ -1,6 +1,6 @@
-namespace WsLabelCore.Controls;
+namespace WsLabelCore.Bases;
 
-partial class WsMessageBoxUserControl
+partial class WsBaseUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -28,17 +28,16 @@ partial class WsMessageBoxUserControl
     /// </summary>
     private void InitializeComponent()
     {
-        this.SuspendLayout();
-        // 
-        // PluUserControl
-        // 
-        this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.BackColor = System.Drawing.Color.Transparent;
-        this.Name = "WsLinesControl";
-        this.Size = new System.Drawing.Size(900, 500);
-        this.ResumeLayout(false);
-        this.PerformLayout();
+            this.SuspendLayout();
+            // 
+            // WsBaseUserControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.Name = "WsBaseUserControl";
+            this.ResumeLayout(false);
+
     }
 
     #endregion
