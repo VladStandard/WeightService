@@ -63,6 +63,14 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
     /// Размер шрифта кнопок.
     /// </summary>
     public double FontSizeButton => 24;
+    /// <summary>
+    /// Сообщение.
+    /// </summary>
+    public string Message { get; set; } = "";
+    /// <summary>
+    /// Видимость сообщения.
+    /// </summary>
+    public Visibility MessageVisibility => !string.IsNullOrEmpty(Message) ? Visibility.Visible : Visibility.Hidden;
 
     protected WsViewModelBase()
     {
@@ -85,49 +93,15 @@ public class WsViewModelBase : WsMvvmViewModelBase, INotifyPropertyChanged
 
     #region Public and private methods - Commands
 
-    public override string ToString() => Commands.Any() ? $"{string.Join(" | ", Commands.Select(item => item.Name))}" : "<Empty>";
+    public override string ToString() => 
+        (Commands.Any() ? $"{string.Join(" | ", Commands.Select(item => item.Name))}" : "<Empty>") + 
+        (string.IsNullOrEmpty(Message) ? string.Empty : $" | {Message}");
 
     ///// <summary>
     ///// Прервать.
     ///// </summary>
     //[RelayCommand]
     //public void RelayAbort() => ActionAbort.Action?.Invoke();
-    ///// <summary>
-    ///// Отменить.
-    ///// </summary>
-    //[RelayCommand]
-    //public void RelayCancel() => ActionCancel.Action?.Invoke();
-    ///// <summary>
-    ///// Настроить.
-    ///// </summary>
-    //[RelayCommand]
-    //public void RelayCustom() => ActionCustom.Action?.Invoke();
-    ///// <summary>
-    ///// Игнорировать.
-    ///// </summary>
-    //[RelayCommand]
-    //public void RelayIgnore() => ActionIgnore.Action?.Invoke();
-    ///// <summary>
-    ///// Нет.
-    ///// </summary>
-    //[RelayCommand]
-    //public void RelayNo() => ActionNo.Action?.Invoke();
-    ///// <summary>
-    ///// Ок.
-    ///// </summary>
-    //[RelayCommand]
-    //public void RelayOk() => ActionOk.Action?.Invoke();
-    ///// <summary>
-    ///// Повторить.
-    ///// </summary>
-    //[RelayCommand]
-    //public void RelayRetry() => ActionRetry.Action?.Invoke();
-
-    ///// <summary>
-    ///// Да.
-    ///// </summary>
-    //[RelayCommand]
-    //public void RelayYes() => ActionYes.Action?.Invoke();
 
     #endregion
 

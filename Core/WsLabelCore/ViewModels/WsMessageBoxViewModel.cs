@@ -12,8 +12,6 @@ public sealed class WsMessageBoxViewModel : WsViewModelBase, INotifyPropertyChan
 {
     #region Public and private fields and properties
 
-    public string Message { get; set; } = "";
-    //public Visibility MessageVisibility => !string.IsNullOrEmpty(Message) ? Visibility.Visible : Visibility.Hidden;
 
     #endregion
 
