@@ -3,15 +3,19 @@
 
 namespace WsLabelCore.ViewModels;
 
+/// <summary>
+/// Модель представления вложенности ПЛУ.
+/// </summary>
 #nullable enable
-public sealed class WsPluNestingViewModel : WsWpfBaseViewModel
+[DebuggerDisplay("{ToString()}")]
+public sealed class WsPlusNestingViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
     public WsSqlViewPluNestingModel PluNesting { get; set; }
     public List<WsSqlViewPluNestingModel> PlusNestings { get; set; }
 
-    public WsPluNestingViewModel()
+    public WsPlusNestingViewModel()
     {
         PluNesting = new();
         PlusNestings = ContextCache.ViewPlusNesting;

@@ -3,22 +3,41 @@
 
 namespace WsLabelCore.ViewModels;
 
-public sealed class WsLinesViewModel : WsWpfBaseViewModel
+/// <summary>
+/// Модель представления линий.
+/// </summary>
+#nullable enable
+[DebuggerDisplay("{ToString()}")]
+public sealed class WsLinesViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlProductionFacilityModel Area { get; set; }
+    public WsSqlProductionFacilityModel Area { get; set; } = new();
+    public WsSqlScaleModel Line { get; set; } = new();
     public List<WsSqlProductionFacilityModel> Areas { get; set; }
-    public WsSqlScaleModel Line { get; set; }
     public List<WsSqlScaleModel> Lines { get; set; }
 
     public WsLinesViewModel()
     {
-        Area = new();
-        Line = new();
         Areas = ContextCache.Areas;
         Lines = ContextCache.Lines;
     }
+
+    //public WsLinesViewModel(WsActionCommandModel cmdAbort, WsActionCommandModel cmdCancel, WsActionCommandModel cmdCustom, WsActionCommandModel cmdIgnore,
+    //    WsActionCommandModel cmdNo, WsActionCommandModel cmdOk, WsActionCommandModel cmdRetry, WsActionCommandModel cmdYes) :
+    //    base(cmdAbort, cmdCancel, cmdCustom, cmdIgnore, cmdNo, cmdOk, cmdRetry, cmdYes)
+    //{
+    //    Areas = ContextCache.Areas;
+    //    Lines = ContextCache.Lines;
+    //}
+
+    //public WsLinesViewModel(Action actionAbort, Action actionCancel, Action actionCustom, Action actionIgnore,
+    //    Action actionNo, Action actionOk, Action actionRetry, Action actionYes) :
+    //    base(actionAbort, actionCancel, actionCustom, actionIgnore, actionNo, actionOk, actionRetry, actionYes)
+    //{
+    //    Areas = ContextCache.Areas;
+    //    Lines = ContextCache.Lines;
+    //}
 
     #endregion
 }

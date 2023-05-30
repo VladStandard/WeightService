@@ -3,7 +3,7 @@
 
 namespace WsLabelCore.Helpers;
 
-public class WsPluginHelperBase : HelperBase
+public class WsPluginHelperBase : WsHelperBase
 {
     #region Public and private fields and properties
 

@@ -3,15 +3,16 @@
 
 namespace WsLabelCore.ViewModels;
 
+/// <summary>
+/// Модель представления еще.
+/// </summary>
 #nullable enable
-public sealed class WsMoreViewModel : WsWpfBaseViewModel
+[DebuggerDisplay("{ToString()}")]
+public sealed class WsMoreViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    public WsMoreViewModel()
-    {
-        //
-    }
+    //
 
     #endregion
 }

@@ -3,7 +3,8 @@
 
 namespace WsLabelCore.Models;
 
-public sealed class WsPluginModel : HelperBase
+[DebuggerDisplay("{ToString()}")]
+public sealed class WsPluginModel : WsHelperBase
 {
     #region Public and private fields, properties, constructor
 

@@ -27,7 +27,8 @@ public sealed class LocaleScale : WsLocalizationBase
     public string AppLoad => Lang == Lang.English ? "Program loading" : "Запуск программы";
     public string AppTitle => Lang == Lang.English ? "Label print" : "Печать этикеток";
     public string AppWaitExit => Lang == Lang.English ? "Waiting for the exiting..." : "Ожидание завершения...";
-    public string AppWaitLoad => Lang == Lang.English ? "Waiting for the load" : "Ожидание загрузщки...";
+    public string AppWait => Lang == Lang.English ? "Waiting" : "Ожидание";
+    public string AppWaitLoad => Lang == Lang.English ? "Waiting for the load" : "Ожидание загрузки...";
     public string Bundle => Lang == Lang.English ? "Bundle" : "Пакет";
     public string ButtonAddKneading => Lang == Lang.English ? "Kneading" : "Замес";
     public string ButtonNewPallet => Lang == Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";

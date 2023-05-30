@@ -3,17 +3,16 @@
 
 namespace WsLabelCore.ViewModels;
 
+/// <summary>
+/// Модель представления ПЛУ линии.
+/// </summary>
 #nullable enable
-public sealed class WsPlusViewModel : WsWpfBaseViewModel
+[DebuggerDisplay("{ToString()}")]
+public sealed class WsPlusViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlPluScaleModel PluLine { get; set; }
-
-    public WsPlusViewModel()
-    {
-        PluLine = new();
-    }
+    public WsSqlPluScaleModel PluLine { get; set; } = new();
 
     #endregion
 }

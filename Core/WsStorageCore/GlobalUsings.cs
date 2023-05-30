@@ -37,6 +37,7 @@ global using System.Xml;
 global using System;
 global using System.Runtime.Serialization.Formatters.Binary;
 global using MvvmHelpers;
+global using WsDataCore.Bases;
 global using WsDataCore.Enums;
 global using WsDataCore.Helpers;
 global using WsDataCore.Models;

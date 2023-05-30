@@ -1,0 +1,223 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System.Windows.Forms;
+
+namespace WsLabelCore.Controls;
+
+/// <summary>
+/// Контрол ещё.
+/// </summary>
+#nullable enable
+[DebuggerDisplay("{ToString()}")]
+public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
+{
+    #region Private fields and properties
+
+    public WsMoreViewModel CastViewModel => (WsMoreViewModel)ViewModel;
+    private DateTime SaveProductDate { get; }
+    private short SaveKneading { get; }
+    private byte SavePalletSize { get; }
+    private Guid PreviousPluScaleUid { get; set; }
+
+    public WsFormMoreUserControl() : base(new WsMoreViewModel())
+    {
+        InitializeComponent();
+
+        PreviousPluScaleUid = Guid.Empty;
+        SaveProductDate = LabelSession.ProductDate;
+        SaveKneading = LabelSession.WeighingSettings.Kneading;
+        SavePalletSize = LabelSession.WeighingSettings.LabelsCountMain;
+        RefreshViewModel();
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    public override string ToString() => CastViewModel.ToString();
+
+    public override void RefreshViewModel()
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            if (!LabelSession.PluLine.IdentityValueUid.Equals(PreviousPluScaleUid))
+            {
+                PreviousPluScaleUid = LabelSession.PluLine.IdentityValueUid;
+                ShowPalletSize();
+                SetGuiConfig();
+                SetGuiLocalize();
+                RefreshControlsText();
+            }
+        });
+        buttonOk.Select();
+    }
+
+    private void RefreshControlsText()
+    {
+        fieldKneading.Text = $@"{LabelSession.WeighingSettings.Kneading}";
+        fieldProdDate.Text = LabelSession.ProductDate.ToString("dd.MM.yyyy");
+    }
+
+    private void ButtonKneadingLeft_Click(object sender, EventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            WsFormNumberInput numberInputForm = new() { InputValue = 0 };
+            DialogResult result = numberInputForm.ShowDialog(this);
+            numberInputForm.Close();
+            numberInputForm.Dispose();
+            if (result == DialogResult.OK)
+                LabelSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
+            RefreshControlsText();
+        });
+    }
+
+    private void ButtonClose_Click(object sender, EventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            CheckWeightCount();
+            LabelSession.ProductDate = SaveProductDate;
+            LabelSession.WeighingSettings.Kneading = SaveKneading;
+            LabelSession.WeighingSettings.LabelsCountMain = SavePalletSize;
+            ViewModel.ActionCancel.Relay();
+        });
+    }
+
+    private void CheckWeightCount()
+    {
+        if (LabelSession.PluLine is { IsNotNew: true, Plu.IsCheckWeight: true } &&
+            LabelSession.WeighingSettings.LabelsCountMain > 1)
+        {
+            //WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
+            //    LabelSession.HostName, nameof(ScalesUI));
+            LabelSession.WeighingSettings.LabelsCountMain = 1;
+        }
+        fieldPalletSize.Text = $@"{LabelSession.WeighingSettings.LabelsCountMain}";
+    }
+
+    private void ButtonOk_Click(object sender, EventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            CheckWeightCount();
+            ViewModel.ActionOk.Relay();
+        });
+    }
+
+    private void ButtonDtRight_Click(object sender, EventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            LabelSession.RotateProductDate(WsEnumDirection.Right);
+            RefreshControlsText();
+        });
+    }
+
+    private void ButtonDtLeft_Click(object sender, EventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            LabelSession.RotateProductDate(WsEnumDirection.Left);
+            RefreshControlsText();
+        });
+    }
+
+    private void ShowPalletSize()
+    {
+        fieldPalletSize.Text = LabelSession.WeighingSettings.LabelsCountMain.ToString();
+    }
+
+    private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            LabelSession.WeighingSettings.LabelsCountMain++;
+            ShowPalletSize();
+        });
+    }
+
+    private void ButtonPalletSizePrev_Click(object sender, EventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            LabelSession.WeighingSettings.LabelsCountMain--;
+            ShowPalletSize();
+        });
+    }
+
+    private void ButtonPalletSizeSet1_Click(object sender, EventArgs e)
+    {
+        SetLabelsCount(1);
+    }
+
+    private void ButtonPalletSizeSet10_Click(object sender, EventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            int n = LabelSession.WeighingSettings.LabelsCountMain == 1 ? 9 : 10;
+            for (int i = 0; i < n; i++)
+            {
+                LabelSession.WeighingSettings.LabelsCountMain++;
+                ShowPalletSize();
+            }
+        });
+    }
+
+    private void ButtonPalletSizeSet40_Click(object sender, EventArgs e)
+    {
+        SetLabelsCount(40);
+    }
+
+    private void ButtonPalletSizeSet60_Click(object sender, EventArgs e)
+    {
+        SetLabelsCount(60);
+    }
+
+    private void ButtonPalletSizeSet120_Click(object sender, EventArgs e)
+    {
+        SetLabelsCount(120);
+    }
+
+    private void SetLabelsCount(byte count)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            LabelSession.WeighingSettings.LabelsCountMain = count;
+            ShowPalletSize();
+        });
+    }
+
+    private void KneadingUserControl_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                ButtonClose_Click(sender, e);
+            }
+        });
+    }
+
+    private void SetGuiConfig()
+    {
+        // Kneading.
+        labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = LabelSession.Line.IsKneading;
+        // Pallet size.
+        labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
+            buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =
+                LabelSession.PluLine.IsNotNew && !LabelSession.PluLine.Plu.IsCheckWeight;
+    }
+
+    private void SetGuiLocalize()
+    {
+        labelKneading.Text = LocaleCore.Scales.FieldKneading;
+        labelProdDate.Text = LocaleCore.Scales.FieldProductDate;
+        labelPalletSize.Text = LocaleCore.Scales.FieldPalletSize;
+        buttonOk.Text = LocaleCore.Buttons.Ok;
+        buttonCancel.Text = LocaleCore.Buttons.Cancel;
+    }
+
+    #endregion
+}

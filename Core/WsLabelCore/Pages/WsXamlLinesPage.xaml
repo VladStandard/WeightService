@@ -1,0 +1,80 @@
+<bases:WsXamlBasePage
+	x:Class="WsLabelCore.Pages.WsLinesPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:bases="clr-namespace:WsLabelCore.Bases"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	d:DesignHeight="500"
+	d:DesignWidth="800"
+	FontSize="26"
+	TextOptions.TextFormattingMode="Ideal"
+	TextOptions.TextRenderingMode="Auto"
+	mc:Ignorable="d">
+
+	<Border
+		Margin="3"
+		BorderBrush="Blue"
+		BorderThickness="1">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="0.5*" />
+				<ColumnDefinition Width="2*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="2.5*" />
+				<RowDefinition Height="2.5*" />
+				<RowDefinition Height="1*" />
+			</Grid.RowDefinitions>
+			<Label
+				x:Name="labelArea"
+				Grid.Row="0"
+				Margin="3"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center" />
+			<ComboBox
+				x:Name="comboBoxArea"
+				Grid.Row="0"
+				Grid.Column="1"
+				Margin="3"
+				Padding="20,0,0,0"
+				HorizontalContentAlignment="Left"
+				VerticalContentAlignment="Center"
+				Background="Transparent"
+				FontSize="26">
+				<ComboBox.ItemContainerStyle>
+					<Style TargetType="ComboBoxItem">
+						<Setter Property="Padding" Value="20,0,0,0" />
+					</Style>
+				</ComboBox.ItemContainerStyle>
+			</ComboBox>
+			<Label
+				x:Name="labelLine"
+				Grid.Row="1"
+				Margin="3"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center" />
+			<ComboBox
+				x:Name="comboBoxLine"
+				Grid.Row="1"
+				Grid.Column="1"
+				Margin="3"
+				Padding="20,0,0,0"
+				HorizontalContentAlignment="Left"
+				VerticalContentAlignment="Center"
+				Background="Transparent"
+				FontSize="26">
+				<ComboBox.ItemContainerStyle>
+					<Style TargetType="ComboBoxItem">
+						<Setter Property="Padding" Value="20,0,0,0" />
+					</Style>
+				</ComboBox.ItemContainerStyle>
+			</ComboBox>
+			<ItemsControl
+				x:Name="itemsControl"
+				Grid.Row="2"
+				Grid.ColumnSpan="2"
+				Margin="2" />
+		</Grid>
+	</Border>
+</bases:WsXamlBasePage>

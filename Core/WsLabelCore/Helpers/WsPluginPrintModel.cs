@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLabelCore.Helpers;
-
 #nullable enable
 public sealed class WsPluginPrintModel : WsPluginHelperBase
 {
@@ -106,7 +105,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         }
         catch (Exception ex)
         {
-            WsWinFormNavigationUtils.CatchExceptionSimple(ex);
+            WsFormNavigationUtils.CatchExceptionSimple(ex);
         }
     }
 
@@ -150,7 +149,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
                         }
                         catch (Exception ex)
                         {
-                            WsWinFormNavigationUtils.CatchExceptionSimple(ex);
+                            WsFormNavigationUtils.CatchExceptionSimple(ex);
                             SendCmdToZebra(ZplUtils.ZplHostStatusReturn);
                         }
                     }
@@ -339,14 +338,14 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
                     }
                     else
                     {
-                        WsWinFormNavigationUtils.CatchExceptionSimple(new($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"));
+                        WsFormNavigationUtils.CatchExceptionSimple(new($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"));
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            WsWinFormNavigationUtils.CatchExceptionSimple(ex);
+            WsFormNavigationUtils.CatchExceptionSimple(ex);
         }
     }
 
