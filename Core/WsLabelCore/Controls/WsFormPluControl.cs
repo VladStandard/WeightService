@@ -10,7 +10,7 @@ namespace WsLabelCore.Controls;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsPluControl : UserControl
+public sealed class WsFormPluControl : UserControl
 {
     #region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public sealed class WsPluControl : UserControl
     private Label LabelTemplate { get; }
     private Action<object, EventArgs> ActionPluSelect { get; }
 
-    public WsPluControl(WsSqlViewPluLineModel viewPluScale, Action<object, EventArgs> actionPluSelect)
+    public WsFormPluControl(WsSqlViewPluLineModel viewPluScale, Action<object, EventArgs> actionPluSelect)
     {
         Name = $"WsPluControl{viewPluScale.PluNumber}";
         Font = WsFontsSettingsHelper.Instance.FontLabelsBlack;

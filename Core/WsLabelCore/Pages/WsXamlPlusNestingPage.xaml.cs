@@ -15,7 +15,7 @@ public partial class WsPlusNestingPage //: INavigableView<WsPlusNestingViewModel
 
     private WsPlusNestingViewModel CastViewModel { get; }
 
-    public WsPlusNestingPage(WsBaseViewModel viewModel) : base(viewModel)
+    public WsPlusNestingPage(WsXamlBaseViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
         if (viewModel is not WsPlusNestingViewModel pluNestingViewModel) return;

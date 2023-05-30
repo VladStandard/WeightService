@@ -32,67 +32,64 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bases\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Bases\WsBasePage.cs" />
-    <Compile Include="Bases\WsBaseUserControl.cs">
+    <Compile Include="Bases\WsXamlBasePage.cs" />
+    <Compile Include="Bases\WsFormBaseUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Bases\WsBaseUserControl.Designer.cs">
-      <DependentUpon>WsBaseUserControl.cs</DependentUpon>
+    <Compile Include="Bases\WsFormBaseUserControl.Designer.cs">
+      <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WsPinCodeUserControl.cs">
+    <Compile Include="Controls\WsFormPinCodeUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsPinCodeUserControl.Designer.cs">
-      <DependentUpon>WsPinCodeUserControl.cs</DependentUpon>
+    <Compile Include="Controls\WsFormPinCodeUserControl.Designer.cs">
+      <DependentUpon>WsFormPinCodeUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WsPlusNestingUserControl.cs">
+    <Compile Include="Controls\WsFormPlusNestingUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsPlusNestingUserControl.Designer.cs">
-      <DependentUpon>WsPlusNestingUserControl.cs</DependentUpon>
+    <Compile Include="Controls\WsFormPlusNestingUserControl.Designer.cs">
+      <DependentUpon>WsFormPlusNestingUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WsLinesUserControl.cs">
+    <Compile Include="Controls\WsFormLinesUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsLinesUserControl.Designer.cs">
-      <DependentUpon>WsLinesUserControl.cs</DependentUpon>
+    <Compile Include="Controls\WsFormLinesUserControl.Designer.cs">
+      <DependentUpon>WsFormLinesUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WsMoreUserControl.cs">
+    <Compile Include="Controls\WsFormMoreUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsMoreUserControl.Designer.cs">
-      <DependentUpon>WsMoreUserControl.cs</DependentUpon>
+    <Compile Include="Controls\WsFormMoreUserControl.Designer.cs">
+      <DependentUpon>WsFormMoreUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WsNavigationUserControl.cs">
+    <Compile Include="Controls\WsFormNavigationUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsNavigationUserControl.Designer.cs">
-      <DependentUpon>WsNavigationUserControl.cs</DependentUpon>
+    <Compile Include="Controls\WsFormNavigationUserControl.Designer.cs">
+      <DependentUpon>WsFormNavigationUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WsPlusLinesUserControl.cs">
+    <Compile Include="Controls\WsFormPlusLinesUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsPlusLinesUserControl.Designer.cs">
-      <DependentUpon>WsPlusLinesUserControl.cs</DependentUpon>
+    <Compile Include="Controls\WsFormPlusLinesUserControl.Designer.cs">
+      <DependentUpon>WsFormPlusLinesUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalUsings.cs" />
-    <Compile Include="Controls\WsPluControl.cs">
+    <Compile Include="Controls\WsFormPluControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Helpers\WsLabelSessionHelper.cs" />
     <Compile Include="Models\WsActionCommandModel.cs" />
-    <Compile Include="Utils\WsWinFormNavigationUtils.cs" />
-    <Compile Include="Utils\WsWinFormUtils.cs" />
+    <Compile Include="Utils\WsFormNavigationUtils.cs" />
+    <Compile Include="Utils\WsFormUtils.cs" />
     <Compile Include="ViewModels\WsPlusLineViewModel.cs" />
     <Compile Include="ViewModels\WsMoreViewModel.cs" />
-    <Compile Include="Forms\WsNumberInputForm.cs">
+    <Compile Include="Forms\WsFormNumberInput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WsNumberInputForm.Designer.cs">
-      <DependentUpon>WsNumberInputForm.cs</DependentUpon>
+    <Compile Include="Forms\WsFormNumberInput.Designer.cs">
+      <DependentUpon>WsFormNumberInput.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\WsSerialPortsUtils.cs" />
     <Compile Include="Helpers\WsHardwareHelper.cs" />
@@ -108,7 +105,7 @@
     <Compile Include="ViewModels\WsLinesViewModel.cs" />
     <Compile Include="ViewModels\WsPinCodeViewModel.cs" />
     <Compile Include="ViewModels\WsPlusNestingViewModel.cs" />
-    <Compile Include="Bases\WsBaseViewModel.cs" />
+    <Compile Include="Bases\WsXamlBaseViewModel.cs" />
     <Compile Include="Helpers\WsFontsSettingsHelper.cs" />
     <Compile Include="Helpers\WsPluginLabelsHelper.cs" />
     <Compile Include="Helpers\WsPluginMassaHelper.cs" />
@@ -117,17 +114,17 @@
     <Compile Include="Models\WsConfigModel.cs" />
     <Compile Include="Helpers\WsPluginHelperBase.cs" />
     <Compile Include="Models\WsPluginModel.cs" />
-    <Compile Include="Utils\WsComboBoxExtensions.cs" />
-    <Compile Include="Utils\WsWinFormExtensions.cs" />
+    <Compile Include="Utils\WsFormComboBoxExtensions.cs" />
+    <Compile Include="Utils\WsFormExtensions.cs" />
     <Compile Include="Helpers\WsXamlHelper.cs" />
-    <Compile Include="Pages\WsLinesPage.xaml.cs">
-      <DependentUpon>WsLinesPage.xaml</DependentUpon>
+    <Compile Include="Pages\WsXamlLinesPage.xaml.cs">
+      <DependentUpon>WsXamlLinesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\WsPinCodePage.xaml.cs">
-      <DependentUpon>WsPinCodePage.xaml</DependentUpon>
+    <Compile Include="Pages\WsXamlPinCodePage.xaml.cs">
+      <DependentUpon>WsXamlPinCodePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\WsPlusNestingPage.xaml.cs">
-      <DependentUpon>WsPlusNestingPage.xaml</DependentUpon>
+    <Compile Include="Pages\WsXamlPlusNestingPage.xaml.cs">
+      <DependentUpon>WsXamlPlusNestingPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -169,29 +166,29 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Bases\WsBaseUserControl.resx">
-      <DependentUpon>WsBaseUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Bases\WsFormBaseUserControl.resx">
+      <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsPinCodeUserControl.resx">
-      <DependentUpon>WsPinCodeUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WsFormPinCodeUserControl.resx">
+      <DependentUpon>WsFormPinCodeUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsPlusNestingUserControl.resx">
-      <DependentUpon>WsPlusNestingUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WsFormPlusNestingUserControl.resx">
+      <DependentUpon>WsFormPlusNestingUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsLinesUserControl.resx">
-      <DependentUpon>WsLinesUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WsFormLinesUserControl.resx">
+      <DependentUpon>WsFormLinesUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsMoreUserControl.resx">
-      <DependentUpon>WsMoreUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WsFormMoreUserControl.resx">
+      <DependentUpon>WsFormMoreUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsNavigationUserControl.resx">
-      <DependentUpon>WsNavigationUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WsFormNavigationUserControl.resx">
+      <DependentUpon>WsFormNavigationUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsPlusLinesUserControl.resx">
-      <DependentUpon>WsPlusLinesUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WsFormPlusLinesUserControl.resx">
+      <DependentUpon>WsFormPlusLinesUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WsNumberInputForm.resx">
-      <DependentUpon>WsNumberInputForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\WsFormNumberInput.resx">
+      <DependentUpon>WsFormNumberInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -199,19 +196,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Bases\UserControl1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\WsLinesPage.xaml">
+    <Page Include="Pages\WsXamlLinesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\WsPinCodePage.xaml">
+    <Page Include="Pages\WsXamlPinCodePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\WsPlusNestingPage.xaml">
+    <Page Include="Pages\WsXamlPlusNestingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

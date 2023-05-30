@@ -9,15 +9,15 @@ namespace WsLabelCore.Bases;
 /// Базовый класс Controls.UserControl.
 /// </summary>
 #nullable enable
-public class WsBasePage : UserControl
+public class WsXamlBasePage : UserControl
 {
     #region Public and private fields, properties, constructor
 
     internal WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-    public WsBaseViewModel ViewModel { get; }
+    public WsXamlBaseViewModel ViewModel { get; }
     private Grid GridMain { get; }
 
-    public WsBasePage(WsBaseViewModel viewModel)
+    public WsXamlBasePage(WsXamlBaseViewModel viewModel)
     {
         ViewModel = viewModel;
 
@@ -53,7 +53,7 @@ public class WsBasePage : UserControl
     /// <summary>
     /// Настроить кнопки.
     /// </summary>
-    protected void SetupButtons(WsBaseViewModel viewModel)
+    protected void SetupButtons(WsXamlBaseViewModel viewModel)
     {
         // Список кнопок.
         ItemsControl itemsControl = new() { Margin = new(2) };

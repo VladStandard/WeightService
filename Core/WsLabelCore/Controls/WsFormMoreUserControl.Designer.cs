@@ -2,7 +2,7 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.Controls;
 
-partial class WsMoreUserControl
+partial class WsFormMoreUserControl
 {
     /// <summary> 
     /// Required designer variable.

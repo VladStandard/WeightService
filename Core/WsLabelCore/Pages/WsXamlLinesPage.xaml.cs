@@ -15,7 +15,7 @@ public partial class WsLinesPage //: INavigableView<WsLinesViewModel>
 
     private WsLinesViewModel CastViewModel { get; }
 
-    public WsLinesPage(WsBaseViewModel viewModel) : base(viewModel)
+    public WsLinesPage(WsXamlBaseViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
         if (viewModel is not WsLinesViewModel linesViewModel) return;
@@ -54,7 +54,7 @@ public partial class WsLinesPage //: INavigableView<WsLinesViewModel>
     /// </summary>
     public override void RefreshViewModel()
     {
-        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             CastViewModel.Area = LabelSession.Area;
             CastViewModel.Line = LabelSession.Line;

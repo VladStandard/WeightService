@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.Controls;
 
-partial class WsNavigationUserControl
+partial class WsFormNavigationUserControl
 {
     /// <summary> 
     /// Required designer variable.

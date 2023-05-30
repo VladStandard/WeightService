@@ -8,7 +8,7 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsLinesViewModel : WsBaseViewModel, INotifyPropertyChanged
+public sealed class WsLinesViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 

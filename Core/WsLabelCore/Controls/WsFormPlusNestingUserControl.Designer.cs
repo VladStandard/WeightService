@@ -1,6 +1,6 @@
-namespace WsLabelCore.Bases;
+namespace WsLabelCore.Controls;
 
-partial class WsBaseUserControl
+partial class WsFormPlusNestingUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -28,16 +28,17 @@ partial class WsBaseUserControl
     /// </summary>
     private void InitializeComponent()
     {
-            this.SuspendLayout();
-            // 
-            // WsBaseUserControl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Name = "WsBaseUserControl";
-            this.ResumeLayout(false);
-
+        this.SuspendLayout();
+        // 
+        // PluUserControl
+        // 
+        this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        this.BackColor = System.Drawing.Color.Transparent;
+        this.Name = "WsLinesControl";
+        this.Size = new System.Drawing.Size(900, 500);
+        this.ResumeLayout(false);
+        this.PerformLayout();
     }
 
     #endregion

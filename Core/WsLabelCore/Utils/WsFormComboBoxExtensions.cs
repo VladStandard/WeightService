@@ -3,7 +3,7 @@
 
 namespace WsLabelCore.Utils;
 
-public static class WsComboBoxExtensions
+public static class WsFormComboBoxExtensions
 {
     public static void SetEventWithItems(this System.Windows.Forms.ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
     {

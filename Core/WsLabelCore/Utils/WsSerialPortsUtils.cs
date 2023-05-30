@@ -41,7 +41,7 @@ public static class WsSerialPortsUtils
         }
         catch (Exception ex)
         {
-            WsWinFormNavigationUtils.CatchExceptionSimple(ex);
+            WsFormNavigationUtils.CatchExceptionSimple(ex);
         }
     }
 }

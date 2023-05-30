@@ -13,7 +13,7 @@ public partial class WsPinCodePage //: INavigableView<WsPinCodeViewModel>
 
     private WsPinCodeViewModel CastViewModel { get; }
 
-    public WsPinCodePage(WsBaseViewModel viewModel) : base(viewModel)
+    public WsPinCodePage(WsXamlBaseViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
         if (viewModel is not WsPinCodeViewModel pinCodeViewModel) return;

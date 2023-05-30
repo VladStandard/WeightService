@@ -98,7 +98,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <param name="showNavigation"></param>
     /// <param name="lineId"></param>
     /// <param name="area"></param>
-    public void SetSessionForLabelPrint(Action<WsBaseUserControl> showNavigation, long lineId = -1,
+    public void SetSessionForLabelPrint(Action<WsFormBaseUserControl> showNavigation, long lineId = -1,
         WsSqlProductionFacilityModel? area = null)
     {
         lock (_locker)
@@ -108,7 +108,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             ContextCache.LoadGlobal();
             // Device.
             WsSqlDeviceModel device = ContextManager.ContextItem.GetItemDeviceNotNullable(DeviceName);
-            device = WsWinFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
+            device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
                 device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
             WsSqlDeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);

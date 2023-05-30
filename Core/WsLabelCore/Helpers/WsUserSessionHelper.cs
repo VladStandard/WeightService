@@ -219,7 +219,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <param name="showNavigation"></param>
     /// <param name="fieldWarning"></param>
     /// <param name="isClearBuffer"></param>
-    public void PrintLabel(Action<WsBaseUserControl> showNavigation, Label fieldWarning, bool isClearBuffer)
+    public void PrintLabel(Action<WsFormBaseUserControl> showNavigation, Label fieldWarning, bool isClearBuffer)
     {
         if (LabelSession.Line is { IsOrder: true })
             throw new("Order under construct!");
@@ -268,7 +268,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <param name="showNavigation"></param>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCount(Action<WsBaseUserControl> showNavigation, WsSqlTemplateModel template, bool isClearBuffer)
+    private void PrintLabelCount(Action<WsFormBaseUserControl> showNavigation, WsSqlTemplateModel template, bool isClearBuffer)
     {
         // Шаблон с указанием кол-ва и не весовой продукт.
         if (template.Data.Contains("^PQ1") && !LabelSession.PluLine.Plu.IsCheckWeight)
@@ -316,12 +316,12 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// Задать фейк данные веса ПЛУ для режима разработки.
     /// </summary>
     /// <param name="showNavigation"></param>
-    public void SetPluWeighingFakeForDevelop(Action<WsBaseUserControl> showNavigation)
+    public void SetPluWeighingFakeForDevelop(Action<WsFormBaseUserControl> showNavigation)
     {
         if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
         // Навигация в контрол сообщений.
-        WsWinFormNavigationUtils.NavigateToMessageBoxUserControlCancelYes(showNavigation, LocaleCore.Print.QuestionUseFakeData,
+        WsFormNavigationUtils.NavigateToMessageBoxUserControlCancelYes(showNavigation, LocaleCore.Print.QuestionUseFakeData,
             true, WsEnumLogType.Question, () => { }, ActionYes);
         void ActionYes()
         {
@@ -336,7 +336,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <param name="showNavigation"></param>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCore(Action<WsBaseUserControl> showNavigation, WsSqlTemplateModel template, bool isClearBuffer)
+    private void PrintLabelCore(Action<WsFormBaseUserControl> showNavigation, WsSqlTemplateModel template, bool isClearBuffer)
     {
         try
         {
@@ -356,7 +356,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             if (Debug.IsDevelop)
             {
                 // Навигация в контрол сообщений.
-                WsWinFormNavigationUtils.NavigateToMessageBoxUserControlCancelYes(showNavigation,
+                WsFormNavigationUtils.NavigateToMessageBoxUserControlCancelYes(showNavigation,
                     LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
                     () => { }, ActionYes);
                 void ActionYes()
@@ -373,7 +373,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         }
         catch (Exception ex)
         {
-            WsWinFormNavigationUtils.CatchExceptionSimple(ex);
+            WsFormNavigationUtils.CatchExceptionSimple(ex);
         }
     }
 

@@ -10,11 +10,11 @@ namespace WsLabelCore.Controls;
 /// Корневой контрол навигации.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsNavigationUserControl : WsBaseUserControl
+public sealed partial class WsFormNavigationUserControl : WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsNavigationUserControl()
+    public WsFormNavigationUserControl()
     {
         InitializeComponent();
     
@@ -30,14 +30,14 @@ public sealed partial class WsNavigationUserControl : WsBaseUserControl
     /// </summary>
     /// <param name="userControl"></param>
     /// <param name="title"></param>
-    public void SwitchUserControl(WsBaseUserControl userControl, string title)
+    public void SwitchUserControl(WsFormBaseUserControl userControl, string title)
     {
         fieldTitle.Text = title;
         fieldTitle.Visible = !string.IsNullOrEmpty(title);
 
         foreach (Control control in layoutPanelUser.Controls)
         {
-            if (control is WsBaseUserControl getControl)
+            if (control is WsFormBaseUserControl getControl)
             {
                 if (!getControl.Name.Equals(userControl.Name))
                     control.Visible = false;

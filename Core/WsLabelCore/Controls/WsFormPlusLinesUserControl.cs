@@ -12,7 +12,7 @@ namespace WsLabelCore.Controls;
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
 #nullable enable
-public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
+public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
@@ -23,7 +23,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     private long LastScaleId { get; set; }
     private int LastPageNumber { get; set; }
 
-    public WsPlusLinesUserControl() : base(new WsPlusViewModel())
+    public WsFormPlusLinesUserControl() : base(new WsPlusViewModel())
     {
         InitializeComponent();
 
@@ -43,7 +43,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     /// </summary>
     public override void RefreshViewModel()
     {
-        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             // Обновить локальный кэш.
             ContextCache.LoadLocalViewPlusLines((ushort)LabelSession.Line.IdentityValueId);
@@ -59,14 +59,14 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     /// Создать массив контролов ПЛУ.
     /// </summary>
     /// <returns></returns>
-    private WsPluControl?[,] CreatePluUserControls()
+    private WsFormPluControl?[,] CreatePluUserControls()
     {
         List<WsSqlViewPluLineModel> viewPlusScales = 
             ContextCache.GetCurrentViewPlusScales(LabelSession.PlusPageNumber, LabelSession.PlusPageSize);
-        if (!viewPlusScales.Any()) return new WsPluControl?[0, 0];
+        if (!viewPlusScales.Any()) return new WsFormPluControl?[0, 0];
 
-        WsPluControl?[,] pluUserControls = new WsPluControl[LabelSession.PlusPageColumnCount, LabelSession.PlusPageRowCount];
-        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormPluControl?[,] pluUserControls = new WsFormPluControl[LabelSession.PlusPageColumnCount, LabelSession.PlusPageRowCount];
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             for (ushort rowNumber = 0, counter = 0; rowNumber < LabelSession.PlusPageRowCount; ++rowNumber)
             {
@@ -86,7 +86,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
     /// </summary>
     private void ActionPluSelect(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             if (sender is Control { Tag: WsSqlViewPluLineModel viewPluScale })
             {
@@ -170,7 +170,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
         // Подготовить панель ПЛУ.
         PrepareLayoutPanelPlus();
         // Создать массив контролов ПЛУ.
-        WsPluControl?[,] pluUserControls = CreatePluUserControls();
+        WsFormPluControl?[,] pluUserControls = CreatePluUserControls();
         int columnSave = pluUserControls.GetUpperBound(0) + 1;     // -1 + 1 = 0
         int rowSave = pluUserControls.GetUpperBound(1) + 1;        // -1 + 1 = 0
         int columnCount = pluUserControls.GetUpperBound(0) + 1;    // -1 + 1 = 0
@@ -188,7 +188,7 @@ public sealed partial class WsPlusLinesUserControl : WsBaseUserControl
                     layoutPanelPlus.Controls.Add(pluUserControl, column, row);
         }
         // Настроить размеры контролов.
-        foreach (WsPluControl? pluUserControl in pluUserControls) pluUserControl?.SetupSizes();
+        foreach (WsFormPluControl? pluUserControl in pluUserControls) pluUserControl?.SetupSizes();
         // Отобразить панель ПЛУ.
         layoutPanelPlus.Visible = true;
     }

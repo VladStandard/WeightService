@@ -7,7 +7,7 @@ namespace WsLabelCore.Bases;
 /// Базовый класс модели представления.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsBaseViewModel : WsMvvmViewModelBase, INotifyPropertyChanged
+public class WsXamlBaseViewModel : WsMvvmViewModelBase, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
@@ -72,7 +72,7 @@ public class WsBaseViewModel : WsMvvmViewModelBase, INotifyPropertyChanged
     /// </summary>
     public Visibility MessageVisibility => string.IsNullOrEmpty(Message) ? Visibility.Hidden : Visibility.Visible;
 
-    public WsBaseViewModel()
+    public WsXamlBaseViewModel()
     {
         SetupActionsEmpty();
     }

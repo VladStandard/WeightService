@@ -8,7 +8,7 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsPlusNestingViewModel : WsBaseViewModel, INotifyPropertyChanged
+public sealed class WsPlusNestingViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 

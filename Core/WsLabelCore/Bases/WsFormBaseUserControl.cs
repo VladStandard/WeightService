@@ -10,7 +10,7 @@ namespace WsLabelCore.Bases;
 /// Базовый класс Windows.Forms.UserControl.
 /// </summary>
 #nullable enable
-public partial class WsBaseUserControl : UserControl
+public partial class WsFormBaseUserControl : UserControl
 {
     #region Public and private fields, properties, constructor
 
@@ -18,10 +18,10 @@ public partial class WsBaseUserControl : UserControl
     internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     internal WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public ElementHost ElementHost { get; set; }
-    public WsBaseViewModel ViewModel { get; }
-    public WsBasePage Page { get; }
+    public WsXamlBaseViewModel ViewModel { get; }
+    public WsXamlBasePage Page { get; }
 
-    public WsBaseUserControl()
+    public WsFormBaseUserControl()
     {
         InitializeComponent();
         ViewModel = new();
@@ -30,7 +30,7 @@ public partial class WsBaseUserControl : UserControl
         //SetupElementHost();
     }
 
-    protected WsBaseUserControl(WsLinesViewModel viewModel)
+    protected WsFormBaseUserControl(WsLinesViewModel viewModel)
     {
         InitializeComponent();
         ViewModel = viewModel;
@@ -39,7 +39,7 @@ public partial class WsBaseUserControl : UserControl
         //SetupElementHost();
     }
 
-    protected WsBaseUserControl(WsMoreViewModel viewModel)
+    protected WsFormBaseUserControl(WsMoreViewModel viewModel)
     {
         InitializeComponent();
         ViewModel = viewModel;
@@ -48,7 +48,7 @@ public partial class WsBaseUserControl : UserControl
         //SetupElementHost();
     }
 
-    protected WsBaseUserControl(WsPinCodeViewModel viewModel)
+    protected WsFormBaseUserControl(WsPinCodeViewModel viewModel)
     {
         InitializeComponent();
         ViewModel = viewModel;
@@ -57,7 +57,7 @@ public partial class WsBaseUserControl : UserControl
         SetupElementHost();
     }
 
-    protected WsBaseUserControl(WsPlusViewModel viewModel)
+    protected WsFormBaseUserControl(WsPlusViewModel viewModel)
     {
         InitializeComponent();
         ViewModel = viewModel;
@@ -66,7 +66,7 @@ public partial class WsBaseUserControl : UserControl
         SetupElementHost();
     }
 
-    protected WsBaseUserControl(WsPlusNestingViewModel viewModel)
+    protected WsFormBaseUserControl(WsPlusNestingViewModel viewModel)
     {
         InitializeComponent();
         ViewModel = viewModel;

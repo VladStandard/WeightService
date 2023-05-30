@@ -1,6 +1,6 @@
 namespace WsLabelCore.Forms
 {
-    partial class WsNumberInputForm
+    partial class WsFormNumberInput
     {
         #region Windows Form Designer generated code
 

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.Utils;
 #nullable enable
-public static class WsWinFormUtils
+public static class WsFormUtils
 {
     #region Public and private methods
 

@@ -78,17 +78,17 @@ public partial class WsMainForm : Form
     private void LoadNavigationWaitUserControl()
     {
         // Навигация.
-        WsWinFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
-        WsWinFormNavigationUtils.NavigationUserControl.Visible = false;
+        WsFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
+        WsFormNavigationUtils.NavigationUserControl.Visible = false;
         // Ожидание.
-        WsWinFormNavigationUtils.WaitUserControl = new();
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionOk.Setup1Action(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionOk.AddAction(ActionFinally);
+        WsFormNavigationUtils.WaitUserControl = new();
+        WsFormNavigationUtils.WaitUserControl.ViewModel.ActionOk.Setup1Action(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.WaitUserControl.ViewModel.ActionOk.AddAction(ActionFinally);
         // Настройка главной формы.
         this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         CenterToScreen();
         // Добавить контрол.
-        Controls.Add(WsWinFormNavigationUtils.NavigationUserControl);
+        Controls.Add(WsFormNavigationUtils.NavigationUserControl);
         // Настройки главной формы.
         FormBorderStyle = Debug.IsDevelop ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
         TopMost = !Debug.IsDevelop;
@@ -100,45 +100,45 @@ public partial class WsMainForm : Form
     private void LoadNavigationUserControl()
     {
         // Замес.
-        WsWinFormNavigationUtils.KneadingUserControl = new();
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionCancel.Setup1Action(ReturnFromKneading);
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionCancel.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionYes.Setup1Action(ReturnFromKneading);
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.KneadingUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
+        WsFormNavigationUtils.KneadingUserControl = new();
+        WsFormNavigationUtils.KneadingUserControl.ViewModel.ActionCancel.Setup1Action(ReturnFromKneading);
+        WsFormNavigationUtils.KneadingUserControl.ViewModel.ActionCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.KneadingUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.KneadingUserControl.ViewModel.ActionYes.Setup1Action(ReturnFromKneading);
+        WsFormNavigationUtils.KneadingUserControl.ViewModel.ActionYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.KneadingUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
         // Ещё.
-        WsWinFormNavigationUtils.MoreUserControl = new();
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionCancel.Setup1Action(ReturnFromMore);
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionCancel.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionYes.Setup1Action(ReturnFromMore);
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.MoreUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
+        WsFormNavigationUtils.MoreUserControl = new();
+        WsFormNavigationUtils.MoreUserControl.ViewModel.ActionCancel.Setup1Action(ReturnFromMore);
+        WsFormNavigationUtils.MoreUserControl.ViewModel.ActionCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.MoreUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.MoreUserControl.ViewModel.ActionYes.Setup1Action(ReturnFromMore);
+        WsFormNavigationUtils.MoreUserControl.ViewModel.ActionYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.MoreUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
         // Смена линии.
-        WsWinFormNavigationUtils.LinesUserControl = new();
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionCancel.Setup1Action(ReturnCancelFromLines);
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionCancel.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionYes.Setup1Action(ReturnOkFromLines);
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.LinesUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
+        WsFormNavigationUtils.LinesUserControl = new();
+        WsFormNavigationUtils.LinesUserControl.ViewModel.ActionCancel.Setup1Action(ReturnCancelFromLines);
+        WsFormNavigationUtils.LinesUserControl.ViewModel.ActionCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.LinesUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.LinesUserControl.ViewModel.ActionYes.Setup1Action(ReturnOkFromLines);
+        WsFormNavigationUtils.LinesUserControl.ViewModel.ActionYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.LinesUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
         // Смена ПЛУ.
-        WsWinFormNavigationUtils.PlusLineUserControl = new();
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionCancel.Setup1Action(ReturnCancelFromPlusLine);
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionCancel.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionYes.Setup1Action(ReturnOkFromPlusLine);
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.PlusLineUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
+        WsFormNavigationUtils.PlusLineUserControl = new();
+        WsFormNavigationUtils.PlusLineUserControl.ViewModel.ActionCancel.Setup1Action(ReturnCancelFromPlusLine);
+        WsFormNavigationUtils.PlusLineUserControl.ViewModel.ActionCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.PlusLineUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.PlusLineUserControl.ViewModel.ActionYes.Setup1Action(ReturnOkFromPlusLine);
+        WsFormNavigationUtils.PlusLineUserControl.ViewModel.ActionYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.PlusLineUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
         // Смена вложенности ПЛУ.
-        WsWinFormNavigationUtils.PlusNestingUserControl = new();
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionCancel.Setup1Action(ReturnCancelFromPlusNesting);
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionCancel.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionYes.Setup1Action(ReturnOkFromPlusNesting);
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionYes.AddAction(WsWinFormNavigationUtils.ActionBackFromNavigation);
-        WsWinFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
+        WsFormNavigationUtils.PlusNestingUserControl = new();
+        WsFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionCancel.Setup1Action(ReturnCancelFromPlusNesting);
+        WsFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionYes.Setup1Action(ReturnOkFromPlusNesting);
+        WsFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.PlusNestingUserControl.ViewModel.ActionYes.AddAction(ActionFinally);
     }
 
     private MdPrinterModel GetMdPrinter(WsSqlPrinterModel scalePrinter) => new()
@@ -156,7 +156,7 @@ public partial class WsMainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        WsWinFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
@@ -167,10 +167,10 @@ public partial class WsMainForm : Form
             if (LabelSession.DeviceScaleFk.IsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
-                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.SetupButtonsOk(
+                WsFormNavigationUtils.MessageUserControl.ViewModel.SetupButtonsOk(
                     message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
-                    ActionBackFromLineNotFound, WsWinFormNavigationUtils.NavigationUserControl.Width);
-                WsWinFormNavigationUtils.NavigateToMessageBoxUserControlOk(ShowNavigation, message, true, WsEnumLogType.Error);
+                    ActionBackFromLineNotFound, WsFormNavigationUtils.NavigationUserControl.Width);
+                WsFormNavigationUtils.NavigateToMessageBoxUserControlOk(ShowNavigation, message, true, WsEnumLogType.Error);
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
                 return;
             }
@@ -179,18 +179,18 @@ public partial class WsMainForm : Form
             if (!isCreatedNew)
             {
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
-                WsWinFormNavigationUtils.MessageBoxUserControl.ViewModel.SetupButtonsOk(message, ActionBackFromDuplicateRun, 
-                    WsWinFormNavigationUtils.NavigationUserControl.Width);
-                WsWinFormNavigationUtils.NavigateToMessageBoxUserControlOk(ShowNavigation, message, true, WsEnumLogType.Error);
+                WsFormNavigationUtils.MessageUserControl.ViewModel.SetupButtonsOk(message, ActionBackFromDuplicateRun, 
+                    WsFormNavigationUtils.NavigationUserControl.Width);
+                WsFormNavigationUtils.NavigateToMessageBoxUserControlOk(ShowNavigation, message, true, WsEnumLogType.Error);
                 ContextManager.ContextItem.SaveLogWarning(message);
                 return;
             }
             // Навигация в контрол ожидания.
-            WsWinFormNavigationUtils.NavigateToWaitUserControl(ShowNavigation, LocaleCore.Scales.AppWaitLoad);
+            WsFormNavigationUtils.NavigateToWaitUserControl(ShowNavigation, LocaleCore.Scales.AppWaitLoad);
             // Загрузка фоном.
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
-            WsWinFormNavigationUtils.WaitUserControl.ViewModel.ActionOk.Relay();
+            WsFormNavigationUtils.WaitUserControl.ViewModel.ActionOk.Relay();
             // Логи.
             UserSession.StopwatchMain.Stop();
             ContextManager.ContextItem.SaveLogMemory(
@@ -201,7 +201,7 @@ public partial class WsMainForm : Form
                 $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
             // Скриншот релиза.
             if (Debug.IsRelease)
-                WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
+                WsFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
         });
     }
 
@@ -267,12 +267,12 @@ public partial class WsMainForm : Form
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
         if (IsMagicClose) return;
-        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             // Сброс предупреждения.
             ResetWarning();
             // Навигация в контрол сообщений.
-            WsWinFormNavigationUtils.NavigateToMessageBoxUserControlCancelYes(ShowNavigation, 
+            WsFormNavigationUtils.NavigateToMessageBoxUserControlCancelYes(ShowNavigation, 
                 $"{LocaleCore.Scales.QuestionCloseApp}?", true, WsEnumLogType.Question, ActionCloseNo, ActionCloseYes);
             e.Cancel = true;
         });
@@ -287,9 +287,9 @@ public partial class WsMainForm : Form
         UserSession.StopwatchMain.Restart();
         // Скриншот.
         if (Debug.IsRelease)
-            WsWinFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
+            WsFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
         // Навигация.
-        WsWinFormNavigationUtils.NavigateToWaitUserControl(ShowNavigation, LocaleCore.Scales.AppWaitExit);
+        WsFormNavigationUtils.NavigateToWaitUserControl(ShowNavigation, LocaleCore.Scales.AppWaitExit);
         // Планировщик.
         WsScheduler.Close();
         // Плагины.
@@ -386,47 +386,47 @@ public partial class WsMainForm : Form
 
     private void CreateButtonsDevices()
     {
-        TableLayoutPanel layoutPanelDevice = WsWinFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelDevice),
+        TableLayoutPanel layoutPanelDevice = WsFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelDevice),
             1, 13, 2, 98);
         int rowCount = 0;
 
         if (ActionSettings.IsDevice)
         {
-            ButtonLine = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonLine), 1, rowCount++);
+            ButtonLine = WsFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonLine), 1, rowCount++);
             ButtonLine.Click += ActionSwitchLine;
         }
         else ButtonLine = new();
 
         if (ActionSettings.IsPlu)
         {
-            ButtonPlu = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
+            ButtonPlu = WsFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
             ButtonPlu.Click += ActionSwitchPlu;
         }
         else ButtonPlu = new();
 
         if (ActionSettings.IsNesting)
         {
-            ButtonPluNestingFk = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPluNestingFk), 1, rowCount++);
+            ButtonPluNestingFk = WsFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPluNestingFk), 1, rowCount++);
             ButtonPluNestingFk.Click += ActionSwitchPluNesting;
         }
         else ActionSettings = new();
 
         layoutPanelDevice.ColumnCount = 1;
-        WsWinFormUtils.SetTableLayoutPanelColumnStyles(layoutPanelDevice);
+        WsFormUtils.SetTableLayoutPanelColumnStyles(layoutPanelDevice);
         layoutPanelDevice.RowCount = rowCount;
-        WsWinFormUtils.SetTableLayoutPanelRowStyles(layoutPanelDevice);
+        WsFormUtils.SetTableLayoutPanelRowStyles(layoutPanelDevice);
     }
 
     private void CreateButtonsActions()
     {
-        TableLayoutPanel layoutPanelActions = WsWinFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelActions),
+        TableLayoutPanel layoutPanelActions = WsFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelActions),
             3, 13, layoutPanelMain.ColumnCount - 3, 99);
         int columnCount = 0;
 
         if (ActionSettings.IsScalesTerminal)
         {
             ButtonScalesTerminal =
-                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesTerminal), columnCount++, 0);
+                WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesTerminal), columnCount++, 0);
             ButtonScalesTerminal.Click += ActionScalesTerminal;
         }
         else
@@ -437,7 +437,7 @@ public partial class WsMainForm : Form
         if (ActionSettings.IsScalesInit)
         {
             ButtonScalesInit =
-                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesInit), columnCount++, 0);
+                WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesInit), columnCount++, 0);
             ButtonScalesInit.Click += ActionScalesInit;
         }
         else
@@ -448,7 +448,7 @@ public partial class WsMainForm : Form
         if (ActionSettings.IsNewPallet)
         {
             ButtonNewPallet =
-                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonNewPallet), columnCount++, 0);
+                WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonNewPallet), columnCount++, 0);
             ButtonNewPallet.Click += ActionNewPallet;
         }
         else
@@ -459,7 +459,7 @@ public partial class WsMainForm : Form
         if (ActionSettings.IsKneading)
         {
             ButtonKneading =
-                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonKneading), columnCount++, 0);
+                WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonKneading), columnCount++, 0);
             ButtonKneading.Click += ActionKneading;
         }
         else
@@ -469,7 +469,7 @@ public partial class WsMainForm : Form
 
         if (ActionSettings.IsMore)
         {
-            ButtonMore = WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonMore), columnCount++, 0);
+            ButtonMore = WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonMore), columnCount++, 0);
             ButtonMore.Click += ActionMore;
         }
         else
@@ -480,7 +480,7 @@ public partial class WsMainForm : Form
         if (ActionSettings.IsPrint)
         {
             ButtonPrint =
-                WsWinFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonPrint), columnCount++, 0);
+                WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonPrint), columnCount++, 0);
             ButtonPrint.Click += ActionPreparePrint;
             ButtonPrint.Focus();
         }
@@ -490,9 +490,9 @@ public partial class WsMainForm : Form
         }
 
         layoutPanelActions.ColumnCount = columnCount;
-        WsWinFormUtils.SetTableLayoutPanelColumnStyles(layoutPanelActions);
+        WsFormUtils.SetTableLayoutPanelColumnStyles(layoutPanelActions);
         layoutPanelActions.RowCount = 1;
-        WsWinFormUtils.SetTableLayoutPanelRowStyles(layoutPanelActions);
+        WsFormUtils.SetTableLayoutPanelRowStyles(layoutPanelActions);
     }
 
     #endregion

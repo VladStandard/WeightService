@@ -12,13 +12,13 @@ namespace WsLabelCore.Controls;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
+public sealed partial class WsFormPlusNestingUserControl : WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
     public WsPlusNestingViewModel CastViewModel => (WsPlusNestingViewModel)ViewModel;
 
-    public WsPlusNestingUserControl() : base(new WsPlusNestingViewModel())
+    public WsFormPlusNestingUserControl() : base(new WsPlusNestingViewModel())
     {
         InitializeComponent();
         
@@ -36,7 +36,7 @@ public sealed partial class WsPlusNestingUserControl : WsBaseUserControl
     /// </summary>
     public override void RefreshViewModel()
     {
-        WsWinFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             CastViewModel.PluNesting = LabelSession.ViewPluNesting;
             CastViewModel.PlusNestings = ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);

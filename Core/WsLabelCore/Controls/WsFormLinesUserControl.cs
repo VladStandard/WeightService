@@ -4,20 +4,20 @@
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Контрол пин-кода.
+/// Контрол смены линии.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsPinCodeUserControl : WsBaseUserControl
+public sealed partial class WsFormLinesUserControl : WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsPinCodeViewModel CastViewModel => (WsPinCodeViewModel)ViewModel;
+    public WsLinesViewModel CastViewModel => (WsLinesViewModel)ViewModel;
 
-    public WsPinCodeUserControl() : base(new WsPinCodeViewModel())
+    public WsFormLinesUserControl() : base(new WsLinesViewModel())
     {
         InitializeComponent();
-        
+
         RefreshViewModel();
     }
 
