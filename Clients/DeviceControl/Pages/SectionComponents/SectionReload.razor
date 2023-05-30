@@ -1,52 +1,51 @@
-@typeparam TItem
 @using DeviceControl.Pages.CustomComponents
-@inherits RazorComponentSectionBase<TItem>
+@inherits LayoutComponentBase
 
 <MudPaper Outlined="true" Class="mb-2">
   <MudToolBar Dense="true">
     <RadzenLabel Style="font-size: 15px;" Text="@Title"/>
-    <AuthorizeView Roles="@UserAccessStr.Write">
-          @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
-          {
-            <RzDropDownLocal Style="margin-left: 20px; width: 10%; display: inline-block;"
-                             @bind-Value="@SqlCrudConfigSection.IsMarked"
-                             Data="@MarkedDict"
-                             ValueProperty="Value"
-                             TextProperty="Key" Change="@OnSectionUpdate">
-            </RzDropDownLocal>
-          }
-    </AuthorizeView>
-    @if (SqlCrudConfigSection.IsGuiShowFilterOnlyTop)
+    @if (SectionCount != 0)
     {
-      <RadzenCheckBox TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop Style="margin-left: 20px" Change=@OnSectionUpdate/>
-      <RadzenLabel Style="font-size: 13px; margin-left: 5px"
-                   Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(ContextManager.JsonSettings.Local.SelectTopRowsCount)/>
+      <RzDropDownLocal Style="margin-left: 20px; width: 15%; display: inline-block;"
+                       @bind-Value="@SqlCrudConfigSection.SelectTopRowsCount"
+                       Data="@_rowCountList" Change="@OnSectionUpdate">
+        <Template>
+          <span>Первые: <b>@(context == 0 ? "Все" : context.ToString())</b> </span>
+        </Template>
+      </RzDropDownLocal>
     }
+    <AuthorizeView Roles="@UserAccessStr.Write">
+      @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
+      {
+        <RzDropDownLocal Style="margin-left: 20px; width: 10%; display: inline-block;"
+                         @bind-Value="@SqlCrudConfigSection.IsMarked"
+                         Data="@MarkedDict"
+                         ValueProperty="Value"
+                         TextProperty="Key" Change="@OnSectionUpdate">
+        </RzDropDownLocal>
+      }
+    </AuthorizeView>
     <RadzenButton
       id="button_loader"
       Icon="refresh"
       ButtonStyle="@ButtonStyle.Primary"
       Style="margin-left: 20px; width: 60px;"
       Size="@ButtonSize.Small"
-      Disabled="@(!ContextManager.AccessManager.IsConnected())"
       Click="@OnSectionUpdate"/>
-    @if (ButtonSettings is not null)
+    @if (ButtonSettings.IsShowNew)
     {
-      @if (ButtonSettings.IsShowNew)
-      {
-        <AuthorizeView Roles="@UserAccessStr.Write">
-          <RadzenButton
-            Icon="add_circle_outline"
-            ButtonStyle=@ButtonStyle.Primary
-            Style="margin-left: 15px; width: 60px;"
-            Size=@ButtonSize.Small
-            Click="SqlItemNewAsync"/>
-        </AuthorizeView>
-      }
+      <AuthorizeView Roles="@UserAccessStr.Write">
+        <RadzenButton
+          Icon="add_circle_outline"
+          ButtonStyle=@ButtonStyle.Primary
+          Style="margin-left: 15px; width: 60px;"
+          Size=@ButtonSize.Small
+          Click="@OnSectionAdd"/>
+      </AuthorizeView>
     }
     @if (SqlCrudConfigSection.IsGuiShowItemsCount)
     {
-      <RadzenLabel Style="margin-left: 20px; font-size: 13px; " Text=@SqlListCountResult/>
+      <RadzenLabel Style="margin-left: 20px; font-size: 13px;" Text=@SqlListCountResult/>
     }
   </MudToolBar>
 </MudPaper>

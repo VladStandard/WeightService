@@ -7,9 +7,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.LogWebView>
 
 <SectionReload
-  TItem="@LogWebView"
   Title="@LocaleCore.WebService.Name"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

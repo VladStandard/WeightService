@@ -7,9 +7,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Versions.WsSqlVersionModel>
 
 <SectionReload
-  TItem="@WsSqlVersionModel"
   Title="@LocaleCore.Strings.VersionsDb"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

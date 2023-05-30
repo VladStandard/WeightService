@@ -38,6 +38,7 @@ builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddScoped<IFileDownload, FileDownload>();
+builder.Services.AddScoped<LocalStorageService>();
 
 #endregion
 

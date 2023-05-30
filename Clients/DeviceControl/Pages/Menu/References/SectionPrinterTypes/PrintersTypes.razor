@@ -6,9 +6,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PrintersTypes.WsSqlPrinterTypeModel>
 
 <SectionReload
-  TItem="@WsSqlPrinterTypeModel"
   Title="@LocaleCore.Print.Types"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

@@ -27,9 +27,8 @@ public sealed partial class Lines : RazorComponentSectionBase<LineView>
 
     protected override void SetSqlSectionCast()
     {
-        var query = WsSqlQueriesDiags.Tables.Views.GetLines(SqlCrudConfigSection.IsResultShowOnlyTop
-            ? ContextManager.JsonSettings.Local.SelectTopRowsCount 
-            : 0, SqlCrudConfigSection.IsMarked);
+        var query = WsSqlQueriesDiags.Tables.Views.GetLines(SqlCrudConfigSection.SelectTopRowsCount
+            , SqlCrudConfigSection.IsMarked);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<LineView> items = new();
         foreach (var obj in objects)

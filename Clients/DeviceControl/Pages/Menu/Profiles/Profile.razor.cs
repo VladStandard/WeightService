@@ -9,8 +9,10 @@ public partial class Profile : RazorComponentBase
 {
     #region Public and private fields, properties, constructor
 
+    [Inject] private LocalStorageService LocalStorage { get; set; }
     private List<WsEnumTypeModel<Lang>>? TemplateLanguages { get; set; }
     private List<Lang> Langs { get; set; }
+    private int DefaultRowCount { get; set; }
 
     private string IpAddress =>
         HttpContext?.Connection.RemoteIpAddress is null
@@ -25,9 +27,26 @@ public partial class Profile : RazorComponentBase
         TemplateLanguages = BlazorAppSettings.DataSourceDics.GetTemplateLanguages();
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            string? rowCount = await LocalStorage.GetItem("DefaultRowCount");
+            DefaultRowCount = int.TryParse(rowCount, out int parsedNumber) ? parsedNumber : 200;
+            StateHasChanged();
+        }
+    }
+    
     #endregion
 
     #region Public and private methods
+    
+    protected async Task OnDefaultRowCountChanged()
+    {
+        if (DefaultRowCount == 0)
+            DefaultRowCount = 200;
+        await LocalStorage.SetItem("DefaultRowCount", DefaultRowCount.ToString());
+    }
 
     #endregion
 }

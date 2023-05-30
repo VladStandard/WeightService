@@ -45,6 +45,7 @@ public static class LocaleCore
 
     public static class Strings
     {
+        public static string DefaultRowCount => Lang == Lang.English ? "Default row count" : "Кол-во строк по умолчанию";
         public static string AccessRights => Lang == Lang.English ? "Access rights" : "Права доступа";
         public static string AccessRightsAdmin => Lang == Lang.English ? "Admin rights" : "Админ права";
         public static string AccessRightsNone => Lang == Lang.English ? "No rights" : "Нет прав";

@@ -7,9 +7,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.BarcodeView>
 
 <SectionReload
-  TItem="@BarcodeView"
   Title="@LocaleCore.DeviceControl.SectionBarCodes"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

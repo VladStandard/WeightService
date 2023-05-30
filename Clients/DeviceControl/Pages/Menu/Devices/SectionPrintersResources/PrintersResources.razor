@@ -7,9 +7,9 @@
 @if (SqlSectionCast.Count > 0)
 {
   <SectionReload
-    TItem="@WsSqlPrinterResourceFkModel"
     Title="@LocaleCore.Print.Resources"
     OnSectionUpdate="@GetSectionData"
+    OnSectionAdd="@SqlItemNewAsync"
     SectionCount="@SqlSectionCast.Count"
     SqlCrudConfigSection="@SqlCrudConfigSection"
     ButtonSettings="@ButtonSettings"/>

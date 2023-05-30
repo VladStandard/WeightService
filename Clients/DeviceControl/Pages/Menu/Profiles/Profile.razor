@@ -25,5 +25,11 @@
       <RzDropDownLocal @bind-Value="@LocaleCore.Lang" Data="@Langs"/>
     </td>
   </tr>
+  <tr>
+    <td>@LocaleCore.Strings.DefaultRowCount</td>
+    <td>
+      <RadzenNumeric Style="width: 100%" TValue="int" Min="0" Max="1000" @bind-Value="@DefaultRowCount" Change="@OnDefaultRowCountChanged"/>
+    </td>
+  </tr>
   </tbody>
 </MudSimpleTable>

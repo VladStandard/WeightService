@@ -17,14 +17,6 @@
     <None Remove="_Imports.razor" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="wwwroot\background.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\exampleJsInterop.js">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="_Imports.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
@@ -48,5 +40,8 @@
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj" />
     <ProjectReference Include="..\WsLocalizationCore\WsLocalizationCore.csproj" />
     <ProjectReference Include="..\WsStorageCore\WsStorageCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 </Project>

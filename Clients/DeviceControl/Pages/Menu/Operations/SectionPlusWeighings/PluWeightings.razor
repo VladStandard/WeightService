@@ -7,9 +7,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.PluWeightingView>
 
 <SectionReload
-  TItem="@PluWeightingView"
   Title="@LocaleCore.DeviceControl.SectionPlusWeightings"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

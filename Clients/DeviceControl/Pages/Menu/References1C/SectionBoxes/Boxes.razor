@@ -7,9 +7,9 @@
 
 
 <SectionReload
-  TItem="@WsSqlBoxModel"
   Title="@LocaleCore.DeviceControl.SectionBoxes"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

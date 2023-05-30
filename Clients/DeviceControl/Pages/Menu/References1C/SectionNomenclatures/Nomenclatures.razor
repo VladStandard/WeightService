@@ -6,9 +6,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Plus.WsSqlPluModel>
 
 <SectionReload
-  TItem="@WsSqlPluModel"
   Title="@LocaleCore.DeviceControl.SectionNomenclatures"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
