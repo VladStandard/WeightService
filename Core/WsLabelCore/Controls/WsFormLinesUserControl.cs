@@ -12,20 +12,16 @@ public sealed partial class WsFormLinesUserControl : WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsLinesViewModel CastViewModel => (WsLinesViewModel)ViewModel;
-
     public WsFormLinesUserControl() : base(new WsLinesViewModel())
     {
         InitializeComponent();
-
-        RefreshViewModel();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => CastViewModel.ToString();
+    public override string ToString() => Page.ViewModel.ToString();
 
     #endregion
 }

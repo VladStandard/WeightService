@@ -1,16 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsDataCore.Bases;
+namespace WsDataCore.Common;
 
-public class WsHelperBase
+public class WsBaseHelper
 {
     #region Public and private fields, properties, constructor
 
     protected bool IsExecute { get; private set; }
     private Action CloseAction { get; set; }
 
-    protected WsHelperBase()
+    protected WsBaseHelper()
     {
         IsExecute = false;
         CloseAction = () => { };

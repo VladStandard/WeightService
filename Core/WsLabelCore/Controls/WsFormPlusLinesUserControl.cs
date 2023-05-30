@@ -16,7 +16,6 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsPlusViewModel CastViewModel => (WsPlusViewModel)ViewModel;
     /// <summary>
     /// ID последней линии (для производительности).
     /// </summary>
@@ -26,23 +25,20 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
     public WsFormPlusLinesUserControl() : base(new WsPlusViewModel())
     {
         InitializeComponent();
-
-        LastScaleId = default;
-        LastPageNumber = default;
-        RefreshViewModel();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => CastViewModel.ToString();
+    public override string ToString() => Page.ViewModel.ToString();
 
     /// <summary>
-    /// Обновить модель представления.
+    /// Обновить контрол.
     /// </summary>
-    public override void RefreshViewModel()
+    public override void RefreshUserConrol()
     {
+        base.RefreshUserConrol();
         WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             // Обновить локальный кэш.
@@ -92,14 +88,14 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
             {
                 if (ContextCache.LocalViewPlusLines.Any())
                 {
-                    CastViewModel.PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
+                    ((WsPlusViewModel)Page.ViewModel).PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
                 }
             }
 
-            if (CastViewModel.PluLine.IsExists)
-                CastViewModel.ActionYes.Relay();
+            if (((WsPlusViewModel)Page.ViewModel).PluLine.IsExists)
+                ((WsPlusViewModel)Page.ViewModel).CmdYes.Relay();
             else
-                CastViewModel.ActionCancel.Relay();
+                ((WsPlusViewModel)Page.ViewModel).CmdCancel.Relay();
         });
     }
 
@@ -220,7 +216,7 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void buttonCancel_Click(object sender, EventArgs e) => CastViewModel.ActionCancel.Relay();
+    private void buttonCancel_Click(object sender, EventArgs e) => ((WsPlusViewModel)Page.ViewModel).CmdCancel.Relay();
 
     #endregion
 }

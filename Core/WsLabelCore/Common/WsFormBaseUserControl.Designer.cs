@@ -1,4 +1,4 @@
-namespace WsLabelCore.Bases;
+namespace WsLabelCore.Common;
 
 partial class WsFormBaseUserControl
 {
@@ -28,16 +28,12 @@ partial class WsFormBaseUserControl
     /// </summary>
     private void InitializeComponent()
     {
-            this.SuspendLayout();
-            // 
-            // WsBaseUserControl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Name = "WsBaseUserControl";
-            this.ResumeLayout(false);
-
+        this.SuspendLayout();
+        this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        this.BackColor = System.Drawing.Color.Transparent;
+        this.Name = "WsBaseUserControl";
+        this.ResumeLayout(false);
     }
 
     #endregion

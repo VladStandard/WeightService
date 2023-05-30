@@ -14,31 +14,32 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 {
     #region Private fields and properties
 
-    public WsMoreViewModel CastViewModel => (WsMoreViewModel)ViewModel;
     private DateTime SaveProductDate { get; }
     private short SaveKneading { get; }
     private byte SavePalletSize { get; }
-    private Guid PreviousPluScaleUid { get; set; }
+    private Guid PreviousPluScaleUid { get; set; } = Guid.Empty;
 
     public WsFormMoreUserControl() : base(new WsMoreViewModel())
     {
         InitializeComponent();
 
-        PreviousPluScaleUid = Guid.Empty;
         SaveProductDate = LabelSession.ProductDate;
         SaveKneading = LabelSession.WeighingSettings.Kneading;
         SavePalletSize = LabelSession.WeighingSettings.LabelsCountMain;
-        RefreshViewModel();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => CastViewModel.ToString();
+    public override string ToString() => Page.ViewModel.ToString();
 
-    public override void RefreshViewModel()
+    /// <summary>
+    /// Обновить контрол.
+    /// </summary>
+    public override void RefreshUserConrol()
     {
+        base.RefreshUserConrol();
         WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             if (!LabelSession.PluLine.IdentityValueUid.Equals(PreviousPluScaleUid))
@@ -81,7 +82,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
             LabelSession.ProductDate = SaveProductDate;
             LabelSession.WeighingSettings.Kneading = SaveKneading;
             LabelSession.WeighingSettings.LabelsCountMain = SavePalletSize;
-            ViewModel.ActionCancel.Relay();
+            Page.ViewModel.CmdCancel.Relay();
         });
     }
 
@@ -102,7 +103,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
         WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
             CheckWeightCount();
-            ViewModel.ActionOk.Relay();
+            Page.ViewModel.CmdOk.Relay();
         });
     }
 

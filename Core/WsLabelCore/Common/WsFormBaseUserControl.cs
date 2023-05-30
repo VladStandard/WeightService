@@ -4,12 +4,13 @@
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
-namespace WsLabelCore.Bases;
+namespace WsLabelCore.Common;
 
 /// <summary>
 /// Базовый класс Windows.Forms.UserControl.
 /// </summary>
 #nullable enable
+[DebuggerDisplay("{ToString()}")]
 public partial class WsFormBaseUserControl : UserControl
 {
     #region Public and private fields, properties, constructor
@@ -17,41 +18,44 @@ public partial class WsFormBaseUserControl : UserControl
     internal WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     internal WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    public ElementHost ElementHost { get; set; }
-    public WsXamlBaseViewModel ViewModel { get; }
+    private ElementHost ElementHost { get; }
     public WsXamlBasePage Page { get; }
 
     public WsFormBaseUserControl()
     {
         InitializeComponent();
-        ViewModel = new();
-        Page = new(ViewModel);
+        Page = new(new());
         ElementHost = new() { Dock = DockStyle.Fill };
-        //SetupElementHost();
+        SetupElementHost();
+    }
+
+    protected WsFormBaseUserControl(WsDialogViewModel viewModel)
+    {
+        InitializeComponent();
+        Page = new WsXamlDialogPage(viewModel);
+        ElementHost = new() { Dock = DockStyle.Fill };
+        SetupElementHost();
     }
 
     protected WsFormBaseUserControl(WsLinesViewModel viewModel)
     {
         InitializeComponent();
-        ViewModel = viewModel;
-        Page = new(viewModel);
+        Page = new WsXamlLinesPage(viewModel);
         ElementHost = new() { Dock = DockStyle.Fill };
-        //SetupElementHost();
+        SetupElementHost();
     }
 
     protected WsFormBaseUserControl(WsMoreViewModel viewModel)
     {
         InitializeComponent();
-        ViewModel = viewModel;
         Page = new(viewModel);
         ElementHost = new() { Dock = DockStyle.Fill };
-        //SetupElementHost();
+        SetupElementHost();
     }
 
     protected WsFormBaseUserControl(WsPinCodeViewModel viewModel)
     {
         InitializeComponent();
-        ViewModel = viewModel;
         Page = new WsPinCodePage(viewModel);
         ElementHost = new() { Dock = DockStyle.Fill };
         SetupElementHost();
@@ -60,8 +64,7 @@ public partial class WsFormBaseUserControl : UserControl
     protected WsFormBaseUserControl(WsPlusViewModel viewModel)
     {
         InitializeComponent();
-        ViewModel = viewModel;
-        Page = new WsLinesPage(viewModel);
+        Page = new WsXamlLinesPage(viewModel);
         ElementHost = new() { Dock = DockStyle.Fill };
         SetupElementHost();
     }
@@ -69,8 +72,15 @@ public partial class WsFormBaseUserControl : UserControl
     protected WsFormBaseUserControl(WsPlusNestingViewModel viewModel)
     {
         InitializeComponent();
-        ViewModel = viewModel;
         Page = new WsPlusNestingPage(viewModel);
+        ElementHost = new() { Dock = DockStyle.Fill };
+        SetupElementHost();
+    }
+
+    protected WsFormBaseUserControl(WsWaitViewModel viewModel)
+    {
+        InitializeComponent();
+        Page = new WsXamlWaitPage(viewModel);
         ElementHost = new() { Dock = DockStyle.Fill };
         SetupElementHost();
     }
@@ -79,9 +89,15 @@ public partial class WsFormBaseUserControl : UserControl
 
     #region Public and private methods
 
-    public override string ToString() => ViewModel.ToString();
+    public override string ToString() => $"{Name} | " + Page.ViewModel;
 
-    public virtual void RefreshViewModel() { }
+    /// <summary>
+    /// Обновить контрол.
+    /// </summary>
+    public virtual void RefreshUserConrol()
+    {
+        Page.RefreshViewModel();
+    }
 
     /// <summary>
     /// Настройка ElementHost.

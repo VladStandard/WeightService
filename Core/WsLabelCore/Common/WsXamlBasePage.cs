@@ -3,7 +3,7 @@
 
 using System.Windows.Controls;
 
-namespace WsLabelCore.Bases;
+namespace WsLabelCore.Common;
 
 /// <summary>
 /// Базовый класс Controls.UserControl.
@@ -14,8 +14,9 @@ public class WsXamlBasePage : UserControl
     #region Public and private fields, properties, constructor
 
     internal WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-    public WsXamlBaseViewModel ViewModel { get; }
-    private Grid GridMain { get; }
+    public WsXamlBaseViewModel ViewModel { get; protected set; }
+    protected Grid GridMain { get; }
+    private ItemsControl ItemsControlMain { get; }
 
     public WsXamlBasePage(WsXamlBaseViewModel viewModel)
     {
@@ -24,7 +25,7 @@ public class WsXamlBasePage : UserControl
         // Таблица.
         GridMain = new() { Margin = new(2) };
         GridMain.ColumnDefinitions.Add(new() { Width = new(1, GridUnitType.Star) });
-        GridMain.RowDefinitions.Add(new() { Height = new(1, GridUnitType.Star) });
+        GridMain.RowDefinitions.Add(new() { Height = new(5, GridUnitType.Star) });
         GridMain.RowDefinitions.Add(new() { Height = new(1, GridUnitType.Star) });
         // ScrollViewer.
         ScrollViewer scrollViewer = new() { VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
@@ -33,7 +34,8 @@ public class WsXamlBasePage : UserControl
         GridMain.Children.Add(scrollViewer);
         // Сообщение.
         TextBlock textBlockMessage = new() { Margin = new(2), FontStretch = FontStretches.Expanded,
-            FontWeight = FontWeights.Bold, TextAlignment = TextAlignment.Center, TextWrapping = TextWrapping.Wrap,
+            FontWeight = FontWeights.Bold, TextAlignment = TextAlignment.Center, TextWrapping = TextWrapping.Wrap, 
+            HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center,
         };
         scrollViewer.Content = textBlockMessage;
         textBlockMessage.SetBinding(TextBlock.TextProperty,
@@ -42,8 +44,33 @@ public class WsXamlBasePage : UserControl
             new Binding(nameof(ViewModel.MessageVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel });
         textBlockMessage.FontSize = ViewModel.FontSizeMessage;
 
-        // Настроить кнопки.
-        SetupButtons(ViewModel);
+        // Список кнопок.
+        ItemsControlMain = new() { Margin = new(2) };
+        Grid.SetRow(ItemsControlMain, 1);
+        Grid.SetColumn(ItemsControlMain, 0);
+        GridMain.Children.Add(ItemsControlMain);
+        ItemsControlMain.SetBinding(ItemsControl.ItemsSourceProperty,
+            new Binding(nameof(ViewModel.Commands)) { Mode = BindingMode.OneWay, Source = ViewModel });
+
+        // Настрить itemsControl.
+        DataTemplate itemTemplate = new();
+        FrameworkElementFactory buttonFactory = new(typeof(Button));
+        buttonFactory.SetValue(MarginProperty, new Thickness(2));
+        buttonFactory.SetValue(FontWeightProperty, FontWeights.Bold);
+        buttonFactory.SetValue(FontSizeProperty, ViewModel.FontSizeButton);
+        buttonFactory.AddHandler(KeyUpEvent, new KeyEventHandler(ViewModel.Button_KeyUp));
+        buttonFactory.SetBinding(WidthProperty,
+            new Binding(nameof(ViewModel.ButtonWidth)) { Mode = BindingMode.OneWay, Source = ViewModel });
+        buttonFactory.SetBinding(ButtonBase.CommandProperty, new Binding(nameof(WsActionCommandModel.Cmd)));
+        buttonFactory.SetBinding(ContentProperty, new Binding(nameof(WsActionCommandModel.Content)));
+        itemTemplate.VisualTree = buttonFactory;
+        ItemsControlMain.ItemTemplate = itemTemplate;
+        // Добавить stackPanel.
+        FrameworkElementFactory stackPanelFactory = new(typeof(StackPanel));
+        stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+        stackPanelFactory.SetValue(HorizontalAlignmentProperty, HorizontalAlignment.Center);
+        ItemsPanelTemplate itemsPanelTemplate = new(stackPanelFactory);
+        ItemsControlMain.ItemsPanel = itemsPanelTemplate;
     }
 
     #endregion
@@ -51,39 +78,12 @@ public class WsXamlBasePage : UserControl
     #region Public and private methods
 
     /// <summary>
-    /// Настроить кнопки.
+    /// Обновить модель представления.
     /// </summary>
-    protected void SetupButtons(WsXamlBaseViewModel viewModel)
+    public virtual void RefreshViewModel()
     {
-        // Список кнопок.
-        ItemsControl itemsControl = new() { Margin = new(2) };
-        Grid.SetRow(itemsControl, 1);
-        Grid.SetColumn(itemsControl, 0);
-        GridMain.Children.Add(itemsControl);
-        itemsControl.SetBinding(ItemsControl.ItemsSourceProperty,
-            new Binding(nameof(viewModel.Commands)) { Mode = BindingMode.OneWay, Source = viewModel });
-        // Настрить itemsControl.
-        DataTemplate itemTemplate = new();
-        FrameworkElementFactory buttonFactory = new(typeof(Button));
-        buttonFactory.SetValue(MarginProperty, new Thickness(2));
-        buttonFactory.SetValue(FontWeightProperty, FontWeights.Bold);
-        buttonFactory.SetValue(FontSizeProperty, viewModel.FontSizeButton);
-        buttonFactory.AddHandler(KeyUpEvent, new KeyEventHandler(viewModel.Button_KeyUp));
-        buttonFactory.SetBinding(WidthProperty,
-            new Binding(nameof(viewModel.ButtonWidth)) { Mode = BindingMode.OneWay, Source = viewModel });
-        buttonFactory.SetBinding(ButtonBase.CommandProperty, new Binding(nameof(WsActionCommandModel.Cmd)));
-        buttonFactory.SetBinding(ContentProperty, new Binding(nameof(WsActionCommandModel.Content)));
-        itemTemplate.VisualTree = buttonFactory;
-        itemsControl.ItemTemplate = itemTemplate;
-        // Добавить stackPanel.
-        FrameworkElementFactory stackPanelFactory = new(typeof(StackPanel));
-        stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
-        stackPanelFactory.SetValue(HorizontalAlignmentProperty, HorizontalAlignment.Center);
-        ItemsPanelTemplate itemsPanelTemplate = new(stackPanelFactory);
-        itemsControl.ItemsPanel = itemsPanelTemplate;
+        //
     }
-
-    public virtual void RefreshViewModel() { }
 
     #endregion
 }

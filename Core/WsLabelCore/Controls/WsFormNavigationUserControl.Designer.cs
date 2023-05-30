@@ -34,12 +34,12 @@ partial class WsFormNavigationUserControl
     private void InitializeComponent()
     {
             this.layoutPanelUser = new System.Windows.Forms.TableLayoutPanel();
-            this.fieldTitle = new System.Windows.Forms.Label();
-            this.pictureBoxReturn = new System.Windows.Forms.PictureBox();
             this.layoutPanelTop = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBoxReturn = new System.Windows.Forms.PictureBox();
+            this.fieldTitle = new System.Windows.Forms.Label();
             this.layoutPanelUser.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReturn)).BeginInit();
             this.layoutPanelTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReturn)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutPanelUser
@@ -58,35 +58,6 @@ partial class WsFormNavigationUserControl
             this.layoutPanelUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94F));
             this.layoutPanelUser.Size = new System.Drawing.Size(1024, 668);
             this.layoutPanelUser.TabIndex = 0;
-            // 
-            // fieldTitle
-            // 
-            this.fieldTitle.AutoSize = true;
-            this.fieldTitle.BackColor = System.Drawing.Color.Transparent;
-            this.fieldTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldTitle.ForeColor = System.Drawing.Color.Black;
-            this.fieldTitle.Location = new System.Drawing.Point(55, 4);
-            this.fieldTitle.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldTitle.Name = "fieldTitle";
-            this.fieldTitle.Size = new System.Drawing.Size(904, 25);
-            this.fieldTitle.TabIndex = 21;
-            this.fieldTitle.Text = "fieldTitle";
-            this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldTitle.Visible = false;
-            // 
-            // pictureBoxReturn
-            // 
-            this.pictureBoxReturn.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxReturn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxReturn.Image = global::WsLabelCore.Properties.Resources.left_1;
-            this.pictureBoxReturn.Location = new System.Drawing.Point(4, 4);
-            this.pictureBoxReturn.Name = "pictureBoxReturn";
-            this.pictureBoxReturn.Size = new System.Drawing.Size(44, 25);
-            this.pictureBoxReturn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxReturn.TabIndex = 59;
-            this.pictureBoxReturn.TabStop = false;
-            this.pictureBoxReturn.Visible = false;
             // 
             // layoutPanelTop
             // 
@@ -107,18 +78,46 @@ partial class WsFormNavigationUserControl
             this.layoutPanelTop.Size = new System.Drawing.Size(1016, 33);
             this.layoutPanelTop.TabIndex = 70;
             // 
-            // WsNavigationUserControl
+            // pictureBoxReturn
+            // 
+            this.pictureBoxReturn.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxReturn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxReturn.Image = global::WsLabelCore.Properties.Resources.left_1;
+            this.pictureBoxReturn.Location = new System.Drawing.Point(4, 4);
+            this.pictureBoxReturn.Name = "pictureBoxReturn";
+            this.pictureBoxReturn.Size = new System.Drawing.Size(44, 25);
+            this.pictureBoxReturn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxReturn.TabIndex = 59;
+            this.pictureBoxReturn.TabStop = false;
+            this.pictureBoxReturn.Visible = false;
+            // 
+            // fieldTitle
+            // 
+            this.fieldTitle.AutoSize = true;
+            this.fieldTitle.BackColor = System.Drawing.Color.Transparent;
+            this.fieldTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldTitle.ForeColor = System.Drawing.Color.Black;
+            this.fieldTitle.Location = new System.Drawing.Point(55, 4);
+            this.fieldTitle.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldTitle.Name = "fieldTitle";
+            this.fieldTitle.Size = new System.Drawing.Size(904, 25);
+            this.fieldTitle.TabIndex = 21;
+            this.fieldTitle.Text = "fieldTitle";
+            this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // WsFormNavigationUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.layoutPanelUser);
-            this.Name = "WsNavigationUserControl";
+            this.Name = "WsFormNavigationUserControl";
             this.Size = new System.Drawing.Size(1024, 668);
             this.layoutPanelUser.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReturn)).EndInit();
             this.layoutPanelTop.ResumeLayout(false);
             this.layoutPanelTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReturn)).EndInit();
             this.ResumeLayout(false);
 
     }

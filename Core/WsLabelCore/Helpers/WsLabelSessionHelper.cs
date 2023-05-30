@@ -98,7 +98,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <param name="showNavigation"></param>
     /// <param name="lineId"></param>
     /// <param name="area"></param>
-    public void SetSessionForLabelPrint(Action<WsFormBaseUserControl> showNavigation, long lineId = -1,
+    public void SetSessionForLabelPrint(Action<WsFormBaseUserControl, string> showNavigation, long lineId = -1,
         WsSqlProductionFacilityModel? area = null)
     {
         lock (_locker)

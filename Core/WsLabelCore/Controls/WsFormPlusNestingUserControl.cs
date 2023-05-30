@@ -16,30 +16,27 @@ public sealed partial class WsFormPlusNestingUserControl : WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsPlusNestingViewModel CastViewModel => (WsPlusNestingViewModel)ViewModel;
-
     public WsFormPlusNestingUserControl() : base(new WsPlusNestingViewModel())
     {
         InitializeComponent();
-        
-        RefreshViewModel();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => CastViewModel.ToString();
+    public override string ToString() => Page.ViewModel.ToString();
 
     /// <summary>
-    /// Обновить модель представления.
+    /// Обновить контрол.
     /// </summary>
-    public override void RefreshViewModel()
+    public override void RefreshUserConrol()
     {
+        base.RefreshUserConrol();
         WsFormNavigationUtils.ActionTryCatchSimple(() =>
         {
-            CastViewModel.PluNesting = LabelSession.ViewPluNesting;
-            CastViewModel.PlusNestings = ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);
+            ((WsPlusNestingViewModel)Page.ViewModel).PluNesting = LabelSession.ViewPluNesting;
+            ((WsPlusNestingViewModel)Page.ViewModel).PlusNestings = ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);
         });
     }
 

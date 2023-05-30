@@ -9,46 +9,54 @@ namespace WsLabelCore.Pages;
 /// <summary>
 /// Interaction logic for WsPlusNestingPage.xaml
 /// </summary>
-public partial class WsPlusNestingPage //: INavigableView<WsPlusNestingViewModel>
+public partial class WsPlusNestingPage : WsXamlBasePage//: INavigableView<WsPlusNestingViewModel>
 {
     #region Public and private fields, properties, constructor
-
-    private WsPlusNestingViewModel CastViewModel { get; }
 
     public WsPlusNestingPage(WsXamlBaseViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
-        if (viewModel is not WsPlusNestingViewModel pluNestingViewModel) return;
-        CastViewModel = pluNestingViewModel;
+        ViewModel = viewModel;
+        //borderMain.Child = GridMain;
 
+        if (ViewModel is not WsPlusNestingViewModel plusNestingViewModel) return;
         // Вложенности ПЛУ.
         labelPluNesting.SetBinding(ContentProperty,
             new Binding(nameof(LocaleCore.Table.PluNesting)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
-        comboBoxPlusNesting.SetBinding(ItemsControl.ItemsSourceProperty, 
-            new Binding(nameof(CastViewModel.PlusNestings)) { Mode = BindingMode.OneWay, Source = CastViewModel });
+        comboBoxPlusNesting.SetBinding(ItemsControl.ItemsSourceProperty,
+            new Binding(nameof(plusNestingViewModel.PlusNestings)) { Mode = BindingMode.OneWay, Source = plusNestingViewModel });
         comboBoxPlusNesting.SetBinding(Selector.SelectedItemProperty,
-            new Binding(nameof(CastViewModel.PluNesting)) { Mode = BindingMode.TwoWay, Source = CastViewModel });
-        comboBoxPlusNesting.SetBinding(Selector.SelectedValueProperty, 
-            new Binding(nameof(CastViewModel.PluNesting.TareWeightDescription)) { Mode = BindingMode.OneWay, Source = CastViewModel.PluNesting });
-        comboBoxPlusNesting.DisplayMemberPath = nameof(CastViewModel.PluNesting.TareWeightDescription);
-        comboBoxPlusNesting.SelectedValuePath = nameof(CastViewModel.PluNesting.TareWeightDescription);
+            new Binding(nameof(plusNestingViewModel.PluNesting)) { Mode = BindingMode.TwoWay, Source = plusNestingViewModel });
+        comboBoxPlusNesting.SetBinding(Selector.SelectedValueProperty,
+            new Binding(nameof(plusNestingViewModel.PluNesting.TareWeightDescription))
+            {
+                Mode = BindingMode.OneWay,
+                Source = plusNestingViewModel.PluNesting
+            });
+        comboBoxPlusNesting.DisplayMemberPath = nameof(plusNestingViewModel.PluNesting.TareWeightDescription);
+        comboBoxPlusNesting.SelectedValuePath = nameof(plusNestingViewModel.PluNesting.TareWeightDescription);
 
         // ПЛУ.
         labelPlu.SetBinding(ContentProperty,
             new Binding(nameof(LocaleCore.Table.Plu)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
-        labelPluValue.DataContext = CastViewModel;
-        labelPluValue.SetBinding(ContentProperty, 
-            new Binding(nameof(CastViewModel.PluNesting.PluName)) { Mode = BindingMode.OneWay, Source = CastViewModel.PluNesting });
+        labelPluValue.DataContext = ViewModel;
+        labelPluValue.SetBinding(ContentProperty,
+            new Binding(nameof(plusNestingViewModel.PluNesting.PluName))
+            {
+                Mode = BindingMode.OneWay,
+                Source = plusNestingViewModel.PluNesting
+            });
 
         // Вес тары ПЛУ.
         labelTareWeight.SetBinding(ContentProperty,
             new Binding(nameof(LocaleCore.Table.WeightTare)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
-        labelTareWeightValue.DataContext = CastViewModel;
+        labelTareWeightValue.DataContext = ViewModel;
         labelTareWeightValue.SetBinding(ContentProperty,
-            new Binding(nameof(CastViewModel.PluNesting.TareWeightWithKg)) { Mode = BindingMode.OneWay, Source = CastViewModel.PluNesting });
-
-        // Настроить кнопки.
-        SetupButtons(CastViewModel);
+            new Binding(nameof(plusNestingViewModel.PluNesting.TareWeightWithKg))
+            {
+                Mode = BindingMode.OneWay,
+                Source = plusNestingViewModel.PluNesting
+            });
     }
 
     #endregion

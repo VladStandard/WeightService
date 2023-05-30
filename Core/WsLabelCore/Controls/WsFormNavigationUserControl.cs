@@ -5,20 +5,18 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.Controls;
 
-#nullable enable
 /// <summary>
 /// Корневой контрол навигации.
 /// </summary>
+#nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormNavigationUserControl : WsFormBaseUserControl
+public sealed partial class WsFormNavigationUserControl : UserControl // WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
     public WsFormNavigationUserControl()
     {
         InitializeComponent();
-    
-        RefreshViewModel();
     }
 
     #endregion
@@ -28,38 +26,32 @@ public sealed partial class WsFormNavigationUserControl : WsFormBaseUserControl
     /// <summary>
     /// Перейти в контрол.
     /// </summary>
-    /// <param name="userControl"></param>
-    /// <param name="title"></param>
-    public void SwitchUserControl(WsFormBaseUserControl userControl, string title)
+    /// <param name="formUserControl"></param>
+    public void SwitchUserControl(WsFormBaseUserControl formUserControl)
     {
-        fieldTitle.Text = title;
-        fieldTitle.Visible = !string.IsNullOrEmpty(title);
-
-        foreach (Control control in layoutPanelUser.Controls)
+        foreach (Control formControl in layoutPanelUser.Controls)
         {
-            if (control is WsFormBaseUserControl getControl)
+            if (formControl is WsFormBaseUserControl getControl)
             {
-                if (!getControl.Name.Equals(userControl.Name))
-                    control.Visible = false;
+                if (!getControl.Name.Equals(formUserControl.Name))
+                    MdInvokeControl.SetVisible(formControl, false);
             }
-            else
-                control.Visible = false;
+            else if (formControl is not TableLayoutPanel)
+                MdInvokeControl.SetVisible(formControl, false);
         }
-        if (!layoutPanelUser.Controls.Contains(userControl))
-            layoutPanelUser.Controls.Add(userControl, 1, 1);
-        layoutPanelUser.SetRowSpan(userControl, 1);
-        layoutPanelUser.SetColumnSpan(userControl, 1);
+        if (!layoutPanelUser.Controls.Contains(formUserControl))
+            layoutPanelUser.Controls.Add(formUserControl, 1, 1);
+        layoutPanelUser.SetRowSpan(formUserControl, 1);
+        layoutPanelUser.SetColumnSpan(formUserControl, 1);
+    }
 
-        //userControl.Update();
-        //userControl.Refresh();
-        //layoutPanelUser.Update();
-        //layoutPanelUser.Refresh();
-        
-        //userControl.Visible = true;
-        //Update();
-        //Refresh();
-        //Visible = true;
-        //System.Windows.Forms.Application.DoEvents();
+    /// <summary>
+    /// Задать заголовок.
+    /// </summary>
+    /// <param name="title"></param>
+    public void SetTitle(string title)
+    {
+        MdInvokeControl.SetText(fieldTitle, title);
     }
 
     #endregion

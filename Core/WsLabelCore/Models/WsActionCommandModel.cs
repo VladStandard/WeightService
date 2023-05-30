@@ -19,23 +19,18 @@ public sealed partial class WsActionCommandModel : WsMvvmBase
     public Action? Action { get; private set; }
     public ICommand Cmd => new Command(Action ?? (() => { }));
     public string Content { get; private set; } = "";
-    public Visibility Visibility { get; private set; } = Visibility.Hidden;
+    public Visibility Visibility { get; set; } = Visibility.Hidden;
     
     public WsActionCommandModel(string name, string content, Visibility visibility)
     {
         SetupEmpty(name, content, visibility);
     }
 
-    public WsActionCommandModel(string name, Action action, string content, Visibility visibility)
-    {
-        Setup(name, action, content, visibility);
-    }
-
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() => $"{Name} | {Content} | {Visibility} | {(Action is null ? "<Empty action>" : Action)}";
+    public override string ToString() => $"{Name} | {Content} | {Visibility} | {(Action is null ? "<Empty action>" : $"[{Action.GetInvocationList().Length}] actions")}";
 
     /// <summary>
     /// Прервать.
@@ -50,7 +45,7 @@ public sealed partial class WsActionCommandModel : WsMvvmBase
     /// <param name="action"></param>
     /// <param name="content"></param>
     /// <param name="visibility"></param>
-    public void Setup(string name, Action action, string content, Visibility visibility)
+    private void Setup(string name, Action action, string content, Visibility visibility)
     {
         Name = name;
         Action = action;
@@ -76,28 +71,31 @@ public sealed partial class WsActionCommandModel : WsMvvmBase
     /// Настройка действий.
     /// </summary>
     /// <param name="actions"></param>
-    public void Setup(List<Action> actions)
+    public void AddActions(List<Action> actions)
     {
         Action = null;
         if (!actions.Any()) return;
-        actions.ForEach(action => Action += action);
-    }
-
-    /// <summary>
-    /// Настройка первого действия.
-    /// </summary>
-    /// <param name="action"></param>
-    public void Setup1Action(Action action)
-    {
-        Action = null;
-        Action = action;
+        actions.ForEach(AddAction);
     }
 
     /// <summary>
     /// Добавить действие.
     /// </summary>
     /// <param name="action"></param>
-    public void AddAction(Action action) => Action += action;
+    public void AddAction(Action action)
+    {
+        if (Action is null || (Action is not null && Action.GetInvocationList().Length == 0))
+        {
+            Action = action;
+            return;
+        }
+        if (Action is not null && Action.GetInvocationList().Length > 0)
+        {
+            if (!Action.GetInvocationList().Contains(action))
+                Action += action;
+        }
+
+    }
 
     #endregion
 }

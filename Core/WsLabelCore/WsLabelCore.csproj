@@ -32,12 +32,24 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bases\WsXamlBasePage.cs" />
-    <Compile Include="Bases\WsFormBaseUserControl.cs">
+    <Compile Include="Common\WsXamlBasePage.cs" />
+    <Compile Include="Common\WsFormBaseUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Bases\WsFormBaseUserControl.Designer.cs">
+    <Compile Include="Common\WsFormBaseUserControl.Designer.cs">
       <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsFormWaitUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsFormWaitUserControl.Designer.cs">
+      <DependentUpon>WsFormWaitUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WsFormDialogUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WsFormDialogUserControl.Designer.cs">
+      <DependentUpon>WsFormDialogUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\WsFormPinCodeUserControl.cs">
       <SubType>UserControl</SubType>
@@ -81,8 +93,16 @@
     </Compile>
     <Compile Include="Helpers\WsLabelSessionHelper.cs" />
     <Compile Include="Models\WsActionCommandModel.cs" />
+    <Compile Include="Pages\WsXamlWaitPage.xaml.cs">
+      <DependentUpon>WsXamlWaitPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WsXamlDialogPage.xaml.cs">
+      <DependentUpon>WsXamlDialogPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\WsFormNavigationUtils.cs" />
     <Compile Include="Utils\WsFormUtils.cs" />
+    <Compile Include="ViewModels\WsWaitViewModel.cs" />
+    <Compile Include="ViewModels\WsDialogViewModel.cs" />
     <Compile Include="ViewModels\WsPlusLineViewModel.cs" />
     <Compile Include="ViewModels\WsMoreViewModel.cs" />
     <Compile Include="Forms\WsFormNumberInput.cs">
@@ -105,7 +125,7 @@
     <Compile Include="ViewModels\WsLinesViewModel.cs" />
     <Compile Include="ViewModels\WsPinCodeViewModel.cs" />
     <Compile Include="ViewModels\WsPlusNestingViewModel.cs" />
-    <Compile Include="Bases\WsXamlBaseViewModel.cs" />
+    <Compile Include="Common\WsXamlBaseViewModel.cs" />
     <Compile Include="Helpers\WsFontsSettingsHelper.cs" />
     <Compile Include="Helpers\WsPluginLabelsHelper.cs" />
     <Compile Include="Helpers\WsPluginMassaHelper.cs" />
@@ -166,8 +186,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Bases\WsFormBaseUserControl.resx">
+    <EmbeddedResource Include="Common\WsFormBaseUserControl.resx">
       <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsFormWaitUserControl.resx">
+      <DependentUpon>WsFormWaitUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WsFormDialogUserControl.resx">
+      <DependentUpon>WsFormDialogUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\WsFormPinCodeUserControl.resx">
       <DependentUpon>WsFormPinCodeUserControl.cs</DependentUpon>
@@ -196,6 +222,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Pages\WsXamlWaitPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\WsXamlDialogPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\WsXamlLinesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
