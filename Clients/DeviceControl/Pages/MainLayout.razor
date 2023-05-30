@@ -8,32 +8,26 @@
 <RadzenContextMenu/>
 <RadzenNotification/>
 
-<div class="page">
-  <div class="@BlazorCoreUtils.GetCssName.Sidebar()">
+<div class="main_block">
+  <div style="background-color: darkorange">
     <NavMenu/>
   </div>
-
-  <div class="main">
-    <div class="top-row px-4 auth">
-      <div class="col-sm-12 col-md-12 col-lg-12">
-        <RadzenMenu Style="margin-left: -20px; margin-top: 0; align-content: center; background-color: transparent; ">
+  <div style="flex-grow: 1;">
+      <div>
+        <RadzenMenu Style="height: 3.0rem; background-color: #f7f7f7; border-bottom: 1px solid #d6d5d5;">
           <RadzenMenuItem
             Icon="people"
-            Style="background-color: transparent;"
             Text="@User?.Identity?.Name"
             Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}")/>
           <AuthorizeView Roles="@UserAccessStr.Admin">
-            <MudSpacer/>
             <RadzenMenuItem
-              Style="background-color: transparent;"
               Text="@VerBlazor"
               Path=@($"{LocaleCore.DeviceControl.RouteSystemAppInfo}")/>
           </AuthorizeView>
         </RadzenMenu>
       </div>
-    </div>
-    <div class="content px-4" style="margin: -15px -15px -15px -25px;background-color: transparent; ">
-      @Body
-    </div>
+      <div style="padding: 10px">
+        @Body
+      </div>
   </div>
 </div>

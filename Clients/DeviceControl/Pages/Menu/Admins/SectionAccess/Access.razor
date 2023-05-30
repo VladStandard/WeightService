@@ -7,9 +7,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
 
 <SectionReload
-  TItem="@WsSqlAccessModel"
   Title="@LocaleCore.Strings.AccessRights"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

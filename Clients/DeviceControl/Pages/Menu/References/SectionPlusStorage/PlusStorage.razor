@@ -6,9 +6,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.PlusStorageMethods.WsSqlPluStorageMethodModel>
 
 <SectionReload
-  TItem="@WsSqlPluStorageMethodModel"
   Title="@LocaleCore.DeviceControl.SectionPlusStorage"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

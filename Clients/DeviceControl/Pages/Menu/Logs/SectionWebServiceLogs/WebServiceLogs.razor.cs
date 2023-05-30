@@ -18,8 +18,7 @@ public sealed partial class WebServiceLogs : RazorComponentSectionBase<LogWebVie
     #region Public and private methods
     protected override void SetSqlSectionCast()
     {
-        var query = WsSqlQueriesDiags.Tables.Views.GetWebLogs(SqlCrudConfigSection.IsResultShowOnlyTop
-            ? ContextManager.JsonSettings.Local.SelectTopRowsCount : 0);
+        var query = WsSqlQueriesDiags.Tables.Views.GetWebLogs(SqlCrudConfigSection.SelectTopRowsCount);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<LogWebView> items = new();
         foreach (var obj in objects)

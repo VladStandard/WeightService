@@ -4,6 +4,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
+using WsBlazorCore.Services;
 using WsBlazorCore.Settings;
 using WsBlazorCore.Utils;
 using WsStorageCore.Models;
@@ -16,7 +17,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     #region Public and private fields, properties, constructor
 
     #region Parameters
-    
+    [Inject] private LocalStorageService LocalStorage { get; set; }
     [Inject] protected ContextMenuService? ContextMenuService { get; set; }
     [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
@@ -40,7 +41,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
         SqlCrudConfigSection.IsMarked = WsSqlIsMarked.ShowOnlyActual;
         SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = false;
+        SqlCrudConfigSection.SelectTopRowsCount = 200;
 
         ButtonSettings = new(true, true, true, true, true, false, false);
     }
@@ -107,21 +108,19 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
 			ContextMenuService?.Close();
 		});
 	}
-    
-    protected override void OnAfterRender(bool firstRender)
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!firstRender)
-        {
-            base.OnAfterRender(firstRender);
+        if (!firstRender) 
             return;
-        }
+        string? rowCount = await LocalStorage.GetItem("DefaultRowCount");
+        SqlCrudConfigSection.SelectTopRowsCount = int.TryParse(rowCount, out int parsedNumber) ? parsedNumber : 200;
         GetSectionData();
     }
     
     protected void GetSectionData()
     {
         RunActionsSafe(string.Empty, SetSqlSectionCast);
-        SqlCrudConfigSection.IsGuiShowFilterOnlyTop = SqlSectionCast.Count >= ContextManager.JsonSettings.Local.SelectTopRowsCount;
         IsLoading = false;
         StateHasChanged();
     }

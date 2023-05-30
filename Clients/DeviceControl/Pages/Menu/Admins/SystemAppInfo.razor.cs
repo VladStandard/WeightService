@@ -26,17 +26,13 @@ public sealed partial class SystemAppInfo : RazorComponentBase
 
     #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-            {
-                DbSizeInfos = ContextManager.GetDbFileSizeInfos();
-                DbFileSizeAll = ContextManager.GetDbFileSizeAll();
-            }
-        });
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+        DbSizeInfos = ContextManager.GetDbFileSizeInfos();
+        DbFileSizeAll = ContextManager.GetDbFileSizeAll();
     }
-
+    
     #endregion
 }

@@ -20,9 +20,9 @@ public sealed partial class PlusLabels : RazorComponentSectionBase<PlusLabelView
 
     protected override void SetSqlSectionCast()
     {
-        var query = WsSqlQueriesDiags.Tables.Views.GetPluLabels(SqlCrudConfigSection.IsResultShowOnlyTop
-            ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, SqlCrudConfigSection.IsMarked);
+        var query = WsSqlQueriesDiags.Tables.Views.GetPluLabels(
+                SqlCrudConfigSection.SelectTopRowsCount,
+                SqlCrudConfigSection.IsMarked);
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<PlusLabelView> items = new();
         foreach (var obj in objects)

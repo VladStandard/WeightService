@@ -32,9 +32,7 @@ public sealed partial class Logs : RazorComponentSectionBase<LogView>
     protected override void SetSqlSectionCast()
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetLogs(
-            SqlCrudConfigSection.IsResultShowOnlyTop
-                ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-                : 0,
+            SqlCrudConfigSection.SelectTopRowsCount,
             CurrentLogType,
             CurrentLine
         );
@@ -70,7 +68,6 @@ public sealed partial class Logs : RazorComponentSectionBase<LogView>
 
     private void OnSelectTypeChanged()
     {
-        SqlCrudConfigSection.IsResultShowOnlyTop = true;
         GetSectionData();
     }
 }

@@ -6,9 +6,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
 
 <SectionReload
-  TItem="@WsSqlTemplateResourceModel"
   Title="@LocaleCore.DeviceControl.SectionTemplateResources"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

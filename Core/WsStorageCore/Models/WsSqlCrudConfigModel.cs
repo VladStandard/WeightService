@@ -18,10 +18,11 @@ public class WsSqlCrudConfigModel : ICloneable
     public List<WsSqlFieldOrderModel> Orders { get; private set; }
     public bool IsGuiShowFilterAdditional { get; set; }
     public bool IsGuiShowFilterMarked { get; set; }
-    public bool IsGuiShowFilterOnlyTop { get; set; }
+    public int SelectTopRowsCount { get; set; }
     public bool IsGuiShowItemsCount { get; set; }
     public bool IsResultAddFieldEmpty { get; }
     public bool IsResultOrder { get; set; }
+    
     private WsSqlIsMarked _isMarked;
     /// <summary>
     /// Помеченные на удаление записи.
@@ -49,7 +50,6 @@ public class WsSqlCrudConfigModel : ICloneable
             }
         }
     }
-    public bool IsResultShowOnlyTop { get; set; }
     /// <summary>
     /// SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED.
     /// </summary>
@@ -66,10 +66,8 @@ public class WsSqlCrudConfigModel : ICloneable
 
         IsGuiShowFilterAdditional = false;
         IsGuiShowFilterMarked = false;
-        IsGuiShowFilterOnlyTop = true;
         IsGuiShowItemsCount = false;
-
-        IsResultShowOnlyTop = false;
+        
         IsResultAddFieldEmpty = false;
         IsResultOrder = false;
         IsReadUncommitted = false;
@@ -98,12 +96,11 @@ public class WsSqlCrudConfigModel : ICloneable
     {
         Filters = filters;
         Orders = orders;
-
         IsMarked = isMarked;
-        IsResultShowOnlyTop = isShowOnlyTop;
         IsResultAddFieldEmpty = isAddFieldEmpty;
         IsResultOrder = isOrder;
         IsReadUncommitted = isReadUncommitted;
+        SelectTopRowsCount = isShowOnlyTop ? 200 : 0;
     }
 
     public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters,
@@ -224,10 +221,9 @@ public class WsSqlCrudConfigModel : ICloneable
         item.Orders = new(Orders);
         item.IsGuiShowFilterAdditional = IsGuiShowFilterAdditional;
         item.IsGuiShowFilterMarked = IsGuiShowFilterMarked;
-        item.IsGuiShowFilterOnlyTop = IsGuiShowFilterOnlyTop;
         item.IsGuiShowItemsCount = IsGuiShowItemsCount;
         item.IsMarked = IsMarked;
-        item.IsResultShowOnlyTop = IsResultShowOnlyTop;
+        item.SelectTopRowsCount = SelectTopRowsCount;
         return item;
     }
 
@@ -252,10 +248,6 @@ public class WsSqlCrudConfigModel : ICloneable
         if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isGuiShowFilterMarked)) result += $" | {isGuiShowFilterMarked}";
         else if (!string.IsNullOrEmpty(isGuiShowFilterMarked)) result = isGuiShowFilterMarked;
 
-        string isGuiShowFilterOnlyTop = IsGuiShowFilterOnlyTop ? "Is gui show filter only top" : string.Empty;
-        if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isGuiShowFilterOnlyTop)) result += $" | {isGuiShowFilterOnlyTop}";
-        else if (!string.IsNullOrEmpty(isGuiShowFilterOnlyTop)) result = isGuiShowFilterOnlyTop;
-
         string isGuiShowItemsCount = IsGuiShowItemsCount ? "Is gui show items count" : string.Empty;
         if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isGuiShowItemsCount)) result += $" | {isGuiShowItemsCount}";
         else if (!string.IsNullOrEmpty(isGuiShowItemsCount)) result = isGuiShowItemsCount;
@@ -270,10 +262,6 @@ public class WsSqlCrudConfigModel : ICloneable
         if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isMarked)) result += $" | {isMarked}";
         else if (!string.IsNullOrEmpty(isMarked)) result = isMarked;
         
-        string isResultShowOnlyTop = IsResultShowOnlyTop ? "Is result show only top" : string.Empty;
-        if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isResultShowOnlyTop)) result += $" | {isResultShowOnlyTop}";
-        else if (!string.IsNullOrEmpty(isResultShowOnlyTop)) result = isResultShowOnlyTop;
-
         return result;
     }
 

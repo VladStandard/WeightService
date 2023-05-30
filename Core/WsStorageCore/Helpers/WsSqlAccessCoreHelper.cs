@@ -225,8 +225,8 @@ internal sealed class WsSqlAccessCoreHelper
     private ICriteria GetCriteria<T>(ISession session, WsSqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
-        if (JsonSettings.Local.MaxCount > 0 && sqlCrudConfig.IsResultShowOnlyTop || JsonSettings.Local.MaxCount == 1)
-            criteria.SetMaxResults(JsonSettings.Local.MaxCount);
+        if (sqlCrudConfig.SelectTopRowsCount > 0)
+            criteria.SetMaxResults(sqlCrudConfig.SelectTopRowsCount);
         if (sqlCrudConfig.Filters.Any())
             criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
         if (sqlCrudConfig.Orders.Any())

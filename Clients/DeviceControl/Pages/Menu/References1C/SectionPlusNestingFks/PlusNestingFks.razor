@@ -5,9 +5,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
 
 <SectionReload
-  TItem="@WsSqlPluNestingFkModel"
   Title="@LocaleCore.DeviceControl.SectionPlusNestingFk"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

@@ -7,9 +7,9 @@
 @if (SqlSectionCast.Count != 0)
 {
   <SectionReload
-    TItem="@WsSqlPluScaleModel"
     Title="@LocaleCore.DeviceControl.SectionPlusScales"
     OnSectionUpdate="@GetSectionData"
+    OnSectionAdd="@SqlItemNewAsync"
     SectionCount="@SqlSectionCast.Count"
     SqlCrudConfigSection="@SqlCrudConfigSection"
     ButtonSettings="@ButtonSettings"/>

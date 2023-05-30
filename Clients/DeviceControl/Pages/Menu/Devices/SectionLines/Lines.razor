@@ -6,9 +6,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.LineView>
 
 <SectionReload
-  TItem="@LineView"
   Title="@LocaleCore.DeviceControl.SectionScales"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

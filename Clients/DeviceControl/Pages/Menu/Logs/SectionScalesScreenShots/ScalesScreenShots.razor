@@ -7,9 +7,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
 <SectionReload
-  TItem="@WsSqlScaleScreenShotModel"
   Title="@LocaleCore.DeviceControl.SectionScreenShots"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

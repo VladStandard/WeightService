@@ -7,10 +7,10 @@
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.LogView>
 
 <SectionReload
-  TItem="@LogView"
   Title="@LocaleCore.System.SystemLogs"
   ButtonSettings="@ButtonSettings"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"/>
 

@@ -7,9 +7,9 @@
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.PlusLabelView>
 
 <SectionReload
-  TItem="@PlusLabelView"
   Title="@LocaleCore.DeviceControl.SectionLabels"
   OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>

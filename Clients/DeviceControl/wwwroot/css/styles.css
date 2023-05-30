@@ -4,9 +4,6 @@ html, body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.content {
-  padding-top: 1.1rem;
-}
 
 .RadzenButtonLong {
   margin-top: 3px;
@@ -36,48 +33,6 @@ html, body {
   font-size: 11px;
 }
 
-.RadzenPanelMenuRelease {
-  margin: 0;
-  font-size: 12px;
-  background-color: transparent;
-  caret-color: transparent;
-  background-image: linear-gradient(0, grey 0, grey 50%);
-}
-
-.RadzenPanelMenuDebug {
-  margin: 0;
-  font-size: 12px;
-  background-color: transparent;
-  caret-color: transparent;
-  background-image: linear-gradient(0, darkorange 0, darkorange 25%);
-}
-
-.RadzenPanelMenuDefault {
-  margin: 0;
-  font-size: 12px;
-  background-color: transparent;
-  caret-color: transparent;
-  background-image: linear-gradient(0, transparent 0, transparent 50%);
-}
-
-#blazor-error-ui {
-  background: lightyellow;
-  bottom: 0;
-  display: none;
-  left: 0;
-  padding: 0.6rem 1.25rem 0.7rem 1.25rem;
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
-}
-
-#blazor-error-ui .dismiss {
-  cursor: pointer;
-  position: absolute;
-  right: 0.75rem;
-  top: 0.5rem;
-}
-
 .DataGridSection {
   margin-top: 5px;
 }
@@ -85,4 +40,28 @@ html, body {
 .MudItemTable {
   margin-top: 5px;
   overflow-x: auto;
+}
+
+.SidebarRelease {
+  background-image: linear-gradient(90deg, gray 0, grey 50%);
+}
+
+.SidebarDebug {
+  background-image: linear-gradient(90deg, darkorange 0, darkorange 50%);
+}
+
+.MenuItemRelease {
+  margin: 0;
+  font-size: 12px;
+  background-color: transparent;
+  caret-color: transparent;
+  background-image: linear-gradient(0, grey 0, grey 50%);
+}
+
+.MenuItemDebug {
+  margin: 0;
+  font-size: 12px;
+  background-color: transparent;
+  caret-color: transparent;
+  background-image: linear-gradient(0, darkorange 0, darkorange 25%);
 }

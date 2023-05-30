@@ -21,9 +21,9 @@ public sealed partial class BarCodes : RazorComponentSectionBase<BarcodeView>
 
     protected override void SetSqlSectionCast()
     {
-        var query = WsSqlQueriesDiags.Tables.Views.GetBarcodes(SqlCrudConfigSection.IsResultShowOnlyTop
-            ? ContextManager.JsonSettings.Local.SelectTopRowsCount
-            : 0, SqlCrudConfigSection.IsMarked);
+        var query = WsSqlQueriesDiags.Tables.Views.GetBarcodes(
+            SqlCrudConfigSection.SelectTopRowsCount, SqlCrudConfigSection.IsMarked
+            );
         object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
         List<BarcodeView> items = new();
         foreach (var obj in objects)
