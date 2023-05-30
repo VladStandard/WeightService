@@ -22,19 +22,6 @@ public static class BlazorCoreUtils
             result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
         return result;
     }
-
-    public static class GetCssName
-    {
-        public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
-        public static string Sidebar() => 
-            DebugHelper.Instance.IsDevelop ? "SidebarDebug" : "SidebarRelease";
-        public static string RadzenPanelMenu() =>
-            DebugHelper.Instance.IsDevelop ? "RadzenPanelMenuDebug": "RadzenPanelMenuRelease";
-        public static string RadzenPanelMenuItem() =>
-            DebugHelper.Instance.IsDevelop ? "RadzenPanelMenuItemDebug": "RadzenPanelMenuItemRelease";
-        public static string RadzenPanelMenuSubItem() =>
-            DebugHelper.Instance.IsDevelop ? "RadzenPanelMenuSubItemDebug" : "RadzenPanelMenuSubItemRelease";
-    }
-
+    
     #endregion
 }

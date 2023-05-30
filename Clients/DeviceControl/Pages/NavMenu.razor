@@ -1,16 +1,14 @@
 @inherits RazorComponentBase
-@using static BlazorCoreUtils
 
-<div class="top-row pl-4 navbar navbar-dark">
-  <a class="navbar-brand" href="">
-    <RadzenLabel
-      Style="margin-top: -7px; text-align: center; width: 100%; font-size: 14px;"
-      Text="@LocaleCore.Strings.AppDevicesControlName"/>
-  </a>
-</div>
+<div class="@SidebarCss">
+  <div class="top-row pl-4 navbar">
+    <a class="navbar-brand" href="">
+      <RadzenLabel Style="margin-top: -7px; text-align: center; font-size: 14px; color: white"
+        Text="@LocaleCore.Strings.AppDevicesControlName"/>
+    </a>
+  </div>
 
-<div class="@GetCssName.NavMenu(CollapseNavMenu)" @onclick="@ToggleNavMenu">
-  <RadzenPanelMenu class="@GetCssName.RadzenPanelMenu()">
+  <RadzenPanelMenu class="@ItemMenuCss">
     <AuthorizeView Roles="@UserAccessStr.Read">
       @* Devices *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionDevices">
