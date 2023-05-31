@@ -255,6 +255,11 @@ public class WsDataTestsHelper
             {
                 Assert.IsNotEmpty(item.ToString());
                 ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
+                if (!validationResult.IsValid)
+                {
+                    TestContext.WriteLine($"{nameof(item)}: {item}");
+                    TestContext.WriteLine($"{nameof(validationResult)}: {validationResult}");
+                }
                 Assert.IsTrue(validationResult.IsValid);
             }
         }, false, publishTypes);

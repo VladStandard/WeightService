@@ -62,7 +62,7 @@ public class WsSqlCrudConfigModel : ICloneable
         IsFillReferences = true;
         Filters = new();
         Orders = new();
-        IsMarked = WsSqlIsMarked.ShowOnlyActual;
+        IsMarked = WsSqlIsMarked.ShowAll;
 
         IsGuiShowFilterAdditional = false;
         IsGuiShowFilterMarked = false;
