@@ -2,11 +2,11 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.BarcodeView>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionBarCodes"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -14,7 +14,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@BarcodeView"
   Data="@SqlSectionCast"
@@ -24,7 +24,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@BarcodeView">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="12%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueTop" Property="ValueTop" Width="28%"/>
@@ -32,4 +32,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueBottom" Property="ValueBottom" Width="28%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

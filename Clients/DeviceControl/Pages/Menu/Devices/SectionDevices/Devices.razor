@@ -2,11 +2,11 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.DeviceView>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionHosts"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -14,7 +14,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@DeviceView"
   Data="@SqlSectionCast"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@DeviceView">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LogoutDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
@@ -32,4 +32,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceMac" Property="ValuePrettyLookMinus" Width="20%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

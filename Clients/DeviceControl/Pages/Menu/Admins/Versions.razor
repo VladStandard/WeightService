@@ -2,11 +2,11 @@
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @using WsStorageCore.TableScaleModels.Versions
 @using WsDataCore.Utils
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Versions.WsSqlVersionModel>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.Strings.VersionsDb"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -14,7 +14,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   TItem="@WsSqlVersionModel"
   Data="@SqlSectionCast">
   <Columns>
@@ -24,4 +24,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Description" Property="Description" Width="75%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

@@ -3,7 +3,7 @@
 
 using WsDataCore.Helpers;
 
-namespace DeviceControl.Pages;
+namespace DeviceControl.Pages.Default;
 
 public sealed partial class NavMenu : RazorComponentBase
 {

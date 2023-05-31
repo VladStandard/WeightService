@@ -2,15 +2,15 @@
 @page "/section/plus_nesting_fks/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusNestingFks
-@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Components.Item
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
 
-<RazorItemReload TItem="@WsSqlPluNestingFkModel" Title="@LocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluNestingFkModel" Title="@LocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>@SqlItemCast.Name</td>
@@ -55,11 +55,11 @@
     <td>@LocaleCore.Table.WeightMaximal</td>
     <td>@SqlItemCast.WeightMax</td>
   </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlPluNestingFkModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

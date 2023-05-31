@@ -2,16 +2,16 @@
 @page "/section/templates/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Templates
-@using DeviceControl.Pages.ItemComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Item
+@using DeviceControl.Components.Rz
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Templates.WsSqlTemplateModel>
 
-<RazorItemReload TItem="@WsSqlTemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlTemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Title</td>
     <td>
@@ -19,7 +19,7 @@
     </td>
     <td>@LocaleCore.Table.CategoryName</td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.CategoryId" Data="@TemplateCategories" ValueProperty="Value" TextProperty="Name"/>
+      <RzDropDown @bind-Value="@SqlItemCast.CategoryId" Data="@TemplateCategories" ValueProperty="Value" TextProperty="Name"/>
     </td>
   </tr>
   <tr>
@@ -31,11 +31,11 @@
         @bind-Value="@(SqlItemCast.Data)"/>
     </td>
   </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlTemplateModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

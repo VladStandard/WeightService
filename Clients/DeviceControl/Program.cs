@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
 using WsFileSystemCore.Helpers;
 using WsStorageCore.Helpers;
-using DialogService = Radzen.DialogService;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

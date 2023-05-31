@@ -3,22 +3,22 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Access
 @using WsDataCore.Utils
-@using DeviceControl.Pages.ItemComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Item
+@using DeviceControl.Components.Rz
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
 
-<RazorItemReload TItem="@WsSqlAccessModel" Title="@LocaleCore.Strings.AccessRights" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlAccessModel" Title="@LocaleCore.Strings.AccessRights" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.User</td>
     <td>@SqlItemCast.Name</td>
     <td>@LocaleCore.Strings.AccessRights</td>
     <td>
-      <RzDropDownLocal @bind-Value="@Rights" Data="@TemplateAccessRights" ValueProperty="Value" TextProperty="Name"/>
+      <RzDropDown @bind-Value="@Rights" Data="@TemplateAccessRights" ValueProperty="Value" TextProperty="Name"/>
     </td>
   </tr>
   <tr>
@@ -27,11 +27,11 @@
     <td/>
     <td/>
   </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlAccessModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

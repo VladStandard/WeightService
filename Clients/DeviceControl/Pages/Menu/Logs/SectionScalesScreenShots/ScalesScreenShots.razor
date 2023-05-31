@@ -2,11 +2,11 @@
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @using WsStorageCore.TableDiagModels.ScalesScreenshots
 @using WsDataCore.Utils
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionScreenShots"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -14,7 +14,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@WsSqlScaleScreenShotModel"
   Data="@SqlSectionCast"
@@ -24,7 +24,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@WsSqlScaleScreenShotModel">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
                             FormatString="@StrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Scale.Description" Width="40%"/>
@@ -35,4 +35,4 @@
       </RadzenDataGridColumn>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

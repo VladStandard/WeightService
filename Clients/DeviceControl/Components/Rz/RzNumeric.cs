@@ -3,11 +3,11 @@
 
 using Radzen.Blazor;
 
-namespace DeviceControl.Pages.CustomComponents;
+namespace DeviceControl.Components.Rz;
 
-public class RzDropDownLocal<T> : RadzenDropDown<T>
+public class RzNumeric<T> : RadzenNumeric<T>
 {
-    public RzDropDownLocal()
+    public RzNumeric()
     {
         Style = "width: 100%";
     }

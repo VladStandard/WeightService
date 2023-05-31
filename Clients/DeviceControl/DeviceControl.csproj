@@ -162,8 +162,26 @@
       <_ContentIncludedByDefault Remove="Pages\Menu\Admins\SectionScalesScreenShots\ScalesScreenShots.razor" />
       <_ContentIncludedByDefault Remove="Pages\ExampleComponents\ExampleNetBarcode.razor" />
       <_ContentIncludedByDefault Remove="Pages\ExampleComponents\ExampleRadzen.razor" />
+      <_ContentIncludedByDefault Remove="Pages\CustomComponents\TItemContent.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemActions.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemDates.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemReload.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemTableBody.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemTableHead.razor" />
+      <_ContentIncludedByDefault Remove="Pages\SectionComponents\SectionActions.razor" />
+      <_ContentIncludedByDefault Remove="Pages\SectionComponents\SectionFieldIsMarked.razor" />
+      <_ContentIncludedByDefault Remove="Pages\SectionComponents\SectionReload.razor" />
     </ItemGroup>
     <ItemGroup>
+      <AdditionalFiles Include="Components\Item\RazorItemActions.razor" />
+      <AdditionalFiles Include="Components\Item\RazorItemDates.razor" />
+      <AdditionalFiles Include="Components\Item\RazorItemReload.razor" />
+      <AdditionalFiles Include="Components\Item\RazorItemTableBody.razor" />
+      <AdditionalFiles Include="Components\Item\RazorItemTableHead.razor" />
+      <AdditionalFiles Include="Components\Section\SectionActions.razor" />
+      <AdditionalFiles Include="Components\Section\SectionFieldIsMarked.razor" />
+      <AdditionalFiles Include="Components\Section\SectionReload.razor" />
+      <AdditionalFiles Include="Components\TItemContent.razor" />
       <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ItemScaleScreenShot.razor" />
       <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ScalesScreenShots.razor" />
     </ItemGroup>

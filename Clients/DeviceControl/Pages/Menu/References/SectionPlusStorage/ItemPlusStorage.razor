@@ -2,17 +2,17 @@
 @page "/section/plus_storage/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Organizations
-@using DeviceControl.Pages.ItemComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Item
+@using DeviceControl.Components.Rz
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusStorageMethods.WsSqlPluStorageMethodModel>
 
 
-<RazorItemReload TItem="WsSqlOrganizationModel" Title="@LocaleCore.DeviceControl.ItemPlusStorage" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="WsSqlOrganizationModel" Title="@LocaleCore.DeviceControl.ItemPlusStorage" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td colspan="3">
@@ -21,15 +21,15 @@
   </tr>
   <tr>
     <td>@LocaleCore.Table.TempMinimal</td>
-    <td><RzNumericLocal Min="-100" @bind-Value="@SqlItemCast.MinTemp"/></td>
+    <td><RzNumeric Min="-100" @bind-Value="@SqlItemCast.MinTemp"/></td>
     <td>@LocaleCore.Table.TempMaximal</td>
-    <td><RzNumericLocal Min="-100" @bind-Value="@SqlItemCast.MaxTemp"/></td>
+    <td><RzNumeric Min="-100" @bind-Value="@SqlItemCast.MaxTemp"/></td>
   </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlOrganizationModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

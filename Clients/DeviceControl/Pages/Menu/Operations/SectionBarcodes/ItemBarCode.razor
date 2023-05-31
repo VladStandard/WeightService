@@ -3,15 +3,15 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.BarCodes
 @using WsDataCore.Enums
-@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Components.Item
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.BarCodes.WsSqlBarCodeModel>
 
-<RazorItemReload TItem="@WsSqlBarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarcode" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlBarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarcode" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluLabel.PluScale.Line)" Text="@LocaleCore.Table.Line"/>
@@ -77,11 +77,11 @@
       <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@GetBarcodeBottom(WsEnumFormatType.Xml)" Rows="10"/>
     </td>
   </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlBarCodeModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

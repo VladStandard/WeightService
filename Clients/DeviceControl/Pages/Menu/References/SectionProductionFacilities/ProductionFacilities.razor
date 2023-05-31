@@ -1,11 +1,11 @@
 ﻿@page "/section/production_facilities"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.ProductionFacilities
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionProductionFacilities"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -13,7 +13,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@WsSqlProductionFacilityModel"
   Data="@SqlSectionCast"
@@ -22,9 +22,9 @@
   RowDoubleClick="SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@WsSqlProductionFacilityModel">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Address" Property="Address" Width="70%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

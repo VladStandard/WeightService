@@ -1,11 +1,11 @@
 ﻿@page "/section/plus_bundles_fks"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusBundlesFks
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionPlusBundlesFk"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -13,7 +13,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@WsSqlPluBundleFkModel"
   Data="@SqlSectionCast"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@WsSqlPluBundleFkModel">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn TItem="WsSqlPluBundleFkModel" Title="@LocaleCore.Table.Weighted" SortProperty="Plu.IsCheckWeight" Width="7%">
         <Template Context="itemCast">
           <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
@@ -34,4 +34,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Bundle" Property="Bundle.Name" Width="15%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

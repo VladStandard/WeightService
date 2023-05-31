@@ -1,11 +1,11 @@
 @page "/profile"
-@using DeviceControl.Pages.ItemComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Item
+@using DeviceControl.Components.Rz
 @inherits RazorComponentBase
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.UserInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 25, 25 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 25, 25 })"/>
   <tbody>
   <tr>
     <td>@LocaleCore.Strings.AuthorizingUserName</td>
@@ -22,7 +22,7 @@
   <tr>
     <td>@LocaleCore.Strings.Language</td>
     <td>
-      <RzDropDownLocal @bind-Value="@LocaleCore.Lang" Data="@Langs"/>
+      <RzDropDown @bind-Value="@LocaleCore.Lang" Data="@Langs"/>
     </td>
   </tr>
   <tr>

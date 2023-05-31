@@ -2,24 +2,24 @@
 @page "/section/printers/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Printers
-@using DeviceControl.Pages.ItemComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Item
+@using DeviceControl.Components.Rz
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
 
-<RazorItemReload TItem="@WsSqlPrinterModel" Title="@LocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPrinterModel" Title="@LocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
-      <RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/>
+      <RzTextBox @bind-Value="@SqlItemCast.Name"/>
     </td>
     <td>@LocaleCore.Print.Mac</td>
     <td>
-      <RzTextBoxLocal @bind-Value="@SqlItemCast.MacAddress.Value"/>
+      <RzTextBox @bind-Value="@SqlItemCast.MacAddress.Value"/>
     </td>
   </tr>
   <tr>
@@ -27,11 +27,11 @@
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterType)" Text="@LocaleCore.Print.Type"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterType" Data="@PrinterTypeModels" TextProperty="Name"/>
+      <RzDropDown @bind-Value="@SqlItemCast.PrinterType" Data="@PrinterTypeModels" TextProperty="Name"/>
     </td>
     <td>@LocaleCore.Print.Port</td>
     <td>
-      <RzNumericLocal Min="0" Max="32767" @bind-Value="@SqlItemCast.Port"/>
+      <RzNumeric Min="0" Max="32767" @bind-Value="@SqlItemCast.Port"/>
     </td>
   </tr>
   <tr>
@@ -39,11 +39,11 @@
       <RadzenLink Target="_blank" Path="@SqlItemCast.Link" Text="@LocaleCore.Print.ControlPanel"/>
     </td>
     <td>
-      <RzTextBoxLocal @bind-Value="@SqlItemCast.Ip"/>
+      <RzTextBox @bind-Value="@SqlItemCast.Ip"/>
     </td>
     <td>@LocaleCore.Print.Password</td>
     <td>
-      <RzTextBoxLocal @bind-Value="@SqlItemCast.Password"/>
+      <RzTextBox @bind-Value="@SqlItemCast.Password"/>
     </td>
   </tr>
   @* <tr> *@
@@ -64,11 +64,11 @@
   @*                   Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!ContextManager.AccessManager.IsConnected())"/> *@
   @*   </td> *@
   @* </tr> *@
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlPrinterModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

@@ -1,12 +1,12 @@
 ﻿@page "/section/boxes"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Boxes
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Boxes.WsSqlBoxModel>
 
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionBoxes"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -14,7 +14,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@WsSqlBoxModel"
   Data="@SqlSectionCast"
@@ -23,9 +23,9 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@WsSqlBoxModel">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.BoxWeight" Property="Weight"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

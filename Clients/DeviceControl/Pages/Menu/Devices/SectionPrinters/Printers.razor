@@ -1,11 +1,11 @@
 ﻿@page "/section/printers"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Printers
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.Print.Names"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -13,7 +13,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   class="DataGridSection"
   @bind-Value="@SelectedRow"
   TItem="@WsSqlPrinterModel"
@@ -23,11 +23,11 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@WsSqlPrinterModel">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Print.Type" Property="PrinterType.Name" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Print.Ip" Property="Ip" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Print.Mac" Property="MacAddress.ValuePrettyLookMinus" Width="20%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

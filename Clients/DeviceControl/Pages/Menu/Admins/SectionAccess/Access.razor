@@ -2,11 +2,11 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Access
 @using WsDataCore.Utils
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.Strings.AccessRights"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -14,7 +14,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@WsSqlAccessModel"
   Data="@SqlSectionCast"
@@ -23,7 +23,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@WsSqlAccessModel">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn TItem="@WsSqlAccessModel" Title="@LocaleCore.Table.AccessLevel" SortProperty="Rights" Width="30%">
         <Template Context="itemCast">
           @ContextManager.ContextItem.GetAccessRightsDescription(itemCast.Rights)
@@ -33,4 +33,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="30%" FormatString="@StrUtils.FormatDtLong"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

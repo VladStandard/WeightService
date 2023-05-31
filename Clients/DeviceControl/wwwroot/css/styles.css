@@ -65,3 +65,9 @@ html, body {
   caret-color: transparent;
   background-image: linear-gradient(0, darkorange 0, darkorange 25%);
 }
+
+.top_menu {
+  height: 3.0rem;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #d6d5d5;
+}

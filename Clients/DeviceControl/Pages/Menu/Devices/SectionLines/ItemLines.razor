@@ -2,21 +2,21 @@
 @page "/section/scales/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Scales
-@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Components.Item
+@using DeviceControl.Components.Rz
 @using DeviceControl.Pages.Menu.Devices.SectionPluScales
-@using DeviceControl.Pages.CustomComponents
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Scales.WsSqlScaleModel>
 
-<RazorItemReload TItem="@WsSqlScaleModel" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlScaleModel" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
-      <RzTextBoxLocal @bind-Value="@SqlItemCast.Description"/>
+      <RzTextBox @bind-Value="@SqlItemCast.Description"/>
     </td>
 
     <td>@LocaleCore.Table.IsKneading</td>
@@ -29,7 +29,7 @@
       <RadzenLink Path="@GetRouteItemPath(Device)" Text="@LocaleCore.Table.Host"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@Device" Data="@HostModels" TextProperty="DisplayName"/>
+      <RzDropDown @bind-Value="@Device" Data="@HostModels" TextProperty="DisplayName"/>
     </td>
     <td>@LocaleCore.Table.IsOrder</td>
     <td>
@@ -41,11 +41,11 @@
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterMain)" Text="@LocaleCore.Print.NameMain"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName"/>
+      <RzDropDown @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName"/>
     </td>
     <td>@LocaleCore.Table.DeviceComPort</td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.DeviceComPort" Data="@ComPorts" TextProperty="Name" ValueProperty="Value"/>
+      <RzDropDown @bind-Value="@SqlItemCast.DeviceComPort" Data="@ComPorts" TextProperty="Name" ValueProperty="Value"/>
     </td>
   </tr>
   <tr>
@@ -53,7 +53,7 @@
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterShipping)" Text="@LocaleCore.Print.NameShipping"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.PrinterShipping" Data="@PrinterModels" TextProperty="DisplayName"/>
+      <RzDropDown @bind-Value="@SqlItemCast.PrinterShipping" Data="@PrinterModels" TextProperty="DisplayName"/>
     </td>
     <td>@LocaleCore.Table.IsShipping</td>
     <td>
@@ -65,7 +65,7 @@
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
     </td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="Name"/>
+      <RzDropDown @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="Name"/>
     </td>
     <td>
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
@@ -75,41 +75,41 @@
   <tr>
     <td>@LocaleCore.Table.DeviceReceiveTimeout</td>
     <td>
-      <RzNumericLocal Min="0" @bind-Value="@SqlItemCast.DeviceReceiveTimeout"/>
+      <RzNumeric Min="0" @bind-Value="@SqlItemCast.DeviceReceiveTimeout"/>
     </td>
 
     <td>@LocaleCore.Table.DeviceSendTimeout</td>
     <td>
-      <RzNumericLocal Min="0" @bind-Value="@SqlItemCast.DeviceSendTimeout"/>
+      <RzNumeric Min="0" @bind-Value="@SqlItemCast.DeviceSendTimeout"/>
     </td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.DeviceNumber</td>
     <td>
-      <RzNumericLocal Min="1" Max="99999" @bind-Value="@SqlItemCast.Number"/>
+      <RzNumeric Min="1" Max="99999" @bind-Value="@SqlItemCast.Number"/>
     </td>
 
     <td>@LocaleCore.Table.IsShippingLength</td>
     <td>
-      <RzNumericLocal Min="@byte.MinValue" Max="@byte.MaxValue" @bind-Value="@SqlItemCast.ShippingLength"/>
+      <RzNumeric Min="@byte.MinValue" Max="@byte.MaxValue" @bind-Value="@SqlItemCast.ShippingLength"/>
     </td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.ScaleFactor</td>
     <td>
-      <RzNumericLocal @bind-Value="@SqlItemCast.ScaleFactor"/>
+      <RzNumeric @bind-Value="@SqlItemCast.ScaleFactor"/>
     </td>
 
     <td>@LocaleCore.Table.Counter</td>
     <td>
-      <RzNumericLocal Min="0" Max="99999" @bind-Value="@SqlItemCast.Counter"/>
+      <RzNumeric Min="0" Max="99999" @bind-Value="@SqlItemCast.Counter"/>
     </td>
   </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlScaleModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

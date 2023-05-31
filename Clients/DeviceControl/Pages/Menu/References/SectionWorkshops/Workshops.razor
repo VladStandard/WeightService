@@ -1,11 +1,11 @@
 ﻿@page "/section/workshops"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.WorkShops
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.WorkShops.WsSqlWorkShopModel>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionWorkShops"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -13,7 +13,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@WsSqlWorkShopModel"
   Data="@SqlSectionCast"
@@ -22,9 +22,9 @@
   RowDoubleClick="SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@WsSqlWorkShopModel">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="40%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.ProductionFacility" Property="ProductionFacility.Name" Width="40%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

@@ -2,11 +2,11 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.LogView>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.System.SystemLogs"
   ButtonSettings="@ButtonSettings"
   OnSectionUpdate="@GetSectionData"
@@ -15,13 +15,13 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"/>
 
 <div Style="display: flex; margin-bottom: 2px">
-  <RzDropDownLocal Style="width: 50%; display: inline-block;"
+  <RzDropDown Style="width: 50%; display: inline-block;"
                    @bind-Value="@CurrentLogType" 
                    Data="@LogTypes" 
                    ValueProperty="Icon" 
                    TextProperty="Icon" Change="OnSelectTypeChanged"
                    AllowClear="true" Placeholder="LogTypes: All" />
-  <RzDropDownLocal Style="width: 50%; display: inline-block;"
+  <RzDropDown Style="width: 50%; display: inline-block;"
               @bind-Value="@CurrentLine" 
                Data="@Lines" 
                FilterOperator="StringFilterOperator.Contains"
@@ -32,7 +32,7 @@
                Placeholder="Lines: All" />
 </div>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@LogView"
   Data="@SqlSectionCast"
@@ -41,7 +41,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@LogView">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="14%" FormatString="@StrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="14%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="10%"/>
@@ -51,4 +51,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Message" Property="Message" Width="30%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

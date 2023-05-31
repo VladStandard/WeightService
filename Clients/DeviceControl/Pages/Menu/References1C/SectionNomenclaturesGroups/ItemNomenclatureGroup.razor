@@ -2,15 +2,15 @@
 @page "/section/nomenclatures_groups/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.PlusGroups
-@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Components.Item
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusGroups.WsSqlPluGroupModel>
 
-<RazorItemReload TItem="@WsSqlPluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>@SqlItemCast.Name</td>
@@ -28,11 +28,11 @@
       <td/>
     </tr>
   }
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlPluGroupModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

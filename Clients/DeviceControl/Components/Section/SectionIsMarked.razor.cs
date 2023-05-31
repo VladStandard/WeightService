@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DeviceControl.Pages.SectionComponents;
+namespace DeviceControl.Components.Section;
 
-public partial class SectionFieldIsMarked<TItem> : LayoutComponentBase where TItem : WsSqlTableBase, new()
+public partial class SectionIsMarked<TItem> : LayoutComponentBase where TItem : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 
@@ -11,7 +11,7 @@ public partial class SectionFieldIsMarked<TItem> : LayoutComponentBase where TIt
 
     public string Width { get; set; }
 
-    public SectionFieldIsMarked()
+    public SectionIsMarked()
     {
         Width = "5%";
     }

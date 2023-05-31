@@ -2,11 +2,11 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.PlusLabelView>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionLabels"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -14,7 +14,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@PlusLabelView"
   Data="@SqlSectionCast"
@@ -24,7 +24,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@PlusLabelView">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Weighing" Property="WeightingDate" Width="8%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDate" Width="8%" FormatString="@StrUtils.FormatDtShort"/>
@@ -35,4 +35,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Template" Property="Template" Width="14%" />
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

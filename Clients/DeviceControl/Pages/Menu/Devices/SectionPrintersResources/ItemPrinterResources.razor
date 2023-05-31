@@ -2,23 +2,23 @@
 @page "/section/printers_resources/{IdentityId:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PrintersResourcesFks
-@using DeviceControl.Pages.ItemComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Item
+@using DeviceControl.Components.Rz
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
 
-<RazorItemReload TItem="@WsSqlPrinterResourceFkModel" Title="@LocaleCore.Print.Resource" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPrinterResourceFkModel" Title="@LocaleCore.Print.Resource" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Print.Name</td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.Printer" Data="@PrinterModels" TextProperty="Name"/>
+      <RzDropDown @bind-Value="@SqlItemCast.Printer" Data="@PrinterModels" TextProperty="Name"/>
     </td>
     <td>@LocaleCore.Table.Resource</td>
     <td>
-      <RzDropDownLocal @bind-Value="@SqlItemCast.TemplateResource" Data="@TemplateResourceModels" TextProperty="Name"/>
+      <RzDropDown @bind-Value="@SqlItemCast.TemplateResource" Data="@TemplateResourceModels" TextProperty="Name"/>
     </td>
   </tr>
   <tr>
@@ -27,11 +27,11 @@
       <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Description"/>
     </td>
   </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlPrinterResourceFkModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

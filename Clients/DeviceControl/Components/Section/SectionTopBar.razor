@@ -1,4 +1,4 @@
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Rz
 @inherits LayoutComponentBase
 
 <MudPaper Outlined="true" Class="mb-2">
@@ -6,23 +6,23 @@
     <RadzenLabel Style="font-size: 15px;" Text="@Title"/>
     @if (SectionCount != 0)
     {
-      <RzDropDownLocal Style="margin-left: 20px; width: 15%; display: inline-block;"
+      <RzDropDown Style="margin-left: 20px; width: 15%; display: inline-block;"
                        @bind-Value="@SqlCrudConfigSection.SelectTopRowsCount"
                        Data="@_rowCountList" Change="@OnSectionUpdate">
         <Template>
           <span>Первые: <b>@(context == 0 ? "Все" : context.ToString())</b> </span>
         </Template>
-      </RzDropDownLocal>
+      </RzDropDown>
     }
     <AuthorizeView Roles="@UserAccessStr.Write">
       @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
       {
-        <RzDropDownLocal Style="margin-left: 20px; width: 10%; display: inline-block;"
+        <RzDropDown Style="margin-left: 20px; width: 10%; display: inline-block;"
                          @bind-Value="@SqlCrudConfigSection.IsMarked"
                          Data="@MarkedDict"
                          ValueProperty="Value"
                          TextProperty="Key" Change="@OnSectionUpdate">
-        </RzDropDownLocal>
+        </RzDropDown>
       }
     </AuthorizeView>
     <RadzenButton

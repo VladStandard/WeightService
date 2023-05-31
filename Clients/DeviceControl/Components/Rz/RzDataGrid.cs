@@ -4,11 +4,11 @@
 using Radzen.Blazor;
 using WsStorageCore.Helpers;
 
-namespace DeviceControl.Pages.CustomComponents;
+namespace DeviceControl.Components.Rz;
 
-public class RzDataGridLocal<TItem> : RadzenDataGrid<TItem>
+public class RzDataGrid<TItem> : RadzenDataGrid<TItem>
 {
-    public RzDataGridLocal()
+    public RzDataGrid()
     {
         AllowPaging = true;
         AllowSorting = true;

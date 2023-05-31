@@ -3,9 +3,9 @@
 
 using WsBlazorCore.CssStyles;
 
-namespace DeviceControl.Pages.ItemComponents;
+namespace DeviceControl.Components.Item;
 
-public partial class RazorItemTableHead : LayoutComponentBase
+public partial class ItemTableHead : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
 
@@ -15,7 +15,7 @@ public partial class RazorItemTableHead : LayoutComponentBase
 
     #region Public and private methods
 
-    public RazorItemTableHead()
+    public ItemTableHead()
     {
         CssTableStyleHead = new();
     }

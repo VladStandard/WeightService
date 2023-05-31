@@ -2,15 +2,15 @@
 @page "/section/plu_weighings/{IdentityUidStr}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusWeighingsFks
-@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Components.Item
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.WsSqlPluWeighingModel>
 
-<RazorItemReload TItem="@WsSqlPluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>>
+<ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
       <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Line)"
@@ -37,11 +37,11 @@
     <td>@LocaleCore.Table.IsKneading</td>
     <td>@SqlItemCast.Kneading</td>
   </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlPluWeighingModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

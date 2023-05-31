@@ -1,12 +1,12 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PrintersResourcesFks
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
 
 @if (SqlSectionCast.Count > 0)
 {
-  <SectionReload
+  <SectionTopBar
     Title="@LocaleCore.Print.Resources"
     OnSectionUpdate="@GetSectionData"
     OnSectionAdd="@SqlItemNewAsync"
@@ -14,7 +14,7 @@
     SqlCrudConfigSection="@SqlCrudConfigSection"
     ButtonSettings="@ButtonSettings"/>
 
-  <RzDataGridLocal
+  <RzDataGrid
     @bind-Value="@SelectedRow"
     TItem="@WsSqlPrinterResourceFkModel"
     Data="@SqlSectionCast"
@@ -23,12 +23,12 @@
     RowDoubleClick="@SqlItemEditAsync">
     <Columns>
       <TItemContent TItem="@WsSqlPrinterResourceFkModel">
-        <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+        <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Printer.Name" Width="32%"/>
         <RadzenDataGridColumn Title="@LocaleCore.Print.TemplateResource" Property="TemplateResource.Name" Width="32%"/>
       </TItemContent>
     </Columns>
-  </RzDataGridLocal>
+  </RzDataGrid>
 }
 else
 {

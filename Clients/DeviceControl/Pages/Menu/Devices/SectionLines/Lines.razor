@@ -1,11 +1,11 @@
 @page "/section/scales"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.ViewScaleModels
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.LineView>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionScales"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -13,7 +13,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@LineView"
   Data="@SqlSectionCast"
@@ -22,7 +22,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@LineView">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Name" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="HostName" Width="20%"/>
@@ -30,4 +30,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.WorkShop" Property="WorkShop" Width="20%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

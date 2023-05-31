@@ -3,16 +3,16 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Devices
 @using WsDataCore.Utils
-@using DeviceControl.Pages.ItemComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Item
+@using DeviceControl.Components.Rz
 @inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Devices.WsSqlDeviceModel>
 
-<RazorItemReload TItem="@WsSqlDeviceModel" Title="@LocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlDeviceModel" Title="@LocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 15, 35, 15, 35 })"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 15, 35, 15, 35 })"/>
   <tbody>
-  <RazorItemTableBody SqlItem="@SqlItemCast"/>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@LocaleCore.Table.LoginDt</td>
     <td>@string.Format(StrUtils.FormatDtLong, SqlItemCast.LoginDt)</td>
@@ -23,27 +23,27 @@
   <tr>
     <td>@LocaleCore.Table.Name</td>
     <td>
-      <RzTextBoxLocal @bind-Value="@SqlItemCast.Name"/>
+      <RzTextBox @bind-Value="@SqlItemCast.Name"/>
     </td>
 
     <td>@LocaleCore.Table.PrettyName</td>
     <td>
-      <RzTextBoxLocal @bind-Value="@SqlItemCast.PrettyName"/>
+      <RzTextBox @bind-Value="@SqlItemCast.PrettyName"/>
     </td>
   </tr>
   <tr>
     <td>@LocaleCore.Table.DeviceType</td>
     <td>
-      <RzDropDownLocal @bind-Value="@DeviceType" Data="@DeviceTypeFkModels" TextProperty="Name"/>
+      <RzDropDown @bind-Value="@DeviceType" Data="@DeviceTypeFkModels" TextProperty="Name"/>
     </td>
     <td/>
     <td/>
   </tr>
-  <RazorItemDates SqlItem="@SqlItemCast"/>
+  <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
-<RazorItemActions
+<ItemActions
   TItem="@WsSqlDeviceModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"

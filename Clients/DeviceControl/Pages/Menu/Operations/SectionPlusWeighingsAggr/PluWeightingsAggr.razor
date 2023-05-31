@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.Aggregations
 @using WsDataCore.Utils
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Rz
 @inherits LayoutComponentBase
 
 <MudPaper Outlined="true" Class="mb-2">
@@ -21,7 +21,7 @@
   </MudToolBar>
 </MudPaper>
 
-<RzDataGridLocal
+<RzDataGrid
   TItem="@WsSqlPluAggrModel"
   Data="@PluWeightAggrs">
   <Columns>
@@ -37,4 +37,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu" Width="30%" Visible="@IsShowPlu" />
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

@@ -1,11 +1,11 @@
 @page "/system/appinfo"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using DeviceControl.Pages.ItemComponents
+@using DeviceControl.Components.Item
 @inherits RazorComponentBase
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <RazorItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyleInfo()"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyleInfo()"/>
   <tbody>
   <tr>
     <td>DeviceControl / WsBlazorCore/ WsStorageCore</td>

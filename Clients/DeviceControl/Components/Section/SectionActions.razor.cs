@@ -3,7 +3,7 @@
 
 using WsBlazorCore.Settings;
 
-namespace DeviceControl.Pages.SectionComponents;
+namespace DeviceControl.Components.Section;
 
 public partial class SectionActions : LayoutComponentBase
 {

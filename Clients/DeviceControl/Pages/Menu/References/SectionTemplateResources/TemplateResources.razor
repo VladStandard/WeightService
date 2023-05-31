@@ -1,11 +1,11 @@
 @page "/section/templates_resources"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.TemplatesResources
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionTemplateResources"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -13,7 +13,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@WsSqlTemplateResourceModel"
   Data="@SqlSectionCast"
@@ -22,7 +22,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@WsSqlTemplateResourceModel">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Property="Type" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="55%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Size" SortProperty="DataValue.Length" Width="20%">
@@ -32,4 +32,4 @@
       </RadzenDataGridColumn>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>

@@ -3,9 +3,9 @@
 
 using WsBlazorCore.Settings;
 
-namespace DeviceControl.Pages.SectionComponents;
+namespace DeviceControl.Components.Section;
 
-public partial class SectionReload : LayoutComponentBase
+public partial class SectionTopBar : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
     

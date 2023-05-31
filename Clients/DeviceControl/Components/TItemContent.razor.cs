@@ -1,4 +1,4 @@
-﻿namespace DeviceControl.Pages.CustomComponents;
+﻿namespace DeviceControl.Components;
 
 public partial class TItemContent<TItem>
 {

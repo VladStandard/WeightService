@@ -2,11 +2,11 @@
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
-@using DeviceControl.Pages.SectionComponents
-@using DeviceControl.Pages.CustomComponents
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
 @inherits RazorComponentSectionBase<WsStorageCore.ViewScaleModels.LogWebView>
 
-<SectionReload
+<SectionTopBar
   Title="@LocaleCore.WebService.Name"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -14,7 +14,7 @@
   SqlCrudConfigSection="@SqlCrudConfigSection"
   ButtonSettings="@ButtonSettings"/>
 
-<RzDataGridLocal
+<RzDataGrid
   @bind-Value="@SelectedRow"
   TItem="@LogWebView"
   Data="@SqlSectionCast"
@@ -24,7 +24,7 @@
   RowDoubleClick="@SqlItemEditAsync">
   <Columns>
     <TItemContent TItem="@LogWebView">
-      <SectionFieldIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" 
                             FormatString="@StrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="AppVersion" Width="15%"/>
@@ -34,4 +34,4 @@
       <RadzenDataGridColumn Title="@LocaleCore.Table.Error" Property="ResponseCountError" Width="15%"/>
     </TItemContent>
   </Columns>
-</RzDataGridLocal>
+</RzDataGrid>
