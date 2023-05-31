@@ -1,0 +1,77 @@
+﻿@page "/section/plus/new"
+@page "/section/plus/{IdentityUidStr}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@using WsStorageCore.TableScaleModels.Plus
+@using DeviceControl.Components.Item
+@using DeviceControl.Pages.Menu.References1C.PlusNestingFks
+@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Plus.WsSqlPluModel>
+
+<ItemTopBar TItem="@WsSqlPluModel" Title="@LocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <tbody>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@LocaleCore.Table.PluNumber</td>
+    <td>@SqlItemCast.Number</td>
+    <td>@LocaleCore.Table.CheckWeight</td>
+    <td>
+      <RadzenCheckBox TValue="bool" ReadOnly="true" Value="@SqlItemCast.IsCheckWeight"/>
+    </td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Name</td>
+    <td>@SqlItemCast.Name</td>
+    <td>@LocaleCore.Table.NomenclatureCode</td>
+    <td>@SqlItemCast.Code</td>
+  </tr>
+  <tr>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(Template)" Text="@LocaleCore.Table.Template"/>
+    </td>
+    <td>@Template.Title</td>
+    <td>
+      <RadzenLink Path="@GetRouteItemPath(StorageMethod)" Text="@LocaleCore.Table.PluStorage"/>
+    </td>
+    <td>@StorageMethod?.Name</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Ean13</td>
+    <td>@SqlItemCast.Ean13</td>
+    <td>@LocaleCore.Table.Gtin</td>
+    <td>@SqlItemCast.Gtin</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.Itf14</td>
+    <td>@SqlItemCast.Itf14</td>
+    <td>@LocaleCore.Table.ShelfLifeDays</td>
+    <td>@SqlItemCast.ShelfLifeDays</td>
+  </tr>
+  <tr>
+    <td>@LocaleCore.Table.FullName</td>
+    <td>
+      <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.FullName"/>
+    </td>
+    <td>@LocaleCore.Table.Description</td>
+    <td>
+      <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.Description" Rows="3"/>
+    </td>
+    <td/>
+    <td/>
+  </tr>
+  <ItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<ItemActions
+  TItem="@WsSqlPluModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@SqlItemCancelAsync"/>
+
+@if (SqlItem != null)
+{
+  <PlusNestingFks SqlItem="@SqlItem"/>
+}

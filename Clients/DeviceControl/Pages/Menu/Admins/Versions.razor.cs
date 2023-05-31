@@ -19,8 +19,4 @@ public sealed partial class Versions : RazorComponentSectionBase<WsSqlVersionMod
     }
 
     #endregion
-
-    #region Public and private methods
-
-    #endregion
 }
