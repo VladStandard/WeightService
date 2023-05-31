@@ -8,16 +8,12 @@ namespace DeviceControl.Pages.Default;
 public sealed partial class NavMenu : RazorComponentBase
 {
     #region Public and private fields, properties, constructor
-    
+
     private static LocaleDeviceControl LocaleBlazor => LocaleDeviceControl.Instance;
 
-    private static string ItemMenuCss => DebugHelper.Instance.IsDevelop ? "MenuItemDebug": "MenuItemRelease";
+    private static string ItemMenuCss => DebugHelper.Instance.IsDevelop ? "MenuItemDebug" : "MenuItemRelease";
 
     private static string SidebarCss => DebugHelper.Instance.IsDevelop ? "SidebarDebug" : "SidebarRelease";
 
-    #endregion
-
-    #region Public and private methods
-    
     #endregion
 }

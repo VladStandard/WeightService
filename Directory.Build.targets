@@ -2,7 +2,7 @@
 <!-- https://learn.microsoft.com/en-us/cpp/build/reference/common-macros-for-build-commands-and-properties -->
 <Project>
     <Target Name="Optimize" BeforeTargets="Link">
-        <Message Text="Optimizing" />
+        <Message Text="Optimizing"/>
     </Target>
     <Target Name="BeforeBuild">
         <!-- Insert tasks to run before build here -->
@@ -15,6 +15,6 @@
         <RemoveDir Directories="./obj" />
     </Target>-->
     <Target Name="ClearBin" BeforeTargets="Clean">
-        <RemoveDir Directories="./bin" />
+        <RemoveDir Directories="./bin"/>
     </Target>
 </Project>

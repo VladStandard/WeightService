@@ -27,11 +27,10 @@
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="22%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="10%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="10%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluName" Width="18%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.BundleFkWeightTare" Property="TareWeight" Width="10%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.WeightNetto" Property="NettoWeight" Width="10%"/>
-      @* @itemCast.NettoWeight.ToString(CultureInfo.InvariantCulture) *@
     </TItemContent>
   </Columns>
 </RzDataGrid>

@@ -15,8 +15,4 @@ public sealed partial class ItemWebServiceLog : RazorComponentItemBase<WsSqlLogW
     }
 
     #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

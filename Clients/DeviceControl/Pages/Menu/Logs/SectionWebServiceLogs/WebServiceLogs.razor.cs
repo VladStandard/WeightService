@@ -1,4 +1,5 @@
-﻿using WsStorageCore.ViewScaleModels;
+﻿using WsBlazorCore.Settings;
+using WsStorageCore.ViewScaleModels;
 
 namespace DeviceControl.Pages.Menu.Logs.SectionWebServiceLogs;
 
@@ -16,6 +17,7 @@ public sealed partial class WebServiceLogs : RazorComponentSectionBase<LogWebVie
     #endregion
 
     #region Public and private methods
+
     protected override void SetSqlSectionCast()
     {
         var query = WsSqlQueriesDiags.Tables.Views.GetWebLogs(SqlCrudConfigSection.SelectTopRowsCount);
@@ -36,10 +38,11 @@ public sealed partial class WebServiceLogs : RazorComponentSectionBase<LogWebVie
                     RequestCountAll = Convert.ToInt32(item[3]),
                     ResponseCountSuccess = Convert.ToInt32(item[4]),
                     ResponseCountError = Convert.ToInt32(item[5]),
-                    AppVersion = item[7] as string ?? string.Empty,
+                    AppVersion = item[7] as string ?? string.Empty
                 });
             }
         }
+
         SqlSectionCast = items;
     }
 

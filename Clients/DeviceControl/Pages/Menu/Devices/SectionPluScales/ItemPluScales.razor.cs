@@ -7,12 +7,6 @@ namespace DeviceControl.Pages.Menu.Devices.SectionPluScales;
 
 public sealed partial class ItemPluScales : RazorComponentItemBase<WsSqlPluScaleModel>
 {
-    #region Public and private fields, properties, constructor
-
-    //
-
-    #endregion
-
     #region Public and private methods
 
     protected override void SetSqlItemCast()

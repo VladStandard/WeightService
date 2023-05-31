@@ -17,8 +17,4 @@ public sealed partial class ItemPluLabel : RazorComponentItemBase<WsSqlPluLabelM
     }
 
     #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

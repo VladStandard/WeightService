@@ -7,7 +7,4 @@ namespace DeviceControl.Pages.Menu.References1C.SectionPlusNestingFks;
 
 public sealed partial class ItemPluNestingFk : RazorComponentItemBase<WsSqlPluNestingFkModel>
 {
-    #region Public and private methods
-
-    #endregion
 }

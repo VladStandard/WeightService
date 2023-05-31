@@ -15,8 +15,8 @@ public sealed partial class ItemNomenclatureGroup : RazorComponentItemBase<WsSql
 
     #region Public and private methods
 
-	protected override void SetSqlItemCast()
-	{
+    protected override void SetSqlItemCast()
+    {
         base.SetSqlItemCast();
         ParentGroup = ContextManager.ContextItem.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
     }

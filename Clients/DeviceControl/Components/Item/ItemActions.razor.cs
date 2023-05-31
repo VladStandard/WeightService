@@ -15,10 +15,7 @@ public partial class ItemActions<TItem> : RazorComponentItemBase<TItem> where TI
 
     #region Public and private methods
 
-    protected override void SetSqlItemCast()
-    {
-        
-    }
+    protected override void SetSqlItemCast() {}
 
     #endregion
 }

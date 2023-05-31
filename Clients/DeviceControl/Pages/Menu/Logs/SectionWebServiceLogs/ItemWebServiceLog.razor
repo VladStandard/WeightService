@@ -36,10 +36,10 @@
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
         Rows="12" ReadOnly="true"
         Value="@WsDataFormatUtils.GetPrettyXml(SqlItemCast.LogWebRequest.DataString)"/>
-      
-        <RadzenButton Click="@(_ => CopyToClipboard(SqlItemCast.LogWebRequest.DataString))"
-                      class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                      Text="@LocaleCore.DeviceControl.TableActionCopy" />
+
+      <RadzenButton Click="@(_ => CopyToClipboard(SqlItemCast.LogWebRequest.DataString))"
+                    class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
+                    Text="@LocaleCore.DeviceControl.TableActionCopy"/>
     </td>
   </tr>
   <tr>
@@ -49,10 +49,10 @@
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
         Rows="12" ReadOnly="true"
         Value="@WsDataFormatUtils.GetPrettyXml(SqlItemCast.LogWebResponse.DataString)"/>
-      
+
       <RadzenButton Click="@(_ => CopyToClipboard(SqlItemCast.LogWebResponse.DataString))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.DeviceControl.TableActionCopy" />
+                    Text="@LocaleCore.DeviceControl.TableActionCopy"/>
     </td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>

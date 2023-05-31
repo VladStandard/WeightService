@@ -7,12 +7,6 @@ namespace DeviceControl.Pages.Menu.References.SectionPrinterTypes;
 
 public sealed partial class ItemPrinterType : RazorComponentItemBase<WsSqlPrinterTypeModel>
 {
-    #region Public and private fields, properties, constructor
-
-    //
-
-    #endregion
-
     #region Public and private methods
 
     protected override void SetSqlItemCast()

@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsBlazorCore.Settings;
 using WsStorageCore.ViewScaleModels;
 
 namespace DeviceControl.Pages.Menu.Operations.SectionPlusLabels;
@@ -36,9 +37,9 @@ public sealed partial class PlusLabels : RazorComponentSectionBase<PlusLabelView
                     IdentityValueUid = uid,
                     CreateDt = Convert.ToDateTime(item[1]),
                     IsMarked = Convert.ToBoolean(item[2]),
-                    ProductDate =  Convert.ToDateTime(item[3]),
+                    ProductDate = Convert.ToDateTime(item[3]),
                     ExpirationDate = Convert.ToDateTime(item[4]),
-                    WeightingDate =  Convert.ToDateTime(item[5]),
+                    WeightingDate = Convert.ToDateTime(item[5]),
                     Line = item[6] as string ?? string.Empty,
                     PluNumber = Convert.ToInt32(item[7]),
                     PluName = item[8] as string ?? string.Empty,
@@ -46,6 +47,7 @@ public sealed partial class PlusLabels : RazorComponentSectionBase<PlusLabelView
                 });
             }
         }
+
         SqlSectionCast = items;
     }
 

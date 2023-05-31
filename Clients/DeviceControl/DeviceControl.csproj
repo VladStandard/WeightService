@@ -14,183 +14,183 @@
         <NeutralLanguage>ru-RU</NeutralLanguage>
         <FileVersion>0.9.440.0</FileVersion>
         <AssemblyVersion>0.9.440.0</AssemblyVersion>
-		<Nullable>enable</Nullable>
-		<LangVersion>latest</LangVersion>
-		<Platforms>AnyCPU;x64;x86</Platforms>
-		<Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <Platforms>AnyCPU;x64;x86</Platforms>
+        <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Remove="Data\**" />
-        <Compile Remove="Upload\**" />
-        <Content Remove="Data\**" />
-        <Content Remove="Upload\**" />
-        <EmbeddedResource Remove="Data\**" />
-        <EmbeddedResource Remove="Upload\**" />
-        <None Remove="Data\**" />
-        <None Remove="Upload\**" />
-        <None Remove="Temp.txt" />
-        <Content Remove="Razors\SectionComponents\RazorSectionFilter.razor" />
-        <Compile Remove="Razors\SectionComponents\RazorSectionFilter.razor.cs" />
+        <Compile Remove="Data\**"/>
+        <Compile Remove="Upload\**"/>
+        <Content Remove="Data\**"/>
+        <Content Remove="Upload\**"/>
+        <EmbeddedResource Remove="Data\**"/>
+        <EmbeddedResource Remove="Upload\**"/>
+        <None Remove="Data\**"/>
+        <None Remove="Upload\**"/>
+        <None Remove="Temp.txt"/>
+        <Content Remove="Razors\SectionComponents\RazorSectionFilter.razor"/>
+        <Compile Remove="Razors\SectionComponents\RazorSectionFilter.razor.cs"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
-        <PackageReference Include="BlazorInputFile" Version="0.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.5" />
-        <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.5" />
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.5" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.5" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.5" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.5" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.5" />
-        <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
-        <PackageReference Include="Microsoft.Identity.Web" Version="2.11.0" />
-        <PackageReference Include="MudBlazor" Version="6.3.0" />
-        <PackageReference Include="NetBarcode" Version="2.0.0-beta.1" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="Radzen.Blazor" Version="4.11.2" />
-        <PackageReference Include="RestSharp" Version="110.2.0" />
+        <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2"/>
+        <PackageReference Include="BlazorInputFile" Version="0.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.5"/>
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1"/>
+        <PackageReference Include="Microsoft.Identity.Web" Version="2.11.0"/>
+        <PackageReference Include="MudBlazor" Version="6.3.0"/>
+        <PackageReference Include="NetBarcode" Version="2.0.0-beta.1"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="Radzen.Blazor" Version="4.11.2"/>
+        <PackageReference Include="RestSharp" Version="110.2.0"/>
     </ItemGroup>
     <ItemGroup>
-        <SupportedPlatform Include="browser" />
+        <SupportedPlatform Include="browser"/>
     </ItemGroup>
     <ItemGroup>
-        <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
+        <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;"/>
     </ItemGroup>
     <ItemGroup>
-        <Content Remove="Razors\IdentityFetchData.razor" />
+        <Content Remove="Razors\IdentityFetchData.razor"/>
     </ItemGroup>
     <ItemGroup>
-        <Watch Remove="Razors\ExampleComponents\ExampleMud.razor" />
-        <Watch Remove="Razors\ExampleComponents\ExampleMudDialog.razor" />
-        <Watch Remove="Razors\ExampleComponents\ExampleNetBarcode.razor" />
-        <Watch Remove="Razors\ExampleComponents\ExampleRadzen.razor" />
-        <Watch Remove="Razors\IdentityFetchData.razor" />
-        <Watch Remove="Razors\ItemComponents\Devices\ItemDevice.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemAccess.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemBarCode.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemBarCodeType.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemContragent.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemHost.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemInfo.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemLog.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemNomenclature.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemPluScale.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemPrinter.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemPrinterResource.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemPrinterType.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemProductionFacility.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemScale.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemTemplate.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemTemplateResource.razor" />
-        <Watch Remove="Razors\ItemComponents\ItemWorkshop.razor" />
-        <Watch Remove="Razors\ItemComponents\Others\ItemBox.razor" />
-        <Watch Remove="Razors\ItemComponents\Others\ItemBrand.razor" />
-        <Watch Remove="Razors\ItemComponents\Others\ItemBundle.razor" />
-        <Watch Remove="Razors\ItemComponents\Others\ItemBundleFk.razor" />
-        <Watch Remove="Razors\ItemComponents\Others\ItemOrganization.razor" />
-        <Watch Remove="Razors\ItemComponents\Others\ItemScaleScreenShot.razor" />
-        <Watch Remove="Razors\ItemComponents\Plus\ItemPluBundleFk.razor" />
-        <Watch Remove="Razors\ItemComponents\Plus\ItemPluLabel.razor" />
-        <Watch Remove="Razors\ItemComponents\Plus\ItemPluNestingFk.razor" />
-        <Watch Remove="Razors\ItemComponents\Plus\ItemPluWeighing.razor" />
-        <Watch Remove="Razors\ItemComponents\RadzenPage.razor" />
-        <Watch Remove="Razors\ItemComponents\RazorItemActions.razor" />
-        <Watch Remove="Razors\ItemComponents\RazorItemDates.razor" />
-        <Watch Remove="Razors\ItemComponents\RazorItemFilter.razor" />
-        <Watch Remove="Razors\ItemComponents\RazorItemReload.razor" />
-        <Watch Remove="Razors\ItemComponents\RazorItemTableBody.razor" />
-        <Watch Remove="Razors\ItemComponents\RazorItemTableHead.razor" />
-        <Watch Remove="Razors\ItemComponents\References1C\ItemNomenclatureGroup.razor" />
-        <Watch Remove="Razors\RazorActionLoad.razor" />
-        <Watch Remove="Razors\SectionComponents\Devices\SectionDevices.razor" />
-        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsInformation.razor" />
-        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsNone.razor" />
-        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsQuestions.razor" />
-        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsStops.razor" />
-        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsWarnings.razor" />
-        <Watch Remove="Razors\SectionComponents\Others\SectionBoxes.razor" />
-        <Watch Remove="Razors\SectionComponents\Others\SectionBrands.razor" />
-        <Watch Remove="Razors\SectionComponents\Others\SectionBundles.razor" />
-        <Watch Remove="Razors\SectionComponents\Others\SectionBundlesFks.razor" />
-        <Watch Remove="Razors\SectionComponents\Others\SectionOrganizations.razor" />
-        <Watch Remove="Razors\SectionComponents\Others\SectionPackagesPlus.razor" />
-        <Watch Remove="Razors\SectionComponents\Others\SectionScalesScreenShots.razor" />
-        <Watch Remove="Razors\SectionComponents\Plus\SectionPlusBundlesFks.razor" />
-        <Watch Remove="Razors\SectionComponents\Plus\SectionPlusLabels.razor" />
-        <Watch Remove="Razors\SectionComponents\Plus\SectionPlusNestingFks.razor" />
-        <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeightings.razor" />
-        <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeightingsAggr.razor" />
-        <Watch Remove="Razors\SectionComponents\RazorSectionActions.razor" />
-        <Watch Remove="Razors\SectionComponents\RazorSectionField.razor" />
-        <Watch Remove="Razors\SectionComponents\RazorSectionFieldIdentity.razor" />
-        <Watch Remove="Razors\SectionComponents\RazorSectionFieldIsMarked.razor" />
-        <Watch Remove="Razors\SectionComponents\RazorSectionFilter.razor" />
-        <Watch Remove="Razors\SectionComponents\RazorSectionReload.razor" />
-        <Watch Remove="Razors\SectionComponents\References1C\SectionNomenclaturesGroups.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionAccess.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionBarCodes.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionBarCodeTypes.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionContragents.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionHosts.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionInfo.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionLogs.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionLogsErrors.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionLogsInformations.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionNomenclatures.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionPlus.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionPlusScales.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionPrinters.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionPrintersResources.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionPrintersTypes.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionProductionFacilities.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionScales.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionTemplateResources.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionTemplates.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionVersions.razor" />
-        <Watch Remove="Razors\SectionComponents\SectionWorkshops.razor" />
-        <Watch Remove="Razors\SystemComponents\SystemAppInfo.razor" />
-        <Watch Remove="Razors\SystemComponents\SystemIdentity.razor" />
+        <Watch Remove="Razors\ExampleComponents\ExampleMud.razor"/>
+        <Watch Remove="Razors\ExampleComponents\ExampleMudDialog.razor"/>
+        <Watch Remove="Razors\ExampleComponents\ExampleNetBarcode.razor"/>
+        <Watch Remove="Razors\ExampleComponents\ExampleRadzen.razor"/>
+        <Watch Remove="Razors\IdentityFetchData.razor"/>
+        <Watch Remove="Razors\ItemComponents\Devices\ItemDevice.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemAccess.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemBarCode.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemBarCodeType.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemContragent.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemHost.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemInfo.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemLog.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemNomenclature.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemPluScale.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemPrinter.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemPrinterResource.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemPrinterType.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemProductionFacility.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemScale.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemTemplate.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemTemplateResource.razor"/>
+        <Watch Remove="Razors\ItemComponents\ItemWorkshop.razor"/>
+        <Watch Remove="Razors\ItemComponents\Others\ItemBox.razor"/>
+        <Watch Remove="Razors\ItemComponents\Others\ItemBrand.razor"/>
+        <Watch Remove="Razors\ItemComponents\Others\ItemBundle.razor"/>
+        <Watch Remove="Razors\ItemComponents\Others\ItemBundleFk.razor"/>
+        <Watch Remove="Razors\ItemComponents\Others\ItemOrganization.razor"/>
+        <Watch Remove="Razors\ItemComponents\Others\ItemScaleScreenShot.razor"/>
+        <Watch Remove="Razors\ItemComponents\Plus\ItemPluBundleFk.razor"/>
+        <Watch Remove="Razors\ItemComponents\Plus\ItemPluLabel.razor"/>
+        <Watch Remove="Razors\ItemComponents\Plus\ItemPluNestingFk.razor"/>
+        <Watch Remove="Razors\ItemComponents\Plus\ItemPluWeighing.razor"/>
+        <Watch Remove="Razors\ItemComponents\RadzenPage.razor"/>
+        <Watch Remove="Razors\ItemComponents\RazorItemActions.razor"/>
+        <Watch Remove="Razors\ItemComponents\RazorItemDates.razor"/>
+        <Watch Remove="Razors\ItemComponents\RazorItemFilter.razor"/>
+        <Watch Remove="Razors\ItemComponents\RazorItemReload.razor"/>
+        <Watch Remove="Razors\ItemComponents\RazorItemTableBody.razor"/>
+        <Watch Remove="Razors\ItemComponents\RazorItemTableHead.razor"/>
+        <Watch Remove="Razors\ItemComponents\References1C\ItemNomenclatureGroup.razor"/>
+        <Watch Remove="Razors\RazorActionLoad.razor"/>
+        <Watch Remove="Razors\SectionComponents\Devices\SectionDevices.razor"/>
+        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsInformation.razor"/>
+        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsNone.razor"/>
+        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsQuestions.razor"/>
+        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsStops.razor"/>
+        <Watch Remove="Razors\SectionComponents\LogReports\SectionLogsWarnings.razor"/>
+        <Watch Remove="Razors\SectionComponents\Others\SectionBoxes.razor"/>
+        <Watch Remove="Razors\SectionComponents\Others\SectionBrands.razor"/>
+        <Watch Remove="Razors\SectionComponents\Others\SectionBundles.razor"/>
+        <Watch Remove="Razors\SectionComponents\Others\SectionBundlesFks.razor"/>
+        <Watch Remove="Razors\SectionComponents\Others\SectionOrganizations.razor"/>
+        <Watch Remove="Razors\SectionComponents\Others\SectionPackagesPlus.razor"/>
+        <Watch Remove="Razors\SectionComponents\Others\SectionScalesScreenShots.razor"/>
+        <Watch Remove="Razors\SectionComponents\Plus\SectionPlusBundlesFks.razor"/>
+        <Watch Remove="Razors\SectionComponents\Plus\SectionPlusLabels.razor"/>
+        <Watch Remove="Razors\SectionComponents\Plus\SectionPlusNestingFks.razor"/>
+        <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeightings.razor"/>
+        <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeightingsAggr.razor"/>
+        <Watch Remove="Razors\SectionComponents\RazorSectionActions.razor"/>
+        <Watch Remove="Razors\SectionComponents\RazorSectionField.razor"/>
+        <Watch Remove="Razors\SectionComponents\RazorSectionFieldIdentity.razor"/>
+        <Watch Remove="Razors\SectionComponents\RazorSectionFieldIsMarked.razor"/>
+        <Watch Remove="Razors\SectionComponents\RazorSectionFilter.razor"/>
+        <Watch Remove="Razors\SectionComponents\RazorSectionReload.razor"/>
+        <Watch Remove="Razors\SectionComponents\References1C\SectionNomenclaturesGroups.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionAccess.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionBarCodes.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionBarCodeTypes.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionContragents.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionHosts.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionInfo.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionLogs.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionLogsErrors.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionLogsInformations.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionNomenclatures.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionPlus.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionPlusScales.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionPrinters.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionPrintersResources.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionPrintersTypes.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionProductionFacilities.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionScales.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionTemplateResources.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionTemplates.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionVersions.razor"/>
+        <Watch Remove="Razors\SectionComponents\SectionWorkshops.razor"/>
+        <Watch Remove="Razors\SystemComponents\SystemAppInfo.razor"/>
+        <Watch Remove="Razors\SystemComponents\SystemIdentity.razor"/>
     </ItemGroup>
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionLogs.razor" />
-      <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionLogTable.razor" />
-      <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionWebServiceLogs.razor" />
-      <_ContentIncludedByDefault Remove="Pages\SectionComponents\Nested\SectionPlusScales.razor" />
-      <_ContentIncludedByDefault Remove="Pages\SectionComponents\Nested\SectionPrintersResources.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Admins\SectionScalesScreenShots\ItemScaleScreenShot.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Admins\SectionScalesScreenShots\ScalesScreenShots.razor" />
-      <_ContentIncludedByDefault Remove="Pages\ExampleComponents\ExampleNetBarcode.razor" />
-      <_ContentIncludedByDefault Remove="Pages\ExampleComponents\ExampleRadzen.razor" />
-      <_ContentIncludedByDefault Remove="Pages\CustomComponents\TItemContent.razor" />
-      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemActions.razor" />
-      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemDates.razor" />
-      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemReload.razor" />
-      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemTableBody.razor" />
-      <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemTableHead.razor" />
-      <_ContentIncludedByDefault Remove="Pages\SectionComponents\SectionActions.razor" />
-      <_ContentIncludedByDefault Remove="Pages\SectionComponents\SectionFieldIsMarked.razor" />
-      <_ContentIncludedByDefault Remove="Pages\SectionComponents\SectionReload.razor" />
+        <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionLogs.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionLogTable.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\SectionComponents\LogReports\SectionWebServiceLogs.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\SectionComponents\Nested\SectionPlusScales.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\SectionComponents\Nested\SectionPrintersResources.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\Menu\Admins\SectionScalesScreenShots\ItemScaleScreenShot.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\Menu\Admins\SectionScalesScreenShots\ScalesScreenShots.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\ExampleComponents\ExampleNetBarcode.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\ExampleComponents\ExampleRadzen.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\CustomComponents\TItemContent.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemActions.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemDates.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemReload.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemTableBody.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\ItemComponents\RazorItemTableHead.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\SectionComponents\SectionActions.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\SectionComponents\SectionFieldIsMarked.razor"/>
+        <_ContentIncludedByDefault Remove="Pages\SectionComponents\SectionReload.razor"/>
     </ItemGroup>
     <ItemGroup>
-      <AdditionalFiles Include="Components\Item\RazorItemActions.razor" />
-      <AdditionalFiles Include="Components\Item\RazorItemDates.razor" />
-      <AdditionalFiles Include="Components\Item\RazorItemReload.razor" />
-      <AdditionalFiles Include="Components\Item\RazorItemTableBody.razor" />
-      <AdditionalFiles Include="Components\Item\RazorItemTableHead.razor" />
-      <AdditionalFiles Include="Components\Section\SectionActions.razor" />
-      <AdditionalFiles Include="Components\Section\SectionFieldIsMarked.razor" />
-      <AdditionalFiles Include="Components\Section\SectionReload.razor" />
-      <AdditionalFiles Include="Components\TItemContent.razor" />
-      <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ItemScaleScreenShot.razor" />
-      <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ScalesScreenShots.razor" />
+        <AdditionalFiles Include="Components\Item\RazorItemActions.razor"/>
+        <AdditionalFiles Include="Components\Item\RazorItemDates.razor"/>
+        <AdditionalFiles Include="Components\Item\RazorItemReload.razor"/>
+        <AdditionalFiles Include="Components\Item\RazorItemTableBody.razor"/>
+        <AdditionalFiles Include="Components\Item\RazorItemTableHead.razor"/>
+        <AdditionalFiles Include="Components\Section\SectionActions.razor"/>
+        <AdditionalFiles Include="Components\Section\SectionFieldIsMarked.razor"/>
+        <AdditionalFiles Include="Components\Section\SectionReload.razor"/>
+        <AdditionalFiles Include="Components\TItemContent.razor"/>
+        <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ItemScaleScreenShot.razor"/>
+        <AdditionalFiles Include="Pages\Menu\Logs\SectionScalesScreenShots\ScalesScreenShots.razor"/>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\Core\WsBlazorCore\WsBlazorCore.csproj" />
-      <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj" />
-      <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
+        <ProjectReference Include="..\..\Core\WsBlazorCore\WsBlazorCore.csproj"/>
+        <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj"/>
+        <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj"/>
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
-        <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
+        <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true"/>
     </Target>
 </Project>

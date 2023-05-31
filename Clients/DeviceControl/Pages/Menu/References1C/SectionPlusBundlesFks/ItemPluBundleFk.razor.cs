@@ -7,11 +7,4 @@ namespace DeviceControl.Pages.Menu.References1C.SectionPlusBundlesFks;
 
 public sealed partial class ItemPluBundleFk : RazorComponentItemBase<WsSqlPluBundleFkModel>
 {
-    #region Public and private fields, properties, constructor
-
-    #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

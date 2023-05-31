@@ -7,10 +7,6 @@ namespace DeviceControl.Pages.Menu.Devices.SectionPrintersResources;
 
 public sealed partial class PrintersResources : RazorComponentSectionBase<WsSqlPrinterResourceFkModel>
 {
-    #region Public and private fields, properties, constructor
-
-    #endregion
-
     #region Public and private methods
 
     protected override void SetSqlSectionCast()

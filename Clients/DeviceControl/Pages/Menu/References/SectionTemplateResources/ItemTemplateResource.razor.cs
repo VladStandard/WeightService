@@ -19,7 +19,7 @@ public sealed partial class ItemTemplateResource : RazorComponentItemBase<WsSqlT
     #endregion
 
     #region Public and private methods
-    
+
     private void OnError(UploadErrorEventArgs args, string name)
     {
         NotificationMessage msg = new()

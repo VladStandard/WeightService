@@ -8,7 +8,7 @@ namespace DeviceControl.Components.Section;
 public partial class SectionTopBar : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
-    
+
     [Parameter] public string Title { get; set; }
     [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
@@ -21,7 +21,7 @@ public partial class SectionTopBar : LayoutComponentBase
     {
         { "Актуальные", WsSqlIsMarked.ShowOnlyActual },
         { "Cкрытые", WsSqlIsMarked.ShowOnlyHide },
-        { "Все", WsSqlIsMarked.ShowAll },
+        { "Все", WsSqlIsMarked.ShowAll }
     };
 
     private List<int> _rowCountList = new() { 0, 200, 400, 600, 800, 1000 };

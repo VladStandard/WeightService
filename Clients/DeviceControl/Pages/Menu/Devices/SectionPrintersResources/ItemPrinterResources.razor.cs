@@ -7,9 +7,6 @@ using WsStorageCore.TableScaleModels.TemplatesResources;
 
 namespace DeviceControl.Pages.Menu.Devices.SectionPrintersResources;
 
-/// <summary>
-/// Item PrinterResource page.
-/// </summary>
 public sealed partial class ItemPrinterResources : RazorComponentItemBase<WsSqlPrinterResourceFkModel>
 {
     #region Public and private fields, properties, constructor
@@ -17,6 +14,7 @@ public sealed partial class ItemPrinterResources : RazorComponentItemBase<WsSqlP
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
 
     private List<WsSqlTemplateResourceModel> TemplateResourceModels { get; set; }
+    
     #endregion
 
     #region Public and private methods

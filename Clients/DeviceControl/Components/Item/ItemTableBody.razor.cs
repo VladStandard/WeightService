@@ -31,8 +31,4 @@ public sealed partial class ItemTableBody : LayoutComponentBase
         };
 
     #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

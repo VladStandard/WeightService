@@ -7,13 +7,4 @@ namespace DeviceControl.Pages.Menu.References1C.SectionBoxes;
 
 public sealed partial class ItemBox : RazorComponentItemBase<WsSqlBoxModel>
 {
-    #region Public and private fields, properties, constructor
-
-    //
-
-    #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

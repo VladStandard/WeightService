@@ -15,8 +15,4 @@ public sealed partial class Contragents : RazorComponentSectionBase<WsSqlContrag
     }
 
     #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

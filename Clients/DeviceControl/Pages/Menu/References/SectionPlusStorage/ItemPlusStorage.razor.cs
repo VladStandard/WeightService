@@ -7,11 +7,4 @@ namespace DeviceControl.Pages.Menu.References.SectionPlusStorage;
 
 public sealed partial class ItemPlusStorage : RazorComponentItemBase<WsSqlPluStorageMethodModel>
 {
-    #region Public and private fields, properties, constructor
-
-    #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

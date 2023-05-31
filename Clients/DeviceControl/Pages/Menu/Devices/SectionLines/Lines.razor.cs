@@ -47,6 +47,7 @@ public sealed partial class Lines : RazorComponentSectionBase<LineView>
                 WorkShop = item[6] as string ?? string.Empty
             });
         }
+
         SqlSectionCast = items;
     }
 

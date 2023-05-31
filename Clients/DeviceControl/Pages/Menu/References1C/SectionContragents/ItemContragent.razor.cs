@@ -7,13 +7,4 @@ namespace DeviceControl.Pages.Menu.References1C.SectionContragents;
 
 public sealed partial class ItemContragent : RazorComponentItemBase<WsSqlContragentModel>
 {
-    #region Public and private fields, properties, constructor
-
-    //
-
-    #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

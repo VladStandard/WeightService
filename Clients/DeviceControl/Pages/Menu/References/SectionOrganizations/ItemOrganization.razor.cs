@@ -7,11 +7,4 @@ namespace DeviceControl.Pages.Menu.References.SectionOrganizations;
 
 public sealed partial class ItemOrganization : RazorComponentItemBase<WsSqlOrganizationModel>
 {
-    #region Public and private fields, properties, constructor
-
-    #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

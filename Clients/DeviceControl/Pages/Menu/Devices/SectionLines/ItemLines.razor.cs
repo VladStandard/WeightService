@@ -11,13 +11,10 @@ using WsStorageCore.TableScaleModels.WorkShops;
 
 namespace DeviceControl.Pages.Menu.Devices.SectionLines;
 
-/// <summary>
-/// Scale item page.
-/// </summary>
 public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
 {
     #region Public and private fields, properties, constructor
-    
+
     private WsSqlDeviceModel Device { get; set; }
     private WsSqlDeviceScaleFkModel DeviceScaleFk { get; set; }
     private List<WsEnumTypeModel<string>> ComPorts { get; set; }
@@ -42,7 +39,6 @@ public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
 
     #region Public and private methods
 
-    
     protected override void SetSqlItemCast()
     {
         SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableById<WsSqlScaleModel>(IdentityId);
@@ -56,10 +52,12 @@ public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
         SqlItemCast.PrinterMain ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlPrinterModel>();
         SqlItemCast.PrinterShipping ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlPrinterModel>();
         SqlItemCast.WorkShop ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlWorkShopModel>();
-        
+
         DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(SqlItemCast);
-        Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceModel>();
-        
+        Device = DeviceScaleFk.Device.IsNotNew
+            ? DeviceScaleFk.Device
+            : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceModel>();
+
         ComPorts = MdSerialPortsUtils.GetListTypeComPorts(Lang.English);
         SqlItemCast.ScaleFactor ??= 1000;
     }
@@ -73,6 +71,7 @@ public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
             SqlItemSave(DeviceScaleFk);
             return;
         }
+
         ContextManager.AccessManager.AccessItem.Delete(DeviceScaleFk);
     }
 

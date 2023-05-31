@@ -10,8 +10,4 @@ public partial class ItemDates : LayoutComponentBase
     [Parameter] public WsSqlTableBase SqlItem { get; set; }
 
     #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

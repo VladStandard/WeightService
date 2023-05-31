@@ -25,7 +25,6 @@ public sealed partial class ItemPrinter : RazorComponentItemBase<WsSqlPrinterMod
             ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterTypeModel>(
                 WsSqlCrudConfigUtils.GetCrudConfigComboBox()
             );
-        
     }
 
     // private async Task SqlItemPrinterResourcesClear(WsSqlPrinterModel printer)

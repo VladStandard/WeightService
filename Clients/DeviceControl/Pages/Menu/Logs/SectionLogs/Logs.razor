@@ -16,20 +16,20 @@
 
 <div Style="display: flex; margin-bottom: 2px">
   <RzDropDown Style="width: 50%; display: inline-block;"
-                   @bind-Value="@CurrentLogType" 
-                   Data="@LogTypes" 
-                   ValueProperty="Icon" 
-                   TextProperty="Icon" Change="OnSelectTypeChanged"
-                   AllowClear="true" Placeholder="LogTypes: All" />
+              @bind-Value="@CurrentLogType"
+              Data="@LogTypes"
+              ValueProperty="Icon"
+              TextProperty="Icon" Change="OnSelectTypeChanged"
+              AllowClear="true" Placeholder="LogTypes: All"/>
   <RzDropDown Style="width: 50%; display: inline-block;"
-              @bind-Value="@CurrentLine" 
-               Data="@Lines" 
-               FilterOperator="StringFilterOperator.Contains"
-               AllowFiltering="true"
-               ValueProperty="Description" 
-               TextProperty="Description" Change="OnSelectTypeChanged"
-               AllowClear="true"
-               Placeholder="Lines: All" />
+              @bind-Value="@CurrentLine"
+              Data="@Lines"
+              FilterOperator="StringFilterOperator.Contains"
+              AllowFiltering="true"
+              ValueProperty="Description"
+              TextProperty="Description" Change="OnSelectTypeChanged"
+              AllowClear="true"
+              Placeholder="Lines: All"/>
 </div>
 
 <RzDataGrid

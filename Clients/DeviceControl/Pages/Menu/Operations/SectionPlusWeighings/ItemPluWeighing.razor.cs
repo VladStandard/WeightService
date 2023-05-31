@@ -15,8 +15,4 @@ public sealed partial class ItemPluWeighing : RazorComponentItemBase<WsSqlPluWei
     }
 
     #endregion
-
-    #region Public and private methods
-    
-    #endregion
 }

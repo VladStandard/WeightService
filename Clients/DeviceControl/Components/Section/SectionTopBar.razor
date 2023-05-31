@@ -7,8 +7,8 @@
     @if (SectionCount != 0)
     {
       <RzDropDown Style="margin-left: 20px; width: 15%; display: inline-block;"
-                       @bind-Value="@SqlCrudConfigSection.SelectTopRowsCount"
-                       Data="@_rowCountList" Change="@OnSectionUpdate">
+                  @bind-Value="@SqlCrudConfigSection.SelectTopRowsCount"
+                  Data="@_rowCountList" Change="@OnSectionUpdate">
         <Template>
           <span>Первые: <b>@(context == 0 ? "Все" : context.ToString())</b> </span>
         </Template>
@@ -18,10 +18,10 @@
       @if (SqlCrudConfigSection.IsGuiShowFilterMarked)
       {
         <RzDropDown Style="margin-left: 20px; width: 10%; display: inline-block;"
-                         @bind-Value="@SqlCrudConfigSection.IsMarked"
-                         Data="@MarkedDict"
-                         ValueProperty="Value"
-                         TextProperty="Key" Change="@OnSectionUpdate">
+                    @bind-Value="@SqlCrudConfigSection.IsMarked"
+                    Data="@MarkedDict"
+                    ValueProperty="Value"
+                    TextProperty="Key" Change="@OnSectionUpdate">
         </RzDropDown>
       }
     </AuthorizeView>

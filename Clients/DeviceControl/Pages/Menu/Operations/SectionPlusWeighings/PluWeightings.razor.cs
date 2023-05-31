@@ -46,6 +46,7 @@ public sealed partial class PluWeightings : RazorComponentSectionBase<PluWeighti
                 });
             }
         }
+
         SqlSectionCast = items;
     }
 

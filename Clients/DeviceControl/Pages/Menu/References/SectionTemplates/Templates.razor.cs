@@ -7,10 +7,6 @@ namespace DeviceControl.Pages.Menu.References.SectionTemplates;
 
 public sealed partial class Templates : RazorComponentSectionBase<WsSqlTemplateModel>
 {
-    #region Public and private fields, properties, constructor
-
-    #endregion
-
     #region Public and private methods
 
     private string ConvertBytes(WsSqlTemplateModel templateModel)

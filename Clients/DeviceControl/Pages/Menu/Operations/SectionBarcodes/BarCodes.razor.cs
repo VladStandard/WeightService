@@ -44,6 +44,7 @@ public sealed partial class BarCodes : RazorComponentSectionBase<BarcodeView>
                 });
             }
         }
+
         SqlSectionCast = items;
     }
 

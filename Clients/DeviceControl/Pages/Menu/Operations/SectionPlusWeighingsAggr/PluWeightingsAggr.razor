@@ -8,7 +8,7 @@
 <MudPaper Outlined="true" Class="mb-2">
   <MudToolBar Dense="true">
     <RadzenLabel Style="font-size: 15px;" Text="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation"/>
-    <RadzenCheckBox TValue="bool" @bind-Value="@IsShowPlu" Style="margin-left: 20px " />
+    <RadzenCheckBox TValue="bool" @bind-Value="@IsShowPlu" Style="margin-left: 20px "/>
     <RadzenLabel Style="font-size: 13px; margin-left: 5px" Text="Учитывать плу"/>
     <RadzenButton
       id="button_loader"
@@ -34,7 +34,7 @@
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="Count" Width="15%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu" Width="30%" Visible="@IsShowPlu" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu" Width="30%" Visible="@IsShowPlu"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

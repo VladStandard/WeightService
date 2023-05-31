@@ -7,13 +7,4 @@ namespace DeviceControl.Pages.Menu.References1C.SectionBundles;
 
 public sealed partial class ItemBundle : RazorComponentItemBase<WsSqlBundleModel>
 {
-    #region Public and private fields, properties, constructor
-
-    //
-
-    #endregion
-
-    #region Public and private methods
-    
-    #endregion
 }

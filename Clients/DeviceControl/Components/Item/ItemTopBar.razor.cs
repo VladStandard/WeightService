@@ -8,16 +8,12 @@ public partial class ItemTopBar<TItem> : RazorComponentItemBase<TItem> where TIt
     #region Public and private fields, properties, constructor
 
     [Parameter] public EventCallback OnItemUpdate { get; set; }
-    
-    
+
     #endregion
 
     #region Public and private methods
 
-    protected override void SetSqlItemCast()
-    {
-        
-    }
+    protected override void SetSqlItemCast() {}
 
     #endregion
 }

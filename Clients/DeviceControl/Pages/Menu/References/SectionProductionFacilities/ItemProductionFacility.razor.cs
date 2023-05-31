@@ -7,10 +7,6 @@ namespace DeviceControl.Pages.Menu.References.SectionProductionFacilities;
 
 public sealed partial class ItemProductionFacility : RazorComponentItemBase<WsSqlProductionFacilityModel>
 {
-    #region Public and private fields, properties, constructor
-
-    #endregion
-
     #region Public and private methods
 
     protected override void SetSqlItemCast()

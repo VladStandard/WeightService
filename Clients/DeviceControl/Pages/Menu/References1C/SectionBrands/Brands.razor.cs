@@ -15,8 +15,4 @@ public sealed partial class Brands : RazorComponentSectionBase<WsSqlBrandModel>
     }
 
     #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

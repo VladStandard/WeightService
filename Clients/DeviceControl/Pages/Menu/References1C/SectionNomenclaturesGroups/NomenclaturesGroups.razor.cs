@@ -36,7 +36,7 @@ public sealed partial class NomenclaturesGroups : RazorComponentSectionBase<WsSq
         SqlSectionCast = AllData.Where(e => e.ParentGuid == Guid.Empty).ToList();
     }
 
-    private new void RowRender(RowRenderEventArgs<WsSqlPluGroupModel> args)
+    private void RowRender(RowRenderEventArgs<WsSqlPluGroupModel> args)
     {
         args.Expandable = AllData.Any(e => e.ParentGuid == args.Data.IdentityValueUid);
     }

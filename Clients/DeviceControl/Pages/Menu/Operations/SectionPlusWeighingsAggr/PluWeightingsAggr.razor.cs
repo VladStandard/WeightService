@@ -14,6 +14,7 @@ public sealed partial class PluWeightingsAggr : LayoutComponentBase
 
     private string SqlListCountResult =>
         $"{LocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
+
     private List<WsSqlPluAggrModel> PluWeightAggrs { get; set; }
 
     public PluWeightingsAggr()
@@ -32,6 +33,7 @@ public sealed partial class PluWeightingsAggr : LayoutComponentBase
             base.OnAfterRender(firstRender);
             return;
         }
+
         GetSectionData();
     }
 
@@ -54,6 +56,7 @@ public sealed partial class PluWeightingsAggr : LayoutComponentBase
                 );
             }
         }
+
         StateHasChanged();
     }
 

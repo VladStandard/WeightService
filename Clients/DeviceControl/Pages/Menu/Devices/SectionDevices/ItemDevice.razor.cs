@@ -10,6 +10,7 @@ namespace DeviceControl.Pages.Menu.Devices.SectionDevices;
 public sealed partial class ItemDevice : RazorComponentItemBase<WsSqlDeviceModel>
 {
     #region Public and private fields, properties, constructor
+
     private List<WsSqlDeviceTypeModel> DeviceTypeFkModels { get; set; }
     private WsSqlDeviceTypeModel DeviceType { get; set; }
     private WsSqlDeviceTypeFkModel DeviceTypeFk { get; set; }
@@ -23,7 +24,7 @@ public sealed partial class ItemDevice : RazorComponentItemBase<WsSqlDeviceModel
     }
 
     #region Public and private methods
-    
+
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
@@ -41,8 +42,9 @@ public sealed partial class ItemDevice : RazorComponentItemBase<WsSqlDeviceModel
             SqlItemSave(DeviceTypeFk);
             return;
         }
+
         ContextManager.AccessManager.AccessItem.Delete(DeviceTypeFk);
     }
-    
+
     #endregion
 }

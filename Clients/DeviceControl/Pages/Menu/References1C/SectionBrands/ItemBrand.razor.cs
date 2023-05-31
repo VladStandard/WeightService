@@ -7,13 +7,4 @@ namespace DeviceControl.Pages.Menu.References1C.SectionBrands;
 
 public sealed partial class ItemBrand : RazorComponentItemBase<WsSqlBrandModel>
 {
-    #region Public and private fields, properties, constructor
-
-    //
-
-    #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

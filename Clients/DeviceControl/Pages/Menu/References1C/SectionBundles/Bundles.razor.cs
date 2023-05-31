@@ -16,8 +16,4 @@ public sealed partial class Bundles : RazorComponentSectionBase<WsSqlBundleModel
     }
 
     #endregion
-
-    #region Public and private methods
-
-    #endregion
 }
