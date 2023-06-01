@@ -5,10 +5,10 @@
 namespace WsDataCore.Common;
 
 /// <summary>
-/// Базовый класс модели представления MVVM.
+/// Базовый класс интерфейса MVVM INotifyPropertyChanged.
 /// </summary>
 #nullable enable
-public class WsMvvmBaseViewModel : WsMvvmBase, INotifyPropertyChanged
+public class WsBaseMvvm : INotifyPropertyChanged
 {
-    //
+    public event PropertyChangedEventHandler? PropertyChanged;
 }

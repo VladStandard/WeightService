@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Контрол ПЛУ.
+/// WinForms-контрол одной ПЛУ.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]

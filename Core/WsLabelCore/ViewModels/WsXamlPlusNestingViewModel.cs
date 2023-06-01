@@ -8,7 +8,7 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsXamlPlusNestingViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public sealed class WsXamlPlusNestingViewModel : WsXamlBaseViewModel, IWsViewModel
 {
     #region Public and private fields, properties, constructor
 
@@ -17,7 +17,7 @@ public sealed class WsXamlPlusNestingViewModel : WsXamlBaseViewModel, INotifyPro
 
     public WsXamlPlusNestingViewModel()
     {
-        FormUserControl = WsEnumFormUserControl.PlusNesting;
+        FormUserControl = WsEnumNavigationPage.PlusNesting;
         PluNesting = new();
         PlusNestings = ContextCache.ViewPlusNesting;
     }

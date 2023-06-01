@@ -4,7 +4,7 @@
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Контрол пин-кода.
+/// WinForms-контрол ввода цифр.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
@@ -12,7 +12,7 @@ public sealed partial class WsFormPinCodeUserControl : WsFormBaseUserControl, IW
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormPinCodeUserControl() : base(WsEnumFormUserControl.PinCode)
+    public WsFormPinCodeUserControl() : base(WsEnumNavigationPage.PinCode)
     {
         InitializeComponent();
     }

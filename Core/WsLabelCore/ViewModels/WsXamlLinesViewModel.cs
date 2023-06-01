@@ -8,7 +8,7 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsXamlLinesViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public sealed class WsXamlLinesViewModel : WsXamlBaseViewModel, IWsViewModel
 {
     #region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public sealed class WsXamlLinesViewModel : WsXamlBaseViewModel, INotifyPropertyC
 
     public WsXamlLinesViewModel()
     {
-        FormUserControl = WsEnumFormUserControl.Line;
+        FormUserControl = WsEnumNavigationPage.Line;
         Areas = ContextCache.Areas;
         Lines = ContextCache.Lines;
     }

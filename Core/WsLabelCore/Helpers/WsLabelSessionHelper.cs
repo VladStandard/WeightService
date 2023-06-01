@@ -4,10 +4,11 @@
 using WsStorageCore.TableScaleModels.WorkShops;
 
 namespace WsLabelCore.Helpers;
-#nullable enable
+
 /// <summary>
-/// User session.
+/// Пользовательская сессия.
 /// </summary>
+#nullable enable
 public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
 {
     #region Design pattern "Lazy Singleton"

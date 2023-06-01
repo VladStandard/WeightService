@@ -45,13 +45,13 @@ public partial class WsMainForm
         WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
         // Контрол замеса.
-        WsFormNavigationUtils.MoreUserControl.SetupUserConrol();
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnFromKneading);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdYes.AddAction(ReturnFromKneading);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
+        WsFormNavigationUtils.KneadingUserControl.SetupUserConrol();
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnFromKneading);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(ReturnFromKneading);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
         // Контрол смены линии.
         WsFormNavigationUtils.LinesUserControl.SetupUserConrol();
         WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnCancelFromLines);
@@ -187,8 +187,8 @@ public partial class WsMainForm
             case WsFormLinesUserControl linesUserControl:
                 linesUserControl.SetupUserConrol();
                 break;
-            case WsFormMoreUserControl moreUserControl:
-                moreUserControl.SetupUserConrol();
+            case WsFormKneadingUserControl kneadingUserControl:
+                kneadingUserControl.SetupUserConrol();
                 break;
             case WsFormPinCodeUserControl pinCodeUserControl:
                 pinCodeUserControl.SetupUserConrol();

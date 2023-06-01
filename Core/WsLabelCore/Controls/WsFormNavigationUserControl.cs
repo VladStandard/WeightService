@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Корневой контрол навигации.
+/// WinForms-контрол навигации.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
@@ -43,15 +43,6 @@ public sealed partial class WsFormNavigationUserControl : UserControl
             layoutPanelUser.Controls.Add(formUserControl, 1, 1);
         layoutPanelUser.SetRowSpan(formUserControl, 1);
         layoutPanelUser.SetColumnSpan(formUserControl, 1);
-    }
-
-    /// <summary>
-    /// Задать заголовок.
-    /// </summary>
-    /// <param name="title"></param>
-    public void SetTitle(string title)
-    {
-        MdInvokeControl.SetText(fieldTitle, title);
     }
 
     #endregion

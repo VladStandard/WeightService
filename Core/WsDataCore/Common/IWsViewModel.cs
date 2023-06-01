@@ -1,19 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsLabelCore.Common;
+namespace WsDataCore.Common;
 
 /// <summary>
-/// Тип контрола.
+/// Интерфейс модели представления XAML.
 /// </summary>
-public enum WsEnumFormUserControl
+#nullable enable
+public interface IWsViewModel : INotifyPropertyChanged
 {
-    Default,
-    Dialog,
-    Line,
-    More,
-    PinCode,
-    PlusLine,
-    PlusNesting,
-    Wait,
+    void UpdateCommandsFromActions();
 }

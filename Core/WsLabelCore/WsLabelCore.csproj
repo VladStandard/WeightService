@@ -32,8 +32,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\IWsXamlViewModel.cs" />
-    <Compile Include="Common\WsEnumFormUserControl.cs" />
     <Compile Include="Common\WsXamlBasePage.cs" />
     <Compile Include="Common\WsFormBaseUserControl.cs">
       <SubType>UserControl</SubType>
@@ -41,7 +39,6 @@
     <Compile Include="Common\WsFormBaseUserControl.Designer.cs">
       <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Common\IWsFormUserControl.cs" />
     <Compile Include="Controls\WsFormWaitUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -72,11 +69,11 @@
     <Compile Include="Controls\WsFormLinesUserControl.Designer.cs">
       <DependentUpon>WsFormLinesUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WsFormMoreUserControl.cs">
+    <Compile Include="Controls\WsFormKneadingUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WsFormMoreUserControl.Designer.cs">
-      <DependentUpon>WsFormMoreUserControl.cs</DependentUpon>
+    <Compile Include="Controls\WsFormKneadingUserControl.Designer.cs">
+      <DependentUpon>WsFormKneadingUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\WsFormNavigationUserControl.cs">
       <SubType>UserControl</SubType>
@@ -107,7 +104,7 @@
     <Compile Include="ViewModels\WsXamlWaitViewModel.cs" />
     <Compile Include="ViewModels\WsXamlDialogViewModel.cs" />
     <Compile Include="ViewModels\WsXamlPlusLineViewModel.cs" />
-    <Compile Include="ViewModels\WsXamlMoreViewModel.cs" />
+    <Compile Include="ViewModels\WsXamlKneadingViewModel.cs" />
     <Compile Include="Forms\WsFormNumberInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,8 +204,8 @@
     <EmbeddedResource Include="Controls\WsFormLinesUserControl.resx">
       <DependentUpon>WsFormLinesUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WsFormMoreUserControl.resx">
-      <DependentUpon>WsFormMoreUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WsFormKneadingUserControl.resx">
+      <DependentUpon>WsFormKneadingUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\WsFormNavigationUserControl.resx">
       <DependentUpon>WsFormNavigationUserControl.cs</DependentUpon>

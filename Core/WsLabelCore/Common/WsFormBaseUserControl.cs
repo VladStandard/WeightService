@@ -7,7 +7,7 @@ using System.Windows.Forms.Integration;
 namespace WsLabelCore.Common;
 
 /// <summary>
-/// Базовый класс Windows.Forms.UserControl.
+/// Базовый класс WinForms-контрола.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
@@ -28,38 +28,38 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     {
         InitializeComponent();
         ElementHost = new() { Dock = DockStyle.Fill };
-        Page = new();
+        Page = new WsXamlBasePage();
     }
 
-    protected WsFormBaseUserControl(WsEnumFormUserControl formUserControl)
+    protected WsFormBaseUserControl(WsEnumNavigationPage formUserControl)
     {
         InitializeComponent();
         ElementHost = new() { Dock = DockStyle.Fill };
         switch (formUserControl)
         {
-            case WsEnumFormUserControl.Dialog:
+            case WsEnumNavigationPage.Dialog:
                 Page = new WsXamlDialogPage();
                 SetupElementHost();
                 break;
-            case WsEnumFormUserControl.Line:
+            case WsEnumNavigationPage.Line:
                 Page = new WsXamlLinesPage();
                 SetupElementHost();
                 break;
-            case WsEnumFormUserControl.More:
-                Page = new();
+            case WsEnumNavigationPage.Kneading:
+                Page = new WsXamlBasePage();
                 break;
-            case WsEnumFormUserControl.PinCode:
+            case WsEnumNavigationPage.PinCode:
                 Page = new WsXamlPinCodePage();
                 SetupElementHost();
                 break;
-            case WsEnumFormUserControl.PlusLine:
-                Page = new();
+            case WsEnumNavigationPage.PlusLine:
+                Page = new WsXamlBasePage();
                 break;
-            case WsEnumFormUserControl.PlusNesting:
+            case WsEnumNavigationPage.PlusNesting:
                 Page = new WsXamlPlusNestingPage();
                 SetupElementHost();
                 break;
-            case WsEnumFormUserControl.Wait:
+            case WsEnumNavigationPage.Wait:
                 Page = new WsXamlWaitPage();
                 SetupElementHost();
                 break;
@@ -73,8 +73,6 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     #region Public and private methods
 
     public override string ToString() => $"{Name} | " + Page.ViewModel;
-
-    //public virtual void SetupUserConrol() => Page.SetupViewModel();
 
     /// <summary>
     /// Настройка ElementHost.

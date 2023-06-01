@@ -8,13 +8,13 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsXamlPinCodeViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public class WsXamlPinCodeViewModel : WsXamlBaseViewModel, IWsViewModel
 {
     #region Public and private fields, properties, constructor
 
     public WsXamlPinCodeViewModel()
     {
-        FormUserControl = WsEnumFormUserControl.PinCode;
+        FormUserControl = WsEnumNavigationPage.PinCode;
     }
 
     #endregion

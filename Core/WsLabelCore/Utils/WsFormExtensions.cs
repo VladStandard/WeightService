@@ -6,8 +6,9 @@ using System.Windows.Forms;
 namespace WsLabelCore.Utils;
 
 /// <summary>
-/// Extension for win forms.
+/// WinForms расширения.
 /// </summary>
+#nullable enable
 public static class WsFormExtensions
 {
     #region Public and private methods

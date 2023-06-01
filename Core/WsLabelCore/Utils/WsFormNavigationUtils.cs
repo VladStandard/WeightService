@@ -4,24 +4,58 @@
 using System.Windows.Forms;
 
 namespace WsLabelCore.Utils;
+
 /// <summary>
-/// Утилиты навигации по контролам.
+/// WinForms навигация по контролам.
 /// </summary>
 #nullable enable
 public static class WsFormNavigationUtils
 {
     #region Public and private fields, properties, constructor
 
+    /// <summary>
+    /// Пользовательская сессия.
+    /// </summary>
     private static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
+    /// <summary>
+    /// Плагин замеров памяти.
+    /// </summary>
     private static WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
+    /// <summary>
+    /// SQL-менеджер прямого доступа к данным БД (используется ядром фреймворка).
+    /// </summary>
     private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    /// <summary>
+    /// SQL-менеджер доступа к данным БД (используется клиентами).
+    /// </summary>
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    /// <summary>
+    /// WinForms-контрол ожидания.
+    /// </summary>
     public static WsFormWaitUserControl WaitUserControl { get; } = new();
+    /// <summary>
+    /// WinForms-контрол диалога.
+    /// </summary>
     public static WsFormDialogUserControl DialogUserControl { get; } = new();
+    /// <summary>
+    /// WinForms-контрол смены линии.
+    /// </summary>
     public static WsFormLinesUserControl LinesUserControl { get; } = new();
-    public static WsFormMoreUserControl MoreUserControl { get; } = new();
+    /// <summary>
+    /// WinForms-контрол замеса.
+    /// </summary>
+    public static WsFormKneadingUserControl KneadingUserControl { get; } = new();
+    /// <summary>
+    /// WinForms-контрол навигации.
+    /// </summary>
     public static WsFormNavigationUserControl NavigationUserControl { get; } = new();
+    /// <summary>
+    /// WinForms-контрол смены плу линии.
+    /// </summary>
     public static WsFormPlusLinesUserControl PlusLineUserControl { get; } = new();
+    /// <summary>
+    /// WinForms-контрол смены вложенности ПЛУ.
+    /// </summary>
     public static WsFormPlusNestingUserControl PlusNestingUserControl { get; } = new();
 
     #endregion
@@ -113,10 +147,10 @@ public static class WsFormNavigationUtils
     /// <param name="showNavigation"></param>
     public static void NavigateToMoreUserControl(Action<WsFormBaseUserControl, string> showNavigation)
     {
-        MoreUserControl.Page.ViewModel.UpdateCommandsFromActions();
-        MoreUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
-        showNavigation(MoreUserControl, LocaleCore.Scales.SwitchKneadingTitle);
-        NavigationUserControl.SwitchUserControl(MoreUserControl);
+        KneadingUserControl.Page.ViewModel.UpdateCommandsFromActions();
+        KneadingUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        showNavigation(KneadingUserControl, LocaleCore.Scales.SwitchKneadingTitle);
+        NavigationUserControl.SwitchUserControl(KneadingUserControl);
     }
 
     /// <summary>

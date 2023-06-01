@@ -30,7 +30,7 @@ public partial class WsXamlPlusNestingPage
     /// Обновить модель представления.
     /// </summary>
     /// <param name="viewModel"></param>
-    public void SetupViewModel(IWsXamlViewModel viewModel)
+    public void SetupViewModel(IWsViewModel viewModel)
     {
         if (viewModel is not WsXamlPlusNestingViewModel plusNestingViewModel) return;
         base.SetupViewModel(plusNestingViewModel, gridLocal);

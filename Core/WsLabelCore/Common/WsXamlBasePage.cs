@@ -1,35 +1,30 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Diagnostics;
 using System.Windows.Controls;
-using Wpf.Ui.Mvvm.Interfaces;
 
 namespace WsLabelCore.Common;
 
 /// <summary>
-/// Базовый класс Controls.UserControl.
+/// Базовый класс XAML-страницы.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsXamlBasePage : UserControl, INotifyPropertyChanged
+public class WsXamlBasePage : UserControl, IWsXamlPage
 {
     #region Public and private fields, properties, constructor
 
     public event PropertyChangedEventHandler? PropertyChanged;
     public WsXamlBaseViewModel ViewModel { get; private set; }
-    //protected Grid GridMain { get; }
     private ItemsControl ItemsControlMain { get; set; }
-    //private bool IsSetupViewModel { get; set; }
     private FrameworkElementFactory ButtonFactoryMain { get; set; }
     private FrameworkElementFactory StackPanelFactory { get; set; }
     private ScrollViewer ScrollViewer { get; }
 
     public WsXamlBasePage()
     {
-        //GridMain = new() { Margin = new(2) };
         ItemsControlMain = new() { Margin = new(2) };
-        ViewModel = new();
+        ViewModel = new WsXamlBaseViewModel();
         ButtonFactoryMain = new(typeof(Button));
         StackPanelFactory = new(typeof(StackPanel));
         ScrollViewer = new() { VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
@@ -46,7 +41,7 @@ public class WsXamlBasePage : UserControl, INotifyPropertyChanged
     /// </summary>
     /// <param name="viewModel"></param>
     /// <param name="grid"></param>
-    public void SetupViewModel(IWsXamlViewModel viewModel, Grid? grid = null)
+    public void SetupViewModel(IWsViewModel viewModel, Grid? grid = null)
     {
         if (viewModel is not WsXamlBaseViewModel baseViewModel) return;
         // Задать команды.
@@ -55,16 +50,9 @@ public class WsXamlBasePage : UserControl, INotifyPropertyChanged
         ViewModel = baseViewModel;
         if (commands.Any())
             ViewModel.SetCommands(commands);
-        //// Проверка.
-        //if (IsSetupViewModel) return;
-        //IsSetupViewModel = true;
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            //// Таблица.
-            //grid.ColumnDefinitions.Add(new() { Width = new(1, GridUnitType.Star) });
-            //grid.RowDefinitions.Add(new() { Height = new(5, GridUnitType.Star) });
-            //grid.RowDefinitions.Add(new() { Height = new(1, GridUnitType.Star) });
             // Настроить прокрутку.
             SetupScrollViewer(grid);
             // Настроить сообщение.

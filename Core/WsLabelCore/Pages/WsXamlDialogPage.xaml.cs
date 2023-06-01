@@ -27,7 +27,7 @@ public partial class WsXamlDialogPage
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    public void SetupViewModel(IWsXamlViewModel viewModel)
+    public void SetupViewModel(IWsViewModel viewModel)
     {
         if (viewModel is not WsXamlDialogViewModel dialogViewModel) return;
         base.SetupViewModel(dialogViewModel, gridLocal);

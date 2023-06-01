@@ -1,13 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// https://github.com/Fody/PropertyChanged
 
-namespace WsLabelCore.Common;
+namespace WsDataCore.Common;
 
 /// <summary>
-/// XAML-интерфейс ViewModel.
+/// Базовый класс модели представления MVVM.
 /// </summary>
 #nullable enable
-public interface IWsXamlViewModel
+public class WsBaseMvvmViewModel : WsBaseMvvm, INotifyPropertyChanged
 {
     //
 }

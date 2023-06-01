@@ -6,11 +6,11 @@ using System.Windows.Forms;
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Контрол ещё.
+/// WinForms-контрол замеса.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl, IWsFormUserControl
+public sealed partial class WsFormKneadingUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Private fields and properties
 
@@ -19,7 +19,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl, IWsFo
     private byte SavePalletSize { get; }
     private Guid PreviousPluScaleUid { get; set; } = Guid.Empty;
 
-    public WsFormMoreUserControl() : base(WsEnumFormUserControl.More)
+    public WsFormKneadingUserControl() : base(WsEnumNavigationPage.Kneading)
     {
         InitializeComponent();
 
@@ -39,7 +39,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl, IWsFo
     /// </summary>
     public void SetupUserConrol()
     {
-        Page.SetupViewModel(Page.ViewModel is not WsXamlMoreViewModel ? new WsXamlMoreViewModel() : Page.ViewModel);
+        Page.SetupViewModel(Page.ViewModel is not WsXamlKneadingViewModel ? new WsXamlKneadingViewModel() : Page.ViewModel);
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {

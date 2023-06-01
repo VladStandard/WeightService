@@ -7,7 +7,7 @@ using Control = System.Windows.Forms.Control;
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Контрол смены плу линии.
+/// WinForms-контрол смены плу линии.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
@@ -22,7 +22,7 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl, 
     private long LastScaleId { get; set; }
     private int LastPageNumber { get; set; }
 
-    public WsFormPlusLinesUserControl() : base(WsEnumFormUserControl.PlusLine)
+    public WsFormPlusLinesUserControl() : base(WsEnumNavigationPage.PlusLine)
     {
         InitializeComponent();
     }

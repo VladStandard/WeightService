@@ -4,11 +4,11 @@
 namespace WsLabelCore.Common;
 
 /// <summary>
-/// Базовый класс модели представления.
+/// Базовый класс XAML модели представления.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsXamlBaseViewModel : WsMvvmBaseViewModel, INotifyPropertyChanged, IWsXamlViewModel
+public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
 {
     #region Public and private fields, properties, constructor
 
@@ -80,7 +80,7 @@ public class WsXamlBaseViewModel : WsMvvmBaseViewModel, INotifyPropertyChanged, 
     /// </summary>
     public Visibility MessageVisibility => string.IsNullOrEmpty(Message) ? Visibility.Hidden : Visibility.Visible;
 
-    public WsEnumFormUserControl FormUserControl { get; set; } = WsEnumFormUserControl.Default;
+    public WsEnumNavigationPage FormUserControl { get; set; } = WsEnumNavigationPage.Default;
 
     public WsXamlBaseViewModel()
     {

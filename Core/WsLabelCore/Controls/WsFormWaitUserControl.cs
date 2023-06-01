@@ -4,7 +4,7 @@
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Контрол смены линии.
+/// WinForms-контрол ожидания.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
@@ -12,7 +12,7 @@ public partial class WsFormWaitUserControl : WsFormBaseUserControl, IWsFormUserC
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormWaitUserControl() : base(WsEnumFormUserControl.Wait)
+    public WsFormWaitUserControl() : base(WsEnumNavigationPage.Wait)
     {
         InitializeComponent();
     }

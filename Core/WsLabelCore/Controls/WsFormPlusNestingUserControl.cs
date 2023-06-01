@@ -4,7 +4,7 @@
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Контрол смены вложенности ПЛУ.
+/// WinForms-контрол смены вложенности ПЛУ.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
@@ -12,7 +12,7 @@ public sealed partial class WsFormPlusNestingUserControl : WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormPlusNestingUserControl() : base(WsEnumFormUserControl.PlusNesting)
+    public WsFormPlusNestingUserControl() : base(WsEnumNavigationPage.PlusNesting)
     {
         InitializeComponent();
     }

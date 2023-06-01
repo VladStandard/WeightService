@@ -11,7 +11,7 @@ namespace WsLabelCore.Models;
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
 #nullable enable
-public sealed partial class WsActionCommandModel : WsMvvmBase
+public sealed partial class WsActionCommandModel : WsBaseMvvm
 {
     #region Public and private fields, properties, constructor
 
@@ -66,10 +66,7 @@ public sealed partial class WsActionCommandModel : WsMvvmBase
         }
         if (Action is not null && Action.GetInvocationList().Length > 0)
         {
-            //if (!Action.GetInvocationList().Contains(action)) Action += action;
-            //IEnumerable<MethodInfo> methods = Action.GetInvocationList().Select(item => item.Method);
             IEnumerable<string> names = Action.GetInvocationList().Select(item => item.Method.Name);
-            //Delegate? foo = Action.GetInvocationList().First(item => item.Method.Name.Equals(action.Method.Name));
             if (!names.Contains(action.Method.Name)) 
                 Action += action;
         }

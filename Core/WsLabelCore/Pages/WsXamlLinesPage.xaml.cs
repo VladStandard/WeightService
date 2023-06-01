@@ -29,7 +29,7 @@ public partial class WsXamlLinesPage
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    public void SetupViewModel(IWsXamlViewModel viewModel)
+    public void SetupViewModel(IWsViewModel viewModel)
     {
         if (viewModel is not WsXamlLinesViewModel linesViewModel) return;
         base.SetupViewModel(linesViewModel, gridLocal);

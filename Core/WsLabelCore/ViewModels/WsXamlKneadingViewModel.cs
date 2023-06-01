@@ -4,17 +4,17 @@
 namespace WsLabelCore.ViewModels;
 
 /// <summary>
-/// Модель представления еще.
+/// XAML модель представления замеса.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsXamlMoreViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public sealed class WsXamlKneadingViewModel : WsXamlBaseViewModel, IWsViewModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsXamlMoreViewModel()
+    public WsXamlKneadingViewModel()
     {
-        FormUserControl = WsEnumFormUserControl.More;
+        FormUserControl = WsEnumNavigationPage.Kneading;
     }
 
     #endregion

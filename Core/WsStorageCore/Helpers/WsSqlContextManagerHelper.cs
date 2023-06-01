@@ -4,7 +4,7 @@
 namespace WsStorageCore.Helpers;
 
 /// <summary>
-/// SQL-менеджер SQL-помощников.
+/// SQL-менеджер доступа к данным БД (используется клиентами).
 /// Клиентский слой доступа к БД.
 /// </summary>
 public sealed class WsSqlContextManagerHelper

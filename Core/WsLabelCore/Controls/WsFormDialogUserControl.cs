@@ -4,7 +4,7 @@
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Контрол смены линии.
+/// WinForms-контрол диалога.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
@@ -12,7 +12,7 @@ public sealed partial class WsFormDialogUserControl : WsFormBaseUserControl, IWs
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormDialogUserControl() : base(WsEnumFormUserControl.Dialog)
+    public WsFormDialogUserControl() : base(WsEnumNavigationPage.Dialog)
     {
         InitializeComponent();
     }

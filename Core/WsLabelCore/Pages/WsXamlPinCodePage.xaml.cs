@@ -27,7 +27,7 @@ public partial class WsXamlPinCodePage
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    public void SetupViewModel(IWsXamlViewModel viewModel)
+    public void SetupViewModel(IWsViewModel viewModel)
     {
         if (viewModel is not WsXamlPinCodeViewModel pinCodeViewModel) return;
         base.SetupViewModel(pinCodeViewModel, gridLocal);
