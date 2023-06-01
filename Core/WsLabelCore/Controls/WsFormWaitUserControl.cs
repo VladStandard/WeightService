@@ -8,11 +8,11 @@ namespace WsLabelCore.Controls;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormWaitUserControl : WsFormBaseUserControl
+public partial class WsFormWaitUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormWaitUserControl() : base(new WsWaitViewModel())
+    public WsFormWaitUserControl() : base(WsEnumFormUserControl.Wait)
     {
         InitializeComponent();
     }
@@ -22,6 +22,13 @@ public sealed partial class WsFormWaitUserControl : WsFormBaseUserControl
     #region Public and private methods
 
     public override string ToString() => Page.ViewModel.ToString();
+
+    /// <summary>
+    /// Обновить контрол.
+    /// </summary>
+    public void SetupUserConrol() =>
+        ((WsXamlWaitPage)Page).SetupViewModel(Page.ViewModel is not WsXamlWaitViewModel
+            ? new WsXamlWaitViewModel() : Page.ViewModel);
 
     #endregion
 }

@@ -21,7 +21,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
 
     #region Public and private fields and properties
 
-    private DebugHelper Debug => DebugHelper.Instance;
+    private WsDebugHelper Debug => WsDebugHelper.Instance;
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public WsPluginPrintModel PluginPrintMain { get; } = new();

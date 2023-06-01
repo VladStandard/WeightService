@@ -152,7 +152,7 @@ partial class WsFormPlusLinesUserControl
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.layoutPanelPlus);
-            this.Name = "WsPlusUserControl";
+            this.Name = "WsFormPlusLinesUserControl";
             this.Size = new System.Drawing.Size(900, 500);
             this.layoutPanelPlus.ResumeLayout(false);
             this.layoutPanelActions.ResumeLayout(false);

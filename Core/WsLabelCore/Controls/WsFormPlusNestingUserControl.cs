@@ -1,10 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using MvvmHelpers;
-using System.Windows.Forms;
-using System.Windows.Forms.Integration;
-
 namespace WsLabelCore.Controls;
 
 /// <summary>
@@ -12,11 +8,11 @@ namespace WsLabelCore.Controls;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormPlusNestingUserControl : WsFormBaseUserControl
+public sealed partial class WsFormPlusNestingUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormPlusNestingUserControl() : base(new WsPlusNestingViewModel())
+    public WsFormPlusNestingUserControl() : base(WsEnumFormUserControl.PlusNesting)
     {
         InitializeComponent();
     }
@@ -30,13 +26,15 @@ public sealed partial class WsFormPlusNestingUserControl : WsFormBaseUserControl
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public override void RefreshUserConrol()
+    public void SetupUserConrol()
     {
-        base.RefreshUserConrol();
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        ((WsXamlPlusNestingPage)Page).SetupViewModel(Page.ViewModel is not WsXamlPlusNestingViewModel 
+            ? new WsXamlPlusNestingViewModel() : Page.ViewModel);
+
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            ((WsPlusNestingViewModel)Page.ViewModel).PluNesting = LabelSession.ViewPluNesting;
-            ((WsPlusNestingViewModel)Page.ViewModel).PlusNestings = ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);
+            ((WsXamlPlusNestingViewModel)Page.ViewModel).PluNesting = LabelSession.ViewPluNesting;
+            ((WsXamlPlusNestingViewModel)Page.ViewModel).PlusNestings = ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);
         });
     }
 

@@ -5,25 +5,44 @@
 namespace WsLabelCore.Pages;
 
 /// <summary>
-/// Interaction logic for WsPinCodePage.xaml
+/// Страница пин-кода.
 /// </summary>
+[DebuggerDisplay("{ToString()}")]
 #nullable enable
-public partial class WsPinCodePage : WsXamlBasePage
+public partial class WsXamlPinCodePage
 {
     #region Public and private fields, properties, constructor
 
-    public WsPinCodePage(WsXamlBaseViewModel viewModel) : base(viewModel)
+    public WsXamlPinCodePage()
     {
         InitializeComponent();
-        ViewModel = viewModel;
-        //borderMain.Child = GridMain;
+    }
 
-        // Очистить.
-        labelClear.SetBinding(ContentProperty,
-            new Binding(nameof(LocaleCore.Buttons.Clear)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
-        // Вввод.
-        labelEnter.SetBinding(ContentProperty,
-            new Binding(nameof(LocaleCore.Buttons.Enter)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
+    #endregion
+
+    #region Public and private methods
+
+    public override string ToString() => ViewModel.ToString();
+
+    /// <summary>
+    /// Обновить модель представления.
+    /// </summary>
+    public void SetupViewModel(IWsXamlViewModel viewModel)
+    {
+        if (viewModel is not WsXamlPinCodeViewModel pinCodeViewModel) return;
+        base.SetupViewModel(pinCodeViewModel, gridLocal);
+
+        WsFormNavigationUtils.ActionTryCatch(() =>
+        {
+            // Очистить.
+            labelClear.SetBinding(ContentProperty,
+                new Binding(nameof(LocaleCore.Buttons.Clear)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
+            // Вввод.
+            labelEnter.SetBinding(ContentProperty,
+                new Binding(nameof(LocaleCore.Buttons.Enter)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
+            // Настроить список кнопок.
+            SetupListButtons(gridLocal, 1, 0);
+        });
     }
 
     #endregion

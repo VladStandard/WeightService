@@ -8,13 +8,13 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsWaitViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public sealed class WsXamlWaitViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    public WsWaitViewModel()
+    public WsXamlWaitViewModel()
     {
-        //
+        FormUserControl = WsEnumFormUserControl.Wait;
     }
 
     #endregion

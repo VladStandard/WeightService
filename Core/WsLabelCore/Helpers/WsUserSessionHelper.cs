@@ -19,7 +19,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
 
     #region Public and private fields and properties
 
-    private DebugHelper Debug => DebugHelper.Instance;
+    private WsDebugHelper Debug => WsDebugHelper.Instance;
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private WsSqlBarCodeController BarCode => WsSqlBarCodeController.Instance;
     public WsPluginLabelsHelper PluginLabels => WsPluginLabelsHelper.Instance;

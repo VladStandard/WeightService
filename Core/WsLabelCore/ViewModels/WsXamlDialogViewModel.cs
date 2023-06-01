@@ -4,15 +4,18 @@
 namespace WsLabelCore.ViewModels;
 
 /// <summary>
-/// Модель представления ПЛУ линии.
+/// Модель представления диалога.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsPlusViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public sealed class WsXamlDialogViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlPluScaleModel PluLine { get; set; } = new();
+    public WsXamlDialogViewModel()
+    {
+        FormUserControl = WsEnumFormUserControl.Dialog;
+    }
 
     #endregion
 }

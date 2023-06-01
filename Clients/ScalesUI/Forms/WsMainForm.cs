@@ -11,10 +11,10 @@ public partial class WsMainForm : Form
 
     private ActionSettingsModel ActionSettings { get; set; }
     private AppVersionHelper AppVersion => AppVersionHelper.Instance;
-    private DebugHelper Debug => DebugHelper.Instance;
+    private WsDebugHelper Debug => WsDebugHelper.Instance;
     private WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
-    private ProcHelper Proc => ProcHelper.Instance;
+    private WsProcHelper Proc => WsProcHelper.Instance;
     private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
@@ -72,79 +72,6 @@ public partial class WsMainForm : Form
         LoadNavigationUserControl();
     }
 
-    /// <summary>
-    /// Загрузка контрола ожидания.
-    /// </summary>
-    private void LoadNavigationWaitUserControl()
-    {
-        // Навигация.
-        WsFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
-        WsFormNavigationUtils.NavigationUserControl.Visible = false;
-        // Контрол ожидания.
-        WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(ActionFinally);
-        // Настройка главной формы.
-        this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
-        CenterToScreen();
-        // Добавить контрол.
-        Controls.Add(WsFormNavigationUtils.NavigationUserControl);
-        // Настройки главной формы.
-        FormBorderStyle = Debug.IsDevelop ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
-        TopMost = !Debug.IsDevelop;
-    }
-
-    /// <summary>
-    /// Загрузка остальных контролов.
-    /// </summary>
-    private void LoadNavigationUserControl()
-    {
-        // Контрол диалога.
-        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
-        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
-        // Контрол замеса.
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnFromKneading);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(ReturnFromKneading);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
-        WsFormNavigationUtils.KneadingUserControl.RefreshUserConrol();
-        // Контрол ещё.
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnFromMore);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdYes.AddAction(ReturnFromMore);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
-        WsFormNavigationUtils.MoreUserControl.RefreshUserConrol();
-        // Контрол смены линии.
-        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnCancelFromLines);
-        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
-        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdYes.AddAction(ReturnOkFromLines);
-        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
-        WsFormNavigationUtils.LinesUserControl.RefreshUserConrol();
-        // Контрол смены ПЛУ.
-        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnCancelFromPlusLine);
-        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
-        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(ReturnOkFromPlusLine);
-        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
-        WsFormNavigationUtils.PlusLineUserControl.RefreshUserConrol();
-        // Контрол смены вложенности ПЛУ.
-        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnCancelFromPlusNesting);
-        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
-        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdYes.AddAction(ReturnOkFromPlusNesting);
-        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
-        WsFormNavigationUtils.PlusNestingUserControl.RefreshUserConrol();
-    }
-
     private MdPrinterModel GetMdPrinter(WsSqlPrinterModel scalePrinter) => new()
     {
         Name = scalePrinter.Name,
@@ -160,21 +87,21 @@ public partial class WsMainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
             // Загрузка контрола ожидания.
             LoadNavigationWaitUserControl();
             // Проверка линии.
-            LabelSession.SetSessionForLabelPrint(ShowNavigation);
+            LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
             if (LabelSession.DeviceScaleFk.IsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
                 WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(
                     message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
                     ActionBackFromLineNotFound, WsFormNavigationUtils.NavigationUserControl.Width);
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowNavigation, message, true, WsEnumLogType.Error);
+                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
                 return;
             }
@@ -185,12 +112,12 @@ public partial class WsMainForm : Form
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
                 WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(message, ActionBackFromDuplicateRun, 
                     WsFormNavigationUtils.NavigationUserControl.Width);
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowNavigation, message, true, WsEnumLogType.Error);
+                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
                 ContextManager.ContextItem.SaveLogWarning(message);
                 return;
             }
             // Навигация в кастом контрол.
-            WsFormNavigationUtils.NavigateToWaitUserControl(ShowNavigation, LocaleCore.Scales.AppWaitLoad);
+            WsFormNavigationUtils.NavigateToWaitUserControl(ShowFormUserControl, LocaleCore.Scales.AppWaitLoad);
             // Загрузка фоном.
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
@@ -203,9 +130,6 @@ public partial class WsMainForm : Form
                 $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
                 $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
                 $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
-            // Скриншот релиза.
-            if (Debug.IsRelease)
-                WsFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
         });
     }
 
@@ -261,66 +185,6 @@ public partial class WsMainForm : Form
         UserSession.PluginLabels.Execute();
         MdInvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {LabelSession.PublishDescription}.");
         MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
-    }
-
-    /// <summary>
-    /// Закрытие программы.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-    {
-        if (IsMagicClose) return;
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
-        {
-            // Сброс предупреждения.
-            ResetWarning();
-            // Навигация в контрол сообщений.
-            WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowNavigation, 
-                $"{LocaleCore.Scales.QuestionCloseApp}?", true, WsEnumLogType.Question, 
-                ActionCloseCancel, ActionCloseYes);
-            e.Cancel = true;
-        });
-    }
-
-    /// <summary>
-    /// Возврат Да из контрола закрытия.
-    /// </summary>
-    private void ActionCloseYes()
-    {
-        ActionFinally();
-        UserSession.StopwatchMain.Restart();
-        // Скриншот.
-        if (Debug.IsRelease)
-            WsFormNavigationUtils.ActionMakeScreenShot(this, LabelSession.Line);
-        // Навигация в кастом контрол.
-        WsFormNavigationUtils.NavigateToWaitUserControl(ShowNavigation, LocaleCore.Scales.AppWaitExit);
-        // Планировщик.
-        WsScheduler.Close();
-        // Плагины.
-        UserSession.PluginsClose();
-        // Шрифты.
-        FontsSettings.Close();
-        // Хуки мышки.
-        KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
-        KeyboardMouseEvents.Dispose();
-        // Логи.
-        UserSession.StopwatchMain.Stop();
-        ContextManager.ContextItem.SaveLogMemory(UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
-        ContextManager.ContextItem.SaveLogInformation(
-            LocaleData.Program.IsClosed + Environment.NewLine + $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
-        // Магический флаг.
-        IsMagicClose = true;
-        Close();
-    }
-
-    /// <summary>
-    /// Возврат Отмена из контрола закрытия.
-    /// </summary>
-    private void ActionCloseCancel()
-    {
-        IsMagicClose = false;
-        ActionFinally();
     }
 
     /// <summary>

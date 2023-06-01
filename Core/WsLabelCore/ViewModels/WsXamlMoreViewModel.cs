@@ -4,17 +4,17 @@
 namespace WsLabelCore.ViewModels;
 
 /// <summary>
-/// Модель представления диалога.
+/// Модель представления еще.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsDialogViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public sealed class WsXamlMoreViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    public WsDialogViewModel()
+    public WsXamlMoreViewModel()
     {
-        //
+        FormUserControl = WsEnumFormUserControl.More;
     }
 
     #endregion

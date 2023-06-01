@@ -62,7 +62,6 @@ partial class WsFormNavigationUserControl
             // layoutPanelTop
             // 
             this.layoutPanelTop.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanelTop.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.layoutPanelTop.ColumnCount = 3;
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 90F));
@@ -83,9 +82,9 @@ partial class WsFormNavigationUserControl
             this.pictureBoxReturn.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxReturn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxReturn.Image = global::WsLabelCore.Properties.Resources.left_1;
-            this.pictureBoxReturn.Location = new System.Drawing.Point(4, 4);
+            this.pictureBoxReturn.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxReturn.Name = "pictureBoxReturn";
-            this.pictureBoxReturn.Size = new System.Drawing.Size(44, 25);
+            this.pictureBoxReturn.Size = new System.Drawing.Size(44, 27);
             this.pictureBoxReturn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxReturn.TabIndex = 59;
             this.pictureBoxReturn.TabStop = false;
@@ -98,10 +97,10 @@ partial class WsFormNavigationUserControl
             this.fieldTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldTitle.ForeColor = System.Drawing.Color.Black;
-            this.fieldTitle.Location = new System.Drawing.Point(55, 4);
+            this.fieldTitle.Location = new System.Drawing.Point(53, 3);
             this.fieldTitle.Margin = new System.Windows.Forms.Padding(3);
             this.fieldTitle.Name = "fieldTitle";
-            this.fieldTitle.Size = new System.Drawing.Size(904, 25);
+            this.fieldTitle.Size = new System.Drawing.Size(908, 27);
             this.fieldTitle.TabIndex = 21;
             this.fieldTitle.Text = "fieldTitle";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

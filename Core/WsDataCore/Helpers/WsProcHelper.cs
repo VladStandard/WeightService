@@ -3,14 +3,14 @@
 
 namespace WsDataCore.Helpers;
 
-public class ProcHelper
+public class WsProcHelper
 {
 	#region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	private static ProcHelper _instance;
+	private static WsProcHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	public static ProcHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+	public static WsProcHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
 	#endregion
 

@@ -4,15 +4,18 @@
 namespace WsLabelCore.ViewModels;
 
 /// <summary>
-/// Модель представления еще.
+/// Модель представления пин кода.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsMoreViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public class WsXamlPinCodeViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    //
+    public WsXamlPinCodeViewModel()
+    {
+        FormUserControl = WsEnumFormUserControl.PinCode;
+    }
 
     #endregion
 }

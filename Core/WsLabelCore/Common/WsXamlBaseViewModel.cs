@@ -8,7 +8,7 @@ namespace WsLabelCore.Common;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsXamlBaseViewModel : WsMvvmBaseViewModel, INotifyPropertyChanged
+public class WsXamlBaseViewModel : WsMvvmBaseViewModel, INotifyPropertyChanged, IWsXamlViewModel
 {
     #region Public and private fields, properties, constructor
 
@@ -19,39 +19,46 @@ public class WsXamlBaseViewModel : WsMvvmBaseViewModel, INotifyPropertyChanged
     /// <summary>
     /// Прервать.
     /// </summary>
-    public WsActionCommandModel CmdAbort { get; private set; }
+    public WsActionCommandModel CmdAbort { get; private init; }
     /// <summary>
     /// Отменить.
     /// </summary>
-    public WsActionCommandModel CmdCancel { get; private set; }
+    public WsActionCommandModel CmdCancel { get; private init; }
     /// <summary>
     /// Настроить.
     /// </summary>
-    public WsActionCommandModel CmdCustom { get; private set; }
+    public WsActionCommandModel CmdCustom { get; private init; }
     /// <summary>
     /// Игнорировать.
     /// </summary>
-    public WsActionCommandModel CmdIgnore { get; private set; }
+    public WsActionCommandModel CmdIgnore { get; private init; }
     /// <summary>
     /// Нет.
     /// </summary>
-    public WsActionCommandModel CmdNo { get; private set; }
+    public WsActionCommandModel CmdNo { get; private init; }
     /// <summary>
     /// Ок.
     /// </summary>
-    public WsActionCommandModel CmdOk { get; private set; }
+    public WsActionCommandModel CmdOk { get; private init; }
     /// <summary>
     /// Повторить.
     /// </summary>
-    public WsActionCommandModel CmdRetry { get; private set; }
+    public WsActionCommandModel CmdRetry { get; private init; }
     /// <summary>
     /// Да.
     /// </summary>
-    public WsActionCommandModel CmdYes { get; private set; }
+    public WsActionCommandModel CmdYes { get; private init; }
+    /// <summary>e
+    /// Список команд.
+    /// </summary>
+    public ObservableCollection<WsActionCommandModel> Commands { get; private set; } = new();
+
     /// <summary>
     /// Список команд.
     /// </summary>
-    public ObservableCollection<WsActionCommandModel> Commands { get; } = new();
+    public ObservableCollection<WsActionCommandModel> CommandsWithoutCustom => 
+        new(Commands.Where(item => !item.Equals(CmdCustom)));
+
     /// <summary>
     /// Ширина кнопки.
     /// </summary>
@@ -73,17 +80,28 @@ public class WsXamlBaseViewModel : WsMvvmBaseViewModel, INotifyPropertyChanged
     /// </summary>
     public Visibility MessageVisibility => string.IsNullOrEmpty(Message) ? Visibility.Hidden : Visibility.Visible;
 
+    public WsEnumFormUserControl FormUserControl { get; set; } = WsEnumFormUserControl.Default;
+
     public WsXamlBaseViewModel()
     {
-        SetupActionsEmpty();
+        CmdAbort = new(nameof(CmdAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
+        CmdCancel = new(nameof(CmdCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
+        CmdCustom = new(nameof(CmdCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
+        CmdIgnore = new(nameof(CmdIgnore), LocaleCore.Buttons.Ignore, Visibility.Hidden);
+        CmdNo = new(nameof(CmdNo), LocaleCore.Buttons.No, Visibility.Hidden);
+        CmdOk = new(nameof(CmdOk), LocaleCore.Buttons.Ok, Visibility.Hidden);
+        CmdRetry = new(nameof(CmdRetry), LocaleCore.Buttons.Retry, Visibility.Hidden);
+        CmdYes = new(nameof(CmdYes), LocaleCore.Buttons.Yes, Visibility.Hidden);
+        UpdateCommandsFromActions();
     }
 
     #endregion
 
     #region Public and private methods - Commands
 
-    public override string ToString() => 
-        (Commands.Any() ? $"{string.Join(" | ", Commands.Select(item => item.ToString()))}" : "<Empty>") + 
+    public override string ToString() =>
+        $"{FormUserControl} | "+ 
+        (Commands.Any() ? $"{string.Join(" | ", Commands.Select(item => item.ToString()))}" : $"{nameof(Commands)} is <Empty>") + 
         (string.IsNullOrEmpty(Message) ? string.Empty : $" | {Message}");
 
     #endregion
@@ -127,29 +145,13 @@ public class WsXamlBaseViewModel : WsMvvmBaseViewModel, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Настройка пустых действий.
-    /// </summary>
-    private void SetupActionsEmpty()
-    {
-        CmdAbort = new(nameof(CmdAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
-        CmdCancel = new(nameof(CmdCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
-        CmdCustom = new(nameof(CmdCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        CmdIgnore = new(nameof(CmdIgnore), LocaleCore.Buttons.Ignore, Visibility.Hidden);
-        CmdNo = new(nameof(CmdNo), LocaleCore.Buttons.No, Visibility.Hidden);
-        CmdOk = new(nameof(CmdOk), LocaleCore.Buttons.Ok, Visibility.Hidden);
-        CmdRetry = new(nameof(CmdRetry), LocaleCore.Buttons.Retry, Visibility.Hidden);
-        CmdYes = new(nameof(CmdYes), LocaleCore.Buttons.Yes, Visibility.Hidden);
-        UpdateCommandsFromActions();
-    }
-
-    /// <summary>
     /// Обновить список команд из действий.
     /// </summary>
     public void UpdateCommandsFromActions()
     {
         Commands.Clear();
         if (CmdAbort.Action is not null) Commands.Add(CmdAbort);
-        //if (CmdCustom.Action is not null) Commands.Add(CmdCustom);
+        if (CmdCustom.Action is not null) Commands.Add(CmdCustom);
         if (CmdIgnore.Action is not null) Commands.Add(CmdIgnore);
         if (CmdNo.Action is not null) Commands.Add(CmdNo);
         if (CmdOk.Action is not null) Commands.Add(CmdOk);
@@ -223,6 +225,15 @@ public class WsXamlBaseViewModel : WsMvvmBaseViewModel, INotifyPropertyChanged
         Message = message;
         AddActionsCustom(actionCustom);
         SetupButtonsWidth(controlWidth);
+    }
+
+    /// <summary>
+    /// Задать команды.
+    /// </summary>
+    /// <param name="commands"></param>
+    public void SetCommands(ObservableCollection<WsActionCommandModel> commands)
+    {
+        Commands = commands;
     }
 
     #endregion

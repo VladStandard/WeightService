@@ -32,6 +32,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\IWsXamlViewModel.cs" />
+    <Compile Include="Common\WsEnumFormUserControl.cs" />
     <Compile Include="Common\WsXamlBasePage.cs" />
     <Compile Include="Common\WsFormBaseUserControl.cs">
       <SubType>UserControl</SubType>
@@ -39,6 +41,7 @@
     <Compile Include="Common\WsFormBaseUserControl.Designer.cs">
       <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\IWsFormUserControl.cs" />
     <Compile Include="Controls\WsFormWaitUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -101,10 +104,10 @@
     </Compile>
     <Compile Include="Utils\WsFormNavigationUtils.cs" />
     <Compile Include="Utils\WsFormUtils.cs" />
-    <Compile Include="ViewModels\WsWaitViewModel.cs" />
-    <Compile Include="ViewModels\WsDialogViewModel.cs" />
-    <Compile Include="ViewModels\WsPlusLineViewModel.cs" />
-    <Compile Include="ViewModels\WsMoreViewModel.cs" />
+    <Compile Include="ViewModels\WsXamlWaitViewModel.cs" />
+    <Compile Include="ViewModels\WsXamlDialogViewModel.cs" />
+    <Compile Include="ViewModels\WsXamlPlusLineViewModel.cs" />
+    <Compile Include="ViewModels\WsXamlMoreViewModel.cs" />
     <Compile Include="Forms\WsFormNumberInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,9 +125,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\WsLinesViewModel.cs" />
-    <Compile Include="ViewModels\WsPinCodeViewModel.cs" />
-    <Compile Include="ViewModels\WsPlusNestingViewModel.cs" />
+    <Compile Include="ViewModels\WsXamlLinesViewModel.cs" />
+    <Compile Include="ViewModels\WsXamlPinCodeViewModel.cs" />
+    <Compile Include="ViewModels\WsXamlPlusNestingViewModel.cs" />
     <Compile Include="Common\WsXamlBaseViewModel.cs" />
     <Compile Include="Helpers\WsFontsSettingsHelper.cs" />
     <Compile Include="Helpers\WsPluginLabelsHelper.cs" />

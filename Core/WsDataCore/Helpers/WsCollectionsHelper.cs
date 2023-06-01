@@ -5,14 +5,14 @@ using WsDataCore.Enums;
 
 namespace WsDataCore.Helpers;
 
-public class CollectionsHelper
+public class WsCollectionsHelper
 {
 	#region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	private static CollectionsHelper _instance;
+	private static WsCollectionsHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	public static CollectionsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+	public static WsCollectionsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
 	#endregion
 

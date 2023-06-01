@@ -12,7 +12,7 @@ namespace WsLabelCore.Controls;
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
 #nullable enable
-public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
+public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Public and private fields, properties, constructor
 
@@ -22,7 +22,7 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
     private long LastScaleId { get; set; }
     private int LastPageNumber { get; set; }
 
-    public WsFormPlusLinesUserControl() : base(new WsPlusViewModel())
+    public WsFormPlusLinesUserControl() : base(WsEnumFormUserControl.PlusLine)
     {
         InitializeComponent();
     }
@@ -36,10 +36,11 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public override void RefreshUserConrol()
+    public void SetupUserConrol()
     {
-        base.RefreshUserConrol();
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        Page.SetupViewModel(Page.ViewModel is not WsXamlPlusLineViewModel ? new WsXamlPlusLineViewModel() : Page.ViewModel);
+
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             // Обновить локальный кэш.
             ContextCache.LoadLocalViewPlusLines((ushort)LabelSession.Line.IdentityValueId);
@@ -47,7 +48,7 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
             if (!LastScaleId.Equals(LabelSession.Line.IdentityValueId))
                 LastScaleId = LabelSession.Line.IdentityValueId;
             // Настроить контролы.
-            SetupControls();
+            SetupFormControls();
         });
     }
 
@@ -62,7 +63,7 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
         if (!viewPlusScales.Any()) return new WsFormPluControl?[0, 0];
 
         WsFormPluControl?[,] pluUserControls = new WsFormPluControl[LabelSession.PlusPageColumnCount, LabelSession.PlusPageRowCount];
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             for (ushort rowNumber = 0, counter = 0; rowNumber < LabelSession.PlusPageRowCount; ++rowNumber)
             {
@@ -82,20 +83,20 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
     /// </summary>
     private void ActionPluSelect(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             if (sender is Control { Tag: WsSqlViewPluLineModel viewPluScale })
             {
                 if (ContextCache.LocalViewPlusLines.Any())
                 {
-                    ((WsPlusViewModel)Page.ViewModel).PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
+                    ((WsXamlPlusLineViewModel)Page.ViewModel).PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
                 }
             }
 
-            if (((WsPlusViewModel)Page.ViewModel).PluLine.IsExists)
-                ((WsPlusViewModel)Page.ViewModel).CmdYes.Relay();
+            if (((WsXamlPlusLineViewModel)Page.ViewModel).PluLine.IsExists)
+                ((WsXamlPlusLineViewModel)Page.ViewModel).CmdYes.Relay();
             else
-                ((WsPlusViewModel)Page.ViewModel).CmdCancel.Relay();
+                ((WsXamlPlusLineViewModel)Page.ViewModel).CmdCancel.Relay();
         });
     }
 
@@ -109,7 +110,7 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
         LabelSession.PlusPageNumber = LabelSession.PlusPageNumber > 0 ? LabelSession.PlusPageNumber - 1: default;
         if (LabelSession.PlusPageNumber.Equals(LastPageNumber)) return;
         LastPageNumber = LabelSession.PlusPageNumber;
-        SetupControls(); 
+        SetupFormControls(); 
     }
 
     /// <summary>
@@ -125,7 +126,7 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
             LabelSession.PlusPageNumber = countPage - 1;
         if (LabelSession.PlusPageNumber.Equals(LastPageNumber)) return;
         LastPageNumber = LabelSession.PlusPageNumber;
-        SetupControls();
+        SetupFormControls();
     }
 
     /// <summary>
@@ -161,7 +162,7 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
     /// <summary>
     /// Настроить контролы.
     /// </summary>
-    private void SetupControls()
+    private void SetupFormControls()
     {
         // Подготовить панель ПЛУ.
         PrepareLayoutPanelPlus();
@@ -216,7 +217,7 @@ public sealed partial class WsFormPlusLinesUserControl : WsFormBaseUserControl
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void buttonCancel_Click(object sender, EventArgs e) => ((WsPlusViewModel)Page.ViewModel).CmdCancel.Relay();
+    private void buttonCancel_Click(object sender, EventArgs e) => ((WsXamlPlusLineViewModel)Page.ViewModel).CmdCancel.Relay();
 
     #endregion
 }

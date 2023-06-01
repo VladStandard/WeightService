@@ -165,7 +165,7 @@ public sealed class LocaleScale : WsLocalizationBase
     public string SwitchKneadingTitle => Lang == Lang.English ? "Switch kneading" : "Смена замеса";
     public string SwitchLineTitle => Lang == Lang.English ? "Switch Line" : "Смена линии";
     public string SwitchMoreTitle => Lang == Lang.English ? "Switch more" : "Смена ещё";
-    public string SwitchPluLineTitle => Lang == Lang.English ? "Switch PLU line" : "Смена ПЛУ линии";
+    public string SwitchPluLineTitle => Lang == Lang.English ? "Switch line's PLU" : "Смена ПЛУ линии";
     public string SwitchPluNestingTitle => Lang == Lang.English ? "Switch PLU nesting" : "Смена вложенности ПЛУ";
     public string SwitchPluTitle => Lang == Lang.English ? "Switch PLU" : "Смена ПЛУ";
     public string ThreadId => "ID";

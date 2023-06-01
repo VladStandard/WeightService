@@ -8,11 +8,11 @@ namespace WsLabelCore.Controls;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormPinCodeUserControl : WsFormBaseUserControl
+public sealed partial class WsFormPinCodeUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormPinCodeUserControl() : base(new WsPinCodeViewModel())
+    public WsFormPinCodeUserControl() : base(WsEnumFormUserControl.PinCode)
     {
         InitializeComponent();
     }
@@ -22,6 +22,13 @@ public sealed partial class WsFormPinCodeUserControl : WsFormBaseUserControl
     #region Public and private methods
 
     public override string ToString() => Page.ViewModel.ToString();
+
+    /// <summary>
+    /// Обновить контрол.
+    /// </summary>
+    public void SetupUserConrol() => 
+        ((WsXamlPinCodePage)Page).SetupViewModel(Page.ViewModel is not WsXamlPinCodeViewModel
+            ? new WsXamlPinCodeViewModel() : Page.ViewModel);
 
     #endregion
 }

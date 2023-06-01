@@ -10,7 +10,7 @@ namespace WsLabelCore.Controls;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
+public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Private fields and properties
 
@@ -19,7 +19,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
     private byte SavePalletSize { get; }
     private Guid PreviousPluScaleUid { get; set; } = Guid.Empty;
 
-    public WsFormMoreUserControl() : base(new WsMoreViewModel())
+    public WsFormMoreUserControl() : base(WsEnumFormUserControl.More)
     {
         InitializeComponent();
 
@@ -37,10 +37,11 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public override void RefreshUserConrol()
+    public void SetupUserConrol()
     {
-        base.RefreshUserConrol();
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        Page.SetupViewModel(Page.ViewModel is not WsXamlMoreViewModel ? new WsXamlMoreViewModel() : Page.ViewModel);
+
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             if (!LabelSession.PluLine.IdentityValueUid.Equals(PreviousPluScaleUid))
             {
@@ -51,7 +52,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
                 RefreshControlsText();
             }
         });
-        buttonOk.Select();
+        buttonYes.Select();
     }
 
     private void RefreshControlsText()
@@ -62,7 +63,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 
     private void ButtonKneadingLeft_Click(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             WsFormNumberInput numberInputForm = new() { InputValue = 0 };
             DialogResult result = numberInputForm.ShowDialog(this);
@@ -76,7 +77,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 
     private void ButtonClose_Click(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
             LabelSession.ProductDate = SaveProductDate;
@@ -100,16 +101,16 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 
     private void ButtonOk_Click(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
-            Page.ViewModel.CmdOk.Relay();
+            Page.ViewModel.CmdYes.Relay();
         });
     }
 
     private void ButtonDtRight_Click(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.RotateProductDate(WsEnumDirection.Right);
             RefreshControlsText();
@@ -118,7 +119,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 
     private void ButtonDtLeft_Click(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.RotateProductDate(WsEnumDirection.Left);
             RefreshControlsText();
@@ -132,7 +133,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 
     private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.WeighingSettings.LabelsCountMain++;
             ShowPalletSize();
@@ -141,7 +142,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 
     private void ButtonPalletSizePrev_Click(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.WeighingSettings.LabelsCountMain--;
             ShowPalletSize();
@@ -155,7 +156,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 
     private void ButtonPalletSizeSet10_Click(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             int n = LabelSession.WeighingSettings.LabelsCountMain == 1 ? 9 : 10;
             for (int i = 0; i < n; i++)
@@ -183,7 +184,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 
     private void SetLabelsCount(byte count)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.WeighingSettings.LabelsCountMain = count;
             ShowPalletSize();
@@ -192,7 +193,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
 
     private void KneadingUserControl_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -216,7 +217,7 @@ public sealed partial class WsFormMoreUserControl : WsFormBaseUserControl
         labelKneading.Text = LocaleCore.Scales.FieldKneading;
         labelProdDate.Text = LocaleCore.Scales.FieldProductDate;
         labelPalletSize.Text = LocaleCore.Scales.FieldPalletSize;
-        buttonOk.Text = LocaleCore.Buttons.Ok;
+        buttonYes.Text = LocaleCore.Buttons.Ok;
         buttonCancel.Text = LocaleCore.Buttons.Cancel;
     }
 

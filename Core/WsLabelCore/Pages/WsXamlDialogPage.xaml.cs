@@ -5,29 +5,37 @@
 namespace WsLabelCore.Pages;
 
 /// <summary>
-/// Interaction logic for WsXamlDialogPage.xaml
+/// Страница диалога.
 /// </summary>
+[DebuggerDisplay("{ToString()}")]
 #nullable enable
-public partial class WsXamlDialogPage : WsXamlBasePage
+public partial class WsXamlDialogPage
 {
     #region Public and private fields, properties, constructor
 
-    public WsXamlDialogPage(WsXamlBaseViewModel viewModel) : base(viewModel)
+    public WsXamlDialogPage()
     {
         InitializeComponent();
-        ViewModel = viewModel;
-        borderMain.Child = GridMain;
     }
+
+    #endregion
+
+    #region Public and private methods
+
+    public override string ToString() => ViewModel.ToString();
 
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    public override void RefreshViewModel()
+    public void SetupViewModel(IWsXamlViewModel viewModel)
     {
-        base.RefreshViewModel();
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        if (viewModel is not WsXamlDialogViewModel dialogViewModel) return;
+        base.SetupViewModel(dialogViewModel, gridLocal);
+
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            //
+            // Настроить список кнопок.
+            SetupListButtons(gridLocal, 1, 0);
         });
     }
 

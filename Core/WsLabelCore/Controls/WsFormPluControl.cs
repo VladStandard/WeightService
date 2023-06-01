@@ -43,7 +43,6 @@ public sealed class WsFormPluControl : UserControl
         LabelTemplate.Click += PluSelect;
     }
 
-
     #endregion
 
     #region Public and private methods

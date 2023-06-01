@@ -60,27 +60,3 @@ jobs:
             dotnet test Tests/WsScheduleCoreTests/WsScheduleCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
             dotnet test Tests/WsStorageCoreTests/WsStorageCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
             dotnet test Tests/WsWebApiCoreTests/WsWebApiCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-      
-      - name: Tests for DevelopVS x64
-        run: | #dotnet test WeightService2022.sln --no-restore --verbosity quiet -property:Platform=x64
-            dotnet test Tests/WsAssertCoreTests/WsAssertCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x64
-            dotnet test Tests/WsBlazorCoreTests/WsBlazorCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x64
-            dotnet test Tests/WsDataCoreTests/WsDataCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x64
-            dotnet test Tests/WsLabelCoreTests/WsLabelCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x64
-            dotnet test Tests/WsDeviceControlTests/WsDeviceControlTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x64
-            dotnet test Tests/WsScalesUITests/WsScalesUITests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x64
-            dotnet test Tests/WsScheduleCoreTests/WsScheduleCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x64
-            dotnet test Tests/WsStorageCoreTests/WsStorageCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x64
-            dotnet test Tests/WsWebApiCoreTests/WsWebApiCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x64
-
-      - name: Tests for DevelopVS x86
-        run: | #dotnet test WeightService2022.sln --no-restore --verbosity quiet -property:Platform=x86
-            dotnet test Tests/WsAssertCoreTests/WsAssertCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x86
-            dotnet test Tests/WsBlazorCoreTests/WsBlazorCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x86
-            dotnet test Tests/WsDataCoreTests/WsDataCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x86
-            dotnet test Tests/WsLabelCoreTests/WsLabelCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x86
-            dotnet test Tests/WsDeviceControlTests/WsDeviceControlTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x86
-            dotnet test Tests/WsScalesUITests/WsScalesUITests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x86
-            dotnet test Tests/WsScheduleCoreTests/WsScheduleCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x86
-            dotnet test Tests/WsStorageCoreTests/WsStorageCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x86
-            dotnet test Tests/WsWebApiCoreTests/WsWebApiCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform=x86

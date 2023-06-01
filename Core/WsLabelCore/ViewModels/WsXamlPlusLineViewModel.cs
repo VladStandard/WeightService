@@ -4,15 +4,20 @@
 namespace WsLabelCore.ViewModels;
 
 /// <summary>
-/// Модель представления пин кода.
+/// Модель представления ПЛУ линии.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsPinCodeViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public sealed class WsXamlPlusLineViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    //
+    public WsSqlPluScaleModel PluLine { get; set; } = new();
+
+    public WsXamlPlusLineViewModel()
+    {
+        FormUserControl = WsEnumFormUserControl.PlusLine;
+    }
 
     #endregion
 }

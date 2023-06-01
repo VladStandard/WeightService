@@ -67,7 +67,7 @@ public sealed class WsJsonSettingsHelper
     public string FileNameReleaseMorozov => "appsettings.ReleaseMorozov.json";
     public string FileNameReleaseVs => "appsettings.ReleaseVS.json";
     public string JsonFileName =>
-        DebugHelper.Instance.Config switch {
+        WsDebugHelper.Instance.Config switch {
             WsEnumConfiguration.DevelopAleksandrov => FileNameDevelopAleksandrov,
             WsEnumConfiguration.DevelopMorozov => FileNameDevelopMorozov,
             WsEnumConfiguration.DevelopVS => FileNameDevelopVs,
@@ -76,7 +76,7 @@ public sealed class WsJsonSettingsHelper
             WsEnumConfiguration.ReleaseVS => FileNameReleaseVs,
             _ => FileNameDevelopVs,
         };
-    public string BinNetSubDir => DebugHelper.Instance.IsDevelop ? @"bin\Develop_x64\net7.0\" : @"bin\Release_x64\net7.0\";
+    public string BinNetSubDir => WsDebugHelper.Instance.IsDevelop ? @"bin\Develop_x64\net7.0\" : @"bin\Release_x64\net7.0\";
 
 	#endregion
 }

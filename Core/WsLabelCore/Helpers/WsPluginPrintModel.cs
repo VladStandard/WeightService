@@ -369,13 +369,13 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
 
     private void WsTcpClientConnected(object sender, ConnectionEventArgs e)
     {
-        if (!DebugHelper.Instance.IsDevelop) return;
+        if (!WsDebugHelper.Instance.IsDevelop) return;
         WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} connected");
     }
 
     private void WsTcpClientDataReceived(object sender, SuperSimpleTcp.DataReceivedEventArgs e)
     {
-        if (!DebugHelper.Instance.IsDevelop) return;
+        if (!WsDebugHelper.Instance.IsDevelop) return;
         string received = e.Data.Array is null ? string.Empty : Encoding.UTF8.GetString(e.Data.Array, 0, e.Data.Count);
         received = string.IsNullOrEmpty(received) ? "0" : $"{received.Length} bytes with data '{received}'";
         WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} data received {received}");
@@ -383,13 +383,13 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
 
     private void WsTcpClientDataSent(object sender, DataSentEventArgs e)
     {
-        if (!DebugHelper.Instance.IsDevelop) return;
+        if (!WsDebugHelper.Instance.IsDevelop) return;
         WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} data sent {e.BytesSent} bytes");
     }
 
     private void WsTcpClientDisconnected(object sender, ConnectionEventArgs e)
     {
-        if (!DebugHelper.Instance.IsDevelop) return;
+        if (!WsDebugHelper.Instance.IsDevelop) return;
         WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} disconnected by {e.Reason} reason");
     }
 

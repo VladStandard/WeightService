@@ -8,15 +8,16 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsPlusNestingViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
+public sealed class WsXamlPlusNestingViewModel : WsXamlBaseViewModel, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
     public WsSqlViewPluNestingModel PluNesting { get; set; }
     public List<WsSqlViewPluNestingModel> PlusNestings { get; set; }
 
-    public WsPlusNestingViewModel()
+    public WsXamlPlusNestingViewModel()
     {
+        FormUserControl = WsEnumFormUserControl.PlusNesting;
         PluNesting = new();
         PlusNestings = ContextCache.ViewPlusNesting;
     }

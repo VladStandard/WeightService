@@ -8,7 +8,7 @@ public sealed class AppHelperTests
 {
     #region Private fields and properties
 
-    private AppHelper App => AppHelper.Instance;
+    private WsAppHelper App => WsAppHelper.Instance;
 
     #endregion
 

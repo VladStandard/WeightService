@@ -10,7 +10,7 @@ namespace WsLabelCore.Controls;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormNavigationUserControl : UserControl // WsFormBaseUserControl
+public sealed partial class WsFormNavigationUserControl : UserControl
 {
     #region Public and private fields, properties, constructor
 

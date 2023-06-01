@@ -5,14 +5,14 @@ using WsDataCore.Enums;
 
 namespace WsDataCore.Helpers;
 
-public class DebugHelper
+public class WsDebugHelper
 {
 	#region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	private static DebugHelper _instance;
+	private static WsDebugHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-	public static DebugHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+	public static WsDebugHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
 	#endregion
 

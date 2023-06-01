@@ -8,11 +8,11 @@ namespace WsLabelCore.Controls;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormLinesUserControl : WsFormBaseUserControl
+public sealed partial class WsFormLinesUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormLinesUserControl() : base(new WsLinesViewModel())
+    public WsFormLinesUserControl() : base(WsEnumFormUserControl.Line)
     {
         InitializeComponent();
     }
@@ -22,6 +22,13 @@ public sealed partial class WsFormLinesUserControl : WsFormBaseUserControl
     #region Public and private methods
 
     public override string ToString() => Page.ViewModel.ToString();
+
+    /// <summary>
+    /// Обновить контрол.
+    /// </summary>
+    public void SetupUserConrol() =>
+        ((WsXamlLinesPage)Page).SetupViewModel(Page.ViewModel is not WsXamlLinesViewModel
+            ? new WsXamlLinesViewModel() : Page.ViewModel);
 
     #endregion
 }

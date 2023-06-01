@@ -11,6 +11,74 @@ public partial class WsMainForm
     #region Public and private methods - Возврат из контролов
 
     /// <summary>
+    /// Загрузка контрола ожидания.
+    /// </summary>
+    private void LoadNavigationWaitUserControl()
+    {
+        // Навигация.
+        WsFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
+        WsFormNavigationUtils.NavigationUserControl.Visible = false;
+        // Контрол ожидания.
+        WsFormNavigationUtils.WaitUserControl.SetupUserConrol();
+        WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(ActionFinally);
+        //WsFormNavigationUtils.WaitUserControl.Page.ViewModel.UpdateCommandsFromActions();
+        // Настройка главной формы.
+        this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
+        CenterToScreen();
+        // Добавить контрол.
+        Controls.Add(WsFormNavigationUtils.NavigationUserControl);
+        // Настройки главной формы.
+        FormBorderStyle = Debug.IsDevelop ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
+        TopMost = !Debug.IsDevelop;
+    }
+
+    /// <summary>
+    /// Загрузка остальных контролов.
+    /// </summary>
+    private void LoadNavigationUserControl()
+    {
+        // Контрол диалога.
+        WsFormNavigationUtils.DialogUserControl.SetupUserConrol();
+        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
+        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
+        // Контрол замеса.
+        WsFormNavigationUtils.MoreUserControl.SetupUserConrol();
+        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnFromKneading);
+        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdYes.AddAction(ReturnFromKneading);
+        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.MoreUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
+        // Контрол смены линии.
+        WsFormNavigationUtils.LinesUserControl.SetupUserConrol();
+        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnCancelFromLines);
+        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdYes.AddAction(ReturnOkFromLines);
+        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
+        // Контрол смены ПЛУ.
+        WsFormNavigationUtils.PlusLineUserControl.SetupUserConrol();
+        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnCancelFromPlusLine);
+        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(ReturnOkFromPlusLine);
+        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
+        // Контрол смены вложенности ПЛУ.
+        WsFormNavigationUtils.PlusNestingUserControl.SetupUserConrol();
+        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnCancelFromPlusNesting);
+        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdYes.AddAction(ReturnOkFromPlusNesting);
+        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
+    }
+
+    /// <summary>
     /// Возврат из контрола смены замеса.
     /// </summary>
     private void ReturnFromKneading()
@@ -20,6 +88,7 @@ public partial class WsMainForm
         numberInputForm.Close();
         if (result == DialogResult.OK)
             LabelSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
+        UserSession.PluginMassa.Execute();
     }
 
     /// <summary>
@@ -32,7 +101,7 @@ public partial class WsMainForm
     /// </summary>
     private void ReturnOkFromPlusLine()
     {
-        LabelSession.SetPluLine(((WsPlusViewModel)WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel).PluLine);
+        LabelSession.SetPluLine(((WsXamlPlusLineViewModel)WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel).PluLine);
 
         LabelSession.WeighingSettings.Kneading = 1;
         LabelSession.ProductDate = DateTime.Now;
@@ -51,7 +120,7 @@ public partial class WsMainForm
     /// Возврат ОК из контрола смены вложенности ПЛУ.
     /// </summary>
     private void ReturnOkFromPlusNesting() =>
-        LabelSession.SetViewPluNesting(((WsPlusNestingViewModel)WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel).PluNesting);
+        LabelSession.SetViewPluNesting(((WsXamlPlusNestingViewModel)WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel).PluNesting);
 
     /// <summary>
     /// Возврат Отмена из контрола смены вложенности ПЛУ.
@@ -66,9 +135,9 @@ public partial class WsMainForm
     /// </summary>
     private void ReturnOkFromLines()
     {
-        LabelSession.SetSessionForLabelPrint(ShowNavigation,
-            ((WsLinesViewModel)WsFormNavigationUtils.LinesUserControl.Page.ViewModel).Line.IdentityValueId,
-            ((WsLinesViewModel)WsFormNavigationUtils.LinesUserControl.Page.ViewModel).Area);
+        LabelSession.SetSessionForLabelPrint(ShowFormUserControl,
+            ((WsXamlLinesViewModel)WsFormNavigationUtils.LinesUserControl.Page.ViewModel).Line.IdentityValueId,
+            ((WsXamlLinesViewModel)WsFormNavigationUtils.LinesUserControl.Page.ViewModel).Area);
         ActionMore(null, null);
     }
 
@@ -97,27 +166,53 @@ public partial class WsMainForm
                 ? $"{LabelSession.ViewPluNesting.TareWeight:0.000} {LocaleCore.Scales.WeightUnitKg}"
                 : $"0,000 {LocaleCore.Scales.WeightUnitKg}");
         // Скрыть навигацию.
-        HideNavigation();
+        HideFormUserControl();
     }
 
     /// <summary>
-    /// Отобразить навигацию.
+    /// Отобразить контрол.
     /// </summary>
-    private void ShowNavigation(WsFormBaseUserControl userControl, string title)
+    private void ShowFormUserControl(WsFormBaseUserControl userControl, string title)
     {
         layoutPanelMain.Visible = false;
         WsFormNavigationUtils.NavigationUserControl.SetTitle(title);
         WsFormNavigationUtils.NavigationUserControl.Visible = true;
         userControl.Dock = DockStyle.Fill;
         userControl.Visible = true;
-        userControl.RefreshUserConrol();
+        switch (userControl)
+        {
+            case WsFormDialogUserControl dialogUserControl:
+                dialogUserControl.SetupUserConrol();
+                break;
+            case WsFormLinesUserControl linesUserControl:
+                linesUserControl.SetupUserConrol();
+                break;
+            case WsFormMoreUserControl moreUserControl:
+                moreUserControl.SetupUserConrol();
+                break;
+            case WsFormPinCodeUserControl pinCodeUserControl:
+                pinCodeUserControl.SetupUserConrol();
+                break;
+            case WsFormPlusLinesUserControl plusLinesUserControl:
+                plusLinesUserControl.SetupUserConrol();
+                break;
+            case WsFormPlusNestingUserControl plusNestingUserControl:
+                plusNestingUserControl.SetupUserConrol();
+                break;
+            case WsFormWaitUserControl waitUserControl:
+                waitUserControl.SetupUserConrol();
+                break;
+            default:
+                throw new ArgumentException(nameof(userControl));
+        }
+
         System.Windows.Forms.Application.DoEvents();
     }
 
     /// <summary>
-    /// Скрыть навигацию.
+    /// Скрыть контрол.
     /// </summary>
-    private void HideNavigation()
+    private void HideFormUserControl()
     {
         WsFormNavigationUtils.NavigationUserControl.Visible = false;
         layoutPanelMain.Visible = true;
@@ -137,13 +232,70 @@ public partial class WsMainForm
     }
 
     /// <summary>
+    /// Закрытие программы.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        if (IsMagicClose) return;
+        WsFormNavigationUtils.ActionTryCatch(() =>
+        {
+            // Сброс предупреждения.
+            ResetWarning();
+            // Навигация в контрол сообщений.
+            WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
+                $"{LocaleCore.Scales.QuestionCloseApp}?", true, WsEnumLogType.Question,
+                ActionCloseCancel, ActionCloseYes);
+            e.Cancel = true;
+        });
+    }
+
+    /// <summary>
+    /// Возврат Да из контрола закрытия.
+    /// </summary>
+    private void ActionCloseYes()
+    {
+        ActionFinally();
+        UserSession.StopwatchMain.Restart();
+        // Навигация в кастом контрол.
+        WsFormNavigationUtils.NavigateToWaitUserControl(ShowFormUserControl, LocaleCore.Scales.AppWaitExit);
+        // Планировщик.
+        WsScheduler.Close();
+        // Плагины.
+        UserSession.PluginsClose();
+        // Шрифты.
+        FontsSettings.Close();
+        // Хуки мышки.
+        KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
+        KeyboardMouseEvents.Dispose();
+        // Логи.
+        UserSession.StopwatchMain.Stop();
+        ContextManager.ContextItem.SaveLogMemory(UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
+        ContextManager.ContextItem.SaveLogInformation(
+            LocaleData.Program.IsClosed + Environment.NewLine + $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
+        // Магический флаг.
+        IsMagicClose = true;
+        Close();
+    }
+
+    /// <summary>
+    /// Возврат Отмена из контрола закрытия.
+    /// </summary>
+    private void ActionCloseCancel()
+    {
+        IsMagicClose = false;
+        ActionFinally();
+    }
+
+    /// <summary>
     /// Сменить линию.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void ActionSwitchLine(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             // Сброс предупреждения.
             ResetWarning();
@@ -151,7 +303,7 @@ public partial class WsMainForm
             ContextCache.Load(WsSqlTableName.Areas);
             ContextCache.Load(WsSqlTableName.Lines);
             // Навигация в контрол линии.
-            WsFormNavigationUtils.NavigateToLinesUserControl(ShowNavigation);
+            WsFormNavigationUtils.NavigateToLinesUserControl(ShowFormUserControl);
         });
     }
 
@@ -178,12 +330,12 @@ public partial class WsMainForm
     /// <param name="e"></param>
     private void ActionScalesTerminal(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             // Сброс предупреждения.
             ResetWarning();
             // Навигация в контрол сообщений.
-            WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowNavigation,
+            WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
                 $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
                 true, WsEnumLogType.Question, () => { }, ActionYes);
             void ActionYes()
@@ -198,7 +350,7 @@ public partial class WsMainForm
                 else
                 {
                     // Навигация в контрол сообщений.
-                    WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowNavigation,
+                    WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl,
                         LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true,
                         WsEnumLogType.Error);
                 }
@@ -213,26 +365,26 @@ public partial class WsMainForm
     /// <param name="e"></param>
     private void ActionScalesInit(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             // Сброс предупреждения.
             ResetWarning();
             if (!LabelSession.PluLine.Plu.IsCheckWeight)
             {
                 // Навигация в контрол сообщений.
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowNavigation, LocaleCore.Scales.PluNotSelectWeight,
+                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, LocaleCore.Scales.PluNotSelectWeight,
                     true, WsEnumLogType.Warning);
                 return;
             }
             if (!UserSession.PluginMassa.MassaDevice.IsOpenPort)
             {
                 // Навигация в контрол сообщений.
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowNavigation, LocaleCore.Scales.MassaIsNotRespond,
+                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, LocaleCore.Scales.MassaIsNotRespond,
                     true, WsEnumLogType.Warning);
                 return;
             }
             // Навигация в контрол сообщений.
-            WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowNavigation,
+            WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
                 LocaleCore.Scales.QuestionPerformOperation, true, WsEnumLogType.Question, () => { }, ActionYes);
             void ActionYes()
             {
@@ -259,7 +411,7 @@ public partial class WsMainForm
     /// <param name="e"></param>
     private void ActionNewPallet(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             // Сброс предупреждения.
             ResetWarning();
@@ -274,10 +426,10 @@ public partial class WsMainForm
     /// <param name="e"></param>
     private void ActionKneading(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             // Навигация в контрол ешё.
-            WsFormNavigationUtils.NavigateToMoreUserControl(ShowNavigation);
+            WsFormNavigationUtils.NavigateToMoreUserControl(ShowFormUserControl);
         });
     }
 
@@ -288,7 +440,7 @@ public partial class WsMainForm
     /// <param name="e"></param>
     private void ActionSwitchPlu(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             // Сброс предупреждения.
             ResetWarning();
@@ -296,7 +448,7 @@ public partial class WsMainForm
             MdInvokeControl.SetVisible(fieldNettoWeight, false);
             LabelSession.SetPluLine();
             // Навигация в контрол смены ПЛУ линии.
-            WsFormNavigationUtils.NavigateToPlusLineUserControl(ShowNavigation);
+            WsFormNavigationUtils.NavigateToPlusLineUserControl(ShowFormUserControl);
         });
     }
 
@@ -307,19 +459,19 @@ public partial class WsMainForm
     /// <param name="e"></param>
     private void ActionMore(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             // Сброс предупреждения.
             ResetWarning();
             if (LabelSession.PluLine.IsNew)
             {
                 // Навигация в контрол сообщений.
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowNavigation, LocaleCore.Scales.PluNotSelect,
+                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, LocaleCore.Scales.PluNotSelect,
                     true, WsEnumLogType.Warning);
                 return;
             }
             // Навигация в контрол ешё.
-            WsFormNavigationUtils.NavigateToMoreUserControl(ShowNavigation);
+            WsFormNavigationUtils.NavigateToMoreUserControl(ShowFormUserControl);
         });
     }
 
@@ -335,7 +487,7 @@ public partial class WsMainForm
     /// <param name="e"></param>
     private void ActionPreparePrint(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             // Сброс предупреждения.
             ResetWarning();
@@ -355,7 +507,7 @@ public partial class WsMainForm
             if (!UserSession.CheckPluGtin(fieldWarning)) return;
             // Задать фейк данные веса ПЛУ для режима разработки.
             if (!IsSkipDialogs && Debug.IsDevelop)
-                UserSession.SetPluWeighingFakeForDevelop(ShowNavigation);
+                UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl);
             // Проверить отрицательный вес.
             if (!UserSession.CheckWeightIsNegative(fieldWarning)) return;
             // Создать новое взвешивание ПЛУ.
@@ -366,19 +518,19 @@ public partial class WsMainForm
             if (!IsSkipDialogs && Debug.IsDevelop)
             {
                 // Навигация в контрол сообщений.
-                WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowNavigation,
+                WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
                     LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question, ActionNo, ActionYes);
                 void ActionNo()
                 {
                     // Печать этикетки.
-                    UserSession.PrintLabel(ShowNavigation, fieldWarning, false);
+                    UserSession.PrintLabel(ShowFormUserControl, fieldWarning, false);
                 }
                 void ActionYes()
                 {
                     // Проверить подключение и готовность принтеров.
                     if (ActionPreparePrintCheckPrinters())
                         // Печать этикетки.
-                        UserSession.PrintLabel(ShowNavigation, fieldWarning, false);
+                        UserSession.PrintLabel(ShowFormUserControl, fieldWarning, false);
                 }
             }
             else
@@ -386,7 +538,7 @@ public partial class WsMainForm
                 // Проверить подключение и готовность принтеров.
                 if (ActionPreparePrintCheckPrinters())
                     // Печать этикетки.
-                    UserSession.PrintLabel(ShowNavigation, fieldWarning, false);
+                    UserSession.PrintLabel(ShowFormUserControl, fieldWarning, false);
             }
         });
         UserSession.PluginMassa.IsWeightNetFake = false;
@@ -414,7 +566,7 @@ public partial class WsMainForm
     /// <param name="e"></param>
     private void ActionSwitchPluNesting(object sender, EventArgs e)
     {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowNavigation, () =>
+        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             // Сброс предупреждения.
             ResetWarning();
@@ -423,7 +575,7 @@ public partial class WsMainForm
             // Обновить кэш.
             ContextCache.Load(WsSqlTableName.ViewPlusNesting);
             // Навигация в контрол смены вложенности ПЛУ.
-            WsFormNavigationUtils.NavigateToPlusNestingUserControl(ShowNavigation);
+            WsFormNavigationUtils.NavigateToPlusNestingUserControl(ShowFormUserControl);
         });
     }
 
