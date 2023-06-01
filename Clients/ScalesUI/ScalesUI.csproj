@@ -16,7 +16,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
-    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Kamni\</PublishUrl>
+    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Versions\0.9.450-Preview\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>

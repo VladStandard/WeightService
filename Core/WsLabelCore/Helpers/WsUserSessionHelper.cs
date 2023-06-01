@@ -366,23 +366,24 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             }
 
             // Отправить команду в принтер.
-            if (Debug.IsDevelop)
-            {
-                // Навигация в контрол диалога Отмена/Да.
-                WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation,
-                    LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
-                    () => { }, ActionYes);
-                void ActionYes()
-                {
-                    // Отправить команду в принтер.
-                    LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
-                }
-            }
-            else
-            {
+            // TODO: исправить это место. WsXamlDialogUserControl.
+            //if (Debug.IsDevelop)
+            //{
+            //    // Навигация в контрол диалога Отмена/Да.
+            //    WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation,
+            //        LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
+            //        () => { }, ActionYes);
+            //    void ActionYes()
+            //    {
+            //        // Отправить команду в принтер.
+            //        LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
+            //    }
+            //}
+            //else
+            //{
                 // Отправить команду в принтер.
                 LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
-            }
+            //}
         }
         catch (Exception ex)
         {

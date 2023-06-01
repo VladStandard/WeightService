@@ -51,6 +51,7 @@ public static class DataFormatUtils
     {
         tscDriver.Cmd = ZplUtils.ConvertStringToHex(tscDriver.TextPrepare);
         if (isUsePicReplace)
+            // Заменить zpl-ресурсы из таблицы ресурсов шаблонов.
             tscDriver.Cmd = PrintCmdReplaceZplResources(tscDriver.Cmd, _ => { });
     }
 }

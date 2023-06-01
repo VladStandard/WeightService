@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsDataCore.Utils;
+
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -488,7 +490,11 @@ public partial class WsMainForm
             // Проверить ГТИН ПЛУ.
             if (!UserSession.CheckPluGtin(fieldWarning)) return;
             // Использовать фейк-данные для веса ПЛУ.
-            UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ReturnPreparePrint);
+            //UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ReturnPreparePrint);
+            // Продолжить.
+            UserSession.PluginMassa.WeightNet = StrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
+            UserSession.PluginMassa.IsWeightNetFake = true;
+            ReturnPreparePrint();
         });
         UserSession.PluginMassa.IsWeightNetFake = false;
     }
@@ -522,8 +528,8 @@ public partial class WsMainForm
 
         // Навигация в контрол диалога Отмена/Да.
         WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
-        LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question, 
-        () => ActionPrintLabel(false), () => ActionPrintLabel(true));
+            LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question, 
+            () => ActionPrintLabel(false), () => ActionPrintLabel(true));
     }
 
     /// <summary>

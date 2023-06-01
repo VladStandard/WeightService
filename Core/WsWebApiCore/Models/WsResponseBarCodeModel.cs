@@ -63,7 +63,7 @@ public class WsResponseBarCodeModel : SerializeBase, ICloneable
         $"{WsWebConstants.Guid}: {IdentityValueUid}. " +
         $"{nameof(ChangeDt)}: {CreateDt}. " +
         $"{nameof(ChangeDt)}: {ChangeDt}. " +
-        $"{GetIsMarked()} | " +
+        //$"{GetIsMarked()} | " +
         $"{nameof(TypeTop)}: {TypeTop}. " +
         $"{nameof(ValueTop)}: {ValueTop}. " +
         $"{nameof(TypeRight)}: {TypeRight}. " +
