@@ -1,18 +1,12 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Radzen;
-using WsBlazorCore.Services;
 using WsBlazorCore.Settings;
-using WsBlazorCore.Utils;
-using WsStorageCore.Models;
-using WsStorageCore.Utils;
 
-namespace WsBlazorCore.Razors;
+namespace DeviceControl.Components.Section;
 
-public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
+public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 
@@ -20,7 +14,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     [Inject] private LocalStorageService LocalStorage { get; set; }
     [Inject] protected ContextMenuService? ContextMenuService { get; set; }
     [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
-    [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
+    protected ButtonSettingsModel ButtonSettings { get; set; }
 
     protected bool IsLoading = true;
     
@@ -32,22 +26,19 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
 
     protected List<TItem> SqlSectionSave { get; set; }
 
-    public RazorComponentSectionBase()
+    public SectionBase()
     {
         SqlSectionCast = new List<TItem>();
         SelectedRow = new List<TItem>();
         SqlSectionSave = new List<TItem>();
-        SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlIsMarked.ShowAll);
-        SqlCrudConfigSection.IsMarked = WsSqlIsMarked.ShowOnlyActual;
-        SqlCrudConfigSection.IsGuiShowItemsCount = true;
+        SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlIsMarked.ShowOnlyActual);
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
 
-        ButtonSettings = new(true, true, true, true, true, false, false);
+        ButtonSettings = ButtonSettingsModel.CreateForSection();
     }
 
     #endregion
-    
     
     protected async Task SqlItemEditAsync()
     {
@@ -63,17 +54,17 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     }
 
     //TODO: insert into DataCore
-	protected void OnCellContextMenu(DataGridCellMouseEventArgs<TItem> args)
-	{
-		LocaleContextMenu locale = LocaleCore.ContextMenu;
+    protected void OnCellContextMenu(DataGridCellMouseEventArgs<TItem> args)
+    {
+        LocaleContextMenu locale = LocaleCore.ContextMenu;
 
-		SelectedRow = new List<TItem>() { args.Data };
-		SqlItem = args.Data;
-		List<ContextMenuItem> contextMenuItems = new()
-		{
-			new() { Text = locale.Open, Value = ContextMenuAction.Open },
-			new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
-		};
+        SelectedRow = new List<TItem>() { args.Data };
+        SqlItem = args.Data;
+        List<ContextMenuItem> contextMenuItems = new()
+        {
+            new() { Text = locale.Open, Value = ContextMenuAction.Open },
+            new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
+        };
         if (User?.IsInRole(UserAccessStr.Write) == true)
         {
             if (ButtonSettings?.IsShowMark == true)
@@ -82,32 +73,32 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
                 contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
         }
         ContextMenuService?.Open(args, contextMenuItems, (e) => ParseContextMenuActions(e, args));
-	}
+    }
 	
-	protected void ParseContextMenuActions(MenuItemEventArgs e, DataGridCellMouseEventArgs<TItem> args) 
-	{
-		InvokeAsync(async () =>
-		{
-			switch ((ContextMenuAction)e.Value)
-			{
-				case ContextMenuAction.OpenNewTab:
-					if (JsRuntime != null)
-						await JsRuntime.InvokeAsync<object>("open", 
-							GetRouteItemPathForLink(args.Data), "_blank");
-					break;
-				case ContextMenuAction.Open:
-					await SqlItemEditAsync();
-					break;
-				case ContextMenuAction.Mark:
-					await SqlItemMarkAsync();
-					break;
-				case ContextMenuAction.Delete:
-					await SqlItemDeleteAsync();
-					break;
-			}
-			ContextMenuService?.Close();
-		});
-	}
+    protected void ParseContextMenuActions(MenuItemEventArgs e, DataGridCellMouseEventArgs<TItem> args) 
+    {
+        InvokeAsync(async () =>
+        {
+            switch ((ContextMenuAction)e.Value)
+            {
+                case ContextMenuAction.OpenNewTab:
+                    if (JsRuntime != null)
+                        await JsRuntime.InvokeAsync<object>("open", 
+                            GetRouteItemPathForLink(args.Data), "_blank");
+                    break;
+                case ContextMenuAction.Open:
+                    await SqlItemEditAsync();
+                    break;
+                case ContextMenuAction.Mark:
+                    await SqlItemMarkAsync();
+                    break;
+                case ContextMenuAction.Delete:
+                    await SqlItemDeleteAsync();
+                    break;
+            }
+            ContextMenuService?.Close();
+        });
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -133,7 +124,7 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
     protected void SetSqlSectionSave(TItem model)
     {
         if (!SqlSectionSave.Any(item => Equals(item.IdentityValueUid, model.IdentityValueUid)))
-                SqlSectionSave.Add(model);
+            SqlSectionSave.Add(model);
     }
 
     protected virtual async Task OnSqlSectionSaveAsync()
@@ -212,7 +203,4 @@ public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem :
         });
     }
     
-    #region Public and private methods
-
-    #endregion
 }

@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Components.Section;
+using WsBlazorCore.Settings;
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusScales;
@@ -8,7 +10,7 @@ using WsStorageCore.TableScaleModels.Scales;
 
 namespace DeviceControl.Pages.Menu.Devices.PluScales;
 
-public sealed partial class PlusScales : RazorComponentSectionBase<WsSqlPluScaleModel>
+public sealed partial class PlusScales : SectionBase<WsSqlPluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -18,9 +20,8 @@ public sealed partial class PlusScales : RazorComponentSectionBase<WsSqlPluScale
     public PlusScales() : base()
     {
         HideNoneActivePlu = true;
-        SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
         SqlCrudConfigSection.IsResultOrder = true;
-        ButtonSettings = new(true, true, true, true, true, true, false);
+        ButtonSettings.IsShowSave = true;
     }
 
     #endregion

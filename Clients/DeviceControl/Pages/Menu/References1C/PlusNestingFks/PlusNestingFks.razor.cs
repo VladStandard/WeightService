@@ -1,17 +1,19 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Components.Section;
+using WsBlazorCore.Settings;
 using WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 namespace DeviceControl.Pages.Menu.References1C.PlusNestingFks;
 
-public sealed partial class PlusNestingFks : RazorComponentSectionBase<WsSqlPluNestingFkModel>
+public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
 {
     #region Public and private fields, properties, constructor
 
     public PlusNestingFks() : base()
     {
-        ButtonSettings = new(true, true, true, true, true, true, false);
+        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
 
     #endregion

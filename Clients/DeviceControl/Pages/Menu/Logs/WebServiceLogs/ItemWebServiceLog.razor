@@ -3,7 +3,7 @@
 @using WsStorageCore.TableDiagModels.LogsWebsFks
 @using WsStorageCore.TableDiagModels.Logs
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.LogsWebsFks.WsSqlLogWebFkModel>
+@inherits ItemBase<WsStorageCore.TableDiagModels.LogsWebsFks.WsSqlLogWebFkModel>
 
 <ItemTopBar TItem="WsSqlLogWebFkModel" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 

@@ -1,13 +1,15 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Components.Section;
+using WsBlazorCore.Settings;
 using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableScaleModels.Scales;
 using WsStorageCore.ViewScaleModels;
 
 namespace DeviceControl.Pages.Menu.Logs.MainLogs;
 
-public sealed partial class Logs : RazorComponentSectionBase<LogView>
+public sealed partial class Logs : SectionBase<LogView>
 {
     private string? CurrentLogType { get; set; }
     private string? CurrentLine { get; set; }
@@ -26,7 +28,7 @@ public sealed partial class Logs : RazorComponentSectionBase<LogView>
         Lines = (from item in Lines orderby item.Description select item).ToList();
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
-        ButtonSettings = new(false, false, false, false, false, false, false);
+        ButtonSettings = ButtonSettingsModel.CreateEmpty();
     }
 
     protected override void SetSqlSectionCast()

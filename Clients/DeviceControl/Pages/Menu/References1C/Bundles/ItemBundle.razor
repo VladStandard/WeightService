@@ -3,7 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Bundles
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Bundles.WsSqlBundleModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.Bundles.WsSqlBundleModel>
 
 <ItemTopBar TItem="WsSqlBundleModel" Title="@LocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
 

@@ -4,7 +4,7 @@
 @using WsStorageCore.TableScaleModels.PlusScales
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.PlusScales.WsSqlPluScaleModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.PlusScales.WsSqlPluScaleModel>
 
 <ItemTopBar TItem="@WsSqlPluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale" OnItemUpdate="@GetItemData"/>
 

@@ -16,10 +16,8 @@ public class WsSqlCrudConfigModel : ICloneable
     public List<SqlParameter> NativeParameters { get; set; }
     public List<WsSqlFieldFilterModel> Filters { get; private set; }
     public List<WsSqlFieldOrderModel> Orders { get; private set; }
-    public bool IsGuiShowFilterAdditional { get; set; }
     public bool IsGuiShowFilterMarked { get; set; }
     public int SelectTopRowsCount { get; set; }
-    public bool IsGuiShowItemsCount { get; set; }
     public bool IsResultAddFieldEmpty { get; }
     public bool IsResultOrder { get; set; }
     
@@ -63,11 +61,9 @@ public class WsSqlCrudConfigModel : ICloneable
         Filters = new();
         Orders = new();
         IsMarked = WsSqlIsMarked.ShowAll;
-
-        IsGuiShowFilterAdditional = false;
-        IsGuiShowFilterMarked = false;
-        IsGuiShowItemsCount = false;
         
+        IsGuiShowFilterMarked = false;
+
         IsResultAddFieldEmpty = false;
         IsResultOrder = false;
         IsReadUncommitted = false;
@@ -219,9 +215,7 @@ public class WsSqlCrudConfigModel : ICloneable
         WsSqlCrudConfigModel item = new();
         item.Filters = new(Filters);
         item.Orders = new(Orders);
-        item.IsGuiShowFilterAdditional = IsGuiShowFilterAdditional;
         item.IsGuiShowFilterMarked = IsGuiShowFilterMarked;
-        item.IsGuiShowItemsCount = IsGuiShowItemsCount;
         item.IsMarked = IsMarked;
         item.SelectTopRowsCount = SelectTopRowsCount;
         return item;
@@ -240,17 +234,9 @@ public class WsSqlCrudConfigModel : ICloneable
         if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(orders)) result += $" | {orders}";
         else if (!string.IsNullOrEmpty(orders)) result = orders;
 
-        string isGuiShowFilterAdditional = IsGuiShowFilterAdditional ? "Is gui show filter sdditional" : string.Empty;
-        if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isGuiShowFilterAdditional)) result += $" | {isGuiShowFilterAdditional}";
-        else if (!string.IsNullOrEmpty(isGuiShowFilterAdditional)) result = isGuiShowFilterAdditional;
-        
         string isGuiShowFilterMarked = IsGuiShowFilterMarked ? "Is gui show filterMarked" : string.Empty;
         if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isGuiShowFilterMarked)) result += $" | {isGuiShowFilterMarked}";
         else if (!string.IsNullOrEmpty(isGuiShowFilterMarked)) result = isGuiShowFilterMarked;
-
-        string isGuiShowItemsCount = IsGuiShowItemsCount ? "Is gui show items count" : string.Empty;
-        if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isGuiShowItemsCount)) result += $" | {isGuiShowItemsCount}";
-        else if (!string.IsNullOrEmpty(isGuiShowItemsCount)) result = isGuiShowItemsCount;
 
         string isMarked = IsMarked switch
         {

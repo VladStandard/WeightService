@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Components.Item;
 using WsDataCore.Enums;
 using WsDataCore.Protocols;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
@@ -11,7 +12,7 @@ using WsStorageCore.TableScaleModels.WorkShops;
 
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
-public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
+public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -27,9 +28,6 @@ public sealed partial class ItemLines : RazorComponentItemBase<WsSqlScaleModel>
     
 	public ItemLines() : base()
 	{
-		SqlCrudConfigItem.IsGuiShowItemsCount = true;
-		SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
-		SqlCrudConfigItem.IsGuiShowFilterMarked = true;
         Device = new();
         DeviceScaleFk = new();
         ComPorts = new();

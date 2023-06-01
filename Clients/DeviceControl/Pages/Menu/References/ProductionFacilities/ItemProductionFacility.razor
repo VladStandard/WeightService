@@ -4,7 +4,7 @@
 @using WsStorageCore.TableScaleModels.ProductionFacilities
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
 
 <ItemTopBar TItem="@WsSqlProductionFacilityModel" Title="@LocaleCore.DeviceControl.ItemProductionFacility" OnItemUpdate="@GetItemData"/>
 

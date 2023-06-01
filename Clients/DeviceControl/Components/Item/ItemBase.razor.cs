@@ -1,14 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using WsBlazorCore.CssStyles;
 using WsBlazorCore.Settings;
-using WsStorageCore.Models;
 
-namespace WsBlazorCore.Razors;
+namespace DeviceControl.Components.Item;
 
-public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
+public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 
@@ -16,15 +15,15 @@ public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : Ws
 	{
 		get => SqlItem is null ? new() : (TItem)SqlItem;
 		set => SqlItem = value;
-	}
+	} 
+    protected ButtonSettingsModel ButtonSettings { get; set; }
     
-    [Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
     [Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
     
-    public RazorComponentItemBase()
+    public ItemBase()
 	{
         CssTableStyleHead = new();
-        ButtonSettings = new(false, false, false, false, false, true, true);
+        ButtonSettings = ButtonSettingsModel.CreateForItem();
     }
 
 	#endregion

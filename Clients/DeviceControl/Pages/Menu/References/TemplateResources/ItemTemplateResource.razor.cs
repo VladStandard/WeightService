@@ -2,13 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorDownloadFile;
+using DeviceControl.Components.Item;
 using WsBlazorCore.Settings;
 using WsDataCore.Enums;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 
 namespace DeviceControl.Pages.Menu.References.TemplateResources;
 
-public sealed partial class ItemTemplateResource : RazorComponentItemBase<WsSqlTemplateResourceModel>
+public sealed partial class ItemTemplateResource : ItemBase<WsSqlTemplateResourceModel>
 {
     #region Public and private fields, properties, constructor
 

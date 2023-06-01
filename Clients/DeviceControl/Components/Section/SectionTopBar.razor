@@ -43,9 +43,6 @@
           Click="@OnSectionAdd"/>
       </AuthorizeView>
     }
-    @if (SqlCrudConfigSection.IsGuiShowItemsCount)
-    {
-      <RadzenLabel Style="margin-left: 20px; font-size: 13px;" Text=@SqlListCountResult/>
-    }
+    <RadzenLabel Style="margin-left: 20px; font-size: 13px;" Text="@SqlListCountResult"/>
   </MudToolBar>
 </MudPaper>

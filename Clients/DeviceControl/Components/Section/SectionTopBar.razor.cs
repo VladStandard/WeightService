@@ -30,7 +30,6 @@ public partial class SectionTopBar : LayoutComponentBase
 
     #region Public and private methods
     
-    
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)

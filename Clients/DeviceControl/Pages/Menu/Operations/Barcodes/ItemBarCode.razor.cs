@@ -1,19 +1,21 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Components.Item;
+using WsBlazorCore.Settings;
 using WsDataCore.Enums;
 using WsStorageCore.TableScaleModels.BarCodes;
 using WsStorageCore.WebApiModels.BarCodes;
 
 namespace DeviceControl.Pages.Menu.Operations.Barcodes;
 
-public sealed partial class ItemBarCode : RazorComponentItemBase<WsSqlBarCodeModel>
+public sealed partial class ItemBarCode : ItemBase<WsSqlBarCodeModel>
 {
     #region Public and private fields, properties, constructor
 
     public ItemBarCode() : base()
     {
-        ButtonSettings = new(false, false, false, false, false, false, true);
+        ButtonSettings = ButtonSettingsModel.CreateForStaticItem();
     }
 
     #endregion

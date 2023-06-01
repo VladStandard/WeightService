@@ -1,18 +1,19 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Components.Section;
 using WsBlazorCore.Settings;
 using WsStorageCore.ViewScaleModels;
 
 namespace DeviceControl.Pages.Menu.Operations.Barcodes;
 
-public sealed partial class BarCodes : RazorComponentSectionBase<BarcodeView>
+public sealed partial class BarCodes : SectionBase<BarcodeView>
 {
     #region Public and private fields, properties, constructor
 
     public BarCodes() : base()
     {
-        ButtonSettings = new ButtonSettingsModel(false, true, true, true, false, false, false);
+        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
 
     #endregion

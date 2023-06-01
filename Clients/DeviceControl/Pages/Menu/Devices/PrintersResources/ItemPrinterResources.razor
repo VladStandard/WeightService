@@ -4,7 +4,7 @@
 @using WsStorageCore.TableScaleFkModels.PrintersResourcesFks
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
+@inherits ItemBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
 
 <ItemTopBar TItem="@WsSqlPrinterResourceFkModel" Title="@LocaleCore.Print.Resource" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">

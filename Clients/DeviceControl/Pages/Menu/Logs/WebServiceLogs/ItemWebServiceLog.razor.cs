@@ -1,17 +1,19 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Components.Item;
+using WsBlazorCore.Settings;
 using WsStorageCore.TableDiagModels.LogsWebsFks;
 
 namespace DeviceControl.Pages.Menu.Logs.WebServiceLogs;
 
-public sealed partial class ItemWebServiceLog : RazorComponentItemBase<WsSqlLogWebFkModel>
+public sealed partial class ItemWebServiceLog : ItemBase<WsSqlLogWebFkModel>
 {
     #region Public and private fields, properties, constructor
 
     public ItemWebServiceLog() : base()
     {
-        ButtonSettings = new(false, false, false, false, false, false, true);
+        ButtonSettings = ButtonSettingsModel.CreateForStaticItem();
     }
 
     #endregion

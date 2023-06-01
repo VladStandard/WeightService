@@ -1,8 +1,10 @@
-﻿using WsStorageCore.ViewScaleModels;
+﻿using DeviceControl.Components.Section;
+using WsBlazorCore.Settings;
+using WsStorageCore.ViewScaleModels;
 
 namespace DeviceControl.Pages.Menu.Logs.WebServiceLogs;
 
-public sealed partial class WebServiceLogs : RazorComponentSectionBase<LogWebView>
+public sealed partial class WebServiceLogs : SectionBase<LogWebView>
 {
     #region Public and private fields, properties, constructor
 
@@ -10,7 +12,7 @@ public sealed partial class WebServiceLogs : RazorComponentSectionBase<LogWebVie
     {
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
-        ButtonSettings = new(false, false, false, false, false, false, false);
+        ButtonSettings = ButtonSettingsModel.CreateEmpty();
     }
 
     #endregion

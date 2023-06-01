@@ -4,7 +4,7 @@
 @using WsStorageCore.TableDiagModels.ScalesScreenshots
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
+@inherits ItemBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
 <ItemTopBar TItem="@WsSqlScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot" OnItemUpdate="@GetItemData"/>
 

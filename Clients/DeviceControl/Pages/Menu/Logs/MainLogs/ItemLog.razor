@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableDiagModels.Logs
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableDiagModels.Logs.WsSqlLogModel>
+@inherits ItemBase<WsStorageCore.TableDiagModels.Logs.WsSqlLogModel>
 
 <ItemTopBar TItem="WsSqlLogModel" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 

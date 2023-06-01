@@ -9,7 +9,6 @@ using Radzen;
 using WsBlazorCore.Settings;
 using WsStorageCore.Helpers;
 using WsStorageCore.Models;
-using WsStorageCore.Utils;
 
 namespace WsBlazorCore.Razors;
 
@@ -51,7 +50,6 @@ public partial class RazorComponentBase : LayoutComponentBase
     }
 
     [Parameter] public string Title { get; set; }
-    [Parameter] public WsSqlCrudConfigModel SqlCrudConfigItem { get; set; }
 
     #endregion
 
@@ -65,7 +63,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		SqlItem = null;
         RazorFieldConfig = new();
-        SqlCrudConfigItem = WsSqlCrudConfigUtils.GetCrudConfigItem(WsSqlIsMarked.ShowAll);
     }
 
     #endregion

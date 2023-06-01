@@ -1,11 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Components.Item;
+using WsBlazorCore.Settings;
 using WsStorageCore.TableScaleFkModels.PlusLabels;
 
 namespace DeviceControl.Pages.Menu.Operations.PlusLabels;
 
-public sealed partial class ItemPluLabel : RazorComponentItemBase<WsSqlPluLabelModel>
+public sealed partial class ItemPluLabel : ItemBase<WsSqlPluLabelModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -13,7 +15,7 @@ public sealed partial class ItemPluLabel : RazorComponentItemBase<WsSqlPluLabelM
 
     public ItemPluLabel() : base()
     {
-        ButtonSettings = new(false, false, false, false, false, false, true);
+        ButtonSettings = ButtonSettingsModel.CreateForStaticItem();
     }
 
     #endregion

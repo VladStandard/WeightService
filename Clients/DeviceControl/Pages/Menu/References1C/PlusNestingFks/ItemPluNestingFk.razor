@@ -3,7 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusNestingFks
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
+@inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
 
 <ItemTopBar TItem="@WsSqlPluNestingFkModel" Title="@LocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
 

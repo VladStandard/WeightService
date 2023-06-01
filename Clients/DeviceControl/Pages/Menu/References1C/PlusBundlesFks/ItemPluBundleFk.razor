@@ -3,7 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusBundlesFks
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
+@inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
 
 <ItemTopBar TItem="@WsSqlPluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk" OnItemUpdate="@GetItemData"/>
 

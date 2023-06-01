@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusWeighingsFks
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.WsSqlPluWeighingModel>
+@inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.WsSqlPluWeighingModel>
 
-<ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>>
+<ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>

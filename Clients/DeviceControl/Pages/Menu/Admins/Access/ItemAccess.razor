@@ -5,7 +5,7 @@
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
 
 <ItemTopBar TItem="@WsSqlAccessModel" Title="@LocaleCore.Strings.AccessRights" OnItemUpdate="@GetItemData"/>
 

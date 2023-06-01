@@ -3,7 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.TemplatesResources
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
 
 <ItemTopBar TItem="@WsSqlTemplateResourceModel" Title="@LocaleCore.DeviceControl.ItemTemplateResource" OnItemUpdate="@GetItemData"/>
 

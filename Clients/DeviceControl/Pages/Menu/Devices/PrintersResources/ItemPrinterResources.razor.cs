@@ -1,13 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Components.Item;
 using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 
 namespace DeviceControl.Pages.Menu.Devices.PrintersResources;
 
-public sealed partial class ItemPrinterResources : RazorComponentItemBase<WsSqlPrinterResourceFkModel>
+public sealed partial class ItemPrinterResources : ItemBase<WsSqlPrinterResourceFkModel>
 {
     #region Public and private fields, properties, constructor
 

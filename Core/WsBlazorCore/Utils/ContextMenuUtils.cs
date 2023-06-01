@@ -3,7 +3,7 @@
 
 namespace WsBlazorCore.Utils;
 
-enum ContextMenuAction
+public enum ContextMenuAction
 {
 	Open,
 	OpenNewTab,

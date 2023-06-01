@@ -3,7 +3,7 @@
 
 namespace DeviceControl.Components.Item;
 
-public partial class ItemTopBar<TItem> : RazorComponentItemBase<TItem> where TItem : WsSqlTableBase, new()
+public partial class ItemTopBar<TItem> : ItemBase<TItem> where TItem : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 

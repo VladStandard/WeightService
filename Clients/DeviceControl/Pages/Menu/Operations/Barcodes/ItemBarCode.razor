@@ -4,7 +4,7 @@
 @using WsStorageCore.TableScaleModels.BarCodes
 @using WsDataCore.Enums
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.BarCodes.WsSqlBarCodeModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.BarCodes.WsSqlBarCodeModel>
 
 <ItemTopBar TItem="@WsSqlBarCodeModel" Title="@LocaleCore.DeviceControl.ItemBarcode" OnItemUpdate="@GetItemData"/>
 

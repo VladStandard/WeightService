@@ -5,7 +5,7 @@
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
 @using DeviceControl.Pages.Menu.Devices.PluScales
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Scales.WsSqlScaleModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.Scales.WsSqlScaleModel>
 
 <ItemTopBar TItem="@WsSqlScaleModel" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
 

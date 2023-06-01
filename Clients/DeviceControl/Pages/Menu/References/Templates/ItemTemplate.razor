@@ -4,7 +4,7 @@
 @using WsStorageCore.TableScaleModels.Templates
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Templates.WsSqlTemplateModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.Templates.WsSqlTemplateModel>
 
 <ItemTopBar TItem="@WsSqlTemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate" OnItemUpdate="@GetItemData"/>
 

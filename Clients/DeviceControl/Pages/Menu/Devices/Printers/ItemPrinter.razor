@@ -4,7 +4,7 @@
 @using WsStorageCore.TableScaleModels.Printers
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
 
 <ItemTopBar TItem="@WsSqlPrinterModel" Title="@LocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
 

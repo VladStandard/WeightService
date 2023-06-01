@@ -4,7 +4,7 @@
 @using WsStorageCore.TableScaleFkModels.PlusLabels
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
-@inherits RazorComponentItemBase<WsStorageCore.TableScaleFkModels.PlusLabels.WsSqlPluLabelModel>
+@inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusLabels.WsSqlPluLabelModel>
 
 <ItemTopBar TItem="@WsSqlPluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
 
