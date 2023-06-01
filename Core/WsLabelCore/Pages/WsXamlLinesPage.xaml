@@ -12,10 +12,7 @@
 	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
 
-	<Border
-		Margin="3"
-		BorderBrush="Blue"
-		BorderThickness="1">
+	<Border BorderBrush="Blue" BorderThickness="1">
 		<Grid x:Name="gridLocal">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="0.5*" />

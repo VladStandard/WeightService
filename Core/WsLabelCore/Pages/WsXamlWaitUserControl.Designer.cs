@@ -1,6 +1,6 @@
-namespace WsLabelCore.Controls;
+namespace WsLabelCore.Pages;
 
-partial class WsFormLinesUserControl
+partial class WsXamlWaitUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -35,7 +35,7 @@ partial class WsFormLinesUserControl
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.BackColor = System.Drawing.Color.Transparent;
-        this.Name = "WsFormLinesUserControl";
+        this.Name = "WsXamlWaitUserControl";
         this.Size = new System.Drawing.Size(900, 500);
         this.ResumeLayout(false);
         this.PerformLayout();

@@ -45,5 +45,11 @@ public sealed partial class WsFormNavigationUserControl : UserControl
         layoutPanelUser.SetColumnSpan(formUserControl, 1);
     }
 
+    /// <summary>
+    /// Задать заголовок.
+    /// </summary>
+    /// <param name="title"></param>
+    public void SetTitle(string title) => MdInvokeControl.SetText(fieldTitle, title);
+
     #endregion
 }

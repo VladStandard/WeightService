@@ -32,19 +32,23 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// WinForms-контрол ожидания.
     /// </summary>
-    public static WsFormWaitUserControl WaitUserControl { get; } = new();
+    public static WsXamlWaitUserControl WaitUserControl { get; } = new();
     /// <summary>
     /// WinForms-контрол диалога.
     /// </summary>
-    public static WsFormDialogUserControl DialogUserControl { get; } = new();
+    public static WsXamlDialogUserControl DialogUserControl { get; } = new();
+    /// <summary>
+    /// WinForms-контрол ввода цифр.
+    /// </summary>
+    public static WsXamlDigitsUserControl DigitsUserControl { get; } = new();
     /// <summary>
     /// WinForms-контрол смены линии.
     /// </summary>
-    public static WsFormLinesUserControl LinesUserControl { get; } = new();
+    public static WsXamlLinesUserControl LinesUserControl { get; } = new();
     /// <summary>
     /// WinForms-контрол замеса.
     /// </summary>
-    public static WsFormKneadingUserControl KneadingUserControl { get; } = new();
+    public static WsXamlKneadingUserControl KneadingUserControl { get; } = new();
     /// <summary>
     /// WinForms-контрол навигации.
     /// </summary>
@@ -52,11 +56,11 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// WinForms-контрол смены плу линии.
     /// </summary>
-    public static WsFormPlusLinesUserControl PlusLineUserControl { get; } = new();
+    public static WsXamlPlusLinesUserControl PlusLineUserControl { get; } = new();
     /// <summary>
     /// WinForms-контрол смены вложенности ПЛУ.
     /// </summary>
-    public static WsFormPlusNestingUserControl PlusNestingUserControl { get; } = new();
+    public static WsXamlPlusNestingUserControl PlusNestingUserControl { get; } = new();
 
     #endregion
 
@@ -129,23 +133,43 @@ public static class WsFormNavigationUtils
     }
 
     /// <summary>
-    /// Навигация в контрол ожидания.
+    /// Навигация в контрол ввода цифр.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="message"></param>
-    public static void NavigateToWaitUserControl(Action<WsFormBaseUserControl, string> showNavigation, string message)
+    /// <param name="isLog"></param>
+    /// <param name="logType"></param>
+    /// <param name="actionCancel"></param>
+    /// <param name="actionYes"></param>
+    public static void NavigateToDigitsUserControl(Action<WsFormBaseUserControl, string> showNavigation,
+        string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
+    {
+        if (isLog) ShowNewOperationControlLogType(message, logType);
+        DigitsUserControl.Page.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
+        showNavigation(DigitsUserControl, LocaleCore.Scales.OperationControl);
+        NavigationUserControl.SwitchUserControl(DigitsUserControl);
+    }
+
+    /// <summary>
+    /// Навигация в контрол ожидания.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    /// <param name="title"></param>
+    /// <param name="message"></param>
+    public static void NavigateToWaitUserControl(Action<WsFormBaseUserControl, string> showNavigation, 
+        string title, string message)
     {
         WaitUserControl.Page.ViewModel.Message = message;
         WaitUserControl.Page.ViewModel.SetupButtonsCustom(message, ActionBackFromNavigation, NavigationUserControl.Width);
-        showNavigation(WaitUserControl, LocaleCore.Scales.AppWait);
+        showNavigation(WaitUserControl, title);
         NavigationUserControl.SwitchUserControl(WaitUserControl);
     }
 
     /// <summary>
-    /// Навигация в контрол замеса.
+    /// Навигация в WinForms-контрол замеса.
     /// </summary>
     /// <param name="showNavigation"></param>
-    public static void NavigateToMoreUserControl(Action<WsFormBaseUserControl, string> showNavigation)
+    public static void NavigateToKneadingUserControl(Action<WsFormBaseUserControl, string> showNavigation)
     {
         KneadingUserControl.Page.ViewModel.UpdateCommandsFromActions();
         KneadingUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
@@ -206,7 +230,7 @@ public static class WsFormNavigationUtils
     {
         if (device.IsNew)
         {
-            // Навигация в контрол сообщений.
+            // Навигация в контрол диалога Отмена/Да.
             NavigateToMessageUserControlCancelYes(showNavigation,
                 LocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
                 false, WsEnumLogType.Information, () => { }, ActionYes);
@@ -246,7 +270,7 @@ public static class WsFormNavigationUtils
         string message = ex.InnerException is null
             ? ex.Message
             : ex.Message + Environment.NewLine + ex.InnerException.Message;
-        // Навигация в контрол сообщений.
+        // Навигация в контрол диалога Ок.
         NavigateToMessageUserControlOk(showNavigation, 
             $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
             $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message, true, WsEnumLogType.Error);

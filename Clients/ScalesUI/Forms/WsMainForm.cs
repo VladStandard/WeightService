@@ -23,7 +23,6 @@ public partial class WsMainForm : Form
     private Button ButtonLine { get; set; }
     private Button ButtonPluNestingFk { get; set; }
     private Button ButtonKneading { get; set; }
-    private Button ButtonMore { get; set; }
     private Button ButtonNewPallet { get; set; }
     private Button ButtonPlu { get; set; }
     private Button ButtonPrint { get; set; }
@@ -49,7 +48,7 @@ public partial class WsMainForm : Form
     #region Public and private methods - MainForm
 
     /// <summary>
-    /// Загрузка фоном.
+    /// Загрузить данные в фоне.
     /// </summary>
     private void MainFormLoadAtBackground()
     {
@@ -101,6 +100,7 @@ public partial class WsMainForm : Form
                 WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(
                     message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
                     ActionBackFromLineNotFound, WsFormNavigationUtils.NavigationUserControl.Width);
+                // Навигация в контрол диалога Ок.
                 WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
                 return;
@@ -112,12 +112,13 @@ public partial class WsMainForm : Form
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
                 WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(message, ActionBackFromDuplicateRun, 
                     WsFormNavigationUtils.NavigationUserControl.Width);
+                // Навигация в контрол диалога Ок.
                 WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
                 ContextManager.ContextItem.SaveLogWarning(message);
                 return;
             }
-            // Навигация в кастом контрол.
-            WsFormNavigationUtils.NavigateToWaitUserControl(ShowFormUserControl, LocaleCore.Scales.AppWaitLoad);
+            // Навигация в контрол ожидания.
+            WsFormNavigationUtils.NavigateToWaitUserControl(ShowFormUserControl,  LocaleCore.Scales.AppLoad, LocaleCore.Scales.AppLoadDescription);
             // Загрузка фоном.
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
@@ -188,7 +189,7 @@ public partial class WsMainForm : Form
     }
 
     /// <summary>
-    /// Загрузка шрифтов.
+    /// Загрузить шрифты.
     /// </summary>
     private void LoadFonts()
     {
@@ -223,25 +224,23 @@ public partial class WsMainForm : Form
         ButtonScalesInit.Font = FontsSettings.FontButtons;
         ButtonNewPallet.Font = FontsSettings.FontButtons;
         ButtonKneading.Font = FontsSettings.FontButtons;
-        ButtonMore.Font = FontsSettings.FontButtons;
         ButtonPrint.Font = FontsSettings.FontButtons;
         ButtonPrint.BackColor = ColorTranslator.FromHtml("#ff7f50");
     }
 
     /// <summary>
-    /// Настройка кнопок.
+    /// Настроить кнопки.
     /// </summary>
     private void SetupButtons()
     {
         ActionSettings = new()
         {
-            // Device.
+            // Устройства.
             IsDevice = true,
             IsPlu = true,
             IsNesting = true,
-            // Actions.
-            IsKneading = false,
-            IsMore = true,
+            // Действия.
+            IsKneading = true,
             IsNewPallet = false,
             IsOrder = LabelSession.Line.IsOrder,
             IsPrint = true,
@@ -253,6 +252,9 @@ public partial class WsMainForm : Form
         CreateButtonsActions();
     }
 
+    /// <summary>
+    /// Создать кнопки устройств.
+    /// </summary>
     private void CreateButtonsDevices()
     {
         TableLayoutPanel layoutPanelDevice = WsFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelDevice),
@@ -286,6 +288,9 @@ public partial class WsMainForm : Form
         WsFormUtils.SetTableLayoutPanelRowStyles(layoutPanelDevice);
     }
 
+    /// <summary>
+    /// Создать кнопки действий.
+    /// </summary>
     private void CreateButtonsActions()
     {
         TableLayoutPanel layoutPanelActions = WsFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelActions),
@@ -327,23 +332,13 @@ public partial class WsMainForm : Form
 
         if (ActionSettings.IsKneading)
         {
-            ButtonKneading =
+            ButtonKneading = 
                 WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonKneading), columnCount++, 0);
             ButtonKneading.Click += ActionKneading;
         }
         else
         {
             ButtonKneading = new();
-        }
-
-        if (ActionSettings.IsMore)
-        {
-            ButtonMore = WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonMore), columnCount++, 0);
-            ButtonMore.Click += ActionMore;
-        }
-        else
-        {
-            ButtonMore = new();
         }
 
         if (ActionSettings.IsPrint)
@@ -374,106 +369,18 @@ public partial class WsMainForm : Form
             ActionPreparePrint(sender, e);
     }
 
-    private void FieldPrintManager_Click(object sender, EventArgs e)
-    {
-        //using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
-        //wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
-        //wpfPageLoader.MessageBoxViewModel.Caption = LocaleCore.Print.InfoCaption;
-        //wpfPageLoader.MessageBoxViewModel.Message = GetPrintInfo(UserSession.PluginPrintMain, true);
-        //if (LabelSession.Scale.IsShipping)
-        //{
-        //    wpfPageLoader.MessageBoxViewModel.Message += Environment.NewLine + Environment.NewLine +
-        //        GetPrintInfo(UserSession.PluginPrintShipping, false);
-        //    wpfPageLoader.Height = 700;
-        //}
-        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonOkVisibility = Visibility.Visible;
-        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonCustomVisibility = Visibility.Visible;
-        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonCustomContent = LocaleCore.Print.ClearQueue;
-        //DialogResult result = wpfPageLoader.ShowDialog(this);
-        //wpfPageLoader.Close();
-        //if (result == DialogResult.Retry)
-        //{
-        //    UserSession.PluginPrintMain.ClearPrintBuffer(1);
-        //    if (LabelSession.Scale.IsShipping)
-        //        UserSession.PluginPrintShipping.ClearPrintBuffer(1);
-        //}
-    }
-
-    //private string GetPrintInfo(WsPluginPrintModel pluginPrint, bool isMain)
-    //{
-    //    string peeler = isMain
-    //        ? LabelSession.PluginPrintMain.ZebraPeelerStatus : LabelSession.PluginPrintShipping.ZebraPeelerStatus;
-    //    string printMode = isMain
-    //        ? LabelSession.PluginPrintMain.GetZebraPrintMode() :
-    //        LabelSession.PluginPrintShipping.GetZebraPrintMode();
-    //    PrintBrand printBrand = isMain ? LabelSession.PluginPrintMain.PrintBrand : LabelSession.PluginPrintShipping.PrintBrand;
-    //    MdWmiWinPrinterModel wmiPrinter = pluginPrint.TscWmiPrinter;
-    //    return
-    //        $"{LabelSession.WeighingSettings.GetPrintName(isMain, printBrand)}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.DeviceCommunication} ({pluginPrint.Printer.Ip}): {pluginPrint.Printer.PingStatus}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.PrinterStatus}: {pluginPrint.GetDeviceStatus()}" + Environment.NewLine +
-    //        Environment.NewLine +
-    //        $"{LocaleCore.Print.Name}: {wmiPrinter.Name}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.Driver}: {wmiPrinter.DriverName}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.Port}: {wmiPrinter.PortName}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.StateCode}: {wmiPrinter.PrinterState}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.StatusCode}: {wmiPrinter.PrinterStatus}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.Status}: {pluginPrint.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.State} (ENG): {wmiPrinter.Status}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.State}: {MdWmiHelper.Instance.GetStatusDescription(
-    //            LocaleCore.Lang == Lang.English ? MDSoft.Wmi.Enums.MdLang.English : MDSoft.Wmi.Enums.MdLang.Russian, wmiPrinter.Status)}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +
-    //        $"{LocaleCore.Print.Mode}: {printMode}" + Environment.NewLine;
-    //}
-
-    private void FieldSscc_Click(object sender, EventArgs e)
-    {
-        //using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
-        //wpfPageLoader.Text = LocaleCore.Scales.FieldSsccShort;
-        //wpfPageLoader.MessageBoxViewModel.Caption = LocaleCore.Scales.FieldSscc;
-        //wpfPageLoader.MessageBoxViewModel.Message =
-        //    $"{LocaleCore.Scales.FieldSscc}: {UserSession.ProductSeries.Sscc.Sscc}" + Environment.NewLine +
-        //    $"{LocaleCore.Scales.FieldSsccGln}: {UserSession.ProductSeries.Sscc.Gln}" + Environment.NewLine +
-        //    $"{LocaleCore.Scales.FieldSsccUnitId}: {UserSession.ProductSeries.Sscc.UnitId}" + Environment.NewLine +
-        //    $"{LocaleCore.Scales.FieldSsccUnitType}: {UserSession.ProductSeries.Sscc.UnitType}" + Environment.NewLine +
-        //    $"{LocaleCore.Scales.Field•SsccSynonym}: {UserSession.ProductSeries.Sscc.SynonymSscc}" + Environment.NewLine +
-        //    $"{LocaleCore.Scales.FieldSsccControlNumber}: {UserSession.ProductSeries.Sscc.Check}";
-        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonOkVisibility = Visibility.Visible;
-        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.Localization();
-        //wpfPageLoader.ShowDialog(this);
-        //wpfPageLoader.Close();
-    }
-
-    private void FieldTasks_Click(object sender, EventArgs e)
-    {
-        //string message = string.Empty;
-        //foreach (ProcessThread thread in Process.GetCurrentProcess().Threads)
-        //{
-        //    message += $"{LocaleCore.Scales.ThreadId}: {thread.Id}. " +
-        //        $"{LocaleCore.Scales.ThreadPriorityLevel}: {thread.PriorityLevel}. " +
-        //        $"{LocaleCore.Scales.ThreadState}: {thread.ThreadState}. " +
-        //        $"{LocaleCore.Scales.ThreadStartTime}: {thread.StartTime}. " + Environment.NewLine;
-        //}
-        //using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog,
-        //    20, 14, 18, 0, 12)
-        //{ Width = Width - 50, Height = Height - 50 };
-        //wpfPageLoader.Text = $@"{LocaleCore.Scales.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}";
-        //wpfPageLoader.MessageBoxViewModel.Message = message;
-        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.ButtonOkVisibility = Visibility.Visible;
-        //wpfPageLoader.MessageBoxViewModel.ButtonVisibility.Localization();
-        //wpfPageLoader.ShowDialog(this);
-        //wpfPageLoader.Close();
-    }
-
+    /// <summary>
+    /// Загрузить локализацию.
+    /// </summary>
+    /// <param name="lang"></param>
     private void LoadLocalizationStatic(Lang lang)
     {
         LocaleCore.Lang = LocaleData.Lang = lang;
         MdInvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
         MdInvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
         MdInvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
-        MdInvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
+        MdInvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonSetKneading);
         MdInvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonPlu);
-        MdInvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
         MdInvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
         MdInvokeControl.SetText(labelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
         MdInvokeControl.SetText(labelPackageWeight, LocaleCore.Scales.FieldWeightTare);

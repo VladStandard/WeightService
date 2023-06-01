@@ -17,6 +17,10 @@ public enum WsEnumNavigationPage
     /// </summary>
     Dialog,
     /// <summary>
+    /// Ввод цифр.
+    /// </summary>
+    Digit,
+    /// <summary>
     /// Смена замеса.
     /// </summary>
     Kneading,

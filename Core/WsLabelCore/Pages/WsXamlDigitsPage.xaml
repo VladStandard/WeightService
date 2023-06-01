@@ -1,5 +1,5 @@
 <common:WsXamlBasePage
-	x:Class="WsLabelCore.Pages.WsXamlPinCodePage"
+	x:Class="WsLabelCore.Pages.WsXamlDigitsPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:common="clr-namespace:WsLabelCore.Common"
@@ -12,10 +12,7 @@
 	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
 
-	<Border
-		Margin="3"
-		BorderBrush="Blue"
-		BorderThickness="1">
+	<Border BorderBrush="Blue" BorderThickness="1">
 		<Grid x:Name="gridLocal">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*" />

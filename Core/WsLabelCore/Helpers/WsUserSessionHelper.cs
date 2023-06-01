@@ -320,7 +320,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     {
         if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
         if (PluginMassa.WeightNet > 0) return;
-        // Навигация в контрол сообщений.
+        // Навигация в контрол диалога Отмена/Да.
         WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation, LocaleCore.Print.QuestionUseFakeData,
             true, WsEnumLogType.Question, () => { }, ActionYes);
         void ActionYes()
@@ -355,7 +355,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             // Send cmd to the print.
             if (Debug.IsDevelop)
             {
-                // Навигация в контрол сообщений.
+                // Навигация в контрол диалога Отмена/Да.
                 WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation,
                     LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
                     () => { }, ActionYes);

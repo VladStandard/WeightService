@@ -10,7 +10,6 @@ public class ActionSettingsModel
 	public bool IsDevice { get; set; }
 	public bool IsNesting { get; set; }
 	public bool IsKneading { get; set; }
-	public bool IsMore { get; set; }
 	public bool IsNewPallet { get; set; }
 	public bool IsOrder { get; set; }
 	public bool IsPlu { get; set; }
@@ -27,7 +26,6 @@ public class ActionSettingsModel
 		IsDevice = false;
 		IsNesting = false;
 		IsKneading = false;
-		IsMore = false;
 		IsNewPallet = false;
 		IsOrder = false;
 		IsPlu = false;

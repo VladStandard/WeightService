@@ -4,15 +4,15 @@
 namespace WsLabelCore.ViewModels;
 
 /// <summary>
-/// Модель представления пин кода.
+/// XAML модель представления ввода цифр.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsXamlPinCodeViewModel : WsXamlBaseViewModel, IWsViewModel
+public class WsXamlDigitsViewModel : WsXamlBaseViewModel, IWsViewModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsXamlPinCodeViewModel()
+    public WsXamlDigitsViewModel()
     {
         FormUserControl = WsEnumNavigationPage.PinCode;
     }

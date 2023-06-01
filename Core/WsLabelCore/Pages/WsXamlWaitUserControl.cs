@@ -1,18 +1,18 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsLabelCore.Controls;
+namespace WsLabelCore.Pages;
 
 /// <summary>
-/// WinForms-контрол диалога.
+/// WinForms-контрол ожидания.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormDialogUserControl : WsFormBaseUserControl, IWsFormUserControl
+public partial class WsXamlWaitUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormDialogUserControl() : base(WsEnumNavigationPage.Dialog)
+    public WsXamlWaitUserControl() : base(WsEnumNavigationPage.Wait)
     {
         InitializeComponent();
     }
@@ -27,8 +27,8 @@ public sealed partial class WsFormDialogUserControl : WsFormBaseUserControl, IWs
     /// Обновить контрол.
     /// </summary>
     public void SetupUserConrol() =>
-        ((WsXamlDialogPage)Page).SetupViewModel(Page.ViewModel is not WsXamlDialogViewModel
-            ? new WsXamlDialogViewModel() : Page.ViewModel);
+        ((WsXamlWaitPage)Page).SetupViewModel(Page.ViewModel is not WsXamlWaitViewModel
+            ? new WsXamlWaitViewModel() : Page.ViewModel);
 
     #endregion
 }

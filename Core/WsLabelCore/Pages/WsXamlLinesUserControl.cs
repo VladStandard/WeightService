@@ -1,18 +1,18 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsLabelCore.Controls;
+namespace WsLabelCore.Pages;
 
 /// <summary>
-/// WinForms-контрол ожидания.
+/// WinForms-контрол смены линии.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public partial class WsFormWaitUserControl : WsFormBaseUserControl, IWsFormUserControl
+public sealed partial class WsXamlLinesUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Public and private fields, properties, constructor
 
-    public WsFormWaitUserControl() : base(WsEnumNavigationPage.Wait)
+    public WsXamlLinesUserControl() : base(WsEnumNavigationPage.Line)
     {
         InitializeComponent();
     }
@@ -27,8 +27,8 @@ public partial class WsFormWaitUserControl : WsFormBaseUserControl, IWsFormUserC
     /// Обновить контрол.
     /// </summary>
     public void SetupUserConrol() =>
-        ((WsXamlWaitPage)Page).SetupViewModel(Page.ViewModel is not WsXamlWaitViewModel
-            ? new WsXamlWaitViewModel() : Page.ViewModel);
+        ((WsXamlLinesPage)Page).SetupViewModel(Page.ViewModel is not WsXamlLinesViewModel
+            ? new WsXamlLinesViewModel() : Page.ViewModel);
 
     #endregion
 }

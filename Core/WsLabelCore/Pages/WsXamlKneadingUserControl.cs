@@ -3,14 +3,14 @@
 
 using System.Windows.Forms;
 
-namespace WsLabelCore.Controls;
+namespace WsLabelCore.Pages;
 
 /// <summary>
 /// WinForms-контрол замеса.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormKneadingUserControl : WsFormBaseUserControl, IWsFormUserControl
+public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Private fields and properties
 
@@ -19,7 +19,7 @@ public sealed partial class WsFormKneadingUserControl : WsFormBaseUserControl, I
     private byte SavePalletSize { get; }
     private Guid PreviousPluScaleUid { get; set; } = Guid.Empty;
 
-    public WsFormKneadingUserControl() : base(WsEnumNavigationPage.Kneading)
+    public WsXamlKneadingUserControl() : base(WsEnumNavigationPage.Kneading)
     {
         InitializeComponent();
 
@@ -65,7 +65,7 @@ public sealed partial class WsFormKneadingUserControl : WsFormBaseUserControl, I
     {
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            WsFormNumberInput numberInputForm = new() { InputValue = 0 };
+            WsFormDigitsForm numberInputForm = new() { InputValue = 0 };
             DialogResult result = numberInputForm.ShowDialog(this);
             numberInputForm.Close();
             numberInputForm.Dispose();

@@ -3,20 +3,16 @@
 
 using System.Windows.Forms;
 
-namespace WsLabelCore.Forms;
+namespace WsLabelCore.Controls;
 
-public sealed partial class WsFormNumberInput : Form
+public sealed partial class WsFormDigitsForm : Form
 {
     #region Public and private fields, properties, constructor
 
     private int _inputValueShadow;
     public int InputValue { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public WsFormNumberInput()
+    public WsFormDigitsForm()
     {
         InitializeComponent();
     }

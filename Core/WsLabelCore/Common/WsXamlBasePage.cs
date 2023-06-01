@@ -111,7 +111,7 @@ public class WsXamlBasePage : UserControl, IWsXamlPage
         if (grid.Children.Contains(ItemsControlMain))
         {
             grid.Children.Remove(ItemsControlMain);
-            ItemsControlMain = new() { Margin = new(2) };
+            ItemsControlMain = new() { Margin = new(5) };
             ButtonFactoryMain = new(typeof(Button));
             StackPanelFactory = new(typeof(StackPanel));
         }

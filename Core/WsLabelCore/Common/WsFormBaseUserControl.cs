@@ -28,7 +28,7 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     {
         InitializeComponent();
         ElementHost = new() { Dock = DockStyle.Fill };
-        Page = new WsXamlBasePage();
+        Page = new();
     }
 
     protected WsFormBaseUserControl(WsEnumNavigationPage formUserControl)
@@ -41,19 +41,23 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
                 Page = new WsXamlDialogPage();
                 SetupElementHost();
                 break;
+            case WsEnumNavigationPage.Digit:
+                Page = new WsXamlDigitsPage();
+                SetupElementHost();
+                break;
             case WsEnumNavigationPage.Line:
                 Page = new WsXamlLinesPage();
                 SetupElementHost();
                 break;
             case WsEnumNavigationPage.Kneading:
-                Page = new WsXamlBasePage();
+                Page = new();
                 break;
             case WsEnumNavigationPage.PinCode:
-                Page = new WsXamlPinCodePage();
+                Page = new WsXamlDigitsPage();
                 SetupElementHost();
                 break;
             case WsEnumNavigationPage.PlusLine:
-                Page = new WsXamlBasePage();
+                Page = new();
                 break;
             case WsEnumNavigationPage.PlusNesting:
                 Page = new WsXamlPlusNestingPage();

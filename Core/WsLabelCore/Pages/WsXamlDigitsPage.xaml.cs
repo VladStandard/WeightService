@@ -9,11 +9,11 @@ namespace WsLabelCore.Pages;
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
 #nullable enable
-public partial class WsXamlPinCodePage
+public partial class WsXamlDigitsPage
 {
     #region Public and private fields, properties, constructor
 
-    public WsXamlPinCodePage()
+    public WsXamlDigitsPage()
     {
         InitializeComponent();
     }
@@ -29,8 +29,8 @@ public partial class WsXamlPinCodePage
     /// </summary>
     public void SetupViewModel(IWsViewModel viewModel)
     {
-        if (viewModel is not WsXamlPinCodeViewModel pinCodeViewModel) return;
-        base.SetupViewModel(pinCodeViewModel, gridLocal);
+        if (viewModel is not WsXamlDigitsViewModel digitsViewModel) return;
+        base.SetupViewModel(digitsViewModel, gridLocal);
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {

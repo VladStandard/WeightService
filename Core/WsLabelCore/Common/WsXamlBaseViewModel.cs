@@ -182,7 +182,7 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
     /// Настройка ширины кнопок.
     /// </summary>
     /// <param name="controlWidth"></param>
-    public void SetupButtonsWidth(int controlWidth) => ButtonWidth = !Commands.Any() ? controlWidth - 22 : controlWidth / Commands.Count - 22;
+    public void SetupButtonsWidth(int controlWidth) => ButtonWidth = !Commands.Any() ? controlWidth - 15 : controlWidth / Commands.Count - 15;
 
     /// <summary>
     /// Настройка кнопок Отмена/Да.

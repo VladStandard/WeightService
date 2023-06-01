@@ -1,6 +1,6 @@
-namespace WsLabelCore.Controls;
+namespace WsLabelCore.Pages;
 
-partial class WsFormPlusNestingUserControl
+partial class WsXamlDigitsUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -35,7 +35,7 @@ partial class WsFormPlusNestingUserControl
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.BackColor = System.Drawing.Color.Transparent;
-        this.Name = "WsFormPlusNestingUserControl";
+        this.Name = "WsXamlDigitsUserControl";
         this.Size = new System.Drawing.Size(900, 500);
         this.ResumeLayout(false);
         this.PerformLayout();

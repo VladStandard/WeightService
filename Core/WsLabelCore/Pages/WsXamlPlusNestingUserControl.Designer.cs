@@ -1,6 +1,6 @@
-namespace WsLabelCore.Controls;
+namespace WsLabelCore.Pages;
 
-partial class WsFormWaitUserControl
+partial class WsXamlPlusNestingUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -35,7 +35,7 @@ partial class WsFormWaitUserControl
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.BackColor = System.Drawing.Color.Transparent;
-        this.Name = "WsFormWaitUserControl";
+        this.Name = "WsXamlPlusNestingUserControl";
         this.Size = new System.Drawing.Size(900, 500);
         this.ResumeLayout(false);
         this.PerformLayout();
