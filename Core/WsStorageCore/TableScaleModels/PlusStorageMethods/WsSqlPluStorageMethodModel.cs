@@ -41,7 +41,7 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(MinTemp)}: {MinTemp}. " +
         $"{nameof(MaxTemp)}: {MaxTemp}.";

@@ -41,7 +41,7 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Plu)}: {Plu.Name}. " +
         $"{nameof(Clip)}: {Clip.Name}. ";
 

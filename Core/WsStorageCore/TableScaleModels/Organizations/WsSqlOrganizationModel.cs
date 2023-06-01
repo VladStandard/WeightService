@@ -37,7 +37,7 @@ public class WsSqlOrganizationModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Description)}: {Description}. " +
         $"{nameof(Gln)}: {Gln}. ";
 

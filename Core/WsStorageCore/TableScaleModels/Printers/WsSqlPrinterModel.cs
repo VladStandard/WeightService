@@ -67,7 +67,7 @@ public class WsSqlPrinterModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(PrinterType)}: {PrinterType}. " +
         $"{nameof(MacAddress)}: {MacAddress}. " +
         $"{nameof(PeelOffSet)}: {PeelOffSet}. " +

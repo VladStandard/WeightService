@@ -40,7 +40,7 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Printer)}: {Printer}. " +
         $"{nameof(TemplateResource)}: {TemplateResource}. ";
 

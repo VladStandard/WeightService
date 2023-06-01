@@ -42,7 +42,7 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Device)}: {Device}. " +
         $"{nameof(Type)}: {Type}. ";
 

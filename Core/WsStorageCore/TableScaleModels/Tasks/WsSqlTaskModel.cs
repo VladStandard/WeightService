@@ -43,7 +43,8 @@ public class WsSqlTaskModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
+        $"{GetIsMarked()} | " +
         $"{nameof(TaskType)}: {TaskType}. " +
         $"{nameof(Scale)}: {Scale}. " +
         $"{nameof(Enabled)}: {Enabled}. ";

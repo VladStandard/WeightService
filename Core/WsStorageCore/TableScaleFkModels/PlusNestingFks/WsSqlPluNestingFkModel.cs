@@ -61,7 +61,7 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
 
     public override string ToString() =>
         $"{nameof(IdentityValueUid)}: {IdentityValueUid}. " +
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Box)}: {Box.Name}. " +
         $"{nameof(PluBundle.Plu)}: {PluBundle.Plu.Code}. " +
         $"{nameof(PluBundle)}: {PluBundle.Bundle.Name}. " +

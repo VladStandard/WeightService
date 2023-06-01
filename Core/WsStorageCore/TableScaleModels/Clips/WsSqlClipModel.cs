@@ -34,7 +34,7 @@ public class WsSqlClipModel : WsSqlTable1CBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Weight)}: {Weight}. ";
 

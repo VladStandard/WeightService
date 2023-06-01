@@ -35,7 +35,7 @@ public class WsSqlAppModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Name)}: {Name}. ";
 
     public override bool Equals(object obj)
