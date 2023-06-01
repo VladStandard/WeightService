@@ -87,19 +87,25 @@ public static class WsFormNavigationUtils
     }
 
     /// <summary>
-    /// Навигация в контрол линии.
+    /// Навигация в WinForms-контрол смены линии.
     /// </summary>
     /// <param name="showNavigation"></param>
     public static void NavigateToLinesUserControl(Action<WsFormBaseUserControl, string> showNavigation)
     {
+        // Загрузка из сесси пользователя.
+        ((WsXamlLinesViewModel)LinesUserControl.Page.ViewModel).Areas = LabelSession.ContextCache.Areas;
+        ((WsXamlLinesViewModel)LinesUserControl.Page.ViewModel).Lines = LabelSession.ContextCache.Lines;
+        ((WsXamlLinesViewModel)LinesUserControl.Page.ViewModel).Area = LabelSession.Area;
+        ((WsXamlLinesViewModel)LinesUserControl.Page.ViewModel).Line = LabelSession.Line;
+
         LinesUserControl.Page.ViewModel.UpdateCommandsFromActions();
-        LinesUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        LinesUserControl.Page.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
         showNavigation(LinesUserControl, LocaleCore.Scales.SwitchLineTitle);
         NavigationUserControl.SwitchUserControl(LinesUserControl);
     }
 
     /// <summary>
-    /// Навигация в контрол диалога Отмена/Да.
+    /// Навигация в WinForms-контрол диалога Отмена/Да.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="message"></param>
@@ -117,7 +123,7 @@ public static class WsFormNavigationUtils
     }
 
     /// <summary>
-    /// Навигация в контрол диалога Ок.
+    /// Навигация в WinForms-контрол диалога Ок.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="message"></param>
@@ -133,7 +139,7 @@ public static class WsFormNavigationUtils
     }
 
     /// <summary>
-    /// Навигация в контрол ввода цифр.
+    /// Навигация в WinForms-контрол ввода цифр.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="message"></param>
@@ -151,7 +157,7 @@ public static class WsFormNavigationUtils
     }
 
     /// <summary>
-    /// Навигация в контрол ожидания.
+    /// Навигация в WinForms-контрол ожидания.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="title"></param>
@@ -178,7 +184,7 @@ public static class WsFormNavigationUtils
     }
 
     /// <summary>
-    /// Навигация в контрол смены ПЛУ линии.
+    /// Навигация в WinForms-контрол смены ПЛУ линии.
     /// </summary>
     /// <param name="showNavigation"></param>
     public static void NavigateToPlusLineUserControl(Action<WsFormBaseUserControl, string> showNavigation)
@@ -190,13 +196,18 @@ public static class WsFormNavigationUtils
     }
 
     /// <summary>
-    /// Навигация в контрол смены вложенности ПЛУ.
+    /// Навигация в WinForms-контрол смены вложенности ПЛУ.
     /// </summary>
     /// <param name="showNavigation"></param>
     public static void NavigateToPlusNestingUserControl(Action<WsFormBaseUserControl, string> showNavigation)
     {
+        // Загрузка из сесси пользователя.
+        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.Page.ViewModel).PlusNestings = 
+            LabelSession.ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);
+        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.Page.ViewModel).PluNesting = LabelSession.ViewPluNesting;
+
         PlusNestingUserControl.Page.ViewModel.UpdateCommandsFromActions();
-        PlusNestingUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        PlusNestingUserControl.Page.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
         showNavigation(PlusNestingUserControl, LocaleCore.Scales.SwitchPluNestingTitle);
         NavigationUserControl.SwitchUserControl(PlusNestingUserControl);
     }
@@ -230,7 +241,7 @@ public static class WsFormNavigationUtils
     {
         if (device.IsNew)
         {
-            // Навигация в контрол диалога Отмена/Да.
+            // Навигация в WinForms-контрол диалога Отмена/Да.
             NavigateToMessageUserControlCancelYes(showNavigation,
                 LocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
                 false, WsEnumLogType.Information, () => { }, ActionYes);
@@ -270,7 +281,7 @@ public static class WsFormNavigationUtils
         string message = ex.InnerException is null
             ? ex.Message
             : ex.Message + Environment.NewLine + ex.InnerException.Message;
-        // Навигация в контрол диалога Ок.
+        // Навигация в WinForms-контрол диалога Ок.
         NavigateToMessageUserControlOk(showNavigation, 
             $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
             $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message, true, WsEnumLogType.Error);

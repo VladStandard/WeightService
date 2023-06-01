@@ -99,7 +99,7 @@ public partial class WsMainForm : Form
                 string message = LocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
                 WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(
                     message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
-                    ActionBackFromLineNotFound, WsFormNavigationUtils.NavigationUserControl.Width);
+                    ActionExit, WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
                 WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
@@ -110,7 +110,7 @@ public partial class WsMainForm : Form
             if (!isCreatedNew)
             {
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
-                WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(message, ActionBackFromDuplicateRun, 
+                WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(message, ActionExit, 
                     WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
                 WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
@@ -134,9 +134,7 @@ public partial class WsMainForm : Form
         });
     }
 
-    private static void ActionBackFromLineNotFound() => System.Windows.Forms.Application.Exit();
-
-    private static void ActionBackFromDuplicateRun() => System.Windows.Forms.Application.Exit();
+    private static void ActionExit() => System.Windows.Forms.Application.Exit();
 
     private void LoadMainControls()
     {

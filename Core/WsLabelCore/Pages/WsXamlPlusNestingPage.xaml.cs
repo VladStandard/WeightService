@@ -58,7 +58,7 @@ public partial class WsXamlPlusNestingPage
                 new Binding(nameof(LocaleCore.Table.Plu)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
             labelPluValue.DataContext = plusNestingViewModel;
             labelPluValue.SetBinding(ContentProperty,
-                new Binding(nameof(plusNestingViewModel.PluNesting.PluName))
+                new Binding(nameof(plusNestingViewModel.PluNesting.PluNumberName))
                 {
                     Mode = BindingMode.OneWay,
                     Source = plusNestingViewModel.PluNesting

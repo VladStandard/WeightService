@@ -36,9 +36,6 @@ public partial class WsXamlLinesPage
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            //viewModel.Area = LabelSession.Area;
-            //viewModel.Line = LabelSession.Line;
-
             // Площадки.
             comboBoxArea.SetBinding(ItemsControl.ItemsSourceProperty,
                 new Binding(nameof(linesViewModel.Areas)) { Mode = BindingMode.OneWay, Source = linesViewModel });
@@ -64,7 +61,7 @@ public partial class WsXamlLinesPage
                 new Binding($"{nameof(linesViewModel.Line.NumberWithDescription)}")
                 {
                     Mode = BindingMode.OneWay,
-                    Source = linesViewModel
+                    Source = linesViewModel.Line
                 });
             comboBoxLine.DisplayMemberPath = nameof(linesViewModel.Line.NumberWithDescription);
             comboBoxLine.SelectedValuePath = nameof(linesViewModel.Line.NumberWithDescription);

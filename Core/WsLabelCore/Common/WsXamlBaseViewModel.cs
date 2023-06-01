@@ -54,10 +54,16 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
     public ObservableCollection<WsActionCommandModel> Commands { get; private set; } = new();
 
     /// <summary>
-    /// Список команд.
+    /// Список команд без кастом.
     /// </summary>
     public ObservableCollection<WsActionCommandModel> CommandsWithoutCustom => 
         new(Commands.Where(item => !item.Equals(CmdCustom)));
+
+    /// <summary>
+    /// Список видимых команд без кастом.
+    /// </summary>
+    public ObservableCollection<WsActionCommandModel> CommandsSmart => 
+        new(Commands.Where(item => !item.Equals(CmdCustom) && item.Visibility.Equals(Visibility.Visible)));
 
     /// <summary>
     /// Ширина кнопки.
@@ -114,6 +120,7 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
     /// <param name="actionOk"></param>
     private void AddActionsOk(Action actionOk)
     {
+        HideCommandsVisibility();
         CmdOk.AddAction(actionOk);
         CmdOk.Visibility = Visibility.Visible;
         UpdateCommandsFromActions();
@@ -125,6 +132,7 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
     /// <param name="actionCustom"></param>
     private void AddActionsCustom(Action actionCustom)
     {
+        HideCommandsVisibility();
         CmdCustom.AddAction(actionCustom);
         CmdCustom.Visibility = Visibility.Hidden;
         UpdateCommandsFromActions();
@@ -137,11 +145,38 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
     /// <param name="actionYes"></param>
     private void AddActionsCancelYes(Action actionCancel, Action actionYes)
     {
+        HideCommandsVisibility();
         CmdCancel.AddAction(actionCancel);
         CmdCancel.Visibility = Visibility.Visible;
         CmdYes.AddAction(actionYes);
         CmdYes.Visibility = Visibility.Visible;
         UpdateCommandsFromActions();
+    }
+
+    /// <summary>
+    /// Настройка действий Отмена/Да.
+    /// </summary>
+    private void AddActionsCancelYes()
+    {
+        HideCommandsVisibility();
+        CmdCancel.Visibility = Visibility.Visible;
+        CmdYes.Visibility = Visibility.Visible;
+        UpdateCommandsFromActions();
+    }
+
+    /// <summary>
+    /// Скрыть видимость команд.
+    /// </summary>
+    private void HideCommandsVisibility()
+    {
+        CmdAbort.Visibility = Visibility.Hidden;
+        CmdCancel.Visibility = Visibility.Hidden;
+        CmdCustom.Visibility = Visibility.Hidden;
+        CmdIgnore.Visibility = Visibility.Hidden;
+        CmdNo.Visibility = Visibility.Hidden;
+        CmdOk.Visibility = Visibility.Hidden;
+        CmdRetry.Visibility = Visibility.Hidden;
+        CmdYes.Visibility = Visibility.Hidden;
     }
 
     /// <summary>
@@ -198,6 +233,17 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
         actionCancel += actionBack;
         actionYes += actionBack;
         AddActionsCancelYes(actionCancel, actionYes);
+        SetupButtonsWidth(controlWidth);
+    }
+
+    /// <summary>
+    /// Настройка кнопок Отмена/Да.
+    /// </summary>
+    /// <param name="controlWidth"></param>
+    public void SetupButtonsCancelYes(int controlWidth)
+    {
+        Message = string.Empty;
+        AddActionsCancelYes();
         SetupButtonsWidth(controlWidth);
     }
 

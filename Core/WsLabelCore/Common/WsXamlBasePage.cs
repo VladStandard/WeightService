@@ -118,11 +118,12 @@ public class WsXamlBasePage : UserControl, IWsXamlPage
 
         // Привязки.
         ItemsControlMain.SetBinding(ItemsControl.ItemsSourceProperty,
-            new Binding(nameof(ViewModel.CommandsWithoutCustom)) { Mode = BindingMode.OneWay, Source = ViewModel });
+            new Binding(nameof(ViewModel.CommandsSmart)) { Mode = BindingMode.OneWay, Source = ViewModel });
         ButtonFactoryMain.SetBinding(WidthProperty,
             new Binding(nameof(ViewModel.ButtonWidth)) { Mode = BindingMode.OneWay, Source = ViewModel });
         ButtonFactoryMain.SetBinding(ButtonBase.CommandProperty, new Binding(nameof(WsActionCommandModel.Cmd)));
         ButtonFactoryMain.SetBinding(ContentProperty, new Binding(nameof(WsActionCommandModel.Content)));
+        ButtonFactoryMain.SetBinding(VisibilityProperty, new Binding(nameof(WsActionCommandModel.Visibility)));
 
         Grid.SetRow(ItemsControlMain, row);
         Grid.SetColumn(ItemsControlMain, column);

@@ -37,6 +37,8 @@ public partial class WsMainForm
     {
         // WinForms-контрол диалога.
         WsFormNavigationUtils.DialogUserControl.SetupUserConrol();
+        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdOk.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdOk.AddAction(ActionFinally);
         WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
         WsFormNavigationUtils.DialogUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
@@ -113,7 +115,7 @@ public partial class WsMainForm
         LabelSession.NewPallet();
         MdInvokeControl.SetVisible(labelNettoWeight, LabelSession.PluLine.Plu.IsCheckWeight);
         MdInvokeControl.SetVisible(fieldNettoWeight, LabelSession.PluLine.Plu.IsCheckWeight);
-        ActionMore(null, null);
+        ActionKneading(null, null);
     }
 
     /// <summary>
@@ -143,7 +145,7 @@ public partial class WsMainForm
         LabelSession.SetSessionForLabelPrint(ShowFormUserControl,
             ((WsXamlLinesViewModel)WsFormNavigationUtils.LinesUserControl.Page.ViewModel).Line.IdentityValueId,
             ((WsXamlLinesViewModel)WsFormNavigationUtils.LinesUserControl.Page.ViewModel).Area);
-        ActionMore(null, null);
+        ActionKneading(null, null);
     }
 
     /// <summary>
@@ -151,7 +153,7 @@ public partial class WsMainForm
     /// </summary>
     private void ReturnCancelFromLines()
     {
-        ActionMore(null, null);
+        ActionKneading(null, null);
     }
 
     #endregion
@@ -448,20 +450,6 @@ public partial class WsMainForm
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void ActionKneading(object sender, EventArgs e)
-    {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
-        {
-            // Навигация в WinForms-контрол замеса.
-            WsFormNavigationUtils.NavigateToKneadingUserControl(ShowFormUserControl);
-        });
-    }
-
-    /// <summary>
-    /// Ещё.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionMore(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {

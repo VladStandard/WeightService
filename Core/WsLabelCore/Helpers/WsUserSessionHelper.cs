@@ -26,7 +26,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     public WsPluginMassaHelper PluginMassa => WsPluginMassaHelper.Instance;
     public WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
     private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public Stopwatch StopwatchMain { get; set; } = new();
     
     #endregion

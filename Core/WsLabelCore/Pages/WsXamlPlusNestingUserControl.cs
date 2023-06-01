@@ -26,17 +26,9 @@ public sealed partial class WsXamlPlusNestingUserControl : WsFormBaseUserControl
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public void SetupUserConrol()
-    {
+    public void SetupUserConrol() =>
         ((WsXamlPlusNestingPage)Page).SetupViewModel(Page.ViewModel is not WsXamlPlusNestingViewModel 
             ? new WsXamlPlusNestingViewModel() : Page.ViewModel);
-
-        WsFormNavigationUtils.ActionTryCatch(() =>
-        {
-            ((WsXamlPlusNestingViewModel)Page.ViewModel).PluNesting = LabelSession.ViewPluNesting;
-            ((WsXamlPlusNestingViewModel)Page.ViewModel).PlusNestings = ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);
-        });
-    }
 
     #endregion
 }

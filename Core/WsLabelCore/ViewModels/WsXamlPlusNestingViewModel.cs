@@ -12,14 +12,12 @@ public sealed class WsXamlPlusNestingViewModel : WsXamlBaseViewModel, IWsViewMod
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlViewPluNestingModel PluNesting { get; set; }
-    public List<WsSqlViewPluNestingModel> PlusNestings { get; set; }
+    public WsSqlViewPluNestingModel PluNesting { get; set; } = new();
+    public List<WsSqlViewPluNestingModel> PlusNestings { get; set; } = new();
 
     public WsXamlPlusNestingViewModel()
     {
         FormUserControl = WsEnumNavigationPage.PlusNesting;
-        PluNesting = new();
-        PlusNestings = ContextCache.ViewPlusNesting;
     }
 
     #endregion

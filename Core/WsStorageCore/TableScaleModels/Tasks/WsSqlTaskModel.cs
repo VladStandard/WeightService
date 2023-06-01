@@ -44,7 +44,6 @@ public class WsSqlTaskModel : WsSqlTableBase
 
     public override string ToString() =>
         $"{GetIsMarked()} | " +
-        $"{GetIsMarked()} | " +
         $"{nameof(TaskType)}: {TaskType}. " +
         $"{nameof(Scale)}: {Scale}. " +
         $"{nameof(Enabled)}: {Enabled}. ";
