@@ -230,9 +230,8 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
     public void SetupButtonsCancelYes(string message, Action actionCancel, Action actionYes, Action actionBack, int controlWidth)
     {
         Message = message;
-        actionCancel += actionBack;
-        actionYes += actionBack;
         AddActionsCancelYes(actionCancel, actionYes);
+        AddActionsCancelYes(actionBack, actionBack);
         SetupButtonsWidth(controlWidth);
     }
 

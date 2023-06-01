@@ -66,9 +66,15 @@ public sealed partial class WsActionCommandModel : WsBaseMvvm
         }
         if (Action is not null && Action.GetInvocationList().Length > 0)
         {
-            IEnumerable<string> names = Action.GetInvocationList().Select(item => item.Method.Name);
-            if (!names.Contains(action.Method.Name)) 
+            IEnumerable<string> namesExists = Action.GetInvocationList().Select(item => item.Method.Name);
+            if (!namesExists.Contains(action.Method.Name))
                 Action += action;
+            //IEnumerable<string> namesNew = action.GetInvocationList().Select(item => item.Method.Name);
+            //foreach (Delegate? act in action.GetInvocationList())
+            //{
+            //    if (!namesExists.Contains((Action)act.Name))
+            //        Action += action;
+            //}
         }
     }
 

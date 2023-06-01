@@ -19,7 +19,6 @@ public partial class WsMainForm
         WsFormNavigationUtils.WaitUserControl.SetupUserConrol();
         WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(ActionFinally);
-        //WsFormNavigationUtils.WaitUserControl.Page.ViewModel.UpdateCommandsFromActions();
         // Настройка главной формы.
         this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         CenterToScreen();
@@ -97,11 +96,6 @@ public partial class WsMainForm
             LabelSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
         UserSession.PluginMassa.Execute();
     }
-
-    /// <summary>
-    /// Возврат из контрола смены ещё.
-    /// </summary>
-    private void ReturnFromMore() => UserSession.PluginMassa.Execute();
 
     /// <summary>
     /// Возврат ОК из контрола смены ПЛУ.
