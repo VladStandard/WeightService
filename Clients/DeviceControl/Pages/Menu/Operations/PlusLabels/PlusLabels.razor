@@ -15,8 +15,9 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  @bind-Value="@SelectedRow"
   TItem="@PlusLabelView"
+  @ref="@DataGrid"
+  @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
@@ -25,10 +26,14 @@
   <Columns>
     <TItemContent TItem="@PlusLabelView">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighing" Property="WeightingDate" Width="8%" FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDate" Width="8%" FormatString="@StrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ExpirationDt" Property="ExpirationDate" Width="8%" FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" 
+                            FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighing" Property="WeightingDate" Width="8%" 
+                            FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDate" Width="8%" 
+                            FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ExpirationDt" Property="ExpirationDate" Width="8%"
+                            FormatString="@StrUtils.FormatDtShort"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="20%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="8%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluName" Width="25%"/>

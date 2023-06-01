@@ -33,19 +33,17 @@ public class ButtonSettingsModel
     #endregion
 
     #region Public and private methods
-    public static ButtonSettingsModel CreateForItem() =>
-        new ButtonSettingsModel(false, false, false, true, true);
+    public static ButtonSettingsModel CreateForItem() => 
+        new(false, false, false, true, true);
     
-    public static ButtonSettingsModel CreateForStaticItem() =>
-        new ButtonSettingsModel(false, false, false, false, true);
+    public static ButtonSettingsModel CreateForStaticItem() => 
+        new(false, false, false, false, true);
     
     public static ButtonSettingsModel CreateForSection() =>
         new (true, true, true, false, false);
     
     public static ButtonSettingsModel CreateForStaticSection() => 
-        new ButtonSettingsModel(true, true, false, false, false);
-    
-    public static ButtonSettingsModel CreateEmpty() => new ButtonSettingsModel();
+        new(true, true, false, false, false);
 
     #endregion
 }

@@ -12,7 +12,7 @@ public sealed partial class WebServiceLogs : SectionBase<LogWebView>
     {
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
-        ButtonSettings = ButtonSettingsModel.CreateEmpty();
+        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
 
     #endregion

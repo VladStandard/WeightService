@@ -14,9 +14,9 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  class="DataGridSection"
-  @bind-Value="@SelectedRow"
   TItem="@WsSqlPrinterModel"
+  @ref="@DataGrid"
+  @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"

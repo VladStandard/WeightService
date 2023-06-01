@@ -28,7 +28,7 @@ public sealed partial class Logs : SectionBase<LogView>
         Lines = (from item in Lines orderby item.Description select item).ToList();
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
-        ButtonSettings = ButtonSettingsModel.CreateEmpty();
+        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
 
     protected override void SetSqlSectionCast()

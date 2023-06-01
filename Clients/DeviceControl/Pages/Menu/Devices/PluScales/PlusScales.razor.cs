@@ -52,11 +52,5 @@ public sealed partial class PlusScales : SectionBase<WsSqlPluScaleModel>
         return ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Count.ToString();
 	}
 
-    protected override async Task OnSqlSectionSaveAsync()
-    {
-        await base.OnSqlSectionSaveAsync();
-        SetSqlSectionCast();
-    }
-
     #endregion
 }

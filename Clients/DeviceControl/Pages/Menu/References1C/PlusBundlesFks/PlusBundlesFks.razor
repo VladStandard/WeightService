@@ -14,8 +14,9 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  @bind-Value="@SelectedRow"
   TItem="@WsSqlPluBundleFkModel"
+  @ref="@DataGrid"
+  @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"

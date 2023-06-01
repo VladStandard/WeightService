@@ -4,51 +4,49 @@
 @using DeviceControl.Components.Rz
 @inherits SectionBase<WsStorageCore.TableScaleModels.PlusScales.WsSqlPluScaleModel>
 
-@if (SqlSectionCast.Count != 0)
-{
-  <SectionTopBar
-    Title="@LocaleCore.DeviceControl.SectionPlusScales"
-    OnSectionUpdate="@GetSectionData"
-    OnSectionAdd="@SqlItemNewAsync"
-    SectionCount="@SqlSectionCast.Count"
-    SqlCrudConfigSection="@SqlCrudConfigSection"
-    ButtonSettings="@ButtonSettings"/>
-  <RadzenCheckBox TValue="bool" @bind-Value="@HideNoneActivePlu" Change="@GetSectionData"
-                  Style="margin-top: -3px; margin-left: 20px; "/>
-  <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text="@LocaleCore.Action.ActionIsShowActivePlu"/>
+<SectionTopBar
+  Title="@LocaleCore.DeviceControl.SectionPlusScales"
+  OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"/>
+<RadzenCheckBox TValue="bool" @bind-Value="@HideNoneActivePlu" Change="@GetSectionData"
+                Style="margin-top: -3px; margin-left: 20px; "/>
+<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text="@LocaleCore.Action.ActionIsShowActivePlu"/>
 
-  <RzDataGrid
-    @bind-Value="@SelectedRow"
-    TItem="@WsSqlPluScaleModel"
-    Data="@SqlSectionCast"
-    IsLoading="@IsLoading"
-    CellContextMenu="@OnCellContextMenu"
-    RowSelect="@SqlItemSet"
-    RowDoubleClick="@SqlItemEditAsync">
-    <Columns>
-      <TItemContent TItem="@WsSqlPluScaleModel">
-        <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="30%"/>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.NumberShort" Property="Plu.Number" Width="10%"/>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.Active" SortProperty="IsActive" Width="10%">
-          <Template Context="itemCast">
-            <RadzenCheckBox TValue="bool" @bind-Value="@itemCast.IsActive" Change="@(_ => SetSqlSectionSave(itemCast))"/>
-          </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.WeightShort" SortProperty="Plu.IsCheckWeight" Width="10%">
-          <Template Context="itemCast">
-            <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
-          </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn Title="@LocaleCore.Table.ShelfLifeDaysShort" Property="Plu.ShelfLifeDays" Width="10%"/>
-        @* <RadzenDataGridColumn Title="@LocaleCore.Table.PluPackage" Width="10%" Sortable="false"> *@
-        @*   <Template Context="itemCast"> *@
-        @*     @GetPluPackagesCount(itemCast.Plu) *@
-        @*   </Template> *@
-        @* </RadzenDataGridColumn> *@
-      </TItemContent>
-    </Columns>
-  </RzDataGrid>
+<RzDataGrid
+  TItem="@WsSqlPluScaleModel"
+  @ref="@DataGrid"
+  @bind-Value="@SelectedRow"
+  Data="@SqlSectionCast"
+  IsLoading="@IsLoading"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemEditAsync">
+  <Columns>
+    <TItemContent TItem="@WsSqlPluScaleModel">
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" Width="30%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.NumberShort" Property="Plu.Number" Width="10%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Active" SortProperty="IsActive" Width="10%">
+        <Template Context="itemCast">
+          <RadzenCheckBox TValue="bool" @bind-Value="@itemCast.IsActive" Change="@(_ => SetSqlSectionSave(itemCast))"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WeightShort" SortProperty="Plu.IsCheckWeight" Width="10%">
+        <Template Context="itemCast">
+          <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ShelfLifeDaysShort" Property="Plu.ShelfLifeDays" Width="10%"/>
+      @* <RadzenDataGridColumn Title="@LocaleCore.Table.PluPackage" Width="10%" Sortable="false"> *@
+      @*   <Template Context="itemCast"> *@
+      @*     @GetPluPackagesCount(itemCast.Plu) *@
+      @*   </Template> *@
+      @* </RadzenDataGridColumn> *@
+    </TItemContent>
+  </Columns>
+</RzDataGrid>
 
-  <SectionActions OnSectionSave="@OnSqlSectionSaveAsync" ButtonSettings="@ButtonSettings"/>
-}
+<SectionActions OnSectionSave="@OnSqlSectionSaveAsync" ButtonSettings="@ButtonSettings"/>

@@ -15,8 +15,9 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  @bind-Value="@SelectedRow"
   TItem="@PluWeightingView"
+  @ref="@DataGrid"
+  @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
@@ -25,7 +26,8 @@
   <Columns>
     <TItemContent TItem="@PluWeightingView">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" 
+                            FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="22%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="10%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluName" Width="18%"/>

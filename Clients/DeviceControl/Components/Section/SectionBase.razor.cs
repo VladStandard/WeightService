@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.JSInterop;
+using Radzen.Blazor;
 using WsBlazorCore.Settings;
 
 namespace DeviceControl.Components.Section;
@@ -14,23 +15,29 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     [Inject] private LocalStorageService LocalStorage { get; set; }
     [Inject] protected ContextMenuService? ContextMenuService { get; set; }
     [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
+    
+    protected RadzenDataGrid<TItem> DataGrid { get; set; }
+    
     protected ButtonSettingsModel ButtonSettings { get; set; }
 
     protected bool IsLoading = true;
     
     #endregion
 
-    public IList<TItem>? SelectedRow { get; set; }
+    protected IList<TItem> SelectedRow { get; set; }
 
     protected List<TItem> SqlSectionCast { get; set; }
 
     protected List<TItem> SqlSectionSave { get; set; }
 
+    protected TItem SqlItemCast => SqlItem is null ? new() : (TItem)SqlItem;
+    
     public SectionBase()
     {
         SqlSectionCast = new List<TItem>();
         SelectedRow = new List<TItem>();
         SqlSectionSave = new List<TItem>();
+        
         SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlIsMarked.ShowOnlyActual);
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
@@ -127,7 +134,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             SqlSectionSave.Add(model);
     }
 
-    protected virtual async Task OnSqlSectionSaveAsync()
+    protected async Task OnSqlSectionSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
@@ -169,8 +176,8 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 		
         RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
         {
-            // TODO: fix GetSectionData
             ContextManager.AccessManager.AccessItem.Mark(SqlItem);
+            DeleteMarkedOrDeleted();
         });
     }
 
@@ -187,8 +194,8 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 		
         RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
         {
-            // TODO: fix GetSectionData
             ContextManager.AccessManager.AccessItem.Delete(SqlItem);
+            DeleteMarkedOrDeleted();
         });
     }
     
@@ -203,4 +210,14 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         });
     }
     
+    private async void DeleteMarkedOrDeleted()
+    {
+        await InvokeAsync(() =>
+        {
+            SqlSectionCast.Remove(SqlItemCast);
+            SelectedRow.Remove(SqlItemCast);
+            SqlItem = null; 
+            DataGrid.Reload();
+        });
+    }
 }

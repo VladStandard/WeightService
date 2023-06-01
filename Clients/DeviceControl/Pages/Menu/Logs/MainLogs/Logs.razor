@@ -33,8 +33,9 @@
 </div>
 
 <RzDataGrid
-  @bind-Value="@SelectedRow"
   TItem="@LogView"
+  @ref="@DataGrid"
+  @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"

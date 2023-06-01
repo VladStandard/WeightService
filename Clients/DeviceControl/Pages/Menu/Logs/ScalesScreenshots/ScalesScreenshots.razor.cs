@@ -14,7 +14,7 @@ public sealed partial class ScalesScreenshots : SectionBase<WsSqlScaleScreenShot
 
     public ScalesScreenshots() : base()
     {
-        ButtonSettings = ButtonSettingsModel.CreateEmpty();
+        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
 
     #endregion
