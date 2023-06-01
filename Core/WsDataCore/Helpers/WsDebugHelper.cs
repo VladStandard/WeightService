@@ -18,6 +18,9 @@ public class WsDebugHelper
 
 	#region Public and private methods
 
+    /// <summary>
+    /// Режим работы разработка.
+    /// </summary>
     public bool IsDevelop => Config switch
     {
         WsEnumConfiguration.DevelopAleksandrov => true,
@@ -28,7 +31,13 @@ public class WsDebugHelper
         WsEnumConfiguration.ReleaseVS => false,
         _ => throw new ArgumentOutOfRangeException(nameof(IsDevelop), IsDevelop.ToString())
     };
-
+    /// <summary>
+    /// Отладочный флаг для сквозных тестов печати, без диалогов.
+    /// </summary>
+    public bool IsSkipDialogs { get; set; }
+    /// <summary>
+    /// Режим работы релиз.
+    /// </summary>
     public bool IsRelease => !IsDevelop;
 
     public WsEnumConfiguration Config =>

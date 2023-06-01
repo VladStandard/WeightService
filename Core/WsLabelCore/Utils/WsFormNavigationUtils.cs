@@ -179,7 +179,10 @@ public static class WsFormNavigationUtils
     {
         KneadingUserControl.Page.ViewModel.UpdateCommandsFromActions();
         KneadingUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
-        showNavigation(KneadingUserControl, LocaleCore.Scales.SwitchKneadingTitle);
+        showNavigation(KneadingUserControl,
+            LabelSession.PluLine.Plu.IsCheckWeight
+            ? $"{LocaleCore.Scales.SwitchKneadingTitle} {LocaleCore.Scales.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
+            : $"{LocaleCore.Scales.SwitchKneadingTitle} {LocaleCore.Scales.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
         NavigationUserControl.SwitchUserControl(KneadingUserControl);
     }
 

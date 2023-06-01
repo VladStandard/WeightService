@@ -73,8 +73,8 @@ public sealed class WsPluginLabelsHelper : WsPluginHelperBase
         else
             MdInvokeControl.SetText(FieldPlu,
                 LabelSession.PluLine.Plu.IsCheckWeight
-                    ? $"{LocaleCore.Scales.PluWeight}: {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
-                    : $"{LocaleCore.Scales.PluCount}: {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
+                    ? $"{LocaleCore.Scales.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
+                    : $"{LocaleCore.Scales.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
         MdInvokeControl.SetText(FieldProductDate, $"{LabelSession.ProductDate:dd.MM.yyyy}");
         MdInvokeControl.SetText(FieldKneading, $"{LabelSession.WeighingSettings.Kneading}");
     }

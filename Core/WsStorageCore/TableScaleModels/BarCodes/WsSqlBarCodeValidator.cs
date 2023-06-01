@@ -6,7 +6,7 @@ namespace WsStorageCore.TableScaleModels.BarCodes;
 /// <summary>
 /// Table validation "BARCODES".
 /// </summary>
-[DebuggerDisplay("{nameof(BarCodeValidator)}")]
+[DebuggerDisplay("{ToString()}")]
 public sealed class WsSqlBarCodeValidator : WsSqlTableValidator<WsSqlBarCodeModel>
 {
     /// <summary>

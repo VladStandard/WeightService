@@ -50,14 +50,6 @@ public partial class WsMainForm
         WsFormNavigationUtils.DigitsUserControl.Page.ViewModel.CmdYes.AddAction(ReturnOkFromPlusNesting);
         WsFormNavigationUtils.DigitsUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.DigitsUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
-        // WinForms-контрол замеса.
-        WsFormNavigationUtils.KneadingUserControl.SetupUserConrol();
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnFromKneading);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(ReturnFromKneading);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
         // WinForms-контрол смены линии.
         WsFormNavigationUtils.LinesUserControl.SetupUserConrol();
         WsFormNavigationUtils.LinesUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnCancelFromLines);
@@ -73,7 +65,15 @@ public partial class WsMainForm
         WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
         WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(ReturnOkFromPlusLine);
         WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
+        WsFormNavigationUtils.PlusLineUserControl.Page.ViewModel.CmdYes.AddAction(() => { ActionKneading(null, null); });
+        // WinForms-контрол замеса.
+        WsFormNavigationUtils.KneadingUserControl.SetupUserConrol();
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(PluginMassaExecute);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdCancel.AddAction(ActionFinally);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(PluginMassaExecute);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
+        WsFormNavigationUtils.KneadingUserControl.Page.ViewModel.CmdYes.AddAction(ActionFinally);
         // WinForms-контрол смены вложенности ПЛУ.
         WsFormNavigationUtils.PlusNestingUserControl.SetupUserConrol();
         WsFormNavigationUtils.PlusNestingUserControl.Page.ViewModel.CmdCancel.AddAction(ReturnCancelFromPlusNesting);
@@ -85,17 +85,9 @@ public partial class WsMainForm
     }
 
     /// <summary>
-    /// Возврат из контрола смены замеса.
+    /// Запустить опрос весов.
     /// </summary>
-    private void ReturnFromKneading()
-    {
-        using WsFormDigitsForm numberInputForm = new() { InputValue = 0 };
-        DialogResult result = numberInputForm.ShowDialog(this);
-        numberInputForm.Close();
-        if (result == DialogResult.OK)
-            LabelSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
-        UserSession.PluginMassa.Execute();
-    }
+    private void PluginMassaExecute() => UserSession.PluginMassa.Execute();
 
     /// <summary>
     /// Возврат ОК из контрола смены ПЛУ.
@@ -154,6 +146,9 @@ public partial class WsMainForm
 
     #region Public and private methods - действия
 
+    /// <summary>
+    /// Финальное действие после выполнения дествия кнопок.
+    /// </summary>
     private void ActionFinally()
     {
         MdInvokeControl.Select(ButtonPrint);
@@ -171,7 +166,7 @@ public partial class WsMainForm
     }
 
     /// <summary>
-    /// Отобразить контрол.
+    /// Отобразить WinForms-контрол.
     /// </summary>
     private void ShowFormUserControl(WsFormBaseUserControl userControl, string title)
     {
@@ -210,7 +205,7 @@ public partial class WsMainForm
     }
 
     /// <summary>
-    /// Скрыть контрол.
+    /// Скрыть WinForms-контрол.
     /// </summary>
     private void HideFormUserControl()
     {
@@ -345,7 +340,7 @@ public partial class WsMainForm
                 {
                     UserSession.PluginMassa.Close();
                     Proc.Run(LocaleData.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
-                    UserSession.PluginMassa.Execute();
+                    PluginMassaExecute();
                 }
                 else
                 {
@@ -394,11 +389,10 @@ public partial class WsMainForm
                 //    UserSession.PluginMassa.ResetMassa();
                 //}
                 // Проверить наличие весовой платформы Масса-К.
-                if (IsSkipDialogs || Debug.IsRelease)
-                    UserSession.CheckWeightMassaDeviceExists();
+                if (!UserSession.CheckWeightMassaDeviceExists()) return;
                 LabelSession.SetPluLine();
 
-                UserSession.PluginMassa.Execute();
+                PluginMassaExecute();
                 UserSession.PluginMassa.GetInit();
             }
         });
@@ -464,7 +458,11 @@ public partial class WsMainForm
     /// <summary>
     /// Сброс предупреждения.
     /// </summary>
-    private void ResetWarning() => MdInvokeControl.SetText(fieldWarning, string.Empty);
+    private void ResetWarning()
+    {
+        MdInvokeControl.SetText(fieldWarning, string.Empty);
+        MdInvokeControl.SetVisible(fieldWarning, false);
+    }
 
     /// <summary>
     /// Подготовка к печати.
@@ -484,65 +482,71 @@ public partial class WsMainForm
             // Проверить наличие вложенности ПЛУ.
             if (!UserSession.CheckViewPluNesting(LabelSession.PluLine.Plu, fieldWarning)) return;
             // Проверить наличие весовой платформы Масса-К.
-            if (IsSkipDialogs || Debug.IsRelease)
-                if (!UserSession.CheckWeightMassaDeviceExists()) return;
+            if (!UserSession.CheckWeightMassaDeviceExists()) return;
             // Проверить стабилизацию весовой платформы Масса-К.
-            if (IsSkipDialogs || Debug.IsRelease)
-                if (!UserSession.CheckWeightMassaIsStable(fieldWarning)) return;
+            if (!UserSession.CheckWeightMassaIsStable(fieldWarning)) return;
             // Проверить ГТИН ПЛУ.
             if (!UserSession.CheckPluGtin(fieldWarning)) return;
-            // Задать фейк данные веса ПЛУ для режима разработки.
-            if (!IsSkipDialogs && Debug.IsDevelop)
-                UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl);
-            // Проверить отрицательный вес.
-            if (!UserSession.CheckWeightIsNegative(fieldWarning)) return;
-            // Создать новое взвешивание ПЛУ.
-            UserSession.NewPluWeighing();
-            // Проверить границы веса.
-            if (!UserSession.CheckWeightThresholds(fieldWarning)) return;
-            // Проверить подключение принтера.
-            if (!IsSkipDialogs && Debug.IsDevelop)
-            {
-                // Навигация в контрол диалога Отмена/Да.
-                WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
-                    LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question, ActionNo, ActionYes);
-                void ActionNo()
-                {
-                    // Печать этикетки.
-                    UserSession.PrintLabel(ShowFormUserControl, fieldWarning, false);
-                }
-                void ActionYes()
-                {
-                    // Проверить подключение и готовность принтеров.
-                    if (ActionPreparePrintCheckPrinters())
-                        // Печать этикетки.
-                        UserSession.PrintLabel(ShowFormUserControl, fieldWarning, false);
-                }
-            }
-            else
-            {
-                // Проверить подключение и готовность принтеров.
-                if (ActionPreparePrintCheckPrinters())
-                    // Печать этикетки.
-                    UserSession.PrintLabel(ShowFormUserControl, fieldWarning, false);
-            }
+            // Использовать фейк-данные для веса ПЛУ.
+            UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ReturnPreparePrint);
         });
         UserSession.PluginMassa.IsWeightNetFake = false;
     }
 
     /// <summary>
-    /// Проверить подключение и готовность принтеров.
+    /// Подготовка к печати - Шаг 2.
     /// </summary>
-    private bool ActionPreparePrintCheckPrinters()
+    private void ReturnPreparePrint()
     {
-        // Проверить подключение и готовность основного принтера.
-        if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintMain, true))
-            return false;
-        // Проверить подключение и готовность транспортного принтера.
-        if (LabelSession.Line.IsShipping)
-            if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintShipping, false))
-                return false;
-        return true;
+        // Проверить отрицательный вес.
+        if (!UserSession.CheckWeightIsNegative(fieldWarning)) return;
+        // Создать новое взвешивание ПЛУ.
+        UserSession.NewPluWeighing();
+        // Проверить границы веса.
+        if (!UserSession.CheckWeightThresholds(fieldWarning)) return;
+        
+        // Запросить проверку подключения принтера.
+        // TODO: исправить это место
+        //ActionPreparePrintAskDevelopPrinters();
+        // Режим работы релиз.
+        //if (Debug.IsRelease)
+        ActionPrintLabel(true);
+    }
+
+    /// <summary>
+    /// Запросить проверку подключения принтера.
+    /// </summary>
+    private void ActionPreparePrintAskDevelopPrinters()
+    {
+        if (Debug.IsSkipDialogs && Debug.IsRelease) return;
+
+        // Навигация в контрол диалога Отмена/Да.
+        WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
+        LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question, 
+        () => ActionPrintLabel(false), () => ActionPrintLabel(true));
+    }
+
+    /// <summary>
+    /// Печать этикетки.
+    /// </summary>
+    /// <param name="isCheckPrinter">Проверить подключение и готовность принтера</param>
+    /// <returns></returns>
+    private void ActionPrintLabel(bool isCheckPrinter)
+    {
+        bool isGood = true;
+        if (isCheckPrinter)
+        {
+            // Проверить подключение и готовность основного принтера.
+            if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintMain, true))
+                isGood = false;
+            // Проверить подключение и готовность транспортного принтера.
+            if (LabelSession.Line.IsShipping)
+                if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintShipping, false))
+                    isGood = false;
+        }
+        if (!isGood) return;
+        // Печать этикетки.
+        UserSession.PrintLabel(ShowFormUserControl, fieldWarning, false);
     }
 
     /// <summary>

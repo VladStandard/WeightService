@@ -61,16 +61,16 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         fieldProdDate.Text = LabelSession.ProductDate.ToString("dd.MM.yyyy");
     }
 
-    private void ButtonKneadingLeft_Click(object sender, EventArgs e)
+    private void ButtonKneading_Click(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            WsFormDigitsForm numberInputForm = new() { InputValue = 0 };
-            DialogResult result = numberInputForm.ShowDialog(this);
-            numberInputForm.Close();
-            numberInputForm.Dispose();
+            WsFormDigitsForm digitsForm = new() { InputValue = 0 };
+            DialogResult result = digitsForm.ShowDialog(this);
+            digitsForm.Close();
+            digitsForm.Dispose();
             if (result == DialogResult.OK)
-                LabelSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
+                LabelSession.WeighingSettings.Kneading = (byte)digitsForm.InputValue;
             RefreshControlsText();
         });
     }

@@ -162,7 +162,7 @@ public sealed class LocaleScale : WsLocalizationBase
     public string StateError => Lang == Lang.English ? "error" : "ошибка";
     public string StateIsNotResponsed => Lang == Lang.English ? "is not responsed" : "нет ответа";
     public string StateIsResponsed => Lang == Lang.English ? "is responsed" : "есть ответ";
-    public string SwitchKneadingTitle => Lang == Lang.English ? "Switch kneading" : "Смена замеса";
+    public string SwitchKneadingTitle => Lang == Lang.English ? "Switch kneading for" : "Смена замеса для";
     public string SwitchLineTitle => Lang == Lang.English ? "Switch Line" : "Смена линии";
     public string SwitchMoreTitle => Lang == Lang.English ? "Switch more" : "Смена ещё";
     public string SwitchPluLineTitle => Lang == Lang.English ? "Switch line's PLU" : "Смена ПЛУ линии";

@@ -8,7 +8,7 @@ namespace WsStorageCore.Models;
 /// PLU label context.
 /// </summary>
 [Serializable]
-[DebuggerDisplay("{nameof(WsPluLabelContextModel)}")]
+[DebuggerDisplay("{ToString()}")]
 public class WsSqlPluLabelContextModel : SerializeBase
 {
     #region Public and private properties - References
@@ -155,6 +155,8 @@ public class WsSqlPluLabelContextModel : SerializeBase
         //ProductDt = info.GetString(nameof(ProductDt));
         //ProductTimeBarCodeFormat = info.GetString(nameof(ProductTimeBarCodeFormat));
     }
+
+    public WsSqlPluLabelContextModel() : this(new(), new(), new(), new(), new()) { }
 
     #endregion
 

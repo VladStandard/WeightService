@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLabelCore.Controls;
-
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm : Form
@@ -28,11 +26,6 @@ public partial class WsMainForm : Form
     private Button ButtonPrint { get; set; }
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
-
-    /// <summary>
-    /// Отладочный флаг для сквозных тестов печати, без диалогов.
-    /// </summary>
-    private const bool IsSkipDialogs = false;
     /// <summary>
     /// Магический флаг закрытия после нажатия кнопки OK.
     /// </summary>
@@ -147,7 +140,7 @@ public partial class WsMainForm : Form
         // Весовая платформа Масса-К.
         UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100),
             new(0_050, 0_100), fieldNettoWeight, fieldMassa, fieldMassaExt, ResetWarning);
-        UserSession.PluginMassa.Execute();
+        PluginMassaExecute();
         MdInvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
 
         // Основной принтер.

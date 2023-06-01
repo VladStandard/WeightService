@@ -7,6 +7,19 @@ public partial class WsMainForm
 {
     #region Public and private methods
 
+    /// <summary>
+    /// Возврат из контрола смены замеса.
+    /// </summary>
+    private void ReturnFromKneading()
+    {
+        using WsFormDigitsForm digitsForm = new() { InputValue = 0 };
+        DialogResult result = digitsForm.ShowDialog(this);
+        digitsForm.Close();
+        if (result == DialogResult.OK)
+            LabelSession.WeighingSettings.Kneading = (byte)digitsForm.InputValue;
+        UserSession.PluginMassa.Execute();
+    }
+
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
         //using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };

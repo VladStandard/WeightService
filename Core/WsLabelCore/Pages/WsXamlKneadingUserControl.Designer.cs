@@ -182,7 +182,7 @@ partial class WsXamlKneadingUserControl
             this.buttonKneading.TabIndex = 6;
             this.buttonKneading.Text = "...";
             this.buttonKneading.UseVisualStyleBackColor = false;
-            this.buttonKneading.Click += new System.EventHandler(this.ButtonKneadingLeft_Click);
+            this.buttonKneading.Click += new System.EventHandler(this.ButtonKneading_Click);
             // 
             // fieldKneading
             // 
