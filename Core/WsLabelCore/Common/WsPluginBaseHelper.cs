@@ -8,26 +8,26 @@ namespace WsLabelCore.Common;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsPluginHelperBase : WsBaseHelper
+public class WsPluginBaseHelper : WsBaseHelper
 {
     #region Public and private fields and properties
 
     /// <summary>
     /// Тип плагина.
     /// </summary>
-    public WsEnumPluginType PluginType { get; set; }
+    protected WsEnumPluginType PluginType { get; init; }
     protected WsPluginModel ReopenItem { get; }
     protected WsPluginModel RequestItem { get; }
     protected WsPluginModel ResponseItem { get; }
-    protected int ReopenCounter => ReopenItem.Counter;
-    protected int RequestCounter => RequestItem.Counter;
-    protected int ResponseCounter => ResponseItem.Counter;
+    protected int ReopenCounter => ReopenItem.SafeCounter;
+    protected int RequestCounter => RequestItem.SafeCounter;
+    protected int ResponseCounter => ResponseItem.SafeCounter;
 
     #endregion
 
     #region Constructor and destructor
 
-    protected WsPluginHelperBase()
+    protected WsPluginBaseHelper()
     {
         PluginType = WsEnumPluginType.Default;
         ReopenItem = new() { Config = new(waitExecute: 0_250, waitClose: 0_250) };

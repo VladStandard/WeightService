@@ -21,7 +21,7 @@ public sealed class WsPluginModel : WsBaseHelper
     /// <summary>
     /// Счётчик.
     /// </summary>
-    public ushort Counter
+    public ushort SafeCounter
     {
         get => _counter;
         private set => _counter = value > 0_999 ? default : value;
@@ -61,10 +61,10 @@ public sealed class WsPluginModel : WsBaseHelper
 
         Tsk = Task.Run(async () =>
         {
-            Counter = 0;
+            SafeCounter = 0;
             while (IsExecute)
             {
-                Counter++;
+                SafeCounter++;
                 try
                 {
                     // AsyncLock can be locked asynchronously

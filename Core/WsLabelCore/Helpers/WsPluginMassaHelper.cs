@@ -6,7 +6,7 @@ namespace WsLabelCore.Helpers;
 /// <summary>
 /// Плагин весов Масса-К.
 /// </summary>
-public sealed class WsPluginMassaHelper : WsPluginHelperBase
+public sealed class WsPluginMassaHelper : WsPluginBaseHelper
 {
     #region Design pattern "Lazy Singleton"
 

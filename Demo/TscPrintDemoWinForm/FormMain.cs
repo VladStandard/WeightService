@@ -4,7 +4,7 @@
 using System;
 using System.Windows.Forms;
 using MDSoft.BarcodePrintUtils.Tsc;
-using WsPrintCore.Enums;
+using WsPrintCore.Common;
 
 namespace TscPrintDemoWinForm;
 
@@ -35,17 +35,17 @@ public partial class FormMain : Form
 
     private void SetupLib()
     {
-        SetComboBoxItems(comboBoxLib, typeof(PrintTscDll), PrintTscDll.TscLibNet32);
+        SetComboBoxItems(comboBoxLib, typeof(WsEnumPrintTscDll), WsEnumPrintTscDll.TscLibNet32);
     }
 
     private void SetupLabelSize()
     {
-        SetComboBoxItems(comboBoxLabelSize, typeof(PrintLabelSize), PrintLabelSize.Size80x100);
+        SetComboBoxItems(comboBoxLabelSize, typeof(WsEnumPrintLabelSize), WsEnumPrintLabelSize.Size80x100);
     }
 
     private void SetupLabelDpi()
     {
-        SetComboBoxItems(comboBoxLabelDpi, typeof(PrintLabelDpi), PrintLabelDpi.Dpi300);
+        SetComboBoxItems(comboBoxLabelDpi, typeof(WsEnumPrintLabelDpi), WsEnumPrintLabelDpi.Dpi300);
     }
 
     private static void SetComboBoxItems(ComboBox comboBox, Type type, object valueDefault)
@@ -63,35 +63,35 @@ public partial class FormMain : Form
         comboBox.SelectedIndex = selectedIndex;
     }
 
-    private PrintLabelSize GetLabelSize()
+    private WsEnumPrintLabelSize GetLabelSize()
     {
         if (comboBoxLabelSize.Items.Count > 0)
         {
-            if (comboBoxLabelSize.Items[comboBoxLabelSize.SelectedIndex] is PrintLabelSize printLabelSize)
+            if (comboBoxLabelSize.Items[comboBoxLabelSize.SelectedIndex] is WsEnumPrintLabelSize printLabelSize)
                 return printLabelSize;
         }
-        return PrintLabelSize.Size80x100;
+        return WsEnumPrintLabelSize.Size80x100;
     }
 
-    private PrintLabelDpi GetLabelDpi()
+    private WsEnumPrintLabelDpi GetLabelDpi()
     {
         if (comboBoxLabelDpi.Items.Count > 0)
         {
-            if (comboBoxLabelDpi.Items[comboBoxLabelDpi.SelectedIndex] is PrintLabelDpi printLabelDpi)
+            if (comboBoxLabelDpi.Items[comboBoxLabelDpi.SelectedIndex] is WsEnumPrintLabelDpi printLabelDpi)
                 return printLabelDpi;
         }
-        return PrintLabelDpi.Dpi300;
+        return WsEnumPrintLabelDpi.Dpi300;
     }
 
     private void ButtonLibInit_Click(object sender, EventArgs e)
     {
-        TscDriver.Setup(PrintChannel.Name, fieldPortName.Text, GetLabelSize(), GetLabelDpi());
+        TscDriver.Setup(WsEnumPrintChannel.Name, fieldPortName.Text, GetLabelSize(), GetLabelDpi());
         toolStripStatusLabel.Text = @"Init complete.";
     }
 
     private void ButtonLibInitv2_Click(object sender, EventArgs e)
     {
-        TscDriver.Setup(PrintChannel.Ethernet, fieldPortIp.Text, Convert.ToInt32(fieldPortPort.Text),
+        TscDriver.Setup(WsEnumPrintChannel.Ethernet, fieldPortIp.Text, Convert.ToInt32(fieldPortPort.Text),
             GetLabelSize(), GetLabelDpi());
         toolStripStatusLabel.Text = @"Init complete.";
     }

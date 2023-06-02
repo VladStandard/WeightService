@@ -1,11 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsPrintCore.Enums;
+namespace WsPrintCore.Common;
 
-public enum PrintBrand
+/// <summary>
+/// Интерфейс принтера.
+/// </summary>
+public enum WsEnumPrintChannel
 {
-    Default,
-    Zebra,
-    Tsc,
+    Name,
+    Ethernet,
+    Usb,
 }

@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsPrintCore.Common;
+
 namespace WsDataCore.Models;
 
 public class WsWeighingSettingsModel
@@ -67,21 +69,21 @@ public class WsWeighingSettingsModel
 
     #region Public and private methods
 
-    public string GetPrintName(bool isMain, PrintBrand printBrand) => isMain
+    public string GetPrintName(bool isMain, WsEnumPrintModel printBrand) => isMain
         ? printBrand switch
         {
-            PrintBrand.Zebra => LocaleCore.Print.NameMainZebra,
-            PrintBrand.Tsc => LocaleCore.Print.NameMainTsc,
+            WsEnumPrintModel.Zebra => LocaleCore.Print.NameMainZebra,
+            WsEnumPrintModel.Tsc => LocaleCore.Print.NameMainTsc,
             _ => LocaleCore.Print.DeviceName
         }
         : printBrand switch
         {
-            PrintBrand.Zebra => LocaleCore.Print.NameShippingZebra,
-            PrintBrand.Tsc => LocaleCore.Print.NameShippingTsc,
+            WsEnumPrintModel.Zebra => LocaleCore.Print.NameShippingZebra,
+            WsEnumPrintModel.Tsc => LocaleCore.Print.NameShippingTsc,
             _ => LocaleCore.Print.DeviceNameIsUnavailable
         };
 
-    public string GetPrintDescription(bool isMain, PrintBrand printBrand, MdPrinterModel printer, int scaleCounter,
+    public string GetPrintDescription(bool isMain, WsEnumPrintModel printBrand, MdPrinterModel printer, int scaleCounter,
         string deviceStatus, int labelPrintedCount, byte labelCount) =>
         $"{GetPrintName(isMain, printBrand)} | " +
         $"{LocaleCore.Table.DeviceIp}: {printer.Ip} | " +

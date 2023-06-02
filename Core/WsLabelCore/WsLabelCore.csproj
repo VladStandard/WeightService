@@ -39,6 +39,8 @@
     <Compile Include="Common\WsFormBaseUserControl.Designer.cs">
       <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\WsPluginPrintZebraModel.cs" />
+    <Compile Include="Helpers\WsPluginPrintTscModel.cs" />
     <Compile Include="Pages\WsXamlWaitUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

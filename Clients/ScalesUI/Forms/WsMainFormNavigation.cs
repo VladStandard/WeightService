@@ -1,9 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Common;
-using WsDataCore.Utils;
-
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -23,8 +20,8 @@ public partial class WsMainForm
         WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(ActionFinally);
         // Настройка главной формы.
-        this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         CenterToScreen();
+        this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         // Добавить контрол.
         Controls.Add(WsFormNavigationUtils.NavigationUserControl);
         // Настройки главной формы.
@@ -492,14 +489,15 @@ public partial class WsMainForm
             // Проверить ГТИН ПЛУ.
             if (!UserSession.CheckPluGtin(fieldWarning)) return;
             // Использовать фейк-данные для веса ПЛУ.
-            UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ReturnPreparePrint);
+            //UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ActionPreparePrintStep2);
+            ActionPreparePrintStep2();
         });
     }
 
     /// <summary>
     /// Подготовка к печати - Шаг 2.
     /// </summary>
-    private void ReturnPreparePrint()
+    private void ActionPreparePrintStep2()
     {
         // Проверить отрицательный вес.
         if (!UserSession.CheckWeightIsNegative(fieldWarning)) { ActionFinally(); return; }
@@ -507,29 +505,8 @@ public partial class WsMainForm
         UserSession.NewPluWeighing();
         // Проверить границы веса.
         if (!UserSession.CheckWeightThresholds(fieldWarning)) { ActionFinally(); return; }
-
-        // Запросить проверку подключения принтера.
-        ActionPreparePrintAskDevelopPrinters();
-        // Режим работы релиз.
-        if (Debug.IsRelease)
-        {
-            ActionPrintLabel(true);
-            ActionFinally();
-        }
-    }
-
-    /// <summary>
-    /// Запросить проверку подключения принтера.
-    /// </summary>
-    private void ActionPreparePrintAskDevelopPrinters()
-    {
-        if (Debug.IsSkipDialogs) return;
-        if (Debug.IsRelease) return;
-
-        // Навигация в контрол диалога Отмена/Да.
-        WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
-            LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question, WsEnumDialogType.CancelYes,
-            new() { () => ActionPrintLabel(false), () => ActionPrintLabel(true)});
+        // Печать этикетки.
+        ActionPrintLabel(true);
     }
 
     /// <summary>
@@ -539,20 +516,26 @@ public partial class WsMainForm
     /// <returns></returns>
     private void ActionPrintLabel(bool isCheckPrinter)
     {
-        bool isGood = true;
         if (isCheckPrinter)
         {
             // Проверить подключение и готовность основного принтера.
-            if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintMain, true))
-                isGood = false;
+            if (LabelSession.PluginPrintTscMain is not null)
+                if (!UserSession.CheckPrintIsConnectAndReadyTscMain(fieldWarning))
+                    return;
+            if (LabelSession.PluginPrintZebraMain is not null)
+                if (!UserSession.CheckPrintIsConnectAndReadyZebraMain(fieldWarning))
+                    return;
             // Проверить подключение и готовность транспортного принтера.
-            if (LabelSession.Line.IsShipping)
-                if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintShipping, false))
-                    isGood = false;
+            if (LabelSession.Line.IsShipping && LabelSession.PluginPrintTscShipping is not null)
+                if (!UserSession.CheckPrintIsConnectAndReadyTscShipping(fieldWarning))
+                    return;
+            if (LabelSession.Line.IsShipping && LabelSession.PluginPrintZebraShipping is not null)
+                if (!UserSession.CheckPrintIsConnectAndReadyZebraShipping(fieldWarning))
+                    return;
         }
-        if (!isGood) return;
+
         // Печать этикетки.
-        UserSession.PrintLabel(ShowFormUserControl, fieldWarning, false);
+        UserSession.PrintLabel(fieldWarning, false);
         //
         ActionFinally();
     }

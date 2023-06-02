@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsPrintCore.Common;
+
 namespace MDSoft.BarcodePrintUtils.Tsc;
 
 public class TscPrintProperties
@@ -32,28 +34,28 @@ public class TscPrintProperties
         }
     }
 
-    private const PrintSpeed SpeedDefault = (PrintSpeed)4;
-    private PrintSpeed _speed;
-    public PrintSpeed Speed
+    private const WsEnumPrintSpeed SpeedDefault = (WsEnumPrintSpeed)4;
+    private WsEnumPrintSpeed _speed;
+    public WsEnumPrintSpeed Speed
     {
         get => _speed;
-        set => _speed = value is >= 0 and <= (PrintSpeed)12 ? value : SpeedDefault;
+        set => _speed = value is >= 0 and <= (WsEnumPrintSpeed)12 ? value : SpeedDefault;
     }
 
-    private const PrintDensity DensityDefault = (PrintDensity)6;
-    private PrintDensity _density;
-    public PrintDensity Density
+    private const WsEnumPrintDensity DensityDefault = (WsEnumPrintDensity)6;
+    private WsEnumPrintDensity _density;
+    public WsEnumPrintDensity Density
     {
         get => _density;
-        set => _density = value is >= 0 and <= (PrintDensity)15 ? value : DensityDefault;
+        set => _density = value is >= 0 and <= (WsEnumPrintDensity)15 ? value : DensityDefault;
     }
 
-    private const PrintSensor SensorDefault = 0;
-    private PrintSensor _sensor;
-    public PrintSensor Sensor
+    private const WsEnumPrintSensor SensorDefault = 0;
+    private WsEnumPrintSensor _sensor;
+    public WsEnumPrintSensor Sensor
     {
         get => _sensor;
-        set => _sensor = value is >= 0 and <= (PrintSensor)1 ? value : SensorDefault;
+        set => _sensor = value is >= 0 and <= (WsEnumPrintSensor)1 ? value : SensorDefault;
     }
 
     private const int VerticalDefault = 0;
@@ -80,7 +82,7 @@ public class TscPrintProperties
         set => _cutterValue = value is >= 0 and <= 1000 ? value : CutterValueDefault;
     }
 
-    public PrintChannel Channel { get; set; }
+    public WsEnumPrintChannel Channel { get; set; }
 
     public string PrintName { get; set; }
 
@@ -88,9 +90,9 @@ public class TscPrintProperties
 
     public int PrintPort { get; set; }
 
-    public PrintLabelSize Size { get; set; }
+    public WsEnumPrintLabelSize Size { get; set; }
 
-    public PrintLabelDpi Dpi { get; set; }
+    public WsEnumPrintLabelDpi Dpi { get; set; }
 
     public ushort FeedMm { get; set; }
 
@@ -98,27 +100,27 @@ public class TscPrintProperties
 
     #region Public and private methods
 
-    public void Setup(PrintLabelSize size)
+    public void Setup(WsEnumPrintLabelSize size)
     {
         switch (size)
         {
-            case PrintLabelSize.Size40x60:
+            case WsEnumPrintLabelSize.Size40x60:
                 Width = 40.0;
                 Height = 60.0;
                 break;
-            case PrintLabelSize.Size60x150:
+            case WsEnumPrintLabelSize.Size60x150:
                 Width = 60.0;
                 Height = 150.0;
                 break;
-            case PrintLabelSize.Size60x90:
+            case WsEnumPrintLabelSize.Size60x90:
                 Width = 60.0;
                 Height = 90.0;
                 break;
-            case PrintLabelSize.Size60x100:
+            case WsEnumPrintLabelSize.Size60x100:
                 Width = 60.0;
                 Height = 100.0;
                 break;
-            case PrintLabelSize.Size80x100:
+            case WsEnumPrintLabelSize.Size80x100:
                 //if (CultureInfo.CurrentCulture.Name.Equals("ru-RU"))
                 //{
                 Width = 83.00;
@@ -130,11 +132,11 @@ public class TscPrintProperties
                 //	Height = 101.50;
                 //}
                 break;
-            case PrintLabelSize.Size100x100:
+            case WsEnumPrintLabelSize.Size100x100:
                 Width = 100.0;
                 Height = 100.0;
                 break;
-            case PrintLabelSize.Size100x110:
+            case WsEnumPrintLabelSize.Size100x110:
                 Width = 100.0;
                 Height = 110.0;
                 break;

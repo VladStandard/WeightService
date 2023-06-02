@@ -5,7 +5,7 @@ using MDSoft.BarcodePrintUtils.Tsc;
 using System;
 using System.Windows;
 using MDSoft.BarcodePrintUtils.Utils;
-using WsPrintCore.Enums;
+using WsPrintCore.Common;
 using WsPrintCore.Zpl;
 
 namespace TscPrintDemoWpf.Views;
@@ -75,12 +75,12 @@ public partial class MainWindow : Window
 
     private void SetupByName_Click(object sender, RoutedEventArgs e)
     {
-        TscDriver.Setup(PrintChannel.Name, TscDriver.Properties.PrintName, TscDriver.Properties.Size, TscDriver.Properties.Dpi);
+        TscDriver.Setup(WsEnumPrintChannel.Name, TscDriver.Properties.PrintName, TscDriver.Properties.Size, TscDriver.Properties.Dpi);
     }
 
     private void SetupByIpPort_Click(object sender, RoutedEventArgs e)
     {
-        TscDriver.Setup(PrintChannel.Ethernet, TscDriver.Properties.PrintIp, TscDriver.Properties.PrintPort, TscDriver.Properties.Size, TscDriver.Properties.Dpi);
+        TscDriver.Setup(WsEnumPrintChannel.Ethernet, TscDriver.Properties.PrintIp, TscDriver.Properties.PrintPort, TscDriver.Properties.Size, TscDriver.Properties.Dpi);
     }
 
     private void CmdCalibrate_Click(object sender, RoutedEventArgs e)
@@ -109,18 +109,18 @@ public partial class MainWindow : Window
     {
         var value = TscDriver.Properties.Dpi switch
         {
-            PrintLabelDpi.Dpi100 => 4 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi200 => 8 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi300 => 12 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi400 => 16 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi500 => 20 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi600 => 24 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi700 => 28 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi800 => 32 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi900 => 36 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi1000 => 40 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi1100 => 44 * TscDriver.Properties.FeedMm,
-            PrintLabelDpi.Dpi1200 => 48 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi100 => 4 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi200 => 8 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi300 => 12 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi400 => 16 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi500 => 20 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi600 => 24 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi700 => 28 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi800 => 32 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi900 => 36 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi1000 => 40 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi1100 => 44 * TscDriver.Properties.FeedMm,
+            WsEnumPrintLabelDpi.Dpi1200 => 48 * TscDriver.Properties.FeedMm,
             _ => throw new ArgumentOutOfRangeException(nameof(TscDriver.Properties.Dpi), TscDriver.Properties.Dpi.ToString()),
         };
         if (value > 0)

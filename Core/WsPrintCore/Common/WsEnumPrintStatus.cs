@@ -1,9 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsPrintCore.Enums;
+namespace WsPrintCore.Common;
 
-public enum PrintStatus
+public enum WsEnumPrintStatus
 {
     Zero = 0,       // 00 Normal
     One = 1,        // 01 Head opened

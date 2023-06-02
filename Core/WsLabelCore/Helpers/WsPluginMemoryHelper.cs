@@ -7,7 +7,7 @@ namespace WsLabelCore.Helpers;
 /// Плагин состояния памяти.
 /// </summary>
 #nullable enable
-public sealed class WsPluginMemoryHelper : WsPluginHelperBase
+public sealed class WsPluginMemoryHelper : WsPluginBaseHelper
 {
     #region Design pattern "Lazy Singleton"
 

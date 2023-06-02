@@ -8,7 +8,7 @@ namespace WsLabelCore.Helpers;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsPluginLabelsHelper : WsPluginHelperBase
+public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
 {
     #region Design pattern "Lazy Singleton"
 

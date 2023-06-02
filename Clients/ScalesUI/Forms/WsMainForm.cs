@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Common;
+using WsPrintCore.Common;
 
 namespace ScalesUI.Forms;
 
@@ -80,6 +80,11 @@ public partial class WsMainForm : Form
         HttpStatusException = scalePrinter.HttpStatusException,
     };
 
+    /// <summary>
+    /// Загрузить форму.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void MainForm_Load(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
@@ -153,13 +158,30 @@ public partial class WsMainForm : Form
         // Основной принтер.
         if (LabelSession.Line.PrinterMain is not null)
         {
-            LabelSession.PluginPrintMain.Init(new(0_500, 0_500), 
-                new(0_500, 0_500), new(0_500, 0_500),
-                LabelSession.PrintBrandMain, GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
-            MdInvokeControl.SetVisible(fieldPrintMain, true);
-            MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
-            LabelSession.PluginPrintMain.Execute();
-            LabelSession.PluginPrintMain.SetOdometorUserLabel(1);
+            switch (LabelSession.PrintModelMain)
+            {
+                case WsEnumPrintModel.Tsc:
+                    LabelSession.PluginPrintTscMain = new();
+                    LabelSession.PluginPrintTscMain.InitTsc(new(0_500, 0_500),
+                        new(0_500, 0_500), new(0_500, 0_500),
+                        GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
+                    MdInvokeControl.SetVisible(fieldPrintMain, true);
+                    MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
+                    LabelSession.PluginPrintTscMain.Execute();
+                    break;
+                case WsEnumPrintModel.Zebra:
+                    LabelSession.PluginPrintZebraMain = new();
+                    LabelSession.PluginPrintZebraMain.InitZebra(new(0_500, 0_500),
+                        new(0_500, 0_500), new(0_500, 0_500),
+                        GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
+                    MdInvokeControl.SetVisible(fieldPrintMain, true);
+                    MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
+                    LabelSession.PluginPrintZebraMain.Execute();
+                    LabelSession.PluginPrintZebraMain.SetOdometorUserLabel(1);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         // Транспортный принтер.
@@ -167,13 +189,30 @@ public partial class WsMainForm : Form
         {
             if (LabelSession.Line.PrinterShipping is not null)
             {
-                LabelSession.PluginPrintShipping.Init(new(0_500, 0_500),
-                    new(0_500, 0_500), new(0_500, 0_500),
-                    LabelSession.PrintBrandShipping, GetMdPrinter(LabelSession.Line.PrinterShipping), fieldPrintShipping, fieldPrintShippingExt, false);
-                MdInvokeControl.SetVisible(fieldPrintShipping, true);
-                MdInvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDevelop);
-                LabelSession.PluginPrintShipping.Execute();
-                LabelSession.PluginPrintShipping.SetOdometorUserLabel(1);
+                switch (LabelSession.PrintModelShipping)
+                {
+                    case WsEnumPrintModel.Tsc:
+                        LabelSession.PluginPrintTscShipping = new();
+                        LabelSession.PluginPrintTscShipping.InitTsc(new(0_500, 0_500),
+                            new(0_500, 0_500), new(0_500, 0_500),
+                            GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
+                        MdInvokeControl.SetVisible(fieldPrintMain, true);
+                        MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
+                        LabelSession.PluginPrintTscShipping.Execute();
+                        break;
+                    case WsEnumPrintModel.Zebra:
+                        LabelSession.PluginPrintZebraShipping = new WsPluginPrintZebraModel();
+                        LabelSession.PluginPrintZebraShipping.InitZebra(new(0_500, 0_500),
+                            new(0_500, 0_500), new(0_500, 0_500),
+                            GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
+                        MdInvokeControl.SetVisible(fieldPrintMain, true);
+                        MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
+                        LabelSession.PluginPrintZebraShipping.Execute();
+                        LabelSession.PluginPrintZebraShipping.SetOdometorUserLabel(1);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
 

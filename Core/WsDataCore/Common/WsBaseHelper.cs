@@ -3,17 +3,20 @@
 
 namespace WsDataCore.Common;
 
+/// <summary>
+/// Базовый класс помощника.
+/// </summary>
 public class WsBaseHelper
 {
     #region Public and private fields, properties, constructor
 
     protected bool IsExecute { get; private set; }
-    private Action CloseAction { get; set; }
+    private Action? CloseAction { get; set; }
 
     protected WsBaseHelper()
     {
         IsExecute = false;
-        CloseAction = () => { };
+        CloseAction = null;
     }
 
     #endregion
@@ -36,7 +39,7 @@ public class WsBaseHelper
     {
         if (!IsExecute) return;
         IsExecute = false;
-        CloseAction.Invoke();
+        CloseAction?.Invoke();
     }
 
     #endregion

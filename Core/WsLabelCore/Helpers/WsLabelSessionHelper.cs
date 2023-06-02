@@ -25,13 +25,15 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     private WsDebugHelper Debug => WsDebugHelper.Instance;
     public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    public WsPluginPrintModel PluginPrintMain { get; } = new();
-    public WsPluginPrintModel PluginPrintShipping { get; } = new();
+    public WsPluginPrintTscModel? PluginPrintTscMain { get; set; }
+    public WsPluginPrintZebraModel? PluginPrintZebraMain { get; set; }
+    public WsPluginPrintTscModel? PluginPrintTscShipping { get; set; }
+    public WsPluginPrintZebraModel? PluginPrintZebraShipping { get; set; }
     private ProductSeriesDirect ProductSeries { get; set; } = new();
-    public PrintBrand PrintBrandMain =>
-        Line.PrinterMain is not null && Line.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
-    public PrintBrand PrintBrandShipping =>
-        Line.PrinterShipping is not null && Line.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.Tsc : PrintBrand.Zebra;
+    public WsEnumPrintModel PrintModelMain =>
+        Line.PrinterMain is not null && Line.PrinterMain.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
+    public WsEnumPrintModel PrintModelShipping =>
+        Line.PrinterShipping is not null && Line.PrinterShipping.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
     public WsSqlPluWeighingModel PluWeighing { get; set; }
     public WsWeighingSettingsModel WeighingSettings { get; private set; }
     public WsSqlPluScaleModel PluLine { get; private set; }
@@ -89,7 +91,13 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
 
     public void NewPallet()
     {
-        PluginPrintMain.LabelPrintedCount = 1;
+        if (PluginPrintTscMain is not null) PluginPrintTscMain.LabelPrintedCount = 1;
+        if (PluginPrintZebraMain is not null) PluginPrintZebraMain.LabelPrintedCount = 1;
+        if (Line.IsShipping)
+        {
+            if (PluginPrintTscShipping is not null) PluginPrintTscShipping.LabelPrintedCount = 1;
+            if (PluginPrintZebraShipping is not null) PluginPrintZebraShipping.LabelPrintedCount = 1;
+        }
         ProductSeries.Load();
     }
 
@@ -227,8 +235,13 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
                 PluLine.Plu.ClipTypeWeight = clip.Weight;
             }
         }
-        PluginPrintMain.LabelPrintedCount = 1;
-        PluginPrintShipping.LabelPrintedCount = 1;
+        if (PluginPrintTscMain is not null) PluginPrintTscMain.LabelPrintedCount = 1;
+        if (PluginPrintZebraMain is not null) PluginPrintZebraMain.LabelPrintedCount = 1;
+        if (Line.IsShipping)
+        {
+            if (PluginPrintTscShipping is not null) PluginPrintTscShipping.LabelPrintedCount = 1;
+            if (PluginPrintZebraShipping is not null) PluginPrintZebraShipping.LabelPrintedCount = 1;
+        }
         // Смена вложенности ПЛУ.
         SetViewPluNesting();
     }

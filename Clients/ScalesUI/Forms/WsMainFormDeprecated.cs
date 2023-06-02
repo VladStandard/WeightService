@@ -20,6 +20,20 @@ public partial class WsMainForm
         UserSession.PluginMassa.Execute();
     }
 
+    ///// <summary>
+    ///// Запросить проверку подключения принтера.
+    ///// </summary>
+    //private void ActionPreparePrintAskDevelopPrinters()
+    //{
+    //    if (Debug.IsSkipDialogs) return;
+    //    if (Debug.IsRelease) return;
+
+    //    // Навигация в контрол диалога Отмена/Да.
+    //    WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
+    //        LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question, WsEnumDialogType.CancelYes,
+    //        new() { () => ActionPrintLabel(false), () => ActionPrintLabel(true) });
+    //}
+
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
         //using WsWpfPageLoader wpfPageLoader = new(WsEnumPage.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
