@@ -11,7 +11,7 @@ public partial class MainLayout : RazorComponentBase
 
     private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
     
-    private static string TmpStyle => DebugHelper.Instance.IsDevelop ? "background-color: darkorange;" : "background-color: grey;";
+    private static string TmpStyle => WsDebugHelper.Instance.IsDevelop ? "background-color: darkorange;" : "background-color: grey;";
 
     protected override void OnParametersSet()
     {
