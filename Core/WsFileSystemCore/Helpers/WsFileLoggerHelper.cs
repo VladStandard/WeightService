@@ -21,7 +21,7 @@ public class WsFileLoggerHelper
     {
         if (!Directory.Exists(dir) || string.IsNullOrEmpty(file)) return;
         LogFileName = Path.Combine(dir, $"{file}.txt");
-        StoreMessage($"Debug mode: {DebugHelper.Instance.IsDevelop}");
+        StoreMessage($"Debug mode: {WsDebugHelper.Instance.IsDevelop}");
     }
 
     private void StoreCore(Action<StreamWriter> action)

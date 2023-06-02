@@ -21,7 +21,7 @@ public static class DataFormatUtils
         LoadTemplatesResources(isForceUpdate).Select(item => item.Name).ToList();
 
     /// <summary>
-    /// Replace zpl-resources from table `TEMPLATES_RESOURCES`.
+    /// Заменить zpl-ресурсы из таблицы ресурсов шаблонов.
     /// </summary>
     /// <param name="zpl"></param>
     /// <param name="actionReplaceStorageMethod"></param>
@@ -51,6 +51,7 @@ public static class DataFormatUtils
     {
         tscDriver.Cmd = ZplUtils.ConvertStringToHex(tscDriver.TextPrepare);
         if (isUsePicReplace)
+            // Заменить zpl-ресурсы из таблицы ресурсов шаблонов.
             tscDriver.Cmd = PrintCmdReplaceZplResources(tscDriver.Cmd, _ => { });
     }
 }

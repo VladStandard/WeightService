@@ -6,11 +6,11 @@ using System.Windows.Forms;
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Корневой контрол навигации.
+/// WinForms-контрол навигации.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed partial class WsFormNavigationUserControl : UserControl // WsFormBaseUserControl
+public sealed partial class WsFormNavigationUserControl : UserControl
 {
     #region Public and private fields, properties, constructor
 
@@ -49,10 +49,7 @@ public sealed partial class WsFormNavigationUserControl : UserControl // WsFormB
     /// Задать заголовок.
     /// </summary>
     /// <param name="title"></param>
-    public void SetTitle(string title)
-    {
-        MdInvokeControl.SetText(fieldTitle, title);
-    }
+    public void SetTitle(string title) => MdInvokeControl.SetText(fieldTitle, title);
 
     #endregion
 }

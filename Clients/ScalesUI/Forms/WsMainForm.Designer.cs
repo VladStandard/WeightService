@@ -1,6 +1,6 @@
 namespace ScalesUI.Forms
 {
-    partial class WsMainForm
+    public partial class WsMainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.

@@ -46,7 +46,7 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Scale)}: {Scale}. " +
         $"{nameof(IsClose)}: {IsClose}. " +
         $"{nameof(Sscc)}: {Sscc}.";

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace WsLabelCore.Controls;
 
 /// <summary>
-/// Контрол ПЛУ.
+/// WinForms-контрол одной ПЛУ.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
@@ -42,7 +42,6 @@ public sealed class WsFormPluControl : UserControl
         LabelTemplate.Tag = viewPluScale;
         LabelTemplate.Click += PluSelect;
     }
-
 
     #endregion
 

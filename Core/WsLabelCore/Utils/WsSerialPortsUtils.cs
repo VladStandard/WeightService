@@ -4,8 +4,9 @@
 namespace WsLabelCore.Utils;
 
 /// <summary>
-/// Serial port utils.
+/// Утилиты последовательного порта.
 /// </summary>
+#nullable enable
 public static class WsSerialPortsUtils
 {
     public static void DefaultComPortName(WsSqlScaleModel scale, System.Windows.Controls.ComboBox fieldComPort, List<string> listComPorts)

@@ -46,7 +46,7 @@ public class WsSqlPluFkModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Plu)}: {Plu}. " +
         $"{nameof(Parent)}: {Parent}. ";
 

@@ -4,6 +4,10 @@
 using System.Windows.Forms;
 
 namespace WsLabelCore.Utils;
+
+/// <summary>
+/// WinForms утилиты.
+/// </summary>
 #nullable enable
 public static class WsFormUtils
 {

@@ -3,6 +3,9 @@
 
 namespace WsLabelCore.Helpers;
 
+/// <summary>
+/// Плагин замеров памяти.
+/// </summary>
 public sealed class WsPluginMemoryHelper : WsPluginHelperBase
 {
     #region Design pattern "Lazy Singleton"

@@ -5,29 +5,35 @@
 namespace WsLabelCore.Pages;
 
 /// <summary>
-/// Interaction logic for WsXamlWaitPage.xaml
+/// Страница оджидания.
 /// </summary>
+[DebuggerDisplay("{ToString()}")]
 #nullable enable
-public partial class WsXamlWaitPage : WsXamlBasePage
+public partial class WsXamlWaitPage
 {
     #region Public and private fields, properties, constructor
 
-    public WsXamlWaitPage(WsXamlBaseViewModel viewModel) : base(viewModel)
+    public WsXamlWaitPage()
     {
         InitializeComponent();
-        ViewModel = viewModel;
-        borderMain.Child = GridMain;
     }
+
+    #endregion
+
+    #region Public and private methods
 
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    public override void RefreshViewModel()
+    public void SetupViewModel(IWsViewModel viewModel)
     {
-        base.RefreshViewModel();
-        WsFormNavigationUtils.ActionTryCatchSimple(() =>
+        if (viewModel is not WsXamlWaitViewModel waitViewModel) return;
+        base.SetupViewModel(waitViewModel, gridLocal);
+
+        WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            //
+            // Настроить список кнопок.
+            SetupListButtons(gridLocal, 1, 0);
         });
     }
 

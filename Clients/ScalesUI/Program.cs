@@ -21,6 +21,8 @@ internal static class Program
         // Запуск.
         ContextManager.ContextItem.SaveLogInformation(
             LocaleCore.Scales.RegistrationSuccess(LabelSession.DeviceName, LabelSession.DeviceScaleFk.Scale.Description));
+        // Режив работы.
+        WsDebugHelper.Instance.IsSkipDialogs = false;
         System.Windows.Forms.Application.Run(new WsMainForm());
     }
 }

@@ -40,7 +40,7 @@ public class WsSqlLogTypeModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Number)}: {Number}. " +
         $"{nameof(Icon)}: {Icon}. ";
 

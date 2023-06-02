@@ -6,7 +6,7 @@ namespace WsStorageCore.TableScaleModels.BarCodes;
 /// <summary>
 /// Table map "BARCODES".
 /// </summary>
-[DebuggerDisplay("{nameof(BarCodeMap)}")]
+[DebuggerDisplay("{ToString()}")]
 public sealed class WsSqlBarCodeMap : ClassMap<WsSqlBarCodeModel>
 {
     /// <summary>

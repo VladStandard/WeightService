@@ -6,7 +6,7 @@ namespace WsLabelCoreTests.Helpers;
 [TestFixture]
 public sealed class XmlHelperTests
 {
-    private XmlHelper Xml => XmlHelper.Instance;
+    private WsXmlHelper Xml => WsXmlHelper.Instance;
     private const string TestFile = @"c:\Program Files\Common Files\microsoft shared\ink\Content.xml";
 
     [Test]

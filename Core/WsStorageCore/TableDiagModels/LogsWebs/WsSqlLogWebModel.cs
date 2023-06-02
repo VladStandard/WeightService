@@ -65,7 +65,7 @@ public class WsSqlLogWebModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(Version)}: {Version}. " +
         $"{nameof(Direction)}: {Direction}. " +
         $"{nameof(Url)}: {Url}. ";

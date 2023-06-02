@@ -9,7 +9,7 @@ namespace WsStorageCore.Models;
 /// SQL view model.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewBase : WsMvvmBase
+public class WsSqlViewBase : WsBaseMvvm
 {
     #region Public and private fields, properties, constructor
 

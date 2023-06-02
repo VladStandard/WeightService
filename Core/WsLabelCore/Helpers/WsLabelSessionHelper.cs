@@ -4,10 +4,11 @@
 using WsStorageCore.TableScaleModels.WorkShops;
 
 namespace WsLabelCore.Helpers;
-#nullable enable
+
 /// <summary>
-/// User session.
+/// Пользовательская сессия.
 /// </summary>
+#nullable enable
 public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
 {
     #region Design pattern "Lazy Singleton"
@@ -21,9 +22,9 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
 
     #region Public and private fields and properties
 
-    private DebugHelper Debug => DebugHelper.Instance;
-    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    private WsDebugHelper Debug => WsDebugHelper.Instance;
+    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public WsPluginPrintModel PluginPrintMain { get; } = new();
     public WsPluginPrintModel PluginPrintShipping { get; } = new();
     private ProductSeriesDirect ProductSeries { get; set; } = new();

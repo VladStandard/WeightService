@@ -6,83 +6,144 @@ using System.Windows.Controls;
 namespace WsLabelCore.Common;
 
 /// <summary>
-/// Базовый класс Controls.UserControl.
+/// Базовый класс XAML-страницы.
 /// </summary>
 #nullable enable
-public class WsXamlBasePage : UserControl
+[DebuggerDisplay("{ToString()}")]
+public class WsXamlBasePage : UserControl, IWsXamlPage
 {
     #region Public and private fields, properties, constructor
 
-    internal WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-    public WsXamlBaseViewModel ViewModel { get; protected set; }
-    protected Grid GridMain { get; }
-    private ItemsControl ItemsControlMain { get; }
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public WsXamlBaseViewModel ViewModel { get; private set; }
+    private ItemsControl ItemsControlMain { get; set; }
+    private FrameworkElementFactory ButtonFactoryMain { get; set; }
+    private FrameworkElementFactory StackPanelFactory { get; set; }
+    private ScrollViewer ScrollViewer { get; }
 
-    public WsXamlBasePage(WsXamlBaseViewModel viewModel)
+    public WsXamlBasePage()
     {
-        ViewModel = viewModel;
-
-        // Таблица.
-        GridMain = new() { Margin = new(2) };
-        GridMain.ColumnDefinitions.Add(new() { Width = new(1, GridUnitType.Star) });
-        GridMain.RowDefinitions.Add(new() { Height = new(5, GridUnitType.Star) });
-        GridMain.RowDefinitions.Add(new() { Height = new(1, GridUnitType.Star) });
-        // ScrollViewer.
-        ScrollViewer scrollViewer = new() { VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
-        Grid.SetRow(scrollViewer, 0);
-        Grid.SetColumn(scrollViewer, 0);
-        GridMain.Children.Add(scrollViewer);
-        // Сообщение.
-        TextBlock textBlockMessage = new() { Margin = new(2), FontStretch = FontStretches.Expanded,
-            FontWeight = FontWeights.Bold, TextAlignment = TextAlignment.Center, TextWrapping = TextWrapping.Wrap, 
-            HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center,
-        };
-        scrollViewer.Content = textBlockMessage;
-        textBlockMessage.SetBinding(TextBlock.TextProperty,
-            new Binding(nameof(ViewModel.Message)) { Mode = BindingMode.OneWay, Source = ViewModel });
-        textBlockMessage.SetBinding(VisibilityProperty,
-            new Binding(nameof(ViewModel.MessageVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel });
-        textBlockMessage.FontSize = ViewModel.FontSizeMessage;
-
-        // Список кнопок.
         ItemsControlMain = new() { Margin = new(2) };
-        Grid.SetRow(ItemsControlMain, 1);
-        Grid.SetColumn(ItemsControlMain, 0);
-        GridMain.Children.Add(ItemsControlMain);
-        ItemsControlMain.SetBinding(ItemsControl.ItemsSourceProperty,
-            new Binding(nameof(ViewModel.Commands)) { Mode = BindingMode.OneWay, Source = ViewModel });
-
-        // Настрить itemsControl.
-        DataTemplate itemTemplate = new();
-        FrameworkElementFactory buttonFactory = new(typeof(Button));
-        buttonFactory.SetValue(MarginProperty, new Thickness(2));
-        buttonFactory.SetValue(FontWeightProperty, FontWeights.Bold);
-        buttonFactory.SetValue(FontSizeProperty, ViewModel.FontSizeButton);
-        buttonFactory.AddHandler(KeyUpEvent, new KeyEventHandler(ViewModel.Button_KeyUp));
-        buttonFactory.SetBinding(WidthProperty,
-            new Binding(nameof(ViewModel.ButtonWidth)) { Mode = BindingMode.OneWay, Source = ViewModel });
-        buttonFactory.SetBinding(ButtonBase.CommandProperty, new Binding(nameof(WsActionCommandModel.Cmd)));
-        buttonFactory.SetBinding(ContentProperty, new Binding(nameof(WsActionCommandModel.Content)));
-        itemTemplate.VisualTree = buttonFactory;
-        ItemsControlMain.ItemTemplate = itemTemplate;
-        // Добавить stackPanel.
-        FrameworkElementFactory stackPanelFactory = new(typeof(StackPanel));
-        stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
-        stackPanelFactory.SetValue(HorizontalAlignmentProperty, HorizontalAlignment.Center);
-        ItemsPanelTemplate itemsPanelTemplate = new(stackPanelFactory);
-        ItemsControlMain.ItemsPanel = itemsPanelTemplate;
+        ViewModel = new WsXamlBaseViewModel();
+        ButtonFactoryMain = new(typeof(Button));
+        StackPanelFactory = new(typeof(StackPanel));
+        ScrollViewer = new() { VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
     }
 
     #endregion
 
     #region Public and private methods
 
+    public override string ToString() => ViewModel.ToString();
+
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    public virtual void RefreshViewModel()
+    /// <param name="viewModel"></param>
+    /// <param name="grid"></param>
+    public void SetupViewModel(IWsViewModel viewModel, Grid? grid = null)
     {
-        //
+        if (viewModel is not WsXamlBaseViewModel baseViewModel) return;
+        // Задать команды.
+        ViewModel.UpdateCommandsFromActions();
+        ObservableCollection<WsActionCommandModel> commands = ViewModel.Commands;
+        ViewModel = baseViewModel;
+        if (commands.Any())
+            ViewModel.SetCommands(commands);
+
+        WsFormNavigationUtils.ActionTryCatch(() =>
+        {
+            // Настроить прокрутку.
+            SetupScrollViewer(grid);
+            // Настроить сообщение.
+            SetupTextBlockMessage();
+        });
+    }
+
+    private void SetupScrollViewer(Grid? grid)
+    {
+        if (ViewModel.MessageVisibility.Equals(Visibility.Hidden)) return;
+        if (grid is not null && grid.Children.Contains(ScrollViewer))
+        {
+            grid.Children.Remove(ScrollViewer);
+        }
+        Grid.SetRow(ScrollViewer, 0);
+        Grid.SetColumn(ScrollViewer, 0);
+        grid?.Children.Add(ScrollViewer);
+    }
+
+    /// <summary>
+    /// Настроить сообщение.
+    /// </summary>
+    /// <returns></returns>
+    private void SetupTextBlockMessage()
+    {
+        if (ViewModel.MessageVisibility.Equals(Visibility.Hidden)) return;
+        TextBlock textBlockMessage = new()
+        {
+            Margin = new(2),
+            FontStretch = FontStretches.Expanded,
+            FontWeight = FontWeights.Bold,
+            TextAlignment = TextAlignment.Center,
+            TextWrapping = TextWrapping.Wrap,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        textBlockMessage.SetBinding(TextBlock.TextProperty,
+            new Binding(nameof(ViewModel.Message)) { Mode = BindingMode.OneWay, Source = ViewModel });
+        textBlockMessage.SetBinding(VisibilityProperty,
+            new Binding(nameof(ViewModel.MessageVisibility)) { Mode = BindingMode.OneWay, Source = ViewModel });
+        textBlockMessage.FontSize = ViewModel.FontSizeMessage;
+        ScrollViewer.Content = textBlockMessage;
+    }
+
+    /// <summary>
+    /// Настроить список кнопок.
+    /// </summary>
+    /// <param name="grid"></param>
+    /// <param name="row"></param>
+    /// <param name="column"></param>
+    /// <param name="rowSpan"></param>
+    /// <param name="columnSpan"></param>
+    protected void SetupListButtons(Grid grid, int row, int column, int rowSpan = 1, int columnSpan = 1)
+    {
+        // Проверки и пересоздание.
+        if (grid.Children.Contains(ItemsControlMain))
+        {
+            grid.Children.Remove(ItemsControlMain);
+            ItemsControlMain = new() { Margin = new(5) };
+            ButtonFactoryMain = new(typeof(Button));
+            StackPanelFactory = new(typeof(StackPanel));
+        }
+
+        // Привязки.
+        ItemsControlMain.SetBinding(ItemsControl.ItemsSourceProperty,
+            new Binding(nameof(ViewModel.CommandsSmart)) { Mode = BindingMode.OneWay, Source = ViewModel });
+        ButtonFactoryMain.SetBinding(WidthProperty,
+            new Binding(nameof(ViewModel.ButtonWidth)) { Mode = BindingMode.OneWay, Source = ViewModel });
+        ButtonFactoryMain.SetBinding(ButtonBase.CommandProperty, new Binding(nameof(WsActionCommandModel.Cmd)));
+        ButtonFactoryMain.SetBinding(ContentProperty, new Binding(nameof(WsActionCommandModel.Content)));
+        ButtonFactoryMain.SetBinding(VisibilityProperty, new Binding(nameof(WsActionCommandModel.Visibility)));
+
+        Grid.SetRow(ItemsControlMain, row);
+        Grid.SetColumn(ItemsControlMain, column);
+        Grid.SetRowSpan(ItemsControlMain, rowSpan);
+        Grid.SetColumnSpan(ItemsControlMain, columnSpan);
+        grid.Children.Add(ItemsControlMain);
+
+        // Настроить ItemsControlMain.
+        DataTemplate itemTemplate = new();
+        ButtonFactoryMain.SetValue(MarginProperty, new Thickness(2));
+        ButtonFactoryMain.SetValue(FontWeightProperty, FontWeights.Bold);
+        ButtonFactoryMain.SetValue(FontSizeProperty, ViewModel.FontSizeButton);
+        ButtonFactoryMain.AddHandler(KeyUpEvent, new KeyEventHandler(ViewModel.Button_KeyUp));
+        itemTemplate.VisualTree = ButtonFactoryMain;
+        ItemsControlMain.ItemTemplate = itemTemplate;
+        // Добавить stackPanel.
+        StackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+        StackPanelFactory.SetValue(HorizontalAlignmentProperty, HorizontalAlignment.Center);
+        ItemsPanelTemplate itemsPanelTemplate = new(StackPanelFactory);
+        ItemsControlMain.ItemsPanel = itemsPanelTemplate;
     }
 
     #endregion

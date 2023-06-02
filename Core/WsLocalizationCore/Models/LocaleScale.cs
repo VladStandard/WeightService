@@ -24,11 +24,11 @@ public sealed class LocaleScale : WsLocalizationBase
     
     public string AlreadyRunning => Lang == Lang.English ? "already running" : "уже запущено";
     public string AppExit => Lang == Lang.English ? "Exit from the program" : "Завершение программы";
-    public string AppLoad => Lang == Lang.English ? "Program loading" : "Запуск программы";
+    public string AppExitDescription => Lang == Lang.English ? "Unloading data from memory ..." : "Выгрузка данных из памяти ...";
+    public string AppLoad => Lang == Lang.English ? "Loading" : "Загрузка";
+    public string AppLoadDescription => Lang == Lang.English ? "Loading data into memory ..." : "Загрузка данных в память ...";
     public string AppTitle => Lang == Lang.English ? "Label print" : "Печать этикеток";
-    public string AppWaitExit => Lang == Lang.English ? "Waiting for the exiting..." : "Ожидание завершения...";
     public string AppWait => Lang == Lang.English ? "Waiting" : "Ожидание";
-    public string AppWaitLoad => Lang == Lang.English ? "Waiting for the load" : "Ожидание загрузки...";
     public string Bundle => Lang == Lang.English ? "Bundle" : "Пакет";
     public string ButtonAddKneading => Lang == Lang.English ? "Kneading" : "Замес";
     public string ButtonNewPallet => Lang == Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
@@ -162,10 +162,10 @@ public sealed class LocaleScale : WsLocalizationBase
     public string StateError => Lang == Lang.English ? "error" : "ошибка";
     public string StateIsNotResponsed => Lang == Lang.English ? "is not responsed" : "нет ответа";
     public string StateIsResponsed => Lang == Lang.English ? "is responsed" : "есть ответ";
-    public string SwitchKneadingTitle => Lang == Lang.English ? "Switch kneading" : "Смена замеса";
+    public string SwitchKneadingTitle => Lang == Lang.English ? "Switch kneading for" : "Смена замеса для";
     public string SwitchLineTitle => Lang == Lang.English ? "Switch Line" : "Смена линии";
     public string SwitchMoreTitle => Lang == Lang.English ? "Switch more" : "Смена ещё";
-    public string SwitchPluLineTitle => Lang == Lang.English ? "Switch PLU line" : "Смена ПЛУ линии";
+    public string SwitchPluLineTitle => Lang == Lang.English ? "Switch line's PLU" : "Смена ПЛУ линии";
     public string SwitchPluNestingTitle => Lang == Lang.English ? "Switch PLU nesting" : "Смена вложенности ПЛУ";
     public string SwitchPluTitle => Lang == Lang.English ? "Switch PLU" : "Смена ПЛУ";
     public string ThreadId => "ID";

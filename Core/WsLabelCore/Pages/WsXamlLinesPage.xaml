@@ -12,12 +12,8 @@
 	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
 
-	<Border
-		x:Name="borderMain"
-		Margin="3"
-		BorderBrush="Blue"
-		BorderThickness="1">
-		<Grid>
+	<Border BorderBrush="Blue" BorderThickness="1">
+		<Grid x:Name="gridLocal">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="0.5*" />
 				<ColumnDefinition Width="2*" />
@@ -71,11 +67,6 @@
 					</Style>
 				</ComboBox.ItemContainerStyle>
 			</ComboBox>
-			<ItemsControl
-				x:Name="itemsControl"
-				Grid.Row="2"
-				Grid.ColumnSpan="2"
-				Margin="2" />
 		</Grid>
 	</Border>
 </common:WsXamlBasePage>

@@ -53,7 +53,7 @@ internal sealed class WsSchedulerHelper
 
         lock (_lockerMinutes10)
         {
-            WsFormNavigationUtils.ActionTryCatchSimple(() =>
+            WsFormNavigationUtils.ActionTryCatch(() =>
             {
                 ContextManager.ContextItem.SaveLogMemory(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
@@ -68,7 +68,7 @@ internal sealed class WsSchedulerHelper
 
         lock (_lockerHours)
         {
-            WsFormNavigationUtils.ActionTryCatchSimple(() => WsFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Line));
+            GC.Collect();
         }
     }
 
@@ -79,7 +79,6 @@ internal sealed class WsSchedulerHelper
         lock (_lockerDays)
         {
             LabelSession.ProductDate = DateTime.Now;
-            WsFormNavigationUtils.ActionMakeScreenShot(FormMain, LabelSession.Line);
         }
     }
 

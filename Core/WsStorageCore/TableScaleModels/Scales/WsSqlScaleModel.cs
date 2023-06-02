@@ -79,7 +79,7 @@ public class WsSqlScaleModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{IsMarked} | {IdentityValueId} | {Description}";
+    public override string ToString() => $"{GetIsMarked()} | {IdentityValueId} | {Description}";
 
     public override bool Equals(object obj)
     {

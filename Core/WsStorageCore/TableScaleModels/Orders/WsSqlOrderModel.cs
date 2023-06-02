@@ -49,7 +49,7 @@ public class WsSqlOrderModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(BeginDt)}: {BeginDt}. " +
         $"{nameof(EndDt)}: {EndDt}. " +
         $"{nameof(ProdDt)}: {ProdDt}. " +

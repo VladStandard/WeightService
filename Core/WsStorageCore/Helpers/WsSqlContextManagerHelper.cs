@@ -4,7 +4,7 @@
 namespace WsStorageCore.Helpers;
 
 /// <summary>
-/// SQL-менеджер SQL-помощников.
+/// SQL-менеджер доступа к данным БД (используется клиентами).
 /// Клиентский слой доступа к БД.
 /// </summary>
 public sealed class WsSqlContextManagerHelper
@@ -111,7 +111,7 @@ public sealed class WsSqlContextManagerHelper
                 throw new(LocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            AccessCore.SetupSessionFactory(DebugHelper.Instance.IsDevelop);
+            AccessCore.SetupSessionFactory(WsDebugHelper.Instance.IsDevelop);
             ContextItem.SetupLog(appName);
         }
         catch (Exception ex)
@@ -184,7 +184,7 @@ public sealed class WsSqlContextManagerHelper
 
     private void CheckJsonUpdates(string localDir, string fileName)
     {
-        switch (DebugHelper.Instance.Config)
+        switch (WsDebugHelper.Instance.Config)
         {
             case WsEnumConfiguration.DevelopAleksandrov:
             case WsEnumConfiguration.DevelopMorozov:

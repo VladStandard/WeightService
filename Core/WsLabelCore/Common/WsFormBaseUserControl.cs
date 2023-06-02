@@ -7,11 +7,11 @@ using System.Windows.Forms.Integration;
 namespace WsLabelCore.Common;
 
 /// <summary>
-/// Базовый класс Windows.Forms.UserControl.
+/// Базовый класс WinForms-контрола.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public partial class WsFormBaseUserControl : UserControl
+public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
 {
     #region Public and private fields, properties, constructor
 
@@ -21,68 +21,55 @@ public partial class WsFormBaseUserControl : UserControl
     private ElementHost ElementHost { get; }
     public WsXamlBasePage Page { get; }
 
+    /// <summary>
+    /// Для корректного отображения наследуемых классов UserControl.
+    /// </summary>
     public WsFormBaseUserControl()
     {
         InitializeComponent();
-        Page = new(new());
         ElementHost = new() { Dock = DockStyle.Fill };
-        SetupElementHost();
+        Page = new();
     }
 
-    protected WsFormBaseUserControl(WsDialogViewModel viewModel)
+    protected WsFormBaseUserControl(WsEnumNavigationPage formUserControl)
     {
         InitializeComponent();
-        Page = new WsXamlDialogPage(viewModel);
         ElementHost = new() { Dock = DockStyle.Fill };
-        SetupElementHost();
-    }
-
-    protected WsFormBaseUserControl(WsLinesViewModel viewModel)
-    {
-        InitializeComponent();
-        Page = new WsXamlLinesPage(viewModel);
-        ElementHost = new() { Dock = DockStyle.Fill };
-        SetupElementHost();
-    }
-
-    protected WsFormBaseUserControl(WsMoreViewModel viewModel)
-    {
-        InitializeComponent();
-        Page = new(viewModel);
-        ElementHost = new() { Dock = DockStyle.Fill };
-        SetupElementHost();
-    }
-
-    protected WsFormBaseUserControl(WsPinCodeViewModel viewModel)
-    {
-        InitializeComponent();
-        Page = new WsPinCodePage(viewModel);
-        ElementHost = new() { Dock = DockStyle.Fill };
-        SetupElementHost();
-    }
-
-    protected WsFormBaseUserControl(WsPlusViewModel viewModel)
-    {
-        InitializeComponent();
-        Page = new WsXamlLinesPage(viewModel);
-        ElementHost = new() { Dock = DockStyle.Fill };
-        SetupElementHost();
-    }
-
-    protected WsFormBaseUserControl(WsPlusNestingViewModel viewModel)
-    {
-        InitializeComponent();
-        Page = new WsPlusNestingPage(viewModel);
-        ElementHost = new() { Dock = DockStyle.Fill };
-        SetupElementHost();
-    }
-
-    protected WsFormBaseUserControl(WsWaitViewModel viewModel)
-    {
-        InitializeComponent();
-        Page = new WsXamlWaitPage(viewModel);
-        ElementHost = new() { Dock = DockStyle.Fill };
-        SetupElementHost();
+        switch (formUserControl)
+        {
+            case WsEnumNavigationPage.Dialog:
+                Page = new WsXamlDialogPage();
+                SetupElementHost();
+                break;
+            case WsEnumNavigationPage.Digit:
+                Page = new WsXamlDigitsPage();
+                SetupElementHost();
+                break;
+            case WsEnumNavigationPage.Line:
+                Page = new WsXamlLinesPage();
+                SetupElementHost();
+                break;
+            case WsEnumNavigationPage.Kneading:
+                Page = new();
+                break;
+            case WsEnumNavigationPage.PinCode:
+                Page = new WsXamlDigitsPage();
+                SetupElementHost();
+                break;
+            case WsEnumNavigationPage.PlusLine:
+                Page = new();
+                break;
+            case WsEnumNavigationPage.PlusNesting:
+                Page = new WsXamlPlusNestingPage();
+                SetupElementHost();
+                break;
+            case WsEnumNavigationPage.Wait:
+                Page = new WsXamlWaitPage();
+                SetupElementHost();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(formUserControl), formUserControl, formUserControl.ToString());
+        }
     }
 
     #endregion
@@ -90,14 +77,6 @@ public partial class WsFormBaseUserControl : UserControl
     #region Public and private methods
 
     public override string ToString() => $"{Name} | " + Page.ViewModel;
-
-    /// <summary>
-    /// Обновить контрол.
-    /// </summary>
-    public virtual void RefreshUserConrol()
-    {
-        Page.RefreshViewModel();
-    }
 
     /// <summary>
     /// Настройка ElementHost.

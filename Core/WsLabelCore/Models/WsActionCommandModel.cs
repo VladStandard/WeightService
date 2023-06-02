@@ -11,61 +11,36 @@ namespace WsLabelCore.Models;
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
 #nullable enable
-public sealed partial class WsActionCommandModel : WsMvvmBase
+public sealed partial class WsActionCommandModel : WsBaseMvvm
 {
     #region Public and private fields, properties, constructor
 
-    public string Name { get; private set; } = "";
+    private string Name { get; }
     public Action? Action { get; private set; }
     public ICommand Cmd => new Command(Action ?? (() => { }));
-    public string Content { get; private set; } = "";
-    public Visibility Visibility { get; set; } = Visibility.Hidden;
+    public string Content { get; private set; }
+    public Visibility Visibility { get; set; }
     
     public WsActionCommandModel(string name, string content, Visibility visibility)
-    {
-        SetupEmpty(name, content, visibility);
-    }
-
-    #endregion
-
-    #region Public and private methods
-
-    public override string ToString() => $"{Name} | {Content} | {Visibility} | {(Action is null ? "<Empty action>" : $"[{Action.GetInvocationList().Length}] actions")}";
-
-    /// <summary>
-    /// Прервать.
-    /// </summary>
-    [RelayCommand]
-    public void Relay() => Action?.Invoke();
-
-    /// <summary>
-    /// Настройка.
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="action"></param>
-    /// <param name="content"></param>
-    /// <param name="visibility"></param>
-    private void Setup(string name, Action action, string content, Visibility visibility)
-    {
-        Name = name;
-        Action = action;
-        Content = content;
-        Visibility = visibility;
-    }
-
-    /// <summary>
-    /// Настройка.
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="content"></param>
-    /// <param name="visibility"></param>
-    public void SetupEmpty(string name, string content, Visibility visibility)
     {
         Name = name;
         Action = null;
         Content = content;
         Visibility = visibility;
     }
+
+    #endregion
+
+    #region Public and private methods
+
+    public override string ToString() => 
+        $"{Name} | {Visibility} | {(Action is null ? "<Empty action>" : $"[{Action.GetInvocationList().Length}] actions")}";
+
+    /// <summary>
+    /// Прервать.
+    /// </summary>
+    [RelayCommand]
+    public void Relay() => Action?.Invoke();
 
     /// <summary>
     /// Настройка действий.
@@ -91,10 +66,16 @@ public sealed partial class WsActionCommandModel : WsMvvmBase
         }
         if (Action is not null && Action.GetInvocationList().Length > 0)
         {
-            if (!Action.GetInvocationList().Contains(action))
+            IEnumerable<string> namesExists = Action.GetInvocationList().Select(item => item.Method.Name);
+            if (!namesExists.Contains(action.Method.Name))
                 Action += action;
+            //IEnumerable<string> namesNew = action.GetInvocationList().Select(item => item.Method.Name);
+            //foreach (Delegate? act in action.GetInvocationList())
+            //{
+            //    if (!namesExists.Contains((Action)act.Name))
+            //        Action += action;
+            //}
         }
-
     }
 
     #endregion

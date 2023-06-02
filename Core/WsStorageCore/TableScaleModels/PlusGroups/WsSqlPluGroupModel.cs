@@ -44,7 +44,7 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
+        $"{GetIsMarked()} | " +
         $"{nameof(IsGroup)}: {IsGroup}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Code)}: {Code}. ";

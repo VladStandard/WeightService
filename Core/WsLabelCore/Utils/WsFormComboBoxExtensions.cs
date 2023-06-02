@@ -3,6 +3,10 @@
 
 namespace WsLabelCore.Utils;
 
+/// <summary>
+/// WinForms расширения.
+/// </summary>
+#nullable enable
 public static class WsFormComboBoxExtensions
 {
     public static void SetEventWithItems(this System.Windows.Forms.ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)

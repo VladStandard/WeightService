@@ -19,14 +19,14 @@ public sealed class WsUserSessionHelper //: BaseViewModel
 
     #region Public and private fields and properties
 
-    private DebugHelper Debug => DebugHelper.Instance;
+    private WsDebugHelper Debug => WsDebugHelper.Instance;
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private WsSqlBarCodeController BarCode => WsSqlBarCodeController.Instance;
     public WsPluginLabelsHelper PluginLabels => WsPluginLabelsHelper.Instance;
     public WsPluginMassaHelper PluginMassa => WsPluginMassaHelper.Instance;
     public WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
     private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public Stopwatch StopwatchMain { get; set; } = new();
     
     #endregion
@@ -63,7 +63,11 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// Проверить наличие весовой платформы Масса-К.
     /// </summary>
     /// <returns></returns>
-    public bool CheckWeightMassaDeviceExists() => LabelSession.PluLine is { IsNew: false, Plu.IsCheckWeight: false } || true;
+    public bool CheckWeightMassaDeviceExists()
+    {
+        if (Debug.IsDevelop) return true;
+        return LabelSession.PluLine is { IsNew: false, Plu.IsCheckWeight: false } || true;
+    }
 
     /// <summary>
     /// Проверить стабилизацию весовой платформы Масса-К.
@@ -72,6 +76,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <returns></returns>
     public bool CheckWeightMassaIsStable(Label fieldWarning)
     {
+        if (Debug.IsDevelop) return true;
         if (LabelSession.PluLine.Plu.IsCheckWeight && !PluginMassa.IsStable)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
@@ -313,20 +318,25 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     }
 
     /// <summary>
-    /// Задать фейк данные веса ПЛУ для режима разработки.
+    /// Использовать фейк-данные для веса ПЛУ.
     /// </summary>
     /// <param name="showNavigation"></param>
-    public void SetPluWeighingFakeForDevelop(Action<WsFormBaseUserControl, string> showNavigation)
+    /// <param name="returnPreparePrint"></param>
+    public void SetPluWeighingFakeForDevelop(Action<WsFormBaseUserControl, string> showNavigation,
+        Action returnPreparePrint)
     {
-        if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
-        if (PluginMassa.WeightNet > 0) return;
-        // Навигация в контрол сообщений.
+        if (Debug is { IsSkipDialogs: true, IsRelease: true }) { returnPreparePrint.Invoke(); return; }
+        if (!LabelSession.PluLine.Plu.IsCheckWeight) { returnPreparePrint.Invoke(); return; }
+        if (PluginMassa.WeightNet > 0) { returnPreparePrint.Invoke(); return; }
+
+        // Навигация в контрол диалога Отмена/Да.
         WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation, LocaleCore.Print.QuestionUseFakeData,
             true, WsEnumLogType.Question, () => { }, ActionYes);
         void ActionYes()
         {
             PluginMassa.WeightNet = StrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
             PluginMassa.IsWeightNetFake = true;
+            returnPreparePrint.Invoke();
         }
     }
 
@@ -336,15 +346,18 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <param name="showNavigation"></param>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCore(Action<WsFormBaseUserControl, string> showNavigation, WsSqlTemplateModel template, bool isClearBuffer)
+    private void PrintLabelCore(Action<WsFormBaseUserControl, string> showNavigation, WsSqlTemplateModel template, 
+        bool isClearBuffer)
     {
         try
         {
+            // Создать этикетку из шаблона.
             (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = 
                 CreateAndSavePluLabel(template);
+            // Создать ШК из этикетки.
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
 
-            // Print.
+            // Очистить буфер печати.
             if (isClearBuffer)
             {
                 LabelSession.PluginPrintMain.ClearPrintBuffer();
@@ -352,24 +365,25 @@ public sealed class WsUserSessionHelper //: BaseViewModel
                     LabelSession.PluginPrintShipping.ClearPrintBuffer();
             }
 
-            // Send cmd to the print.
-            if (Debug.IsDevelop)
-            {
-                // Навигация в контрол сообщений.
-                WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation,
-                    LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
-                    () => { }, ActionYes);
-                void ActionYes()
-                {
-                    // Send cmd to the print.
-                    LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
-                }
-            }
-            else
-            {
-                // Send cmd to the print.
+            // Отправить команду в принтер.
+            // TODO: исправить это место. WsXamlDialogUserControl.
+            //if (Debug.IsDevelop)
+            //{
+            //    // Навигация в контрол диалога Отмена/Да.
+            //    WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation,
+            //        LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
+            //        () => { }, ActionYes);
+            //    void ActionYes()
+            //    {
+            //        // Отправить команду в принтер.
+            //        LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
+            //    }
+            //}
+            //else
+            //{
+                // Отправить команду в принтер.
                 LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
-            }
+            //}
         }
         catch (Exception ex)
         {
@@ -391,7 +405,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     }
 
     /// <summary>
-    /// Create PluLabel from Template.
+    /// Создать этикетку из шаблона.
     /// </summary>
     /// <param name="template"></param>
     /// <returns></returns>
@@ -399,17 +413,14 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     {
         WsSqlPluLabelModel pluLabel = new() { PluWeighing = LabelSession.PluWeighing, PluScale = LabelSession.PluLine, 
             ProductDt = LabelSession.ProductDate };
-        //pluLabel.PluWeighing.PluScale = PluScale;
-        //pluLabel.PluWeighing.PluScale.Scale = Scale;
-        //pluLabel.PluScale.Scale = Scale;
 
-        // Пригодится при повторной ошибке сериализации.
-        //string str = WsDataFormatUtils.SerializeAsXmlString<WsSqlScaleModel>(Scale, true, true);
-        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlScaleModel>(Scale, true, true);
-        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluScaleModel>(PluScale, true, true);
-        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluScaleModel>(PluScale, true, true);
-        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluWeighingModel>(PluWeighing, true, true);
-        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluWeighingModel>(PluWeighing, true, true);
+        // Раскомментировать при повторной ошибке сериализации.
+        //string str = WsDataFormatUtils.SerializeAsXmlString<WsSqlScaleModel>(LabelSession.Line, true, true);
+        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlScaleModel>(LabelSession.Line, true, true);
+        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluScaleModel>(LabelSession.PluLine, true, true);
+        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluScaleModel>(LabelSession.PluLine, true, true);
+        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluWeighingModel>(LabelSession.PluWeighing, true, true);
+        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluWeighingModel>(LabelSession.PluWeighing, true, true);
         //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluLabelModel>(pluLabel, true, true);
 
         pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelModel>(pluLabel, true, true);
@@ -419,19 +430,21 @@ public sealed class WsUserSessionHelper //: BaseViewModel
 
         WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, LabelSession.ViewPluNesting, pluLabel.PluScale, 
             LabelSession.Area, LabelSession.PluWeighing);
-        XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelContextModel>(pluLabelContext, true, true);
+        XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelContextModel>
+            (pluLabelContext, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
 
-        // Патч шаблона: PluLabelContextModel -> WsPluLabelContextModel
+        // Патч шаблона:
         template.Data = template.Data.Replace("PluLabelModel", nameof(WsSqlPluLabelModel));
         template.Data = template.Data.Replace("PluLabelContextModel", nameof(WsSqlPluLabelContextModel));
 
         pluLabel.Zpl = WsDataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = WsDataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
         pluLabel.Zpl = ZplUtils.ConvertStringToHex(pluLabel.Zpl);
+        // Заменить zpl-ресурсы из таблицы ресурсов шаблонов.
         _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
-        // Save.
+        // Сохранить этикуетку.
         ContextManager.AccessItem.Save(pluLabel);
 
         return (pluLabel, pluLabelContext);
@@ -456,7 +469,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         };
 
     /// <summary>
-    /// Create BarCode from PluLabel.
+    /// Создать ШК из этикетки.
     /// </summary>
     /// <param name="pluLabel"></param>
     /// <param name="pluLabelContext"></param>
