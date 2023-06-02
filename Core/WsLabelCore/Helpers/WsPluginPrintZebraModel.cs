@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Net.Sockets;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -53,6 +55,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
             FieldPrint = fieldPrint;
             FieldPrintExt = fieldPrintExt;
             IsMain = isMain;
+            PrintName = printer.Name;
             MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
             MdInvokeControl.SetText(FieldPrint,
                 $"{(IsMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
@@ -66,8 +69,22 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     public override void Execute()
     {
         base.Execute();
+        //ReopenItem.Execute(ReopenZebra);
         RequestItem.Execute(RequestZebra);
         ResponseItem.Execute(ResponseZebra);
+    }
+
+    public void ReopenZebra()
+    {
+        try
+        {
+            //if (!IsConnected)
+            //    WsTcpClient.ConnectWithRetries(ReopenItem.Config.WaitExecute);
+        }
+        catch (Exception ex)
+        {
+            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, PluginType.ToString());
+        }
     }
 
     private void RequestZebra()
@@ -97,7 +114,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     private void ResponseZebra()
     {
         MdInvokeControl.SetText(FieldPrint,
-            LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer,
+            LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer, IsConnected,
                 LabelSession.Line.Counter, GetDeviceStatusZebra(), LabelPrintedCount, GetLabelCount()));
         //MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
@@ -163,10 +180,8 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     {
         if (string.IsNullOrEmpty(pluLabel.Zpl)) return;
 
-        SendCmdToZebra(pluLabel);
+        SendCmdToZebra(pluLabel.Zpl);
     }
-
-    private void SendCmdToZebra(WsSqlPluLabelModel pluLabel) => SendCmdToZebra(pluLabel.Zpl);
 
     private void SendCmdToZebra(string cmd)
     {

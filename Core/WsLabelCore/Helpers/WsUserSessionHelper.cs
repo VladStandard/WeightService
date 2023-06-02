@@ -114,6 +114,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     public bool CheckPrintIsConnectAndReadyTscMain(Label fieldWarning)
     {
         if (LabelSession.PluginPrintTscMain is null) return false;
+        LabelSession.PluginPrintTscMain.ReopenTsc();
         // Подключение.
         if (!LabelSession.PluginPrintTscMain.IsConnected)
         {
@@ -124,14 +125,14 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             return false;
         }
         // Готовность.
-        if (!LabelSession.PluginPrintTscMain.CheckDeviceStatusTsc())
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, 
-                $"{LocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintTscMain.GetDeviceStatusTsc()}");
-            ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
-            return false;
-        }
+        //if (!LabelSession.PluginPrintTscMain.CheckDeviceStatusTsc())
+        //{
+        //    MdInvokeControl.SetVisible(fieldWarning, true);
+        //    MdInvokeControl.SetText(fieldWarning, 
+        //        $"{LocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintTscMain.GetDeviceStatusTsc()}");
+        //    ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
+        //    return false;
+        //}
         return true;
     }
 
@@ -143,6 +144,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     public bool CheckPrintIsConnectAndReadyZebraMain(Label fieldWarning)
     {
         if (LabelSession.PluginPrintZebraMain is null) return false;
+        LabelSession.PluginPrintZebraMain.ReopenZebra();
         // Подключение.
         if (!LabelSession.PluginPrintZebraMain.IsConnected)
         {
@@ -172,6 +174,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     public bool CheckPrintIsConnectAndReadyTscShipping(Label fieldWarning)
     {
         if (LabelSession.PluginPrintTscShipping is null) return false;
+        LabelSession.PluginPrintTscShipping.ReopenTsc();
         // Подключение.
         if (!LabelSession.PluginPrintTscShipping.IsConnected)
         {
@@ -201,6 +204,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     public bool CheckPrintIsConnectAndReadyZebraShipping(Label fieldWarning)
     {
         if (LabelSession.PluginPrintZebraShipping is null) return false;
+        LabelSession.PluginPrintZebraShipping.ReopenZebra();
         // Подключение.
         if (!LabelSession.PluginPrintZebraShipping.IsConnected)
         {

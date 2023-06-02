@@ -12,10 +12,10 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     #region Public and private fields and properties
 
     private TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
-    private MdWmiWinPrinterModel TscWmiPrinter => GetWin32Printer(TscDriver.Properties.PrintName);
+    private MdWmiWinPrinterModel TscWmiPrinter => GetWin32Printer(PrintName);
     private readonly object _lockTcpClient = new();
     private SimpleTcpClient? _wsTcpClient;
-    public SimpleTcpClient WsTcpClient
+    private SimpleTcpClient WsTcpClient
     {
         get
         {
@@ -59,6 +59,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
             FieldPrint = fieldPrint;
             FieldPrintExt = fieldPrintExt;
             IsMain = isMain;
+            PrintName = printer.Name;
             MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
             TscDriver.Setup(WsEnumPrintChannel.Ethernet, printer.Ip, printer.Port, WsEnumPrintLabelSize.Size80x100, WsEnumPrintLabelDpi.Dpi300);
             MdInvokeControl.SetText(FieldPrint,
@@ -74,15 +75,22 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     public override void Execute()
     {
         base.Execute();
-        ReopenItem.Execute(ReopenTsc);
+        //ReopenItem.Execute(ReopenTsc);
         RequestItem.Execute(RequestTsc);
         ResponseItem.Execute(ResponseTsc);
     }
 
-    private void ReopenTsc()
+    public void ReopenTsc()
     {
-        if (!IsConnected)
-            WsTcpClient.ConnectWithRetries(ReopenItem.Config.WaitExecute);
+        try
+        {
+            if (!IsConnected)
+                WsTcpClient.ConnectWithRetries(ReopenItem.Config.WaitExecute);
+        }
+        catch (Exception ex)
+        {
+            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, PluginType.ToString());
+        }
     }
 
     private void RequestTsc()
@@ -93,7 +101,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     private void ResponseTsc()
     {
         MdInvokeControl.SetText(FieldPrint,
-            LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer,
+            LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer, IsConnected,
                 LabelSession.Line.Counter, GetDeviceStatusTsc(), LabelPrintedCount, GetLabelCount()));
         MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
@@ -113,8 +121,6 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     //        WsWinFormNavigationUtils.CatchException(ex, true, true);
     //    }
     //}
-
-    private void SendCmdToTcp(string cmd) => WsTcpClient.Send(cmd.Replace("|", "\\&"));
 
     private void WsTcpClientConnected(object sender, ConnectionEventArgs e)
     {
@@ -149,9 +155,9 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     public void SendCmd(WsSqlPluLabelModel pluLabel)
     {
         if (string.IsNullOrEmpty(pluLabel.Zpl)) return;
+        ReopenTsc();
         if (!IsConnected) return;
-
-        SendCmdToTcp(pluLabel.Zpl);
+        WsTcpClient.Send(pluLabel.Zpl.Replace("|", "\\&"));
     }
 
     public void ClearPrintBuffer(int odometerValue = -1)

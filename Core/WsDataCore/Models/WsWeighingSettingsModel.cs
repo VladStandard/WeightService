@@ -83,11 +83,11 @@ public class WsWeighingSettingsModel
             _ => LocaleCore.Print.DeviceNameIsUnavailable
         };
 
-    public string GetPrintDescription(bool isMain, WsEnumPrintModel printBrand, MdPrinterModel printer, int scaleCounter,
-        string deviceStatus, int labelPrintedCount, byte labelCount) =>
-        $"{GetPrintName(isMain, printBrand)} | " +
-        $"{LocaleCore.Table.DeviceIp}: {printer.Ip} | " +
-        $"{LocaleCore.Table.Status}: {MdNetUtils.GetPingStatus(printer.PingStatus)} | " +
+    public string GetPrintDescription(bool isMain, WsEnumPrintModel printBrand, MdPrinterModel printer,
+        bool isConnected, int scaleCounter, string deviceStatus, int labelPrintedCount, byte labelCount) =>
+        $"{GetPrintName(isMain, printBrand)} | {printer.Ip} | " +
+        //$"{LocaleCore.Table.Status}: {MdNetUtils.GetPingStatus(printer.PingStatus)} | " +
+        $"{LocaleCore.Table.Status}: {(isConnected ? MdNetLocalization.Instance.StatusSuccess : MdNetLocalization.Instance.StatusUnknown)} | " +
         $"{LocaleCore.Table.LabelCounter}: {scaleCounter} | " +
         $"{deviceStatus} | " +
         $"{LocaleCore.Scales.Labels}: {labelPrintedCount} {LocaleCore.Strings.From} {labelCount}";
