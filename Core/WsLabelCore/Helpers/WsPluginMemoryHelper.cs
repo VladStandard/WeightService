@@ -4,8 +4,9 @@
 namespace WsLabelCore.Helpers;
 
 /// <summary>
-/// Плагин замеров памяти.
+/// Плагин состояния памяти.
 /// </summary>
+#nullable enable
 public sealed class WsPluginMemoryHelper : WsPluginHelperBase
 {
     #region Design pattern "Lazy Singleton"
@@ -20,7 +21,6 @@ public sealed class WsPluginMemoryHelper : WsPluginHelperBase
     #region Public and private fields and properties
 
     private Label FieldMemory { get; set; }
-    private Label FieldMemoryExt { get; set; }
     public MemorySizeModel MemorySize { get; }
 
     #endregion
@@ -32,9 +32,10 @@ public sealed class WsPluginMemoryHelper : WsPluginHelperBase
     /// </summary>
     public WsPluginMemoryHelper()
     {
-        TskType = WsEnumTaskType.TaskMemory;
+        PluginType = WsEnumPluginType.Memory;
+        ResponseItem.PluginType = RequestItem.PluginType = ReopenItem.PluginType = PluginType;
+
         FieldMemory = new();
-        FieldMemoryExt = new();
         MemorySize = new();
     }
 
@@ -42,20 +43,16 @@ public sealed class WsPluginMemoryHelper : WsPluginHelperBase
 
     #region Public and private methods
 
-    public void Init(WsConfigModel configReopen, WsConfigModel configRequest, WsConfigModel configResponse,
-        Label fieldMemory, Label fieldMemoryExt)
+    public void Init(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse, Label fieldMemory)
     {
-        base.Init();
+        Init();
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
-        //ActionUtils.ActionTryCatch(() =>
-        //{
+
         FieldMemory = fieldMemory;
-        FieldMemoryExt = fieldMemoryExt;
         MdInvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
-        MdInvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
-        //});
+        //MdInvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
     }
 
     public override void Execute()
@@ -65,13 +62,22 @@ public sealed class WsPluginMemoryHelper : WsPluginHelperBase
         ResponseItem.Execute(Response);
     }
 
-    private string GetMemoryState() =>
-        $"{LocaleCore.Scales.Memory} | {LocaleCore.Scales.MemoryBusy}: " +
-        (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : "- MB") +
-        $" | {LocaleCore.Scales.MemoryFree}: " +
-        (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : "- MB") +
-        $" | {LocaleCore.Scales.MemoryAll}: " +
-        (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : "- MB");
+    //private string GetMemoryState() =>
+    //    $"{LocaleCore.Scales.Memory} | {LocaleCore.Scales.MemoryBusy}: " +
+    //    (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : "- MB") +
+    //    $" | {LocaleCore.Scales.MemoryFree}: " +
+    //    (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : "- MB") +
+    //    $" | {LocaleCore.Scales.MemoryAll}: " +
+    //    (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : "- MB");
+
+    /// <summary>
+    /// Строка состояния памяти.
+    /// </summary>
+    /// <returns></returns>
+    private string GetMemoryStateShort() => $"{LocaleCore.Scales.Memory} | " + 
+        (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0}" : "-") + " | " +
+        (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} " : "-") + " | " +
+        (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} " : "-" +" MB");
 
     public short GetMemorySizeAppMb() => MemorySize.GetMemorySizeAppMb();
 
@@ -79,8 +85,8 @@ public sealed class WsPluginMemoryHelper : WsPluginHelperBase
 
     private void Response()
     {
-        MdInvokeControl.SetText(FieldMemory, GetMemoryState());
-        MdInvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
+        MdInvokeControl.SetText(FieldMemory, GetMemoryStateShort());
+        //MdInvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
     }
 
     public override void Close()

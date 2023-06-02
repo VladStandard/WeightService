@@ -35,7 +35,6 @@ namespace ScalesUI.Forms
             this.fieldPrintShippingExt = new System.Windows.Forms.Label();
             this.fieldPrintShipping = new System.Windows.Forms.Label();
             this.fieldWarning = new System.Windows.Forms.Label();
-            this.fieldMemoryExt = new System.Windows.Forms.Label();
             this.fieldMemory = new System.Windows.Forms.Label();
             this.fieldPrintMainExt = new System.Windows.Forms.Label();
             this.fieldMassaExt = new System.Windows.Forms.Label();
@@ -115,7 +114,6 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.Controls.Add(this.fieldPrintShippingExt, 1, 10);
             this.layoutPanelMain.Controls.Add(this.fieldPrintShipping, 2, 10);
             this.layoutPanelMain.Controls.Add(this.fieldWarning, 1, 6);
-            this.layoutPanelMain.Controls.Add(this.fieldMemoryExt, 1, 7);
             this.layoutPanelMain.Controls.Add(this.fieldMemory, 2, 7);
             this.layoutPanelMain.Controls.Add(this.fieldPrintMainExt, 1, 9);
             this.layoutPanelMain.Controls.Add(this.fieldMassaExt, 1, 8);
@@ -208,23 +206,6 @@ namespace ScalesUI.Forms
             this.fieldWarning.Visible = false;
             this.fieldWarning.Click += new System.EventHandler(this.FieldSscc_Click);
             this.fieldWarning.DoubleClick += new System.EventHandler(this.FieldSscc_Click);
-            // 
-            // fieldMemoryExt
-            // 
-            this.fieldMemoryExt.AutoSize = true;
-            this.fieldMemoryExt.BackColor = System.Drawing.Color.Transparent;
-            this.fieldMemoryExt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMemoryExt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMemoryExt.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMemoryExt.Location = new System.Drawing.Point(8, 352);
-            this.fieldMemoryExt.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMemoryExt.Name = "fieldMemoryExt";
-            this.fieldMemoryExt.Size = new System.Drawing.Size(127, 19);
-            this.fieldMemoryExt.TabIndex = 57;
-            this.fieldMemoryExt.Text = "fieldMemoryExt";
-            this.fieldMemoryExt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldMemoryExt.Click += new System.EventHandler(this.FieldTasks_Click);
-            this.fieldMemoryExt.DoubleClick += new System.EventHandler(this.FieldTasks_Click);
             // 
             // fieldMemory
             // 
@@ -489,7 +470,6 @@ namespace ScalesUI.Forms
         private System.Windows.Forms.Label fieldPrintMainExt;
         private System.Windows.Forms.Label fieldMassaExt;
         private System.Windows.Forms.Label fieldMemory;
-        private System.Windows.Forms.Label fieldMemoryExt;
         private System.Windows.Forms.Label fieldWarning;
         private System.Windows.Forms.Label fieldPrintShipping;
         private System.Windows.Forms.Label fieldPrintShippingExt;

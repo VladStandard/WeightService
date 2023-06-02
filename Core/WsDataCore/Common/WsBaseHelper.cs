@@ -20,7 +20,7 @@ public class WsBaseHelper
 
     #region Public and private methods
 
-    protected virtual void Init()
+    protected void Init()
     {
         IsExecute = false;
         CloseAction = () => { };

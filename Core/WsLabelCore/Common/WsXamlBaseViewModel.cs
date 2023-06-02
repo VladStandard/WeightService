@@ -165,6 +165,32 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
     }
 
     /// <summary>
+    /// Настройка действий Нет/Да.
+    /// </summary>
+    /// <param name="actionNo"></param>
+    /// <param name="actionYes"></param>
+    private void AddActionsNoYes(Action actionNo, Action actionYes)
+    {
+        HideCommandsVisibility();
+        CmdNo.AddAction(actionNo);
+        CmdNo.Visibility = Visibility.Visible;
+        CmdYes.AddAction(actionYes);
+        CmdYes.Visibility = Visibility.Visible;
+        UpdateCommandsFromActions();
+    }
+
+    /// <summary>
+    /// Настройка действий Нет/Да.
+    /// </summary>
+    private void AddActionsNoYes()
+    {
+        HideCommandsVisibility();
+        CmdNo.Visibility = Visibility.Visible;
+        CmdYes.Visibility = Visibility.Visible;
+        UpdateCommandsFromActions();
+    }
+
+    /// <summary>
     /// Скрыть видимость команд.
     /// </summary>
     private void HideCommandsVisibility()
@@ -238,6 +264,50 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
     /// <summary>
     /// Настройка кнопок Отмена/Да.
     /// </summary>
+    /// <param name="message"></param>
+    /// <param name="actionCancel"></param>
+    /// <param name="actionYes"></param>
+    /// <param name="controlWidth"></param>
+    public void SetupButtonsCancelYes(string message, Action actionCancel, Action actionYes, int controlWidth)
+    {
+        Message = message;
+        AddActionsCancelYes(actionCancel, actionYes);
+        SetupButtonsWidth(controlWidth);
+    }
+
+    /// <summary>
+    /// Настройка кнопок Нет/Да.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="actionNo"></param>
+    /// <param name="actionYes"></param>
+    /// <param name="actionBack"></param>
+    /// <param name="controlWidth"></param>
+    public void SetupButtonsNoYes(string message, Action actionNo, Action actionYes, Action actionBack, int controlWidth)
+    {
+        Message = message;
+        AddActionsCancelYes(actionNo, actionYes);
+        AddActionsCancelYes(actionBack, actionBack);
+        SetupButtonsWidth(controlWidth);
+    }
+
+    /// <summary>
+    /// Настройка кнопок Нет/Да.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="actionNo"></param>
+    /// <param name="actionYes"></param>
+    /// <param name="controlWidth"></param>
+    public void SetupButtonsNoYes(string message, Action actionNo, Action actionYes, int controlWidth)
+    {
+        Message = message;
+        AddActionsCancelYes(actionNo, actionYes);
+        SetupButtonsWidth(controlWidth);
+    }
+
+    /// <summary>
+    /// Настройка кнопок Отмена/Да.
+    /// </summary>
     /// <param name="controlWidth"></param>
     public void SetupButtonsCancelYes(int controlWidth)
     {
@@ -256,6 +326,21 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
     {
         Message = message;
         AddActionsOk(actionOk);
+        SetupButtonsWidth(controlWidth);
+    }
+
+    /// <summary>
+    /// Настройка кнопок Ок.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="actionOk"></param>
+    /// <param name="actionBack"></param>
+    /// <param name="controlWidth"></param>
+    public void SetupButtonsOk(string message, Action actionOk, Action actionBack, int controlWidth)
+    {
+        Message = message;
+        AddActionsOk(actionOk);
+        AddActionsOk(actionBack);
         SetupButtonsWidth(controlWidth);
     }
 

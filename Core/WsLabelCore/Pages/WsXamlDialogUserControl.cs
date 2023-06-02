@@ -24,7 +24,7 @@ public sealed partial class WsXamlDialogUserControl : WsFormBaseUserControl, IWs
     public override string ToString() => Page.ViewModel.ToString();
 
     /// <summary>
-    /// Обновить контрол.
+    /// Настроить WinForms-контрол.
     /// </summary>
     public void SetupUserConrol() =>
         ((WsXamlDialogPage)Page).SetupViewModel(Page.ViewModel is not WsXamlDialogViewModel

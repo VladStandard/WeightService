@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsDataCore.Common;
+
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm : Form
@@ -56,7 +58,8 @@ public partial class WsMainForm : Form
         LabelSession.NewPallet();
         MdInvokeControl.SetText(this, AppVersion.AppTitle);
         MdInvokeControl.SetText(fieldProductDate, string.Empty);
-        LoadMainControls();
+        // Настроить плагины.
+        SetupPlugins();
         LoadLocalizationStatic(Lang.Russian);
         // Планировщик.
         WsScheduler.Load(this);
@@ -94,7 +97,7 @@ public partial class WsMainForm : Form
                     message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
                     ActionExit, WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
+                WsFormNavigationUtils.NavigateToExistsDialogOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
                 return;
             }
@@ -106,12 +109,12 @@ public partial class WsMainForm : Form
                 WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(message, ActionExit, 
                     WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
+                WsFormNavigationUtils.NavigateToExistsDialogOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
                 ContextManager.ContextItem.SaveLogWarning(message);
                 return;
             }
             // Навигация в контрол ожидания.
-            WsFormNavigationUtils.NavigateToWaitUserControl(ShowFormUserControl,  LocaleCore.Scales.AppLoad, LocaleCore.Scales.AppLoadDescription);
+            WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl,  LocaleCore.Scales.AppLoad, LocaleCore.Scales.AppLoadDescription);
             // Загрузка фоном.
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
@@ -129,25 +132,29 @@ public partial class WsMainForm : Form
 
     private static void ActionExit() => System.Windows.Forms.Application.Exit();
 
-    private void LoadMainControls()
+    /// <summary>
+    /// Настроить плагины.
+    /// </summary>
+    private void SetupPlugins()
     {
         // Память.
-        UserSession.PluginMemory.Init(new(1_000, 0_250), new(0_250, 0_250),
-            new(0_250, 0_250), fieldMemory, fieldMemoryExt);
+        UserSession.PluginMemory.Init(new(2_000, 1_000), new(1_000, 1_000),
+            new(1_000, 1_000), fieldMemory);
         UserSession.PluginMemory.Execute();
-        MdInvokeControl.SetVisible(fieldMemoryExt, Debug.IsDevelop);
 
         // Весовая платформа Масса-К.
-        UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100),
-            new(0_050, 0_100), fieldNettoWeight, fieldMassa, fieldMassaExt, ResetWarning);
+        //UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100),
+        //    new(0_050, 0_100), fieldNettoWeight, fieldMassa, fieldMassaExt, ResetWarning);
+        UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_150, 0_150),
+            new(0_150, 0_150), fieldNettoWeight, fieldMassa, fieldMassaExt, ResetWarning);
         PluginMassaExecute();
         MdInvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
 
         // Основной принтер.
         if (LabelSession.Line.PrinterMain is not null)
         {
-            LabelSession.PluginPrintMain.Init(new(0_500, 0_250), new(0_250, 0_250),
-                new(0_250, 0_250),
+            LabelSession.PluginPrintMain.Init(new(0_500, 0_500), 
+                new(0_500, 0_500), new(0_500, 0_500),
                 LabelSession.PrintBrandMain, GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
             MdInvokeControl.SetVisible(fieldPrintMain, true);
             MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
@@ -160,8 +167,8 @@ public partial class WsMainForm : Form
         {
             if (LabelSession.Line.PrinterShipping is not null)
             {
-                LabelSession.PluginPrintShipping.Init(new(0_500, 0_250),
-                    new(0_250, 0_250), new(0_250, 0_250),
+                LabelSession.PluginPrintShipping.Init(new(0_500, 0_500),
+                    new(0_500, 0_500), new(0_500, 0_500),
                     LabelSession.PrintBrandShipping, GetMdPrinter(LabelSession.Line.PrinterShipping), fieldPrintShipping, fieldPrintShippingExt, false);
                 MdInvokeControl.SetVisible(fieldPrintShipping, true);
                 MdInvokeControl.SetVisible(fieldPrintShippingExt, Debug.IsDevelop);
@@ -172,8 +179,8 @@ public partial class WsMainForm : Form
 
         // Метки.
         UserSession.PluginLabels.Init(
-            new(0_250, 0_250), new(0_250, 0_250),
-            new(0_250, 0_250), fieldPlu, fieldProductDate, fieldKneading);
+            new(0_500, 0_500), new(0_500, 0_500),
+            new(0_500, 0_500), fieldPlu, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
         MdInvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {LabelSession.PublishDescription}.");
         MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
@@ -191,7 +198,6 @@ public partial class WsMainForm : Form
         fieldPlu.Font = FontsSettings.FontLabelsMaximum;
         fieldProductDate.Font = FontsSettings.FontLabelsMaximum;
 
-        fieldMemoryExt.Font = FontsSettings.FontLabelsGray;
         fieldPrintMain.Font = FontsSettings.FontLabelsGray;
         fieldPrintShipping.Font = FontsSettings.FontLabelsGray;
         fieldMassaExt.Font = FontsSettings.FontLabelsGray;

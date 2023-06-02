@@ -61,6 +61,10 @@ public static class WsFormNavigationUtils
     /// WinForms-контрол смены вложенности ПЛУ.
     /// </summary>
     public static WsXamlPlusNestingUserControl PlusNestingUserControl { get; } = new();
+    /// <summary>
+    /// Тег временных диалогов.
+    /// </summary>
+    private const string DialogTempTag = "DIALOG_TEMP";
 
     #endregion
 
@@ -79,18 +83,19 @@ public static class WsFormNavigationUtils
                 {
                     if (control2 is WsFormBaseUserControl formUserControl)
                     {
-                        formUserControl.Visible = false;
+                        MdInvokeControl.SetVisible(formUserControl, false);
                     }
                 }
             }
         }
+        MdInvokeControl.SetVisible(NavigationUserControl, false);
     }
 
     /// <summary>
     /// Навигация в WinForms-контрол смены линии.
     /// </summary>
     /// <param name="showNavigation"></param>
-    public static void NavigateToLinesUserControl(Action<WsFormBaseUserControl, string> showNavigation)
+    public static void NavigateToExistsLines(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сесси пользователя.
         ((WsXamlLinesViewModel)LinesUserControl.Page.ViewModel).Areas = LabelSession.ContextCache.Areas;
@@ -105,7 +110,7 @@ public static class WsFormNavigationUtils
     }
 
     /// <summary>
-    /// Навигация в WinForms-контрол диалога Отмена/Да.
+    /// Навигация в существующий WinForms-контрол диалога Отмена/Да.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="message"></param>
@@ -113,7 +118,7 @@ public static class WsFormNavigationUtils
     /// <param name="logType"></param>
     /// <param name="actionCancel"></param>
     /// <param name="actionYes"></param>
-    public static void NavigateToMessageUserControlCancelYes(Action<WsFormBaseUserControl, string> showNavigation,
+    public static void NavigateToExistsDialogCancelYes(Action<WsFormBaseUserControl, string> showNavigation,
         string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
@@ -123,13 +128,57 @@ public static class WsFormNavigationUtils
     }
 
     /// <summary>
+    /// Навигация в новый WinForms-контрол диалога.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    /// <param name="message"></param>
+    /// <param name="isLog"></param>
+    /// <param name="logType"></param>
+    /// <param name="dialogType"></param>
+    /// <param name="actions"></param>
+    public static void NavigateToNewDialog(Action<WsFormBaseUserControl, string> showNavigation,
+        string message, bool isLog, WsEnumLogType logType, WsEnumDialogType dialogType, List<Action> actions)
+    {
+        if (isLog) ShowNewOperationControlLogType(message, logType);
+        WsXamlDialogUserControl dialog = new();
+        dialog.SetupUserConrol();
+        dialog.Tag = DialogTempTag;
+        dialog.SetupActions(dialogType, actions);
+        dialog.SetupButtons(dialogType, actions, message, NavigationUserControl.Width);
+        showNavigation(dialog, LocaleCore.Scales.OperationControl);
+        NavigationUserControl.SwitchUserControl(dialog);
+    }
+
+    /// <summary>
+    /// Очистить новые диалоги.
+    /// </summary>
+    public static void ClearNewDialogs()
+    {
+        foreach (Control control in NavigationUserControl.Controls)
+        {
+            if (control is TableLayoutPanel tableLayoutPanel)
+            {
+                foreach (Control control2 in tableLayoutPanel.Controls)
+                {
+                    if (control2 is WsXamlDialogUserControl dialogUserControl)
+                    {
+                        if (dialogUserControl.Tag is not null && dialogUserControl.Tag.Equals(DialogTempTag))
+                            dialogUserControl.Dispose();
+                    }
+                }
+            }
+        }
+        GC.Collect();
+    }
+
+    /// <summary>
     /// Навигация в WinForms-контрол диалога Ок.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="message"></param>
     /// <param name="isLog"></param>
     /// <param name="logType"></param>
-    public static void NavigateToMessageUserControlOk(Action<WsFormBaseUserControl, string> showNavigation, 
+    public static void NavigateToExistsDialogOk(Action<WsFormBaseUserControl, string> showNavigation, 
         string message, bool isLog, WsEnumLogType logType)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
@@ -147,7 +196,7 @@ public static class WsFormNavigationUtils
     /// <param name="logType"></param>
     /// <param name="actionCancel"></param>
     /// <param name="actionYes"></param>
-    public static void NavigateToDigitsUserControl(Action<WsFormBaseUserControl, string> showNavigation,
+    public static void NavigateToExistsDigitsUserControl(Action<WsFormBaseUserControl, string> showNavigation,
         string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
@@ -162,7 +211,7 @@ public static class WsFormNavigationUtils
     /// <param name="showNavigation"></param>
     /// <param name="title"></param>
     /// <param name="message"></param>
-    public static void NavigateToWaitUserControl(Action<WsFormBaseUserControl, string> showNavigation, 
+    public static void NavigateToExistsWait(Action<WsFormBaseUserControl, string> showNavigation, 
         string title, string message)
     {
         WaitUserControl.Page.ViewModel.Message = message;
@@ -175,7 +224,7 @@ public static class WsFormNavigationUtils
     /// Навигация в WinForms-контрол замеса.
     /// </summary>
     /// <param name="showNavigation"></param>
-    public static void NavigateToKneadingUserControl(Action<WsFormBaseUserControl, string> showNavigation)
+    public static void NavigateToExistsKneading(Action<WsFormBaseUserControl, string> showNavigation)
     {
         KneadingUserControl.Page.ViewModel.UpdateCommandsFromActions();
         KneadingUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
@@ -190,7 +239,7 @@ public static class WsFormNavigationUtils
     /// Навигация в WinForms-контрол смены ПЛУ линии.
     /// </summary>
     /// <param name="showNavigation"></param>
-    public static void NavigateToPlusLineUserControl(Action<WsFormBaseUserControl, string> showNavigation)
+    public static void NavigateToExistsPlusLine(Action<WsFormBaseUserControl, string> showNavigation)
     {
         PlusLineUserControl.Page.ViewModel.UpdateCommandsFromActions();
         PlusLineUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
@@ -202,7 +251,7 @@ public static class WsFormNavigationUtils
     /// Навигация в WinForms-контрол смены вложенности ПЛУ.
     /// </summary>
     /// <param name="showNavigation"></param>
-    public static void NavigateToPlusNestingUserControl(Action<WsFormBaseUserControl, string> showNavigation)
+    public static void NavigateToExistsPlusNesting(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сесси пользователя.
         ((WsXamlPlusNestingViewModel)PlusNestingUserControl.Page.ViewModel).PlusNestings = 
@@ -245,7 +294,7 @@ public static class WsFormNavigationUtils
         if (device.IsNew)
         {
             // Навигация в WinForms-контрол диалога Отмена/Да.
-            NavigateToMessageUserControlCancelYes(showNavigation,
+            NavigateToExistsDialogCancelYes(showNavigation,
                 LocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
                 false, WsEnumLogType.Information, () => { }, ActionYes);
             void ActionYes()
@@ -285,7 +334,7 @@ public static class WsFormNavigationUtils
             ? ex.Message
             : ex.Message + Environment.NewLine + ex.InnerException.Message;
         // Навигация в WinForms-контрол диалога Ок.
-        NavigateToMessageUserControlOk(showNavigation, 
+        NavigateToExistsDialogOk(showNavigation, 
             $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
             $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message, true, WsEnumLogType.Error);
     }

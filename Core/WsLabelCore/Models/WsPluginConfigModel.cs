@@ -3,32 +3,36 @@
 
 namespace WsLabelCore.Models;
 
+/// <summary>
+/// Конфиг плагина.
+/// </summary>
+#nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsConfigModel
+public sealed class WsPluginConfigModel
 {
     #region Public and private fields and properties
 
     public ushort WaitClose { get; }
     public ushort WaitExecute { get; }
-    public const ushort WaitSleep = 0_100;
+    private const ushort WaitSleep = 0_100;
     public const ushort WaitLowLimit = 0_100;
-    public const ushort WaitHighLimit = 4_000;
+    private const ushort WaitHighLimit = 3_000;
     public Stopwatch StopwatchExecute { get; }
 
     #endregion
 
     #region Constructor and destructor
 
-    public WsConfigModel(ushort waitExecute = 0, ushort waitClose = 0)
+    public WsPluginConfigModel(ushort waitExecute = 0, ushort waitClose = 0)
     {
         WaitExecute = waitExecute == 0 ? (ushort)0_100 : waitExecute;
         WaitClose = waitClose == 0 ? (ushort)0_500 : waitClose;
         StopwatchExecute = Stopwatch.StartNew();
     }
 
-    public WsConfigModel() : this(0) { }
+    public WsPluginConfigModel() : this(0) { }
 
-    public void WaitSync(ushort miliSeconds)
+    public static void WaitSync(ushort miliSeconds)
     {
         Stopwatch stopwatchSleep = Stopwatch.StartNew();
         if (miliSeconds < WaitLowLimit)
@@ -60,7 +64,7 @@ public sealed class WsConfigModel
         stopwatchSleep.Stop();
     }
 
-    public void WaitSync(Stopwatch stopwatch, ushort wait)
+    public static void WaitSync(Stopwatch stopwatch, ushort wait)
     {
         stopwatch.Restart();
         while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)

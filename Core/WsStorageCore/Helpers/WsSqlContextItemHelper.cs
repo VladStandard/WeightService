@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsDataCore.Common;
+
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -272,12 +274,23 @@ public sealed class WsSqlContextItemHelper
             SaveLogCore(ex.InnerException.Message, WsEnumLogType.Error, filePath, lineNumber, memberName);
     }
 
+    public void SaveLogErrorWithInfo(Exception ex, string description, string filePath, int lineNumber, string memberName)
+    {
+        SaveLogCore($"{description} | {ex.Message}", WsEnumLogType.Error, filePath, lineNumber, memberName);
+        if (ex.InnerException is not null)
+            SaveLogCore($"{description} | {ex.InnerException.Message}", WsEnumLogType.Error, filePath, lineNumber, memberName);
+    }
+
     public void SaveLogErrorWithInfo(string message, string filePath, int lineNumber, string memberName) =>
         SaveLogCore(message, WsEnumLogType.Error, filePath, lineNumber, memberName);
 
     public void SaveLogError(Exception ex,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
+
+    public void SaveLogErrorWithDescription(Exception ex, string description,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+        SaveLogErrorWithInfo(ex, description, filePath, lineNumber, memberName);
 
     public void SaveLogError(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>

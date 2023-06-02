@@ -43,6 +43,8 @@ public sealed partial class WsFormNavigationUserControl : UserControl
             layoutPanelUser.Controls.Add(formUserControl, 1, 1);
         layoutPanelUser.SetRowSpan(formUserControl, 1);
         layoutPanelUser.SetColumnSpan(formUserControl, 1);
+        formUserControl.ResumeLayout();
+        formUserControl.Refresh();
     }
 
     /// <summary>

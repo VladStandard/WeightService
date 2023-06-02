@@ -3,6 +3,11 @@
 
 namespace WsLabelCore.Helpers;
 
+/// <summary>
+/// Плагин меток.
+/// </summary>
+#nullable enable
+[DebuggerDisplay("{ToString()}")]
 public sealed class WsPluginLabelsHelper : WsPluginHelperBase
 {
     #region Design pattern "Lazy Singleton"
@@ -14,30 +19,27 @@ public sealed class WsPluginLabelsHelper : WsPluginHelperBase
 
     #endregion
 
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
-    private Label FieldKneading { get; set; }
-    private Label FieldPlu { get; set; }
-    private Label FieldProductDate { get; set; }
+    private Label FieldKneading { get; set; } = new();
+    private Label FieldPlu { get; set; } = new();
+    private Label FieldProductDate { get; set; } = new();
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-    
-    #endregion
-
-    #region Constructor and destructor
 
     public WsPluginLabelsHelper()
     {
-        TskType = WsEnumTaskType.TaskLabel;
+        PluginType = WsEnumPluginType.Label;
+        ResponseItem.PluginType = RequestItem.PluginType = ReopenItem.PluginType = PluginType;
     }
 
     #endregion
 
     #region Public and private methods
 
-    public void Init(WsConfigModel configReopen, WsConfigModel configRequest, WsConfigModel configResponse,
+    public void Init(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
         Label fieldPlu, Label fieldProductDate, Label fieldKneading)
     {
-        base.Init();
+        Init();
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;

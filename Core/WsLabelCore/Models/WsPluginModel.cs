@@ -3,6 +3,10 @@
 
 namespace WsLabelCore.Models;
 
+/// <summary>
+/// Модель плагина.
+/// </summary>
+#nullable enable
 [DebuggerDisplay("{ToString()}")]
 public sealed class WsPluginModel : WsBaseHelper
 {
@@ -11,18 +15,24 @@ public sealed class WsPluginModel : WsBaseHelper
     private AsyncLock Mutex { get; }
     private CancellationTokenSource Cts { get; set; }
     private Task Tsk { get; set; }
-    public WsConfigModel Config { get; set; }
-    public WsEnumTaskType TskType { get; set; }
+    public WsPluginConfigModel Config { get; set; }
+    
     private ushort _counter;
+    /// <summary>
+    /// Счётчик.
+    /// </summary>
     public ushort Counter
     {
         get => _counter;
         private set => _counter = value > 0_999 ? default : value;
     }
+    /// <summary>
+    /// Тип плагина.
+    /// </summary>
+    public WsEnumPluginType PluginType { get; set; }
 
     public WsPluginModel()
     {
-        TskType = WsEnumTaskType.Default;
         Mutex = new();
         Cts = new();
         Tsk = Task.Run(() => { });
@@ -33,7 +43,7 @@ public sealed class WsPluginModel : WsBaseHelper
 
     #region Public and private methods
 
-    public void Init(WsConfigModel config)
+    public void Init(WsPluginConfigModel config)
     {
         Init();
         Config = config;
@@ -61,7 +71,7 @@ public sealed class WsPluginModel : WsBaseHelper
                     AwaitableDisposable<IDisposable> lockTask = Mutex.LockAsync(Cts.Token);
                     using (await lockTask.ConfigureAwait(true))
                     {
-                        Config.WaitSync(Config.StopwatchExecute, Config.WaitExecute);
+                        WsPluginConfigModel.WaitSync(Config.StopwatchExecute, Config.WaitExecute);
                         if (Cts.IsCancellationRequested) continue;
                         // It's safe to await while the lock is held
                         action();
@@ -73,7 +83,7 @@ public sealed class WsPluginModel : WsBaseHelper
                 }
                 catch (Exception ex)
                 {
-                    WsSqlContextManagerHelper.Instance.ContextItem.SaveLogError(ex);
+                    WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, PluginType.ToString());
                 }
             }
         });
@@ -85,9 +95,9 @@ public sealed class WsPluginModel : WsBaseHelper
         base.Close();
 
         Cts.Cancel();
-        Config.WaitSync(Config.WaitClose);
+        WsPluginConfigModel.WaitSync(Config.WaitClose);
 
-        Tsk.Wait(WsConfigModel.WaitLowLimit);
+        Tsk.Wait(WsPluginConfigModel.WaitLowLimit);
     }
 
     #endregion

@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Net.Sockets;
+
 namespace WsLabelCore.Helpers;
 #nullable enable
 /// <summary>
@@ -114,7 +116,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     public bool CheckPrintIsConnectAndReady(Label fieldWarning, WsPluginPrintModel managerPrint, bool isMain)
     {
         // Подключение.
-        if (managerPrint.Printer.PingStatus != IPStatus.Success)
+        //if (!managerPrint.Printer.PingStatus.Equals(IPStatus.Success))
+        if (!managerPrint.WsTcpClient.IsConnected)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             string message = isMain
@@ -322,16 +325,25 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="returnPreparePrint"></param>
-    public void SetPluWeighingFakeForDevelop(Action<WsFormBaseUserControl, string> showNavigation,
-        Action returnPreparePrint)
+    public void SetPluWeighingFakeForDevelop(Action<WsFormBaseUserControl, string> showNavigation, Action returnPreparePrint)
     {
-        if (Debug is { IsSkipDialogs: true, IsRelease: true }) { returnPreparePrint.Invoke(); return; }
-        if (!LabelSession.PluLine.Plu.IsCheckWeight) { returnPreparePrint.Invoke(); return; }
-        if (PluginMassa.WeightNet > 0) { returnPreparePrint.Invoke(); return; }
+        if (Debug.IsSkipDialogs) { ActionCancel(); return; }
+        if (Debug.IsRelease) { ActionCancel(); return; }
+        if (!LabelSession.PluLine.Plu.IsCheckWeight) { ActionCancel(); return; }
+        if (PluginMassa.WeightNet > 0) { ActionCancel(); return; }
 
-        // Навигация в контрол диалога Отмена/Да.
-        WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation, LocaleCore.Print.QuestionUseFakeData,
-            true, WsEnumLogType.Question, () => { }, ActionYes);
+        // Навигация в новый WinForms-контрол диалога.
+        WsFormNavigationUtils.NavigateToNewDialog(showNavigation, LocaleCore.Print.QuestionUseFakeData,
+            true, WsEnumLogType.Question, WsEnumDialogType.CancelYes, new() { ActionCancel, ActionYes });
+        void ActionCancel()
+        {
+            if (PluginMassa.IsWeightNetFake)
+            {
+                PluginMassa.IsWeightNetFake = false;
+                PluginMassa.WeightNet = 0;
+            }
+            returnPreparePrint.Invoke();
+        }
         void ActionYes()
         {
             PluginMassa.WeightNet = StrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
@@ -365,14 +377,14 @@ public sealed class WsUserSessionHelper //: BaseViewModel
                     LabelSession.PluginPrintShipping.ClearPrintBuffer();
             }
 
-            // Отправить команду в принтер.
-            // TODO: исправить это место. WsXamlDialogUserControl.
+            // TODO: исправить здесь
+            //// Отправить команду в принтер.
             //if (Debug.IsDevelop)
             //{
             //    // Навигация в контрол диалога Отмена/Да.
-            //    WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation,
-            //        LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
-            //        () => { }, ActionYes);
+            //    WsFormNavigationUtils.NavigateToNewDialog(showNavigation,
+            //        LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question, WsEnumDialogType.CancelYes,
+            //        new() { () => { }, ActionYes });
             //    void ActionYes()
             //    {
             //        // Отправить команду в принтер.
@@ -381,9 +393,12 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             //}
             //else
             //{
-                // Отправить команду в принтер.
-                LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
+            //    // Отправить команду в принтер.
+            //    LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
             //}
+            
+            // Отправить команду в принтер.
+            LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
         }
         catch (Exception ex)
         {

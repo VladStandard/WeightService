@@ -2,6 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsLabelCore.Helpers;
+
+/// <summary>
+/// Плагин принтера.
+/// </summary>
 #nullable enable
 public sealed class WsPluginPrintModel : WsPluginHelperBase
 {
@@ -11,14 +15,14 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     public byte LabelPrintedCount { get; set; }
     private Label FieldPrint { get; set; }
     private Label FieldPrintExt { get; set; }
-    public PrintBrand PrintBrand { get; private set; }
-    public MdPrinterModel Printer { get; private set; }
-    public string ZebraPeelerStatus { get; private set; }
+    private PrintBrand PrintBrand { get; set; }
+    private MdPrinterModel Printer { get; set; }
+    private string ZebraPeelerStatus { get; set; }
     private TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
-    public MdWmiWinPrinterModel TscWmiPrinter => GetWin32Printer(TscDriver.Properties.PrintName);
-    private ZebraPrinter? _zebraDriver;
+    private MdWmiWinPrinterModel TscWmiPrinter => GetWin32Printer(TscDriver.Properties.PrintName);
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-
+    
+    private ZebraPrinter? _zebraDriver;
     private ZebraPrinter ZebraDriver
     {
         get
@@ -30,14 +34,16 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     }
     private ZebraPrinterStatus ZebraStatus { get; set; }
     private bool IsMain { get; set; }
-    private SimpleTcpClient? _wsTcpClient;
 
-    private SimpleTcpClient WsTcpClient
+    private readonly object _lockTcpClient = new();
+    private SimpleTcpClient? _wsTcpClient;
+    public SimpleTcpClient WsTcpClient
     {
         get
         {
-            // Open connection.
-            if (_wsTcpClient is null)
+            // Открыть подключение.
+            if (_wsTcpClient is not null) return _wsTcpClient;
+            lock (_lockTcpClient)
             {
                 _wsTcpClient = new(TscDriver.Properties.PrintIp, 9100);
                 _wsTcpClient.Events.Connected += WsTcpClientConnected;
@@ -46,13 +52,12 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
                 _wsTcpClient.Events.Disconnected += WsTcpClientDisconnected;
                 // TCP keepalives are disabled by default. To enable them:
                 _wsTcpClient.Keepalive.EnableTcpKeepAlives = true;
-                _wsTcpClient.Keepalive.TcpKeepAliveInterval = 2;      // seconds to wait before sending subsequent keepalive
-                _wsTcpClient.Keepalive.TcpKeepAliveTime = 2;          // seconds to wait before sending a keepalive
-                _wsTcpClient.Keepalive.TcpKeepAliveRetryCount = 2;    // number of failed keepalive probes before terminating connection
+                _wsTcpClient.Keepalive.TcpKeepAliveInterval = 2; // wait before sending subsequent keepalive
+                _wsTcpClient.Keepalive.TcpKeepAliveTime = 2; // wait before sending a keepalive
+                _wsTcpClient.Keepalive.TcpKeepAliveRetryCount = 2; // number of failed keepalive probes before terminating connection
             }
-            if (!_wsTcpClient.IsConnected)
-                _wsTcpClient.ConnectWithRetries(1_000);
-
+            //if (!_wsTcpClient.IsConnected)
+            //    _wsTcpClient.ConnectWithRetries(1_000);
             return _wsTcpClient;
         }
     }
@@ -63,8 +68,10 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
 
     public WsPluginPrintModel()
     {
+        PluginType = WsEnumPluginType.Print;
+        ResponseItem.PluginType = RequestItem.PluginType = ReopenItem.PluginType = PluginType;
+        
         Printer = new();
-        TskType = WsEnumTaskType.TaskPrint;
         LabelPrintedCount = 0;
     }
 
@@ -72,7 +79,7 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
 
     #region Public and private methods
 
-    public void Init(WsConfigModel configReopen, WsConfigModel configRequest, WsConfigModel configResponse,
+    public void Init(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
         PrintBrand printBrand, MdPrinterModel printer, Label fieldPrint, Label fieldPrintExt, bool isMain)
     {
         Init();
@@ -113,48 +120,84 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     {
         base.Execute();
         ReopenItem.Execute(Reopen);
-        RequestItem.Execute(Request);
+        switch (PrintBrand)
+        {
+            case PrintBrand.Tsc:
+                RequestItem.Execute(RequestTsc);
+                break;
+            case PrintBrand.Zebra:
+                RequestItem.Execute(RequestZebra);
+                break;
+        }
         ResponseItem.Execute(Response);
     }
 
     private void Reopen()
     {
-        MdNetUtils.RequestPing(Printer, 1_000);
+        //MdNetUtils.RequestPing(Printer, 1_000);
+        if (!WsTcpClient.IsConnected)
+            WsTcpClient.ConnectWithRetries(ReopenItem.Config.WaitExecute);
     }
 
-    private void Request()
-    {
-        // FieldPrintManager.
-        MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
-        
-        if (Printer.PingStatus.Equals(IPStatus.Success))
-        {
-            switch (PrintBrand)
-            {
-                case PrintBrand.Tsc:
-                    break;
+    //private void Request()
+    //{
+    //    // Метка.
+    //    MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
 
-                case PrintBrand.Zebra:
-                    if (ZebraConnection is null)
-                        ZebraConnection = ZebraConnectionBuilder.Build(Printer.Ip);
-                    if (!ZebraConnection.Connected)
-                        ZebraConnection.Open();
-                    if (ZebraDriver is null || ZebraConnection is null || !ZebraConnection.Connected)
-                        ZebraStatus = null;
-                    else
-                    {
-                        try
-                        {
-                            ZebraStatus = ZebraDriver.GetCurrentStatus();
-                        }
-                        catch (Exception ex)
-                        {
-                            WsFormNavigationUtils.CatchExceptionSimple(ex);
-                            SendCmdToZebra(ZplUtils.ZplHostStatusReturn);
-                        }
-                    }
-                    break;
-                
+    //    //if (!Printer.PingStatus.Equals(IPStatus.Success)) return;
+    //    if (!WsTcpClient.IsConnected) return;
+    //    if (PrintBrand == PrintBrand.Tsc) return;
+        
+    //    if (PrintBrand == PrintBrand.Zebra)
+    //    {
+    //        if (ZebraConnection is null)
+    //            ZebraConnection = ZebraConnectionBuilder.Build(Printer.Ip);
+    //        if (!ZebraConnection.Connected)
+    //            ZebraConnection.Open();
+    //        if (ZebraDriver is null || ZebraConnection is null || !ZebraConnection.Connected)
+    //            ZebraStatus = null;
+    //        else
+    //        {
+    //            try
+    //            {
+    //                ZebraStatus = ZebraDriver.GetCurrentStatus();
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                WsFormNavigationUtils.CatchExceptionSimple(ex);
+    //                SendCmdToZebra(ZplUtils.ZplHostStatusReturn);
+    //            }
+    //        }
+    //    }
+    //}
+
+    private void RequestTsc()
+    {
+        MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
+    }
+    
+    private void RequestZebra()
+    {
+        // Метка.
+        MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
+        if (!WsTcpClient.IsConnected) return;
+        
+        if (ZebraConnection is null)
+            ZebraConnection = ZebraConnectionBuilder.Build(Printer.Ip);
+        if (!ZebraConnection.Connected)
+            ZebraConnection.Open();
+        if (ZebraDriver is null || ZebraConnection is null || !ZebraConnection.Connected)
+            ZebraStatus = null;
+        else
+        {
+            try
+            {
+                ZebraStatus = ZebraDriver.GetCurrentStatus();
+            }
+            catch (Exception ex)
+            {
+                WsFormNavigationUtils.CatchExceptionSimple(ex);
+                SendCmdToZebra(ZplUtils.ZplHostStatusReturn);
             }
         }
     }
@@ -167,8 +210,8 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
         MdInvokeControl.SetText(FieldPrint,
             LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintBrand, Printer,
                 LabelSession.Line.Counter, GetDeviceStatus(), LabelPrintedCount, GetLabelCount()));
-        MdInvokeControl.SetForeColor(FieldPrint,
-            Equals(Printer.PingStatus, IPStatus.Success) ? Color.Green : Color.Red);
+        //MdInvokeControl.SetForeColor(FieldPrint, Equals(Printer.PingStatus, IPStatus.Success) ? Color.Green : Color.Red);
+        MdInvokeControl.SetForeColor(FieldPrint, WsTcpClient.IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 
     public string GetDeviceNameShort()
@@ -195,7 +238,6 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
             case PrintBrand.Tsc:
                 //return IsPrintBusy ? GetPrinterStatusDescription(LocaleCore.Lang, MdWinPrinterStatus.PendingDeletion)
                 return GetPrinterStatusDescription(LocaleCore.Lang, TscWmiPrinter.PrinterStatus);
-
             case PrintBrand.Zebra:
                 if (ZebraStatus is null)
                     return LocaleCore.Print.StatusIsUnavailable;
@@ -302,19 +344,17 @@ public sealed class WsPluginPrintModel : WsPluginHelperBase
     public void SendCmd(WsSqlPluLabelModel pluLabel)
     {
         if (string.IsNullOrEmpty(pluLabel.Zpl)) return;
-        if (!Printer.PingStatus.Equals(IPStatus.Success)) return;
-        
+        //if (!Printer.PingStatus.Equals(IPStatus.Success)) return;
+        if (!WsTcpClient.IsConnected) return;
+
         switch (PrintBrand)
         {
             case PrintBrand.Tsc:
-                //SendCmdToTsc(pluLabel);
                 SendCmdToTcp(pluLabel.Zpl);
                 break;
-
             case PrintBrand.Zebra:
                 SendCmdToZebra(pluLabel);
                 break;
-            
         }
     }
 
