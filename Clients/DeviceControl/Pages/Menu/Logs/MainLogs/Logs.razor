@@ -19,7 +19,7 @@
               @bind-Value="@CurrentLogType"
               Data="@LogTypes"
               ValueProperty="Icon"
-              TextProperty="Icon" Change="OnSelectTypeChanged"
+              TextProperty="Icon" Change="@(() => GetSectionData())"
               AllowClear="true" Placeholder="LogTypes: All"/>
   <RzDropDown Style="width: 50%; display: inline-block;"
               @bind-Value="@CurrentLine"
@@ -27,7 +27,7 @@
               FilterOperator="StringFilterOperator.Contains"
               AllowFiltering="true"
               ValueProperty="Description"
-              TextProperty="Description" Change="OnSelectTypeChanged"
+              TextProperty="Description" Change="@(() => GetSectionData())"
               AllowClear="true"
               Placeholder="Lines: All"/>
 </div>

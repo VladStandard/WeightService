@@ -68,9 +68,4 @@ public sealed partial class Logs : SectionBase<LogView>
 
         SqlSectionCast = items;
     }
-
-    private void OnSelectTypeChanged()
-    {
-        GetSectionData();
-    }
 }

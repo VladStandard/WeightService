@@ -8,7 +8,8 @@
     {
       <RzDropDown Style="margin-left: 20px; width: 15%; display: inline-block;"
                   @bind-Value="@SqlCrudConfigSection.SelectTopRowsCount"
-                  Data="@_rowCountList" Change="@OnSectionUpdate">
+                  Change="@OnItemsCountSelectUpdate"
+                  Data="@_rowCountList">
         <Template>
           <span>Первые: <b>@(context == 0 ? "Все" : context.ToString())</b> </span>
         </Template>
@@ -21,7 +22,7 @@
                     @bind-Value="@SqlCrudConfigSection.IsMarked"
                     Data="@MarkedDict"
                     ValueProperty="Value"
-                    TextProperty="Key" Change="@OnSectionUpdate">
+                    TextProperty="Key" Change="@OnReload">
         </RzDropDown>
       }
     </AuthorizeView>
@@ -31,7 +32,7 @@
       ButtonStyle="@ButtonStyle.Primary"
       Style="margin-left: 20px; width: 60px;"
       Size="@ButtonSize.Small"
-      Click="@OnSectionUpdate"/>
+      Click="@OnReload"/>
     @if (ButtonSettings.IsShowNew)
     {
       <AuthorizeView Roles="@UserAccessStr.Write">

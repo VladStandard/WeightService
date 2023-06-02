@@ -12,7 +12,7 @@ public partial class SectionTopBar : LayoutComponentBase
     [Parameter] public string Title { get; set; }
     [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
-    [Parameter] public EventCallback OnSectionUpdate { get; set; }
+    [Parameter] public EventCallback<bool> OnSectionUpdate { get; set; }
     [Parameter] public EventCallback OnSectionAdd { get; set; }
     [Parameter] public int SectionCount { get; set; }
     private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
@@ -40,5 +40,15 @@ public partial class SectionTopBar : LayoutComponentBase
         _rowCountList.Sort();
     }
 
+    private void OnItemsCountSelectUpdate()
+    {
+        OnSectionUpdate.InvokeAsync(false);
+    }
+    
+    private void OnReload()
+    {
+        OnSectionUpdate.InvokeAsync(true);
+    }
+    
     #endregion
 }

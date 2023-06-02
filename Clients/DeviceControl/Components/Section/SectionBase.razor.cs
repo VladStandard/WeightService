@@ -18,6 +18,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     protected IList<TItem> SelectedRow { get; set; }
     protected List<TItem> SqlSectionCast { get; set; }
     protected List<TItem> SqlSectionSave { get; set; }
+    protected List<ContextMenuItem> ContextMenuItems { get; set; } 
     protected TItem SqlItemCast => SqlItem is null ? new() : (TItem)SqlItem;
     protected WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
     protected RadzenDataGrid<TItem> DataGrid { get; set; }
@@ -45,19 +46,8 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             return;
         string? rowCount = await LocalStorage.GetItem("DefaultRowCount");
         SqlCrudConfigSection.SelectTopRowsCount = int.TryParse(rowCount, out int parsedNumber) ? parsedNumber : 200;
+        ContextMenuItems = GetContextMenuItems();
         GetSectionData();
-    }
-    
-    protected void GetSectionData()
-    {
-        RunActionsSafe(string.Empty, SetSqlSectionCast);
-        IsLoading = false;
-        StateHasChanged();
-    }
-
-    protected virtual void SetSqlSectionCast()
-    {
-        SqlSectionCast = ContextManager.ContextList.GetListNotNullable<TItem>(SqlCrudConfigSection);
     }
     
     protected void SqlItemSet(TItem item)
@@ -66,53 +56,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         SelectedRow.Add(item);
         SqlItem = SelectedRow.Last();
     }
-    
-    protected void OnCellContextMenu(DataGridCellMouseEventArgs<TItem> args)
-    {
-        LocaleContextMenu locale = LocaleCore.ContextMenu;
 
-        SelectedRow = new List<TItem>() { args.Data };
-        SqlItem = args.Data;
-        
-        List<ContextMenuItem> contextMenuItems = new()
-        {
-            new() { Text = locale.Open, Value = ContextMenuAction.Open },
-            new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
-        };
-        
-        if (User?.IsInRole(UserAccessStr.Write) == true)
-        {
-            if (ButtonSettings.IsShowMark)
-                contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
-            if (ButtonSettings.IsShowDelete)
-                contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
-        }
-        ContextMenuService?.Open(args, contextMenuItems, (e) => ParseContextMenuActions(e, args));
-    }
-	
-    protected void ParseContextMenuActions(MenuItemEventArgs e, DataGridCellMouseEventArgs<TItem> args) 
-    {
-        InvokeAsync(async () =>
-        {
-            switch ((ContextMenuAction)e.Value)
-            {
-                case ContextMenuAction.OpenNewTab:
-                    await SqlItemOpenNewTabAsync();
-                    break;
-                case ContextMenuAction.Open:
-                    await SqlItemOpenAsync();
-                    break;
-                case ContextMenuAction.Mark:
-                    await SqlItemMarkAsync();
-                    break;
-                case ContextMenuAction.Delete:
-                    await SqlItemDeleteAsync();
-                    break;
-            }
-
-            ContextMenuService?.Close();
-        });
-    }
 
     protected void SetSqlSectionSave(TItem model)
     {
@@ -130,7 +74,96 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             DataGrid.Reload();
         });
     }
+    
+    #region Context Menu
 
+    protected void OnCellContextMenu(DataGridCellMouseEventArgs<TItem> args)
+    {
+        SqlItem = args.Data;
+        SelectedRow = new List<TItem>() { args.Data };
+        ContextMenuService?.Open(args, ContextMenuItems, ParseContextMenuActions);
+    }
+
+    private List<ContextMenuItem> GetContextMenuItems()
+    {
+        LocaleContextMenu locale = LocaleCore.ContextMenu;
+        List<ContextMenuItem> contextMenuItems = new()
+        {
+            new() { Text = locale.Open, Value = ContextMenuAction.Open },
+            new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
+        };
+        
+        if (User?.IsInRole(UserAccessStr.Write) == true)
+        {
+            if (ButtonSettings.IsShowMark)
+                contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
+            if (ButtonSettings.IsShowDelete)
+                contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
+        }
+
+        return contextMenuItems;
+    }
+    
+    private void ParseContextMenuActions(MenuItemEventArgs e)
+    {
+        ContextMenuAction menuAction = (ContextMenuAction)e.Value;
+        Func<Task> action = menuAction switch
+        {
+            ContextMenuAction.OpenNewTab => SqlItemOpenNewTabAsync,
+            ContextMenuAction.Open => SqlItemOpenAsync,
+            ContextMenuAction.Mark => SqlItemMarkAsync,
+            ContextMenuAction.Delete => SqlItemDeleteAsync,
+            _ => throw new NotImplementedException()
+        };
+        
+        InvokeAsync(async () =>
+        {
+            await action();
+            ContextMenuService?.Close();
+        });
+    }
+
+    #endregion
+
+    #region Load Data
+
+    protected void GetSectionData(bool reload = true)
+    {
+        if (!reload)
+            GetDataWithoutReload();
+        else
+            GetDataWithReload();
+    }
+    
+    private void GetDataWithoutReload()
+    {
+        int selectCount = SqlCrudConfigSection.SelectTopRowsCount;
+        if ((SqlCrudConfigSection.OldTopRowsCount > selectCount && selectCount != 0) ||
+            SqlCrudConfigSection.OldTopRowsCount == 0)
+        {
+            SqlSectionCast = SqlSectionCast.Take(SqlCrudConfigSection.SelectTopRowsCount).ToList();
+            DataGrid.Reload();
+            return;
+        }
+        if (SqlSectionCast.Count < SqlCrudConfigSection.OldTopRowsCount)
+            return;
+        GetDataWithReload();
+    }
+
+    private void GetDataWithReload()
+    {
+        RunActionsSafe(string.Empty, SetSqlSectionCast);
+        IsLoading = false;
+        StateHasChanged();
+    }
+    
+    protected virtual void SetSqlSectionCast()
+    {
+        SqlSectionCast = ContextManager.ContextList.GetListNotNullable<TItem>(SqlCrudConfigSection);
+    }
+
+    #endregion
+    
     #region Auth methods
 
     [Authorize(Roles = UserAccessStr.Write)]
@@ -148,6 +181,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     [Authorize(Roles = UserAccessStr.Write)]
     protected async Task SqlItemDeleteAsync()
     {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         if (SqlItem is null)
         {
             await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
@@ -164,6 +198,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     [Authorize(Roles = UserAccessStr.Write)]
     protected async Task SqlItemMarkAsync()
     {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         if (SqlItem is null)
         {
             await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
