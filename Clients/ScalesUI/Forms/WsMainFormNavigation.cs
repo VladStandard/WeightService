@@ -490,23 +490,15 @@ public partial class WsMainForm
             if (!UserSession.CheckPluGtin(fieldWarning)) return;
             // Использовать фейк-данные для веса ПЛУ.
             //UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ActionPreparePrintStep2);
-            ActionPreparePrintStep2();
+            // Проверить отрицательный вес.
+            if (!UserSession.CheckWeightIsNegative(fieldWarning)) { ActionFinally(); return; }
+            // Создать новое взвешивание ПЛУ.
+            UserSession.NewPluWeighing();
+            // Проверить границы веса.
+            if (!UserSession.CheckWeightThresholds(fieldWarning)) { ActionFinally(); return; }
+            // Печать этикетки.
+            ActionPrintLabel(true);
         });
-    }
-
-    /// <summary>
-    /// Подготовка к печати - Шаг 2.
-    /// </summary>
-    private void ActionPreparePrintStep2()
-    {
-        // Проверить отрицательный вес.
-        if (!UserSession.CheckWeightIsNegative(fieldWarning)) { ActionFinally(); return; }
-        // Создать новое взвешивание ПЛУ.
-        UserSession.NewPluWeighing();
-        // Проверить границы веса.
-        if (!UserSession.CheckWeightThresholds(fieldWarning)) { ActionFinally(); return; }
-        // Печать этикетки.
-        ActionPrintLabel(true);
     }
 
     /// <summary>

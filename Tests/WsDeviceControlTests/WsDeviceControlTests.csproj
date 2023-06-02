@@ -2,11 +2,11 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <IsPackable>false</IsPackable>
-        <Version>0.9.480.0</Version>
+        <Version>0.9.490.0</Version>
         <Product>WeightService</Product>
         <Copyright>Copyright © 2020 - 2023</Copyright>
-        <AssemblyVersion>0.9.480.0</AssemblyVersion>
-        <FileVersion>0.9.480.0</FileVersion>
+        <AssemblyVersion>0.9.490.0</AssemblyVersion>
+        <FileVersion>0.9.490.0</FileVersion>
         <AssemblyName>DeviceControlTests</AssemblyName>
         <RootNamespace>DeviceControlTests</RootNamespace>
         <NeutralLanguage>en</NeutralLanguage>
