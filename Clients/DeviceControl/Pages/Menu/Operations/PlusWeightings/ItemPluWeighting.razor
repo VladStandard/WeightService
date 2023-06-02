@@ -3,6 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusWeighingsFks
 @using DeviceControl.Components.Item
+@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.WsSqlPluWeighingModel>
 
 <ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>
@@ -13,7 +14,7 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Line)"
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)"
                   Text="@LocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.PluScale.Line.Description</td>
@@ -23,7 +24,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Plu)"
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Plu)"
                   Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>@($"{SqlItemCast.PluScale.Plu.Number} | {SqlItemCast.PluScale.Plu.Name}")</td>

@@ -4,6 +4,7 @@
 @using WsStorageCore.TableDiagModels.ScalesScreenshots
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
+@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
 <ItemTopBar TItem="@WsSqlScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot" OnItemUpdate="@GetItemData"/>
@@ -14,7 +15,7 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.Scale.Description</td>
     <td>@LocaleCore.Table.ScreenShot</td>

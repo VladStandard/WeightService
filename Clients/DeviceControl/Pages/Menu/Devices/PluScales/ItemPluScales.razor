@@ -4,6 +4,7 @@
 @using WsStorageCore.TableScaleModels.PlusScales
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
+@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.PlusScales.WsSqlPluScaleModel>
 
 <ItemTopBar TItem="@WsSqlPluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale" OnItemUpdate="@GetItemData"/>
@@ -22,13 +23,13 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Line)" Text="@LocaleCore.Table.Line"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Line)" Text="@LocaleCore.Table.Line"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Line" Data="@ContextCache.Lines" TextProperty="Description"/>
     </td>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Plu" Data="@ContextCache.Plus" TextProperty="DisplayName"/>

@@ -1,16 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
-namespace WsBlazorCore.Services;
+namespace DeviceControl.Services;
 
 public class LocalStorageService
 {
-    private readonly IConfiguration _config;
     private readonly IJSRuntime _jsRuntime;
 
-    public LocalStorageService(IConfiguration config, IJSRuntime jsRuntime)
+    public LocalStorageService(IJSRuntime jsRuntime)
     {
-        _config = config;
         _jsRuntime = jsRuntime;
     }
 

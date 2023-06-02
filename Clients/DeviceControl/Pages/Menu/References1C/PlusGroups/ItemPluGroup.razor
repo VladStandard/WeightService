@@ -3,6 +3,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.PlusGroups
 @using DeviceControl.Components.Item
+@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.PlusGroups.WsSqlPluGroupModel>
 
 <ItemTopBar TItem="@WsSqlPluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup" OnItemUpdate="@GetItemData"/>
@@ -21,7 +22,7 @@
   {
     <tr>
       <td>
-        <RadzenLink Path="@GetRouteItemPath(ParentGroup)" Text="@LocaleCore.Table.Parent"/>
+        <RadzenLink Path="@RouteService.GetItemRoute(ParentGroup)" Text="@LocaleCore.Table.Parent"/>
       </td>
       <td>@ParentGroup.Name</td>
       <td/>

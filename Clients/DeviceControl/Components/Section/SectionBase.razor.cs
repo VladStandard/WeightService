@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.JSInterop;
 using Radzen.Blazor;
@@ -12,6 +13,8 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 {
     #region Public and private fields, properties, constructor
     
+    [Inject] protected IJSRuntime JsRuntime { get; set; }
+    [Inject] protected RouteService RouteService { get; set; }
     [Inject] private LocalStorageService LocalStorage { get; set; }
     [Inject] protected ContextMenuService? ContextMenuService { get; set; }
     
@@ -219,7 +222,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         RunActionsWithQeustion(LocaleCore.Table.TableNew, GetQuestionAdd(), () =>
         {
             SqlItem = SqlItemNew<TItem>();
-            SetRouteItemNavigate(SqlItem);
+            RouteService.NavigateItemRoute(SqlItemCast);
         });
     }
     
@@ -227,15 +230,13 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     protected async Task SqlItemOpenAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsSafe(string.Empty, () => { SetRouteItemNavigate(SqlItem); });
+        RouteService.NavigateItemRoute(SqlItemCast);
     }
     
     [Authorize(Roles = UserAccessStr.Read)]
     protected async Task SqlItemOpenNewTabAsync()
     {
-        if (JsRuntime == null)
-            return;
-        await JsRuntime.InvokeAsync<object>("open", GetRouteItemPathForLink(SqlItemCast), "_blank");
+        await JsRuntime.InvokeAsync<string>("open", RouteService.GetItemRoute(SqlItemCast), "_blank");
     }
     
     #endregion

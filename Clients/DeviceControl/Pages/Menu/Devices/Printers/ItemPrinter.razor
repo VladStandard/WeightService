@@ -4,6 +4,7 @@
 @using WsStorageCore.TableScaleModels.Printers
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
+@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
 
 <ItemTopBar TItem="@WsSqlPrinterModel" Title="@LocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
@@ -24,7 +25,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterType)" Text="@LocaleCore.Print.Type"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterType)" Text="@LocaleCore.Print.Type"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.PrinterType" Data="@PrinterTypeModels" TextProperty="Name"/>

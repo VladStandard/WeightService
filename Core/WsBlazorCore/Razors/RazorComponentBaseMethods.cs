@@ -55,13 +55,7 @@ public partial class RazorComponentBase
 		return item;
 	}
 
-	protected async Task SqlItemCancelAsync()
-	{
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        SetRouteSectionNavigate();
-	}
-
-	protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
+    protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
 	{
 		TItem item = ContextManager.AccessManager.AccessItem.GetItemNewEmpty<TItem>();
 		item.FillProperties();

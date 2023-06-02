@@ -4,6 +4,7 @@
 @using WsStorageCore.TableScaleFkModels.PlusLabels
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
+@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusLabels.WsSqlPluLabelModel>
 
 <ItemTopBar TItem="@WsSqlPluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
@@ -14,7 +15,7 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Line)" Text="@LocaleCore.Table.Line"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@LocaleCore.Table.Line" />
     </td>
     <td>@SqlItemCast.PluScale.Line.Description</td>
     <td>@LocaleCore.Table.CheckWeight</td>
@@ -24,22 +25,22 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.PluScale.Plu.DisplayName</td>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
+      <RadzenLink Path="@RouteService.GetItemRoute(ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
                   Text="@LocaleCore.Table.Template"/>
     </td>
     <td>@ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale).Title</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluScale.Line.PrinterMain)" Text="@LocaleCore.Table.Printer"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line.PrinterMain)" Text="@LocaleCore.Table.Printer"/>
     </td>
     <td>@SqlItemCast.PluScale.Line.PrinterMain?.DisplayName</td>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
     </td>
     <td>@SqlItemCast.PluWeighing?.IdentityValueUid</td>
   </tr>

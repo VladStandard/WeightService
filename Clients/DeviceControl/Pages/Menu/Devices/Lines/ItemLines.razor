@@ -5,6 +5,7 @@
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
 @using DeviceControl.Pages.Menu.Devices.PluScales
+@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.Scales.WsSqlScaleModel>
 
 <ItemTopBar TItem="@WsSqlScaleModel" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
@@ -26,7 +27,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(Device)" Text="@LocaleCore.Table.Host"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(Device)" Text="@LocaleCore.Table.Host"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@Device" Data="@HostModels" TextProperty="DisplayName"/>
@@ -38,7 +39,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterMain)" Text="@LocaleCore.Print.NameMain"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterMain)" Text="@LocaleCore.Print.NameMain"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName"/>
@@ -50,7 +51,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.PrinterShipping)" Text="@LocaleCore.Print.NameShipping"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterShipping)" Text="@LocaleCore.Print.NameShipping"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.PrinterShipping" Data="@PrinterModels" TextProperty="DisplayName"/>
@@ -62,13 +63,13 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="Name"/>
     </td>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
     </td>
     <td>@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldEmpty)</td>
   </tr>
