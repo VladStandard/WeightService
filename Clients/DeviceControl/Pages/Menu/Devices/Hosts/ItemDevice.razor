@@ -1,5 +1,5 @@
 @page "/section/devices/new"
-@page "/section/devices/{IdentityUidStr}"
+@page "/section/devices/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Devices
 @using WsDataCore.Utils

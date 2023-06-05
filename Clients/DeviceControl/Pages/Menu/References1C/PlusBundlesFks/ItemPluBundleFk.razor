@@ -1,8 +1,9 @@
 @page "/section/plus_bundles_fks/new"
-@page "/section/plus_bundles_fks/{IdentityUidStr}"
+@page "/section/plus_bundles_fks/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusBundlesFks
 @using DeviceControl.Components.Item
+@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
 
 <ItemTopBar TItem="@WsSqlPluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk" OnItemUpdate="@GetItemData"/>
@@ -13,7 +14,7 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.Plu.DisplayName</td>
     <td>@LocaleCore.Table.NomenclatureCode</td>
@@ -21,7 +22,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.Bundle)" Text="@LocaleCore.Table.Bundle"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@LocaleCore.Table.Bundle"/>
     </td>
     <td>@SqlItemCast.Bundle.Name</td>
     <td>@LocaleCore.Table.BundleWeight</td>

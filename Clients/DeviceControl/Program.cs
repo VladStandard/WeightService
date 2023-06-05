@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorDownloadFile;
+using DeviceControl.Services;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
@@ -30,14 +31,18 @@ builder.Services.AddControllersWithViews();
 #region AddScoped
 
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
-builder.Services.AddScoped<IUserRightsService, UserRightsService>();
-builder.Services.AddScoped<TooltipService>();
-builder.Services.AddScoped<NotificationService>();
-builder.Services.AddScoped<ContextMenuService>();
+
+builder.Services.AddScoped<RouteService>();
 builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<TooltipService>();
+builder.Services.AddScoped<ContextMenuService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<LocalStorageService>();
+
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddScoped<IFileDownload, FileDownload>();
-builder.Services.AddScoped<LocalStorageService>();
+builder.Services.AddScoped<IUserRightsService, UserRightsService>();
+
 
 #endregion
 
@@ -64,7 +69,7 @@ app.MapFallbackToPage("/_Host");
 
 WsSqlContextManagerHelper.Instance.SetupJsonWebApp(
     app.Environment.ContentRootPath,
-    nameof(DeviceControl),
+    null,
     true
 );
 try

@@ -12,7 +12,7 @@ public sealed partial class ItemProductionFacility : ItemBase<WsSqlProductionFac
 
     protected override void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlProductionFacilityModel>(IdentityId);
+        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlProductionFacilityModel>(Id);
         if (SqlItemCast.IsNew)
             SqlItemCast = SqlItemNew<WsSqlProductionFacilityModel>();
     }

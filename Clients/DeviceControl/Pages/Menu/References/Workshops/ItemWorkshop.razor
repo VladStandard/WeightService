@@ -1,9 +1,10 @@
 @page "/section/workshops/new"
-@page "/section/workshops/{IdentityId:long}"
+@page "/section/workshops/{Id:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.WorkShops
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
+@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.WorkShops.WsSqlWorkShopModel>
 
 <ItemTopBar TItem="@WsSqlWorkShopModel" Title="@LocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
@@ -22,7 +23,8 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@GetRouteItemPath(SqlItemCast.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
+      
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.ProductionFacility" Data="@ProductionFacilityModels" TextProperty="Name"/>

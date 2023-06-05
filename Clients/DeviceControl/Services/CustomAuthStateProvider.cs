@@ -5,7 +5,7 @@ using WsDataCore.Enums;
 using WsStorageCore.Helpers;
 using WsStorageCore.TableScaleModels.Access;
 
-namespace WsBlazorCore.Services;
+namespace DeviceControl.Services;
 
 
 public interface IUserRightsService

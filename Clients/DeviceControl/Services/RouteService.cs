@@ -1,8 +1,4 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-using WsStorageCore.Models;
-using WsStorageCore.TableDiagModels.Logs;
+﻿using WsStorageCore.TableDiagModels.Logs;
 using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableDiagModels.LogsWebsFks;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
@@ -42,45 +38,48 @@ using WsStorageCore.TableScaleModels.Versions;
 using WsStorageCore.TableScaleModels.WorkShops;
 using WsStorageCore.ViewScaleModels;
 
-namespace WsBlazorCore.Razors;
+namespace DeviceControl.Services;
 
-public partial class RazorComponentBase
+public class RouteService
 {
-    #region Public and private methods - Routes
-    
-    protected string GetRouteItemPathForLink<TItem>(TItem item) where TItem : WsSqlTableBase, new()
-    {
-        string page = GetRouteSectionPath(item);
-        if (string.IsNullOrEmpty(page)) 
-            return string.Empty;
 
-        page = item.Identity.Name switch
+    private readonly NavigationManager _navigationManager;
+
+    public RouteService(NavigationManager navigationManager)
+    {
+        _navigationManager = navigationManager;
+    }
+
+    public void NavigateItemRoute(WsSqlTableBase? item) 
+    {
+        if (item == null)
+            return;
+        _navigationManager.NavigateTo(GetItemRoute(item));
+    }
+    
+    public void NavigateSectionRoute(WsSqlTableBase? item)
+    {
+        if (item == null)
+            return;
+        _navigationManager.NavigateTo(GetSectionRoute(item));
+    }
+    
+    public static string GetItemRoute(WsSqlTableBase? item)
+    {
+        if (item == null)
+            return string.Empty;
+        string page = GetSectionRoute(item);
+        return item.Identity.Name switch
         {
             WsSqlFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
             WsSqlFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
             _ => page
         };
-        return page;
     }
-
-    public string GetRouteItemPath<TItem>(TItem? item) where TItem : WsSqlTableBase, new() =>
-        GetRouteItemPathCombine(GetRouteSectionPath<WsSqlTableBase>(item), item);
-
-    public string GetRouteItemPathCombine<TItem>(string page, TItem? item) where TItem : WsSqlTableBase, new()
-    {
-        if (item is null || string.IsNullOrEmpty(page))
-            return string.Empty;
-        return item.Identity.Name switch
-        {
-            WsSqlFieldIdentity.Id => $"{page}/{item.IdentityValueId}",
-            WsSqlFieldIdentity.Uid => $"{page}/{item.IdentityValueUid}",
-            WsSqlFieldIdentity.Test => $"{page}/{nameof(WsSqlFieldIdentity.Test)}",
-            _ => string.Empty
-        };
-    }
-
-    protected string GetRouteSectionPath<TItem>(TItem? item) where TItem : WsSqlTableBase, new() =>
-        item switch
+    
+    public static string GetSectionRoute(WsSqlTableBase? item)
+    { 
+        return item switch
         {
             WsSqlAccessModel => LocaleCore.DeviceControl.RouteSectionAccess,
             WsSqlAppModel => LocaleCore.DeviceControl.RouteSectionApps,
@@ -105,7 +104,7 @@ public partial class RazorComponentBase
             WsSqlPluModel => LocaleCore.DeviceControl.RouteSectionPlus,
             WsSqlPluNestingFkModel => LocaleCore.DeviceControl.RouteSectionPlusNestingFks,
             WsSqlPluScaleModel => LocaleCore.DeviceControl.RouteSectionPlusScales,
-            WsSqlPluStorageMethodModel=> LocaleCore.DeviceControl.RouteSectionPlusStorage,
+            WsSqlPluStorageMethodModel => LocaleCore.DeviceControl.RouteSectionPlusStorage,
             WsSqlPluWeighingModel => LocaleCore.DeviceControl.RouteSectionPlusWeighings,
             WsSqlPrinterModel => LocaleCore.DeviceControl.RouteSectionPrinters,
             WsSqlPrinterResourceFkModel => LocaleCore.DeviceControl.RouteSectionPrinterResources,
@@ -120,7 +119,7 @@ public partial class RazorComponentBase
             WsSqlTemplateResourceModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
             WsSqlVersionModel => LocaleCore.DeviceControl.RouteSectionVersions,
             WsSqlWorkShopModel => LocaleCore.DeviceControl.RouteSectionWorkShops,
-            // VIEWS
+            
             LogView => LocaleCore.DeviceControl.RouteSectionLogs,
             LineView => LocaleCore.DeviceControl.RouteSectionScales,
             BarcodeView => LocaleCore.DeviceControl.RouteSectionBarCodes,
@@ -130,33 +129,6 @@ public partial class RazorComponentBase
             LogWebView => LocaleCore.DeviceControl.RouteSectionLogsWebService,
             _ => string.Empty
         };
-
-    protected void SetRouteItemNavigate<TItem>(TItem? item) where TItem : WsSqlTableBase, new()
-    {
-        if (item is null) 
-            return;
-        
-        string page = GetRouteSectionPath(item);
-        if (string.IsNullOrEmpty(page))
-            return;
-
-        page = item.Identity.Name switch
-        {
-            WsSqlFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
-            WsSqlFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
-            _ => page
-        };
-        NavigationManager?.NavigateTo(page);
     }
-
-    protected void SetRouteSectionNavigate()
-    {
-        string page = GetRouteSectionPath(SqlItem);
-        if (string.IsNullOrEmpty(page))
-            return;
-
-        NavigationManager?.NavigateTo(page);
-    }
-
-    #endregion
+    
 }

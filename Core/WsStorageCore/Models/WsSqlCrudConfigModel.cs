@@ -11,17 +11,27 @@ public class WsSqlCrudConfigModel : ICloneable
 {
     #region Public and private fields, properties, constructor
 
+    private int _selectTopRowsCount;
+    private WsSqlIsMarked _isMarked;
+    
     public string NativeQuery { get; set; }
     public bool IsFillReferences { get; set; }
     public List<SqlParameter> NativeParameters { get; set; }
     public List<WsSqlFieldFilterModel> Filters { get; private set; }
     public List<WsSqlFieldOrderModel> Orders { get; private set; }
     public bool IsGuiShowFilterMarked { get; set; }
-    public int SelectTopRowsCount { get; set; }
+    public int OldTopRowsCount { get; set; }
+    public int SelectTopRowsCount
+    {
+        get => _selectTopRowsCount;
+        set {
+            OldTopRowsCount = _selectTopRowsCount;
+            _selectTopRowsCount = value;
+        }
+}
     public bool IsResultAddFieldEmpty { get; }
     public bool IsResultOrder { get; set; }
-    
-    private WsSqlIsMarked _isMarked;
+
     /// <summary>
     /// Помеченные на удаление записи.
     /// </summary>
@@ -48,6 +58,7 @@ public class WsSqlCrudConfigModel : ICloneable
             }
         }
     }
+
     /// <summary>
     /// SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED.
     /// </summary>

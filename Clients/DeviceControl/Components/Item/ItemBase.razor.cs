@@ -1,15 +1,21 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Services;
 using Microsoft.JSInterop;
-using WsBlazorCore.CssStyles;
 using WsBlazorCore.Settings;
 
 namespace DeviceControl.Components.Item;
 
 public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
-	#region Public and private fields, properties, constructor
+    [Inject] protected IJSRuntime? JsRuntime { get; set; }
+    [Inject] protected RouteService RouteService { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public Guid Uid { get; set; }
+    [Parameter] public long Id { get; set; }
+    
+    #region Public and private fields, properties, constructor
 
 	protected TItem SqlItemCast
 	{
@@ -17,12 +23,10 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 		set => SqlItem = value;
 	} 
     protected ButtonSettingsModel ButtonSettings { get; set; }
-    
-    [Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
-    
+
     public ItemBase()
-	{
-        CssTableStyleHead = new();
+    {
+        Title = string.Empty;
         ButtonSettings = ButtonSettingsModel.CreateForItem();
     }
 
@@ -35,12 +39,15 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
             await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", textToCopy);
     }
 
-    protected virtual void SqlItemSaveAdditional()
+    protected virtual void SqlItemSaveAdditional() {}
+    
+    protected async Task SqlItemCancelAsync()
     {
-        
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        RouteService.NavigateSectionRoute(SqlItemCast);
     }
 
-    protected async Task SqlItemSaveAsync()
+        protected async Task SqlItemSaveAsync()
     {
         // TODO: fix this
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -55,7 +62,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
         {
             SqlItemSave(SqlItem);
             SqlItemSaveAdditional();
-            SetRouteSectionNavigate();
+            RouteService.NavigateSectionRoute(SqlItemCast);
         });
     }
 
@@ -78,7 +85,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     
     protected virtual void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<TItem>(IdentityUid);
+        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<TItem>(Uid);
         if (SqlItemCast.IsNew)
             SqlItemCast = SqlItemNew<TItem>();
     }

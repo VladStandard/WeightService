@@ -4,7 +4,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.JSInterop;
 using Radzen;
 using WsBlazorCore.Settings;
 using WsStorageCore.Helpers;
@@ -17,10 +16,8 @@ public partial class RazorComponentBase : LayoutComponentBase
     #region Public and private fields, properties, constructor
 
     #region Inject
-
+    
     [Inject] protected DialogService? DialogService { get; set; }
-    [Inject] protected IJSRuntime? JsRuntime { get; set; }
-    [Inject] protected NavigationManager? NavigationManager { get; set; }
     [Inject] protected NotificationService? NotificationService { get; set; }
     [Inject] protected IHttpContextAccessor? HttpContextAccess { get; set; }
 
@@ -28,28 +25,16 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     #region Constants
 
-    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    public static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    public static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    protected static BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
     public HttpContext? HttpContext => HttpContextAccess?.HttpContext;
-    protected BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
 
     #endregion
 
     #region Parameters
     
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
-    [Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
-    [Parameter] public Guid? IdentityUid { get; set; }
-    [Parameter] public long? IdentityId { get; set; }
-
-    [Parameter]
-    public string IdentityUidStr
-    {
-        get => IdentityUid?.ToString() ?? Guid.Empty.ToString();
-        set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
-    }
-
-    [Parameter] public string Title { get; set; }
 
     #endregion
 
@@ -59,10 +44,7 @@ public partial class RazorComponentBase : LayoutComponentBase
     
 	public RazorComponentBase()
 	{
-        Title = string.Empty;
-
-		SqlItem = null;
-        RazorFieldConfig = new();
+        SqlItem = null;
     }
 
     #endregion
