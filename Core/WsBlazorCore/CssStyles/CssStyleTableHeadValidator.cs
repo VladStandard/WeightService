@@ -5,25 +5,25 @@ namespace WsBlazorCore.CssStyles;
 
 public class CssStyleTableHeadValidator : AbstractValidator<CssStyleTableHeadModel>
 {
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public CssStyleTableHeadValidator()
-	{
-		RuleFor(item => item.ColumnsWidths)
-			.NotEmpty()
-			.NotNull();
-		RuleFor(item => item.ColumnsTitles)
-			.NotEmpty()
-			.NotNull();
-		RuleFor(item => item.Color)
-			.NotEmpty()
-			.NotNull();
-		RuleFor(item => item.FontWeight)
-			.NotEmpty()
-			.NotNull();
-		RuleFor(item => item.TextAlign)
-			.NotEmpty()
-			.NotNull();
-	}
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public CssStyleTableHeadValidator()
+    {
+        RuleFor(item => item.ColumnsWidths)
+            .NotEmpty()
+            .NotNull();
+        RuleFor(item => item.ColumnsTitles)
+            .NotEmpty()
+            .NotNull();
+        RuleFor(item => item.Color)
+            .NotEmpty()
+            .NotNull();
+        RuleFor(item => item.FontWeight)
+            .NotEmpty()
+            .NotNull();
+        RuleFor(item => item.TextAlign)
+            .NotEmpty()
+            .NotNull();
+    }
 }

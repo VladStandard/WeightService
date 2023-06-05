@@ -15,7 +15,7 @@ public sealed partial class ItemPrinterResources : ItemBase<WsSqlPrinterResource
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
 
     private List<WsSqlTemplateResourceModel> TemplateResourceModels { get; set; }
-    
+
     #endregion
 
     #region Public and private methods

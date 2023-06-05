@@ -25,9 +25,9 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
     private List<WsSqlDeviceModel> HostModels { get; set; }
 
     private List<WsSqlWorkShopModel> WorkShopModels { get; set; }
-    
-	public ItemLines() : base()
-	{
+
+    public ItemLines() : base()
+    {
         Device = new();
         DeviceScaleFk = new();
         ComPorts = new();
@@ -42,11 +42,11 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
         SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableById<WsSqlScaleModel>(Id);
         if (SqlItemCast.IsNew)
             SqlItemCast = SqlItemNew<WsSqlScaleModel>();
-        
+
         PrinterModels = ContextManager.ContextList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         HostModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         WorkShopModels = ContextManager.ContextList.GetListNotNullable<WsSqlWorkShopModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-                
+
         SqlItemCast.PrinterMain ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlPrinterModel>();
         SqlItemCast.PrinterShipping ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlPrinterModel>();
         SqlItemCast.WorkShop ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlWorkShopModel>();

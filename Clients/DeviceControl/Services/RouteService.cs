@@ -1,4 +1,4 @@
-﻿using WsStorageCore.TableDiagModels.Logs;
+using WsStorageCore.TableDiagModels.Logs;
 using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableDiagModels.LogsWebsFks;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
@@ -50,20 +50,20 @@ public class RouteService
         _navigationManager = navigationManager;
     }
 
-    public void NavigateItemRoute(WsSqlTableBase? item) 
+    public void NavigateItemRoute(WsSqlTableBase? item)
     {
         if (item == null)
             return;
         _navigationManager.NavigateTo(GetItemRoute(item));
     }
-    
+
     public void NavigateSectionRoute(WsSqlTableBase? item)
     {
         if (item == null)
             return;
         _navigationManager.NavigateTo(GetSectionRoute(item));
     }
-    
+
     public static string GetItemRoute(WsSqlTableBase? item)
     {
         if (item == null)
@@ -76,9 +76,9 @@ public class RouteService
             _ => page
         };
     }
-    
+
     public static string GetSectionRoute(WsSqlTableBase? item)
-    { 
+    {
         return item switch
         {
             WsSqlAccessModel => LocaleCore.DeviceControl.RouteSectionAccess,
@@ -119,7 +119,7 @@ public class RouteService
             WsSqlTemplateResourceModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
             WsSqlVersionModel => LocaleCore.DeviceControl.RouteSectionVersions,
             WsSqlWorkShopModel => LocaleCore.DeviceControl.RouteSectionWorkShops,
-            
+
             LogView => LocaleCore.DeviceControl.RouteSectionLogs,
             LineView => LocaleCore.DeviceControl.RouteSectionScales,
             BarcodeView => LocaleCore.DeviceControl.RouteSectionBarCodes,
@@ -130,5 +130,5 @@ public class RouteService
             _ => string.Empty
         };
     }
-    
+
 }

@@ -3,10 +3,10 @@
 
 namespace WsBlazorCore.Utils;
 
-public class WsBlazorCssValidationUtils
+public static class WsBlazorCssValidationUtils
 {
     #region Public and private methods
-    
+
     public static IValidator GetValidator<T>() where T : CssStyleBase, new() =>
         typeof(T) switch
         {
@@ -25,7 +25,7 @@ public class WsBlazorCssValidationUtils
             _ => throw new NullReferenceException(nameof(item))
         };
 
-    public static bool IsValidation<T>(T? item) where T : class, new() => 
+    public static bool IsValidation<T>(T? item) where T : class, new() =>
         item is not null && GetValidationResult(item).IsValid;
 
     #endregion

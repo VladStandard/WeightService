@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControl.Services;
@@ -12,16 +12,16 @@ namespace DeviceControl.Components.Section;
 public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
-    
+
     [Inject] protected IJSRuntime JsRuntime { get; set; }
     [Inject] protected RouteService RouteService { get; set; }
     [Inject] private LocalStorageService LocalStorage { get; set; }
     [Inject] protected ContextMenuService? ContextMenuService { get; set; }
-    
+
     protected IList<TItem> SelectedRow { get; set; }
     protected List<TItem> SqlSectionCast { get; set; }
     protected List<TItem> SqlSectionSave { get; set; }
-    protected List<ContextMenuItem> ContextMenuItems { get; set; } 
+    protected List<ContextMenuItem> ContextMenuItems { get; set; }
     protected TItem SqlItemCast => SqlItem is null ? new() : (TItem)SqlItem;
     protected WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
     protected RadzenDataGrid<TItem> DataGrid { get; set; }
@@ -33,7 +33,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         SqlSectionCast = new List<TItem>();
         SelectedRow = new List<TItem>();
         SqlSectionSave = new List<TItem>();
-        
+
         SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlIsMarked.ShowOnlyActual);
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
@@ -42,17 +42,17 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     }
 
     #endregion
-    
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!firstRender) 
+        if (!firstRender)
             return;
         string? rowCount = await LocalStorage.GetItem("DefaultRowCount");
         SqlCrudConfigSection.SelectTopRowsCount = int.TryParse(rowCount, out int parsedNumber) ? parsedNumber : 200;
         ContextMenuItems = GetContextMenuItems();
         GetSectionData();
     }
-    
+
     protected void SqlItemSet(TItem item)
     {
         SelectedRow.Clear();
@@ -66,18 +66,18 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         if (!SqlSectionSave.Any(item => Equals(item.IdentityValueUid, model.IdentityValueUid)))
             SqlSectionSave.Add(model);
     }
-    
+
     private async void DeleteMarkedOrDeleted()
     {
         await InvokeAsync(() =>
         {
             SqlSectionCast.Remove(SqlItemCast);
             SelectedRow.Remove(SqlItemCast);
-            SqlItem = null; 
+            SqlItem = null;
             DataGrid.Reload();
         });
     }
-    
+
     #region Context Menu
 
     protected void OnCellContextMenu(DataGridCellMouseEventArgs<TItem> args)
@@ -95,7 +95,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             new() { Text = locale.Open, Value = ContextMenuAction.Open },
             new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
         };
-        
+
         if (User?.IsInRole(UserAccessStr.Write) == true)
         {
             if (ButtonSettings.IsShowMark)
@@ -106,7 +106,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 
         return contextMenuItems;
     }
-    
+
     private void ParseContextMenuActions(MenuItemEventArgs e)
     {
         ContextMenuAction menuAction = (ContextMenuAction)e.Value;
@@ -118,7 +118,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             ContextMenuAction.Delete => SqlItemDeleteAsync,
             _ => throw new NotImplementedException()
         };
-        
+
         InvokeAsync(async () =>
         {
             await action();
@@ -137,7 +137,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         else
             GetDataWithReload();
     }
-    
+
     private void GetDataWithoutReload()
     {
         int selectCount = SqlCrudConfigSection.SelectTopRowsCount;
@@ -159,14 +159,14 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         IsLoading = false;
         StateHasChanged();
     }
-    
+
     protected virtual void SetSqlSectionCast()
     {
         SqlSectionCast = ContextManager.ContextList.GetListNotNullable<TItem>(SqlCrudConfigSection);
     }
 
     #endregion
-    
+
     #region Auth methods
 
     [Authorize(Roles = UserAccessStr.Write)]
@@ -180,7 +180,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             SqlSectionSave.Clear();
         });
     }
-    
+
     [Authorize(Roles = UserAccessStr.Write)]
     protected async Task SqlItemDeleteAsync()
     {
@@ -190,7 +190,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
             return;
         }
-		
+
         RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
         {
             ContextManager.AccessManager.AccessItem.Delete(SqlItem);
@@ -207,14 +207,14 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
             return;
         }
-		
+
         RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
         {
             ContextManager.AccessManager.AccessItem.Mark(SqlItem);
             DeleteMarkedOrDeleted();
         });
     }
-    
+
     [Authorize(Roles = UserAccessStr.Write)]
     protected async Task SqlItemNewAsync()
     {
@@ -225,19 +225,19 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             RouteService.NavigateItemRoute(SqlItemCast);
         });
     }
-    
+
     [Authorize(Roles = UserAccessStr.Read)]
     protected async Task SqlItemOpenAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RouteService.NavigateItemRoute(SqlItemCast);
     }
-    
+
     [Authorize(Roles = UserAccessStr.Read)]
     protected async Task SqlItemOpenNewTabAsync()
     {
         await JsRuntime.InvokeAsync<string>("open", RouteService.GetItemRoute(SqlItemCast), "_blank");
     }
-    
+
     #endregion
 }

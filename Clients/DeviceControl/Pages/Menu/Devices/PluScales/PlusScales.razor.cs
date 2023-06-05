@@ -30,7 +30,7 @@ public sealed partial class PlusScales : SectionBase<WsSqlPluScaleModel>
 
     protected override void SetSqlSectionCast()
     {
-        if (!HideNoneActivePlu) 
+        if (!HideNoneActivePlu)
             SqlCrudConfigSection.ClearFilters();
         else
             SqlCrudConfigSection.AddFilters(
@@ -46,11 +46,11 @@ public sealed partial class PlusScales : SectionBase<WsSqlPluScaleModel>
     }
 
     private string GetPluPackagesCount(WsSqlPluModel plu)
-	{
-		WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
             WsSqlIsMarked.ShowAll, true, false, false);
         return ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Count.ToString();
-	}
+    }
 
     #endregion
 }

@@ -10,21 +10,21 @@ public class CssStyleTableBodyModel : CssStyleBase
     public WsSqlFieldIdentity IdentityName { get; set; }
     public bool IsShowMarked { get; set; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public CssStyleTableBodyModel()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public CssStyleTableBodyModel()
     {
-		IdentityName = WsSqlFieldIdentity.Empty;
-		IsShowMarked = false;
-	}
+        IdentityName = WsSqlFieldIdentity.Empty;
+        IsShowMarked = false;
+    }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="identityName"></param>
-	/// <param name="isShowMarked"></param>
-	public CssStyleTableBodyModel(WsSqlFieldIdentity identityName, bool isShowMarked)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="identityName"></param>
+    /// <param name="isShowMarked"></param>
+    public CssStyleTableBodyModel(WsSqlFieldIdentity identityName, bool isShowMarked)
     {
         IdentityName = identityName;
         IsShowMarked = isShowMarked;

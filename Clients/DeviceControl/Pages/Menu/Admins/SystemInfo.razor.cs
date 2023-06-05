@@ -35,6 +35,6 @@ public sealed partial class SystemInfo : RazorComponentBase
         DbSizeInfos = ContextManager.GetDbFileSizeInfos();
         DbFileSizeAll = ContextManager.GetDbFileSizeAll();
     }
-    
+
     #endregion
 }

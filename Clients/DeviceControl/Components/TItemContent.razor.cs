@@ -1,4 +1,4 @@
-﻿namespace DeviceControl.Components;
+namespace DeviceControl.Components;
 
 public partial class TItemContent<TItem>
 {

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsBlazorCore.Settings;
@@ -13,8 +13,7 @@ public class ButtonSettingsModel
     public bool IsShowNew { get; set; }
     public bool IsShowSave { get; set; }
     
-    
-    public ButtonSettingsModel(bool isShowDelete,  bool isShowMark, bool isShowNew, bool isShowSave, bool isShowCancel)
+    public ButtonSettingsModel(bool isShowDelete, bool isShowMark, bool isShowNew, bool isShowSave, bool isShowCancel)
     {
         IsShowDelete = isShowDelete;
         IsShowMark = isShowMark;
@@ -33,16 +32,16 @@ public class ButtonSettingsModel
     #endregion
 
     #region Public and private methods
-    public static ButtonSettingsModel CreateForItem() => 
+    public static ButtonSettingsModel CreateForItem() =>
         new(false, false, false, true, true);
-    
-    public static ButtonSettingsModel CreateForStaticItem() => 
+
+    public static ButtonSettingsModel CreateForStaticItem() =>
         new(false, false, false, false, true);
-    
+
     public static ButtonSettingsModel CreateForSection() =>
-        new (true, true, true, false, false);
-    
-    public static ButtonSettingsModel CreateForStaticSection() => 
+        new(true, true, true, false, false);
+
+    public static ButtonSettingsModel CreateForStaticSection() =>
         new(true, true, false, false, false);
 
     #endregion

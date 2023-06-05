@@ -9,10 +9,10 @@ namespace DeviceControl.Pages.Menu.Operations.PlusLabels;
 
 public sealed partial class PlusLabels : SectionBase<PlusLabelView>
 {
-	#region Public and private fields, properties, constructor
-    
-    public PlusLabels() :base()
-	{
+    #region Public and private fields, properties, constructor
+
+    public PlusLabels() : base()
+    {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
 

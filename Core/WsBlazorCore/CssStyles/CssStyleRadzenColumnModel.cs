@@ -5,48 +5,48 @@ namespace WsBlazorCore.CssStyles;
 
 public class CssStyleRadzenColumnModel : CssStyleBase
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	public string Width { get; set; }
-	public bool IsShowLink { get; set; }
+    public string Width { get; set; }
+    public bool IsShowLink { get; set; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public CssStyleRadzenColumnModel()
-	{
-		Width = string.Empty;
-		IsShowLink = true;
-	}
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public CssStyleRadzenColumnModel()
+    {
+        Width = string.Empty;
+        IsShowLink = true;
+    }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="width"></param>
-	public CssStyleRadzenColumnModel(string width) : this()
-	{
-		Width = width;
-	}
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="width"></param>
+    public CssStyleRadzenColumnModel(string width) : this()
+    {
+        Width = width;
+    }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="width"></param>
-	/// <param name="isShowLink"></param>
-	public CssStyleRadzenColumnModel(string width, bool isShowLink) : this()
-	{
-		Width = width;
-		IsShowLink = isShowLink;
-	}
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="isShowLink"></param>
+    public CssStyleRadzenColumnModel(string width, bool isShowLink) : this()
+    {
+        Width = width;
+        IsShowLink = isShowLink;
+    }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="isShowLink"></param>
-	public CssStyleRadzenColumnModel(bool isShowLink) : this()
-	{
-		IsShowLink = isShowLink;
-	}
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="isShowLink"></param>
+    public CssStyleRadzenColumnModel(bool isShowLink) : this()
+    {
+        IsShowLink = isShowLink;
+    }
 
-	#endregion
+    #endregion
 }

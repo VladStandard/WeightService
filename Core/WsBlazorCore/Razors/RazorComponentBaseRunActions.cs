@@ -12,7 +12,7 @@ public partial class RazorComponentBase
 {
     #region Public and private methods - Run actions
 
-    protected void RunActionsInitialized(List<Action> actionsInitialized) => 
+    protected void RunActionsInitialized(List<Action> actionsInitialized) =>
         RunActionsSafe(string.Empty, actionsInitialized);
 
     protected void RunActionsParametersSet(List<Action> actionsParametersSet)
@@ -45,8 +45,8 @@ public partial class RazorComponentBase
         }
     }
 
-    protected void RunActionsSafe(string title, Action action) => 
-	    RunActionsSafe(title, new List<Action> { action });
+    protected void RunActionsSafe(string title, Action action) =>
+        RunActionsSafe(title, new List<Action> { action });
 
     protected void CatchException(Exception ex, string title, string fail)
     {
@@ -75,13 +75,13 @@ public partial class RazorComponentBase
     {
         try
         {
-	        if (DialogService is null)
-		        throw new ArgumentNullException(nameof(DialogService));
+            if (DialogService is null)
+                throw new ArgumentNullException(nameof(DialogService));
 
             string question = string.IsNullOrEmpty(questionAdd) ? LocaleCore.Dialog.DialogQuestion : questionAdd;
-			Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
-			bool? result = dialog.Result;
-			if (result == true)
+            Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
+            bool? result = dialog.Result;
+            if (result == true)
             {
                 RunActionsSafe(title, action);
             }
@@ -92,44 +92,44 @@ public partial class RazorComponentBase
         }
     }
 
-	// https://blazor.radzen.com/dialog
-	protected async Task ShowDialog(string title, string message)
+    // https://blazor.radzen.com/dialog
+    protected async Task ShowDialog(string title, string message)
     {
-	    try
-	    {
-		    if (DialogService is null)
-			    throw new ArgumentNullException(nameof(DialogService));
+        try
+        {
+            if (DialogService is null)
+                throw new ArgumentNullException(nameof(DialogService));
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-    //        await InvokeAsync(async () =>
-    //        {
-	   //         await Task.Delay(TimeSpan.FromMilliseconds(3000)).ConfigureAwait(false);
-				//DialogService.Close();
-    //        }).ConfigureAwait(false);
+            //        await InvokeAsync(async () =>
+            //        {
+            //         await Task.Delay(TimeSpan.FromMilliseconds(3000)).ConfigureAwait(false);
+            //DialogService.Close();
+            //        }).ConfigureAwait(false);
 
-	        await InvokeAsync(async () =>
-	        {
+            await InvokeAsync(async () =>
+            {
                 await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
                 Task<dynamic>? dialog = DialogService.OpenAsync(title,
                     ds =>
                     {
                         RenderFragment renderFragment = new(builder =>
                         {
-	                        int index = 0;
+                            int index = 0;
                             builder.OpenComponent<RazorComponentBase>(index++);
-							builder.AddAttribute(index++, nameof(title), title);
-							//builder.AddComponentReferenceCapture(index++, inst => { RazorComponentBase component = new(); });
-							builder.CloseComponent();
+                            builder.AddAttribute(index++, nameof(title), title);
+                            //builder.AddComponentReferenceCapture(index++, inst => { RazorComponentBase component = new(); });
+                            builder.CloseComponent();
                         });
                         return renderFragment;
                     },
                     new DialogOptions { CloseDialogOnOverlayClick = true, ShowClose = true });
-	        }).ConfigureAwait(true);
-		}
-	    catch (Exception ex)
-	    {
-		    CatchException(ex, title, LocaleCore.Dialog.DialogResultFail);
-	    }
+            }).ConfigureAwait(true);
+        }
+        catch (Exception ex)
+        {
+            CatchException(ex, title, LocaleCore.Dialog.DialogResultFail);
+        }
     }
 
     private static ConfirmOptions GetConfirmOptions() => new()

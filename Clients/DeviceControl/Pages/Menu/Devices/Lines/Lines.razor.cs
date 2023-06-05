@@ -36,7 +36,7 @@ public sealed partial class Lines : SectionBase<LineView>
         {
             if (obj is not object[] { Length: 7 } item)
                 continue;
-            
+
             items.Add(new LineView
             {
                 IdentityValueId = Convert.ToInt64(item[0]),

@@ -15,7 +15,7 @@ public sealed partial class PluWeightings : SectionBase<PluWeightingView>
     private List<WsSqlDeviceScaleFkModel> DeviceScaleFk { get; set; }
 
     public PluWeightings() : base()
-	{
+    {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
 

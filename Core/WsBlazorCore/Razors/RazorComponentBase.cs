@@ -16,7 +16,7 @@ public partial class RazorComponentBase : LayoutComponentBase
     #region Public and private fields, properties, constructor
 
     #region Inject
-    
+
     [Inject] protected DialogService? DialogService { get; set; }
     [Inject] protected NotificationService? NotificationService { get; set; }
     [Inject] protected IHttpContextAccessor? HttpContextAccess { get; set; }
@@ -33,17 +33,17 @@ public partial class RazorComponentBase : LayoutComponentBase
     #endregion
 
     #region Parameters
-    
+
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
 
     #endregion
 
     [Parameter] public WsSqlTableBase? SqlItem { get; set; }
-    
+
     public ClaimsPrincipal? User { get; set; }
-    
-	public RazorComponentBase()
-	{
+
+    public RazorComponentBase()
+    {
         SqlItem = null;
     }
 

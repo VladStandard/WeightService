@@ -49,7 +49,7 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUserRightsService _userRightsService;
     private readonly IMemoryCache _cache;
-    
+
     public CustomAuthStateProvider(IHttpContextAccessor httpContextAccessor, IUserRightsService userRightsService, IMemoryCache cache)
     {
         _httpContextAccessor = httpContextAccessor;
@@ -64,10 +64,10 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
         if (user?.Identity?.IsAuthenticated != true || user.Identity.Name == null)
             return new AuthenticationState(new ClaimsPrincipal());
 
-        ClaimsIdentity claimsIdentity = new (user.Claims, "Windows");
+        ClaimsIdentity claimsIdentity = new(user.Claims, "Windows");
 
         List<string> userRights;
-        
+
         if (!_cache.TryGetValue(user.Identity.Name, out userRights))
         {
             userRights = await _userRightsService.GetUserRightsAsync(user.Identity.Name);
