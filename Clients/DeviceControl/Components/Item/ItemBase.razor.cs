@@ -13,8 +13,8 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     [Inject] protected IJSRuntime? JsRuntime { get; set; }
     [Inject] protected RouteService RouteService { get; set; }
     [Parameter] public string Title { get; set; }
-    [Parameter] public Guid IdentityUid { get; set; }
-    [Parameter] public long IdentityId { get; set; }
+    [Parameter] public Guid Uid { get; set; }
+    [Parameter] public int Id { get; set; }
     
     #region Public and private fields, properties, constructor
 
@@ -89,7 +89,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     
     protected virtual void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<TItem>(IdentityUid);
+        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<TItem>(Uid);
         if (SqlItemCast.IsNew)
             SqlItemCast = SqlItemNew<TItem>();
     }
