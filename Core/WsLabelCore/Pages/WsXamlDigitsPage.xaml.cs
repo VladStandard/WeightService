@@ -27,10 +27,9 @@ public partial class WsXamlDigitsPage
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    public void SetupViewModel(IWsViewModel viewModel)
+    public void SetupViewModel(WsXamlDigitsViewModel viewModel)
     {
-        if (viewModel is not WsXamlDigitsViewModel digitsViewModel) return;
-        base.SetupViewModel(digitsViewModel, gridLocal);
+        SetupViewModel(viewModel, gridLocal);
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {

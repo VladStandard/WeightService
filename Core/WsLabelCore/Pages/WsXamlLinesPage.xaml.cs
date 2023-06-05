@@ -29,42 +29,41 @@ public partial class WsXamlLinesPage
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    public void SetupViewModel(IWsViewModel viewModel)
+    public void SetupViewModel(WsXamlLinesViewModel viewModel)
     {
-        if (viewModel is not WsXamlLinesViewModel linesViewModel) return;
-        base.SetupViewModel(linesViewModel, gridLocal);
+        SetupViewModel(viewModel, gridLocal);
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             // Площадки.
             comboBoxArea.SetBinding(ItemsControl.ItemsSourceProperty,
-                new Binding(nameof(linesViewModel.Areas)) { Mode = BindingMode.OneWay, Source = linesViewModel });
+                new Binding(nameof(viewModel.Areas)) { Mode = BindingMode.OneWay, Source = viewModel });
             comboBoxArea.SetBinding(Selector.SelectedItemProperty,
-                new Binding(nameof(linesViewModel.Area)) { Mode = BindingMode.TwoWay, Source = linesViewModel });
+                new Binding(nameof(viewModel.Area)) { Mode = BindingMode.TwoWay, Source = viewModel });
             comboBoxArea.SetBinding(Selector.SelectedValueProperty,
-                new Binding(nameof(linesViewModel.Area.Name))
+                new Binding(nameof(viewModel.Area.Name))
                 {
                     Mode = BindingMode.OneWay,
-                    Source = linesViewModel.Area
+                    Source = viewModel.Area
                 });
-            comboBoxArea.DisplayMemberPath = nameof(linesViewModel.Area.Name);
-            comboBoxArea.SelectedValuePath = nameof(linesViewModel.Area.Name);
+            comboBoxArea.DisplayMemberPath = nameof(viewModel.Area.Name);
+            comboBoxArea.SelectedValuePath = nameof(viewModel.Area.Name);
             labelArea.SetBinding(ContentProperty,
                 new Binding(nameof(LocaleCore.Table.Area)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
 
             // Линии.
             comboBoxLine.SetBinding(ItemsControl.ItemsSourceProperty,
-                new Binding(nameof(linesViewModel.Lines)) { Mode = BindingMode.OneWay, Source = linesViewModel });
+                new Binding(nameof(viewModel.Lines)) { Mode = BindingMode.OneWay, Source = viewModel });
             comboBoxLine.SetBinding(Selector.SelectedItemProperty,
-                new Binding(nameof(linesViewModel.Line)) { Mode = BindingMode.TwoWay, Source = linesViewModel });
+                new Binding(nameof(viewModel.Line)) { Mode = BindingMode.TwoWay, Source = viewModel });
             comboBoxLine.SetBinding(Selector.SelectedValueProperty,
-                new Binding($"{nameof(linesViewModel.Line.NumberWithDescription)}")
+                new Binding($"{nameof(viewModel.Line.NumberWithDescription)}")
                 {
                     Mode = BindingMode.OneWay,
-                    Source = linesViewModel.Line
+                    Source = viewModel.Line
                 });
-            comboBoxLine.DisplayMemberPath = nameof(linesViewModel.Line.NumberWithDescription);
-            comboBoxLine.SelectedValuePath = nameof(linesViewModel.Line.NumberWithDescription);
+            comboBoxLine.DisplayMemberPath = nameof(viewModel.Line.NumberWithDescription);
+            comboBoxLine.SelectedValuePath = nameof(viewModel.Line.NumberWithDescription);
             labelLine.SetBinding(ContentProperty,
                 new Binding(nameof(LocaleCore.Table.Line)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
 

@@ -14,6 +14,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
 {
     #region Private fields and properties
 
+    public WsXamlKneadingViewModel ViewModel => Page.ViewModel as WsXamlKneadingViewModel ?? new();
     private DateTime SaveProductDate { get; }
     private short SaveKneading { get; }
     private byte SavePalletSize { get; }
@@ -32,14 +33,14 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
 
     #region Public and private methods
 
-    public override string ToString() => Page.ViewModel.ToString();
+    public override string ToString() => ViewModel.ToString();
 
     /// <summary>
     /// Обновить контрол.
     /// </summary>
     public void SetupUserConrol()
     {
-        Page.SetupViewModel(Page.ViewModel is not WsXamlKneadingViewModel ? new WsXamlKneadingViewModel() : Page.ViewModel);
+        Page.SetupViewModel(ViewModel);
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
@@ -83,7 +84,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
             LabelSession.ProductDate = SaveProductDate;
             LabelSession.WeighingSettings.Kneading = SaveKneading;
             LabelSession.WeighingSettings.LabelsCountMain = SavePalletSize;
-            Page.ViewModel.CmdCancel.Relay();
+            ViewModel.CmdCancel.Relay();
         });
     }
 
@@ -104,7 +105,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
-            Page.ViewModel.CmdYes.Relay();
+            ViewModel.CmdYes.Relay();
         });
     }
 

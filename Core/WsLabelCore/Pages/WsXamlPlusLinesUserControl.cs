@@ -16,6 +16,8 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
 {
     #region Public and private fields, properties, constructor
 
+    public WsXamlPlusLineViewModel ViewModel => Page.ViewModel as WsXamlPlusLineViewModel ?? new();
+
     /// <summary>
     /// ID последней линии (для производительности).
     /// </summary>
@@ -31,14 +33,14 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
 
     #region Public and private methods
 
-    public override string ToString() => Page.ViewModel.ToString();
+    public override string ToString() => ViewModel.ToString();
 
     /// <summary>
     /// Обновить контрол.
     /// </summary>
     public void SetupUserConrol()
     {
-        Page.SetupViewModel(Page.ViewModel is not WsXamlPlusLineViewModel ? new WsXamlPlusLineViewModel() : Page.ViewModel);
+        Page.SetupViewModel(ViewModel);
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
@@ -89,14 +91,14 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
             {
                 if (ContextCache.LocalViewPlusLines.Any())
                 {
-                    ((WsXamlPlusLineViewModel)Page.ViewModel).PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
+                    ViewModel.PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
                 }
             }
 
-            if (((WsXamlPlusLineViewModel)Page.ViewModel).PluLine.IsExists)
-                ((WsXamlPlusLineViewModel)Page.ViewModel).CmdYes.Relay();
+            if (ViewModel.PluLine.IsExists)
+                ViewModel.CmdYes.Relay();
             else
-                ((WsXamlPlusLineViewModel)Page.ViewModel).CmdCancel.Relay();
+                ViewModel.CmdCancel.Relay();
         });
     }
 
@@ -217,7 +219,7 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void buttonCancel_Click(object sender, EventArgs e) => ((WsXamlPlusLineViewModel)Page.ViewModel).CmdCancel.Relay();
+    private void buttonCancel_Click(object sender, EventArgs e) => ViewModel.CmdCancel.Relay();
 
     #endregion
 }

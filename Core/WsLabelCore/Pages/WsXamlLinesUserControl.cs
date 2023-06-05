@@ -12,6 +12,8 @@ public sealed partial class WsXamlLinesUserControl : WsFormBaseUserControl, IWsF
 {
     #region Public and private fields, properties, constructor
 
+    public WsXamlLinesViewModel ViewModel => Page.ViewModel as WsXamlLinesViewModel ?? new();
+
     public WsXamlLinesUserControl() : base(WsEnumNavigationPage.Line)
     {
         InitializeComponent();
@@ -21,14 +23,12 @@ public sealed partial class WsXamlLinesUserControl : WsFormBaseUserControl, IWsF
 
     #region Public and private methods
 
-    public override string ToString() => Page.ViewModel.ToString();
+    public override string ToString() => ViewModel.ToString();
 
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public void SetupUserConrol() =>
-        ((WsXamlLinesPage)Page).SetupViewModel(Page.ViewModel is not WsXamlLinesViewModel
-            ? new WsXamlLinesViewModel() : Page.ViewModel);
+    public void SetupUserConrol() => ((WsXamlLinesPage)Page).SetupViewModel(ViewModel);
 
     #endregion
 }

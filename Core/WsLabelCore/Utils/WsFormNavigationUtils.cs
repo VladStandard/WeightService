@@ -113,14 +113,14 @@ public static class WsFormNavigationUtils
     /// <param name="showNavigation"></param>
     public static void NavigateToExistsLines(Action<WsFormBaseUserControl, string> showNavigation)
     {
-        // Загрузка из сесси пользователя.
-        ((WsXamlLinesViewModel)LinesUserControl.Page.ViewModel).Areas = LabelSession.ContextCache.Areas;
-        ((WsXamlLinesViewModel)LinesUserControl.Page.ViewModel).Lines = LabelSession.ContextCache.Lines;
-        ((WsXamlLinesViewModel)LinesUserControl.Page.ViewModel).Area = LabelSession.Area;
-        ((WsXamlLinesViewModel)LinesUserControl.Page.ViewModel).Line = LabelSession.Line;
+        // Загрузка из сессии пользователя.
+        LinesUserControl.ViewModel.Areas = LabelSession.ContextCache.Areas;
+        LinesUserControl.ViewModel.Lines = LabelSession.ContextCache.Lines;
+        LinesUserControl.ViewModel.Area = LabelSession.Area;
+        LinesUserControl.ViewModel.Line = LabelSession.Line;
 
-        LinesUserControl.Page.ViewModel.UpdateCommandsFromActions();
-        LinesUserControl.Page.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
+        LinesUserControl.ViewModel.UpdateCommandsFromActions();
+        LinesUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
         showNavigation(LinesUserControl, LocaleCore.Scales.SwitchLineTitle);
         NavigationUserControl.SwitchUserControl(LinesUserControl);
     }
@@ -138,7 +138,7 @@ public static class WsFormNavigationUtils
         string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
-        DialogUserControl.Page.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
+        DialogUserControl.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
         showNavigation(DialogUserControl, LocaleCore.Scales.OperationControl);
         NavigationUserControl.SwitchUserControl(DialogUserControl);
     }
@@ -198,7 +198,7 @@ public static class WsFormNavigationUtils
         string message, bool isLog, WsEnumLogType logType)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
-        DialogUserControl.Page.ViewModel.SetupButtonsOk(message, ActionBackFromNavigation, NavigationUserControl.Width);
+        DialogUserControl.ViewModel.SetupButtonsOk(message, ActionBackFromNavigation, NavigationUserControl.Width);
         showNavigation(DialogUserControl, LocaleCore.Scales.OperationControl);
         NavigationUserControl.SwitchUserControl(DialogUserControl);
     }
@@ -216,7 +216,7 @@ public static class WsFormNavigationUtils
         string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
-        DigitsUserControl.Page.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
+        DigitsUserControl.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
         showNavigation(DigitsUserControl, LocaleCore.Scales.OperationControl);
         NavigationUserControl.SwitchUserControl(DigitsUserControl);
     }
@@ -230,8 +230,8 @@ public static class WsFormNavigationUtils
     public static void NavigateToExistsWait(Action<WsFormBaseUserControl, string> showNavigation, 
         string title, string message)
     {
-        WaitUserControl.Page.ViewModel.Message = message;
-        WaitUserControl.Page.ViewModel.SetupButtonsCustom(message, ActionBackFromNavigation, NavigationUserControl.Width);
+        WaitUserControl.ViewModel.Message = message;
+        WaitUserControl.ViewModel.SetupButtonsCustom(message, ActionBackFromNavigation, NavigationUserControl.Width);
         showNavigation(WaitUserControl, title);
         NavigationUserControl.SwitchUserControl(WaitUserControl);
     }
@@ -242,8 +242,8 @@ public static class WsFormNavigationUtils
     /// <param name="showNavigation"></param>
     public static void NavigateToExistsKneading(Action<WsFormBaseUserControl, string> showNavigation)
     {
-        KneadingUserControl.Page.ViewModel.UpdateCommandsFromActions();
-        KneadingUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        KneadingUserControl.ViewModel.UpdateCommandsFromActions();
+        KneadingUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
         showNavigation(KneadingUserControl,
             LabelSession.PluLine.Plu.IsCheckWeight
             ? $"{LocaleCore.Scales.SwitchKneadingTitle} {LocaleCore.Scales.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
@@ -257,8 +257,8 @@ public static class WsFormNavigationUtils
     /// <param name="showNavigation"></param>
     public static void NavigateToExistsPlusLine(Action<WsFormBaseUserControl, string> showNavigation)
     {
-        PlusLineUserControl.Page.ViewModel.UpdateCommandsFromActions();
-        PlusLineUserControl.Page.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
+        PlusLineUserControl.ViewModel.UpdateCommandsFromActions();
+        PlusLineUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
         showNavigation(PlusLineUserControl, LocaleCore.Scales.SwitchPluLineTitle);
         NavigationUserControl.SwitchUserControl(PlusLineUserControl);
     }
@@ -270,12 +270,12 @@ public static class WsFormNavigationUtils
     public static void NavigateToExistsPlusNesting(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сесси пользователя.
-        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.Page.ViewModel).PlusNestings = 
+        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.ViewModel).PlusNestings = 
             LabelSession.ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);
-        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.Page.ViewModel).PluNesting = LabelSession.ViewPluNesting;
+        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.ViewModel).PluNesting = LabelSession.ViewPluNesting;
 
-        PlusNestingUserControl.Page.ViewModel.UpdateCommandsFromActions();
-        PlusNestingUserControl.Page.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
+        PlusNestingUserControl.ViewModel.UpdateCommandsFromActions();
+        PlusNestingUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
         showNavigation(PlusNestingUserControl, LocaleCore.Scales.SwitchPluNestingTitle);
         NavigationUserControl.SwitchUserControl(PlusNestingUserControl);
     }
@@ -310,9 +310,9 @@ public static class WsFormNavigationUtils
         if (device.IsNew)
         {
             // Навигация в WinForms-контрол диалога Отмена/Да.
-            NavigateToExistsDialogCancelYes(showNavigation,
+            NavigateToNewDialog(showNavigation,
                 LocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
-                false, WsEnumLogType.Information, () => { }, ActionYes);
+                false, WsEnumLogType.Information, WsEnumDialogType.CancelYes, new() { () => { }, ActionYes });
             void ActionYes()
             {
                 device = new()
