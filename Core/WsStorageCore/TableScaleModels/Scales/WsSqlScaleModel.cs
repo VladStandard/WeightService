@@ -22,7 +22,12 @@ public class WsSqlScaleModel : WsSqlTableBase
     [XmlElement] public virtual string ZebraIp { get; set; }
     [XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
     [XmlElement] public virtual int Number { get; set; }
-    [XmlElement] public virtual int Counter { get; set; }
+    private int _counter;
+    /// <summary>
+    /// Счётчик (от 1 до 1_000_000).
+    /// </summary>
+    [XmlElement]
+    public virtual int Counter { get => _counter; set { _counter = value > 1_000_000 ? 1 : value; } }
     [XmlElement(IsNullable = true)] public virtual int? ScaleFactor { get; set; }
     [XmlElement] public virtual bool IsShipping { get; set; }
     [XmlElement] public virtual bool IsOrder { get; set; }

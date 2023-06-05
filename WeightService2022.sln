@@ -36,10 +36,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC 300DPMM", "TSC 300DPMM"
 		Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V1.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V1.XML
 		Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V2.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СЛЕВА V2.XML
 		Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СПРАВА V3.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СПРАВА V3.XML
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СПРАВА КОД 230 V1.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ВЕС ШАПКА СПРАВА КОД 230 V1.XML
 		Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V1 ПРИМЕР.TXT = Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V1 ПРИМЕР.TXT
 		Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V1.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V1.XML
 		Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V2.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СЛЕВА V2.XML
 		Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СПРАВА V3.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СПРАВА V3.XML
+		Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СПРАВА КОД 230 V1.XML = Resources\Templates\TSC 300DPMM\TSC 60X150 ШТ ШАПКА СПРАВА КОД 230 V1.XML
 		Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС (РЕЗЕРВ).XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС (РЕЗЕРВ).XML
 		Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V1.XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V1.XML
 		Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V2.XML = Resources\Templates\TSC 300DPMM\TSC 80X100 ВЕС V2.XML
@@ -1946,7 +1948,7 @@ Global
 		{8268D4F8-0190-49BA-AC78-294A0DEC314E} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 	EndGlobalSection
 EndGlobal

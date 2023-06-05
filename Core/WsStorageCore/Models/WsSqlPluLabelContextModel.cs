@@ -28,8 +28,8 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string LotNumberFormat { get => $"{PluLabel.ProductDt:yyMM}"; set => _ = value; }
     [XmlElement] public virtual string ProductDateBarCodeFormat { get => $"{PluLabel.ProductDt:yyMMdd}"; set => _ = value; }
     [XmlElement] public virtual string ProductTimeBarCodeFormat { get => $"{PluLabel.ProductDt:HHmmss}"; set => _ = value; }
-    [XmlElement] public virtual string CurrentDateBarCode { get => $"{DateTime.Now:yyMMdd}"; set => _ = value; }
-    [XmlElement] public virtual string CurrentTimeBarCode { get => $"{DateTime.Now:HHmmss}"; set => _ = value; }
+    //[XmlElement] public virtual string CurrentDateBarCode { get => $"{DateTime.Now:yyMMdd}"; set => _ = value; }
+    //[XmlElement] public virtual string CurrentTimeBarCode { get => $"{DateTime.Now:HHmmss}"; set => _ = value; }
     [XmlElement] public virtual string Nesting { get => $"{LocaleCore.Scales.LabelContextNesting}: {ViewPluNesting.BundleCount}{LocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string Address { get => ProductionFacility.Address; set => _ = value; }
     [XmlElement] public virtual string PluDescription { get => PluScale.Plu.Description; set => _ = value; }
@@ -42,7 +42,9 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string ExpirationDtWithCaption { get => $"{LocaleCore.Scales.LabelContextExpirationDt}: {ExpirationDt}"; set => _ = value; }
     [XmlElement] public virtual string ScaleNumber { get => $"{PluScale.Line.Number:00000}"; set => _ = value; }
     [XmlElement] public virtual string ScaleDescription { get => $"{LocaleCore.Scales.LabelContextWorkShop}: {PluScale.Line.Description}"; set => _ = value; }
-    [XmlElement] public virtual string ScaleCounter { get => $"{PluScale.Line.Counter:00000000}"; set => _ = value; }
+    [XmlElement] public virtual string ScaleCounter8 { get => $"{PluScale.Line.Counter:00000000}"; set => _ = value; }
+    [XmlElement] public virtual string ScaleCounter6 { get => $"{PluScale.Line.Counter:000000}"; set => _ = value; }
+    [XmlElement] public virtual string PluNesting2 { get => $"{ViewPluNesting.BundleCount:00}"; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg2 { get => $"{PluWeighing.NettoWeight:00.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg3 { get => $"{PluWeighing.NettoWeight:000.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }
     [XmlElement] public virtual string PluWeighing1Dot3Eng { get => $"{PluWeighing.NettoWeight:0.000}".Replace(',', '.'); set => _ = value; }
@@ -57,31 +59,77 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string BarCodeEan13 { get => PluScale.Plu.Ean13; set => _ = value; }
     [XmlElement] public virtual string BarCodeGtin14 { get => PluScale.Plu.Gtin.Length switch { 13 => WsSqlBarCodeController.Instance.GetGtinWithCheckDigit(PluScale.Plu.Gtin[..13]), 14 => PluScale.Plu.Gtin, _ => "ERROR" }; set => _ = value; }
     [XmlElement] public virtual string BarCodeItf14 { get => PluScale.Plu.Itf14; set => _ = value; }
+    /// <summary>
+    /// Верхний ШК для шаблонов.
+    /// TSC 60X150 ВЕС ШАПКА СПРАВА | TSC 60X150 ШТ ШАПКА СПРАВА | TSC 60X150 ВЕС ШАПКА СЛЕВА | TSC 60X150 ШТ ШАПКА СЛЕВА
+    /// </summary>
     [XmlElement]
     public virtual string BarCodeTop
     {
         /*
         Константа [3 симв]: 298
         Номер АРМ [5 симв]: ScaleNumber
-        Счётчик [8 симв]:   ScaleCounter
+        Счётчик [8 симв]:   ScaleCounter8
         Дата [6 симв]:      ProductDateBarCodeFormat
         Время [6 симв]:     ProductTimeBarCodeFormat
         ПЛУ [3 симв]:       PluNumber
         Вес [5 симв]:       PluWeighingKg2 PluWeighingGr3
         Замес [3 симв]:     PluWeighingKneading
         */
-        get => $"298{ScaleNumber}{ScaleCounter}{ProductDateBarCodeFormat}{CurrentTimeBarCode}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
+        get => $"298{ScaleNumber}{ScaleCounter8}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
         set => _ = value;
     }
+    /// <summary>
+    /// Верхний ШК для шаблонов с кодом 230.
+    /// TSC 60X150 ВЕС ШАПКА СПРАВА КОД 230 | TSC 60X150 ШТ ШАПКА СПРАВА КОД 230
+    /// </summary>
+    [XmlElement]
+    public virtual string BarCodeTopV230
+    {
+        /*
+        Константа [3 симв]:     233
+        Номер АРМ [5 симв]:     ScaleNumber
+        Вложенность [2 симв]:   PluNesting2
+        Счётчик [6 симв]:       ScaleCounter6
+        Дата [6 симв]:          ProductDateBarCodeFormat
+        Время [6 симв]:         ProductTimeBarCodeFormat
+        ПЛУ [3 симв]:           PluNumber
+        Вес [5 симв]:           PluWeighingKg2 PluWeighingGr3
+        Замес [3 симв]:         PluWeighingKneading
+        */
+        get => $"233{ScaleNumber}{PluNesting2}{ScaleCounter6}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
+        set => _ = value;
+    }
+    /// <summary>
+    /// Правый ШК для шаблонов.
+    /// TSC 60X150 ВЕС ШАПКА СПРАВА | TSC 60X150 ШТ ШАПКА СПРАВА | TSC 60X150 ВЕС ШАПКА СЛЕВА | TSC 60X150 ШТ ШАПКА СЛЕВА
+    /// </summary>
     [XmlElement]
     public virtual string BarCodeRight
     {
         /*
         Константа [3 симв]: 299
         Номер АРМ [5 симв]: ScaleNumber
-        Счётчик [8 симв]:   ScaleCounter
+        Счётчик [8 симв]:   ScaleCounter8
         */
-        get => $"299{ScaleNumber}{ScaleCounter}";
+        get => $"299{ScaleNumber}{ScaleCounter8}";
+        set => _ = value;
+    }
+    /// <summary>
+    /// Правый ШК для шаблонов с кодом 230.
+    /// TSC 60X150 ВЕС ШАПКА СПРАВА КОД 230 | TSC 60X150 ШТ ШАПКА СПРАВА КОД 230
+    /// </summary>
+    [XmlElement]
+    public virtual string BarCodeRightV230
+    {
+        /*
+        Константа [3 симв]:     234
+        Номер АРМ [5 симв]:     ScaleNumber
+        Вложенность [2 симв]:   PluNesting2
+        Счётчик [8 симв]:       ScaleCounter6
+        Дата [6 симв]:          ProductDateBarCodeFormat
+        */
+        get => $"234{ScaleNumber}{PluNesting2}{ScaleCounter6}{ProductDateBarCodeFormat}";
         set => _ = value;
     }
     [XmlElement]
