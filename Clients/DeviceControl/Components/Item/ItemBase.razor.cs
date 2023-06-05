@@ -3,7 +3,6 @@
 
 using DeviceControl.Services;
 using Microsoft.JSInterop;
-using WsBlazorCore.CssStyles;
 using WsBlazorCore.Settings;
 
 namespace DeviceControl.Components.Item;
@@ -14,7 +13,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     [Inject] protected RouteService RouteService { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public Guid Uid { get; set; }
-    [Parameter] public int Id { get; set; }
+    [Parameter] public long Id { get; set; }
     
     #region Public and private fields, properties, constructor
 
@@ -24,13 +23,10 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 		set => SqlItem = value;
 	} 
     protected ButtonSettingsModel ButtonSettings { get; set; }
-    
-    [Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
-    
+
     public ItemBase()
     {
         Title = string.Empty;
-        CssTableStyleHead = new();
         ButtonSettings = ButtonSettingsModel.CreateForItem();
     }
 
