@@ -93,6 +93,7 @@ public sealed class LocalePrint : WsLocalizationBase
     public string StatusIsPaperOut => Lang == Lang.English ? "Paper out" : "Закончилась лента";
     public string StatusIsPartialFormatInProgress => Lang == Lang.English ? "Partial format in progress" : "Выполняется частичный формат";
     public string StatusIsPaused => Lang == Lang.English ? "Paused" : "Приостановлено";
+    public string StatusPendingDeletion => Lang == Lang.English ? "Waiting for connect" : "Ожидание подключения";
     public string StatusIsReadyToPrint => Lang == Lang.English ? "Is ready" : "Готов";
     public string StatusIsReceiveBufferFull => Lang == Lang.English ? "Receive buffer full" : "Буфер приема заполнен";
     public string StatusIsRibbonOut => Lang == Lang.English ? "Ribbon out" : "Лента на выходе";

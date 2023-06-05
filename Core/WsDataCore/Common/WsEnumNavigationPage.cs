@@ -9,7 +9,7 @@ namespace WsDataCore.Common;
 public enum WsEnumNavigationPage
 {
     /// <summary>
-    /// Поумолчанию.
+    /// По-умолчанию.
     /// </summary>
     Default,
     /// <summary>

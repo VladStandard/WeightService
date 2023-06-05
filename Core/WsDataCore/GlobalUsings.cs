@@ -19,6 +19,6 @@ global using System.Threading;
 global using System.Threading.Tasks;
 global using System.Xml;
 global using System.Xml.Serialization;
+global using WsDataCore.Common;
 global using WsLocalizationCore.Enums;
 global using WsLocalizationCore.Models;
-global using WsPrintCore.Enums;

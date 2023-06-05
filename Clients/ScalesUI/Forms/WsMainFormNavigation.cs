@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Utils;
-
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -22,8 +20,8 @@ public partial class WsMainForm
         WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.AddAction(ActionFinally);
         // Настройка главной формы.
-        this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         CenterToScreen();
+        this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         // Добавить контрол.
         Controls.Add(WsFormNavigationUtils.NavigationUserControl);
         // Настройки главной формы.
@@ -211,6 +209,7 @@ public partial class WsMainForm
     /// </summary>
     private void HideFormUserControl()
     {
+        WsFormNavigationUtils.ClearNewDialogs();
         MdInvokeControl.SetVisible(WsFormNavigationUtils.NavigationUserControl, false);
         MdInvokeControl.SetVisible(layoutPanelMain, true);
         layoutPanelMain.Refresh();
@@ -241,7 +240,7 @@ public partial class WsMainForm
             // Сброс предупреждения.
             ResetWarning();
             // Навигация в контрол диалога Отмена/Да.
-            WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
+            WsFormNavigationUtils.NavigateToExistsDialogCancelYes(ShowFormUserControl,
                 $"{LocaleCore.Scales.QuestionCloseApp}?", true, WsEnumLogType.Question,
                 ActionCloseCancel, ActionCloseYes);
             e.Cancel = true;
@@ -256,7 +255,7 @@ public partial class WsMainForm
         ActionFinally();
         UserSession.StopwatchMain.Restart();
         // Навигация в контрол ожидания.
-        WsFormNavigationUtils.NavigateToWaitUserControl(ShowFormUserControl, LocaleCore.Scales.AppExit, LocaleCore.Scales.AppExitDescription);
+        WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl, LocaleCore.Scales.AppExit, LocaleCore.Scales.AppExitDescription);
         // Планировщик.
         WsScheduler.Close();
         // Плагины.
@@ -300,7 +299,7 @@ public partial class WsMainForm
             ContextCache.Load(WsSqlTableName.Areas);
             ContextCache.Load(WsSqlTableName.Lines);
             // Навигация в контрол линии.
-            WsFormNavigationUtils.NavigateToLinesUserControl(ShowFormUserControl);
+            WsFormNavigationUtils.NavigateToExistsLines(ShowFormUserControl);
         });
     }
 
@@ -332,7 +331,7 @@ public partial class WsMainForm
             // Сброс предупреждения.
             ResetWarning();
             // Навигация в контрол диалога Отмена/Да.
-            WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
+            WsFormNavigationUtils.NavigateToExistsDialogCancelYes(ShowFormUserControl,
                 $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
                 true, WsEnumLogType.Question, () => { }, ActionYes);
             void ActionYes()
@@ -347,7 +346,7 @@ public partial class WsMainForm
                 else
                 {
                     // Навигация в контрол диалога Ок.
-                    WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl,
+                    WsFormNavigationUtils.NavigateToExistsDialogOk(ShowFormUserControl,
                         LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true,
                         WsEnumLogType.Error);
                 }
@@ -369,19 +368,19 @@ public partial class WsMainForm
             if (!LabelSession.PluLine.Plu.IsCheckWeight)
             {
                 // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, LocaleCore.Scales.PluNotSelectWeight,
+                WsFormNavigationUtils.NavigateToExistsDialogOk(ShowFormUserControl, LocaleCore.Scales.PluNotSelectWeight,
                     true, WsEnumLogType.Warning);
                 return;
             }
             if (!UserSession.PluginMassa.MassaDevice.IsOpenPort)
             {
                 // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, LocaleCore.Scales.MassaIsNotRespond,
+                WsFormNavigationUtils.NavigateToExistsDialogOk(ShowFormUserControl, LocaleCore.Scales.MassaIsNotRespond,
                     true, WsEnumLogType.Warning);
                 return;
             }
             // Навигация в контрол диалога Отмена/Да.
-            WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
+            WsFormNavigationUtils.NavigateToExistsDialogCancelYes(ShowFormUserControl,
                 LocaleCore.Scales.QuestionPerformOperation, true, WsEnumLogType.Question, () => { }, ActionYes);
             void ActionYes()
             {
@@ -430,7 +429,7 @@ public partial class WsMainForm
             MdInvokeControl.SetVisible(fieldNettoWeight, false);
             LabelSession.SetPluLine();
             // Навигация в контрол смены ПЛУ линии.
-            WsFormNavigationUtils.NavigateToPlusLineUserControl(ShowFormUserControl);
+            WsFormNavigationUtils.NavigateToExistsPlusLine(ShowFormUserControl);
         });
     }
 
@@ -446,14 +445,14 @@ public partial class WsMainForm
             if (LabelSession.PluLine.IsNew)
             {
                 // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToMessageUserControlOk(ShowFormUserControl, LocaleCore.Scales.PluNotSelect,
+                WsFormNavigationUtils.NavigateToExistsDialogOk(ShowFormUserControl, LocaleCore.Scales.PluNotSelect,
                     true, WsEnumLogType.Warning);
                 return;
             }
             // Сброс предупреждения.
             ResetWarning();
             // Навигация в WinForms-контрол замеса.
-            WsFormNavigationUtils.NavigateToKneadingUserControl(ShowFormUserControl);
+            WsFormNavigationUtils.NavigateToExistsKneading(ShowFormUserControl);
         });
     }
 
@@ -490,46 +489,16 @@ public partial class WsMainForm
             // Проверить ГТИН ПЛУ.
             if (!UserSession.CheckPluGtin(fieldWarning)) return;
             // Использовать фейк-данные для веса ПЛУ.
-            //UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ReturnPreparePrint);
-            // Продолжить.
-            UserSession.PluginMassa.WeightNet = StrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
-            UserSession.PluginMassa.IsWeightNetFake = true;
-            ReturnPreparePrint();
+            //UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ActionPreparePrintStep2);
+            // Проверить отрицательный вес.
+            if (!UserSession.CheckWeightIsNegative(fieldWarning)) { ActionFinally(); return; }
+            // Создать новое взвешивание ПЛУ.
+            UserSession.NewPluWeighing();
+            // Проверить границы веса.
+            if (!UserSession.CheckWeightThresholds(fieldWarning)) { ActionFinally(); return; }
+            // Печать этикетки.
+            ActionPrintLabel(true);
         });
-        UserSession.PluginMassa.IsWeightNetFake = false;
-    }
-
-    /// <summary>
-    /// Подготовка к печати - Шаг 2.
-    /// </summary>
-    private void ReturnPreparePrint()
-    {
-        // Проверить отрицательный вес.
-        if (!UserSession.CheckWeightIsNegative(fieldWarning)) return;
-        // Создать новое взвешивание ПЛУ.
-        UserSession.NewPluWeighing();
-        // Проверить границы веса.
-        if (!UserSession.CheckWeightThresholds(fieldWarning)) return;
-        
-        // Запросить проверку подключения принтера.
-        // TODO: исправить это место
-        //ActionPreparePrintAskDevelopPrinters();
-        // Режим работы релиз.
-        //if (Debug.IsRelease)
-        ActionPrintLabel(true);
-    }
-
-    /// <summary>
-    /// Запросить проверку подключения принтера.
-    /// </summary>
-    private void ActionPreparePrintAskDevelopPrinters()
-    {
-        if (Debug.IsSkipDialogs && Debug.IsRelease) return;
-
-        // Навигация в контрол диалога Отмена/Да.
-        WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(ShowFormUserControl,
-            LocaleCore.Print.QuestionPrintCheckAccess, true, WsEnumLogType.Question, 
-            () => ActionPrintLabel(false), () => ActionPrintLabel(true));
     }
 
     /// <summary>
@@ -539,20 +508,28 @@ public partial class WsMainForm
     /// <returns></returns>
     private void ActionPrintLabel(bool isCheckPrinter)
     {
-        bool isGood = true;
         if (isCheckPrinter)
         {
             // Проверить подключение и готовность основного принтера.
-            if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintMain, true))
-                isGood = false;
+            if (LabelSession.PluginPrintTscMain is not null)
+                if (!UserSession.CheckPrintIsConnectAndReadyTscMain(fieldWarning))
+                    return;
+            if (LabelSession.PluginPrintZebraMain is not null)
+                if (!UserSession.CheckPrintIsConnectAndReadyZebraMain(fieldWarning))
+                    return;
             // Проверить подключение и готовность транспортного принтера.
-            if (LabelSession.Line.IsShipping)
-                if (!UserSession.CheckPrintIsConnectAndReady(fieldWarning, LabelSession.PluginPrintShipping, false))
-                    isGood = false;
+            if (LabelSession.Line.IsShipping && LabelSession.PluginPrintTscShipping is not null)
+                if (!UserSession.CheckPrintIsConnectAndReadyTscShipping(fieldWarning))
+                    return;
+            if (LabelSession.Line.IsShipping && LabelSession.PluginPrintZebraShipping is not null)
+                if (!UserSession.CheckPrintIsConnectAndReadyZebraShipping(fieldWarning))
+                    return;
         }
-        if (!isGood) return;
+
         // Печать этикетки.
-        UserSession.PrintLabel(ShowFormUserControl, fieldWarning, false);
+        UserSession.PrintLabel(fieldWarning, false);
+        //
+        ActionFinally();
     }
 
     /// <summary>
@@ -571,7 +548,7 @@ public partial class WsMainForm
             // Обновить кэш.
             ContextCache.Load(WsSqlTableName.ViewPlusNesting);
             // Навигация в контрол смены вложенности ПЛУ.
-            WsFormNavigationUtils.NavigateToPlusNestingUserControl(ShowFormUserControl);
+            WsFormNavigationUtils.NavigateToExistsPlusNesting(ShowFormUserControl);
         });
     }
 

@@ -37,8 +37,10 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     {
         PluginMemory.Close();
         PluginMassa.Close();
-        LabelSession.PluginPrintMain.Close();
-        LabelSession.PluginPrintShipping.Close();
+        LabelSession.PluginPrintTscMain?.Close();
+        LabelSession.PluginPrintZebraMain?.Close();
+        LabelSession.PluginPrintTscShipping?.Close();
+        LabelSession.PluginPrintZebraShipping?.Close();
         PluginLabels.Close();
     }
 
@@ -105,34 +107,121 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     }
 
     /// <summary>
-    /// Проверить подключение и готовность принтера.
+    /// Проверить подключение и готовность основного принтера TSC.
     /// </summary>
     /// <param name="fieldWarning"></param>
-    /// <param name="managerPrint"></param>
-    /// <param name="isMain"></param>
     /// <returns></returns>
-    public bool CheckPrintIsConnectAndReady(Label fieldWarning, WsPluginPrintModel managerPrint, bool isMain)
+    public bool CheckPrintIsConnectAndReadyTscMain(Label fieldWarning)
     {
+        if (LabelSession.PluginPrintTscMain is null) return false;
+        LabelSession.PluginPrintTscMain.ReopenTsc();
         // Подключение.
-        if (managerPrint.Printer.PingStatus != IPStatus.Success)
+        if (!LabelSession.PluginPrintTscMain.IsConnected)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            string message = isMain
-                ? $"{LocaleCore.Print.DeviceMainIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}"
-                : $"{LocaleCore.Print.DeviceShippingIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
+            string message = $"{LocaleCore.Print.DeviceMainIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
             MdInvokeControl.SetText(fieldWarning, message);
             ContextManager.ContextItem.SaveLogError(message);
             return false;
         }
         // Готовность.
-        if (!managerPrint.CheckDeviceStatus())
+        //if (!LabelSession.PluginPrintTscMain.CheckDeviceStatusTsc())
+        //{
+        //    MdInvokeControl.SetVisible(fieldWarning, true);
+        //    MdInvokeControl.SetText(fieldWarning, 
+        //        $"{LocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintTscMain.GetDeviceStatusTsc()}");
+        //    ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
+        //    return false;
+        //}
+        return true;
+    }
+
+    /// <summary>
+    /// Проверить подключение и готовность основного принтера ZEBRA.
+    /// </summary>
+    /// <param name="fieldWarning"></param>
+    /// <returns></returns>
+    public bool CheckPrintIsConnectAndReadyZebraMain(Label fieldWarning)
+    {
+        if (LabelSession.PluginPrintZebraMain is null) return false;
+        LabelSession.PluginPrintZebraMain.ReopenZebra();
+        // Подключение.
+        if (!LabelSession.PluginPrintZebraMain.IsConnected)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            string message = isMain
-                ? $"{LocaleCore.Print.DeviceMainCheckStatus} {managerPrint.GetDeviceStatus()}"
-                : $"{LocaleCore.Print.DeviceShippingCheckStatus} {managerPrint.GetDeviceStatus()}";
+            string message = $"{LocaleCore.Print.DeviceMainIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
             MdInvokeControl.SetText(fieldWarning, message);
             ContextManager.ContextItem.SaveLogError(message);
+            return false;
+        }
+        // Готовность.
+        if (!LabelSession.PluginPrintZebraMain.CheckDeviceStatusZebra())
+        {
+            MdInvokeControl.SetVisible(fieldWarning, true);
+            MdInvokeControl.SetText(fieldWarning, 
+                $"{LocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintZebraMain.GetDeviceStatusZebra()}");
+            ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Проверить подключение и готовность транспортного принтера TSC.
+    /// </summary>
+    /// <param name="fieldWarning"></param>
+    /// <returns></returns>
+    public bool CheckPrintIsConnectAndReadyTscShipping(Label fieldWarning)
+    {
+        if (LabelSession.PluginPrintTscShipping is null) return false;
+        LabelSession.PluginPrintTscShipping.ReopenTsc();
+        // Подключение.
+        if (!LabelSession.PluginPrintTscShipping.IsConnected)
+        {
+            MdInvokeControl.SetVisible(fieldWarning, true);
+            string message = $"{LocaleCore.Print.DeviceShippingIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
+            MdInvokeControl.SetText(fieldWarning, message);
+            ContextManager.ContextItem.SaveLogError(message);
+            return false;
+        }
+        // Готовность.
+        if (!LabelSession.PluginPrintTscShipping.CheckDeviceStatusTsc())
+        {
+            MdInvokeControl.SetVisible(fieldWarning, true);
+            MdInvokeControl.SetText(fieldWarning, 
+                $"{LocaleCore.Print.DeviceShippingCheckStatus} {LabelSession.PluginPrintTscShipping.GetDeviceStatusTsc()}");
+            ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Проверить подключение и готовность транспортного принтера ZEBRA.
+    /// </summary>
+    /// <param name="fieldWarning"></param>
+    /// <returns></returns>
+    public bool CheckPrintIsConnectAndReadyZebraShipping(Label fieldWarning)
+    {
+        if (LabelSession.PluginPrintZebraShipping is null) return false;
+        LabelSession.PluginPrintZebraShipping.ReopenZebra();
+        // Подключение.
+        if (!LabelSession.PluginPrintZebraShipping.IsConnected)
+        {
+            MdInvokeControl.SetVisible(fieldWarning, true);
+            string message = 
+                $"{LocaleCore.Print.DeviceShippingIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
+            MdInvokeControl.SetText(fieldWarning, message);
+            ContextManager.ContextItem.SaveLogError(message);
+            return false;
+        }
+        // Готовность.
+        if (!LabelSession.PluginPrintZebraShipping.CheckDeviceStatusZebra())
+        {
+            MdInvokeControl.SetVisible(fieldWarning, true);
+            MdInvokeControl.SetText(fieldWarning, 
+                $"{LocaleCore.Print.DeviceShippingCheckStatus} {LabelSession.PluginPrintZebraShipping.GetDeviceStatusZebra()}");
+            ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
             return false;
         }
         return true;
@@ -221,10 +310,9 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <summary>
     /// Печать этикетки.
     /// </summary>
-    /// <param name="showNavigation"></param>
     /// <param name="fieldWarning"></param>
     /// <param name="isClearBuffer"></param>
-    public void PrintLabel(Action<WsFormBaseUserControl, string> showNavigation, Label fieldWarning, bool isClearBuffer)
+    public void PrintLabel(Label fieldWarning, bool isClearBuffer)
     {
         if (LabelSession.Line is { IsOrder: true })
             throw new("Order under construct!");
@@ -246,11 +334,11 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             // Весовая ПЛУ.
             case true:
-                PrintLabelCore(showNavigation, template, isClearBuffer);
+                PrintLabelCore(template, isClearBuffer);
                 break;
             // Штучная ПЛУ.
             default:
-                PrintLabelCount(showNavigation, template, isClearBuffer);
+                PrintLabelCount(template, isClearBuffer);
                 break;
         
         }
@@ -270,10 +358,9 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <summary>
     /// Печать этикетки штучной ПЛУ.
     /// </summary>
-    /// <param name="showNavigation"></param>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCount(Action<WsFormBaseUserControl, string> showNavigation, WsSqlTemplateModel template, bool isClearBuffer)
+    private void PrintLabelCount(WsSqlTemplateModel template, bool isClearBuffer)
     {
         // Шаблон с указанием кол-ва и не весовой продукт.
         if (template.Data.Contains("^PQ1") && !LabelSession.PluLine.Plu.IsCheckWeight)
@@ -282,15 +369,26 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             if (LabelSession.WeighingSettings.LabelsCountMain > 1)
                 template.Data = template.Data.Replace("^PQ1", $"^PQ{LabelSession.WeighingSettings.LabelsCountMain}");
             // Печать этикетки ПЛУ.
-            PrintLabelCore(showNavigation, template, isClearBuffer);
+            PrintLabelCore(template, isClearBuffer);
         }
         // Шаблон без указания кол-ва.
         else
         {
-            for (int i = LabelSession.PluginPrintMain.LabelPrintedCount; i <= LabelSession.WeighingSettings.LabelsCountMain; i++)
+            if (LabelSession.PluginPrintTscMain is not null)
             {
-                // Печать этикетки ПЛУ.
-                PrintLabelCore(showNavigation, template, isClearBuffer);
+                for (int i = LabelSession.PluginPrintTscMain.LabelPrintedCount; i <= LabelSession.WeighingSettings.LabelsCountMain; i++)
+                {
+                    // Печать этикетки ПЛУ.
+                    PrintLabelCore(template, isClearBuffer);
+                }
+            }
+            else if (LabelSession.PluginPrintZebraMain is not null)
+            {
+                for (int i = LabelSession.PluginPrintZebraMain.LabelPrintedCount; i <= LabelSession.WeighingSettings.LabelsCountMain; i++)
+                {
+                    // Печать этикетки ПЛУ.
+                    PrintLabelCore(template, isClearBuffer);
+                }
             }
         }
     }
@@ -322,16 +420,25 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="returnPreparePrint"></param>
-    public void SetPluWeighingFakeForDevelop(Action<WsFormBaseUserControl, string> showNavigation,
-        Action returnPreparePrint)
+    public void SetPluWeighingFakeForDevelop(Action<WsFormBaseUserControl, string> showNavigation, Action returnPreparePrint)
     {
-        if (Debug is { IsSkipDialogs: true, IsRelease: true }) { returnPreparePrint.Invoke(); return; }
-        if (!LabelSession.PluLine.Plu.IsCheckWeight) { returnPreparePrint.Invoke(); return; }
-        if (PluginMassa.WeightNet > 0) { returnPreparePrint.Invoke(); return; }
+        if (Debug.IsSkipDialogs) { ActionCancel(); return; }
+        if (Debug.IsRelease) { ActionCancel(); return; }
+        if (!LabelSession.PluLine.Plu.IsCheckWeight) { ActionCancel(); return; }
+        if (PluginMassa.WeightNet > 0) { ActionCancel(); return; }
 
-        // Навигация в контрол диалога Отмена/Да.
-        WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation, LocaleCore.Print.QuestionUseFakeData,
-            true, WsEnumLogType.Question, () => { }, ActionYes);
+        // Навигация в новый WinForms-контрол диалога.
+        WsFormNavigationUtils.NavigateToNewDialog(showNavigation, LocaleCore.Print.QuestionUseFakeData,
+            true, WsEnumLogType.Question, WsEnumDialogType.CancelYes, new() { ActionCancel, ActionYes });
+        void ActionCancel()
+        {
+            if (PluginMassa.IsWeightNetFake)
+            {
+                PluginMassa.IsWeightNetFake = false;
+                PluginMassa.WeightNet = 0;
+            }
+            returnPreparePrint.Invoke();
+        }
         void ActionYes()
         {
             PluginMassa.WeightNet = StrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
@@ -343,36 +450,37 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <summary>
     /// Печать этикетки ПЛУ.
     /// </summary>
-    /// <param name="showNavigation"></param>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCore(Action<WsFormBaseUserControl, string> showNavigation, WsSqlTemplateModel template, 
-        bool isClearBuffer)
+    private void PrintLabelCore(WsSqlTemplateModel template, bool isClearBuffer)
     {
         try
         {
             // Создать этикетку из шаблона.
-            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = 
-                CreateAndSavePluLabel(template);
+            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
             // Создать ШК из этикетки.
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
 
             // Очистить буфер печати.
             if (isClearBuffer)
             {
-                LabelSession.PluginPrintMain.ClearPrintBuffer();
+                LabelSession.PluginPrintTscMain?.ClearPrintBuffer();
+                LabelSession.PluginPrintTscMain?.ClearPrintBuffer();
                 if (LabelSession.Line.IsShipping)
-                    LabelSession.PluginPrintShipping.ClearPrintBuffer();
+                {
+                    LabelSession.PluginPrintTscShipping?.ClearPrintBuffer();
+                    LabelSession.PluginPrintZebraShipping?.ClearPrintBuffer();
+                }
             }
 
-            // Отправить команду в принтер.
-            // TODO: исправить это место. WsXamlDialogUserControl.
+            // TODO: исправить здесь
+            //// Отправить команду в принтер.
             //if (Debug.IsDevelop)
             //{
             //    // Навигация в контрол диалога Отмена/Да.
-            //    WsFormNavigationUtils.NavigateToMessageUserControlCancelYes(showNavigation,
-            //        LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question,
-            //        () => { }, ActionYes);
+            //    WsFormNavigationUtils.NavigateToNewDialog(showNavigation,
+            //        LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question, WsEnumDialogType.CancelYes,
+            //        new() { () => { }, ActionYes });
             //    void ActionYes()
             //    {
             //        // Отправить команду в принтер.
@@ -381,9 +489,13 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             //}
             //else
             //{
-                // Отправить команду в принтер.
-                LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
+            //    // Отправить команду в принтер.
+            //    LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
             //}
+
+            // Отправить команду в принтер.
+            LabelSession.PluginPrintTscMain?.SendCmd(pluLabelWithContext.PluLabel);
+            LabelSession.PluginPrintZebraMain?.SendCmd(pluLabelWithContext.PluLabel);
         }
         catch (Exception ex)
         {

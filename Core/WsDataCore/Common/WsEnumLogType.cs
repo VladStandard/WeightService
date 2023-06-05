@@ -2,8 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxicon
 
-namespace WsDataCore.Enums;
+namespace WsDataCore.Common;
 
+/// <summary>
+/// Тип лога.
+/// </summary>
 public enum WsEnumLogType
 {
     None = 0,

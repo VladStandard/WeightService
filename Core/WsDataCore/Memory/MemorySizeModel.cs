@@ -1,10 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Common;
-
 namespace WsDataCore.Memory;
 
+/// <summary>
+/// Размеры памяти.
+/// </summary>
 public class MemorySizeModel : WsBaseHelper
 {
     #region Public and private fields, properties, constructor
@@ -26,7 +27,7 @@ public class MemorySizeModel : WsBaseHelper
 
     #region Constructor and destructor
 
-    public MemorySizeModel() : base()
+    public MemorySizeModel()
     {
         PhysicalCurrent = new();
         VirtualCurrent = new();

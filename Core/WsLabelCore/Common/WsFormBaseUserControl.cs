@@ -79,12 +79,76 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     public override string ToString() => $"{Name} | " + Page.ViewModel;
 
     /// <summary>
-    /// Настройка ElementHost.
+    /// Настройить ElementHost.
     /// </summary>
     private void SetupElementHost()
     {
         ElementHost.Child = Page;
         Controls.Add(ElementHost);
+    }
+
+    /// <summary>
+    /// Настройить действия диалога.
+    /// </summary>
+    /// <param name="dialogType"></param>
+    /// <param name="actions"></param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public void SetupActions(WsEnumDialogType dialogType, List<Action> actions)
+    {
+        switch (dialogType)
+        {
+            case WsEnumDialogType.CancelYes:
+                if (!actions.Count.Equals(2))
+                    throw new ArgumentOutOfRangeException(nameof(actions), actions, actions.ToString());
+                Page.ViewModel.CmdCancel.AddAction(actions.First());
+                Page.ViewModel.CmdYes.AddAction(actions.Last());
+                break;
+            case WsEnumDialogType.NoYes:
+                if (!actions.Count.Equals(2))
+                    throw new ArgumentOutOfRangeException(nameof(actions), actions, actions.ToString());
+                Page.ViewModel.CmdNo.AddAction(actions.First());
+                Page.ViewModel.CmdYes.AddAction(actions.Last());
+                break;
+            case WsEnumDialogType.Ok:
+                if (!actions.Count.Equals(1))
+                    throw new ArgumentOutOfRangeException(nameof(actions), actions, actions.ToString());
+                Page.ViewModel.CmdOk.AddAction(actions.First());
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(dialogType), dialogType, dialogType.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Настроить кнопки.
+    /// </summary>
+    /// <param name="dialogType"></param>
+    /// <param name="actions"></param>
+    /// <param name="message"></param>
+    /// <param name="actionBack"></param>
+    /// <param name="width"></param>
+    public void SetupButtons(WsEnumDialogType dialogType, List<Action> actions, string message, int width)
+    {
+        switch (dialogType)
+        {
+            case WsEnumDialogType.CancelYes:
+                if (!actions.Count.Equals(2))
+                    throw new ArgumentOutOfRangeException(nameof(actions), actions, actions.ToString());
+                Page.ViewModel.SetupButtonsCancelYes(message, actions.First(), actions.Last(), width);
+                break;
+            case WsEnumDialogType.NoYes:
+                if (!actions.Count.Equals(2))
+                    throw new ArgumentOutOfRangeException(nameof(actions), actions, actions.ToString());
+                Page.ViewModel.SetupButtonsNoYes(message, actions.First(), actions.Last(), width);
+                break;
+            case WsEnumDialogType.Ok:
+                if (!actions.Count.Equals(1))
+                    throw new ArgumentOutOfRangeException(nameof(actions), actions, actions.ToString());
+                Page.ViewModel.SetupButtonsOk(message, actions.First(), width);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(dialogType), dialogType, dialogType.ToString());
+        }
     }
 
     #endregion

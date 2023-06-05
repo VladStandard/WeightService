@@ -3,7 +3,10 @@
 
 namespace WsLabelCore.Helpers;
 
-public sealed class WsPluginMassaHelper : WsPluginHelperBase
+/// <summary>
+/// Плагин весов Масса-К.
+/// </summary>
+public sealed class WsPluginMassaHelper : WsPluginBaseHelper
 {
     #region Design pattern "Lazy Singleton"
 
@@ -43,7 +46,9 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
     /// </summary>
     public WsPluginMassaHelper()
     {
-        TskType = WsEnumTaskType.TaskMassa;
+        PluginType = WsEnumPluginType.Massa;
+        ResponseItem.PluginType = RequestItem.PluginType = ReopenItem.PluginType = PluginType;
+        
         FieldMassa = new();
         FieldMassaExt = new();
         FieldNettoWeight = new();
@@ -57,10 +62,10 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
 
     #region Public and private methods
 
-    public void Init(WsConfigModel configReopen, WsConfigModel configRequest, WsConfigModel configResponse,
+    public void Init(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
         Label fieldNettoWeight, Label fieldMassa, Label fieldMassaExt, Action resetWarning)
     {
-        base.Init();
+        Init();
         
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
@@ -249,7 +254,7 @@ public sealed class WsPluginMassaHelper : WsPluginHelperBase
                     // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
                     //MassaStable = new(0_100, MassaExchange.ResponseParse.Massa.IsStable == 0x01);
                     IsStable = MassaExchange.ResponseParse.Massa.IsStable;
-                    if (IsStable) ResetWarning();
+                    //if (IsStable) ResetWarning();
                     // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
                     //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
                     break;

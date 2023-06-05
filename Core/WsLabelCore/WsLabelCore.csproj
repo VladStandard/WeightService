@@ -39,6 +39,8 @@
     <Compile Include="Common\WsFormBaseUserControl.Designer.cs">
       <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\WsPluginPrintZebraModel.cs" />
+    <Compile Include="Helpers\WsPluginPrintTscModel.cs" />
     <Compile Include="Pages\WsXamlWaitUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -131,8 +133,8 @@
     <Compile Include="Helpers\WsPluginMassaHelper.cs" />
     <Compile Include="Helpers\WsPluginMemoryHelper.cs" />
     <Compile Include="Helpers\WsPluginPrintModel.cs" />
-    <Compile Include="Models\WsConfigModel.cs" />
-    <Compile Include="Helpers\WsPluginHelperBase.cs" />
+    <Compile Include="Models\WsPluginConfigModel.cs" />
+    <Compile Include="Common\WsPluginBaseHelper.cs" />
     <Compile Include="Models\WsPluginModel.cs" />
     <Compile Include="Utils\WsFormComboBoxExtensions.cs" />
     <Compile Include="Utils\WsFormExtensions.cs" />

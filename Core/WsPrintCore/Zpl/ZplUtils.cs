@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsPrintCore.Enums;
+using WsPrintCore.Common;
 
 namespace WsPrintCore.Zpl;
 
@@ -160,7 +160,7 @@ public static class ZplUtils
     {
         if (string.IsNullOrEmpty(zpl)) return string.Empty;
         StringBuilder stringBuilder = new();
-        DataBlockPosition dataBlockPosition = DataBlockPosition.Outside;
+        WsEnumDataBlockPosition dataBlockPosition = WsEnumDataBlockPosition.Outside;
         List<string> hexReplace = new();
         for (int i = 0; i < zpl.Length; i++)
         {
@@ -168,41 +168,41 @@ public static class ZplUtils
             if (zpl.Length > i - 1 + _blockFhFd.Length)
             {
                 if (zpl.Substring(i, _blockFhFd.Length) == _blockFhFd)
-                    dataBlockPosition = DataBlockPosition.Start;
+                    dataBlockPosition = WsEnumDataBlockPosition.Start;
             }
             // Data between ^FH^FD and ^FS.
-            if (dataBlockPosition == DataBlockPosition.Start)
+            if (dataBlockPosition == WsEnumDataBlockPosition.Start)
             {
                 if (i - _blockFhFd.Length > 0)
                 {
                     if (zpl.Substring(i - _blockFhFd.Length - 1, _blockFhFd.Length) == _blockFhFd)
-                        dataBlockPosition = DataBlockPosition.Between;
+                        dataBlockPosition = WsEnumDataBlockPosition.Between;
                 }
             }
             // ^FS -- Field Separator
-            if (dataBlockPosition == DataBlockPosition.Start || dataBlockPosition == DataBlockPosition.Between)
+            if (dataBlockPosition == WsEnumDataBlockPosition.Start || dataBlockPosition == WsEnumDataBlockPosition.Between)
             {
                 if (zpl.Length > i - 1 + _blockFs.Length)
                 {
                     if (zpl.Substring(i, _blockFs.Length) == _blockFs)
-                        dataBlockPosition = DataBlockPosition.End;
+                        dataBlockPosition = WsEnumDataBlockPosition.End;
                 }
             }
             // Data between ^FH^FD and ^FS.
-            if (dataBlockPosition == DataBlockPosition.Between)
+            if (dataBlockPosition == WsEnumDataBlockPosition.Between)
             {
                 hexReplace.AddRange(from byte b in Encoding.UTF8.GetBytes(zpl[i].ToString())
                                     select $"_{BitConverter.ToString(new byte[] { b }).ToUpper()}");
             }
-            if (dataBlockPosition == DataBlockPosition.End)
+            if (dataBlockPosition == WsEnumDataBlockPosition.End)
             {
-                dataBlockPosition = DataBlockPosition.Outside;
+                dataBlockPosition = WsEnumDataBlockPosition.Outside;
                 string hex = string.Join("", hexReplace);
                 stringBuilder.Append(hex);
                 stringBuilder.Append(Environment.NewLine);
                 hexReplace = new();
             }
-            if (dataBlockPosition != DataBlockPosition.Between)
+            if (dataBlockPosition != WsEnumDataBlockPosition.Between)
                 stringBuilder.Append(zpl[i]);
         }
         return stringBuilder.ToString();
