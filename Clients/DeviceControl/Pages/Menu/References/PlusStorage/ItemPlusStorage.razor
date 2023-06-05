@@ -1,5 +1,5 @@
 ﻿@page "/section/plus_storage/new"
-@page "/section/plus_storage/{IdentityUidStr}"
+@page "/section/plus_storage/{IdentityUid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Organizations
 @using DeviceControl.Components.Item

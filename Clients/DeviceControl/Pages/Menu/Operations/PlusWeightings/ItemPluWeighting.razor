@@ -1,5 +1,5 @@
 @page "/section/plu_weighings/new"
-@page "/section/plu_weighings/{IdentityUidStr}"
+@page "/section/plu_weighings/{IdentityUid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusWeighingsFks
 @using DeviceControl.Components.Item

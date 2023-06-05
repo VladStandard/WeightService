@@ -1,5 +1,5 @@
 ﻿@page "/section/bundles/new"
-@page "/section/bundles/{IdentityUidStr}"
+@page "/section/bundles/{IdentityUid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Bundles
 @using DeviceControl.Components.Item

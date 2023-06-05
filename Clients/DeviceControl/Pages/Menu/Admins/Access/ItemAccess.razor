@@ -1,5 +1,5 @@
 @page "/section/access/new"
-@page "/section/access/{IdentityUidStr}"
+@page "/section/access/{IdentityUid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Access
 @using WsDataCore.Utils

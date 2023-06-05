@@ -149,17 +149,17 @@ public sealed class WsSqlContextManagerHelper
     public void SetupJsonTestsReleaseVs(string localDir, string deviceName, string appName, bool isShowSql) =>
         SetupJsonTestsCore(localDir, deviceName, appName, JsonSettings.FileNameReleaseVs, isShowSql);
 
-    public void SetupJsonWebApp(string localDir, string appName, bool isShowSql)
+    public void SetupJsonWebApp(string localDir, string? appName, bool isShowSql)
     {
         try
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
-            FileLogger.Setup(localDir, appName);
+            if (appName != null)
+                FileLogger.Setup(localDir, appName);
             string subDir = Path.Combine(localDir, JsonSettings.BinNetSubDir);
             if (Directory.Exists(subDir))
             {
                 // Local folder.
-                FileLogger.Setup(subDir, appName);
                 CheckJsonUpdates(subDir, JsonSettings.JsonFileName);
                 if (!SetupJsonSettingsCore(subDir, false, JsonSettings.JsonFileName))
                     throw new(LocaleCore.System.JsonSettingsLocalFileException);

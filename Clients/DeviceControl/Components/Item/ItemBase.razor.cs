@@ -13,17 +13,10 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     [Inject] protected IJSRuntime? JsRuntime { get; set; }
     [Inject] protected RouteService RouteService { get; set; }
     [Parameter] public string Title { get; set; }
-    [Parameter] public Guid? IdentityUid { get; set; }
-    [Parameter] public long? IdentityId { get; set; }
-
-    [Parameter]
-    public string IdentityUidStr
-    {
-        get => IdentityUid?.ToString() ?? Guid.Empty.ToString();
-        set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
-    }
+    [Parameter] public Guid IdentityUid { get; set; }
+    [Parameter] public long IdentityId { get; set; }
     
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
 	protected TItem SqlItemCast
 	{

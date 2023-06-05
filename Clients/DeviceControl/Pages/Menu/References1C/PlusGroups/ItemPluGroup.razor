@@ -1,5 +1,5 @@
 ﻿@page "/section/nomenclatures_groups/new"
-@page "/section/nomenclatures_groups/{IdentityUidStr}"
+@page "/section/nomenclatures_groups/{IdentityUid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.PlusGroups
 @using DeviceControl.Components.Item

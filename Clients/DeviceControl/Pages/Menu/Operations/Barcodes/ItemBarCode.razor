@@ -1,5 +1,5 @@
 @page "/section/barcodes/new"
-@page "/section/barcodes/{IdentityUidStr}"
+@page "/section/barcodes/{IdentityUid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.BarCodes
 @using WsDataCore.Enums

@@ -1,5 +1,5 @@
 @page "/section/plus_bundles_fks/new"
-@page "/section/plus_bundles_fks/{IdentityUidStr}"
+@page "/section/plus_bundles_fks/{IdentityUid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusBundlesFks
 @using DeviceControl.Components.Item

@@ -69,7 +69,7 @@ app.MapFallbackToPage("/_Host");
 
 WsSqlContextManagerHelper.Instance.SetupJsonWebApp(
     app.Environment.ContentRootPath,
-    nameof(DeviceControl),
+    null,
     true
 );
 try

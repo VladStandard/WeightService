@@ -1,5 +1,5 @@
 @page "/section/templates_resources/new"
-@page "/section/templates_resources/{IdentityUidStr}"
+@page "/section/templates_resources/{IdentityUid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.TemplatesResources
 @using DeviceControl.Components.Item
