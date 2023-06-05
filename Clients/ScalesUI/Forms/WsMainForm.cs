@@ -10,11 +10,9 @@ public partial class WsMainForm : Form
     #region Public and private fields, properties, constructor
 
     private ActionSettingsModel ActionSettings { get; set; }
-    private AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private WsDebugHelper Debug => WsDebugHelper.Instance;
     private WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
-    private WsProcHelper Proc => WsProcHelper.Instance;
     private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
@@ -47,23 +45,22 @@ public partial class WsMainForm : Form
     /// </summary>
     private void MainFormLoadAtBackground()
     {
-        // Хуки мышки.
-        KeyboardMouseEvents = Hook.AppEvents();
-        KeyboardMouseEvents.MouseDownExt += MouseDownExt;
+        // Назначить хуки мышки.
+        MouseSubscribe();
         // Настройка кнопок.
         SetupButtons();
         // Загрузка шрифтов.
         LoadFonts();
         // Прочее.
         LabelSession.NewPallet();
-        MdInvokeControl.SetText(this, AppVersion.AppTitle);
+        MdInvokeControl.SetText(this, WsAppVersionHelper.Instance.AppTitle);
         MdInvokeControl.SetText(fieldProductDate, string.Empty);
         // Настроить плагины.
         SetupPlugins();
         LoadLocalizationStatic(Lang.Russian);
         // Планировщик.
         WsScheduler.Load(this);
-        // Загрузка остальных контролов.
+        // Загрузить WinForms-контролы.
         LoadNavigationUserControl();
     }
 
@@ -91,7 +88,7 @@ public partial class WsMainForm : Form
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
-            // Загрузка контрола ожидания.
+            // Загрузить WinForms-контрол ожидания.
             LoadNavigationWaitUserControl();
             // Проверка линии.
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
@@ -221,7 +218,7 @@ public partial class WsMainForm : Form
             new(0_500, 0_500), new(0_500, 0_500),
             new(0_500, 0_500), fieldPlu, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
-        MdInvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {LabelSession.PublishDescription}.");
+        MdInvokeControl.SetText(fieldTitle, $"{WsAppVersionHelper.Instance.AppTitle}. {LabelSession.PublishDescription}.");
         MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }
 
@@ -399,10 +396,36 @@ public partial class WsMainForm : Form
 
     #region Public and private methods - Controls
 
+    /// <summary>
+    /// Назначить хуки мышки.
+    /// </summary>
+    private void MouseSubscribe()
+    {
+        KeyboardMouseEvents = Hook.AppEvents();
+        KeyboardMouseEvents.MouseDownExt += MouseDownExt;
+    }
+
+    /// <summary>
+    /// Завершить хуки мышки.
+    /// </summary>
+    private void MouseUnsubscribe()
+    {
+        KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
+        KeyboardMouseEvents.Dispose();
+    }
+
+    /// <summary>
+    /// Обработчик нажатий мышки.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void MouseDownExt(object sender, MouseEventExtArgs e)
     {
-        if (e.Button == MouseButtons.Middle)
+        if (e.Button.Equals(MouseButtons.Middle))
+        {
+            e.Handled = true;
             ActionPreparePrint(sender, e);
+        }
     }
 
     /// <summary>

@@ -65,6 +65,22 @@ public static class WsFormNavigationUtils
     /// Тег временных диалогов.
     /// </summary>
     private const string DialogTempTag = "DIALOG_TEMP";
+    /// <summary>
+    /// Флаг загрузки WinForms-контрола смены замеса.
+    /// </summary>
+    public static bool IsLoadKneading{ get; set; }
+    /// <summary>
+    /// Флаг загрузки WinForms-контрола смены линии.
+    /// </summary>
+    public static bool IsLoadLines { get; set; }
+    /// <summary>
+    /// Флаг загрузки WinForms-контрола смены ПЛУ линии.
+    /// </summary>
+    public static bool IsLoadPlusLine { get; set; }
+    /// <summary>
+    /// Флаг загрузки WinForms-контрола смены вложенности ПЛУ.
+    /// </summary>
+    public static bool IsLoadPlusNesting { get; set; }
 
     #endregion
 

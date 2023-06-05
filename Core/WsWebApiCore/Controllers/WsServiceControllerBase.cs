@@ -13,7 +13,7 @@ public class WsServiceControllerBase : ControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    protected AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
+    protected WsAppVersionHelper AppVersion { get; } = WsAppVersionHelper.Instance;
     protected ISessionFactory SessionFactory { get; }
 
     internal WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;

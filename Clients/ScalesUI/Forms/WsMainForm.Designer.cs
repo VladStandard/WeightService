@@ -184,7 +184,6 @@ namespace ScalesUI.Forms
             this.fieldPrintShipping.Text = "fieldPrintShipping";
             this.fieldPrintShipping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldPrintShipping.Visible = false;
-            this.fieldPrintShipping.Click += new System.EventHandler(this.FieldPrintManager_Click);
             // 
             // fieldWarning
             // 
@@ -204,8 +203,6 @@ namespace ScalesUI.Forms
             this.fieldWarning.Text = "Warning";
             this.fieldWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldWarning.Visible = false;
-            this.fieldWarning.Click += new System.EventHandler(this.FieldSscc_Click);
-            this.fieldWarning.DoubleClick += new System.EventHandler(this.FieldSscc_Click);
             // 
             // fieldMemory
             // 
@@ -362,7 +359,6 @@ namespace ScalesUI.Forms
             this.fieldPrintMain.TabIndex = 37;
             this.fieldPrintMain.Text = "fieldPrintMain";
             this.fieldPrintMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldPrintMain.Click += new System.EventHandler(this.FieldPrintManager_Click);
             // 
             // fieldPlu
             // 
