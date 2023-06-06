@@ -33,9 +33,9 @@ partial class WsXamlPlusLinesUserControl
             this.buttonRightScroll = new System.Windows.Forms.Button();
             this.layoutPanelPlus = new System.Windows.Forms.TableLayoutPanel();
             this.layoutPanelActions = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonCurrentPage = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonLeftScroll = new System.Windows.Forms.Button();
-            this.buttonCurrentPage = new System.Windows.Forms.Button();
             this.layoutPanelPlus.SuspendLayout();
             this.layoutPanelActions.SuspendLayout();
             this.SuspendLayout();
@@ -102,6 +102,20 @@ partial class WsXamlPlusLinesUserControl
             this.layoutPanelActions.Size = new System.Drawing.Size(896, 56);
             this.layoutPanelActions.TabIndex = 5;
             // 
+            // buttonCurrentPage
+            // 
+            this.buttonCurrentPage.BackColor = System.Drawing.Color.Transparent;
+            this.buttonCurrentPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonCurrentPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCurrentPage.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCurrentPage.Location = new System.Drawing.Point(226, 2);
+            this.buttonCurrentPage.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonCurrentPage.Name = "buttonCurrentPage";
+            this.buttonCurrentPage.Size = new System.Drawing.Size(220, 52);
+            this.buttonCurrentPage.TabIndex = 8;
+            this.buttonCurrentPage.Text = "Cancel";
+            this.buttonCurrentPage.UseVisualStyleBackColor = false;
+            // 
             // buttonCancel
             // 
             this.buttonCancel.BackColor = System.Drawing.Color.Transparent;
@@ -132,21 +146,7 @@ partial class WsXamlPlusLinesUserControl
             this.buttonLeftScroll.UseVisualStyleBackColor = false;
             this.buttonLeftScroll.Click += new System.EventHandler(this.ButtonPreviousScroll_Click);
             // 
-            // buttonCurrentPage
-            // 
-            this.buttonCurrentPage.BackColor = System.Drawing.Color.Transparent;
-            this.buttonCurrentPage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCurrentPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCurrentPage.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCurrentPage.Location = new System.Drawing.Point(226, 2);
-            this.buttonCurrentPage.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonCurrentPage.Name = "buttonCurrentPage";
-            this.buttonCurrentPage.Size = new System.Drawing.Size(220, 52);
-            this.buttonCurrentPage.TabIndex = 8;
-            this.buttonCurrentPage.Text = "Cancel";
-            this.buttonCurrentPage.UseVisualStyleBackColor = false;
-            // 
-            // WsPlusUserControl
+            // WsXamlPlusLinesUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -154,6 +154,7 @@ partial class WsXamlPlusLinesUserControl
             this.Controls.Add(this.layoutPanelPlus);
             this.Name = "WsXamlPlusLinesUserControl";
             this.Size = new System.Drawing.Size(900, 500);
+            this.SizeChanged += new System.EventHandler(this.WsXamlPlusLinesUserControl_SizeChanged);
             this.layoutPanelPlus.ResumeLayout(false);
             this.layoutPanelActions.ResumeLayout(false);
             this.ResumeLayout(false);

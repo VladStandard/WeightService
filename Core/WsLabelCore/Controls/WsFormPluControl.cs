@@ -18,6 +18,10 @@ public sealed class WsFormPluControl : UserControl
     private Label LabelPlu { get; }
     private Label LabelTemplate { get; }
     private Action<object, EventArgs> ActionPluSelect { get; }
+    private const short ShiftLeft = 0;
+    private const short ShiftTop = 0;
+    private short LabelHeight => (short)(Height / 3 - ShiftLeft * 2);
+    //private int LabelWidth => Width / 2 - ShiftLeft * 2;
 
     public WsFormPluControl(WsSqlViewPluLineModel viewPluScale, Action<object, EventArgs> actionPluSelect)
     {
@@ -94,19 +98,14 @@ public sealed class WsFormPluControl : UserControl
     /// </summary>
     public void SetupSizes()
     {
-        short shiftLeft = 0;
-        short shiftTop = 0;
-        short height = (short)(Height / 3 - shiftLeft * 2);
-        //int width = Width / 2 - shiftLeft * 2;
+        LabelPlu.Width = Width - ShiftLeft * 2;
+        LabelPlu.Height = Height - ShiftTop * 2 - LabelHeight;
+        LabelPlu.Left = ShiftLeft;
+        LabelPlu.Top = ShiftTop;
 
-        LabelPlu.Width = Width - shiftLeft * 2;
-        LabelPlu.Height = Height - shiftTop * 2 - height;
-        LabelPlu.Left = shiftLeft;
-        LabelPlu.Top = shiftTop;
-
-        LabelTemplate.Width = Width - shiftLeft * 2;
-        LabelTemplate.Height = height;
-        LabelTemplate.Left = shiftLeft;
+        LabelTemplate.Width = Width - ShiftLeft * 2;
+        LabelTemplate.Height = LabelHeight;
+        LabelTemplate.Left = ShiftLeft;
         LabelTemplate.Top = LabelPlu.Top + LabelPlu.Height;
     }
 
