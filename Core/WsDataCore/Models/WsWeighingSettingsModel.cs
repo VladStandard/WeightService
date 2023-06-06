@@ -69,7 +69,13 @@ public class WsWeighingSettingsModel
 
     #region Public and private methods
 
-    public string GetPrintName(bool isMain, WsEnumPrintModel printBrand) => isMain
+    /// <summary>
+    /// Получить наименование принтера.
+    /// </summary>
+    /// <param name="isMain"></param>
+    /// <param name="printBrand"></param>
+    /// <returns></returns>
+    private string GetPrintName(bool isMain, WsEnumPrintModel printBrand) => isMain
         ? printBrand switch
         {
             WsEnumPrintModel.Zebra => LocaleCore.Print.NameMainZebra,
@@ -85,11 +91,11 @@ public class WsWeighingSettingsModel
 
     public string GetPrintDescription(bool isMain, WsEnumPrintModel printBrand, MdPrinterModel printer,
         bool isConnected, int scaleCounter, string deviceStatus, int labelPrintedCount, byte labelCount) =>
-        $"{GetPrintName(isMain, printBrand)} | {printer.Ip} | " +
+        $"{GetPrintName(isMain, printBrand)} {printer.Name} | {printer.Ip} | " +
         //$"{LocaleCore.Table.Status}: {MdNetUtils.GetPingStatus(printer.PingStatus)} | " +
         $"{LocaleCore.Table.Status}: {(isConnected ? MdNetLocalization.Instance.StatusSuccess : MdNetLocalization.Instance.StatusUnknown)} | " +
         $"{LocaleCore.Table.LabelCounter}: {scaleCounter} | " +
-        $"{deviceStatus} | " +
+        //$"{deviceStatus} | " +
         $"{LocaleCore.Scales.Labels}: {labelPrintedCount} {LocaleCore.Strings.From} {labelCount}";
 
     #endregion

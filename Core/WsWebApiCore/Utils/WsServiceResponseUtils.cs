@@ -7,7 +7,7 @@ public static class WsServiceResponseUtils
 {
     #region Public and private fields, properties, constructor
 
-    private static AppVersionHelper AppVersion => AppVersionHelper.Instance;
+    private static WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
 
     #endregion
 

@@ -46,7 +46,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlTemplateController ContextTemplates => WsSqlTemplateController.Instance;
     
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
-    private AppVersionHelper AppVersion => AppVersionHelper.Instance;
+    private WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
     private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
     public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration => AccessCore.SqlConfiguration;
 

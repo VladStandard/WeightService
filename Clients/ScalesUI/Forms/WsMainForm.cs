@@ -10,11 +10,9 @@ public partial class WsMainForm : Form
     #region Public and private fields, properties, constructor
 
     private ActionSettingsModel ActionSettings { get; set; }
-    private AppVersionHelper AppVersion => AppVersionHelper.Instance;
     private WsDebugHelper Debug => WsDebugHelper.Instance;
     private WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
-    private WsProcHelper Proc => WsProcHelper.Instance;
     private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
@@ -47,23 +45,22 @@ public partial class WsMainForm : Form
     /// </summary>
     private void MainFormLoadAtBackground()
     {
-        // Хуки мышки.
-        KeyboardMouseEvents = Hook.AppEvents();
-        KeyboardMouseEvents.MouseDownExt += MouseDownExt;
+        // Назначить хуки мышки.
+        MouseSubscribe();
         // Настройка кнопок.
         SetupButtons();
         // Загрузка шрифтов.
         LoadFonts();
         // Прочее.
         LabelSession.NewPallet();
-        MdInvokeControl.SetText(this, AppVersion.AppTitle);
+        MdInvokeControl.SetText(this, WsAppVersionHelper.Instance.AppTitle);
         MdInvokeControl.SetText(fieldProductDate, string.Empty);
         // Настроить плагины.
         SetupPlugins();
         LoadLocalizationStatic(Lang.Russian);
         // Планировщик.
         WsScheduler.Load(this);
-        // Загрузка остальных контролов.
+        // Загрузить WinForms-контролы.
         LoadNavigationUserControl();
     }
 
@@ -91,18 +88,20 @@ public partial class WsMainForm : Form
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
-            // Загрузка контрола ожидания.
+            LocaleCore.Lang = LocaleData.Lang = Lang.Russian;
+            // Загрузить WinForms-контрол ожидания.
             LoadNavigationWaitUserControl();
             // Проверка линии.
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
             if (LabelSession.DeviceScaleFk.IsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
-                WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(
+                WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(
                     message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
                     ActionExit, WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToExistsDialogOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
+                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
+                    WsEnumDialogType.Ok, new() { ActionFinally });
                 ContextManager.ContextItem.SaveLogError(new Exception(message));
                 return;
             }
@@ -111,10 +110,11 @@ public partial class WsMainForm : Form
             if (!isCreatedNew)
             {
                 string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
-                WsFormNavigationUtils.DialogUserControl.Page.ViewModel.SetupButtonsOk(message, ActionExit, 
+                WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(message, ActionExit, 
                     WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToExistsDialogOk(ShowFormUserControl, message, true, WsEnumLogType.Error);
+                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
+                    WsEnumDialogType.Ok, new() { ActionFinally });
                 ContextManager.ContextItem.SaveLogWarning(message);
                 return;
             }
@@ -123,7 +123,7 @@ public partial class WsMainForm : Form
             // Загрузка фоном.
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
-            WsFormNavigationUtils.WaitUserControl.Page.ViewModel.CmdCustom.Relay();
+            WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.Relay();
             // Логи.
             UserSession.StopwatchMain.Stop();
             ContextManager.ContextItem.SaveLogMemory(
@@ -221,7 +221,7 @@ public partial class WsMainForm : Form
             new(0_500, 0_500), new(0_500, 0_500),
             new(0_500, 0_500), fieldPlu, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
-        MdInvokeControl.SetText(fieldTitle, $"{AppVersionHelper.Instance.AppTitle}. {LabelSession.PublishDescription}.");
+        MdInvokeControl.SetText(fieldTitle, $"{WsAppVersionHelper.Instance.AppTitle}. {LabelSession.PublishDescription}.");
         MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }
 
@@ -233,7 +233,7 @@ public partial class WsMainForm : Form
         fieldTitle.Font = FontsSettings.FontLabelsTitle;
 
         fieldNettoWeight.Font = FontsSettings.FontLabelsMaximum;
-        fieldPackageWeight.Font = FontsSettings.FontLabelsMaximum;
+        fieldTareWeight.Font = FontsSettings.FontLabelsMaximum;
         fieldPlu.Font = FontsSettings.FontLabelsMaximum;
         fieldProductDate.Font = FontsSettings.FontLabelsMaximum;
 
@@ -247,7 +247,7 @@ public partial class WsMainForm : Form
 
         fieldWarning.Font = FontsSettings.FontLabelsBlack;
         labelNettoWeight.Font = FontsSettings.FontLabelsBlack;
-        labelPackageWeight.Font = FontsSettings.FontLabelsBlack;
+        labelTareWeight.Font = FontsSettings.FontLabelsBlack;
         labelKneading.Font = FontsSettings.FontLabelsBlack;
         fieldKneading.Font = FontsSettings.FontLabelsBlack;
         labelProductDate.Font = FontsSettings.FontLabelsBlack;
@@ -307,7 +307,7 @@ public partial class WsMainForm : Form
         if (ActionSettings.IsPlu)
         {
             ButtonPlu = WsFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
-            ButtonPlu.Click += ActionSwitchPlu;
+            ButtonPlu.Click += ActionSwitchPluLine;
         }
         else ButtonPlu = new();
 
@@ -399,10 +399,36 @@ public partial class WsMainForm : Form
 
     #region Public and private methods - Controls
 
+    /// <summary>
+    /// Назначить хуки мышки.
+    /// </summary>
+    private void MouseSubscribe()
+    {
+        KeyboardMouseEvents = Hook.AppEvents();
+        KeyboardMouseEvents.MouseDownExt += MouseDownExt;
+    }
+
+    /// <summary>
+    /// Завершить хуки мышки.
+    /// </summary>
+    private void MouseUnsubscribe()
+    {
+        KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
+        KeyboardMouseEvents.Dispose();
+    }
+
+    /// <summary>
+    /// Обработчик нажатий мышки.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void MouseDownExt(object sender, MouseEventExtArgs e)
     {
-        if (e.Button == MouseButtons.Middle)
+        if (e.Button.Equals(MouseButtons.Middle))
+        {
+            e.Handled = true;
             ActionPreparePrint(sender, e);
+        }
     }
 
     /// <summary>
@@ -419,7 +445,7 @@ public partial class WsMainForm : Form
         MdInvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonPlu);
         MdInvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
         MdInvokeControl.SetText(labelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
-        MdInvokeControl.SetText(labelPackageWeight, LocaleCore.Scales.FieldWeightTare);
+        MdInvokeControl.SetText(labelTareWeight, LocaleCore.Scales.FieldWeightTare);
         MdInvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
         MdInvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
     }

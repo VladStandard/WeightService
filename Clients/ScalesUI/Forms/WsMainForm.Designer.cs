@@ -29,7 +29,7 @@ namespace ScalesUI.Forms
         private void InitializeComponent()
         {
             this.labelNettoWeight = new System.Windows.Forms.Label();
-            this.fieldPackageWeight = new System.Windows.Forms.Label();
+            this.fieldTareWeight = new System.Windows.Forms.Label();
             this.fieldNettoWeight = new System.Windows.Forms.Label();
             this.layoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.fieldPrintShippingExt = new System.Windows.Forms.Label();
@@ -39,7 +39,7 @@ namespace ScalesUI.Forms
             this.fieldPrintMainExt = new System.Windows.Forms.Label();
             this.fieldMassaExt = new System.Windows.Forms.Label();
             this.fieldMassa = new System.Windows.Forms.Label();
-            this.labelPackageWeight = new System.Windows.Forms.Label();
+            this.labelTareWeight = new System.Windows.Forms.Label();
             this.labelKneading = new System.Windows.Forms.Label();
             this.labelProductDate = new System.Windows.Forms.Label();
             this.fieldProductDate = new System.Windows.Forms.Label();
@@ -73,18 +73,18 @@ namespace ScalesUI.Forms
             // 
             // fieldPackageWeight
             // 
-            this.fieldPackageWeight.AutoSize = true;
-            this.fieldPackageWeight.BackColor = System.Drawing.Color.Transparent;
-            this.fieldPackageWeight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPackageWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPackageWeight.ForeColor = System.Drawing.Color.Black;
-            this.fieldPackageWeight.Location = new System.Drawing.Point(345, 149);
-            this.fieldPackageWeight.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldPackageWeight.Name = "fieldPackageWeight";
-            this.fieldPackageWeight.Size = new System.Drawing.Size(536, 47);
-            this.fieldPackageWeight.TabIndex = 11;
-            this.fieldPackageWeight.Text = "0,000";
-            this.fieldPackageWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldTareWeight.AutoSize = true;
+            this.fieldTareWeight.BackColor = System.Drawing.Color.Transparent;
+            this.fieldTareWeight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldTareWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldTareWeight.ForeColor = System.Drawing.Color.Black;
+            this.fieldTareWeight.Location = new System.Drawing.Point(345, 149);
+            this.fieldTareWeight.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldTareWeight.Name = "fieldTareWeight";
+            this.fieldTareWeight.Size = new System.Drawing.Size(536, 47);
+            this.fieldTareWeight.TabIndex = 11;
+            this.fieldTareWeight.Text = "0,000";
+            this.fieldTareWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fieldNettoWeight
             // 
@@ -118,10 +118,10 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.Controls.Add(this.fieldPrintMainExt, 1, 9);
             this.layoutPanelMain.Controls.Add(this.fieldMassaExt, 1, 8);
             this.layoutPanelMain.Controls.Add(this.fieldMassa, 2, 8);
-            this.layoutPanelMain.Controls.Add(this.labelPackageWeight, 2, 3);
+            this.layoutPanelMain.Controls.Add(this.labelTareWeight, 2, 3);
             this.layoutPanelMain.Controls.Add(this.labelNettoWeight, 2, 2);
             this.layoutPanelMain.Controls.Add(this.fieldNettoWeight, 3, 2);
-            this.layoutPanelMain.Controls.Add(this.fieldPackageWeight, 3, 3);
+            this.layoutPanelMain.Controls.Add(this.fieldTareWeight, 3, 3);
             this.layoutPanelMain.Controls.Add(this.labelKneading, 2, 5);
             this.layoutPanelMain.Controls.Add(this.labelProductDate, 2, 4);
             this.layoutPanelMain.Controls.Add(this.fieldProductDate, 3, 4);
@@ -184,7 +184,6 @@ namespace ScalesUI.Forms
             this.fieldPrintShipping.Text = "fieldPrintShipping";
             this.fieldPrintShipping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldPrintShipping.Visible = false;
-            this.fieldPrintShipping.Click += new System.EventHandler(this.FieldPrintManager_Click);
             // 
             // fieldWarning
             // 
@@ -204,8 +203,6 @@ namespace ScalesUI.Forms
             this.fieldWarning.Text = "Warning";
             this.fieldWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldWarning.Visible = false;
-            this.fieldWarning.Click += new System.EventHandler(this.FieldSscc_Click);
-            this.fieldWarning.DoubleClick += new System.EventHandler(this.FieldSscc_Click);
             // 
             // fieldMemory
             // 
@@ -271,19 +268,19 @@ namespace ScalesUI.Forms
             // 
             // labelPackageWeight
             // 
-            this.labelPackageWeight.AutoSize = true;
-            this.labelPackageWeight.BackColor = System.Drawing.Color.Transparent;
-            this.labelPackageWeight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelPackageWeight.Enabled = false;
-            this.labelPackageWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPackageWeight.ForeColor = System.Drawing.Color.Black;
-            this.labelPackageWeight.Location = new System.Drawing.Point(141, 149);
-            this.labelPackageWeight.Margin = new System.Windows.Forms.Padding(3);
-            this.labelPackageWeight.Name = "labelPackageWeight";
-            this.labelPackageWeight.Size = new System.Drawing.Size(198, 47);
-            this.labelPackageWeight.TabIndex = 17;
-            this.labelPackageWeight.Text = "labelPackageWeight";
-            this.labelPackageWeight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelTareWeight.AutoSize = true;
+            this.labelTareWeight.BackColor = System.Drawing.Color.Transparent;
+            this.labelTareWeight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelTareWeight.Enabled = false;
+            this.labelTareWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelTareWeight.ForeColor = System.Drawing.Color.Black;
+            this.labelTareWeight.Location = new System.Drawing.Point(141, 149);
+            this.labelTareWeight.Margin = new System.Windows.Forms.Padding(3);
+            this.labelTareWeight.Name = "labelTareWeight";
+            this.labelTareWeight.Size = new System.Drawing.Size(198, 47);
+            this.labelTareWeight.TabIndex = 17;
+            this.labelTareWeight.Text = "labelPackageWeight";
+            this.labelTareWeight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelKneading
             // 
@@ -362,7 +359,6 @@ namespace ScalesUI.Forms
             this.fieldPrintMain.TabIndex = 37;
             this.fieldPrintMain.Text = "fieldPrintMain";
             this.fieldPrintMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldPrintMain.Click += new System.EventHandler(this.FieldPrintManager_Click);
             // 
             // fieldPlu
             // 
@@ -456,11 +452,11 @@ namespace ScalesUI.Forms
 
         #endregion
         private System.Windows.Forms.Label labelNettoWeight;
-        private System.Windows.Forms.Label fieldPackageWeight;
+        private System.Windows.Forms.Label fieldTareWeight;
         private System.Windows.Forms.Label fieldNettoWeight;
         private System.Windows.Forms.TableLayoutPanel layoutPanelMain;
         private System.Windows.Forms.Label fieldPlu;
-        private System.Windows.Forms.Label labelPackageWeight;
+        private System.Windows.Forms.Label labelTareWeight;
         private System.Windows.Forms.Label labelKneading;
         private System.Windows.Forms.Label labelProductDate;
         private System.Windows.Forms.Label fieldProductDate;

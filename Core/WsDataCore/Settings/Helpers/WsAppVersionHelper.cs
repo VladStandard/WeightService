@@ -5,14 +5,14 @@ using WsDataCore.Enums;
 
 namespace WsDataCore.Settings.Helpers;
 
-public sealed class AppVersionHelper
+public sealed class WsAppVersionHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static AppVersionHelper _instance;
+    private static WsAppVersionHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static AppVersionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsAppVersionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -26,7 +26,7 @@ public sealed class AppVersionHelper
 
     #region Constructor and destructor
 
-    public AppVersionHelper()
+    public WsAppVersionHelper()
     {
         App = string.Empty;
         AppTitle = string.Empty;

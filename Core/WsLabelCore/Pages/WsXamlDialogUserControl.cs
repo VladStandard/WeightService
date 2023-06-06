@@ -12,6 +12,7 @@ public sealed partial class WsXamlDialogUserControl : WsFormBaseUserControl, IWs
 {
     #region Public and private fields, properties, constructor
 
+    public WsXamlDialogViewModel ViewModel => Page.ViewModel as WsXamlDialogViewModel ?? new();
     public WsXamlDialogUserControl() : base(WsEnumNavigationPage.Dialog)
     {
         InitializeComponent();
@@ -21,14 +22,12 @@ public sealed partial class WsXamlDialogUserControl : WsFormBaseUserControl, IWs
 
     #region Public and private methods
 
-    public override string ToString() => Page.ViewModel.ToString();
+    public override string ToString() => ViewModel.ToString();
 
     /// <summary>
     /// Настроить WinForms-контрол.
     /// </summary>
-    public void SetupUserConrol() =>
-        ((WsXamlDialogPage)Page).SetupViewModel(Page.ViewModel is not WsXamlDialogViewModel
-            ? new WsXamlDialogViewModel() : Page.ViewModel);
+    public void SetupUserConrol() => ((WsXamlDialogPage)Page).SetupViewModel(ViewModel);
 
     #endregion
 }

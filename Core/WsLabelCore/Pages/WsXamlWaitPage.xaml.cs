@@ -25,10 +25,9 @@ public partial class WsXamlWaitPage
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    public void SetupViewModel(IWsViewModel viewModel)
+    public void SetupViewModel(WsXamlWaitViewModel viewModel)
     {
-        if (viewModel is not WsXamlWaitViewModel waitViewModel) return;
-        base.SetupViewModel(waitViewModel, gridLocal);
+        SetupViewModel(viewModel, gridLocal);
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {

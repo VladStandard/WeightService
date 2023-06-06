@@ -12,6 +12,8 @@ public sealed partial class WsXamlPlusNestingUserControl : WsFormBaseUserControl
 {
     #region Public and private fields, properties, constructor
 
+    public WsXamlPlusNestingViewModel ViewModel => Page.ViewModel as WsXamlPlusNestingViewModel ?? new();
+
     public WsXamlPlusNestingUserControl() : base(WsEnumNavigationPage.PlusNesting)
     {
         InitializeComponent();
@@ -21,14 +23,12 @@ public sealed partial class WsXamlPlusNestingUserControl : WsFormBaseUserControl
 
     #region Public and private methods
 
-    public override string ToString() => Page.ViewModel.ToString();
+    public override string ToString() => ViewModel.ToString();
 
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public void SetupUserConrol() =>
-        ((WsXamlPlusNestingPage)Page).SetupViewModel(Page.ViewModel is not WsXamlPlusNestingViewModel 
-            ? new WsXamlPlusNestingViewModel() : Page.ViewModel);
+    public void SetupUserConrol() => ((WsXamlPlusNestingPage)Page).SetupViewModel(ViewModel);
 
     #endregion
 }

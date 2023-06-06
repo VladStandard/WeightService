@@ -12,6 +12,8 @@ public partial class WsXamlWaitUserControl : WsFormBaseUserControl, IWsFormUserC
 {
     #region Public and private fields, properties, constructor
 
+    public WsXamlWaitViewModel ViewModel => Page.ViewModel as WsXamlWaitViewModel ?? new();
+
     public WsXamlWaitUserControl() : base(WsEnumNavigationPage.Wait)
     {
         InitializeComponent();
@@ -21,14 +23,12 @@ public partial class WsXamlWaitUserControl : WsFormBaseUserControl, IWsFormUserC
 
     #region Public and private methods
 
-    public override string ToString() => Page.ViewModel.ToString();
+    public override string ToString() => ViewModel.ToString();
 
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public void SetupUserConrol() =>
-        ((WsXamlWaitPage)Page).SetupViewModel(Page.ViewModel is not WsXamlWaitViewModel
-            ? new WsXamlWaitViewModel() : Page.ViewModel);
+    public void SetupUserConrol() => ((WsXamlWaitPage)Page).SetupViewModel(ViewModel);
 
     #endregion
 }

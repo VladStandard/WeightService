@@ -12,6 +12,7 @@ public sealed partial class WsXamlDigitsUserControl : WsFormBaseUserControl, IWs
 {
     #region Public and private fields, properties, constructor
 
+    public WsXamlDigitsViewModel ViewModel => Page.ViewModel as WsXamlDigitsViewModel ?? new();
     public WsXamlDigitsUserControl() : base(WsEnumNavigationPage.PinCode)
     {
         InitializeComponent();
@@ -21,14 +22,13 @@ public sealed partial class WsXamlDigitsUserControl : WsFormBaseUserControl, IWs
 
     #region Public and private methods
 
-    public override string ToString() => Page.ViewModel.ToString();
+    public override string ToString() => ViewModel.ToString();
 
     /// <summary>
     /// Обновить контрол.
     /// </summary>
     public void SetupUserConrol() => 
-        ((WsXamlDigitsPage)Page).SetupViewModel(Page.ViewModel is not WsXamlDigitsViewModel
-            ? new WsXamlDigitsViewModel() : Page.ViewModel);
+        ((WsXamlDigitsPage)Page).SetupViewModel(ViewModel);
 
     #endregion
 }
