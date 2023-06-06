@@ -4,7 +4,7 @@
 @using WsStorageCore.TableScaleModels.Scales
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using DeviceControl.Pages.Menu.Devices.PluScales
+@using DeviceControl.Pages.Menu.Devices.PlusLines
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.Scales.WsSqlScaleModel>
 
@@ -116,7 +116,4 @@
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@SqlItemCancelAsync"/>
 
-@if (SqlItem != null)
-{
-  <PlusScales Scale="@SqlItemCast"/>
-}
+<PlusLines Scale="@SqlItemCast"/>

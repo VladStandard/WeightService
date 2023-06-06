@@ -2,22 +2,21 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControl.Components.Section;
-using WsBlazorCore.Settings;
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusScales;
 using WsStorageCore.TableScaleModels.Scales;
 
-namespace DeviceControl.Pages.Menu.Devices.PluScales;
+namespace DeviceControl.Pages.Menu.Devices.PlusLines;
 
-public sealed partial class PlusScales : SectionBase<WsSqlPluScaleModel>
+public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
     [Parameter] public WsSqlScaleModel Scale { get; set; }
     public bool HideNoneActivePlu { get; set; }
 
-    public PlusScales() : base()
+    public PlusLines() : base()
     {
         HideNoneActivePlu = true;
         SqlCrudConfigSection.IsResultOrder = true;
