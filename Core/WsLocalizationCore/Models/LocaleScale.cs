@@ -59,6 +59,8 @@ public sealed class LocaleScale : WsLocalizationBase
     public string ExceptionSqlDb => Lang == Lang.English ? "The database is unavailable!" : "База данных недоступна!";
     public string FieldCurrentTime => Lang == Lang.English ? "Now" : "Сейчас";
     public string FieldDate => Lang == Lang.English ? "Date" : "Дата";
+    public string FieldIsIncrementCounter => Lang == Lang.English ? "Counter increment" : "Инкремент счётчика";
+    public string FieldIsIncrementCounterEnable => Lang == Lang.English ? "Increase the counter when printing a piece of product" : "Увеличивать счётчик при печати штучной продукции";
     public string FieldKneading => Lang == Lang.English ? "Kneading" : "Замес";
     public string FieldPalletSize => Lang == Lang.English ? "Pallet size" : "Размер паллеты";
     public string FieldProductDate => Lang == Lang.English ? "Date of production" : "Дата производства";

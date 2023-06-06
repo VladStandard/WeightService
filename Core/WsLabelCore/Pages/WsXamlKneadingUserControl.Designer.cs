@@ -50,6 +50,8 @@ partial class WsXamlKneadingUserControl
             this.buttonSet1 = new System.Windows.Forms.Button();
             this.layoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanelBottom = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelIsIncrementCounter = new System.Windows.Forms.Label();
+            this.checkBoxIsIncrementCounter = new System.Windows.Forms.CheckBox();
             this.layoutPanel.SuspendLayout();
             this.flowLayoutPanelBottom.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +62,7 @@ partial class WsXamlKneadingUserControl
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonCancel.Location = new System.Drawing.Point(697, 3);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(200, 122);
+            this.buttonCancel.Size = new System.Drawing.Size(200, 94);
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = false;
@@ -72,7 +74,7 @@ partial class WsXamlKneadingUserControl
             this.buttonYes.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonYes.Location = new System.Drawing.Point(491, 3);
             this.buttonYes.Name = "buttonYes";
-            this.buttonYes.Size = new System.Drawing.Size(200, 122);
+            this.buttonYes.Size = new System.Drawing.Size(200, 94);
             this.buttonYes.TabIndex = 4;
             this.buttonYes.Text = "buttonYes";
             this.buttonYes.UseVisualStyleBackColor = false;
@@ -83,9 +85,9 @@ partial class WsXamlKneadingUserControl
             this.buttonPalletSizeNext.BackColor = System.Drawing.Color.Transparent;
             this.buttonPalletSizeNext.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonPalletSizeNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPalletSizeNext.Location = new System.Drawing.Point(592, 188);
+            this.buttonPalletSizeNext.Location = new System.Drawing.Point(592, 241);
             this.buttonPalletSizeNext.Name = "buttonPalletSizeNext";
-            this.buttonPalletSizeNext.Size = new System.Drawing.Size(138, 82);
+            this.buttonPalletSizeNext.Size = new System.Drawing.Size(138, 70);
             this.buttonPalletSizeNext.TabIndex = 17;
             this.buttonPalletSizeNext.Text = ">";
             this.buttonPalletSizeNext.UseVisualStyleBackColor = false;
@@ -96,9 +98,9 @@ partial class WsXamlKneadingUserControl
             this.buttonPalletSizePrev.BackColor = System.Drawing.Color.Transparent;
             this.buttonPalletSizePrev.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonPalletSizePrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPalletSizePrev.Location = new System.Drawing.Point(448, 188);
+            this.buttonPalletSizePrev.Location = new System.Drawing.Point(448, 241);
             this.buttonPalletSizePrev.Name = "buttonPalletSizePrev";
-            this.buttonPalletSizePrev.Size = new System.Drawing.Size(138, 82);
+            this.buttonPalletSizePrev.Size = new System.Drawing.Size(138, 70);
             this.buttonPalletSizePrev.TabIndex = 16;
             this.buttonPalletSizePrev.Text = "<";
             this.buttonPalletSizePrev.UseVisualStyleBackColor = false;
@@ -109,9 +111,9 @@ partial class WsXamlKneadingUserControl
             this.buttonPalletSize10.BackColor = System.Drawing.Color.Transparent;
             this.buttonPalletSize10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonPalletSize10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPalletSize10.Location = new System.Drawing.Point(736, 188);
+            this.buttonPalletSize10.Location = new System.Drawing.Point(736, 241);
             this.buttonPalletSize10.Name = "buttonPalletSize10";
-            this.buttonPalletSize10.Size = new System.Drawing.Size(138, 82);
+            this.buttonPalletSize10.Size = new System.Drawing.Size(138, 70);
             this.buttonPalletSize10.TabIndex = 18;
             this.buttonPalletSize10.Text = "+10";
             this.buttonPalletSize10.UseVisualStyleBackColor = false;
@@ -123,10 +125,10 @@ partial class WsXamlKneadingUserControl
             this.fieldPalletSize.BackColor = System.Drawing.Color.Transparent;
             this.fieldPalletSize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPalletSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPalletSize.Location = new System.Drawing.Point(304, 188);
+            this.fieldPalletSize.Location = new System.Drawing.Point(304, 241);
             this.fieldPalletSize.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPalletSize.Name = "fieldPalletSize";
-            this.fieldPalletSize.Size = new System.Drawing.Size(138, 82);
+            this.fieldPalletSize.Size = new System.Drawing.Size(138, 70);
             this.fieldPalletSize.TabIndex = 13;
             this.fieldPalletSize.Text = "Value";
             this.fieldPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -137,22 +139,22 @@ partial class WsXamlKneadingUserControl
             this.labelPalletSize.BackColor = System.Drawing.Color.Transparent;
             this.labelPalletSize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelPalletSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPalletSize.Location = new System.Drawing.Point(25, 188);
+            this.labelPalletSize.Location = new System.Drawing.Point(25, 241);
             this.labelPalletSize.Margin = new System.Windows.Forms.Padding(3);
             this.labelPalletSize.Name = "labelPalletSize";
-            this.labelPalletSize.Size = new System.Drawing.Size(273, 82);
+            this.labelPalletSize.Size = new System.Drawing.Size(228, 70);
             this.labelPalletSize.TabIndex = 11;
             this.labelPalletSize.Text = "labelPalletSize";
-            this.labelPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // buttonDtRight
             // 
             this.buttonDtRight.BackColor = System.Drawing.Color.Transparent;
             this.buttonDtRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonDtRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDtRight.Location = new System.Drawing.Point(592, 12);
+            this.buttonDtRight.Location = new System.Drawing.Point(592, 13);
             this.buttonDtRight.Name = "buttonDtRight";
-            this.buttonDtRight.Size = new System.Drawing.Size(138, 82);
+            this.buttonDtRight.Size = new System.Drawing.Size(138, 70);
             this.buttonDtRight.TabIndex = 10;
             this.buttonDtRight.Text = ">";
             this.buttonDtRight.UseVisualStyleBackColor = false;
@@ -163,9 +165,9 @@ partial class WsXamlKneadingUserControl
             this.buttonDtLeft.BackColor = System.Drawing.Color.Transparent;
             this.buttonDtLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonDtLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDtLeft.Location = new System.Drawing.Point(448, 12);
+            this.buttonDtLeft.Location = new System.Drawing.Point(448, 13);
             this.buttonDtLeft.Name = "buttonDtLeft";
-            this.buttonDtLeft.Size = new System.Drawing.Size(138, 82);
+            this.buttonDtLeft.Size = new System.Drawing.Size(138, 70);
             this.buttonDtLeft.TabIndex = 9;
             this.buttonDtLeft.Text = "<";
             this.buttonDtLeft.UseVisualStyleBackColor = false;
@@ -176,9 +178,9 @@ partial class WsXamlKneadingUserControl
             this.buttonKneading.BackColor = System.Drawing.Color.Transparent;
             this.buttonKneading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonKneading.Location = new System.Drawing.Point(448, 100);
+            this.buttonKneading.Location = new System.Drawing.Point(448, 89);
             this.buttonKneading.Name = "buttonKneading";
-            this.buttonKneading.Size = new System.Drawing.Size(138, 82);
+            this.buttonKneading.Size = new System.Drawing.Size(138, 70);
             this.buttonKneading.TabIndex = 6;
             this.buttonKneading.Text = "...";
             this.buttonKneading.UseVisualStyleBackColor = false;
@@ -190,10 +192,10 @@ partial class WsXamlKneadingUserControl
             this.fieldKneading.BackColor = System.Drawing.Color.Transparent;
             this.fieldKneading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldKneading.Location = new System.Drawing.Point(304, 100);
+            this.fieldKneading.Location = new System.Drawing.Point(304, 89);
             this.fieldKneading.Margin = new System.Windows.Forms.Padding(3);
             this.fieldKneading.Name = "fieldKneading";
-            this.fieldKneading.Size = new System.Drawing.Size(138, 82);
+            this.fieldKneading.Size = new System.Drawing.Size(138, 70);
             this.fieldKneading.TabIndex = 2;
             this.fieldKneading.Text = "Value";
             this.fieldKneading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -204,13 +206,13 @@ partial class WsXamlKneadingUserControl
             this.labelKneading.BackColor = System.Drawing.Color.Transparent;
             this.labelKneading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelKneading.Location = new System.Drawing.Point(25, 100);
+            this.labelKneading.Location = new System.Drawing.Point(25, 89);
             this.labelKneading.Margin = new System.Windows.Forms.Padding(3);
             this.labelKneading.Name = "labelKneading";
-            this.labelKneading.Size = new System.Drawing.Size(273, 82);
+            this.labelKneading.Size = new System.Drawing.Size(228, 70);
             this.labelKneading.TabIndex = 3;
             this.labelKneading.Text = "labelKneading";
-            this.labelKneading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelKneading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelProdDate
             // 
@@ -218,13 +220,13 @@ partial class WsXamlKneadingUserControl
             this.labelProdDate.BackColor = System.Drawing.Color.Transparent;
             this.labelProdDate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelProdDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelProdDate.Location = new System.Drawing.Point(25, 12);
+            this.labelProdDate.Location = new System.Drawing.Point(25, 13);
             this.labelProdDate.Margin = new System.Windows.Forms.Padding(3);
             this.labelProdDate.Name = "labelProdDate";
-            this.labelProdDate.Size = new System.Drawing.Size(273, 82);
+            this.labelProdDate.Size = new System.Drawing.Size(228, 70);
             this.labelProdDate.TabIndex = 7;
             this.labelProdDate.Text = "labelProdDate";
-            this.labelProdDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelProdDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fieldProdDate
             // 
@@ -232,10 +234,10 @@ partial class WsXamlKneadingUserControl
             this.fieldProdDate.BackColor = System.Drawing.Color.Transparent;
             this.fieldProdDate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldProdDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldProdDate.Location = new System.Drawing.Point(304, 12);
+            this.fieldProdDate.Location = new System.Drawing.Point(304, 13);
             this.fieldProdDate.Margin = new System.Windows.Forms.Padding(3);
             this.fieldProdDate.Name = "fieldProdDate";
-            this.fieldProdDate.Size = new System.Drawing.Size(138, 82);
+            this.fieldProdDate.Size = new System.Drawing.Size(138, 70);
             this.fieldProdDate.TabIndex = 8;
             this.fieldProdDate.Text = "01.01.2020";
             this.fieldProdDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -245,9 +247,9 @@ partial class WsXamlKneadingUserControl
             this.buttonSet40.BackColor = System.Drawing.Color.Transparent;
             this.buttonSet40.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonSet40.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSet40.Location = new System.Drawing.Point(448, 276);
+            this.buttonSet40.Location = new System.Drawing.Point(448, 317);
             this.buttonSet40.Name = "buttonSet40";
-            this.buttonSet40.Size = new System.Drawing.Size(138, 82);
+            this.buttonSet40.Size = new System.Drawing.Size(138, 70);
             this.buttonSet40.TabIndex = 19;
             this.buttonSet40.Text = "40";
             this.buttonSet40.UseVisualStyleBackColor = false;
@@ -258,9 +260,9 @@ partial class WsXamlKneadingUserControl
             this.buttonSet60.BackColor = System.Drawing.Color.Transparent;
             this.buttonSet60.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonSet60.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSet60.Location = new System.Drawing.Point(592, 276);
+            this.buttonSet60.Location = new System.Drawing.Point(592, 317);
             this.buttonSet60.Name = "buttonSet60";
-            this.buttonSet60.Size = new System.Drawing.Size(138, 82);
+            this.buttonSet60.Size = new System.Drawing.Size(138, 70);
             this.buttonSet60.TabIndex = 20;
             this.buttonSet60.Text = "60";
             this.buttonSet60.UseVisualStyleBackColor = false;
@@ -271,9 +273,9 @@ partial class WsXamlKneadingUserControl
             this.buttonSet120.BackColor = System.Drawing.Color.Transparent;
             this.buttonSet120.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonSet120.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSet120.Location = new System.Drawing.Point(736, 276);
+            this.buttonSet120.Location = new System.Drawing.Point(736, 317);
             this.buttonSet120.Name = "buttonSet120";
-            this.buttonSet120.Size = new System.Drawing.Size(138, 82);
+            this.buttonSet120.Size = new System.Drawing.Size(138, 70);
             this.buttonSet120.TabIndex = 21;
             this.buttonSet120.Text = "120";
             this.buttonSet120.UseVisualStyleBackColor = false;
@@ -284,9 +286,9 @@ partial class WsXamlKneadingUserControl
             this.buttonSet1.BackColor = System.Drawing.Color.Transparent;
             this.buttonSet1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonSet1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSet1.Location = new System.Drawing.Point(304, 276);
+            this.buttonSet1.Location = new System.Drawing.Point(304, 317);
             this.buttonSet1.Name = "buttonSet1";
-            this.buttonSet1.Size = new System.Drawing.Size(138, 82);
+            this.buttonSet1.Size = new System.Drawing.Size(138, 70);
             this.buttonSet1.TabIndex = 22;
             this.buttonSet1.Text = "1";
             this.buttonSet1.UseVisualStyleBackColor = false;
@@ -295,42 +297,45 @@ partial class WsXamlKneadingUserControl
             // layoutPanel
             // 
             this.layoutPanel.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanel.ColumnCount = 7;
+            this.layoutPanel.ColumnCount = 8;
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 2.5F));
-            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31F));
+            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26F));
+            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 2.5F));
-            this.layoutPanel.Controls.Add(this.buttonPalletSizeNext, 4, 3);
-            this.layoutPanel.Controls.Add(this.buttonPalletSizePrev, 3, 3);
-            this.layoutPanel.Controls.Add(this.buttonPalletSize10, 5, 3);
-            this.layoutPanel.Controls.Add(this.fieldPalletSize, 2, 3);
-            this.layoutPanel.Controls.Add(this.labelPalletSize, 1, 3);
-            this.layoutPanel.Controls.Add(this.buttonDtRight, 4, 1);
-            this.layoutPanel.Controls.Add(this.buttonDtLeft, 3, 1);
-            this.layoutPanel.Controls.Add(this.buttonKneading, 3, 2);
-            this.layoutPanel.Controls.Add(this.fieldKneading, 2, 2);
+            this.layoutPanel.Controls.Add(this.labelIsIncrementCounter, 1, 3);
+            this.layoutPanel.Controls.Add(this.buttonPalletSizeNext, 5, 4);
+            this.layoutPanel.Controls.Add(this.buttonPalletSizePrev, 4, 4);
+            this.layoutPanel.Controls.Add(this.buttonPalletSize10, 6, 4);
+            this.layoutPanel.Controls.Add(this.fieldPalletSize, 3, 4);
+            this.layoutPanel.Controls.Add(this.labelPalletSize, 1, 4);
+            this.layoutPanel.Controls.Add(this.buttonDtRight, 5, 1);
+            this.layoutPanel.Controls.Add(this.buttonDtLeft, 4, 1);
+            this.layoutPanel.Controls.Add(this.buttonKneading, 4, 2);
+            this.layoutPanel.Controls.Add(this.fieldKneading, 3, 2);
             this.layoutPanel.Controls.Add(this.labelKneading, 1, 2);
             this.layoutPanel.Controls.Add(this.labelProdDate, 1, 1);
-            this.layoutPanel.Controls.Add(this.fieldProdDate, 2, 1);
-            this.layoutPanel.Controls.Add(this.buttonSet40, 3, 4);
-            this.layoutPanel.Controls.Add(this.buttonSet60, 4, 4);
-            this.layoutPanel.Controls.Add(this.buttonSet120, 5, 4);
-            this.layoutPanel.Controls.Add(this.buttonSet1, 2, 4);
+            this.layoutPanel.Controls.Add(this.fieldProdDate, 3, 1);
+            this.layoutPanel.Controls.Add(this.buttonSet40, 4, 5);
+            this.layoutPanel.Controls.Add(this.buttonSet60, 5, 5);
+            this.layoutPanel.Controls.Add(this.buttonSet120, 6, 5);
+            this.layoutPanel.Controls.Add(this.buttonSet1, 3, 5);
+            this.layoutPanel.Controls.Add(this.checkBoxIsIncrementCounter, 3, 3);
             this.layoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutPanel.Location = new System.Drawing.Point(0, 0);
             this.layoutPanel.Name = "layoutPanel";
-            this.layoutPanel.RowCount = 6;
+            this.layoutPanel.RowCount = 7;
             this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2.5F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.75F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.75F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.75F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.75F));
+            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19F));
+            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19F));
+            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19F));
+            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19F));
+            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19F));
             this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2.5F));
-            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.layoutPanel.Size = new System.Drawing.Size(900, 371);
+            this.layoutPanel.Size = new System.Drawing.Size(900, 400);
             this.layoutPanel.TabIndex = 7;
             // 
             // flowLayoutPanelBottom
@@ -340,10 +345,40 @@ partial class WsXamlKneadingUserControl
             this.flowLayoutPanelBottom.Controls.Add(this.buttonYes);
             this.flowLayoutPanelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanelBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanelBottom.Location = new System.Drawing.Point(0, 371);
+            this.flowLayoutPanelBottom.Location = new System.Drawing.Point(0, 400);
             this.flowLayoutPanelBottom.Name = "flowLayoutPanelBottom";
-            this.flowLayoutPanelBottom.Size = new System.Drawing.Size(900, 129);
+            this.flowLayoutPanelBottom.Size = new System.Drawing.Size(900, 100);
             this.flowLayoutPanelBottom.TabIndex = 8;
+            // 
+            // labelIsIncrementCounter
+            // 
+            this.labelIsIncrementCounter.AutoSize = true;
+            this.labelIsIncrementCounter.BackColor = System.Drawing.Color.Transparent;
+            this.labelIsIncrementCounter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelIsIncrementCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelIsIncrementCounter.Location = new System.Drawing.Point(25, 165);
+            this.labelIsIncrementCounter.Margin = new System.Windows.Forms.Padding(3);
+            this.labelIsIncrementCounter.Name = "labelIsIncrementCounter";
+            this.labelIsIncrementCounter.Size = new System.Drawing.Size(228, 70);
+            this.labelIsIncrementCounter.TabIndex = 23;
+            this.labelIsIncrementCounter.Text = "labelIsIncrementCounter";
+            this.labelIsIncrementCounter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // checkBoxIsIncrementCounter
+            // 
+            this.checkBoxIsIncrementCounter.AutoSize = true;
+            this.checkBoxIsIncrementCounter.Checked = true;
+            this.checkBoxIsIncrementCounter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.layoutPanel.SetColumnSpan(this.checkBoxIsIncrementCounter, 4);
+            this.checkBoxIsIncrementCounter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxIsIncrementCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.checkBoxIsIncrementCounter.Location = new System.Drawing.Point(304, 165);
+            this.checkBoxIsIncrementCounter.Name = "checkBoxIsIncrementCounter";
+            this.checkBoxIsIncrementCounter.Size = new System.Drawing.Size(570, 70);
+            this.checkBoxIsIncrementCounter.TabIndex = 24;
+            this.checkBoxIsIncrementCounter.Text = "checkBoxIsIncrementCounter";
+            this.checkBoxIsIncrementCounter.UseVisualStyleBackColor = true;
+            this.checkBoxIsIncrementCounter.CheckedChanged += new System.EventHandler(this.checkBoxIsIncrementCounter_CheckedChanged);
             // 
             // WsXamlKneadingUserControl
             // 
@@ -384,4 +419,6 @@ partial class WsXamlKneadingUserControl
     private Button buttonSet1;
     private TableLayoutPanel layoutPanel;
     private FlowLayoutPanel flowLayoutPanelBottom;
+    private Label labelIsIncrementCounter;
+    private CheckBox checkBoxIsIncrementCounter;
 }

@@ -24,7 +24,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     [XmlElement] public virtual int Number { get; set; }
     private int _counter;
     /// <summary>
-    /// Счётчик (от 1 до 1_000_000).
+    /// Счётчик этикеток (от 1 до 1_000_000).
     /// </summary>
     [XmlElement]
     public virtual int Counter { get => _counter; set { _counter = value > 1_000_000 ? 1 : value; } }

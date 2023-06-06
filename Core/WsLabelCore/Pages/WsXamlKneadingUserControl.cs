@@ -105,6 +105,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
+            checkBoxIsIncrementCounter_CheckedChanged(checkBoxIsIncrementCounter, e);
             ViewModel.CmdYes.Relay();
         });
     }
@@ -205,22 +206,48 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
 
     private void SetGuiConfig()
     {
-        // Kneading.
+        // Замес.
         labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = LabelSession.Line.IsKneading;
-        // Pallet size.
+        // Инкремент счётчика.
+        labelIsIncrementCounter.Visible = checkBoxIsIncrementCounter.Visible =
+        // Размер палеты.
         labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
             buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =
-                LabelSession.PluLine.IsNotNew && !LabelSession.PluLine.Plu.IsCheckWeight;
+                LabelSession.PluLine is { IsNotNew: true, Plu.IsCheckWeight: false };
     }
 
+    /// <summary>
+    /// Локализация.
+    /// </summary>
     private void SetGuiLocalize()
     {
+        // Замес.
         labelKneading.Text = LocaleCore.Scales.FieldKneading;
+        // Дата продукции.
         labelProdDate.Text = LocaleCore.Scales.FieldProductDate;
+        // Размер палеты.
         labelPalletSize.Text = LocaleCore.Scales.FieldPalletSize;
+        // Инкремент счётчика.
+        labelIsIncrementCounter.Text = LocaleCore.Scales.FieldIsIncrementCounter;
+        checkBoxIsIncrementCounter.Text = LocaleCore.Scales.FieldIsIncrementCounterEnable;
+        // Кнопки.
         buttonYes.Text = LocaleCore.Buttons.Ok;
         buttonCancel.Text = LocaleCore.Buttons.Cancel;
     }
 
+    /// <summary>
+    /// Инкремент счётчика печати штучной продукции.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void checkBoxIsIncrementCounter_CheckedChanged(object sender, EventArgs e)
+    {
+        WsFormNavigationUtils.ActionTryCatch(() =>
+        {
+            if (sender is not CheckBox checkBox) return;
+            LabelSession.SetIsIncrementCounter(checkBox.Checked);
+        });
+    }
+    
     #endregion
 }

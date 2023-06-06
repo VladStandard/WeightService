@@ -56,9 +56,6 @@ public class WsWeighingSettingsModel
         }
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsWeighingSettingsModel()
     {
         Kneading = KneadingMinValue;

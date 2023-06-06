@@ -342,8 +342,6 @@ public partial class WsMainForm
             if (!UserSession.CheckWeightMassaIsStable(fieldWarning)) return;
             // Проверить ГТИН ПЛУ.
             if (!UserSession.CheckPluGtin(fieldWarning)) return;
-            // Инкремент счётчика этикеток.
-            UserSession.AddScaleCounter();
             // Использовать фейк-данные для веса ПЛУ.
             //UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ActionPreparePrintStep2);
             // Проверить отрицательный вес.
@@ -354,8 +352,6 @@ public partial class WsMainForm
             if (!UserSession.CheckWeightThresholds(fieldWarning)) { ActionFinally(); return; }
             // Печать этикетки.
             ActionPrintLabel(true);
-            //
-            //ActionFinally();
         });
     }
 

@@ -317,8 +317,6 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (LabelSession.Line is { IsOrder: true })
             throw new("Order under construct!");
 
-        // #WS-T-710 Печать этикеток. Исправление счётчика этикеток
-        LabelSession.PluLine.Line = LabelSession.Line;
         // Получить шаблон этикетки.
         WsSqlTemplateModel template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
         // Проверить наличие шаблона этикетки.
@@ -347,48 +345,47 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     }
 
     /// <summary>
-    /// Инкремент счётчика этикеток.
-    /// </summary>
-    public void AddScaleCounter()
-    {
-        LabelSession.Line.Counter++;
-        ContextManager.AccessItem.Update(LabelSession.Line);
-    }
-
-    /// <summary>
     /// Печать этикетки штучной ПЛУ.
     /// </summary>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
     private void PrintLabelCount(WsSqlTemplateModel template, bool isClearBuffer)
     {
-        // Шаблон с указанием кол-ва и не весовой продукт.
+        byte labelsCount = LabelSession.WeighingSettings.LabelsCountMain;
+        // Шаблон с указанием кол-ва штучной продукции.
         if (template.Data.Contains("^PQ1") && !LabelSession.PluLine.Plu.IsCheckWeight)
         {
-            // Изменить кол-во этикеток.
-            if (LabelSession.WeighingSettings.LabelsCountMain > 1)
-                template.Data = template.Data.Replace("^PQ1", $"^PQ{LabelSession.WeighingSettings.LabelsCountMain}");
-            // Печать этикетки ПЛУ.
-            PrintLabelCore(template, isClearBuffer);
+            // Без инкремента счётчика печати штучной продукции.
+            if (!LabelSession.IsIncrementCounter)
+            {
+                // Изменить кол-во этикеток.
+                template.Data = template.Data.Replace("^PQ1", $"^PQ{labelsCount}");
+                // Печать этикетки ПЛУ.
+                PrintLabelCore(template, isClearBuffer);
+            }
+            // Инкремент счётчика печати штучной продукции.
+            else
+            {
+                // Цикл по штучным этикеткам.
+                for (int i = 1; i <= labelsCount; i++)
+                {
+                    // Печать этикетки ПЛУ.
+                    PrintLabelCore(template, isClearBuffer);
+                    // Фикс шаблона.
+                    template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
+                }
+            }
         }
         // Шаблон без указания кол-ва.
         else
         {
-            if (LabelSession.PluginPrintTscMain is not null)
+            // Цикл по штучным этикеткам.
+            for (int i = 1; i <= labelsCount; i++)
             {
-                for (int i = LabelSession.PluginPrintTscMain.LabelPrintedCount; i <= LabelSession.WeighingSettings.LabelsCountMain; i++)
-                {
-                    // Печать этикетки ПЛУ.
-                    PrintLabelCore(template, isClearBuffer);
-                }
-            }
-            else if (LabelSession.PluginPrintZebraMain is not null)
-            {
-                for (int i = LabelSession.PluginPrintZebraMain.LabelPrintedCount; i <= LabelSession.WeighingSettings.LabelsCountMain; i++)
-                {
-                    // Печать этикетки ПЛУ.
-                    PrintLabelCore(template, isClearBuffer);
-                }
+                // Печать этикетки ПЛУ.
+                PrintLabelCore(template, isClearBuffer);
+                // Фикс шаблона.
+                template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
             }
         }
     }
@@ -456,8 +453,14 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     {
         try
         {
+            // #WS-T-710 Печать этикеток. Исправление счётчика этикеток
+            if (!LabelSession.PluLine.Line.Number.Equals(LabelSession.Line.Number))
+                LabelSession.PluLine.Line = LabelSession.Line;
+            // Инкремент счётчика этикеток.
+            LabelSession.AddLineCounter();
             // Создать этикетку из шаблона.
-            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = CreateAndSavePluLabel(template);
+            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = 
+                CreateAndSavePluLabel(template);
             // Создать ШК из этикетки.
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
 

@@ -51,6 +51,11 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     public string DeviceName => MdNetUtils.GetLocalDeviceName(false);
     public WsSqlViewPluNestingModel ViewPluNesting { get; private set; }
     private readonly object _locker = new();
+    /// <summary>
+    /// Инкремент счётчика печати штучной продукции.
+    /// </summary>
+    public bool IsIncrementCounter { get; private set; }
+
 
     public WsLabelSessionHelper()
     {
@@ -267,6 +272,24 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         // Журналирование смены вложенности ПЛУ.
         ContextManager.ContextItem.SaveLogInformation(
             $"{LocaleCore.Scales.SetPluNesting(ViewPluNesting.PluNumber, ViewPluNesting.PluName, ViewPluNesting.BundleCount)}");
+    }
+
+    /// <summary>
+    /// Задать Инкремент счётчика печати штучной продукции.
+    /// </summary>
+    /// <param name="isIncrementCounter"></param>
+    public void SetIsIncrementCounter(bool isIncrementCounter)
+    {
+        IsIncrementCounter = isIncrementCounter;
+    }
+
+    /// <summary>
+    /// Инкремент счётчика этикеток.
+    /// </summary>
+    public void AddLineCounter()
+    {
+        Line.Counter++;
+        ContextManager.AccessItem.Update(Line);
     }
 
     #endregion
