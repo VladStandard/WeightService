@@ -6,7 +6,7 @@ namespace WsWebApiScales.Controllers;
 /// <summary>
 /// Nomenclatures groups controller.
 /// </summary>
-[Tags(WsWebServiceConsts.Ref1CNomenclaturesGroups)]
+[Tags(WsLocalizationCore.Utils.WsLocaleWebServiceUtils.Tag1CNomenclaturesGroups)]
 public sealed class WsServicePlusGroupsWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
@@ -25,7 +25,7 @@ public sealed class WsServicePlusGroupsWrapper : WsServiceControllerBase
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost]
-    [Route(WsWebServiceUrls.SendNomenclaturesGroups)]
+    [Route(WsLocaleWebServiceUtils.SendNomenclaturesGroups)]
     public ContentResult SendPluGroups([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "debug")] bool isDebug = false,
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
@@ -37,7 +37,7 @@ public sealed class WsServicePlusGroupsWrapper : WsServiceControllerBase
                 NewResponse1CIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => PlusGroupsController.NewResponsePluGroups(xml, format, isDebug, SessionFactory), format)
         };
-        LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendNomenclaturesGroups,
+        LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendNomenclaturesGroups,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }

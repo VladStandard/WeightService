@@ -3,3 +3,4 @@
 // Global using directives
 
 global using WsLocalizationCore.Common;
+global using CodingSeb.Localization;

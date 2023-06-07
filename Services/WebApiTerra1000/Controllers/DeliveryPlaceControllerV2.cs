@@ -18,14 +18,14 @@ public sealed class DeliveryPlaceControllerV2 : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetDeliveryPlacesV2)]
+    [Route(WsLocaleWebServiceUtils.GetDeliveryPlacesV2)]
     public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0,
         [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "") =>
         GetDeliveryPlacesWork(WsWebSqlQueriesV2.GetDeliveryPlaces, startDate, endDate, offset, rowCount, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetDeliveryPlacesV2Preview)]
+    [Route(WsLocaleWebServiceUtils.GetDeliveryPlacesV2Preview)]
     public ContentResult GetDeliveryPlacesPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0, 
         [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "") =>
         GetDeliveryPlacesWork(WsWebSqlQueriesV2.GetDeliveryPlacesPreview, startDate, endDate, offset, rowCount, format);

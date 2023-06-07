@@ -25,7 +25,7 @@ public sealed class WsServiceTestV1Controller : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetInfoV1)]
+    [Route(WsLocaleWebServiceUtils.GetInfoV1)]
     internal ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
         GetContentResult(() =>
         {
@@ -52,7 +52,7 @@ public sealed class WsServiceTestV1Controller : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetExceptionV1)]
+    [Route(WsLocaleWebServiceUtils.GetExceptionV1)]
     public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false) =>
         GetContentResult(() =>
         {
@@ -62,7 +62,7 @@ public sealed class WsServiceTestV1Controller : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetSimpleV1)]
+    [Route(WsLocaleWebServiceUtils.GetSimpleV1)]
     public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false,
         int version = 0) =>
         GetContentResult(() =>

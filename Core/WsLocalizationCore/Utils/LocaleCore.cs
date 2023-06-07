@@ -17,6 +17,7 @@ public static class LocaleCore
             Print.Lang = Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang =
             WebService.Lang = ContextMenu.Lang = _lang = value;
     }
+
     public static LocaleAction Action { get; } = LocaleAction.Instance;
     public static LocaleButtons Buttons { get; } = LocaleButtons.Instance;
     public static LocaleConvert Convert { get; } = LocaleConvert.Instance;
@@ -31,7 +32,7 @@ public static class LocaleCore
     public static LocaleSystem System { get; } = LocaleSystem.Instance;
     public static LocaleTable Table { get; } = LocaleTable.Instance;
     public static LocaleValidator Validator { get; } = LocaleValidator.Instance;
-    public static WsLocaleWebService WebService { get; } = WsLocaleWebService.Instance;
+    public static WsLocaleWebService WebService { get; } = new();
     public static LocaleContextMenu ContextMenu { get; } = LocaleContextMenu.Instance;
 
     #endregion

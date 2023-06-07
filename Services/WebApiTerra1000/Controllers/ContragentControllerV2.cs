@@ -18,7 +18,7 @@ public sealed class ContragentControllerV2 : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetContragentV2)]
+    [Route(WsLocaleWebServiceUtils.GetContragentV2)]
     public ContentResult GetContragentFromCodeIdProd([FromQuery] string code, long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetContragentFromCodeIdWork(code != null
@@ -27,7 +27,7 @@ public sealed class ContragentControllerV2 : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetContragentV2Preview)]
+    [Route(WsLocaleWebServiceUtils.GetContragentV2Preview)]
     public ContentResult GetContragentFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetContragentFromCodeIdWork(code != null
@@ -49,7 +49,7 @@ public sealed class ContragentControllerV2 : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetContragentsV2)]
+    [Route(WsLocaleWebServiceUtils.GetContragentsV2)]
     public ContentResult GetContragentsProd([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
@@ -65,7 +65,7 @@ public sealed class ContragentControllerV2 : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetContragentsV2Preview)]
+    [Route(WsLocaleWebServiceUtils.GetContragentsV2Preview)]
     public ContentResult GetContragentsPreview([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {

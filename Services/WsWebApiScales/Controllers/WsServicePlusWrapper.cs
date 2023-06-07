@@ -6,7 +6,7 @@ namespace WsWebApiScales.Controllers;
 /// <summary>
 /// Nomenclatures controller.
 /// </summary>
-[Tags(WsWebServiceConsts.Ref1CNomenclatures)]
+[Tags(WsLocalizationCore.Utils.WsLocaleWebServiceUtils.Tag1CNomenclatures)]
 public sealed class WsServicePlusWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
@@ -25,7 +25,7 @@ public sealed class WsServicePlusWrapper : WsServiceControllerBase
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost]
-    [Route(WsWebServiceUrls.SendNomenclatures)]
+    [Route(WsLocaleWebServiceUtils.SendNomenclatures)]
     public ContentResult SendPlus([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "debug")] bool isDebug = false, 
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
@@ -37,7 +37,7 @@ public sealed class WsServicePlusWrapper : WsServiceControllerBase
                 NewResponse1CIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => PlusController.NewResponsePlus(xml, format, isDebug, SessionFactory), format)
         };
-        LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendNomenclatures,
+        LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendNomenclatures,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }

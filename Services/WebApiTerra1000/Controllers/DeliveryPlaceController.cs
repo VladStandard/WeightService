@@ -18,7 +18,7 @@ public sealed class DeliveryPlaceController : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetDeliveryPlaces)]
+    [Route(WsLocaleWebServiceUtils.GetDeliveryPlaces)]
     public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "")
     {

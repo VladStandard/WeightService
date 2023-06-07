@@ -3,9 +3,16 @@
 
 namespace WsLocalizationCore.Utils;
 
-public static class WsWebServiceUrls
+public static class WsLocaleWebServiceUtils
 {
     #region Public and private fields, properties, constructor
+
+    public const string TagTests = "Tests";
+    public const string Tag1CBarCodes = "1C barcodes";
+    public const string Tag1CBrands= "1C brands";
+    public const string Tag1CNomenclatures = "1C nomenclatures";
+    public const string Tag1CNomenclaturesGroups = "1C nomenclatures groups";
+    public const string Tag1CNomenclaturesCharacteristics = "1C nomenclatures characteristics";
 
     public const string GetBarcodeBottom = "api/get_barcode/bottom/";
     public const string GetBarcodeRight = "api/get_barcode/right/";
