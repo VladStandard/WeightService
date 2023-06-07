@@ -3,17 +3,8 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed partial class LocaleDeviceControl : WsLocaleBase
+public sealed class WsLocaleDeviceControl : WsLocaleBase
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static LocaleDeviceControl _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static LocaleDeviceControl Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private fields, properties, constructor
 
     public string Actions => Lang == WsEnumLanguage.English ? "Aaction" : "Действия";
@@ -147,6 +138,53 @@ public sealed partial class LocaleDeviceControl : WsLocaleBase
     public string TableActionSave => Lang == WsEnumLanguage.English ? "Save" : "Сохранить";
     public string TableActionsIsDeny => Lang == WsEnumLanguage.English ? "Actions is deny" : "Действия недоступны";
     public string WebAppIsStarted => Lang == WsEnumLanguage.English ? "Web-app is started" : "Веб-приложение запущено";
+
+    #endregion
+
+    #region Public and private fields, properties, constructor - Routes
+
+    public string RouteSectionAccess => "/section/access";
+    public string RouteSectionApps => "/section/apps";
+    public string RouteSectionBarCodes => "/section/barcodes";
+    public string RouteSectionBoxes => "/section/boxes";
+    public string RouteSectionBrands => "/section/brands";
+    public string RouteSectionBundles => "/section/bundles";
+    public string RouteSectionContragents => "/section/contragents";
+    public string RouteSectionDevicesScalesFk => "/section/devices_scales_fks";
+    public string RouteSectionLogs => "/section/logs";
+    public string RouteSectionLogsWebService => "/section/logs_web_service_fk";
+    public string RouteSectionLogTypes => "/section/logtypes";
+    public string RouteSectionNomenclaturesGroups => "/section/nomenclatures_groups";
+    public string RouteSectionOrders => "/section/orders";
+    public string RouteSectionOrdersWeighings => "/section/ordersweighings";
+    public string RouteSectionOrganizations => "/section/organizations";
+    public string RouteSectionPlus => "/section/plus";
+    public string RouteSectionPlusBundlesFks => "/section/plus_bundles_fks";
+    public string RouteSectionPlusLabels => "/section/plus_labels";
+    public string RouteSectionPlusNestingFks => "/section/plus_nesting_fks";
+    public string RouteSectionPlusScales => "/section/plus_scales";
+    public string RouteSectionPlusWeighings => "/section/plu_weighings";
+    public string RouteSectionPlusWeighingsAggregation => "/section/plus_weighings_aggr";
+    public string RouteSectionPlusStorage => "/section/plus_storage";
+    public string RouteSectionPrinterResources => "/section/printers_resources";
+    public string RouteSectionPrinters => "/section/printers";
+    public string RouteSectionPrinterTypes => "/section/printer_types";
+    public string RouteSectionProductionFacilities => "/section/production_facilities";
+    public string RouteSectionProductSeries => "/section/productseries";
+    public string RouteSectionScales => "/section/scales";
+    public string RouteSectionScalesScreenShots => "/section/scales_screenshots";
+    public string RouteSectionTaskModules => "/section/taskmodules";
+    public string RouteSectionTaskTypeModules => "/section/tasktypemodules";
+    public string RouteSectionTemplateResources => "/section/templates_resources";
+    public string RouteSectionTemplates => "/section/templates";
+    public string RouteSectionVersions => "/section/versions";
+    public string RouteSectionWorkShops => "/section/workshops";
+    public string RouteSystemAppInfo => "/system/appinfo";
+    public string RouteSystemIdentityData => "/profile";
+    public string RouteSystemRoot => "/";
+    public string RouteSectionDevices => "/section/devices";
+    public string RouteSectionDevicesTypes => "/section/devices_types";
+    public string RouteSectionDevicesTypesFk => "/section/devices_types_fk";
 
     #endregion
 }

@@ -3,17 +3,8 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class LocaleTable : WsLocaleBase
+public sealed class WsLocaleTable : WsLocaleBase
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static LocaleTable _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static LocaleTable Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private fields, properties, constructor
 
     public string AccessLevel => Lang == WsEnumLanguage.English ? "Access level" : "Уровень доступа";

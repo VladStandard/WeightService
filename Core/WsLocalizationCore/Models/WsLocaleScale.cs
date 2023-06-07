@@ -3,17 +3,8 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class LocaleScale : WsLocaleBase
+public sealed class WsLocaleScale : WsLocaleBase
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static LocaleScale _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static LocaleScale Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private fields, properties, constructor
 
     public List<string> ListLanguages => Lang == WsEnumLanguage.English ? new() { "Russian", "English" } : new List<string> { "Russian", "English" };

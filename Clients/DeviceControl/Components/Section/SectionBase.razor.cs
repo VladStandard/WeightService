@@ -90,7 +90,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 
     private List<ContextMenuItem> GetContextMenuItems()
     {
-        LocaleContextMenu locale = LocaleCore.ContextMenu;
+        WsLocaleContextMenu locale = LocaleCore.ContextMenu;
         List<ContextMenuItem> contextMenuItems = new()
         {
             new() { Text = locale.Open, Value = ContextMenuAction.Open },

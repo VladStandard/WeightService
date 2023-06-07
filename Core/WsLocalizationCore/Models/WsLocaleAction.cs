@@ -3,17 +3,8 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class LocaleAction : WsLocaleBase
+public sealed class WsLocaleAction : WsLocaleBase
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static LocaleAction _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static LocaleAction Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private fields, properties, constructor
 
     public string ActionAccessAllow => Lang == WsEnumLanguage.English ? "Access to actions allowed" : "Доступ к действиям разрешён";

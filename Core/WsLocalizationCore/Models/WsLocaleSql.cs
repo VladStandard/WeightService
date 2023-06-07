@@ -3,17 +3,8 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class LocaleSql : WsLocaleBase
+public sealed class WsLocaleSql : WsLocaleBase
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static LocaleSql _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static LocaleSql Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private fields, properties, constructor
 
     public string SqlDb => Lang == WsEnumLanguage.English ? "SQL-DB" : "SQL-БД";

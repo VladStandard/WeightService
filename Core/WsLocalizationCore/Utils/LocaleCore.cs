@@ -18,22 +18,22 @@ public static class LocaleCore
             WebService.Lang = ContextMenu.Lang = _lang = value;
     }
 
-    public static LocaleAction Action { get; } = LocaleAction.Instance;
-    public static LocaleButtons Buttons { get; } = LocaleButtons.Instance;
-    public static LocaleConvert Convert { get; } = LocaleConvert.Instance;
-    public static LocaleDeviceControl DeviceControl { get; } = LocaleDeviceControl.Instance;
-    public static LocaleDialog Dialog { get; } = LocaleDialog.Instance;
-    public static LocaleMemory Memory { get; } = LocaleMemory.Instance;
-    public static LocaleMenu Menu { get; } = LocaleMenu.Instance;
-    public static LocalePrint Print { get; } = LocalePrint.Instance;
-    public static LocaleScale Scales { get; } = LocaleScale.Instance;
-    public static LocaleSettings Settings { get; } = LocaleSettings.Instance;
-    public static LocaleSql Sql { get; } = LocaleSql.Instance;
-    public static LocaleSystem System { get; } = LocaleSystem.Instance;
-    public static LocaleTable Table { get; } = LocaleTable.Instance;
-    public static LocaleValidator Validator { get; } = LocaleValidator.Instance;
+    public static WsLocaleAction Action { get; } = new();
+    public static WsLocaleButtons Buttons { get; } = new();
+    public static WsLocaleConvert Convert { get; } = new();
+    public static WsLocaleDeviceControl DeviceControl { get; } = new();
+    public static WsLocaleDialog Dialog { get; } = new();
+    public static WsLocaleMemory Memory { get; } = new();
+    public static WsLocaleMenu Menu { get; } = new();
+    public static WsLocalePrint Print { get; } = new();
+    public static WsLocaleScale Scales { get; } = new();
+    public static WsLocaleSettings Settings { get; } = new();
+    public static WsLocaleSql Sql { get; } = new();
+    public static WsLocaleSystem System { get; } = new();
+    public static WsLocaleTable Table { get; } = new();
+    public static WsLocaleValidator Validator { get; } = new();
     public static WsLocaleWebService WebService { get; } = new();
-    public static LocaleContextMenu ContextMenu { get; } = LocaleContextMenu.Instance;
+    public static WsLocaleContextMenu ContextMenu { get; } = new();
 
     #endregion
 

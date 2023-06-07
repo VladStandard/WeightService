@@ -3,17 +3,8 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class LocaleMemory : WsLocaleBase
+public sealed class WsLocaleMemory : WsLocaleBase
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static LocaleMemory _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static LocaleMemory Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private fields, properties, constructor
 
     public string Memory => Lang == WsEnumLanguage.English ? "Memory" : "Память";
