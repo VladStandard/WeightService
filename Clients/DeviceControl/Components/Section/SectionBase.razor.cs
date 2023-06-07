@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.JSInterop;
 using Radzen.Blazor;
 using WsBlazorCore.Settings;
+using WsLocalizationCore.Utils;
 
 namespace DeviceControl.Components.Section;
 

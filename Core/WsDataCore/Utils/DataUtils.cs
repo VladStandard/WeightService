@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using WsDataCore.Enums;
+using WsLocalizationCore.Utils;
 
 namespace WsDataCore.Utils;
 

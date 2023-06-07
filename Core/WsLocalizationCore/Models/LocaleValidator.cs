@@ -1,11 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalizationCore.Common;
-
 namespace WsLocalizationCore.Models;
 
-public sealed class LocaleValidator : WsLocalizationBase
+public sealed class LocaleValidator : WsLocaleBase
 {
     #region Design pattern "Lazy Singleton"
 

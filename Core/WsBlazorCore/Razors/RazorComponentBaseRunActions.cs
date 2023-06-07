@@ -3,6 +3,7 @@
 
 using Radzen;
 using WsBlazorCore.Settings;
+using WsLocalizationCore.Utils;
 
 namespace WsBlazorCore.Razors;
 

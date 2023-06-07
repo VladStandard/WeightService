@@ -4,6 +4,7 @@
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using WsDataCore.Common;
+using WsLocalizationCore.Utils;
 
 namespace WsStorageCore.Helpers;
 

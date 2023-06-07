@@ -3,6 +3,7 @@
 
 using System.Reflection;
 using WsDataCore.Utils;
+using WsLocalizationCore.Utils;
 
 namespace DeviceControl.Pages.Menu.Admins;
 

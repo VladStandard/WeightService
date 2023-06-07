@@ -6,6 +6,7 @@
 using System.Threading;
 using WsDataCore.Memory;
 using WsDataCore.Models;
+using WsLocalizationCore.Utils;
 using WsStorageCore.Helpers;
 
 namespace WsBlazorCore.Settings;

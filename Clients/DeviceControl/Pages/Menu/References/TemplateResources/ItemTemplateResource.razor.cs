@@ -5,6 +5,7 @@ using BlazorDownloadFile;
 using DeviceControl.Components.Item;
 using WsBlazorCore.Settings;
 using WsDataCore.Enums;
+using WsLocalizationCore.Utils;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 
 namespace DeviceControl.Pages.Menu.References.TemplateResources;

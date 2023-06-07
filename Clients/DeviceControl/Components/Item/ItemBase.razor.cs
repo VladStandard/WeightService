@@ -4,6 +4,7 @@
 using DeviceControl.Services;
 using Microsoft.JSInterop;
 using WsBlazorCore.Settings;
+using WsLocalizationCore.Utils;
 
 namespace DeviceControl.Components.Item;
 

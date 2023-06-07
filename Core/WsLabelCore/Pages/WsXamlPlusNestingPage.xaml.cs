@@ -3,6 +3,7 @@
 // ReSharper disable MismatchedFileName
 
 using System.Windows.Controls;
+using WsLocalizationCore.Utils;
 
 namespace WsLabelCore.Pages;
 

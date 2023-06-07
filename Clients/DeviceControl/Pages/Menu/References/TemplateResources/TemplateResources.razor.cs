@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControl.Components.Section;
+using WsLocalizationCore.Utils;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 
 namespace DeviceControl.Pages.Menu.References.TemplateResources;

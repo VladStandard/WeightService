@@ -3,7 +3,7 @@
 
 using System.Xml.Linq;
 using NUnit.Framework;
-using WsLocalizationCore.Models;
+using WsLocalizationCore.Utils;
 using WsStorageCore.TableScaleModels.Brands;
 using WsWebApiCore.Models;
 using WsWebApiCore.Utils;

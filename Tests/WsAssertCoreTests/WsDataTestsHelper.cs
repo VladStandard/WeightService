@@ -3,6 +3,7 @@
 
 using WsBlazorCore.CssStyles;
 using WsBlazorCore.Utils;
+using WsLocalizationCore.Utils;
 
 namespace WsAssertCoreTests;
 

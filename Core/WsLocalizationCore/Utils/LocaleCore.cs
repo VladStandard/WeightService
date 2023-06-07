@@ -1,9 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalizationCore.Common;
+using WsLocalizationCore.Models;
 
-namespace WsLocalizationCore.Models;
+namespace WsLocalizationCore.Utils;
 
 public static class LocaleCore
 {
@@ -13,8 +13,8 @@ public static class LocaleCore
     public static WsEnumLanguage Lang
     {
         get => _lang;
-        set => Action.Lang = Buttons.Lang = Convert.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang = 
-            Print.Lang = Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang = 
+        set => Action.Lang = Buttons.Lang = Convert.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang =
+            Print.Lang = Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang =
             WebService.Lang = ContextMenu.Lang = _lang = value;
     }
     public static LocaleAction Action { get; } = LocaleAction.Instance;
@@ -32,7 +32,7 @@ public static class LocaleCore
     public static LocaleTable Table { get; } = LocaleTable.Instance;
     public static LocaleValidator Validator { get; } = LocaleValidator.Instance;
     public static WsLocaleWebService WebService { get; } = WsLocaleWebService.Instance;
-	public static LocaleContextMenu ContextMenu { get; } = LocaleContextMenu.Instance;
+    public static LocaleContextMenu ContextMenu { get; } = LocaleContextMenu.Instance;
 
     #endregion
 
