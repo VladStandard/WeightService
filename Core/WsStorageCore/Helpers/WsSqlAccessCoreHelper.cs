@@ -559,7 +559,7 @@ internal sealed class WsSqlAccessCoreHelper
 
     public T GetItemNewEmpty<T>() where T : WsSqlTableBase, new()
     {
-        T result = new() { Name = LocaleCore.Table.FieldEmpty, Description = LocaleCore.Table.FieldEmpty };
+        T result = new();
         result.FillProperties();
         return result;
     }

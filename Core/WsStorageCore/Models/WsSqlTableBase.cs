@@ -27,7 +27,8 @@ public class WsSqlTableBase : SerializeBase, ICloneable
     [XmlElement] public virtual string Name { get; set; } = string.Empty;
     [XmlElement] public virtual string Description { get; set; } = string.Empty;
     [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; } = new();
-
+    [XmlIgnore] public virtual string DisplayName => IsNew ?  LocaleCore.Table.FieldEmpty : Name;
+    
     /// <summary>
     /// Constructor.
     /// </summary>
