@@ -8,28 +8,41 @@ public static partial class WsLocaleData
     public static class Resources
     {
         #region Main
+
         public static string AppTitle => Lang == WsEnumLanguage.English ? "Resources VS" : "Ресурсы ВС";
         public static string CallbackEmail => "mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local";
         public static string SupportCreatio => "https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/";
         public static string SysAdmin => Lang == WsEnumLanguage.English ? "Administration" : "Администрирование";
+        
         #endregion
+        
         #region Support
+        
         public static string SupportLinkCreatioText => Lang == WsEnumLanguage.English ? "Creatio appeals" : "Creatio обращения";
         public static string SupportLinkHelpPath => Lang == WsEnumLanguage.English ? "mailto:helpdesk@kolbasa-vs.ru?subject=Appeal" : "mailto:helpdesk@kolbasa-vs.ru?subject=Обращение";
         public static string SupportLinkHelpText => Lang == WsEnumLanguage.English ? "Write a letter" : "Написать письмо";
         public static string SupportTitle => Lang == WsEnumLanguage.English ? "Support service" : "Служба поддержки";
+        
         #endregion
+        
         #region Contacts
+        
         public static string ContactsCreatioPath => "https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/";
         public static string ContactsCreatioText => Lang == WsEnumLanguage.English ? "Creatio contacts" : "Creatio контакты";
         public static string ContactsPhonePath => "http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP";
         public static string ContactsPhoneText => Lang == WsEnumLanguage.English ? "Phone directory" : "Телефонный справочник";
         public static string ContactsTitle => Lang == WsEnumLanguage.English ? "Contacts" : "Контакты";
+        
         #endregion
+        
         #region IT department
+        
         public static string DepartmentItTitle => Lang == WsEnumLanguage.English ? "IT department" : "ИТ отдел";
+        
         #endregion
+        
         #region Redmine
+        
         public const string RedmineGooglePath = "http://192.168.0.50/projects/resources_it/wiki/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%B3%D1%83%D0%B3%D0%BB_%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B";
         public const string RedmineGoogleText = "Ссылка на гугл таблицы";
         public const string RedmineProjectsPath = "http://192.168.0.50/projects";
@@ -37,8 +50,11 @@ public static partial class WsLocaleData
         public const string RedmineWikiPath = "http://192.168.0.50/projects/resources_it/wiki/Wiki";
         public static string RedmineTitle => "Redmine";
         public static string RedmineWikiText => "Wiki";
+        
         #endregion
+        
         #region Zabbix
+        
         public static string ZabbixGlobalPath => "http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view";
         public static string ZabbixGlobalText => Lang == WsEnumLanguage.English ? "Global view" : "Глобальное представление";
         public static string ZabbixKolbasaPath => "http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
@@ -46,8 +62,11 @@ public static partial class WsLocaleData
         public static string ZabbixTitle => "Zabbix";
         public static string ZabbixWebPath => "http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
         public static string ZabbixWebText => Lang == WsEnumLanguage.English ? "Web monitoring" : "Веб-мониторинг";
+        
         #endregion
+        
         #region Creatio
+        
         public const string CreatioAcademyPath = "https://academy.terrasoft.ru/";
         public const string CreatioCommunityPath = "https://community.terrasoft.ru/";
         public const string CreatioCreDevDmDev = "http://cre-dev-dm.kolbasa-vs.local/0/dev";
@@ -92,13 +111,19 @@ public static partial class WsLocaleData
         public static string CreatioTerrasoftText => Lang == WsEnumLanguage.English ? "kolbasa-vs.terrasoft.ru | Product environment" : "dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
         public static string CreatioTitle => Lang == WsEnumLanguage.English ? "Creatio-server" : "Creatio-сервер";
         public static string CreatioWebinarsText => Lang == WsEnumLanguage.English ? "Webinars" : "Вебинары";
+        
         #endregion
+        
         #region Контроль версий
+        
         public const string VersionControlSvnVisualStudioPath = "http://192.168.0.50/svn/visualstudio/";
         public const string VersionControlSvnVisualStudioText = "SVN visualstudio";
         public const string VersionControlTitle = "Контроль версий";
+        
         #endregion
+        
         #region Веб-сервер
+        
         public const string IisServerBlazorBackupPath = "https://blazor-backup-control.kolbasa-vs.local/";
         public const string IisServerBlazorBackupText = "blazor-backup-control | Управление бэкапами";
         public const string IisServerBlazorDao1Path = "https://data-accessor-test-1.kolbasa-vs.local/";
@@ -118,6 +143,7 @@ public static partial class WsLocaleData
         public const string IisServerBlazorSmart2Path = "https://smart-net-data-accessor-test-2.kolbasa-vs.local/";
         public const string IisServerBlazorSmart2Text = "smart-net-data-accessor-test-2 | | DAO example 2";
         public const string IisServerTitle = "Веб-сервер";
+        
         #endregion
     }
 }

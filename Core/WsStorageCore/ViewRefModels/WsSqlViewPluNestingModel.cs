@@ -38,7 +38,7 @@ public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
     public string BoxName { get; init; }
     public decimal BoxWeight { get; init; }
     public decimal TareWeight { get; init; }
-    public string TareWeightWithKg => $"{TareWeight} {WsLocaleCore.Scales.WeightUnitKg}";
+    public string TareWeightWithKg => $"{TareWeight} {WsLocaleCore.LabelPrint.WeightUnitKg}";
     public string TareWeightDescription => $"{BoxName} + ({BundleName} * {BundleCount})";
     public string TareWeightValue => $"{BoxWeight} + ({BundleWeight} * {BundleCount})";
     public string PluNumberName => $"{PluNumber} | {PluName}";
@@ -93,7 +93,7 @@ public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
 
     public override string ToString() => $"{TareWeightDescription} | {TareWeight}";
     
-    public string GetSmartName() => TareWeight > 0 ? $"{TareWeight} {WsLocaleCore.Scales.WeightUnitKg} | {PluName}" : "- 0 -";
+    public string GetSmartName() => TareWeight > 0 ? $"{TareWeight} {WsLocaleCore.LabelPrint.WeightUnitKg} | {PluName}" : "- 0 -";
     
     #endregion
 }

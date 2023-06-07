@@ -207,7 +207,7 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
         }
         // Обновить метки.
         buttonLeftScroll.Text = WsLocaleCore.Buttons.Back;
-        buttonCurrentPage.Text = $@"{WsLocaleCore.Scales.PluPage} {LabelSession.PlusPageNumber + 1}";
+        buttonCurrentPage.Text = $@"{WsLocaleCore.LabelPrint.PluPage} {LabelSession.PlusPageNumber + 1}";
         buttonRightScroll.Text = WsLocaleCore.Buttons.Forward;
         buttonCancel.Text = WsLocaleCore.Buttons.Cancel;
         buttonCancel.Select();

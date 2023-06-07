@@ -12,7 +12,7 @@
 	<localization:WsLocaleMemory x:Key="LocaleMemory" />
 	<localization:WsLocaleMenu x:Key="LocaleMenu" />
 	<localization:WsLocalePrint x:Key="LocalePrint" />
-	<localization:WsLocaleScale x:Key="LocaleScale" />
+	<localization:WsLocaleLabelPrint x:Key="LocaleLabelPrint" />
 	<localization:WsLocaleSettings x:Key="LocaleSettings" />
 	<localization:WsLocaleSql x:Key="LocaleSql" />
 	<localization:WsLocaleSystem x:Key="LocaleSystem" />

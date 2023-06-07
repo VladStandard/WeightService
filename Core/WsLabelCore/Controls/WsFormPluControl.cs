@@ -63,7 +63,7 @@ public sealed class WsFormPluControl : UserControl
     {
         Font = FontsSettings.FontLabelsBlack,
         AutoSize = false,
-        Text = $@"{viewPluScale.PluNumber} | {(viewPluScale.PluIsWeight ? WsLocaleCore.Scales.PluIsWeight : WsLocaleCore.Scales.PluIsPiece)} | {viewPluScale.PluName}",
+        Text = $@"{viewPluScale.PluNumber} | {(viewPluScale.PluIsWeight ? WsLocaleCore.LabelPrint.PluIsWeight : WsLocaleCore.LabelPrint.PluIsPiece)} | {viewPluScale.PluName}",
         Visible = true,
         TextAlign = ContentAlignment.MiddleCenter,
         FlatStyle = FlatStyle.Flat,
@@ -84,7 +84,7 @@ public sealed class WsFormPluControl : UserControl
         {
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
-            Text = validates.Any() ? string.Join(" | ", validates) : WsLocaleCore.Scales.CheckAllPassed,
+            Text = validates.Any() ? string.Join(" | ", validates) : WsLocaleCore.LabelPrint.CheckAllPassed,
             Visible = true,
             TextAlign = ContentAlignment.MiddleCenter,
             FlatStyle = FlatStyle.Flat,

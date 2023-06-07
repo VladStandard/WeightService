@@ -196,7 +196,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             Area = ContextManager.ContextAreas.GetNewItem();
         }
         // Журналирование смены площадки.
-        ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.Scales.SetArea(Area.IdentityValueId, Area.Name)}");
+        ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetArea(Area.IdentityValueId, Area.Name)}");
     }
 
     /// <summary>
@@ -207,7 +207,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         Line = line ?? ContextManager.ContextLines.GetNewItem();
         // Журналирование смены линии.
         if (Line.IsExists)
-            ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.Scales.SetLine(Line.IdentityValueId, Line.Description)}");
+            ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetLine(Line.IdentityValueId, Line.Description)}");
         // Смена площадки.
         SetArea();
         // Смена ПЛУ линии.
@@ -222,7 +222,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         PluLine = pluLine ?? ContextManager.ContextPlusLines.GetNewItem();
         // Журналирование смены ПЛУ на линии.
         if (PluLine.IsExists)
-            ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.Scales.SetPlu(PluLine.Plu.Number, PluLine.Plu.Name)}");
+            ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetPlu(PluLine.Plu.Number, PluLine.Plu.Name)}");
 
         if (PluLine.IsNotNew)
         {
@@ -273,7 +273,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         // Журналирование смены вложенности ПЛУ.
         if (PluLine.IsExists)
             ContextManager.ContextItem.SaveLogInformation(
-                $"{WsLocaleCore.Scales.SetPluNesting(ViewPluNesting.PluNumber, ViewPluNesting.PluName, ViewPluNesting.BundleCount)}");
+                $"{WsLocaleCore.LabelPrint.SetPluNesting(ViewPluNesting.PluNumber, ViewPluNesting.PluName, ViewPluNesting.BundleCount)}");
     }
 
     /// <summary>

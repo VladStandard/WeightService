@@ -3,9 +3,20 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class WsLocaleScale : WsLocaleBase
+public sealed class WsLocaleLabelPrint : WsLocaleBase
 {
+    public static class Paths
+    {
+        public const string ScalesTerminal = "C:\\Program Files (x86)\\Massa-K\\ScalesTerminal 100\\ScalesTerminal.exe";
+    }
+
     #region Public and private fields, properties, constructor
+
+    //[Localize]
+    //public string TestProperty => Loc.Tr("TestLabel");
+
+    //[Localize(nameof(TextIdInAttribute))]
+    //public string TextIdInAttribute { get; set; }
 
     public List<string> ListLanguages => Lang == WsEnumLanguage.English ? new() { "Russian", "English" } : new List<string> { "Russian", "English" };
     public List<string> ListResolutions => Lang == WsEnumLanguage.English ? new() { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "FullScreen" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
@@ -16,6 +27,7 @@ public sealed class WsLocaleScale : WsLocaleBase
     public string AlreadyRunning => Lang == WsEnumLanguage.English ? "already running" : "уже запущено";
     public string AppExit => Lang == WsEnumLanguage.English ? "Exit from the program" : "Завершение программы";
     public string AppExitDescription => Lang == WsEnumLanguage.English ? "Unloading data from memory ..." : "Выгрузка данных из памяти ...";
+    
     public string AppLoad => Lang == WsEnumLanguage.English ? "Loading" : "Загрузка";
     public string AppLoadDescription => Lang == WsEnumLanguage.English ? "Loading data into memory ..." : "Загрузка данных в память ...";
     public string AppTitle => Lang == WsEnumLanguage.English ? "Label print" : "Печать этикеток";

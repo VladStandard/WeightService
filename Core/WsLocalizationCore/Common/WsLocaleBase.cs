@@ -6,7 +6,22 @@ namespace WsLocalizationCore.Common;
 /// <summary>
 /// Base class for localization.
 /// </summary>
-public class WsLocaleBase
+public class WsLocaleBase : INotifyPropertyChanged
 {
+    #region INotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    //private void OnPropertyChanged([CallerMemberName] string memberName = "")
+    //{
+    //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
+    //}
+
+    #endregion
+
+    #region Public and private fields, properties, constructor
+
     public WsEnumLanguage Lang { get; set; } = WsEnumLanguage.Russian;
+
+    #endregion
 }

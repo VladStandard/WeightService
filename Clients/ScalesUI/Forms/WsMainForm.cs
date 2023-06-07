@@ -97,9 +97,9 @@ public partial class WsMainForm : Form
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
             if (LabelSession.DeviceScaleFk.IsNew)
             {
-                string message = WsLocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
+                string message = WsLocaleCore.LabelPrint.RegistrationWarningLineNotFound(LabelSession.DeviceName);
                 WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(
-                    message + Environment.NewLine + Environment.NewLine + WsLocaleCore.Scales.CommunicateWithAdmin,
+                    message + Environment.NewLine + Environment.NewLine + WsLocaleCore.LabelPrint.CommunicateWithAdmin,
                     ActionExit, WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
                 WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
@@ -111,7 +111,7 @@ public partial class WsMainForm : Form
             _ = new Mutex(true, System.Windows.Forms.Application.ProductName, out bool isCreatedNew);
             if (!isCreatedNew)
             {
-                string message = $"{WsLocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {WsLocaleCore.Scales.AlreadyRunning}!";
+                string message = $"{WsLocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {WsLocaleCore.LabelPrint.AlreadyRunning}!";
                 WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(message, ActionExit, 
                     WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
@@ -121,7 +121,7 @@ public partial class WsMainForm : Form
                 return;
             }
             // Навигация в контрол ожидания.
-            WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl,  WsLocaleCore.Scales.AppLoad, WsLocaleCore.Scales.AppLoadDescription);
+            WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl,  WsLocaleCore.LabelPrint.AppLoad, WsLocaleCore.LabelPrint.AppLoadDescription);
             // Загрузка фоном.
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
@@ -132,7 +132,7 @@ public partial class WsMainForm : Form
                 UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
             ContextManager.ContextItem.SaveLogInformation(
                 $"{WsLocaleData.Program.IsLoaded}. " + Environment.NewLine +
-                $"{WsLocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
+                $"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
                 $"{nameof(WsLocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
         });
     }
@@ -440,16 +440,16 @@ public partial class WsMainForm : Form
     private void LoadLocalizationStatic(WsEnumLanguage lang)
     {
         WsLocaleCore.Lang = WsLocaleData.Lang = lang;
-        MdInvokeControl.SetText(ButtonScalesTerminal, WsLocaleCore.Scales.ButtonRunScalesTerminal);
-        MdInvokeControl.SetText(ButtonScalesInit, WsLocaleCore.Scales.ButtonScalesInitShort);
-        MdInvokeControl.SetText(ButtonNewPallet, WsLocaleCore.Scales.ButtonNewPallet);
-        MdInvokeControl.SetText(ButtonKneading, WsLocaleCore.Scales.ButtonSetKneading);
-        MdInvokeControl.SetText(ButtonPlu, WsLocaleCore.Scales.ButtonPlu);
+        MdInvokeControl.SetText(ButtonScalesTerminal, WsLocaleCore.LabelPrint.ButtonRunScalesTerminal);
+        MdInvokeControl.SetText(ButtonScalesInit, WsLocaleCore.LabelPrint.ButtonScalesInitShort);
+        MdInvokeControl.SetText(ButtonNewPallet, WsLocaleCore.LabelPrint.ButtonNewPallet);
+        MdInvokeControl.SetText(ButtonKneading, WsLocaleCore.LabelPrint.ButtonSetKneading);
+        MdInvokeControl.SetText(ButtonPlu, WsLocaleCore.LabelPrint.ButtonPlu);
         MdInvokeControl.SetText(ButtonPrint, WsLocaleCore.Print.ActionPrint);
-        MdInvokeControl.SetText(labelNettoWeight, WsLocaleCore.Scales.FieldWeightNetto);
-        MdInvokeControl.SetText(labelTareWeight, WsLocaleCore.Scales.FieldWeightTare);
-        MdInvokeControl.SetText(labelProductDate, WsLocaleCore.Scales.FieldDate);
-        MdInvokeControl.SetText(labelKneading, WsLocaleCore.Scales.FieldKneading);
+        MdInvokeControl.SetText(labelNettoWeight, WsLocaleCore.LabelPrint.FieldWeightNetto);
+        MdInvokeControl.SetText(labelTareWeight, WsLocaleCore.LabelPrint.FieldWeightTare);
+        MdInvokeControl.SetText(labelProductDate, WsLocaleCore.LabelPrint.FieldDate);
+        MdInvokeControl.SetText(labelKneading, WsLocaleCore.LabelPrint.FieldKneading);
     }
 
     #endregion

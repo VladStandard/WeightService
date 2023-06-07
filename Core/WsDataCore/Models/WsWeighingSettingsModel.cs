@@ -94,7 +94,7 @@ public class WsWeighingSettingsModel
         $"{WsLocaleCore.Table.Status}: {(isConnected ? MdNetLocalization.Instance.StatusSuccess : MdNetLocalization.Instance.StatusUnknown)} | " +
         $"{WsLocaleCore.Table.LabelCounter}: {scaleCounter} | " +
         //$"{deviceStatus} | " +
-        $"{WsLocaleCore.Scales.Labels}: {labelPrintedCount} {WsLocaleCore.Strings.From} {labelCount}";
+        $"{WsLocaleCore.LabelPrint.Labels}: {labelPrintedCount} {WsLocaleCore.Strings.From} {labelCount}";
 
     #endregion
 }

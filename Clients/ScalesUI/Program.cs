@@ -18,11 +18,11 @@ internal static class Program
         System.Windows.Forms.Application.EnableVisualStyles();
         System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
         // Настройка.
-        AppVersion.Setup(Assembly.GetExecutingAssembly(), WsLocaleCore.Scales.AppTitle);
+        AppVersion.Setup(Assembly.GetExecutingAssembly(), WsLocaleCore.LabelPrint.AppTitle);
         ContextManager.SetupJsonScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
         // Запуск.
         ContextManager.ContextItem.SaveLogInformation(
-            WsLocaleCore.Scales.RegistrationSuccess(LabelSession.DeviceName, LabelSession.DeviceScaleFk.Scale.Description));
+            WsLocaleCore.LabelPrint.RegistrationSuccess(LabelSession.DeviceName, LabelSession.DeviceScaleFk.Scale.Description));
         // Режив работы.
         WsDebugHelper.Instance.IsSkipDialogs = false;
         System.Windows.Forms.Application.Run(new WsMainForm());

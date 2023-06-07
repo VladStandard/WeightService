@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalizationCore.Models;
-
 namespace WsLocalizationCore.Utils;
 
 public static class WsLocaleCore
@@ -14,7 +12,7 @@ public static class WsLocaleCore
     {
         get => _lang;
         set => Action.Lang = Buttons.Lang = Convert.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang =
-            Print.Lang = Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang =
+            Print.Lang = LabelPrint.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang =
             WebService.Lang = ContextMenu.Lang = _lang = value;
     }
 
@@ -26,7 +24,7 @@ public static class WsLocaleCore
     public static WsLocaleMemory Memory { get; } = new();
     public static WsLocaleMenu Menu { get; } = new();
     public static WsLocalePrint Print { get; } = new();
-    public static WsLocaleScale Scales { get; } = new();
+    public static WsLocaleLabelPrint LabelPrint { get; } = new();
     public static WsLocaleSettings Settings { get; } = new();
     public static WsLocaleSql Sql { get; } = new();
     public static WsLocaleSystem System { get; } = new();

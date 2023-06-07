@@ -20,9 +20,9 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
     [XmlElement] public virtual decimal WeightMax { get; set; }
     [XmlElement] public virtual decimal WeightMin { get; set; }
     [XmlElement] public virtual decimal WeightNom { get; set; }
-    [XmlIgnore] public override string Name => $"{WsLocaleCore.Scales.Bundle} {BundleCount} {WsLocaleCore.Scales.WeightUnitGr} | {Box.Name}";
+    [XmlIgnore] public override string Name => $"{WsLocaleCore.LabelPrint.Bundle} {BundleCount} {WsLocaleCore.LabelPrint.WeightUnitGr} | {Box.Name}";
     [XmlElement] public virtual decimal WeightTare { get => PluBundle.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
-    [XmlIgnore] public virtual string WeightTareKg => $"{WeightTare} {WsLocaleCore.Scales.WeightUnitKg}";
+    [XmlIgnore] public virtual string WeightTareKg => $"{WeightTare} {WsLocaleCore.LabelPrint.WeightUnitKg}";
     
     /// <summary>
     /// Constructor.
