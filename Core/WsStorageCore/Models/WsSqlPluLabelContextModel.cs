@@ -13,7 +13,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
 {
     #region Public and private properties - References
 
-    [XmlIgnore] private WsSqlPluLabelModel PluLabel { get; set; }
+    [XmlIgnore] public WsSqlPluLabelModel PluLabel { get; private set; }
     [XmlIgnore] private WsSqlViewPluNestingModel ViewPluNesting { get; set; }
     [XmlIgnore] private WsSqlPluScaleModel PluScale { get; set; }
     [XmlIgnore] private WsSqlPluWeighingModel PluWeighing { get; set; }

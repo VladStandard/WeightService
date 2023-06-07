@@ -525,6 +525,11 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <returns></returns>
     private (WsSqlPluLabelModel, WsSqlPluLabelContextModel) CreateAndSavePluLabel(WsSqlTemplateModel template)
     {
+        // Исправление времени продукции.
+        LabelSession.ProductDate = 
+            new(LabelSession.ProductDate.Year, LabelSession.ProductDate.Month, LabelSession.ProductDate.Day,
+                DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
         WsSqlPluLabelModel pluLabel = new() { PluWeighing = LabelSession.PluWeighing, PluScale = LabelSession.PluLine, 
             ProductDt = LabelSession.ProductDate };
 
