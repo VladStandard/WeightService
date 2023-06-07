@@ -78,6 +78,12 @@
     <Reference Include="Azure.Identity, Version=1.9.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Azure.Identity.1.9.0\lib\netstandard2.0\Azure.Identity.dll</HintPath>
     </Reference>
+    <Reference Include="CodingSeb.Localization, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CodingSeb.Localization.1.2.0\lib\netstandard2.0\CodingSeb.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="CodingSeb.Localization.JsonFileLoader, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CodingSeb.Localization.JsonFileLoader.1.2.0\lib\netstandard2.0\CodingSeb.Localization.JsonFileLoader.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentNHibernate.3.2.0\lib\net461\FluentNHibernate.dll</HintPath>
     </Reference>

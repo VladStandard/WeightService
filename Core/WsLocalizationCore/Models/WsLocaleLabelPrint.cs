@@ -12,12 +12,8 @@ public sealed class WsLocaleLabelPrint : WsLocaleBase
 
     #region Public and private fields, properties, constructor
 
-    //[Localize]
-    //public string TestProperty => Loc.Tr("TestLabel");
 
-    //[Localize(nameof(TextIdInAttribute))]
-    //public string TextIdInAttribute { get; set; }
-
+    //public string LabelPrint => nameof(LabelPrint);
     public List<string> ListLanguages => Lang == WsEnumLanguage.English ? new() { "Russian", "English" } : new List<string> { "Russian", "English" };
     public List<string> ListResolutions => Lang == WsEnumLanguage.English ? new() { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "FullScreen" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
     public readonly decimal MassaThresholdNegative = -1.000M;
@@ -30,7 +26,7 @@ public sealed class WsLocaleLabelPrint : WsLocaleBase
     
     public string AppLoad => Lang == WsEnumLanguage.English ? "Loading" : "Загрузка";
     public string AppLoadDescription => Lang == WsEnumLanguage.English ? "Loading data into memory ..." : "Загрузка данных в память ...";
-    public string AppTitle => Lang == WsEnumLanguage.English ? "Label print" : "Печать этикеток";
+    public string AppTitle => Locale.Translate($"LabelPrint.{nameof(AppTitle)}");
     public string AppWait => Lang == WsEnumLanguage.English ? "Waiting" : "Ожидание";
     public string Bundle => Lang == WsEnumLanguage.English ? "Bundle" : "Пакет";
     public string ButtonAddKneading => Lang == WsEnumLanguage.English ? "Kneading" : "Замес";

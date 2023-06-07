@@ -21,7 +21,84 @@ public class WsLocaleBase : INotifyPropertyChanged
 
     #region Public and private fields, properties, constructor
 
-    public WsEnumLanguage Lang { get; set; } = WsEnumLanguage.Russian;
+    public Loc Locale { get; set; } = Loc.Instance;
+    private WsEnumLanguage _lang;
+    public WsEnumLanguage Lang { get => _lang; set { _lang = value; SetLanguage(_lang); } }
+
+    protected WsLocaleBase()
+    {
+        Lang = WsEnumLanguage.Russian;
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    private void SetLanguage(WsEnumLanguage language)
+    {
+        switch (language)
+        {
+            case WsEnumLanguage.Arabic:
+                break;
+            case WsEnumLanguage.Bengali:
+                break;
+            case WsEnumLanguage.Chinese:
+                break;
+            case WsEnumLanguage.French:
+                break;
+            case WsEnumLanguage.German:
+                break;
+            case WsEnumLanguage.Gujarati:
+                break;
+            case WsEnumLanguage.Hindi:
+                break;
+            case WsEnumLanguage.Italian:
+                break;
+            case WsEnumLanguage.Japanese:
+                break;
+            case WsEnumLanguage.Javanese:
+                break;
+            case WsEnumLanguage.Kannada:
+                break;
+            case WsEnumLanguage.Korean:
+                break;
+            case WsEnumLanguage.Malayalam:
+                break;
+            case WsEnumLanguage.Marathi:
+                break;
+            case WsEnumLanguage.Pashto:
+                break;
+            case WsEnumLanguage.Persian:
+                break;
+            case WsEnumLanguage.Polish:
+                break;
+            case WsEnumLanguage.Portuguese:
+                break;
+            case WsEnumLanguage.Punjabi:
+                break;
+            case WsEnumLanguage.Russian:
+                Locale.CurrentLanguage = "ru";
+                break;
+            case WsEnumLanguage.Spanish:
+                break;
+            case WsEnumLanguage.Tamil:
+                break;
+            case WsEnumLanguage.Telugu:
+                break;
+            case WsEnumLanguage.Thai:
+                break;
+            case WsEnumLanguage.Turkish:
+                break;
+            case WsEnumLanguage.Urdu:
+                break;
+            case WsEnumLanguage.Vietnamese:
+                break;
+            case WsEnumLanguage.English:
+            default:
+                Locale.CurrentLanguage = "en";
+                break;
+        }
+    }
 
     #endregion
 }

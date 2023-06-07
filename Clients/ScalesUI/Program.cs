@@ -18,7 +18,7 @@ internal static class Program
         System.Windows.Forms.Application.EnableVisualStyles();
         System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
         // Настройка.
-        AppVersion.Setup(Assembly.GetExecutingAssembly(), WsLocaleCore.LabelPrint.AppTitle);
+        AppVersion.Setup(Assembly.GetExecutingAssembly(), LabelSession.Localization.LabelPrint.AppTitle);
         ContextManager.SetupJsonScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
         // Запуск.
         ContextManager.ContextItem.SaveLogInformation(
