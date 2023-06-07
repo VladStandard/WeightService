@@ -52,13 +52,9 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
         // TODO: fix this
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (SqlItem is null)
-        {
-            await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
-            return;
-        }
+        if (SqlItem is null) return;
 
-        RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
+        RunActionsWithQuestion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogQuestion, () =>
         {
             SqlItemSave(SqlItem);
             SqlItemSaveAdditional();
@@ -79,7 +75,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected void GetItemData()
     {
-        RunActionsSafe(string.Empty, SetSqlItemCast);
+        RunAction(string.Empty, SetSqlItemCast);
         StateHasChanged();
     }
 
@@ -87,7 +83,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     {
         SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableByUid<TItem>(Uid);
         if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNew<TItem>();
+            SqlItemCast = SqlItemNewEmpty<TItem>();
     }
 
     #endregion

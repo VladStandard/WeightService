@@ -30,7 +30,7 @@ public sealed partial class ItemScaleScreenshot : ItemBase<WsSqlScaleScreenShotM
         if (SqlItemCast.ScreenShot.Length > 1)
             ImagePath = "data:image/png;base64, " + Convert.ToBase64String(SqlItemCast.ScreenShot);
         if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNew<WsSqlScaleScreenShotModel>();
+            SqlItemCast = SqlItemNewEmpty<WsSqlScaleScreenShotModel>();
     }
 
     #endregion

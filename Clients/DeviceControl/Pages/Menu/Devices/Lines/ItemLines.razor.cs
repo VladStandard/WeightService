@@ -41,20 +41,20 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
     {
         SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableById<WsSqlScaleModel>(Id);
         if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNew<WsSqlScaleModel>();
+            SqlItemCast = SqlItemNewEmpty<WsSqlScaleModel>();
 
         PrinterModels = ContextManager.ContextList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         HostModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         WorkShopModels = ContextManager.ContextList.GetListNotNullable<WsSqlWorkShopModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
 
-        SqlItemCast.PrinterMain ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlPrinterModel>();
-        SqlItemCast.PrinterShipping ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlPrinterModel>();
-        SqlItemCast.WorkShop ??= ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlWorkShopModel>();
+        SqlItemCast.PrinterMain ??= SqlItemNewEmpty<WsSqlPrinterModel>();
+        SqlItemCast.PrinterShipping ??= SqlItemNewEmpty<WsSqlPrinterModel>();
+        SqlItemCast.WorkShop ??= SqlItemNewEmpty<WsSqlWorkShopModel>();
 
         DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(SqlItemCast);
         Device = DeviceScaleFk.Device.IsNotNew
             ? DeviceScaleFk.Device
-            : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceModel>();
+            : SqlItemNewEmpty<WsSqlDeviceModel>();
 
         ComPorts = MdSerialPortsUtils.GetListTypeComPorts(Lang.English);
         SqlItemCast.ScaleFactor ??= 1000;

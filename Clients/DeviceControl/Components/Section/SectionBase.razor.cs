@@ -155,7 +155,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 
     private void GetDataWithReload()
     {
-        RunActionsSafe(string.Empty, SetSqlSectionCast);
+        RunAction(string.Empty, SetSqlSectionCast);
         IsLoading = false;
         StateHasChanged();
     }
@@ -173,7 +173,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     protected async Task OnSqlSectionSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
+        RunActionsWithQuestion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogQuestion, () =>
         {
             foreach (TItem item in SqlSectionSave)
                 ContextManager.AccessManager.AccessItem.Update(item);
@@ -185,13 +185,10 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     protected async Task SqlItemDeleteAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        if (SqlItem is null)
-        {
-            await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
-            return;
-        }
 
-        RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
+        if (SqlItem is null) return;
+
+        RunActionsWithQuestion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogQuestion, () =>
         {
             ContextManager.AccessManager.AccessItem.Delete(SqlItem);
             DeleteMarkedOrDeleted();
@@ -202,13 +199,9 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     protected async Task SqlItemMarkAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        if (SqlItem is null)
-        {
-            await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
-            return;
-        }
+        if (SqlItem is null) return;
 
-        RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
+        RunActionsWithQuestion(LocaleCore.Table.TableMark, LocaleCore.Dialog.DialogQuestion, () =>
         {
             ContextManager.AccessManager.AccessItem.Mark(SqlItem);
             DeleteMarkedOrDeleted();
@@ -219,9 +212,9 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     protected async Task SqlItemNewAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQeustion(LocaleCore.Table.TableNew, GetQuestionAdd(), () =>
+        RunActionsWithQuestion(LocaleCore.Table.TableNew, LocaleCore.Dialog.DialogQuestion, () =>
         {
-            SqlItem = SqlItemNew<TItem>();
+            SqlItem = SqlItemNewEmpty<TItem>();
             RouteService.NavigateItemRoute(SqlItemCast);
         });
     }

@@ -10,15 +10,6 @@ namespace WsBlazorCore.Razors;
 
 public partial class RazorComponentBase
 {
-    #region Public and private methods
-
-    protected string GetQuestionAdd()
-    {
-        return LocaleCore.Dialog.DialogQuestion + Environment.NewLine;
-    }
-
-    #endregion
-
     #region Public and private methods - Actions
 
     private bool SqlItemValidate<T>(NotificationService? notificationService, T? item) where T : WsSqlTableBase, new()
@@ -26,9 +17,7 @@ public partial class RazorComponentBase
         bool result = item is not null;
         string detailAddition = Environment.NewLine;
         if (result)
-        {
             result = WsSqlValidationUtils.IsValidation(item, ref detailAddition);
-        }
         switch (result)
         {
             case false:
@@ -48,13 +37,6 @@ public partial class RazorComponentBase
         }
     }
 
-    protected TItem SqlItemNew<TItem>() where TItem : WsSqlTableBase, new()
-    {
-        TItem item = new();
-        item.FillProperties();
-        return item;
-    }
-
     protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
     {
         TItem item = ContextManager.AccessManager.AccessItem.GetItemNewEmpty<TItem>();
@@ -68,12 +50,10 @@ public partial class RazorComponentBase
         if (item.IsNew)
         {
             ContextManager.AccessManager.AccessItem.Save(item);
+            return;
         }
-        else
-        {
-            if (!SqlItemValidate(NotificationService, item)) return;
-            ContextManager.AccessManager.AccessItem.Update(item);
-        }
+        if (!SqlItemValidate(NotificationService, item)) return;
+        ContextManager.AccessManager.AccessItem.Update(item);
     }
 
     protected void SqlItemsSave<T>(List<T>? items) where T : WsSqlTableBase, new()

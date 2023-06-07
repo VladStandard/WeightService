@@ -17,9 +17,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     #region Inject
 
-    [Inject] protected DialogService? DialogService { get; set; }
-    [Inject] protected NotificationService? NotificationService { get; set; }
-    [Inject] protected IHttpContextAccessor? HttpContextAccess { get; set; }
+    [Inject] protected DialogService DialogService { get; set; }
+    [Inject] protected NotificationService NotificationService { get; set; }
+    [Inject] protected IHttpContextAccessor HttpContextAccess { get; set; }
 
     #endregion
 

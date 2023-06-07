@@ -26,7 +26,7 @@ public sealed partial class ItemTemplate : ItemBase<WsSqlTemplateModel>
     {
         SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlTemplateModel>(Id);
         if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNew<WsSqlTemplateModel>();
+            SqlItemCast = SqlItemNewEmpty<WsSqlTemplateModel>();
     }
 
     #endregion

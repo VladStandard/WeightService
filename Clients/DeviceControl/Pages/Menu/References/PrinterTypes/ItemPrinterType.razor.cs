@@ -14,7 +14,7 @@ public sealed partial class ItemPrinterType : ItemBase<WsSqlPrinterTypeModel>
     {
         SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterTypeModel>(Id);
         if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNew<WsSqlPrinterTypeModel>();
+            SqlItemCast = SqlItemNewEmpty<WsSqlPrinterTypeModel>();
     }
 
     #endregion

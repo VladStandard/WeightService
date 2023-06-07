@@ -14,7 +14,7 @@ public sealed partial class ItemProductionFacility : ItemBase<WsSqlProductionFac
     {
         SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlProductionFacilityModel>(Id);
         if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNew<WsSqlProductionFacilityModel>();
+            SqlItemCast = SqlItemNewEmpty<WsSqlProductionFacilityModel>();
     }
     #endregion
 }

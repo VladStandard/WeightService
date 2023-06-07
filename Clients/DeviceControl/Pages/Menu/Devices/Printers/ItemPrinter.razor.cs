@@ -21,7 +21,7 @@ public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterModel>
     {
         SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterModel>(Id);
         if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNew<WsSqlPrinterModel>();
+            SqlItemCast = SqlItemNewEmpty<WsSqlPrinterModel>();
         PrinterTypeModels =
             ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterTypeModel>(
                 WsSqlCrudConfigUtils.GetCrudConfigComboBox()
@@ -34,7 +34,7 @@ public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterModel>
     //         return;
     //     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
     //
-    //     RunActionsWithQeustion(
+    //     RunActionsWithQuestion(
     //         LocaleCore.Print.ResourcesClear,
     //         GetQuestionAdd(),
     //         () =>
@@ -66,7 +66,7 @@ public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterModel>
     //         return;
     //     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
     //
-    //     RunActionsWithQeustion(
+    //     RunActionsWithQuestion(
     //         LocaleCore.Print.ResourcesLoadTtf,
     //         GetQuestionAdd(),
     //         () =>
