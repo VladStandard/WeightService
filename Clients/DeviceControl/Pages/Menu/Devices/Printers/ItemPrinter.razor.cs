@@ -32,7 +32,7 @@ public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterModel>
     // {
     //     if (User?.IsInRole(UserAccessStr.Write) == false)
     //         return;
-    //     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+    //     await Task.DelayInfo(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
     //
     //     RunActionsWithQuestion(
     //         LocaleCore.Print.ResourcesClear,
@@ -64,7 +64,7 @@ public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterModel>
     // {
     //     if (User?.IsInRole(UserAccessStr.Write) == false)
     //         return;
-    //     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+    //     await Task.DelayInfo(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
     //
     //     RunActionsWithQuestion(
     //         LocaleCore.Print.ResourcesLoadTtf,

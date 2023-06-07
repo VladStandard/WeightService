@@ -6,7 +6,6 @@ namespace WsStorageCore.Utils;
 public class WsSqlValidationUtils
 {
     #region Public and private methods
-
     private static void SetValidationFailureLog(ValidationResult result, ref string detailAddition)
     {
         switch (result.IsValid)
@@ -14,7 +13,8 @@ public class WsSqlValidationUtils
             case false:
                 foreach (ValidationFailure failure in result.Errors)
                 {
-                    detailAddition += $"{LocaleCore.Validator.Property} {failure.PropertyName} {LocaleCore.Validator.FailedValidation}. {LocaleCore.Validator.Error}: {failure.ErrorMessage}";
+                    detailAddition += $"<u>{LocaleCore.Validator.Property}:</u> {failure.PropertyName} {LocaleCore.Validator.FailedValidation}.<br><u>{LocaleCore.Validator.Error}:</u> {failure.ErrorMessage}";
+                    break;
                 }
                 break;
         }
@@ -135,13 +135,12 @@ public class WsSqlValidationUtils
         }
 
         ValidationResult validationResult = GetValidationResult(item);
-        if (!validationResult.IsValid)
-        {
-            SetValidationFailureLog(validationResult, ref detailAddition);
-            return false;
-        }
+        if (validationResult.IsValid)
+            return true;
+        
+        SetValidationFailureLog(validationResult, ref detailAddition);
+        return false;
 
-        return true;
     }
 
     #endregion

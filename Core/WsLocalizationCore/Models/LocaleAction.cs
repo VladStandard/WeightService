@@ -19,7 +19,7 @@ public sealed class LocaleAction : WsLocalizationBase
     public string ActionAccessAllow => Lang == Lang.English ? "Access to actions allowed" : "Доступ к действиям разрешён";
     public string ActionAccessDeny => Lang == Lang.English ? "Access to actions denied" : "Доступ к действиям запрещён";
     public string ActionAccessNone => Lang == Lang.English ? "No access to the actions" : "Доступ к действиям не предусмотрен";
-    public string ActionDataControl => Lang == Lang.English ? "Data control" : "Контроль данных";
+    public string ActionDataControl => Lang == Lang.English ? "Save data" : "Cохранние данных";
     public string ActionInfo => Lang == Lang.English ? "Information" : "Информация";
     public string ActionSaveSuccess => Lang == Lang.English ? "Saving was successful" : "Сохранение выполнено успешно";
     public string ActionDataControlField => Lang == Lang.English ? "Need to fill in the field" : "Необходимо заполнить поле";

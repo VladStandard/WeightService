@@ -31,7 +31,7 @@ public partial class RazorComponentBase
             NotificationService.Notify(
                 NotificationSeverity.Success,
                 title,
-                LocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.Delay
+                LocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.DelayInfo
                 );
         }
         catch (Exception ex)
@@ -72,7 +72,7 @@ public partial class RazorComponentBase
             NotificationSeverity.Error,
             title, 
             msg,
-            BlazorAppSettingsHelper.Delay + 2000
+            BlazorAppSettingsHelper.DelayError
             );
         ContextManager.ContextItem.SaveLogError(ex);
     }

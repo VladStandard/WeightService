@@ -12,10 +12,10 @@ public partial class RazorComponentBase
 {
     #region Public and private methods - Actions
 
-    private bool SqlItemValidate<T>(NotificationService? notificationService, T? item) where T : WsSqlTableBase, new()
+    protected bool SqlItemValidate<T>(T? item) where T : WsSqlTableBase, new()
     {
         bool result = item is not null;
-        string detailAddition = Environment.NewLine;
+        string detailAddition = string.Empty;
         if (result)
             result = WsSqlValidationUtils.IsValidation(item, ref detailAddition);
         switch (result)
@@ -26,10 +26,10 @@ public partial class RazorComponentBase
                     {
                         Severity = NotificationSeverity.Warning,
                         Summary = LocaleCore.Action.ActionDataControl,
-                        Detail = $"{LocaleCore.Action.ActionDataControlField}!" + Environment.NewLine + detailAddition,
-                        Duration = BlazorAppSettingsHelper.Delay
+                        Detail = detailAddition,
+                        Duration = BlazorAppSettingsHelper.DelayError
                     };
-                    notificationService?.Notify(msg);
+                    NotificationService.Notify(msg);
                     return false;
                 }
             default:
@@ -39,21 +39,18 @@ public partial class RazorComponentBase
 
     protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
     {
-        TItem item = ContextManager.AccessManager.AccessItem.GetItemNewEmpty<TItem>();
-        item.FillProperties();
-        return item;
+        return ContextManager.AccessManager.AccessItem.GetItemNewEmpty<TItem>();
     }
 
-    protected void SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
+    protected bool SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
     {
-        if (item is null) return;
+        if (item is null || !SqlItemValidate(item)) 
+            return false;
         if (item.IsNew)
-        {
             ContextManager.AccessManager.AccessItem.Save(item);
-            return;
-        }
-        if (!SqlItemValidate(NotificationService, item)) return;
-        ContextManager.AccessManager.AccessItem.Update(item);
+        else 
+            ContextManager.AccessManager.AccessItem.Update(item);
+        return true;
     }
 
     protected void SqlItemsSave<T>(List<T>? items) where T : WsSqlTableBase, new()
