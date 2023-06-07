@@ -228,7 +228,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         // Размер палеты.
         labelPalletSize.Text = LocaleCore.Scales.FieldPalletSize;
         // Инкремент счётчика.
-        labelIsIncrementCounter.Text = LocaleCore.Scales.FieldIsIncrementCounter;
+        labelIsIncrementCounter.Text = LocaleCore.Scales.FieldPrintCounter;
         checkBoxIsIncrementCounter.Text = LocaleCore.Scales.FieldIsIncrementCounterEnable;
         // Кнопки.
         buttonYes.Text = LocaleCore.Buttons.Ok;

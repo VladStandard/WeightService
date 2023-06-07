@@ -102,7 +102,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     {
         MdInvokeControl.SetText(FieldPrint,
             LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer, IsConnected,
-                LabelSession.Line.Counter, GetDeviceStatusTsc(), LabelPrintedCount, GetLabelCount()));
+                LabelSession.Line.LabelCounter, GetDeviceStatusTsc(), LabelPrintedCount, GetLabelCount()));
         MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 

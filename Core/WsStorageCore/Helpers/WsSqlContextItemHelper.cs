@@ -300,6 +300,13 @@ public sealed class WsSqlContextItemHelper
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore(message, WsEnumLogType.Stop, filePath, lineNumber, memberName);
 
+    /// <summary>
+    /// Записать информационное сообщение в журнал событий.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="filePath"></param>
+    /// <param name="lineNumber"></param>
+    /// <param name="memberName"></param>
     public void SaveLogInformation(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore(message, WsEnumLogType.Information, filePath, lineNumber, memberName);

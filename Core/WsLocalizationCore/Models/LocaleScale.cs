@@ -63,6 +63,7 @@ public sealed class LocaleScale : WsLocalizationBase
     public string FieldIsIncrementCounterEnable => Lang == Lang.English ? "Increase the counter when printing a piece of product" : "Увеличивать счётчик при печати штучной продукции";
     public string FieldKneading => Lang == Lang.English ? "Kneading" : "Замес";
     public string FieldPalletSize => Lang == Lang.English ? "Pallet size" : "Размер паллеты";
+    public string FieldPrintCounter => Lang == Lang.English ? "Print counter" : "Счётчик печати";
     public string FieldProductDate => Lang == Lang.English ? "Date of production" : "Дата производства";
     public string FieldSscc => Lang == Lang.English ? "Serialized Shipping Container Code" : "Код транспортной упаковки";
     public string FieldSsccControlNumber => Lang == Lang.English ? "Control number" : "Контрольное число";
@@ -94,6 +95,7 @@ public sealed class LocaleScale : WsLocalizationBase
     public string LabelContextProductDt => Lang == Lang.English ? "Date of production" : "Дата изготовления";
     public string LabelContextWeight => Lang == Lang.English ? "Weight" : "Вес";
     public string LabelContextWorkShop => Lang == Lang.English ? "WorkShop/Line" : "Цех/Линия";
+    public string LabelPrint => Lang == Lang.English ? "Label print" : "Печать этикетки";
     public string Labels => Lang == Lang.English ? "Labels" : "Этикетки";
     public string Line => Lang == Lang.English ? "Line" : "Строка";
     public string MassaDevice => Lang == Lang.English ? "Massa-K" : "Масса-К";

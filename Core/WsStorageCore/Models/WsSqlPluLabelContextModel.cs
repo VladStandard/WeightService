@@ -42,8 +42,8 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string ExpirationDtWithCaption { get => $"{LocaleCore.Scales.LabelContextExpirationDt}: {ExpirationDt}"; set => _ = value; }
     [XmlElement] public virtual string ScaleNumber { get => $"{PluScale.Line.Number:00000}"; set => _ = value; }
     [XmlElement] public virtual string ScaleDescription { get => $"{LocaleCore.Scales.LabelContextWorkShop}: {PluScale.Line.Description}"; set => _ = value; }
-    [XmlElement] public virtual string ScaleCounter8 { get => $"{PluScale.Line.Counter:00000000}"; set => _ = value; }
-    [XmlElement] public virtual string ScaleCounter6 { get => $"{PluScale.Line.Counter:000000}"; set => _ = value; }
+    [XmlElement] public virtual string ScaleCounter8 { get => $"{PluScale.Line.LabelCounter:00000000}"; set => _ = value; }
+    [XmlElement] public virtual string ScaleCounter6 { get => $"{PluScale.Line.LabelCounter:000000}"; set => _ = value; }
     [XmlElement] public virtual string PluNesting2 { get => $"{ViewPluNesting.BundleCount:00}"; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg2 { get => $"{PluWeighing.NettoWeight:00.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg3 { get => $"{PluWeighing.NettoWeight:000.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }

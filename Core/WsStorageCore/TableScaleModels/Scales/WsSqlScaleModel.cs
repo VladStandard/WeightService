@@ -22,12 +22,12 @@ public class WsSqlScaleModel : WsSqlTableBase
     [XmlElement] public virtual string ZebraIp { get; set; }
     [XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
     [XmlElement] public virtual int Number { get; set; }
-    private int _counter;
+    private int _labelCounter;
     /// <summary>
     /// Счётчик этикеток (от 1 до 1_000_000).
     /// </summary>
     [XmlElement]
-    public virtual int Counter { get => _counter; set { _counter = value > 1_000_000 ? 1 : value; } }
+    public virtual int LabelCounter { get => _labelCounter; set { _labelCounter = value > 1_000_000 ? 1 : value; } }
     [XmlElement(IsNullable = true)] public virtual int? ScaleFactor { get; set; }
     [XmlElement] public virtual bool IsShipping { get; set; }
     [XmlElement] public virtual bool IsOrder { get; set; }
@@ -49,7 +49,7 @@ public class WsSqlScaleModel : WsSqlTableBase
         ZebraIp = string.Empty;
         ZebraPort = default;
         Number = 0;
-        Counter = 0;
+        LabelCounter = 0;
         ScaleFactor = default;
         IsShipping = false;
         IsOrder = false;
@@ -73,7 +73,7 @@ public class WsSqlScaleModel : WsSqlTableBase
         ZebraIp = info.GetString(nameof(ZebraIp));
         ZebraPort = (short?)info.GetValue(nameof(ZebraPort), typeof(short));
         Number = info.GetInt32(nameof(Number));
-        Counter = info.GetInt32(nameof(Counter));
+        LabelCounter = info.GetInt32(nameof(LabelCounter));
         ScaleFactor = (int?)info.GetValue(nameof(ScaleFactor), typeof(int));
         IsShipping = info.GetBoolean(nameof(IsShipping));
         IsOrder = info.GetBoolean(nameof(IsOrder));
@@ -107,7 +107,7 @@ public class WsSqlScaleModel : WsSqlTableBase
         Equals(ZebraPort, null) &&
         Equals(IsOrder, false) &&
         Equals(Number, 0) &&
-        Equals(Counter, 0) &&
+        Equals(LabelCounter, 0) &&
         Equals(ScaleFactor, null) &&
         Equals(IsShipping, false) &&
         Equals(IsKneading, false) &&
@@ -133,7 +133,7 @@ public class WsSqlScaleModel : WsSqlTableBase
         item.ZebraPort = ZebraPort;
         item.IsOrder = IsOrder;
         item.Number = Number;
-        item.Counter = Counter;
+        item.LabelCounter = LabelCounter;
         item.ScaleFactor = ScaleFactor;
         return item;
     }
@@ -156,7 +156,7 @@ public class WsSqlScaleModel : WsSqlTableBase
         info.AddValue(nameof(ZebraIp), ZebraIp);
         info.AddValue(nameof(ZebraPort), ZebraPort);
         info.AddValue(nameof(Number), Number);
-        info.AddValue(nameof(Counter), Counter);
+        info.AddValue(nameof(LabelCounter), LabelCounter);
         info.AddValue(nameof(ScaleFactor), ScaleFactor);
         info.AddValue(nameof(IsShipping), IsShipping);
         info.AddValue(nameof(IsOrder), IsOrder);
@@ -195,7 +195,7 @@ public class WsSqlScaleModel : WsSqlTableBase
         Equals(ZebraPort, item.ZebraPort) &&
         Equals(IsOrder, item.IsOrder) &&
         Equals(Number, item.Number) &&
-        Equals(Counter, item.Counter) &&
+        Equals(LabelCounter, item.LabelCounter) &&
         Equals(ScaleFactor, item.ScaleFactor) &&
         Equals(IsShipping, item.IsShipping) &&
         Equals(IsKneading, item.IsKneading) &&

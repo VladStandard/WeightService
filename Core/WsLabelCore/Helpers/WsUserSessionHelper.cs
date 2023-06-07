@@ -314,9 +314,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <param name="isClearBuffer"></param>
     public void PrintLabel(Label fieldWarning, bool isClearBuffer)
     {
-        if (LabelSession.Line is { IsOrder: true })
-            throw new("Order under construct!");
-
+        // Заказ в разработке.
+        if (LabelSession.Line is { IsOrder: true }) throw new("Order under construct!");
         // Получить шаблон этикетки.
         WsSqlTemplateModel template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
         // Проверить наличие шаблона этикетки.
@@ -332,15 +331,14 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             // Весовая ПЛУ.
             case true:
-                PrintLabelCore(template, isClearBuffer);
+                PrintLabelCore(ref template, isClearBuffer, false);
                 break;
             // Штучная ПЛУ.
             default:
-                PrintLabelCount(template, isClearBuffer);
+                PrintLabelCount(ref template, isClearBuffer);
                 break;
         
         }
-
         LabelSession.PluWeighing = new();
     }
 
@@ -349,7 +347,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// </summary>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCount(WsSqlTemplateModel template, bool isClearBuffer)
+    private void PrintLabelCount(ref WsSqlTemplateModel template, bool isClearBuffer)
     {
         byte labelsCount = LabelSession.WeighingSettings.LabelsCountMain;
         // Шаблон с указанием кол-ва штучной продукции.
@@ -361,7 +359,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
                 // Изменить кол-во этикеток.
                 template.Data = template.Data.Replace("^PQ1", $"^PQ{labelsCount}");
                 // Печать этикетки ПЛУ.
-                PrintLabelCore(template, isClearBuffer);
+                PrintLabelCore(ref template, isClearBuffer, false);
             }
             // Инкремент счётчика печати штучной продукции.
             else
@@ -370,9 +368,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
                 for (int i = 1; i <= labelsCount; i++)
                 {
                     // Печать этикетки ПЛУ.
-                    PrintLabelCore(template, isClearBuffer);
-                    // Фикс шаблона.
-                    template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
+                    PrintLabelCore(ref template, isClearBuffer, true);
                 }
             }
         }
@@ -383,9 +379,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             for (int i = 1; i <= labelsCount; i++)
             {
                 // Печать этикетки ПЛУ.
-                PrintLabelCore(template, isClearBuffer);
-                // Фикс шаблона.
-                template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
+                PrintLabelCore(ref template, isClearBuffer, true);
             }
         }
     }
@@ -449,7 +443,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// </summary>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCore(WsSqlTemplateModel template, bool isClearBuffer)
+    /// <param name="isReloadTemplete"></param>
+    private void PrintLabelCore(ref WsSqlTemplateModel template, bool isClearBuffer, bool isReloadTemplete)
     {
         try
         {
@@ -458,24 +453,22 @@ public sealed class WsUserSessionHelper //: BaseViewModel
                 LabelSession.PluLine.Line = LabelSession.Line;
             // Инкремент счётчика этикеток.
             LabelSession.AddLineCounter();
-            // Создать этикетку из шаблона.
+            // Создать и сохранить этикетку из шаблона.
             (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = 
                 CreateAndSavePluLabel(template);
             // Создать ШК из этикетки.
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
-
             // Очистить буфер печати.
             if (isClearBuffer)
             {
                 LabelSession.PluginPrintTscMain?.ClearPrintBuffer();
-                LabelSession.PluginPrintTscMain?.ClearPrintBuffer();
+                LabelSession.PluginPrintZebraMain?.ClearPrintBuffer();
                 if (LabelSession.Line.IsShipping)
                 {
                     LabelSession.PluginPrintTscShipping?.ClearPrintBuffer();
                     LabelSession.PluginPrintZebraShipping?.ClearPrintBuffer();
                 }
             }
-
             // TODO: исправить здесь
             //// Отправить команду в принтер.
             //if (Debug.IsDevelop)
@@ -495,10 +488,16 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             //    // Отправить команду в принтер.
             //    LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
             //}
-
             // Отправить команду в принтер.
             LabelSession.PluginPrintTscMain?.SendCmd(pluLabelWithContext.PluLabel);
             LabelSession.PluginPrintZebraMain?.SendCmd(pluLabelWithContext.PluLabel);
+            // Пересоздать шаблон.
+            if (isReloadTemplete)
+                template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
+            // Журнал событий.
+            ContextManager.ContextItem.SaveLogInformation(
+                $"{LocaleCore.Scales.LabelPrint}: {pluLabelWithContext.PluLabelContext.PluNumber} | " +
+                $"{pluLabelWithContext.PluLabelContext.PluName}");
         }
         catch (Exception ex)
         {
@@ -520,7 +519,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     }
 
     /// <summary>
-    /// Создать этикетку из шаблона.
+    /// Создать и сохранить этикетку из шаблона.
     /// </summary>
     /// <param name="template"></param>
     /// <returns></returns>
@@ -559,7 +558,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         // Заменить zpl-ресурсы из таблицы ресурсов шаблонов.
         _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
-        // Сохранить этикуетку.
+        // Сохранить этикетку.
         ContextManager.AccessItem.Save(pluLabel);
 
         return (pluLabel, pluLabelContext);

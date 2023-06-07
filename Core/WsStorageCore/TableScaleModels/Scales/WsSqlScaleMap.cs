@@ -28,7 +28,7 @@ public sealed class WsSqlScaleMap : ClassMap<WsSqlScaleModel>
         Map(item => item.ZebraPort).CustomSqlType("SMALLINT").Column("ZebraPort");
         Map(item => item.IsOrder).CustomSqlType("SMALLINT").Column("UseOrder").Default("0").Nullable();
         Map(item => item.Number).CustomSqlType("INT").Column("NUMBER").Not.Nullable();
-        Map(item => item.Counter).CustomSqlType("INT").Column("COUNTER").Not.Nullable();
+        Map(item => item.LabelCounter).CustomSqlType("INT").Column("COUNTER").Not.Nullable();
         Map(item => item.ScaleFactor).CustomSqlType("INT").Column("ScaleFactor").Default("1000");
         Map(item => item.IsShipping).CustomSqlType("BIT").Column("IS_SHIPPING").Not.Nullable().Default("0");
         Map(item => item.ShippingLength).CustomSqlType("INT").Column("SHIPPING_LEN").Not.Nullable().Default("0");

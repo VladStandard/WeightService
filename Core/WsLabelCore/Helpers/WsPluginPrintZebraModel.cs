@@ -115,7 +115,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     {
         MdInvokeControl.SetText(FieldPrint,
             LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer, IsConnected,
-                LabelSession.Line.Counter, GetDeviceStatusZebra(), LabelPrintedCount, GetLabelCount()));
+                LabelSession.Line.LabelCounter, GetDeviceStatusZebra(), LabelPrintedCount, GetLabelCount()));
         //MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 

@@ -270,8 +270,9 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         else
             ViewPluNesting = viewPluNesting;
         // Журналирование смены вложенности ПЛУ.
-        ContextManager.ContextItem.SaveLogInformation(
-            $"{LocaleCore.Scales.SetPluNesting(ViewPluNesting.PluNumber, ViewPluNesting.PluName, ViewPluNesting.BundleCount)}");
+        if (PluLine.IsExists)
+            ContextManager.ContextItem.SaveLogInformation(
+                $"{LocaleCore.Scales.SetPluNesting(ViewPluNesting.PluNumber, ViewPluNesting.PluName, ViewPluNesting.BundleCount)}");
     }
 
     /// <summary>
@@ -288,7 +289,8 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     public void AddLineCounter()
     {
-        Line.Counter++;
+        Line.LabelCounter++;
+        PluLine.Line.LabelCounter = Line.LabelCounter;
         ContextManager.AccessItem.Update(Line);
     }
 
