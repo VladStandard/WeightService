@@ -35,7 +35,7 @@ public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
         {
             WsSqlAcceptVersion.V2 => // Новый ответ 1С - не найдено.
                 GetContentResult(() => NewResponse1CIsNotFound(
-                    $"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
+                    $"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => BrandsController.NewResponseBrands(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendBrands,

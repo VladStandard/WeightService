@@ -87,7 +87,7 @@ public class WsSqlLogTypeModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Icon = LocaleCore.Sql.SqlItemFieldIcon;
+        Icon = WsLocaleCore.Sql.SqlItemFieldIcon;
     }
 
     #endregion

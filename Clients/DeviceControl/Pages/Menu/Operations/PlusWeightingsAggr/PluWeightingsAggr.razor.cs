@@ -14,7 +14,7 @@ public sealed partial class PluWeightingsAggr : LayoutComponentBase
     private bool IsShowPlu { get; set; }
 
     private string SqlListCountResult =>
-        $"{LocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
+        $"{WsLocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
 
     private List<WsSqlPluAggrModel> PluWeightAggrs { get; set; }
 

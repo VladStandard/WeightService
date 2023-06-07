@@ -5,7 +5,7 @@ using WsLocalizationCore.Models;
 
 namespace WsLocalizationCore.Utils;
 
-public static class LocaleCore
+public static class WsLocaleCore
 {
     #region Public and private fields, properties, constructor
 
@@ -39,7 +39,7 @@ public static class LocaleCore
 
     #region Constructor and destructor
 
-    static LocaleCore()
+    static WsLocaleCore()
     {
         Lang = WsEnumLanguage.Russian;
     }

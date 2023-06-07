@@ -14,8 +14,8 @@ public sealed partial class Templates : SectionBase<WsSqlTemplateModel>
     private string ConvertBytes(WsSqlTemplateModel templateModel)
     {
         return templateModel.Data.Length > 1024
-            ? $"{templateModel.Data.Length / 1024:### ##0} {LocaleCore.Strings.DataSizeKBytes}"
-            : $"{templateModel.Data.Length:##0} {LocaleCore.Strings.DataSizeBytes}";
+            ? $"{templateModel.Data.Length / 1024:### ##0} {WsLocaleCore.Strings.DataSizeKBytes}"
+            : $"{templateModel.Data.Length:##0} {WsLocaleCore.Strings.DataSizeBytes}";
     }
 
     #endregion

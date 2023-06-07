@@ -7,7 +7,7 @@
 
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionBoxes"
+  Title="@WsLocaleCore.DeviceControl.SectionBoxes"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -25,8 +25,8 @@
   <Columns>
     <TItemContent TItem="@WsSqlBoxModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.BoxWeight" Property="Weight"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="75%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.BoxWeight" Property="Weight"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Utils;
 
-public static partial class LocaleData
+public static partial class WsLocaleData
 {
     public static class Program
     {

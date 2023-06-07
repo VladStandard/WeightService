@@ -7,7 +7,7 @@
 @inherits SectionBase<WsStorageCore.ViewScaleModels.DeviceView>
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionHosts"
+  Title="@WsLocaleCore.DeviceControl.SectionHosts"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -25,12 +25,12 @@
   <Columns>
     <TItemContent TItem="@DeviceView">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LogoutDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Property="TypeName" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceIp" Property="Ip" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceMac" Property="ValuePrettyLookMinus" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LoginDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LogoutDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Type" Property="TypeName" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.DeviceIp" Property="Ip" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.DeviceMac" Property="ValuePrettyLookMinus" Width="20%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

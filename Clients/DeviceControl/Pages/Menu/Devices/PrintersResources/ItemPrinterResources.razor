@@ -6,23 +6,23 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
 
-<ItemTopBar TItem="@WsSqlPrinterResourceFkModel" Title="@LocaleCore.Print.Resource" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPrinterResourceFkModel" Title="@WsLocaleCore.Print.Resource" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Print.Name</td>
+    <td>@WsLocaleCore.Print.Name</td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Printer" Data="@PrinterModels" TextProperty="Name"/>
     </td>
-    <td>@LocaleCore.Table.Resource</td>
+    <td>@WsLocaleCore.Table.Resource</td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.TemplateResource" Data="@TemplateResourceModels" TextProperty="Name"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Description</td>
+    <td>@WsLocaleCore.Table.Description</td>
     <td colspan="3">
       <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Description"/>
     </td>

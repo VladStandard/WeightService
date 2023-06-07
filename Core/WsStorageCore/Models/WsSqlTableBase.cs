@@ -168,8 +168,8 @@ public class WsSqlTableBase : SerializeBase, ICloneable
     public virtual void FillProperties()
     {
         SetDtNow();
-        Name = LocaleCore.Sql.SqlItemFieldName;
-        Description = LocaleCore.Sql.SqlItemFieldDescription;
+        Name = WsLocaleCore.Sql.SqlItemFieldName;
+        Description = WsLocaleCore.Sql.SqlItemFieldDescription;
     }
 
     public virtual void UpdateProperties(WsSqlTableBase item) => UpdateProperties(item, false);

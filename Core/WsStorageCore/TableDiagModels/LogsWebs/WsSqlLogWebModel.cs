@@ -146,7 +146,7 @@ public class WsSqlLogWebModel : WsSqlTableBase
     {
         base.FillProperties();
 
-        Version = LocaleCore.Sql.SqlItemFieldVersion;
+        Version = WsLocaleCore.Sql.SqlItemFieldVersion;
     }
 
     #endregion

@@ -30,9 +30,9 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
     public MemoryModel Memory { get; private set; } = new();
     public static int Delay => 2500;
     public string MemoryInfo => Memory.MemorySize.PhysicalTotal != null
-        ? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalAllocated.MegaBytes:N0} MB " +
-          $"{LocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
-        : $"{LocaleCore.Memory.Memory}: - MB";
+        ? $"{WsLocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalAllocated.MegaBytes:N0} MB " +
+          $"{WsLocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
+        : $"{WsLocaleCore.Memory.Memory}: - MB";
     public uint MemoryFillSize => Memory.MemorySize.PhysicalTotal == null || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
         ? 0 : (uint)(Memory.MemorySize.PhysicalAllocated.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes);
 

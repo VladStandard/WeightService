@@ -206,10 +206,10 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
             else i++;
         }
         // Обновить метки.
-        buttonLeftScroll.Text = LocaleCore.Buttons.Back;
-        buttonCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {LabelSession.PlusPageNumber + 1}";
-        buttonRightScroll.Text = LocaleCore.Buttons.Forward;
-        buttonCancel.Text = LocaleCore.Buttons.Cancel;
+        buttonLeftScroll.Text = WsLocaleCore.Buttons.Back;
+        buttonCurrentPage.Text = $@"{WsLocaleCore.Scales.PluPage} {LabelSession.PlusPageNumber + 1}";
+        buttonRightScroll.Text = WsLocaleCore.Buttons.Forward;
+        buttonCancel.Text = WsLocaleCore.Buttons.Cancel;
         buttonCancel.Select();
     }
 

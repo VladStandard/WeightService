@@ -64,7 +64,7 @@ public sealed class WsSqlContextManagerHelper
         string file = Path.Combine(dir, fileName);
         if (!File.Exists(file))
         {
-            throw new(LocaleCore.System.JsonSettingsFileNotFound(file));
+            throw new(WsLocaleCore.System.JsonSettingsFileNotFound(file));
         }
 
         using StreamReader streamReader = File.OpenText(file);
@@ -110,7 +110,7 @@ public sealed class WsSqlContextManagerHelper
 
             if (!SetupJsonSettingsCore(localDir, false, JsonSettings.JsonFileName))
             {
-                throw new(LocaleCore.System.JsonSettingsLocalFileException);
+                throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
             }
 
             AccessCore.SetupSessionFactory(WsDebugHelper.Instance.IsDevelop);
@@ -127,7 +127,7 @@ public sealed class WsSqlContextManagerHelper
         CheckJsonUpdates(localDir, fileName);
 
         if (!SetupJsonSettingsCore(localDir, false, fileName))
-            throw new(LocaleCore.System.JsonSettingsLocalFileException);
+            throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
 
         AccessCore.SetupSessionFactory(isShowSql);
         ContextItem.SetupLog(deviceName, appName);
@@ -164,19 +164,19 @@ public sealed class WsSqlContextManagerHelper
                 // Local folder.
                 CheckJsonUpdates(subDir, JsonSettings.JsonFileName);
                 if (!SetupJsonSettingsCore(subDir, false, JsonSettings.JsonFileName))
-                    throw new(LocaleCore.System.JsonSettingsLocalFileException);
+                    throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
             }
             else
             {
                 // IIS publish folder.
                 CheckJsonUpdates(localDir, JsonSettings.JsonFileName);
                 if (!SetupJsonSettingsCore(localDir, false, JsonSettings.JsonFileName))
-                    throw new(LocaleCore.System.JsonSettingsLocalFileException);
+                    throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
             }
 
             AccessCore.SetupSessionFactory(isShowSql); // DebugHelper.Instance.IsDevelop
             ContextItem.SetupLog(appName);
-            ContextItem.SaveLogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
+            ContextItem.SaveLogInformation(WsLocaleCore.DeviceControl.WebAppIsStarted);
         }
         catch (Exception ex)
         {
@@ -200,12 +200,12 @@ public sealed class WsSqlContextManagerHelper
 
         if (!Directory.Exists(JsonSettings.RemoteDir))
         {
-            throw new(LocaleCore.System.JsonSettingsRemoteFolderNotFound);
+            throw new(WsLocaleCore.System.JsonSettingsRemoteFolderNotFound);
         }
         string remoteFile = Path.Combine(JsonSettings.RemoteDir, fileName);
         if (!Directory.Exists(JsonSettings.RemoteDir))
         {
-            throw new(LocaleCore.System.JsonSettingsRemoteFileNotFound);
+            throw new(WsLocaleCore.System.JsonSettingsRemoteFileNotFound);
         }
 
         SetupJsonSettingsCore(JsonSettings.RemoteDir, true, fileName);
@@ -225,7 +225,7 @@ public sealed class WsSqlContextManagerHelper
             {
                 //if (isFileLog)
                 //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
-                throw new(LocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
+                throw new(WsLocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
             }
 
             using StreamWriter streamWriter = File.CreateText(Path.Combine(localDir, fileName));

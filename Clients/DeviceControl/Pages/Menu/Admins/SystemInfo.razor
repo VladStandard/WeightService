@@ -3,7 +3,7 @@
 @using DeviceControl.Components.Item
 @inherits RazorComponentBase
 
-<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
+<MudElement HtmlTag="h3" Class="ma-0">@WsLocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyleInfo()"/>
   <tbody>
@@ -12,32 +12,32 @@
     <td colspan="2">@($"v{VerApp} / v{VerLibBlazorCore} / v{VerLibDataCore}")</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Strings.HostName</td>
+    <td>@WsLocaleCore.Strings.HostName</td>
     <td colspan="2">@Environment.MachineName</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Sql.SqlServer</td>
+    <td>@WsLocaleCore.Sql.SqlServer</td>
     <td colspan="2">@ContextManager.JsonSettings.Local.Sql.DataSource</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Sql.SqlDb</td>
+    <td>@WsLocaleCore.Sql.SqlDb</td>
     <td colspan="2">@ContextManager.JsonSettings.Local.Sql.InitialCatalog</td>
   </tr>
   <tr>
     <td>
       @if (ContextManager.JsonSettings.Local.Sql.PersistSecurityInfo)
       {
-        @LocaleCore.System.SystemWindowsUser
+        @WsLocaleCore.System.SystemWindowsUser
       }
       else
       {
-        @LocaleCore.Sql.SqlUser
+        @WsLocaleCore.Sql.SqlUser
       }
     </td>
     <td colspan="2">@ContextManager.JsonSettings.Local.Sql.UserId</td>
   </tr>
   <tr style="height: 200px; ">
-    <td>@LocaleCore.Strings.DbAndMemoryGauge</td>
+    <td>@WsLocaleCore.Strings.DbAndMemoryGauge</td>
     <td>
       <div align="center">
         <h4>Windows</h4>

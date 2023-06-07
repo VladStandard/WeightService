@@ -95,7 +95,7 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Code = LocaleCore.Sql.SqlItemFieldCode;
+        Code = WsLocaleCore.Sql.SqlItemFieldCode;
     }
 
     public override void UpdateProperties(WsSqlTable1CBase item)

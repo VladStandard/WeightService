@@ -75,13 +75,13 @@ public class CssStyleTableHeadModel : CssStyleBase
         if (!ColumnsWidths.Any())
             return columnsTitles;
 
-        columnsTitles.Add(LocaleCore.Strings.SettingName);
+        columnsTitles.Add(WsLocaleCore.Strings.SettingName);
         if (ColumnsWidths.Count > 1)
-            columnsTitles.Add(LocaleCore.Strings.SettingValue);
+            columnsTitles.Add(WsLocaleCore.Strings.SettingValue);
         if (ColumnsWidths.Count > 2)
-            columnsTitles.Add(LocaleCore.Strings.SettingName);
+            columnsTitles.Add(WsLocaleCore.Strings.SettingName);
         if (ColumnsWidths.Count > 3)
-            columnsTitles.Add(LocaleCore.Strings.SettingValue);
+            columnsTitles.Add(WsLocaleCore.Strings.SettingValue);
         return columnsTitles;
     }
 

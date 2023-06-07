@@ -8,100 +8,100 @@
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.Scales.WsSqlScaleModel>
 
-<ItemTopBar TItem="@WsSqlScaleModel" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlScaleModel" Title="@WsLocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Description"/>
     </td>
 
-    <td>@LocaleCore.Table.IsKneading</td>
+    <td>@WsLocaleCore.Table.IsKneading</td>
     <td>
       <RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsKneading"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(Device)" Text="@LocaleCore.Table.Host"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(Device)" Text="@WsLocaleCore.Table.Host"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@Device" Data="@HostModels" TextProperty="DisplayName"/>
     </td>
-    <td>@LocaleCore.Table.IsOrder</td>
+    <td>@WsLocaleCore.Table.IsOrder</td>
     <td>
       <RadzenCheckBox @bind-Value="@SqlItemCast.IsOrder"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterMain)" Text="@LocaleCore.Print.NameMain"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterMain)" Text="@WsLocaleCore.Print.NameMain"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName"/>
     </td>
-    <td>@LocaleCore.Table.DeviceComPort</td>
+    <td>@WsLocaleCore.Table.DeviceComPort</td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.DeviceComPort" Data="@ComPorts" TextProperty="Name" ValueProperty="Value"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterShipping)" Text="@LocaleCore.Print.NameShipping"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterShipping)" Text="@WsLocaleCore.Print.NameShipping"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.PrinterShipping" Data="@PrinterModels" TextProperty="DisplayName"/>
     </td>
-    <td>@LocaleCore.Table.IsShipping</td>
+    <td>@WsLocaleCore.Table.IsShipping</td>
     <td>
       <RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsShipping"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@WsLocaleCore.Table.WorkShopName"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="Name"/>
     </td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop?.ProductionFacility)" Text="@LocaleCore.Table.ProductionFacility"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop?.ProductionFacility)" Text="@WsLocaleCore.Table.ProductionFacility"/>
     </td>
-    <td>@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldEmpty)</td>
+    <td>@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : WsLocaleCore.Table.FieldEmpty)</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.DeviceReceiveTimeout</td>
+    <td>@WsLocaleCore.Table.DeviceReceiveTimeout</td>
     <td>
       <RzNumeric Min="0" @bind-Value="@SqlItemCast.DeviceReceiveTimeout"/>
     </td>
 
-    <td>@LocaleCore.Table.DeviceSendTimeout</td>
+    <td>@WsLocaleCore.Table.DeviceSendTimeout</td>
     <td>
       <RzNumeric Min="0" @bind-Value="@SqlItemCast.DeviceSendTimeout"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.DeviceNumber</td>
+    <td>@WsLocaleCore.Table.DeviceNumber</td>
     <td>
       <RzNumeric Min="1" Max="99999" @bind-Value="@SqlItemCast.Number"/>
     </td>
 
-    <td>@LocaleCore.Table.IsShippingLength</td>
+    <td>@WsLocaleCore.Table.IsShippingLength</td>
     <td>
       <RzNumeric Min="@byte.MinValue" Max="@byte.MaxValue" @bind-Value="@SqlItemCast.ShippingLength"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.ScaleFactor</td>
+    <td>@WsLocaleCore.Table.ScaleFactor</td>
     <td>
       <RzNumeric @bind-Value="@SqlItemCast.ScaleFactor"/>
     </td>
 
-    <td>@LocaleCore.Table.Counter</td>
+    <td>@WsLocaleCore.Table.Counter</td>
     <td>
       <RzNumeric Min="0" Max="99999" @bind-Value="@SqlItemCast.LabelCounter"/>
     </td>

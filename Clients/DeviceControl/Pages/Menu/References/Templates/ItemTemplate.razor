@@ -6,24 +6,24 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<WsStorageCore.TableScaleModels.Templates.WsSqlTemplateModel>
 
-<ItemTopBar TItem="@WsSqlTemplateModel" Title="@LocaleCore.DeviceControl.ItemTemplate" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlTemplateModel" Title="@WsLocaleCore.DeviceControl.ItemTemplate" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Title</td>
+    <td>@WsLocaleCore.Table.Title</td>
     <td>
       <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Title"/>
     </td>
-    <td>@LocaleCore.Table.CategoryName</td>
+    <td>@WsLocaleCore.Table.CategoryName</td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.CategoryId" Data="@TemplateCategories" ValueProperty="Value" TextProperty="Name"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.ImageData</td>
+    <td>@WsLocaleCore.Table.ImageData</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"

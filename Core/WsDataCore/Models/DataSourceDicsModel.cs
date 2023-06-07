@@ -55,7 +55,7 @@ public class DataSourceDicsHelper
         return result;
     }
 
-    public List<WsEnumTypeModel<WsEnumLanguage>> GetTemplateLanguages() => LocaleCore.Lang switch
+    public List<WsEnumTypeModel<WsEnumLanguage>> GetTemplateLanguages() => WsLocaleCore.Lang switch
     {
         WsEnumLanguage.English => GetTemplateLanguagesEng(),
         WsEnumLanguage.Russian => GetTemplateLanguagesRus(),

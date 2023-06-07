@@ -126,7 +126,7 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Zpl = LocaleCore.Sql.SqlItemFieldZpl;
+        Zpl = WsLocaleCore.Sql.SqlItemFieldZpl;
         ProductDt = DateTime.Now;
         PluWeighing?.FillProperties();
         PluScale.FillProperties();

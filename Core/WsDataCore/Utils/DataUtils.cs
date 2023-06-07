@@ -32,19 +32,19 @@ public static class DataUtils
     {
         if (value == null)
             return isShowLabel 
-					? $"{LocaleCore.Strings.DataSizeVolume}: 0 {LocaleCore.Strings.DataSizeBytes}"
-		            : $"0 {LocaleCore.Strings.DataSizeBytes}";
+					? $"{WsLocaleCore.Strings.DataSizeVolume}: 0 {WsLocaleCore.Strings.DataSizeBytes}"
+		            : $"0 {WsLocaleCore.Strings.DataSizeBytes}";
         if (Encoding.Default.GetString(value).Length > 1024 * 1024)
             return isShowLabel 
-				? $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}"
-				: $"{(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}";
+				? $"{WsLocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeMBytes}"
+				: $"{(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeMBytes}";
         if (Encoding.Default.GetString(value).Length > 1024)
             return isShowLabel
-				? $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}"
-				: $"{(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}";
+				? $"{WsLocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeKBytes}"
+				: $"{(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeKBytes}";
         return isShowLabel 
-	        ? $"{LocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(value).Length:### ###} {LocaleCore.Strings.DataSizeBytes}"
-	        : $"{Encoding.Default.GetString(value).Length:### ###} {LocaleCore.Strings.DataSizeBytes}";
+	        ? $"{WsLocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(value).Length:### ###} {WsLocaleCore.Strings.DataSizeBytes}"
+	        : $"{Encoding.Default.GetString(value).Length:### ###} {WsLocaleCore.Strings.DataSizeBytes}";
     }
 
     public static string GetBytesLength(string value, bool isShowLabel)
@@ -68,8 +68,8 @@ public static class DataUtils
     public static string GetStringLength(string str)
     {
         if (string.IsNullOrEmpty(str))
-            return $"{LocaleCore.Strings.DataSizeLength}: 0 {LocaleCore.Strings.DataSizeChars}";
-        return $"{LocaleCore.Strings.DataSizeLength}: {str.Length:### ###} {LocaleCore.Strings.DataSizeChars}";
+            return $"{WsLocaleCore.Strings.DataSizeLength}: 0 {WsLocaleCore.Strings.DataSizeChars}";
+        return $"{WsLocaleCore.Strings.DataSizeLength}: {str.Length:### ###} {WsLocaleCore.Strings.DataSizeChars}";
     }
 
     public static byte[] GetBytes(Stream stream, bool useBase64)

@@ -6,7 +6,7 @@
 @inherits SectionBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
 
 <SectionTopBar
-  Title="@LocaleCore.Print.Names"
+  Title="@WsLocaleCore.Print.Names"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,10 +24,10 @@
   <Columns>
     <TItemContent TItem="@WsSqlPrinterModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Print.Type" Property="PrinterType.Name" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Print.Ip" Property="Ip" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Print.Mac" Property="MacAddress.ValuePrettyLookMinus" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Print.Type" Property="PrinterType.Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Print.Ip" Property="Ip" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Print.Mac" Property="MacAddress.ValuePrettyLookMinus" Width="20%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

@@ -50,9 +50,9 @@ public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
             FieldPlu = fieldPlu;
             FieldProductDate = fieldProductDate;
             FieldKneading = fieldKneading;
-            MdInvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
+            MdInvokeControl.SetText(FieldPlu, WsLocaleCore.Scales.Plu);
             //MdInvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
-            MdInvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
+            MdInvokeControl.SetText(FieldProductDate, WsLocaleCore.Scales.FieldDate);
             MdInvokeControl.SetText(FieldKneading, string.Empty);
         });
     }
@@ -73,12 +73,12 @@ public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
     private void Request()
     {
         if (LabelSession.PluLine.IsNew)
-            MdInvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
+            MdInvokeControl.SetText(FieldPlu, WsLocaleCore.Scales.Plu);
         else
             MdInvokeControl.SetText(FieldPlu,
                 LabelSession.PluLine.Plu.IsCheckWeight
-                    ? $"{LocaleCore.Scales.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
-                    : $"{LocaleCore.Scales.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
+                    ? $"{WsLocaleCore.Scales.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
+                    : $"{WsLocaleCore.Scales.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
         MdInvokeControl.SetText(FieldProductDate, $"{LabelSession.ProductDate:dd.MM.yyyy}");
         MdInvokeControl.SetText(FieldKneading, $"{LabelSession.WeighingSettings.Kneading}");
     }

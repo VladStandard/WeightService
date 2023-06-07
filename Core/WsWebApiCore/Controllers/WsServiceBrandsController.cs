@@ -20,7 +20,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
     #region Public and private methods
 
     private List<WsXmlContentRecord<WsSqlBrandModel>> GetXmlBrandList(XElement xml) =>
-        WsServiceContentUtils.GetNodesListCore<WsSqlBrandModel>(xml, LocaleCore.WebService.XmlItemBrand,
+        WsServiceContentUtils.GetNodesListCore<WsSqlBrandModel>(xml, WsLocaleCore.WebService.XmlItemBrand,
             (xmlNode, itemXml) =>
             {
                 WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");

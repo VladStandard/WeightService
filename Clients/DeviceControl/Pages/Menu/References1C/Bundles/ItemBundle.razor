@@ -5,16 +5,16 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<WsStorageCore.TableScaleModels.Bundles.WsSqlBundleModel>
 
-<ItemTopBar TItem="WsSqlBundleModel" Title="@LocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="WsSqlBundleModel" Title="@WsLocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>@SqlItemCast.Name</td>
-    <td>@LocaleCore.Table.Weight</td>
+    <td>@WsLocaleCore.Table.Weight</td>
     <td>@SqlItemCast.Weight</td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>

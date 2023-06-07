@@ -6,14 +6,14 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<WsStorageCore.TableScaleModels.PrintersTypes.WsSqlPrinterTypeModel>
 
-<ItemTopBar TItem="@WsSqlPrinterTypeModel" Title="@LocaleCore.Print.Type" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPrinterTypeModel" Title="@WsLocaleCore.Print.Type" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Name"/>
     </td>

@@ -50,7 +50,7 @@ public partial class WsXamlLinesPage
             comboBoxArea.DisplayMemberPath = nameof(viewModel.Area.Name);
             comboBoxArea.SelectedValuePath = nameof(viewModel.Area.Name);
             labelArea.SetBinding(ContentProperty,
-                new Binding(nameof(LocaleCore.Table.Area)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
+                new Binding(nameof(WsLocaleCore.Table.Area)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Table });
 
             // Линии.
             comboBoxLine.SetBinding(ItemsControl.ItemsSourceProperty,
@@ -66,7 +66,7 @@ public partial class WsXamlLinesPage
             comboBoxLine.DisplayMemberPath = nameof(viewModel.Line.NumberWithDescription);
             comboBoxLine.SelectedValuePath = nameof(viewModel.Line.NumberWithDescription);
             labelLine.SetBinding(ContentProperty,
-                new Binding(nameof(LocaleCore.Table.Line)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
+                new Binding(nameof(WsLocaleCore.Table.Line)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Table });
 
             // Настроить список кнопок.
             SetupListButtons(gridLocal, 2, 0, 1, 2);

@@ -37,10 +37,10 @@ public partial class WsXamlDigitsPage
         {
             // Очистить.
             labelClear.SetBinding(ContentProperty,
-                new Binding(nameof(LocaleCore.Buttons.Clear)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
+                new Binding(nameof(WsLocaleCore.Buttons.Clear)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Buttons });
             // Вввод.
             labelEnter.SetBinding(ContentProperty,
-                new Binding(nameof(LocaleCore.Buttons.Enter)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
+                new Binding(nameof(WsLocaleCore.Buttons.Enter)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Buttons });
             // Настроить список кнопок.
             SetupListButtons(gridLocal, 1, 0);
         });

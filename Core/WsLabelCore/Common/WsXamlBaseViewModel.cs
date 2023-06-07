@@ -92,14 +92,14 @@ public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
 
     public WsXamlBaseViewModel()
     {
-        CmdAbort = new(nameof(CmdAbort), LocaleCore.Buttons.Abort, Visibility.Hidden);
-        CmdCancel = new(nameof(CmdCancel), LocaleCore.Buttons.Cancel, Visibility.Hidden);
-        CmdCustom = new(nameof(CmdCustom), LocaleCore.Buttons.Custom, Visibility.Hidden);
-        CmdIgnore = new(nameof(CmdIgnore), LocaleCore.Buttons.Ignore, Visibility.Hidden);
-        CmdNo = new(nameof(CmdNo), LocaleCore.Buttons.No, Visibility.Hidden);
-        CmdOk = new(nameof(CmdOk), LocaleCore.Buttons.Ok, Visibility.Hidden);
-        CmdRetry = new(nameof(CmdRetry), LocaleCore.Buttons.Retry, Visibility.Hidden);
-        CmdYes = new(nameof(CmdYes), LocaleCore.Buttons.Yes, Visibility.Hidden);
+        CmdAbort = new(nameof(CmdAbort), WsLocaleCore.Buttons.Abort, Visibility.Hidden);
+        CmdCancel = new(nameof(CmdCancel), WsLocaleCore.Buttons.Cancel, Visibility.Hidden);
+        CmdCustom = new(nameof(CmdCustom), WsLocaleCore.Buttons.Custom, Visibility.Hidden);
+        CmdIgnore = new(nameof(CmdIgnore), WsLocaleCore.Buttons.Ignore, Visibility.Hidden);
+        CmdNo = new(nameof(CmdNo), WsLocaleCore.Buttons.No, Visibility.Hidden);
+        CmdOk = new(nameof(CmdOk), WsLocaleCore.Buttons.Ok, Visibility.Hidden);
+        CmdRetry = new(nameof(CmdRetry), WsLocaleCore.Buttons.Retry, Visibility.Hidden);
+        CmdYes = new(nameof(CmdYes), WsLocaleCore.Buttons.Yes, Visibility.Hidden);
         UpdateCommandsFromActions();
     }
 

@@ -138,12 +138,12 @@ public class WsSqlLogModel : WsSqlTableBase
     {
         base.FillProperties();
 
-        Version = LocaleCore.Sql.SqlItemFieldVersion;
-        File = LocaleCore.Sql.SqlItemFieldFile;
+        Version = WsLocaleCore.Sql.SqlItemFieldVersion;
+        File = WsLocaleCore.Sql.SqlItemFieldFile;
         Line = 1;
-        Member = LocaleCore.Sql.SqlItemFieldMember;
+        Member = WsLocaleCore.Sql.SqlItemFieldMember;
         //LogType = new();
-        Message = LocaleCore.Sql.SqlItemFieldMessage;
+        Message = WsLocaleCore.Sql.SqlItemFieldMessage;
 
         Device?.FillProperties();
         App?.FillProperties();

@@ -90,16 +90,16 @@ public partial class WsMainForm : Form
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
-            LocaleCore.Lang = LocaleData.Lang = WsEnumLanguage.Russian;
+            WsLocaleCore.Lang = WsLocaleData.Lang = WsEnumLanguage.Russian;
             // Загрузить WinForms-контрол ожидания.
             LoadNavigationWaitUserControl();
             // Проверка линии.
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
             if (LabelSession.DeviceScaleFk.IsNew)
             {
-                string message = LocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
+                string message = WsLocaleCore.Scales.RegistrationWarningLineNotFound(LabelSession.DeviceName);
                 WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(
-                    message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin,
+                    message + Environment.NewLine + Environment.NewLine + WsLocaleCore.Scales.CommunicateWithAdmin,
                     ActionExit, WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
                 WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
@@ -111,7 +111,7 @@ public partial class WsMainForm : Form
             _ = new Mutex(true, System.Windows.Forms.Application.ProductName, out bool isCreatedNew);
             if (!isCreatedNew)
             {
-                string message = $"{LocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
+                string message = $"{WsLocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {WsLocaleCore.Scales.AlreadyRunning}!";
                 WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(message, ActionExit, 
                     WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
@@ -121,7 +121,7 @@ public partial class WsMainForm : Form
                 return;
             }
             // Навигация в контрол ожидания.
-            WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl,  LocaleCore.Scales.AppLoad, LocaleCore.Scales.AppLoadDescription);
+            WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl,  WsLocaleCore.Scales.AppLoad, WsLocaleCore.Scales.AppLoadDescription);
             // Загрузка фоном.
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
@@ -131,9 +131,9 @@ public partial class WsMainForm : Form
             ContextManager.ContextItem.SaveLogMemory(
                 UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
             ContextManager.ContextItem.SaveLogInformation(
-                $"{LocaleData.Program.IsLoaded}. " + Environment.NewLine +
-                $"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
-                $"{nameof(LocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
+                $"{WsLocaleData.Program.IsLoaded}. " + Environment.NewLine +
+                $"{WsLocaleCore.Scales.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
+                $"{nameof(WsLocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
         });
     }
 
@@ -439,17 +439,17 @@ public partial class WsMainForm : Form
     /// <param name="lang"></param>
     private void LoadLocalizationStatic(WsEnumLanguage lang)
     {
-        LocaleCore.Lang = LocaleData.Lang = lang;
-        MdInvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
-        MdInvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
-        MdInvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
-        MdInvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonSetKneading);
-        MdInvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonPlu);
-        MdInvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
-        MdInvokeControl.SetText(labelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
-        MdInvokeControl.SetText(labelTareWeight, LocaleCore.Scales.FieldWeightTare);
-        MdInvokeControl.SetText(labelProductDate, LocaleCore.Scales.FieldDate);
-        MdInvokeControl.SetText(labelKneading, LocaleCore.Scales.FieldKneading);
+        WsLocaleCore.Lang = WsLocaleData.Lang = lang;
+        MdInvokeControl.SetText(ButtonScalesTerminal, WsLocaleCore.Scales.ButtonRunScalesTerminal);
+        MdInvokeControl.SetText(ButtonScalesInit, WsLocaleCore.Scales.ButtonScalesInitShort);
+        MdInvokeControl.SetText(ButtonNewPallet, WsLocaleCore.Scales.ButtonNewPallet);
+        MdInvokeControl.SetText(ButtonKneading, WsLocaleCore.Scales.ButtonSetKneading);
+        MdInvokeControl.SetText(ButtonPlu, WsLocaleCore.Scales.ButtonPlu);
+        MdInvokeControl.SetText(ButtonPrint, WsLocaleCore.Print.ActionPrint);
+        MdInvokeControl.SetText(labelNettoWeight, WsLocaleCore.Scales.FieldWeightNetto);
+        MdInvokeControl.SetText(labelTareWeight, WsLocaleCore.Scales.FieldWeightTare);
+        MdInvokeControl.SetText(labelProductDate, WsLocaleCore.Scales.FieldDate);
+        MdInvokeControl.SetText(labelKneading, WsLocaleCore.Scales.FieldKneading);
     }
 
     #endregion

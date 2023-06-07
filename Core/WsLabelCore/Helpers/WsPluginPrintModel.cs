@@ -115,7 +115,7 @@ public class WsPluginPrintModel : WsPluginBaseHelper
                 MdWinPrinterStatus.Idle => "Бездействие",
                 MdWinPrinterStatus.Paused => "Пауза",
                 MdWinPrinterStatus.Error => "Ошибка",
-                MdWinPrinterStatus.PendingDeletion => LocaleCore.Print.StatusPendingDeletion,
+                MdWinPrinterStatus.PendingDeletion => WsLocaleCore.Print.StatusPendingDeletion,
                 MdWinPrinterStatus.PaperJam => "Застревание бумаги",
                 MdWinPrinterStatus.PaperOut => "Выдача бумаги",
                 MdWinPrinterStatus.ManualFeed => "Ручная подача",

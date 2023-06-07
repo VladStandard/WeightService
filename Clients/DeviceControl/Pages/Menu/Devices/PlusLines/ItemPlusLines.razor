@@ -7,14 +7,14 @@
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.PlusScales.WsSqlPluScaleModel>
 
-<ItemTopBar TItem="@WsSqlPluScaleModel" Title="@LocaleCore.DeviceControl.ItemPluScale" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluScaleModel" Title="@WsLocaleCore.DeviceControl.ItemPluScale" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.IsActive</td>
+    <td>@WsLocaleCore.Table.IsActive</td>
     <td>
       <RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsActive"/>
     </td>
@@ -23,13 +23,13 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Line)" Text="@LocaleCore.Table.Line"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Line)" Text="@WsLocaleCore.Table.Line"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Line" Data="@ContextCache.Lines" TextProperty="Description"/>
     </td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu)" Text="@WsLocaleCore.Table.Plu"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Plu" Data="@ContextCache.Plus" TextProperty="DisplayName"/>

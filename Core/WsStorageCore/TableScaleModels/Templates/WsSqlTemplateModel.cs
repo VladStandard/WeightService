@@ -90,8 +90,8 @@ public class WsSqlTemplateModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Title = LocaleCore.Sql.SqlItemFieldTitle;
-        Data = LocaleCore.Sql.SqlItemFieldTemplateData;
+        Title = WsLocaleCore.Sql.SqlItemFieldTitle;
+        Data = WsLocaleCore.Sql.SqlItemFieldTemplateData;
     }
 
     #endregion

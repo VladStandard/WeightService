@@ -122,7 +122,7 @@ public static class WsFormNavigationUtils
 
         LinesUserControl.ViewModel.UpdateCommandsFromActions();
         LinesUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
-        showNavigation(LinesUserControl, LocaleCore.Scales.SwitchLineTitle);
+        showNavigation(LinesUserControl, WsLocaleCore.Scales.SwitchLineTitle);
         NavigationUserControl.SwitchUserControl(LinesUserControl);
     }
 
@@ -140,7 +140,7 @@ public static class WsFormNavigationUtils
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
         DialogUserControl.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
-        showNavigation(DialogUserControl, LocaleCore.Scales.OperationControl);
+        showNavigation(DialogUserControl, WsLocaleCore.Scales.OperationControl);
         NavigationUserControl.SwitchUserControl(DialogUserControl);
     }
 
@@ -162,7 +162,7 @@ public static class WsFormNavigationUtils
         dialog.Tag = DialogTempTag;
         dialog.SetupActions(dialogType, actions);
         dialog.SetupButtons(dialogType, actions, message, NavigationUserControl.Width);
-        showNavigation(dialog, LocaleCore.Scales.OperationControl);
+        showNavigation(dialog, WsLocaleCore.Scales.OperationControl);
         NavigationUserControl.SwitchUserControl(dialog);
     }
 
@@ -200,7 +200,7 @@ public static class WsFormNavigationUtils
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
         DialogUserControl.ViewModel.SetupButtonsOk(message, ActionBackFromNavigation, NavigationUserControl.Width);
-        showNavigation(DialogUserControl, LocaleCore.Scales.OperationControl);
+        showNavigation(DialogUserControl, WsLocaleCore.Scales.OperationControl);
         NavigationUserControl.SwitchUserControl(DialogUserControl);
     }
 
@@ -218,7 +218,7 @@ public static class WsFormNavigationUtils
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
         DigitsUserControl.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
-        showNavigation(DigitsUserControl, LocaleCore.Scales.OperationControl);
+        showNavigation(DigitsUserControl, WsLocaleCore.Scales.OperationControl);
         NavigationUserControl.SwitchUserControl(DigitsUserControl);
     }
 
@@ -247,8 +247,8 @@ public static class WsFormNavigationUtils
         KneadingUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
         showNavigation(KneadingUserControl,
             LabelSession.PluLine.Plu.IsCheckWeight
-            ? $"{LocaleCore.Scales.SwitchKneadingTitle} {LocaleCore.Scales.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
-            : $"{LocaleCore.Scales.SwitchKneadingTitle} {LocaleCore.Scales.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
+            ? $"{WsLocaleCore.Scales.SwitchKneadingTitle} {WsLocaleCore.Scales.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
+            : $"{WsLocaleCore.Scales.SwitchKneadingTitle} {WsLocaleCore.Scales.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
         NavigationUserControl.SwitchUserControl(KneadingUserControl);
     }
 
@@ -260,7 +260,7 @@ public static class WsFormNavigationUtils
     {
         PlusLineUserControl.ViewModel.UpdateCommandsFromActions();
         PlusLineUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
-        showNavigation(PlusLineUserControl, LocaleCore.Scales.SwitchPluLineTitle);
+        showNavigation(PlusLineUserControl, WsLocaleCore.Scales.SwitchPluLineTitle);
         NavigationUserControl.SwitchUserControl(PlusLineUserControl);
     }
 
@@ -277,7 +277,7 @@ public static class WsFormNavigationUtils
 
         PlusNestingUserControl.ViewModel.UpdateCommandsFromActions();
         PlusNestingUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
-        showNavigation(PlusNestingUserControl, LocaleCore.Scales.SwitchPluNestingTitle);
+        showNavigation(PlusNestingUserControl, WsLocaleCore.Scales.SwitchPluNestingTitle);
         NavigationUserControl.SwitchUserControl(PlusNestingUserControl);
     }
 
@@ -312,7 +312,7 @@ public static class WsFormNavigationUtils
         {
             // Навигация в WinForms-контрол диалога Отмена/Да.
             NavigateToNewDialog(showNavigation,
-                LocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
+                WsLocaleCore.Scales.HostNotFound(device.Name) + Environment.NewLine + WsLocaleCore.Scales.QuestionWriteToDb,
                 false, WsEnumLogType.Information, WsEnumDialogType.CancelYes, new() { () => { }, ActionYes });
             void ActionYes()
             {
@@ -352,8 +352,8 @@ public static class WsFormNavigationUtils
             : ex.Message + Environment.NewLine + ex.InnerException.Message;
         // Навигация в WinForms-контрол диалога Ок.
         NavigateToExistsDialogOk(showNavigation, 
-            $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
-            $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message, true, WsEnumLogType.Error);
+            $"{WsLocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
+            $"{WsLocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message, true, WsEnumLogType.Error);
     }
 
     private static void CatchExceptionSimpleCore(Exception ex, string filePath, int lineNumber, string memberName) => 

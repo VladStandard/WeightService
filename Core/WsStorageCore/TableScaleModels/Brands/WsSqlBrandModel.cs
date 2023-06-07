@@ -81,7 +81,7 @@ public class WsSqlBrandModel : WsSqlTable1CBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Code = LocaleCore.Sql.SqlItemFieldCode;
+        Code = WsLocaleCore.Sql.SqlItemFieldCode;
     }
 
     #endregion

@@ -7,7 +7,7 @@
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusLabels.WsSqlPluLabelModel>
 
-<ItemTopBar TItem="@WsSqlPluLabelModel" Title="@LocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluLabelModel" Title="@WsLocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -15,44 +15,44 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@LocaleCore.Table.Line" />
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@WsLocaleCore.Table.Line" />
     </td>
     <td>@SqlItemCast.PluScale.Line.Description</td>
-    <td>@LocaleCore.Table.CheckWeight</td>
+    <td>@WsLocaleCore.Table.CheckWeight</td>
     <td>
       <RadzenCheckBox TValue="bool" ReadOnly="true" Value="@IsWeighted"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Plu)" Text="@WsLocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.PluScale.Plu.DisplayName</td>
     <td>
       <RadzenLink Path="@RouteService.GetItemRoute(ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
-                  Text="@LocaleCore.Table.Template"/>
+                  Text="@WsLocaleCore.Table.Template"/>
     </td>
     <td>@ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale).Title</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line.PrinterMain)" Text="@LocaleCore.Table.Printer"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line.PrinterMain)" Text="@WsLocaleCore.Table.Printer"/>
     </td>
     <td>@SqlItemCast.PluScale.Line.PrinterMain?.DisplayName</td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluWeighing)" Text="@WsLocaleCore.Table.Weighing"/>
     </td>
     <td>@SqlItemCast.PluWeighing?.IdentityValueUid</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.ProductDt</td>
+    <td>@WsLocaleCore.Table.ProductDt</td>
     <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ProductDt)</td>
-    <td>@LocaleCore.Table.ExpirationDt</td>
+    <td>@WsLocaleCore.Table.ExpirationDt</td>
     <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.ExpirationDt)</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@(LocaleCore.DeviceControl.LinkLabelary)" Text="@(LocaleCore.Table.TemplateLabelary)"/>
+      <RadzenLink Path="@(WsLocaleCore.DeviceControl.LinkLabelary)" Text="@(WsLocaleCore.Table.TemplateLabelary)"/>
     </td>
     <td colspan="3">
       <RadzenTextArea
@@ -61,12 +61,12 @@
         Value="@SqlItemCast.Zpl" Rows="20"/>
       <RadzenButton Click="@(_ => CopyToClipboard(SqlItemCast.Zpl))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.DeviceControl.TableActionCopy"/>
+                    Text="@WsLocaleCore.DeviceControl.TableActionCopy"/>
     </td>
   </tr>
   <AuthorizeView Roles="@UserAccessStr.Admin">
     <tr>
-      <td>@LocaleCore.Table.Xml</td>
+      <td>@WsLocaleCore.Table.Xml</td>
       <td colspan="3">
         @if (SqlItemCast.Xml is not null)
         {

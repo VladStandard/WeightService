@@ -18,7 +18,7 @@ public sealed partial class SystemInfo : RazorComponentBase
     private List<WsSqlDbFileSizeInfoModel> DbSizeInfos { get; set; } = new();
 
     private string DbCurSizeAsString =>
-        $"{LocaleCore.Sql.SqlDbCurSize}: {DbFileSizeAll:### ###} MB {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
+        $"{WsLocaleCore.Sql.SqlDbCurSize}: {DbFileSizeAll:### ###} MB {WsLocaleCore.Strings.From} {DbMaxSize:### ###} MB";
 
     private uint DbMaxSize => 10_240;
     private uint DbFillSize => DbFileSizeAll == 0 ? 0 : DbFileSizeAll * 100 / DbMaxSize;

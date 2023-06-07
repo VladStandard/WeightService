@@ -7,7 +7,7 @@
 
 <MudPaper Outlined="true" Class="mb-2">
   <MudToolBar Dense="true">
-    <RadzenLabel Style="font-size: 15px;" Text="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation"/>
+    <RadzenLabel Style="font-size: 15px;" Text="@WsLocaleCore.DeviceControl.SectionWeithingFactsAggregation"/>
     <RadzenCheckBox TValue="bool" @bind-Value="@IsShowPlu" Style="margin-left: 20px "/>
     <RadzenLabel Style="font-size: 13px; margin-left: 5px" Text="Учитывать плу"/>
     <RadzenButton
@@ -26,15 +26,15 @@
   Data="@PluWeightAggrs">
   <Columns>
     <TItemContent TItem="@WsSqlPluAggrModel">
-      <RadzenDataGridColumn Title="@LocaleCore.Table.WeighDt" Property="ChangeDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn TItem="@WsSqlPluAggrModel" Title="@LocaleCore.Table.DayOfWeek" SortProperty="ChangeDt.DayOfWeek" Width="15%">
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WeighDt" Property="ChangeDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn TItem="@WsSqlPluAggrModel" Title="@WsLocaleCore.Table.DayOfWeek" SortProperty="ChangeDt.DayOfWeek" Width="15%">
         <Template Context="itemCast">
           @EnumUtils.GetDayOfWeekRu(itemCast.ChangeDt.DayOfWeek)
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="Count" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu" Width="30%" Visible="@IsShowPlu"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Count" Property="Count" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Line" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Plu" Property="Plu" Width="30%" Visible="@IsShowPlu"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

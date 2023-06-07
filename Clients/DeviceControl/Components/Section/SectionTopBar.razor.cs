@@ -16,7 +16,7 @@ public partial class SectionTopBar : LayoutComponentBase
     [Parameter] public EventCallback<bool> OnSectionUpdate { get; set; }
     [Parameter] public EventCallback OnSectionAdd { get; set; }
     [Parameter] public int SectionCount { get; set; }
-    private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
+    private string SqlListCountResult => $"{WsLocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
 
     private static Dictionary<string, WsSqlIsMarked> MarkedDict => new()
     {

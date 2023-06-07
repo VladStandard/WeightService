@@ -6,23 +6,23 @@
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.PlusGroups.WsSqlPluGroupModel>
 
-<ItemTopBar TItem="@WsSqlPluGroupModel" Title="@LocaleCore.DeviceControl.ItemNomenclatureGroup" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluGroupModel" Title="@WsLocaleCore.DeviceControl.ItemNomenclatureGroup" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>@SqlItemCast.Name</td>
-    <td>@LocaleCore.Table.Code</td>
+    <td>@WsLocaleCore.Table.Code</td>
     <td>@SqlItemCast.Code</td>
   </tr>
   @if (ParentGroup is {IsNotNew: true })
   {
     <tr>
       <td>
-        <RadzenLink Path="@RouteService.GetItemRoute(ParentGroup)" Text="@LocaleCore.Table.Parent"/>
+        <RadzenLink Path="@RouteService.GetItemRoute(ParentGroup)" Text="@WsLocaleCore.Table.Parent"/>
       </td>
       <td>@ParentGroup.Name</td>
       <td/>

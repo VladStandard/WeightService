@@ -4,7 +4,7 @@
   <div class="top-row pl-4 navbar">
     <a class="navbar-brand" href="">
       <RadzenLabel Style="margin-top: -7px; text-align: center; font-size: 14px; color: white"
-                   Text="@LocaleCore.Strings.AppDevicesControlName"/>
+                   Text="@WsLocaleCore.Strings.AppDevicesControlName"/>
     </a>
   </div>
 
@@ -14,7 +14,7 @@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionDevices">
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionScales" Path="@LocaleBlazor.RouteSectionScales"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionHosts" Path="@LocaleBlazor.RouteSectionDevices"/>
-        <RadzenPanelMenuItem Text="@LocaleCore.Print.Names" Path="@LocaleBlazor.RouteSectionPrinters"/>
+        <RadzenPanelMenuItem Text="@WsLocaleCore.Print.Names" Path="@LocaleBlazor.RouteSectionPrinters"/>
       </RadzenPanelMenuItem>
       @* Operations *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionOperations">
@@ -29,7 +29,7 @@
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionOrganizations" Path="@LocaleBlazor.RouteSectionOrganizations"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWorkShops" Path="@LocaleBlazor.RouteSectionWorkShops"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionProductionFacilitiesShort" Path="@LocaleBlazor.RouteSectionProductionFacilities"/>
-        <RadzenPanelMenuItem Text="@LocaleCore.Print.Types" Path="@LocaleBlazor.RouteSectionPrinterTypes"/>
+        <RadzenPanelMenuItem Text="@WsLocaleCore.Print.Types" Path="@LocaleBlazor.RouteSectionPrinterTypes"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplates" Path="@LocaleBlazor.RouteSectionTemplates"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplateResources" Path="@LocaleBlazor.RouteSectionTemplateResources"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusStorage" Path="@LocaleBlazor.RouteSectionPlusStorage"/>
@@ -45,17 +45,17 @@
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionContragents" Path="@LocaleBlazor.RouteSectionContragents"/>
       </RadzenPanelMenuItem>
       @* Reports *@
-      <RadzenPanelMenuItem Text="@LocaleCore.Menu.MenuReports">
-        <RadzenPanelMenuItem Icon="article" Text="@LocaleCore.System.SystemLogsAll" Path="@LocaleBlazor.RouteSectionLogs"/>
-        <RadzenPanelMenuItem Icon="article" Text="@LocaleCore.WebService.Name" Path="@LocaleBlazor.RouteSectionLogsWebService"/>
+      <RadzenPanelMenuItem Text="@WsLocaleCore.Menu.MenuReports">
+        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.System.SystemLogsAll" Path="@LocaleBlazor.RouteSectionLogs"/>
+        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.WebService.Name" Path="@LocaleBlazor.RouteSectionLogsWebService"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionScreenShots" Path="@LocaleBlazor.RouteSectionScalesScreenShots"/>
       </RadzenPanelMenuItem>
     </AuthorizeView>
     <AuthorizeView Roles="@UserAccessStr.Admin">
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionAdministering">
-        <RadzenPanelMenuItem Icon="people" Text="@LocaleCore.System.Users" Path="@LocaleBlazor.RouteSectionAccess"/>
-        <RadzenPanelMenuItem Icon="info" Text="@LocaleCore.Menu.MenuDbVersionHistory" Path="@LocaleBlazor.RouteSectionVersions"/>
-        <RadzenPanelMenuItem Icon="info" Text="@LocaleCore.System.SystemInfo" Path="@LocaleBlazor.RouteSystemAppInfo"/>
+        <RadzenPanelMenuItem Icon="people" Text="@WsLocaleCore.System.Users" Path="@LocaleBlazor.RouteSectionAccess"/>
+        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.Menu.MenuDbVersionHistory" Path="@LocaleBlazor.RouteSectionVersions"/>
+        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.SystemInfo" Path="@LocaleBlazor.RouteSystemAppInfo"/>
       </RadzenPanelMenuItem>
     </AuthorizeView>
   </RadzenPanelMenu>

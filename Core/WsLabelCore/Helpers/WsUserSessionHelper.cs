@@ -56,8 +56,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (LabelSession.PluLine.IsNew)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluNotSelect);
-            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluNotSelect);
+            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Scales.PluNotSelect);
+            ContextManager.ContextItem.SaveLogError(WsLocaleCore.Scales.PluNotSelect);
             return false;
         }
         return true;
@@ -84,8 +84,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (LabelSession.PluLine.Plu.IsCheckWeight && !PluginMassa.IsStable)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, $"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
-            ContextManager.ContextItem.SaveLogWarning($"{LocaleCore.Scales.MassaIsNotCalc} {LocaleCore.Scales.MassaWaitStable}");
+            MdInvokeControl.SetText(fieldWarning, $"{WsLocaleCore.Scales.MassaIsNotCalc} {WsLocaleCore.Scales.MassaWaitStable}");
+            ContextManager.ContextItem.SaveLogWarning($"{WsLocaleCore.Scales.MassaIsNotCalc} {WsLocaleCore.Scales.MassaWaitStable}");
             return false;
         }
         return true;
@@ -101,8 +101,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (string.IsNullOrEmpty(LabelSession.PluLine.Plu.Gtin))
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluGtinIsNotSet);
-            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluGtinIsNotSet);
+            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Scales.PluGtinIsNotSet);
+            ContextManager.ContextItem.SaveLogError(WsLocaleCore.Scales.PluGtinIsNotSet);
             return false;
         }
         return true;
@@ -121,7 +121,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (!LabelSession.PluginPrintTscMain.IsConnected)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            string message = $"{LocaleCore.Print.DeviceMainIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
+            string message = $"{WsLocaleCore.Print.DeviceMainIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
             MdInvokeControl.SetText(fieldWarning, message);
             ContextManager.ContextItem.SaveLogError(message);
             return false;
@@ -151,7 +151,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (!LabelSession.PluginPrintZebraMain.IsConnected)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            string message = $"{LocaleCore.Print.DeviceMainIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
+            string message = $"{WsLocaleCore.Print.DeviceMainIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
             MdInvokeControl.SetText(fieldWarning, message);
             ContextManager.ContextItem.SaveLogError(message);
             return false;
@@ -161,7 +161,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, 
-                $"{LocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintZebraMain.GetDeviceStatusZebra()}");
+                $"{WsLocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintZebraMain.GetDeviceStatusZebra()}");
             ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
             return false;
         }
@@ -181,7 +181,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (!LabelSession.PluginPrintTscShipping.IsConnected)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            string message = $"{LocaleCore.Print.DeviceShippingIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
+            string message = $"{WsLocaleCore.Print.DeviceShippingIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
             MdInvokeControl.SetText(fieldWarning, message);
             ContextManager.ContextItem.SaveLogError(message);
             return false;
@@ -191,7 +191,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, 
-                $"{LocaleCore.Print.DeviceShippingCheckStatus} {LabelSession.PluginPrintTscShipping.GetDeviceStatusTsc()}");
+                $"{WsLocaleCore.Print.DeviceShippingCheckStatus} {LabelSession.PluginPrintTscShipping.GetDeviceStatusTsc()}");
             ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
             return false;
         }
@@ -212,7 +212,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             string message = 
-                $"{LocaleCore.Print.DeviceShippingIsUnavailable} {LocaleCore.Print.DeviceCheckConnect}";
+                $"{WsLocaleCore.Print.DeviceShippingIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
             MdInvokeControl.SetText(fieldWarning, message);
             ContextManager.ContextItem.SaveLogError(message);
             return false;
@@ -222,7 +222,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, 
-                $"{LocaleCore.Print.DeviceShippingCheckStatus} {LabelSession.PluginPrintZebraShipping.GetDeviceStatusZebra()}");
+                $"{WsLocaleCore.Print.DeviceShippingCheckStatus} {LabelSession.PluginPrintZebraShipping.GetDeviceStatusZebra()}");
             ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
             return false;
         }
@@ -242,17 +242,17 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (PluginMassa.WeightNet <= 0)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.CheckWeightIsZero);
-            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.CheckWeightIsZero);
+            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Scales.CheckWeightIsZero);
+            ContextManager.ContextItem.SaveLogError(WsLocaleCore.Scales.CheckWeightIsZero);
             return false;
         }
 
         decimal weight = PluginMassa.WeightNet - (LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
-        if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
+        if (weight < WsLocaleCore.Scales.MassaThresholdValue || weight < WsLocaleCore.Scales.MassaThresholdPositive)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.CheckWeightThreshold(weight));
-            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.CheckWeightThreshold(weight));
+            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Scales.CheckWeightThreshold(weight));
+            ContextManager.ContextItem.SaveLogError(WsLocaleCore.Scales.CheckWeightThreshold(weight));
             return false;
         }
         return true;
@@ -268,11 +268,11 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (!LabelSession.PluLine.Plu.IsCheckWeight) return true;
 
         decimal weight = PluginMassa.WeightNet - (LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
-        if (weight > LocaleCore.Scales.MassaThresholdValue)
+        if (weight > WsLocaleCore.Scales.MassaThresholdValue)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.CheckWeightThreshold(weight));
-            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.CheckWeightThreshold(weight));
+            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Scales.CheckWeightThreshold(weight));
+            ContextManager.ContextItem.SaveLogError(WsLocaleCore.Scales.CheckWeightThreshold(weight));
             return false;
         }
         return true;
@@ -296,7 +296,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
                 if (LabelSession.PluWeighing.IsNotNew)
                 {
                     MdInvokeControl.SetVisible(fieldWarning, true);
-                    string message = LocaleCore.Scales.CheckWeightThresholds(LabelSession.PluWeighing.NettoWeight,
+                    string message = WsLocaleCore.Scales.CheckWeightThresholds(LabelSession.PluWeighing.NettoWeight,
                         LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMax,
                         LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.WeightNom,
                         LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMin);
@@ -324,8 +324,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (template.IsNew)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluTemplateNotSet);
-            ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluTemplateNotSet);
+            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Scales.PluTemplateNotSet);
+            ContextManager.ContextItem.SaveLogError(WsLocaleCore.Scales.PluTemplateNotSet);
             return;
         }
         // Выбор типа ПЛУ.
@@ -421,7 +421,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (PluginMassa.WeightNet > 0) { ActionCancel(); return; }
 
         // Навигация в новый WinForms-контрол диалога.
-        WsFormNavigationUtils.NavigateToNewDialog(showNavigation, LocaleCore.Print.QuestionUseFakeData,
+        WsFormNavigationUtils.NavigateToNewDialog(showNavigation, WsLocaleCore.Print.QuestionUseFakeData,
             true, WsEnumLogType.Question, WsEnumDialogType.CancelYes, new() { ActionCancel, ActionYes });
         void ActionCancel()
         {
@@ -498,7 +498,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
                 template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
             // Журнал событий.
             ContextManager.ContextItem.SaveLogInformation(
-                $"{LocaleCore.Scales.LabelPrint}: {pluLabelWithContext.PluLabelContext.PluNumber} | " +
+                $"{WsLocaleCore.Scales.LabelPrint}: {pluLabelWithContext.PluLabelContext.PluNumber} | " +
                 $"{pluLabelWithContext.PluLabelContext.PluName}");
         }
         catch (Exception ex)
@@ -614,8 +614,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (LabelSession.ViewPluNesting.PluNumber.Equals((ushort)plu.Number)) return true;
 
         MdInvokeControl.SetVisible(fieldWarning, true);
-        MdInvokeControl.SetText(fieldWarning, LocaleCore.Scales.PluPackageNotSelect);
-        ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.PluPackageNotSelect);
+        MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Scales.PluPackageNotSelect);
+        ContextManager.ContextItem.SaveLogError(WsLocaleCore.Scales.PluPackageNotSelect);
         return false;
     }
 

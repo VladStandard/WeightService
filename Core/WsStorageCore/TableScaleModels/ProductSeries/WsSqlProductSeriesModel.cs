@@ -100,7 +100,7 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Sscc = LocaleCore.Sql.SqlItemFieldSscc;
+        Sscc = WsLocaleCore.Sql.SqlItemFieldSscc;
         IsClose = false;
         Scale.FillProperties();
     }

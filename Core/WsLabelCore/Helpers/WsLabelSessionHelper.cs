@@ -157,12 +157,12 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     private void SetSqlPublish() =>
         PublishDescription = Debug.Config switch
         {
-            WsEnumConfiguration.DevelopAleksandrov => LocaleCore.Sql.SqlServerDevelopAleksandrov,
-            WsEnumConfiguration.DevelopMorozov => LocaleCore.Sql.SqlServerDevelopMorozov,
-            WsEnumConfiguration.DevelopVS => LocaleCore.Sql.SqlServerVS,
-            WsEnumConfiguration.ReleaseAleksandrov => LocaleCore.Sql.SqlServerReleaseAleksandrov,
-            WsEnumConfiguration.ReleaseMorozov => LocaleCore.Sql.SqlServerReleaseMorozov,
-            WsEnumConfiguration.ReleaseVS => LocaleCore.Sql.SqlServerReleaseVS,
+            WsEnumConfiguration.DevelopAleksandrov => WsLocaleCore.Sql.SqlServerDevelopAleksandrov,
+            WsEnumConfiguration.DevelopMorozov => WsLocaleCore.Sql.SqlServerDevelopMorozov,
+            WsEnumConfiguration.DevelopVS => WsLocaleCore.Sql.SqlServerVS,
+            WsEnumConfiguration.ReleaseAleksandrov => WsLocaleCore.Sql.SqlServerReleaseAleksandrov,
+            WsEnumConfiguration.ReleaseMorozov => WsLocaleCore.Sql.SqlServerReleaseMorozov,
+            WsEnumConfiguration.ReleaseVS => WsLocaleCore.Sql.SqlServerReleaseVS,
             _ => throw new ArgumentOutOfRangeException()
         };
 
@@ -196,7 +196,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             Area = ContextManager.ContextAreas.GetNewItem();
         }
         // Журналирование смены площадки.
-        ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetArea(Area.IdentityValueId, Area.Name)}");
+        ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.Scales.SetArea(Area.IdentityValueId, Area.Name)}");
     }
 
     /// <summary>
@@ -207,7 +207,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         Line = line ?? ContextManager.ContextLines.GetNewItem();
         // Журналирование смены линии.
         if (Line.IsExists)
-            ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetLine(Line.IdentityValueId, Line.Description)}");
+            ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.Scales.SetLine(Line.IdentityValueId, Line.Description)}");
         // Смена площадки.
         SetArea();
         // Смена ПЛУ линии.
@@ -222,7 +222,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         PluLine = pluLine ?? ContextManager.ContextPlusLines.GetNewItem();
         // Журналирование смены ПЛУ на линии.
         if (PluLine.IsExists)
-            ContextManager.ContextItem.SaveLogInformation($"{LocaleCore.Scales.SetPlu(PluLine.Plu.Number, PluLine.Plu.Name)}");
+            ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.Scales.SetPlu(PluLine.Plu.Number, PluLine.Plu.Name)}");
 
         if (PluLine.IsNotNew)
         {
@@ -273,7 +273,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         // Журналирование смены вложенности ПЛУ.
         if (PluLine.IsExists)
             ContextManager.ContextItem.SaveLogInformation(
-                $"{LocaleCore.Scales.SetPluNesting(ViewPluNesting.PluNumber, ViewPluNesting.PluName, ViewPluNesting.BundleCount)}");
+                $"{WsLocaleCore.Scales.SetPluNesting(ViewPluNesting.PluNumber, ViewPluNesting.PluName, ViewPluNesting.BundleCount)}");
     }
 
     /// <summary>

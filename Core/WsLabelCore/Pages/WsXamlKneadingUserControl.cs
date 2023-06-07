@@ -223,17 +223,17 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
     private void SetGuiLocalize()
     {
         // Замес.
-        labelKneading.Text = LocaleCore.Scales.FieldKneading;
+        labelKneading.Text = WsLocaleCore.Scales.FieldKneading;
         // Дата продукции.
-        labelProdDate.Text = LocaleCore.Scales.FieldProductDate;
+        labelProdDate.Text = WsLocaleCore.Scales.FieldProductDate;
         // Размер палеты.
-        labelPalletSize.Text = LocaleCore.Scales.FieldPalletSize;
+        labelPalletSize.Text = WsLocaleCore.Scales.FieldPalletSize;
         // Инкремент счётчика.
-        labelIsIncrementCounter.Text = LocaleCore.Scales.FieldPrintCounter;
-        checkBoxIsIncrementCounter.Text = LocaleCore.Scales.FieldIsIncrementCounterEnable;
+        labelIsIncrementCounter.Text = WsLocaleCore.Scales.FieldPrintCounter;
+        checkBoxIsIncrementCounter.Text = WsLocaleCore.Scales.FieldIsIncrementCounterEnable;
         // Кнопки.
-        buttonYes.Text = LocaleCore.Buttons.Ok;
-        buttonCancel.Text = LocaleCore.Buttons.Cancel;
+        buttonYes.Text = WsLocaleCore.Buttons.Ok;
+        buttonCancel.Text = WsLocaleCore.Buttons.Cancel;
     }
 
     /// <summary>

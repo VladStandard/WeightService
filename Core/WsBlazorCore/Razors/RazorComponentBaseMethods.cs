@@ -26,8 +26,8 @@ public partial class RazorComponentBase
                     NotificationMessage msg = new()
                     {
                         Severity = NotificationSeverity.Warning,
-                        Summary = LocaleCore.Action.ActionDataControl,
-                        Detail = $"{LocaleCore.Action.ActionDataControlField}!" + Environment.NewLine + detailAddition,
+                        Summary = WsLocaleCore.Action.ActionDataControl,
+                        Detail = $"{WsLocaleCore.Action.ActionDataControlField}!" + Environment.NewLine + detailAddition,
                         Duration = BlazorAppSettingsHelper.Delay
                     };
                     notificationService?.Notify(msg);

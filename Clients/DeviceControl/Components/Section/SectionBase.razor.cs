@@ -90,7 +90,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 
     private List<ContextMenuItem> GetContextMenuItems()
     {
-        WsLocaleContextMenu locale = LocaleCore.ContextMenu;
+        WsLocaleContextMenu locale = WsLocaleCore.ContextMenu;
         List<ContextMenuItem> contextMenuItems = new()
         {
             new() { Text = locale.Open, Value = ContextMenuAction.Open },
@@ -174,7 +174,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     protected async Task OnSqlSectionSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQuestion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
             foreach (TItem item in SqlSectionSave)
                 ContextManager.AccessManager.AccessItem.Update(item);
@@ -189,7 +189,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 
         if (SqlItem is null) return;
 
-        RunActionsWithQuestion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(WsLocaleCore.Table.TableDelete, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
             ContextManager.AccessManager.AccessItem.Delete(SqlItem);
             DeleteMarkedOrDeleted();
@@ -202,7 +202,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         if (SqlItem is null) return;
 
-        RunActionsWithQuestion(LocaleCore.Table.TableMark, LocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(WsLocaleCore.Table.TableMark, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
             ContextManager.AccessManager.AccessItem.Mark(SqlItem);
             DeleteMarkedOrDeleted();
@@ -213,7 +213,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     protected async Task SqlItemNewAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQuestion(LocaleCore.Table.TableNew, LocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(WsLocaleCore.Table.TableNew, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
             SqlItem = SqlItemNewEmpty<TItem>();
             RouteService.NavigateItemRoute(SqlItemCast);

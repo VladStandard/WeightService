@@ -252,12 +252,12 @@ public class WsSqlPluModel : WsSqlTable1CBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Code = LocaleCore.Sql.SqlItemFieldCode;
+        Code = WsLocaleCore.Sql.SqlItemFieldCode;
         Number = 100;
-        FullName = LocaleCore.Sql.SqlItemFieldFullName;
-        Gtin = LocaleCore.Sql.SqlItemFieldGtin;
-        Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
-        Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
+        FullName = WsLocaleCore.Sql.SqlItemFieldFullName;
+        Gtin = WsLocaleCore.Sql.SqlItemFieldGtin;
+        Ean13 = WsLocaleCore.Sql.SqlItemFieldEan13;
+        Itf14 = WsLocaleCore.Sql.SqlItemFieldItf14;
     }
 
     #endregion

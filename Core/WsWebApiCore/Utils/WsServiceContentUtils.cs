@@ -43,7 +43,7 @@ public static class WsServiceContentUtils
             {
                 itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
-                    $"{LocaleCore.WebService.Node} `{nodeIdentity}` {LocaleCore.WebService.With} `{xmlNode.Name}` {LocaleCore.WebService.IsNotIdent}!";
+                    $"{WsLocaleCore.WebService.Node} `{nodeIdentity}` {WsLocaleCore.WebService.With} `{xmlNode.Name}` {WsLocaleCore.WebService.IsNotIdent}!";
             }
             itemsXml.Add(new(itemXml, xmlNode.OuterXml));
         }
@@ -54,8 +54,8 @@ public static class WsServiceContentUtils
     {
         itemXml.ParseResult.Status = WsEnumParseStatus.Error;
         itemXml.ParseResult.Exception = string.IsNullOrEmpty(itemXml.ParseResult.Exception)
-            ? $"{xmlPropertyName} {LocaleCore.WebService.IsEmpty}!"
-            : $"{itemXml.ParseResult.Exception} | {xmlPropertyName} {LocaleCore.WebService.IsEmpty}!";
+            ? $"{xmlPropertyName} {WsLocaleCore.WebService.IsEmpty}!"
+            : $"{itemXml.ParseResult.Exception} | {xmlPropertyName} {WsLocaleCore.WebService.IsEmpty}!";
     }
 
     public static void SetItemPropertyFromXmlAttribute<T>(XmlNode xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase

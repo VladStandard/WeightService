@@ -7,7 +7,7 @@
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.Plus.WsSqlPluModel>
 
-<ItemTopBar TItem="@WsSqlPluModel" Title="@LocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluModel" Title="@WsLocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
 
@@ -15,47 +15,47 @@
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.PluNumber</td>
+    <td>@WsLocaleCore.Table.PluNumber</td>
     <td>@SqlItemCast.Number</td>
-    <td>@LocaleCore.Table.CheckWeight</td>
+    <td>@WsLocaleCore.Table.CheckWeight</td>
     <td>
       <RadzenCheckBox TValue="bool" ReadOnly="true" Value="@SqlItemCast.IsCheckWeight"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>@SqlItemCast.Name</td>
-    <td>@LocaleCore.Table.NomenclatureCode</td>
+    <td>@WsLocaleCore.Table.NomenclatureCode</td>
     <td>@SqlItemCast.Code</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(Template)" Text="@LocaleCore.Table.Template"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(Template)" Text="@WsLocaleCore.Table.Template"/>
     </td>
     <td>@Template.Title</td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(StorageMethod)" Text="@LocaleCore.Table.PluStorage"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(StorageMethod)" Text="@WsLocaleCore.Table.PluStorage"/>
     </td>
     <td>@StorageMethod?.Name</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Ean13</td>
+    <td>@WsLocaleCore.Table.Ean13</td>
     <td>@SqlItemCast.Ean13</td>
-    <td>@LocaleCore.Table.Gtin</td>
+    <td>@WsLocaleCore.Table.Gtin</td>
     <td>@SqlItemCast.Gtin</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Itf14</td>
+    <td>@WsLocaleCore.Table.Itf14</td>
     <td>@SqlItemCast.Itf14</td>
-    <td>@LocaleCore.Table.ShelfLifeDays</td>
+    <td>@WsLocaleCore.Table.ShelfLifeDays</td>
     <td>@SqlItemCast.ShelfLifeDays</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.FullName</td>
+    <td>@WsLocaleCore.Table.FullName</td>
     <td>
       <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.FullName"/>
     </td>
-    <td>@LocaleCore.Table.Description</td>
+    <td>@WsLocaleCore.Table.Description</td>
     <td>
       <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.Description" Rows="3"/>
     </td>

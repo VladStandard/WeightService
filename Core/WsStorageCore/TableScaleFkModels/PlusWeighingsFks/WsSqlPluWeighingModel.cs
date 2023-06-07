@@ -119,7 +119,7 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Sscc = LocaleCore.Sql.SqlItemFieldSscc;
+        Sscc = WsLocaleCore.Sql.SqlItemFieldSscc;
         NettoWeight = 1.1M;
         WeightTare = 0.25M;
         RegNum = 1;

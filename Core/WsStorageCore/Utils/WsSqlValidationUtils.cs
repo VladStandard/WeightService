@@ -16,7 +16,7 @@ public class WsSqlValidationUtils
             case false:
                 foreach (ValidationFailure failure in result.Errors)
                 {
-                    detailAddition += $"{LocaleCore.Validator.Property} {failure.PropertyName} {LocaleCore.Validator.FailedValidation}. {LocaleCore.Validator.Error}: {failure.ErrorMessage}";
+                    detailAddition += $"{WsLocaleCore.Validator.Property} {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}. {WsLocaleCore.Validator.Error}: {failure.ErrorMessage}";
                 }
                 break;
         }

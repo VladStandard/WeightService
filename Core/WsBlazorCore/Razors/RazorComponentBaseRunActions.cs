@@ -15,8 +15,8 @@ public partial class RazorComponentBase
     {
         return new ConfirmOptions
         {
-            OkButtonText = LocaleCore.Dialog.DialogButtonYes,
-            CancelButtonText = LocaleCore.Dialog.DialogButtonCancel
+            OkButtonText = WsLocaleCore.Dialog.DialogButtonYes,
+            CancelButtonText = WsLocaleCore.Dialog.DialogButtonCancel
         };
     }
 
@@ -32,7 +32,7 @@ public partial class RazorComponentBase
             NotificationService.Notify(
                 NotificationSeverity.Success,
                 title,
-                LocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.Delay
+                WsLocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.Delay
                 );
         }
         catch (Exception ex)
@@ -49,7 +49,7 @@ public partial class RazorComponentBase
         try
         {
 
-            string question = string.IsNullOrEmpty(message) ? LocaleCore.Dialog.DialogQuestion : message;
+            string question = string.IsNullOrEmpty(message) ? WsLocaleCore.Dialog.DialogQuestion : message;
             Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
             if (dialog.Result == true)
                 RunAction(title, action);
@@ -63,7 +63,7 @@ public partial class RazorComponentBase
     private void CatchException(string title, Exception ex)
     {
         if (string.IsNullOrEmpty(title))
-            title = LocaleCore.Dialog.DialogResultFail;
+            title = WsLocaleCore.Dialog.DialogResultFail;
         
         string msg = ex.Message;
         if (!string.IsNullOrEmpty(ex.InnerException?.Message))

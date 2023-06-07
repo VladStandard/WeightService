@@ -134,7 +134,7 @@ public class WsSqlFieldMacAddressModel : WsSqlFieldBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Value = LocaleCore.Sql.SqlItemFieldMac;
+        Value = WsLocaleCore.Sql.SqlItemFieldMac;
     }
 
 

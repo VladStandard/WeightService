@@ -7,7 +7,7 @@
 @inherits SectionBase<WsStorageCore.ViewScaleModels.LogView>
 
 <SectionTopBar
-  Title="@LocaleCore.System.SystemLogs"
+  Title="@WsLocaleCore.System.SystemLogs"
   ButtonSettings="@ButtonSettings"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
@@ -43,14 +43,14 @@
   <Columns>
     <TItemContent TItem="@LogView">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="14%"
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="14%"
                             FormatString="@StrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="14%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host" Width="10%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="App" Width="13%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="6%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.LogType" Property="LogType" Width="10%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Message" Property="Message" Width="30%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Line" Width="14%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Device" Property="Host" Width="10%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.App" Property="App" Width="13%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Version" Property="Version" Width="6%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LogType" Property="LogType" Width="10%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Message" Property="Message" Width="30%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

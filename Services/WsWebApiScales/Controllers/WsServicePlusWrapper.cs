@@ -34,7 +34,7 @@ public sealed class WsServicePlusWrapper : WsServiceControllerBase
         ContentResult result = GetAcceptVersion(version) switch
         {
             WsSqlAcceptVersion.V2 => GetContentResult(() => // Новый ответ 1С - не найдено.
-                NewResponse1CIsNotFound($"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
+                NewResponse1CIsNotFound($"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => PlusController.NewResponsePlus(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendNomenclatures,

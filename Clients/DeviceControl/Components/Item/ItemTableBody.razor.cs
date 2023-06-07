@@ -19,8 +19,8 @@ public sealed partial class ItemTableBody : LayoutComponentBase
     private string IdentityName =>
         SqlItem.Identity.Name switch
         {
-            WsSqlFieldIdentity.Id => LocaleCore.Table.Id,
-            WsSqlFieldIdentity.Uid => LocaleCore.Table.Uid,
+            WsSqlFieldIdentity.Id => WsLocaleCore.Table.Id,
+            WsSqlFieldIdentity.Uid => WsLocaleCore.Table.Uid,
             _ => string.Empty
         };
 

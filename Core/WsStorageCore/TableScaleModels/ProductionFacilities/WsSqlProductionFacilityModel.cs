@@ -79,7 +79,7 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Address = LocaleCore.Sql.SqlItemFieldAddress;
+        Address = WsLocaleCore.Sql.SqlItemFieldAddress;
     }
 
     #endregion

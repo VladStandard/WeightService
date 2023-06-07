@@ -132,8 +132,8 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
 
     private void SetControlsTextDefault()
     {
-        MdInvokeControl.SetText(FieldNettoWeight, $"{0:0.000} {LocaleCore.Scales.WeightUnitKg}");
-        MdInvokeControl.SetText(FieldMassa, LocaleCore.Scales.ComPort);
+        MdInvokeControl.SetText(FieldNettoWeight, $"{0:0.000} {WsLocaleCore.Scales.WeightUnitKg}");
+        MdInvokeControl.SetText(FieldMassa, WsLocaleCore.Scales.ComPort);
         MdInvokeControl.SetText(FieldMassaExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
     }
 
@@ -146,21 +146,21 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
         {
             case UsbAdapterStatus.IsDataNotExists:
                 MdInvokeControl.SetText(FieldMassa,
-                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsDataNotExists}");
+                    $"{WsLocaleCore.Scales.MassaK} | {WsLocaleCore.Scales.IsDataNotExists}");
                 break;
             case UsbAdapterStatus.IsException:
                 MdInvokeControl.SetText(FieldMassa,
-                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsException(MassaDevice.SerialPort.Exception.Message)}");
+                    $"{WsLocaleCore.Scales.MassaK} | {WsLocaleCore.Scales.IsException(MassaDevice.SerialPort.Exception.Message)}");
                 break;
 
             case UsbAdapterStatus.IsNotConnectWithMassa:
                 MdInvokeControl.SetText(FieldMassa, 
-                    $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.IsNotConnectWithMassa}");
+                    $"{WsLocaleCore.Scales.MassaK} | {WsLocaleCore.Scales.IsNotConnectWithMassa}");
                 break;
             default:
                 MdInvokeControl.SetText(FieldMassa, $"{(MassaDevice.IsOpenPort
-                    ? $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.StateIsResponsed} | "
-                    : $"{LocaleCore.Scales.MassaK} | {LocaleCore.Scales.StateIsNotResponsed} | ")} | {ResponseParseGet.Message}");
+                    ? $"{WsLocaleCore.Scales.MassaK} | {WsLocaleCore.Scales.StateIsResponsed} | "
+                    : $"{WsLocaleCore.Scales.MassaK} | {WsLocaleCore.Scales.StateIsNotResponsed} | ")} | {ResponseParseGet.Message}");
                 break;
         
         }
@@ -169,8 +169,8 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
             ? 0 : WeightNet - LabelSession.ViewPluNesting.TareWeight;
 
         MdInvokeControl.SetText(FieldNettoWeight, IsStable
-            ? $"{weight:0.000} {LocaleCore.Scales.WeightUnitKg}"
-            : $"{LocaleCore.Scales.WeightingIsCalc}");
+            ? $"{weight:0.000} {WsLocaleCore.Scales.WeightUnitKg}"
+            : $"{WsLocaleCore.Scales.WeightingIsCalc}");
         MdInvokeControl.SetForeColor(FieldNettoWeight, Equals(IsStable, true) && weight > 0 ? Color.Green : Color.Red);
     }
 

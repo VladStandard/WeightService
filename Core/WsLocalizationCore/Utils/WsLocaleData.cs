@@ -3,11 +3,11 @@
 
 namespace WsLocalizationCore.Utils;
 
-public static partial class LocaleData
+public static partial class WsLocaleData
 {
     public static WsEnumLanguage Lang { get; set; }
 
-    static LocaleData()
+    static WsLocaleData()
     {
         Lang = WsEnumLanguage.Russian;
     }

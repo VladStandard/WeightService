@@ -6,26 +6,26 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<WsStorageCore.TableScaleModels.Organizations.WsSqlOrganizationModel>
 
-<ItemTopBar TItem="WsSqlOrganizationModel" Title="@LocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="WsSqlOrganizationModel" Title="@WsLocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td colspan="3">
       <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Description</td>
+    <td>@WsLocaleCore.Table.Description</td>
     <td colspan="3">
       <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Description"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Gln</td>
+    <td>@WsLocaleCore.Table.Gln</td>
     <td colspan="3">
       <RzNumeric @bind-Value="@SqlItemCast.Gln"/>
     </td>

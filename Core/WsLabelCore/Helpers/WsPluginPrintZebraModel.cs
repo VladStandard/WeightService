@@ -59,7 +59,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
             PrintName = printer.Name;
             MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
             MdInvokeControl.SetText(FieldPrint,
-                $"{(IsMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
+                $"{(IsMain ? WsLocaleCore.Print.NameMainZebra : WsLocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
         }
         catch (Exception ex)
         {
@@ -122,59 +122,59 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
 
     public string GetDeviceStatusZebra()
     {
-        if (ZebraStatus is null) return LocaleCore.Print.StatusIsUnavailable;
+        if (ZebraStatus is null) return WsLocaleCore.Print.StatusIsUnavailable;
         if (ZebraStatus.isHeadCold)
-            return LocaleCore.Print.StatusIsHeadCold;
+            return WsLocaleCore.Print.StatusIsHeadCold;
         if (ZebraStatus.isHeadOpen)
-            return LocaleCore.Print.StatusIsHeadOpen;
+            return WsLocaleCore.Print.StatusIsHeadOpen;
         if (ZebraStatus.isHeadTooHot)
-            return LocaleCore.Print.StatusIsHeadTooHot;
+            return WsLocaleCore.Print.StatusIsHeadTooHot;
         if (ZebraStatus.isPaperOut)
-            return LocaleCore.Print.StatusIsPaperOut;
+            return WsLocaleCore.Print.StatusIsPaperOut;
         if (ZebraStatus.isPartialFormatInProgress)
-            return LocaleCore.Print.StatusIsPartialFormatInProgress;
+            return WsLocaleCore.Print.StatusIsPartialFormatInProgress;
         if (ZebraStatus.isPaused)
-            return LocaleCore.Print.StatusIsPaused;
+            return WsLocaleCore.Print.StatusIsPaused;
         if (ZebraStatus.isReadyToPrint)
-            return LocaleCore.Print.StatusIsReadyToPrint;
+            return WsLocaleCore.Print.StatusIsReadyToPrint;
         if (ZebraStatus.isReceiveBufferFull)
-            return LocaleCore.Print.StatusIsReceiveBufferFull;
+            return WsLocaleCore.Print.StatusIsReceiveBufferFull;
         if (ZebraStatus.isRibbonOut)
-            return LocaleCore.Print.StatusIsRibbonOut;
-        return LocaleCore.Print.StatusIsUnavailable;
+            return WsLocaleCore.Print.StatusIsRibbonOut;
+        return WsLocaleCore.Print.StatusIsUnavailable;
     }
 
-    public bool CheckDeviceStatusZebra() => GetDeviceStatusZebra() == LocaleCore.Print.StatusIsReadyToPrint;
+    public bool CheckDeviceStatusZebra() => GetDeviceStatusZebra() == WsLocaleCore.Print.StatusIsReadyToPrint;
 
     public string GetZebraPrintMode()
     {
-        if (ZebraStatus is null) return LocaleCore.Print.ModeUnknown;
+        if (ZebraStatus is null) return WsLocaleCore.Print.ModeUnknown;
         lock (ZebraStatus)
         {
             if (ZebraStatus.printMode == ZplPrintMode.REWIND)
-                return LocaleCore.Print.ModeRewind;
+                return WsLocaleCore.Print.ModeRewind;
             if (ZebraStatus.printMode == ZplPrintMode.PEEL_OFF)
-                return LocaleCore.Print.ModePeelOff;
+                return WsLocaleCore.Print.ModePeelOff;
             if (ZebraStatus.printMode == ZplPrintMode.TEAR_OFF)
-                return LocaleCore.Print.ModeTearOff;
+                return WsLocaleCore.Print.ModeTearOff;
             if (ZebraStatus.printMode == ZplPrintMode.CUTTER)
-                return LocaleCore.Print.ModeCutter;
+                return WsLocaleCore.Print.ModeCutter;
             if (ZebraStatus.printMode == ZplPrintMode.APPLICATOR)
-                return LocaleCore.Print.ModeApplicator;
+                return WsLocaleCore.Print.ModeApplicator;
             if (ZebraStatus.printMode == ZplPrintMode.DELAYED_CUT)
-                return LocaleCore.Print.ModeDelayedCut;
+                return WsLocaleCore.Print.ModeDelayedCut;
             if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_PEEL)
-                return LocaleCore.Print.ModeLinerlessPeel;
+                return WsLocaleCore.Print.ModeLinerlessPeel;
             if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_REWIND)
-                return LocaleCore.Print.ModeLinerlessRewind;
+                return WsLocaleCore.Print.ModeLinerlessRewind;
             if (ZebraStatus.printMode == ZplPrintMode.PARTIAL_CUTTER)
-                return LocaleCore.Print.ModePartialCutter;
+                return WsLocaleCore.Print.ModePartialCutter;
             if (ZebraStatus.printMode == ZplPrintMode.RFID)
-                return LocaleCore.Print.ModeRfid;
+                return WsLocaleCore.Print.ModeRfid;
             if (ZebraStatus.printMode == ZplPrintMode.KIOSK)
-                return LocaleCore.Print.ModeKiosk;
+                return WsLocaleCore.Print.ModeKiosk;
         }
-        return LocaleCore.Print.ModeUnknown;
+        return WsLocaleCore.Print.ModeUnknown;
     }
 
     public void SendCmd(WsSqlPluLabelModel pluLabel)
@@ -186,7 +186,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
 
     private void SendCmdToZebra(string cmd)
     {
-        if (ZebraDriver is null || GetDeviceStatusZebra() != LocaleCore.Print.StatusIsReadyToPrint)
+        if (ZebraDriver is null || GetDeviceStatusZebra() != WsLocaleCore.Print.StatusIsReadyToPrint)
             return;
         try
         {
@@ -202,7 +202,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
                     }
                     else
                     {
-                        WsFormNavigationUtils.CatchExceptionSimple(new($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"));
+                        WsFormNavigationUtils.CatchExceptionSimple(new($"{WsLocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"));
                     }
                 }
             }

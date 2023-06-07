@@ -178,10 +178,10 @@ public sealed class WsSqlContextItemHelper
     {
         return accessRights switch
         {
-            WsEnumAccessRights.Read => LocaleCore.Strings.AccessRightsRead,
-            WsEnumAccessRights.Write => LocaleCore.Strings.AccessRightsWrite,
-            WsEnumAccessRights.Admin => LocaleCore.Strings.AccessRightsAdmin,
-            _ => LocaleCore.Strings.AccessRightsNone
+            WsEnumAccessRights.Read => WsLocaleCore.Strings.AccessRightsRead,
+            WsEnumAccessRights.Write => WsLocaleCore.Strings.AccessRightsWrite,
+            WsEnumAccessRights.Admin => WsLocaleCore.Strings.AccessRightsAdmin,
+            _ => WsLocaleCore.Strings.AccessRightsNone
         };
     }
 
