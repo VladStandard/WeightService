@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Common;
+
 namespace WsLocalizationCore.Models;
 
 public sealed class LocaleSettings : WsLocalizationBase
@@ -16,12 +18,12 @@ public sealed class LocaleSettings : WsLocalizationBase
 
     #region Public and private fields, properties, constructor
 
-    public string AllowedHosts => Lang == Lang.English ? "Allowed hosts" : "Разрешенные хосты";
-    public string SectionRowsCount => Lang == Lang.English ? "Section's rows count" : "Количество строк в секции";
-    public string ItemRowsCount => Lang == Lang.English ? "Records's rows count" : "Количество строк в записи";
-    public string SectionAndItemRowsCount => Lang == Lang.English ? "Section's and record's rows count" : "Количество строк в секции и записи";
-    public string SelectTopRowsCount => Lang == Lang.English ? "Selection's top rows count" : "Количество строк выборки";
-    public string Version => Lang == Lang.English ? "Version of the json-settings file" : "Версия файла json-настроек";
+    public string AllowedHosts => Lang == WsEnumLanguage.English ? "Allowed hosts" : "Разрешенные хосты";
+    public string SectionRowsCount => Lang == WsEnumLanguage.English ? "Section's rows count" : "Количество строк в секции";
+    public string ItemRowsCount => Lang == WsEnumLanguage.English ? "Records's rows count" : "Количество строк в записи";
+    public string SectionAndItemRowsCount => Lang == WsEnumLanguage.English ? "Section's and record's rows count" : "Количество строк в секции и записи";
+    public string SelectTopRowsCount => Lang == WsEnumLanguage.English ? "Selection's top rows count" : "Количество строк выборки";
+    public string Version => Lang == WsEnumLanguage.English ? "Version of the json-settings file" : "Версия файла json-настроек";
 
     #endregion
 }

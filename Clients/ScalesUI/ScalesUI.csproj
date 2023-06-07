@@ -214,7 +214,9 @@
     <Compile Include="Forms\WsMainFormNaviLine.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WsMainFormNavi.cs" />
+    <Compile Include="Forms\WsMainFormNavi.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\WsSchedulerHelper.cs" />
     <Compile Include="Program.cs" />

@@ -8,7 +8,4 @@
     <Version>0.9.533.0</Version>
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
-  <ItemGroup>
-    <Using Include="WsLocalizationCore.Enums" />
-  </ItemGroup>
 </Project>

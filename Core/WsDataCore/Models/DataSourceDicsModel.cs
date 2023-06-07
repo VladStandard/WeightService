@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsDataCore.Enums;
+using WsLocalizationCore.Common;
 
 namespace WsDataCore.Models;
 
@@ -53,23 +54,23 @@ public class DataSourceDicsHelper
         return result;
     }
 
-    public List<WsEnumTypeModel<Lang>> GetTemplateLanguages() => LocaleCore.Lang switch
+    public List<WsEnumTypeModel<WsEnumLanguage>> GetTemplateLanguages() => LocaleCore.Lang switch
     {
-        Lang.English => GetTemplateLanguagesEng(),
-        Lang.Russian => GetTemplateLanguagesRus(),
+        WsEnumLanguage.English => GetTemplateLanguagesEng(),
+        WsEnumLanguage.Russian => GetTemplateLanguagesRus(),
         _ => new()
     };
 
-    private List<WsEnumTypeModel<Lang>> GetTemplateLanguagesEng() => new()
+    private List<WsEnumTypeModel<WsEnumLanguage>> GetTemplateLanguagesEng() => new()
     {
-        new($"{Lang.English}", Lang.English),
-        new($"{Lang.Russian}", Lang.Russian)
+        new($"{WsEnumLanguage.English}", WsEnumLanguage.English),
+        new($"{WsEnumLanguage.Russian}", WsEnumLanguage.Russian)
     };
 
-    private List<WsEnumTypeModel<Lang>> GetTemplateLanguagesRus() => new()
+    private List<WsEnumTypeModel<WsEnumLanguage>> GetTemplateLanguagesRus() => new()
     {
-        new("Английский", Lang.English),
-        new("Русский", Lang.Russian)
+        new("Английский", WsEnumLanguage.English),
+        new("Русский", WsEnumLanguage.Russian)
     };
 
     #endregion

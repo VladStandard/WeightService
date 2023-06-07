@@ -9,7 +9,6 @@ global using Radzen;
 global using WsBlazorCore.Razors;
 global using WsBlazorCore.Services;
 global using WsBlazorCore.Utils;
-global using WsLocalizationCore.Enums;
 global using WsLocalizationCore.Models;
 global using WsStorageCore.Enums;
 global using WsStorageCore.Models;

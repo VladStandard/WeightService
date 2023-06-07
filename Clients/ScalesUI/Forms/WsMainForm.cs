@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Common;
 using WsPrintCore.Common;
 
 namespace ScalesUI.Forms;
@@ -57,7 +58,7 @@ public partial class WsMainForm : Form
         MdInvokeControl.SetText(fieldProductDate, string.Empty);
         // Настроить плагины.
         SetupPlugins();
-        LoadLocalizationStatic(Lang.Russian);
+        LoadLocalizationStatic(WsEnumLanguage.Russian);
         // Планировщик.
         WsScheduler.Load(this);
         // Загрузить WinForms-контролы.
@@ -88,7 +89,7 @@ public partial class WsMainForm : Form
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
-            LocaleCore.Lang = LocaleData.Lang = Lang.Russian;
+            LocaleCore.Lang = LocaleData.Lang = WsEnumLanguage.Russian;
             // Загрузить WinForms-контрол ожидания.
             LoadNavigationWaitUserControl();
             // Проверка линии.
@@ -435,7 +436,7 @@ public partial class WsMainForm : Form
     /// Загрузить локализацию.
     /// </summary>
     /// <param name="lang"></param>
-    private void LoadLocalizationStatic(Lang lang)
+    private void LoadLocalizationStatic(WsEnumLanguage lang)
     {
         LocaleCore.Lang = LocaleData.Lang = lang;
         MdInvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);

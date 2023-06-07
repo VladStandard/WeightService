@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Common;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -104,10 +106,10 @@ public class WsPluginPrintModel : WsPluginBaseHelper
         }
     }
 
-    protected string GetPrinterStatusDescription(Lang lang, MdWinPrinterStatus printerStatus) =>
+    protected string GetPrinterStatusDescription(WsEnumLanguage lang, MdWinPrinterStatus printerStatus) =>
         lang switch
         {
-            Lang.Russian => printerStatus switch
+            WsEnumLanguage.Russian => printerStatus switch
             {
                 MdWinPrinterStatus.Idle => "Бездействие",
                 MdWinPrinterStatus.Paused => "Пауза",

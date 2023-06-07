@@ -3,6 +3,7 @@
 
 using DeviceControl.Services;
 using WsDataCore.Enums;
+using WsLocalizationCore.Common;
 
 namespace DeviceControl.Pages.Menu.Profiles;
 
@@ -11,8 +12,8 @@ public partial class Profile : RazorComponentBase
     #region Public and private fields, properties, constructor
 
     [Inject] private LocalStorageService LocalStorage { get; set; }
-    private List<WsEnumTypeModel<Lang>>? TemplateLanguages { get; set; }
-    private List<Lang> Langs { get; set; }
+    private List<WsEnumTypeModel<WsEnumLanguage>>? TemplateLanguages { get; set; }
+    private List<WsEnumLanguage> Langs { get; set; }
     private int DefaultRowCount { get; set; }
 
     private string IpAddress =>
@@ -23,7 +24,7 @@ public partial class Profile : RazorComponentBase
     public Profile()
     {
         Langs = new();
-        foreach (Lang lang in Enum.GetValues(typeof(Lang)))
+        foreach (WsEnumLanguage lang in Enum.GetValues(typeof(WsEnumLanguage)))
             Langs.Add(lang);
         TemplateLanguages = BlazorAppSettings.DataSourceDics.GetTemplateLanguages();
     }
