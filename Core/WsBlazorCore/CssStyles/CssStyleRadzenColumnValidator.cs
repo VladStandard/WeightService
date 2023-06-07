@@ -5,17 +5,17 @@ namespace WsBlazorCore.CssStyles;
 
 public class CssStyleRadzenColumnValidator : AbstractValidator<CssStyleRadzenColumnModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public CssStyleRadzenColumnValidator()
-	{
-		RuleFor(item => item.Width)
-			.NotEmpty()
-			.NotNull();
-	}
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public CssStyleRadzenColumnValidator()
+    {
+        RuleFor(item => item.Width)
+            .NotEmpty()
+            .NotNull();
+    }
 
-	#endregion
+    #endregion
 }

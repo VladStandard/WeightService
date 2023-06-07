@@ -15,7 +15,7 @@ public sealed partial class ItemPrinterResources : ItemBase<WsSqlPrinterResource
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
 
     private List<WsSqlTemplateResourceModel> TemplateResourceModels { get; set; }
-    
+
     #endregion
 
     #region Public and private methods
@@ -24,7 +24,7 @@ public sealed partial class ItemPrinterResources : ItemBase<WsSqlPrinterResource
     {
         SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterResourceFkModel>(Id);
         if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNew<WsSqlPrinterResourceFkModel>();
+            SqlItemCast = SqlItemNewEmpty<WsSqlPrinterResourceFkModel>();
         PrinterModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils
             .GetCrudConfigComboBox());
         TemplateResourceModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlTemplateResourceModel>(WsSqlCrudConfigUtils

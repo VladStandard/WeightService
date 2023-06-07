@@ -11,6 +11,7 @@ public class LineView : WsSqlTableBase
     public virtual string HostName { get; set; }
     public virtual string Printer { get; set; }
     public virtual string WorkShop { get; set; }
+    public virtual int Counter { get; set; }
     
     /// <summary>
 	/// Constructor.
@@ -21,6 +22,7 @@ public class LineView : WsSqlTableBase
         HostName = string.Empty;
         Printer = string.Empty;
         WorkShop = string.Empty;
+        Counter = 0;
     }
 
 	#endregion
@@ -32,6 +34,7 @@ public class LineView : WsSqlTableBase
 		$"{nameof(Number)}: {Number}. " +
 		$"{nameof(HostName)}: {HostName}. " +
 		$"{nameof(Printer)}: {Printer}. " +
+        $"{nameof(Counter)}: {Counter}. " +
 		$"{nameof(WorkShop)}: {WorkShop}.";
     
 	#endregion

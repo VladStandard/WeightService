@@ -239,6 +239,7 @@ select {WsSqlQueries.GetTopRecords(topRecords)}
 	,[HOST_NAME]
 	,[PRINTER]
 	,[WORKSHOP]
+	,[COUNTER]
 FROM [db_scales].[VIEW_LINES]
 {WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [NAME] ASC");

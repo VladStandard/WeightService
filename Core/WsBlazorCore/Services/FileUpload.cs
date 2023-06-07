@@ -14,7 +14,7 @@ public class FileUpload : IFileUpload
     //public FileUpload(IWebHostEnvironment environment)
     public FileUpload(IHostingEnvironment environment)
     {
-		_environment = environment;
+        _environment = environment;
     }
 
     public async Task UploadAsync(IFileListEntry fileEntry)

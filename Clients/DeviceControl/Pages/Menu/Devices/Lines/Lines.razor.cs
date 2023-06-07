@@ -34,9 +34,9 @@ public sealed partial class Lines : SectionBase<LineView>
         List<LineView> items = new();
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 7 } item)
+            if (obj is not object[] { Length: 8 } item)
                 continue;
-            
+
             items.Add(new LineView
             {
                 IdentityValueId = Convert.ToInt64(item[0]),
@@ -45,7 +45,8 @@ public sealed partial class Lines : SectionBase<LineView>
                 Number = Convert.ToInt32(item[3]),
                 HostName = item[4] as string ?? string.Empty,
                 Printer = item[5] as string ?? string.Empty,
-                WorkShop = item[6] as string ?? string.Empty
+                WorkShop = item[6] as string ?? string.Empty,
+                Counter = Convert.ToInt32(item[7])
             });
         }
 

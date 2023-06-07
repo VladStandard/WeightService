@@ -5,16 +5,16 @@ namespace WsBlazorCore.CssStyles;
 
 public class CssStyleTableBodyValidator : AbstractValidator<CssStyleTableBodyModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public CssStyleTableBodyValidator()
-	{
-		RuleFor(item => item.IdentityName)
-			.NotEqual(WsSqlFieldIdentity.Empty);
-	}
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public CssStyleTableBodyValidator()
+    {
+        RuleFor(item => item.IdentityName)
+            .NotEqual(WsSqlFieldIdentity.Empty);
+    }
 
-	#endregion
+    #endregion
 }

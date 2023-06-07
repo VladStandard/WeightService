@@ -5,5 +5,5 @@ namespace WsBlazorCore.CssStyles;
 
 public class CssStyleBase
 {
-	//
+    //
 }

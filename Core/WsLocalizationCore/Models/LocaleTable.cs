@@ -189,7 +189,7 @@ public sealed class LocaleTable : WsLocalizationBase
     public string TableDelete => Lang == Lang.English ? "Delete record" : "Удалить запись";
     public string TableEdit => Lang == Lang.English ? "Edit record" : "Редактировать запись";
     public string TableIncludes => Lang == Lang.English ? "Included records" : "Вложенные записи";
-    public string TableMark => Lang == Lang.English ? "Save record" : "Пометить запись на удаление";
+    public string TableMark => Lang == Lang.English ? "Mark record" : "Пометить запись на удаление";
     public string TableNew => Lang == Lang.English ? "New record" : "Новая запись";
     public string TablePluHavingPlu => Lang == Lang.English ? "The PLU table already has this number" : "Таблица PLU уже имеет такой номер";
     public string TableRead => Lang == Lang.English ? "Read data" : "Прочитать данные";

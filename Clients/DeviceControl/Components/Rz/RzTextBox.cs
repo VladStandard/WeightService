@@ -1,4 +1,4 @@
-﻿using Radzen.Blazor;
+using Radzen.Blazor;
 
 namespace DeviceControl.Components.Rz;
 

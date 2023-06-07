@@ -1,4 +1,4 @@
-﻿using DeviceControl.Components.Section;
+using DeviceControl.Components.Section;
 using WsBlazorCore.Settings;
 using WsStorageCore.ViewScaleModels;
 

@@ -14,7 +14,7 @@ namespace DeviceControl.Pages.Menu.References1C.Plus;
 public sealed partial class ItemPlu : ItemBase<WsSqlPluModel>
 {
     #region Public and private fields, properties, constructor
-    
+
     private WsSqlTemplateModel Template { get; set; }
     private WsSqlPluStorageMethodModel StorageMethod { get; set; }
     private WsSqlPluStorageMethodFkModel StorageMethodFk { get; set; }

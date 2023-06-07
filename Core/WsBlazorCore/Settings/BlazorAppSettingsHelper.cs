@@ -27,7 +27,7 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
     public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public DataSourceDicsHelper DataSourceDics => DataSourceDicsHelper.Instance;
     public MemoryModel Memory { get; private set; } = new();
-    public static int Delay => 5_000;
+    public static int Delay => 2500;
     public string MemoryInfo => Memory.MemorySize.PhysicalTotal != null
         ? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalAllocated.MegaBytes:N0} MB " +
           $"{LocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsBlazorCore.Settings;
@@ -29,7 +29,7 @@ public partial class SectionTopBar : LayoutComponentBase
     #endregion
 
     #region Public and private methods
-    
+
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
@@ -44,11 +44,11 @@ public partial class SectionTopBar : LayoutComponentBase
     {
         OnSectionUpdate.InvokeAsync(false);
     }
-    
+
     private void OnReload()
     {
         OnSectionUpdate.InvokeAsync(true);
     }
-    
+
     #endregion
 }

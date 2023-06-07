@@ -22,6 +22,6 @@ public static class BlazorCoreUtils
             result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
         return result;
     }
-    
+
     #endregion
 }

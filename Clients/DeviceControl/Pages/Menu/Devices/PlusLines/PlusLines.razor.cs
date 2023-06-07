@@ -2,22 +2,21 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControl.Components.Section;
-using WsBlazorCore.Settings;
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusScales;
 using WsStorageCore.TableScaleModels.Scales;
 
-namespace DeviceControl.Pages.Menu.Devices.PluScales;
+namespace DeviceControl.Pages.Menu.Devices.PlusLines;
 
-public sealed partial class PlusScales : SectionBase<WsSqlPluScaleModel>
+public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
     [Parameter] public WsSqlScaleModel Scale { get; set; }
     public bool HideNoneActivePlu { get; set; }
 
-    public PlusScales() : base()
+    public PlusLines() : base()
     {
         HideNoneActivePlu = true;
         SqlCrudConfigSection.IsResultOrder = true;
@@ -30,7 +29,7 @@ public sealed partial class PlusScales : SectionBase<WsSqlPluScaleModel>
 
     protected override void SetSqlSectionCast()
     {
-        if (!HideNoneActivePlu) 
+        if (!HideNoneActivePlu)
             SqlCrudConfigSection.ClearFilters();
         else
             SqlCrudConfigSection.AddFilters(
@@ -46,11 +45,11 @@ public sealed partial class PlusScales : SectionBase<WsSqlPluScaleModel>
     }
 
     private string GetPluPackagesCount(WsSqlPluModel plu)
-	{
-		WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
             WsSqlIsMarked.ShowAll, true, false, false);
         return ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Count.ToString();
-	}
+    }
 
     #endregion
 }

@@ -22,7 +22,7 @@ public sealed partial class Devices : SectionBase<DeviceView>
                 continue;
             if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
             {
-                items.Add(new ()
+                items.Add(new()
                 {
                     IdentityValueUid = uid,
                     IsMarked = Convert.ToBoolean(item[1]),
@@ -38,6 +38,6 @@ public sealed partial class Devices : SectionBase<DeviceView>
 
         SqlSectionCast = items;
     }
-    
+
     #endregion
 }
