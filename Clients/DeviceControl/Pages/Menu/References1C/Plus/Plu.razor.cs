@@ -21,8 +21,4 @@ public sealed partial class Plu : SectionBase<WsSqlPluModel>
     }
 
     #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

@@ -21,10 +21,4 @@ public partial class SectionActions : LayoutComponentBase
     }
 
     #endregion
-
-    #region Public and private methods
-
-    //
-
-    #endregion
 }

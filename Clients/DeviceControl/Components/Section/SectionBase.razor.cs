@@ -96,13 +96,13 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
             new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
         };
 
-        if (User?.IsInRole(UserAccessStr.Write) == true)
-        {
-            if (ButtonSettings.IsShowMark)
-                contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
-            if (ButtonSettings.IsShowDelete)
-                contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
-        }
+        if (User?.IsInRole(UserAccessStr.Write) != true)
+            return contextMenuItems;
+
+        if (ButtonSettings.IsShowMark)
+            contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
+        if (ButtonSettings.IsShowDelete)
+            contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
 
         return contextMenuItems;
     }
