@@ -1,32 +1,18 @@
 {
+    "Language": {
+        "Name": {
+            "en": "English",
+            "ru": "Russian"
+        },
+        "CurrentLanguage": {
+            "en": "Current language",
+            "ru": "Текущий язык"
+        }
+    },
     "LabelPrint": {
         "AppTitle": {
             "en": "Label print",
             "ru": "Печать этикеток"
         }
-    },
-    "LanguageName": {
-        "en": "English",
-        "es": "Español",
-        "fr": "Français",
-        "ru": "Russian"
-    },
-    "[Localization.Examples.MainWindow].lblCurrentLanguage[Label].Content": {
-        "en": "Current language",
-        "es": "Lenguaje actual",
-        "fr": "Langue courrante",
-        "ru": "Текущий язык"
-    },
-    "[Localization.Examples.MainWindow].lblHelloInCurrentLanguage[Label].Content": {
-        "en": "Hello",
-        "es": "Hola",
-        "fr": "Bonjour",
-        "ru": "Привет"
-    },
-    "[Localization.Examples.MainWindow].lblHelloInCurrentLanguage[Label].ToolTip": {
-        "en": "In english",
-        "es": "En español",
-        "fr": "En français",
-        "ru": "Russian"
     }
 }

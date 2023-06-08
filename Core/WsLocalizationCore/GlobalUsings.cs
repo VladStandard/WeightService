@@ -7,3 +7,4 @@ global using CodingSeb.Localization.Loaders;
 global using CodingSeb.Localization;
 global using WsLocalizationCore.Common;
 global using WsLocalizationCore.Models;
+global using WsLocalizationCore.Utils;
