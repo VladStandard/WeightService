@@ -24,6 +24,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     [XmlElement] public virtual string ZebraIp { get; set; }
     [XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
     [XmlElement] public virtual int Number { get; set; }
+    [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Description}";
     private int _labelCounter;
     /// <summary>
     /// Счётчик этикеток (от 1 до 1_000_000).

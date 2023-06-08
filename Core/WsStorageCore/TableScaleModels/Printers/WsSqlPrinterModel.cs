@@ -29,7 +29,7 @@ public class WsSqlPrinterModel : WsSqlTableBase
     [XmlIgnore] public virtual bool IsPing => PingStatus == IPStatus.Success;
     [XmlIgnore] public virtual Exception? HttpStatusException { get; set; }
     [XmlIgnore] public virtual bool IsConnect => HttpStatusCode == HttpStatusCode.OK;
-    [XmlIgnore] public virtual string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
+    [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
 
     /// <summary>
     /// Constructor.

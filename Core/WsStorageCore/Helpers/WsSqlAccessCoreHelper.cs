@@ -4,7 +4,6 @@
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using WsDataCore.Common;
-using WsLocalizationCore.Utils;
 
 namespace WsStorageCore.Helpers;
 
@@ -560,7 +559,7 @@ internal sealed class WsSqlAccessCoreHelper
 
     public T GetItemNewEmpty<T>() where T : WsSqlTableBase, new()
     {
-        T result = new() { Name = WsLocaleCore.Table.FieldEmpty, Description = WsLocaleCore.Table.FieldEmpty };
+        T result = new();
         result.FillProperties();
         return result;
     }

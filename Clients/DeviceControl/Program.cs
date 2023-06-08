@@ -72,6 +72,7 @@ WsSqlContextManagerHelper.Instance.SetupJsonWebApp(
     null,
     true
 );
+
 try
 {
     app.Run();

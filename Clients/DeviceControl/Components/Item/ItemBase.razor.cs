@@ -50,11 +50,9 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected async Task SqlItemSaveAsync()
     {
-        // TODO: fix this
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-        if (SqlItem is null) return;
-
+        if (!SqlItemValidate(SqlItem)) return;
+        
         RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
             SqlItemSave(SqlItem);

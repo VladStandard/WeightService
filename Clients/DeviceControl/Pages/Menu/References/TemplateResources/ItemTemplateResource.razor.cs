@@ -29,7 +29,7 @@ public sealed partial class ItemTemplateResource : ItemBase<WsSqlTemplateResourc
             Severity = NotificationSeverity.Error,
             Summary = $"{WsLocaleCore.Strings.MethodError} [{name}]!",
             Detail = args.Message,
-            Duration = BlazorAppSettingsHelper.Delay
+            Duration = BlazorAppSettingsHelper.DelayError
         };
         NotificationService?.Notify(msg);
     }

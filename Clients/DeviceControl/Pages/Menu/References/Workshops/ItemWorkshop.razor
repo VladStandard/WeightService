@@ -23,11 +23,10 @@
   </tr>
   <tr>
     <td>
-      
       <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.ProductionFacility)" Text="@WsLocaleCore.Table.ProductionFacility"/>
     </td>
     <td>
-      <RzDropDown @bind-Value="@SqlItemCast.ProductionFacility" Data="@ProductionFacilityModels" TextProperty="Name"/>
+      <RzDropDown @bind-Value="@SqlItemCast.ProductionFacility" Data="@ProductionFacilityModels" TextProperty="DisplayName"/>
     </td>
     <td/>
     <td/>

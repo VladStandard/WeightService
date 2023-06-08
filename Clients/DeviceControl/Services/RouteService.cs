@@ -58,10 +58,8 @@ public class RouteService
         _navigationManager.NavigateTo(GetItemRoute(item));
     }
 
-    public void NavigateSectionRoute(WsSqlTableBase? item)
+    public void NavigateSectionRoute(WsSqlTableBase item)
     {
-        if (item == null)
-            return;
         _navigationManager.NavigateTo(GetSectionRoute(item));
     }
 

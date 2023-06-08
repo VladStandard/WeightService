@@ -8,11 +8,4 @@ namespace DeviceControl.Pages.Menu.Devices.Printers;
 
 public sealed partial class Printers : SectionBase<WsSqlPrinterModel>
 {
-    #region Public and private fields, properties, constructor
-
-    #endregion
-
-    #region Public and private methods
-
-    #endregion
 }

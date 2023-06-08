@@ -16,7 +16,8 @@ public class WsSqlValidationUtils
             case false:
                 foreach (ValidationFailure failure in result.Errors)
                 {
-                    detailAddition += $"{WsLocaleCore.Validator.Property} {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}. {WsLocaleCore.Validator.Error}: {failure.ErrorMessage}";
+                    detailAddition += $"<u>{WsLocaleCore.Validator.Property}:</u> {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}.<br><u>{WsLocaleCore.Validator.Error}:</u> {failure.ErrorMessage}";
+                    break;
                 }
                 break;
         }
@@ -137,13 +138,12 @@ public class WsSqlValidationUtils
         }
 
         ValidationResult validationResult = GetValidationResult(item);
-        if (!validationResult.IsValid)
-        {
-            SetValidationFailureLog(validationResult, ref detailAddition);
-            return false;
-        }
+        if (validationResult.IsValid)
+            return true;
+        
+        SetValidationFailureLog(validationResult, ref detailAddition);
+        return false;
 
-        return true;
     }
 
     #endregion

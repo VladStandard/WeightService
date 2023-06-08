@@ -17,10 +17,4 @@ public partial class SectionIsMarked<TItem> : LayoutComponentBase where TItem : 
     }
 
     #endregion
-
-    #region Public and private methods
-
-    //
-
-    #endregion
 }
