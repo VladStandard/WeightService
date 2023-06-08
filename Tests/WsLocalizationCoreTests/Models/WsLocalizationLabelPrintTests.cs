@@ -30,13 +30,18 @@ public sealed class WsLocalizationLabelPrintTests
     }
     
     [Test]
-    public void Create_2_instances()
+    public void Using_multiplayer()
     {
         Assert.DoesNotThrow(() =>
         {
             WsLocalizationLabelPrint wsLocalization1 = new();
-            wsLocalization1.SetLanguage(WsEnumLanguage.English);
             WsLocalizationLabelPrint wsLocalization2 = new();
+            TestContext.WriteLine($"wsLocalization1.Locale.CurrentLanguage: {wsLocalization1.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"wsLocalization2.Locale.CurrentLanguage: {wsLocalization2.Locale.CurrentLanguage}");
+
+            wsLocalization1.SetLanguage(WsEnumLanguage.English);
+            TestContext.WriteLine($"wsLocalization1.Locale.CurrentLanguage: {wsLocalization1.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"wsLocalization2.Locale.CurrentLanguage: {wsLocalization2.Locale.CurrentLanguage}");
 
             Assert.That(wsLocalization1.Lang, Is.EqualTo(WsEnumLanguage.English));
             Assert.That(wsLocalization1.Locale.CurrentLanguage, Is.EqualTo("en"));
