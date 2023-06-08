@@ -248,7 +248,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         }
 
         decimal weight = PluginMassa.WeightNet - (LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
-        if (weight < WsLocaleCore.LabelPrint.MassaThresholdValue || weight < WsLocaleCore.LabelPrint.MassaThresholdPositive)
+        if (weight < WsLocalizationUtils.MassaThresholdValue || weight < WsLocalizationUtils.MassaThresholdPositive)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
@@ -268,7 +268,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (!LabelSession.PluLine.Plu.IsCheckWeight) return true;
 
         decimal weight = PluginMassa.WeightNet - (LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
-        if (weight > WsLocaleCore.LabelPrint.MassaThresholdValue)
+        if (weight > WsLocalizationUtils.MassaThresholdValue)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));

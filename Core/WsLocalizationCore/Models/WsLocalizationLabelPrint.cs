@@ -5,85 +5,64 @@ namespace WsLocalizationCore.Models;
 
 public sealed class WsLocalizationLabelPrint : WsLocaleBase
 {
-    public static class Paths
-    {
-        public const string ScalesTerminal = "C:\\Program Files (x86)\\Massa-K\\ScalesTerminal 100\\ScalesTerminal.exe";
-    }
+    #region CodingSeb.Localization
 
-    #region Public and private fields, properties, constructor
-
-    public List<string> ListResolutions => Lang == WsEnumLanguage.English ? new() { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "FullScreen" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
-    public readonly decimal MassaThresholdNegative = -1.000M;
-    public readonly decimal MassaThresholdPositive = 0.050M;
-    public readonly decimal MassaThresholdValue = 0.010M;
-    
-    public string AlreadyRunning => Lang == WsEnumLanguage.English ? "already running" : "уже запущено";
-    public string AppExit => Lang == WsEnumLanguage.English ? "Exit from the program" : "Завершение программы";
-    public string AppExitDescription => Lang == WsEnumLanguage.English ? "Unloading data from memory ..." : "Выгрузка данных из памяти ...";
-    
-    public string AppLoad => Lang == WsEnumLanguage.English ? "Loading" : "Загрузка";
-    public string AppLoadDescription => Lang == WsEnumLanguage.English ? "Loading data into memory ..." : "Загрузка данных в память ...";
     public string AppTitle => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppTitle)}");
-    public string AppWait => Lang == WsEnumLanguage.English ? "Waiting" : "Ожидание";
-    public string Bundle => Lang == WsEnumLanguage.English ? "Bundle" : "Пакет";
-    public string ButtonAddKneading => Lang == WsEnumLanguage.English ? "Kneading" : "Замес";
-    public string ButtonNewPallet => Lang == WsEnumLanguage.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
-    public string ButtonPlu => Lang == WsEnumLanguage.English ? "PLU" : "ПЛУ";
-    public string ButtonRunScalesTerminal => Lang == WsEnumLanguage.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
-    public string ButtonScaleChange(int number) => Lang == WsEnumLanguage.English ? $"Change ARM [{number}]" : $"Сменить АРМ [{number}]";
-    public string ButtonScalesInit => Lang == WsEnumLanguage.English ? "Initialize scales" : "Инициализировать весы";
-    public string ButtonScalesInitShort => ">0<";
-    public string ButtonSelectOrder => Lang == WsEnumLanguage.English ? "Order" : "Заказ";
-    public string ButtonSelectPlu(int count) => Lang == WsEnumLanguage.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
-    public string ButtonSetKneading => Lang == WsEnumLanguage.English ? "Set kneading" : "Задать замес";
-    public string ButtonSettings => Lang == WsEnumLanguage.English ? "Settings" : "Настройки";
-    public string CheckAllPassed => Lang == WsEnumLanguage.English ? "All checks passed" : "Все проверки пройдены";
-    public string CheckPluError => Lang == WsEnumLanguage.English ? "RLU error" : "Ошибка ПЛУ";
-    public string CheckPluWeightCount => Lang == WsEnumLanguage.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";
-    public string CheckWeightBefore(decimal currentWeight) => Lang == WsEnumLanguage.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {MassaThresholdValue:0.000} {WeightUnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {WeightUnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {MassaThresholdValue:0.000} {WeightUnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {WeightUnitKg}.";
-    public string CheckWeightIsEmpty() => Lang == WsEnumLanguage.English ? "For products by weight, put the product on the scale!" : "Для весовой продукции следует положить продукт на весы!";
-    public string CheckWeightIsZero => Lang == WsEnumLanguage.English ? "The platform is empty!" : "Платформа пустая!";
-    public string CheckWeightThreshold(decimal weightNet) => Lang == WsEnumLanguage.English ? $"{WeightingControl} Product weight: {weightNet:0.000} {WeightUnitKg}" : $"{WeightingControl} Вес продукта: {weightNet:0.000} {WeightUnitKg}";
-    public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => Lang == WsEnumLanguage.English ? $"{WeightingControl} Net weight: {currentNet:0.000} {WeightUnitKg} Upper value: {upperWeightThreshold:0.000} {WeightUnitKg} Nominal value: {nominalWeight:0.000} {WeightUnitKg} Lower value: {lowerWeightThreshold:0.000} {WeightUnitKg}" : $"{WeightingControl} Вес нетто: {currentNet:0.000} {WeightUnitKg} Верхнее значение: {upperWeightThreshold:0.000} {WeightUnitKg} Номинальное значение: {nominalWeight:0.000} {WeightUnitKg} Нижнее значение: {lowerWeightThreshold:0.000} {WeightUnitKg}";
-    public string CommunicateWithAdmin => Lang == WsEnumLanguage.English ? "Contact your system administrator." : "Свяжитесь с администратором системы.";
-    public string ComPort => Lang == WsEnumLanguage.English ? "COM-port" : "COM-порт";
-    public string ComPortState => Lang == WsEnumLanguage.English ? "COM-port status" : "Состояние COM-порта";
-    public string Crc => "CRC";
-    public string Default => Lang == WsEnumLanguage.English ? "Default" : "По-умолчанию";
-    public string DeviceControlIsPreview => Lang == WsEnumLanguage.English ? "Open a preview-version of device management?" : "Открыть превью-версию управления устройствами?";
-    public string Exception => Lang == WsEnumLanguage.English ? "Exception" : "Ошибка";
-    public string ExceptionSqlDb => Lang == WsEnumLanguage.English ? "The database is unavailable!" : "База данных недоступна!";
-    public string FieldCurrentTime => Lang == WsEnumLanguage.English ? "Now" : "Сейчас";
-    public string FieldDate => Lang == WsEnumLanguage.English ? "Date" : "Дата";
-    public string FieldIsIncrementCounter => Lang == WsEnumLanguage.English ? "Counter increment" : "Инкремент счётчика";
-    public string FieldIsIncrementCounterEnable => Lang == WsEnumLanguage.English ? "Increase the counter when printing a piece of product" : "Увеличивать счётчик при печати штучной продукции";
-    public string FieldKneading => Lang == WsEnumLanguage.English ? "Kneading" : "Замес";
-    public string FieldPalletSize => Lang == WsEnumLanguage.English ? "Pallet size" : "Размер паллеты";
-    public string FieldPrintCounter => Lang == WsEnumLanguage.English ? "Print counter" : "Счётчик печати";
-    public string FieldProductDate => Lang == WsEnumLanguage.English ? "Date of production" : "Дата производства";
-    public string FieldSscc => Lang == WsEnumLanguage.English ? "Serialized Shipping Container Code" : "Код транспортной упаковки";
-    public string FieldSsccControlNumber => Lang == WsEnumLanguage.English ? "Control number" : "Контрольное число";
-    public string FieldSsccGln => Lang == WsEnumLanguage.English ? "GLN" : "Код GLN";
-    public string FieldSsccShort => Lang == WsEnumLanguage.English ? "SSCC" : "Код ТУ";
-    public string FieldSsccSynonym => Lang == WsEnumLanguage.English ? "Synonym" : "Синоним";
-    public string FieldSsccUnitId => Lang == WsEnumLanguage.English ? "Unit ID" : "ИД юнита";
-    public string FieldSsccUnitType => Lang == WsEnumLanguage.English ? "Unit type" : "Тип юнита";
-    public string FieldThresholdLower => Lang == WsEnumLanguage.English ? "lower" : "нижнее";
-    public string FieldThresholdNominal => Lang == WsEnumLanguage.English ? "nominal" : "номинальное";
-    public string FieldThresholds => Lang == WsEnumLanguage.English ? "Weight thresholds" : "Пороговые значения веса";
-    public string FieldThresholdUpper => Lang == WsEnumLanguage.English ? "upper" : "верхнее";
-    public string FieldTime => Lang == WsEnumLanguage.English ? "Time" : "Время";
-    public string FieldWeightNetto => Lang == WsEnumLanguage.English ? "Net weight" : "Вес нетто";
-    public string FieldWeightTare => Lang == WsEnumLanguage.English ? "Tare weight" : "Вес тары";
-    public string HostNotFound(string deviceName) => Lang == WsEnumLanguage.English ? $"Host '{deviceName}' not detected." : $"Хост '{deviceName}' не обнаружен.";
-    public string HostQuestionWriteToDb(string deviceName) => Lang == WsEnumLanguage.English ? $"Add new host '{deviceName}' into the DB?" : $"Добавить новый хост '{deviceName}' в БД?";
-    public string HostUidNotFound => Lang == WsEnumLanguage.English ? "Host UID not detected." : "УИД хоста не обнаружен.";
-    public string HostUidQuestionWriteToDb => Lang == WsEnumLanguage.English ? "Write a new UID into the database table?" : "Записать новый УИД в таблицу БД?";
-    public string HostUidQuestionWriteToFile => Lang == WsEnumLanguage.English ? "Write a new UID to the file?" : "Записать новый УИД в файл?";
-    public string IsConnectWithMassa => Lang == WsEnumLanguage.English ? "The scales are connected." : "Весы подключены.";
-    public string IsDataNotExists => Lang == WsEnumLanguage.English ? "Check the connection of the scales!" : "Проверьте подключение весов!";
-    public string IsException(string? message) => Lang == WsEnumLanguage.English ? $"Error! {message}" : $"Ошибка! {message}";
-    public string IsNotConnectWithMassa => Lang == WsEnumLanguage.English ? "Check the connection of the USB-adapter!" : "Проверьте подключение ЮСБ-адапетра!";
+    public string AlreadyRunning => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AlreadyRunning)}");
+    public string AppExit => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppExit)}");
+    public string AppExitDescription => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppExitDescription)}");
+    public string AppLoad => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppLoad)}");
+    public string AppLoadDescription => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppLoadDescription)}");
+    public string AppWait => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppWait)}");
+    public string Bundle => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(Bundle)}");
+    public string ButtonAddKneading => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonAddKneading)}");
+    public string ButtonPlu => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonPlu)}");
+    public string ButtonScalesInit => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonScalesInit)}");
+    public string ButtonScalesInitShort => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonScalesInitShort)}");
+    public string ButtonSelectOrder => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonScalesInitShort)}");
+    public string ButtonSetKneading => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonSetKneading)}");
+    public string ButtonSettings => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonSettings)}");
+    public string CheckAllPassed => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(CheckAllPassed)}");
+    public string CheckPluError => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(CheckPluError)}");
+    public string CheckPluWeightCount => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(CheckPluWeightCount)}");
+    public string CheckWeightIsEmpty() => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(CheckWeightIsEmpty)}");
+    public string CheckWeightIsZero => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(CheckWeightIsZero)}");
+    public string CommunicateWithAdmin => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(CommunicateWithAdmin)}");
+    public string ComPort => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ComPort)}");
+    public string ComPortState => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ComPort)}");
+    public string Crc => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(Crc)}");
+    public string Default => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(Default)}");
+    public string DeviceControlIsPreview => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(DeviceControlIsPreview)}");
+    public string Exception => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(Exception)}");
+    public string ExceptionSqlDb => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(Exception)}");
+    public string FieldCurrentTime => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldCurrentTime)}");
+    public string FieldDate => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldDate)}");
+    public string FieldIsIncrementCounter => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldIsIncrementCounter)}");
+    public string FieldIsIncrementCounterEnable => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldIsIncrementCounterEnable)}");
+    public string FieldKneading => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldKneading)}");
+    public string FieldPalletSize => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldPalletSize)}");
+    public string FieldPrintCounter => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldPrintCounter)}");
+    public string FieldLabelCounter => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldLabelCounter)}");
+    public string FieldProductDate => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldProductDate)}");
+    public string FieldSscc => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldSscc)}");
+    public string FieldSsccControlNumber => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldSsccControlNumber)}");
+    public string FieldGln => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldGln)}");
+    public string FieldSynonym => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldSynonym)}");
+    public string FieldUnitId => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldUnitId)}");
+    public string FieldUnitType => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldUnitType)}");
+    public string FieldThresholdLower => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldThresholdLower)}");
+    public string FieldThresholdNominal => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldThresholdNominal)}");
+    public string FieldThresholds => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldThresholds)}");
+    public string FieldThresholdUpper => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldThresholdUpper)}");
+    public string FieldTime => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldTime)}");
+    public string FieldWeightNetto => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldWeightNetto)}");
+    public string FieldWeightTare => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldWeightTare)}");
+    public string HostUidNotFound => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(HostUidNotFound)}");
+    public string HostUidQuestionWriteToDb => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(HostUidNotFound)}");
+    public string HostUidQuestionWriteToFile => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(HostUidQuestionWriteToFile)}");
+    public string IsConnectWithMassa => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsConnectWithMassa)}");
+    public string IsDataNotExists => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsDataNotExists)}");
+    public string IsNotConnectWithMassa => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsNotConnectWithMassa)}");
     public string LabelContextExpirationDt => Lang == WsEnumLanguage.English ? "Good to" : "Годен до";
     public string LabelContextKneading => Lang == WsEnumLanguage.English ? "Kneading" : "Замес";
     public string LabelContextNesting => Lang == WsEnumLanguage.English ? "Nesting" : "Вложенность";
@@ -134,16 +113,11 @@ public sealed class WsLocalizationLabelPrint : WsLocaleBase
     public string PluWeight => Lang == WsEnumLanguage.English ? "PLU (weight)" : "ПЛУ (вес)";
     public string ProgramExit => Lang == WsEnumLanguage.English ? "Ending the program ..." : "Завершение программы ...";
     public string ProgramLoad => Lang == WsEnumLanguage.English ? "Loading the program ..." : "Загрузка программы ...";
-    public string ProgramNotFound(string fileName) => Lang == WsEnumLanguage.English ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator." : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
     public string QuestionCloseApp => Lang == WsEnumLanguage.English ? "Close the app" : "Завершить приложение";
     public string QuestionPerformOperation => Lang == WsEnumLanguage.English ? "Perform the operation?" : "Выполнить операцию?";
     public string QuestionRunApp => Lang == WsEnumLanguage.English ? "Run the app" : "Запустить приложение";
     public string QuestionWriteToDb => Lang == WsEnumLanguage.English ? "Add new record into the DB?" : "Добавить новую запись в БД?";
     public string Registration => Lang == WsEnumLanguage.English ? "Device registration" : "Регистрация устройства";
-    public string RegistrationSuccess(string deviceName, string scaleName) => Lang == WsEnumLanguage.English ? $"Host '{deviceName}' and ARM '{scaleName}' are found." : $"Хост '{deviceName}' и АРМ '{scaleName}' найдены.";
-    public string RegistrationWarning(Guid uid) => Lang == WsEnumLanguage.English ? $"Host UID: {uid}. Before restarting, map the host to an ARM in the DeviceControl application." : $"УИД хоста: {uid}. Перед повторным запуском, сопоставьте хост с АРМом в приложении DeviceControl.";
-    public string RegistrationWarningHostNotFound(string deviceName) => Lang == WsEnumLanguage.English ? $"Host '{deviceName}' not found!" : $"Хост '{deviceName}' не найден!";
-    public string RegistrationWarningLineNotFound(string deviceName) => Lang == WsEnumLanguage.English ? $"Line for host '{deviceName}' not found!" : $"Линия для хоста '{deviceName}' не найдена!";
     public string RequestParameters => Lang == WsEnumLanguage.English ? "Request parameters" : "Запрос параметров";
     public string Restore => Lang == WsEnumLanguage.English ? "Restore" : "Восстановить";
     public string RestoreDevice => Lang == WsEnumLanguage.English ? "Restore device" : "Восстановить устроство";
@@ -151,10 +125,6 @@ public sealed class WsLocalizationLabelPrint : WsLocaleBase
     public string ScheduleForNextDay => Lang == WsEnumLanguage.English ? "Schedule for the next day" : "Расписание на следующий день";
     public string ScheduleForNextHour => Lang == WsEnumLanguage.English ? "Schedule for the next hour" : "Расписание на следующий час";
     public string ScreenResolution => Lang == WsEnumLanguage.English ? "Screen resolution" : "Разрешение экрана";
-    public string SetArea(long id, string name) => Lang == WsEnumLanguage.English ? $"Switch area: {id} | {name}" : $"Смена площадки: {id} | {name}";
-    public string SetLine(long id, string name) => Lang == WsEnumLanguage.English ? $"Switch line: {id} | {name}" : $"Смена линии: {id} | {name}";
-    public string SetPlu(int number, string name) => Lang == WsEnumLanguage.English ? $"Switch PLU: {number} | {name}" : $"Смена ПЛУ: {number} | {name}";
-    public string SetPluNesting(int number, string name, short bundleCount) => Lang == WsEnumLanguage.English ? $"Switch PLU nesting: {number} | {name} | {bundleCount}" : $"Смена вложенности ПЛУ: {number} | {name} | {bundleCount}";
     public string ShippingLabels => Lang == WsEnumLanguage.English ? "Shipping labels" : "Транспортные этикетки";
     public string StateCorrect => Lang == WsEnumLanguage.English ? "correct" : "верна";
     public string StateDisable => Lang == WsEnumLanguage.English ? "disable" : "отключено";
@@ -189,6 +159,30 @@ public sealed class WsLocalizationLabelPrint : WsLocaleBase
     public string WeightUnitGr => Lang == WsEnumLanguage.English ? "gr" : "гр";
     public string WeightUnitKg => Lang == WsEnumLanguage.English ? "kg" : "кг";
     public string WeightUnitPcs => Lang == WsEnumLanguage.English ? "pcs." : "шт.";
+
+    #endregion
+
+    #region Deprecated
+
+    public string ButtonNewPallet => Lang == WsEnumLanguage.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
+    public string ButtonRunScalesTerminal => Lang == WsEnumLanguage.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
+    public string ButtonScaleChange(int number) => Lang == WsEnumLanguage.English ? $"Change ARM [{number}]" : $"Сменить АРМ [{number}]";
+    public string ButtonSelectPlu(int count) => Lang == WsEnumLanguage.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
+    public string CheckWeightBefore(decimal currentWeight) => Lang == WsEnumLanguage.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {WsLocalizationUtils.MassaThresholdValue:0.000} {WeightUnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {WeightUnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {WsLocalizationUtils.MassaThresholdValue:0.000} {WeightUnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {WeightUnitKg}.";
+    public string CheckWeightThreshold(decimal weightNet) => Lang == WsEnumLanguage.English ? $"{WeightingControl} Product weight: {weightNet:0.000} {WeightUnitKg}" : $"{WeightingControl} Вес продукта: {weightNet:0.000} {WeightUnitKg}";
+    public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => Lang == WsEnumLanguage.English ? $"{WeightingControl} Net weight: {currentNet:0.000} {WeightUnitKg} Upper value: {upperWeightThreshold:0.000} {WeightUnitKg} Nominal value: {nominalWeight:0.000} {WeightUnitKg} Lower value: {lowerWeightThreshold:0.000} {WeightUnitKg}" : $"{WeightingControl} Вес нетто: {currentNet:0.000} {WeightUnitKg} Верхнее значение: {upperWeightThreshold:0.000} {WeightUnitKg} Номинальное значение: {nominalWeight:0.000} {WeightUnitKg} Нижнее значение: {lowerWeightThreshold:0.000} {WeightUnitKg}";
+    public string HostNotFound(string deviceName) => Lang == WsEnumLanguage.English ? $"Host '{deviceName}' not detected." : $"Хост '{deviceName}' не обнаружен.";
+    public string HostQuestionWriteToDb(string deviceName) => Lang == WsEnumLanguage.English ? $"Add new host '{deviceName}' into the DB?" : $"Добавить новый хост '{deviceName}' в БД?";
+    public string IsException(string? message) => Lang == WsEnumLanguage.English ? $"Error! {message}" : $"Ошибка! {message}";
+    public string ProgramNotFound(string fileName) => Lang == WsEnumLanguage.English ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator." : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
+    public string RegistrationSuccess(string deviceName, string scaleName) => Lang == WsEnumLanguage.English ? $"Host '{deviceName}' and ARM '{scaleName}' are found." : $"Хост '{deviceName}' и АРМ '{scaleName}' найдены.";
+    public string RegistrationWarning(Guid uid) => Lang == WsEnumLanguage.English ? $"Host UID: {uid}. Before restarting, map the host to an ARM in the DeviceControl application." : $"УИД хоста: {uid}. Перед повторным запуском, сопоставьте хост с АРМом в приложении DeviceControl.";
+    public string RegistrationWarningHostNotFound(string deviceName) => Lang == WsEnumLanguage.English ? $"Host '{deviceName}' not found!" : $"Хост '{deviceName}' не найден!";
+    public string RegistrationWarningLineNotFound(string deviceName) => Lang == WsEnumLanguage.English ? $"Line for host '{deviceName}' not found!" : $"Линия для хоста '{deviceName}' не найдена!";
+    public string SetArea(long id, string name) => Lang == WsEnumLanguage.English ? $"Switch area: {id} | {name}" : $"Смена площадки: {id} | {name}";
+    public string SetLine(long id, string name) => Lang == WsEnumLanguage.English ? $"Switch line: {id} | {name}" : $"Смена линии: {id} | {name}";
+    public string SetPlu(int number, string name) => Lang == WsEnumLanguage.English ? $"Switch PLU: {number} | {name}" : $"Смена ПЛУ: {number} | {name}";
+    public string SetPluNesting(int number, string name, short bundleCount) => Lang == WsEnumLanguage.English ? $"Switch PLU nesting: {number} | {name} | {bundleCount}" : $"Смена вложенности ПЛУ: {number} | {name} | {bundleCount}";
 
     #endregion
 }

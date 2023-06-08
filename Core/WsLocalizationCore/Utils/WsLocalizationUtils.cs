@@ -14,6 +14,10 @@ public static class WsLocalizationUtils
     /// ПО Печать этикеток.
     /// </summary>
     public static string AppLabelPrint => nameof(AppLabelPrint);
+    public const string AppScalesTerminal = "C:\\Program Files (x86)\\Massa-K\\ScalesTerminal 100\\ScalesTerminal.exe";
+    public const decimal MassaThresholdPositive = 0.050M;
+    public const decimal MassaThresholdValue = 0.010M;
+
 
     #endregion
 
@@ -27,5 +31,4 @@ public static class WsLocalizationUtils
         (from object lang in Enum.GetValues(typeof(WsEnumLanguage)) select lang.ToString()).ToList();
 
     #endregion
-
 }
