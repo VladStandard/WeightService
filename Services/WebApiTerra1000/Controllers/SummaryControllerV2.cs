@@ -18,14 +18,14 @@ public sealed class SummaryControllerV2 : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetSummaryV2)]
+    [Route(WsLocaleWebServiceUtils.GetSummaryV2)]
     public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
         [FromQuery(Name = "format")] string format = "") =>
         GetSummaryCore(WsWebSqlQueriesV2.GetSummary, startDate, endDate, format);
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetSummaryV2Preview)]
+    [Route(WsLocaleWebServiceUtils.GetSummaryV2Preview)]
     public ContentResult GetSummaryPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
         [FromQuery(Name = "format")] string format = "") =>
         GetSummaryCore(WsWebSqlQueriesV2.GetSummaryPreview, startDate, endDate, format);

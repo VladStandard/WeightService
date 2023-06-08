@@ -6,7 +6,7 @@
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
 
-<ItemTopBar TItem="@WsSqlPluBundleFkModel" Title="@LocaleCore.DeviceControl.ItemPluBundleFk" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluBundleFkModel" Title="@WsLocaleCore.DeviceControl.ItemPluBundleFk" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>
@@ -14,18 +14,18 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu)" Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu)" Text="@WsLocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.Plu.DisplayName</td>
-    <td>@LocaleCore.Table.NomenclatureCode</td>
+    <td>@WsLocaleCore.Table.NomenclatureCode</td>
     <td>@SqlItemCast.Plu.Code</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@LocaleCore.Table.Bundle"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@WsLocaleCore.Table.Bundle"/>
     </td>
     <td>@SqlItemCast.Bundle.Name</td>
-    <td>@LocaleCore.Table.BundleWeight</td>
+    <td>@WsLocaleCore.Table.BundleWeight</td>
     <td>@SqlItemCast.Bundle.Weight</td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>

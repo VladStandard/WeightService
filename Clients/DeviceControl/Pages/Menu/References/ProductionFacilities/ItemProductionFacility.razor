@@ -6,14 +6,14 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<WsStorageCore.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
 
-<ItemTopBar TItem="@WsSqlProductionFacilityModel" Title="@LocaleCore.DeviceControl.ItemProductionFacility" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlProductionFacilityModel" Title="@WsLocaleCore.DeviceControl.ItemProductionFacility" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Name"/>
     </td>
@@ -21,7 +21,7 @@
     <td/>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Address</td>
+    <td>@WsLocaleCore.Table.Address</td>
     <td colspan="3">
       <RadzenTextArea Style="width: 100%;" Rows="2" @bind-Value="@SqlItemCast.Address"/>
     </td>

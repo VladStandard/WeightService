@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleModels.Brands;
 
 /// <summary>
@@ -79,7 +81,7 @@ public class WsSqlBrandModel : WsSqlTable1CBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Code = LocaleCore.Sql.SqlItemFieldCode;
+        Code = WsLocaleCore.Sql.SqlItemFieldCode;
     }
 
     #endregion

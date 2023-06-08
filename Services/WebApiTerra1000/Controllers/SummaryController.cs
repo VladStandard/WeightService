@@ -18,7 +18,7 @@ public sealed class SummaryController : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetSummary)]
+    [Route(WsLocaleWebServiceUtils.GetSummary)]
     public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery(Name = "format")] string format = "")
     {

@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableDiagModels.LogsTypes;
 
 /// <summary>
@@ -85,7 +87,7 @@ public class WsSqlLogTypeModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Icon = LocaleCore.Sql.SqlItemFieldIcon;
+        Icon = WsLocaleCore.Sql.SqlItemFieldIcon;
     }
 
     #endregion

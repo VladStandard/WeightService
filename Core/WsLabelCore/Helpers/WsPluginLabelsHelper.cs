@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -48,9 +50,9 @@ public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
             FieldPlu = fieldPlu;
             FieldProductDate = fieldProductDate;
             FieldKneading = fieldKneading;
-            MdInvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
+            MdInvokeControl.SetText(FieldPlu, WsLocaleCore.LabelPrint.Plu);
             //MdInvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
-            MdInvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
+            MdInvokeControl.SetText(FieldProductDate, WsLocaleCore.LabelPrint.FieldDate);
             MdInvokeControl.SetText(FieldKneading, string.Empty);
         });
     }
@@ -71,12 +73,12 @@ public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
     private void Request()
     {
         if (LabelSession.PluLine.IsNew)
-            MdInvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
+            MdInvokeControl.SetText(FieldPlu, WsLocaleCore.LabelPrint.Plu);
         else
             MdInvokeControl.SetText(FieldPlu,
                 LabelSession.PluLine.Plu.IsCheckWeight
-                    ? $"{LocaleCore.Scales.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
-                    : $"{LocaleCore.Scales.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
+                    ? $"{WsLocaleCore.LabelPrint.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
+                    : $"{WsLocaleCore.LabelPrint.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
         MdInvokeControl.SetText(FieldProductDate, $"{LabelSession.ProductDate:dd.MM.yyyy}");
         MdInvokeControl.SetText(FieldKneading, $"{LabelSession.WeighingSettings.Kneading}");
     }

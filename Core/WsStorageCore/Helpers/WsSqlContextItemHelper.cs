@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsDataCore.Common;
+using WsLocalizationCore.Utils;
 
 namespace WsStorageCore.Helpers;
 
@@ -177,10 +178,10 @@ public sealed class WsSqlContextItemHelper
     {
         return accessRights switch
         {
-            WsEnumAccessRights.Read => LocaleCore.Strings.AccessRightsRead,
-            WsEnumAccessRights.Write => LocaleCore.Strings.AccessRightsWrite,
-            WsEnumAccessRights.Admin => LocaleCore.Strings.AccessRightsAdmin,
-            _ => LocaleCore.Strings.AccessRightsNone
+            WsEnumAccessRights.Read => WsLocaleCore.Strings.AccessRightsRead,
+            WsEnumAccessRights.Write => WsLocaleCore.Strings.AccessRightsWrite,
+            WsEnumAccessRights.Admin => WsLocaleCore.Strings.AccessRightsAdmin,
+            _ => WsLocaleCore.Strings.AccessRightsNone
         };
     }
 

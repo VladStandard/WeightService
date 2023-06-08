@@ -5,32 +5,32 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<WsStorageCore.TableDiagModels.LogsWebsFks.WsSqlLogWebFkModel>
 
-<ItemTopBar TItem="WsSqlLogWebFkModel" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="WsSqlLogWebFkModel" Title="@WsLocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 10, 35, 15, 35 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Host</td>
+    <td>@WsLocaleCore.Table.Host</td>
     <td>@SqlItemCast.Device.Name</td>
-    <td>@LocaleCore.Table.App</td>
+    <td>@WsLocaleCore.Table.App</td>
     <td>@SqlItemCast.App.Name</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.LogType</td>
+    <td>@WsLocaleCore.Table.LogType</td>
     <td>@SqlItemCast.LogType.Icon</td>
-    <td>@LocaleCore.Table.Version</td>
+    <td>@WsLocaleCore.Table.Version</td>
     <td>@SqlItemCast.LogWebRequest.Version</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.RequestUrl</td>
+    <td>@WsLocaleCore.Table.RequestUrl</td>
     <td>@SqlItemCast.LogWebRequest.Url</td>
-    <td>@LocaleCore.Table.Request</td>
+    <td>@WsLocaleCore.Table.Request</td>
     <td>@SqlItemCast.ToString()</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Request</td>
+    <td>@WsLocaleCore.Table.Request</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
@@ -39,11 +39,11 @@
 
       <RadzenButton Click="@(_ => CopyToClipboard(SqlItemCast.LogWebRequest.DataString))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.DeviceControl.TableActionCopy"/>
+                    Text="@WsLocaleCore.DeviceControl.TableActionCopy"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Response</td>
+    <td>@WsLocaleCore.Table.Response</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
@@ -52,7 +52,7 @@
 
       <RadzenButton Click="@(_ => CopyToClipboard(SqlItemCast.LogWebResponse.DataString))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.DeviceControl.TableActionCopy"/>
+                    Text="@WsLocaleCore.DeviceControl.TableActionCopy"/>
     </td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>

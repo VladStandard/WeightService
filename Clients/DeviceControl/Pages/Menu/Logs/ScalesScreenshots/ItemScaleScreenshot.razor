@@ -7,7 +7,7 @@
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
-<ItemTopBar TItem="@WsSqlScaleScreenShotModel" Title="@LocaleCore.DeviceControl.ItemScreenShot" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlScaleScreenShotModel" Title="@WsLocaleCore.DeviceControl.ItemScreenShot" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
@@ -15,10 +15,10 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Scale)" Text="@LocaleCore.Table.Line"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Scale)" Text="@WsLocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.Scale.Description</td>
-    <td>@LocaleCore.Table.ScreenShot</td>
+    <td>@WsLocaleCore.Table.ScreenShot</td>
     <td>@(DataUtils.GetBytesLength(SqlItemCast.ScreenShot, false))</td>
   </tr>
   @if (!string.IsNullOrEmpty(ImagePath))

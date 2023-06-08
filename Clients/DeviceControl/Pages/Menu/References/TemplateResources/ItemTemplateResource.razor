@@ -5,18 +5,18 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<WsStorageCore.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
 
-<ItemTopBar TItem="@WsSqlTemplateResourceModel" Title="@LocaleCore.DeviceControl.ItemTemplateResource" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlTemplateResourceModel" Title="@WsLocaleCore.DeviceControl.ItemTemplateResource" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>
       <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Name"/>
     </td>
-    <td>@LocaleCore.Table.Type</td>
+    <td>@WsLocaleCore.Table.Type</td>
     <td>
       <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Type"/>
     </td>
@@ -25,7 +25,7 @@
   @if (IsNotBlackType(SqlItemCast.Type))
   {
     <tr>
-      <td>@LocaleCore.Table.ImageData</td>
+      <td>@WsLocaleCore.Table.ImageData</td>
       <td colspan="3">
         <RadzenTextArea
           Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"

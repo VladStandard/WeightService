@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
+using WsLocalizationCore.Utils;
 
 namespace WsLabelCore.Pages;
 
@@ -222,17 +223,17 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
     private void SetGuiLocalize()
     {
         // Замес.
-        labelKneading.Text = LocaleCore.Scales.FieldKneading;
+        labelKneading.Text = WsLocaleCore.LabelPrint.FieldKneading;
         // Дата продукции.
-        labelProdDate.Text = LocaleCore.Scales.FieldProductDate;
+        labelProdDate.Text = WsLocaleCore.LabelPrint.FieldProductDate;
         // Размер палеты.
-        labelPalletSize.Text = LocaleCore.Scales.FieldPalletSize;
+        labelPalletSize.Text = WsLocaleCore.LabelPrint.FieldPalletSize;
         // Инкремент счётчика.
-        labelIsIncrementCounter.Text = LocaleCore.Scales.FieldPrintCounter;
-        checkBoxIsIncrementCounter.Text = LocaleCore.Scales.FieldIsIncrementCounterEnable;
+        labelIsIncrementCounter.Text = WsLocaleCore.LabelPrint.FieldPrintCounter;
+        checkBoxIsIncrementCounter.Text = WsLocaleCore.LabelPrint.FieldIsIncrementCounterEnable;
         // Кнопки.
-        buttonYes.Text = LocaleCore.Buttons.Ok;
-        buttonCancel.Text = LocaleCore.Buttons.Cancel;
+        buttonYes.Text = WsLocaleCore.Buttons.Ok;
+        buttonCancel.Text = WsLocaleCore.Buttons.Cancel;
     }
 
     /// <summary>

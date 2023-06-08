@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -66,14 +68,14 @@ public partial class WsMainForm
         MdInvokeControl.Select(ButtonPrint);
         // Задать текст линии.
         MdInvokeControl.SetText(ButtonLine, 
-            $"{(LabelSession.Line.WorkShop is null ? LocaleCore.Table.FieldEmpty : LabelSession.Area.Name)}" +
-            $"{Environment.NewLine}{LocaleCore.Table.Number}: {LabelSession.Line.Number} | {LabelSession.Line.Description}");
+            $"{(LabelSession.Line.WorkShop is null ? WsLocaleCore.Table.FieldEmpty : LabelSession.Area.Name)}" +
+            $"{Environment.NewLine}{WsLocaleCore.Table.Number}: {LabelSession.Line.Number} | {LabelSession.Line.Description}");
         // Задать текст вложенности ПЛУ.
         MdInvokeControl.SetText(ButtonPluNestingFk, LabelSession.ViewPluNesting.GetSmartName());
         // Задать текст веса тары.
         MdInvokeControl.SetText(fieldTareWeight, LabelSession.PluLine.IsNew
-                ? $"0,000 {LocaleCore.Scales.WeightUnitKg}"
-                : $"{LabelSession.ViewPluNesting.TareWeight:0.000} {LocaleCore.Scales.WeightUnitKg}");
+                ? $"0,000 {WsLocaleCore.LabelPrint.WeightUnitKg}"
+                : $"{LabelSession.ViewPluNesting.TareWeight:0.000} {WsLocaleCore.LabelPrint.WeightUnitKg}");
         // Скрыть WinForms-контрол навигации.
         HideFormUserControl();
     }
@@ -156,7 +158,7 @@ public partial class WsMainForm
             ResetWarning();
             // Навигация в контрол диалога Отмена/Да.
             WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
-                $"{LocaleCore.Scales.QuestionCloseApp}?", true, WsEnumLogType.Question, 
+                $"{WsLocaleCore.LabelPrint.QuestionCloseApp}?", true, WsEnumLogType.Question, 
                 WsEnumDialogType.CancelYes, new() { ActionCloseCancel, ActionCloseYes});
             e.Cancel = true;
         });
@@ -170,7 +172,7 @@ public partial class WsMainForm
         ActionFinally();
         UserSession.StopwatchMain.Restart();
         // Навигация в контрол ожидания.
-        WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl, LocaleCore.Scales.AppExit, LocaleCore.Scales.AppExitDescription);
+        WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl, WsLocaleCore.LabelPrint.AppExit, WsLocaleCore.LabelPrint.AppExitDescription);
         // Планировщик.
         WsScheduler.Close();
         // Плагины.
@@ -183,7 +185,7 @@ public partial class WsMainForm
         UserSession.StopwatchMain.Stop();
         ContextManager.ContextItem.SaveLogMemory(UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
         ContextManager.ContextItem.SaveLogInformation(
-            LocaleData.Program.IsClosed + Environment.NewLine + $"{LocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
+            WsLocaleData.Program.IsClosed + Environment.NewLine + $"{WsLocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
         // Магический флаг.
         IsMagicClose = true;
         Close();
@@ -207,8 +209,8 @@ public partial class WsMainForm
         if (LabelSession.PluLine.Plu.IsNew)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, LocaleCore.Table.FieldPluIsNotSelected);
-            ContextManager.ContextItem.SaveLogError(LocaleCore.Table.FieldPluIsNotSelected);
+            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Table.FieldPluIsNotSelected);
+            ContextManager.ContextItem.SaveLogError(WsLocaleCore.Table.FieldPluIsNotSelected);
             return false;
         }
         return true;
@@ -227,15 +229,15 @@ public partial class WsMainForm
             ResetWarning();
             // Навигация в контрол диалога Отмена/Да.
             WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
-                $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
+                $"{WsLocaleCore.LabelPrint.QuestionRunApp} ScalesTerminal?",
                 true, WsEnumLogType.Question, WsEnumDialogType.CancelYes, new() { ActionFinally, ActionYes });
             void ActionYes()
             {
                 // Запустить процесс.
-                if (File.Exists(LocaleData.Paths.ScalesTerminal))
+                if (File.Exists(WsLocalizationLabelPrint.Paths.ScalesTerminal))
                 {
                     UserSession.PluginMassa.Close();
-                    WsProcHelper.Instance.Run(LocaleData.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
+                    WsProcHelper.Instance.Run(WsLocalizationLabelPrint.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
                     PluginMassaExecute();
                     ActionFinally();
                 }
@@ -243,9 +245,9 @@ public partial class WsMainForm
                 {
                     // Навигация в контрол диалога Ок.
                     WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
-                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true,
+                        WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationLabelPrint.Paths.ScalesTerminal), true,
                         WsEnumLogType.Error, WsEnumDialogType.Ok, new() { ActionFinally });
-                    ContextManager.ContextItem.SaveLogError(LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal));
+                    ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationLabelPrint.Paths.ScalesTerminal));
                 }
             }
         });
@@ -265,20 +267,20 @@ public partial class WsMainForm
             if (!LabelSession.PluLine.Plu.IsCheckWeight)
             {
                 // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, LocaleCore.Scales.PluNotSelectWeight,
+                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, WsLocaleCore.LabelPrint.PluNotSelectWeight,
                     true, WsEnumLogType.Warning, WsEnumDialogType.Ok, new() { ActionFinally });
                 return;
             }
             if (!UserSession.PluginMassa.MassaDevice.IsOpenPort)
             {
                 // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, LocaleCore.Scales.MassaIsNotRespond,
+                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, WsLocaleCore.LabelPrint.MassaIsNotRespond,
                     true, WsEnumLogType.Warning, WsEnumDialogType.Ok, new() { ActionFinally });
                 return;
             }
             // Навигация в контрол диалога Отмена/Да.
             WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
-                LocaleCore.Scales.QuestionPerformOperation, true, WsEnumLogType.Question,
+                WsLocaleCore.LabelPrint.QuestionPerformOperation, true, WsEnumLogType.Question,
                 WsEnumDialogType.CancelYes, new() { () => { }, ActionYes });
             void ActionYes()
             {

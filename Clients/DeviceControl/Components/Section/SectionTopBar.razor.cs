@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsBlazorCore.Settings;
+using WsLocalizationCore.Utils;
 
 namespace DeviceControl.Components.Section;
 
@@ -15,7 +16,7 @@ public partial class SectionTopBar : LayoutComponentBase
     [Parameter] public EventCallback<bool> OnSectionUpdate { get; set; }
     [Parameter] public EventCallback OnSectionAdd { get; set; }
     [Parameter] public int SectionCount { get; set; }
-    private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
+    private string SqlListCountResult => $"{WsLocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
 
     private static Dictionary<string, WsSqlIsMarked> MarkedDict => new()
     {

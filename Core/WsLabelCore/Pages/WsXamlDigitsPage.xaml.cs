@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MismatchedFileName
 
+using WsLocalizationCore.Utils;
+
 namespace WsLabelCore.Pages;
 
 /// <summary>
@@ -35,10 +37,10 @@ public partial class WsXamlDigitsPage
         {
             // Очистить.
             labelClear.SetBinding(ContentProperty,
-                new Binding(nameof(LocaleCore.Buttons.Clear)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
+                new Binding(nameof(WsLocaleCore.Buttons.Clear)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Buttons });
             // Вввод.
             labelEnter.SetBinding(ContentProperty,
-                new Binding(nameof(LocaleCore.Buttons.Enter)) { Mode = BindingMode.OneWay, Source = LocaleCore.Buttons });
+                new Binding(nameof(WsLocaleCore.Buttons.Enter)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Buttons });
             // Настроить список кнопок.
             SetupListButtons(gridLocal, 1, 0);
         });

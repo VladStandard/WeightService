@@ -7,24 +7,24 @@
 @inherits ItemBase<WsStorageCore.TableScaleModels.PlusStorageMethods.WsSqlPluStorageMethodModel>
 
 
-<ItemTopBar TItem="WsSqlOrganizationModel" Title="@LocaleCore.DeviceControl.ItemPlusStorage" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="WsSqlOrganizationModel" Title="@WsLocaleCore.DeviceControl.ItemPlusStorage" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td colspan="3">
       <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.TempMinimal</td>
+    <td>@WsLocaleCore.Table.TempMinimal</td>
     <td>
       <RzNumeric Min="-100" @bind-Value="@SqlItemCast.MinTemp"/>
     </td>
-    <td>@LocaleCore.Table.TempMaximal</td>
+    <td>@WsLocaleCore.Table.TempMaximal</td>
     <td>
       <RzNumeric Min="-100" @bind-Value="@SqlItemCast.MaxTemp"/>
     </td>

@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
 
 /// <summary>
@@ -117,7 +119,7 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Sscc = LocaleCore.Sql.SqlItemFieldSscc;
+        Sscc = WsLocaleCore.Sql.SqlItemFieldSscc;
         NettoWeight = 1.1M;
         WeightTare = 0.25M;
         RegNum = 1;

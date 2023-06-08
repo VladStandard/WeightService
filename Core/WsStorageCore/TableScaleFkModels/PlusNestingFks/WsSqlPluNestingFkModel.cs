@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
 /// <summary>
@@ -18,9 +20,9 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
     [XmlElement] public virtual decimal WeightMax { get; set; }
     [XmlElement] public virtual decimal WeightMin { get; set; }
     [XmlElement] public virtual decimal WeightNom { get; set; }
-    [XmlIgnore] public override string Name => $"{LocaleCore.Scales.Bundle} {BundleCount} {LocaleCore.Scales.WeightUnitGr} | {Box.Name}";
+    [XmlIgnore] public override string Name => $"{WsLocaleCore.LabelPrint.Bundle} {BundleCount} {WsLocaleCore.LabelPrint.WeightUnitGr} | {Box.Name}";
     [XmlElement] public virtual decimal WeightTare { get => PluBundle.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
-    [XmlIgnore] public virtual string WeightTareKg => $"{WeightTare} {LocaleCore.Scales.WeightUnitKg}";
+    [XmlIgnore] public virtual string WeightTareKg => $"{WeightTare} {WsLocaleCore.LabelPrint.WeightUnitKg}";
     
     /// <summary>
     /// Constructor.

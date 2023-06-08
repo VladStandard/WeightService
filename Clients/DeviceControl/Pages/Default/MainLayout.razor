@@ -18,11 +18,11 @@
         <RadzenMenuItem
           Icon="people"
           Text="@User?.Identity?.Name"
-          Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}")/>
+          Path=@($"{WsLocaleCore.DeviceControl.RouteSystemIdentityData}")/>
         <AuthorizeView Roles="@UserAccessStr.Admin">
           <RadzenMenuItem
             Text="@VerBlazor"
-            Path=@($"{LocaleCore.DeviceControl.RouteSystemAppInfo}")/>
+            Path=@($"{WsLocaleCore.DeviceControl.RouteSystemAppInfo}")/>
         </AuthorizeView>
       </RadzenMenu>
     </div>

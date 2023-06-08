@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -63,7 +65,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
             MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
             TscDriver.Setup(WsEnumPrintChannel.Ethernet, printer.Ip, printer.Port, WsEnumPrintLabelSize.Size80x100, WsEnumPrintLabelDpi.Dpi300);
             MdInvokeControl.SetText(FieldPrint,
-                $"{(IsMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
+                $"{(IsMain ? WsLocaleCore.Print.NameMainTsc : WsLocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
             TscDriver.Properties.PrintName = printer.Name;
         }
         catch (Exception ex)
@@ -148,9 +150,9 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
         WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} disconnected by {e.Reason} reason");
     }
 
-    public string GetDeviceStatusTsc() => GetPrinterStatusDescription(LocaleCore.Lang, TscWmiPrinter.PrinterStatus);
+    public string GetDeviceStatusTsc() => GetPrinterStatusDescription(WsLocaleCore.Lang, TscWmiPrinter.PrinterStatus);
 
-    public bool CheckDeviceStatusTsc() => GetDeviceStatusTsc() == LocaleCore.Print.StatusIsReadyToPrint;
+    public bool CheckDeviceStatusTsc() => GetDeviceStatusTsc() == WsLocaleCore.Print.StatusIsReadyToPrint;
 
     public void SendCmd(WsSqlPluLabelModel pluLabel)
     {

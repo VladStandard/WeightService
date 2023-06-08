@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleModels.Devices;
 
 /// <summary>
@@ -113,9 +115,9 @@ public class WsSqlDeviceModel : WsSqlTableBase
         base.FillProperties();
         LoginDt = DateTime.Now;
         LogoutDt = DateTime.Now;
-        PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
-        Ipv4 = LocaleCore.Sql.SqlItemFieldIp;
-        MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
+        PrettyName = WsLocaleCore.Sql.SqlItemFieldPrettyName;
+        Ipv4 = WsLocaleCore.Sql.SqlItemFieldIp;
+        MacAddressValue = WsLocaleCore.Sql.SqlItemFieldMac;
     }
 
     #endregion

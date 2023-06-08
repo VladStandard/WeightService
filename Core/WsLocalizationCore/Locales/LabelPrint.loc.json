@@ -1,0 +1,18 @@
+{
+    "Language": {
+        "Name": {
+            "en": "English",
+            "ru": "Russian"
+        },
+        "CurrentLanguage": {
+            "en": "Current language",
+            "ru": "Текущий язык"
+        }
+    },
+    "AppLabelPrint": {
+        "AppTitle": {
+            "en": "Label print",
+            "ru": "Печать этикеток"
+        }
+    }
+}

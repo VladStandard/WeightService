@@ -6,7 +6,7 @@ namespace WsWebApiScales.Controllers;
 /// <summary>
 /// Brands controller.
 /// </summary>
-[Tags(WsWebServiceConsts.Ref1CBrands)]
+[Tags(WsLocalizationCore.Utils.WsLocaleWebServiceUtils.Tag1CBrands)]
 public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
@@ -25,7 +25,7 @@ public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost]
-    [Route(WsWebServiceUrls.SendBrands)]
+    [Route(WsLocaleWebServiceUtils.SendBrands)]
     public ContentResult SendBrands([FromBody] XElement xml, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "debug")] bool isDebug = false, 
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
@@ -35,10 +35,10 @@ public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
         {
             WsSqlAcceptVersion.V2 => // Новый ответ 1С - не найдено.
                 GetContentResult(() => NewResponse1CIsNotFound(
-                    $"Version {version} {LocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
+                    $"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => BrandsController.NewResponseBrands(xml, format, isDebug, SessionFactory), format)
         };
-        LogWebServiceFk(nameof(WsWebApiScales), WsWebServiceUrls.SendBrands,
+        LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendBrands,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
         return result;
     }

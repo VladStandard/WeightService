@@ -3,6 +3,7 @@
 
 using WsBlazorCore.CssStyles;
 using WsBlazorCore.Utils;
+using WsLocalizationCore.Utils;
 
 namespace WsAssertCoreTests;
 
@@ -126,7 +127,7 @@ public class WsDataTestsHelper
             {
                 foreach (ValidationFailure failure in result.Errors)
                 {
-                    TestContext.WriteLine($"{LocaleCore.Validator.Property} {failure.PropertyName} {LocaleCore.Validator.FailedValidation}. {LocaleCore.Validator.Error}: {failure.ErrorMessage}");
+                    TestContext.WriteLine($"{WsLocaleCore.Validator.Property} {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}. {WsLocaleCore.Validator.Error}: {failure.ErrorMessage}");
                 }
                 break;
             }
@@ -279,56 +280,56 @@ public class WsDataTestsHelper
         item.CreateDt.Returns(DateTime.Now);
         item.ChangeDt.Returns(DateTime.Now);
         item.IsMarked.Returns(false);
-        item.Description.Returns(LocaleCore.Sql.SqlItemFieldDescription);
+        item.Description.Returns(WsLocaleCore.Sql.SqlItemFieldDescription);
 
         switch (item)
         {
             case WsSqlAccessModel access:
-                access.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                access.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 access.Rights.Returns((byte)WsEnumAccessRights.None);
                 access.LoginDt.Returns(DateTime.Now);
                 break;
             case WsSqlAppModel app:
-                app.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                app.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 break;
             case WsSqlBarCodeModel barCode:
                 barCode.TypeTop.Returns(WsSqlBarcodeType.Default.ToString());
-                barCode.ValueTop.Returns(LocaleCore.Sql.SqlItemFieldValue);
+                barCode.ValueTop.Returns(WsLocaleCore.Sql.SqlItemFieldValue);
                 barCode.TypeRight.Returns(WsSqlBarcodeType.Default.ToString());
-                barCode.ValueRight.Returns(LocaleCore.Sql.SqlItemFieldValue);
+                barCode.ValueRight.Returns(WsLocaleCore.Sql.SqlItemFieldValue);
                 barCode.TypeBottom.Returns(WsSqlBarcodeType.Default.ToString());
-                barCode.ValueBottom.Returns(LocaleCore.Sql.SqlItemFieldValue);
+                barCode.ValueBottom.Returns(WsLocaleCore.Sql.SqlItemFieldValue);
                 break;
             case WsSqlBoxModel box:
-                box.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                box.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 box.Weight.Returns(3);
                 break;
             case WsSqlBrandModel brand:
-                brand.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-                brand.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
+                brand.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
+                brand.Code.Returns(WsLocaleCore.Sql.SqlItemFieldCode);
                 break;
             case WsSqlBundleModel bundle:
-                bundle.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                bundle.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 bundle.Weight.Returns(3);
                 break;
             case WsSqlClipModel clip:
-                clip.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                clip.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 clip.Weight.Returns(2);
                 break;
             case WsSqlContragentModel contragent:
-                contragent.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                contragent.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 break;
             case WsSqlDeviceModel device:
                 device.LoginDt.Returns(DateTime.Now);
                 device.LogoutDt.Returns(DateTime.Now);
-                device.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-                device.PrettyName.Returns(LocaleCore.Sql.SqlItemFieldPrettyName);
-                device.Ipv4.Returns(LocaleCore.Sql.SqlItemFieldIp);
-                device.MacAddressValue.Returns(LocaleCore.Sql.SqlItemFieldMac);
+                device.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
+                device.PrettyName.Returns(WsLocaleCore.Sql.SqlItemFieldPrettyName);
+                device.Ipv4.Returns(WsLocaleCore.Sql.SqlItemFieldIp);
+                device.MacAddressValue.Returns(WsLocaleCore.Sql.SqlItemFieldMac);
                 break;
             case WsSqlDeviceTypeModel deviceType:
-                deviceType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-                deviceType.PrettyName.Returns(LocaleCore.Sql.SqlItemFieldPrettyName);
+                deviceType.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
+                deviceType.PrettyName.Returns(WsLocaleCore.Sql.SqlItemFieldPrettyName);
                 break;
             case WsSqlDeviceTypeFkModel deviceTypeFk:
                 deviceTypeFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
@@ -339,21 +340,21 @@ public class WsDataTestsHelper
                 deviceScaleFk.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
                 break;
             case WsSqlLogModel log:
-                log.Version.Returns(LocaleCore.Sql.SqlItemFieldVersion);
-                log.File.Returns(LocaleCore.Sql.SqlItemFieldFile);
+                log.Version.Returns(WsLocaleCore.Sql.SqlItemFieldVersion);
+                log.File.Returns(WsLocaleCore.Sql.SqlItemFieldFile);
                 log.Line.Returns(1);
-                log.Member.Returns(LocaleCore.Sql.SqlItemFieldMember);
+                log.Member.Returns(WsLocaleCore.Sql.SqlItemFieldMember);
                 log.LogType = CreateNewSubstitute<WsSqlLogTypeModel>(isNotDefault);
-                log.Message.Returns(LocaleCore.Sql.SqlItemFieldMessage);
+                log.Message.Returns(WsLocaleCore.Sql.SqlItemFieldMessage);
                 break;
             case WsSqlLogTypeModel logType:
-                logType.Icon.Returns(LocaleCore.Sql.SqlItemFieldIcon);
+                logType.Icon.Returns(WsLocaleCore.Sql.SqlItemFieldIcon);
                 break;
             case WsSqlLogWebModel logWeb:
                 logWeb.StampDt.Returns(DateTime.Now);
-                logWeb.Version.Returns(LocaleCore.Sql.SqlItemFieldVersion);
+                logWeb.Version.Returns(WsLocaleCore.Sql.SqlItemFieldVersion);
                 logWeb.Direction.Returns((byte)0);
-                logWeb.Url.Returns(LocaleCore.Sql.SqlItemFieldUrl);
+                logWeb.Url.Returns(WsLocaleCore.Sql.SqlItemFieldUrl);
                 logWeb.Params.Returns(string.Empty);
                 logWeb.Headers.Returns(string.Empty);
                 logWeb.DataString.Returns(string.Empty);
@@ -371,11 +372,11 @@ public class WsDataTestsHelper
                 logWebFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
                 break;
             case WsSqlPluGroupModel pluGroup:
-                pluGroup.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-                pluGroup.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
+                pluGroup.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
+                pluGroup.Code.Returns(WsLocaleCore.Sql.SqlItemFieldCode);
                 break;
             case WsSqlPluCharacteristicModel nomenclatureCharacteristic:
-                nomenclatureCharacteristic.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                nomenclatureCharacteristic.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 nomenclatureCharacteristic.AttachmentsCount.Returns(3);
                 break;
             case WsSqlPluCharacteristicsFkModel nomenclatureCharacteristicFk:
@@ -391,7 +392,7 @@ public class WsDataTestsHelper
                 pluGroupFk.Parent = CreateNewSubstitute<WsSqlPluGroupModel>(isNotDefault);
                 break;
             case WsSqlOrderModel order:
-                order.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                order.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 order.BoxCount.Returns(1);
                 order.PalletCount.Returns(1);
                 break;
@@ -400,17 +401,17 @@ public class WsDataTestsHelper
                 orderWeighing.PluWeighing = CreateNewSubstitute<WsSqlPluWeighingModel>(isNotDefault);
                 break;
             case WsSqlOrganizationModel organization:
-                organization.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                organization.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 organization.Gln.Returns(1);
                 break;
             case WsSqlPluModel plu:
-                plu.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                plu.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 plu.Number.Returns((short)100);
-                plu.FullName.Returns(LocaleCore.Sql.SqlItemFieldFullName);
-                plu.Gtin.Returns(LocaleCore.Sql.SqlItemFieldGtin);
-                plu.Ean13.Returns(LocaleCore.Sql.SqlItemFieldEan13);
-                plu.Itf14.Returns(LocaleCore.Sql.SqlItemFieldItf14);
-                plu.Code.Returns(LocaleCore.Sql.SqlItemFieldCode);
+                plu.FullName.Returns(WsLocaleCore.Sql.SqlItemFieldFullName);
+                plu.Gtin.Returns(WsLocaleCore.Sql.SqlItemFieldGtin);
+                plu.Ean13.Returns(WsLocaleCore.Sql.SqlItemFieldEan13);
+                plu.Itf14.Returns(WsLocaleCore.Sql.SqlItemFieldItf14);
+                plu.Code.Returns(WsLocaleCore.Sql.SqlItemFieldCode);
                 break;
             case WsSqlPluBundleFkModel pluBundle:
                 pluBundle.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
@@ -421,7 +422,7 @@ public class WsDataTestsHelper
                 pluClips.Clip = CreateNewSubstitute<WsSqlClipModel>(isNotDefault);
                 break;
             case WsSqlPluLabelModel pluLabel:
-                pluLabel.Zpl.Returns(LocaleCore.Sql.SqlItemFieldZpl);
+                pluLabel.Zpl.Returns(WsLocaleCore.Sql.SqlItemFieldZpl);
                 pluLabel.PluWeighing = CreateNewSubstitute<WsSqlPluWeighingModel>(isNotDefault);
                 pluLabel.PluScale = CreateNewSubstitute<WsSqlPluScaleModel>(isNotDefault);
                 pluLabel.ProductDt.Returns(DateTime.Now);
@@ -433,7 +434,7 @@ public class WsDataTestsHelper
                 pluScale.Line = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
                 break;
             case WsSqlPluStorageMethodModel pluStorageMethod:
-                pluStorageMethod.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                pluStorageMethod.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 pluStorageMethod.MinTemp.Returns((short)0);
                 pluStorageMethod.MaxTemp.Returns((short)0);
                 break;
@@ -447,7 +448,7 @@ public class WsDataTestsHelper
                 pluTemplateFk.Template = CreateNewSubstitute<WsSqlTemplateModel>(isNotDefault);
                 break;
             case WsSqlPluWeighingModel pluWeighing:
-                pluWeighing.Sscc.Returns(LocaleCore.Sql.SqlItemFieldSscc);
+                pluWeighing.Sscc.Returns(WsLocaleCore.Sql.SqlItemFieldSscc);
                 pluWeighing.NettoWeight.Returns(1.1M);
                 pluWeighing.WeightTare.Returns(0.25M);
                 pluWeighing.RegNum.Returns(1);
@@ -470,14 +471,14 @@ public class WsDataTestsHelper
                 printerResource.TemplateResource = CreateNewSubstitute<WsSqlTemplateResourceModel>(isNotDefault);
                 break;
             case WsSqlPrinterTypeModel printerType:
-                printerType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                printerType.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 break;
             case WsSqlProductionFacilityModel productionFacility:
-                productionFacility.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-                productionFacility.Address.Returns(LocaleCore.Sql.SqlItemFieldAddress);
+                productionFacility.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
+                productionFacility.Address.Returns(WsLocaleCore.Sql.SqlItemFieldAddress);
                 break;
             case WsSqlProductSeriesModel productSeries:
-                productSeries.Sscc.Returns(LocaleCore.Sql.SqlItemFieldSscc);
+                productSeries.Sscc.Returns(WsLocaleCore.Sql.SqlItemFieldSscc);
                 productSeries.IsClose.Returns(false);
                 productSeries.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
                 break;
@@ -496,14 +497,14 @@ public class WsDataTestsHelper
                 task.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
                 break;
             case WsSqlTaskTypeModel taskType:
-                taskType.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                taskType.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 break;
             case WsSqlTemplateModel template:
-                template.Title.Returns(LocaleCore.Sql.SqlItemFieldTitle);
+                template.Title.Returns(WsLocaleCore.Sql.SqlItemFieldTitle);
                 break;
             case WsSqlTemplateResourceModel templateResource:
-                templateResource.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
-                templateResource.Type.Returns(LocaleCore.Sql.SqlItemFieldTemplateResourceType);
+                templateResource.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
+                templateResource.Type.Returns(WsLocaleCore.Sql.SqlItemFieldTemplateResourceType);
                 templateResource.DataValue.Returns(new byte[] { 0x00 });
                 break;
             case WsSqlVersionModel version:
@@ -511,7 +512,7 @@ public class WsDataTestsHelper
                 version.ReleaseDt.Returns(DateTime.Now);
                 break;
             case WsSqlWorkShopModel workShop:
-                workShop.Name.Returns(LocaleCore.Sql.SqlItemFieldName);
+                workShop.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 workShop.ProductionFacility = CreateNewSubstitute<WsSqlProductionFacilityModel>(isNotDefault);
                 break;
         }

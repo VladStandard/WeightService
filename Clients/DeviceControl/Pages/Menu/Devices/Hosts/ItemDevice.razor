@@ -7,32 +7,32 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<WsStorageCore.TableScaleModels.Devices.WsSqlDeviceModel>
 
-<ItemTopBar TItem="@WsSqlDeviceModel" Title="@LocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlDeviceModel" Title="@WsLocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 15, 35, 15, 35 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.LoginDt</td>
+    <td>@WsLocaleCore.Table.LoginDt</td>
     <td>@string.Format(StrUtils.FormatDtLong, SqlItemCast.LoginDt)</td>
 
-    <td>@LocaleCore.Table.LogoutDt</td>
+    <td>@WsLocaleCore.Table.LogoutDt</td>
     <td>@string.Format(StrUtils.FormatDtLong, SqlItemCast.LogoutDt)</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Name"/>
     </td>
 
-    <td>@LocaleCore.Table.PrettyName</td>
+    <td>@WsLocaleCore.Table.PrettyName</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.PrettyName"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.DeviceType</td>
+    <td>@WsLocaleCore.Table.DeviceType</td>
     <td>
       <RzDropDown @bind-Value="@DeviceType" Data="@DeviceTypeFkModels" TextProperty="DisplayName" />
     </td>

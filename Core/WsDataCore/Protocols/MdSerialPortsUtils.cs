@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsDataCore.Enums;
+using WsLocalizationCore.Common;
 
 namespace WsDataCore.Protocols;
 
@@ -9,14 +10,14 @@ public static class MdSerialPortsUtils
 {
     #region Public and private methods
 
-    public static List<string> GetListComPorts(Lang lang)
+    public static List<string> GetListComPorts(WsEnumLanguage lang)
     {
         List<string> result = new();
         for (int i = 1; i < 256; i++)
         {
             switch (lang)
             {
-                case Lang.Russian:
+                case WsEnumLanguage.Russian:
                     result.Add($"КОМ{i}");
                     break;
                 default:
@@ -27,14 +28,14 @@ public static class MdSerialPortsUtils
         return result;
     }
 
-    public static List<WsEnumTypeModel<string>> GetListTypeComPorts(Lang lang)
+    public static List<WsEnumTypeModel<string>> GetListTypeComPorts(WsEnumLanguage lang)
     {
         List<WsEnumTypeModel<string>> result = new();
         for (int i = 1; i < 256; i++)
         {
             switch (lang)
             {
-                case Lang.Russian:
+                case WsEnumLanguage.Russian:
                     result.Add(new($"КОМ{i}", $"COM{i}"));
                     break;
                 default:

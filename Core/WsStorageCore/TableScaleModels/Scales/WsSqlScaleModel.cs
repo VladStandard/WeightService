@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleModels.Scales;
 
 /// <summary>
@@ -33,7 +35,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     [XmlElement] public virtual bool IsShipping { get; set; }
     [XmlElement] public virtual bool IsOrder { get; set; }
     [XmlElement] public virtual bool IsKneading { get; set; }
-    [XmlIgnore] public virtual string NumberWithDescription => $"{LocaleCore.Table.Number}: {Number} | {Description}";
+    [XmlIgnore] public virtual string NumberWithDescription => $"{WsLocaleCore.Table.Number}: {Number} | {Description}";
 
     /// <summary>
     /// Constructor.
@@ -177,7 +179,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Description = LocaleCore.Sql.SqlItemFieldDescription;
+        Description = WsLocaleCore.Sql.SqlItemFieldDescription;
         WorkShop?.FillProperties();
         PrinterMain?.FillProperties();
         PrinterShipping?.FillProperties();

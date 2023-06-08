@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.ViewRefModels;
 
 [DebuggerDisplay("{ToString()}")]
@@ -36,7 +38,7 @@ public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
     public string BoxName { get; init; }
     public decimal BoxWeight { get; init; }
     public decimal TareWeight { get; init; }
-    public string TareWeightWithKg => $"{TareWeight} {LocaleCore.Scales.WeightUnitKg}";
+    public string TareWeightWithKg => $"{TareWeight} {WsLocaleCore.LabelPrint.WeightUnitKg}";
     public string TareWeightDescription => $"{BoxName} + ({BundleName} * {BundleCount})";
     public string TareWeightValue => $"{BoxWeight} + ({BundleWeight} * {BundleCount})";
     public string PluNumberName => $"{PluNumber} | {PluName}";
@@ -91,7 +93,7 @@ public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
 
     public override string ToString() => $"{TareWeightDescription} | {TareWeight}";
     
-    public string GetSmartName() => TareWeight > 0 ? $"{TareWeight} {LocaleCore.Scales.WeightUnitKg} | {PluName}" : "- 0 -";
+    public string GetSmartName() => TareWeight > 0 ? $"{TareWeight} {WsLocaleCore.LabelPrint.WeightUnitKg} | {PluName}" : "- 0 -";
     
     #endregion
 }

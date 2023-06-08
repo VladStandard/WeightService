@@ -3,6 +3,7 @@
 
 using Radzen;
 using WsBlazorCore.Settings;
+using WsLocalizationCore.Utils;
 
 namespace WsBlazorCore.Razors;
 
@@ -14,8 +15,8 @@ public partial class RazorComponentBase
     {
         return new ConfirmOptions
         {
-            OkButtonText = LocaleCore.Dialog.DialogButtonYes,
-            CancelButtonText = LocaleCore.Dialog.DialogButtonCancel
+            OkButtonText = WsLocaleCore.Dialog.DialogButtonYes,
+            CancelButtonText = WsLocaleCore.Dialog.DialogButtonCancel
         };
     }
 
@@ -31,7 +32,7 @@ public partial class RazorComponentBase
             NotificationService.Notify(
                 NotificationSeverity.Success,
                 title,
-                LocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.DelayInfo
+                WsLocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.DelayInfo
                 );
         }
         catch (Exception ex)
@@ -48,7 +49,7 @@ public partial class RazorComponentBase
         try
         {
 
-            string question = string.IsNullOrEmpty(message) ? LocaleCore.Dialog.DialogQuestion : message;
+            string question = string.IsNullOrEmpty(message) ? WsLocaleCore.Dialog.DialogQuestion : message;
             Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
             if (dialog.Result == true)
                 RunAction(title, action);
@@ -62,7 +63,7 @@ public partial class RazorComponentBase
     private void CatchException(string title, Exception ex)
     {
         if (string.IsNullOrEmpty(title))
-            title = LocaleCore.Dialog.DialogResultFail;
+            title = WsLocaleCore.Dialog.DialogResultFail;
         
         string msg = ex.Message;
         if (!string.IsNullOrEmpty(ex.InnerException?.Message))
@@ -72,7 +73,7 @@ public partial class RazorComponentBase
             NotificationSeverity.Error,
             title, 
             msg,
-            BlazorAppSettingsHelper.DelayError
+            BlazorAppSettingsHelper.DelayError + 2000
             );
         ContextManager.ContextItem.SaveLogError(ex);
     }

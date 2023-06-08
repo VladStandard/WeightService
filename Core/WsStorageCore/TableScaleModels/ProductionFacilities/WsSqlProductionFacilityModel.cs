@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleModels.ProductionFacilities;
 
 /// <summary>
@@ -77,7 +79,7 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Address = LocaleCore.Sql.SqlItemFieldAddress;
+        Address = WsLocaleCore.Sql.SqlItemFieldAddress;
     }
 
     #endregion

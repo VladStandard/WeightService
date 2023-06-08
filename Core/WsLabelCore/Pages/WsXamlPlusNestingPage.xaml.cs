@@ -3,6 +3,7 @@
 // ReSharper disable MismatchedFileName
 
 using System.Windows.Controls;
+using WsLocalizationCore.Utils;
 
 namespace WsLabelCore.Pages;
 
@@ -38,7 +39,7 @@ public partial class WsXamlPlusNestingPage
         {
             // Вложенности ПЛУ.
             labelPluNesting.SetBinding(ContentProperty,
-                new Binding(nameof(LocaleCore.Table.PluNesting)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
+                new Binding(nameof(WsLocaleCore.Table.PluNesting)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Table });
             comboBoxPlusNesting.SetBinding(ItemsControl.ItemsSourceProperty,
                 new Binding(nameof(viewModel.PlusNestings)) { Mode = BindingMode.OneWay, Source = viewModel });
             comboBoxPlusNesting.SetBinding(Selector.SelectedItemProperty,
@@ -54,7 +55,7 @@ public partial class WsXamlPlusNestingPage
 
             // ПЛУ.
             labelPlu.SetBinding(ContentProperty,
-                new Binding(nameof(LocaleCore.Table.Plu)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
+                new Binding(nameof(WsLocaleCore.Table.Plu)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Table });
             labelPluValue.DataContext = viewModel;
             labelPluValue.SetBinding(ContentProperty,
                 new Binding(nameof(viewModel.PluNesting.PluNumberName))
@@ -65,7 +66,7 @@ public partial class WsXamlPlusNestingPage
 
             // Вес тары ПЛУ.
             labelTareWeight.SetBinding(ContentProperty,
-                new Binding(nameof(LocaleCore.Table.WeightTare)) { Mode = BindingMode.OneWay, Source = LocaleCore.Table });
+                new Binding(nameof(WsLocaleCore.Table.WeightTare)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Table });
             labelTareWeightValue.DataContext = viewModel;
             labelTareWeightValue.SetBinding(ContentProperty,
                 new Binding(nameof(viewModel.PluNesting.TareWeightWithKg))

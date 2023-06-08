@@ -6,7 +6,7 @@
 @inherits SectionBase<WsStorageCore.TableScaleModels.Organizations.WsSqlOrganizationModel>
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionOrganizations"
+  Title="@WsLocaleCore.DeviceControl.SectionOrganizations"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,8 +24,8 @@
   <Columns>
     <TItemContent TItem="@WsSqlOrganizationModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Gln" Property="Gln" Width="25%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="75%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Gln" Property="Gln" Width="25%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

@@ -9,7 +9,7 @@ public sealed partial class NavMenu : RazorComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    private static LocaleDeviceControl LocaleBlazor => LocaleDeviceControl.Instance;
+    private static WsLocaleDeviceControl LocaleBlazor => new();
 
     private static string ItemMenuCss => WsDebugHelper.Instance.IsDevelop ? "MenuItemDebug" : "MenuItemRelease";
 

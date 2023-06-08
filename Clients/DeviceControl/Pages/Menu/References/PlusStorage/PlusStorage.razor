@@ -6,7 +6,7 @@
 @inherits SectionBase<WsStorageCore.TableScaleModels.PlusStorageMethods.WsSqlPluStorageMethodModel>
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionPlusStorage"
+  Title="@WsLocaleCore.DeviceControl.SectionPlusStorage"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,9 +24,9 @@
   <Columns>
     <TItemContent TItem="@WsSqlPluStorageMethodModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="33%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.TempMinimal" Property="MinTemp" Width="33%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.TempMaximal" Property="MaxTemp" Width="33%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="33%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.TempMinimal" Property="MinTemp" Width="33%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.TempMaximal" Property="MaxTemp" Width="33%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

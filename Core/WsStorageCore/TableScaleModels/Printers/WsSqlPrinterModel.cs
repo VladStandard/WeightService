@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Net.NetworkInformation;
+using WsLocalizationCore.Utils;
 
 namespace WsStorageCore.TableScaleModels.Printers;
 
@@ -28,7 +29,7 @@ public class WsSqlPrinterModel : WsSqlTableBase
     [XmlIgnore] public virtual bool IsPing => PingStatus == IPStatus.Success;
     [XmlIgnore] public virtual Exception? HttpStatusException { get; set; }
     [XmlIgnore] public virtual bool IsConnect => HttpStatusCode == HttpStatusCode.OK;
-    [XmlIgnore] public override string DisplayName => IsNew ?  LocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
+    [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
 
     /// <summary>
     /// Constructor.

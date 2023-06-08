@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace DeviceControl.Components.Item;
 
 public sealed partial class ItemTableBody : LayoutComponentBase
@@ -17,8 +19,8 @@ public sealed partial class ItemTableBody : LayoutComponentBase
     private string IdentityName =>
         SqlItem.Identity.Name switch
         {
-            WsSqlFieldIdentity.Id => LocaleCore.Table.Id,
-            WsSqlFieldIdentity.Uid => LocaleCore.Table.Uid,
+            WsSqlFieldIdentity.Id => WsLocaleCore.Table.Id,
+            WsSqlFieldIdentity.Uid => WsLocaleCore.Table.Uid,
             _ => string.Empty
         };
 

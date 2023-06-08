@@ -3,7 +3,7 @@
 
 using System.Xml.Linq;
 using NUnit.Framework;
-using WsLocalizationCore.Models;
+using WsLocalizationCore.Utils;
 using WsStorageCore.TableScaleModels.Brands;
 using WsWebApiCore.Models;
 using WsWebApiCore.Utils;
@@ -69,7 +69,7 @@ public sealed class WsContentUtilsTests
             Assert.That(xElement, Is.Not.Null);
             if (xElement is not null)
             {
-                List<WsXmlContentRecord<WsSqlBrandModel>> brands = WsServiceContentUtils.GetNodesListCore<WsSqlBrandModel>(xElement, LocaleCore.WebService.XmlItemBrand,
+                List<WsXmlContentRecord<WsSqlBrandModel>> brands = WsServiceContentUtils.GetNodesListCore<WsSqlBrandModel>(xElement, WsLocaleCore.WebService.XmlItemBrand,
                     (xmlNode, itemXml) =>
                     {
                         WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");

@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
 using WsStorageCore.Helpers;
 using WsStorageCore.TableScaleFkModels.Aggregations;
 
@@ -13,7 +14,7 @@ public sealed partial class PluWeightingsAggr : LayoutComponentBase
     private bool IsShowPlu { get; set; }
 
     private string SqlListCountResult =>
-        $"{LocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
+        $"{WsLocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
 
     private List<WsSqlPluAggrModel> PluWeightAggrs { get; set; }
 

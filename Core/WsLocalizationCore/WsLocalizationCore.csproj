@@ -5,10 +5,23 @@
     <Nullable>enable</Nullable>
 	<Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>latest</LangVersion>
-    <Version>0.9.530.0</Version>
+    <Version>0.9.540.0</Version>
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <Using Include="WsLocalizationCore.Enums" />
+    <None Include="FodyWeavers.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CodingSeb.Localization" Version="1.2.0" />
+    <PackageReference Include="CodingSeb.Localization.JsonFileLoader" Version="1.2.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Locales\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Locales\LabelPrint.loc.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

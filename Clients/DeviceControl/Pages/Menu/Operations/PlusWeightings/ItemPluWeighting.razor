@@ -6,7 +6,7 @@
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.WsSqlPluWeighingModel>
 
-<ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@LocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@WsLocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
@@ -15,27 +15,27 @@
   <tr>
     <td>
       <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)"
-                  Text="@LocaleCore.Table.Line"/>
+                  Text="@WsLocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.PluScale.Line.Description</td>
 
-    <td>@LocaleCore.Table.WeightNetto</td>
+    <td>@WsLocaleCore.Table.WeightNetto</td>
     <td>@SqlItemCast.NettoWeight.ToString(CultureInfo.InvariantCulture)</td>
   </tr>
   <tr>
     <td>
       <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Plu)"
-                  Text="@LocaleCore.Table.Plu"/>
+                  Text="@WsLocaleCore.Table.Plu"/>
     </td>
     <td>@($"{SqlItemCast.PluScale.Plu.Number} | {SqlItemCast.PluScale.Plu.Name}")</td>
 
-    <td>@LocaleCore.Table.BundleFkWeightTare</td>
+    <td>@WsLocaleCore.Table.BundleFkWeightTare</td>
     <td>@SqlItemCast.WeightTare.ToString(CultureInfo.InvariantCulture)</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Sscc</td>
+    <td>@WsLocaleCore.Table.Sscc</td>
     <td>@SqlItemCast.Series?.Sscc</td>
-    <td>@LocaleCore.Table.IsKneading</td>
+    <td>@WsLocaleCore.Table.IsKneading</td>
     <td>@SqlItemCast.Kneading</td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>

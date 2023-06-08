@@ -1,12 +1,13 @@
-﻿@page "/section/workshops"
+@page "/section/workshops"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.WorkShops
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.WorkShops.WsSqlWorkShopModel>
+@using WsLocalizationCore.Utils
+@inherits DeviceControl.Components.Section.SectionBase<WsStorageCore.TableScaleModels.WorkShops.WsSqlWorkShopModel>
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionWorkShops"
+  Title="@WsLocaleCore.DeviceControl.SectionWorkShops"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,8 +25,8 @@
   <Columns>
     <TItemContent TItem="@WsSqlWorkShopModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="40%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ProductionFacility" Property="ProductionFacility.Name" Width="40%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="40%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.ProductionFacility" Property="ProductionFacility.Name" Width="40%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

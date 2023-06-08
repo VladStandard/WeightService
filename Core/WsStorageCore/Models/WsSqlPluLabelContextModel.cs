@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.Models;
 
 /// <summary>
@@ -13,7 +15,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
 {
     #region Public and private properties - References
 
-    [XmlIgnore] private WsSqlPluLabelModel PluLabel { get; set; }
+    [XmlIgnore] public WsSqlPluLabelModel PluLabel { get; private set; }
     [XmlIgnore] private WsSqlViewPluNestingModel ViewPluNesting { get; set; }
     [XmlIgnore] private WsSqlPluScaleModel PluScale { get; set; }
     [XmlIgnore] private WsSqlPluWeighingModel PluWeighing { get; set; }
@@ -24,24 +26,24 @@ public class WsSqlPluLabelContextModel : SerializeBase
     #region Public and private properties - XSLT trasform for print labels
 
     [XmlElement] public virtual string ProductDt { get => $"{PluLabel.ProductDt:dd.MM.yyyy}"; set => _ = value; }
-    [XmlElement] public virtual string ProductDtWithCaption { get => $"{LocaleCore.Scales.LabelContextProductDt}: {ProductDt}"; set => _ = value; }
+    [XmlElement] public virtual string ProductDtWithCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextProductDt}: {ProductDt}"; set => _ = value; }
     [XmlElement] public virtual string LotNumberFormat { get => $"{PluLabel.ProductDt:yyMM}"; set => _ = value; }
     [XmlElement] public virtual string ProductDateBarCodeFormat { get => $"{PluLabel.ProductDt:yyMMdd}"; set => _ = value; }
     [XmlElement] public virtual string ProductTimeBarCodeFormat { get => $"{PluLabel.ProductDt:HHmmss}"; set => _ = value; }
     //[XmlElement] public virtual string CurrentDateBarCode { get => $"{DateTime.Now:yyMMdd}"; set => _ = value; }
     //[XmlElement] public virtual string CurrentTimeBarCode { get => $"{DateTime.Now:HHmmss}"; set => _ = value; }
-    [XmlElement] public virtual string Nesting { get => $"{LocaleCore.Scales.LabelContextNesting}: {ViewPluNesting.BundleCount}{LocaleCore.Table.NestingMeasurement}"; set => _ = value; }
+    [XmlElement] public virtual string Nesting { get => $"{WsLocaleCore.LabelPrint.LabelContextNesting}: {ViewPluNesting.BundleCount}{WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string Address { get => ProductionFacility.Address; set => _ = value; }
     [XmlElement] public virtual string PluDescription { get => PluScale.Plu.Description; set => _ = value; }
     [XmlElement] public virtual string PluFullName { get => PluScale.Plu.FullName; set => _ = value; }
     [XmlElement] public virtual string PluName { get => PluScale.Plu.Name; set => _ = value; }
     [XmlElement] public virtual string PluNumber { get => $"{PluScale.Plu.Number:000}"; set => _ = value; }
-    [XmlElement] public virtual string PluScaleNumber { get => $"{LocaleCore.Scales.LabelContextPlu}: {PluNumber} / {ScaleNumber}"; set => _ = value; }
+    [XmlElement] public virtual string PluScaleNumber { get => $"{WsLocaleCore.LabelPrint.LabelContextPlu}: {PluNumber} / {ScaleNumber}"; set => _ = value; }
     [XmlElement] public virtual string PluNestingWeightTare { get => $"{ViewPluNesting.TareWeight:000}"; set => _ = value; }
     [XmlElement] public virtual string ExpirationDt { get => $"{PluLabel.ExpirationDt:dd.MM.yyyy}"; set => _ = value; }
-    [XmlElement] public virtual string ExpirationDtWithCaption { get => $"{LocaleCore.Scales.LabelContextExpirationDt}: {ExpirationDt}"; set => _ = value; }
+    [XmlElement] public virtual string ExpirationDtWithCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextExpirationDt}: {ExpirationDt}"; set => _ = value; }
     [XmlElement] public virtual string ScaleNumber { get => $"{PluScale.Line.Number:00000}"; set => _ = value; }
-    [XmlElement] public virtual string ScaleDescription { get => $"{LocaleCore.Scales.LabelContextWorkShop}: {PluScale.Line.Description}"; set => _ = value; }
+    [XmlElement] public virtual string ScaleDescription { get => $"{WsLocaleCore.LabelPrint.LabelContextWorkShop}: {PluScale.Line.Description}"; set => _ = value; }
     [XmlElement] public virtual string ScaleCounter8 { get => $"{PluScale.Line.LabelCounter:00000000}"; set => _ = value; }
     [XmlElement] public virtual string ScaleCounter6 { get => $"{PluScale.Line.LabelCounter:000000}"; set => _ = value; }
     [XmlElement] public virtual string PluNesting2 { get => $"{ViewPluNesting.BundleCount:00}"; set => _ = value; }
@@ -51,11 +53,11 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string PluWeighing2Dot3Eng { get => $"{PluWeighing.NettoWeight:#0.000}".Replace(',', '.'); set => _ = value; }
     [XmlElement] public virtual string PluWeighing1Dot3Rus { get => $"{PluWeighing.NettoWeight:0.000}".Replace('.', ','); set => _ = value; }
     [XmlElement] public virtual string PluWeighing2Dot3Rus { get => $"{PluWeighing.NettoWeight:#0.000}".Replace('.', ','); set => _ = value; }
-    [XmlElement] public virtual string PluWeighing2Dot3RusKg { get => $"{LocaleCore.Scales.LabelContextWeight}: {PluWeighing.NettoWeight:#0.000} {LocaleCore.Scales.WeightUnitKg}".Replace('.', ','); set => _ = value; }
+    [XmlElement] public virtual string PluWeighing2Dot3RusKg { get => $"{WsLocaleCore.LabelPrint.LabelContextWeight}: {PluWeighing.NettoWeight:#0.000} {WsLocaleCore.LabelPrint.WeightUnitKg}".Replace('.', ','); set => _ = value; }
     [XmlElement] public virtual string PluWeighingGr2 { get => $"{PluWeighing.NettoWeight:#.00}".Replace(',', '.').Split('.')[1]; set => _ = value; }
     [XmlElement] public virtual string PluWeighingGr3 { get => $"{PluWeighing.NettoWeight:#.000}".Replace(',', '.').Split('.')[1]; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKneading { get => $"{PluWeighing.Kneading:000}"; set => _ = value; }
-    [XmlElement] public virtual string PluWeighingKneadingWithCaption { get => $"{LocaleCore.Scales.LabelContextKneading}: {PluWeighingKneading}"; set => _ = value; }
+    [XmlElement] public virtual string PluWeighingKneadingWithCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextKneading}: {PluWeighingKneading}"; set => _ = value; }
     [XmlElement] public virtual string BarCodeEan13 { get => PluScale.Plu.Ean13; set => _ = value; }
     [XmlElement] public virtual string BarCodeGtin14 { get => PluScale.Plu.Gtin.Length switch { 13 => WsSqlBarCodeController.Instance.GetGtinWithCheckDigit(PluScale.Plu.Gtin[..13]), 14 => PluScale.Plu.Gtin, _ => "ERROR" }; set => _ = value; }
     [XmlElement] public virtual string BarCodeItf14 { get => PluScale.Plu.Itf14; set => _ = value; }

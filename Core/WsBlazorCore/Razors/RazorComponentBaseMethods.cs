@@ -3,6 +3,7 @@
 
 using Radzen;
 using WsBlazorCore.Settings;
+using WsLocalizationCore.Utils;
 using WsStorageCore.Models;
 using WsStorageCore.Utils;
 
@@ -25,7 +26,7 @@ public partial class RazorComponentBase
                     NotificationMessage msg = new()
                     {
                         Severity = NotificationSeverity.Warning,
-                        Summary = LocaleCore.Action.ActionDataControl,
+                        Summary = WsLocaleCore.Action.ActionDataControl,
                         Detail = detailAddition,
                         Duration = BlazorAppSettingsHelper.DelayError
                     };

@@ -18,7 +18,7 @@ public sealed class ShipmentController : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetShipment)]
+    [Route(WsLocaleWebServiceUtils.GetShipment)]
     public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
         return GetContentResult(() =>
@@ -56,8 +56,8 @@ public sealed class ShipmentController : WsServiceControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    [Route(WsWebServiceUrls.GetShipmentsByDocDate)]
-    [Route(WsWebServiceUrls.GetShipments)]
+    [Route(WsLocaleWebServiceUtils.GetShipmentsByDocDate)]
+    [Route(WsLocaleWebServiceUtils.GetShipments)]
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {

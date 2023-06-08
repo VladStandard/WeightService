@@ -3,6 +3,7 @@
 
 using WsDataCore.Enums;
 using WsDataCore.Serialization.Models;
+using WsLocalizationCore.Utils;
 
 namespace WsDataCore.Models;
 
@@ -99,9 +100,9 @@ public class ParseResultModel : SerializeBase, ICloneable
 
     public void FillProperties()
     {
-        Message = LocaleCore.Sql.SqlItemFieldMessage;
-        Exception = LocaleCore.Sql.SqlItemFieldException;
-        InnerException = LocaleCore.Sql.SqlItemFieldInnerException;
+        Message = WsLocaleCore.Sql.SqlItemFieldMessage;
+        Exception = WsLocaleCore.Sql.SqlItemFieldException;
+        InnerException = WsLocaleCore.Sql.SqlItemFieldInnerException;
     }
 
     #endregion

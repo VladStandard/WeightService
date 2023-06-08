@@ -3,30 +3,30 @@
 @using DeviceControl.Components.Rz
 @inherits RazorComponentBase
 
-<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.UserInfo</MudElement>
+<MudElement HtmlTag="h3" Class="ma-0">@WsLocaleCore.System.UserInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 25, 25 })"/>
   <tbody>
   <tr>
-    <td>@LocaleCore.Strings.AuthorizingUserName</td>
+    <td>@WsLocaleCore.Strings.AuthorizingUserName</td>
     <td>@User?.Identity?.Name</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Strings.AuthorizingApAddress</td>
+    <td>@WsLocaleCore.Strings.AuthorizingApAddress</td>
     <td>@IpAddress</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Strings.AccessRights</td>
+    <td>@WsLocaleCore.Strings.AccessRights</td>
     <td>@ContextManager.ContextItem.GetAccessRightsDescription(User)</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Strings.Language</td>
+    <td>@WsLocaleCore.Strings.Language</td>
     <td>
-      <RzDropDown @bind-Value="@LocaleCore.Lang" Data="@Langs"/>
+      <RzDropDown @bind-Value="@WsLocaleCore.Lang" Data="@Langs"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Strings.DefaultRowCount</td>
+    <td>@WsLocaleCore.Strings.DefaultRowCount</td>
     <td>
       <RadzenNumeric Style="width: 100%" TValue="int" Min="0" Max="1000" @bind-Value="@DefaultRowCount" Change="@OnDefaultRowCountChanged"/>
     </td>

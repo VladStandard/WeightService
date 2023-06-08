@@ -47,7 +47,6 @@ global using WsLabelCore.Models;
 global using WsLabelCore.Pages;
 global using WsLabelCore.Utils;
 global using WsLabelCore.ViewModels;
-global using WsLocalizationCore.Enums;
 global using WsLocalizationCore.Models;
 global using WsMassaCore.Enums;
 global using WsMassaCore.Helpers;

@@ -300,7 +300,7 @@ public class WsServiceControllerBase : ControllerBase
                 if (itemDb.IsNew)
                 {
                     AddResponseException(response, uid1CException,
-                        new($"{refName} {LocaleCore.WebService.WithFieldNumber} '{number}' {LocaleCore.WebService.IsNotFound}!"));
+                        new($"{refName} {WsLocaleCore.WebService.WithFieldNumber} '{number}' {WsLocaleCore.WebService.IsNotFound}!"));
                     return false;
                 }
                 return true;
@@ -309,7 +309,7 @@ public class WsServiceControllerBase : ControllerBase
             if (itemDb.IsNew || !itemDb.IsGroup)
             {
                 AddResponseException(response, uid1CException,
-                    new($"{refName} {LocaleCore.WebService.With} '{number}' {LocaleCore.WebService.IsNotFound}!"));
+                    new($"{refName} {WsLocaleCore.WebService.With} '{number}' {WsLocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -336,7 +336,7 @@ public class WsServiceControllerBase : ControllerBase
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
-                new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
+                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
             return false;
         }
         return true;
@@ -364,7 +364,7 @@ public class WsServiceControllerBase : ControllerBase
             if (itemDb is null || itemDb.IsNew)
             {
                 AddResponseException(response, uid1CException,
-                    new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
+                    new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -391,7 +391,7 @@ public class WsServiceControllerBase : ControllerBase
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
-                new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
+                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
             return false;
         }
         return true;
@@ -416,7 +416,7 @@ public class WsServiceControllerBase : ControllerBase
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
-                new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
+                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
             return false;
         }
         return true;
@@ -444,7 +444,7 @@ public class WsServiceControllerBase : ControllerBase
             if (itemDb is null || itemDb.IsNew)
             {
                 AddResponseException(response, uid1CException,
-                    new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
+                    new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
                 return false;
             }
             return true;
@@ -471,7 +471,7 @@ public class WsServiceControllerBase : ControllerBase
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
-                new($"{refName} {LocaleCore.WebService.With} '{uid1C}' {LocaleCore.WebService.IsNotFound}!"));
+                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
             return false;
         }
         return true;
@@ -912,8 +912,8 @@ public class WsServiceControllerBase : ControllerBase
         {
             pluXml.ParseResult.Status = WsEnumParseStatus.Error;
             pluXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
-                $"{LocaleCore.WebService.ForDbRecord} {LocaleCore.WebService.With} {LocaleCore.WebService.FieldCode} '{pluXml.Code}'";
+                $"{WsLocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
+                $"{WsLocaleCore.WebService.ForDbRecord} {WsLocaleCore.WebService.With} {WsLocaleCore.WebService.FieldCode} '{pluXml.Code}'";
         }
         return false;
     }
@@ -1070,7 +1070,7 @@ public class WsServiceControllerBase : ControllerBase
         {
             itemXml.ParseResult.Status = WsEnumParseStatus.Error;
             itemXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
+                $"{WsLocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
         }
         // UID_1C не совпадает.
         if (itemXml is WsSqlPluModel pluXml)
@@ -1079,7 +1079,7 @@ public class WsServiceControllerBase : ControllerBase
             {
                 itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
-                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
+                    $"{WsLocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
         }
         else if (itemXml is WsSqlPluCharacteristicModel pluCharacteristicXml)
@@ -1088,7 +1088,7 @@ public class WsServiceControllerBase : ControllerBase
             {
                 itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
-                    $"{LocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
+                    $"{WsLocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
         }
         // Загрузка ПЛУ выключена.
@@ -1096,7 +1096,7 @@ public class WsServiceControllerBase : ControllerBase
         {
             itemXml.ParseResult.Status = WsEnumParseStatus.Error;
             itemXml.ParseResult.Exception =
-                $"{LocaleCore.WebService.FieldNomenclatureIsDenyForLoad} '{plu1CFkDb.Plu.Number}' {LocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
+                $"{WsLocaleCore.WebService.FieldNomenclatureIsDenyForLoad} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
         }
     }
 

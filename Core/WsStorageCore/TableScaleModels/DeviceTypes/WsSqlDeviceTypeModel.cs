@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleModels.DeviceTypes;
 
 /// <summary>
@@ -78,7 +80,7 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
+        PrettyName = WsLocaleCore.Sql.SqlItemFieldPrettyName;
     }
 
     #endregion

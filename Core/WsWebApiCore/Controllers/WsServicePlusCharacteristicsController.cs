@@ -20,7 +20,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
     #region Public and private methods
 
     private List<WsXmlContentRecord<WsSqlPluCharacteristicModel>> GetXmlPluCharacteristicsList(XElement xml) =>
-        WsServiceContentUtils.GetNodesListCore<WsSqlPluCharacteristicModel>(xml, LocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
+        WsServiceContentUtils.GetNodesListCore<WsSqlPluCharacteristicModel>(xml, WsLocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
         {
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
@@ -67,9 +67,9 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             if (Equals(pluCharacteristicXml.NomenclatureGuid, Guid.Empty)) return;
 
             if (!GetPluDb(response, pluCharacteristicXml.NomenclatureGuid, pluCharacteristicXml.Uid1C,
-                    LocaleCore.WebService.FieldNomenclature, out WsSqlPluModel? pluDb)) return;
+                    WsLocaleCore.WebService.FieldNomenclature, out WsSqlPluModel? pluDb)) return;
             if (!GetPluCharacteristicDb(response, pluCharacteristicXml.Uid1C, pluCharacteristicXml.Uid1C,
-                    LocaleCore.WebService.FieldNomenclatureCharacteristic, out WsSqlPluCharacteristicModel? pluCharacteristicDb)) return;
+                    WsLocaleCore.WebService.FieldNomenclatureCharacteristic, out WsSqlPluCharacteristicModel? pluCharacteristicDb)) return;
             if (pluDb is null || pluCharacteristicDb is null) return;
 
             WsSqlPluCharacteristicsFkModel pluCharacteristicsFk = new()

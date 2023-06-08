@@ -1,11 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.Utils;
 
 public class WsSqlValidationUtils
 {
     #region Public and private methods
+
     private static void SetValidationFailureLog(ValidationResult result, ref string detailAddition)
     {
         switch (result.IsValid)
@@ -13,7 +16,7 @@ public class WsSqlValidationUtils
             case false:
                 foreach (ValidationFailure failure in result.Errors)
                 {
-                    detailAddition += $"<u>{LocaleCore.Validator.Property}:</u> {failure.PropertyName} {LocaleCore.Validator.FailedValidation}.<br><u>{LocaleCore.Validator.Error}:</u> {failure.ErrorMessage}";
+                    detailAddition += $"<u>{WsLocaleCore.Validator.Property}:</u> {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}.<br><u>{WsLocaleCore.Validator.Error}:</u> {failure.ErrorMessage}";
                     break;
                 }
                 break;

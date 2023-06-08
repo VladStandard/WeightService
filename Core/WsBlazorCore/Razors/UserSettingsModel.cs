@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsDataCore.Enums;
+using WsLocalizationCore.Utils;
 
 namespace WsBlazorCore.Razors;
 
@@ -15,7 +16,7 @@ public class UserSettingsModel
     public bool AccessRightsIsWrite => (byte)AccessRights >= (byte)WsEnumAccessRights.Write;
     public WsEnumAccessRights AccessRights { get; }
     public string? UserName { get; }
-    public string UserDescription => $"{LocaleCore.Strings.AuthorizingUserName}: {UserName}";
+    public string UserDescription => $"{WsLocaleCore.Strings.AuthorizingUserName}: {UserName}";
 
     /// <summary>
     /// Constructor.

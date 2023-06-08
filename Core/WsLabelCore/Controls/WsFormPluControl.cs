@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
+using WsLocalizationCore.Utils;
 
 namespace WsLabelCore.Controls;
 
@@ -62,7 +63,7 @@ public sealed class WsFormPluControl : UserControl
     {
         Font = FontsSettings.FontLabelsBlack,
         AutoSize = false,
-        Text = $@"{viewPluScale.PluNumber} | {(viewPluScale.PluIsWeight ? LocaleCore.Scales.PluIsWeight : LocaleCore.Scales.PluIsPiece)} | {viewPluScale.PluName}",
+        Text = $@"{viewPluScale.PluNumber} | {(viewPluScale.PluIsWeight ? WsLocaleCore.LabelPrint.PluIsWeight : WsLocaleCore.LabelPrint.PluIsPiece)} | {viewPluScale.PluName}",
         Visible = true,
         TextAlign = ContentAlignment.MiddleCenter,
         FlatStyle = FlatStyle.Flat,
@@ -83,7 +84,7 @@ public sealed class WsFormPluControl : UserControl
         {
             Font = FontsSettings.FontMinimum,
             AutoSize = false,
-            Text = validates.Any() ? string.Join(" | ", validates) : LocaleCore.Scales.CheckAllPassed,
+            Text = validates.Any() ? string.Join(" | ", validates) : WsLocaleCore.LabelPrint.CheckAllPassed,
             Visible = true,
             TextAlign = ContentAlignment.MiddleCenter,
             FlatStyle = FlatStyle.Flat,

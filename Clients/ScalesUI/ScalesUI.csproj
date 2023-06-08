@@ -15,7 +15,7 @@
     <NuGetPackageImportStamp></NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
-    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-16-Stend\</PublishUrl>
+    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Kamni\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -32,7 +32,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.9.530.0</ApplicationVersion>
+    <ApplicationVersion>0.9.540.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -76,6 +76,12 @@
     </Reference>
     <Reference Include="Azure.Identity, Version=1.9.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Azure.Identity.1.9.0\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="CodingSeb.Localization, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CodingSeb.Localization.1.2.0\lib\netstandard2.0\CodingSeb.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="CodingSeb.Localization.JsonFileLoader, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CodingSeb.Localization.JsonFileLoader.1.2.0\lib\netstandard2.0\CodingSeb.Localization.JsonFileLoader.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentNHibernate.3.2.0\lib\net461\FluentNHibernate.dll</HintPath>

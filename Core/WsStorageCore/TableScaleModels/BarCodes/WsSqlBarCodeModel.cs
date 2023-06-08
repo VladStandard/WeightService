@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleModels.BarCodes;
 
 /// <summary>
@@ -131,11 +133,11 @@ public class WsSqlBarCodeModel : WsSqlTableBase
     {
         base.FillProperties();
         TypeTop = WsSqlBarcodeType.Default.ToString();
-        ValueTop = LocaleCore.Sql.SqlItemFieldValue;
+        ValueTop = WsLocaleCore.Sql.SqlItemFieldValue;
         TypeRight = WsSqlBarcodeType.Default.ToString();
-        ValueRight = LocaleCore.Sql.SqlItemFieldValue;
+        ValueRight = WsLocaleCore.Sql.SqlItemFieldValue;
         TypeBottom = WsSqlBarcodeType.Default.ToString();
-        ValueBottom = LocaleCore.Sql.SqlItemFieldValue;
+        ValueBottom = WsLocaleCore.Sql.SqlItemFieldValue;
         PluLabel.FillProperties();
     }
 

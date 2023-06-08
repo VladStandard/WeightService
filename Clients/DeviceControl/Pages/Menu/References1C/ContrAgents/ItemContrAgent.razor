@@ -5,27 +5,27 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<WsStorageCore.TableScaleModels.Contragents.WsSqlContragentModel>
 
-<ItemTopBar TItem="@WsSqlContragentModel" Title="@LocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlContragentModel" Title="@WsLocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <b>@LocaleCore.Table.Uid1c</b>
+      <b>@WsLocaleCore.Table.Uid1c</b>
     </td>
     <td>@SqlItemCast.IdRRefAsString</td>
-    <td>@LocaleCore.Table.IdDwh</td>
+    <td>@WsLocaleCore.Table.IdDwh</td>
     <td>@SqlItemCast.DwhId</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>@SqlItemCast.Name</td>
-    <td>@LocaleCore.Table.FullName</td>
+    <td>@WsLocaleCore.Table.FullName</td>
     <td>@SqlItemCast.FullName</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Xml</td>
+    <td>@WsLocaleCore.Table.Xml</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px; background-color: lightgray; "

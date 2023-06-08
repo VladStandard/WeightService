@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.Models;
 
 /// <summary>
@@ -132,7 +134,7 @@ public class WsSqlFieldMacAddressModel : WsSqlFieldBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Value = LocaleCore.Sql.SqlItemFieldMac;
+        Value = WsLocaleCore.Sql.SqlItemFieldMac;
     }
 
 

@@ -7,7 +7,7 @@
 @inherits SectionBase<WsStorageCore.ViewScaleModels.LogWebView>
 
 <SectionTopBar
-  Title="@LocaleCore.WebService.Name"
+  Title="@WsLocaleCore.WebService.Name"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -26,13 +26,13 @@
   <Columns>
     <TItemContent TItem="@LogWebView">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="15%"
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="15%"
                             FormatString="@StrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="AppVersion" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.RequestUrl" Property="RequestUrl" Width="40%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="RequestCountAll" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Success" Property="ResponseCountSuccess" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Error" Property="ResponseCountError" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.App" Property="AppVersion" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.RequestUrl" Property="RequestUrl" Width="40%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Count" Property="RequestCountAll" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Success" Property="ResponseCountSuccess" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Error" Property="ResponseCountError" Width="15%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

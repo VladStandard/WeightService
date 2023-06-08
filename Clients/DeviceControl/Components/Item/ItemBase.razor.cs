@@ -4,6 +4,7 @@
 using DeviceControl.Services;
 using Microsoft.JSInterop;
 using WsBlazorCore.Settings;
+using WsLocalizationCore.Utils;
 
 namespace DeviceControl.Components.Item;
 
@@ -52,7 +53,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         if (!SqlItemValidate(SqlItem)) return;
         
-        RunActionsWithQuestion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
             SqlItemSave(SqlItem);
             SqlItemSaveAdditional();

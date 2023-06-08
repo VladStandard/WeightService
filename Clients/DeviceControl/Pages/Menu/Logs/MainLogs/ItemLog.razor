@@ -4,7 +4,7 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<WsStorageCore.TableDiagModels.Logs.WsSqlLogModel>
 
-<ItemTopBar TItem="WsSqlLogModel" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="WsSqlLogModel" Title="@WsLocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
@@ -13,33 +13,33 @@
   @if (SqlItemCast.Device is not null)
   {
     <tr>
-      <td>@LocaleCore.Table.Line</td>
+      <td>@WsLocaleCore.Table.Line</td>
       <td>@ContextManager.ContextItem.GetItemScaleNotNullable(SqlItemCast.Device).Description</td>
-      <td>@LocaleCore.Table.Host</td>
+      <td>@WsLocaleCore.Table.Host</td>
       <td>@SqlItemCast.Device.Name</td>
     </tr>
   }
   @if (SqlItemCast.App is not null)
   {
     <tr>
-      <td>@LocaleCore.Table.App</td>
+      <td>@WsLocaleCore.Table.App</td>
       <td>@SqlItemCast.App.Name</td>
-      <td>@LocaleCore.Table.Version</td>
+      <td>@WsLocaleCore.Table.Version</td>
       <td>@SqlItemCast.Version</td>
     </tr>
   }
   <tr>
-    <td>@LocaleCore.Table.File</td>
+    <td>@WsLocaleCore.Table.File</td>
     <td>@SqlItemCast.File</td>
-    <td>@LocaleCore.Table.Row</td>
+    <td>@WsLocaleCore.Table.Row</td>
     <td>@SqlItemCast.Line</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Member</td>
+    <td>@WsLocaleCore.Table.Member</td>
     <td>@SqlItemCast.Member</td>
     @if (SqlItemCast.LogType is not null)
     {
-      <td>@LocaleCore.Table.LogType</td>
+      <td>@WsLocaleCore.Table.LogType</td>
       <td>@SqlItemCast.LogType.Icon</td>
     }
     else
@@ -49,7 +49,7 @@
     }
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Message</td>
+    <td>@WsLocaleCore.Table.Message</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px; background-color: lightgray; "

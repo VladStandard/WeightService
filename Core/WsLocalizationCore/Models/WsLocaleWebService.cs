@@ -3,56 +3,47 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class WsLocaleWebService : WsLocalizationBase
+public sealed class WsLocaleWebService : WsLocaleBase
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsLocaleWebService _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsLocaleWebService Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private fields, properties, constructor
     
-    public string BoxZero => Lang == Lang.English ? "Without the box" : "Без коробки";
-    public string ClipZero => Lang == Lang.English ? "Without the clip" : "Без клипсы";
-    public string DtStamp => Lang == Lang.English ? "Date time stamp" : "Отметка времени даты";
-    public string Dublicate => Lang == Lang.English ? "Dublicate" : "Дубликат";
-    public string FieldBrand => Lang == Lang.English ? "Brand" : "Бренд";
-    public string FieldBundle => Lang == Lang.English ? "Bundle" : "Пакет";
-    public string FieldClip => Lang == Lang.English ? "Clip" : "Клипса";
-    public string FieldCode => Lang == Lang.English ? "code" : "код";
-    public string FieldGroup => Lang == Lang.English ? "Group" : "Группа";
-    public string FieldGroup1Level => Lang == Lang.English ? "Level 1 group" : "Группа 1 уровня";
-    public string FieldGuid => Lang == Lang.English ? "GUID" : "ГУИД";
-    public string FieldNomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";
-    public string FieldNomenclatureCharacteristic => Lang == Lang.English ? "Nomeclature characteristic" : "Номенклатурная характеристика";
-    public string FieldNomenclatureGroup => Lang == Lang.English ? "Nomenclature group" : "Номенклатурная группа";
-    public string FieldNomenclatureIsDenyForLoad => Lang == Lang.English ? "Nomenclature is deny for load" : "Номенклатура запрещена для загрузки";
-    public string FieldNomenclatureIsErrorUid1c => Lang == Lang.English ? "Nomenclature UID_1C is error" : "Ошибка UID_1C номенклатуры";
-    public string FieldNomenclatureIsNotFound => Lang == Lang.English ? "Nomenclature is not found" : "Номенклатура не найдена";
-    public string FieldNomenclatureParent => Lang == Lang.English ? "Parent nomenclature" : "Родительская номенклатура";
-    public string FieldPluNumber => Lang == Lang.English ? "PLU number" : "Номер ПЛУ";
-    public string FieldPluNumberNotInAcl => Lang == Lang.English ? "PLU number is not included in the list of allowed" : "Номер ПЛУ не входит в список разрешённых";
-    public string ForDbRecord => Lang == Lang.English ? "for DB record" : "для записи БД";
-    public string ForRecord => Lang == Lang.English ? "for record" : "для записи";
-    public string IsEmpty => Lang == Lang.English ? "is empty value" : "пустое значение";
-    public string IsFound => Lang == Lang.English ? "is found" : "найдено";
-    public string IsNotFound => Lang == Lang.English ? "is not found" : "не найдено";
-    public string IsNotIdent => Lang == Lang.English ? "is not ident" : "не определено";
-    public string IsStatusSuccess => Lang == Lang.English ? "Done successfully" : "Выполнено успешно";
-    public string LogTypeMetaData => Lang == Lang.English ? "Metadata" : "Метаданные";
-    public string LogTypeRequest => Lang == Lang.English ? "Request" : "Запрос";
-    public string LogTypeResponse => Lang == Lang.English ? "Response" : "Ответ";
-    public string Name => Lang == Lang.English ? "WebService 1C" : "ВебСервис 1С";
-    public string Node => Lang == Lang.English ? "node" : "узел";
-    public string PackageZero => Lang == Lang.English ? "Without the package" : "Без пакета";
-    public string Underdevelopment => Lang == Lang.English ? "Under development, contact the developer." : "Находится в разработке, свяжитесь с разработчиком.";
-    public string With => Lang == Lang.English ? "with" : "с";
-    public string WithFieldCode => Lang == Lang.English ? "with code" : "с кодом";
-    public string WithFieldNumber => Lang == Lang.English ? "with number" : "с номером";
+    public string BoxZero => Lang == WsEnumLanguage.English ? "Without the box" : "Без коробки";
+    public string ClipZero => Lang == WsEnumLanguage.English ? "Without the clip" : "Без клипсы";
+    public string DtStamp => Lang == WsEnumLanguage.English ? "Date time stamp" : "Отметка времени даты";
+    public string Dublicate => Lang == WsEnumLanguage.English ? "Dublicate" : "Дубликат";
+    public string FieldBrand => Lang == WsEnumLanguage.English ? "Brand" : "Бренд";
+    public string FieldBundle => Lang == WsEnumLanguage.English ? "Bundle" : "Пакет";
+    public string FieldClip => Lang == WsEnumLanguage.English ? "Clip" : "Клипса";
+    public string FieldCode => Lang == WsEnumLanguage.English ? "code" : "код";
+    public string FieldGroup => Lang == WsEnumLanguage.English ? "Group" : "Группа";
+    public string FieldGroup1Level => Lang == WsEnumLanguage.English ? "Level 1 group" : "Группа 1 уровня";
+    public string FieldGuid => Lang == WsEnumLanguage.English ? "GUID" : "ГУИД";
+    public string FieldNomenclature => Lang == WsEnumLanguage.English ? "Nomenclature" : "Номенклатура";
+    public string FieldNomenclatureCharacteristic => Lang == WsEnumLanguage.English ? "Nomeclature characteristic" : "Номенклатурная характеристика";
+    public string FieldNomenclatureGroup => Lang == WsEnumLanguage.English ? "Nomenclature group" : "Номенклатурная группа";
+    public string FieldNomenclatureIsDenyForLoad => Lang == WsEnumLanguage.English ? "Nomenclature is deny for load" : "Номенклатура запрещена для загрузки";
+    public string FieldNomenclatureIsErrorUid1c => Lang == WsEnumLanguage.English ? "Nomenclature UID_1C is error" : "Ошибка UID_1C номенклатуры";
+    public string FieldNomenclatureIsNotFound => Lang == WsEnumLanguage.English ? "Nomenclature is not found" : "Номенклатура не найдена";
+    public string FieldNomenclatureParent => Lang == WsEnumLanguage.English ? "Parent nomenclature" : "Родительская номенклатура";
+    public string FieldPluNumber => Lang == WsEnumLanguage.English ? "PLU number" : "Номер ПЛУ";
+    public string FieldPluNumberNotInAcl => Lang == WsEnumLanguage.English ? "PLU number is not included in the list of allowed" : "Номер ПЛУ не входит в список разрешённых";
+    public string ForDbRecord => Lang == WsEnumLanguage.English ? "for DB record" : "для записи БД";
+    public string ForRecord => Lang == WsEnumLanguage.English ? "for record" : "для записи";
+    public string IsEmpty => Lang == WsEnumLanguage.English ? "is empty value" : "пустое значение";
+    public string IsFound => Lang == WsEnumLanguage.English ? "is found" : "найдено";
+    public string IsNotFound => Lang == WsEnumLanguage.English ? "is not found" : "не найдено";
+    public string IsNotIdent => Lang == WsEnumLanguage.English ? "is not ident" : "не определено";
+    public string IsStatusSuccess => Lang == WsEnumLanguage.English ? "Done successfully" : "Выполнено успешно";
+    public string LogTypeMetaData => Lang == WsEnumLanguage.English ? "Metadata" : "Метаданные";
+    public string LogTypeRequest => Lang == WsEnumLanguage.English ? "Request" : "Запрос";
+    public string LogTypeResponse => Lang == WsEnumLanguage.English ? "Response" : "Ответ";
+    public string Name => Lang == WsEnumLanguage.English ? "WebService 1C" : "ВебСервис 1С";
+    public string Node => Lang == WsEnumLanguage.English ? "node" : "узел";
+    public string PackageZero => Lang == WsEnumLanguage.English ? "Without the package" : "Без пакета";
+    public string Underdevelopment => Lang == WsEnumLanguage.English ? "Under development, contact the developer." : "Находится в разработке, свяжитесь с разработчиком.";
+    public string With => Lang == WsEnumLanguage.English ? "with" : "с";
+    public string WithFieldCode => Lang == WsEnumLanguage.English ? "with code" : "с кодом";
+    public string WithFieldNumber => Lang == WsEnumLanguage.English ? "with number" : "с номером";
     public string XmlItemBrand => "Brand";
     public string XmlItemCharacteristic => "Characteristic";
     public string XmlItemNomenclature => "Nomenclature";

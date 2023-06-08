@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -51,7 +53,7 @@ public sealed class WsPluginMemoryHelper : WsPluginBaseHelper
         ResponseItem.Config = configResponse;
 
         FieldMemory = fieldMemory;
-        MdInvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
+        MdInvokeControl.SetText(FieldMemory, WsLocaleCore.LabelPrint.Memory);
         //MdInvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
     }
 
@@ -74,7 +76,7 @@ public sealed class WsPluginMemoryHelper : WsPluginBaseHelper
     /// Строка состояния памяти.
     /// </summary>
     /// <returns></returns>
-    private string GetMemoryStateShort() => $"{LocaleCore.Scales.Memory} | " + 
+    private string GetMemoryStateShort() => $"{WsLocaleCore.LabelPrint.Memory} | " + 
         (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0}" : "-") + " | " +
         (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} " : "-") + " | " +
         (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} " : "-" +" MB");

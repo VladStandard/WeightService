@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleFkModels.PlusLabels;
 
 /// <summary>
@@ -124,7 +126,7 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Zpl = LocaleCore.Sql.SqlItemFieldZpl;
+        Zpl = WsLocaleCore.Sql.SqlItemFieldZpl;
         ProductDt = DateTime.Now;
         PluWeighing?.FillProperties();
         PluScale.FillProperties();

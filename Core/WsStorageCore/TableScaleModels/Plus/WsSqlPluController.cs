@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.TableScaleModels.Plus;
 
 /// <summary>
@@ -86,16 +88,16 @@ public sealed class WsSqlPluController
     public List<string> ValidateViewPluLine(WsSqlViewPluLineModel viewPluLine)
     {
         List<string> validates = new();
-        if (string.IsNullOrEmpty(viewPluLine.TemplateName)) validates.Add(LocaleCore.Scales.PluTemplateNotSet);
-        if (string.IsNullOrEmpty(viewPluLine.PluGtin)) validates.Add(LocaleCore.Scales.PluGtinIsNotSet);
-        if (string.IsNullOrEmpty(viewPluLine.PluEan13)) validates.Add(LocaleCore.Scales.PluEan13IsNotSet);
+        if (string.IsNullOrEmpty(viewPluLine.TemplateName)) validates.Add(WsLocaleCore.LabelPrint.PluTemplateNotSet);
+        if (string.IsNullOrEmpty(viewPluLine.PluGtin)) validates.Add(WsLocaleCore.LabelPrint.PluGtinIsNotSet);
+        if (string.IsNullOrEmpty(viewPluLine.PluEan13)) validates.Add(WsLocaleCore.LabelPrint.PluEan13IsNotSet);
         //if (string.IsNullOrEmpty(viewPluLine.PluItf14)) validates.Add(LocaleCore.Scales.PluItf14IsNotSet);
 
         List<WsSqlViewPluLineModel> viewPlusLines = WsSqlContextManagerHelper.Instance.ContextView
             .GetListViewPlusScales(viewPluLine.ScaleId, viewPluLine.PluNumber, 0);
         List<string> plusTemplates = viewPlusLines.Where(item => !string.IsNullOrEmpty(item.TemplateName)).
             Select(item => item.TemplateName).ToList();
-        if (!plusTemplates.Any()) validates.Add(LocaleCore.Scales.PluTemplateIsNotSet);
+        if (!plusTemplates.Any()) validates.Add(WsLocaleCore.LabelPrint.PluTemplateIsNotSet);
         return validates;
     }
 

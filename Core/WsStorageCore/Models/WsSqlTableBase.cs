@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
+
 namespace WsStorageCore.Models;
 
 /// <summary>
@@ -167,8 +169,8 @@ public class WsSqlTableBase : SerializeBase, ICloneable
     public virtual void FillProperties()
     {
         SetDtNow();
-        Name = LocaleCore.Sql.SqlItemFieldName;
-        Description = LocaleCore.Sql.SqlItemFieldDescription;
+        Name = WsLocaleCore.Sql.SqlItemFieldName;
+        Description = WsLocaleCore.Sql.SqlItemFieldDescription;
     }
 
     public virtual void UpdateProperties(WsSqlTableBase item) => UpdateProperties(item, false);

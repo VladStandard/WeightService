@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLocalizationCore.Utils;
 using WsPrintCore.Common;
 
 namespace WsDataCore.Models;
@@ -75,25 +76,25 @@ public class WsWeighingSettingsModel
     private string GetPrintName(bool isMain, WsEnumPrintModel printBrand) => isMain
         ? printBrand switch
         {
-            WsEnumPrintModel.Zebra => LocaleCore.Print.NameMainZebra,
-            WsEnumPrintModel.Tsc => LocaleCore.Print.NameMainTsc,
-            _ => LocaleCore.Print.DeviceName
+            WsEnumPrintModel.Zebra => WsLocaleCore.Print.NameMainZebra,
+            WsEnumPrintModel.Tsc => WsLocaleCore.Print.NameMainTsc,
+            _ => WsLocaleCore.Print.DeviceName
         }
         : printBrand switch
         {
-            WsEnumPrintModel.Zebra => LocaleCore.Print.NameShippingZebra,
-            WsEnumPrintModel.Tsc => LocaleCore.Print.NameShippingTsc,
-            _ => LocaleCore.Print.DeviceNameIsUnavailable
+            WsEnumPrintModel.Zebra => WsLocaleCore.Print.NameShippingZebra,
+            WsEnumPrintModel.Tsc => WsLocaleCore.Print.NameShippingTsc,
+            _ => WsLocaleCore.Print.DeviceNameIsUnavailable
         };
 
     public string GetPrintDescription(bool isMain, WsEnumPrintModel printBrand, MdPrinterModel printer,
         bool isConnected, int scaleCounter, string deviceStatus, int labelPrintedCount, byte labelCount) =>
         $"{GetPrintName(isMain, printBrand)} {printer.Name} | {printer.Ip} | " +
         //$"{LocaleCore.Table.Status}: {MdNetUtils.GetPingStatus(printer.PingStatus)} | " +
-        $"{LocaleCore.Table.Status}: {(isConnected ? MdNetLocalization.Instance.StatusSuccess : MdNetLocalization.Instance.StatusUnknown)} | " +
-        $"{LocaleCore.Table.LabelCounter}: {scaleCounter} | " +
+        $"{WsLocaleCore.Table.Status}: {(isConnected ? MdNetLocalization.Instance.StatusSuccess : MdNetLocalization.Instance.StatusUnknown)} | " +
+        $"{WsLocaleCore.Table.LabelCounter}: {scaleCounter} | " +
         //$"{deviceStatus} | " +
-        $"{LocaleCore.Scales.Labels}: {labelPrintedCount} {LocaleCore.Strings.From} {labelCount}";
+        $"{WsLocaleCore.LabelPrint.Labels}: {labelPrintedCount} {WsLocaleCore.Strings.From} {labelCount}";
 
     #endregion
 }

@@ -5,6 +5,7 @@ using BlazorDownloadFile;
 using DeviceControl.Components.Item;
 using WsBlazorCore.Settings;
 using WsDataCore.Enums;
+using WsLocalizationCore.Utils;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 
 namespace DeviceControl.Pages.Menu.References.TemplateResources;
@@ -26,7 +27,7 @@ public sealed partial class ItemTemplateResource : ItemBase<WsSqlTemplateResourc
         NotificationMessage msg = new()
         {
             Severity = NotificationSeverity.Error,
-            Summary = $"{LocaleCore.Strings.MethodError} [{name}]!",
+            Summary = $"{WsLocaleCore.Strings.MethodError} [{name}]!",
             Detail = args.Message,
             Duration = BlazorAppSettingsHelper.DelayError
         };

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
+using WsLocalizationCore.Utils;
 using Control = System.Windows.Forms.Control;
 
 namespace WsLabelCore.Pages;
@@ -205,10 +206,10 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
             else i++;
         }
         // Обновить метки.
-        buttonLeftScroll.Text = LocaleCore.Buttons.Back;
-        buttonCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {LabelSession.PlusPageNumber + 1}";
-        buttonRightScroll.Text = LocaleCore.Buttons.Forward;
-        buttonCancel.Text = LocaleCore.Buttons.Cancel;
+        buttonLeftScroll.Text = WsLocaleCore.Buttons.Back;
+        buttonCurrentPage.Text = $@"{WsLocaleCore.LabelPrint.PluPage} {LabelSession.PlusPageNumber + 1}";
+        buttonRightScroll.Text = WsLocaleCore.Buttons.Forward;
+        buttonCancel.Text = WsLocaleCore.Buttons.Cancel;
         buttonCancel.Select();
     }
 

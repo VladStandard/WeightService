@@ -7,42 +7,42 @@
 @using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
 
-<ItemTopBar TItem="@WsSqlPrinterModel" Title="@LocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPrinterModel" Title="@WsLocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@WsLocaleCore.Table.Name</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Name"/>
     </td>
-    <td>@LocaleCore.Print.Mac</td>
+    <td>@WsLocaleCore.Print.Mac</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.MacAddress.Value"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterType)" Text="@LocaleCore.Print.Type"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterType)" Text="@WsLocaleCore.Print.Type"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.PrinterType" Data="@PrinterTypeModels" TextProperty="DisplayName"/>
     </td>
-    <td>@LocaleCore.Print.Port</td>
+    <td>@WsLocaleCore.Print.Port</td>
     <td>
       <RzNumeric Min="0" Max="32767" @bind-Value="@SqlItemCast.Port"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Target="_blank" Path="@SqlItemCast.Link" Text="@LocaleCore.Print.ControlPanel"/>
+      <RadzenLink Target="_blank" Path="@SqlItemCast.Link" Text="@WsLocaleCore.Print.ControlPanel"/>
     </td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Ip"/>
     </td>
-    <td>@LocaleCore.Print.Password</td>
+    <td>@WsLocaleCore.Print.Password</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Password"/>
     </td>
