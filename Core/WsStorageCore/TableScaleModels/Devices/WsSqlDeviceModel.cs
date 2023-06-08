@@ -27,7 +27,7 @@ public class WsSqlDeviceModel : WsSqlTableBase
         set => MacAddress.Value = value;
     }
 
-    [XmlIgnore] public override string DisplayName => IsNew ?  LocaleCore.Table.FieldEmpty : $"{Name} | {Ipv4}";
+    [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ipv4}";
     
     /// <summary>
     /// Constructor.
