@@ -1,12 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalizationCore.Utils;
-
-namespace WsStorageCore.Models;
+namespace WsStorageCore.Common;
 
 /// <summary>
-/// SQL table model.
+/// Базовый класс SQL-таблицы.
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
@@ -29,8 +27,8 @@ public class WsSqlTableBase : SerializeBase, ICloneable
     [XmlElement] public virtual string Name { get; set; } = string.Empty;
     [XmlElement] public virtual string Description { get; set; } = string.Empty;
     [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; } = new();
-    [XmlIgnore] public virtual string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : Name;
-    
+    [XmlIgnore] public virtual string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : Name;
+
     /// <summary>
     /// Constructor.
     /// </summary>

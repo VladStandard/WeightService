@@ -3,6 +3,7 @@
 
 using WsDataCore.Enums;
 using WsLocalizationCore.Utils;
+using WsStorageCore.Common;
 
 namespace WsLabelCoreTests;
 
