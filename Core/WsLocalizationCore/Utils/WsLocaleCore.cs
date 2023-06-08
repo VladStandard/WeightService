@@ -11,9 +11,25 @@ public static class WsLocaleCore
     public static WsEnumLanguage Lang
     {
         get => _lang;
-        set => Action.Lang = Buttons.Lang = Convert.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang =
-            Print.Lang = LabelPrint.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang =
-            WebService.Lang = ContextMenu.Lang = _lang = value;
+        set
+        {
+            _lang = value;
+            Action.SetLanguage(_lang);
+            Buttons.SetLanguage(_lang);
+            Convert.SetLanguage(_lang);
+            DeviceControl.SetLanguage(_lang);
+            Dialog.SetLanguage(_lang);
+            Memory.SetLanguage(_lang);
+            Print.SetLanguage(_lang);
+            LabelPrint.SetLanguage(_lang);
+            Settings.SetLanguage(_lang);
+            Sql.SetLanguage(_lang);
+            System.SetLanguage(_lang);
+            Table.SetLanguage(_lang);
+            Validator.SetLanguage(_lang);
+            WebService.SetLanguage(_lang);
+            ContextMenu.SetLanguage(_lang);
+        }
     }
 
     public static WsLocaleAction Action { get; } = new();
@@ -24,7 +40,7 @@ public static class WsLocaleCore
     public static WsLocaleMemory Memory { get; } = new();
     public static WsLocaleMenu Menu { get; } = new();
     public static WsLocalePrint Print { get; } = new();
-    public static WsLocaleLabelPrint LabelPrint { get; } = new();
+    public static WsLocalizationLabelPrint LabelPrint { get; } = new();
     public static WsLocaleSettings Settings { get; } = new();
     public static WsLocaleSql Sql { get; } = new();
     public static WsLocaleSystem System { get; } = new();

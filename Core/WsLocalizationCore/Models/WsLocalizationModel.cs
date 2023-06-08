@@ -10,14 +10,27 @@ public class WsLocalizationModel : WsLocaleBase
 {
     #region Public and private fields, properties, constructor
 
-    public WsLocaleLabelPrint LabelPrint { get; } = new();
+    public WsLocalizationLabelPrint LabelPrint { get; } = new();
 
     public WsLocalizationModel()
     {
-        LabelPrint.Lang = Lang;
         LabelPrint.Locale = Locale;
         LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
         LocalizationLoader.Instance.AddDirectory(@"Locales");
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    /// <summary>
+    /// Сменить язык.
+    /// </summary>
+    /// <param name="language"></param>
+    public override void SetLanguage(WsEnumLanguage language)
+    {
+        base.SetLanguage(language);
+        LabelPrint.SetLanguage(language);
     }
 
     #endregion

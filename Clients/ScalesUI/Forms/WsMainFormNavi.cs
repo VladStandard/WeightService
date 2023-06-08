@@ -234,10 +234,10 @@ public partial class WsMainForm
             void ActionYes()
             {
                 // Запустить процесс.
-                if (File.Exists(WsLocaleLabelPrint.Paths.ScalesTerminal))
+                if (File.Exists(WsLocalizationLabelPrint.Paths.ScalesTerminal))
                 {
                     UserSession.PluginMassa.Close();
-                    WsProcHelper.Instance.Run(WsLocaleLabelPrint.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
+                    WsProcHelper.Instance.Run(WsLocalizationLabelPrint.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
                     PluginMassaExecute();
                     ActionFinally();
                 }
@@ -245,9 +245,9 @@ public partial class WsMainForm
                 {
                     // Навигация в контрол диалога Ок.
                     WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
-                        WsLocaleCore.LabelPrint.ProgramNotFound(WsLocaleLabelPrint.Paths.ScalesTerminal), true,
+                        WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationLabelPrint.Paths.ScalesTerminal), true,
                         WsEnumLogType.Error, WsEnumDialogType.Ok, new() { ActionFinally });
-                    ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.ProgramNotFound(WsLocaleLabelPrint.Paths.ScalesTerminal));
+                    ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationLabelPrint.Paths.ScalesTerminal));
                 }
             }
         });

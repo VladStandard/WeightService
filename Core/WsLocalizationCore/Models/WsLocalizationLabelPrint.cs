@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class WsLocaleLabelPrint : WsLocaleBase
+public sealed class WsLocalizationLabelPrint : WsLocaleBase
 {
     public static class Paths
     {
@@ -12,7 +12,6 @@ public sealed class WsLocaleLabelPrint : WsLocaleBase
 
     #region Public and private fields, properties, constructor
 
-    public List<string> ListLanguages => Lang == WsEnumLanguage.English ? new() { "Russian", "English" } : new List<string> { "Russian", "English" };
     public List<string> ListResolutions => Lang == WsEnumLanguage.English ? new() { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "FullScreen" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
     public readonly decimal MassaThresholdNegative = -1.000M;
     public readonly decimal MassaThresholdPositive = 0.050M;
@@ -24,7 +23,7 @@ public sealed class WsLocaleLabelPrint : WsLocaleBase
     
     public string AppLoad => Lang == WsEnumLanguage.English ? "Loading" : "Загрузка";
     public string AppLoadDescription => Lang == WsEnumLanguage.English ? "Loading data into memory ..." : "Загрузка данных в память ...";
-    public string AppTitle => Locale.Translate($"{WsLocalizationConstants.LabelPrint}.{nameof(AppTitle)}");
+    public string AppTitle => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppTitle)}");
     public string AppWait => Lang == WsEnumLanguage.English ? "Waiting" : "Ожидание";
     public string Bundle => Lang == WsEnumLanguage.English ? "Bundle" : "Пакет";
     public string ButtonAddKneading => Lang == WsEnumLanguage.English ? "Kneading" : "Замес";

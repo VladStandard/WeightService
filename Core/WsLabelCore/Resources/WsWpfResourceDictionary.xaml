@@ -12,9 +12,10 @@
 	<localization:WsLocaleMemory x:Key="LocaleMemory" />
 	<localization:WsLocaleMenu x:Key="LocaleMenu" />
 	<localization:WsLocalePrint x:Key="LocalePrint" />
-	<localization:WsLocaleLabelPrint x:Key="LocaleLabelPrint" />
 	<localization:WsLocaleSettings x:Key="LocaleSettings" />
 	<localization:WsLocaleSql x:Key="LocaleSql" />
 	<localization:WsLocaleSystem x:Key="LocaleSystem" />
 	<localization:WsLocaleTable x:Key="LocaleTable" />
+	<localization:WsLocalizationLabelPrint x:Key="LocalizationLabelPrint" />
+	<localization:WsLocalizationModel x:Key="LocalizationModel" />
 </ResourceDictionary>

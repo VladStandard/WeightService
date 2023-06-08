@@ -9,7 +9,7 @@
             "ru": "Текущий язык"
         }
     },
-    "LabelPrint": {
+    "AppLabelPrint": {
         "AppTitle": {
             "en": "Label print",
             "ru": "Печать этикеток"

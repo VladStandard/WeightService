@@ -498,7 +498,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
                 template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
             // Журнал событий.
             ContextManager.ContextItem.SaveLogInformation(
-                $"{WsLocalizationUtils.LabelPrint}: {pluLabelWithContext.PluLabelContext.PluNumber} | " +
+                $"{WsLocalizationUtils.AppLabelPrint}: {pluLabelWithContext.PluLabelContext.PluNumber} | " +
                 $"{pluLabelWithContext.PluLabelContext.PluName}");
         }
         catch (Exception ex)

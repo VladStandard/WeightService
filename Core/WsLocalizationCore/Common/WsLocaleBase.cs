@@ -23,7 +23,7 @@ public class WsLocaleBase : INotifyPropertyChanged
 
     public Loc Locale { get; set; } = Loc.Instance;
     private WsEnumLanguage _lang;
-    public WsEnumLanguage Lang { get => _lang; set { _lang = value; SetLanguage(_lang); } }
+    public WsEnumLanguage Lang { get => _lang; private set { _lang = value; SetLanguage(_lang); } }
 
     protected WsLocaleBase()
     {
@@ -34,9 +34,13 @@ public class WsLocaleBase : INotifyPropertyChanged
 
     #region Public and private methods
 
-    private void SetLanguage(WsEnumLanguage language)
+    /// <summary>
+    /// Сменить язык.
+    /// </summary>
+    /// <param name="language"></param>
+    public virtual void SetLanguage(WsEnumLanguage language)
     {
-        switch (language)
+        switch (Lang = language)
         {
             case WsEnumLanguage.Russian:
                 Locale.CurrentLanguage = "ru";
