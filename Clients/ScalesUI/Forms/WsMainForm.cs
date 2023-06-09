@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsLocalizationCore.Common;
-using WsLocalizationCore.Utils;
 using WsPrintCore.Common;
 
 namespace ScalesUI.Forms;

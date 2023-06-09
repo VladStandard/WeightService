@@ -2,7 +2,7 @@
 cls
 setlocal
 echo ------------------------------------------------------------
-echo ---               DataCore/Post-build.cmd                ---
+echo ---              WsDataCore/Post-build.cmd               ---
 echo ------------------------------------------------------------
 
 set "host=palych"
