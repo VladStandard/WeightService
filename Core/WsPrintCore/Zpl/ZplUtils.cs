@@ -57,19 +57,19 @@ public static class ZplUtils
 
     public static string ZplSetOdometerUserLabel(int value = 1) => $"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n";
 
-    public static string ZplGetOdometerUserLabel() => $"! U1 getvar \"odometer.user_label_count\"\r\n";
+    public static string ZplGetOdometerUserLabel() => "! U1 getvar \"odometer.user_label_count\"\r\n";
 
     public static string ZplPrintDirectory(string mask = "E:*.*") => $"^XA^WD{mask}^XZ";
 
-    public static string ZplPowerOnReset() => $"~JR";
+    public static string ZplPowerOnReset() => "~JR";
 
-    public static string ZplPeelerState() => $"! U1 getvar \"sensor.peeler\"\r\n";
+    public static string ZplPeelerState() => "! U1 getvar \"sensor.peeler\"\r\n";
 
-    public static string ZplPrintConfigurationLabel() => $"~WC";
+    public static string ZplPrintConfigurationLabel() => "~WC";
 
-    public static string ZplHostStatusReturn => $"~HS";
+    public static string ZplHostStatusReturn => "~HS";
 
-    public static string ZplClearPrintBuffer => $"^XA~JA^XZ";
+    public static string ZplClearPrintBuffer => "^XA~JA^XZ";
 
     public static string ByteArrayToString(byte[] ba)
     {

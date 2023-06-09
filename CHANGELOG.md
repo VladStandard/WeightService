@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Доработать таблицу взвешиваний (учёт всей необходимой информации)
 - Распространить метод UpdateProperties (см. BrandModel)
 - #WS-T-611 БД. Удалить табличную функцию GetTemplatesObjByID
+- #WS-T-1035 Печать этикеток. Исправление плагина принтера Zebra
 
 ## [0.9.555] - 2023-06-09
 - #WS-T-721 Печать этикеток. Журналирование смены линии

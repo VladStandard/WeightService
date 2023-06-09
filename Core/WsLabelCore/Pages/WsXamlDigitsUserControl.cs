@@ -13,7 +13,7 @@ public sealed partial class WsXamlDigitsUserControl : WsFormBaseUserControl, IWs
     #region Public and private fields, properties, constructor
 
     public WsXamlDigitsViewModel ViewModel => Page.ViewModel as WsXamlDigitsViewModel ?? new();
-    public WsXamlDigitsUserControl() : base(WsEnumNavigationPage.PinCode)
+    public WsXamlDigitsUserControl() : base(WsEnumNavigationPage.Digit)
     {
         InitializeComponent();
     }

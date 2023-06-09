@@ -269,16 +269,16 @@ public sealed class WsSqlContextItemHelper
 
     public void SaveLogErrorWithInfo(Exception ex, string filePath, int lineNumber, string memberName)
     {
-        SaveLogCore(ex.Message, WsEnumLogType.Error, filePath, lineNumber, memberName);
-        if (ex.InnerException is not null)
-            SaveLogCore(ex.InnerException.Message, WsEnumLogType.Error, filePath, lineNumber, memberName);
+        string message = ex.Message;
+        if (ex.InnerException is not null) message += " | " + ex.InnerException.Message;
+        SaveLogCore(message, WsEnumLogType.Error, filePath, lineNumber, memberName);
     }
 
     public void SaveLogErrorWithInfo(Exception ex, string description, string filePath, int lineNumber, string memberName)
     {
-        SaveLogCore($"{description} | {ex.Message}", WsEnumLogType.Error, filePath, lineNumber, memberName);
-        if (ex.InnerException is not null)
-            SaveLogCore($"{description} | {ex.InnerException.Message}", WsEnumLogType.Error, filePath, lineNumber, memberName);
+        string message = ex.Message;
+        if (ex.InnerException is not null) message += " | " + ex.InnerException.Message;
+        SaveLogCore($"{description} | {message}", WsEnumLogType.Error, filePath, lineNumber, memberName);
     }
 
     public void SaveLogErrorWithInfo(string message, string filePath, int lineNumber, string memberName) =>
@@ -310,6 +310,18 @@ public sealed class WsSqlContextItemHelper
     public void SaveLogInformation(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore(message, WsEnumLogType.Information, filePath, lineNumber, memberName);
+
+    /// <summary>
+    /// Записать информационное сообщение в журнал событий.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="description"></param>
+    /// <param name="filePath"></param>
+    /// <param name="lineNumber"></param>
+    /// <param name="memberName"></param>
+    public void SaveLogInformationWithDescription(string message, string description,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+        SaveLogCore($"{description} | {message}", WsEnumLogType.Information, filePath, lineNumber, memberName);
 
     public void SaveLogWarning(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>

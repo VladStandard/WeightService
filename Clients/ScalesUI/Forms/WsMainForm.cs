@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsLabelCore.Models;
 using WsLocalizationCore.Common;
 using WsPrintCore.Common;
 
@@ -16,6 +17,7 @@ public partial class WsMainForm : Form
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
+    private WsPrintSessionHelper PrintSession => WsPrintSessionHelper.Instance;
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;

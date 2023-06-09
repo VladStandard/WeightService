@@ -63,7 +63,6 @@ public sealed class WsLocalizationLabelPrint : WsLocaleBase
     public string IsConnectWithMassa => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsConnectWithMassa)}");
     public string IsDataNotExists => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsDataNotExists)}");
     public string IsNotConnectWithMassa => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsNotConnectWithMassa)}");
-    public string LabelPrint => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(LabelPrint)}");
     public string LabelContextExpirationDt => Lang == WsEnumLanguage.English ? "Good to" : "Годен до";
     public string LabelContextKneading => Lang == WsEnumLanguage.English ? "Kneading" : "Замес";
     public string LabelContextNesting => Lang == WsEnumLanguage.English ? "Nesting" : "Вложенность";
@@ -71,6 +70,7 @@ public sealed class WsLocalizationLabelPrint : WsLocaleBase
     public string LabelContextProductDt => Lang == WsEnumLanguage.English ? "Date of production" : "Дата изготовления";
     public string LabelContextWeight => Lang == WsEnumLanguage.English ? "Weight" : "Вес";
     public string LabelContextWorkShop => Lang == WsEnumLanguage.English ? "WorkShop/Line" : "Цех/Линия";
+    public string LabelPrint => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(LabelPrint)}");
     public string Labels => Lang == WsEnumLanguage.English ? "Labels" : "Этикетки";
     public string Line => Lang == WsEnumLanguage.English ? "Line" : "Строка";
     public string MassaDevice => Lang == WsEnumLanguage.English ? "Massa-K" : "Масса-К";
@@ -99,6 +99,13 @@ public sealed class WsLocalizationLabelPrint : WsLocaleBase
     public string PluDescriptionNotSet => Lang == WsEnumLanguage.English ? "Descr is not set" : "Описание не задано";
     public string PluDescriptionSet => Lang == WsEnumLanguage.English ? "Descr is not set" : "Описание задано";
     public string PluEan13IsNotSet => Lang == WsEnumLanguage.English ? "EAN13 is not set" : "ЕАН13 не задан";
+    public string PluginDefault => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(PluginDefault)}");
+    public string PluginLabel => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(PluginLabel)}");
+    public string PluginMassa => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(PluginMassa)}");
+    public string PluginMemory => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(PluginMemory)}");
+    public string PluginPrint => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(PluginPrint)}");
+    public string PluginPrintTsc => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(PluginPrintTsc)}");
+    public string PluginPrintZebra => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(PluginPrintZebra)}");
     public string PluGtin => Lang == WsEnumLanguage.English ? "GTIN" : "ГТИН";
     public string PluGtinIsNotSet => Lang == WsEnumLanguage.English ? "GTIN is not set" : "ГТИН не задан";
     public string PluIsPiece => Lang == WsEnumLanguage.English ? "pcs." : "шт";

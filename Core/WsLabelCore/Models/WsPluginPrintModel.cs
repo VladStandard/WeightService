@@ -1,10 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalizationCore.Common;
-using WsLocalizationCore.Utils;
-
-namespace WsLabelCore.Helpers;
+namespace WsLabelCore.Models;
 
 /// <summary>
 /// Плагин принтера.
@@ -21,7 +18,7 @@ public class WsPluginPrintModel : WsPluginBaseHelper
     protected MdPrinterModel Printer { get; set; }
     protected static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     protected bool IsMain { get; set; }
-    public string PrintName { get; set; }
+    protected string PrintName { get; set; }
 
     #endregion
 

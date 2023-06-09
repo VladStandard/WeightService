@@ -366,22 +366,22 @@ public partial class WsMainForm
         {
             // Проверить подключение и готовность основного принтера.
             if (LabelSession.PluginPrintTscMain is not null)
-                if (!UserSession.CheckPrintIsConnectAndReadyTscMain(fieldWarning))
+                if (!PrintSession.CheckPrintIsConnectAndReadyTscMain(fieldWarning))
                     return;
             if (LabelSession.PluginPrintZebraMain is not null)
-                if (!UserSession.CheckPrintIsConnectAndReadyZebraMain(fieldWarning))
+                if (!PrintSession.CheckPrintIsConnectAndReadyZebraMain(fieldWarning))
                     return;
             // Проверить подключение и готовность транспортного принтера.
             if (LabelSession.Line.IsShipping && LabelSession.PluginPrintTscShipping is not null)
-                if (!UserSession.CheckPrintIsConnectAndReadyTscShipping(fieldWarning))
+                if (!PrintSession.CheckPrintIsConnectAndReadyTscShipping(fieldWarning))
                     return;
             if (LabelSession.Line.IsShipping && LabelSession.PluginPrintZebraShipping is not null)
-                if (!UserSession.CheckPrintIsConnectAndReadyZebraShipping(fieldWarning))
+                if (!PrintSession.CheckPrintIsConnectAndReadyZebraShipping(fieldWarning))
                     return;
         }
 
         // Печать этикетки.
-        UserSession.PrintLabel(fieldWarning, false);
+        PrintSession.PrintLabel(fieldWarning, false);
     }
 
     #endregion

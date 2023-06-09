@@ -29,10 +29,6 @@ public enum WsEnumNavigationPage
     /// </summary>
     Line,
     /// <summary>
-    /// Ввод цифр.
-    /// </summary>
-    PinCode,
-    /// <summary>
     /// Смена ПЛУ линии.
     /// </summary>
     PlusLine,

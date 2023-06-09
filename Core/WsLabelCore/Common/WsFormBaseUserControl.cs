@@ -19,7 +19,7 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     internal WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     private ElementHost ElementHost { get; }
-    public WsXamlBasePage Page { get; }
+    protected WsXamlBasePage Page { get; }
 
     /// <summary>
     /// Для корректного отображения наследуемых классов UserControl.
@@ -52,10 +52,6 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
             case WsEnumNavigationPage.Kneading:
                 Page = new();
                 break;
-            case WsEnumNavigationPage.PinCode:
-                Page = new WsXamlDigitsPage();
-                SetupElementHost();
-                break;
             case WsEnumNavigationPage.PlusLine:
                 Page = new();
                 break;
@@ -79,7 +75,7 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     public override string ToString() => $"{Name} | " + Page.ViewModel;
 
     /// <summary>
-    /// Настройить ElementHost.
+    /// Настроить ElementHost.
     /// </summary>
     private void SetupElementHost()
     {
@@ -88,7 +84,7 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     }
 
     /// <summary>
-    /// Настройить действия диалога.
+    /// Настроить действия диалога.
     /// </summary>
     /// <param name="dialogType"></param>
     /// <param name="actions"></param>
@@ -125,7 +121,6 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     /// <param name="dialogType"></param>
     /// <param name="actions"></param>
     /// <param name="message"></param>
-    /// <param name="actionBack"></param>
     /// <param name="width"></param>
     public void SetupButtons(WsEnumDialogType dialogType, List<Action> actions, string message, int width)
     {

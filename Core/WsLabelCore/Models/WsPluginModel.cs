@@ -83,7 +83,26 @@ public sealed class WsPluginModel : WsBaseHelper
                 }
                 catch (Exception ex)
                 {
-                    WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, PluginType.ToString());
+                    switch (PluginType)
+                    {
+                        case WsEnumPluginType.Default:
+                            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginDefault);
+                            break;
+                        case WsEnumPluginType.Massa:
+                            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginMassa);
+                            break;
+                        case WsEnumPluginType.Memory:
+                            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginMemory);
+                            break;
+                        case WsEnumPluginType.Print:
+                            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrint);
+                            break;
+                        case WsEnumPluginType.Label:
+                            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginLabel);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
         });
