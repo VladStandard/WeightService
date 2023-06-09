@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Распространить метод UpdateProperties (см. BrandModel)
 - #WS-T-611 БД. Удалить табличную функцию GetTemplatesObjByID
 
-## [0.9.550] - 2023-06-09
+## [0.9.555] - 2023-06-09
 - #WS-T-721 Печать этикеток. Журналирование смены линии
 - #WS-T-722 Печать этикеток. Журналирование смены вложенности
 - #WS-T-1007 Печать этикеток. Исправление ошибок
