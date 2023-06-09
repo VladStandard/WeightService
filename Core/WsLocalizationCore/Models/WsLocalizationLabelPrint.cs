@@ -7,12 +7,12 @@ public sealed class WsLocalizationLabelPrint : WsLocaleBase
 {
     #region CodingSeb.Localization
 
-    public string AppTitle => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppTitle)}");
     public string AlreadyRunning => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AlreadyRunning)}");
     public string AppExit => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppExit)}");
     public string AppExitDescription => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppExitDescription)}");
     public string AppLoad => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppLoad)}");
     public string AppLoadDescription => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppLoadDescription)}");
+    public string AppTitle => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppTitle)}");
     public string AppWait => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppWait)}");
     public string Bundle => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(Bundle)}");
     public string ButtonAddKneading => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonAddKneading)}");
@@ -37,24 +37,24 @@ public sealed class WsLocalizationLabelPrint : WsLocaleBase
     public string ExceptionSqlDb => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(Exception)}");
     public string FieldCurrentTime => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldCurrentTime)}");
     public string FieldDate => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldDate)}");
+    public string FieldGln => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldGln)}");
     public string FieldIsIncrementCounter => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldIsIncrementCounter)}");
     public string FieldIsIncrementCounterEnable => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldIsIncrementCounterEnable)}");
     public string FieldKneading => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldKneading)}");
+    public string FieldLabelCounter => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldLabelCounter)}");
     public string FieldPalletSize => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldPalletSize)}");
     public string FieldPrintCounter => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldPrintCounter)}");
-    public string FieldLabelCounter => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldLabelCounter)}");
     public string FieldProductDate => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldProductDate)}");
     public string FieldSscc => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldSscc)}");
     public string FieldSsccControlNumber => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldSsccControlNumber)}");
-    public string FieldGln => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldGln)}");
     public string FieldSynonym => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldSynonym)}");
-    public string FieldUnitId => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldUnitId)}");
-    public string FieldUnitType => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldUnitType)}");
     public string FieldThresholdLower => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldThresholdLower)}");
     public string FieldThresholdNominal => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldThresholdNominal)}");
     public string FieldThresholds => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldThresholds)}");
     public string FieldThresholdUpper => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldThresholdUpper)}");
     public string FieldTime => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldTime)}");
+    public string FieldUnitId => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldUnitId)}");
+    public string FieldUnitType => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldUnitType)}");
     public string FieldWeightNetto => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldWeightNetto)}");
     public string FieldWeightTare => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(FieldWeightTare)}");
     public string HostUidNotFound => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(HostUidNotFound)}");
@@ -63,6 +63,7 @@ public sealed class WsLocalizationLabelPrint : WsLocaleBase
     public string IsConnectWithMassa => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsConnectWithMassa)}");
     public string IsDataNotExists => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsDataNotExists)}");
     public string IsNotConnectWithMassa => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsNotConnectWithMassa)}");
+    public string LabelPrint => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(LabelPrint)}");
     public string LabelContextExpirationDt => Lang == WsEnumLanguage.English ? "Good to" : "Годен до";
     public string LabelContextKneading => Lang == WsEnumLanguage.English ? "Kneading" : "Замес";
     public string LabelContextNesting => Lang == WsEnumLanguage.English ? "Nesting" : "Вложенность";

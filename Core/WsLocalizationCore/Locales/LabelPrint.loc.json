@@ -233,6 +233,10 @@
         "IsNotConnectWithMassa": {
             "en": "Check the connection of the USB-adapter!",
             "ru": "Проверьте подключение ЮСБ-адапетра!"
+        },
+        "LabelPrint": {
+            "en": "Label print",
+            "ru": "Печать этикетки"
         }
     }
 }
