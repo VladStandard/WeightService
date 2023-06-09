@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
 	<Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>latest</LangVersion>
-    <Version>0.9.540.0</Version>
+    <Version>0.9.555.0</Version>
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
@@ -24,4 +24,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="Post-build.cmd" />
+  </Target>
 </Project>

@@ -1,8 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.Models;
+namespace WsStorageCore.Common;
 
+/// <summary>
+/// Базовый класс сериализации SQL-объекта.
+/// </summary>
 [Serializable]
 public class WsSqlSerializeBase : SerializeBase
 {
@@ -10,12 +13,12 @@ public class WsSqlSerializeBase : SerializeBase
 
     [XmlIgnore] public WsSqlConnectFactory SqlConnect { get; private set; } = WsSqlConnectFactory.Instance;
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public WsSqlSerializeBase()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public WsSqlSerializeBase()
     {
-	    //
+        //
     }
 
     /// <summary>

@@ -16,18 +16,26 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
     #region Private fields and properties
 
     public WsXamlKneadingViewModel ViewModel => Page.ViewModel as WsXamlKneadingViewModel ?? new();
-    private DateTime SaveProductDate { get; }
-    private short SaveKneading { get; }
-    private byte SavePalletSize { get; }
-    private Guid PreviousPluScaleUid { get; set; } = Guid.Empty;
+    /// <summary>
+    /// Сохранение даты продукции.
+    /// </summary>
+    private DateTime SaveProductDate { get; set; }
+    /// <summary>
+    /// Сохранение замеса.
+    /// </summary>
+    private short SaveKneading { get; set; }
+    /// <summary>
+    /// Сохранение размера палеты.
+    /// </summary>
+    private byte SavePalletSize { get; set; }
+    /// <summary>
+    /// Сохранение использования инкремента счётчика этикеток.
+    /// </summary>
+    private bool SaveIsIncrementCounter { get; set; }
 
     public WsXamlKneadingUserControl() : base(WsEnumNavigationPage.Kneading)
     {
         InitializeComponent();
-
-        SaveProductDate = LabelSession.ProductDate;
-        SaveKneading = LabelSession.WeighingSettings.Kneading;
-        SavePalletSize = LabelSession.WeighingSettings.LabelsCountMain;
     }
 
     #endregion
@@ -45,22 +53,33 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            if (!LabelSession.PluLine.IdentityValueUid.Equals(PreviousPluScaleUid))
-            {
-                PreviousPluScaleUid = LabelSession.PluLine.IdentityValueUid;
-                ShowPalletSize();
-                SetGuiConfig();
-                SetGuiLocalize();
-                RefreshControlsText();
-            }
+            // Сохранить.
+            SaveIsIncrementCounter = LabelSession.IsIncrementCounter;
+            checkBoxIsIncrementCounter.Checked = SaveIsIncrementCounter;
+            SaveProductDate = LabelSession.ProductDate;
+            SaveKneading = LabelSession.WeighingSettings.Kneading;
+            SavePalletSize = LabelSession.WeighingSettings.LabelsCountMain;
+
+            SetPalletSize();
+            SetLocalization();
+            SetupControls();
         });
         buttonYes.Select();
     }
 
-    private void RefreshControlsText()
+    private void SetupControls()
     {
-        fieldKneading.Text = $@"{LabelSession.WeighingSettings.Kneading}";
+        // Замес.
+        labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = LabelSession.Line.IsKneading;
+        // Инкремент счётчика.
+        labelCounter.Visible = checkBoxIsIncrementCounter.Visible =
+            // Размер палеты.
+            labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
+                buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =
+                    LabelSession.PluLine is { IsNotNew: true, Plu.IsCheckWeight: false };
+
         fieldProdDate.Text = LabelSession.ProductDate.ToString("dd.MM.yyyy");
+        fieldKneading.Text = $@"{LabelSession.WeighingSettings.Kneading}";
     }
 
     private void ButtonKneading_Click(object sender, EventArgs e)
@@ -73,15 +92,21 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
             digitsForm.Dispose();
             if (result == DialogResult.OK)
                 LabelSession.WeighingSettings.Kneading = (byte)digitsForm.InputValue;
-            RefreshControlsText();
+            SetupControls();
         });
     }
 
-    private void ButtonClose_Click(object sender, EventArgs e)
+    /// <summary>
+    /// Возврат Отмена.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ButtonCancel_Click(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
+            LabelSession.SetIsIncrementCounter(SaveIsIncrementCounter);
             LabelSession.ProductDate = SaveProductDate;
             LabelSession.WeighingSettings.Kneading = SaveKneading;
             LabelSession.WeighingSettings.LabelsCountMain = SavePalletSize;
@@ -101,7 +126,12 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         fieldPalletSize.Text = $@"{LabelSession.WeighingSettings.LabelsCountMain}";
     }
 
-    private void ButtonOk_Click(object sender, EventArgs e)
+    /// <summary>
+    /// Возврат Да.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ButtonYes_Click(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
@@ -116,7 +146,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.RotateProductDate(WsEnumDirection.Right);
-            RefreshControlsText();
+            SetupControls();
         });
     }
 
@@ -125,21 +155,21 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.RotateProductDate(WsEnumDirection.Left);
-            RefreshControlsText();
+            SetupControls();
         });
     }
 
-    private void ShowPalletSize()
-    {
-        fieldPalletSize.Text = LabelSession.WeighingSettings.LabelsCountMain.ToString();
-    }
+    /// <summary>
+    /// Задать размер палеты.
+    /// </summary>
+    private void SetPalletSize() => fieldPalletSize.Text = LabelSession.WeighingSettings.LabelsCountMain.ToString();
 
     private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.WeighingSettings.LabelsCountMain++;
-            ShowPalletSize();
+            SetPalletSize();
         });
     }
 
@@ -148,7 +178,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.WeighingSettings.LabelsCountMain--;
-            ShowPalletSize();
+            SetPalletSize();
         });
     }
 
@@ -165,7 +195,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
             for (int i = 0; i < n; i++)
             {
                 LabelSession.WeighingSettings.LabelsCountMain++;
-                ShowPalletSize();
+                SetPalletSize();
             }
         });
     }
@@ -190,7 +220,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             LabelSession.WeighingSettings.LabelsCountMain = count;
-            ShowPalletSize();
+            SetPalletSize();
         });
     }
 
@@ -200,27 +230,15 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         {
             if (e.KeyCode == Keys.Escape)
             {
-                ButtonClose_Click(sender, e);
+                ButtonCancel_Click(sender, e);
             }
         });
-    }
-
-    private void SetGuiConfig()
-    {
-        // Замес.
-        labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = LabelSession.Line.IsKneading;
-        // Инкремент счётчика.
-        labelIsIncrementCounter.Visible = checkBoxIsIncrementCounter.Visible =
-        // Размер палеты.
-        labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
-            buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =
-                LabelSession.PluLine is { IsNotNew: true, Plu.IsCheckWeight: false };
     }
 
     /// <summary>
     /// Локализация.
     /// </summary>
-    private void SetGuiLocalize()
+    private void SetLocalization()
     {
         // Замес.
         labelKneading.Text = WsLocaleCore.LabelPrint.FieldKneading;
@@ -229,7 +247,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         // Размер палеты.
         labelPalletSize.Text = WsLocaleCore.LabelPrint.FieldPalletSize;
         // Инкремент счётчика.
-        labelIsIncrementCounter.Text = WsLocaleCore.LabelPrint.FieldPrintCounter;
+        labelCounter.Text = WsLocaleCore.LabelPrint.FieldLabelCounter;
         checkBoxIsIncrementCounter.Text = WsLocaleCore.LabelPrint.FieldIsIncrementCounterEnable;
         // Кнопки.
         buttonYes.Text = WsLocaleCore.Buttons.Ok;
@@ -249,6 +267,6 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
             LabelSession.SetIsIncrementCounter(checkBox.Checked);
         });
     }
-    
+
     #endregion
 }

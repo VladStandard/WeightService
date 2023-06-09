@@ -7,6 +7,7 @@ using Microsoft.JSInterop;
 using Radzen.Blazor;
 using WsBlazorCore.Settings;
 using WsLocalizationCore.Utils;
+using WsStorageCore.Common;
 
 namespace DeviceControl.Components.Section;
 

@@ -55,7 +55,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <summary>
     /// Инкремент счётчика печати штучной продукции.
     /// </summary>
-    public bool IsIncrementCounter { get; private set; }
+    public bool IsIncrementCounter { get; private set; } = true;
 
     public WsLocalizationModel Localization { get; set; } = new();
 

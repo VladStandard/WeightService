@@ -13,6 +13,230 @@
         "AppTitle": {
             "en": "Label print",
             "ru": "Печать этикеток"
+        },
+        "AlreadyRunning": {
+            "en": "already running",
+            "ru": "уже запущено"
+        },
+        "AppExit": {
+            "en": "Exit from the program",
+            "ru": "Завершение программы"
+        },
+        "AppExitDescription": {
+            "en": "Unloading data from memory ...",
+            "ru": "Выгрузка данных из памяти ..."
+        },
+        "AppLoad": {
+            "en": "Loading",
+            "ru": "Загрузка"
+        },
+        "AppLoadDescription": {
+            "en": "Loading data into memory ...",
+            "ru": "Загрузка данных в память ..."
+        },
+        "AppWait": {
+            "en": "Waiting",
+            "ru": "Ожидание"
+        },
+        "Bundle": {
+            "en": "Bundle",
+            "ru": "Пакет"
+        },
+        "ButtonAddKneading": {
+            "en": "Kneading",
+            "ru": "Замес"
+        },
+        "ButtonPlu": {
+            "en": "PLU",
+            "ru": "ПЛУ"
+        },
+        "ButtonScalesInit": {
+            "en": "Initialize scales",
+            "ru": "Инициализировать весы"
+        },
+        "ButtonScalesInitShort": {
+            "en": ">0<",
+            "ru": ">0<"
+        },
+        "ButtonSelectOrder": {
+            "en": "Order",
+            "ru": "Заказ"
+        },
+        "ButtonSetKneading": {
+            "en": "Set kneading",
+            "ru": "Задать замес"
+        },
+        "ButtonSettings": {
+            "en": "Settings",
+            "ru": "Настройки"
+        },
+        "CheckAllPassed": {
+            "en": "All checks passed",
+            "ru": "Все проверки пройдены"
+        },
+        "CheckPluError": {
+            "en": "PLU error",
+            "ru": "Ошибка ПЛУ"
+        },
+        "CheckPluWeightCount": {
+            "en": "Weighted products can be specified in quantities of 1 piece.",
+            "ru": "Весовая продукция может быть указана в количестве 1 штуки."
+        },
+        "CheckWeightIsEmpty": {
+            "en": "For products by weight, put the product on the scale!",
+            "ru": "Для весовой продукции следует положить продукт на весы!"
+        },
+        "CheckWeightIsZero": {
+            "en": "The platform is empty!",
+            "ru": "Платформа пустая!"
+        },
+        "CommunicateWithAdmin": {
+            "en": "Contact your system administrator.",
+            "ru": "Свяжитесь с администратором системы."
+        },
+        "ComPort": {
+            "en": "COM-port",
+            "ru": "COM-порт"
+        },
+        "ComPortState": {
+            "en": "COM-port status",
+            "ru": "Состояние COM-порта"
+        },
+        "Crc": {
+            "en": "CRC",
+            "ru": "CRC"
+        },
+        "Default": {
+            "en": "Default",
+            "ru": "По-умолчанию"
+        },
+        "DeviceControlIsPreview": {
+            "en": "Open a preview-version of device management?",
+            "ru": "Открыть превью-версию управления устройствами?"
+        },
+        "Exception": {
+            "en": "Exception",
+            "ru": "Ошибка"
+        },
+        "ExceptionSqlDb": {
+            "en": "The database is unavailable!",
+            "ru": "База данных недоступна!"
+        },
+        "FieldCurrentTime": {
+            "en": "Now",
+            "ru": "Сейчас"
+        },
+        "FieldDate": {
+            "en": "Date",
+            "ru": "Дата"
+        },
+        "FieldIsIncrementCounter": {
+            "en": "Counter increment",
+            "ru": "Инкремент счётчика"
+        },
+        "FieldIsIncrementCounterEnable": {
+            "en": "Increase the counter when printing a piece of product",
+            "ru": "Увеличивать счётчик при печати штучной продукции"
+        },
+        "FieldKneading": {
+            "en": "Kneading",
+            "ru": "Замес"
+        },
+        "FieldPalletSize": {
+            "en": "Pallet size",
+            "ru": "Размер паллеты"
+        },
+        "FieldPrintCounter": {
+            "en": "Print counter",
+            "ru": "Счётчик печати"
+        },
+        "FieldLabelCounter": {
+            "en": "Label counter",
+            "ru": "Счётчик этикеток"
+        },
+        "FieldProductDate": {
+            "en": "Date of production",
+            "ru": "Дата производства"
+        },
+        "FieldSscc": {
+            "en": "Serialized Shipping Container Code",
+            "ru": "Код транспортной упаковки"
+        },
+        "FieldSsccControlNumber": {
+            "en": "Control number",
+            "ru": "Контрольное число"
+        },
+        "FieldGln": {
+            "en": "GLN code",
+            "ru": "Код GLN"
+        },
+        "FieldSynonym": {
+            "en": "Synonym",
+            "ru": "Синоним"
+        },
+        "FieldUnitId": {
+            "en": "Unit ID",
+            "ru": "ИД юнита"
+        },
+        "FieldUnitType": {
+            "en": "Unit type",
+            "ru": "Тип юнита"
+        },
+        "FieldThresholdLower": {
+            "en": "lower",
+            "ru": "нижнее"
+        },
+        "FieldThresholdNominal": {
+            "en": "nominal",
+            "ru": "номинальное"
+        },
+        "FieldThresholds": {
+            "en": "Weight thresholds",
+            "ru": "Пороговые значения веса"
+        },
+        "FieldThresholdUpper": {
+            "en": "upper",
+            "ru": "верхнее"
+        },
+        "FieldTime": {
+            "en": "Time",
+            "ru": "Время"
+        },
+        "FieldWeightNetto": {
+            "en": "Net weight",
+            "ru": "Вес нетто"
+        },
+        "FieldWeightTare": {
+            "en": "Tare weight",
+            "ru": "Вес тары"
+        },
+        "HostUidNotFound": {
+            "en": "Host UID not detected.",
+            "ru": "УИД хоста не обнаружен."
+        },
+        "HostUidQuestionWriteToDb": {
+            "en": "Write a new UID into the database table?",
+            "ru": "Записать новый УИД в таблицу БД?"
+        },
+        "HostUidQuestionWriteToFile": {
+            "en": "Write a new UID to the file?",
+            "ru": "Записать новый УИД в файл?"
+        },
+        "IsConnectWithMassa": {
+            "en": "The scales are connected.",
+            "ru": "Весы подключены."
+        },
+        "IsDataNotExists": {
+            "en": "Check the connection of the scales!",
+            "ru": "Проверьте подключение весов!"
+        },
+        "IsNotConnectWithMassa": {
+            "en": "Check the connection of the USB-adapter!",
+            "ru": "Проверьте подключение ЮСБ-адапетра!"
+        },
+        "LabelPrint": {
+            "en": "Label print",
+            "ru": "Печать этикетки"
         }
     }
 }

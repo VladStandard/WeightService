@@ -2,10 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
-namespace WsStorageCore.Models;
+namespace WsStorageCore.Common;
 
 /// <summary>
-/// DB table model.
+/// Базовый класс поля SQL-таблицы.
 /// </summary>
 [Serializable]
 public class WsSqlFieldBase : SerializeBase, ICloneable, IWsSqlDbBase, ISerializable

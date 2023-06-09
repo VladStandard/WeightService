@@ -1,4 +1,5 @@
 using WsLocalizationCore.Utils;
+using WsStorageCore.Common;
 using WsStorageCore.TableDiagModels.Logs;
 using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableDiagModels.LogsWebsFks;

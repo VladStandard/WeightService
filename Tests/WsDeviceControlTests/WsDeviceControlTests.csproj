@@ -2,11 +2,11 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <IsPackable>false</IsPackable>
-        <Version>0.9.540.0</Version>
+        <Version>0.9.555.0</Version>
         <Product>WeightService</Product>
         <Copyright>Copyright © 2020 - 2023</Copyright>
-        <AssemblyVersion>0.9.540.0</AssemblyVersion>
-        <FileVersion>0.9.540.0</FileVersion>
+        <AssemblyVersion>0.9.555.0</AssemblyVersion>
+        <FileVersion>0.9.555.0</FileVersion>
         <AssemblyName>DeviceControlTests</AssemblyName>
         <RootNamespace>DeviceControlTests</RootNamespace>
         <NeutralLanguage>en</NeutralLanguage>
@@ -17,7 +17,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="bunit" Version="1.20.8" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
         <PackageReference Include="NUnit" Version="3.13.3" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     </ItemGroup>

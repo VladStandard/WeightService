@@ -34,14 +34,14 @@ public static class WsLocaleCore
 
     public static WsLocaleAction Action { get; } = new();
     public static WsLocaleButtons Buttons { get; } = new();
-    public static WsLocaleConvert Convert { get; } = new();
+    private static WsLocaleConvert Convert { get; } = new();
     public static WsLocaleDeviceControl DeviceControl { get; } = new();
     public static WsLocaleDialog Dialog { get; } = new();
     public static WsLocaleMemory Memory { get; } = new();
     public static WsLocaleMenu Menu { get; } = new();
     public static WsLocalePrint Print { get; } = new();
     public static WsLocalizationLabelPrint LabelPrint { get; } = new();
-    public static WsLocaleSettings Settings { get; } = new();
+    private static WsLocaleSettings Settings { get; } = new();
     public static WsLocaleSql Sql { get; } = new();
     public static WsLocaleSystem System { get; } = new();
     public static WsLocaleTable Table { get; } = new();

@@ -3,9 +3,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <FileVersion>0.9.540.0</FileVersion>
-    <AssemblyVersion>0.9.540.0</AssemblyVersion>
-    <Version>0.9.540.0</Version>
+    <FileVersion>0.9.555.0</FileVersion>
+    <AssemblyVersion>0.9.555.0</AssemblyVersion>
+    <Version>0.9.555.0</Version>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
@@ -32,9 +32,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="7.0.0" />
-    <PackageReference Include="MudBlazor" Version="6.3.1" />
+    <PackageReference Include="MudBlazor" Version="6.4.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Radzen.Blazor" Version="4.12.1" />
+    <PackageReference Include="Radzen.Blazor" Version="4.13.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj" />
