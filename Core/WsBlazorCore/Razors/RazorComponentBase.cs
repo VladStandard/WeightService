@@ -19,16 +19,13 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     [Inject] protected DialogService DialogService { get; set; }
     [Inject] protected NotificationService NotificationService { get; set; }
-    [Inject] protected IHttpContextAccessor HttpContextAccess { get; set; }
 
     #endregion
 
     #region Constants
 
     public static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    public static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     protected static BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
-    public HttpContext? HttpContext => HttpContextAccess?.HttpContext;
 
     #endregion
 

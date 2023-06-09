@@ -4,14 +4,14 @@
 using DeviceControl.Services;
 using Microsoft.JSInterop;
 using WsBlazorCore.Settings;
-using WsLocalizationCore.Utils;
 
 namespace DeviceControl.Components.Item;
 
 public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
-    [Inject] protected IJSRuntime? JsRuntime { get; set; }
+    [Inject] protected IJSRuntime JsRuntime { get; set; }
     [Inject] protected RouteService RouteService { get; set; }
+    [Inject] protected NavigationManager NavigationManager { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public Guid Uid { get; set; }
     [Parameter] public long Id { get; set; }
@@ -36,16 +36,16 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     #region Public and private methods
     protected async void CopyToClipboard(string textToCopy)
     {
-        if (JsRuntime != null)
-            await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", textToCopy);
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", textToCopy);
     }
 
     protected virtual void SqlItemSaveAdditional() { }
 
     protected async Task SqlItemCancelAsync()
     {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RouteService.NavigateSectionRoute(SqlItemCast);
+        bool isRedirected = await JsRuntime.InvokeAsync<bool>("goBackIfNotHomePage");
+        if (!isRedirected) 
+            RouteService.NavigateSectionRoute(SqlItemCast);
     }
 
     protected async Task SqlItemSaveAsync()

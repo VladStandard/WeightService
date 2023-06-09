@@ -36,15 +36,14 @@ public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
 
     protected override void SqlItemSaveAdditional()
     {
-        if (DeviceType.IsNotNew)
+        if (DeviceType.IsNew)
         {
-            DeviceTypeFk.Type = DeviceType;
-            DeviceTypeFk.Device = SqlItemCast;
-            SqlItemSave(DeviceTypeFk);
+            ContextManager.AccessManager.AccessItem.Delete(DeviceTypeFk);
             return;
         }
-
-        ContextManager.AccessManager.AccessItem.Delete(DeviceTypeFk);
+        DeviceTypeFk.Type = DeviceType;
+        DeviceTypeFk.Device = SqlItemCast; 
+        SqlItemSave(DeviceTypeFk);
     }
 
     #endregion
