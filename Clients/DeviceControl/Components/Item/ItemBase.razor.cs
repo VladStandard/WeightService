@@ -41,11 +41,17 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected virtual void SqlItemSaveAdditional() { }
 
-    protected async Task SqlItemCancelAsync()
+    protected async Task RedirectBackAsync()
     {
         bool isRedirected = await JsRuntime.InvokeAsync<bool>("goBackIfNotHomePage");
-        if (!isRedirected) 
-            RouteService.NavigateSectionRoute(SqlItemCast);
+        if (!isRedirected)
+            await RedirectToSectionAsync();
+    }
+    
+    protected async Task RedirectToSectionAsync()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        RouteService.NavigateSectionRoute(SqlItemCast);
     }
 
     protected async Task SqlItemSaveAsync()
