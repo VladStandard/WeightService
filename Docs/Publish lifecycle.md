@@ -8,7 +8,7 @@
 ## Tag routing
 cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 
-## Branche routing
+## Branch routing
 - ✓ view changes:       `cls && git bra && git st`
 - ✓ add & view changes: `cls && git bra && git stad`
 - ✓ develop -> preview: `git switch preview && git merge develop && git push all preview && git switch develop && git bra && git st`
@@ -30,7 +30,7 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 
 ## Back version
 Go back: `git co . && git co 79ad47adc && git bra`
-Retrurn `git co . && git switch develop`
+Return `git co . && git switch develop`
 
 ## Rollback commits
 git reset HEAD~X
