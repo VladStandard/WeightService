@@ -54,6 +54,7 @@
     <AuthorizeView Roles="@UserAccessStr.Admin">
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionAdministering">
         <RadzenPanelMenuItem Icon="people" Text="@WsLocaleCore.System.Users" Path="@LocaleBlazor.RouteSectionAccess"/>
+        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.DatabaseInfo" Path="@LocaleBlazor.RouteDatabaseInfo"/>
         <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.Menu.MenuDbVersionHistory" Path="@LocaleBlazor.RouteSectionVersions"/>
         <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.SystemInfo" Path="@LocaleBlazor.RouteSystemAppInfo"/>
       </RadzenPanelMenuItem>

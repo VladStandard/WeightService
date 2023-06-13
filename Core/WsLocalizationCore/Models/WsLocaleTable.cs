@@ -38,6 +38,7 @@ public sealed class WsLocaleTable : WsLocaleBase
     public string ContragentId => Lang == WsEnumLanguage.English ? "Contragent ID" : "ИД контрагента";
     public string Count => Lang == WsEnumLanguage.English ? "Count" : "Кол-во";
     public string Counter => Lang == WsEnumLanguage.English ? "Counter" : "Счётчик";
+    public string Percents => Lang == WsEnumLanguage.English ? "Percents" : "Проценты";
     public string CreateDt => Lang == WsEnumLanguage.English ? "Created" : "Создано";
     public string Date => Lang == WsEnumLanguage.English ? "Date" : "Дата";
     public string DayOfWeek => Lang == WsEnumLanguage.English ? "Weekday" : "День недели";
@@ -77,6 +78,7 @@ public sealed class WsLocaleTable : WsLocaleBase
     public string FieldTitle => Lang == WsEnumLanguage.English ? "Title" : "Заголовок";
     public string FieldUser => Lang == WsEnumLanguage.English ? "User" : "Пользователь";
     public string File => Lang == WsEnumLanguage.English ? "File" : "Файл";
+    public string Schema => Lang == WsEnumLanguage.English ? "Schema" : "Схема";
     public string FilePath => Lang == WsEnumLanguage.English ? "File path" : "Путь к файлу";
     public string FullName => Lang == WsEnumLanguage.English ? "Full name" : "Полное наименование";
     public string Gln => Lang == WsEnumLanguage.English ? "GLN" : "ГЛН";
@@ -162,12 +164,15 @@ public sealed class WsLocaleTable : WsLocaleBase
     public string ReleaseDt => Lang == WsEnumLanguage.English ? "Release date" : "Дата релиза";
     public string Resource => Lang == WsEnumLanguage.English ? "Resource" : "Ресурс";
     public string Row => Lang == WsEnumLanguage.English ? "Row" : "Строка";
+    public string RowCount => Lang == WsEnumLanguage.English ? "Row count" : "Кол-во записей";
     public string ScaleFactor => Lang == WsEnumLanguage.English ? "Scale factor" : "Коэф. масштабирования";
     public string ScaleId => Lang == WsEnumLanguage.English ? "Scale ID" : "ID весов";
     public string ScreenShot => Lang == WsEnumLanguage.English ? "Screenshot" : "Скриншот";
     public string ShelfLifeDays => Lang == WsEnumLanguage.English ? "Shelf life, days" : "Срок годности, суток";
     public string ShelfLifeDaysShort => Lang == WsEnumLanguage.English ? "Life" : "Срок";
-    public string Size => Lang == WsEnumLanguage.English ? "Size" : "Размер";
+    public string Size => Lang == WsEnumLanguage.English ? "Size mb" : "Размер в мб";
+    public string TableCount => Lang == WsEnumLanguage.English ? "Table count" : "Кол-во таблиц";
+    public string MaxSize => Lang == WsEnumLanguage.English ? "Max Size mb" : "Макс.размер в мб";
     public string Sscc => Lang == WsEnumLanguage.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
     public string State => Lang == WsEnumLanguage.English ? "Status" : "Статус";
     public string Status => Lang == WsEnumLanguage.English ? "Status" : "Статус";
@@ -182,6 +187,7 @@ public sealed class WsLocaleTable : WsLocaleBase
     public string TableIncludes => Lang == WsEnumLanguage.English ? "Included records" : "Вложенные записи";
     public string TableMark => Lang == WsEnumLanguage.English ? "Mark record" : "Пометить запись на удаление";
     public string TableNew => Lang == WsEnumLanguage.English ? "New record" : "Новая запись";
+    public string Table => Lang == WsEnumLanguage.English ? "Table" : "Таблица";
     public string TablePluHavingPlu => Lang == WsEnumLanguage.English ? "The PLU table already has this number" : "Таблица PLU уже имеет такой номер";
     public string TableRead => Lang == WsEnumLanguage.English ? "Read data" : "Прочитать данные";
     public string TableReadCancel => Lang == WsEnumLanguage.English ? "Cancel data reading" : "Отмена чтения данных";

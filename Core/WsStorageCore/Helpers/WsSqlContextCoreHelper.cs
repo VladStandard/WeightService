@@ -317,8 +317,12 @@ internal sealed class WsSqlContextCoreHelper
         {
             if (obj is object[] { Length: 4 } item)
             {
-                result.Add(new(Convert.ToByte(item[0]), Convert.ToString(item[1]),
-                    Convert.ToUInt16(item[2]), Convert.ToUInt16(item[3])));
+                result.Add(new(
+                    Convert.ToByte(item[0]), 
+                    Convert.ToString(item[1]),
+                    Convert.ToUInt16(item[2]), 
+                    Convert.ToUInt16(item[3]))
+                );
             }
         }
         return result;

@@ -72,8 +72,9 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	,[USED_SPACE_MB]
 	,[UNUSED_SPACE_MB]
 	,[TOTAL_SPACE_MB]
+    ,[FILENAME]
 FROM [diag].[VIEW_TABLES_SIZES]
-ORDER BY [SCHEMA], [TABLE];");
+ORDER BY [USED_SPACE_MB] DESC");
 
             /// <summary>
             /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].

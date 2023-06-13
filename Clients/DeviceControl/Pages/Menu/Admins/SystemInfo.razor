@@ -15,27 +15,6 @@
     <td>@WsLocaleCore.Strings.HostName</td>
     <td colspan="2">@Environment.MachineName</td>
   </tr>
-  <tr>
-    <td>@WsLocaleCore.Sql.SqlServer</td>
-    <td colspan="2">@ContextManager.JsonSettings.Local.Sql.DataSource</td>
-  </tr>
-  <tr>
-    <td>@WsLocaleCore.Sql.SqlDb</td>
-    <td colspan="2">@ContextManager.JsonSettings.Local.Sql.InitialCatalog</td>
-  </tr>
-  <tr>
-    <td>
-      @if (ContextManager.JsonSettings.Local.Sql.PersistSecurityInfo)
-      {
-        @WsLocaleCore.System.SystemWindowsUser
-      }
-      else
-      {
-        @WsLocaleCore.Sql.SqlUser
-      }
-    </td>
-    <td colspan="2">@ContextManager.JsonSettings.Local.Sql.UserId</td>
-  </tr>
   <tr style="height: 200px; ">
     <td>@WsLocaleCore.Strings.DbAndMemoryGauge</td>
     <td>
@@ -66,37 +45,5 @@
       </div>
     </td>
   </tr>
-  @foreach (WsSqlDbFileSizeInfoModel size in ContextManager.GetDbFileSizeInfos())
-  {
-    <tr>
-      <td>@size.FileName</td>
-      <td>@size.DisplayName</td>
-      <td>
-        <RadzenProgressBar Style="color: black; font-weight: bold" Value="@size.DbFillSize" ShowValue="true"/>
-      </td>
-    </tr>
-  }
-  @* <tr> *@
-  @*   <td>@LocaleCore.Strings.DbAndMemory</td> *@
-  @*   <td>@DbCurSizeAsString</td> *@
-  @*   <td>@BlazorAppSettings.MemoryInfo</td> *@
-  @* </tr> *@
-  @* <tr> *@
-  @*   <td>@LocaleCore.Settings.SectionAndItemRowsCount</td> *@
-  @*   <td>@DataAccess.JsonSettings.Local.SectionRowsCount</td> *@
-  @*   <td>@DataAccess.JsonSettings.Local.ItemRowsCount</td> *@
-  @* </tr> *@
-  @* <tr> *@
-  @*   <td>@LocaleCore.Settings.SelectTopRowsCount</td> *@
-  @*   <td colspan="2">@DataAccess.JsonSettings.Local.SelectTopRowsCount</td> *@
-  @* </tr> *@
-  @* <tr> *@
-  @*   <td>@LocaleCore.Settings.Version</td> *@
-  @*   <td colspan="2">@DataAccess.JsonSettings.Local.Version</td> *@
-  @* </tr> *@
-  @* <tr> *@
-  @*   <td>@LocaleCore.Settings.AllowedHosts</td> *@
-  @*   <td colspan="2">@DataAccess.JsonSettings.Local.AllowedHosts</td> *@
-  @* </tr> *@
   </tbody>
 </MudSimpleTable>
