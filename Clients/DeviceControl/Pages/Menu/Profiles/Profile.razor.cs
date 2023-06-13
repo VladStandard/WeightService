@@ -12,6 +12,8 @@ public partial class Profile : RazorComponentBase
     #region Public and private fields, properties, constructor
 
     [Inject] private LocalStorageService LocalStorage { get; set; }
+    [Inject] private IHttpContextAccessor HttpContextAccess { get; set; }
+    private HttpContext? HttpContext => HttpContextAccess?.HttpContext;
     private List<WsEnumTypeModel<WsEnumLanguage>>? TemplateLanguages { get; set; }
     private List<WsEnumLanguage> Langs { get; set; }
     private int DefaultRowCount { get; set; }

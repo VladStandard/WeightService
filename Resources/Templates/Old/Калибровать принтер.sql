@@ -11,7 +11,7 @@ DECLARE @ip nvarchar(100) = $(ip)
 DECLARE @port int = $(port)
 
 
-EXECUTE [db_scales].[Zpl—alibration] 
+EXECUTE [db_scales].[Zpl–°alibration] 
    @ip
   ,@port
 GO

@@ -20,16 +20,6 @@
         <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Remove="Data\**" />
-        <Compile Remove="Upload\**" />
-        <Content Remove="Data\**" />
-        <Content Remove="Upload\**" />
-        <EmbeddedResource Remove="Data\**" />
-        <EmbeddedResource Remove="Upload\**" />
-        <None Remove="Data\**" />
-        <None Remove="Upload\**" />
-    </ItemGroup>
-    <ItemGroup>
         <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
         <PackageReference Include="BlazorInputFile" Version="0.2.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />

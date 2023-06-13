@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -203,7 +202,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{600611A1-0
 		Docs\Publish lifecycle.md = Docs\Publish lifecycle.md
 		Docs\Publish resources.md = Docs\Publish resources.md
 		Docs\Publish tests.md = Docs\Publish tests.md
-		Docs\Review preview.md = Docs\Review preview.md
 		Docs\Service time.md = Docs\Service time.md
 		Docs\StorageCore.md = Docs\StorageCore.md
 		Docs\Technology Stack.md = Docs\Technology Stack.md

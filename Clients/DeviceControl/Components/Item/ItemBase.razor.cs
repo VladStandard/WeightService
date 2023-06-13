@@ -11,8 +11,9 @@ namespace DeviceControl.Components.Item;
 
 public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
-    [Inject] protected IJSRuntime? JsRuntime { get; set; }
+    [Inject] protected IJSRuntime JsRuntime { get; set; }
     [Inject] protected RouteService RouteService { get; set; }
+    [Inject] protected NavigationManager NavigationManager { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public Guid Uid { get; set; }
     [Parameter] public long Id { get; set; }
@@ -37,13 +38,19 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     #region Public and private methods
     protected async void CopyToClipboard(string textToCopy)
     {
-        if (JsRuntime != null)
-            await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", textToCopy);
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", textToCopy);
     }
 
     protected virtual void SqlItemSaveAdditional() { }
 
-    protected async Task SqlItemCancelAsync()
+    protected async Task RedirectBackAsync()
+    {
+        bool isRedirected = await JsRuntime.InvokeAsync<bool>("goBackIfNotHomePage");
+        if (!isRedirected)
+            await RedirectToSectionAsync();
+    }
+    
+    protected async Task RedirectToSectionAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RouteService.NavigateSectionRoute(SqlItemCast);

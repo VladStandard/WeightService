@@ -37,12 +37,11 @@ public partial class RazorComponentBase
         }
         catch (Exception ex)
         {
-            CatchException(title, ex);
+            NotificateException(title, ex);
         }
     }
 
-    protected void RunAction(string title, Action action) => 
-        RunAction(title, new List<Action> { action });
+    protected void RunAction(string title, Action action) => RunAction(title, new List<Action> { action });
     
     protected void RunActionsWithQuestion(string title, string message, Action action)
     {
@@ -56,11 +55,11 @@ public partial class RazorComponentBase
         }
         catch (Exception ex)
         {
-            CatchException(title, ex);
+            NotificateException(title, ex);
         }
     }
     
-    private void CatchException(string title, Exception ex)
+    private void NotificateException(string title, Exception ex)
     {
         if (string.IsNullOrEmpty(title))
             title = WsLocaleCore.Dialog.DialogResultFail;
@@ -73,7 +72,7 @@ public partial class RazorComponentBase
             NotificationSeverity.Error,
             title, 
             msg,
-            BlazorAppSettingsHelper.DelayError + 2000
+            BlazorAppSettingsHelper.DelayError
             );
         ContextManager.ContextItem.SaveLogError(ex);
     }
